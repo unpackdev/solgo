@@ -1,0 +1,1 @@
+../externals/solidity/docs/grammar/SolidityParser.g4
