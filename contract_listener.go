@@ -15,23 +15,14 @@ import (
 type ContractListener struct {
 	*parser.BaseSolidityParserListener                        // BaseSolidityParserListener is the base listener from the Solidity parser.
 	parser                             *parser.SolidityParser // parser is the Solidity parser instance.
-	contractName                       string                 // contractName is the name of the contract.
-	implements                         []string               // implements is a list of interfaces that the contract implements.
-	imports                            []string               // imports is a list of contracts that the contract imports.
-	pragmas                            []string               // pragmas is a list of pragma directives in the contract.
-	libraries                          []string               // libraries is a list of libraries used in the contract.
-	license                            string                 // license is the SPDX license identifier, if present.
-	comments                           []string               // comments is a list of comments in the contract.
+	contractInfo                       ContractInfo           // contractInfo is the contract information extracted from the listener.
 }
 
 // NewContractListener creates a new ContractListener. It takes a SolidityParser as an argument.
 func NewContractListener(parser *parser.SolidityParser) *ContractListener {
 	return &ContractListener{
-		parser:     parser,
-		implements: make([]string, 0),
-		imports:    make([]string, 0),
-		pragmas:    make([]string, 0),
-		libraries:  make([]string, 0),
+		parser:       parser,
+		contractInfo: ContractInfo{},
 	}
 }
 
@@ -41,7 +32,7 @@ func NewContractListener(parser *parser.SolidityParser) *ContractListener {
 // search for them manually using the CommonTokenStream.
 func (l *ContractListener) EnterEveryRule(ctx antlr.ParserRuleContext) {
 	// Search for comments and licenses only once
-	if l.comments == nil || l.license == "" {
+	if l.contractInfo.Comments == nil || l.contractInfo.License == "" {
 		l.searchForCommentsAndLicenses()
 	}
 }
@@ -51,7 +42,7 @@ func (l *ContractListener) EnterEveryRule(ctx antlr.ParserRuleContext) {
 func (l *ContractListener) EnterPragmaDirective(ctx *parser.PragmaDirectiveContext) {
 	if ctx.AllPragmaToken() != nil {
 		for _, pragma := range ctx.AllPragmaToken() {
-			l.pragmas = append(l.pragmas, strings.TrimSpace(pragma.GetText()))
+			l.contractInfo.Pragmas = append(l.contractInfo.Pragmas, strings.TrimSpace(pragma.GetText()))
 		}
 	}
 }
@@ -63,57 +54,63 @@ func (l *ContractListener) EnterImportDirective(ctx *parser.ImportDirectiveConte
 	importPath = strings.ReplaceAll(importPath, "import", "")
 	importPath = strings.ReplaceAll(importPath, "\"", "")
 	importPath = strings.ReplaceAll(importPath, ";", "")
-	l.imports = append(l.imports, importPath)
+	l.contractInfo.Imports = append(l.contractInfo.Imports, importPath)
 }
 
 // EnterContractDefinition is called when the parser enters a contract definition.
 // It extracts the contract name from the context and sets it to the contractName field.
 func (l *ContractListener) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
-	l.contractName = ctx.Identifier().GetText() // get the contract name
+	l.contractInfo.Name = ctx.Identifier().GetText() // get the contract name
 }
 
 // EnterInheritanceSpecifier is called when the parser enters an inheritance specifier.
 // It extracts the name of the inherited contract/interface and adds it to the implements slice.
 func (l *ContractListener) EnterInheritanceSpecifier(ctx *parser.InheritanceSpecifierContext) {
-	l.implements = append(l.implements, ctx.GetName().GetText())
+	l.contractInfo.Implements = append(l.contractInfo.Implements, ctx.GetName().GetText())
 }
 
 // EnterUsingDirective is called when the parser enters a using directive.
 // It extracts the name of the library and adds it to the libraries slice.
 func (l *ContractListener) EnterUsingDirective(ctx *parser.UsingDirectiveContext) {
 	for _, identifierPath := range ctx.AllIdentifierPath() {
-		l.implements = append(l.implements, identifierPath.GetText())
+		l.contractInfo.Implements = append(l.contractInfo.Implements, identifierPath.GetText())
 	}
 }
 
 // GetLicense returns the SPDX license identifier, if present.
 func (l *ContractListener) GetLicense() string {
-	return l.license
+	return l.contractInfo.License
 }
 
 // GetName returns the name of the contract.
 func (l *ContractListener) GetName() string {
-	return l.contractName
+	return l.contractInfo.Name
 }
 
 // GetPragmas returns a slice of all pragma directives in the contract.
 func (l *ContractListener) GetPragmas() []string {
-	return l.pragmas
+	return l.contractInfo.Pragmas
 }
 
 // GetImports returns a slice of all contracts that the contract imports.
 func (l *ContractListener) GetImports() []string {
-	return l.imports
+	return l.contractInfo.Imports
 }
 
 // GetImplements returns a slice of all interfaces that the contract implements.
 func (l *ContractListener) GetImplements() []string {
-	return l.implements
+	return l.contractInfo.Implements
 }
 
 // GetComments returns a slice of all comments in the contract.
 func (l *ContractListener) GetComments() []string {
-	return l.comments
+	return l.contractInfo.Comments
+}
+
+// GetInfoForTests returns a map of all information extracted from the contract.
+// This is used for testing purposes only
+func (l *ContractListener) ToStruct() ContractInfo {
+	return l.contractInfo
 }
 
 // searchForCommentsAndLicenses searches for comments and SPDX license identifiers in the token stream.
@@ -128,11 +125,10 @@ func (l *ContractListener) searchForCommentsAndLicenses() {
 
 			if strings.HasPrefix(text, "// SPDX-License-Identifier:") ||
 				strings.HasPrefix(text, "/* SPDX-License-Identifier:") {
-				license := strings.TrimSpace(text[27:]) // extract the license
-				l.license = license
+				l.contractInfo.License = strings.TrimSpace(text[27:])
 			} else {
 				// It's a regular comment
-				l.comments = append(l.comments, text)
+				l.contractInfo.Comments = append(l.contractInfo.Comments, text)
 			}
 		}
 	}
