@@ -52,8 +52,25 @@ package main
 
 import "github.com/txpull/solgo"
 
+var contract = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Some additional comments that can be extracted
+
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
+
+contract MyToken is Initializable, ERC20Upgradeable, AccessControlUpgradeable, PausableUpgradeable {
+    using SafeERC20Upgradeable for IERC20Upgradeable;
+}
+`
+
 func main() {
-    parser, err := solgo.New(context.Background(), strings.NewReader(testCase.contract))
+    parser, err := solgo.New(context.Background(), strings.NewReader(contract))
     if err != nil {
         panic(err)
     }
