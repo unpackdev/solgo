@@ -50,7 +50,14 @@ import "github.com/txpull/solgo"
 ```go
 package main
 
-import "github.com/txpull/solgo"
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"strings"
+
+	"github.com/txpull/solgo"
+)
 
 var contract = `
 // SPDX-License-Identifier: MIT
@@ -70,28 +77,62 @@ contract MyToken is Initializable, ERC20Upgradeable, AccessControlUpgradeable, P
 `
 
 func main() {
-    parser, err := solgo.New(context.Background(), strings.NewReader(contract))
-    if err != nil {
-        panic(err)
-    }
+	parser, err := solgo.New(context.Background(), strings.NewReader(contract))
+	if err != nil {
+		panic(err)
+	}
 
-    // Register the contract information listener
-    contractListener := NewContractListener(parser.GetParser())
-    if err := parser.RegisterListener(ListenerContractInfo, contractListener); err != nil {
-        panic(err)
-    }
+	// Register the contract information listener
+	contractListener := solgo.NewContractListener(parser.GetParser())
+	if err := parser.RegisterListener(solgo.ListenerContractInfo, contractListener); err != nil {
+		panic(err)
+	}
 
-    if errs := parser.Parse(); len(errs) > 0 {
-        for _, err := range errs {
-            fmt.Println(err)
-        }
-        return
-    }
+	if errs := parser.Parse(); len(errs) > 0 {
+		for _, err := range errs {
+			fmt.Println(err)
+		}
+		return
+	}
 
-    // Get the contract information from listener that is built for testing purposes
-    fmt.Printf("%+v \n", contractListener.ToStruct())
+	// Get the contract information from listener that is built for testing purposes
+	jsonResponse, _ := json.MarshalIndent(contractListener.ToStruct(), "", "  ")
+	fmt.Println(string(jsonResponse))
 }
 ```
+
+Response from the example above:
+
+```json
+{
+  "Comments": [
+    "// Some additional comments that can be extracted"
+  ],
+  "License": "MIT",
+  "Pragmas": [
+    "solidity ^0.8.0"
+  ],
+  "Imports": [
+    "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
+    "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+    "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+    "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
+    "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol"
+  ],
+  "Name": "MyToken",
+  "Implements": [
+    "Initializable",
+    "ERC20Upgradeable",
+    "AccessControlUpgradeable",
+    "PausableUpgradeable",
+    "SafeERC20Upgradeable"
+  ]
+}
+```
+
+You can try to play with the code here: [Go Play Tools](https://goplay.tools/snippet/G6jmkP3L1mr)
+
+Sometimes it works, sometimes it does not, returns 502. If it does not work, you can try to run it locally.
 
 ## Contributing
 
