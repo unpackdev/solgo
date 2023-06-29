@@ -9,13 +9,10 @@ help: ## Display this help
 .PHONY: deps
 deps: ## Install dependencies
 ifeq ($(UNAME_S),Linux)
-	sudo apt-get update && sudo apt-get install -y golang sqlite3 golangci-lint redis-server
+	sudo apt-get update && sudo apt-get install -y golang golangci-lint
 endif
 ifeq ($(UNAME_S),Darwin)
-	brew install go sqlite golangci-lint redis
-endif
-ifeq ($(OS),Windows_NT)
-	choco install golang sqlite golangci-lint redis
+	brew install go golangci-lint
 endif
 
 .PHONY: lint
