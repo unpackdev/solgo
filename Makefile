@@ -6,15 +6,6 @@ UNAME_S_LOWERCASE := $(shell echo $(UNAME_S) | tr A-Z a-z)
 help: ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-.PHONY: deps
-deps: ## Install dependencies
-ifeq ($(UNAME_S),Linux)
-	sudo apt-get update && sudo apt-get install -y golang golangci-lint
-endif
-ifeq ($(UNAME_S),Darwin)
-	brew install go golangci-lint
-endif
-
 .PHONY: lint
 lint: ## Lint the Go code using golangci-lint
 	golangci-lint run --skip-dirs externals,examples
