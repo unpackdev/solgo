@@ -14,11 +14,9 @@ This project is ideal for developers working with Solidity smart contracts who w
 
 ## Why?
 
-I prefer to use Golang/Rust for my projects instead of Javascript. I wanted to be able to parse Solidity code and do some analysis on it. I found a few projects that were doing this, but they were either incomplete or not maintained. I decided to create this project to provide a Solidity parser in Golang that is "as-complete-as-possible" and maintained.
+I prefer to use Golang/Rust for my projects instead of Javascript. Wanted to be able to parse Solidity code and do some analysis on it. While, researching, found out few projects that were doing this, but they were either incomplete or not maintained or not related to Go at all. Due to it, decision to create this fun project to provide a Solidity parser in Golang that is "as-complete-as-possible" and maintained was an easy choice to undertake. Lets see how easily it will be to actually build it.
 
-Basically I wanted to be able provide a solidity source code and extract as much information about it possible, including ABIs that I can trust.
-
-This project will be used within the [unpack](https://github.com/txpull/unpack) as I've discovered that for many deployed contracts I have source code, but not ABIs.
+This project will be used within the [unpack](https://github.com/txpull/unpack) as I've discovered that for many deployed contracts source code can be found, but not ABIs.
 
 ## ANTLR Grammar
 
