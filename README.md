@@ -10,7 +10,7 @@ The parser is generated from a Solidity grammar file using Antlr, producing a le
 
 This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Golang for their analysis tools.
 
-**Note:** This project is still in development and is not yet ready for use in production.
+**Note: This project is still in development and is not yet ready for use in production.**
 
 ## Why?
 
