@@ -33,3 +33,7 @@ generate: ## Run tests
 .PHONY: benchmark
 benchmark: ## Run benchmarks
 	go test -v -bench . -benchmem ./... > benchmark.txt
+
+.PHONY: submodules
+submodules: ## Update submodules
+	git submodule update --init --recursive
