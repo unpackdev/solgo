@@ -105,22 +105,22 @@ Response from the example above:
 
 ```json
 {
-  "Comments": [
+  "comments": [
     "// Some additional comments that can be extracted"
   ],
-  "License": "MIT",
-  "Pragmas": [
+  "license": "MIT",
+  "pragmas": [
     "solidity ^0.8.0"
   ],
-  "Imports": [
+  "imports": [
     "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
     "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
     "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
     "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
     "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol"
   ],
-  "Name": "MyToken",
-  "Implements": [
+  "name": "MyToken",
+  "implements": [
     "Initializable",
     "ERC20Upgradeable",
     "AccessControlUpgradeable",
@@ -131,8 +131,8 @@ Response from the example above:
 ```
 
 You can try to play with the code here: [Go Play Tools](https://goplay.tools/snippet/G6jmkP3L1mr)
-
 Sometimes it works, sometimes it does not, returns 502. If it does not work, you can try to run it locally.
+
 
 ## Contributing
 
