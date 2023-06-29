@@ -1,8 +1,10 @@
 package solgo
 
 import (
+	"encoding/json"
 	"strings"
 
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/txpull/solgo/parser"
 )
 
@@ -41,8 +43,8 @@ func (l *AbiTreeShapeListener) EnterConstructorDefinition(ctx *parser.Constructo
 
 func (l *AbiTreeShapeListener) EnterFunctionDefinition(ctx *parser.FunctionDefinitionContext) {
 	function := make(map[string]interface{})
-
 	function["name"] = ctx.Identifier().GetText()
+	function["type"] = "function"
 
 	// Extract input parameters
 	inputs := make([]map[string]string, 0)
@@ -161,15 +163,29 @@ func (l *AbiTreeShapeListener) EnterEventDefinition(ctx *parser.EventDefinitionC
 	l.abi = append(l.abi, event)
 }
 
-func (l *AbiTreeShapeListener) GetABI() []map[string]interface{} {
+func (l *AbiTreeShapeListener) GetRawABI() []map[string]interface{} {
 	return l.abi
 }
 
-func (s *SolGo) GetABI() ([]map[string]interface{}, error) {
-	listener, err := s.GetListener(ListenerAbiTreeShape)
+func (l *AbiTreeShapeListener) ToJSON() (string, error) {
+	abiJSON, err := json.Marshal(l.abi)
+	if err != nil {
+		return "", err
+	}
+
+	return string(abiJSON), nil
+}
+
+func (l *AbiTreeShapeListener) ToABI() (*abi.ABI, error) {
+	jsonData, err := l.ToJSON()
 	if err != nil {
 		return nil, err
 	}
 
-	return listener.(*AbiTreeShapeListener).GetABI(), nil
+	toReturn, err := abi.JSON(strings.NewReader(jsonData))
+	if err != nil {
+		return nil, err
+	}
+
+	return &toReturn, nil
 }

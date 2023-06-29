@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"github.com/davecgh/go-spew/spew"
@@ -24,8 +25,6 @@ func main() {
 		
 		bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-		/**
-		
 		string private name; // Private state variable
 		address payable public owner; // Public state variable
 		mapping(address => uint256) public subscriptionBalance;
@@ -42,9 +41,6 @@ func main() {
     	event SubscriptionCanceled(address indexed user, uint256 amount);
     	event UserRewarded(address indexed user, uint256 amount);
 
-		
-		constructor(uint256) {  }
-
 		function add(uint256 a, uint256 b) public pure returns (uint256) {
 			return a + b;
 		}
@@ -60,7 +56,6 @@ func main() {
 		function withdraw(uint256 amount) external {
 			// Perform withdrawal logic here 
 		}
-		*/
 	}
 	`
 
@@ -71,8 +66,10 @@ func main() {
 		return
 	}
 
+	abiListener := solgo.NewAbiTreeShapeListener()
+
 	// Register the abi tree shape listener
-	err = solGo.RegisterListener(solgo.ListenerAbiTreeShape, solgo.NewAbiTreeShapeListener())
+	err = solGo.RegisterListener(solgo.ListenerAbiTreeShape, abiListener)
 	if err != nil {
 		zap.L().Error("failed to register abi listener", zap.Error(err))
 		return
@@ -85,16 +82,22 @@ func main() {
 		return
 	}
 
-	// Get the ABI
-	abi, err := solGo.GetABI()
+	// Log the result
+	spew.Dump(abiListener.GetRawABI())
+
+	jsonABI, err := abiListener.ToJSON()
 	if err != nil {
-		zap.L().Error(
-			"failed to get ABI from parsed smart contract",
-			zap.Error(err),
-		)
+		zap.L().Error("failed to convert abi to json", zap.Error(err))
 		return
 	}
 
-	// Log the result
-	spew.Dump(abi)
+	fmt.Println(jsonABI)
+
+	parsedAbi, err := abiListener.ToABI()
+	if err != nil {
+		zap.L().Error("failed to convert json abi to abi", zap.Error(err))
+		return
+	}
+
+	spew.Dump(parsedAbi)
 }
