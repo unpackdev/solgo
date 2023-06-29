@@ -43,6 +43,40 @@ To use SolGo, you will need to have Golang installed on your machine. You can th
 import "github.com/txpull/solgo"
 ```
 
+## Usage
+
+### Parse Solidity Code and Retrieve Contract Information
+
+```go
+package main
+
+import "github.com/txpull/solgo"
+
+func main() {
+    parser, err := solgo.New(context.Background(), strings.NewReader(testCase.contract))
+    if err != nil {
+        panic(err)
+    }
+
+    // Register the contract information listener
+    contractListener := NewContractListener(parser.GetParser())
+    if err := parser.RegisterListener(ListenerContractInfo, contractListener); err != nil {
+        panic(err)
+    }
+
+    if errs := parser.Parse(); len(errs) > 0 {
+        for _, err := range errs {
+            fmt.Println(err)
+        }
+        return
+    }
+
+    // Get the contract information from listener that is built for testing purposes
+    contractInfo := contractListener.ToStruct()
+
+    fmt.Printf("%+v \n", contractInfo)
+}
+```
 
 ## Contributing
 
