@@ -99,6 +99,5 @@ func main() {
 		return
 	}
 
-	// Dump the abi.ABI
 	spew.Dump(parsedAbi)
 }
