@@ -28,8 +28,5 @@ func ReadContractFileForTest(t *testing.T, name string) TestContract {
 	content, err := os.ReadFile(path)
 	assert.NoError(t, err)
 
-	return TestContract{
-		Path:    path,
-		Content: string(content),
-	}
+	return TestContract{Path: path, Content: string(content)}
 }
