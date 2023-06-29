@@ -12,6 +12,14 @@ This project is ideal for developers working with Solidity smart contracts who w
 
 **Note:** This project is still in development and is not yet ready for use in production.
 
+## Why?
+
+So much on the web is related to Javascript. However, I prefer to use Golang for my projects. I wanted to be able to parse Solidity code and do some analysis on it. I found a few projects that were doing this, but they were either incomplete or not maintained. I decided to create this project to provide a Solidity parser in Golang that is complete and maintained.
+
+Basically I wanted to be able provide a solidity source code and extract as much information about it possible, including ABIs that I can trust.
+
+This project will be used within the [unpack](https://github.com/txpull/unpack) as I've discovered that for many deployed contracts I have source code, but not ABIs.
+
 ## ANTLR Grammar
 
 We are using grammar files that are maintained by the Solidity team.
