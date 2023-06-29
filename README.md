@@ -133,6 +133,20 @@ Response from the example above:
 You can try to play with the code here: [Go Play Tools](https://goplay.tools/snippet/G6jmkP3L1mr)
 Sometimes it works, sometimes it does not, returns 502. If it does not work, you can try to run it locally.
 
+## Development Setup
+
+To set up the development environment for this project, follow these steps:
+
+1. **Go 1.19+**: Make sure you have Go version 1.19 or higher installed. You can find installation instructions [here](https://golang.org/doc/install).
+
+2. **Java**: You need Java version 11 or higher installed to generate the parser. You can download Java from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html). After installing Java, make sure to set the `JAVA_HOME` environment variable to the location of your Java installation.
+
+3. **ANTLR4**: The ANTLR4 parser generator is already included in this repository as .jar files, which can be found in the [antlr](/antlr) directory. You don't need to build it separately. The current version used is 4.13.0.
+
+Once you have completed these steps, you can start developing and testing your changes. To run the tests, use the command `make test` from the root directory of the repository.
+
+The parser files are already generated and can be found in the [parser](/parser) directory. If you want to regenerate the parser, use the command `make generate` from the root directory of the repository. This will regenerate the parser files and place them in the [parser](/parser) directory.
+
 
 ## Contributing
 
