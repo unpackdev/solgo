@@ -90,7 +90,6 @@ func main() {
 
     // Get the contract information from listener that is built for testing purposes
     contractInfo := contractListener.ToStruct()
-
     fmt.Printf("%+v \n", contractInfo)
 }
 ```
