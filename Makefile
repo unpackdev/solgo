@@ -15,7 +15,7 @@ test: ## Run tests
 	go test -v -cover ./...
 
 .PHONY: generate
-generate: ## Run tests
+generate: submodules ## Run tests
 	go generate ./...
 
 .PHONY: benchmark
