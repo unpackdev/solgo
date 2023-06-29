@@ -14,7 +14,7 @@ This project is ideal for developers working with Solidity smart contracts who w
 
 ## Why?
 
-I prefer to use Golang/Rust for my projects instead of Javascript. I wanted to be able to parse Solidity code and do some analysis on it. I found a few projects that were doing this, but they were either incomplete or not maintained. I decided to create this project to provide a Solidity parser in Golang that is complete and maintained.
+I prefer to use Golang/Rust for my projects instead of Javascript. I wanted to be able to parse Solidity code and do some analysis on it. I found a few projects that were doing this, but they were either incomplete or not maintained. I decided to create this project to provide a Solidity parser in Golang that is "as-complete-as-possible" and maintained.
 
 Basically I wanted to be able provide a solidity source code and extract as much information about it possible, including ABIs that I can trust.
 
