@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/txpull/solgo.svg?branch=main)](https://app.travis-ci.com/txpull/solgo)
+[![Coverage Status](https://coveralls.io/repos/github/txpull/solgo/badge.svg?branch=main)](https://coveralls.io/github/txpull/solgo?branch=main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/txpull/solgo)](https://goreportcard.com/report/github.com/txpull/solgo)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/txpull/solgo)](https://pkg.go.dev/github.com/txpull/solgo)
@@ -21,7 +23,7 @@ This project will be integrated within [unpack](https://github.com/txpull/unpack
 ## ANTLR Grammar
 
 We are using grammar files that are maintained by the Solidity team.
-Link to the grammar files can be found [here](https://github.com/ethereum/solidity/tree/develop/docs/grammar)
+Link to the grammar files can be found [here](https://github.com/ethereum/solidity/tree/develop/docs/grammar).
 
 ## ANTLR Go
 
