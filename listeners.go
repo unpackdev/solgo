@@ -11,7 +11,9 @@ type ListenerName string
 
 // Predefined listener names.
 const (
-	ListenerAbiTreeShape ListenerName = "abi_tree_shape"
+	ListenerAbi          ListenerName = "abi"
+	ListenerContractInfo ListenerName = "contract_info"
+	ListenerAst          ListenerName = "ast"
 )
 
 type listeners map[ListenerName]antlr.ParseTreeListener
