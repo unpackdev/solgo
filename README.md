@@ -186,10 +186,6 @@ func main() {
 }
 ```
 
-
-You can try to play with the code here: [Go Play Tools](https://goplay.tools/snippet/G6jmkP3L1mr)
-Sometimes it works, sometimes it does not, returns 502. If it does not work, you can try to run it locally.
-
 ## Development Setup
 
 To set up the development environment for this project, follow these steps:
