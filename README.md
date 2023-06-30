@@ -36,6 +36,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
 - **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
+- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the Ethereum network. Currently structs, enums and tuples are not supported.
 
 ## Getting Started
 
@@ -97,7 +98,6 @@ func main() {
 		return
 	}
 
-	// Get the contract information from listener that is built for testing purposes
 	jsonResponse, _ := json.MarshalIndent(contractListener.ToStruct(), "", "  ")
 	fmt.Println(string(jsonResponse))
 }
@@ -132,6 +132,61 @@ Response from the example above:
 }
 ```
 
+### Parse Solidity Code and Retrieve ABI information
+
+```go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"strings"
+
+	"github.com/txpull/solgo"
+)
+
+var contract = ``
+
+func main() {
+	parser, err := solgo.New(context.Background(), strings.NewReader(contract))
+	if err != nil {
+		panic(err)
+	}
+
+	// Register the abi listener
+	abiListener := solgo.NewAbiListener(parser.GetParser())
+	if err := parser.RegisterListener(solgo.ListenerAbi, abiListener); err != nil {
+		panic(err)
+	}
+
+	if errs := parser.Parse(); len(errs) > 0 {
+		for _, err := range errs {
+			fmt.Println(err)
+		}
+		return
+	}
+
+  // Grab the abi parser from the listener
+  abiParser := abiListener.GetParser()
+
+  // Get JSON representation of the ABI
+  abiJson, err := abiParser.ToJSON()
+  if err != nil {
+    panic(err)
+  }
+
+  // Get go-ethereum ABI representation
+  abi, err := abiParser.ToABI()
+  if err != nil {
+    panic(err)
+  }
+
+	fmt.Println(string(abiJson))
+}
+```
+
+
 You can try to play with the code here: [Go Play Tools](https://goplay.tools/snippet/G6jmkP3L1mr)
 Sometimes it works, sometimes it does not, returns 502. If it does not work, you can try to run it locally.
 
@@ -143,7 +198,7 @@ To set up the development environment for this project, follow these steps:
 
 2. **Java**: You need Java version 11 or higher installed to generate the parser. You can download Java from [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html). After installing Java, make sure to set the `JAVA_HOME` environment variable to the location of your Java installation.
 
-3. **ANTLR4**: The ANTLR4 parser generator is already included in this repository as .jar files, which can be found in the [antlr](/antlr) directory. You don't need to build it separately. The current version used is 4.13.0.
+3. **ANTLR4**: The ANTLR4 is already included in this repository as .jar, which can be found in the [antlr](/antlr) directory. You don't need to build it separately. The current version used is 4.13.0.
 
 Once you have completed these steps, you can start developing and testing your changes. To run the tests, use the command `make test` from the root directory of the repository.
 
