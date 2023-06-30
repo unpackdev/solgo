@@ -167,20 +167,20 @@ func main() {
 		return
 	}
 
-  // Grab the abi parser from the listener
-  abiParser := abiListener.GetParser()
+	// Grab the abi parser from the listener
+	abiParser := abiListener.GetParser()
 
-  // Get JSON representation of the ABI
-  abiJson, err := abiParser.ToJSON()
-  if err != nil {
-    panic(err)
-  }
+	// Get JSON representation of the ABI
+	abiJson, err := abiParser.ToJSON()
+	if err != nil {
+		panic(err)
+	}
 
-  // Get go-ethereum ABI representation
-  abi, err := abiParser.ToABI()
-  if err != nil {
-    panic(err)
-  }
+	// Get go-ethereum ABI representation
+	abi, err := abiParser.ToABI()
+	if err != nil {
+		panic(err)
+	}
 
 	fmt.Println(string(abiJson))
 }
