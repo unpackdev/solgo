@@ -6,9 +6,9 @@
 
 # Solidity Parser in Golang
 
-SolGo contains a Solidity parser written in Golang, using Antlr and AntlrGo for grammar parsing. The aim of this project is to provide a tool to parse Solidity source code into a structured format, enabling further analysis and manipulation within Go programs.
+SolGo contains a Solidity parser written in Golang, using Antlr and AntlrGo for grammar parsing. The aim of this project is to provide a tool to parse Solidity source code into a structured format, enabling further analysis.
 
-The parser is generated from a Solidity grammar file using Antlr, producing a lexer, parser, and listener in Golang using AntlrGo. This allows for the syntactic analysis of Solidity code, transforming it into a parse tree that can be traversed and manipulated.
+The parser is generated from a Solidity grammar file using Antlr, producing a lexer, parser, and listener using AntlrGo. This allows for the syntactic analysis of Solidity code, transforming it into a parse tree that can be traversed and manipulated.
 
 This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Golang for their analysis tools.
 
@@ -45,6 +45,10 @@ To use SolGo, you will need to have Golang installed on your machine. You can th
 ```go
 import "github.com/txpull/solgo"
 ```
+
+## Logger setup
+
+TODO...
 
 ## Usage
 

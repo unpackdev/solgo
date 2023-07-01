@@ -14,12 +14,23 @@ type AbiListener struct {
 
 // NewAbiListener creates a new AbiListener with a new AbiParser.
 func NewAbiListener() *AbiListener {
-	return &AbiListener{parser: &AbiParser{abi: ABI{}}}
+	return &AbiListener{parser: &AbiParser{
+		abi:            ABI{},
+		definedStructs: make(map[string]MethodIO),
+	}}
+}
+
+// EnterContractDefinition is called when the parser enters a contract definition.
+// It extracts the contract name from the context and sets it to the contractName field.
+// Later on we use contract name to define internalType of the tuple/struct type.
+func (l *AbiListener) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
+	l.parser.contractName = ctx.Identifier().GetText() // get the contract name
 }
 
 // EnterStateVariableDeclaration is called when the parser enters a state variable declaration.
 // It injects the state variable into the ABI.
 func (l *AbiListener) EnterStateVariableDeclaration(ctx *parser.StateVariableDeclarationContext) {
+	return
 	if err := l.parser.InjectStateVariable(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject state variable",
@@ -31,6 +42,7 @@ func (l *AbiListener) EnterStateVariableDeclaration(ctx *parser.StateVariableDec
 // EnterConstructorDefinition is called when the parser enters a constructor definition.
 // It injects the constructor into the ABI.
 func (l *AbiListener) EnterConstructorDefinition(ctx *parser.ConstructorDefinitionContext) {
+	return
 	if err := l.parser.InjectConstructor(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject constructor",
@@ -53,6 +65,7 @@ func (l *AbiListener) EnterFunctionDefinition(ctx *parser.FunctionDefinitionCont
 // EnterEventDefinition is called when the parser enters an event definition.
 // It injects the event into the ABI.
 func (l *AbiListener) EnterEventDefinition(ctx *parser.EventDefinitionContext) {
+	return
 	if err := l.parser.InjectEvent(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject event",
@@ -64,6 +77,7 @@ func (l *AbiListener) EnterEventDefinition(ctx *parser.EventDefinitionContext) {
 // EnterErrorDefinition is called when the parser enters an error definition.
 // It injects the error into the ABI.
 func (l *AbiListener) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
+	return
 	if err := l.parser.InjectError(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject error",
@@ -72,9 +86,28 @@ func (l *AbiListener) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
 	}
 }
 
+func (l *AbiListener) EnterStructDefinition(ctx *parser.StructDefinitionContext) {
+	if err := l.parser.AppendStruct(ctx); err != nil {
+		zap.L().Error(
+			"failed to append struct",
+			zap.Error(err),
+		)
+	}
+}
+
+func (l *AbiListener) ExitStructDefinition(ctx *parser.StructDefinitionContext) {
+	if err := l.parser.ResolveStructComponents(); err != nil {
+		zap.L().Error(
+			"failed to resolve struct components",
+			zap.Error(err),
+		)
+	}
+}
+
 // EnterFallbackFunctionDefinition is called when the parser enters a fallback function definition.
 // It injects the fallback function into the ABI.
 func (l *AbiListener) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctionDefinitionContext) {
+	return
 	if err := l.parser.InjectFallback(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject fallback",
@@ -86,6 +119,7 @@ func (l *AbiListener) EnterFallbackFunctionDefinition(ctx *parser.FallbackFuncti
 // EnterReceiveFunctionDefinition is called when the parser enters a receive function definition.
 // It injects the receive function into the ABI.
 func (l *AbiListener) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionDefinitionContext) {
+	return
 	if err := l.parser.InjectReceive(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject receive",

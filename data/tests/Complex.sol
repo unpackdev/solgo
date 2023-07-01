@@ -21,8 +21,20 @@ contract MyToken {
 
     mapping(address=>mapping(address=>bool)) public nestedMappingTest;
 
-    struct S { uint a; uint[] b; T[] c; }
-    struct T { uint x; uint y; }
+    struct NestedStruct {
+        uint256 one;
+        uint256 two;
+        MyStruct myStruct;
+    }
+
+    struct MyStruct {
+        uint256 one;
+        uint256 two;
+    }
+
+
+    function checkForComplexStructs(MyStruct memory structOne, NestedStruct memory structTwo, uint Integer) public pure returns (NestedStruct memory structTwo) {}
+    
 
     function initialize(string memory name, string memory symbol, uint256 initialSupply, uint256 _subscriptionAmount) public initializer {
         __ERC20_init(name, symbol);
