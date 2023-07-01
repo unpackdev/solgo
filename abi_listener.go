@@ -100,7 +100,7 @@ func (l *AbiListener) EnterStructDefinition(ctx *parser.StructDefinitionContext)
 // ExitStructDefinition is called when the parser exits a struct definition.
 // It resolves the components of the struct in the ABI.
 func (l *AbiListener) ExitStructDefinition(ctx *parser.StructDefinitionContext) {
-	if err := l.parser.ResolveStructComponents(); err != nil {
+	if err := l.parser.ResolveStruct(ctx); err != nil {
 		zap.L().Error(
 			"failed to resolve struct components",
 			zap.Error(err),

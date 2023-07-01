@@ -21,6 +21,18 @@ func normalizeTypeName(typeName string) string {
 	}
 }
 
+// normalizeStructTypeName normalizes the type name of a struct in Solidity to its canonical form.
+// For example, "structName[]" is normalized to "tuple[]", and "structName" is normalized to "tuple".
+func normalizeStructTypeName(definedStructs map[string]MethodIO, typeName string) string {
+	switch {
+	case strings.HasSuffix(typeName, "[]") && isStructType(definedStructs, strings.TrimSuffix(typeName, "[]")):
+		// Handle array of structs
+		return "tuple[]"
+	default:
+		return "tuple"
+	}
+}
+
 // isMappingType checks if the given type name represents a mapping type in Solidity.
 // It returns true if the type name contains the string "mapping", and false otherwise.
 func isMappingType(name string) bool {
@@ -31,6 +43,7 @@ func isMappingType(name string) bool {
 // definedStructs is a map from struct names to MethodIO objects representing the struct located in the AbiParser.
 // Returns true if the type name corresponds to a defined struct, false otherwise.
 func isStructType(definedStructs map[string]MethodIO, typeName string) bool {
+	typeName = strings.TrimRight(typeName, "[]")
 	_, exists := definedStructs[typeName]
 	return exists
 }

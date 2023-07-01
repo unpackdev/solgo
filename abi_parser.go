@@ -92,7 +92,6 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 			}()
 
 			if isStructType(p.definedStructs, paramCtx.TypeName().GetText()) {
-				// Checking if the parameter is a struct...
 				nestedComponent, err := p.getStructComponents(paramCtx.TypeName().GetText())
 				if err != nil {
 					zap.L().Error(
@@ -317,16 +316,17 @@ func (p *AbiParser) AppendStruct(ctx *parser.StructDefinitionContext) error {
 	return nil
 }
 
-// ResolveStructComponents iterates over the defined structs in the AbiParser and resolves their components.
+// ResolveStruct iterates over the defined structs in the AbiParser and resolves their components.
 // If a component is of a struct type, it retrieves the components of the nested struct and updates the component's type to "tuple".
 // The component's InternalType is also updated to reflect the struct's name and the contract it belongs to.
 // If a struct component cannot be resolved, it logs a debug message and returns an error.
 // This function is useful for resolving nested structs and should be called after all structs have been defined.
-func (p *AbiParser) ResolveStructComponents() error {
+func (p *AbiParser) ResolveStruct(ctx *parser.StructDefinitionContext) error {
 	for structName, structIO := range p.definedStructs {
 		for i, component := range structIO.Components {
 			if isStructType(p.definedStructs, component.Type) {
-				nestedComponent, err := p.getStructComponents(component.Type)
+				basicStructType := strings.TrimRight(component.Type, "[]")
+				nestedComponent, err := p.getStructComponents(basicStructType)
 				if err != nil {
 					// Problematic is that if there are multiple passes to resolve structs,
 					// we will get multiple errors for the same struct while at the same time at the last pass
@@ -343,8 +343,9 @@ func (p *AbiParser) ResolveStructComponents() error {
 					)
 					return err
 				}
+
 				structIO.Components[i].Components = nestedComponent.Components
-				structIO.Components[i].Type = "tuple"
+				structIO.Components[i].Type = normalizeStructTypeName(p.definedStructs, component.Type)
 				structIO.Components[i].InternalType = fmt.Sprintf("struct %s.%s", p.contractName, component.Type)
 			}
 		}
