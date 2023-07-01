@@ -6,15 +6,27 @@ import (
 )
 
 // AbiListener is a listener for the Solidity parser that constructs an ABI
-// as it walks the parse tree.
+// as it walks the parse tree. It embeds the BaseSolidityParserListener and uses an AbiParser
+// to construct the ABI.
 type AbiListener struct {
 	*parser.BaseSolidityParserListener            // Base listener that does nothing, to be extended by AbiListener
 	parser                             *AbiParser // The parser that constructs the ABI
 }
 
 // NewAbiListener creates a new AbiListener with a new AbiParser.
+// It returns a pointer to the newly created AbiListener.
 func NewAbiListener() *AbiListener {
-	return &AbiListener{parser: &AbiParser{abi: ABI{}}}
+	return &AbiListener{parser: &AbiParser{
+		abi:            ABI{},
+		definedStructs: make(map[string]MethodIO),
+	}}
+}
+
+// EnterContractDefinition is called when the parser enters a contract definition.
+// It extracts the contract name from the context and sets it to the contractName field.
+// Later on we use contract name to define internalType of the tuple/struct type.
+func (l *AbiListener) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
+	l.parser.contractName = ctx.Identifier().GetText() // get the contract name
 }
 
 // EnterStateVariableDeclaration is called when the parser enters a state variable declaration.
@@ -67,6 +79,28 @@ func (l *AbiListener) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
 	if err := l.parser.InjectError(ctx); err != nil {
 		zap.L().Error(
 			"failed to inject error",
+			zap.Error(err),
+		)
+	}
+}
+
+// EnterStructDefinition is called when the parser enters a struct definition.
+// It appends the struct to the ABI for future resolution.
+func (l *AbiListener) EnterStructDefinition(ctx *parser.StructDefinitionContext) {
+	if err := l.parser.AppendStruct(ctx); err != nil {
+		zap.L().Error(
+			"failed to append struct",
+			zap.Error(err),
+		)
+	}
+}
+
+// ExitStructDefinition is called when the parser exits a struct definition.
+// It resolves the components of the struct in the ABI.
+func (l *AbiListener) ExitStructDefinition(ctx *parser.StructDefinitionContext) {
+	if err := l.parser.ResolveStructComponents(); err != nil {
+		zap.L().Error(
+			"failed to resolve struct components",
 			zap.Error(err),
 		)
 	}

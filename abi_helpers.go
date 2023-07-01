@@ -27,6 +27,14 @@ func isMappingType(name string) bool {
 	return strings.Contains(name, "mapping")
 }
 
+// isStructType checks if a type name corresponds to a defined struct.
+// definedStructs is a map from struct names to MethodIO objects representing the struct located in the AbiParser.
+// Returns true if the type name corresponds to a defined struct, false otherwise.
+func isStructType(definedStructs map[string]MethodIO, typeName string) bool {
+	_, exists := definedStructs[typeName]
+	return exists
+}
+
 // parseMappingType parses a mapping type in Solidity ABI.
 // It takes a string of the form "mapping(keyType => valueType)" and returns three values:
 //   - A boolean indicating whether the parsing was successful. If the string is not a mapping type, this will be false.

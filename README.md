@@ -6,9 +6,9 @@
 
 # Solidity Parser in Golang
 
-SolGo contains a Solidity parser written in Golang, using Antlr and AntlrGo for grammar parsing. The aim of this project is to provide a tool to parse Solidity source code into a structured format, enabling further analysis and manipulation within Go programs.
+SolGo contains a Solidity parser written in Golang, using Antlr and AntlrGo for grammar parsing. The aim of this project is to provide a tool to parse Solidity source code into a structured format, enabling further analysis.
 
-The parser is generated from a Solidity grammar file using Antlr, producing a lexer, parser, and listener in Golang using AntlrGo. This allows for the syntactic analysis of Solidity code, transforming it into a parse tree that can be traversed and manipulated.
+The parser is generated from a Solidity grammar file using Antlr, producing a lexer, parser, and listener using AntlrGo. This allows for the syntactic analysis of Solidity code, transforming it into a parse tree that can be traversed and manipulated.
 
 This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Golang for their analysis tools.
 
@@ -19,6 +19,10 @@ This project is ideal for developers working with Solidity smart contracts who w
 In my projects, I have a strong preference for using Golang or Rust over Javascript. I found myself needing to parse Solidity code and conduct some analysis on it. During my research, I discovered several projects that aimed to do this. However, they were either incomplete, not maintained, or not written in Go at all. This led me to the decision to create this project. The goal is to provide a Solidity parser in Golang that is as "complete as possible" and well-maintained. I'm excited to see how this project will develop and evolve.
 
 This project will be integrated within [unpack](https://github.com/txpull/unpack). I've found that for many deployed contracts, the source code is available, but the ABIs are not. This project will help bridge that gap.
+
+## Solidity Language Grammar
+
+Latest Solidity language grammar higher overview and detailed description can be found [here](https://docs.soliditylang.org/en/v0.8.19/grammar.html).
 
 ## ANTLR Grammar
 
@@ -36,7 +40,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
 - **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
-- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the Ethereum network. Currently structs, enums and tuples are not supported.
+- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the Ethereum network.
 
 ## Getting Started
 
@@ -45,6 +49,30 @@ To use SolGo, you will need to have Golang installed on your machine. You can th
 ```go
 import "github.com/txpull/solgo"
 ```
+
+## Logger setup
+
+SolGo uses [zap](https://github.com/uber-go/zap) logger. To setup logger you can use following code:
+
+```go
+import (
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+)
+
+// ....
+
+config := zap.NewDevelopmentConfig()
+config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+logger, err := config.Build()
+if err != nil {
+	panic(err)
+}
+
+zap.ReplaceGlobals(logger)
+```
+
+I've deliberately not to pass logger as a reference to each struct, because I am lazy and in my eyes, it's not a good practice. Instead, I'm using `zap.L()` function to get logger instance in each struct.
 
 ## Usage
 
@@ -171,18 +199,19 @@ func main() {
 	abiParser := abiListener.GetParser()
 
 	// Get JSON representation of the ABI
-	abiJson, err := abiParser.ToJSON()
+	_, err := abiParser.ToJSON()
 	if err != nil {
 		panic(err)
 	}
 
 	// Get go-ethereum ABI representation
-	abi, err := abiParser.ToABI()
+	_, err := abiParser.ToABI()
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(string(abiJson))
+	jsonResponse, _ := json.MarshalIndent(abiParser.ToStruct(), "", "  ")
+	fmt.Println(string(jsonResponse))
 }
 ```
 

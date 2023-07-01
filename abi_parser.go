@@ -3,70 +3,20 @@ package solgo
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
-
-// MethodIO represents an input or output parameter of a contract method or event.
-type MethodIO struct {
-	Indexed      bool                `json:"indexed,omitempty"`    // Used only by the events
-	InternalType string              `json:"internalType"`         // The internal Solidity type of the parameter
-	Name         string              `json:"name"`                 // The name of the parameter
-	Type         string              `json:"type"`                 // The type of the parameter
-	Components   []map[string]string `json:"components,omitempty"` // Components of the parameter, if it's a struct or tuple type
-}
-
-// IMethod is an interface that represents a contract method, event, or constructor.
-type IMethod interface{}
-
-// MethodConstructor represents a contract constructor.
-type MethodConstructor struct {
-	Inputs  []MethodIO `json:"inputs"`            // The input parameters of the constructor
-	Type    string     `json:"type"`              // The type of the method (always "constructor" for constructors)
-	Outputs []MethodIO `json:"outputs,omitempty"` // The output parameters of the constructor (always empty for constructors)
-}
-
-// MethodEvent represents a contract event.
-type MethodEvent struct {
-	Anonymous bool       `json:"anonymous"`      // Whether the event is anonymous
-	Inputs    []MethodIO `json:"inputs"`         // The input parameters of the event
-	Name      string     `json:"name,omitempty"` // The name of the event
-	Type      string     `json:"type"`           // The type of the method (always "event" for events)
-}
-
-// Method represents a contract function.
-type Method struct {
-	Inputs          []MethodIO `json:"inputs"`          // The input parameters of the function
-	Outputs         []MethodIO `json:"outputs"`         // The output parameters of the function
-	Name            string     `json:"name"`            // The name of the function
-	Type            string     `json:"type"`            // The type of the method (always "function" for functions)
-	StateMutability string     `json:"stateMutability"` // The state mutability of the function (pure, view, nonpayable, payable)
-}
-
-// MethodVariable represents a contract state variable.
-type MethodVariable struct {
-	Inputs          []MethodIO `json:"inputs"`            // The input parameters of the variable (always empty for variables)
-	Outputs         []MethodIO `json:"outputs,omitempty"` // The output parameters of the variable (always contains one element representing the variable itself)
-	Name            string     `json:"name"`              // The name of the variable
-	Type            string     `json:"type"`              // The type of the method (always "function" for variables)
-	StateMutability string     `json:"stateMutability"`   // The state mutability of the variable (always "view" for variables)
-}
-
-// MethodFallbackOrReceive represents a contract fallback or receive function.
-type MethodFallbackOrReceive struct {
-	Type            string `json:"type"`                      // The type of the method (either "fallback" or "receive")
-	StateMutability string `json:"stateMutability,omitempty"` // The state mutability of the function (nonpayable for fallback functions, payable for receive functions)
-}
-
-// ABI represents a contract ABI, which is a list of contract methods, events, and constructors.
-type ABI []IMethod
 
 // AbiParser is a parser that can parse a Solidity contract ABI
 // and convert it into an ABI object that can be easily manipulated.
 type AbiParser struct {
-	abi ABI
+	abi            ABI
+	contractName   string
+	definedStructs map[string]MethodIO
 }
 
 // InjectConstructor injects a constructor definition into the ABI.
@@ -132,30 +82,77 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 	inputs := make([]MethodIO, 0)
 	if ctx.GetArguments() != nil {
 		for _, paramCtx := range ctx.GetArguments().AllParameterDeclaration() {
+			argumentName := func() string {
+				if paramCtx.Identifier() != nil {
+					return paramCtx.Identifier().GetText()
+				}
+				return ""
+			}()
+
+			if isStructType(p.definedStructs, paramCtx.TypeName().GetText()) {
+				// Checking if the parameter is a struct...
+				nestedComponent, err := p.getStructComponents(paramCtx.TypeName().GetText())
+				if err != nil {
+					zap.L().Error(
+						"Unsuported argument type",
+						zap.String("type", paramCtx.TypeName().GetText()),
+						zap.String("name", argumentName),
+					)
+
+					return fmt.Errorf(
+						"unsupported function: '%s' argument name: '%s' type: '%s'",
+						ctx.Identifier().GetText(),
+						argumentName,
+						paramCtx.TypeName().GetText(),
+					)
+				}
+
+				inputs = append(inputs, nestedComponent)
+				continue
+			}
+
 			inputs = append(inputs, MethodIO{
-				Name: func() string {
-					if paramCtx.Identifier() != nil {
-						return paramCtx.Identifier().GetText()
-					}
-					return ""
-				}(),
+				Name:         argumentName,
 				Type:         normalizeTypeName(paramCtx.TypeName().GetText()),
 				InternalType: normalizeTypeName(paramCtx.TypeName().GetText()),
 			})
 		}
-
 	}
 
 	outputs := make([]MethodIO, 0)
 	if ctx.GetReturnParameters() != nil {
 		for _, paramCtx := range ctx.GetReturnParameters().GetParameters() {
+			argumentName := func() string {
+				if paramCtx.Identifier() != nil {
+					return paramCtx.Identifier().GetText()
+				}
+				return ""
+			}()
+
+			if isStructType(p.definedStructs, paramCtx.TypeName().GetText()) {
+				// Checking if the parameter is a struct...
+				nestedComponent, err := p.getStructComponents(paramCtx.TypeName().GetText())
+				if err != nil {
+					zap.L().Error(
+						"Unsuported argument type",
+						zap.String("type", paramCtx.TypeName().GetText()),
+						zap.String("name", argumentName),
+					)
+
+					return fmt.Errorf(
+						"unsupported function: '%s' argument name: '%s' type: '%s'",
+						ctx.Identifier().GetText(),
+						argumentName,
+						paramCtx.TypeName().GetText(),
+					)
+				}
+
+				outputs = append(outputs, nestedComponent)
+				continue
+			}
+
 			outputs = append(outputs, MethodIO{
-				Name: func() string {
-					if paramCtx.Identifier() != nil {
-						return paramCtx.Identifier().GetText()
-					}
-					return ""
-				}(),
+				Name:         argumentName,
 				Type:         normalizeTypeName(paramCtx.TypeName().GetText()),
 				InternalType: normalizeTypeName(paramCtx.TypeName().GetText()),
 			})
@@ -218,6 +215,7 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 	}
 
 	p.abi = append(p.abi, MethodVariable{
+		Inputs: make([]MethodIO, 0),
 		Outputs: []MethodIO{
 			{
 				Type:         normalizeTypeName(ctx.TypeName().GetText()),
@@ -260,6 +258,79 @@ func (p *AbiParser) InjectError(ctx *parser.ErrorDefinitionContext) error {
 	return nil
 }
 
+// AppendStruct injects a struct definition into internal struct mapping for future use by functions.
+// Structs are not part of the ABI in meaning that you get a view function immediately
+// without declaring it like in regular types. Instead, structs are used as input and output types
+// for functions and only there they are visible.
+// Current function will only store initial function definitions and because we have forward declarations,
+// we will need to process additionally all structs after all declarations are processed to ensure
+// nested structs are processed correctly.
+func (p *AbiParser) AppendStruct(ctx *parser.StructDefinitionContext) error {
+	structName := ctx.Identifier().GetText()
+
+	components := make([]MethodIO, 0)
+
+	if ctx.AllStructMember() != nil {
+		for _, memberCtx := range ctx.AllStructMember() {
+			components = append(components, MethodIO{
+				Name: func() string {
+					if memberCtx.Identifier() != nil {
+						return memberCtx.Identifier().GetText()
+					}
+					return ""
+				}(),
+				Type:         normalizeTypeName(memberCtx.TypeName().GetText()),
+				InternalType: normalizeTypeName(memberCtx.TypeName().GetText()),
+			})
+		}
+	}
+
+	p.definedStructs[structName] = MethodIO{
+		Components:   components,
+		Name:         structName,
+		Type:         "tuple",
+		InternalType: fmt.Sprintf("struct %s.%s", p.contractName, structName),
+	}
+
+	return nil
+}
+
+// ResolveStructComponents iterates over the defined structs in the AbiParser and resolves their components.
+// If a component is of a struct type, it retrieves the components of the nested struct and updates the component's type to "tuple".
+// The component's InternalType is also updated to reflect the struct's name and the contract it belongs to.
+// If a struct component cannot be resolved, it logs a debug message and returns an error.
+// This function is useful for resolving nested structs and should be called after all structs have been defined.
+func (p *AbiParser) ResolveStructComponents() error {
+	for structName, structIO := range p.definedStructs {
+		for i, component := range structIO.Components {
+			if isStructType(p.definedStructs, component.Type) {
+				nestedComponent, err := p.getStructComponents(component.Type)
+				if err != nil {
+					// Problematic is that if there are multiple passes to resolve structs,
+					// we will get multiple errors for the same struct while at the same time at the last pass
+					// we will get the correct result. This is because we are not sure if the struct is defined
+					// before or after the struct that uses it.
+					// Forward declarations... because of it, debug log is used instead of error/warn.
+					zap.L().Debug(
+						"Failed to discover struct nested component. Maybe it's not defined yet?",
+						zap.String("contract", p.contractName),
+						zap.String("struct", structName),
+						zap.String("component_type", component.Type),
+						zap.String("component_name", component.Name),
+						zap.Error(err),
+					)
+					return err
+				}
+				structIO.Components[i].Components = nestedComponent.Components
+				structIO.Components[i].Type = "tuple"
+				structIO.Components[i].InternalType = fmt.Sprintf("struct %s.%s", p.contractName, component.Type)
+			}
+		}
+	}
+
+	return nil
+}
+
 // InjectModifier injects a modifier definition into the ABI.
 // It takes a ModifierDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectModifier(ctx *parser.ModifierDefinitionContext) error {
@@ -270,12 +341,6 @@ func (p *AbiParser) InjectModifier(ctx *parser.ModifierDefinitionContext) error 
 // It takes an EnumDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectEnum(ctx *parser.EnumDefinitionContext) error {
 	return errors.New("enum injection is not yet supported")
-}
-
-// InjectStruct injects a struct definition into the ABI.
-// It takes a StructDefinitionContext (from the parser) as input.
-func (p *AbiParser) InjectStruct(ctx *parser.StructDefinitionContext) error {
-	return errors.New("struct injection is not yet supported")
 }
 
 // InjectContract injects a contract definition into the ABI.
@@ -314,6 +379,18 @@ func (p *AbiParser) InjectReceive(ctx *parser.ReceiveFunctionDefinitionContext) 
 	return nil
 }
 
+// getStructComponents retrieves the components of a struct given its name.
+// It returns a MethodIO object representing the components of the struct and an error.
+// If the struct is not defined in the AbiParser's definedStructs map, it returns an empty MethodIO object and an error.
+func (p *AbiParser) getStructComponents(structName string) (MethodIO, error) {
+	components, exists := p.definedStructs[structName]
+	if !exists {
+		return MethodIO{}, fmt.Errorf("struct %s not defined", structName)
+	}
+
+	return components, nil
+}
+
 // ToJSON converts the ABI object into a JSON string.
 func (p *AbiParser) ToJSON() (string, error) {
 	abiJSON, err := json.Marshal(p.abi)
@@ -337,4 +414,9 @@ func (p *AbiParser) ToABI() (*abi.ABI, error) {
 	}
 
 	return &toReturn, nil
+}
+
+// ToStruct returns the ABI object.
+func (p *AbiParser) ToStruct() ABI {
+	return p.abi
 }
