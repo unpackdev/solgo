@@ -27,6 +27,9 @@ func isMappingType(name string) bool {
 	return strings.Contains(name, "mapping")
 }
 
+// isStructType checks if a type name corresponds to a defined struct.
+// definedStructs is a map from struct names to MethodIO objects representing the struct located in the AbiParser.
+// Returns true if the type name corresponds to a defined struct, false otherwise.
 func isStructType(definedStructs map[string]MethodIO, typeName string) bool {
 	_, exists := definedStructs[typeName]
 	return exists
