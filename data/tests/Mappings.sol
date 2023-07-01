@@ -8,5 +8,4 @@ contract MyMappings {
     mapping(address=>uint) public simpleMapping;
     mapping(address=>mapping(address=>uint)) public doubleMapping;
     mapping(address=>mapping(address=>mapping(address=>uint))) public tripleMapping;
-    
 }
