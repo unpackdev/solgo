@@ -45,6 +45,11 @@ func TestAbiListener(t *testing.T) {
 			contract: ReadContractFileForTest(t, "Structs").Content,
 			expected: `[{"inputs":[{"internalType":"struct MyStructs.ClasicStruct","name":"ClasicStruct","type":"tuple","components":[{"internalType":"uint256","name":"one","type":"uint256"},{"internalType":"uint256","name":"two","type":"uint256"}]},{"internalType":"struct MyStructs.NestedStruct","name":"NestedStruct","type":"tuple","components":[{"internalType":"uint256","name":"one","type":"uint256"},{"internalType":"uint256","name":"two","type":"uint256"},{"internalType":"struct MyStructs.ClasicStruct","name":"myStruct","type":"tuple","components":[{"internalType":"uint256","name":"one","type":"uint256"},{"internalType":"uint256","name":"two","type":"uint256"}]}]},{"internalType":"uint256","name":"Integer","type":"uint256"}],"outputs":[{"internalType":"struct MyStructs.NestedStruct","name":"NestedStruct","type":"tuple","components":[{"internalType":"uint256","name":"one","type":"uint256"},{"internalType":"uint256","name":"two","type":"uint256"},{"internalType":"struct MyStructs.ClasicStruct","name":"myStruct","type":"tuple","components":[{"internalType":"uint256","name":"one","type":"uint256"},{"internalType":"uint256","name":"two","type":"uint256"}]}]}],"name":"nestedStructExample","type":"function","stateMutability":"pure"}]`,
 		},
+		{
+			name:     "Enums",
+			contract: ReadContractFileForTest(t, "Enums").Content,
+			expected: `[{"inputs":[],"outputs":[{"internalType":"enum EnumContract.State","name":"","type":"uint8"}],"name":"state","type":"function","stateMutability":"view"},{"inputs":[],"type":"constructor"},{"inputs":[],"outputs":[{"internalType":"bool","name":"","type":"bool"}],"name":"isWaiting","type":"function","stateMutability":"view"},{"inputs":[],"outputs":[{"internalType":"bool","name":"","type":"bool"}],"name":"isReady","type":"function","stateMutability":"view"},{"inputs":[],"outputs":[{"internalType":"bool","name":"","type":"bool"}],"name":"isActive","type":"function","stateMutability":"view"},{"inputs":[],"outputs":[],"name":"makeReady","type":"function","stateMutability":"nonpayable"},{"inputs":[],"outputs":[],"name":"makeActive","type":"function","stateMutability":"nonpayable"},{"inputs":[],"outputs":[],"name":"reset","type":"function","stateMutability":"nonpayable"}]`,
+		},
 	}
 
 	for _, testCase := range testCases {

@@ -19,6 +19,8 @@ func NewAbiListener() *AbiListener {
 	return &AbiListener{parser: &AbiParser{
 		abi:            ABI{},
 		definedStructs: make(map[string]MethodIO),
+		definedEnums:   make(map[string]bool), // map to keep track of defined enum types
+
 	}}
 }
 
@@ -103,6 +105,18 @@ func (l *AbiListener) ExitStructDefinition(ctx *parser.StructDefinitionContext) 
 			"failed to resolve struct components",
 			zap.Error(err),
 		)
+	}
+}
+
+// EnterEnumDefinition is a method of the AbiParser struct that is called when the parser encounters an enum definition in the Solidity code.
+// It takes a context of type EnumDefinitionContext, which contains the information about the enum definition in the code.
+// The method uses this context to extract the enum's name and its values, and stores them in the AbiParser's map of defined enums for future reference.
+// This allows the parser to recognize the enum type when it is used later in the code.
+func (p *AbiListener) EnterEnumDefinition(ctx *parser.EnumDefinitionContext) {
+	if ctx.AllIdentifier() != nil {
+		for _, id := range ctx.AllIdentifier() {
+			p.parser.definedEnums[id.GetText()] = true
+		}
 	}
 }
 
