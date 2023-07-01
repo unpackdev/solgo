@@ -35,6 +35,15 @@ func isStructType(definedStructs map[string]MethodIO, typeName string) bool {
 	return exists
 }
 
+// isEnumType checks if a given type is an enumerated type.
+// It takes a map of defined enums and a type name as arguments.
+// The function returns true if the type name exists in the map of defined enums, indicating that it is an enumerated type.
+// Otherwise, it returns false.
+func isEnumType(definedEnums map[string]bool, typeName string) bool {
+	_, exists := definedEnums[typeName]
+	return exists
+}
+
 // parseMappingType parses a mapping type in Solidity ABI.
 // It takes a string of the form "mapping(keyType => valueType)" and returns three values:
 //   - A boolean indicating whether the parsing was successful. If the string is not a mapping type, this will be false.

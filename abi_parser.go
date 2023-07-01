@@ -17,6 +17,8 @@ type AbiParser struct {
 	abi            ABI
 	contractName   string
 	definedStructs map[string]MethodIO
+	definedEnums   map[string]bool // map to keep track of defined enum types
+
 }
 
 // InjectConstructor injects a constructor definition into the ABI.
@@ -183,10 +185,12 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 // InjectStateVariable injects a state variable definition into the ABI.
 // It takes a StateVariableDeclarationContext (from the parser) as input.
 func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationContext) error {
-	if isMappingType(ctx.TypeName().GetText()) {
+	typeName := ctx.TypeName().GetText()
+
+	if isMappingType(typeName) {
 		inputs := make([]MethodIO, 0)
 		outputs := make([]MethodIO, 0)
-		matched, inputList, outputList := parseMappingType(ctx.TypeName().GetText())
+		matched, inputList, outputList := parseMappingType(typeName)
 
 		if matched {
 			for _, input := range inputList {
@@ -212,14 +216,32 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 			Type:            "function",
 		})
 		return nil
+	} else if isEnumType(p.definedEnums, typeName) {
+		p.abi = append(p.abi, MethodVariable{
+			Inputs: make([]MethodIO, 0),
+			Outputs: []MethodIO{
+				{
+					Type: "uint8", // enums are represented as uint8 in the ABI
+					InternalType: fmt.Sprintf(
+						"enum %s.%s",
+						p.contractName,
+						typeName,
+					),
+				},
+			},
+			Name:            ctx.Identifier().GetText(),
+			StateMutability: "view",
+			Type:            "function",
+		})
+		return nil
 	}
 
 	p.abi = append(p.abi, MethodVariable{
 		Inputs: make([]MethodIO, 0),
 		Outputs: []MethodIO{
 			{
-				Type:         normalizeTypeName(ctx.TypeName().GetText()),
-				InternalType: normalizeTypeName(ctx.TypeName().GetText()),
+				Type:         normalizeTypeName(typeName),
+				InternalType: normalizeTypeName(typeName),
 			},
 		},
 		Name:            ctx.Identifier().GetText(),
