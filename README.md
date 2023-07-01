@@ -20,6 +20,10 @@ In my projects, I have a strong preference for using Golang or Rust over Javascr
 
 This project will be integrated within [unpack](https://github.com/txpull/unpack). I've found that for many deployed contracts, the source code is available, but the ABIs are not. This project will help bridge that gap.
 
+## Solidity Language Grammar
+
+Latest Solidity language grammar higher overview and detailed description can be found [here](https://docs.soliditylang.org/en/v0.8.19/grammar.html).
+
 ## ANTLR Grammar
 
 We are using grammar files that are maintained by the Solidity team.
@@ -36,7 +40,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
 - **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
-- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the Ethereum network. Currently structs, enums and tuples are not supported.
+- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the Ethereum network.
 
 ## Getting Started
 
@@ -48,7 +52,27 @@ import "github.com/txpull/solgo"
 
 ## Logger setup
 
-TODO...
+SolGo uses [zap](https://github.com/uber-go/zap) logger. To setup logger you can use following code:
+
+```go
+import (
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+)
+
+// ....
+
+config := zap.NewDevelopmentConfig()
+config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+logger, err := config.Build()
+if err != nil {
+	panic(err)
+}
+
+zap.ReplaceGlobals(logger)
+```
+
+I've deliberately not to pass logger as a reference to each struct, because I am lazy and in my eyes, it's not a good practice. Instead, I'm using `zap.L()` function to get logger instance in each struct.
 
 ## Usage
 
@@ -175,18 +199,19 @@ func main() {
 	abiParser := abiListener.GetParser()
 
 	// Get JSON representation of the ABI
-	abiJson, err := abiParser.ToJSON()
+	_, err := abiParser.ToJSON()
 	if err != nil {
 		panic(err)
 	}
 
 	// Get go-ethereum ABI representation
-	abi, err := abiParser.ToABI()
+	_, err := abiParser.ToABI()
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(string(abiJson))
+	jsonResponse, _ := json.MarshalIndent(abiParser.ToStruct(), "", "  ")
+	fmt.Println(string(jsonResponse))
 }
 ```
 

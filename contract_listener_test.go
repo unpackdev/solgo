@@ -6,9 +6,19 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func TestContractListener(t *testing.T) {
+	config := zap.NewDevelopmentConfig()
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, err := config.Build()
+	assert.NoError(t, err)
+
+	// Replace the global logger.
+	zap.ReplaceGlobals(logger)
+
 	// Define multiple test cases
 	testCases := []struct {
 		name     string
@@ -34,7 +44,7 @@ func TestContractListener(t *testing.T) {
 		},
 		{
 			name:     "OpenZeppelin ERC20",
-			contract: ReadContractFileForTest(t, "MyToken").Content,
+			contract: ReadContractFileForTest(t, "ERC20_Token").Content,
 			expected: ContractInfo{
 				Comments: []string{
 					"// Rewards",

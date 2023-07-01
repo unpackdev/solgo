@@ -79,10 +79,6 @@ func (p *AbiParser) InjectEvent(ctx *parser.EventDefinitionContext) error {
 // InjectFunction injects a function definition into the ABI.
 // It takes a FunctionDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error {
-	if ctx.Identifier().GetText() != "checkForComplexStructs" {
-		return nil
-	}
-
 	inputs := make([]MethodIO, 0)
 	if ctx.GetArguments() != nil {
 		for _, paramCtx := range ctx.GetArguments().AllParameterDeclaration() {
@@ -219,6 +215,7 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 	}
 
 	p.abi = append(p.abi, MethodVariable{
+		Inputs: make([]MethodIO, 0),
 		Outputs: []MethodIO{
 			{
 				Type:         normalizeTypeName(ctx.TypeName().GetText()),
@@ -298,6 +295,11 @@ func (p *AbiParser) AppendStruct(ctx *parser.StructDefinitionContext) error {
 	return nil
 }
 
+// ResolveStructComponents iterates over the defined structs in the AbiParser and resolves their components.
+// If a component is of a struct type, it retrieves the components of the nested struct and updates the component's type to "tuple".
+// The component's InternalType is also updated to reflect the struct's name and the contract it belongs to.
+// If a struct component cannot be resolved, it logs a debug message and returns an error.
+// This function is useful for resolving nested structs and should be called after all structs have been defined.
 func (p *AbiParser) ResolveStructComponents() error {
 	for structName, structIO := range p.definedStructs {
 		for i, component := range structIO.Components {
@@ -377,6 +379,9 @@ func (p *AbiParser) InjectReceive(ctx *parser.ReceiveFunctionDefinitionContext) 
 	return nil
 }
 
+// getStructComponents retrieves the components of a struct given its name.
+// It returns a MethodIO object representing the components of the struct and an error.
+// If the struct is not defined in the AbiParser's definedStructs map, it returns an empty MethodIO object and an error.
 func (p *AbiParser) getStructComponents(structName string) (MethodIO, error) {
 	components, exists := p.definedStructs[structName]
 	if !exists {
