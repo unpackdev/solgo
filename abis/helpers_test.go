@@ -1,4 +1,4 @@
-package solgo
+package abis
 
 import (
 	"testing"

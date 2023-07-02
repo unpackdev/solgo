@@ -1,4 +1,4 @@
-package solgo
+package contracts
 
 import (
 	"context"
@@ -6,6 +6,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/common"
+	"github.com/txpull/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -23,17 +26,17 @@ func TestContractListener(t *testing.T) {
 	testCases := []struct {
 		name     string
 		contract string
-		expected ContractInfo
+		expected common.ContractInfo
 	}{
 		{
 			name:     "Empty Contract",
-			contract: ReadContractFileForTest(t, "Empty").Content,
-			expected: ContractInfo{},
+			contract: tests.ReadContractFileForTest(t, "Empty").Content,
+			expected: common.ContractInfo{},
 		},
 		{
 			name:     "Dummy Contract",
-			contract: ReadContractFileForTest(t, "Dummy").Content,
-			expected: ContractInfo{
+			contract: tests.ReadContractFileForTest(t, "Dummy").Content,
+			expected: common.ContractInfo{
 				Comments: nil,
 				License:  "MIT",
 				Name:     "Dummy",
@@ -44,8 +47,8 @@ func TestContractListener(t *testing.T) {
 		},
 		{
 			name:     "OpenZeppelin ERC20",
-			contract: ReadContractFileForTest(t, "ERC20_Token").Content,
-			expected: ContractInfo{
+			contract: tests.ReadContractFileForTest(t, "ERC20_Token").Content,
+			expected: common.ContractInfo{
 				Comments: []string{
 					"// Rewards",
 					"// Allows users to purchase subscription using the token",
@@ -84,13 +87,13 @@ func TestContractListener(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			parser, err := New(context.TODO(), strings.NewReader(testCase.contract))
+			parser, err := solgo.New(context.TODO(), strings.NewReader(testCase.contract))
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
 
 			// Register the contract information listener
 			contractListener := NewContractListener(parser.GetParser())
-			err = parser.RegisterListener(ListenerContractInfo, contractListener)
+			err = parser.RegisterListener(solgo.ListenerContractInfo, contractListener)
 			assert.NoError(t, err)
 
 			syntaxErrs := parser.Parse()

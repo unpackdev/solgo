@@ -1,9 +1,10 @@
-package solgo
+package contracts
 
 import (
 	"strings"
 
 	"github.com/antlr4-go/antlr/v4"
+	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/parser"
 )
 
@@ -15,14 +16,14 @@ import (
 type ContractListener struct {
 	*parser.BaseSolidityParserListener                        // BaseSolidityParserListener is the base listener from the Solidity parser.
 	parser                             *parser.SolidityParser // parser is the Solidity parser instance.
-	contractInfo                       ContractInfo           // contractInfo is the contract information extracted from the listener.
+	contractInfo                       common.ContractInfo    // contractInfo is the contract information extracted from the listener.
 }
 
 // NewContractListener creates a new ContractListener. It takes a SolidityParser as an argument.
 func NewContractListener(parser *parser.SolidityParser) *ContractListener {
 	return &ContractListener{
 		parser:       parser,
-		contractInfo: ContractInfo{},
+		contractInfo: common.ContractInfo{},
 	}
 }
 
@@ -109,7 +110,7 @@ func (l *ContractListener) GetComments() []string {
 
 // GetInfoForTests returns a map of all information extracted from the contract.
 // This is used for testing purposes only
-func (l *ContractListener) ToStruct() ContractInfo {
+func (l *ContractListener) ToStruct() common.ContractInfo {
 	return l.contractInfo
 }
 

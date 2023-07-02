@@ -1,4 +1,4 @@
-package solgo
+package tests
 
 import (
 	"os"
@@ -19,7 +19,7 @@ func ReadContractFileForTest(t *testing.T, name string) TestContract {
 	dir, err := os.Getwd()
 	assert.NoError(t, err)
 
-	contractsDir := filepath.Join(dir, "data", "tests")
+	contractsDir := filepath.Join(dir, "..", "data", "tests")
 	path := filepath.Join(contractsDir, name+".sol")
 
 	_, err = os.Stat(contractsDir)

@@ -1,4 +1,4 @@
-package solgo
+package common
 
 // ContractInfo contains information about a contract
 type ContractInfo struct {

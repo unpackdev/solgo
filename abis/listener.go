@@ -1,6 +1,7 @@
-package solgo
+package abis
 
 import (
+	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
 )
@@ -17,8 +18,8 @@ type AbiListener struct {
 // It returns a pointer to the newly created AbiListener.
 func NewAbiListener() *AbiListener {
 	return &AbiListener{parser: &AbiParser{
-		abi:            ABI{},
-		definedStructs: make(map[string]MethodIO),
+		abi:            common.ABI{},
+		definedStructs: make(map[string]common.MethodIO),
 		definedEnums:   make(map[string]bool), // map to keep track of defined enum types
 
 	}}
