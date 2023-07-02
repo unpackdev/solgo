@@ -88,6 +88,7 @@ import (
 	"strings"
 
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/contracts"
 )
 
 var contract = `
@@ -114,7 +115,7 @@ func main() {
 	}
 
 	// Register the contract information listener
-	contractListener := solgo.NewContractListener(parser.GetParser())
+	contractListener := contracts.NewContractListener(parser.GetParser())
 	if err := parser.RegisterListener(solgo.ListenerContractInfo, contractListener); err != nil {
 		panic(err)
 	}
@@ -172,9 +173,21 @@ import (
 	"strings"
 
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/abis"
 )
 
-var contract = ``
+var contract = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+contract MyContract {
+	uint256 public myUint;
+	address public myAddress;
+	string public myString = "Hello, World!";
+	bytes32 public myBytes32 = "Hello, World!";
+	bool public myBool = true;
+	uint256[] public myUintArr = [1,2,3];
+}`
 
 func main() {
 	parser, err := solgo.New(context.Background(), strings.NewReader(contract))
@@ -183,7 +196,7 @@ func main() {
 	}
 
 	// Register the abi listener
-	abiListener := solgo.NewAbiListener(parser.GetParser())
+	abiListener := abis.NewAbiListener()
 	if err := parser.RegisterListener(solgo.ListenerAbi, abiListener); err != nil {
 		panic(err)
 	}
@@ -199,13 +212,13 @@ func main() {
 	abiParser := abiListener.GetParser()
 
 	// Get JSON representation of the ABI
-	_, err := abiParser.ToJSON()
+	_, err = abiParser.ToJSON()
 	if err != nil {
 		panic(err)
 	}
 
 	// Get go-ethereum ABI representation
-	_, err := abiParser.ToABI()
+	_, err = abiParser.ToABI()
 	if err != nil {
 		panic(err)
 	}
