@@ -1,8 +1,10 @@
-package solgo
+package abis
 
 import (
 	"regexp"
 	"strings"
+
+	"github.com/txpull/solgo/common"
 )
 
 // normalizeTypeName normalizes the type name in Solidity to its canonical form.
@@ -23,7 +25,7 @@ func normalizeTypeName(typeName string) string {
 
 // normalizeStructTypeName normalizes the type name of a struct in Solidity to its canonical form.
 // For example, "structName[]" is normalized to "tuple[]", and "structName" is normalized to "tuple".
-func normalizeStructTypeName(definedStructs map[string]MethodIO, typeName string) string {
+func normalizeStructTypeName(definedStructs map[string]common.MethodIO, typeName string) string {
 	switch {
 	case strings.HasSuffix(typeName, "[]") && isStructType(definedStructs, strings.TrimSuffix(typeName, "[]")):
 		// Handle array of structs
@@ -42,7 +44,7 @@ func isMappingType(name string) bool {
 // isStructType checks if a type name corresponds to a defined struct.
 // definedStructs is a map from struct names to MethodIO objects representing the struct located in the AbiParser.
 // Returns true if the type name corresponds to a defined struct, false otherwise.
-func isStructType(definedStructs map[string]MethodIO, typeName string) bool {
+func isStructType(definedStructs map[string]common.MethodIO, typeName string) bool {
 	typeName = strings.TrimRight(typeName, "[]")
 	_, exists := definedStructs[typeName]
 	return exists

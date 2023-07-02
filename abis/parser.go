@@ -1,4 +1,4 @@
-package solgo
+package abis
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
 )
@@ -14,9 +15,9 @@ import (
 // AbiParser is a parser that can parse a Solidity contract ABI
 // and convert it into an ABI object that can be easily manipulated.
 type AbiParser struct {
-	abi            ABI
+	abi            common.ABI
 	contractName   string
-	definedStructs map[string]MethodIO
+	definedStructs map[string]common.MethodIO
 	definedEnums   map[string]bool // map to keep track of defined enum types
 
 }
@@ -24,10 +25,10 @@ type AbiParser struct {
 // InjectConstructor injects a constructor definition into the ABI.
 // It takes a ConstructorDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectConstructor(ctx *parser.ConstructorDefinitionContext) error {
-	inputs := make([]MethodIO, 0)
+	inputs := make([]common.MethodIO, 0)
 	if ctx.GetArguments() != nil {
 		for _, paramCtx := range ctx.GetArguments().AllParameterDeclaration() {
-			inputs = append(inputs, MethodIO{
+			inputs = append(inputs, common.MethodIO{
 				Name: func() string {
 					if paramCtx.Identifier() != nil {
 						return paramCtx.Identifier().GetText()
@@ -40,10 +41,10 @@ func (p *AbiParser) InjectConstructor(ctx *parser.ConstructorDefinitionContext) 
 		}
 	}
 
-	p.abi = append(p.abi, MethodConstructor{
+	p.abi = append(p.abi, common.MethodConstructor{
 		Type:    "constructor",
 		Inputs:  inputs,
-		Outputs: make([]MethodIO, 0),
+		Outputs: make([]common.MethodIO, 0),
 	})
 	return nil
 }
@@ -51,10 +52,10 @@ func (p *AbiParser) InjectConstructor(ctx *parser.ConstructorDefinitionContext) 
 // InjectEvent injects an event definition into the ABI.
 // It takes an EventDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectEvent(ctx *parser.EventDefinitionContext) error {
-	inputs := make([]MethodIO, 0)
+	inputs := make([]common.MethodIO, 0)
 	if ctx.GetParameters() != nil {
 		for _, paramCtx := range ctx.GetParameters() {
-			inputs = append(inputs, MethodIO{
+			inputs = append(inputs, common.MethodIO{
 				Name: func() string {
 					if paramCtx.Identifier() != nil {
 						return paramCtx.Identifier().GetText()
@@ -69,7 +70,7 @@ func (p *AbiParser) InjectEvent(ctx *parser.EventDefinitionContext) error {
 
 	}
 
-	p.abi = append(p.abi, MethodEvent{
+	p.abi = append(p.abi, common.MethodEvent{
 		Anonymous: ctx.Anonymous() != nil && ctx.Anonymous().GetText() == "anonymous",
 		Inputs:    inputs,
 		Name:      ctx.Identifier().GetText(),
@@ -81,7 +82,7 @@ func (p *AbiParser) InjectEvent(ctx *parser.EventDefinitionContext) error {
 // InjectFunction injects a function definition into the ABI.
 // It takes a FunctionDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error {
-	inputs := make([]MethodIO, 0)
+	inputs := make([]common.MethodIO, 0)
 	if ctx.GetArguments() != nil {
 		for _, paramCtx := range ctx.GetArguments().AllParameterDeclaration() {
 			argumentName := func() string {
@@ -112,7 +113,7 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 				continue
 			}
 
-			inputs = append(inputs, MethodIO{
+			inputs = append(inputs, common.MethodIO{
 				Name:         argumentName,
 				Type:         normalizeTypeName(paramCtx.TypeName().GetText()),
 				InternalType: normalizeTypeName(paramCtx.TypeName().GetText()),
@@ -120,7 +121,7 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 		}
 	}
 
-	outputs := make([]MethodIO, 0)
+	outputs := make([]common.MethodIO, 0)
 	if ctx.GetReturnParameters() != nil {
 		for _, paramCtx := range ctx.GetReturnParameters().GetParameters() {
 			argumentName := func() string {
@@ -152,7 +153,7 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 				continue
 			}
 
-			outputs = append(outputs, MethodIO{
+			outputs = append(outputs, common.MethodIO{
 				Name:         argumentName,
 				Type:         normalizeTypeName(paramCtx.TypeName().GetText()),
 				InternalType: normalizeTypeName(paramCtx.TypeName().GetText()),
@@ -171,7 +172,7 @@ func (p *AbiParser) InjectFunction(ctx *parser.FunctionDefinitionContext) error 
 		}
 	}
 
-	p.abi = append(p.abi, Method{
+	p.abi = append(p.abi, common.Method{
 		Inputs:          inputs,
 		Outputs:         outputs,
 		Name:            ctx.Identifier().GetText(),
@@ -187,27 +188,27 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 	typeName := ctx.TypeName().GetText()
 
 	if isMappingType(typeName) {
-		inputs := make([]MethodIO, 0)
-		outputs := make([]MethodIO, 0)
+		inputs := make([]common.MethodIO, 0)
+		outputs := make([]common.MethodIO, 0)
 		matched, inputList, outputList := parseMappingType(typeName)
 
 		if matched {
 			for _, input := range inputList {
-				inputs = append(inputs, MethodIO{
+				inputs = append(inputs, common.MethodIO{
 					Type:         normalizeTypeName(input),
 					InternalType: normalizeTypeName(input),
 				})
 			}
 
 			for _, output := range outputList {
-				outputs = append(outputs, MethodIO{
+				outputs = append(outputs, common.MethodIO{
 					Type:         normalizeTypeName(output),
 					InternalType: normalizeTypeName(output),
 				})
 			}
 		}
 
-		p.abi = append(p.abi, MethodVariable{
+		p.abi = append(p.abi, common.MethodVariable{
 			Inputs:          inputs,
 			Outputs:         outputs,
 			Name:            ctx.Identifier().GetText(),
@@ -216,9 +217,9 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 		})
 		return nil
 	} else if isEnumType(p.definedEnums, typeName) {
-		p.abi = append(p.abi, MethodVariable{
-			Inputs: make([]MethodIO, 0),
-			Outputs: []MethodIO{
+		p.abi = append(p.abi, common.MethodVariable{
+			Inputs: make([]common.MethodIO, 0),
+			Outputs: []common.MethodIO{
 				{
 					Type: "uint8", // enums are represented as uint8 in the ABI
 					InternalType: fmt.Sprintf(
@@ -235,9 +236,9 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 		return nil
 	}
 
-	p.abi = append(p.abi, MethodVariable{
-		Inputs: make([]MethodIO, 0),
-		Outputs: []MethodIO{
+	p.abi = append(p.abi, common.MethodVariable{
+		Inputs: make([]common.MethodIO, 0),
+		Outputs: []common.MethodIO{
 			{
 				Type:         normalizeTypeName(typeName),
 				InternalType: normalizeTypeName(typeName),
@@ -253,10 +254,10 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 // InjectError injects an error definition into the ABI.
 // It takes an ErrorDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectError(ctx *parser.ErrorDefinitionContext) error {
-	inputs := make([]MethodIO, 0)
+	inputs := make([]common.MethodIO, 0)
 	if ctx.GetParameters() != nil {
 		for _, paramCtx := range ctx.GetParameters() {
-			inputs = append(inputs, MethodIO{
+			inputs = append(inputs, common.MethodIO{
 				Name: func() string {
 					if paramCtx.Identifier() != nil {
 						return paramCtx.Identifier().GetText()
@@ -270,7 +271,7 @@ func (p *AbiParser) InjectError(ctx *parser.ErrorDefinitionContext) error {
 
 	}
 
-	p.abi = append(p.abi, MethodVariable{
+	p.abi = append(p.abi, common.MethodVariable{
 		Inputs:          inputs,
 		Name:            ctx.Identifier().GetText(),
 		StateMutability: "view",
@@ -289,11 +290,11 @@ func (p *AbiParser) InjectError(ctx *parser.ErrorDefinitionContext) error {
 func (p *AbiParser) AppendStruct(ctx *parser.StructDefinitionContext) error {
 	structName := ctx.Identifier().GetText()
 
-	components := make([]MethodIO, 0)
+	components := make([]common.MethodIO, 0)
 
 	if ctx.AllStructMember() != nil {
 		for _, memberCtx := range ctx.AllStructMember() {
-			components = append(components, MethodIO{
+			components = append(components, common.MethodIO{
 				Name: func() string {
 					if memberCtx.Identifier() != nil {
 						return memberCtx.Identifier().GetText()
@@ -306,7 +307,7 @@ func (p *AbiParser) AppendStruct(ctx *parser.StructDefinitionContext) error {
 		}
 	}
 
-	p.definedStructs[structName] = MethodIO{
+	p.definedStructs[structName] = common.MethodIO{
 		Components:   components,
 		Name:         structName,
 		Type:         "tuple",
@@ -385,7 +386,7 @@ func (p *AbiParser) InjectFallback(ctx *parser.FallbackFunctionDefinitionContext
 		}
 	}
 
-	p.abi = append(p.abi, MethodFallbackOrReceive{
+	p.abi = append(p.abi, common.MethodFallbackOrReceive{
 		Type:            "fallback",
 		StateMutability: stateMutability,
 	})
@@ -395,7 +396,7 @@ func (p *AbiParser) InjectFallback(ctx *parser.FallbackFunctionDefinitionContext
 // InjectReceive injects a receive function definition into the ABI.
 // It takes a ReceiveFunctionDefinitionContext (from the parser) as input.
 func (p *AbiParser) InjectReceive(ctx *parser.ReceiveFunctionDefinitionContext) error {
-	p.abi = append(p.abi, MethodFallbackOrReceive{
+	p.abi = append(p.abi, common.MethodFallbackOrReceive{
 		Type:            "receive",
 		StateMutability: "payable",
 	})
@@ -405,10 +406,10 @@ func (p *AbiParser) InjectReceive(ctx *parser.ReceiveFunctionDefinitionContext) 
 // getStructComponents retrieves the components of a struct given its name.
 // It returns a MethodIO object representing the components of the struct and an error.
 // If the struct is not defined in the AbiParser's definedStructs map, it returns an empty MethodIO object and an error.
-func (p *AbiParser) getStructComponents(structName string) (MethodIO, error) {
+func (p *AbiParser) getStructComponents(structName string) (common.MethodIO, error) {
 	components, exists := p.definedStructs[structName]
 	if !exists {
-		return MethodIO{}, fmt.Errorf("struct %s not defined", structName)
+		return common.MethodIO{}, fmt.Errorf("struct %s not defined", structName)
 	}
 
 	return components, nil
@@ -440,6 +441,6 @@ func (p *AbiParser) ToABI() (*abi.ABI, error) {
 }
 
 // ToStruct returns the ABI object.
-func (p *AbiParser) ToStruct() ABI {
+func (p *AbiParser) ToStruct() common.ABI {
 	return p.abi
 }
