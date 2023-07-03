@@ -9,6 +9,7 @@ type UsingDirectiveNode struct {
 	IsUserDef  bool   `json:"is_user_defined"`
 }
 
+// Children returns an empty slice of nodes.
 func (n *UsingDirectiveNode) Children() []Node {
 	return nil
 }

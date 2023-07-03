@@ -79,9 +79,8 @@ func (f *FunctionNode) Children() []Node {
 }
 
 func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *FunctionNode {
-	// Create a new FunctionNode and set it as the current function.
 	toReturn := &FunctionNode{
-		Name:             ctx.Identifier().GetText(), // Get the function name from the context
+		Name:             ctx.Identifier().GetText(),
 		Parameters:       make([]*VariableNode, 0),
 		ReturnParameters: make([]*VariableNode, 0),
 		Body:             make([]*StatementNode, 0),
@@ -160,8 +159,6 @@ func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *Func
 	}
 
 	if body := ctx.GetBody(); body != nil {
-		// This is a simplified example. In a real implementation, you would need to handle
-		// all the different kinds of statements and expressions that can appear in a function body.
 		for _, statementCtx := range body.AllStatement() {
 			// Create a new StatementNode with the text of the statement.
 			// Apparently whitespaces are stripped from the statementCtx.GetText() result...

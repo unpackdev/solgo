@@ -6,11 +6,12 @@ type VariableNode struct {
 	Type string `json:"type"`
 }
 
+// Children returns an empty slice of nodes.
 func (v *VariableNode) Children() []Node {
-	// Variables have no children.
 	return nil
 }
 
+// StateVariableNode represents a state variable definition in Solidity.
 type StateVariableNode struct {
 	Name         string `json:"name"`
 	Type         string `json:"type"`
@@ -20,7 +21,7 @@ type StateVariableNode struct {
 	InitialValue string `json:"initial_value"`
 }
 
+// Children returns an empty slice of nodes.
 func (v *StateVariableNode) Children() []Node {
-	// Variables have no children.
 	return nil
 }
