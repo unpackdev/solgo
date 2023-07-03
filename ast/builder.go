@@ -148,6 +148,19 @@ func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDecl
 	b.currentContract.StateVariables = append(b.currentContract.StateVariables, variable)
 }
 
+func (b *ASTBuilder) EnterEnumDefinition(ctx *parser.EnumDefinitionContext) {
+	enum := &EnumNode{
+		Name:         ctx.GetName().GetText(),
+		MemberValues: make([]*EnumMemberNode, len(ctx.GetEnumValues())),
+	}
+
+	for i, valueCtx := range ctx.GetEnumValues() {
+		enum.MemberValues[i] = &EnumMemberNode{Name: valueCtx.GetText()}
+	}
+
+	b.currentContract.Enums = append(b.currentContract.Enums, enum)
+}
+
 func (b *ASTBuilder) EnterConstructorDefinition(ctx *parser.ConstructorDefinitionContext) {
 	constructor := &ConstructorNode{
 		Parameters: make([]*VariableNode, 0),
