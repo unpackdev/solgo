@@ -1,19 +1,17 @@
 package ast
 
 import (
+	"encoding/json"
 	"strings"
 	"time"
 
 	"github.com/txpull/solgo/parser"
 )
 
-// ASTBuilder is responsible for constructing the AST from the parser output.
 type ASTBuilder struct {
-	*parser.BaseSolidityParserListener // Embed the base listener
-	// Add any additional state you need here.
+	*parser.BaseSolidityParserListener
 	currentContract  *ContractNode
 	currentInterface *InterfaceNode
-	currentFunction  *FunctionNode
 	astRoot          *RootNode
 	errors           []error
 	parseTime        time.Time
@@ -26,7 +24,6 @@ func NewAstBuilder() *ASTBuilder {
 	}
 }
 
-// EnterSourceUnit is called when the parser enters a source unit (i.e., a file).
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	b.currentContract = nil
 
@@ -38,7 +35,6 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	b.errors = nil
 	b.parseTime = time.Now()
 
-	// QUESTION: Do we want to do anything else besides appending the pragmas?
 	for _, pragma := range ctx.AllPragmaDirective() {
 		for _, token := range pragma.AllPragmaToken() {
 			pragmas := make([]string, 0)
@@ -48,39 +44,31 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	}
 }
 
-// EnterContractDefinition is called when the parser enters a contract definition.
 func (b *ASTBuilder) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
-	// Create a new ContractNode and set it as the current contract.
 	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(), // Get the contract name from the context
+		Name:           ctx.Identifier().GetText(),
 		StateVariables: make([]*StateVariableNode, 0),
 		Kind:           "contract",
 	}
 
-	// Handle contract inheritance
 	if ctx.InheritanceSpecifierList() != nil {
 		for _, inheritance := range ctx.InheritanceSpecifierList().AllInheritanceSpecifier() {
 			b.currentContract.Inherits = append(b.currentContract.Inherits, inheritance.GetText())
 		}
 	}
 
-	// Handle contract kind (contract, interface, library)
 	if ctx.Abstract() != nil {
 		b.currentContract.Kind = "abstract"
 	}
 
-	// Add the contract to the root node.
 	b.astRoot.Contracts = append(b.astRoot.Contracts, b.currentContract)
 }
 
-// ExitContractDefinition is called when the parser exits a contract definition.
 func (b *ASTBuilder) ExitContractDefinition(ctx *parser.ContractDefinitionContext) {
 	b.currentContract = nil
 }
 
-// EnterInterfaceDefinition is called when the parser enters an interface definition.
 func (b *ASTBuilder) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
-	// Create a new InterfaceNode and set it as the current interface.
 	currentInterface := &InterfaceNode{
 		Name: ctx.Identifier().GetText(),
 	}
@@ -92,8 +80,31 @@ func (b *ASTBuilder) ExitInterfaceDefinition(ctx *parser.InterfaceDefinitionCont
 	b.currentInterface = nil
 }
 
+func (b *ASTBuilder) EnterUsingDirective(ctx *parser.UsingDirectiveContext) {
+	usingDirective := &UsingDirectiveNode{
+		Type:       ctx.TypeName().GetText(),
+		IsWildcard: ctx.Mul() != nil,
+		IsGlobal:   ctx.Global() != nil,
+	}
+
+	if ctx.AllUserDefinableOperator() != nil {
+		for _, operator := range ctx.AllUserDefinableOperator() {
+			if operator.GetText() == "userDefined" {
+				usingDirective.IsUserDef = true
+			}
+		}
+	}
+
+	if ctx.AllIdentifierPath() != nil {
+		for _, identifier := range ctx.AllIdentifierPath() {
+			usingDirective.Alias = identifier.GetText()
+		}
+	}
+
+	b.currentContract.Using = append(b.currentContract.Using, usingDirective)
+}
+
 func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDeclarationContext) {
-	// Create a new StateVariableNode.
 	variable := &StateVariableNode{
 		Name: func() string {
 			if ctx.Identifier() != nil {
@@ -104,7 +115,6 @@ func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDecl
 		Type: ctx.GetType_().GetText(),
 	}
 
-	// Determine the visibility of the state variable.
 	if ctx.GetVisibilitySet() {
 		if ctx.AllInternal() != nil {
 			variable.Visibility = "internal"
@@ -115,7 +125,6 @@ func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDecl
 		}
 	}
 
-	// Determine if the state variable is constant.
 	if ctx.GetConstantnessSet() {
 		for _, constant := range ctx.AllConstant() {
 			if constant.GetText() == "constant" {
@@ -124,7 +133,6 @@ func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDecl
 		}
 	}
 
-	// Determine if the state variable is immutable.
 	if ctx.AllImmutable() != nil {
 		for _, modifier := range ctx.AllImmutable() {
 			if modifier.GetText() == "immutable" {
@@ -133,16 +141,13 @@ func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDecl
 		}
 	}
 
-	// Get the initial value of the state variable, if any.
 	if initialValue := ctx.GetInitialValue(); initialValue != nil {
 		variable.InitialValue = initialValue.GetText()
 	}
 
-	// Add the variable to the current contract.
 	b.currentContract.StateVariables = append(b.currentContract.StateVariables, variable)
 }
 
-// EnterConstructorDefinition is called when the parser enters a constructor definition.
 func (b *ASTBuilder) EnterConstructorDefinition(ctx *parser.ConstructorDefinitionContext) {
 	constructor := &ConstructorNode{
 		Parameters: make([]*VariableNode, 0),
@@ -176,12 +181,10 @@ func (b *ASTBuilder) EnterConstructorDefinition(ctx *parser.ConstructorDefinitio
 }
 
 func (b *ASTBuilder) EnterStructDefinition(ctx *parser.StructDefinitionContext) {
-	// Create a new StructNode and set its name
 	structNode := &StructNode{
 		Name: ctx.GetName().GetText(),
 	}
 
-	// Handle struct members
 	for _, memberCtx := range ctx.AllStructMember() {
 		structNode.Members = append(structNode.Members, &StructMemberNode{
 			Name: func() string {
@@ -194,18 +197,15 @@ func (b *ASTBuilder) EnterStructDefinition(ctx *parser.StructDefinitionContext) 
 		})
 	}
 
-	// Add the struct node to the current contract
 	b.currentContract.Structs = append(b.currentContract.Structs, structNode)
 }
 
 func (b *ASTBuilder) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
-	// Create a new ErrorNode and set its name.
 	errorNode := &ErrorNode{
 		Name:   ctx.GetName().GetText(),
 		Values: make([]*ErrorValueNode, 0),
 	}
 
-	// Handle error values
 	for _, errorParamCtx := range ctx.GetParameters() {
 		errorValue := &ErrorValueNode{
 			Name: func() string {
@@ -220,11 +220,9 @@ func (b *ASTBuilder) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
 		errorNode.Values = append(errorNode.Values, errorValue)
 	}
 
-	// Add the error node to the current contract.
 	b.currentContract.Errors = append(b.currentContract.Errors, errorNode)
 }
 
-// EnterFunctionDefinition is called when the parser enters a function definition.
 func (b *ASTBuilder) EnterFunctionDefinition(ctx *parser.FunctionDefinitionContext) {
 	currentFunction := b.CreateFunction(ctx)
 
@@ -236,7 +234,6 @@ func (b *ASTBuilder) EnterFunctionDefinition(ctx *parser.FunctionDefinitionConte
 }
 
 func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctionDefinitionContext) {
-	// Create a new FunctionNode for the fallback function.
 	fallbackFunction := &FunctionNode{
 		Name:             "fallback",
 		Parameters:       make([]*VariableNode, 0),
@@ -273,7 +270,6 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 		fallbackFunction.Mutability = append(fallbackFunction.Mutability, "nonpayable")
 	}
 
-	// Handle override specifier
 	if ctx.GetOverrideSpecifierSet() {
 		for _, overrideCtx := range ctx.AllOverrideSpecifier() {
 			fallbackFunction.Overrides = !overrideCtx.IsEmpty()
@@ -285,7 +281,6 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 		fallbackFunction.Modifiers = append(fallbackFunction.Modifiers, modifier)
 	}
 
-	// Handle function parameters
 	if parameters := ctx.AllParameterList(); parameters != nil {
 		for _, parameterCtx := range parameters {
 			for _, param := range parameterCtx.AllParameterDeclaration() {
@@ -302,7 +297,6 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 		}
 	}
 
-	// Handle function body
 	if body := ctx.GetBody(); body != nil {
 		for _, statementCtx := range body.AllStatement() {
 			statement := &StatementNode{
@@ -313,12 +307,10 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 		}
 	}
 
-	// Add the fallback function to the current contract.
 	b.currentContract.Functions = append(b.currentContract.Functions, fallbackFunction)
 }
 
 func (b *ASTBuilder) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionDefinitionContext) {
-	// Create a new FunctionNode and set it as the current function.
 	receiveFn := &FunctionNode{
 		Name:             "receive",
 		Parameters:       make([]*VariableNode, 0),
@@ -332,19 +324,16 @@ func (b *ASTBuilder) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionD
 		IsReceive:        true,
 	}
 
-	// Handle virtual modifier
 	if ctx.GetVirtualSet() {
 		receiveFn.IsVirtual = true
 	}
 
-	// Handle override specifier
 	if ctx.GetOverrideSpecifierSet() {
 		for _, overrideCtx := range ctx.AllOverrideSpecifier() {
 			receiveFn.Overrides = !overrideCtx.IsEmpty()
 		}
 	}
 
-	// Handle function body
 	if body := ctx.GetBody(); body != nil {
 		for _, statementCtx := range body.AllStatement() {
 			statement := &StatementNode{
@@ -355,7 +344,6 @@ func (b *ASTBuilder) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionD
 		}
 	}
 
-	// Add the receive function to the current contract.
 	b.currentContract.Functions = append(b.currentContract.Functions, receiveFn)
 }
 
@@ -385,22 +373,28 @@ func (b *ASTBuilder) EnterEventDefinition(ctx *parser.EventDefinitionContext) {
 	b.currentContract.Events = append(b.currentContract.Events, event)
 }
 
-// GetTree returns the root of the AST.
 func (b *ASTBuilder) GetTree() Node {
 	return b.astRoot
 }
 
-// GetPragmas returns the pragmas found in the source unit.
 func (b *ASTBuilder) GetPragmas() [][]string {
 	return b.pragmas
 }
 
-// GetErrors returns the errors found during parsing.
 func (b *ASTBuilder) GetErrors() []error {
 	return b.errors
 }
 
-// GetParseTime returns the time it took to parse the source unit.
 func (b *ASTBuilder) GetParseTime() time.Duration {
 	return time.Since(b.parseTime)
+}
+
+// ToJSON converts the ABI object into a JSON string.
+func (b *ASTBuilder) ToJSON() (string, error) {
+	abiJSON, err := json.Marshal(b.astRoot)
+	if err != nil {
+		return "", err
+	}
+
+	return string(abiJSON), nil
 }

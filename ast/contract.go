@@ -2,19 +2,20 @@ package ast
 
 // ContractNode represents a contract definition in Solidity.
 type ContractNode struct {
-	Name           string               `json:"name"`
-	StateVariables []*StateVariableNode `json:"variables"`
-	Structs        []*StructNode        `json:"structs"`
-	Events         []*EventNode         `json:"events"`
-	Errors         []*ErrorNode         `json:"errors"`
-	Constructor    *ConstructorNode     `json:"constructor"`
-	Functions      []*FunctionNode      `json:"functions"`
-	Kind           string               `json:"kind"`
-	Inherits       []string             `json:"inherits"`
+	Name           string                `json:"name"`
+	StateVariables []*StateVariableNode  `json:"variables"`
+	Structs        []*StructNode         `json:"structs"`
+	Events         []*EventNode          `json:"events"`
+	Errors         []*ErrorNode          `json:"errors"`
+	Constructor    *ConstructorNode      `json:"constructor"`
+	Functions      []*FunctionNode       `json:"functions"`
+	Kind           string                `json:"kind"`
+	Inherits       []string              `json:"inherits"`
+	Using          []*UsingDirectiveNode `json:"using"`
 }
 
 func (c *ContractNode) Children() []Node {
-	nodes := make([]Node, len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs))
+	nodes := make([]Node, len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs)+len(c.Using))
 	if c.Constructor != nil {
 		nodes = append(nodes, c.Constructor)
 	}
@@ -32,6 +33,9 @@ func (c *ContractNode) Children() []Node {
 	}
 	for i, strct := range c.Structs {
 		nodes[i+len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)] = strct
+	}
+	for i, using := range c.Using {
+		nodes[i+len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs)] = using
 	}
 	return nodes
 }
