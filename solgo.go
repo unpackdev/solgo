@@ -7,6 +7,7 @@ import (
 
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/txpull/solgo/parser"
+	"github.com/txpull/solgo/syntaxerrors"
 )
 
 // SolGo is a struct that encapsulates the functionality for parsing and analyzing Solidity contracts.
@@ -27,7 +28,7 @@ type SolGo struct {
 	// These listeners are invoked as the parser walks the parse tree.
 	listeners listeners
 	// errListener is a SyntaxErrorListener which collects syntax errors encountered during parsing.
-	errListener *SyntaxErrorListener
+	errListener *syntaxerrors.SyntaxErrorListener
 }
 
 // New creates a new instance of SolGo.
@@ -43,7 +44,7 @@ func New(ctx context.Context, input io.Reader) (*SolGo, error) {
 	inputStream := antlr.NewInputStream(string(ib))
 
 	// Create a new SyntaxErrorListener
-	errListener := NewSyntaxErrorListener()
+	errListener := syntaxerrors.NewSyntaxErrorListener()
 
 	// Create a new Solidity lexer with the input stream
 	lexer := parser.NewSolidityLexer(inputStream)
@@ -110,7 +111,7 @@ func (s *SolGo) GetTree() antlr.ParseTree {
 
 // Parse initiates the parsing process. It walks the parse tree with all registered listeners
 // and returns any syntax errors that were encountered during parsing.
-func (s *SolGo) Parse() []SyntaxError {
+func (s *SolGo) Parse() []syntaxerrors.SyntaxError {
 	tree := s.GetTree()
 
 	// Walk the parse tree with all registered listeners
