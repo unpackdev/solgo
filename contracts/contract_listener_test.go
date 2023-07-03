@@ -37,9 +37,12 @@ func TestContractListener(t *testing.T) {
 			name:     "Dummy Contract",
 			contract: tests.ReadContractFileForTest(t, "Dummy").Content,
 			expected: common.ContractInfo{
-				Comments: nil,
-				License:  "MIT",
-				Name:     "Dummy",
+				Comments: []string{
+					"// Some additional comments that can be extracted",
+					"/** \n * Multi line comments\n * are supported as well\n*/",
+				},
+				License: "MIT",
+				Name:    "Dummy",
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},

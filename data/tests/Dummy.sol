@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.5;
 
+// Some additional comments that can be extracted
+
+/** 
+ * Multi line comments
+ * are supported as well
+*/
+
 contract Dummy {
     uint256 public x;
     uint256 public y;
