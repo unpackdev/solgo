@@ -4,6 +4,7 @@ package ast
 type ContractNode struct {
 	Name           string                `json:"name"`
 	StateVariables []*StateVariableNode  `json:"variables"`
+	Enums          []*EnumNode           `json:"enums"`
 	Structs        []*StructNode         `json:"structs"`
 	Events         []*EventNode          `json:"events"`
 	Errors         []*ErrorNode          `json:"errors"`
@@ -15,7 +16,7 @@ type ContractNode struct {
 }
 
 func (c *ContractNode) Children() []Node {
-	nodes := make([]Node, len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs)+len(c.Using))
+	nodes := make([]Node, len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs)+len(c.Using)+len(c.Enums))
 	if c.Constructor != nil {
 		nodes = append(nodes, c.Constructor)
 	}
@@ -36,6 +37,9 @@ func (c *ContractNode) Children() []Node {
 	}
 	for i, using := range c.Using {
 		nodes[i+len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs)] = using
+	}
+	for i, enum := range c.Enums {
+		nodes[i+len(c.Functions)+len(c.StateVariables)+len(c.Events)+len(c.Errors)+len(c.Structs)+len(c.Using)] = enum
 	}
 	return nodes
 }
