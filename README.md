@@ -72,7 +72,9 @@ if err != nil {
 zap.ReplaceGlobals(logger)
 ```
 
-I've deliberately not to pass logger as a reference to each struct, because I am lazy and in my eyes, it's not a good practice. Instead, I'm using `zap.L()` function to get logger instance in each struct.
+I've deliberately decided not to pass logger as a reference to each struct. Truth to be told, with loggers, I am lazy to pass it everywhere... Instead, I'm using `zap.L()` function to get logger instance in each struct.
+
+One day we can do something more efficient with logging. For now, this is good enough.
 
 ## Usage
 

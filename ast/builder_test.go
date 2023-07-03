@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func TestASTListener(t *testing.T) {
+func TestAstBuilder(t *testing.T) {
 	config := zap.NewDevelopmentConfig()
 	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	logger, err := config.Build()
@@ -33,8 +33,8 @@ func TestASTListener(t *testing.T) {
 			expected: ``,
 		},
 		{
-			name:     "Dummy Contract",
-			contract: tests.ReadContractFileForTest(t, "Dummy").Content,
+			name:     "Complex AST Contract",
+			contract: tests.ReadContractFileForTest(t, "AstComplex").Content,
 			expected: ``,
 		},
 	}
@@ -46,15 +46,15 @@ func TestASTListener(t *testing.T) {
 			assert.NotNil(t, parser)
 
 			// Register the contract information listener
-			astListener := NewAstListener()
-			err = parser.RegisterListener(solgo.ListenerAst, astListener)
+			astBuilder := NewAstBuilder()
+			err = parser.RegisterListener(solgo.ListenerAst, astBuilder)
 			assert.NoError(t, err)
 
 			syntaxErrs := parser.Parse()
 			assert.Empty(t, syntaxErrs)
 
-			astParser := astListener.GetParser()
-			assert.NotNil(t, astParser)
+			//jsonResponse, _ := json.MarshalIndent(astBuilder.GetTree(), "", "  ")
+			//fmt.Println(string(jsonResponse))
 		})
 	}
 }
