@@ -4,32 +4,77 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-// FunctionNode represents a function definition in Solidity.
+type VisibilityNode struct {
+	Visibility string `json:"value"`
+}
+
+func (v *VisibilityNode) Children() []Node {
+	return nil
+}
+
+type MutabilityNode struct {
+	Mutability string `json:"value"`
+}
+
+func (m *MutabilityNode) Children() []Node {
+	return nil
+}
+
+type ModifierNode struct {
+	Modifier string `json:"value"`
+}
+
+func (m *ModifierNode) Children() []Node {
+	return nil
+}
+
 type FunctionNode struct {
-	Name             string           `json:"name"`
-	Parameters       []*VariableNode  `json:"parameters"`
-	ReturnParameters []*VariableNode  `json:"return_parameters"`
-	Body             []*StatementNode `json:"body"`
-	Visibility       []string         `json:"visibility"`
-	Mutability       []string         `json:"mutability"`
-	Modifiers        []string         `json:"modifiers"`
-	IsVirtual        bool             `json:"is_virtual"`
-	IsReceive        bool             `json:"is_receive"`
-	IsFallback       bool             `json:"is_fallback"`
-	Overrides        bool             `json:"overrides"`
+	Name             string            `json:"name"`
+	Parameters       []*VariableNode   `json:"parameters"`
+	ReturnParameters []*VariableNode   `json:"return_parameters"`
+	Body             []*StatementNode  `json:"body"`
+	Visibility       []*VisibilityNode `json:"visibility"`
+	Mutability       []*MutabilityNode `json:"mutability"`
+	Modifiers        []*ModifierNode   `json:"modifiers"`
+	IsVirtual        bool              `json:"is_virtual"`
+	IsReceive        bool              `json:"is_receive"`
+	IsFallback       bool              `json:"is_fallback"`
+	Overrides        bool              `json:"overrides"`
 }
 
 func (f *FunctionNode) Children() []Node {
-	nodes := make([]Node, len(f.Parameters)+len(f.ReturnParameters)+len(f.Body))
-	for i, parameter := range f.Parameters {
-		nodes[i] = parameter
+	var nodes []Node
+
+	// Append Parameters
+	for _, param := range f.Parameters {
+		nodes = append(nodes, param)
 	}
-	for i, returnParameter := range f.ReturnParameters {
-		nodes[i+len(f.Parameters)] = returnParameter
+
+	// Append ReturnParameters
+	for _, retParam := range f.ReturnParameters {
+		nodes = append(nodes, retParam)
 	}
-	for i, statement := range f.Body {
-		nodes[i+len(f.Parameters)+len(f.ReturnParameters)] = statement
+
+	// Append Body
+	for _, stmt := range f.Body {
+		nodes = append(nodes, stmt)
 	}
+
+	// Append Visibility
+	for _, vis := range f.Visibility {
+		nodes = append(nodes, vis)
+	}
+
+	// Append Mutability
+	for _, mut := range f.Mutability {
+		nodes = append(nodes, mut)
+	}
+
+	// Append Modifiers
+	for _, mod := range f.Modifiers {
+		nodes = append(nodes, mod)
+	}
+
 	return nodes
 }
 
@@ -40,27 +85,31 @@ func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *Func
 		Parameters:       make([]*VariableNode, 0),
 		ReturnParameters: make([]*VariableNode, 0),
 		Body:             make([]*StatementNode, 0),
-		Visibility:       make([]string, 0),
-		Mutability:       make([]string, 0),
-		Modifiers:        make([]string, 0),
+		Visibility:       make([]*VisibilityNode, 0),
+		Mutability:       make([]*MutabilityNode, 0),
+		Modifiers:        make([]*ModifierNode, 0),
 	}
 
 	if ctx.GetVisibilitySet() {
 		for _, visibilityCtx := range ctx.AllVisibility() {
-			visibility := visibilityCtx.GetText()
-			toReturn.Visibility = append(toReturn.Visibility, visibility)
+			toReturn.Visibility = append(toReturn.Visibility, &VisibilityNode{
+				Visibility: visibilityCtx.GetText(),
+			})
 		}
 	}
 
 	if ctx.GetMutabilitySet() {
 		for _, mutabilityCtx := range ctx.AllStateMutability() {
-			mutability := mutabilityCtx.GetText()
-			toReturn.Mutability = append(toReturn.Mutability, mutability)
+			toReturn.Mutability = append(toReturn.Mutability, &MutabilityNode{
+				Mutability: mutabilityCtx.GetText(),
+			})
 		}
 	}
 
 	if len(toReturn.Mutability) == 0 {
-		toReturn.Mutability = append(toReturn.Mutability, "nonpayable")
+		toReturn.Mutability = append(toReturn.Mutability, &MutabilityNode{
+			Mutability: "nonpayable",
+		})
 	}
 
 	if ctx.GetVirtualSet() {
@@ -74,8 +123,9 @@ func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *Func
 	}
 
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
-		modifier := modifierCtx.GetText()
-		toReturn.Modifiers = append(toReturn.Modifiers, modifier)
+		toReturn.Modifiers = append(toReturn.Modifiers, &ModifierNode{
+			Modifier: modifierCtx.GetText(),
+		})
 	}
 
 	// Handle function parameters

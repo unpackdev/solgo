@@ -15,24 +15,6 @@ func (s *StatementNode) Children() []Node {
 	return nil
 }
 
-/* // EnterStatement is called when the parser enters a statement.
-func (b *ASTBuilder) EnterStatement(ctx *parser.StatementContext) {
-	// Get the start and stop tokens of the statement.
-	start := ctx.GetStart()
-	stop := ctx.GetStop()
-
-	// Get the text of the statement, preserving the original formatting.
-	text := b.getTextWithOriginalFormatting(start, stop)
-
-	// Create a new StatementNode with the text of the statement.
-	statement := &StatementNode{
-		Text: text,
-	}
-
-	// Add the statement to the current function.
-	b.currentFunction.Body = append(b.currentFunction.Body, statement)
-} */
-
 func (b *ASTBuilder) getTextSliceWithOriginalFormatting(tree antlr.Tree) []string {
 	switch node := tree.(type) {
 	case *antlr.TerminalNodeImpl:

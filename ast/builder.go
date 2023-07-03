@@ -239,9 +239,9 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 		Parameters:       make([]*VariableNode, 0),
 		ReturnParameters: make([]*VariableNode, 0),
 		Body:             make([]*StatementNode, 0),
-		Visibility:       make([]string, 0),
-		Mutability:       make([]string, 0),
-		Modifiers:        make([]string, 0),
+		Visibility:       make([]*VisibilityNode, 0),
+		Mutability:       make([]*MutabilityNode, 0),
+		Modifiers:        make([]*ModifierNode, 0),
 		Overrides:        false,
 		IsVirtual:        false,
 		IsFallback:       true,
@@ -254,20 +254,24 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 
 	if ctx.GetVisibilitySet() {
 		for _, externalCtx := range ctx.AllExternal() {
-			visibility := externalCtx.GetText()
-			fallbackFunction.Visibility = append(fallbackFunction.Visibility, visibility)
+			fallbackFunction.Visibility = append(fallbackFunction.Visibility, &VisibilityNode{
+				Visibility: externalCtx.GetText(),
+			})
 		}
 	}
 
 	if ctx.GetMutabilitySet() {
 		for _, mutabilityCtx := range ctx.AllStateMutability() {
-			mutability := mutabilityCtx.GetText()
-			fallbackFunction.Mutability = append(fallbackFunction.Mutability, mutability)
+			fallbackFunction.Mutability = append(fallbackFunction.Mutability, &MutabilityNode{
+				Mutability: mutabilityCtx.GetText(),
+			})
 		}
 	}
 
 	if len(fallbackFunction.Mutability) == 0 {
-		fallbackFunction.Mutability = append(fallbackFunction.Mutability, "nonpayable")
+		fallbackFunction.Mutability = append(fallbackFunction.Mutability, &MutabilityNode{
+			Mutability: "nonpayable",
+		})
 	}
 
 	if ctx.GetOverrideSpecifierSet() {
@@ -277,8 +281,9 @@ func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctio
 	}
 
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
-		modifier := modifierCtx.GetText()
-		fallbackFunction.Modifiers = append(fallbackFunction.Modifiers, modifier)
+		fallbackFunction.Modifiers = append(fallbackFunction.Modifiers, &ModifierNode{
+			Modifier: modifierCtx.GetText(),
+		})
 	}
 
 	if parameters := ctx.AllParameterList(); parameters != nil {
@@ -316,9 +321,9 @@ func (b *ASTBuilder) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionD
 		Parameters:       make([]*VariableNode, 0),
 		ReturnParameters: make([]*VariableNode, 0),
 		Body:             make([]*StatementNode, 0),
-		Visibility:       make([]string, 0),
-		Mutability:       make([]string, 0),
-		Modifiers:        make([]string, 0),
+		Visibility:       make([]*VisibilityNode, 0),
+		Mutability:       make([]*MutabilityNode, 0),
+		Modifiers:        make([]*ModifierNode, 0),
 		Overrides:        false,
 		IsVirtual:        false,
 		IsReceive:        true,
