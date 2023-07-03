@@ -6,6 +6,7 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo/parser"
+	"github.com/txpull/solgo/tests"
 )
 
 func TestSyntaxErrorListener(t *testing.T) {
@@ -15,72 +16,47 @@ func TestSyntaxErrorListener(t *testing.T) {
 		expected []SyntaxError
 	}{
 		{
-			name: "BuggyContract",
-			contract: `
-			pragma solidity ^0.8.0;
-
-			contract TestContract {
-				uint256 public count;
-
-				// Missing semicolon
-				function increment() public {
-					count += 1
-				}
-
-				// Mismatched parentheses
-				function decrement() public {
-					count -= 1;
-				}
-
-				// Missing function keyword
-				setCount(uint256 _count) public {
-					count = _count;
-				}
-
-				// Extraneous input 'returns'
-				function getCount() public returns (uint256) {
-					return count
-				}
-			}`,
+			name:     "Randomly Corrupted Contract",
+			contract: tests.ReadContractFileForTest(t, "BuggyContract").Content,
 			expected: []SyntaxError{
 				{
-					Line:     10,
+					Line:     9,
 					Column:   4,
 					Message:  "missing ';' at '}'",
 					Severity: SeverityError,
 					Context:  "",
 				},
 				{
-					Line:     18,
+					Line:     17,
 					Column:   12,
 					Message:  "mismatched input '(' expecting {'constant', 'error', 'from', 'global', 'immutable', 'internal', 'override', 'private', 'public', 'revert', Identifier}",
 					Severity: SeverityError,
 					Context:  "",
 				},
 				{
-					Line:     18,
+					Line:     17,
 					Column:   27,
 					Message:  "mismatched input ')' expecting {';', '='}",
 					Severity: SeverityError,
 					Context:  "",
 				},
 				{
-					Line:     19,
-					Column:   11,
+					Line:     18,
+					Column:   14,
 					Message:  "extraneous input '=' expecting {'constant', 'error', 'from', 'global', 'immutable', 'internal', 'override', 'private', 'public', 'revert', Identifier}",
 					Severity: SeverityError,
 					Context:  "",
 				},
 				{
-					Line:     25,
+					Line:     24,
 					Column:   4,
 					Message:  "missing ';' at '}'",
 					Severity: SeverityError,
 					Context:  "",
 				},
 				{
-					Line:     26,
-					Column:   3,
+					Line:     25,
+					Column:   0,
 					Message:  "extraneous input '}' expecting {<EOF>, 'abstract', 'address', 'bool', 'bytes', 'contract', 'enum', 'error', Fixed, FixedBytes, 'from', Function, 'global', 'import', 'interface', 'library', 'mapping', 'pragma', 'revert', SignedIntegerType, 'string', 'struct', 'type', Ufixed, UnsignedIntegerType, 'using', Identifier}",
 					Severity: SeverityError,
 					Context:  "",
