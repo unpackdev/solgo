@@ -80,7 +80,8 @@ One day we can do something more efficient with logging. For now, this is good e
 
 ## Examples
 
-Example usage can be found in [Documentation](/docs/) section. There you can find examples on how to extract solidity code abi, ast or contract information.
+Detailed examples of how to use this package can be found in the [Documentation](/docs/) section. These examples provide guidance on various operations such as extracting the ABI, AST, or contract information from Solidity code.
+
 
 ## Development Setup
 
