@@ -40,7 +40,9 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
 - **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
-- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the Ethereum network.
+- **AST (Abstract Syntax Tree) Generation:** SolGo includes an ASTBuilder that constructs an Abstract Syntax Tree for Solidity code. The AST represents the structure of the code and provides a high-level representation of its elements.
+- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the ethereum-based networks.
+
 
 ## Getting Started
 
@@ -76,159 +78,10 @@ I've deliberately decided not to pass logger as a reference to each struct. Trut
 
 One day we can do something more efficient with logging. For now, this is good enough.
 
-## Usage
+## Examples
 
-### Parse Solidity Code and Retrieve Contract Information
+Detailed examples of how to use this package can be found in the [Documentation](/docs/) section. These examples provide guidance on various operations such as extracting the ABI, AST, or contract information from Solidity code.
 
-```go
-package main
-
-import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"strings"
-
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/contracts"
-)
-
-var contract = `
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-// Some additional comments that can be extracted
-
-import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-
-contract MyToken is Initializable, ERC20Upgradeable, AccessControlUpgradeable, PausableUpgradeable {
-    using SafeERC20Upgradeable for IERC20Upgradeable;
-}
-`
-
-func main() {
-	parser, err := solgo.New(context.Background(), strings.NewReader(contract))
-	if err != nil {
-		panic(err)
-	}
-
-	// Register the contract information listener
-	contractListener := contracts.NewContractListener(parser.GetParser())
-	if err := parser.RegisterListener(solgo.ListenerContractInfo, contractListener); err != nil {
-		panic(err)
-	}
-
-	if errs := parser.Parse(); len(errs) > 0 {
-		for _, err := range errs {
-			fmt.Println(err)
-		}
-		return
-	}
-
-	jsonResponse, _ := json.MarshalIndent(contractListener.ToStruct(), "", "  ")
-	fmt.Println(string(jsonResponse))
-}
-```
-
-Response from the example above:
-
-```json
-{
-  "comments": [
-    "// Some additional comments that can be extracted"
-  ],
-  "license": "MIT",
-  "pragmas": [
-    "solidity ^0.8.0"
-  ],
-  "imports": [
-    "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
-    "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-    "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-    "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
-    "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol"
-  ],
-  "name": "MyToken",
-  "implements": [
-    "Initializable",
-    "ERC20Upgradeable",
-    "AccessControlUpgradeable",
-    "PausableUpgradeable",
-    "SafeERC20Upgradeable"
-  ]
-}
-```
-
-### Parse Solidity Code and Retrieve ABI information
-
-```go
-package main
-
-import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"strings"
-
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/abis"
-)
-
-var contract = `
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
-
-contract MyContract {
-	uint256 public myUint;
-	address public myAddress;
-	string public myString = "Hello, World!";
-	bytes32 public myBytes32 = "Hello, World!";
-	bool public myBool = true;
-	uint256[] public myUintArr = [1,2,3];
-}`
-
-func main() {
-	parser, err := solgo.New(context.Background(), strings.NewReader(contract))
-	if err != nil {
-		panic(err)
-	}
-
-	// Register the abi listener
-	abiListener := abis.NewAbiListener()
-	if err := parser.RegisterListener(solgo.ListenerAbi, abiListener); err != nil {
-		panic(err)
-	}
-
-	if errs := parser.Parse(); len(errs) > 0 {
-		for _, err := range errs {
-			fmt.Println(err)
-		}
-		return
-	}
-
-	// Grab the abi parser from the listener
-	abiParser := abiListener.GetParser()
-
-	// Get JSON representation of the ABI
-	_, err = abiParser.ToJSON()
-	if err != nil {
-		panic(err)
-	}
-
-	// Get go-ethereum ABI representation
-	_, err = abiParser.ToABI()
-	if err != nil {
-		panic(err)
-	}
-
-	jsonResponse, _ := json.MarshalIndent(abiParser.ToStruct(), "", "  ")
-	fmt.Println(string(jsonResponse))
-}
-```
 
 ## Development Setup
 
