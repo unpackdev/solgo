@@ -124,9 +124,18 @@ func (l *ContractListener) searchForCommentsAndLicenses() {
 		if token.GetTokenType() == parser.SolidityLexerLINE_COMMENT {
 			text := token.GetText()
 
-			if strings.HasPrefix(text, "// SPDX-License-Identifier:") ||
-				strings.HasPrefix(text, "/* SPDX-License-Identifier:") {
+			if strings.HasPrefix(text, "// SPDX-License-Identifier:") {
 				l.contractInfo.License = strings.TrimSpace(text[27:])
+			} else {
+				// It's a regular comment
+				l.contractInfo.Comments = append(l.contractInfo.Comments, text)
+			}
+		}
+		if token.GetTokenType() == parser.SolidityLexerCOMMENT {
+			text := token.GetText()
+
+			if strings.HasPrefix(text, "/* SPDX-License-Identifier:") {
+				l.contractInfo.License = strings.TrimSpace(text[27 : len(text)-2])
 			} else {
 				// It's a regular comment
 				l.contractInfo.Comments = append(l.contractInfo.Comments, text)
