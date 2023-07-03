@@ -12,7 +12,7 @@ compilers, and other applications that require deep understanding and processing
 Solidity contracts.
 
 Note: The ast package is designed to be used in conjunction with a Solidity parser,
-such as the one provided by ANTLR, to generate the initial AST from Solidity source code.
+provided by ANTLR, to generate the initial AST from Solidity source code.
 It then enriches the AST with additional information and functionality specific to the
 Solidity language.
 */
