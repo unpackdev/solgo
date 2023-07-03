@@ -21,6 +21,7 @@ const (
 )
 
 // SyntaxError represents a syntax error in a Solidity contract.
+// It includes the line and column where the error occurred, the error message, the severity of the error, and the context in which the error occurred.
 type SyntaxError struct {
 	Line     int
 	Column   int
@@ -30,6 +31,7 @@ type SyntaxError struct {
 }
 
 // SyntaxErrorListener is a listener for syntax errors in Solidity contracts.
+// It maintains a stack of contexts and a slice of SyntaxErrors.
 type SyntaxErrorListener struct {
 	*antlr.DefaultErrorListener
 	Errors   []SyntaxError
@@ -37,6 +39,7 @@ type SyntaxErrorListener struct {
 }
 
 // NewSyntaxErrorListener creates a new SyntaxErrorListener.
+// It returns a pointer to a SyntaxErrorListener with an empty slice of SyntaxErrors and an empty stack of contexts.
 func NewSyntaxErrorListener() *SyntaxErrorListener {
 	return &SyntaxErrorListener{
 		DefaultErrorListener: antlr.NewDefaultErrorListener(),
@@ -44,10 +47,12 @@ func NewSyntaxErrorListener() *SyntaxErrorListener {
 	}
 }
 
+// PushContext adds a context to the stack.
 func (l *SyntaxErrorListener) PushContext(ctx string) {
 	l.contexts = append(l.contexts, ctx)
 }
 
+// PopContext removes the most recent context from the stack.
 func (l *SyntaxErrorListener) PopContext() {
 	if len(l.contexts) > 0 {
 		// Remove the last context
@@ -55,6 +60,8 @@ func (l *SyntaxErrorListener) PopContext() {
 	}
 }
 
+// SyntaxError handles a syntax error.
+// It creates a new SyntaxError with the given parameters and adds it to the Errors slice.
 func (l *SyntaxErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
 	// Replace the error message if needed
 	msg = ReplaceErrorMessage(msg, "Semicolon", "';'")
@@ -117,9 +124,4 @@ func (l *SyntaxErrorListener) currentContext() string {
 
 	// Return the current context (the last one in the slice)
 	return l.contexts[len(l.contexts)-1]
-}
-
-// ReplaceErrorMessage replaces a specific error message with a new message.
-func ReplaceErrorMessage(originalMsg, oldText, newText string) string {
-	return strings.ReplaceAll(originalMsg, oldText, newText)
 }

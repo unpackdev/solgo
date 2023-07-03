@@ -24,42 +24,42 @@ func TestSyntaxErrorListener(t *testing.T) {
 					Column:   4,
 					Message:  "missing ';' at '}'",
 					Severity: SeverityError,
-					Context:  "",
+					Context:  "SourceUnit",
 				},
 				{
 					Line:     17,
 					Column:   12,
 					Message:  "mismatched input '(' expecting {'constant', 'error', 'from', 'global', 'immutable', 'internal', 'override', 'private', 'public', 'revert', Identifier}",
 					Severity: SeverityError,
-					Context:  "",
+					Context:  "SourceUnit",
 				},
 				{
 					Line:     17,
 					Column:   27,
 					Message:  "mismatched input ')' expecting {';', '='}",
 					Severity: SeverityError,
-					Context:  "",
+					Context:  "SourceUnit",
 				},
 				{
 					Line:     18,
 					Column:   14,
 					Message:  "extraneous input '=' expecting {'constant', 'error', 'from', 'global', 'immutable', 'internal', 'override', 'private', 'public', 'revert', Identifier}",
 					Severity: SeverityError,
-					Context:  "",
+					Context:  "SourceUnit",
 				},
 				{
 					Line:     24,
 					Column:   4,
 					Message:  "missing ';' at '}'",
 					Severity: SeverityError,
-					Context:  "",
+					Context:  "SourceUnit",
 				},
 				{
 					Line:     25,
 					Column:   0,
 					Message:  "extraneous input '}' expecting {<EOF>, 'abstract', 'address', 'bool', 'bytes', 'contract', 'enum', 'error', Fixed, FixedBytes, 'from', Function, 'global', 'import', 'interface', 'library', 'mapping', 'pragma', 'revert', SignedIntegerType, 'string', 'struct', 'type', Ufixed, UnsignedIntegerType, 'using', Identifier}",
 					Severity: SeverityError,
-					Context:  "",
+					Context:  "SourceUnit",
 				},
 			},
 		},
@@ -79,8 +79,8 @@ func TestSyntaxErrorListener(t *testing.T) {
 			// Create a new SyntaxErrorListener
 			listener := NewSyntaxErrorListener()
 
-			// Create a ContextualSolidityParser with the token stream and listener
-			parser := NewContextualSolidityParser(tokens, listener)
+			// Create a ContextualParser with the token stream and listener
+			parser := NewContextualParser(tokens, listener)
 
 			// Parse the contract
 			parser.SourceUnit()
