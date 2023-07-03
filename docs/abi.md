@@ -34,14 +34,7 @@ pragma solidity ^0.8.19;
 contract MyContract {
 	uint256 public myUint;
 	address public myAddress;
-	string public myString = "Hello, World!";
-	bytes32 public myBytes32 = "Hello, World!";
-	bool public myBool = true;
 	uint256[] public myUintArr = [1,2,3];
-
-    function example() public pure returns (string memory) {
-        return "Hello, World!";
-    }
 }`
 ```
 
