@@ -30,17 +30,3 @@ func (p *ContextualParser) SourceUnit() parser.ISourceUnitContext {
 	defer p.SyntaxErrorListener.PopContext()
 	return p.SolidityParser.SourceUnit() // Call the original method
 }
-
-// FunctionDefinition parses a function definition and adds the "FunctionDeclaration" context to the SyntaxErrorListener.
-func (p *ContextualParser) FunctionDefinition(ctx *parser.FunctionDefinitionContext) parser.IFunctionDefinitionContext {
-	p.SyntaxErrorListener.PushContext("FunctionDeclaration")
-	defer p.SyntaxErrorListener.PopContext()
-	return p.SolidityParser.FunctionDefinition() // Call the original method
-}
-
-// ContractDefinition parses a contract definition and adds the "ContractDefinition" context to the SyntaxErrorListener.
-func (p *ContextualParser) ContractDefinition() parser.IContractDefinitionContext {
-	p.SyntaxErrorListener.PushContext("ContractDefinition")
-	defer p.SyntaxErrorListener.PopContext()
-	return p.SolidityParser.ContractDefinition() // Call the original method
-}

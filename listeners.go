@@ -14,7 +14,12 @@ const (
 	ListenerAbi          ListenerName = "abi"
 	ListenerContractInfo ListenerName = "contract_info"
 	ListenerAst          ListenerName = "ast"
+	ListenerSyntaxErrors ListenerName = "syntax_errors"
 )
+
+func (l ListenerName) String() string {
+	return string(l)
+}
 
 type listeners map[ListenerName]antlr.ParseTreeListener
 

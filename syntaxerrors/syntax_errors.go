@@ -1,23 +1,10 @@
 package syntaxerrors
 
 import (
-	"strings"
+	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
-)
-
-// SeverityLevel represents the severity of a syntax error.
-type SeverityLevel int
-
-const (
-	// SeverityInfo represents a syntax error of informational level.
-	SeverityInfo SeverityLevel = iota
-
-	// SeverityWarning represents a syntax error of warning level.
-	SeverityWarning
-
-	// SeverityError represents a syntax error of error level.
-	SeverityError
+	"github.com/txpull/solgo/parser"
 )
 
 // SyntaxError represents a syntax error in a Solidity contract.
@@ -30,9 +17,15 @@ type SyntaxError struct {
 	Context  string
 }
 
+// Error returns the error message.
+func (e SyntaxError) Error() error {
+	return fmt.Errorf("syntax error: %s at line %d, column %d in context '%s'. Severity: %s", e.Message, e.Line, e.Column, e.Context, e.Severity.String())
+}
+
 // SyntaxErrorListener is a listener for syntax errors in Solidity contracts.
 // It maintains a stack of contexts and a slice of SyntaxErrors.
 type SyntaxErrorListener struct {
+	*parser.BaseSolidityParserListener
 	*antlr.DefaultErrorListener
 	Errors   []SyntaxError
 	contexts []string
@@ -71,49 +64,12 @@ func (l *SyntaxErrorListener) SyntaxError(recognizer antlr.Recognizer, offending
 		Line:     line,
 		Column:   column,
 		Message:  msg,
-		Severity: l.determineSeverity(msg, l.currentContext()),
+		Severity: l.DetermineSeverity(msg, l.currentContext()),
 		Context:  l.currentContext(),
 	}
 
 	// Add the error to the Errors slice
 	l.Errors = append(l.Errors, err)
-}
-
-func (l *SyntaxErrorListener) determineSeverity(msg, context string) SeverityLevel {
-	// Replace the error message if needed
-	msg = ReplaceErrorMessage(msg, "missing Semicolon at '}'", "missing ';' at '}'")
-
-	// High severity errors
-	highSeverityErrors := []string{
-		"missing",
-		"mismatched",
-		"no viable alternative",
-		"extraneous input",
-	}
-	for _, err := range highSeverityErrors {
-		if strings.Contains(msg, err) {
-			return SeverityError
-		}
-	}
-
-	// Medium severity errors
-	mediumSeverityErrors := []string{
-		"cannot find symbol",
-		"method not found",
-	}
-	for _, err := range mediumSeverityErrors {
-		if strings.Contains(msg, err) {
-			return SeverityWarning
-		}
-	}
-
-	// Context-specific rules
-	if context == "FunctionDeclaration" && strings.Contains(msg, "expected") {
-		return SeverityError
-	}
-
-	// Default to low severity
-	return SeverityInfo
 }
 
 func (l *SyntaxErrorListener) currentContext() string {

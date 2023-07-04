@@ -8,6 +8,7 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/txpull/solgo/parser"
 	"github.com/txpull/solgo/syntaxerrors"
+	"go.uber.org/zap"
 )
 
 // SolGo is a struct that encapsulates the functionality for parsing and analyzing Solidity contracts.
@@ -23,7 +24,7 @@ type SolGo struct {
 	// tokenStream is the stream of tokens produced by the lexer.
 	tokenStream *antlr.CommonTokenStream
 	// solidityParser is the Solidity parser which parses the token stream.
-	solidityParser *parser.SolidityParser
+	solidityParser *syntaxerrors.ContextualParser
 	// listeners is a map of listener names to ParseTreeListener instances.
 	// These listeners are invoked as the parser walks the parse tree.
 	listeners listeners
@@ -58,14 +59,8 @@ func New(ctx context.Context, input io.Reader) (*SolGo, error) {
 	// Create a new token stream from the lexer
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 
-	// Create a new Solidity parser with the token stream
-	solidityParser := parser.NewSolidityParser(stream)
-
-	// Remove the default error listeners
-	solidityParser.RemoveErrorListeners()
-
-	// Add our SyntaxErrorListener
-	solidityParser.AddErrorListener(errListener)
+	// Create a new ContextualParser with the token stream and listener
+	contextualParser := syntaxerrors.NewContextualParser(stream, errListener)
 
 	return &SolGo{
 		ctx:            ctx,
@@ -73,7 +68,7 @@ func New(ctx context.Context, input io.Reader) (*SolGo, error) {
 		inputStream:    inputStream,
 		lexer:          lexer,
 		tokenStream:    stream,
-		solidityParser: solidityParser,
+		solidityParser: contextualParser,
 		errListener:    errListener,
 		listeners:      make(listeners),
 	}, nil
@@ -101,6 +96,11 @@ func (s *SolGo) GetTokenStream() *antlr.CommonTokenStream {
 
 // GetParser returns the Solidity parser which parses the token stream.
 func (s *SolGo) GetParser() *parser.SolidityParser {
+	return s.solidityParser.SolidityParser
+}
+
+// GetContextualParser returns the ContextualParser which wraps the Solidity parser.
+func (s *SolGo) GetContextualParser() *syntaxerrors.ContextualParser {
 	return s.solidityParser
 }
 
@@ -115,7 +115,11 @@ func (s *SolGo) Parse() []syntaxerrors.SyntaxError {
 	tree := s.GetTree()
 
 	// Walk the parse tree with all registered listeners
-	for _, listener := range s.GetAllListeners() {
+	for name, listener := range s.GetAllListeners() {
+		zap.L().Debug(
+			"walking parse tree",
+			zap.String("listener", name.String()),
+		)
 		antlr.ParseTreeWalkerDefault.Walk(listener, tree)
 	}
 
