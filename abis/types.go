@@ -1,4 +1,4 @@
-package common
+package abis
 
 // ContractInfo contains information about a contract
 type ContractInfo struct {
@@ -63,3 +63,8 @@ type MethodFallbackOrReceive struct {
 
 // ABI represents a contract ABI, which is a list of contract methods, events, and constructors.
 type ABI []IMethod
+
+// ContractDefinition represents a contract definition.
+type ContractDefinition struct {
+	IsAbstract bool `json:"abstract"`
+}
