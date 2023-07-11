@@ -1,15 +1,5 @@
 package abis
 
-// ContractInfo contains information about a contract
-type ContractInfo struct {
-	Comments   []string `json:"comments"`   // Comments associated with the contract
-	License    string   `json:"license"`    // License information of the contract
-	Pragmas    []string `json:"pragmas"`    // Pragmas specified in the contract
-	Imports    []string `json:"imports"`    // Imported dependencies of the contract
-	Name       string   `json:"name"`       // Name of the contract
-	Implements []string `json:"implements"` // Interfaces implemented by the contract
-}
-
 // MethodIO represents an input or output parameter of a contract method or event.
 type MethodIO struct {
 	Indexed      bool       `json:"indexed,omitempty"`    // Used only by the events

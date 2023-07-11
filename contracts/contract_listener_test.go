@@ -7,7 +7,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -26,17 +25,17 @@ func TestContractListener(t *testing.T) {
 	testCases := []struct {
 		name     string
 		contract string
-		expected common.ContractInfo
+		expected ContractInfo
 	}{
 		{
 			name:     "Empty Contract",
 			contract: tests.ReadContractFileForTest(t, "Empty").Content,
-			expected: common.ContractInfo{},
+			expected: ContractInfo{},
 		},
 		{
 			name:     "Dummy Contract",
 			contract: tests.ReadContractFileForTest(t, "Dummy").Content,
-			expected: common.ContractInfo{
+			expected: ContractInfo{
 				Comments: []string{
 					"// Some additional comments that can be extracted",
 					"/** \n * Multi line comments\n * are supported as well\n*/",
@@ -51,7 +50,7 @@ func TestContractListener(t *testing.T) {
 		{
 			name:     "OpenZeppelin ERC20",
 			contract: tests.ReadContractFileForTest(t, "ERC20_Token").Content,
-			expected: common.ContractInfo{
+			expected: ContractInfo{
 				Comments: []string{
 					"// Rewards",
 					"// Allows users to purchase subscription using the token",

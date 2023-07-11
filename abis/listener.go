@@ -1,8 +1,6 @@
 package abis
 
 import (
-	"fmt"
-
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
 )
@@ -33,7 +31,6 @@ func NewAbiListener() *AbiListener {
 // Later on we use contract name to define internalType of the tuple/struct type.
 func (l *AbiListener) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
 	l.parser.contractName = ctx.Identifier().GetText() // get the contract name
-	fmt.Println("contract name: ", l.parser.contractName)
 
 	if _, ok := l.parser.definedContracts[l.parser.contractName]; !ok {
 		l.parser.definedContracts[l.parser.contractName] = ContractDefinition{

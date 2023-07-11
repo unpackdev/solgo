@@ -243,7 +243,7 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 					Type: "uint8", // enums are represented as uint8 in the ABI
 					InternalType: fmt.Sprintf(
 						"contract %s",
-						p.contractName,
+						typeName,
 					),
 				},
 			},
@@ -260,7 +260,7 @@ func (p *AbiParser) InjectStateVariable(ctx *parser.StateVariableDeclarationCont
 					Type: "uint8", // enums are represented as uint8 in the ABI
 					InternalType: fmt.Sprintf(
 						"contract %s",
-						p.contractName,
+						typeName,
 					),
 				},
 			},
