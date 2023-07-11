@@ -83,6 +83,8 @@ func TestContractListener(t *testing.T) {
 					"PausableUpgradeable",
 					"SafeERC20Upgradeable",
 				},
+				IsProxy:         true,
+				ProxyConfidence: 100,
 			},
 		},
 	}
