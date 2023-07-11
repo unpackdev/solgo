@@ -33,6 +33,75 @@ func TestContractListener(t *testing.T) {
 			expected: ContractInfo{},
 		},
 		{
+			name:     "Contract Without Interfaces",
+			contract: tests.ReadContractFileForTest(t, "NoInterfaces").Content,
+			expected: ContractInfo{
+				Name: "NoInterfaces",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract Without Imports",
+			contract: tests.ReadContractFileForTest(t, "NoImports").Content,
+			expected: ContractInfo{
+				Name: "NoImports",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract Without Pragmas",
+			contract: tests.ReadContractFileForTest(t, "NoPragmas").Content,
+			expected: ContractInfo{
+				Name:    "NoPragmas",
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract With Single-Line Comment",
+			contract: tests.ReadContractFileForTest(t, "SingleLineComment").Content,
+			expected: ContractInfo{
+				Comments: []string{
+					"// This is a single-line comment",
+				},
+				Name: "SingleLineComment",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract With Multi-Line Comment",
+			contract: tests.ReadContractFileForTest(t, "MultiLineComment").Content,
+			expected: ContractInfo{
+				Comments: []string{
+					"/* This is a\n multi-line comment */",
+				},
+				Name: "MultiLineComment",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract With Different SPDX License Identifier",
+			contract: tests.ReadContractFileForTest(t, "DifferentLicense").Content,
+			expected: ContractInfo{
+				License: "GPL-3.0",
+				Name:    "DifferentLicense",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+			},
+		},
+		{
 			name:     "Dummy Contract",
 			contract: tests.ReadContractFileForTest(t, "Dummy").Content,
 			expected: ContractInfo{
@@ -83,6 +152,8 @@ func TestContractListener(t *testing.T) {
 					"PausableUpgradeable",
 					"SafeERC20Upgradeable",
 				},
+				IsProxy:         true,
+				ProxyConfidence: 100,
 			},
 		},
 	}

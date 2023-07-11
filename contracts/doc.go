@@ -10,6 +10,6 @@
 // Additionally, it can detect SPDX license identifiers if present.
 //
 // The extracted contract information can be accessed using the provided getter methods, which return various aspects
-// of the contract, such as the contract name, implemented interfaces, imported contracts, pragmas, comments, and SPDX license.
+// of the contract, such as the contract name, implemented interfaces, imported contracts, pragmas, comments, is proxy, and SPDX license.
 // The ContractListener also provides a convenience method, ToStruct, that returns a struct containing all the extracted information.
 package contracts
