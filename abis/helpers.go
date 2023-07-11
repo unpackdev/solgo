@@ -3,8 +3,6 @@ package abis
 import (
 	"regexp"
 	"strings"
-
-	"github.com/txpull/solgo/common"
 )
 
 // normalizeTypeName normalizes the type name in Solidity to its canonical form.
@@ -25,7 +23,7 @@ func normalizeTypeName(typeName string) string {
 
 // normalizeStructTypeName normalizes the type name of a struct in Solidity to its canonical form.
 // For example, "structName[]" is normalized to "tuple[]", and "structName" is normalized to "tuple".
-func normalizeStructTypeName(definedStructs map[string]common.MethodIO, typeName string) string {
+func normalizeStructTypeName(definedStructs map[string]MethodIO, typeName string) string {
 	switch {
 	case strings.HasSuffix(typeName, "[]") && isStructType(definedStructs, strings.TrimSuffix(typeName, "[]")):
 		// Handle array of structs
@@ -44,7 +42,7 @@ func isMappingType(name string) bool {
 // isStructType checks if a type name corresponds to a defined struct.
 // definedStructs is a map from struct names to MethodIO objects representing the struct located in the AbiParser.
 // Returns true if the type name corresponds to a defined struct, false otherwise.
-func isStructType(definedStructs map[string]common.MethodIO, typeName string) bool {
+func isStructType(definedStructs map[string]MethodIO, typeName string) bool {
 	typeName = strings.TrimRight(typeName, "[]")
 	_, exists := definedStructs[typeName]
 	return exists
@@ -56,6 +54,30 @@ func isStructType(definedStructs map[string]common.MethodIO, typeName string) bo
 // Otherwise, it returns false.
 func isEnumType(definedEnums map[string]bool, typeName string) bool {
 	_, exists := definedEnums[typeName]
+	return exists
+}
+
+// isContractType checks if a given type is a contract type.
+// It takes a map of defined contracts and a type name as arguments.
+// The function returns true if the type name exists in the map of defined contracts, indicating that it is a contract type.
+func isContractType(definedContracts map[string]ContractDefinition, typeName string) bool {
+	_, exists := definedContracts[typeName]
+	return exists
+}
+
+// isInterfaceType checks if a given type is an interface type.
+// It takes a map of defined interfaces and a type name as arguments.
+// The function returns true if the type name exists in the map of defined interfaces, indicating that it is an interface type.
+func isInterfaceType(definedInterfaces map[string]bool, typeName string) bool {
+	_, exists := definedInterfaces[typeName]
+	return exists
+}
+
+// isLibraryType checks if a given type is a library type.
+// It takes a map of defined libraries and a type name as arguments.
+// The function returns true if the type name exists in the map of defined libraries, indicating that it is a library type.
+func isLibraryType(definedLibraries map[string]bool, typeName string) bool {
+	_, exists := definedLibraries[typeName]
 	return exists
 }
 
