@@ -50,3 +50,39 @@ func ReadContractFileForTestFromRootPath(t *testing.T, name string) TestContract
 
 	return TestContract{Path: path, Content: string(content)}
 }
+
+func ReadJsonBytesForTest(t *testing.T, name string) []byte {
+	dir, err := os.Getwd()
+	assert.NoError(t, err)
+
+	fmt.Println(dir)
+
+	contractsDir := filepath.Join(dir, "..", "data", "tests")
+	path := filepath.Join(contractsDir, name+".json")
+
+	_, err = os.Stat(contractsDir)
+	assert.NoError(t, err)
+
+	content, err := os.ReadFile(path)
+	assert.NoError(t, err)
+
+	return content
+}
+
+func ReadJsonBytesForTestFromRootPath(t *testing.T, name string) []byte {
+	dir, err := os.Getwd()
+	assert.NoError(t, err)
+
+	fmt.Println(dir)
+
+	contractsDir := filepath.Join(dir, "data", "tests")
+	path := filepath.Join(contractsDir, name+".json")
+
+	_, err = os.Stat(contractsDir)
+	assert.NoError(t, err)
+
+	content, err := os.ReadFile(path)
+	assert.NoError(t, err)
+
+	return content
+}
