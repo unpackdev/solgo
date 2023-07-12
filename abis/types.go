@@ -14,9 +14,10 @@ type IMethod interface{}
 
 // MethodConstructor represents a contract constructor.
 type MethodConstructor struct {
-	Inputs  []MethodIO `json:"inputs"`            // The input parameters of the constructor
-	Type    string     `json:"type"`              // The type of the method (always "constructor" for constructors)
-	Outputs []MethodIO `json:"outputs,omitempty"` // The output parameters of the constructor (always empty for constructors)
+	Inputs          []MethodIO `json:"inputs"`            // The input parameters of the constructor
+	Type            string     `json:"type"`              // The type of the method (always "constructor" for constructors)
+	Outputs         []MethodIO `json:"outputs,omitempty"` // The output parameters of the constructor (always empty for constructors)
+	StateMutability string     `json:"stateMutability"`   // The state mutability of the function (nonpayable, payable)
 }
 
 // MethodEvent represents a contract event.
@@ -56,5 +57,6 @@ type ABI []IMethod
 
 // ContractDefinition represents a contract definition.
 type ContractDefinition struct {
-	IsAbstract bool `json:"abstract"`
+	IsAbstract  bool              `json:"abstract"`
+	Constructor MethodConstructor `json:"constructor"`
 }

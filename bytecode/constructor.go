@@ -1,7 +1,6 @@
 package bytecode
 
 import (
-	"bytes"
 	"fmt"
 	"reflect"
 	"strings"
@@ -21,10 +20,6 @@ type Constructor struct {
 	Abi          string `json:"abi"`
 	SignatureRaw string `json:"signature_raw"`
 	Arguments    []Argument
-}
-
-func GetConstructorArgumentsBytecode(creation []byte, runtime []byte) []byte {
-	return bytes.Replace(creation, runtime, []byte{}, 1)
 }
 
 func DecodeConstructorFromAbi(bytecode []byte, constructorAbi string) (*Constructor, error) {

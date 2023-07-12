@@ -9,15 +9,51 @@ import (
 // For example, "uint" is normalized to "uint256", and "addresspayable" is normalized to "address".
 // If the type name is not one of the special cases, it is returned as is.
 func normalizeTypeName(typeName string) string {
-	switch typeName {
-	case "uint":
-		return "uint256"
-	case "int":
-		return "int256"
-	case "addresspayable":
+	switch {
+	case strings.HasPrefix(typeName, "uint"):
+		return typeName
+	case strings.HasPrefix(typeName, "int"):
+		return typeName
+	case strings.HasPrefix(typeName, "bool"):
+		return typeName
+	case strings.HasPrefix(typeName, "bytes"):
+		return typeName
+	case typeName == "string":
+		return "string"
+	case typeName == "address":
 		return "address"
+	case typeName == "addresspayable":
+		return "address"
+	case typeName == "tuple":
+		return "tuple"
 	default:
 		return typeName
+	}
+}
+
+// normalizeTypeName normalizes the type name in Solidity to its canonical form.
+// For example, "uint" is normalized to "uint256", and "addresspayable" is normalized to "address".
+// If the type name is not one of the special cases, it is returned as is.
+func normalizeTypeNameWithStatus(typeName string) (string, bool) {
+	switch {
+	case strings.HasPrefix(typeName, "uint"):
+		return typeName, true
+	case strings.HasPrefix(typeName, "int"):
+		return typeName, true
+	case strings.HasPrefix(typeName, "bool"):
+		return typeName, true
+	case strings.HasPrefix(typeName, "bytes"):
+		return typeName, true
+	case typeName == "string":
+		return "string", true
+	case typeName == "address":
+		return "address", true
+	case typeName == "addresspayable":
+		return "address", true
+	case typeName == "tuple":
+		return "tuple", true
+	default:
+		return typeName, false
 	}
 }
 
