@@ -2,6 +2,7 @@ package ast
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"time"
 
@@ -10,12 +11,11 @@ import (
 
 type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
-	currentContract  *ContractNode
-	currentInterface *InterfaceNode
-	astRoot          *RootNode
-	errors           []error
-	parseTime        time.Time
-	pragmas          [][]string
+	currentContract *ContractNode
+	astRoot         *RootNode
+	errors          []error
+	parseTime       time.Time
+	pragmas         [][]string
 }
 
 func NewAstBuilder() *ASTBuilder {
@@ -27,10 +27,7 @@ func NewAstBuilder() *ASTBuilder {
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	b.currentContract = nil
 
-	b.astRoot = &RootNode{
-		Contracts:  make([]*ContractNode, 0),
-		Interfaces: make([]*InterfaceNode, 0),
-	}
+	b.astRoot = &RootNode{Contracts: make([]*ContractNode, 0)}
 
 	b.errors = nil
 	b.parseTime = time.Now()
@@ -61,6 +58,8 @@ func (b *ASTBuilder) EnterContractDefinition(ctx *parser.ContractDefinitionConte
 		b.currentContract.Kind = "abstract"
 	}
 
+	fmt.Printf("Contract: %+v\n", b.currentContract)
+
 	b.astRoot.Contracts = append(b.astRoot.Contracts, b.currentContract)
 }
 
@@ -69,15 +68,25 @@ func (b *ASTBuilder) ExitContractDefinition(ctx *parser.ContractDefinitionContex
 }
 
 func (b *ASTBuilder) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
-	currentInterface := &InterfaceNode{
-		Name: ctx.Identifier().GetText(),
+	b.currentContract = &ContractNode{
+		Name:           ctx.Identifier().GetText(),
+		StateVariables: make([]*StateVariableNode, 0),
+		Kind:           "interface",
 	}
 
-	b.astRoot.Interfaces = append(b.astRoot.Interfaces, currentInterface)
+	if ctx.InheritanceSpecifierList() != nil {
+		for _, inheritance := range ctx.InheritanceSpecifierList().AllInheritanceSpecifier() {
+			b.currentContract.Inherits = append(b.currentContract.Inherits, inheritance.GetText())
+		}
+	}
 }
 
-func (b *ASTBuilder) ExitInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
-	b.currentInterface = nil
+func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext) {
+	b.currentContract = &ContractNode{
+		Name:           ctx.Identifier().GetText(),
+		StateVariables: make([]*StateVariableNode, 0),
+		Kind:           "library",
+	}
 }
 
 func (b *ASTBuilder) EnterUsingDirective(ctx *parser.UsingDirectiveContext) {
@@ -238,12 +247,7 @@ func (b *ASTBuilder) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
 
 func (b *ASTBuilder) EnterFunctionDefinition(ctx *parser.FunctionDefinitionContext) {
 	currentFunction := b.CreateFunction(ctx)
-
-	if b.currentContract != nil {
-		b.currentContract.Functions = append(b.currentContract.Functions, currentFunction)
-	} else if b.currentInterface != nil {
-		b.currentInterface.Functions = append(b.currentInterface.Functions, currentFunction)
-	}
+	b.currentContract.Functions = append(b.currentContract.Functions, currentFunction)
 }
 
 func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctionDefinitionContext) {
