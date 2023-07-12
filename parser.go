@@ -10,8 +10,8 @@ import (
 	"github.com/txpull/solgo/syntaxerrors"
 )
 
-// SolGo is a struct that encapsulates the functionality for parsing and analyzing Solidity contracts.
-type SolGo struct {
+// Parser is a struct that encapsulates the functionality for parsing and analyzing Solidity contracts.
+type Parser struct {
 	// ctx is the context in which SolGo operates. It can be used to control cancellation of parsing.
 	ctx context.Context
 	// inputRaw is the raw input reader from which the Solidity contract is read.
@@ -34,7 +34,7 @@ type SolGo struct {
 // New creates a new instance of SolGo.
 // It takes a context and an io.Reader from which the Solidity contract is read.
 // It initializes an input stream, lexer, token stream, and parser, and sets up error listeners.
-func New(ctx context.Context, input io.Reader) (*SolGo, error) {
+func NewParser(ctx context.Context, input io.Reader) (*Parser, error) {
 	ib, err := io.ReadAll(input)
 	if err != nil {
 		return nil, fmt.Errorf("error reading input: %w", err)
@@ -61,7 +61,7 @@ func New(ctx context.Context, input io.Reader) (*SolGo, error) {
 	// Create a new ContextualParser with the token stream and listener
 	contextualParser := syntaxerrors.NewContextualParser(stream, errListener)
 
-	return &SolGo{
+	return &Parser{
 		ctx:            ctx,
 		inputRaw:       input,
 		inputStream:    inputStream,
@@ -74,43 +74,43 @@ func New(ctx context.Context, input io.Reader) (*SolGo, error) {
 }
 
 // GetInput returns the raw input reader from which the Solidity contract is read.
-func (s *SolGo) GetInput() io.Reader {
+func (s *Parser) GetInput() io.Reader {
 	return s.inputRaw
 }
 
 // GetInputStream returns the ANTLR input stream which is used by the lexer.
-func (s *SolGo) GetInputStream() *antlr.InputStream {
+func (s *Parser) GetInputStream() *antlr.InputStream {
 	return s.inputStream
 }
 
 // GetLexer returns the Solidity lexer which tokenizes the input stream.
-func (s *SolGo) GetLexer() *parser.SolidityLexer {
+func (s *Parser) GetLexer() *parser.SolidityLexer {
 	return s.lexer
 }
 
 // GetTokenStream returns the stream of tokens produced by the lexer.
-func (s *SolGo) GetTokenStream() *antlr.CommonTokenStream {
+func (s *Parser) GetTokenStream() *antlr.CommonTokenStream {
 	return s.tokenStream
 }
 
 // GetParser returns the Solidity parser which parses the token stream.
-func (s *SolGo) GetParser() *parser.SolidityParser {
+func (s *Parser) GetParser() *parser.SolidityParser {
 	return s.solidityParser.SolidityParser
 }
 
 // GetContextualParser returns the ContextualParser which wraps the Solidity parser.
-func (s *SolGo) GetContextualParser() *syntaxerrors.ContextualParser {
+func (s *Parser) GetContextualParser() *syntaxerrors.ContextualParser {
 	return s.solidityParser
 }
 
 // GetTree returns the root of the parse tree that results from parsing the Solidity contract.
-func (s *SolGo) GetTree() antlr.ParseTree {
+func (s *Parser) GetTree() antlr.ParseTree {
 	return s.solidityParser.SourceUnit()
 }
 
 // Parse initiates the parsing process. It walks the parse tree with all registered listeners
 // and returns any syntax errors that were encountered during parsing.
-func (s *SolGo) Parse() []syntaxerrors.SyntaxError {
+func (s *Parser) Parse() []syntaxerrors.SyntaxError {
 	tree := s.GetTree()
 
 	// Walk the parse tree with all registered listeners

@@ -18,7 +18,7 @@ func TestListenerGetterAndSetter(t *testing.T) {
 	input := strings.NewReader("contract Test {}")
 
 	// Test New
-	s, err := New(ctx, input)
+	s, err := NewParser(ctx, input)
 	assert.NoError(t, err)
 	assert.NotNil(t, s)
 	assert.Equal(t, input, s.GetInput())

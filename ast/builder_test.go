@@ -46,7 +46,7 @@ func TestAstBuilder(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			parser, err := solgo.New(context.TODO(), strings.NewReader(testCase.contract))
+			parser, err := solgo.NewParser(context.TODO(), strings.NewReader(testCase.contract))
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
 
