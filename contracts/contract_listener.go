@@ -63,7 +63,19 @@ func (l *ContractListener) EnterImportDirective(ctx *parser.ImportDirectiveConte
 // EnterContractDefinition is called when the parser enters a contract definition.
 // It extracts the contract name from the context and sets it to the contractName field.
 func (l *ContractListener) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
+	l.contractInfo.Name = ctx.Identifier().GetText()
+	l.contractInfo.IsContract = true
+	l.contractInfo.IsAbstract = ctx.Abstract() != nil
+}
+
+func (l *ContractListener) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
 	l.contractInfo.Name = ctx.Identifier().GetText() // get the contract name
+	l.contractInfo.IsInterface = true
+}
+
+func (l *ContractListener) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext) {
+	l.contractInfo.Name = ctx.Identifier().GetText() // get the contract name
+	l.contractInfo.IsLibrary = true
 }
 
 // EnterInheritanceSpecifier is called when the parser enters an inheritance specifier.
@@ -186,6 +198,22 @@ func (l *ContractListener) GetIsProxy() bool {
 // GetProxyConfidence returns the confidence of the proxy detection algorithm.
 func (l *ContractListener) GetProxyConfidence() int16 {
 	return l.contractInfo.ProxyConfidence
+}
+
+func (l *ContractListener) IsContract() bool {
+	return l.contractInfo.IsContract
+}
+
+func (l *ContractListener) IsInterface() bool {
+	return l.contractInfo.IsInterface
+}
+
+func (l *ContractListener) IsLibrary() bool {
+	return l.contractInfo.IsLibrary
+}
+
+func (l *ContractListener) IsAbstract() bool {
+	return l.contractInfo.IsAbstract
 }
 
 // GetInfoForTests returns a map of all information extracted from the contract.
