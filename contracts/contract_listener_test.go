@@ -40,7 +40,8 @@ func TestContractListener(t *testing.T) {
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},
-				License: "MIT",
+				License:    "MIT",
+				IsContract: true,
 			},
 		},
 		{
@@ -51,15 +52,17 @@ func TestContractListener(t *testing.T) {
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},
-				License: "MIT",
+				License:    "MIT",
+				IsContract: true,
 			},
 		},
 		{
 			name:     "Contract Without Pragmas",
 			contract: tests.ReadContractFileForTest(t, "NoPragmas").Content,
 			expected: ContractInfo{
-				Name:    "NoPragmas",
-				License: "MIT",
+				Name:       "NoPragmas",
+				License:    "MIT",
+				IsContract: true,
 			},
 		},
 		{
@@ -73,7 +76,8 @@ func TestContractListener(t *testing.T) {
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},
-				License: "MIT",
+				License:    "MIT",
+				IsContract: true,
 			},
 		},
 		{
@@ -87,7 +91,8 @@ func TestContractListener(t *testing.T) {
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},
-				License: "MIT",
+				License:    "MIT",
+				IsContract: true,
 			},
 		},
 		{
@@ -99,6 +104,7 @@ func TestContractListener(t *testing.T) {
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},
+				IsContract: true,
 			},
 		},
 		{
@@ -114,6 +120,7 @@ func TestContractListener(t *testing.T) {
 				Pragmas: []string{
 					"solidity ^0.8.5",
 				},
+				IsContract: true,
 			},
 		},
 		{
@@ -154,6 +161,10 @@ func TestContractListener(t *testing.T) {
 				},
 				IsProxy:         true,
 				ProxyConfidence: 100,
+				IsContract:      true,
+				IsInterface:     false,
+				IsAbstract:      false,
+				IsLibrary:       false,
 			},
 		},
 	}
