@@ -10,4 +10,8 @@ type ContractInfo struct {
 	Implements      []string `json:"implements"`       // Interfaces implemented by the contract
 	IsProxy         bool     `json:"is_proxy"`         // Whether the contract is a proxy
 	ProxyConfidence int16    `json:"proxy_confidence"` // Confidence in the proxy detection
+	IsContract      bool     `json:"is_contract"`      // Whether the contract is a contract
+	IsInterface     bool     `json:"is_interface"`     // Whether the contract is an interface
+	IsLibrary       bool     `json:"is_library"`       // Whether the contract is a library
+	IsAbstract      bool     `json:"is_abstract"`      // Whether the contract is abstract
 }
