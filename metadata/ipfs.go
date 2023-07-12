@@ -8,19 +8,18 @@ import (
 	"strings"
 
 	cid "github.com/ipfs/go-cid"
-	ipfs "github.com/ipfs/go-ipfs-api"
 )
 
 // IpfsProvider is a struct that holds the context and the client for IPFS operations.
 type IpfsProvider struct {
 	ctx    context.Context // The context to be used in IPFS operations.
-	client *ipfs.Shell     // The IPFS client.
+	client Shell           // The IPFS client.
 }
 
 // NewIpfsProvider creates a new instance of IpfsProvider.
 // It takes a context and an IPFS client as parameters.
 // If the client is nil, it returns an error. Otherwise, it returns a new instance of IpfsProvider.
-func NewIpfsProvider(ctx context.Context, client *ipfs.Shell) (Provider, error) {
+func NewIpfsProvider(ctx context.Context, client Shell) (Provider, error) {
 	if client == nil {
 		return nil, ErrInvalidIpfsClient
 	}
