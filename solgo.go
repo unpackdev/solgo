@@ -8,7 +8,6 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/txpull/solgo/parser"
 	"github.com/txpull/solgo/syntaxerrors"
-	"go.uber.org/zap"
 )
 
 // SolGo is a struct that encapsulates the functionality for parsing and analyzing Solidity contracts.
@@ -115,11 +114,7 @@ func (s *SolGo) Parse() []syntaxerrors.SyntaxError {
 	tree := s.GetTree()
 
 	// Walk the parse tree with all registered listeners
-	for name, listener := range s.GetAllListeners() {
-		zap.L().Debug(
-			"walking parse tree",
-			zap.String("listener", name.String()),
-		)
+	for _, listener := range s.GetAllListeners() {
 		antlr.ParseTreeWalkerDefault.Walk(listener, tree)
 	}
 
