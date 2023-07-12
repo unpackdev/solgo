@@ -11,14 +11,15 @@ import (
 	ipfs "github.com/ipfs/go-ipfs-api"
 )
 
+// IpfsProvider is a struct that holds the context and the client for IPFS operations.
 type IpfsProvider struct {
-	ctx    context.Context
-	client *ipfs.Shell
+	ctx    context.Context // The context to be used in IPFS operations.
+	client *ipfs.Shell     // The IPFS client.
 }
 
-// NewIpfsProvider returns a new instance of the IPFS provider.
-// It requires a valid IPFS client to be passed as a parameter.
-// If the client is nil, it will return an error otherwise it will return a new instance of the IPFS provider.
+// NewIpfsProvider creates a new instance of IpfsProvider.
+// It takes a context and an IPFS client as parameters.
+// If the client is nil, it returns an error. Otherwise, it returns a new instance of IpfsProvider.
 func NewIpfsProvider(ctx context.Context, client *ipfs.Shell) (Provider, error) {
 	if client == nil {
 		return nil, ErrInvalidIpfsClient
@@ -30,7 +31,9 @@ func NewIpfsProvider(ctx context.Context, client *ipfs.Shell) (Provider, error) 
 	}), nil
 }
 
-// extractHash extracts the cid hash from the string
+// extractHash is a helper method that extracts the CID hash from a string.
+// It checks if the string starts with 'ipfs://', removes the prefix, and validates the remaining hash.
+// If the string does not start with 'ipfs://' or the hash is invalid, it returns an error.
 func (p *IpfsProvider) extractHash(s string) (string, error) {
 	// Check if the string starts with 'ipfs://'
 	if !strings.HasPrefix(s, "ipfs://") {
@@ -49,7 +52,10 @@ func (p *IpfsProvider) extractHash(s string) (string, error) {
 	return hash, nil
 }
 
-// GetMetadataByCID returns the metadata of a contract by the CID (Content Identifier) of the contract
+// GetMetadataByCID retrieves the metadata of a contract by its CID (Content Identifier).
+// It first extracts the hash from the CID, then uses the IPFS client to retrieve the content associated with the hash.
+// It reads the content, unmarshals it into a ContractMetadata object, and returns it.
+// If any of these operations fail, it returns an error.
 func (p *IpfsProvider) GetMetadataByCID(cid string) (*ContractMetadata, error) {
 	hash, err := p.extractHash(cid)
 	if err != nil {

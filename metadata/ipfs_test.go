@@ -10,7 +10,7 @@ import (
 )
 
 func TestIpfsProvider(t *testing.T) {
-	//t.Skip("Skipping IPFS tests as they require an IPFS node to be running...")
+	t.Skip("Skipping IPFS tests as they require an IPFS node to be running...")
 	tAssert := assert.New(t)
 
 	context, cancel := context.WithCancel(context.TODO())

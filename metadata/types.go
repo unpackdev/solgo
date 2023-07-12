@@ -2,7 +2,9 @@ package metadata
 
 import "encoding/json"
 
-// ContractMetadata represents the metadata of a contract stored in IPFS
+// ContractMetadata represents the metadata of a contract stored in IPFS.
+// The metadata includes information about the compiler, language, settings, output, and sources.
+// The Raw field contains the raw metadata as a string.
 // See https://docs.soliditylang.org/en/v0.8.19/metadata.html
 // @TODO: Devdoc and userdoc are not included in the struct as I see very small amount of
 // reasons to use them in this moment. If you need them, please consider doing a PR to add them. :)
@@ -55,7 +57,8 @@ type ContractMetadata struct {
 	} `json:"sources"`
 }
 
-// AbiToJSON returns the ABI as a JSON string
+// AbiToJSON converts the ABI of the contract to a JSON string.
+// It returns the JSON string or an error if the conversion fails.
 func (c *ContractMetadata) AbiToJSON() (string, error) {
 	abi, err := json.Marshal(c.Output.Abi)
 	if err != nil {
@@ -65,6 +68,8 @@ func (c *ContractMetadata) AbiToJSON() (string, error) {
 	return string(abi), nil
 }
 
+// ToJSON converts the ContractMetadata object to a JSON byte array.
+// It returns the byte array or an error if the conversion fails.
 func (c *ContractMetadata) ToJSON() ([]byte, error) {
 	return json.Marshal(c)
 }
