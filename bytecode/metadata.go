@@ -67,9 +67,9 @@ func (m *Metadata) GetCborLength() int16 {
 	return m.cborLength
 }
 
-// DecodeContractCreationMetadata decodes the metadata from Ethereum contract creation bytecode.
+// DecodeContractMetadata decodes the metadata from Ethereum contract creation bytecode.
 // It returns a Metadata object and an error, if any occurred during decoding.
-func DecodeContractCreationMetadata(bytecode []byte) (*Metadata, error) {
+func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {
 	if len(bytecode) == 0 {
 		return nil, errors.New("provided bytecode slice is empty")
 	}

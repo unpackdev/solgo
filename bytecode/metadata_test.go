@@ -36,7 +36,7 @@ func TestDecodeContractCreationMetadata(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := DecodeContractCreationMetadata(tt.bytecode)
+			got, err := DecodeContractMetadata(tt.bytecode)
 			if tt.wantErr {
 				assert.Error(t, err)
 			} else {
