@@ -12,10 +12,6 @@ func TestRootNode_Children(t *testing.T) {
 	contractNode2 := &ContractNode{Name: "Contract2"}
 	contractNode3 := &ContractNode{Name: "Contract3"}
 
-	// Define mock interface nodes
-	interfaceNode1 := &InterfaceNode{Name: "Interface1"}
-	interfaceNode2 := &InterfaceNode{Name: "Interface2"}
-
 	tt := []struct {
 		name     string
 		root     *RootNode
@@ -24,34 +20,23 @@ func TestRootNode_Children(t *testing.T) {
 		{
 			name: "RootNode with multiple contracts and interfaces",
 			root: &RootNode{
-				Contracts:  []*ContractNode{contractNode1, contractNode2},
-				Interfaces: []*InterfaceNode{interfaceNode1, interfaceNode2},
+				Contracts: []*ContractNode{contractNode1, contractNode2},
 			},
-			expected: []Node{contractNode1, contractNode2, interfaceNode1, interfaceNode2},
+			expected: []Node{contractNode1, contractNode2},
 		},
 		{
 			name: "RootNode with no contracts and interfaces",
 			root: &RootNode{
-				Contracts:  []*ContractNode{},
-				Interfaces: []*InterfaceNode{},
+				Contracts: []*ContractNode{},
 			},
 			expected: []Node{},
 		},
 		{
 			name: "RootNode with contracts only",
 			root: &RootNode{
-				Contracts:  []*ContractNode{contractNode1, contractNode2, contractNode3},
-				Interfaces: []*InterfaceNode{},
+				Contracts: []*ContractNode{contractNode1, contractNode2, contractNode3},
 			},
 			expected: []Node{contractNode1, contractNode2, contractNode3},
-		},
-		{
-			name: "RootNode with interfaces only",
-			root: &RootNode{
-				Contracts:  []*ContractNode{},
-				Interfaces: []*InterfaceNode{interfaceNode1, interfaceNode2},
-			},
-			expected: []Node{interfaceNode1, interfaceNode2},
 		},
 	}
 
@@ -63,8 +48,7 @@ func TestRootNode_Children(t *testing.T) {
 			// Assert the type of each child
 			for _, child := range children {
 				_, isContract := child.(*ContractNode)
-				_, isInterface := child.(*InterfaceNode)
-				assert.True(t, isContract || isInterface, "unexpected type %T", child)
+				assert.True(t, isContract, "unexpected type %T", child)
 			}
 		})
 	}
