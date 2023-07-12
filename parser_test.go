@@ -14,7 +14,7 @@ func TestNew(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 	assert.Equal(t, input, solgo.GetInput(), "input reader is not set correctly")
 	assert.NotNil(t, solgo.GetLexer(), "lexer is not initialized")
@@ -25,7 +25,7 @@ func TestParse(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	errs := solgo.Parse()
@@ -36,7 +36,7 @@ func TestParseWithError(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	errs := solgo.Parse()
@@ -47,7 +47,7 @@ func TestGetTree(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	tree := solgo.GetTree()
@@ -58,7 +58,7 @@ func TestGetTokenStream(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	tokenStream := solgo.GetTokenStream()
@@ -69,7 +69,7 @@ func TestGetInputStream(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	inputStream := solgo.GetInputStream()
@@ -80,7 +80,7 @@ func TestGetLexer(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	lexer := solgo.GetLexer()
@@ -91,7 +91,7 @@ func TestGetInput(t *testing.T) {
 	ctx := context.Background()
 	input := strings.NewReader("contract Test {}")
 
-	solgo, err := New(ctx, input)
+	solgo, err := NewParser(ctx, input)
 	assert.NoError(t, err, "error creating SolGo instance")
 
 	assert.Equal(t, input, solgo.GetInput(), "input reader is not returned correctly")
@@ -156,7 +156,7 @@ func TestNew_SyntaxErrors(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			// Create a new SolGo instance
-			solGo, err := New(context.Background(), strings.NewReader(tc.contract))
+			solGo, err := NewParser(context.Background(), strings.NewReader(tc.contract))
 			assert.NoError(t, err)
 			assert.NotNil(t, solGo)
 
