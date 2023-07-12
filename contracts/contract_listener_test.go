@@ -7,7 +7,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -26,17 +25,86 @@ func TestContractListener(t *testing.T) {
 	testCases := []struct {
 		name     string
 		contract string
-		expected common.ContractInfo
+		expected ContractInfo
 	}{
 		{
 			name:     "Empty Contract",
 			contract: tests.ReadContractFileForTest(t, "Empty").Content,
-			expected: common.ContractInfo{},
+			expected: ContractInfo{},
+		},
+		{
+			name:     "Contract Without Interfaces",
+			contract: tests.ReadContractFileForTest(t, "NoInterfaces").Content,
+			expected: ContractInfo{
+				Name: "NoInterfaces",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract Without Imports",
+			contract: tests.ReadContractFileForTest(t, "NoImports").Content,
+			expected: ContractInfo{
+				Name: "NoImports",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract Without Pragmas",
+			contract: tests.ReadContractFileForTest(t, "NoPragmas").Content,
+			expected: ContractInfo{
+				Name:    "NoPragmas",
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract With Single-Line Comment",
+			contract: tests.ReadContractFileForTest(t, "SingleLineComment").Content,
+			expected: ContractInfo{
+				Comments: []string{
+					"// This is a single-line comment",
+				},
+				Name: "SingleLineComment",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract With Multi-Line Comment",
+			contract: tests.ReadContractFileForTest(t, "MultiLineComment").Content,
+			expected: ContractInfo{
+				Comments: []string{
+					"/* This is a\n multi-line comment */",
+				},
+				Name: "MultiLineComment",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+				License: "MIT",
+			},
+		},
+		{
+			name:     "Contract With Different SPDX License Identifier",
+			contract: tests.ReadContractFileForTest(t, "DifferentLicense").Content,
+			expected: ContractInfo{
+				License: "GPL-3.0",
+				Name:    "DifferentLicense",
+				Pragmas: []string{
+					"solidity ^0.8.5",
+				},
+			},
 		},
 		{
 			name:     "Dummy Contract",
 			contract: tests.ReadContractFileForTest(t, "Dummy").Content,
-			expected: common.ContractInfo{
+			expected: ContractInfo{
 				Comments: []string{
 					"// Some additional comments that can be extracted",
 					"/** \n * Multi line comments\n * are supported as well\n*/",
@@ -51,7 +119,7 @@ func TestContractListener(t *testing.T) {
 		{
 			name:     "OpenZeppelin ERC20",
 			contract: tests.ReadContractFileForTest(t, "ERC20_Token").Content,
-			expected: common.ContractInfo{
+			expected: ContractInfo{
 				Comments: []string{
 					"// Rewards",
 					"// Allows users to purchase subscription using the token",
@@ -84,6 +152,8 @@ func TestContractListener(t *testing.T) {
 					"PausableUpgradeable",
 					"SafeERC20Upgradeable",
 				},
+				IsProxy:         true,
+				ProxyConfidence: 100,
 			},
 		},
 	}

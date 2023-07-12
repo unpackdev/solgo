@@ -1,7 +1,6 @@
 package abis
 
 import (
-	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
 )
@@ -18,10 +17,12 @@ type AbiListener struct {
 // It returns a pointer to the newly created AbiListener.
 func NewAbiListener() *AbiListener {
 	return &AbiListener{parser: &AbiParser{
-		abi:            common.ABI{},
-		definedStructs: make(map[string]common.MethodIO),
-		definedEnums:   make(map[string]bool), // map to keep track of defined enum types
-
+		abi:               ABI{},
+		definedStructs:    make(map[string]MethodIO),
+		definedEnums:      make(map[string]bool), // map to keep track of defined enum types
+		definedInterfaces: make(map[string]bool),
+		definedLibraries:  make(map[string]bool),
+		definedContracts:  make(map[string]ContractDefinition),
 	}}
 }
 
@@ -30,6 +31,26 @@ func NewAbiListener() *AbiListener {
 // Later on we use contract name to define internalType of the tuple/struct type.
 func (l *AbiListener) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
 	l.parser.contractName = ctx.Identifier().GetText() // get the contract name
+
+	if _, ok := l.parser.definedContracts[l.parser.contractName]; !ok {
+		l.parser.definedContracts[l.parser.contractName] = ContractDefinition{
+			IsAbstract: func() bool {
+				return ctx.Abstract() != nil
+			}(),
+		}
+	}
+}
+
+func (l *AbiListener) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
+	if _, ok := l.parser.definedInterfaces[ctx.Identifier().GetText()]; !ok {
+		l.parser.definedInterfaces[ctx.Identifier().GetText()] = true
+	}
+}
+
+func (l *AbiListener) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext) {
+	if _, ok := l.parser.definedLibraries[ctx.Identifier().GetText()]; !ok {
+		l.parser.definedLibraries[ctx.Identifier().GetText()] = true
+	}
 }
 
 // EnterStateVariableDeclaration is called when the parser enters a state variable declaration.

@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/antlr4-go/antlr/v4"
-	"github.com/txpull/solgo/common"
 	"github.com/txpull/solgo/parser"
 )
 
@@ -16,14 +15,17 @@ import (
 type ContractListener struct {
 	*parser.BaseSolidityParserListener                        // BaseSolidityParserListener is the base listener from the Solidity parser.
 	parser                             *parser.SolidityParser // parser is the Solidity parser instance.
-	contractInfo                       common.ContractInfo    // contractInfo is the contract information extracted from the listener.
+	contractInfo                       ContractInfo           // contractInfo is the contract information extracted from the listener.
+	hasProxyModifier                   bool
+	hasAddressStateVariable            bool
+	hasDelegateCall                    bool
 }
 
 // NewContractListener creates a new ContractListener. It takes a SolidityParser as an argument.
 func NewContractListener(parser *parser.SolidityParser) *ContractListener {
 	return &ContractListener{
 		parser:       parser,
-		contractInfo: common.ContractInfo{},
+		contractInfo: ContractInfo{},
 	}
 }
 
@@ -78,6 +80,74 @@ func (l *ContractListener) EnterUsingDirective(ctx *parser.UsingDirectiveContext
 	}
 }
 
+// EnterFunctionDefinition is called when the parser enters a function definition.
+// It checks if there are any modifiers in the function definition and if there's a proxy modifier.
+func (l *ContractListener) EnterFunctionDefinition(ctx *parser.FunctionDefinitionContext) {
+	if ctx.AllModifierInvocation() != nil {
+		for _, modifier := range ctx.AllModifierInvocation() {
+			if strings.Contains(modifier.GetText(), "proxy") {
+				l.hasProxyModifier = true
+			}
+		}
+	}
+}
+
+// EnterFallbackFunctionDefinition is called when the parser enters a fallback function definition.
+// It checks if there's a delegatecall in the fallback function. We use this later on to determine
+// if the contract is a proxy.
+func (l *ContractListener) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctionDefinitionContext) {
+	if strings.Contains(ctx.GetText(), "delegatecall") {
+		l.hasDelegateCall = true
+	}
+}
+
+// EnterReceiveFunctionDefinition is called when the parser enters a receive function definition.
+// It checks if there's a delegatecall in the receive function. We use this later on to determine
+// if the contract is a proxy.
+func (l *ContractListener) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionDefinitionContext) {
+	if strings.Contains(ctx.GetText(), "delegatecall") {
+		l.hasDelegateCall = true
+	}
+}
+
+// EnterStateVariableDeclaration is called when the parser enters a state variable declaration.
+// It checks if there's a state variable that could be storing the implementation address.
+// We use this later on to determine if the contract is a proxy.
+func (l *ContractListener) EnterStateVariableDeclaration(ctx *parser.StateVariableDeclarationContext) {
+	// Check if there's a state variable that could be storing the implementation address
+	if strings.Contains(ctx.GetText(), "address") {
+		l.hasAddressStateVariable = true
+	}
+}
+
+// ExitContractDefinition is called when the parser exits a contract definition.
+// It checks if the contract is a proxy and sets the IsProxy field to true if it is.
+// It also sets the ProxyConfidence field based on current dummy algorithm.
+func (l *ContractListener) ExitContractDefinition(ctx *parser.ContractDefinitionContext) {
+	if l.hasProxyModifier && l.hasAddressStateVariable && l.hasDelegateCall {
+		l.contractInfo.IsProxy = true
+		l.contractInfo.ProxyConfidence = 100
+	} else if l.hasProxyModifier && l.hasAddressStateVariable {
+		l.contractInfo.IsProxy = true
+		l.contractInfo.ProxyConfidence = 50
+	} else if l.hasDelegateCall {
+		l.contractInfo.IsProxy = true
+		l.contractInfo.ProxyConfidence = 50
+	} else if l.hasProxyModifier {
+		l.contractInfo.IsProxy = true
+		l.contractInfo.ProxyConfidence = 25
+	}
+
+	// Following exception is if there are imports from openzeppelin that we are sure about
+	// that are proxies, but the listener doesn't detect them as proxies.
+	for _, imp := range l.contractInfo.Imports {
+		if strings.Contains(imp, "openzeppelin/contracts-upgradeable") {
+			l.contractInfo.IsProxy = true
+			l.contractInfo.ProxyConfidence = 100
+		}
+	}
+}
+
 // GetLicense returns the SPDX license identifier, if present.
 func (l *ContractListener) GetLicense() string {
 	return l.contractInfo.License
@@ -108,9 +178,19 @@ func (l *ContractListener) GetComments() []string {
 	return l.contractInfo.Comments
 }
 
+// GetIsProxy returns true if the contract is a proxy, false otherwise.
+func (l *ContractListener) GetIsProxy() bool {
+	return l.contractInfo.IsProxy
+}
+
+// GetProxyConfidence returns the confidence of the proxy detection algorithm.
+func (l *ContractListener) GetProxyConfidence() int16 {
+	return l.contractInfo.ProxyConfidence
+}
+
 // GetInfoForTests returns a map of all information extracted from the contract.
 // This is used for testing purposes only
-func (l *ContractListener) ToStruct() common.ContractInfo {
+func (l *ContractListener) ToStruct() ContractInfo {
 	return l.contractInfo
 }
 
