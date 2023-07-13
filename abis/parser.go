@@ -29,7 +29,6 @@ func (p *AbiParser) InjectConstructor(ctx *parser.ConstructorDefinitionContext) 
 	inputs := make([]MethodIO, 0)
 	if ctx.GetArguments() != nil {
 		for _, paramCtx := range ctx.GetArguments().AllParameterDeclaration() {
-			fmt.Println(p.definedInterfaces)
 			inputs = append(inputs, MethodIO{
 				Name: func() string {
 					if paramCtx.Identifier() != nil {

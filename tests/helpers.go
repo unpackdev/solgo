@@ -13,6 +13,7 @@ import (
 type TestContract struct {
 	Path    string // File path of the contract
 	Content string // Content of the contract file
+	Bytes   []byte // Byte representation of the contract
 }
 
 // ReadContractFileForTest reads a contract file for testing
@@ -51,11 +52,10 @@ func ReadContractFileForTestFromRootPath(t *testing.T, name string) TestContract
 	return TestContract{Path: path, Content: string(content)}
 }
 
-func ReadJsonBytesForTest(t *testing.T, name string) []byte {
+// ReadJsonBytesForTest reads a json file for testing purposes
+func ReadJsonBytesForTest(t *testing.T, name string) TestContract {
 	dir, err := os.Getwd()
 	assert.NoError(t, err)
-
-	fmt.Println(dir)
 
 	contractsDir := filepath.Join(dir, "..", "data", "tests")
 	path := filepath.Join(contractsDir, name+".json")
@@ -66,14 +66,13 @@ func ReadJsonBytesForTest(t *testing.T, name string) []byte {
 	content, err := os.ReadFile(path)
 	assert.NoError(t, err)
 
-	return content
+	return TestContract{Path: path, Content: string(content), Bytes: content}
 }
 
-func ReadJsonBytesForTestFromRootPath(t *testing.T, name string) []byte {
+// ReadJsonBytesForTestFromRootPath reads a json file for testing purposes from root of the solgo project
+func ReadJsonBytesForTestFromRootPath(t *testing.T, name string) TestContract {
 	dir, err := os.Getwd()
 	assert.NoError(t, err)
-
-	fmt.Println(dir)
 
 	contractsDir := filepath.Join(dir, "data", "tests")
 	path := filepath.Join(contractsDir, name+".json")
@@ -84,5 +83,5 @@ func ReadJsonBytesForTestFromRootPath(t *testing.T, name string) []byte {
 	content, err := os.ReadFile(path)
 	assert.NoError(t, err)
 
-	return content
+	return TestContract{Path: path, Content: string(content), Bytes: content}
 }

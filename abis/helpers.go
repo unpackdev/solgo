@@ -9,10 +9,28 @@ import (
 // For example, "uint" is normalized to "uint256", and "addresspayable" is normalized to "address".
 // If the type name is not one of the special cases, it is returned as is.
 func normalizeTypeName(typeName string) string {
+	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
+	isSlice := strings.HasPrefix(typeName, "[]")
+
 	switch {
+	case isArray:
+		numberPart := typeName[strings.Index(typeName, "[")+1 : strings.Index(typeName, "]")]
+		typePart := typeName[strings.Index(typeName, "]")+1:]
+		return "[" + numberPart + "]" + normalizeTypeName(typePart)
+
+	case isSlice:
+		typePart := typeName[2:]
+		return "[]" + normalizeTypeName(typePart)
+
 	case strings.HasPrefix(typeName, "uint"):
+		if typeName == "uint" {
+			return "uint256"
+		}
 		return typeName
 	case strings.HasPrefix(typeName, "int"):
+		if typeName == "int" {
+			return "int256"
+		}
 		return typeName
 	case strings.HasPrefix(typeName, "bool"):
 		return typeName
@@ -31,14 +49,33 @@ func normalizeTypeName(typeName string) string {
 	}
 }
 
-// normalizeTypeName normalizes the type name in Solidity to its canonical form.
+// normalizeTypeNameWithStatus normalizes the type name in Solidity to its canonical form.
 // For example, "uint" is normalized to "uint256", and "addresspayable" is normalized to "address".
-// If the type name is not one of the special cases, it is returned as is.
+// If the type name is not one of the special cases, it is returned as is with normalized == false for future manipulation...
 func normalizeTypeNameWithStatus(typeName string) (string, bool) {
+	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
+	isSlice := strings.HasPrefix(typeName, "[]")
+
 	switch {
+	case isArray:
+		numberPart := typeName[strings.Index(typeName, "[")+1 : strings.Index(typeName, "]")]
+		typePart := typeName[strings.Index(typeName, "]")+1:]
+
+		return "[" + numberPart + "]" + normalizeTypeName(typePart), true
+
+	case isSlice:
+		typePart := typeName[2:]
+		return "[]" + normalizeTypeName(typePart), true
+
 	case strings.HasPrefix(typeName, "uint"):
+		if typeName == "uint" {
+			return "uint256", true
+		}
 		return typeName, true
 	case strings.HasPrefix(typeName, "int"):
+		if typeName == "int" {
+			return "int256", true
+		}
 		return typeName, true
 	case strings.HasPrefix(typeName, "bool"):
 		return typeName, true
