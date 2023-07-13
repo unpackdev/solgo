@@ -31,23 +31,17 @@ func (b *ASTBuilder) traverseStatements(body []*StatementNode, fnArguments []*Va
 		tokensNode := []TokenNode{}
 
 		for _, token := range tokens {
-
 			tokenType := getTokenTypeName(token)
-			var tokenNode TokenNode
+			tokenNode := TokenNode{
+				Name:           token.GetText(),
+				LexerTypeIndex: token.GetTokenType(),
+				LexerType:      tokenType,
+			}
 
-			if token.GetTokenType() == parser.SolidityParserFalse || token.GetTokenType() == parser.SolidityParserTrue {
-				tokenNode = TokenNode{
-					Name:           token.GetText(),
-					LexerTypeIndex: token.GetTokenType(),
-					LexerType:      "bool",
-					Type:           "bool",
-				}
-			} else {
-				tokenNode = TokenNode{
-					Name:           token.GetText(),
-					LexerTypeIndex: token.GetTokenType(),
-					LexerType:      tokenType,
-				}
+			if token.GetTokenType() == parser.SolidityParserFalse ||
+				token.GetTokenType() == parser.SolidityParserTrue ||
+				token.GetTokenType() == parser.SolidityParserBool {
+				tokenNode.Type = "bool"
 			}
 
 			for _, fnArg := range fnArguments {
