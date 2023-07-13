@@ -26,6 +26,69 @@ func (b *ASTBuilder) traverseStatements(body []*StatementNode, fnArguments []*Va
 
 	switch node := node.(type) {
 
+	case *parser.EmitStatementContext:
+		tokens := b.collectTokens(node)
+		tokensNode := []TokenNode{}
+
+		for _, token := range tokens {
+			tokenNode := TokenNode{
+				Name:           token.GetText(),
+				LexerTypeIndex: token.GetTokenType(),
+				LexerType:      getTokenTypeName(token),
+			}
+
+			if token.GetTokenType() == parser.SolidityParserFalse ||
+				token.GetTokenType() == parser.SolidityParserTrue ||
+				token.GetTokenType() == parser.SolidityParserBool {
+				tokenNode.Type = "bool"
+			}
+
+			for _, fnArg := range fnArguments {
+				if token.GetText() == fnArg.Name {
+					tokenNode.IsFunctionArgument = true
+					tokenNode.Type = fnArg.Type
+				}
+			}
+
+			for _, stateVar := range b.currentContract.StateVariables {
+				if token.GetText() == stateVar.Name {
+					tokenNode.IsStateVariable = true
+					tokenNode.Type = stateVar.Type
+				}
+			}
+
+			tokensNode = append(tokensNode, tokenNode)
+		}
+
+		if len(tokensNode) > 0 && tokensNode[len(tokensNode)-1:][0].LexerTypeIndex != parser.SolidityParserSemicolon {
+			tokensNode = append(tokensNode, TokenNode{
+				Name:           ";",
+				LexerTypeIndex: parser.SolidityParserSemicolon,
+				LexerType:      "semicolon",
+			})
+		}
+
+		statementNode := &StatementNode{
+			Expression: func() string {
+				toReturn := []string{}
+
+				for _, token := range tokens {
+					if token.GetTokenType() != parser.SolidityParserSemicolon {
+						toReturn = append(toReturn, token.GetText())
+					}
+				}
+
+				return strings.TrimSpace(strings.Join(toReturn, " ")) + ";"
+			}(),
+			Line:   node.GetStart().GetLine(),
+			Type:   "emit",
+			Tokens: tokensNode,
+		}
+
+		statements = append(statements, statementNode)
+
+		spew.Dump(statementNode)
+
 	case *parser.ReturnStatementContext:
 		tokens := b.collectTokens(node)
 		tokensNode := []TokenNode{}
@@ -86,8 +149,6 @@ func (b *ASTBuilder) traverseStatements(body []*StatementNode, fnArguments []*Va
 		}
 
 		statements = append(statements, statementNode)
-
-		spew.Dump(statementNode)
 
 	case *parser.AssignmentContext:
 		tokens := b.collectTokens(node)
