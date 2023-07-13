@@ -159,17 +159,9 @@ func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *Func
 	}
 
 	if body := ctx.GetBody(); body != nil {
-		for _, statementCtx := range body.AllStatement() {
-			// Create a new StatementNode with the text of the statement.
-			// Apparently whitespaces are stripped from the statementCtx.GetText() result...
-			// This whole statement node will be replaced by a more complex one in the future and there
-			// will be a dedicated function to parse each statement ctx.
-			statement := &StatementNode{
-				Expression: statementCtx.GetText(),
-			}
-
-			// Add the statement to the current function.
-			toReturn.Body = append(toReturn.Body, statement)
+		if !body.IsEmpty() {
+			statements := b.traverseStatements(toReturn.Body, toReturn.Parameters, body)
+			toReturn.Body = append(toReturn.Body, statements...)
 		}
 	}
 
