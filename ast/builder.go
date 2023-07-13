@@ -32,20 +32,37 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	b.errors = nil
 	b.parseTime = time.Now()
 
-	for _, pragma := range ctx.AllPragmaDirective() {
-		for _, token := range pragma.AllPragmaToken() {
-			pragmas := make([]string, 0)
-			pragmas = append(pragmas, strings.TrimSpace(token.GetText()))
-			b.pragmas = append(b.pragmas, pragmas)
+	for _, child := range ctx.GetChildren() {
+		if contractCtx, ok := child.(*parser.ContractDefinitionContext); ok {
+			// Found a contract definition
+			contractPragmas := b.findPragmasForContract(ctx, contractCtx)
+			if len(contractPragmas) > 0 {
+				contract := &ContractNode{
+					Name:    contractCtx.Identifier().GetText(),
+					Pragmas: contractPragmas,
+				}
+				b.astRoot.Contracts = append(b.astRoot.Contracts, contract)
+			}
 		}
 	}
 }
 
 func (b *ASTBuilder) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
-	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(),
-		StateVariables: make([]*StateVariableNode, 0),
-		Kind:           "contract",
+
+	// Look if contract already exists in the AST root
+	for _, contract := range b.astRoot.Contracts {
+		if contract.Name == ctx.Identifier().GetText() {
+			b.currentContract = contract
+			return
+		}
+	}
+
+	if b.currentContract != nil {
+		b.currentContract = &ContractNode{
+			Name:           ctx.Identifier().GetText(),
+			StateVariables: make([]*StateVariableNode, 0),
+			Kind:           "contract",
+		}
 	}
 
 	if ctx.InheritanceSpecifierList() != nil {
