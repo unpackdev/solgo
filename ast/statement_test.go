@@ -8,13 +8,11 @@ import (
 
 func TestStatementNode_Children(t *testing.T) {
 	statementNode1 := &StatementNode{
-		Raw:     []string{"return", "true", ";"},
-		TextRaw: "return true;",
+		Expression: "return true;",
 	}
 
 	statementNode2 := &StatementNode{
-		Raw:     []string{"emit", "Event()", ";"},
-		TextRaw: "emit Event();",
+		Expression: "emit Event();",
 	}
 
 	tt := []struct {

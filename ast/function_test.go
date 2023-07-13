@@ -14,8 +14,8 @@ func TestFunctionNode_Children(t *testing.T) {
 	retParamNode1 := &VariableNode{Name: "retParam1", Type: "bool"}
 	retParamNode2 := &VariableNode{Name: "retParam2", Type: "string"}
 
-	statementNode1 := &StatementNode{Raw: []string{"return", "true", ";"}, TextRaw: "return true;"}
-	statementNode2 := &StatementNode{Raw: []string{"emit", "Event()", ";"}, TextRaw: "emit Event();"}
+	statementNode1 := &StatementNode{Expression: "return true;"}
+	statementNode2 := &StatementNode{Expression: "emit Event();"}
 
 	tt := []struct {
 		name     string

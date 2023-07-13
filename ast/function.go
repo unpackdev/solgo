@@ -165,8 +165,7 @@ func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *Func
 			// This whole statement node will be replaced by a more complex one in the future and there
 			// will be a dedicated function to parse each statement ctx.
 			statement := &StatementNode{
-				Raw:     b.getTextSliceWithOriginalFormatting(statementCtx),
-				TextRaw: statementCtx.GetText(),
+				Expression: statementCtx.GetText(),
 			}
 
 			// Add the statement to the current function.

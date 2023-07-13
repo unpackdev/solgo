@@ -2,6 +2,7 @@ package ast
 
 import (
 	"context"
+	"io/ioutil"
 	"strings"
 	"testing"
 
@@ -61,8 +62,9 @@ func TestAstBuilder(t *testing.T) {
 			astJson, err := astBuilder.ToJSON()
 			assert.NoError(t, err)
 			assert.NotEmpty(t, astJson)
-
+			ioutil.WriteFile(testCase.name+".json", []byte(astJson), 0777)
 			assert.Equal(t, testCase.expected, astJson)
+
 		})
 	}
 }

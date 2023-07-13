@@ -6,8 +6,10 @@ import (
 
 // StatementNode represents a statement in Solidity.
 type StatementNode struct {
-	Raw     []string `json:"raw"`
-	TextRaw string   `json:"text_raw"`
+	Expression string      `json:"expression"`
+	Line       int         `json:"line"`
+	Type       string      `json:"type"`
+	Tokens     []TokenNode `json:"tokens"`
 }
 
 func (s *StatementNode) Children() []Node {
