@@ -31,11 +31,10 @@ func (b *ASTBuilder) traverseStatements(body []*StatementNode, fnArguments []*Va
 		tokensNode := []TokenNode{}
 
 		for _, token := range tokens {
-			tokenType := getTokenTypeName(token)
 			tokenNode := TokenNode{
 				Name:           token.GetText(),
 				LexerTypeIndex: token.GetTokenType(),
-				LexerType:      tokenType,
+				LexerType:      getTokenTypeName(token),
 			}
 
 			if token.GetTokenType() == parser.SolidityParserFalse ||
