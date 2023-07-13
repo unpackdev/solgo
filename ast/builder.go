@@ -40,6 +40,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 				contract := &ContractNode{
 					Name:    contractCtx.Identifier().GetText(),
 					Pragmas: contractPragmas,
+					Line:    contractCtx.GetStart().GetLine(),
 				}
 				b.astRoot.Contracts = append(b.astRoot.Contracts, contract)
 			}
@@ -48,7 +49,6 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 }
 
 func (b *ASTBuilder) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
-
 	// Look if contract already exists in the AST root
 	for _, contract := range b.astRoot.Contracts {
 		if contract.Name == ctx.Identifier().GetText() {
@@ -57,11 +57,12 @@ func (b *ASTBuilder) EnterContractDefinition(ctx *parser.ContractDefinitionConte
 		}
 	}
 
-	if b.currentContract != nil {
+	if b.currentContract == nil {
 		b.currentContract = &ContractNode{
 			Name:           ctx.Identifier().GetText(),
 			StateVariables: make([]*StateVariableNode, 0),
 			Kind:           "contract",
+			Line:           ctx.GetStart().GetLine(),
 		}
 	}
 
@@ -83,10 +84,20 @@ func (b *ASTBuilder) ExitContractDefinition(ctx *parser.ContractDefinitionContex
 }
 
 func (b *ASTBuilder) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
-	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(),
-		StateVariables: make([]*StateVariableNode, 0),
-		Kind:           "interface",
+	// Look if contract already exists in the AST root
+	for _, contract := range b.astRoot.Contracts {
+		if contract.Name == ctx.Identifier().GetText() {
+			b.currentContract = contract
+			return
+		}
+	}
+
+	if b.currentContract == nil {
+		b.currentContract = &ContractNode{
+			Name:           ctx.Identifier().GetText(),
+			StateVariables: make([]*StateVariableNode, 0),
+			Kind:           "interface",
+		}
 	}
 
 	if ctx.InheritanceSpecifierList() != nil {
@@ -97,10 +108,20 @@ func (b *ASTBuilder) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionCon
 }
 
 func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext) {
-	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(),
-		StateVariables: make([]*StateVariableNode, 0),
-		Kind:           "library",
+	// Look if contract already exists in the AST root
+	for _, contract := range b.astRoot.Contracts {
+		if contract.Name == ctx.Identifier().GetText() {
+			b.currentContract = contract
+			return
+		}
+	}
+
+	if b.currentContract == nil {
+		b.currentContract = &ContractNode{
+			Name:           ctx.Identifier().GetText(),
+			StateVariables: make([]*StateVariableNode, 0),
+			Kind:           "library",
+		}
 	}
 }
 

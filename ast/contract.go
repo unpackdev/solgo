@@ -3,6 +3,7 @@ package ast
 // ContractNode represents a contract definition in Solidity.
 type ContractNode struct {
 	Name           string                `json:"name"`
+	Line           int                   `json:"line"`
 	Pragmas        []*PragmaNode         `json:"pragmas"`
 	StateVariables []*StateVariableNode  `json:"variables"`
 	Enums          []*EnumNode           `json:"enums"`
