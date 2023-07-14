@@ -163,14 +163,10 @@ func (b *ASTBuilder) traverseBodyElement(identifierNode Node, bodyElement parser
 	}
 
 	if functionDefinition := bodyElement.FunctionDefinition(); functionDefinition != nil {
-		fmt.Println("FunctionDefinitionContext", functionDefinition)
 		toReturn = b.traverseFunctionDefinition(
 			toReturn,
 			functionDefinition.(*parser.FunctionDefinitionContext),
 		)
-	} else {
-		fmt.Println("Unknown type", bodyElement)
-		// Handle unknown types here.
 	}
 
 	return toReturn
@@ -214,93 +210,95 @@ func (b *ASTBuilder) traverseFunctionDefinition(node Node, fd *parser.FunctionDe
 		_ = override
 	}
 
-	// Extract the function parameters.
-	node.Parameters = b.traverseParameterList(node, fd.AllParameterList())
+	// Extract function parameters.
+	if len(fd.AllParameterList()) > 0 {
+		node.Parameters = b.traverseParameterList(node, fd.AllParameterList()[0])
+	}
+
+	// Extract function return parameters.
+	node.ReturnParameters = b.traverseParameterList(node, fd.GetReturnParameters())
 
 	return node
 }
 
-func (b *ASTBuilder) traverseParameterList(node Node, parametersCtx []parser.IParameterListContext) *ParametersList {
-	if len(parametersCtx) == 0 {
+func (b *ASTBuilder) traverseParameterList(node Node, parameterCtx parser.IParameterListContext) *ParametersList {
+	if parameterCtx.IsEmpty() {
 		return nil
 	}
 
-	for _, parameterCtx := range parametersCtx {
+	id := atomic.AddInt64(&b.nextID, 1) - 1
+
+	parametersList := &ParametersList{
+		ID:         id,
+		Parameters: make([]Parameter, 0),
+		Src: Src{
+			Line:   parameterCtx.GetStart().GetLine(),
+			Start:  parameterCtx.GetStart().GetStart(),
+			End:    parameterCtx.GetStop().GetStop(),
+			Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
+			Index:  node.Src.Index,
+		},
+		NodeType: NodeTypeParameterList.String(),
+	}
+
+	for _, parameterCtx := range parameterCtx.AllParameterDeclaration() {
 		if parameterCtx.IsEmpty() {
 			continue
 		}
 
-		id := atomic.AddInt64(&b.nextID, 1) - 1
-
-		parametersList := &ParametersList{
-			ID:         id,
-			Parameters: make([]Parameter, 0),
+		parameterID := atomic.AddInt64(&b.nextID, 1) - 1
+		pNode := Parameter{
+			ID: parameterID,
 			Src: Src{
 				Line:   parameterCtx.GetStart().GetLine(),
 				Start:  parameterCtx.GetStart().GetStart(),
 				End:    parameterCtx.GetStop().GetStop(),
 				Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-				Index:  node.Src.Index,
+				Index:  parametersList.ID,
 			},
-			NodeType: NodeTypeParameterList.String(),
+			Scope: node.ID,
+			Name: func() string {
+				if parameterCtx.Identifier() != nil {
+					return parameterCtx.Identifier().GetText()
+				}
+				return ""
+			}(),
+			NodeType: NodeTypeVariableDeclaration.String(),
+			// Just hardcoding it here to internal as I am not sure how
+			// could it be possible to be anything else.
+			// @TODO: Check if it is possible to be anything else.
+			Visibility: NodeTypeVisibilityInternal.String(),
 		}
 
-		for _, parameterCtx := range parameterCtx.AllParameterDeclaration() {
-			if parameterCtx.IsEmpty() {
-				continue
-			}
-
-			parameterID := atomic.AddInt64(&b.nextID, 1) - 1
-			pNode := Parameter{
-				ID: parameterID,
+		if parameterCtx.GetType_().ElementaryTypeName() != nil {
+			typeNameID := atomic.AddInt64(&b.nextID, 1) - 1
+			pNode.NodeType = NodeTypeElementaryTypeName.String()
+			typeCtx := parameterCtx.GetType_().ElementaryTypeName()
+			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+				typeCtx.GetText(),
+			)
+			pNode.TypeName = &TypeName{
+				ID:   typeNameID,
+				Name: typeCtx.GetText(),
 				Src: Src{
 					Line:   parameterCtx.GetStart().GetLine(),
 					Start:  parameterCtx.GetStart().GetStart(),
 					End:    parameterCtx.GetStop().GetStop(),
 					Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-					Index:  parametersList.ID,
+					Index:  pNode.ID,
 				},
-				Scope:    node.ID,
-				Name:     parameterCtx.Identifier().GetText(),
-				NodeType: NodeTypeVariableDeclaration.String(),
-				// Just hardcoding it here to internal as I am not sure how
-				// could it be possible to be anything else.
-				// @TODO: Check if it is possible to be anything else.
-				Visibility: NodeTypeVisibilityInternal.String(),
+				NodeType: NodeTypeElementaryTypeName.String(),
+				TypeDescriptions: &TypeDescriptions{
+					TypeIdentifier: normalizedTypeIdentifier,
+					TypeString:     normalizedTypeName,
+				},
 			}
-
-			if parameterCtx.GetType_().ElementaryTypeName() != nil {
-				typeNameID := atomic.AddInt64(&b.nextID, 1) - 1
-				pNode.NodeType = NodeTypeElementaryTypeName.String()
-				typeCtx := parameterCtx.GetType_().ElementaryTypeName()
-				normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
-					typeCtx.GetText(),
-				)
-				pNode.TypeName = &TypeName{
-					ID:   typeNameID,
-					Name: typeCtx.GetText(),
-					Src: Src{
-						Line:   parameterCtx.GetStart().GetLine(),
-						Start:  parameterCtx.GetStart().GetStart(),
-						End:    parameterCtx.GetStop().GetStop(),
-						Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-						Index:  pNode.ID,
-					},
-					NodeType: NodeTypeElementaryTypeName.String(),
-					TypeDescriptions: &TypeDescriptions{
-						TypeIdentifier: normalizedTypeIdentifier,
-						TypeString:     normalizedTypeName,
-					},
-				}
-			}
-
-			parametersList.Parameters = append(parametersList.Parameters, pNode)
 		}
 
-		return parametersList
+		parametersList.Parameters = append(parametersList.Parameters, pNode)
 	}
 
-	return nil
+	return parametersList
 }
 
 func (b *ASTBuilder) GetRoot() *RootSourceUnit {
