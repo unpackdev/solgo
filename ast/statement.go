@@ -1,309 +1,95 @@
 package ast
 
-import (
-	"strings"
-
-	"github.com/antlr4-go/antlr/v4"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/txpull/solgo/parser"
-)
-
-// StatementNode represents a statement in Solidity.
-type StatementNode struct {
-	Expression string      `json:"expression"`
-	Line       int         `json:"line"`
-	Type       string      `json:"type"`
-	Tokens     []TokenNode `json:"tokens"`
+type Statement struct {
+	Expression *Expression `json:"expression"`
+	ID         int         `json:"id"`
+	NodeType   string      `json:"node_type"`
+	Src        string      `json:"src"`
 }
 
-func (s *StatementNode) Children() []Node {
-	// This will depend on the specific kind of statement.
-	return nil
+type Expression struct {
+	ID                     int               `json:"id"`
+	IsConstant             bool              `json:"is_constant"`
+	IsLValue               bool              `json:"is_l_value"`
+	IsPure                 bool              `json:"is_pure"`
+	LValueRequested        bool              `json:"l_value_requested"`
+	LeftHandSide           *LeftHandSide     `json:"left_hand_side,omitempty"`
+	NodeType               string            `json:"node_type"`
+	Operator               string            `json:"operator,omitempty"`
+	RightHandSide          *RightHandSide    `json:"right_hand_side,omitempty"`
+	Src                    string            `json:"src"`
+	TypeDescriptions       *TypeDescriptions `json:"type_descriptions"`
+	Name                   string            `json:"name,omitempty"`
+	ReferencedDeclarations []int             `json:"referenced_declaration,omitempty"`
+	OverloadedDeclarations []interface{}     `json:"overloaded_declarations,omitempty"`
+	Arguments              []Argument        `json:"arguments,omitempty"`
+	Expression             *Expression       `json:"expression,omitempty"`
+	MemberName             string            `json:"member_name,omitempty"`
+	Kind                   string            `json:"kind,omitempty"`
+	TryCall                bool              `json:"try_call,omitempty"`
 }
 
-func (b *ASTBuilder) traverseStatements(body []*StatementNode, fnArguments []*VariableNode, node antlr.Tree) []*StatementNode {
-	statements := []*StatementNode{}
+type LeftHandSide struct {
+	ID                     int               `json:"id"`
+	Name                   string            `json:"name"`
+	NodeType               string            `json:"node_type"`
+	OverloadedDeclarations []interface{}     `json:"overloaded_declarations"`
+	ReferencedDeclaration  int               `json:"referenced_declaration"`
+	Src                    string            `json:"src"`
+	TypeDescriptions       *TypeDescriptions `json:"type_descriptions"`
+}
 
-	switch node := node.(type) {
+type RightHandSide struct {
+	Arguments        []Argument        `json:"arguments"`
+	Expression       *Expression       `json:"expression"`
+	ID               int               `json:"id"`
+	IsConstant       bool              `json:"is_constant"`
+	IsLValue         bool              `json:"is_l_value"`
+	IsPure           bool              `json:"is_pure"`
+	Kind             string            `json:"kind"`
+	LValueRequested  bool              `json:"l_value_requested"`
+	Names            []interface{}     `json:"names"`
+	NodeType         string            `json:"node_type"`
+	Src              string            `json:"src"`
+	TryCall          bool              `json:"try_call"`
+	TypeDescriptions *TypeDescriptions `json:"type_descriptions"`
+}
 
-	case *parser.EmitStatementContext:
-		tokens := b.collectTokens(node)
-		tokensNode := []TokenNode{}
+type Argument struct {
+	ID                     int               `json:"id"`
+	Name                   string            `json:"name"`
+	NodeType               string            `json:"node_type"`
+	OverloadedDeclarations []interface{}     `json:"overloaded_declarations"`
+	ReferencedDeclaration  int               `json:"referenced_declaration"`
+	Src                    string            `json:"src"`
+	TypeDescriptions       *TypeDescriptions `json:"type_descriptions"`
+}
 
-		for _, token := range tokens {
-			tokenNode := TokenNode{
-				Name:           token.GetText(),
-				LexerTypeIndex: token.GetTokenType(),
-				LexerType:      getTokenTypeName(token),
-			}
+type ParametersList struct {
+	ID         int64       `json:"id"`
+	NodeType   string      `json:"node_type"`
+	Parameters []Parameter `json:"parameters"`
+	Src        Src         `json:"src"`
+}
 
-			if token.GetTokenType() == parser.SolidityParserFalse ||
-				token.GetTokenType() == parser.SolidityParserTrue ||
-				token.GetTokenType() == parser.SolidityParserBool {
-				tokenNode.Type = "bool"
-			}
+type Parameter struct {
+	Constant         bool              `json:"constant"`
+	ID               int64             `json:"id"`
+	Mutability       string            `json:"mutability"`
+	Name             string            `json:"name"`
+	NodeType         string            `json:"node_type"`
+	Scope            int64             `json:"scope"`
+	Src              Src               `json:"src"`
+	StateVariable    bool              `json:"state_variable"`
+	StorageLocation  string            `json:"storage_location"`
+	TypeDescriptions *TypeDescriptions `json:"type_descriptions"`
+	TypeName         *TypeName         `json:"type_name"`
+	Visibility       string            `json:"visibility"`
+}
 
-			for _, fnArg := range fnArguments {
-				if token.GetText() == fnArg.Name {
-					tokenNode.IsFunctionArgument = true
-					tokenNode.Type = fnArg.Type
-				}
-			}
-
-			for _, stateVar := range b.currentContract.StateVariables {
-				if token.GetText() == stateVar.Name {
-					tokenNode.IsStateVariable = true
-					tokenNode.Type = stateVar.Type
-				}
-			}
-
-			tokensNode = append(tokensNode, tokenNode)
-		}
-
-		if len(tokensNode) > 0 && tokensNode[len(tokensNode)-1:][0].LexerTypeIndex != parser.SolidityParserSemicolon {
-			tokensNode = append(tokensNode, TokenNode{
-				Name:           ";",
-				LexerTypeIndex: parser.SolidityParserSemicolon,
-				LexerType:      "semicolon",
-			})
-		}
-
-		statementNode := &StatementNode{
-			Expression: func() string {
-				toReturn := []string{}
-
-				for _, token := range tokens {
-					if token.GetTokenType() != parser.SolidityParserSemicolon {
-						toReturn = append(toReturn, token.GetText())
-					}
-				}
-
-				return strings.TrimSpace(strings.Join(toReturn, " ")) + ";"
-			}(),
-			Line:   node.GetStart().GetLine(),
-			Type:   "emit",
-			Tokens: tokensNode,
-		}
-
-		statements = append(statements, statementNode)
-
-		spew.Dump(statementNode)
-
-	case *parser.ReturnStatementContext:
-		tokens := b.collectTokens(node)
-		tokensNode := []TokenNode{}
-
-		for _, token := range tokens {
-			tokenNode := TokenNode{
-				Name:           token.GetText(),
-				LexerTypeIndex: token.GetTokenType(),
-				LexerType:      getTokenTypeName(token),
-			}
-
-			if token.GetTokenType() == parser.SolidityParserFalse ||
-				token.GetTokenType() == parser.SolidityParserTrue ||
-				token.GetTokenType() == parser.SolidityParserBool {
-				tokenNode.Type = "bool"
-			}
-
-			for _, fnArg := range fnArguments {
-				if token.GetText() == fnArg.Name {
-					tokenNode.IsFunctionArgument = true
-					tokenNode.Type = fnArg.Type
-				}
-			}
-
-			for _, stateVar := range b.currentContract.StateVariables {
-				if token.GetText() == stateVar.Name {
-					tokenNode.IsStateVariable = true
-					tokenNode.Type = stateVar.Type
-				}
-			}
-
-			tokensNode = append(tokensNode, tokenNode)
-		}
-
-		if len(tokensNode) > 0 && tokensNode[len(tokensNode)-1:][0].LexerTypeIndex != parser.SolidityParserSemicolon {
-			tokensNode = append(tokensNode, TokenNode{
-				Name:           ";",
-				LexerTypeIndex: parser.SolidityParserSemicolon,
-				LexerType:      "semicolon",
-			})
-		}
-
-		statementNode := &StatementNode{
-			Expression: func() string {
-				toReturn := []string{}
-
-				for _, token := range tokens {
-					if token.GetTokenType() != parser.SolidityParserSemicolon {
-						toReturn = append(toReturn, token.GetText())
-					}
-				}
-
-				return strings.TrimSpace(strings.Join(toReturn, " ")) + ";"
-			}(),
-			Line:   node.GetStart().GetLine(),
-			Type:   "return",
-			Tokens: tokensNode,
-		}
-
-		statements = append(statements, statementNode)
-
-	case *parser.AssignmentContext:
-		tokens := b.collectTokens(node)
-		tokensNode := []TokenNode{}
-
-		for _, token := range tokens {
-			tokenNode := TokenNode{
-				Name:           token.GetText(),
-				LexerTypeIndex: token.GetTokenType(),
-				LexerType:      getTokenTypeName(token),
-			}
-
-			for _, fnArg := range fnArguments {
-				if token.GetText() == fnArg.Name {
-					tokenNode.IsFunctionArgument = true
-					tokenNode.Type = fnArg.Type
-				}
-			}
-
-			for _, stateVar := range b.currentContract.StateVariables {
-				if token.GetText() == stateVar.Name {
-					tokenNode.IsStateVariable = true
-					tokenNode.Type = stateVar.Type
-				}
-			}
-
-			tokensNode = append(tokensNode, tokenNode)
-		}
-
-		if len(tokensNode) > 0 && tokensNode[len(tokensNode)-1:][0].LexerTypeIndex != parser.SolidityParserSemicolon {
-			tokensNode = append(tokensNode, TokenNode{
-				Name:           ";",
-				LexerTypeIndex: parser.SolidityParserSemicolon,
-				LexerType:      "semicolon",
-			})
-		}
-
-		statementNode := &StatementNode{
-			Expression: func() string {
-				toReturn := []string{}
-
-				for _, token := range tokens {
-					if token.GetTokenType() != parser.SolidityParserSemicolon {
-						toReturn = append(toReturn, token.GetText())
-					}
-				}
-
-				return strings.TrimSpace(strings.Join(toReturn, " ")) + ";"
-			}(),
-			Line:   node.GetStart().GetLine(),
-			Type:   "assignment",
-			Tokens: tokensNode,
-		}
-
-		statements = append(statements, statementNode)
-
-	case *parser.VariableDeclarationStatementContext:
-		tokens := b.collectTokens(node)
-		tokensNode := []TokenNode{}
-
-		for _, token := range tokens {
-			tokenNode := TokenNode{
-				Name:           token.GetText(),
-				LexerTypeIndex: token.GetTokenType(),
-				LexerType:      getTokenTypeName(token),
-			}
-
-			if tokenNode.LexerTypeIndex == parser.SolidityParserIdentifier {
-				tokenNode.IsFunctionArgument = true
-			}
-
-			tokensNode = append(tokensNode, tokenNode)
-		}
-
-		if len(tokensNode) > 0 && tokensNode[len(tokensNode)-1:][0].LexerTypeIndex != parser.SolidityParserSemicolon {
-			tokensNode = append(tokensNode, TokenNode{
-				Name:           ";",
-				LexerTypeIndex: parser.SolidityParserSemicolon,
-				LexerType:      "semicolon",
-			})
-		}
-
-		statementNode := &StatementNode{
-			Expression: func() string {
-				toReturn := []string{}
-
-				for _, token := range tokens {
-					if token.GetTokenType() != parser.SolidityParserSemicolon {
-						toReturn = append(toReturn, token.GetText())
-					}
-				}
-
-				return strings.TrimSpace(strings.Join(toReturn, " ")) + ";"
-			}(),
-			Line:   node.GetStart().GetLine(),
-			Type:   "variable_declaration",
-			Tokens: tokensNode,
-		}
-
-		statements = append(statements, statementNode)
-
-	case *parser.FunctionCallContext:
-		tokens := b.collectTokens(node)
-		tokensNode := []TokenNode{}
-
-		for _, token := range tokens {
-			tokensNode = append(tokensNode, TokenNode{
-				Name:           token.GetText(),
-				LexerTypeIndex: token.GetTokenType(),
-				LexerType:      getTokenTypeName(token),
-			})
-		}
-
-		if len(tokensNode) > 0 && tokensNode[len(tokensNode)-1:][0].LexerTypeIndex != parser.SolidityParserSemicolon {
-			tokensNode = append(tokensNode, TokenNode{
-				Name:           ";",
-				LexerTypeIndex: parser.SolidityParserSemicolon,
-				LexerType:      "semicolon",
-			})
-		}
-
-		statementNode := &StatementNode{
-			Expression: func() string {
-				var toReturn string
-
-				for _, token := range tokensNode {
-					if token.LexerTypeIndex != parser.SolidityParserLParen {
-						toReturn += token.Name + ""
-					} else if token.LexerTypeIndex != parser.SolidityParserIdentifier {
-						toReturn += token.Name + ""
-					} else if token.LexerTypeIndex != parser.SolidityParserComma {
-						toReturn += token.Name + " "
-					} else if token.LexerTypeIndex != parser.SolidityParserSemicolon {
-						toReturn += ""
-					}
-				}
-
-				return toReturn
-			}(),
-			Line:   node.GetStart().GetLine(),
-			Type:   "function_call",
-			Tokens: tokensNode,
-		}
-
-		statements = append(statements, statementNode)
-
-	default:
-		// This node is not a statement, so we recurse on its children.
-		for i := 0; i < node.GetChildCount(); i++ {
-			childStatements := b.traverseStatements(body, fnArguments, node.GetChild(i))
-			if childStatements != nil {
-				statements = append(statements, childStatements...)
-			}
-		}
-	}
-
-	return statements
+type FunctionReturnParameters struct {
+	ID         int           `json:"id"`
+	NodeType   string        `json:"node_type"`
+	Parameters []interface{} `json:"parameters"`
+	Src        string        `json:"src"`
 }
