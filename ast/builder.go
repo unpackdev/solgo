@@ -250,10 +250,9 @@ func (b *ASTBuilder) traverseParameterList(node Node, parametersCtx []parser.IPa
 				continue
 			}
 
-			id := atomic.AddInt64(&b.nextID, 1) - 1
-
-			parameterNode := Parameter{
-				ID: id,
+			parameterID := atomic.AddInt64(&b.nextID, 1) - 1
+			pNode := Parameter{
+				ID: parameterID,
 				Src: Src{
 					Line:   parameterCtx.GetStart().GetLine(),
 					Start:  parameterCtx.GetStart().GetStart(),
@@ -261,11 +260,41 @@ func (b *ASTBuilder) traverseParameterList(node Node, parametersCtx []parser.IPa
 					Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
 					Index:  parametersList.ID,
 				},
-				Scope: node.ID,
-				Name:  parameterCtx.Identifier().GetText(),
+				Scope:    node.ID,
+				Name:     parameterCtx.Identifier().GetText(),
+				NodeType: NodeTypeVariableDeclaration.String(),
+				// Just hardcoding it here to internal as I am not sure how
+				// could it be possible to be anything else.
+				// @TODO: Check if it is possible to be anything else.
+				Visibility: NodeTypeVisibilityInternal.String(),
 			}
 
-			parametersList.Parameters = append(parametersList.Parameters, parameterNode)
+			if parameterCtx.GetType_().ElementaryTypeName() != nil {
+				typeNameID := atomic.AddInt64(&b.nextID, 1) - 1
+				pNode.NodeType = NodeTypeElementaryTypeName.String()
+				typeCtx := parameterCtx.GetType_().ElementaryTypeName()
+				normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+					typeCtx.GetText(),
+				)
+				pNode.TypeName = &TypeName{
+					ID:   typeNameID,
+					Name: typeCtx.GetText(),
+					Src: Src{
+						Line:   parameterCtx.GetStart().GetLine(),
+						Start:  parameterCtx.GetStart().GetStart(),
+						End:    parameterCtx.GetStop().GetStop(),
+						Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
+						Index:  pNode.ID,
+					},
+					NodeType: NodeTypeElementaryTypeName.String(),
+					TypeDescriptions: &TypeDescriptions{
+						TypeIdentifier: normalizedTypeIdentifier,
+						TypeString:     normalizedTypeName,
+					},
+				}
+			}
+
+			parametersList.Parameters = append(parametersList.Parameters, pNode)
 		}
 
 		return parametersList

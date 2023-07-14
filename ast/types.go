@@ -53,8 +53,14 @@ const (
 	NodeTypeKindFunction  NodeType = "function"
 
 	// Body types...
-	NodeTypeFunctionDefinition NodeType = "FunctionDefinition"
-	NodeTypeParameterList      NodeType = "ParameterList"
+	NodeTypeFunctionDefinition  NodeType = "FunctionDefinition"
+	NodeTypeParameterList       NodeType = "ParameterList"
+	NodeTypeVariableDeclaration NodeType = "VariableDeclaration"
+
+	// Visibility types...
+	NodeTypeVisibilityInternal NodeType = "internal"
+	NodeTypeVisibilityPrivate  NodeType = "private"
+	NodeTypeVisibilityPublic   NodeType = "public"
 )
 
 func (n NodeType) String() string {
