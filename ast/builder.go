@@ -3,6 +3,7 @@ package ast
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"sync/atomic"
 
 	"github.com/txpull/solgo/parser"
@@ -221,86 +222,6 @@ func (b *ASTBuilder) traverseFunctionDefinition(node Node, fd *parser.FunctionDe
 	return node
 }
 
-func (b *ASTBuilder) traverseParameterList(node Node, parameterCtx parser.IParameterListContext) *ParametersList {
-	if parameterCtx.IsEmpty() {
-		return nil
-	}
-
-	id := atomic.AddInt64(&b.nextID, 1) - 1
-
-	parametersList := &ParametersList{
-		ID:         id,
-		Parameters: make([]Parameter, 0),
-		Src: Src{
-			Line:   parameterCtx.GetStart().GetLine(),
-			Start:  parameterCtx.GetStart().GetStart(),
-			End:    parameterCtx.GetStop().GetStop(),
-			Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-			Index:  node.Src.Index,
-		},
-		NodeType: NodeTypeParameterList.String(),
-	}
-
-	for _, parameterCtx := range parameterCtx.AllParameterDeclaration() {
-		if parameterCtx.IsEmpty() {
-			continue
-		}
-
-		parameterID := atomic.AddInt64(&b.nextID, 1) - 1
-		pNode := Parameter{
-			ID: parameterID,
-			Src: Src{
-				Line:   parameterCtx.GetStart().GetLine(),
-				Start:  parameterCtx.GetStart().GetStart(),
-				End:    parameterCtx.GetStop().GetStop(),
-				Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-				Index:  parametersList.ID,
-			},
-			Scope: node.ID,
-			Name: func() string {
-				if parameterCtx.Identifier() != nil {
-					return parameterCtx.Identifier().GetText()
-				}
-				return ""
-			}(),
-			NodeType: NodeTypeVariableDeclaration.String(),
-			// Just hardcoding it here to internal as I am not sure how
-			// could it be possible to be anything else.
-			// @TODO: Check if it is possible to be anything else.
-			Visibility: NodeTypeVisibilityInternal.String(),
-		}
-
-		if parameterCtx.GetType_().ElementaryTypeName() != nil {
-			typeNameID := atomic.AddInt64(&b.nextID, 1) - 1
-			pNode.NodeType = NodeTypeElementaryTypeName.String()
-			typeCtx := parameterCtx.GetType_().ElementaryTypeName()
-			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
-				typeCtx.GetText(),
-			)
-			pNode.TypeName = &TypeName{
-				ID:   typeNameID,
-				Name: typeCtx.GetText(),
-				Src: Src{
-					Line:   parameterCtx.GetStart().GetLine(),
-					Start:  parameterCtx.GetStart().GetStart(),
-					End:    parameterCtx.GetStop().GetStop(),
-					Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-					Index:  pNode.ID,
-				},
-				NodeType: NodeTypeElementaryTypeName.String(),
-				TypeDescriptions: &TypeDescriptions{
-					TypeIdentifier: normalizedTypeIdentifier,
-					TypeString:     normalizedTypeName,
-				},
-			}
-		}
-
-		parametersList.Parameters = append(parametersList.Parameters, pNode)
-	}
-
-	return parametersList
-}
-
 func (b *ASTBuilder) GetRoot() *RootSourceUnit {
 	return b.astRoot
 }
@@ -319,4 +240,12 @@ func (b *ASTBuilder) ToJSONString() (string, error) {
 
 func (b *ASTBuilder) ToPrettyJSON() ([]byte, error) {
 	return json.MarshalIndent(b.astRoot, "", "  ")
+}
+
+func (b *ASTBuilder) WriteJSONToFile(path string) error {
+	bts, err := b.ToJSON()
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(path, bts, 0644)
 }

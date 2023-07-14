@@ -68,6 +68,9 @@ func TestAstBuilder(t *testing.T) {
 
 				fmt.Println(string(prettyJson))
 
+				err = astBuilder.WriteJSONToFile(testCase.name + ".json")
+				assert.NoError(t, err)
+
 				/* 				astJson, err := astBuilder.ToJSON()
 				   				assert.NoError(t, err)
 				   				assert.NotEmpty(t, astJson)

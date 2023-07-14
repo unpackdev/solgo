@@ -61,6 +61,9 @@ const (
 	NodeTypeVisibilityInternal NodeType = "internal"
 	NodeTypeVisibilityPrivate  NodeType = "private"
 	NodeTypeVisibilityPublic   NodeType = "public"
+
+	NodeTypeMutabilityMutable   NodeType = "mutable"
+	NodeTypeMutabilityImmutable NodeType = "immutable"
 )
 
 func (n NodeType) String() string {
