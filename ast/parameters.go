@@ -3,69 +3,26 @@ package ast
 import (
 	"sync/atomic"
 
+	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type ParametersList struct {
-	ID         int64       `json:"id"`
-	NodeType   string      `json:"node_type"`
-	Parameters []Parameter `json:"parameters"`
-	Src        Src         `json:"src"`
-}
-
-type Parameter struct {
-	Constant         bool              `json:"constant"`
-	ID               int64             `json:"id"`
-	Mutability       string            `json:"mutability"`
-	Name             string            `json:"name"`
-	NodeType         string            `json:"node_type"`
-	Scope            int64             `json:"scope"`
-	Src              Src               `json:"src"`
-	StateVariable    bool              `json:"state_variable"`
-	StorageLocation  string            `json:"storage_location"`
-	TypeDescriptions *TypeDescriptions `json:"type_descriptions"`
-	TypeName         *TypeName         `json:"type_name"`
-	Visibility       string            `json:"visibility"`
-}
-
-type FunctionReturnParameters struct {
-	ID         int64         `json:"id"`
-	NodeType   string        `json:"node_type"`
-	Parameters []interface{} `json:"parameters"`
-	Src        Src           `json:"src"`
-}
-
-type TypeName struct {
-	ID               int64             `json:"id"`
-	Name             string            `json:"name"`
-	NodeType         string            `json:"node_type"`
-	Src              Src               `json:"src"`
-	TypeDescriptions *TypeDescriptions `json:"type_descriptions"`
-}
-
-type TypeDescriptions struct {
-	TypeIdentifier string `json:"type_identifier"`
-	TypeString     string `json:"type_string"`
-}
-
-func (b *ASTBuilder) traverseParameterList(node Node, parameterCtx parser.IParameterListContext) *ParametersList {
+func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parser.IParameterListContext) *ast_pb.ParametersList {
 	if parameterCtx.IsEmpty() {
 		return nil
 	}
 
-	id := atomic.AddInt64(&b.nextID, 1) - 1
-
-	parametersList := &ParametersList{
-		ID:         id,
-		Parameters: make([]Parameter, 0),
-		Src: Src{
-			Line:   parameterCtx.GetStart().GetLine(),
-			Start:  parameterCtx.GetStart().GetStart(),
-			End:    parameterCtx.GetStop().GetStop(),
-			Length: parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1,
-			Index:  node.Src.Index,
+	parametersList := &ast_pb.ParametersList{
+		Id:         atomic.AddInt64(&b.nextID, 1) - 1,
+		Parameters: make([]*ast_pb.Parameter, 0),
+		Src: &ast_pb.Src{
+			Line:        int64(parameterCtx.GetStart().GetLine()),
+			Start:       int64(parameterCtx.GetStart().GetStart()),
+			End:         int64(parameterCtx.GetStop().GetStop()),
+			Length:      int64(parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1),
+			ParentIndex: node.Src.ParentIndex,
 		},
-		NodeType: NodeTypeParameterList.String(),
+		NodeType: ast_pb.NodeType_NODE_TYPE_PARAMETER_LIST,
 	}
 
 	for _, paramCtx := range parameterCtx.AllParameterDeclaration() {
@@ -73,51 +30,51 @@ func (b *ASTBuilder) traverseParameterList(node Node, parameterCtx parser.IParam
 			continue
 		}
 
-		parameterID := atomic.AddInt64(&b.nextID, 1) - 1
-		pNode := Parameter{
-			ID: parameterID,
-			Src: Src{
-				Line:   paramCtx.GetStart().GetLine(),
-				Start:  paramCtx.GetStart().GetStart(),
-				End:    paramCtx.GetStop().GetStop(),
-				Length: paramCtx.GetStop().GetStop() - paramCtx.GetStart().GetStart() + 1,
-				Index:  parametersList.ID,
+		pNode := &ast_pb.Parameter{
+			Id: atomic.AddInt64(&b.nextID, 1) - 1,
+			Src: &ast_pb.Src{
+				Line:        int64(paramCtx.GetStart().GetLine()),
+				Column:      int64(paramCtx.GetStart().GetColumn()),
+				Start:       int64(paramCtx.GetStart().GetStart()),
+				End:         int64(paramCtx.GetStop().GetStop()),
+				Length:      int64(paramCtx.GetStop().GetStop() - paramCtx.GetStart().GetStart() + 1),
+				ParentIndex: parametersList.Id,
 			},
-			Scope: node.ID,
+			Scope: node.Id,
 			Name: func() string {
 				if paramCtx.Identifier() != nil {
 					return paramCtx.Identifier().GetText()
 				}
 				return ""
 			}(),
-			NodeType: NodeTypeVariableDeclaration.String(),
+			NodeType: ast_pb.NodeType_NODE_TYPE_VARIABLE_DECLARATION,
 			// Just hardcoding it here to internal as I am not sure how
 			// could it be possible to be anything else.
 			// @TODO: Check if it is possible to be anything else.
-			Visibility: NodeTypeVisibilityInternal.String(),
+			Visibility: ast_pb.NodeType_NODE_TYPE_VISIBILITY_INTERNAL,
 			// Mutable is the default state for parameter declarations.
-			Mutability: NodeTypeMutabilityMutable.String(),
+			Mutability: ast_pb.NodeType_NODE_TYPE_MUTABILITY_MUTABLE,
 		}
 
 		if paramCtx.GetType_().ElementaryTypeName() != nil {
-			typeNameID := atomic.AddInt64(&b.nextID, 1) - 1
-			pNode.NodeType = NodeTypeElementaryTypeName.String()
+			pNode.NodeType = ast_pb.NodeType_NODE_TYPE_ELEMENTARY_TYPE_NAME
 			typeCtx := paramCtx.GetType_().ElementaryTypeName()
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeCtx.GetText(),
 			)
-			pNode.TypeName = &TypeName{
-				ID:   typeNameID,
+			pNode.TypeName = &ast_pb.TypeName{
+				Id:   atomic.AddInt64(&b.nextID, 1) - 1,
 				Name: typeCtx.GetText(),
-				Src: Src{
-					Line:   paramCtx.GetStart().GetLine(),
-					Start:  paramCtx.GetStart().GetStart(),
-					End:    paramCtx.GetStop().GetStop(),
-					Length: paramCtx.GetStop().GetStop() - paramCtx.GetStart().GetStart() + 1,
-					Index:  pNode.ID,
+				Src: &ast_pb.Src{
+					Line:        int64(paramCtx.GetStart().GetLine()),
+					Column:      int64(paramCtx.GetStart().GetColumn()),
+					Start:       int64(paramCtx.GetStart().GetStart()),
+					End:         int64(paramCtx.GetStop().GetStop()),
+					Length:      int64(paramCtx.GetStop().GetStop() - paramCtx.GetStart().GetStart() + 1),
+					ParentIndex: parametersList.Id,
 				},
-				NodeType: NodeTypeElementaryTypeName.String(),
-				TypeDescriptions: &TypeDescriptions{
+				NodeType: pNode.NodeType,
+				TypeDescriptions: &ast_pb.TypeDescriptions{
 					TypeIdentifier: normalizedTypeIdentifier,
 					TypeString:     normalizedTypeName,
 				},

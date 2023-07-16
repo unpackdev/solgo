@@ -5,15 +5,9 @@ import (
 	"strings"
 
 	"github.com/antlr4-go/antlr/v4"
+	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
-
-type CommentNode struct {
-	ID       int64    `json:"id"`
-	NodeType NodeType `json:"node_type"`
-	Src      Src      `json:"src"`
-	Value    string   `json:"value"`
-}
 
 // EnterEveryRule is called when the parser enters any rule in the grammar.
 // It is used to search for license and any comments that code has.
@@ -26,41 +20,43 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 
 		for _, token := range tokens {
 			if token.GetTokenType() == parser.SolidityLexerLINE_COMMENT {
-				comment := &CommentNode{
-					ID: int64(len(b.comments)),
-					Src: Src{
-						Line:   token.GetLine(),
-						Start:  token.GetStart(),
-						End:    token.GetStop(),
-						Length: token.GetStop() - token.GetStart() + 1,
-						Index:  b.nextID,
+				comment := &ast_pb.Comment{
+					Id: int64(len(b.comments)),
+					Src: &ast_pb.Src{
+						Line:        int64(token.GetLine()),
+						Column:      int64(token.GetColumn()),
+						Start:       int64(token.GetStart()),
+						End:         int64(token.GetStop()),
+						Length:      int64(token.GetStop() - token.GetStart() + 1),
+						ParentIndex: b.nextID,
 					},
-					NodeType: NodeTypeCommentLine,
+					NodeType: ast_pb.NodeType_NODE_TYPE_COMMENT,
 					Value:    strings.TrimSpace(token.GetText()),
 				}
 
 				if strings.Contains(token.GetText(), "SPDX-License-Identifier") {
-					comment.NodeType = NodeTypeLicense
+					comment.NodeType = ast_pb.NodeType_NODE_TYPE_LICENSE
 				}
 
 				b.comments = append(b.comments, comment)
 			}
 			if token.GetTokenType() == parser.SolidityLexerCOMMENT {
-				comment := &CommentNode{
-					ID: int64(len(b.comments)),
-					Src: Src{
-						Line:   token.GetLine(),
-						Start:  token.GetStart(),
-						End:    token.GetStop(),
-						Length: token.GetStop() - token.GetStart() + 1,
-						Index:  b.nextID,
+				comment := &ast_pb.Comment{
+					Id: int64(len(b.comments)),
+					Src: &ast_pb.Src{
+						Line:        int64(token.GetLine()),
+						Column:      int64(token.GetColumn()),
+						Start:       int64(token.GetStart()),
+						End:         int64(token.GetStop()),
+						Length:      int64(token.GetStop() - token.GetStart() + 1),
+						ParentIndex: b.nextID,
 					},
-					NodeType: NodeTypeCommentMultiLine,
+					NodeType: ast_pb.NodeType_NODE_TYPE_COMMENT_MULTILINE,
 					Value:    strings.TrimSpace(token.GetText()),
 				}
 
 				if strings.Contains(token.GetText(), "SPDX-License-Identifier") {
-					comment.NodeType = NodeTypeLicense
+					comment.NodeType = ast_pb.NodeType_NODE_TYPE_LICENSE
 				}
 
 				b.comments = append(b.comments, comment)
@@ -75,7 +71,7 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 func (b *ASTBuilder) GetLicense() string {
 	licenseRegex := regexp.MustCompile(`SPDX-License-Identifier:\s*(.+)`)
 	for _, comment := range b.comments {
-		if comment.NodeType == NodeTypeLicense {
+		if comment.NodeType == ast_pb.NodeType_NODE_TYPE_LICENSE {
 			matches := licenseRegex.FindStringSubmatch(comment.Value)
 			if len(matches) > 1 {
 				return matches[1]

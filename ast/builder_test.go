@@ -25,18 +25,20 @@ func TestAstBuilder(t *testing.T) {
 	// Define multiple test cases
 	testCases := []struct {
 		name      string
-		contracts []string
+		contracts map[string]string
 		expected  string
 	}{
 		{
-			name:      "Empty Contract",
-			contracts: []string{tests.ReadContractFileForTest(t, "Empty").Content},
-			expected:  `{"source_units":[]}`,
+			name: "Empty Contract",
+			contracts: map[string]string{
+				"Empty": tests.ReadContractFileForTest(t, "Empty").Content,
+			},
+			expected: `{"source_units":[{"id":0,"license":"","node_type":"SourceUnit","nodes":[],"src":{"line":1,"start":0,"end":0,"length":0,"index":0}}]}`,
 		},
 		{
 			name: "Simple Storage Contract",
-			contracts: []string{
-				tests.ReadContractFileForTest(t, "ast/MathLib").Content,
+			contracts: map[string]string{
+				"MathLib": tests.ReadContractFileForTest(t, "ast/MathLib").Content,
 				//tests.ReadContractFileForTest(t, "ast/SimpleStorage").Content,
 			},
 			expected: `{"source_units":[]}`,
@@ -45,7 +47,7 @@ func TestAstBuilder(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			for _, contract := range testCase.contracts {
+			for contractName, contract := range testCase.contracts {
 				parser, err := solgo.NewParser(context.TODO(), strings.NewReader(contract))
 				assert.NoError(t, err)
 				assert.NotNil(t, parser)
@@ -68,7 +70,7 @@ func TestAstBuilder(t *testing.T) {
 
 				fmt.Println(string(prettyJson))
 
-				err = astBuilder.WriteJSONToFile(testCase.name + ".json")
+				err = astBuilder.WriteJSONToFile("../data/tests/ast/" + contractName + ".solgo.ast.json")
 				assert.NoError(t, err)
 
 				/* 				astJson, err := astBuilder.ToJSON()

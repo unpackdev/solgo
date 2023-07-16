@@ -3,11 +3,12 @@ package ast
 import (
 	"sync/atomic"
 
+	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext, library *parser.LibraryDefinitionContext) []Node {
-	pragmas := make([]Node, 0)
+func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext, library *parser.LibraryDefinitionContext) []*ast_pb.Node {
+	pragmas := make([]*ast_pb.Node, 0)
 	contractLine := library.GetStart().GetLine()
 	prevLine := -1
 	pragmasBeforeLine := false
@@ -26,16 +27,17 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 
 			if prevLine == -1 {
 				// First pragma encountered, add it to the result
-				pragmas = append(pragmas, Node{
-					ID: id,
-					Src: Src{
-						Line:   pragmaLine,
-						Start:  pragmaCtx.GetStart().GetStart(),
-						End:    pragmaCtx.GetStop().GetStop(),
-						Length: pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1,
-						Index:  b.currentSourceUnit.Src.Index,
+				pragmas = append(pragmas, &ast_pb.Node{
+					Id: id,
+					Src: &ast_pb.Src{
+						Line:        int64(pragmaLine),
+						Column:      int64(pragmaCtx.GetStart().GetColumn()),
+						Start:       int64(pragmaCtx.GetStart().GetStart()),
+						End:         int64(pragmaCtx.GetStop().GetStop()),
+						Length:      int64(pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1),
+						ParentIndex: int64(b.currentSourceUnit.Src.ParentIndex),
 					},
-					NodeType: NodeTypePragmaDirective,
+					NodeType: ast_pb.NodeType_NODE_TYPE_PRAGMA_DIRECTIVE,
 					Literals: getLiterals(pragmaCtx.GetText()),
 				})
 				prevLine = pragmaLine
@@ -48,16 +50,17 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 			}
 
 			// Add the pragma to the result
-			pragmas = append(pragmas, Node{
-				ID: id,
-				Src: Src{
-					Line:   pragmaLine,
-					Start:  pragmaCtx.GetStart().GetStart(),
-					End:    pragmaCtx.GetStop().GetStop(),
-					Length: pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1,
-					Index:  b.currentSourceUnit.Src.Index,
+			pragmas = append(pragmas, &ast_pb.Node{
+				Id: id,
+				Src: &ast_pb.Src{
+					Line:        int64(pragmaLine),
+					Column:      int64(pragmaCtx.GetStart().GetColumn()),
+					Start:       int64(pragmaCtx.GetStart().GetStart()),
+					End:         int64(pragmaCtx.GetStop().GetStop()),
+					Length:      int64(pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1),
+					ParentIndex: int64(b.currentSourceUnit.Src.ParentIndex),
 				},
-				NodeType: NodeTypePragmaDirective,
+				NodeType: ast_pb.NodeType_NODE_TYPE_PRAGMA_DIRECTIVE,
 				Literals: getLiterals(pragmaCtx.GetText()),
 			})
 
@@ -72,14 +75,14 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 
 	// Post pragma cleanup...
 	// Remove pragmas that have large gaps between the lines, keep only higher lines
-	filteredPragmas := make([]Node, 0)
-	maxLine := -1
+	filteredPragmas := make([]*ast_pb.Node, 0)
+	maxLine := int64(-1)
 
 	// Iterate through the collected pragmas in reverse order
 	for i := len(pragmas) - 1; i >= 0; i-- {
 		pragma := pragmas[i]
 		if maxLine == -1 || (pragma.Src.Line-maxLine <= 10 && pragma.Src.Line-maxLine >= -1) {
-			filteredPragmas = append([]Node{pragma}, filteredPragmas...)
+			filteredPragmas = append([]*ast_pb.Node{pragma}, filteredPragmas...)
 			maxLine = pragma.Src.Line
 		}
 	}

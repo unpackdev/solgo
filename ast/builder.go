@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"sync/atomic"
 
+	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
@@ -13,35 +14,36 @@ type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
 	parser            *parser.SolidityParser // parser is the Solidity parser instance.
 	nextID            int64                  // nextID is the next ID to assign to a node.
-	comments          []*CommentNode
+	comments          []*ast_pb.Comment
 	commentsParsed    bool
-	currentSourceUnit *SourceUnit
-	astRoot           *RootSourceUnit
+	currentSourceUnit *ast_pb.SourceUnit
+	astRoot           *ast_pb.RootSourceUnit
 }
 
 func NewAstBuilder(parser *parser.SolidityParser) *ASTBuilder {
 	return &ASTBuilder{
 		parser:   parser,
-		comments: make([]*CommentNode, 0),
+		comments: make([]*ast_pb.Comment, 0),
 	}
 }
 
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	id := atomic.AddInt64(&b.nextID, 1) - 1
 
-	b.currentSourceUnit = &SourceUnit{
-		ID:              id,
+	b.currentSourceUnit = &ast_pb.SourceUnit{
+		Id:              id,
 		AbsolutePath:    ctx.GetStart().GetInputStream().GetSourceName(),
-		ExportedSymbols: make([]ExportedSymbols, 0),
-		NodeType:        NodeTypeSourceUnit.String(),
-		Nodes:           []Node{},
-		Src: Src{
-			Line:  ctx.GetStart().GetLine(),
-			Start: ctx.GetStart().GetStart(),
+		ExportedSymbols: make([]*ast_pb.ExportedSymbols, 0),
+		NodeType:        ast_pb.NodeType_NODE_TYPE_SOURCE_UNIT,
+		Nodes:           &ast_pb.RootNode{},
+		Src: &ast_pb.Src{
+			Line:   int64(ctx.GetStart().GetLine()),
+			Column: int64(ctx.GetStart().GetColumn()),
+			Start:  int64(ctx.GetStart().GetStart()),
 			// @TODO: GetStop() is always nil due to some reason so we cannot get lenght
 			// just yet. We need to figure out why.
 			//Length: ctx.GetStop() - ctx.GetStart() + 1,
-			Index: int64(ctx.GetStart().GetTokenIndex()),
+			ParentIndex: int64(ctx.GetStart().GetTokenIndex()),
 		},
 		Comments: b.comments,
 	}
@@ -56,8 +58,8 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 
 			// Alright lets extract bloody pragmas...
 			pragmas := b.findPragmasForLibrary(ctx, libraryCtx)
-			b.currentSourceUnit.Nodes = append(
-				b.currentSourceUnit.Nodes,
+			b.currentSourceUnit.Nodes.Nodes = append(
+				b.currentSourceUnit.Nodes.Nodes,
 				pragmas...,
 			)
 		}
@@ -66,8 +68,8 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 
 // ExitSourceUnit is called when production sourceUnit is exited.
 func (b *ASTBuilder) ExitSourceUnit(ctx *parser.SourceUnitContext) {
-	b.astRoot = &RootSourceUnit{
-		SourceUnits: []SourceUnit{*b.currentSourceUnit},
+	b.astRoot = &ast_pb.RootSourceUnit{
+		SourceUnits: []*ast_pb.SourceUnit{b.currentSourceUnit},
 	}
 	b.currentSourceUnit = nil
 }
@@ -99,25 +101,26 @@ func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext
 
 	b.currentSourceUnit.ExportedSymbols = append(
 		b.currentSourceUnit.ExportedSymbols,
-		ExportedSymbols{
-			ID:   id,
+		&ast_pb.ExportedSymbols{
+			Id:   id,
 			Name: identifierName,
 		},
 	)
 
-	identifierNode := Node{
-		ID:   id,
+	identifierNode := &ast_pb.Node{
+		Id:   id,
 		Name: identifierName,
-		Src: Src{
-			Line:   ctx.GetStart().GetLine(),
-			Start:  ctx.GetStart().GetStart(),
-			End:    ctx.GetStop().GetStop(),
-			Length: ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1,
-			Index:  b.currentSourceUnit.Src.Index,
+		Src: &ast_pb.Src{
+			Line:        int64(ctx.GetStart().GetLine()),
+			Column:      int64(ctx.GetStart().GetColumn()),
+			Start:       int64(ctx.GetStart().GetStart()),
+			End:         int64(ctx.GetStop().GetStop()),
+			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+			ParentIndex: b.currentSourceUnit.Src.ParentIndex,
 		},
 		Abstract: false,
-		NodeType: NodeTypeContractDefinition,
-		Kind:     NodeTypeKindLibrary.String(),
+		NodeType: ast_pb.NodeType_NODE_TYPE_CONTRACT_DEFINITION,
+		Kind:     ast_pb.NodeType_NODE_TYPE_KIND_LIBRARY,
 	}
 
 	// Check if all of the functions discovered in the library are fully implemented...
@@ -135,7 +138,7 @@ func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext
 	// and extract all of the nodes...
 
 	// First lets define nodes...
-	identifierNode.Nodes = make([]Node, 0)
+	identifierNode.Nodes = make([]*ast_pb.Node, 0)
 
 	for _, bodyElement := range ctx.AllContractBodyElement() {
 		if bodyElement.IsEmpty() {
@@ -146,20 +149,20 @@ func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext
 		identifierNode.Nodes = append(identifierNode.Nodes, bodyNode)
 	}
 
-	b.currentSourceUnit.Nodes = append(b.currentSourceUnit.Nodes, identifierNode)
+	b.currentSourceUnit.Nodes.Nodes = append(b.currentSourceUnit.Nodes.Nodes, identifierNode)
 
 }
 
-func (b *ASTBuilder) traverseBodyElement(identifierNode Node, bodyElement parser.IContractBodyElementContext) Node {
+func (b *ASTBuilder) traverseBodyElement(identifierNode *ast_pb.Node, bodyElement parser.IContractBodyElementContext) *ast_pb.Node {
 	id := atomic.AddInt64(&b.nextID, 1) - 1
-	toReturn := Node{
-		ID: id,
-		Src: Src{
-			Line:   bodyElement.GetStart().GetLine(),
-			Start:  bodyElement.GetStart().GetStart(),
-			End:    bodyElement.GetStop().GetStop(),
-			Length: bodyElement.GetStop().GetStop() - bodyElement.GetStart().GetStart() + 1,
-			Index:  identifierNode.Src.Index,
+	toReturn := &ast_pb.Node{
+		Id: id,
+		Src: &ast_pb.Src{
+			Line:        int64(bodyElement.GetStart().GetLine()),
+			Start:       int64(bodyElement.GetStart().GetStart()),
+			End:         int64(bodyElement.GetStop().GetStop()),
+			Length:      int64(bodyElement.GetStop().GetStop() - bodyElement.GetStart().GetStart() + 1),
+			ParentIndex: identifierNode.Src.ParentIndex,
 		},
 	}
 
@@ -173,13 +176,13 @@ func (b *ASTBuilder) traverseBodyElement(identifierNode Node, bodyElement parser
 	return toReturn
 }
 
-func (b *ASTBuilder) traverseFunctionDefinition(node Node, fd *parser.FunctionDefinitionContext) Node {
+func (b *ASTBuilder) traverseFunctionDefinition(node *ast_pb.Node, fd *parser.FunctionDefinitionContext) *ast_pb.Node {
 	// Extract the function name.
 	node.Name = fd.Identifier().GetText()
 
 	// Set the function type and its kind.
-	node.NodeType = NodeTypeFunctionDefinition
-	node.Kind = NodeTypeKindFunction.String()
+	node.NodeType = ast_pb.NodeType_NODE_TYPE_FUNCTION_DEFINITION
+	node.Kind = ast_pb.NodeType_NODE_TYPE_FUNCTION_DEFINITION
 
 	// If block is not empty we are going to assume that the function is implemented.
 	// @TODO: Take assumption to the next level in the future.
@@ -197,7 +200,8 @@ func (b *ASTBuilder) traverseFunctionDefinition(node Node, fd *parser.FunctionDe
 
 	// Get function modifiers.
 	for _, modifier := range fd.AllModifierInvocation() {
-		node.Modifiers = append(node.Modifiers, modifier.GetText())
+		_ = modifier
+		//node.Modifiers = append(node.Modifiers, modifier.GetText())
 	}
 
 	// Check if function is virtual.
@@ -212,17 +216,63 @@ func (b *ASTBuilder) traverseFunctionDefinition(node Node, fd *parser.FunctionDe
 	}
 
 	// Extract function parameters.
-	if len(fd.AllParameterList()) > 0 {
-		node.Parameters = b.traverseParameterList(node, fd.AllParameterList()[0])
-	}
+	//if len(fd.AllParameterList()) > 0 {
+	//	node.Parameters = b.traverseParameterList(node, fd.AllParameterList()[0])
+	//}
 
 	// Extract function return parameters.
-	node.ReturnParameters = b.traverseParameterList(node, fd.GetReturnParameters())
+	//node.ReturnParameters = b.traverseParameterList(node, fd.GetReturnParameters())
+
+	// And now we are going to the big league. We are going to traverse the function body.
+	if !fd.Block().IsEmpty() {
+		node.Nodes = make([]*ast_pb.Node, 0)
+		for _, statement := range fd.Block().AllStatement() {
+			if statement.IsEmpty() {
+				continue
+			}
+			node.Nodes = append(node.Nodes, b.traverseStatement(node, statement))
+		}
+
+	}
 
 	return node
 }
 
-func (b *ASTBuilder) GetRoot() *RootSourceUnit {
+func (b *ASTBuilder) traverseStatement(node *ast_pb.Node, statement parser.IStatementContext) *ast_pb.Node {
+	toReturn := &ast_pb.Node{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(statement.GetStart().GetLine()),
+			Column:      int64(statement.GetStart().GetColumn()),
+			Start:       int64(statement.GetStart().GetStart()),
+			End:         int64(statement.GetStop().GetStop()),
+			Length:      int64(statement.GetStop().GetStop() - statement.GetStart().GetStart() + 1),
+			ParentIndex: node.Src.ParentIndex,
+		},
+	}
+
+	if block := statement.Block(); block != nil {
+		toReturn = b.traverseBlock(toReturn, block.(*parser.BlockContext))
+	}
+
+	return toReturn
+}
+
+func (b *ASTBuilder) traverseBlock(node *ast_pb.Node, block *parser.BlockContext) *ast_pb.Node {
+	node.NodeType = ast_pb.NodeType_NODE_TYPE_BLOCK
+	node.Nodes = make([]*ast_pb.Node, 0)
+
+	for _, statement := range block.AllStatement() {
+		if statement.IsEmpty() {
+			continue
+		}
+		node.Nodes = append(node.Nodes, b.traverseStatement(node, statement))
+	}
+
+	return node
+}
+
+func (b *ASTBuilder) GetRoot() *ast_pb.RootSourceUnit {
 	return b.astRoot
 }
 
