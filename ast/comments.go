@@ -30,12 +30,12 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 						Length:      int64(token.GetStop() - token.GetStart() + 1),
 						ParentIndex: b.nextID,
 					},
-					NodeType: ast_pb.NodeType_NODE_TYPE_COMMENT,
+					NodeType: ast_pb.NodeType_COMMENT,
 					Value:    strings.TrimSpace(token.GetText()),
 				}
 
 				if strings.Contains(token.GetText(), "SPDX-License-Identifier") {
-					comment.NodeType = ast_pb.NodeType_NODE_TYPE_LICENSE
+					comment.NodeType = ast_pb.NodeType_LICENSE
 				}
 
 				b.comments = append(b.comments, comment)
@@ -51,12 +51,12 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 						Length:      int64(token.GetStop() - token.GetStart() + 1),
 						ParentIndex: b.nextID,
 					},
-					NodeType: ast_pb.NodeType_NODE_TYPE_COMMENT_MULTILINE,
+					NodeType: ast_pb.NodeType_COMMENT_MULTILINE,
 					Value:    strings.TrimSpace(token.GetText()),
 				}
 
 				if strings.Contains(token.GetText(), "SPDX-License-Identifier") {
-					comment.NodeType = ast_pb.NodeType_NODE_TYPE_LICENSE
+					comment.NodeType = ast_pb.NodeType_LICENSE
 				}
 
 				b.comments = append(b.comments, comment)
@@ -71,7 +71,7 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 func (b *ASTBuilder) GetLicense() string {
 	licenseRegex := regexp.MustCompile(`SPDX-License-Identifier:\s*(.+)`)
 	for _, comment := range b.comments {
-		if comment.NodeType == ast_pb.NodeType_NODE_TYPE_LICENSE {
+		if comment.NodeType == ast_pb.NodeType_LICENSE {
 			matches := licenseRegex.FindStringSubmatch(comment.Value)
 			if len(matches) > 1 {
 				return matches[1]

@@ -20,9 +20,9 @@ func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parse
 			Start:       int64(parameterCtx.GetStart().GetStart()),
 			End:         int64(parameterCtx.GetStop().GetStop()),
 			Length:      int64(parameterCtx.GetStop().GetStop() - parameterCtx.GetStart().GetStart() + 1),
-			ParentIndex: node.Src.ParentIndex,
+			ParentIndex: node.Id,
 		},
-		NodeType: ast_pb.NodeType_NODE_TYPE_PARAMETER_LIST,
+		NodeType: ast_pb.NodeType_PARAMETER_LIST,
 	}
 
 	for _, paramCtx := range parameterCtx.AllParameterDeclaration() {
@@ -47,17 +47,17 @@ func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parse
 				}
 				return ""
 			}(),
-			NodeType: ast_pb.NodeType_NODE_TYPE_VARIABLE_DECLARATION,
+			NodeType: ast_pb.NodeType_VARIABLE_DECLARATION,
 			// Just hardcoding it here to internal as I am not sure how
 			// could it be possible to be anything else.
 			// @TODO: Check if it is possible to be anything else.
-			Visibility: ast_pb.NodeType_NODE_TYPE_VISIBILITY_INTERNAL,
+			Visibility: ast_pb.NodeType_VISIBILITY_INTERNAL,
 			// Mutable is the default state for parameter declarations.
-			Mutability: ast_pb.NodeType_NODE_TYPE_MUTABILITY_MUTABLE,
+			Mutability: ast_pb.NodeType_MUTABILITY_MUTABLE,
 		}
 
 		if paramCtx.GetType_().ElementaryTypeName() != nil {
-			pNode.NodeType = ast_pb.NodeType_NODE_TYPE_ELEMENTARY_TYPE_NAME
+			pNode.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 			typeCtx := paramCtx.GetType_().ElementaryTypeName()
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeCtx.GetText(),

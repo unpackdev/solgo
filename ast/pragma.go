@@ -37,7 +37,7 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 						Length:      int64(pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1),
 						ParentIndex: int64(b.currentSourceUnit.Src.ParentIndex),
 					},
-					NodeType: ast_pb.NodeType_NODE_TYPE_PRAGMA_DIRECTIVE,
+					NodeType: ast_pb.NodeType_PRAGMA_DIRECTIVE,
 					Literals: getLiterals(pragmaCtx.GetText()),
 				})
 				prevLine = pragmaLine
@@ -60,7 +60,7 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 					Length:      int64(pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1),
 					ParentIndex: int64(b.currentSourceUnit.Src.ParentIndex),
 				},
-				NodeType: ast_pb.NodeType_NODE_TYPE_PRAGMA_DIRECTIVE,
+				NodeType: ast_pb.NodeType_PRAGMA_DIRECTIVE,
 				Literals: getLiterals(pragmaCtx.GetText()),
 			})
 
