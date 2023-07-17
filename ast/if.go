@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"os"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -20,7 +21,13 @@ func (b *ASTBuilder) parseIfStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, 
 		NodeType: ast_pb.NodeType_IF_STATEMENT,
 	}
 
-	//panic("It's if statement...")
+	condition := b.parseExpression(node, bodyNode, nil, statement.Id, ifCtx.Expression())
+	statement.Condition = condition
+
+	j, _ := b.NodeToPrettyJson(statement)
+	println(string(j))
+	os.Exit(1)
+
 	//var statements []*ast_pb.Statement
 
 	for _, _ = range ifCtx.AllStatement() {

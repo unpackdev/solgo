@@ -206,7 +206,7 @@ func (b *ASTBuilder) parseArgumentFromEqualityComparison(fnNode *ast_pb.Node, bo
 			Length:      int64(expressionCtx.GetStop().GetStop() - expressionCtx.GetStart().GetStart() + 1),
 			ParentIndex: statementNode.Id,
 		},
-		// Comparison operators can end up only with boolean type.
+		// Equality operators can end up only with boolean type.
 		TypeDescriptions: &ast_pb.TypeDescriptions{
 			TypeIdentifier: "t_bool",
 			TypeString:     "bool",

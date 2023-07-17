@@ -1,6 +1,12 @@
 package ast
 
 import (
+	"encoding/hex"
+	"fmt"
+	"math"
+	"reflect"
+	"strconv"
+	"strings"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -65,6 +71,8 @@ func (b *ASTBuilder) parseExpression(fnNode *ast_pb.Node, bodyNode *ast_pb.Body,
 	// Let's see if there are any recursions that needs to be done to extract sub expressions.
 	switch childCtx := expressionCtx.(type) {
 	case *parser.MulDivModOperationContext:
+		toReturn.NodeType = ast_pb.NodeType_BINARY_OPERATION
+
 		leftCtx := childCtx.Expression(0)
 		rightCtx := childCtx.Expression(1)
 
@@ -83,6 +91,98 @@ func (b *ASTBuilder) parseExpression(fnNode *ast_pb.Node, bodyNode *ast_pb.Body,
 		toReturn.RightExpression = b.parseExpression(
 			fnNode, bodyNode, arg, toReturn.Id, rightCtx,
 		)
+	case *parser.EqualityComparisonContext:
+		toReturn.NodeType = ast_pb.NodeType_BINARY_OPERATION
+
+		if childCtx.Equal() != nil {
+			toReturn.Operator = ast_pb.Operator_EQUAL
+		} else if childCtx.NotEqual() != nil {
+			toReturn.Operator = ast_pb.Operator_NOT_EQUAL
+		}
+
+		toReturn.LeftExpression = b.parseExpression(
+			fnNode, bodyNode, arg, toReturn.Id, childCtx.Expression(0),
+		)
+
+		toReturn.RightExpression = b.parseExpression(
+			fnNode, bodyNode, arg, toReturn.Id, childCtx.Expression(1),
+		)
+	case *parser.PrimaryExpressionContext:
+		if childCtx.Literal() != nil {
+			toReturn.NodeType = ast_pb.NodeType_LITERAL
+			literalCtx := childCtx.Literal()
+			toReturn.IsPure = true
+
+			if literalCtx.StringLiteral() != nil {
+				toReturn.Kind = ast_pb.NodeType_STRING
+
+				toReturn.Value = strings.TrimSpace(
+					// There can be hex 22 at beginning and end of literal.
+					// We should drop it as that's ASCII for double quote.
+					strings.ReplaceAll(literalCtx.StringLiteral().GetText(), "\"", ""),
+				)
+				toReturn.HexValue = hex.EncodeToString([]byte(toReturn.Value))
+
+				toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+					TypeIdentifier: "t_string_literal",
+					TypeString: fmt.Sprintf(
+						"literal_string %s",
+						literalCtx.StringLiteral().GetText(),
+					),
+				}
+
+				return toReturn
+			}
+
+			if literalCtx.NumberLiteral() != nil {
+				toReturn.Kind = ast_pb.NodeType_NUMBER
+
+				toReturn.Value = strings.TrimSpace(
+					// There can be hex 22 at beginning and end of literal.
+					// We should drop it as that's ASCII for double quote.
+					strings.ReplaceAll(literalCtx.NumberLiteral().GetText(), "\"", ""),
+				)
+				toReturn.HexValue = hex.EncodeToString([]byte(toReturn.Value))
+
+				// Check if the number is a floating-point number
+				if strings.Contains(toReturn.Value, ".") {
+					parts := strings.Split(toReturn.Value, ".")
+
+					// The numerator is the number without the decimal point
+					numerator, _ := strconv.Atoi(parts[0] + parts[1])
+
+					// The denominator is a power of 10 equal to the number of digits in the fractional part
+					denominator := int(math.Pow(10, float64(len(parts[1]))))
+
+					toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+						TypeIdentifier: fmt.Sprintf("t_rational_%d_by_%d", numerator, denominator),
+						TypeString: fmt.Sprintf(
+							"fixed_const %s",
+							literalCtx.NumberLiteral().GetText(),
+						),
+					}
+				} else {
+					numerator, _ := strconv.Atoi(toReturn.Value)
+
+					// The denominator for an integer is 1
+					denominator := 1
+
+					toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+						TypeIdentifier: fmt.Sprintf("t_rational_%d_by_%d", numerator, denominator),
+						TypeString: fmt.Sprintf(
+							"int_const %s",
+							literalCtx.NumberLiteral().GetText(),
+						),
+					}
+				}
+
+				return toReturn
+			}
+
+		}
+
+	default:
+		panic(fmt.Sprintf("Expression Reflect Unimplemented: %s \n", reflect.TypeOf(childCtx)))
 	}
 
 	return toReturn
