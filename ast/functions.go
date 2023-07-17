@@ -105,11 +105,7 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 		NodeType: ast_pb.NodeType_FUNCTION_CALL,
 	}
 
-	statementNode.NodeType = ast_pb.NodeType_FUNCTION_CALL
-	statementNode.Kind = ast_pb.NodeType_FUNCTION_CALL
-
 	expressionCtx := fnCtx.Expression()
-
 	nameExpression := &ast_pb.Expression{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -136,7 +132,7 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 		}
 
 		for _, _ = range fnCtx.CallArgumentList().AllNamedArgument() {
-			panic("Named argument for function call here...")
+			panic("Named argument for function call here (functions.go)...")
 			//argument := b.parseNamedArgument(statementNode, argumentCtx.(*parser.NamedArgumentContext))
 			//statementNode.Arguments = append(statementNode.Arguments, argument)
 		}

@@ -17,6 +17,7 @@ func (b *ASTBuilder) parseExpressionStatement(fnNode *ast_pb.Node, bodyNode *ast
 	for _, child := range eCtx.GetChildren() {
 		switch childCtx := child.(type) {
 		case *parser.FunctionCallContext:
+			statementNode.NodeType = ast_pb.NodeType_FUNCTION_CALL
 			statementNode = b.parseFunctionCall(
 				fnNode, bodyNode, statementNode, childCtx,
 			)
