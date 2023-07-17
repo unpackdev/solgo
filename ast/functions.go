@@ -13,10 +13,6 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 	// Extract the function name.
 	node.Name = fd.Identifier().GetText()
 
-	if node.Name != "mul" {
-		return nil
-	}
-
 	// Set the function type and its kind.
 	node.NodeType = ast_pb.NodeType_FUNCTION_DEFINITION
 	node.Kind = ast_pb.NodeType_FUNCTION_DEFINITION
@@ -81,7 +77,14 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 			if statement.IsEmpty() {
 				continue
 			}
-			bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(node, bodyNode, statement))
+
+			// Parent index statement in this case is used only to be able provide
+			// index to the parent node. It is not used for anything else.
+			parentIndexStmt := &ast_pb.Statement{Id: bodyNode.Id}
+
+			bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(
+				node, bodyNode, parentIndexStmt, statement,
+			))
 		}
 
 		node.Body = bodyNode

@@ -1,7 +1,6 @@
 package ast
 
 import (
-	"os"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -24,15 +23,39 @@ func (b *ASTBuilder) parseIfStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, 
 	condition := b.parseExpression(node, bodyNode, nil, statement.Id, ifCtx.Expression())
 	statement.Condition = condition
 
-	j, _ := b.NodeToPrettyJson(statement)
-	println(string(j))
-	os.Exit(1)
+	if !ifCtx.IsEmpty() {
+		if len(ifCtx.AllStatement()) > 0 {
+			for _, statementCtx := range ifCtx.AllStatement() {
+				if statementCtx.IsEmpty() {
+					continue
+				}
 
-	//var statements []*ast_pb.Statement
+				if statementCtx.Block() != nil {
+					blockCtx := statementCtx.Block()
+					statement.TrueBody = &ast_pb.Statement{
+						Id: atomic.AddInt64(&b.nextID, 1) - 1,
+						Src: &ast_pb.Src{
+							Line:        int64(blockCtx.GetStart().GetLine()),
+							Start:       int64(blockCtx.GetStart().GetStart()),
+							End:         int64(blockCtx.GetStop().GetStop()),
+							Length:      int64(blockCtx.GetStop().GetStop() - blockCtx.GetStart().GetStart() + 1),
+							ParentIndex: statement.Id,
+						},
+						NodeType: ast_pb.NodeType_BLOCK,
+					}
 
-	for _, _ = range ifCtx.AllStatement() {
-		//statement := b.parseStatement(node, bodyNode, statementCtx.(*parser.StatementContext))
-		//statements = append(statements, statement)
+					for _, stmtCtx := range statementCtx.Block().AllStatement() {
+						statement.TrueBody.Statements = append(
+							statement.TrueBody.Statements,
+							b.parseStatement(
+								node, bodyNode, statement.TrueBody,
+								stmtCtx,
+							),
+						)
+					}
+				}
+			}
+		}
 	}
 
 	return statement
