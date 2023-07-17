@@ -37,12 +37,18 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 
 ## Features
 
-- **Syntactic Analysis**: SolGo transforms Solidity code into a parse tree that can be traversed and manipulated, providing a detailed syntactic analysis of the code.
-- **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
-- **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
-- **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
+- **Protocol Buffers**: SolGo uses [Protocol Buffers](https://github.com/txpull/protos) to define the structure of the data that is passed between the parser and the listener. This provides a structured format for the data, enabling more effective analysis.
 - **AST (Abstract Syntax Tree) Generation:** SolGo includes an ASTBuilder that constructs an Abstract Syntax Tree for Solidity code. The AST represents the structure of the code and provides a high-level representation of its elements.
 - **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the ethereum-based networks.
+- **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
+- **Syntactic Analysis**: SolGo transforms Solidity code into a parse tree that can be traversed and manipulated, providing a detailed syntactic analysis of the code.
+- **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
+- **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
+
+
+## Extensions
+
+- [SolGo RPC](https://github.com/txpull/solgo-rpc): A RPC server that exposes the functionality of SolGo via a gRPC.
 
 
 ## Getting Started

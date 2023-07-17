@@ -51,9 +51,9 @@ func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parse
 			// Just hardcoding it here to internal as I am not sure how
 			// could it be possible to be anything else.
 			// @TODO: Check if it is possible to be anything else.
-			Visibility: ast_pb.NodeType_VISIBILITY_INTERNAL,
+			Visibility: ast_pb.Visibility_INTERNAL,
 			// Mutable is the default state for parameter declarations.
-			Mutability: ast_pb.NodeType_MUTABILITY_MUTABLE,
+			Mutability: ast_pb.Mutability_MUTABLE,
 		}
 
 		if paramCtx.GetType_().ElementaryTypeName() != nil {
