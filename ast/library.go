@@ -61,7 +61,7 @@ func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext
 			continue
 		}
 
-		bodyNode := b.traverseBodyElement(identifierNode, bodyElement)
+		bodyNode := b.parseBodyElement(identifierNode, bodyElement)
 		identifierNode.Nodes = append(identifierNode.Nodes, bodyNode)
 	}
 

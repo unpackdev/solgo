@@ -1,67 +1,54 @@
 package ast
 
-/* type Statement struct {
-	Expression *Expression `json:"expression"`
-	ID         int64       `json:"id"`
-	NodeType   string      `json:"node_type"`
-	Src        ast_pb.Src  `json:"src"`
-}
+import (
+	ast_pb "github.com/txpull/protos/dist/go/ast"
+	"github.com/txpull/solgo/parser"
+)
 
-type Expression struct {
-	ID                     int64             `json:"id"`
-	IsConstant             bool              `json:"is_constant"`
-	IsLValue               bool              `json:"is_l_value"`
-	IsPure                 bool              `json:"is_pure"`
-	LValueRequested        bool              `json:"l_value_requested"`
-	LeftHandSide           *LeftHandSide     `json:"left_hand_side,omitempty"`
-	NodeType               string            `json:"node_type"`
-	Operator               string            `json:"operator,omitempty"`
-	RightHandSide          *RightHandSide    `json:"right_hand_side,omitempty"`
-	Src                    ast_pb.Src        `json:"src"`
-	TypeDescriptions       *TypeDescriptions `json:"type_descriptions"`
-	Name                   string            `json:"name,omitempty"`
-	ReferencedDeclarations []int             `json:"referenced_declaration,omitempty"`
-	OverloadedDeclarations []interface{}     `json:"overloaded_declarations,omitempty"`
-	Arguments              []Argument        `json:"arguments,omitempty"`
-	Expression             *Expression       `json:"expression,omitempty"`
-	MemberName             string            `json:"member_name,omitempty"`
-	Kind                   string            `json:"kind,omitempty"`
-	TryCall                bool              `json:"try_call,omitempty"`
-}
+func (b *ASTBuilder) parseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, statementCtx parser.IStatementContext) *ast_pb.Statement {
+	if node.Name != "add" {
+		return nil
+	}
+	if simpleStatement := statementCtx.SimpleStatement(); simpleStatement != nil {
+		return b.parseSimpleStatement(node, bodyNode, simpleStatement.(*parser.SimpleStatementContext))
+	}
 
-type LeftHandSide struct {
-	ID                     int64             `json:"id"`
-	Name                   string            `json:"name"`
-	NodeType               string            `json:"node_type"`
-	OverloadedDeclarations []interface{}     `json:"overloaded_declarations"`
-	ReferencedDeclaration  int               `json:"referenced_declaration"`
-	Src                    ast_pb.Src        `json:"src"`
-	TypeDescriptions       *TypeDescriptions `json:"type_descriptions"`
-}
+	if returnStatement := statementCtx.ReturnStatement(); returnStatement != nil {
+		return b.parseReturnStatement(node, bodyNode, returnStatement.(*parser.ReturnStatementContext))
+	}
 
-type RightHandSide struct {
-	Arguments        []Argument        `json:"arguments"`
-	Expression       *Expression       `json:"expression"`
-	ID               int64             `json:"id"`
-	IsConstant       bool              `json:"is_constant"`
-	IsLValue         bool              `json:"is_l_value"`
-	IsPure           bool              `json:"is_pure"`
-	Kind             string            `json:"kind"`
-	LValueRequested  bool              `json:"l_value_requested"`
-	Names            []interface{}     `json:"names"`
-	NodeType         string            `json:"node_type"`
-	Src              ast_pb.Src        `json:"src"`
-	TryCall          bool              `json:"try_call"`
-	TypeDescriptions *TypeDescriptions `json:"type_descriptions"`
-}
+	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {
+		panic("It's revert statement...")
+	}
 
-type Argument struct {
-	ID                     int64             `json:"id"`
-	Name                   string            `json:"name"`
-	NodeType               string            `json:"node_type"`
-	OverloadedDeclarations []interface{}     `json:"overloaded_declarations"`
-	ReferencedDeclaration  int               `json:"referenced_declaration"`
-	Src                    ast_pb.Src        `json:"src"`
-	TypeDescriptions       *TypeDescriptions `json:"type_descriptions"`
+	if ifStatement := statementCtx.IfStatement(); ifStatement != nil {
+		panic("It's if statement...")
+	}
+
+	if forStatement := statementCtx.ForStatement(); forStatement != nil {
+		panic("It's for statement...")
+	}
+
+	if whileStatement := statementCtx.WhileStatement(); whileStatement != nil {
+		panic("It's while statement...")
+	}
+
+	if doWhileStatement := statementCtx.DoWhileStatement(); doWhileStatement != nil {
+		panic("It's do while statement...")
+	}
+
+	if continueStatement := statementCtx.ContinueStatement(); continueStatement != nil {
+		panic("It's continue statement...")
+	}
+
+	if breakStatement := statementCtx.BreakStatement(); breakStatement != nil {
+		panic("It's break statement...")
+	}
+
+	if emitStatement := statementCtx.EmitStatement(); emitStatement != nil {
+		panic("It's emit statement...")
+	}
+
+	panic("There are statements that needs to be traversed...")
+	return nil
 }
-*/

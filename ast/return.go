@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) traverseReturnStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, returnStatement *parser.ReturnStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseReturnStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, returnStatement *parser.ReturnStatementContext) *ast_pb.Statement {
 	toReturn := &ast_pb.Statement{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{

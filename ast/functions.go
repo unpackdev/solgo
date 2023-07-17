@@ -1,13 +1,15 @@
 package ast
 
 import (
+	"fmt"
+	"reflect"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) traverseFunctionDefinition(node *ast_pb.Node, fd *parser.FunctionDefinitionContext) *ast_pb.Node {
+func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.FunctionDefinitionContext) *ast_pb.Node {
 	// Extract the function name.
 	node.Name = fd.Identifier().GetText()
 
@@ -31,6 +33,7 @@ func (b *ASTBuilder) traverseFunctionDefinition(node *ast_pb.Node, fd *parser.Fu
 
 	// Get function modifiers.
 	for _, modifier := range fd.AllModifierInvocation() {
+		panic("Modifier here...")
 		_ = modifier
 		//node.Modifiers = append(node.Modifiers, modifier.GetText())
 	}
@@ -43,6 +46,7 @@ func (b *ASTBuilder) traverseFunctionDefinition(node *ast_pb.Node, fd *parser.Fu
 	// Check if function is override.
 	// @TODO: Implement override specification.
 	for _, override := range fd.AllOverrideSpecifier() {
+		panic("Override here...")
 		_ = override
 	}
 
@@ -73,7 +77,7 @@ func (b *ASTBuilder) traverseFunctionDefinition(node *ast_pb.Node, fd *parser.Fu
 			if statement.IsEmpty() {
 				continue
 			}
-			bodyNode.Statements = append(bodyNode.Statements, b.traverseStatement(node, bodyNode, statement))
+			bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(node, bodyNode, statement))
 		}
 
 		node.Body = bodyNode
@@ -81,3 +85,81 @@ func (b *ASTBuilder) traverseFunctionDefinition(node *ast_pb.Node, fd *parser.Fu
 
 	return node
 }
+
+func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, fnCtx *parser.FunctionCallContext) *ast_pb.Statement {
+	statementNode.Expression = &ast_pb.Expression{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(fnCtx.GetStart().GetLine()),
+			Column:      int64(fnCtx.GetStart().GetColumn()),
+			Start:       int64(fnCtx.GetStart().GetStart()),
+			End:         int64(fnCtx.GetStop().GetStop()),
+			Length:      int64(fnCtx.GetStop().GetStop() - fnCtx.GetStart().GetStart() + 1),
+			ParentIndex: statementNode.Id,
+		},
+		NodeType: ast_pb.NodeType_FUNCTION_CALL,
+	}
+
+	statementNode.NodeType = ast_pb.NodeType_FUNCTION_CALL
+	statementNode.Kind = ast_pb.NodeType_FUNCTION_CALL
+
+	// @TODO: Get all of following sorted out...
+	statementNode.IsConstant = false
+	statementNode.IsLValue = false
+	statementNode.IsPure = false
+	statementNode.LValueRequested = false
+	statementNode.Names = []string{}
+	statementNode.TryCall = false
+	// ------------------------------
+
+	expressionCtx := fnCtx.Expression()
+
+	nameExpression := &ast_pb.Expression{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(expressionCtx.GetStart().GetLine()),
+			Column:      int64(expressionCtx.GetStart().GetColumn()),
+			Start:       int64(expressionCtx.GetStart().GetStart()),
+			End:         int64(expressionCtx.GetStop().GetStop()),
+			Length:      int64(expressionCtx.GetStop().GetStop() - expressionCtx.GetStart().GetStart() + 1),
+			ParentIndex: statementNode.Expression.Id,
+		},
+		NodeType: ast_pb.NodeType_IDENTIFIER,
+		Name:     expressionCtx.GetText(),
+	}
+
+	if fnCtx.CallArgumentList() != nil {
+		for _, expressionCtx := range fnCtx.CallArgumentList().AllExpression() {
+			switch typeCtx := expressionCtx.(type) {
+			case *parser.OrderComparisonContext:
+				argument := b.parseArgumentFromOrderComparasion(fnNode, bodyNode, statementNode, typeCtx)
+				statementNode.Arguments = append(statementNode.Arguments, argument)
+				nameExpression.ArgumentTypes = append(
+					nameExpression.ArgumentTypes, argument.TypeDescriptions,
+				)
+			case *parser.PrimaryExpressionContext:
+				argument := b.parseArgumentFromPrimaryExpression(fnNode, bodyNode, statementNode, typeCtx)
+				statementNode.Arguments = append(statementNode.Arguments, argument)
+				nameExpression.ArgumentTypes = append(
+					nameExpression.ArgumentTypes, argument.TypeDescriptions,
+				)
+			default:
+				fmt.Println("Argument Type: ", reflect.TypeOf(typeCtx))
+				panic("Call argument type not implemented...")
+			}
+		}
+
+		for _, _ = range fnCtx.CallArgumentList().AllNamedArgument() {
+			panic("Named argument for function call here...")
+			//argument := b.parseNamedArgument(statementNode, argumentCtx.(*parser.NamedArgumentContext))
+			//statementNode.Arguments = append(statementNode.Arguments, argument)
+		}
+	}
+
+	statementNode.Expression.Expression = nameExpression
+
+	return statementNode
+}
+
+/* 	fnNode, bodyNode, statementNode, statementNode.Expression,
+child.(*parser.FunctionCallContext), */

@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) traverseVariableDeclaration(node *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, variableCtx *parser.VariableDeclarationStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseVariableDeclaration(node *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, variableCtx *parser.VariableDeclarationStatementContext) *ast_pb.Statement {
 	declarationCtx := variableCtx.VariableDeclaration()
 	identifierCtx := declarationCtx.Identifier()
 
@@ -70,7 +70,7 @@ func (b *ASTBuilder) traverseVariableDeclaration(node *ast_pb.Node, bodyNode *as
 
 	expressionCtx := variableCtx.Expression()
 
-	initialValue := &ast_pb.InitialValue{
+	argument := &ast_pb.Argument{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
 			Line:        int64(expressionCtx.GetStart().GetLine()),
@@ -97,8 +97,8 @@ func (b *ASTBuilder) traverseVariableDeclaration(node *ast_pb.Node, bodyNode *as
 	switch variableCtx.Expression().(type) {
 	case *parser.AddSubOperationContext:
 		childCtx := variableCtx.Expression().(*parser.AddSubOperationContext)
-		initialValue.NodeType = ast_pb.NodeType_BINARY_OPERATION
-		initialValue.Operator = ast_pb.Operator_ADDITION
+		argument.NodeType = ast_pb.NodeType_BINARY_OPERATION
+		argument.Operator = ast_pb.Operator_ADDITION
 
 		operatorCtx := childCtx.AllExpression()
 		if len(operatorCtx) != 2 {
@@ -116,7 +116,7 @@ func (b *ASTBuilder) traverseVariableDeclaration(node *ast_pb.Node, bodyNode *as
 				Start:       int64(leftHandExpressionCtx.GetStart().GetStart()),
 				End:         int64(leftHandExpressionCtx.GetStop().GetStop()),
 				Length:      int64(leftHandExpressionCtx.GetStop().GetStop() - leftHandExpressionCtx.GetStart().GetStart() + 1),
-				ParentIndex: initialValue.Id,
+				ParentIndex: argument.Id,
 			},
 			Name:                   leftHandExpressionCtx.GetText(),
 			NodeType:               ast_pb.NodeType_IDENTIFIER,
@@ -138,7 +138,7 @@ func (b *ASTBuilder) traverseVariableDeclaration(node *ast_pb.Node, bodyNode *as
 				Start:       int64(rightHandExpressionCtx.GetStart().GetStart()),
 				End:         int64(rightHandExpressionCtx.GetStop().GetStop()),
 				Length:      int64(rightHandExpressionCtx.GetStop().GetStop() - rightHandExpressionCtx.GetStart().GetStart() + 1),
-				ParentIndex: initialValue.Id,
+				ParentIndex: argument.Id,
 			},
 			Name:     rightHandExpressionCtx.GetText(),
 			NodeType: ast_pb.NodeType_IDENTIFIER,
@@ -151,11 +151,11 @@ func (b *ASTBuilder) traverseVariableDeclaration(node *ast_pb.Node, bodyNode *as
 			}
 		}
 
-		initialValue.LeftExpression = leftHandExpression
-		initialValue.RightExpression = rightHandExpression
+		argument.LeftExpression = leftHandExpression
+		argument.RightExpression = rightHandExpression
 	}
 
-	statementNode.InitialValue = initialValue
+	statementNode.InitialValue = argument
 
 	return statementNode
 }

@@ -26,45 +26,7 @@ func NewAstBuilder(parser *parser.SolidityParser) *ASTBuilder {
 	}
 }
 
-func (b *ASTBuilder) traverseBodyElement(identifierNode *ast_pb.Node, bodyElement parser.IContractBodyElementContext) *ast_pb.Node {
-	id := atomic.AddInt64(&b.nextID, 1) - 1
-	toReturn := &ast_pb.Node{
-		Id: id,
-		Src: &ast_pb.Src{
-			Line:        int64(bodyElement.GetStart().GetLine()),
-			Start:       int64(bodyElement.GetStart().GetStart()),
-			End:         int64(bodyElement.GetStop().GetStop()),
-			Length:      int64(bodyElement.GetStop().GetStop() - bodyElement.GetStart().GetStart() + 1),
-			ParentIndex: identifierNode.Id,
-		},
-	}
-
-	if functionDefinition := bodyElement.FunctionDefinition(); functionDefinition != nil {
-		toReturn = b.traverseFunctionDefinition(
-			toReturn,
-			functionDefinition.(*parser.FunctionDefinitionContext),
-		)
-	} else {
-		panic("Another type of body element that needs to be parsed...")
-	}
-
-	return toReturn
-}
-
-func (b *ASTBuilder) traverseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, statementCtx parser.IStatementContext) *ast_pb.Statement {
-	if simpleStatement := statementCtx.SimpleStatement(); simpleStatement != nil {
-		return b.traverseSimpleStatement(node, bodyNode, simpleStatement.(*parser.SimpleStatementContext))
-	}
-
-	if returnStatement := statementCtx.ReturnStatement(); returnStatement != nil {
-		return b.traverseReturnStatement(node, bodyNode, returnStatement.(*parser.ReturnStatementContext))
-	}
-
-	//panic("There are statements that needs to be traversed...")
-	return nil
-}
-
-func (b *ASTBuilder) traverseSimpleStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, statement *parser.SimpleStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseSimpleStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, statement *parser.SimpleStatementContext) *ast_pb.Statement {
 	toReturn := &ast_pb.Statement{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -79,14 +41,16 @@ func (b *ASTBuilder) traverseSimpleStatement(node *ast_pb.Node, bodyNode *ast_pb
 
 	if variableDeclaration := statement.VariableDeclarationStatement(); variableDeclaration != nil {
 		toReturn.NodeType = ast_pb.NodeType_VARIABLE_DECLARATION_STATEMENT
-
-		toReturn = b.traverseVariableDeclaration(
+		toReturn = b.parseVariableDeclaration(
 			node, bodyNode, toReturn,
 			variableDeclaration.(*parser.VariableDeclarationStatementContext),
 		)
 
 	} else if expressionStatement := statement.ExpressionStatement(); expressionStatement != nil {
-		//toReturn = b.traverseExpressionStatement(toReturn, expressionStatement.(*parser.ExpressionStatementContext))
+		toReturn = b.parseExpressionStatement(
+			node, bodyNode, toReturn,
+			expressionStatement.(*parser.ExpressionStatementContext),
+		)
 	} else {
 		panic("Unknown simple statement type...")
 	}
@@ -120,4 +84,12 @@ func (b *ASTBuilder) WriteJSONToFile(path string) error {
 		return err
 	}
 	return ioutil.WriteFile(path, bts, 0644)
+}
+
+func (b *ASTBuilder) NodeToPrettyJson(node interface{}) ([]byte, error) {
+	return json.MarshalIndent(node, "", "  ")
+}
+
+func (b *ASTBuilder) NodeToJson(node interface{}) ([]byte, error) {
+	return json.Marshal(node)
 }
