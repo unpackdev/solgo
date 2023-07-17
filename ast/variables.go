@@ -70,7 +70,7 @@ func (b *ASTBuilder) parseVariableDeclaration(node *ast_pb.Node, bodyNode *ast_p
 
 	expressionCtx := variableCtx.Expression()
 
-	argument := &ast_pb.Argument{
+	argument := &ast_pb.Expression{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
 			Line:        int64(expressionCtx.GetStart().GetLine()),

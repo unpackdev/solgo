@@ -1,8 +1,6 @@
 package ast
 
 import (
-	"fmt"
-	"reflect"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -128,29 +126,13 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 
 	if fnCtx.CallArgumentList() != nil {
 		for _, expressionCtx := range fnCtx.CallArgumentList().AllExpression() {
-			switch typeCtx := expressionCtx.(type) {
-			case *parser.OrderComparisonContext:
-				argument := b.parseArgumentFromOrderComparasion(fnNode, bodyNode, statementNode, typeCtx)
-				statementNode.Arguments = append(statementNode.Arguments, argument)
-				nameExpression.ArgumentTypes = append(
-					nameExpression.ArgumentTypes, argument.TypeDescriptions,
-				)
-			case *parser.PrimaryExpressionContext:
-				argument := b.parseArgumentFromPrimaryExpression(fnNode, bodyNode, statementNode, typeCtx)
-				statementNode.Arguments = append(statementNode.Arguments, argument)
-				nameExpression.ArgumentTypes = append(
-					nameExpression.ArgumentTypes, argument.TypeDescriptions,
-				)
-			case *parser.EqualityComparisonContext:
-				argument := b.parseArgumentFromEqualityComparison(fnNode, bodyNode, statementNode, typeCtx)
-				statementNode.Arguments = append(statementNode.Arguments, argument)
-				nameExpression.ArgumentTypes = append(
-					nameExpression.ArgumentTypes, argument.TypeDescriptions,
-				)
-			default:
-				fmt.Println("Argument Type: ", reflect.TypeOf(typeCtx))
-				panic("Call argument type not implemented...")
-			}
+			argument := b.parseExpression(
+				fnNode, bodyNode, nil, nameExpression.Id, expressionCtx,
+			)
+			statementNode.Arguments = append(statementNode.Arguments, argument)
+			nameExpression.ArgumentTypes = append(
+				nameExpression.ArgumentTypes, argument.TypeDescriptions,
+			)
 		}
 
 		for _, _ = range fnCtx.CallArgumentList().AllNamedArgument() {

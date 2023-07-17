@@ -26,7 +26,7 @@ func (b *ASTBuilder) parseExpressionStatement(fnNode *ast_pb.Node, bodyNode *ast
 	return statementNode
 }
 
-func (b *ASTBuilder) parseExpression(fnNode *ast_pb.Node, bodyNode *ast_pb.Body, arg *ast_pb.Argument, parentIndex int64, expressionCtx parser.IExpressionContext) *ast_pb.Expression {
+func (b *ASTBuilder) parseExpression(fnNode *ast_pb.Node, bodyNode *ast_pb.Body, arg *ast_pb.Expression, parentIndex int64, expressionCtx parser.IExpressionContext) *ast_pb.Expression {
 	toReturn := &ast_pb.Expression{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -91,6 +91,34 @@ func (b *ASTBuilder) parseExpression(fnNode *ast_pb.Node, bodyNode *ast_pb.Body,
 		toReturn.RightExpression = b.parseExpression(
 			fnNode, bodyNode, arg, toReturn.Id, rightCtx,
 		)
+	case *parser.OrderComparisonContext:
+		toReturn.NodeType = ast_pb.NodeType_BINARY_OPERATION
+
+		if toReturn.TypeDescriptions == nil {
+			toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+				TypeIdentifier: "t_bool",
+				TypeString:     "bool",
+			}
+		}
+
+		if childCtx.GreaterThanOrEqual() != nil {
+			toReturn.Operator = ast_pb.Operator_GREATER_THAN_OR_EQUAL
+		} else if childCtx.LessThanOrEqual() != nil {
+			toReturn.Operator = ast_pb.Operator_LESS_THAN_OR_EQUAL
+		} else if childCtx.GreaterThan() != nil {
+			toReturn.Operator = ast_pb.Operator_GREATER_THAN
+		} else if childCtx.LessThan() != nil {
+			toReturn.Operator = ast_pb.Operator_LESS_THAN
+		}
+
+		toReturn.LeftExpression = b.parseExpression(
+			fnNode, bodyNode, arg, toReturn.Id, childCtx.Expression(0),
+		)
+
+		toReturn.RightExpression = b.parseExpression(
+			fnNode, bodyNode, arg, toReturn.Id, childCtx.Expression(1),
+		)
+
 	case *parser.EqualityComparisonContext:
 		toReturn.NodeType = ast_pb.NodeType_BINARY_OPERATION
 
