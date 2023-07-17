@@ -13,6 +13,10 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 	// Extract the function name.
 	node.Name = fd.Identifier().GetText()
 
+	if node.Name != "mul" {
+		return nil
+	}
+
 	// Set the function type and its kind.
 	node.NodeType = ast_pb.NodeType_FUNCTION_DEFINITION
 	node.Kind = ast_pb.NodeType_FUNCTION_DEFINITION
@@ -103,15 +107,6 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 	statementNode.NodeType = ast_pb.NodeType_FUNCTION_CALL
 	statementNode.Kind = ast_pb.NodeType_FUNCTION_CALL
 
-	// @TODO: Get all of following sorted out...
-	statementNode.IsConstant = false
-	statementNode.IsLValue = false
-	statementNode.IsPure = false
-	statementNode.LValueRequested = false
-	statementNode.Names = []string{}
-	statementNode.TryCall = false
-	// ------------------------------
-
 	expressionCtx := fnCtx.Expression()
 
 	nameExpression := &ast_pb.Expression{
@@ -143,6 +138,12 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 				nameExpression.ArgumentTypes = append(
 					nameExpression.ArgumentTypes, argument.TypeDescriptions,
 				)
+			case *parser.EqualityComparisonContext:
+				argument := b.parseArgumentFromEqualityComparison(fnNode, bodyNode, statementNode, typeCtx)
+				statementNode.Arguments = append(statementNode.Arguments, argument)
+				nameExpression.ArgumentTypes = append(
+					nameExpression.ArgumentTypes, argument.TypeDescriptions,
+				)
 			default:
 				fmt.Println("Argument Type: ", reflect.TypeOf(typeCtx))
 				panic("Call argument type not implemented...")
@@ -160,6 +161,3 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 
 	return statementNode
 }
-
-/* 	fnNode, bodyNode, statementNode, statementNode.Expression,
-child.(*parser.FunctionCallContext), */

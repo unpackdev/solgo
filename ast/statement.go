@@ -1,14 +1,14 @@
 package ast
 
 import (
+	"fmt"
+	"reflect"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
 func (b *ASTBuilder) parseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, statementCtx parser.IStatementContext) *ast_pb.Statement {
-	if node.Name != "add" {
-		return nil
-	}
 	if simpleStatement := statementCtx.SimpleStatement(); simpleStatement != nil {
 		return b.parseSimpleStatement(node, bodyNode, simpleStatement.(*parser.SimpleStatementContext))
 	}
@@ -17,12 +17,12 @@ func (b *ASTBuilder) parseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, st
 		return b.parseReturnStatement(node, bodyNode, returnStatement.(*parser.ReturnStatementContext))
 	}
 
-	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {
-		panic("It's revert statement...")
+	if ifStatement := statementCtx.IfStatement(); ifStatement != nil {
+		return b.parseIfStatement(node, bodyNode, ifStatement.(*parser.IfStatementContext))
 	}
 
-	if ifStatement := statementCtx.IfStatement(); ifStatement != nil {
-		panic("It's if statement...")
+	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {
+		panic("It's revert statement...")
 	}
 
 	if forStatement := statementCtx.ForStatement(); forStatement != nil {
@@ -49,6 +49,15 @@ func (b *ASTBuilder) parseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, st
 		panic("It's emit statement...")
 	}
 
+	if stCtx := statementCtx.(*parser.StatementContext); stCtx != nil {
+		panic("It's statement...")
+	}
+
+	/* 	if equalityCtx := statementCtx.(*parser.EqualityComparisonContext); equalityCtx != nil {
+		panic("It's equality comparison...")
+	} */
+
+	fmt.Println("Statement type:", reflect.TypeOf(statementCtx))
 	panic("There are statements that needs to be traversed...")
 	return nil
 }

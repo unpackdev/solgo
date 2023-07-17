@@ -194,3 +194,39 @@ func (b *ASTBuilder) parseArgumentFromPrimaryExpression(fnNode *ast_pb.Node, bod
 
 	return argument
 }
+
+func (b *ASTBuilder) parseArgumentFromEqualityComparison(fnNode *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, expressionCtx *parser.EqualityComparisonContext) *ast_pb.Argument {
+	argument := &ast_pb.Argument{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(expressionCtx.GetStart().GetLine()),
+			Column:      int64(expressionCtx.GetStart().GetColumn()),
+			Start:       int64(expressionCtx.GetStart().GetStart()),
+			End:         int64(expressionCtx.GetStop().GetStop()),
+			Length:      int64(expressionCtx.GetStop().GetStop() - expressionCtx.GetStart().GetStart() + 1),
+			ParentIndex: statementNode.Id,
+		},
+		// Comparison operators can end up only with boolean type.
+		TypeDescriptions: &ast_pb.TypeDescriptions{
+			TypeIdentifier: "t_bool",
+			TypeString:     "bool",
+		},
+		NodeType: ast_pb.NodeType_BINARY_OPERATION,
+	}
+
+	if expressionCtx.Equal() != nil {
+		argument.Operator = ast_pb.Operator_EQUAL
+	} else if expressionCtx.NotEqual() != nil {
+		argument.Operator = ast_pb.Operator_NOT_EQUAL
+	}
+
+	argument.LeftExpression = b.parseExpression(
+		fnNode, bodyNode, argument, argument.Id, expressionCtx.Expression(0),
+	)
+
+	argument.RightExpression = b.parseExpression(
+		fnNode, bodyNode, argument, argument.Id, expressionCtx.Expression(1),
+	)
+
+	return argument
+}
