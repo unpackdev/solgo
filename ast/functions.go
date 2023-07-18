@@ -21,12 +21,24 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 
 	// Get function visibility state.
 	for _, visibility := range fd.AllVisibility() {
-		node.Visibility = visibility.GetText()
+		if visibility.GetText() == "public" {
+			node.Visibility = ast_pb.Visibility_PUBLIC
+		} else if visibility.GetText() == "private" {
+			node.Visibility = ast_pb.Visibility_PRIVATE
+		} else if visibility.GetText() == "internal" {
+			node.Visibility = ast_pb.Visibility_INTERNAL
+		} else if visibility.GetText() == "external" {
+			node.Visibility = ast_pb.Visibility_EXTERNAL
+		}
 	}
 
 	// Get function state mutability.
 	for _, stateMutability := range fd.AllStateMutability() {
-		node.StateMutability = stateMutability.GetText()
+		if stateMutability.GetText() == "" {
+			node.StateMutability = ast_pb.Mutability_IMMUTABLE
+		} else {
+			node.StateMutability = ast_pb.Mutability_MUTABLE
+		}
 	}
 
 	// Get function modifiers.

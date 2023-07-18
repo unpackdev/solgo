@@ -68,9 +68,9 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 	}
 }
 
-func (b *ASTBuilder) GetLicense() string {
+func (b *ASTBuilder) GetLicense(comments []*ast_pb.Comment) string {
 	licenseRegex := regexp.MustCompile(`SPDX-License-Identifier:\s*(.+)`)
-	for _, comment := range b.comments {
+	for _, comment := range comments {
 		if comment.NodeType == ast_pb.NodeType_LICENSE {
 			matches := licenseRegex.FindStringSubmatch(comment.Value)
 			if len(matches) > 1 {

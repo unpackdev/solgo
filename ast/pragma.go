@@ -17,15 +17,28 @@ import (
 // @WARN: DO NOT USE THIS METHOD.
 func (b *ASTBuilder) EnterPragmaDirective(ctx *parser.PragmaDirectiveContext) {}
 
-func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext, library *parser.LibraryDefinitionContext) []*ast_pb.Node {
+func (b *ASTBuilder) findPragmasForSourceUnit(sourceUnit *parser.SourceUnitContext, currentSourceUnit *ast_pb.SourceUnit, library *parser.LibraryDefinitionContext, contract *parser.ContractDefinitionContext) []*ast_pb.Node {
 	pragmas := make([]*ast_pb.Node, 0)
-	contractLine := library.GetStart().GetLine()
-	prevLine := -1
-	pragmasBeforeLine := false
+
+	contractLine := func() int64 {
+		if library != nil {
+			return int64(library.GetStart().GetLine())
+		} else if contract != nil {
+			return int64(contract.GetStart().GetLine())
+		}
+		return 0
+	}()
+
+	prevLine := int64(-1)
 
 	// Traverse the children of the source unit until the contract definition is found
 	for _, child := range sourceUnit.GetChildren() {
-		if child == library {
+		if library != nil && child == library {
+			// Found the library definition, stop traversing
+			break
+		}
+
+		if contract != nil && child == contract {
 			// Found the contract definition, stop traversing
 			break
 		}
@@ -33,11 +46,11 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 		if pragmaCtx, ok := child.(*parser.PragmaDirectiveContext); ok {
 			id := atomic.AddInt64(&b.nextID, 1) - 1
 
-			pragmaLine := pragmaCtx.GetStart().GetLine()
+			pragmaLine := int64(pragmaCtx.GetStart().GetLine())
 
 			if prevLine == -1 {
 				// First pragma encountered, add it to the result
-				pragmas = append(pragmas, &ast_pb.Node{
+				pragma := &ast_pb.Node{
 					Id: id,
 					Src: &ast_pb.Src{
 						Line:        int64(pragmaLine),
@@ -45,18 +58,15 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 						Start:       int64(pragmaCtx.GetStart().GetStart()),
 						End:         int64(pragmaCtx.GetStop().GetStop()),
 						Length:      int64(pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1),
-						ParentIndex: int64(b.currentSourceUnit.Src.ParentIndex),
+						ParentIndex: currentSourceUnit.Id,
 					},
 					NodeType: ast_pb.NodeType_PRAGMA_DIRECTIVE,
 					Literals: getLiterals(pragmaCtx.GetText()),
-				})
-				prevLine = pragmaLine
-				continue
-			}
+				}
+				pragmas = append(pragmas, pragma)
+				prevLine = int64(pragmaLine)
 
-			// Check if there are pragmas before the current line
-			if pragmaLine-prevLine > 10 && pragmasBeforeLine {
-				break
+				continue
 			}
 
 			// Add the pragma to the result
@@ -68,7 +78,7 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 					Start:       int64(pragmaCtx.GetStart().GetStart()),
 					End:         int64(pragmaCtx.GetStop().GetStop()),
 					Length:      int64(pragmaCtx.GetStop().GetStop() - pragmaCtx.GetStart().GetStart() + 1),
-					ParentIndex: int64(b.currentSourceUnit.Src.ParentIndex),
+					ParentIndex: currentSourceUnit.Id,
 				},
 				NodeType: ast_pb.NodeType_PRAGMA_DIRECTIVE,
 				Literals: getLiterals(pragmaCtx.GetText()),
@@ -76,10 +86,6 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 
 			// Update the previous line number
 			prevLine = pragmaLine
-
-			if pragmaLine < contractLine {
-				pragmasBeforeLine = true
-			}
 		}
 	}
 
@@ -91,11 +97,21 @@ func (b *ASTBuilder) findPragmasForLibrary(sourceUnit *parser.SourceUnitContext,
 	// Iterate through the collected pragmas in reverse order
 	for i := len(pragmas) - 1; i >= 0; i-- {
 		pragma := pragmas[i]
-		if maxLine == -1 || (pragma.Src.Line-maxLine <= 10 && pragma.Src.Line-maxLine >= -1) {
+
+		/* 		fmt.Printf(
+			"pragma: %v, line: %d, maxLine: %d, contractLine: %d, diff: %d\n",
+			pragma.Literals,
+			pragma.Src.Line,
+			maxLine,
+			contractLine,
+			int64(contractLine)-pragma.Src.Line,
+		) */
+		if maxLine == -1 || (int64(contractLine)-pragma.Src.Line <= 10 && pragma.Src.Line-maxLine >= -1) {
+			pragma.Src.ParentIndex = currentSourceUnit.Id
 			filteredPragmas = append([]*ast_pb.Node{pragma}, filteredPragmas...)
 			maxLine = pragma.Src.Line
 		}
 	}
 
-	return pragmas
+	return filteredPragmas
 }

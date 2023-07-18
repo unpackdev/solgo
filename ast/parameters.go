@@ -8,7 +8,7 @@ import (
 )
 
 func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parser.IParameterListContext) *ast_pb.ParametersList {
-	if parameterCtx.IsEmpty() {
+	if parameterCtx == nil || parameterCtx.IsEmpty() {
 		return nil
 	}
 

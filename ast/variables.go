@@ -7,6 +7,83 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+func (b *ASTBuilder) parseStateVariableDeclaration(node *ast_pb.Node, ctx *parser.StateVariableDeclarationContext) *ast_pb.Node {
+	nodeCtx := &ast_pb.Node{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(ctx.GetStart().GetLine()),
+			Column:      int64(ctx.GetStart().GetColumn()),
+			Start:       int64(ctx.GetStart().GetStart()),
+			End:         int64(ctx.GetStop().GetStop()),
+			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+			ParentIndex: node.Id,
+		},
+		IsStateVariable: true,
+		Name:            ctx.Identifier().GetText(),
+		NodeType:        ast_pb.NodeType_VARIABLE_DECLARATION,
+		Scope:           node.Id,
+		StateMutability: ast_pb.Mutability_MUTABLE,
+		Visibility: func() ast_pb.Visibility {
+			if len(ctx.AllPublic()) > 0 {
+				return ast_pb.Visibility_PUBLIC
+			} else if len(ctx.AllPrivate()) > 0 {
+				return ast_pb.Visibility_PRIVATE
+			} else if len(ctx.AllInternal()) > 0 {
+				return ast_pb.Visibility_INTERNAL
+			} else {
+				return ast_pb.Visibility_INTERNAL
+			}
+		}(),
+		StorageLocation: ast_pb.StorageLocation_DEFAULT,
+	}
+
+	for _, constantCtx := range ctx.AllConstant() {
+		nodeCtx.IsConstant = constantCtx != nil
+	}
+
+	typeNameCtx := ctx.GetType_()
+	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+		typeNameCtx.GetText(),
+	)
+
+	nodeCtx.TypeDescriptions = &ast_pb.TypeDescriptions{
+		TypeString:     normalizedTypeName,
+		TypeIdentifier: normalizedTypeIdentifier,
+	}
+
+	nodeCtx.TypeName = &ast_pb.TypeName{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(typeNameCtx.GetStart().GetLine()),
+			Column:      int64(typeNameCtx.GetStart().GetColumn()),
+			Start:       int64(typeNameCtx.GetStart().GetStart()),
+			End:         int64(typeNameCtx.GetStop().GetStop()),
+			Length:      int64(typeNameCtx.GetStop().GetStop() - typeNameCtx.GetStart().GetStart() + 1),
+			ParentIndex: nodeCtx.Id,
+		},
+		Name:             typeNameCtx.GetText(),
+		TypeDescriptions: nodeCtx.TypeDescriptions,
+		NodeType: func() ast_pb.NodeType {
+			if typeNameCtx.ElementaryTypeName() != nil {
+				return ast_pb.NodeType_ELEMENTARY_TYPE_NAME
+			} else if typeNameCtx.MappingType() != nil {
+				return ast_pb.NodeType_MAPPING_TYPE_NAME
+			} else if typeNameCtx.FunctionTypeName() != nil {
+				return ast_pb.NodeType_FUNCTION_TYPE_NAME
+			}
+			return ast_pb.NodeType_UNKNOWN_TYPE_NAME
+		}(),
+	}
+
+	for _, immutableCtx := range ctx.AllImmutable() {
+		if immutableCtx != nil {
+			nodeCtx.StateMutability = ast_pb.Mutability_IMMUTABLE
+		}
+	}
+
+	return nodeCtx
+}
+
 func (b *ASTBuilder) parseVariableDeclaration(node *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, variableCtx *parser.VariableDeclarationStatementContext) *ast_pb.Statement {
 	declarationCtx := variableCtx.VariableDeclaration()
 	identifierCtx := declarationCtx.Identifier()
