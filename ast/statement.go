@@ -1,9 +1,6 @@
 package ast
 
 import (
-	"fmt"
-	"reflect"
-
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -49,6 +46,5 @@ func (b *ASTBuilder) parseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, pa
 		panic("It's emit statement...")
 	}
 
-	fmt.Println("Statement type:", reflect.TypeOf(statementCtx))
 	return nil
 }

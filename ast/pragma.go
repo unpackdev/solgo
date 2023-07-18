@@ -94,18 +94,10 @@ func (b *ASTBuilder) findPragmasForSourceUnit(sourceUnit *parser.SourceUnitConte
 	filteredPragmas := make([]*ast_pb.Node, 0)
 	maxLine := int64(-1)
 
-	// Iterate through the collected pragmas in reverse order
+	// Iterate through the collected pragmas in reverse order and ensure only
+	// pragmas that are within 10-20 lines of the contract definition are kept
 	for i := len(pragmas) - 1; i >= 0; i-- {
 		pragma := pragmas[i]
-
-		/* 		fmt.Printf(
-			"pragma: %v, line: %d, maxLine: %d, contractLine: %d, diff: %d\n",
-			pragma.Literals,
-			pragma.Src.Line,
-			maxLine,
-			contractLine,
-			int64(contractLine)-pragma.Src.Line,
-		) */
 		if maxLine == -1 || (int64(contractLine)-pragma.Src.Line <= 10 && pragma.Src.Line-maxLine >= -1) {
 			pragma.Src.ParentIndex = currentSourceUnit.Id
 			filteredPragmas = append([]*ast_pb.Node{pragma}, filteredPragmas...)

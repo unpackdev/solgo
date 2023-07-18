@@ -1,7 +1,6 @@
 package ast
 
 import (
-	"fmt"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -22,13 +21,11 @@ func (b *ASTBuilder) parseBodyElement(identifierNode *ast_pb.Node, bodyElement p
 	}
 
 	if usingForDeclaration := bodyElement.UsingDirective(); usingForDeclaration != nil {
-		fmt.Println("Found using for declaration", usingForDeclaration.GetText())
 		toReturn = b.parseUsingForDeclaration(
 			toReturn,
 			usingForDeclaration.(*parser.UsingDirectiveContext),
 		)
 	} else if stateVariableDeclaration := bodyElement.StateVariableDeclaration(); stateVariableDeclaration != nil {
-		fmt.Println("Found state variable declaration", stateVariableDeclaration.GetText())
 		toReturn = b.parseStateVariableDeclaration(
 			toReturn,
 			stateVariableDeclaration.(*parser.StateVariableDeclarationContext),
