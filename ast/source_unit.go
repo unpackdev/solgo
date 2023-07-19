@@ -28,4 +28,5 @@ func (b *ASTBuilder) ExitSourceUnit(ctx *parser.SourceUnitContext) {
 	b.astRoot = &ast_pb.RootSourceUnit{SourceUnits: b.sourceUnits}
 	b.currentSourceUnit = nil
 	b.currentStateVariables = nil
+	b.currentEvents = nil
 }

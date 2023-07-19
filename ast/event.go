@@ -59,6 +59,7 @@ func (b *ASTBuilder) parseEventDefinition(sourceUnit *ast_pb.SourceUnit, identif
 					return ""
 				}(),
 				NodeType: ast_pb.NodeType_VARIABLE_DECLARATION,
+				Indexed:  paramCtx.Indexed() != nil,
 				// Just hardcoding it here to internal as I am not sure how
 				// could it be possible to be anything else.
 				// @TODO: Check if it is possible to be anything else.
@@ -97,6 +98,7 @@ func (b *ASTBuilder) parseEventDefinition(sourceUnit *ast_pb.SourceUnit, identif
 	}
 
 	nodeCtx.Parameters = parametersList
+	b.currentEvents = append(b.currentEvents, nodeCtx)
 
 	return nodeCtx
 }

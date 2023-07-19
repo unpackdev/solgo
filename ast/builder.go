@@ -20,6 +20,7 @@ type ASTBuilder struct {
 	sourceUnits           []*ast_pb.SourceUnit
 	currentSourceUnit     *ast_pb.SourceUnit
 	currentStateVariables []*ast_pb.Node
+	currentEvents         []*ast_pb.Node
 	astRoot               *ast_pb.RootSourceUnit
 }
 
