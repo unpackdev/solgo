@@ -4,23 +4,23 @@ go 1.19
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.0
-	github.com/davecgh/go-spew v1.1.1
 	github.com/ethereum/go-ethereum v1.12.0
 	github.com/fxamacker/cbor/v2 v2.4.0
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
 	github.com/mr-tron/base58 v1.2.0
 	github.com/stretchr/testify v1.8.2
-	github.com/txpull/protos v0.0.0-20230712182726-bb39820227e6
+	github.com/txpull/protos v0.0.1
 	go.uber.org/zap v1.24.0
 )
 
-replace github.com/txpull/protos => ../protos
+//replace github.com/txpull/protos => ../protos
 
 require (
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
 	github.com/crackcomm/go-gitignore v0.0.0-20170627025303-887ab5e44cc3 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/holiman/uint256 v1.2.2-0.20230321075855-87b91420868c // indirect

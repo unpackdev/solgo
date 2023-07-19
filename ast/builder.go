@@ -2,6 +2,7 @@ package ast
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"sync/atomic"
 
@@ -12,14 +13,15 @@ import (
 
 type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
-	sources           solgo.Sources          // sources is the source code of the Solidity files.
-	parser            *parser.SolidityParser // parser is the Solidity parser instance.
-	nextID            int64                  // nextID is the next ID to assign to a node.
-	comments          []*ast_pb.Comment
-	commentsParsed    bool
-	sourceUnits       []*ast_pb.SourceUnit
-	currentSourceUnit *ast_pb.SourceUnit
-	astRoot           *ast_pb.RootSourceUnit
+	sources               solgo.Sources          // sources is the source code of the Solidity files.
+	parser                *parser.SolidityParser // parser is the Solidity parser instance.
+	nextID                int64                  // nextID is the next ID to assign to a node.
+	comments              []*ast_pb.Comment
+	commentsParsed        bool
+	sourceUnits           []*ast_pb.SourceUnit
+	currentSourceUnit     *ast_pb.SourceUnit
+	currentStateVariables []*ast_pb.Node
+	astRoot               *ast_pb.RootSourceUnit
 }
 
 func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {
@@ -31,7 +33,7 @@ func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBui
 	}
 }
 
-func (b *ASTBuilder) parseSimpleStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, statement *parser.SimpleStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseSimpleStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, statement *parser.SimpleStatementContext) *ast_pb.Statement {
 	toReturn := &ast_pb.Statement{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -47,13 +49,12 @@ func (b *ASTBuilder) parseSimpleStatement(node *ast_pb.Node, bodyNode *ast_pb.Bo
 	if variableDeclaration := statement.VariableDeclarationStatement(); variableDeclaration != nil {
 		toReturn.NodeType = ast_pb.NodeType_VARIABLE_DECLARATION_STATEMENT
 		toReturn = b.parseVariableDeclaration(
-			node, bodyNode, toReturn,
+			sourceUnit, node, bodyNode, toReturn,
 			variableDeclaration.(*parser.VariableDeclarationStatementContext),
 		)
-
 	} else if expressionStatement := statement.ExpressionStatement(); expressionStatement != nil {
 		toReturn = b.parseExpressionStatement(
-			node, bodyNode, toReturn,
+			sourceUnit, node, bodyNode, toReturn,
 			expressionStatement.(*parser.ExpressionStatementContext),
 		)
 	} else {
@@ -105,4 +106,17 @@ func (b *ASTBuilder) NodeToPrettyJson(node interface{}) ([]byte, error) {
 
 func (b *ASTBuilder) NodeToJson(node interface{}) ([]byte, error) {
 	return json.Marshal(node)
+}
+
+func (b *ASTBuilder) FindNodesByType(nodeType ast_pb.NodeType) ([]*ast_pb.Node, bool) {
+	var nodes []*ast_pb.Node
+	fmt.Println("AHA")
+	for _, unit := range b.sourceUnits {
+		fmt.Println(unit)
+
+		for _, root := range unit.Root.Nodes {
+			fmt.Println(root.NodeType)
+		}
+	}
+	return nodes, false
 }

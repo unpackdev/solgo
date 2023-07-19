@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseStateVariableDeclaration(node *ast_pb.Node, ctx *parser.StateVariableDeclarationContext) *ast_pb.Node {
+func (b *ASTBuilder) parseStateVariableDeclaration(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, ctx *parser.StateVariableDeclarationContext) *ast_pb.Node {
 	nodeCtx := &ast_pb.Node{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -81,10 +81,11 @@ func (b *ASTBuilder) parseStateVariableDeclaration(node *ast_pb.Node, ctx *parse
 		}
 	}
 
+	b.currentStateVariables = append(b.currentStateVariables, nodeCtx)
 	return nodeCtx
 }
 
-func (b *ASTBuilder) parseVariableDeclaration(node *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, variableCtx *parser.VariableDeclarationStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, variableCtx *parser.VariableDeclarationStatementContext) *ast_pb.Statement {
 	declarationCtx := variableCtx.VariableDeclaration()
 	identifierCtx := declarationCtx.Identifier()
 

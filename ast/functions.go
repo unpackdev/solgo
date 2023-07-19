@@ -7,13 +7,13 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.FunctionDefinitionContext) *ast_pb.Node {
+func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, fd *parser.FunctionDefinitionContext) *ast_pb.Node {
 	// Extract the function name.
 	node.Name = fd.Identifier().GetText()
 
 	// Set the function type and its kind.
 	node.NodeType = ast_pb.NodeType_FUNCTION_DEFINITION
-	node.Kind = ast_pb.NodeType_FUNCTION_DEFINITION
+	node.Kind = ast_pb.NodeType_KIND_FUNCTION
 
 	// If block is not empty we are going to assume that the function is implemented.
 	// @TODO: Take assumption to the next level in the future.
@@ -36,9 +36,15 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 	for _, stateMutability := range fd.AllStateMutability() {
 		if stateMutability.GetText() == "" {
 			node.StateMutability = ast_pb.Mutability_IMMUTABLE
+		} else if stateMutability.GetText() == "payable" {
+			node.StateMutability = ast_pb.Mutability_PAYABLE
 		} else {
 			node.StateMutability = ast_pb.Mutability_MUTABLE
 		}
+	}
+
+	if node.StateMutability == ast_pb.Mutability_M_DEFAULT {
+		node.StateMutability = ast_pb.Mutability_NONPAYABLE
 	}
 
 	// Get function modifiers.
@@ -67,6 +73,21 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 
 	// Extract function return parameters.
 	node.ReturnParameters = b.traverseParameterList(node, fd.GetReturnParameters())
+	if node.ReturnParameters == nil {
+		node.ReturnParameters = &ast_pb.ParametersList{
+			Id: atomic.AddInt64(&b.nextID, 1) - 1,
+			Src: &ast_pb.Src{
+				Line:        int64(fd.GetStart().GetLine()),
+				Column:      int64(fd.GetStart().GetColumn()),
+				Start:       int64(fd.GetStart().GetStart()),
+				End:         int64(fd.GetStop().GetStop()),
+				Length:      int64(fd.GetStop().GetStop() - fd.GetStart().GetStart() + 1),
+				ParentIndex: node.Id,
+			},
+			NodeType:   ast_pb.NodeType_PARAMETER_LIST,
+			Parameters: []*ast_pb.Parameter{},
+		}
+	}
 
 	// And now we are going to the big league. We are going to traverse the function body.
 	if !fd.Block().IsEmpty() {
@@ -93,7 +114,7 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 			parentIndexStmt := &ast_pb.Statement{Id: bodyNode.Id}
 
 			bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(
-				node, bodyNode, parentIndexStmt, statement,
+				sourceUnit, node, bodyNode, parentIndexStmt, statement,
 			))
 		}
 
@@ -103,7 +124,7 @@ func (b *ASTBuilder) parseFunctionDefinition(node *ast_pb.Node, fd *parser.Funct
 	return node
 }
 
-func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, fnCtx *parser.FunctionCallContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseFunctionCall(sourceUnit *ast_pb.SourceUnit, fnNode *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, fnCtx *parser.FunctionCallContext) *ast_pb.Statement {
 	statementNode.Expression = &ast_pb.Expression{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -135,18 +156,12 @@ func (b *ASTBuilder) parseFunctionCall(fnNode *ast_pb.Node, bodyNode *ast_pb.Bod
 	if fnCtx.CallArgumentList() != nil {
 		for _, expressionCtx := range fnCtx.CallArgumentList().AllExpression() {
 			argument := b.parseExpression(
-				fnNode, bodyNode, nil, nameExpression.Id, expressionCtx,
+				sourceUnit, fnNode, bodyNode, nil, nameExpression.Id, expressionCtx,
 			)
 			statementNode.Arguments = append(statementNode.Arguments, argument)
 			nameExpression.ArgumentTypes = append(
 				nameExpression.ArgumentTypes, argument.TypeDescriptions,
 			)
-		}
-
-		for _, _ = range fnCtx.CallArgumentList().AllNamedArgument() {
-			panic("Named argument for function call here (functions.go)...")
-			//argument := b.parseNamedArgument(statementNode, argumentCtx.(*parser.NamedArgumentContext))
-			//statementNode.Arguments = append(statementNode.Arguments, argument)
 		}
 	}
 

@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseUsingForDeclaration(node *ast_pb.Node, ctx *parser.UsingDirectiveContext) *ast_pb.Node {
+func (b *ASTBuilder) parseUsingForDeclaration(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, ctx *parser.UsingDirectiveContext) *ast_pb.Node {
 	node.NodeType = ast_pb.NodeType_USING_FOR_DIRECTIVE
 
 	for _, identifierCtx := range ctx.AllIdentifierPath() {

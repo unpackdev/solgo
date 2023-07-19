@@ -5,17 +5,17 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, parentStatement *ast_pb.Statement, statementCtx parser.IStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, parentStatement *ast_pb.Statement, statementCtx parser.IStatementContext) *ast_pb.Statement {
 	if simpleStatement := statementCtx.SimpleStatement(); simpleStatement != nil {
-		return b.parseSimpleStatement(node, bodyNode, simpleStatement.(*parser.SimpleStatementContext))
+		return b.parseSimpleStatement(sourceUnit, node, bodyNode, simpleStatement.(*parser.SimpleStatementContext))
 	}
 
 	if returnStatement := statementCtx.ReturnStatement(); returnStatement != nil {
-		return b.parseReturnStatement(node, bodyNode, parentStatement.Id, returnStatement.(*parser.ReturnStatementContext))
+		return b.parseReturnStatement(sourceUnit, node, bodyNode, parentStatement.Id, returnStatement.(*parser.ReturnStatementContext))
 	}
 
 	if ifStatement := statementCtx.IfStatement(); ifStatement != nil {
-		return b.parseIfStatement(node, bodyNode, ifStatement.(*parser.IfStatementContext))
+		return b.parseIfStatement(sourceUnit, node, bodyNode, ifStatement.(*parser.IfStatementContext))
 	}
 
 	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {

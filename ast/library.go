@@ -103,7 +103,7 @@ func (b *ASTBuilder) parseLibraryDefinition(sourceUnitCtx *parser.SourceUnitCont
 			continue
 		}
 
-		bodyNode := b.parseBodyElement(identifierNode, bodyElement)
+		bodyNode := b.parseBodyElement(sourceUnit, identifierNode, bodyElement)
 		identifierNode.Nodes = append(identifierNode.Nodes, bodyNode)
 
 		// Lets check if we have any functions in the body...

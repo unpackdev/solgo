@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseReturnStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, parentIndex int64, returnStatement *parser.ReturnStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseReturnStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, parentIndex int64, returnStatement *parser.ReturnStatementContext) *ast_pb.Statement {
 	id := atomic.AddInt64(&b.nextID, 1) - 1
 
 	return &ast_pb.Statement{
@@ -29,7 +29,7 @@ func (b *ASTBuilder) parseReturnStatement(node *ast_pb.Node, bodyNode *ast_pb.Bo
 			return 0
 		}(),
 		Expression: b.parseExpression(
-			node, bodyNode, nil, id, returnStatement.Expression(),
+			sourceUnit, node, bodyNode, nil, id, returnStatement.Expression(),
 		),
 	}
 }

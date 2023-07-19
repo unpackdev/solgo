@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseBodyElement(identifierNode *ast_pb.Node, bodyElement parser.IContractBodyElementContext) *ast_pb.Node {
+func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierNode *ast_pb.Node, bodyElement parser.IContractBodyElementContext) *ast_pb.Node {
 	id := atomic.AddInt64(&b.nextID, 1) - 1
 	toReturn := &ast_pb.Node{
 		Id: id,
@@ -22,16 +22,19 @@ func (b *ASTBuilder) parseBodyElement(identifierNode *ast_pb.Node, bodyElement p
 
 	if usingForDeclaration := bodyElement.UsingDirective(); usingForDeclaration != nil {
 		toReturn = b.parseUsingForDeclaration(
+			sourceUnit,
 			toReturn,
 			usingForDeclaration.(*parser.UsingDirectiveContext),
 		)
 	} else if stateVariableDeclaration := bodyElement.StateVariableDeclaration(); stateVariableDeclaration != nil {
 		toReturn = b.parseStateVariableDeclaration(
+			sourceUnit,
 			toReturn,
 			stateVariableDeclaration.(*parser.StateVariableDeclarationContext),
 		)
 	} else if functionDefinition := bodyElement.FunctionDefinition(); functionDefinition != nil {
 		toReturn = b.parseFunctionDefinition(
+			sourceUnit,
 			toReturn,
 			functionDefinition.(*parser.FunctionDefinitionContext),
 		)

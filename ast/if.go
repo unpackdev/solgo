@@ -7,7 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseIfStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, ifCtx *parser.IfStatementContext) *ast_pb.Statement {
+func (b *ASTBuilder) parseIfStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, ifCtx *parser.IfStatementContext) *ast_pb.Statement {
 	statement := &ast_pb.Statement{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
@@ -20,7 +20,7 @@ func (b *ASTBuilder) parseIfStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, 
 		NodeType: ast_pb.NodeType_IF_STATEMENT,
 	}
 
-	condition := b.parseExpression(node, bodyNode, nil, statement.Id, ifCtx.Expression())
+	condition := b.parseExpression(sourceUnit, node, bodyNode, nil, statement.Id, ifCtx.Expression())
 	statement.Condition = condition
 
 	if !ifCtx.IsEmpty() {
@@ -48,7 +48,7 @@ func (b *ASTBuilder) parseIfStatement(node *ast_pb.Node, bodyNode *ast_pb.Body, 
 						statement.TrueBody.Statements = append(
 							statement.TrueBody.Statements,
 							b.parseStatement(
-								node, bodyNode, statement.TrueBody,
+								sourceUnit, node, bodyNode, statement.TrueBody,
 								stmtCtx,
 							),
 						)
