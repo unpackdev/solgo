@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"sync/atomic"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -47,4 +49,35 @@ func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.
 	}
 
 	return nil
+}
+
+func (b *ASTBuilder) parseSimpleStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, statement *parser.SimpleStatementContext) *ast_pb.Statement {
+	toReturn := &ast_pb.Statement{
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		Src: &ast_pb.Src{
+			Line:        int64(statement.GetStart().GetLine()),
+			Column:      int64(statement.GetStart().GetColumn()),
+			Start:       int64(statement.GetStart().GetStart()),
+			End:         int64(statement.GetStop().GetStop()),
+			Length:      int64(statement.GetStop().GetStop() - statement.GetStart().GetStart() + 1),
+			ParentIndex: bodyNode.Id,
+		},
+	}
+
+	if variableDeclaration := statement.VariableDeclarationStatement(); variableDeclaration != nil {
+		toReturn.NodeType = ast_pb.NodeType_VARIABLE_DECLARATION_STATEMENT
+		toReturn = b.parseVariableDeclaration(
+			sourceUnit, node, bodyNode, toReturn,
+			variableDeclaration.(*parser.VariableDeclarationStatementContext),
+		)
+	} else if expressionStatement := statement.ExpressionStatement(); expressionStatement != nil {
+		toReturn = b.parseExpressionStatement(
+			sourceUnit, node, bodyNode, toReturn,
+			expressionStatement.(*parser.ExpressionStatementContext),
+		)
+	} else {
+		panic("Unknown simple statement type...")
+	}
+
+	return toReturn
 }

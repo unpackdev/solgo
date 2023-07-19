@@ -32,12 +32,30 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 			toReturn,
 			stateVariableDeclaration.(*parser.StateVariableDeclarationContext),
 		)
+	} else if eventDefinition := bodyElement.EventDefinition(); eventDefinition != nil {
+		toReturn = b.parseEventDefinition(
+			sourceUnit,
+			toReturn,
+			eventDefinition.(*parser.EventDefinitionContext),
+		)
 	} else if functionDefinition := bodyElement.FunctionDefinition(); functionDefinition != nil {
 		toReturn = b.parseFunctionDefinition(
 			sourceUnit,
 			toReturn,
 			functionDefinition.(*parser.FunctionDefinitionContext),
 		)
+	} else if constructorDefinition := bodyElement.ConstructorDefinition(); constructorDefinition != nil {
+		panic("Constructor definition....")
+	} else if modifierDefinition := bodyElement.ModifierDefinition(); modifierDefinition != nil {
+		panic("Modifier definition....")
+	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {
+		panic("Fallback function definition....")
+	} else if receiveFunctionDefinition := bodyElement.ReceiveFunctionDefinition(); receiveFunctionDefinition != nil {
+		panic("Receive function definition....")
+	} else if structDefinition := bodyElement.StructDefinition(); structDefinition != nil {
+		panic("Struct definition....")
+	} else if enumDefinition := bodyElement.EnumDefinition(); enumDefinition != nil {
+		panic("Enum definition....")
 	} else {
 		panic("Another type of body element that needs to be parsed...")
 	}

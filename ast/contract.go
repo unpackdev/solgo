@@ -35,13 +35,13 @@ func (b *ASTBuilder) parseContractDefinition(sourceUnitCtx *parser.SourceUnitCon
 	// Alright lets extract bloody pragmas...
 	sourceUnit.Root.Nodes = append(
 		sourceUnit.Root.Nodes,
-		b.findPragmasForSourceUnit(sourceUnitCtx, sourceUnit, nil, ctx)...,
+		b.findPragmasForSourceUnit(sourceUnitCtx, sourceUnit, nil, ctx, nil)...,
 	)
 
 	// Now extraction of import paths...
 	sourceUnit.Root.Nodes = append(
 		sourceUnit.Root.Nodes,
-		b.findImportPathsForSourceUnit(sourceUnitCtx, sourceUnit, nil, ctx)...,
+		b.findImportPathsForSourceUnit(sourceUnitCtx, sourceUnit, nil, ctx, nil)...,
 	)
 
 	id := atomic.AddInt64(&b.nextID, 1) - 1

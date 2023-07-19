@@ -12,28 +12,31 @@ import (
 func (b *ASTBuilder) findImportPathsForSourceUnit(
 	sourceUnit *parser.SourceUnitContext,
 	currentSourceUnit *ast_pb.SourceUnit,
-	library *parser.LibraryDefinitionContext,
-	contract *parser.ContractDefinitionContext,
+	libraryCtx *parser.LibraryDefinitionContext,
+	contractCtx *parser.ContractDefinitionContext,
+	interfaceCtx *parser.InterfaceDefinitionContext,
 ) []*ast_pb.Node {
 	imports := make([]*ast_pb.Node, 0)
 
 	contractLine := func() int64 {
-		if library != nil {
-			return int64(library.GetStart().GetLine())
-		} else if contract != nil {
-			return int64(contract.GetStart().GetLine())
+		if libraryCtx != nil {
+			return int64(libraryCtx.GetStart().GetLine())
+		} else if contractCtx != nil {
+			return int64(contractCtx.GetStart().GetLine())
+		} else if interfaceCtx != nil {
+			return int64(interfaceCtx.GetStart().GetLine())
 		}
 		return 0
 	}()
 
 	// Traverse the children of the source unit until the contract definition is found
 	for _, child := range sourceUnit.GetChildren() {
-		if library != nil && child == library {
+		if libraryCtx != nil && child == libraryCtx {
 			// Found the library definition, stop traversing
 			break
 		}
 
-		if contract != nil && child == contract {
+		if contractCtx != nil && child == contractCtx {
 			// Found the contract definition, stop traversing
 			break
 		}

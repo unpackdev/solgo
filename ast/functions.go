@@ -17,7 +17,7 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 
 	// If block is not empty we are going to assume that the function is implemented.
 	// @TODO: Take assumption to the next level in the future.
-	node.Implemented = !fd.Block().IsEmpty()
+	node.Implemented = fd.Block() != nil && !fd.Block().IsEmpty()
 
 	// Get function visibility state.
 	for _, visibility := range fd.AllVisibility() {
@@ -90,7 +90,7 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 	}
 
 	// And now we are going to the big league. We are going to traverse the function body.
-	if !fd.Block().IsEmpty() {
+	if fd.Block() != nil && !fd.Block().IsEmpty() {
 		bodyNode := &ast_pb.Body{
 			Id: atomic.AddInt64(&b.nextID, 1) - 1,
 			Src: &ast_pb.Src{

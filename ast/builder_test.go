@@ -38,7 +38,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				BaseSourceUnit: "Empty",
 			},
-			expected: `{"source_units":[{"id":0,"license":"","node_type":"SourceUnit","nodes":[],"src":{"line":1,"start":0,"end":0,"length":0,"index":0}}]}`,
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast")),
 		},
 		{
 			name: "Simple Storage Contract Test",
@@ -57,12 +57,25 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				BaseSourceUnit: "SimpleStorage",
 			},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast")),
+		},
+		{
+			name: "Simple Token",
+			sources: solgo.Sources{
+				SourceUnits: []solgo.SourceUnit{
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+					},
+				},
+				BaseSourceUnit: "TokenSale",
+			},
 		},
 	}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-
 			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
@@ -90,30 +103,10 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			err = astBuilder.WritePrettyJSONToFile("../data/tests/ast/" + testCase.sources.BaseSourceUnit + ".solgo.ast.json")
 			assert.NoError(t, err)
 
-			/* 			for contractName, contract := range testCase.contracts {
-
-				// Register the contract information listener
-
-
-
-				syntaxErrs := parser.Parse()
-				assert.Empty(t, syntaxErrs)
-
-				prettyJson, err := astBuilder.ToPrettyJSON()
-				assert.NoError(t, err)
-				assert.NotEmpty(t, prettyJson)
-
-				//fmt.Println(string(prettyJson))
-
-				err = astBuilder.WriteJSONToFile("../data/tests/ast/" + contractName + ".solgo.ast.json")
-				assert.NoError(t, err)
-
-				 				astJson, err := astBuilder.ToJSON()
-				   				assert.NoError(t, err)
-				   				assert.NotEmpty(t, astJson)
-				   				ioutil.WriteFile(testCase.name+".json", []byte(astJson), 0777)
-				   				assert.Equal(t, testCase.expected, astJson)
-			} */
+			astJson, err := astBuilder.ToJSON()
+			assert.NoError(t, err)
+			assert.NotEmpty(t, astJson)
+			//assert.Equal(t, testCase.expected, string(astJson))
 		})
 	}
 }

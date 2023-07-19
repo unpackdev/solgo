@@ -7,9 +7,17 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseLibraryDefinition(sourceUnitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext) *ast_pb.SourceUnit {
+func (b *ASTBuilder) parseInterfaceDefinition(sourceUnitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext) *ast_pb.SourceUnit {
 	sourceUnit := &ast_pb.SourceUnit{
-		Id:              atomic.AddInt64(&b.nextID, 1) - 1,
+		Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		AbsolutePath: func() string {
+			for _, unit := range b.sources.SourceUnits {
+				if unit.Name == ctx.Identifier().GetText() {
+					return unit.Path
+				}
+			}
+			return ""
+		}(),
 		ExportedSymbols: make([]*ast_pb.ExportedSymbol, 0),
 		NodeType:        ast_pb.NodeType_SOURCE_UNIT,
 		Root:            &ast_pb.RootNode{},
@@ -19,14 +27,6 @@ func (b *ASTBuilder) parseLibraryDefinition(sourceUnitCtx *parser.SourceUnitCont
 			Start:  int64(ctx.GetStart().GetStart()),
 		},
 		Comments: b.comments,
-		AbsolutePath: func() string {
-			for _, unit := range b.sources.SourceUnits {
-				if unit.Name == ctx.Identifier().GetText() {
-					return unit.Path
-				}
-			}
-			return ""
-		}(),
 	}
 
 	// Alright lets get the license of the contract...
@@ -35,13 +35,13 @@ func (b *ASTBuilder) parseLibraryDefinition(sourceUnitCtx *parser.SourceUnitCont
 	// Alright lets extract bloody pragmas...
 	sourceUnit.Root.Nodes = append(
 		sourceUnit.Root.Nodes,
-		b.findPragmasForSourceUnit(sourceUnitCtx, sourceUnit, ctx, nil, nil)...,
+		b.findPragmasForSourceUnit(sourceUnitCtx, sourceUnit, nil, nil, ctx)...,
 	)
 
 	// Now extraction of import paths...
 	sourceUnit.Root.Nodes = append(
 		sourceUnit.Root.Nodes,
-		b.findImportPathsForSourceUnit(sourceUnitCtx, sourceUnit, ctx, nil, nil)...,
+		b.findImportPathsForSourceUnit(sourceUnitCtx, sourceUnit, nil, nil, ctx)...,
 	)
 
 	id := atomic.AddInt64(&b.nextID, 1) - 1
@@ -76,12 +76,8 @@ func (b *ASTBuilder) parseLibraryDefinition(sourceUnitCtx *parser.SourceUnitCont
 		},
 		Abstract: false,
 		NodeType: ast_pb.NodeType_CONTRACT_DEFINITION,
-		Kind:     ast_pb.NodeType_KIND_LIBRARY,
+		Kind:     ast_pb.NodeType_KIND_CONTRACT,
 	}
-
-	// Check if all of the functions discovered in the library are fully implemented...
-	// @TODO: Implement this.
-	identifierNode.FullyImplemented = false
 
 	// Discover linearized base contracts...
 	// The linearizedBaseContracts field contains an array of IDs that represent the
@@ -116,5 +112,6 @@ func (b *ASTBuilder) parseLibraryDefinition(sourceUnitCtx *parser.SourceUnitCont
 
 	identifierNode.FullyImplemented = fullyImplemented
 	sourceUnit.Root.Nodes = append(sourceUnit.Root.Nodes, identifierNode)
+
 	return sourceUnit
 }

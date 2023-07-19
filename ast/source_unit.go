@@ -13,8 +13,8 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 		}
 
 		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
-			panic("Interface definitions are not supported")
-			_ = interfaceCtx
+			b.currentSourceUnit = b.parseInterfaceDefinition(ctx, interfaceCtx)
+			b.sourceUnits = append(b.sourceUnits, b.currentSourceUnit)
 		}
 
 		if contractCtx, ok := child.(*parser.ContractDefinitionContext); ok {
