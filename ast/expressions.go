@@ -339,6 +339,27 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 
 				return toReturn
 			}
+
+			if literalCtx.HexStringLiteral() != nil {
+				toReturn.Kind = ast_pb.NodeType_HEX_STRING
+
+				toReturn.Value = strings.TrimSpace(
+					// There can be hex 22 at beginning and end of literal.
+					// We should drop it as that's ASCII for double quote.
+					strings.ReplaceAll(literalCtx.StringLiteral().GetText(), "\"", ""),
+				)
+				toReturn.HexValue = hex.EncodeToString([]byte(toReturn.Value))
+
+				toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+					TypeIdentifier: "t_string_hex_literal",
+					TypeString: fmt.Sprintf(
+						"literal_hex_string %s",
+						literalCtx.StringLiteral().GetText(),
+					),
+				}
+
+				return toReturn
+			}
 		}
 
 		// Handle magic cases...
@@ -350,10 +371,16 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 		}
 
 		if toReturn.TypeDescriptions == nil {
-			zap.L().Debug(
-				"Unknown primary expression type description",
-				zap.String("name", childCtx.GetText()),
-			)
+			if parentExpression != nil {
+				if parentExpression.TypeDescriptions != nil {
+					toReturn.TypeDescriptions = parentExpression.TypeDescriptions
+				} else {
+					zap.L().Debug(
+						"Unknown primary expression type description",
+						zap.String("name", childCtx.GetText()),
+					)
+				}
+			}
 			//b.dumpNode(toReturn)
 		}
 
@@ -427,6 +454,41 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 					),
 				)
 			}
+		}
+
+		typeString := "function("
+		typeStringComponents := []string{}
+
+		for _, component := range toReturn.Arguments {
+			if !component.IsPure {
+				toReturn.IsPure = false
+			}
+
+			// This is a problem...
+			if component.TypeDescriptions == nil {
+				zap.L().Warn(
+					"Function call component type description is nil. Tuple type is corrupted.",
+					zap.String("sourceUnit", sourceUnit.AbsolutePath),
+					zap.String("function_name", fnNode.Name),
+					zap.String("component_name", component.Name),
+					zap.Int64("component_id", component.Id),
+					zap.String("component_node_type", component.NodeType.String()),
+				)
+				continue
+			}
+
+			typeStringComponents = append(typeStringComponents, component.TypeDescriptions.TypeString)
+		}
+
+		if len(typeStringComponents) > 0 {
+			typeString += strings.Join(typeStringComponents, ",")
+		}
+
+		typeString += ")"
+
+		toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+			TypeIdentifier: "t_function_call",
+			TypeString:     typeString,
 		}
 
 		if childCtx.Expression() != nil {
