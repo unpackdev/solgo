@@ -74,9 +74,11 @@ func (b *ASTBuilder) parseInterfaceDefinition(sourceUnitCtx *parser.SourceUnitCo
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: sourceUnit.Id,
 		},
-		Abstract: false,
-		NodeType: ast_pb.NodeType_INTERFACE_DEFINITION,
-		Kind:     ast_pb.NodeType_KIND_INTERFACE,
+		Abstract:             false,
+		NodeType:             ast_pb.NodeType_INTERFACE_DEFINITION,
+		Kind:                 ast_pb.NodeType_KIND_INTERFACE,
+		BaseContracts:        make([]*ast_pb.BaseContract, 0),
+		ContractDependencies: make([]int64, 0),
 	}
 
 	// Discover linearized base contracts...
@@ -85,6 +87,52 @@ func (b *ASTBuilder) parseInterfaceDefinition(sourceUnitCtx *parser.SourceUnitCo
 	// (the contract itself) and ending with the most base contract.
 	// The IDs correspond to the id fields of the ContractDefinition nodes in the AST.
 	identifierNode.LinearizedBaseContracts = []int64{id}
+
+	if ctx.InheritanceSpecifierList() != nil {
+		inheritanceCtx := ctx.InheritanceSpecifierList()
+
+		for _, inheritanceSpecifierCtx := range inheritanceCtx.AllInheritanceSpecifier() {
+			baseContract := &ast_pb.BaseContract{
+				Id: atomic.AddInt64(&b.nextID, 1) - 1,
+				Src: &ast_pb.Src{
+					Line:        int64(inheritanceSpecifierCtx.GetStart().GetLine()),
+					Column:      int64(inheritanceSpecifierCtx.GetStart().GetColumn()),
+					Start:       int64(inheritanceSpecifierCtx.GetStart().GetStart()),
+					End:         int64(inheritanceSpecifierCtx.GetStop().GetStop()),
+					Length:      int64(inheritanceSpecifierCtx.GetStop().GetStop() - inheritanceSpecifierCtx.GetStart().GetStart() + 1),
+					ParentIndex: identifierNode.Id,
+				},
+				NodeType: ast_pb.NodeType_INHERITANCE_SPECIFIER,
+				BaseName: &ast_pb.BaseContractName{
+					Id: atomic.AddInt64(&b.nextID, 1) - 1,
+					Src: &ast_pb.Src{
+						Line:        int64(inheritanceSpecifierCtx.GetStart().GetLine()),
+						Column:      int64(inheritanceSpecifierCtx.GetStart().GetColumn()),
+						Start:       int64(inheritanceSpecifierCtx.GetStart().GetStart()),
+						End:         int64(inheritanceSpecifierCtx.GetStop().GetStop()),
+						Length:      int64(inheritanceSpecifierCtx.GetStop().GetStop() - inheritanceSpecifierCtx.GetStart().GetStart() + 1),
+						ParentIndex: identifierNode.Id,
+					},
+					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
+					Name:     inheritanceSpecifierCtx.IdentifierPath().GetText(),
+				},
+			}
+
+			for _, unitNode := range b.sourceUnits {
+				if unitNode.GetName() == inheritanceSpecifierCtx.IdentifierPath().GetText() {
+					baseContract.BaseName.ReferencedDeclaration = unitNode.GetId()
+					identifierNode.LinearizedBaseContracts = append(
+						identifierNode.LinearizedBaseContracts, unitNode.GetId(),
+					)
+					identifierNode.ContractDependencies = append(
+						identifierNode.ContractDependencies, unitNode.GetId(),
+					)
+				}
+			}
+
+			identifierNode.BaseContracts = append(identifierNode.BaseContracts, baseContract)
+		}
+	}
 
 	// Allright now the fun part begins. We need to traverse through the body of the library
 	// and extract all of the nodes...

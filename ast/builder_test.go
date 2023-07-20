@@ -64,14 +64,19 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			sources: solgo.Sources{
 				SourceUnits: []solgo.SourceUnit{
 					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
+					},
+					{
 						Name:    "IERC20",
 						Path:    "IERC20.sol",
 						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
 					},
 					{
-						Name:    "SafeMath",
-						Path:    "SafeMath.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
+						Name:    "IERC20Metadata",
+						Path:    "IERC20Metadata.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
 					},
 				},
 				BaseSourceUnit: "TokenSale",
