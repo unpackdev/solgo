@@ -59,7 +59,11 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 	} else if structDefinition := bodyElement.StructDefinition(); structDefinition != nil {
 		panic("Struct definition....")
 	} else if enumDefinition := bodyElement.EnumDefinition(); enumDefinition != nil {
-		panic("Enum definition....")
+		toReturn = b.parseEnumDefinition(
+			sourceUnit,
+			toReturn,
+			enumDefinition.(*parser.EnumDefinitionContext),
+		)
 	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
 		panic("User defined value....")
 	} else if errorDefinition := bodyElement.ErrorDefinition(); errorDefinition != nil {

@@ -22,6 +22,7 @@ func (b *ASTBuilder) parseContractDefinition(sourceUnitCtx *parser.SourceUnitCon
 		ExportedSymbols: make([]*ast_pb.ExportedSymbol, 0),
 		NodeType:        ast_pb.NodeType_SOURCE_UNIT,
 		Root:            &ast_pb.RootNode{},
+		Name:            ctx.Identifier().GetText(),
 		Src: &ast_pb.Src{
 			Line:   int64(ctx.GetStart().GetLine()),
 			Column: int64(ctx.GetStart().GetColumn()),

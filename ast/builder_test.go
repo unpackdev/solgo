@@ -115,6 +115,19 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "TokenSale",
 			},
 		},
+		{
+			name: "Lottery Test",
+			sources: solgo.Sources{
+				SourceUnits: []solgo.SourceUnit{
+					{
+						Name:    "Lottery",
+						Path:    "Lottery.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
+					},
+				},
+				EntrySourceUnitName: "Lottery",
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
