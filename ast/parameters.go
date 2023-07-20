@@ -56,6 +56,17 @@ func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parse
 			Mutability: ast_pb.Mutability_MUTABLE,
 		}
 
+		if paramCtx.DataLocation() != nil {
+			switch paramCtx.DataLocation().GetText() {
+			case "memory":
+				pNode.StorageLocation = ast_pb.StorageLocation_MEMORY
+			case "storage":
+				pNode.StorageLocation = ast_pb.StorageLocation_STORAGE
+			case "calldata":
+				pNode.StorageLocation = ast_pb.StorageLocation_CALLDATA
+			}
+		}
+
 		if paramCtx.GetType_().ElementaryTypeName() != nil {
 			pNode.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 			typeCtx := paramCtx.GetType_().ElementaryTypeName()

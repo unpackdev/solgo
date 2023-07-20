@@ -45,7 +45,11 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 			functionDefinition.(*parser.FunctionDefinitionContext),
 		)
 	} else if constructorDefinition := bodyElement.ConstructorDefinition(); constructorDefinition != nil {
-		panic("Constructor definition....")
+		toReturn = b.parseConstructorDefinition(
+			sourceUnit,
+			toReturn,
+			constructorDefinition.(*parser.ConstructorDefinitionContext),
+		)
 	} else if modifierDefinition := bodyElement.ModifierDefinition(); modifierDefinition != nil {
 		panic("Modifier definition....")
 	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {

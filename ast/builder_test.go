@@ -83,6 +83,11 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Path:    "Context.sol",
 						Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
 					},
+					{
+						Name:    "ERC20",
+						Path:    "ERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
+					},
 				},
 				BaseSourceUnit: "TokenSale",
 			},
