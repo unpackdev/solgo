@@ -265,7 +265,11 @@
                               "type_string": "uint256"
                             }
                           },
-                          "visibility": 1
+                          "visibility": 1,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
                         }
                       ],
                       "assignments": [
@@ -273,6 +277,7 @@
                       ],
                       "initial_value": {
                         "id": 18,
+                        "name": "a+b",
                         "node_type": 19,
                         "src": {
                           "line": 9,
@@ -280,13 +285,9 @@
                           "start": 279,
                           "end": 283,
                           "length": 5,
-                          "parent_index": 16
+                          "parent_index": 15
                         },
                         "type_descriptions": {
-                          "type_identifier": "t_uint256",
-                          "type_string": "uint256"
-                        },
-                        "common_type": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         },
@@ -806,7 +807,11 @@
                               "type_string": "uint256"
                             }
                           },
-                          "visibility": 1
+                          "visibility": 1,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
                         }
                       ],
                       "assignments": [
@@ -814,6 +819,7 @@
                       ],
                       "initial_value": {
                         "id": 50,
+                        "name": "a-b",
                         "node_type": 19,
                         "src": {
                           "line": 18,
@@ -821,17 +827,13 @@
                           "start": 525,
                           "end": 529,
                           "length": 5,
-                          "parent_index": 48
+                          "parent_index": 47
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         },
-                        "common_type": {
-                          "type_identifier": "t_uint256",
-                          "type_string": "uint256"
-                        },
-                        "operator": 1,
+                        "operator": 2,
                         "left_expression": {
                           "id": 51,
                           "name": "a",
@@ -1214,7 +1216,11 @@
                               "type_string": "uint256"
                             }
                           },
-                          "visibility": 1
+                          "visibility": 1,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
                         }
                       ],
                       "assignments": [
@@ -1222,26 +1228,61 @@
                       ],
                       "initial_value": {
                         "id": 75,
+                        "name": "a*b",
+                        "node_type": 19,
                         "src": {
                           "line": 29,
                           "column": 17,
                           "start": 730,
                           "end": 734,
                           "length": 5,
-                          "parent_index": 73
+                          "parent_index": 72
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         },
-                        "common_type": {
-                          "type_identifier": "t_uint256",
-                          "type_string": "uint256"
+                        "operator": 3,
+                        "left_expression": {
+                          "id": 76,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 29,
+                            "column": 17,
+                            "start": 730,
+                            "end": 730,
+                            "length": 1,
+                            "parent_index": 75
+                          },
+                          "referenced_declaration": 57,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 77,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 29,
+                            "column": 21,
+                            "start": 734,
+                            "end": 734,
+                            "length": 1,
+                            "parent_index": 75
+                          },
+                          "referenced_declaration": 59,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
                         }
                       }
                     },
                     {
-                      "id": 76,
+                      "id": 78,
                       "node_type": 24,
                       "src": {
                         "line": 30,
@@ -1252,7 +1293,7 @@
                         "parent_index": 64
                       },
                       "expression": {
-                        "id": 77,
+                        "id": 79,
                         "node_type": 24,
                         "src": {
                           "line": 30,
@@ -1260,10 +1301,10 @@
                           "start": 745,
                           "end": 790,
                           "length": 46,
-                          "parent_index": 76
+                          "parent_index": 78
                         },
                         "expression": {
-                          "id": 78,
+                          "id": 80,
                           "name": "require",
                           "node_type": 16,
                           "src": {
@@ -1272,7 +1313,7 @@
                             "start": 745,
                             "end": 751,
                             "length": 7,
-                            "parent_index": 77
+                            "parent_index": 79
                           },
                           "argument_types": [
                             {
@@ -1288,7 +1329,7 @@
                       },
                       "arguments": [
                         {
-                          "id": 79,
+                          "id": 81,
                           "name": "c/a==b",
                           "node_type": 19,
                           "src": {
@@ -1297,7 +1338,7 @@
                             "start": 753,
                             "end": 762,
                             "length": 10,
-                            "parent_index": 78
+                            "parent_index": 80
                           },
                           "type_descriptions": {
                             "type_identifier": "t_uint256",
@@ -1305,7 +1346,7 @@
                           },
                           "operator": 11,
                           "left_expression": {
-                            "id": 80,
+                            "id": 82,
                             "name": "c/a",
                             "node_type": 19,
                             "src": {
@@ -1314,7 +1355,7 @@
                               "start": 753,
                               "end": 757,
                               "length": 5,
-                              "parent_index": 79
+                              "parent_index": 81
                             },
                             "type_descriptions": {
                               "type_identifier": "t_uint256",
@@ -1322,7 +1363,7 @@
                             },
                             "operator": 4,
                             "left_expression": {
-                              "id": 81,
+                              "id": 83,
                               "name": "c",
                               "node_type": 16,
                               "src": {
@@ -1331,7 +1372,7 @@
                                 "start": 753,
                                 "end": 753,
                                 "length": 1,
-                                "parent_index": 80
+                                "parent_index": 82
                               },
                               "referenced_declaration": 73,
                               "type_descriptions": {
@@ -1340,7 +1381,7 @@
                               }
                             },
                             "right_expression": {
-                              "id": 82,
+                              "id": 84,
                               "name": "a",
                               "node_type": 16,
                               "src": {
@@ -1349,7 +1390,7 @@
                                 "start": 757,
                                 "end": 757,
                                 "length": 1,
-                                "parent_index": 80
+                                "parent_index": 82
                               },
                               "referenced_declaration": 57,
                               "type_descriptions": {
@@ -1359,7 +1400,7 @@
                             }
                           },
                           "right_expression": {
-                            "id": 83,
+                            "id": 85,
                             "name": "b",
                             "node_type": 16,
                             "src": {
@@ -1368,7 +1409,7 @@
                               "start": 762,
                               "end": 762,
                               "length": 1,
-                              "parent_index": 79
+                              "parent_index": 81
                             },
                             "referenced_declaration": 59,
                             "type_descriptions": {
@@ -1378,7 +1419,7 @@
                           }
                         },
                         {
-                          "id": 84,
+                          "id": 86,
                           "name": "\"Multiplication overflow\"",
                           "node_type": 17,
                           "src": {
@@ -1387,7 +1428,7 @@
                             "start": 765,
                             "end": 789,
                             "length": 25,
-                            "parent_index": 78
+                            "parent_index": 80
                           },
                           "type_descriptions": {
                             "type_identifier": "t_string_literal",
@@ -1401,7 +1442,7 @@
                       ]
                     },
                     {
-                      "id": 85,
+                      "id": 87,
                       "node_type": 47,
                       "src": {
                         "line": 32,
@@ -1412,7 +1453,7 @@
                         "parent_index": 64
                       },
                       "expression": {
-                        "id": 86,
+                        "id": 88,
                         "name": "c",
                         "node_type": 16,
                         "src": {
@@ -1421,7 +1462,7 @@
                           "start": 809,
                           "end": 809,
                           "length": 1,
-                          "parent_index": 85
+                          "parent_index": 87
                         },
                         "referenced_declaration": 73,
                         "type_descriptions": {
@@ -1435,7 +1476,7 @@
                 }
               },
               {
-                "id": 87,
+                "id": 89,
                 "name": "div",
                 "node_type": 42,
                 "src": {
@@ -1450,25 +1491,25 @@
                 "visibility": 1,
                 "state_mutability": 6,
                 "parameters": {
-                  "id": 88,
+                  "id": 90,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 89,
+                      "id": 91,
                       "mutability": 1,
                       "name": "a",
                       "node_type": 30,
-                      "scope": 87,
+                      "scope": 89,
                       "src": {
                         "line": 36,
                         "column": 17,
                         "start": 870,
                         "end": 875,
                         "length": 6,
-                        "parent_index": 88
+                        "parent_index": 90
                       },
                       "type_name": {
-                        "id": 90,
+                        "id": 92,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -1477,7 +1518,7 @@
                           "start": 870,
                           "end": 875,
                           "length": 6,
-                          "parent_index": 88
+                          "parent_index": 90
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -1487,21 +1528,21 @@
                       "visibility": 1
                     },
                     {
-                      "id": 91,
+                      "id": 93,
                       "mutability": 1,
                       "name": "b",
                       "node_type": 30,
-                      "scope": 87,
+                      "scope": 89,
                       "src": {
                         "line": 36,
                         "column": 25,
                         "start": 878,
                         "end": 883,
                         "length": 6,
-                        "parent_index": 88
+                        "parent_index": 90
                       },
                       "type_name": {
-                        "id": 92,
+                        "id": 94,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -1510,7 +1551,7 @@
                           "start": 878,
                           "end": 883,
                           "length": 6,
-                          "parent_index": 88
+                          "parent_index": 90
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -1525,28 +1566,28 @@
                     "start": 870,
                     "end": 883,
                     "length": 14,
-                    "parent_index": 87
+                    "parent_index": 89
                   }
                 },
                 "return_parameters": {
-                  "id": 93,
+                  "id": 95,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 94,
+                      "id": 96,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 87,
+                      "scope": 89,
                       "src": {
                         "line": 36,
                         "column": 56,
                         "start": 909,
                         "end": 912,
                         "length": 4,
-                        "parent_index": 93
+                        "parent_index": 95
                       },
                       "type_name": {
-                        "id": 95,
+                        "id": 97,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -1555,7 +1596,7 @@
                           "start": 909,
                           "end": 912,
                           "length": 4,
-                          "parent_index": 93
+                          "parent_index": 95
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -1570,11 +1611,11 @@
                     "start": 909,
                     "end": 912,
                     "length": 4,
-                    "parent_index": 87
+                    "parent_index": 89
                   }
                 },
                 "body": {
-                  "id": 96,
+                  "id": 98,
                   "node_type": 46,
                   "src": {
                     "line": 36,
@@ -1582,11 +1623,11 @@
                     "start": 915,
                     "end": 1008,
                     "length": 94,
-                    "parent_index": 87
+                    "parent_index": 89
                   },
                   "statements": [
                     {
-                      "id": 97,
+                      "id": 99,
                       "node_type": 24,
                       "src": {
                         "line": 37,
@@ -1594,10 +1635,10 @@
                         "start": 925,
                         "end": 959,
                         "length": 35,
-                        "parent_index": 96
+                        "parent_index": 98
                       },
                       "expression": {
-                        "id": 98,
+                        "id": 100,
                         "node_type": 24,
                         "src": {
                           "line": 37,
@@ -1605,10 +1646,10 @@
                           "start": 925,
                           "end": 958,
                           "length": 34,
-                          "parent_index": 97
+                          "parent_index": 99
                         },
                         "expression": {
-                          "id": 99,
+                          "id": 101,
                           "name": "require",
                           "node_type": 16,
                           "src": {
@@ -1617,7 +1658,7 @@
                             "start": 925,
                             "end": 931,
                             "length": 7,
-                            "parent_index": 98
+                            "parent_index": 100
                           },
                           "argument_types": [
                             {
@@ -1633,7 +1674,7 @@
                       },
                       "arguments": [
                         {
-                          "id": 100,
+                          "id": 102,
                           "name": "b\u003e0",
                           "node_type": 19,
                           "src": {
@@ -1642,7 +1683,7 @@
                             "start": 933,
                             "end": 937,
                             "length": 5,
-                            "parent_index": 99
+                            "parent_index": 101
                           },
                           "type_descriptions": {
                             "type_identifier": "t_bool",
@@ -1650,7 +1691,7 @@
                           },
                           "operator": 7,
                           "left_expression": {
-                            "id": 101,
+                            "id": 103,
                             "name": "b",
                             "node_type": 16,
                             "src": {
@@ -1659,16 +1700,16 @@
                               "start": 933,
                               "end": 933,
                               "length": 1,
-                              "parent_index": 100
+                              "parent_index": 102
                             },
-                            "referenced_declaration": 91,
+                            "referenced_declaration": 93,
                             "type_descriptions": {
                               "type_identifier": "t_uint256",
                               "type_string": "uint256"
                             }
                           },
                           "right_expression": {
-                            "id": 102,
+                            "id": 104,
                             "name": "0",
                             "node_type": 17,
                             "src": {
@@ -1677,7 +1718,7 @@
                               "start": 937,
                               "end": 937,
                               "length": 1,
-                              "parent_index": 100
+                              "parent_index": 102
                             },
                             "type_descriptions": {
                               "type_identifier": "t_rational_0_by_1",
@@ -1690,7 +1731,7 @@
                           }
                         },
                         {
-                          "id": 103,
+                          "id": 105,
                           "name": "\"Division by zero\"",
                           "node_type": 17,
                           "src": {
@@ -1699,7 +1740,7 @@
                             "start": 940,
                             "end": 957,
                             "length": 18,
-                            "parent_index": 99
+                            "parent_index": 101
                           },
                           "type_descriptions": {
                             "type_identifier": "t_string_literal",
@@ -1713,7 +1754,7 @@
                       ]
                     },
                     {
-                      "id": 104,
+                      "id": 106,
                       "node_type": 45,
                       "src": {
                         "line": 38,
@@ -1721,26 +1762,26 @@
                         "start": 969,
                         "end": 983,
                         "length": 15,
-                        "parent_index": 96
+                        "parent_index": 98
                       },
                       "declarations": [
                         {
-                          "id": 105,
+                          "id": 107,
                           "mutability": 1,
                           "name": "c",
                           "node_type": 44,
-                          "scope": 96,
+                          "scope": 98,
                           "src": {
                             "line": 38,
                             "column": 8,
                             "start": 969,
                             "end": 974,
                             "length": 6,
-                            "parent_index": 104
+                            "parent_index": 106
                           },
                           "storage_location": 1,
                           "type_name": {
-                            "id": 106,
+                            "id": 108,
                             "name": "uint",
                             "node_type": 30,
                             "src": {
@@ -1749,41 +1790,80 @@
                               "start": 969,
                               "end": 972,
                               "length": 4,
-                              "parent_index": 104
+                              "parent_index": 106
                             },
                             "type_descriptions": {
                               "type_identifier": "t_uint256",
                               "type_string": "uint256"
                             }
                           },
-                          "visibility": 1
+                          "visibility": 1,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
                         }
                       ],
                       "assignments": [
-                        105
+                        107
                       ],
                       "initial_value": {
-                        "id": 107,
+                        "id": 109,
+                        "name": "a/b",
+                        "node_type": 19,
                         "src": {
                           "line": 38,
                           "column": 17,
                           "start": 978,
                           "end": 982,
                           "length": 5,
-                          "parent_index": 105
+                          "parent_index": 106
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         },
-                        "common_type": {
-                          "type_identifier": "t_uint256",
-                          "type_string": "uint256"
+                        "operator": 4,
+                        "left_expression": {
+                          "id": 110,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 38,
+                            "column": 17,
+                            "start": 978,
+                            "end": 978,
+                            "length": 1,
+                            "parent_index": 109
+                          },
+                          "referenced_declaration": 91,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 111,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 38,
+                            "column": 21,
+                            "start": 982,
+                            "end": 982,
+                            "length": 1,
+                            "parent_index": 109
+                          },
+                          "referenced_declaration": 93,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
                         }
                       }
                     },
                     {
-                      "id": 108,
+                      "id": 112,
                       "node_type": 47,
                       "src": {
                         "line": 40,
@@ -1791,10 +1871,10 @@
                         "start": 994,
                         "end": 1002,
                         "length": 9,
-                        "parent_index": 96
+                        "parent_index": 98
                       },
                       "expression": {
-                        "id": 109,
+                        "id": 113,
                         "name": "c",
                         "node_type": 16,
                         "src": {
@@ -1803,15 +1883,15 @@
                           "start": 1001,
                           "end": 1001,
                           "length": 1,
-                          "parent_index": 108
+                          "parent_index": 112
                         },
-                        "referenced_declaration": 105,
+                        "referenced_declaration": 107,
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         }
                       },
-                      "function_return_parameters": 93
+                      "function_return_parameters": 95
                     }
                   ]
                 }
@@ -1965,7 +2045,7 @@
       ]
     },
     {
-      "id": 110,
+      "id": 114,
       "license": "MIT",
       "absolute_path": "SimpleStorage.sol",
       "exported_symbols": [
@@ -1975,7 +2055,7 @@
           "absolute_path": "MathLib.sol"
         },
         {
-          "id": 115,
+          "id": 119,
           "name": "SimpleStorage",
           "absolute_path": "SimpleStorage.sol"
         }
@@ -1984,14 +2064,14 @@
       "root": {
         "nodes": [
           {
-            "id": 113,
+            "id": 117,
             "node_type": 10,
             "src": {
               "line": 46,
               "start": 1046,
               "end": 1068,
               "length": 23,
-              "parent_index": 110
+              "parent_index": 114
             },
             "literals": [
               "pragma",
@@ -2006,22 +2086,22 @@
             ]
           },
           {
-            "id": 114,
+            "id": 118,
             "node_type": 29,
             "src": {
               "line": 48,
               "start": 1071,
               "end": 1093,
               "length": 23,
-              "parent_index": 110
+              "parent_index": 114
             },
             "absolute_path": "MathLib.sol",
             "file": "./MathLib.sol",
-            "scope": 110,
+            "scope": 114,
             "source_unit": 1
           },
           {
-            "id": 115,
+            "id": 119,
             "name": "SimpleStorage",
             "node_type": 35,
             "src": {
@@ -2029,26 +2109,26 @@
               "start": 1164,
               "end": 1684,
               "length": 521,
-              "parent_index": 110
+              "parent_index": 114
             },
             "kind": 36,
             "fully_implemented": true,
             "linearized_base_contracts": [
-              115
+              119
             ],
             "nodes": [
               {
-                "id": 116,
+                "id": 120,
                 "node_type": 51,
                 "src": {
                   "line": 52,
                   "start": 1193,
                   "end": 1215,
                   "length": 23,
-                  "parent_index": 115
+                  "parent_index": 119
                 },
                 "library_name": {
-                  "id": 117,
+                  "id": 121,
                   "name": "MathLib",
                   "node_type": 52,
                   "referenced_declaration": 4,
@@ -2057,11 +2137,11 @@
                     "start": 1199,
                     "end": 1205,
                     "length": 7,
-                    "parent_index": 116
+                    "parent_index": 120
                   }
                 },
                 "type_name": {
-                  "id": 118,
+                  "id": 122,
                   "name": "uint",
                   "node_type": 30,
                   "src": {
@@ -2069,7 +2149,7 @@
                     "start": 1211,
                     "end": 1214,
                     "length": 4,
-                    "parent_index": 116
+                    "parent_index": 120
                   },
                   "type_descriptions": {
                     "type_identifier": "t_uint256",
@@ -2078,7 +2158,7 @@
                 }
               },
               {
-                "id": 120,
+                "id": 124,
                 "name": "storedData",
                 "node_type": 44,
                 "src": {
@@ -2087,13 +2167,13 @@
                   "start": 1221,
                   "end": 1236,
                   "length": 16,
-                  "parent_index": 119
+                  "parent_index": 123
                 },
                 "visibility": 1,
                 "state_mutability": 1,
-                "scope": 119,
+                "scope": 123,
                 "type_name": {
-                  "id": 121,
+                  "id": 125,
                   "name": "uint",
                   "node_type": 30,
                   "src": {
@@ -2102,7 +2182,7 @@
                     "start": 1221,
                     "end": 1224,
                     "length": 4,
-                    "parent_index": 120
+                    "parent_index": 124
                   },
                   "type_descriptions": {
                     "type_identifier": "t_uint256",
@@ -2117,7 +2197,7 @@
                 "storage_location": 1
               },
               {
-                "id": 122,
+                "id": 126,
                 "name": "increment",
                 "node_type": 42,
                 "src": {
@@ -2125,32 +2205,32 @@
                   "start": 1320,
                   "end": 1400,
                   "length": 81,
-                  "parent_index": 115
+                  "parent_index": 119
                 },
                 "kind": 41,
                 "implemented": true,
                 "visibility": 3,
                 "state_mutability": 4,
                 "parameters": {
-                  "id": 123,
+                  "id": 127,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 124,
+                      "id": 128,
                       "mutability": 1,
                       "name": "x",
                       "node_type": 30,
-                      "scope": 122,
+                      "scope": 126,
                       "src": {
                         "line": 56,
                         "column": 23,
                         "start": 1339,
                         "end": 1344,
                         "length": 6,
-                        "parent_index": 123
+                        "parent_index": 127
                       },
                       "type_name": {
-                        "id": 125,
+                        "id": 129,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -2159,7 +2239,7 @@
                           "start": 1339,
                           "end": 1344,
                           "length": 6,
-                          "parent_index": 123
+                          "parent_index": 127
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -2174,11 +2254,11 @@
                     "start": 1339,
                     "end": 1344,
                     "length": 6,
-                    "parent_index": 122
+                    "parent_index": 126
                   }
                 },
                 "return_parameters": {
-                  "id": 126,
+                  "id": 130,
                   "node_type": 43,
                   "src": {
                     "line": 56,
@@ -2186,11 +2266,11 @@
                     "start": 1320,
                     "end": 1400,
                     "length": 81,
-                    "parent_index": 122
+                    "parent_index": 126
                   }
                 },
                 "body": {
-                  "id": 127,
+                  "id": 131,
                   "node_type": 46,
                   "src": {
                     "line": 56,
@@ -2198,11 +2278,11 @@
                     "start": 1354,
                     "end": 1400,
                     "length": 47,
-                    "parent_index": 122
+                    "parent_index": 126
                   },
                   "statements": [
                     {
-                      "id": 128,
+                      "id": 132,
                       "node_type": 56,
                       "src": {
                         "line": 57,
@@ -2210,21 +2290,21 @@
                         "start": 1364,
                         "end": 1394,
                         "length": 31,
-                        "parent_index": 127
+                        "parent_index": 131
                       },
                       "expression": {
-                        "id": 129,
+                        "id": 133,
                         "node_type": 27,
                         "src": {
                           "line": 57,
                           "column": 8,
                           "start": 1364,
                           "end": 1393,
-                          "parent_index": 128
+                          "parent_index": 132
                         },
                         "operator": 11,
                         "left_expression": {
-                          "id": 130,
+                          "id": 134,
                           "name": "storedData",
                           "node_type": 16,
                           "src": {
@@ -2233,16 +2313,16 @@
                             "start": 1364,
                             "end": 1373,
                             "length": 10,
-                            "parent_index": 128
+                            "parent_index": 132
                           },
-                          "referenced_declaration": 120,
+                          "referenced_declaration": 124,
                           "type_descriptions": {
                             "type_identifier": "t_uint256",
                             "type_string": "uint256"
                           }
                         },
                         "right_expression": {
-                          "id": 131,
+                          "id": 135,
                           "name": "storedData.add(x)",
                           "node_type": 24,
                           "src": {
@@ -2251,10 +2331,10 @@
                             "start": 1377,
                             "end": 1393,
                             "length": 17,
-                            "parent_index": 128
+                            "parent_index": 132
                           },
                           "expression": {
-                            "id": 133,
+                            "id": 137,
                             "name": "storedData.add",
                             "node_type": 23,
                             "src": {
@@ -2263,11 +2343,11 @@
                               "start": 1377,
                               "end": 1390,
                               "length": 14,
-                              "parent_index": 131
+                              "parent_index": 135
                             },
                             "referenced_declaration": 5,
                             "expression": {
-                              "id": 134,
+                              "id": 138,
                               "name": "storedData",
                               "node_type": 16,
                               "src": {
@@ -2276,9 +2356,9 @@
                                 "start": 1377,
                                 "end": 1386,
                                 "length": 10,
-                                "parent_index": 133
+                                "parent_index": 137
                               },
-                              "referenced_declaration": 120,
+                              "referenced_declaration": 124,
                               "type_descriptions": {
                                 "type_identifier": "t_uint256",
                                 "type_string": "uint256"
@@ -2295,7 +2375,7 @@
                           "kind": 24,
                           "arguments": [
                             {
-                              "id": 132,
+                              "id": 136,
                               "name": "x",
                               "node_type": 16,
                               "src": {
@@ -2304,9 +2384,9 @@
                                 "start": 1392,
                                 "end": 1392,
                                 "length": 1,
-                                "parent_index": 131
+                                "parent_index": 135
                               },
-                              "referenced_declaration": 124,
+                              "referenced_declaration": 128,
                               "type_descriptions": {
                                 "type_identifier": "t_uint256",
                                 "type_string": "uint256"
@@ -2320,7 +2400,7 @@
                 }
               },
               {
-                "id": 135,
+                "id": 139,
                 "name": "decrement",
                 "node_type": 42,
                 "src": {
@@ -2328,32 +2408,32 @@
                   "start": 1484,
                   "end": 1564,
                   "length": 81,
-                  "parent_index": 115
+                  "parent_index": 119
                 },
                 "kind": 41,
                 "implemented": true,
                 "visibility": 3,
                 "state_mutability": 4,
                 "parameters": {
-                  "id": 136,
+                  "id": 140,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 137,
+                      "id": 141,
                       "mutability": 1,
                       "name": "x",
                       "node_type": 30,
-                      "scope": 135,
+                      "scope": 139,
                       "src": {
                         "line": 61,
                         "column": 23,
                         "start": 1503,
                         "end": 1508,
                         "length": 6,
-                        "parent_index": 136
+                        "parent_index": 140
                       },
                       "type_name": {
-                        "id": 138,
+                        "id": 142,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -2362,7 +2442,7 @@
                           "start": 1503,
                           "end": 1508,
                           "length": 6,
-                          "parent_index": 136
+                          "parent_index": 140
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -2377,11 +2457,11 @@
                     "start": 1503,
                     "end": 1508,
                     "length": 6,
-                    "parent_index": 135
+                    "parent_index": 139
                   }
                 },
                 "return_parameters": {
-                  "id": 139,
+                  "id": 143,
                   "node_type": 43,
                   "src": {
                     "line": 61,
@@ -2389,11 +2469,11 @@
                     "start": 1484,
                     "end": 1564,
                     "length": 81,
-                    "parent_index": 135
+                    "parent_index": 139
                   }
                 },
                 "body": {
-                  "id": 140,
+                  "id": 144,
                   "node_type": 46,
                   "src": {
                     "line": 61,
@@ -2401,11 +2481,11 @@
                     "start": 1518,
                     "end": 1564,
                     "length": 47,
-                    "parent_index": 135
+                    "parent_index": 139
                   },
                   "statements": [
                     {
-                      "id": 141,
+                      "id": 145,
                       "node_type": 56,
                       "src": {
                         "line": 62,
@@ -2413,21 +2493,21 @@
                         "start": 1528,
                         "end": 1558,
                         "length": 31,
-                        "parent_index": 140
+                        "parent_index": 144
                       },
                       "expression": {
-                        "id": 142,
+                        "id": 146,
                         "node_type": 27,
                         "src": {
                           "line": 62,
                           "column": 8,
                           "start": 1528,
                           "end": 1557,
-                          "parent_index": 141
+                          "parent_index": 145
                         },
                         "operator": 11,
                         "left_expression": {
-                          "id": 143,
+                          "id": 147,
                           "name": "storedData",
                           "node_type": 16,
                           "src": {
@@ -2436,16 +2516,16 @@
                             "start": 1528,
                             "end": 1537,
                             "length": 10,
-                            "parent_index": 141
+                            "parent_index": 145
                           },
-                          "referenced_declaration": 120,
+                          "referenced_declaration": 124,
                           "type_descriptions": {
                             "type_identifier": "t_uint256",
                             "type_string": "uint256"
                           }
                         },
                         "right_expression": {
-                          "id": 144,
+                          "id": 148,
                           "name": "storedData.sub(x)",
                           "node_type": 24,
                           "src": {
@@ -2454,10 +2534,10 @@
                             "start": 1541,
                             "end": 1557,
                             "length": 17,
-                            "parent_index": 141
+                            "parent_index": 145
                           },
                           "expression": {
-                            "id": 146,
+                            "id": 150,
                             "name": "storedData.sub",
                             "node_type": 23,
                             "src": {
@@ -2466,11 +2546,11 @@
                               "start": 1541,
                               "end": 1554,
                               "length": 14,
-                              "parent_index": 144
+                              "parent_index": 148
                             },
                             "referenced_declaration": 30,
                             "expression": {
-                              "id": 147,
+                              "id": 151,
                               "name": "storedData",
                               "node_type": 16,
                               "src": {
@@ -2479,9 +2559,9 @@
                                 "start": 1541,
                                 "end": 1550,
                                 "length": 10,
-                                "parent_index": 146
+                                "parent_index": 150
                               },
-                              "referenced_declaration": 120,
+                              "referenced_declaration": 124,
                               "type_descriptions": {
                                 "type_identifier": "t_uint256",
                                 "type_string": "uint256"
@@ -2498,7 +2578,7 @@
                           "kind": 24,
                           "arguments": [
                             {
-                              "id": 145,
+                              "id": 149,
                               "name": "x",
                               "node_type": 16,
                               "src": {
@@ -2507,9 +2587,9 @@
                                 "start": 1556,
                                 "end": 1556,
                                 "length": 1,
-                                "parent_index": 144
+                                "parent_index": 148
                               },
-                              "referenced_declaration": 137,
+                              "referenced_declaration": 141,
                               "type_descriptions": {
                                 "type_identifier": "t_uint256",
                                 "type_string": "uint256"
@@ -2523,7 +2603,7 @@
                 }
               },
               {
-                "id": 148,
+                "id": 152,
                 "name": "get",
                 "node_type": 42,
                 "src": {
@@ -2531,31 +2611,31 @@
                   "start": 1607,
                   "end": 1682,
                   "length": 76,
-                  "parent_index": 115
+                  "parent_index": 119
                 },
                 "kind": 41,
                 "implemented": true,
                 "visibility": 3,
                 "state_mutability": 5,
                 "parameters": {
-                  "id": 149,
+                  "id": 153,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 150,
+                      "id": 154,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 148,
+                      "scope": 152,
                       "src": {
                         "line": 66,
                         "column": 40,
                         "start": 1643,
                         "end": 1646,
                         "length": 4,
-                        "parent_index": 149
+                        "parent_index": 153
                       },
                       "type_name": {
-                        "id": 151,
+                        "id": 155,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -2564,7 +2644,7 @@
                           "start": 1643,
                           "end": 1646,
                           "length": 4,
-                          "parent_index": 149
+                          "parent_index": 153
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -2579,28 +2659,28 @@
                     "start": 1643,
                     "end": 1646,
                     "length": 4,
-                    "parent_index": 148
+                    "parent_index": 152
                   }
                 },
                 "return_parameters": {
-                  "id": 152,
+                  "id": 156,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 153,
+                      "id": 157,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 148,
+                      "scope": 152,
                       "src": {
                         "line": 66,
                         "column": 40,
                         "start": 1643,
                         "end": 1646,
                         "length": 4,
-                        "parent_index": 152
+                        "parent_index": 156
                       },
                       "type_name": {
-                        "id": 154,
+                        "id": 158,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -2609,7 +2689,7 @@
                           "start": 1643,
                           "end": 1646,
                           "length": 4,
-                          "parent_index": 152
+                          "parent_index": 156
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -2624,11 +2704,11 @@
                     "start": 1643,
                     "end": 1646,
                     "length": 4,
-                    "parent_index": 148
+                    "parent_index": 152
                   }
                 },
                 "body": {
-                  "id": 155,
+                  "id": 159,
                   "node_type": 46,
                   "src": {
                     "line": 66,
@@ -2636,11 +2716,11 @@
                     "start": 1649,
                     "end": 1682,
                     "length": 34,
-                    "parent_index": 148
+                    "parent_index": 152
                   },
                   "statements": [
                     {
-                      "id": 156,
+                      "id": 160,
                       "node_type": 47,
                       "src": {
                         "line": 67,
@@ -2648,10 +2728,10 @@
                         "start": 1659,
                         "end": 1676,
                         "length": 18,
-                        "parent_index": 155
+                        "parent_index": 159
                       },
                       "expression": {
-                        "id": 157,
+                        "id": 161,
                         "name": "storedData",
                         "node_type": 16,
                         "src": {
@@ -2660,15 +2740,15 @@
                           "start": 1666,
                           "end": 1675,
                           "length": 10,
-                          "parent_index": 156
+                          "parent_index": 160
                         },
-                        "referenced_declaration": 120,
+                        "referenced_declaration": 124,
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         }
                       },
-                      "function_return_parameters": 152
+                      "function_return_parameters": 156
                     }
                   ]
                 }

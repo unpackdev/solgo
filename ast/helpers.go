@@ -2,6 +2,7 @@ package ast
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -103,4 +104,10 @@ func normalizeTypeDescription(typeName string) (string, string) {
 	default:
 		return typeName, fmt.Sprintf("t_%s", typeName)
 	}
+}
+
+func (b *ASTBuilder) dumpNode(whatever interface{}) {
+	j, _ := b.ToPrettyJSON(whatever)
+	fmt.Println(string(j))
+	os.Exit(1)
 }

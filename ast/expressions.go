@@ -146,6 +146,14 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 					toReturn.TypeDescriptions = declaration.GetTypeName().GetTypeDescriptions()
 				}
 			}
+
+			for _, argument := range statement.GetArguments() {
+				if argument.GetName() == expressionCtx.GetText() {
+					referenceFound = true
+					toReturn.ReferencedDeclaration = argument.Id
+					toReturn.TypeDescriptions = argument.GetTypeDescriptions()
+				}
+			}
 		}
 	}
 
@@ -342,10 +350,11 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 		}
 
 		if toReturn.TypeDescriptions == nil {
-			zap.L().Warn(
+			zap.L().Debug(
 				"Unknown primary expression type description",
 				zap.String("name", childCtx.GetText()),
 			)
+			//b.dumpNode(toReturn)
 		}
 
 	case *parser.MemberAccessContext:
@@ -507,6 +516,21 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 		if fnNode.ReturnParameters != nil {
 			toReturn.FunctionReturnParameters = fnNode.ReturnParameters.Id
 		}
+
+	case *parser.MetaTypeContext: // @TODO: Type names could be improved, for now not...
+		toReturn.Name = childCtx.Type().GetText()
+		toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+			TypeString: childCtx.GetText(),
+		}
+	case *parser.IndexAccessContext:
+		toReturn.NodeType = ast_pb.NodeType_INDEX_ACCESS
+
+		toReturn.BaseExpression = b.parseExpression(
+			sourceUnit, fnNode, bodyNode, toReturn, toReturn.Id, childCtx.Expression(0),
+		)
+		toReturn.IndexExpression = b.parseExpression(
+			sourceUnit, fnNode, bodyNode, toReturn, toReturn.Id, childCtx.Expression(1),
+		)
 
 	default:
 		zap.L().Warn(

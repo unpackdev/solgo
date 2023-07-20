@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -42,6 +43,12 @@ func (b *ASTBuilder) parseStateVariableDeclaration(sourceUnit *ast_pb.SourceUnit
 		nodeCtx.IsConstant = constantCtx != nil
 	}
 
+	for _, immutableCtx := range ctx.AllImmutable() {
+		if immutableCtx != nil {
+			nodeCtx.StateMutability = ast_pb.Mutability_IMMUTABLE
+		}
+	}
+
 	typeNameCtx := ctx.GetType_()
 	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 		typeNameCtx.GetText(),
@@ -76,14 +83,129 @@ func (b *ASTBuilder) parseStateVariableDeclaration(sourceUnit *ast_pb.SourceUnit
 		}(),
 	}
 
-	for _, immutableCtx := range ctx.AllImmutable() {
-		if immutableCtx != nil {
-			nodeCtx.StateMutability = ast_pb.Mutability_IMMUTABLE
-		}
-	}
+	node.TypeName = b.traverseTypeName(typeNameCtx, nodeCtx, nil)
 
 	b.currentStateVariables = append(b.currentStateVariables, nodeCtx)
 	return nodeCtx
+}
+
+func (b *ASTBuilder) traverseTypeName(typeNameCtx parser.ITypeNameContext, node *ast_pb.Node, typeNameNode *ast_pb.TypeName) *ast_pb.TypeName {
+	if mappingCtx := typeNameCtx.MappingType(); mappingCtx != nil {
+		keyCtx := mappingCtx.GetKey()
+		valueCtx := mappingCtx.GetValue()
+
+		node.TypeName.KeyType = b.generateTypeName(keyCtx, node, typeNameNode)
+		node.TypeName.ValueType = b.generateTypeName(valueCtx, node, typeNameNode)
+
+		if node.TypeName.KeyType != nil &&
+			node.TypeName.ValueType != nil &&
+			node.TypeName.KeyType.TypeDescriptions != nil &&
+			node.TypeName.ValueType.TypeDescriptions != nil {
+			node.TypeDescriptions = &ast_pb.TypeDescriptions{
+				TypeString: fmt.Sprintf("mapping(%s => %s)", node.TypeName.KeyType.Name, node.TypeName.ValueType.Name),
+				TypeIdentifier: fmt.Sprintf(
+					"t_mapping_$t_%s_$t_%s$",
+					node.TypeName.KeyType.TypeDescriptions.TypeString,
+					node.TypeName.ValueType.TypeDescriptions.TypeString,
+				),
+			}
+		}
+	} else if elementaryCtx := typeNameCtx.ElementaryTypeName(); elementaryCtx != nil {
+		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+			elementaryCtx.GetText(),
+		)
+
+		node.TypeDescriptions = &ast_pb.TypeDescriptions{
+			TypeString:     normalizedTypeName,
+			TypeIdentifier: normalizedTypeIdentifier,
+		}
+	}
+
+	return node.TypeName
+}
+
+func (b *ASTBuilder) generateTypeName(ctx interface{}, node *ast_pb.Node, typeNameNode *ast_pb.TypeName) *ast_pb.TypeName {
+	var typeName ast_pb.TypeName
+
+	typeName.Id = atomic.AddInt64(&b.nextID, 1) - 1
+	typeName.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
+
+	switch specificCtx := ctx.(type) {
+	case parser.IMappingKeyTypeContext:
+		typeName.Name = specificCtx.GetText()
+		typeName.Src = &ast_pb.Src{
+			Line:        int64(specificCtx.GetStart().GetLine()),
+			Column:      int64(specificCtx.GetStart().GetColumn()),
+			Start:       int64(specificCtx.GetStart().GetStart()),
+			End:         int64(specificCtx.GetStop().GetStop()),
+			Length:      int64(specificCtx.GetStop().GetStop() - specificCtx.GetStart().GetStart() + 1),
+			ParentIndex: node.Id,
+		}
+		if specificCtx.ElementaryTypeName() != nil {
+			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+				specificCtx.ElementaryTypeName().GetText(),
+			)
+
+			typeName.TypeDescriptions = &ast_pb.TypeDescriptions{
+				TypeString:     normalizedTypeName,
+				TypeIdentifier: normalizedTypeIdentifier,
+			}
+		}
+	case parser.IMappingTypeContext:
+		typeNameNode.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
+		keyCtx := specificCtx.GetKey()
+		valueCtx := specificCtx.GetValue()
+
+		typeNameNode.KeyType = b.generateTypeName(keyCtx, node, typeNameNode)
+		typeNameNode.ValueType = b.generateTypeName(valueCtx, node, typeNameNode)
+
+		if typeNameNode.KeyType != nil &&
+			typeNameNode.ValueType != nil &&
+			typeNameNode.KeyType.TypeDescriptions != nil &&
+			typeNameNode.ValueType.TypeDescriptions != nil {
+			node.TypeDescriptions = &ast_pb.TypeDescriptions{
+				TypeString: fmt.Sprintf("mapping(%s => %s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
+				TypeIdentifier: fmt.Sprintf(
+					"t_mapping_$t_%s_$t_%s$",
+					typeNameNode.KeyType.TypeDescriptions.TypeString,
+					typeNameNode.ValueType.TypeDescriptions.TypeString,
+				),
+			}
+		}
+	case parser.ITypeNameContext:
+		typeName.Name = specificCtx.GetText()
+		typeName.Src = &ast_pb.Src{
+			Line:        int64(specificCtx.GetStart().GetLine()),
+			Column:      int64(specificCtx.GetStart().GetColumn()),
+			Start:       int64(specificCtx.GetStart().GetStart()),
+			End:         int64(specificCtx.GetStop().GetStop()),
+			Length:      int64(specificCtx.GetStop().GetStop() - specificCtx.GetStart().GetStart() + 1),
+			ParentIndex: node.Id,
+		}
+
+		if specificCtx.ElementaryTypeName() != nil {
+			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+				specificCtx.ElementaryTypeName().GetText(),
+			)
+
+			typeName.TypeDescriptions = &ast_pb.TypeDescriptions{
+				TypeString:     normalizedTypeName,
+				TypeIdentifier: normalizedTypeIdentifier,
+			}
+		} else if specificCtx.MappingType() != nil {
+			typeName.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
+			b.generateTypeName(specificCtx.MappingType(), node, &typeName)
+		} else {
+			zap.L().Warn(
+				"Unsupported type name @ state variable traversal",
+				zap.String("type_name", specificCtx.GetText()),
+				zap.String("type_name_node_type", typeNameNode.NodeType.String()),
+				zap.String("type", fmt.Sprintf("%T", specificCtx)),
+			)
+		}
+	}
+
+	return &typeName
 }
 
 func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, statementNode *ast_pb.Statement, variableCtx *parser.VariableDeclarationStatementContext) *ast_pb.Statement {
@@ -107,8 +229,6 @@ func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, nod
 		StorageLocation: ast_pb.StorageLocation_DEFAULT,
 		Visibility:      ast_pb.Visibility_INTERNAL,
 	}
-	statementNode.Declarations = append(statementNode.Declarations, declaration)
-	statementNode.Assignments = append(statementNode.Assignments, declaration.Id)
 
 	if declarationCtx.DataLocation() != nil {
 		if declarationCtx.DataLocation().Memory() != nil {
@@ -143,98 +263,14 @@ func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, nod
 		},
 	}
 
-	if variableCtx.VariableDeclarationTuple() != nil {
-		zap.L().Warn(
-			"Variable declaration tuple found, we should implement it...",
-			zap.Int("line", int(declaration.Src.Line)),
-			zap.String("declaration_name", declaration.Name),
-			zap.String("declaration_type_name", declaration.TypeName.Name),
-		)
-	}
+	declaration.TypeDescriptions = declaration.TypeName.TypeDescriptions
 
-	expressionCtx := variableCtx.Expression()
+	statementNode.Declarations = append(statementNode.Declarations, declaration)
+	statementNode.Assignments = append(statementNode.Assignments, declaration.Id)
 
-	argument := &ast_pb.Expression{
-		Id: atomic.AddInt64(&b.nextID, 1) - 1,
-		Src: &ast_pb.Src{
-			Line:        int64(expressionCtx.GetStart().GetLine()),
-			Column:      int64(expressionCtx.GetStart().GetColumn()),
-			Start:       int64(expressionCtx.GetStart().GetStart()),
-			End:         int64(expressionCtx.GetStop().GetStop()),
-			Length:      int64(expressionCtx.GetStop().GetStop() - expressionCtx.GetStart().GetStart() + 1),
-			ParentIndex: declaration.Id,
-		},
-		CommonType: &ast_pb.TypeDescriptions{
-			TypeIdentifier: normalizedTypeIdentifier,
-			TypeString:     normalizedTypeName,
-		},
-		TypeDescriptions: &ast_pb.TypeDescriptions{
-			TypeIdentifier: normalizedTypeIdentifier,
-			TypeString:     normalizedTypeName,
-		},
-		IsConstant:      false, // @TODO
-		IsLValue:        false, // @TODO
-		IsPure:          false, // @TODO
-		LValueRequested: false, // @TODO
-	}
-
-	switch variableCtx.Expression().(type) {
-	case *parser.AddSubOperationContext:
-		childCtx := variableCtx.Expression().(*parser.AddSubOperationContext)
-		argument.NodeType = ast_pb.NodeType_BINARY_OPERATION
-		argument.Operator = ast_pb.Operator_ADDITION
-
-		leftHandExpressionCtx := childCtx.Expression(0)
-		rightHandExpressionCtx := childCtx.Expression(1)
-
-		leftHandExpression := &ast_pb.Expression{
-			Id: atomic.AddInt64(&b.nextID, 1) - 1,
-			Src: &ast_pb.Src{
-				Line:        int64(leftHandExpressionCtx.GetStart().GetLine()),
-				Column:      int64(leftHandExpressionCtx.GetStart().GetColumn()),
-				Start:       int64(leftHandExpressionCtx.GetStart().GetStart()),
-				End:         int64(leftHandExpressionCtx.GetStop().GetStop()),
-				Length:      int64(leftHandExpressionCtx.GetStop().GetStop() - leftHandExpressionCtx.GetStart().GetStart() + 1),
-				ParentIndex: argument.Id,
-			},
-			Name:                   leftHandExpressionCtx.GetText(),
-			NodeType:               ast_pb.NodeType_IDENTIFIER,
-			OverloadedDeclarations: []int64{},
-		}
-
-		for _, parameter := range node.Parameters.GetParameters() {
-			if parameter.Name == leftHandExpressionCtx.GetText() {
-				leftHandExpression.ReferencedDeclaration = parameter.Id
-				leftHandExpression.TypeDescriptions = parameter.GetTypeName().GetTypeDescriptions()
-			}
-		}
-
-		rightHandExpression := &ast_pb.Expression{
-			Id: atomic.AddInt64(&b.nextID, 1) - 1,
-			Src: &ast_pb.Src{
-				Line:        int64(rightHandExpressionCtx.GetStart().GetLine()),
-				Column:      int64(rightHandExpressionCtx.GetStart().GetColumn()),
-				Start:       int64(rightHandExpressionCtx.GetStart().GetStart()),
-				End:         int64(rightHandExpressionCtx.GetStop().GetStop()),
-				Length:      int64(rightHandExpressionCtx.GetStop().GetStop() - rightHandExpressionCtx.GetStart().GetStart() + 1),
-				ParentIndex: argument.Id,
-			},
-			Name:     rightHandExpressionCtx.GetText(),
-			NodeType: ast_pb.NodeType_IDENTIFIER,
-		}
-
-		for _, parameter := range node.Parameters.GetParameters() {
-			if parameter.Name == rightHandExpressionCtx.GetText() {
-				rightHandExpression.ReferencedDeclaration = parameter.Id
-				rightHandExpression.TypeDescriptions = parameter.GetTypeName().GetTypeDescriptions()
-			}
-		}
-
-		argument.LeftExpression = leftHandExpression
-		argument.RightExpression = rightHandExpression
-	}
-
-	statementNode.InitialValue = argument
+	statementNode.InitialValue = b.parseExpression(
+		sourceUnit, node, bodyNode, nil, statementNode.Id, variableCtx.Expression(),
+	)
 
 	return statementNode
 }

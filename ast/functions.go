@@ -65,9 +65,22 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 
 	// Check if function is override.
 	// @TODO: Implement override specification.
-	for _, override := range fd.AllOverrideSpecifier() {
-		panic("Override here...")
-		_ = override
+	for _, overrideCtx := range fd.AllOverrideSpecifier() {
+		node.OverrideSpecifier = &ast_pb.OverrideSpecifier{
+			Id: atomic.AddInt64(&b.nextID, 1) - 1,
+			Src: &ast_pb.Src{
+				Line:        int64(overrideCtx.GetStart().GetLine()),
+				Column:      int64(overrideCtx.GetStart().GetColumn()),
+				Start:       int64(overrideCtx.GetStart().GetStart()),
+				End:         int64(overrideCtx.GetStop().GetStop()),
+				Length:      int64(overrideCtx.GetStop().GetStop() - overrideCtx.GetStart().GetStart() + 1),
+				ParentIndex: node.Id,
+			},
+			NodeType: ast_pb.NodeType_OVERRIDE_SPECIFIER,
+		}
+
+		// @TODO - Overide paths...
+		//b.dumpNode(node)
 	}
 
 	// Extract function parameters.

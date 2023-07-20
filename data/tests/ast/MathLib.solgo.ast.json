@@ -263,7 +263,11 @@
                           "type_string": "uint256"
                         }
                       },
-                      "visibility": 1
+                      "visibility": 1,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
                     }
                   ],
                   "assignments": [
@@ -271,6 +275,7 @@
                   ],
                   "initial_value": {
                     "id": 18,
+                    "name": "a+b",
                     "node_type": 19,
                     "src": {
                       "line": 9,
@@ -278,13 +283,9 @@
                       "start": 279,
                       "end": 283,
                       "length": 5,
-                      "parent_index": 16
+                      "parent_index": 15
                     },
                     "type_descriptions": {
-                      "type_identifier": "t_uint256",
-                      "type_string": "uint256"
-                    },
-                    "common_type": {
                       "type_identifier": "t_uint256",
                       "type_string": "uint256"
                     },
@@ -804,7 +805,11 @@
                           "type_string": "uint256"
                         }
                       },
-                      "visibility": 1
+                      "visibility": 1,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
                     }
                   ],
                   "assignments": [
@@ -812,6 +817,7 @@
                   ],
                   "initial_value": {
                     "id": 50,
+                    "name": "a-b",
                     "node_type": 19,
                     "src": {
                       "line": 18,
@@ -819,17 +825,13 @@
                       "start": 525,
                       "end": 529,
                       "length": 5,
-                      "parent_index": 48
+                      "parent_index": 47
                     },
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
                       "type_string": "uint256"
                     },
-                    "common_type": {
-                      "type_identifier": "t_uint256",
-                      "type_string": "uint256"
-                    },
-                    "operator": 1,
+                    "operator": 2,
                     "left_expression": {
                       "id": 51,
                       "name": "a",
@@ -1212,7 +1214,11 @@
                           "type_string": "uint256"
                         }
                       },
-                      "visibility": 1
+                      "visibility": 1,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
                     }
                   ],
                   "assignments": [
@@ -1220,26 +1226,61 @@
                   ],
                   "initial_value": {
                     "id": 75,
+                    "name": "a*b",
+                    "node_type": 19,
                     "src": {
                       "line": 29,
                       "column": 17,
                       "start": 730,
                       "end": 734,
                       "length": 5,
-                      "parent_index": 73
+                      "parent_index": 72
                     },
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
                       "type_string": "uint256"
                     },
-                    "common_type": {
-                      "type_identifier": "t_uint256",
-                      "type_string": "uint256"
+                    "operator": 3,
+                    "left_expression": {
+                      "id": 76,
+                      "name": "a",
+                      "node_type": 16,
+                      "src": {
+                        "line": 29,
+                        "column": 17,
+                        "start": 730,
+                        "end": 730,
+                        "length": 1,
+                        "parent_index": 75
+                      },
+                      "referenced_declaration": 57,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
+                    },
+                    "right_expression": {
+                      "id": 77,
+                      "name": "b",
+                      "node_type": 16,
+                      "src": {
+                        "line": 29,
+                        "column": 21,
+                        "start": 734,
+                        "end": 734,
+                        "length": 1,
+                        "parent_index": 75
+                      },
+                      "referenced_declaration": 59,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
                     }
                   }
                 },
                 {
-                  "id": 76,
+                  "id": 78,
                   "node_type": 24,
                   "src": {
                     "line": 30,
@@ -1250,7 +1291,7 @@
                     "parent_index": 64
                   },
                   "expression": {
-                    "id": 77,
+                    "id": 79,
                     "node_type": 24,
                     "src": {
                       "line": 30,
@@ -1258,10 +1299,10 @@
                       "start": 745,
                       "end": 790,
                       "length": 46,
-                      "parent_index": 76
+                      "parent_index": 78
                     },
                     "expression": {
-                      "id": 78,
+                      "id": 80,
                       "name": "require",
                       "node_type": 16,
                       "src": {
@@ -1270,7 +1311,7 @@
                         "start": 745,
                         "end": 751,
                         "length": 7,
-                        "parent_index": 77
+                        "parent_index": 79
                       },
                       "argument_types": [
                         {
@@ -1286,7 +1327,7 @@
                   },
                   "arguments": [
                     {
-                      "id": 79,
+                      "id": 81,
                       "name": "c/a==b",
                       "node_type": 19,
                       "src": {
@@ -1295,7 +1336,7 @@
                         "start": 753,
                         "end": 762,
                         "length": 10,
-                        "parent_index": 78
+                        "parent_index": 80
                       },
                       "type_descriptions": {
                         "type_identifier": "t_uint256",
@@ -1303,7 +1344,7 @@
                       },
                       "operator": 11,
                       "left_expression": {
-                        "id": 80,
+                        "id": 82,
                         "name": "c/a",
                         "node_type": 19,
                         "src": {
@@ -1312,7 +1353,7 @@
                           "start": 753,
                           "end": 757,
                           "length": 5,
-                          "parent_index": 79
+                          "parent_index": 81
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -1320,7 +1361,7 @@
                         },
                         "operator": 4,
                         "left_expression": {
-                          "id": 81,
+                          "id": 83,
                           "name": "c",
                           "node_type": 16,
                           "src": {
@@ -1329,7 +1370,7 @@
                             "start": 753,
                             "end": 753,
                             "length": 1,
-                            "parent_index": 80
+                            "parent_index": 82
                           },
                           "referenced_declaration": 73,
                           "type_descriptions": {
@@ -1338,7 +1379,7 @@
                           }
                         },
                         "right_expression": {
-                          "id": 82,
+                          "id": 84,
                           "name": "a",
                           "node_type": 16,
                           "src": {
@@ -1347,7 +1388,7 @@
                             "start": 757,
                             "end": 757,
                             "length": 1,
-                            "parent_index": 80
+                            "parent_index": 82
                           },
                           "referenced_declaration": 57,
                           "type_descriptions": {
@@ -1357,7 +1398,7 @@
                         }
                       },
                       "right_expression": {
-                        "id": 83,
+                        "id": 85,
                         "name": "b",
                         "node_type": 16,
                         "src": {
@@ -1366,7 +1407,7 @@
                           "start": 762,
                           "end": 762,
                           "length": 1,
-                          "parent_index": 79
+                          "parent_index": 81
                         },
                         "referenced_declaration": 59,
                         "type_descriptions": {
@@ -1376,7 +1417,7 @@
                       }
                     },
                     {
-                      "id": 84,
+                      "id": 86,
                       "name": "\"Multiplication overflow\"",
                       "node_type": 17,
                       "src": {
@@ -1385,7 +1426,7 @@
                         "start": 765,
                         "end": 789,
                         "length": 25,
-                        "parent_index": 78
+                        "parent_index": 80
                       },
                       "type_descriptions": {
                         "type_identifier": "t_string_literal",
@@ -1399,7 +1440,7 @@
                   ]
                 },
                 {
-                  "id": 85,
+                  "id": 87,
                   "node_type": 47,
                   "src": {
                     "line": 32,
@@ -1410,7 +1451,7 @@
                     "parent_index": 64
                   },
                   "expression": {
-                    "id": 86,
+                    "id": 88,
                     "name": "c",
                     "node_type": 16,
                     "src": {
@@ -1419,7 +1460,7 @@
                       "start": 809,
                       "end": 809,
                       "length": 1,
-                      "parent_index": 85
+                      "parent_index": 87
                     },
                     "referenced_declaration": 73,
                     "type_descriptions": {
@@ -1433,7 +1474,7 @@
             }
           },
           {
-            "id": 87,
+            "id": 89,
             "name": "div",
             "node_type": 42,
             "src": {
@@ -1448,25 +1489,25 @@
             "visibility": 1,
             "state_mutability": 6,
             "parameters": {
-              "id": 88,
+              "id": 90,
               "node_type": 43,
               "parameters": [
                 {
-                  "id": 89,
+                  "id": 91,
                   "mutability": 1,
                   "name": "a",
                   "node_type": 30,
-                  "scope": 87,
+                  "scope": 89,
                   "src": {
                     "line": 36,
                     "column": 17,
                     "start": 870,
                     "end": 875,
                     "length": 6,
-                    "parent_index": 88
+                    "parent_index": 90
                   },
                   "type_name": {
-                    "id": 90,
+                    "id": 92,
                     "name": "uint",
                     "node_type": 30,
                     "src": {
@@ -1475,7 +1516,7 @@
                       "start": 870,
                       "end": 875,
                       "length": 6,
-                      "parent_index": 88
+                      "parent_index": 90
                     },
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
@@ -1485,21 +1526,21 @@
                   "visibility": 1
                 },
                 {
-                  "id": 91,
+                  "id": 93,
                   "mutability": 1,
                   "name": "b",
                   "node_type": 30,
-                  "scope": 87,
+                  "scope": 89,
                   "src": {
                     "line": 36,
                     "column": 25,
                     "start": 878,
                     "end": 883,
                     "length": 6,
-                    "parent_index": 88
+                    "parent_index": 90
                   },
                   "type_name": {
-                    "id": 92,
+                    "id": 94,
                     "name": "uint",
                     "node_type": 30,
                     "src": {
@@ -1508,7 +1549,7 @@
                       "start": 878,
                       "end": 883,
                       "length": 6,
-                      "parent_index": 88
+                      "parent_index": 90
                     },
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
@@ -1523,28 +1564,28 @@
                 "start": 870,
                 "end": 883,
                 "length": 14,
-                "parent_index": 87
+                "parent_index": 89
               }
             },
             "return_parameters": {
-              "id": 93,
+              "id": 95,
               "node_type": 43,
               "parameters": [
                 {
-                  "id": 94,
+                  "id": 96,
                   "mutability": 1,
                   "node_type": 30,
-                  "scope": 87,
+                  "scope": 89,
                   "src": {
                     "line": 36,
                     "column": 56,
                     "start": 909,
                     "end": 912,
                     "length": 4,
-                    "parent_index": 93
+                    "parent_index": 95
                   },
                   "type_name": {
-                    "id": 95,
+                    "id": 97,
                     "name": "uint",
                     "node_type": 30,
                     "src": {
@@ -1553,7 +1594,7 @@
                       "start": 909,
                       "end": 912,
                       "length": 4,
-                      "parent_index": 93
+                      "parent_index": 95
                     },
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
@@ -1568,11 +1609,11 @@
                 "start": 909,
                 "end": 912,
                 "length": 4,
-                "parent_index": 87
+                "parent_index": 89
               }
             },
             "body": {
-              "id": 96,
+              "id": 98,
               "node_type": 46,
               "src": {
                 "line": 36,
@@ -1580,11 +1621,11 @@
                 "start": 915,
                 "end": 1008,
                 "length": 94,
-                "parent_index": 87
+                "parent_index": 89
               },
               "statements": [
                 {
-                  "id": 97,
+                  "id": 99,
                   "node_type": 24,
                   "src": {
                     "line": 37,
@@ -1592,10 +1633,10 @@
                     "start": 925,
                     "end": 959,
                     "length": 35,
-                    "parent_index": 96
+                    "parent_index": 98
                   },
                   "expression": {
-                    "id": 98,
+                    "id": 100,
                     "node_type": 24,
                     "src": {
                       "line": 37,
@@ -1603,10 +1644,10 @@
                       "start": 925,
                       "end": 958,
                       "length": 34,
-                      "parent_index": 97
+                      "parent_index": 99
                     },
                     "expression": {
-                      "id": 99,
+                      "id": 101,
                       "name": "require",
                       "node_type": 16,
                       "src": {
@@ -1615,7 +1656,7 @@
                         "start": 925,
                         "end": 931,
                         "length": 7,
-                        "parent_index": 98
+                        "parent_index": 100
                       },
                       "argument_types": [
                         {
@@ -1631,7 +1672,7 @@
                   },
                   "arguments": [
                     {
-                      "id": 100,
+                      "id": 102,
                       "name": "b\u003e0",
                       "node_type": 19,
                       "src": {
@@ -1640,7 +1681,7 @@
                         "start": 933,
                         "end": 937,
                         "length": 5,
-                        "parent_index": 99
+                        "parent_index": 101
                       },
                       "type_descriptions": {
                         "type_identifier": "t_bool",
@@ -1648,7 +1689,7 @@
                       },
                       "operator": 7,
                       "left_expression": {
-                        "id": 101,
+                        "id": 103,
                         "name": "b",
                         "node_type": 16,
                         "src": {
@@ -1657,16 +1698,16 @@
                           "start": 933,
                           "end": 933,
                           "length": 1,
-                          "parent_index": 100
+                          "parent_index": 102
                         },
-                        "referenced_declaration": 91,
+                        "referenced_declaration": 93,
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         }
                       },
                       "right_expression": {
-                        "id": 102,
+                        "id": 104,
                         "name": "0",
                         "node_type": 17,
                         "src": {
@@ -1675,7 +1716,7 @@
                           "start": 937,
                           "end": 937,
                           "length": 1,
-                          "parent_index": 100
+                          "parent_index": 102
                         },
                         "type_descriptions": {
                           "type_identifier": "t_rational_0_by_1",
@@ -1688,7 +1729,7 @@
                       }
                     },
                     {
-                      "id": 103,
+                      "id": 105,
                       "name": "\"Division by zero\"",
                       "node_type": 17,
                       "src": {
@@ -1697,7 +1738,7 @@
                         "start": 940,
                         "end": 957,
                         "length": 18,
-                        "parent_index": 99
+                        "parent_index": 101
                       },
                       "type_descriptions": {
                         "type_identifier": "t_string_literal",
@@ -1711,7 +1752,7 @@
                   ]
                 },
                 {
-                  "id": 104,
+                  "id": 106,
                   "node_type": 45,
                   "src": {
                     "line": 38,
@@ -1719,26 +1760,26 @@
                     "start": 969,
                     "end": 983,
                     "length": 15,
-                    "parent_index": 96
+                    "parent_index": 98
                   },
                   "declarations": [
                     {
-                      "id": 105,
+                      "id": 107,
                       "mutability": 1,
                       "name": "c",
                       "node_type": 44,
-                      "scope": 96,
+                      "scope": 98,
                       "src": {
                         "line": 38,
                         "column": 8,
                         "start": 969,
                         "end": 974,
                         "length": 6,
-                        "parent_index": 104
+                        "parent_index": 106
                       },
                       "storage_location": 1,
                       "type_name": {
-                        "id": 106,
+                        "id": 108,
                         "name": "uint",
                         "node_type": 30,
                         "src": {
@@ -1747,41 +1788,80 @@
                           "start": 969,
                           "end": 972,
                           "length": 4,
-                          "parent_index": 104
+                          "parent_index": 106
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
                           "type_string": "uint256"
                         }
                       },
-                      "visibility": 1
+                      "visibility": 1,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
                     }
                   ],
                   "assignments": [
-                    105
+                    107
                   ],
                   "initial_value": {
-                    "id": 107,
+                    "id": 109,
+                    "name": "a/b",
+                    "node_type": 19,
                     "src": {
                       "line": 38,
                       "column": 17,
                       "start": 978,
                       "end": 982,
                       "length": 5,
-                      "parent_index": 105
+                      "parent_index": 106
                     },
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
                       "type_string": "uint256"
                     },
-                    "common_type": {
-                      "type_identifier": "t_uint256",
-                      "type_string": "uint256"
+                    "operator": 4,
+                    "left_expression": {
+                      "id": 110,
+                      "name": "a",
+                      "node_type": 16,
+                      "src": {
+                        "line": 38,
+                        "column": 17,
+                        "start": 978,
+                        "end": 978,
+                        "length": 1,
+                        "parent_index": 109
+                      },
+                      "referenced_declaration": 91,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
+                    },
+                    "right_expression": {
+                      "id": 111,
+                      "name": "b",
+                      "node_type": 16,
+                      "src": {
+                        "line": 38,
+                        "column": 21,
+                        "start": 982,
+                        "end": 982,
+                        "length": 1,
+                        "parent_index": 109
+                      },
+                      "referenced_declaration": 93,
+                      "type_descriptions": {
+                        "type_identifier": "t_uint256",
+                        "type_string": "uint256"
+                      }
                     }
                   }
                 },
                 {
-                  "id": 108,
+                  "id": 112,
                   "node_type": 47,
                   "src": {
                     "line": 40,
@@ -1789,10 +1869,10 @@
                     "start": 994,
                     "end": 1002,
                     "length": 9,
-                    "parent_index": 96
+                    "parent_index": 98
                   },
                   "expression": {
-                    "id": 109,
+                    "id": 113,
                     "name": "c",
                     "node_type": 16,
                     "src": {
@@ -1801,15 +1881,15 @@
                       "start": 1001,
                       "end": 1001,
                       "length": 1,
-                      "parent_index": 108
+                      "parent_index": 112
                     },
-                    "referenced_declaration": 105,
+                    "referenced_declaration": 107,
                     "type_descriptions": {
                       "type_identifier": "t_uint256",
                       "type_string": "uint256"
                     }
                   },
-                  "function_return_parameters": 93
+                  "function_return_parameters": 95
                 }
               ]
             }

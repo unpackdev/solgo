@@ -20,6 +20,10 @@ func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.
 		return b.parseIfStatement(sourceUnit, node, bodyNode, ifStatement.(*parser.IfStatementContext))
 	}
 
+	if emitStatement := statementCtx.EmitStatement(); emitStatement != nil {
+		return b.parseEmitStatement(sourceUnit, node, bodyNode, emitStatement.(*parser.EmitStatementContext))
+	}
+
 	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {
 		panic("It's revert statement...")
 	}
@@ -42,10 +46,6 @@ func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.
 
 	if breakStatement := statementCtx.BreakStatement(); breakStatement != nil {
 		panic("It's break statement...")
-	}
-
-	if emitStatement := statementCtx.EmitStatement(); emitStatement != nil {
-		panic("It's emit statement...")
 	}
 
 	return nil
