@@ -22,6 +22,7 @@ type ASTBuilder struct {
 	currentStateVariables []*ast_pb.Node
 	currentEvents         []*ast_pb.Node
 	astRoot               *ast_pb.RootSourceUnit
+	entrySourceUnit       *ast_pb.Node
 }
 
 func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {
@@ -71,7 +72,6 @@ func (b *ASTBuilder) NodeToJson(node interface{}) ([]byte, error) {
 
 func (b *ASTBuilder) FindNodesByType(nodeType ast_pb.NodeType) ([]*ast_pb.Node, bool) {
 	var nodes []*ast_pb.Node
-	fmt.Println("AHA")
 	for _, unit := range b.sourceUnits {
 		fmt.Println(unit)
 
@@ -80,4 +80,16 @@ func (b *ASTBuilder) FindNodesByType(nodeType ast_pb.NodeType) ([]*ast_pb.Node, 
 		}
 	}
 	return nodes, false
+}
+
+func (b *ASTBuilder) FindNodeById(nodeId int64) (*ast_pb.Node, bool) {
+	for _, unit := range b.astRoot.GetSourceUnits() {
+		for _, node := range unit.GetRoot().GetNodes() {
+			if node.GetId() == nodeId {
+				return node, true
+			}
+		}
+	}
+
+	return nil, false
 }

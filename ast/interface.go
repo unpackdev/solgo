@@ -120,13 +120,38 @@ func (b *ASTBuilder) parseInterfaceDefinition(sourceUnitCtx *parser.SourceUnitCo
 
 			for _, unitNode := range b.sourceUnits {
 				if unitNode.GetName() == inheritanceSpecifierCtx.IdentifierPath().GetText() {
-					baseContract.BaseName.ReferencedDeclaration = unitNode.GetId()
+					baseContract.BaseName.ReferencedDeclaration = unitNode.GetSourceUnitDefinitionId()
 					identifierNode.LinearizedBaseContracts = append(
-						identifierNode.LinearizedBaseContracts, unitNode.GetId(),
+						identifierNode.LinearizedBaseContracts, unitNode.GetSourceUnitDefinitionId(),
 					)
 					identifierNode.ContractDependencies = append(
-						identifierNode.ContractDependencies, unitNode.GetId(),
+						identifierNode.ContractDependencies, unitNode.GetSourceUnitDefinitionId(),
 					)
+
+					symbolFound := false
+					for _, symbol := range unitNode.GetExportedSymbols() {
+						if symbol.GetName() == unitNode.GetName() {
+							symbolFound = true
+						}
+					}
+
+					if !symbolFound {
+						sourceUnit.ExportedSymbols = append(
+							sourceUnit.ExportedSymbols,
+							&ast_pb.ExportedSymbol{
+								Id:   unitNode.GetSourceUnitDefinitionId(),
+								Name: unitNode.GetName(),
+								AbsolutePath: func() string {
+									for _, unit := range b.sources.SourceUnits {
+										if unit.Name == unitNode.GetName() {
+											return unit.Path
+										}
+									}
+									return ""
+								}(),
+							},
+						)
+					}
 				}
 			}
 

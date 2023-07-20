@@ -36,7 +36,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Content: tests.ReadContractFileForTest(t, "Empty").Content,
 					},
 				},
-				BaseSourceUnit: "Empty",
+				EntrySourceUnitName: "Empty",
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast")),
 		},
@@ -55,12 +55,12 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Content: tests.ReadContractFileForTest(t, "ast/SimpleStorage").Content,
 					},
 				},
-				BaseSourceUnit: "SimpleStorage",
+				EntrySourceUnitName: "SimpleStorage",
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast")),
 		},
 		{
-			name: "Simple Token",
+			name: "OpenZeppelin ERC20 Test",
 			sources: solgo.Sources{
 				SourceUnits: []solgo.SourceUnit{
 					{
@@ -89,7 +89,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
 					},
 				},
-				BaseSourceUnit: "TokenSale",
+				EntrySourceUnitName: "ERC20",
 			},
 		},
 	}
@@ -132,7 +132,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotEmpty(t, prettyJson)
 			err = astBuilder.WriteToFile(
-				"../data/tests/ast/"+testCase.sources.BaseSourceUnit+".solgo.ast.json",
+				"../data/tests/ast/"+testCase.sources.EntrySourceUnitName+".solgo.ast.json",
 				prettyJson,
 			)
 			assert.NoError(t, err)

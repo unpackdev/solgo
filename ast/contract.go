@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -120,12 +121,30 @@ func (b *ASTBuilder) parseContractDefinition(sourceUnitCtx *parser.SourceUnitCon
 
 			for _, unitNode := range b.sourceUnits {
 				if unitNode.GetName() == inheritanceSpecifierCtx.IdentifierPath().GetText() {
-					baseContract.BaseName.ReferencedDeclaration = unitNode.GetId()
+					fmt.Println("Unit Discovered", inheritanceSpecifierCtx.IdentifierPath().GetText(), "=>", unitNode.GetName(), "|", unitNode.GetSourceUnitDefinitionId())
+
+					baseContract.BaseName.ReferencedDeclaration = unitNode.GetSourceUnitDefinitionId()
 					identifierNode.LinearizedBaseContracts = append(
-						identifierNode.LinearizedBaseContracts, unitNode.GetId(),
+						identifierNode.LinearizedBaseContracts, unitNode.GetSourceUnitDefinitionId(),
 					)
 					identifierNode.ContractDependencies = append(
-						identifierNode.ContractDependencies, unitNode.GetId(),
+						identifierNode.ContractDependencies, unitNode.GetSourceUnitDefinitionId(),
+					)
+
+					sourceUnit.ExportedSymbols = append(
+						sourceUnit.ExportedSymbols,
+						&ast_pb.ExportedSymbol{
+							Id:   unitNode.GetSourceUnitDefinitionId(),
+							Name: unitNode.GetName(),
+							AbsolutePath: func() string {
+								for _, unit := range b.sources.SourceUnits {
+									if unit.Name == unitNode.GetName() {
+										return unit.Path
+									}
+								}
+								return ""
+							}(),
+						},
 					)
 				}
 			}
