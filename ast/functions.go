@@ -121,6 +121,41 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 		node.Body = bodyNode
 	}
 
+	if fd.Block() != nil && len(fd.Block().AllUncheckedBlock()) > 0 {
+		for _, uncheckedBlockCtx := range fd.Block().AllUncheckedBlock() {
+			bodyNode := &ast_pb.Body{
+				Id: atomic.AddInt64(&b.nextID, 1) - 1,
+				Src: &ast_pb.Src{
+					Line:        int64(fd.Block().GetStart().GetLine()),
+					Column:      int64(fd.Block().GetStart().GetColumn()),
+					Start:       int64(fd.Block().GetStart().GetStart()),
+					End:         int64(fd.Block().GetStop().GetStop()),
+					Length:      int64(fd.Block().GetStop().GetStop() - fd.Block().GetStart().GetStart() + 1),
+					ParentIndex: node.Id,
+				},
+				NodeType: ast_pb.NodeType_UNCHECKED_BLOCK,
+			}
+
+			if uncheckedBlockCtx.Block() != nil && !uncheckedBlockCtx.Block().IsEmpty() {
+				for _, statement := range uncheckedBlockCtx.Block().AllStatement() {
+					if statement.IsEmpty() {
+						continue
+					}
+
+					// Parent index statement in this case is used only to be able provide
+					// index to the parent node. It is not used for anything else.
+					parentIndexStmt := &ast_pb.Statement{Id: bodyNode.Id}
+
+					bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(
+						sourceUnit, node, bodyNode, parentIndexStmt, statement,
+					))
+				}
+			}
+
+			node.Body = bodyNode
+		}
+	}
+
 	return node
 }
 

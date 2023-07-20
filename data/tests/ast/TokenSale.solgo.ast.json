@@ -1,0 +1,4535 @@
+{
+  "source_units": [
+    {
+      "id": 1,
+      "license": "MIT",
+      "absolute_path": "SafeMath.sol",
+      "exported_symbols": [
+        {
+          "id": 3,
+          "name": "SafeMath",
+          "absolute_path": "SafeMath.sol"
+        }
+      ],
+      "node_type": 1,
+      "root": {
+        "nodes": [
+          {
+            "id": 2,
+            "node_type": 10,
+            "src": {
+              "line": 3,
+              "start": 33,
+              "end": 55,
+              "length": 23,
+              "parent_index": 1
+            },
+            "literals": [
+              "pragma",
+              "solidity",
+              "^",
+              "0",
+              ".",
+              "8",
+              ".",
+              "0",
+              ";"
+            ]
+          },
+          {
+            "id": 3,
+            "name": "SafeMath",
+            "node_type": 35,
+            "src": {
+              "line": 18,
+              "start": 622,
+              "end": 7097,
+              "length": 6476,
+              "parent_index": 1
+            },
+            "kind": 37,
+            "fully_implemented": true,
+            "linearized_base_contracts": [
+              3
+            ],
+            "nodes": [
+              {
+                "id": 4,
+                "name": "tryAdd",
+                "node_type": 42,
+                "src": {
+                  "line": 24,
+                  "start": 781,
+                  "end": 996,
+                  "length": 216,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 5,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 6,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 4,
+                      "src": {
+                        "line": 24,
+                        "column": 20,
+                        "start": 797,
+                        "end": 805,
+                        "length": 9,
+                        "parent_index": 5
+                      },
+                      "type_name": {
+                        "id": 7,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 24,
+                          "column": 20,
+                          "start": 797,
+                          "end": 805,
+                          "length": 9,
+                          "parent_index": 5
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 8,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 4,
+                      "src": {
+                        "line": 24,
+                        "column": 31,
+                        "start": 808,
+                        "end": 816,
+                        "length": 9,
+                        "parent_index": 5
+                      },
+                      "type_name": {
+                        "id": 9,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 24,
+                          "column": 31,
+                          "start": 808,
+                          "end": 816,
+                          "length": 9,
+                          "parent_index": 5
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 24,
+                    "start": 797,
+                    "end": 816,
+                    "length": 20,
+                    "parent_index": 4
+                  }
+                },
+                "return_parameters": {
+                  "id": 10,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 11,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 4,
+                      "src": {
+                        "line": 24,
+                        "column": 65,
+                        "start": 842,
+                        "end": 845,
+                        "length": 4,
+                        "parent_index": 10
+                      },
+                      "type_name": {
+                        "id": 12,
+                        "name": "bool",
+                        "node_type": 30,
+                        "src": {
+                          "line": 24,
+                          "column": 65,
+                          "start": 842,
+                          "end": 845,
+                          "length": 4,
+                          "parent_index": 10
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 13,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 4,
+                      "src": {
+                        "line": 24,
+                        "column": 71,
+                        "start": 848,
+                        "end": 854,
+                        "length": 7,
+                        "parent_index": 10
+                      },
+                      "type_name": {
+                        "id": 14,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 24,
+                          "column": 71,
+                          "start": 848,
+                          "end": 854,
+                          "length": 7,
+                          "parent_index": 10
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 24,
+                    "start": 842,
+                    "end": 854,
+                    "length": 13,
+                    "parent_index": 4
+                  }
+                },
+                "body": {
+                  "id": 16,
+                  "node_type": 59,
+                  "src": {
+                    "line": 24,
+                    "column": 80,
+                    "start": 857,
+                    "end": 996,
+                    "length": 140,
+                    "parent_index": 4
+                  },
+                  "statements": [
+                    {
+                      "id": 17,
+                      "node_type": 45,
+                      "src": {
+                        "line": 26,
+                        "column": 12,
+                        "start": 891,
+                        "end": 908,
+                        "length": 18,
+                        "parent_index": 16
+                      },
+                      "declarations": [
+                        {
+                          "id": 18,
+                          "mutability": 1,
+                          "name": "c",
+                          "node_type": 44,
+                          "scope": 16,
+                          "src": {
+                            "line": 26,
+                            "column": 12,
+                            "start": 891,
+                            "end": 899,
+                            "length": 9,
+                            "parent_index": 17
+                          },
+                          "storage_location": 1,
+                          "type_name": {
+                            "id": 19,
+                            "name": "uint256",
+                            "node_type": 30,
+                            "src": {
+                              "line": 26,
+                              "column": 12,
+                              "start": 891,
+                              "end": 897,
+                              "length": 7,
+                              "parent_index": 17
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          },
+                          "visibility": 1
+                        }
+                      ],
+                      "assignments": [
+                        18
+                      ],
+                      "initial_value": {
+                        "id": 20,
+                        "node_type": 19,
+                        "src": {
+                          "line": 26,
+                          "column": 24,
+                          "start": 903,
+                          "end": 907,
+                          "length": 5,
+                          "parent_index": 18
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "common_type": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 1,
+                        "left_expression": {
+                          "id": 21,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 26,
+                            "column": 24,
+                            "start": 903,
+                            "end": 903,
+                            "length": 1,
+                            "parent_index": 20
+                          },
+                          "referenced_declaration": 6,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 22,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 26,
+                            "column": 28,
+                            "start": 907,
+                            "end": 907,
+                            "length": 1,
+                            "parent_index": 20
+                          },
+                          "referenced_declaration": 8,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": 23,
+                      "node_type": 48,
+                      "src": {
+                        "line": 27,
+                        "start": 922,
+                        "end": 950,
+                        "length": 29,
+                        "parent_index": 4
+                      },
+                      "condition": {
+                        "id": 24,
+                        "name": "c\u003ca",
+                        "node_type": 19,
+                        "src": {
+                          "line": 27,
+                          "column": 16,
+                          "start": 926,
+                          "end": 930,
+                          "length": 5,
+                          "parent_index": 23
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        },
+                        "operator": 9,
+                        "left_expression": {
+                          "id": 25,
+                          "name": "c",
+                          "node_type": 16,
+                          "src": {
+                            "line": 27,
+                            "column": 16,
+                            "start": 926,
+                            "end": 926,
+                            "length": 1,
+                            "parent_index": 24
+                          },
+                          "referenced_declaration": 18,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 26,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 27,
+                            "column": 20,
+                            "start": 930,
+                            "end": 930,
+                            "length": 1,
+                            "parent_index": 24
+                          },
+                          "referenced_declaration": 6,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": 27,
+                      "node_type": 47,
+                      "src": {
+                        "line": 28,
+                        "column": 12,
+                        "start": 964,
+                        "end": 980,
+                        "length": 17,
+                        "parent_index": 16
+                      },
+                      "expression": {
+                        "id": 28,
+                        "node_type": 60,
+                        "src": {
+                          "line": 28,
+                          "column": 19,
+                          "start": 971,
+                          "end": 979,
+                          "length": 9,
+                          "parent_index": 27
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_tuple",
+                          "type_string": "tuple(bool,uint256)"
+                        },
+                        "components": [
+                          {
+                            "id": 29,
+                            "node_type": 17,
+                            "src": {
+                              "line": 28,
+                              "column": 20,
+                              "start": 972,
+                              "end": 975,
+                              "length": 4,
+                              "parent_index": 28
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            "kind": 61,
+                            "value": "true",
+                            "hex_value": "74727565",
+                            "is_pure": true
+                          },
+                          {
+                            "id": 30,
+                            "name": "c",
+                            "node_type": 16,
+                            "src": {
+                              "line": 28,
+                              "column": 26,
+                              "start": 978,
+                              "end": 978,
+                              "length": 1,
+                              "parent_index": 28
+                            },
+                            "referenced_declaration": 18,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          }
+                        ],
+                        "function_return_parameters": 10
+                      },
+                      "function_return_parameters": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 31,
+                "name": "trySub",
+                "node_type": 42,
+                "src": {
+                  "line": 37,
+                  "start": 1143,
+                  "end": 1331,
+                  "length": 189,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 32,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 33,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 31,
+                      "src": {
+                        "line": 37,
+                        "column": 20,
+                        "start": 1159,
+                        "end": 1167,
+                        "length": 9,
+                        "parent_index": 32
+                      },
+                      "type_name": {
+                        "id": 34,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 37,
+                          "column": 20,
+                          "start": 1159,
+                          "end": 1167,
+                          "length": 9,
+                          "parent_index": 32
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 35,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 31,
+                      "src": {
+                        "line": 37,
+                        "column": 31,
+                        "start": 1170,
+                        "end": 1178,
+                        "length": 9,
+                        "parent_index": 32
+                      },
+                      "type_name": {
+                        "id": 36,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 37,
+                          "column": 31,
+                          "start": 1170,
+                          "end": 1178,
+                          "length": 9,
+                          "parent_index": 32
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 37,
+                    "start": 1159,
+                    "end": 1178,
+                    "length": 20,
+                    "parent_index": 31
+                  }
+                },
+                "return_parameters": {
+                  "id": 37,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 38,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 31,
+                      "src": {
+                        "line": 37,
+                        "column": 65,
+                        "start": 1204,
+                        "end": 1207,
+                        "length": 4,
+                        "parent_index": 37
+                      },
+                      "type_name": {
+                        "id": 39,
+                        "name": "bool",
+                        "node_type": 30,
+                        "src": {
+                          "line": 37,
+                          "column": 65,
+                          "start": 1204,
+                          "end": 1207,
+                          "length": 4,
+                          "parent_index": 37
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 40,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 31,
+                      "src": {
+                        "line": 37,
+                        "column": 71,
+                        "start": 1210,
+                        "end": 1216,
+                        "length": 7,
+                        "parent_index": 37
+                      },
+                      "type_name": {
+                        "id": 41,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 37,
+                          "column": 71,
+                          "start": 1210,
+                          "end": 1216,
+                          "length": 7,
+                          "parent_index": 37
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 37,
+                    "start": 1204,
+                    "end": 1216,
+                    "length": 13,
+                    "parent_index": 31
+                  }
+                },
+                "body": {
+                  "id": 43,
+                  "node_type": 59,
+                  "src": {
+                    "line": 37,
+                    "column": 80,
+                    "start": 1219,
+                    "end": 1331,
+                    "length": 113,
+                    "parent_index": 31
+                  },
+                  "statements": [
+                    {
+                      "id": 44,
+                      "node_type": 48,
+                      "src": {
+                        "line": 39,
+                        "start": 1253,
+                        "end": 1281,
+                        "length": 29,
+                        "parent_index": 31
+                      },
+                      "condition": {
+                        "id": 45,
+                        "name": "b\u003ea",
+                        "node_type": 19,
+                        "src": {
+                          "line": 39,
+                          "column": 16,
+                          "start": 1257,
+                          "end": 1261,
+                          "length": 5,
+                          "parent_index": 44
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        },
+                        "operator": 7,
+                        "left_expression": {
+                          "id": 46,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 39,
+                            "column": 16,
+                            "start": 1257,
+                            "end": 1257,
+                            "length": 1,
+                            "parent_index": 45
+                          },
+                          "referenced_declaration": 35,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 47,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 39,
+                            "column": 20,
+                            "start": 1261,
+                            "end": 1261,
+                            "length": 1,
+                            "parent_index": 45
+                          },
+                          "referenced_declaration": 33,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": 48,
+                      "node_type": 47,
+                      "src": {
+                        "line": 40,
+                        "column": 12,
+                        "start": 1295,
+                        "end": 1315,
+                        "length": 21,
+                        "parent_index": 43
+                      },
+                      "expression": {
+                        "id": 49,
+                        "node_type": 60,
+                        "src": {
+                          "line": 40,
+                          "column": 19,
+                          "start": 1302,
+                          "end": 1314,
+                          "length": 13,
+                          "parent_index": 48
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_tuple",
+                          "type_string": "tuple(bool,uint256)"
+                        },
+                        "components": [
+                          {
+                            "id": 50,
+                            "node_type": 17,
+                            "src": {
+                              "line": 40,
+                              "column": 20,
+                              "start": 1303,
+                              "end": 1306,
+                              "length": 4,
+                              "parent_index": 49
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            "kind": 61,
+                            "value": "true",
+                            "hex_value": "74727565",
+                            "is_pure": true
+                          },
+                          {
+                            "id": 51,
+                            "name": "a-b",
+                            "node_type": 19,
+                            "src": {
+                              "line": 40,
+                              "column": 26,
+                              "start": 1309,
+                              "end": 1313,
+                              "length": 5,
+                              "parent_index": 49
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            },
+                            "operator": 2,
+                            "left_expression": {
+                              "id": 52,
+                              "name": "a",
+                              "node_type": 16,
+                              "src": {
+                                "line": 40,
+                                "column": 26,
+                                "start": 1309,
+                                "end": 1309,
+                                "length": 1,
+                                "parent_index": 51
+                              },
+                              "referenced_declaration": 33,
+                              "type_descriptions": {
+                                "type_identifier": "t_uint256",
+                                "type_string": "uint256"
+                              }
+                            },
+                            "right_expression": {
+                              "id": 53,
+                              "name": "b",
+                              "node_type": 16,
+                              "src": {
+                                "line": 40,
+                                "column": 30,
+                                "start": 1313,
+                                "end": 1313,
+                                "length": 1,
+                                "parent_index": 51
+                              },
+                              "referenced_declaration": 35,
+                              "type_descriptions": {
+                                "type_identifier": "t_uint256",
+                                "type_string": "uint256"
+                              }
+                            }
+                          }
+                        ],
+                        "function_return_parameters": 37
+                      },
+                      "function_return_parameters": 37
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 54,
+                "name": "tryMul",
+                "node_type": 42,
+                "src": {
+                  "line": 49,
+                  "start": 1480,
+                  "end": 1972,
+                  "length": 493,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 55,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 56,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 54,
+                      "src": {
+                        "line": 49,
+                        "column": 20,
+                        "start": 1496,
+                        "end": 1504,
+                        "length": 9,
+                        "parent_index": 55
+                      },
+                      "type_name": {
+                        "id": 57,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 49,
+                          "column": 20,
+                          "start": 1496,
+                          "end": 1504,
+                          "length": 9,
+                          "parent_index": 55
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 58,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 54,
+                      "src": {
+                        "line": 49,
+                        "column": 31,
+                        "start": 1507,
+                        "end": 1515,
+                        "length": 9,
+                        "parent_index": 55
+                      },
+                      "type_name": {
+                        "id": 59,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 49,
+                          "column": 31,
+                          "start": 1507,
+                          "end": 1515,
+                          "length": 9,
+                          "parent_index": 55
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 49,
+                    "start": 1496,
+                    "end": 1515,
+                    "length": 20,
+                    "parent_index": 54
+                  }
+                },
+                "return_parameters": {
+                  "id": 60,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 61,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 54,
+                      "src": {
+                        "line": 49,
+                        "column": 65,
+                        "start": 1541,
+                        "end": 1544,
+                        "length": 4,
+                        "parent_index": 60
+                      },
+                      "type_name": {
+                        "id": 62,
+                        "name": "bool",
+                        "node_type": 30,
+                        "src": {
+                          "line": 49,
+                          "column": 65,
+                          "start": 1541,
+                          "end": 1544,
+                          "length": 4,
+                          "parent_index": 60
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 63,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 54,
+                      "src": {
+                        "line": 49,
+                        "column": 71,
+                        "start": 1547,
+                        "end": 1553,
+                        "length": 7,
+                        "parent_index": 60
+                      },
+                      "type_name": {
+                        "id": 64,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 49,
+                          "column": 71,
+                          "start": 1547,
+                          "end": 1553,
+                          "length": 7,
+                          "parent_index": 60
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 49,
+                    "start": 1541,
+                    "end": 1553,
+                    "length": 13,
+                    "parent_index": 54
+                  }
+                },
+                "body": {
+                  "id": 66,
+                  "node_type": 59,
+                  "src": {
+                    "line": 49,
+                    "column": 80,
+                    "start": 1556,
+                    "end": 1972,
+                    "length": 417,
+                    "parent_index": 54
+                  },
+                  "statements": [
+                    {
+                      "id": 67,
+                      "node_type": 48,
+                      "src": {
+                        "line": 54,
+                        "start": 1820,
+                        "end": 1848,
+                        "length": 29,
+                        "parent_index": 54
+                      },
+                      "condition": {
+                        "id": 68,
+                        "name": "a==0",
+                        "node_type": 19,
+                        "src": {
+                          "line": 54,
+                          "column": 16,
+                          "start": 1824,
+                          "end": 1829,
+                          "length": 6,
+                          "parent_index": 67
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 11,
+                        "left_expression": {
+                          "id": 69,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 54,
+                            "column": 16,
+                            "start": 1824,
+                            "end": 1824,
+                            "length": 1,
+                            "parent_index": 68
+                          },
+                          "referenced_declaration": 56,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 70,
+                          "name": "0",
+                          "node_type": 17,
+                          "src": {
+                            "line": 54,
+                            "column": 21,
+                            "start": 1829,
+                            "end": 1829,
+                            "length": 1,
+                            "parent_index": 68
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_rational_0_by_1",
+                            "type_string": "int_const 0"
+                          },
+                          "kind": 49,
+                          "value": "0",
+                          "hex_value": "30",
+                          "is_pure": true
+                        }
+                      }
+                    },
+                    {
+                      "id": 71,
+                      "node_type": 45,
+                      "src": {
+                        "line": 55,
+                        "column": 12,
+                        "start": 1862,
+                        "end": 1879,
+                        "length": 18,
+                        "parent_index": 66
+                      },
+                      "declarations": [
+                        {
+                          "id": 72,
+                          "mutability": 1,
+                          "name": "c",
+                          "node_type": 44,
+                          "scope": 66,
+                          "src": {
+                            "line": 55,
+                            "column": 12,
+                            "start": 1862,
+                            "end": 1870,
+                            "length": 9,
+                            "parent_index": 71
+                          },
+                          "storage_location": 1,
+                          "type_name": {
+                            "id": 73,
+                            "name": "uint256",
+                            "node_type": 30,
+                            "src": {
+                              "line": 55,
+                              "column": 12,
+                              "start": 1862,
+                              "end": 1868,
+                              "length": 7,
+                              "parent_index": 71
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          },
+                          "visibility": 1
+                        }
+                      ],
+                      "assignments": [
+                        72
+                      ],
+                      "initial_value": {
+                        "id": 74,
+                        "src": {
+                          "line": 55,
+                          "column": 24,
+                          "start": 1874,
+                          "end": 1878,
+                          "length": 5,
+                          "parent_index": 72
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "common_type": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      }
+                    },
+                    {
+                      "id": 75,
+                      "node_type": 48,
+                      "src": {
+                        "line": 56,
+                        "start": 1893,
+                        "end": 1926,
+                        "length": 34,
+                        "parent_index": 54
+                      },
+                      "condition": {
+                        "id": 76,
+                        "name": "c/a!=b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 56,
+                          "column": 16,
+                          "start": 1897,
+                          "end": 1906,
+                          "length": 10,
+                          "parent_index": 75
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 12,
+                        "left_expression": {
+                          "id": 77,
+                          "name": "c/a",
+                          "node_type": 19,
+                          "src": {
+                            "line": 56,
+                            "column": 16,
+                            "start": 1897,
+                            "end": 1901,
+                            "length": 5,
+                            "parent_index": 76
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          },
+                          "operator": 4,
+                          "left_expression": {
+                            "id": 78,
+                            "name": "c",
+                            "node_type": 16,
+                            "src": {
+                              "line": 56,
+                              "column": 16,
+                              "start": 1897,
+                              "end": 1897,
+                              "length": 1,
+                              "parent_index": 77
+                            },
+                            "referenced_declaration": 72,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          },
+                          "right_expression": {
+                            "id": 79,
+                            "name": "a",
+                            "node_type": 16,
+                            "src": {
+                              "line": 56,
+                              "column": 20,
+                              "start": 1901,
+                              "end": 1901,
+                              "length": 1,
+                              "parent_index": 77
+                            },
+                            "referenced_declaration": 56,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          }
+                        },
+                        "right_expression": {
+                          "id": 80,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 56,
+                            "column": 25,
+                            "start": 1906,
+                            "end": 1906,
+                            "length": 1,
+                            "parent_index": 76
+                          },
+                          "referenced_declaration": 58,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": 81,
+                      "node_type": 47,
+                      "src": {
+                        "line": 57,
+                        "column": 12,
+                        "start": 1940,
+                        "end": 1956,
+                        "length": 17,
+                        "parent_index": 66
+                      },
+                      "expression": {
+                        "id": 82,
+                        "node_type": 60,
+                        "src": {
+                          "line": 57,
+                          "column": 19,
+                          "start": 1947,
+                          "end": 1955,
+                          "length": 9,
+                          "parent_index": 81
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_tuple",
+                          "type_string": "tuple(bool,uint256)"
+                        },
+                        "components": [
+                          {
+                            "id": 83,
+                            "node_type": 17,
+                            "src": {
+                              "line": 57,
+                              "column": 20,
+                              "start": 1948,
+                              "end": 1951,
+                              "length": 4,
+                              "parent_index": 82
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            "kind": 61,
+                            "value": "true",
+                            "hex_value": "74727565",
+                            "is_pure": true
+                          },
+                          {
+                            "id": 84,
+                            "name": "c",
+                            "node_type": 16,
+                            "src": {
+                              "line": 57,
+                              "column": 26,
+                              "start": 1954,
+                              "end": 1954,
+                              "length": 1,
+                              "parent_index": 82
+                            },
+                            "referenced_declaration": 72,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          }
+                        ],
+                        "function_return_parameters": 60
+                      },
+                      "function_return_parameters": 60
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 85,
+                "name": "tryDiv",
+                "node_type": 42,
+                "src": {
+                  "line": 66,
+                  "start": 2122,
+                  "end": 2311,
+                  "length": 190,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 86,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 87,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 85,
+                      "src": {
+                        "line": 66,
+                        "column": 20,
+                        "start": 2138,
+                        "end": 2146,
+                        "length": 9,
+                        "parent_index": 86
+                      },
+                      "type_name": {
+                        "id": 88,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 66,
+                          "column": 20,
+                          "start": 2138,
+                          "end": 2146,
+                          "length": 9,
+                          "parent_index": 86
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 89,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 85,
+                      "src": {
+                        "line": 66,
+                        "column": 31,
+                        "start": 2149,
+                        "end": 2157,
+                        "length": 9,
+                        "parent_index": 86
+                      },
+                      "type_name": {
+                        "id": 90,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 66,
+                          "column": 31,
+                          "start": 2149,
+                          "end": 2157,
+                          "length": 9,
+                          "parent_index": 86
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 66,
+                    "start": 2138,
+                    "end": 2157,
+                    "length": 20,
+                    "parent_index": 85
+                  }
+                },
+                "return_parameters": {
+                  "id": 91,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 92,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 85,
+                      "src": {
+                        "line": 66,
+                        "column": 65,
+                        "start": 2183,
+                        "end": 2186,
+                        "length": 4,
+                        "parent_index": 91
+                      },
+                      "type_name": {
+                        "id": 93,
+                        "name": "bool",
+                        "node_type": 30,
+                        "src": {
+                          "line": 66,
+                          "column": 65,
+                          "start": 2183,
+                          "end": 2186,
+                          "length": 4,
+                          "parent_index": 91
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 94,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 85,
+                      "src": {
+                        "line": 66,
+                        "column": 71,
+                        "start": 2189,
+                        "end": 2195,
+                        "length": 7,
+                        "parent_index": 91
+                      },
+                      "type_name": {
+                        "id": 95,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 66,
+                          "column": 71,
+                          "start": 2189,
+                          "end": 2195,
+                          "length": 7,
+                          "parent_index": 91
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 66,
+                    "start": 2183,
+                    "end": 2195,
+                    "length": 13,
+                    "parent_index": 85
+                  }
+                },
+                "body": {
+                  "id": 97,
+                  "node_type": 59,
+                  "src": {
+                    "line": 66,
+                    "column": 80,
+                    "start": 2198,
+                    "end": 2311,
+                    "length": 114,
+                    "parent_index": 85
+                  },
+                  "statements": [
+                    {
+                      "id": 98,
+                      "node_type": 48,
+                      "src": {
+                        "line": 68,
+                        "start": 2232,
+                        "end": 2261,
+                        "length": 30,
+                        "parent_index": 85
+                      },
+                      "condition": {
+                        "id": 99,
+                        "name": "b==0",
+                        "node_type": 19,
+                        "src": {
+                          "line": 68,
+                          "column": 16,
+                          "start": 2236,
+                          "end": 2241,
+                          "length": 6,
+                          "parent_index": 98
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 11,
+                        "left_expression": {
+                          "id": 100,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 68,
+                            "column": 16,
+                            "start": 2236,
+                            "end": 2236,
+                            "length": 1,
+                            "parent_index": 99
+                          },
+                          "referenced_declaration": 89,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 101,
+                          "name": "0",
+                          "node_type": 17,
+                          "src": {
+                            "line": 68,
+                            "column": 21,
+                            "start": 2241,
+                            "end": 2241,
+                            "length": 1,
+                            "parent_index": 99
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_rational_0_by_1",
+                            "type_string": "int_const 0"
+                          },
+                          "kind": 49,
+                          "value": "0",
+                          "hex_value": "30",
+                          "is_pure": true
+                        }
+                      }
+                    },
+                    {
+                      "id": 102,
+                      "node_type": 47,
+                      "src": {
+                        "line": 69,
+                        "column": 12,
+                        "start": 2275,
+                        "end": 2295,
+                        "length": 21,
+                        "parent_index": 97
+                      },
+                      "expression": {
+                        "id": 103,
+                        "node_type": 60,
+                        "src": {
+                          "line": 69,
+                          "column": 19,
+                          "start": 2282,
+                          "end": 2294,
+                          "length": 13,
+                          "parent_index": 102
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_tuple",
+                          "type_string": "tuple(bool,uint256)"
+                        },
+                        "components": [
+                          {
+                            "id": 104,
+                            "node_type": 17,
+                            "src": {
+                              "line": 69,
+                              "column": 20,
+                              "start": 2283,
+                              "end": 2286,
+                              "length": 4,
+                              "parent_index": 103
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            "kind": 61,
+                            "value": "true",
+                            "hex_value": "74727565",
+                            "is_pure": true
+                          },
+                          {
+                            "id": 105,
+                            "name": "a/b",
+                            "node_type": 19,
+                            "src": {
+                              "line": 69,
+                              "column": 26,
+                              "start": 2289,
+                              "end": 2293,
+                              "length": 5,
+                              "parent_index": 103
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            },
+                            "operator": 4,
+                            "left_expression": {
+                              "id": 106,
+                              "name": "a",
+                              "node_type": 16,
+                              "src": {
+                                "line": 69,
+                                "column": 26,
+                                "start": 2289,
+                                "end": 2289,
+                                "length": 1,
+                                "parent_index": 105
+                              },
+                              "referenced_declaration": 87,
+                              "type_descriptions": {
+                                "type_identifier": "t_uint256",
+                                "type_string": "uint256"
+                              }
+                            },
+                            "right_expression": {
+                              "id": 107,
+                              "name": "b",
+                              "node_type": 16,
+                              "src": {
+                                "line": 69,
+                                "column": 30,
+                                "start": 2293,
+                                "end": 2293,
+                                "length": 1,
+                                "parent_index": 105
+                              },
+                              "referenced_declaration": 89,
+                              "type_descriptions": {
+                                "type_identifier": "t_uint256",
+                                "type_string": "uint256"
+                              }
+                            }
+                          }
+                        ],
+                        "function_return_parameters": 91
+                      },
+                      "function_return_parameters": 91
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 108,
+                "name": "tryMod",
+                "node_type": 42,
+                "src": {
+                  "line": 78,
+                  "start": 2471,
+                  "end": 2660,
+                  "length": 190,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 109,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 110,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 108,
+                      "src": {
+                        "line": 78,
+                        "column": 20,
+                        "start": 2487,
+                        "end": 2495,
+                        "length": 9,
+                        "parent_index": 109
+                      },
+                      "type_name": {
+                        "id": 111,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 78,
+                          "column": 20,
+                          "start": 2487,
+                          "end": 2495,
+                          "length": 9,
+                          "parent_index": 109
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 112,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 108,
+                      "src": {
+                        "line": 78,
+                        "column": 31,
+                        "start": 2498,
+                        "end": 2506,
+                        "length": 9,
+                        "parent_index": 109
+                      },
+                      "type_name": {
+                        "id": 113,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 78,
+                          "column": 31,
+                          "start": 2498,
+                          "end": 2506,
+                          "length": 9,
+                          "parent_index": 109
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 78,
+                    "start": 2487,
+                    "end": 2506,
+                    "length": 20,
+                    "parent_index": 108
+                  }
+                },
+                "return_parameters": {
+                  "id": 114,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 115,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 108,
+                      "src": {
+                        "line": 78,
+                        "column": 65,
+                        "start": 2532,
+                        "end": 2535,
+                        "length": 4,
+                        "parent_index": 114
+                      },
+                      "type_name": {
+                        "id": 116,
+                        "name": "bool",
+                        "node_type": 30,
+                        "src": {
+                          "line": 78,
+                          "column": 65,
+                          "start": 2532,
+                          "end": 2535,
+                          "length": 4,
+                          "parent_index": 114
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 117,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 108,
+                      "src": {
+                        "line": 78,
+                        "column": 71,
+                        "start": 2538,
+                        "end": 2544,
+                        "length": 7,
+                        "parent_index": 114
+                      },
+                      "type_name": {
+                        "id": 118,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 78,
+                          "column": 71,
+                          "start": 2538,
+                          "end": 2544,
+                          "length": 7,
+                          "parent_index": 114
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 78,
+                    "start": 2532,
+                    "end": 2544,
+                    "length": 13,
+                    "parent_index": 108
+                  }
+                },
+                "body": {
+                  "id": 120,
+                  "node_type": 59,
+                  "src": {
+                    "line": 78,
+                    "column": 80,
+                    "start": 2547,
+                    "end": 2660,
+                    "length": 114,
+                    "parent_index": 108
+                  },
+                  "statements": [
+                    {
+                      "id": 121,
+                      "node_type": 48,
+                      "src": {
+                        "line": 80,
+                        "start": 2581,
+                        "end": 2610,
+                        "length": 30,
+                        "parent_index": 108
+                      },
+                      "condition": {
+                        "id": 122,
+                        "name": "b==0",
+                        "node_type": 19,
+                        "src": {
+                          "line": 80,
+                          "column": 16,
+                          "start": 2585,
+                          "end": 2590,
+                          "length": 6,
+                          "parent_index": 121
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 11,
+                        "left_expression": {
+                          "id": 123,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 80,
+                            "column": 16,
+                            "start": 2585,
+                            "end": 2585,
+                            "length": 1,
+                            "parent_index": 122
+                          },
+                          "referenced_declaration": 112,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 124,
+                          "name": "0",
+                          "node_type": 17,
+                          "src": {
+                            "line": 80,
+                            "column": 21,
+                            "start": 2590,
+                            "end": 2590,
+                            "length": 1,
+                            "parent_index": 122
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_rational_0_by_1",
+                            "type_string": "int_const 0"
+                          },
+                          "kind": 49,
+                          "value": "0",
+                          "hex_value": "30",
+                          "is_pure": true
+                        }
+                      }
+                    },
+                    {
+                      "id": 125,
+                      "node_type": 47,
+                      "src": {
+                        "line": 81,
+                        "column": 12,
+                        "start": 2624,
+                        "end": 2644,
+                        "length": 21,
+                        "parent_index": 120
+                      },
+                      "expression": {
+                        "id": 126,
+                        "node_type": 60,
+                        "src": {
+                          "line": 81,
+                          "column": 19,
+                          "start": 2631,
+                          "end": 2643,
+                          "length": 13,
+                          "parent_index": 125
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_tuple",
+                          "type_string": "tuple(bool,uint256)"
+                        },
+                        "components": [
+                          {
+                            "id": 127,
+                            "node_type": 17,
+                            "src": {
+                              "line": 81,
+                              "column": 20,
+                              "start": 2632,
+                              "end": 2635,
+                              "length": 4,
+                              "parent_index": 126
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            "kind": 61,
+                            "value": "true",
+                            "hex_value": "74727565",
+                            "is_pure": true
+                          },
+                          {
+                            "id": 128,
+                            "name": "a%b",
+                            "node_type": 19,
+                            "src": {
+                              "line": 81,
+                              "column": 26,
+                              "start": 2638,
+                              "end": 2642,
+                              "length": 5,
+                              "parent_index": 126
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            },
+                            "operator": 5,
+                            "left_expression": {
+                              "id": 129,
+                              "name": "a",
+                              "node_type": 16,
+                              "src": {
+                                "line": 81,
+                                "column": 26,
+                                "start": 2638,
+                                "end": 2638,
+                                "length": 1,
+                                "parent_index": 128
+                              },
+                              "referenced_declaration": 110,
+                              "type_descriptions": {
+                                "type_identifier": "t_uint256",
+                                "type_string": "uint256"
+                              }
+                            },
+                            "right_expression": {
+                              "id": 130,
+                              "name": "b",
+                              "node_type": 16,
+                              "src": {
+                                "line": 81,
+                                "column": 30,
+                                "start": 2642,
+                                "end": 2642,
+                                "length": 1,
+                                "parent_index": 128
+                              },
+                              "referenced_declaration": 112,
+                              "type_descriptions": {
+                                "type_identifier": "t_uint256",
+                                "type_string": "uint256"
+                              }
+                            }
+                          }
+                        ],
+                        "function_return_parameters": 114
+                      },
+                      "function_return_parameters": 114
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 131,
+                "name": "add",
+                "node_type": 42,
+                "src": {
+                  "line": 95,
+                  "start": 2896,
+                  "end": 2991,
+                  "length": 96,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 132,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 133,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 131,
+                      "src": {
+                        "line": 95,
+                        "column": 17,
+                        "start": 2909,
+                        "end": 2917,
+                        "length": 9,
+                        "parent_index": 132
+                      },
+                      "type_name": {
+                        "id": 134,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 95,
+                          "column": 17,
+                          "start": 2909,
+                          "end": 2917,
+                          "length": 9,
+                          "parent_index": 132
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 135,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 131,
+                      "src": {
+                        "line": 95,
+                        "column": 28,
+                        "start": 2920,
+                        "end": 2928,
+                        "length": 9,
+                        "parent_index": 132
+                      },
+                      "type_name": {
+                        "id": 136,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 95,
+                          "column": 28,
+                          "start": 2920,
+                          "end": 2928,
+                          "length": 9,
+                          "parent_index": 132
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 95,
+                    "start": 2909,
+                    "end": 2928,
+                    "length": 20,
+                    "parent_index": 131
+                  }
+                },
+                "return_parameters": {
+                  "id": 137,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 138,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 131,
+                      "src": {
+                        "line": 95,
+                        "column": 62,
+                        "start": 2954,
+                        "end": 2960,
+                        "length": 7,
+                        "parent_index": 137
+                      },
+                      "type_name": {
+                        "id": 139,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 95,
+                          "column": 62,
+                          "start": 2954,
+                          "end": 2960,
+                          "length": 7,
+                          "parent_index": 137
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 95,
+                    "start": 2954,
+                    "end": 2960,
+                    "length": 7,
+                    "parent_index": 131
+                  }
+                },
+                "body": {
+                  "id": 140,
+                  "node_type": 46,
+                  "src": {
+                    "line": 95,
+                    "column": 71,
+                    "start": 2963,
+                    "end": 2991,
+                    "length": 29,
+                    "parent_index": 131
+                  },
+                  "statements": [
+                    {
+                      "id": 141,
+                      "node_type": 47,
+                      "src": {
+                        "line": 96,
+                        "column": 8,
+                        "start": 2973,
+                        "end": 2985,
+                        "length": 13,
+                        "parent_index": 140
+                      },
+                      "expression": {
+                        "id": 142,
+                        "name": "a+b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 96,
+                          "column": 15,
+                          "start": 2980,
+                          "end": 2984,
+                          "length": 5,
+                          "parent_index": 141
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 1,
+                        "left_expression": {
+                          "id": 143,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 96,
+                            "column": 15,
+                            "start": 2980,
+                            "end": 2980,
+                            "length": 1,
+                            "parent_index": 142
+                          },
+                          "referenced_declaration": 133,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 144,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 96,
+                            "column": 19,
+                            "start": 2984,
+                            "end": 2984,
+                            "length": 1,
+                            "parent_index": 142
+                          },
+                          "referenced_declaration": 135,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 137
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 145,
+                "name": "sub",
+                "node_type": 42,
+                "src": {
+                  "line": 109,
+                  "start": 3263,
+                  "end": 3358,
+                  "length": 96,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 146,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 147,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 145,
+                      "src": {
+                        "line": 109,
+                        "column": 17,
+                        "start": 3276,
+                        "end": 3284,
+                        "length": 9,
+                        "parent_index": 146
+                      },
+                      "type_name": {
+                        "id": 148,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 109,
+                          "column": 17,
+                          "start": 3276,
+                          "end": 3284,
+                          "length": 9,
+                          "parent_index": 146
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 149,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 145,
+                      "src": {
+                        "line": 109,
+                        "column": 28,
+                        "start": 3287,
+                        "end": 3295,
+                        "length": 9,
+                        "parent_index": 146
+                      },
+                      "type_name": {
+                        "id": 150,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 109,
+                          "column": 28,
+                          "start": 3287,
+                          "end": 3295,
+                          "length": 9,
+                          "parent_index": 146
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 109,
+                    "start": 3276,
+                    "end": 3295,
+                    "length": 20,
+                    "parent_index": 145
+                  }
+                },
+                "return_parameters": {
+                  "id": 151,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 152,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 145,
+                      "src": {
+                        "line": 109,
+                        "column": 62,
+                        "start": 3321,
+                        "end": 3327,
+                        "length": 7,
+                        "parent_index": 151
+                      },
+                      "type_name": {
+                        "id": 153,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 109,
+                          "column": 62,
+                          "start": 3321,
+                          "end": 3327,
+                          "length": 7,
+                          "parent_index": 151
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 109,
+                    "start": 3321,
+                    "end": 3327,
+                    "length": 7,
+                    "parent_index": 145
+                  }
+                },
+                "body": {
+                  "id": 154,
+                  "node_type": 46,
+                  "src": {
+                    "line": 109,
+                    "column": 71,
+                    "start": 3330,
+                    "end": 3358,
+                    "length": 29,
+                    "parent_index": 145
+                  },
+                  "statements": [
+                    {
+                      "id": 155,
+                      "node_type": 47,
+                      "src": {
+                        "line": 110,
+                        "column": 8,
+                        "start": 3340,
+                        "end": 3352,
+                        "length": 13,
+                        "parent_index": 154
+                      },
+                      "expression": {
+                        "id": 156,
+                        "name": "a-b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 110,
+                          "column": 15,
+                          "start": 3347,
+                          "end": 3351,
+                          "length": 5,
+                          "parent_index": 155
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 2,
+                        "left_expression": {
+                          "id": 157,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 110,
+                            "column": 15,
+                            "start": 3347,
+                            "end": 3347,
+                            "length": 1,
+                            "parent_index": 156
+                          },
+                          "referenced_declaration": 147,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 158,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 110,
+                            "column": 19,
+                            "start": 3351,
+                            "end": 3351,
+                            "length": 1,
+                            "parent_index": 156
+                          },
+                          "referenced_declaration": 149,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 151
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 159,
+                "name": "mul",
+                "node_type": 42,
+                "src": {
+                  "line": 123,
+                  "start": 3606,
+                  "end": 3701,
+                  "length": 96,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 160,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 161,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 159,
+                      "src": {
+                        "line": 123,
+                        "column": 17,
+                        "start": 3619,
+                        "end": 3627,
+                        "length": 9,
+                        "parent_index": 160
+                      },
+                      "type_name": {
+                        "id": 162,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 123,
+                          "column": 17,
+                          "start": 3619,
+                          "end": 3627,
+                          "length": 9,
+                          "parent_index": 160
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 163,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 159,
+                      "src": {
+                        "line": 123,
+                        "column": 28,
+                        "start": 3630,
+                        "end": 3638,
+                        "length": 9,
+                        "parent_index": 160
+                      },
+                      "type_name": {
+                        "id": 164,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 123,
+                          "column": 28,
+                          "start": 3630,
+                          "end": 3638,
+                          "length": 9,
+                          "parent_index": 160
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 123,
+                    "start": 3619,
+                    "end": 3638,
+                    "length": 20,
+                    "parent_index": 159
+                  }
+                },
+                "return_parameters": {
+                  "id": 165,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 166,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 159,
+                      "src": {
+                        "line": 123,
+                        "column": 62,
+                        "start": 3664,
+                        "end": 3670,
+                        "length": 7,
+                        "parent_index": 165
+                      },
+                      "type_name": {
+                        "id": 167,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 123,
+                          "column": 62,
+                          "start": 3664,
+                          "end": 3670,
+                          "length": 7,
+                          "parent_index": 165
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 123,
+                    "start": 3664,
+                    "end": 3670,
+                    "length": 7,
+                    "parent_index": 159
+                  }
+                },
+                "body": {
+                  "id": 168,
+                  "node_type": 46,
+                  "src": {
+                    "line": 123,
+                    "column": 71,
+                    "start": 3673,
+                    "end": 3701,
+                    "length": 29,
+                    "parent_index": 159
+                  },
+                  "statements": [
+                    {
+                      "id": 169,
+                      "node_type": 47,
+                      "src": {
+                        "line": 124,
+                        "column": 8,
+                        "start": 3683,
+                        "end": 3695,
+                        "length": 13,
+                        "parent_index": 168
+                      },
+                      "expression": {
+                        "id": 170,
+                        "name": "a*b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 124,
+                          "column": 15,
+                          "start": 3690,
+                          "end": 3694,
+                          "length": 5,
+                          "parent_index": 169
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 3,
+                        "left_expression": {
+                          "id": 171,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 124,
+                            "column": 15,
+                            "start": 3690,
+                            "end": 3690,
+                            "length": 1,
+                            "parent_index": 170
+                          },
+                          "referenced_declaration": 161,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 172,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 124,
+                            "column": 19,
+                            "start": 3694,
+                            "end": 3694,
+                            "length": 1,
+                            "parent_index": 170
+                          },
+                          "referenced_declaration": 163,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 165
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 173,
+                "name": "div",
+                "node_type": 42,
+                "src": {
+                  "line": 139,
+                  "start": 4166,
+                  "end": 4261,
+                  "length": 96,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 174,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 175,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 173,
+                      "src": {
+                        "line": 139,
+                        "column": 17,
+                        "start": 4179,
+                        "end": 4187,
+                        "length": 9,
+                        "parent_index": 174
+                      },
+                      "type_name": {
+                        "id": 176,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 139,
+                          "column": 17,
+                          "start": 4179,
+                          "end": 4187,
+                          "length": 9,
+                          "parent_index": 174
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 177,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 173,
+                      "src": {
+                        "line": 139,
+                        "column": 28,
+                        "start": 4190,
+                        "end": 4198,
+                        "length": 9,
+                        "parent_index": 174
+                      },
+                      "type_name": {
+                        "id": 178,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 139,
+                          "column": 28,
+                          "start": 4190,
+                          "end": 4198,
+                          "length": 9,
+                          "parent_index": 174
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 139,
+                    "start": 4179,
+                    "end": 4198,
+                    "length": 20,
+                    "parent_index": 173
+                  }
+                },
+                "return_parameters": {
+                  "id": 179,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 180,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 173,
+                      "src": {
+                        "line": 139,
+                        "column": 62,
+                        "start": 4224,
+                        "end": 4230,
+                        "length": 7,
+                        "parent_index": 179
+                      },
+                      "type_name": {
+                        "id": 181,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 139,
+                          "column": 62,
+                          "start": 4224,
+                          "end": 4230,
+                          "length": 7,
+                          "parent_index": 179
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 139,
+                    "start": 4224,
+                    "end": 4230,
+                    "length": 7,
+                    "parent_index": 173
+                  }
+                },
+                "body": {
+                  "id": 182,
+                  "node_type": 46,
+                  "src": {
+                    "line": 139,
+                    "column": 71,
+                    "start": 4233,
+                    "end": 4261,
+                    "length": 29,
+                    "parent_index": 173
+                  },
+                  "statements": [
+                    {
+                      "id": 183,
+                      "node_type": 47,
+                      "src": {
+                        "line": 140,
+                        "column": 8,
+                        "start": 4243,
+                        "end": 4255,
+                        "length": 13,
+                        "parent_index": 182
+                      },
+                      "expression": {
+                        "id": 184,
+                        "name": "a/b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 140,
+                          "column": 15,
+                          "start": 4250,
+                          "end": 4254,
+                          "length": 5,
+                          "parent_index": 183
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 4,
+                        "left_expression": {
+                          "id": 185,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 140,
+                            "column": 15,
+                            "start": 4250,
+                            "end": 4250,
+                            "length": 1,
+                            "parent_index": 184
+                          },
+                          "referenced_declaration": 175,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 186,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 140,
+                            "column": 19,
+                            "start": 4254,
+                            "end": 4254,
+                            "length": 1,
+                            "parent_index": 184
+                          },
+                          "referenced_declaration": 177,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 179
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 187,
+                "name": "mod",
+                "node_type": 42,
+                "src": {
+                  "line": 155,
+                  "start": 4715,
+                  "end": 4810,
+                  "length": 96,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 188,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 189,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 187,
+                      "src": {
+                        "line": 155,
+                        "column": 17,
+                        "start": 4728,
+                        "end": 4736,
+                        "length": 9,
+                        "parent_index": 188
+                      },
+                      "type_name": {
+                        "id": 190,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 155,
+                          "column": 17,
+                          "start": 4728,
+                          "end": 4736,
+                          "length": 9,
+                          "parent_index": 188
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 191,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 187,
+                      "src": {
+                        "line": 155,
+                        "column": 28,
+                        "start": 4739,
+                        "end": 4747,
+                        "length": 9,
+                        "parent_index": 188
+                      },
+                      "type_name": {
+                        "id": 192,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 155,
+                          "column": 28,
+                          "start": 4739,
+                          "end": 4747,
+                          "length": 9,
+                          "parent_index": 188
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 155,
+                    "start": 4728,
+                    "end": 4747,
+                    "length": 20,
+                    "parent_index": 187
+                  }
+                },
+                "return_parameters": {
+                  "id": 193,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 194,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 187,
+                      "src": {
+                        "line": 155,
+                        "column": 62,
+                        "start": 4773,
+                        "end": 4779,
+                        "length": 7,
+                        "parent_index": 193
+                      },
+                      "type_name": {
+                        "id": 195,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 155,
+                          "column": 62,
+                          "start": 4773,
+                          "end": 4779,
+                          "length": 7,
+                          "parent_index": 193
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 155,
+                    "start": 4773,
+                    "end": 4779,
+                    "length": 7,
+                    "parent_index": 187
+                  }
+                },
+                "body": {
+                  "id": 196,
+                  "node_type": 46,
+                  "src": {
+                    "line": 155,
+                    "column": 71,
+                    "start": 4782,
+                    "end": 4810,
+                    "length": 29,
+                    "parent_index": 187
+                  },
+                  "statements": [
+                    {
+                      "id": 197,
+                      "node_type": 47,
+                      "src": {
+                        "line": 156,
+                        "column": 8,
+                        "start": 4792,
+                        "end": 4804,
+                        "length": 13,
+                        "parent_index": 196
+                      },
+                      "expression": {
+                        "id": 198,
+                        "name": "a%b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 156,
+                          "column": 15,
+                          "start": 4799,
+                          "end": 4803,
+                          "length": 5,
+                          "parent_index": 197
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 5,
+                        "left_expression": {
+                          "id": 199,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 156,
+                            "column": 15,
+                            "start": 4799,
+                            "end": 4799,
+                            "length": 1,
+                            "parent_index": 198
+                          },
+                          "referenced_declaration": 189,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 200,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 156,
+                            "column": 19,
+                            "start": 4803,
+                            "end": 4803,
+                            "length": 1,
+                            "parent_index": 198
+                          },
+                          "referenced_declaration": 191,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 193
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 201,
+                "name": "sub",
+                "node_type": 42,
+                "src": {
+                  "line": 172,
+                  "start": 5275,
+                  "end": 5505,
+                  "length": 231,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 202,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 203,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 201,
+                      "src": {
+                        "line": 173,
+                        "column": 8,
+                        "start": 5297,
+                        "end": 5305,
+                        "length": 9,
+                        "parent_index": 202
+                      },
+                      "type_name": {
+                        "id": 204,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 173,
+                          "column": 8,
+                          "start": 5297,
+                          "end": 5305,
+                          "length": 9,
+                          "parent_index": 202
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 205,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 201,
+                      "src": {
+                        "line": 174,
+                        "column": 8,
+                        "start": 5316,
+                        "end": 5324,
+                        "length": 9,
+                        "parent_index": 202
+                      },
+                      "type_name": {
+                        "id": 206,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 174,
+                          "column": 8,
+                          "start": 5316,
+                          "end": 5324,
+                          "length": 9,
+                          "parent_index": 202
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 207,
+                      "mutability": 1,
+                      "name": "errorMessage",
+                      "node_type": 30,
+                      "scope": 201,
+                      "src": {
+                        "line": 175,
+                        "column": 8,
+                        "start": 5335,
+                        "end": 5360,
+                        "length": 26,
+                        "parent_index": 202
+                      },
+                      "type_name": {
+                        "id": 208,
+                        "name": "string",
+                        "node_type": 30,
+                        "src": {
+                          "line": 175,
+                          "column": 8,
+                          "start": 5335,
+                          "end": 5360,
+                          "length": 26,
+                          "parent_index": 202
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_string",
+                          "type_string": "string"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 173,
+                    "start": 5297,
+                    "end": 5360,
+                    "length": 64,
+                    "parent_index": 201
+                  }
+                },
+                "return_parameters": {
+                  "id": 209,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 210,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 201,
+                      "src": {
+                        "line": 176,
+                        "column": 29,
+                        "start": 5391,
+                        "end": 5397,
+                        "length": 7,
+                        "parent_index": 209
+                      },
+                      "type_name": {
+                        "id": 211,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 176,
+                          "column": 29,
+                          "start": 5391,
+                          "end": 5397,
+                          "length": 7,
+                          "parent_index": 209
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 176,
+                    "start": 5391,
+                    "end": 5397,
+                    "length": 7,
+                    "parent_index": 201
+                  }
+                },
+                "body": {
+                  "id": 213,
+                  "node_type": 59,
+                  "src": {
+                    "line": 176,
+                    "column": 38,
+                    "start": 5400,
+                    "end": 5505,
+                    "length": 106,
+                    "parent_index": 201
+                  },
+                  "statements": [
+                    {
+                      "id": 214,
+                      "node_type": 24,
+                      "src": {
+                        "line": 178,
+                        "column": 12,
+                        "start": 5434,
+                        "end": 5463,
+                        "length": 30,
+                        "parent_index": 213
+                      },
+                      "expression": {
+                        "id": 215,
+                        "node_type": 24,
+                        "src": {
+                          "line": 178,
+                          "column": 12,
+                          "start": 5434,
+                          "end": 5462,
+                          "length": 29,
+                          "parent_index": 214
+                        },
+                        "expression": {
+                          "id": 216,
+                          "name": "require",
+                          "node_type": 16,
+                          "src": {
+                            "line": 178,
+                            "column": 12,
+                            "start": 5434,
+                            "end": 5440,
+                            "length": 7,
+                            "parent_index": 215
+                          },
+                          "argument_types": [
+                            {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            {
+                              "type_identifier": "t_string",
+                              "type_string": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "id": 217,
+                          "name": "b\u003c=a",
+                          "node_type": 19,
+                          "src": {
+                            "line": 178,
+                            "column": 20,
+                            "start": 5442,
+                            "end": 5447,
+                            "length": 6,
+                            "parent_index": 216
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_bool",
+                            "type_string": "bool"
+                          },
+                          "operator": 10,
+                          "left_expression": {
+                            "id": 218,
+                            "name": "b",
+                            "node_type": 16,
+                            "src": {
+                              "line": 178,
+                              "column": 20,
+                              "start": 5442,
+                              "end": 5442,
+                              "length": 1,
+                              "parent_index": 217
+                            },
+                            "referenced_declaration": 205,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          },
+                          "right_expression": {
+                            "id": 219,
+                            "name": "a",
+                            "node_type": 16,
+                            "src": {
+                              "line": 178,
+                              "column": 25,
+                              "start": 5447,
+                              "end": 5447,
+                              "length": 1,
+                              "parent_index": 217
+                            },
+                            "referenced_declaration": 203,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          }
+                        },
+                        {
+                          "id": 220,
+                          "name": "errorMessage",
+                          "node_type": 16,
+                          "src": {
+                            "line": 178,
+                            "column": 28,
+                            "start": 5450,
+                            "end": 5461,
+                            "length": 12,
+                            "parent_index": 216
+                          },
+                          "referenced_declaration": 207,
+                          "type_descriptions": {
+                            "type_identifier": "t_string",
+                            "type_string": "string"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": 221,
+                      "node_type": 47,
+                      "src": {
+                        "line": 179,
+                        "column": 12,
+                        "start": 5477,
+                        "end": 5489,
+                        "length": 13,
+                        "parent_index": 213
+                      },
+                      "expression": {
+                        "id": 222,
+                        "name": "a-b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 179,
+                          "column": 19,
+                          "start": 5484,
+                          "end": 5488,
+                          "length": 5,
+                          "parent_index": 221
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 2,
+                        "left_expression": {
+                          "id": 223,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 179,
+                            "column": 19,
+                            "start": 5484,
+                            "end": 5484,
+                            "length": 1,
+                            "parent_index": 222
+                          },
+                          "referenced_declaration": 203,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 224,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 179,
+                            "column": 23,
+                            "start": 5488,
+                            "end": 5488,
+                            "length": 1,
+                            "parent_index": 222
+                          },
+                          "referenced_declaration": 205,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 209
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 225,
+                "name": "div",
+                "node_type": 42,
+                "src": {
+                  "line": 195,
+                  "start": 5990,
+                  "end": 6219,
+                  "length": 230,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 226,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 227,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 225,
+                      "src": {
+                        "line": 196,
+                        "column": 8,
+                        "start": 6012,
+                        "end": 6020,
+                        "length": 9,
+                        "parent_index": 226
+                      },
+                      "type_name": {
+                        "id": 228,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 196,
+                          "column": 8,
+                          "start": 6012,
+                          "end": 6020,
+                          "length": 9,
+                          "parent_index": 226
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 229,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 225,
+                      "src": {
+                        "line": 197,
+                        "column": 8,
+                        "start": 6031,
+                        "end": 6039,
+                        "length": 9,
+                        "parent_index": 226
+                      },
+                      "type_name": {
+                        "id": 230,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 197,
+                          "column": 8,
+                          "start": 6031,
+                          "end": 6039,
+                          "length": 9,
+                          "parent_index": 226
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 231,
+                      "mutability": 1,
+                      "name": "errorMessage",
+                      "node_type": 30,
+                      "scope": 225,
+                      "src": {
+                        "line": 198,
+                        "column": 8,
+                        "start": 6050,
+                        "end": 6075,
+                        "length": 26,
+                        "parent_index": 226
+                      },
+                      "type_name": {
+                        "id": 232,
+                        "name": "string",
+                        "node_type": 30,
+                        "src": {
+                          "line": 198,
+                          "column": 8,
+                          "start": 6050,
+                          "end": 6075,
+                          "length": 26,
+                          "parent_index": 226
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_string",
+                          "type_string": "string"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 196,
+                    "start": 6012,
+                    "end": 6075,
+                    "length": 64,
+                    "parent_index": 225
+                  }
+                },
+                "return_parameters": {
+                  "id": 233,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 234,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 225,
+                      "src": {
+                        "line": 199,
+                        "column": 29,
+                        "start": 6106,
+                        "end": 6112,
+                        "length": 7,
+                        "parent_index": 233
+                      },
+                      "type_name": {
+                        "id": 235,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 199,
+                          "column": 29,
+                          "start": 6106,
+                          "end": 6112,
+                          "length": 7,
+                          "parent_index": 233
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 199,
+                    "start": 6106,
+                    "end": 6112,
+                    "length": 7,
+                    "parent_index": 225
+                  }
+                },
+                "body": {
+                  "id": 237,
+                  "node_type": 59,
+                  "src": {
+                    "line": 199,
+                    "column": 38,
+                    "start": 6115,
+                    "end": 6219,
+                    "length": 105,
+                    "parent_index": 225
+                  },
+                  "statements": [
+                    {
+                      "id": 238,
+                      "node_type": 24,
+                      "src": {
+                        "line": 201,
+                        "column": 12,
+                        "start": 6149,
+                        "end": 6177,
+                        "length": 29,
+                        "parent_index": 237
+                      },
+                      "expression": {
+                        "id": 239,
+                        "node_type": 24,
+                        "src": {
+                          "line": 201,
+                          "column": 12,
+                          "start": 6149,
+                          "end": 6176,
+                          "length": 28,
+                          "parent_index": 238
+                        },
+                        "expression": {
+                          "id": 240,
+                          "name": "require",
+                          "node_type": 16,
+                          "src": {
+                            "line": 201,
+                            "column": 12,
+                            "start": 6149,
+                            "end": 6155,
+                            "length": 7,
+                            "parent_index": 239
+                          },
+                          "argument_types": [
+                            {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            {
+                              "type_identifier": "t_string",
+                              "type_string": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "id": 241,
+                          "name": "b\u003e0",
+                          "node_type": 19,
+                          "src": {
+                            "line": 201,
+                            "column": 20,
+                            "start": 6157,
+                            "end": 6161,
+                            "length": 5,
+                            "parent_index": 240
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_bool",
+                            "type_string": "bool"
+                          },
+                          "operator": 7,
+                          "left_expression": {
+                            "id": 242,
+                            "name": "b",
+                            "node_type": 16,
+                            "src": {
+                              "line": 201,
+                              "column": 20,
+                              "start": 6157,
+                              "end": 6157,
+                              "length": 1,
+                              "parent_index": 241
+                            },
+                            "referenced_declaration": 229,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          },
+                          "right_expression": {
+                            "id": 243,
+                            "name": "0",
+                            "node_type": 17,
+                            "src": {
+                              "line": 201,
+                              "column": 24,
+                              "start": 6161,
+                              "end": 6161,
+                              "length": 1,
+                              "parent_index": 241
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_rational_0_by_1",
+                              "type_string": "int_const 0"
+                            },
+                            "kind": 49,
+                            "value": "0",
+                            "hex_value": "30",
+                            "is_pure": true
+                          }
+                        },
+                        {
+                          "id": 244,
+                          "name": "errorMessage",
+                          "node_type": 16,
+                          "src": {
+                            "line": 201,
+                            "column": 27,
+                            "start": 6164,
+                            "end": 6175,
+                            "length": 12,
+                            "parent_index": 240
+                          },
+                          "referenced_declaration": 231,
+                          "type_descriptions": {
+                            "type_identifier": "t_string",
+                            "type_string": "string"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": 245,
+                      "node_type": 47,
+                      "src": {
+                        "line": 202,
+                        "column": 12,
+                        "start": 6191,
+                        "end": 6203,
+                        "length": 13,
+                        "parent_index": 237
+                      },
+                      "expression": {
+                        "id": 246,
+                        "name": "a/b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 202,
+                          "column": 19,
+                          "start": 6198,
+                          "end": 6202,
+                          "length": 5,
+                          "parent_index": 245
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 4,
+                        "left_expression": {
+                          "id": 247,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 202,
+                            "column": 19,
+                            "start": 6198,
+                            "end": 6198,
+                            "length": 1,
+                            "parent_index": 246
+                          },
+                          "referenced_declaration": 227,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 248,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 202,
+                            "column": 23,
+                            "start": 6202,
+                            "end": 6202,
+                            "length": 1,
+                            "parent_index": 246
+                          },
+                          "referenced_declaration": 229,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 233
+                    }
+                  ]
+                }
+              },
+              {
+                "id": 249,
+                "name": "mod",
+                "node_type": 42,
+                "src": {
+                  "line": 221,
+                  "start": 6866,
+                  "end": 7095,
+                  "length": 230,
+                  "parent_index": 3
+                },
+                "kind": 41,
+                "implemented": true,
+                "visibility": 1,
+                "state_mutability": 1,
+                "parameters": {
+                  "id": 250,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 251,
+                      "mutability": 1,
+                      "name": "a",
+                      "node_type": 30,
+                      "scope": 249,
+                      "src": {
+                        "line": 222,
+                        "column": 8,
+                        "start": 6888,
+                        "end": 6896,
+                        "length": 9,
+                        "parent_index": 250
+                      },
+                      "type_name": {
+                        "id": 252,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 222,
+                          "column": 8,
+                          "start": 6888,
+                          "end": 6896,
+                          "length": 9,
+                          "parent_index": 250
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 253,
+                      "mutability": 1,
+                      "name": "b",
+                      "node_type": 30,
+                      "scope": 249,
+                      "src": {
+                        "line": 223,
+                        "column": 8,
+                        "start": 6907,
+                        "end": 6915,
+                        "length": 9,
+                        "parent_index": 250
+                      },
+                      "type_name": {
+                        "id": 254,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 223,
+                          "column": 8,
+                          "start": 6907,
+                          "end": 6915,
+                          "length": 9,
+                          "parent_index": 250
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    },
+                    {
+                      "id": 255,
+                      "mutability": 1,
+                      "name": "errorMessage",
+                      "node_type": 30,
+                      "scope": 249,
+                      "src": {
+                        "line": 224,
+                        "column": 8,
+                        "start": 6926,
+                        "end": 6951,
+                        "length": 26,
+                        "parent_index": 250
+                      },
+                      "type_name": {
+                        "id": 256,
+                        "name": "string",
+                        "node_type": 30,
+                        "src": {
+                          "line": 224,
+                          "column": 8,
+                          "start": 6926,
+                          "end": 6951,
+                          "length": 26,
+                          "parent_index": 250
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_string",
+                          "type_string": "string"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 222,
+                    "start": 6888,
+                    "end": 6951,
+                    "length": 64,
+                    "parent_index": 249
+                  }
+                },
+                "return_parameters": {
+                  "id": 257,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 258,
+                      "mutability": 1,
+                      "node_type": 30,
+                      "scope": 249,
+                      "src": {
+                        "line": 225,
+                        "column": 29,
+                        "start": 6982,
+                        "end": 6988,
+                        "length": 7,
+                        "parent_index": 257
+                      },
+                      "type_name": {
+                        "id": 259,
+                        "name": "uint256",
+                        "node_type": 30,
+                        "src": {
+                          "line": 225,
+                          "column": 29,
+                          "start": 6982,
+                          "end": 6988,
+                          "length": 7,
+                          "parent_index": 257
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        }
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 225,
+                    "start": 6982,
+                    "end": 6988,
+                    "length": 7,
+                    "parent_index": 249
+                  }
+                },
+                "body": {
+                  "id": 261,
+                  "node_type": 59,
+                  "src": {
+                    "line": 225,
+                    "column": 38,
+                    "start": 6991,
+                    "end": 7095,
+                    "length": 105,
+                    "parent_index": 249
+                  },
+                  "statements": [
+                    {
+                      "id": 262,
+                      "node_type": 24,
+                      "src": {
+                        "line": 227,
+                        "column": 12,
+                        "start": 7025,
+                        "end": 7053,
+                        "length": 29,
+                        "parent_index": 261
+                      },
+                      "expression": {
+                        "id": 263,
+                        "node_type": 24,
+                        "src": {
+                          "line": 227,
+                          "column": 12,
+                          "start": 7025,
+                          "end": 7052,
+                          "length": 28,
+                          "parent_index": 262
+                        },
+                        "expression": {
+                          "id": 264,
+                          "name": "require",
+                          "node_type": 16,
+                          "src": {
+                            "line": 227,
+                            "column": 12,
+                            "start": 7025,
+                            "end": 7031,
+                            "length": 7,
+                            "parent_index": 263
+                          },
+                          "argument_types": [
+                            {
+                              "type_identifier": "t_bool",
+                              "type_string": "bool"
+                            },
+                            {
+                              "type_identifier": "t_string",
+                              "type_string": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "id": 265,
+                          "name": "b\u003e0",
+                          "node_type": 19,
+                          "src": {
+                            "line": 227,
+                            "column": 20,
+                            "start": 7033,
+                            "end": 7037,
+                            "length": 5,
+                            "parent_index": 264
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_bool",
+                            "type_string": "bool"
+                          },
+                          "operator": 7,
+                          "left_expression": {
+                            "id": 266,
+                            "name": "b",
+                            "node_type": 16,
+                            "src": {
+                              "line": 227,
+                              "column": 20,
+                              "start": 7033,
+                              "end": 7033,
+                              "length": 1,
+                              "parent_index": 265
+                            },
+                            "referenced_declaration": 253,
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
+                            }
+                          },
+                          "right_expression": {
+                            "id": 267,
+                            "name": "0",
+                            "node_type": 17,
+                            "src": {
+                              "line": 227,
+                              "column": 24,
+                              "start": 7037,
+                              "end": 7037,
+                              "length": 1,
+                              "parent_index": 265
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_rational_0_by_1",
+                              "type_string": "int_const 0"
+                            },
+                            "kind": 49,
+                            "value": "0",
+                            "hex_value": "30",
+                            "is_pure": true
+                          }
+                        },
+                        {
+                          "id": 268,
+                          "name": "errorMessage",
+                          "node_type": 16,
+                          "src": {
+                            "line": 227,
+                            "column": 27,
+                            "start": 7040,
+                            "end": 7051,
+                            "length": 12,
+                            "parent_index": 264
+                          },
+                          "referenced_declaration": 255,
+                          "type_descriptions": {
+                            "type_identifier": "t_string",
+                            "type_string": "string"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": 269,
+                      "node_type": 47,
+                      "src": {
+                        "line": 228,
+                        "column": 12,
+                        "start": 7067,
+                        "end": 7079,
+                        "length": 13,
+                        "parent_index": 261
+                      },
+                      "expression": {
+                        "id": 270,
+                        "name": "a%b",
+                        "node_type": 19,
+                        "src": {
+                          "line": 228,
+                          "column": 19,
+                          "start": 7074,
+                          "end": 7078,
+                          "length": 5,
+                          "parent_index": 269
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_uint256",
+                          "type_string": "uint256"
+                        },
+                        "operator": 5,
+                        "left_expression": {
+                          "id": 271,
+                          "name": "a",
+                          "node_type": 16,
+                          "src": {
+                            "line": 228,
+                            "column": 19,
+                            "start": 7074,
+                            "end": 7074,
+                            "length": 1,
+                            "parent_index": 270
+                          },
+                          "referenced_declaration": 251,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 272,
+                          "name": "b",
+                          "node_type": 16,
+                          "src": {
+                            "line": 228,
+                            "column": 23,
+                            "start": 7078,
+                            "end": 7078,
+                            "length": 1,
+                            "parent_index": 270
+                          },
+                          "referenced_declaration": 253,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        }
+                      },
+                      "function_return_parameters": 257
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "src": {
+        "line": 18,
+        "start": 622
+      },
+      "comments": [
+        {
+          "node_type": 33,
+          "src": {
+            "line": 1,
+            "end": 30,
+            "length": 31,
+            "parent_index": 1
+          },
+          "value": "// SPDX-License-Identifier: MIT"
+        },
+        {
+          "id": 1,
+          "node_type": 32,
+          "src": {
+            "line": 5,
+            "start": 58,
+            "end": 620,
+            "length": 563,
+            "parent_index": 1
+          },
+          "value": "/**\n * @dev Wrappers over Solidity's arithmetic operations with added overflow\n * checks.\n *\n * Arithmetic operations in Solidity wrap on overflow. This can easily result\n * in bugs, because programmers usually assume that an overflow raises an\n * error, which is the standard behavior in high level programming languages.\n * `SafeMath` restores this intuition by reverting the transaction when an\n * operation overflows.\n *\n * Using this library instead of the unchecked operations eliminates an entire\n * class of bugs, so it's recommended to use it always.\n */"
+        },
+        {
+          "id": 2,
+          "node_type": 32,
+          "src": {
+            "line": 19,
+            "column": 4,
+            "start": 645,
+            "end": 775,
+            "length": 131,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the addition of two unsigned integers, with an overflow flag.\n     *\n     * _Available since v3.4._\n     */"
+        },
+        {
+          "id": 3,
+          "node_type": 32,
+          "src": {
+            "line": 32,
+            "column": 4,
+            "start": 1003,
+            "end": 1137,
+            "length": 135,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the substraction of two unsigned integers, with an overflow flag.\n     *\n     * _Available since v3.4._\n     */"
+        },
+        {
+          "id": 4,
+          "node_type": 32,
+          "src": {
+            "line": 44,
+            "column": 4,
+            "start": 1338,
+            "end": 1474,
+            "length": 137,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.\n     *\n     * _Available since v3.4._\n     */"
+        },
+        {
+          "id": 5,
+          "node_type": 31,
+          "src": {
+            "line": 51,
+            "column": 12,
+            "start": 1590,
+            "end": 1668,
+            "length": 79,
+            "parent_index": 1
+          },
+          "value": "// Gas optimization: this is cheaper than requiring 'a' not being zero, but the"
+        },
+        {
+          "id": 6,
+          "node_type": 31,
+          "src": {
+            "line": 52,
+            "column": 12,
+            "start": 1682,
+            "end": 1722,
+            "length": 41,
+            "parent_index": 1
+          },
+          "value": "// benefit is lost if 'b' is also tested."
+        },
+        {
+          "id": 7,
+          "node_type": 31,
+          "src": {
+            "line": 53,
+            "column": 12,
+            "start": 1736,
+            "end": 1806,
+            "length": 71,
+            "parent_index": 1
+          },
+          "value": "// See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522"
+        },
+        {
+          "id": 8,
+          "node_type": 32,
+          "src": {
+            "line": 61,
+            "column": 4,
+            "start": 1979,
+            "end": 2116,
+            "length": 138,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the division of two unsigned integers, with a division by zero flag.\n     *\n     * _Available since v3.4._\n     */"
+        },
+        {
+          "id": 9,
+          "node_type": 32,
+          "src": {
+            "line": 73,
+            "column": 4,
+            "start": 2318,
+            "end": 2465,
+            "length": 148,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.\n     *\n     * _Available since v3.4._\n     */"
+        },
+        {
+          "id": 10,
+          "node_type": 32,
+          "src": {
+            "line": 85,
+            "column": 4,
+            "start": 2667,
+            "end": 2890,
+            "length": 224,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the addition of two unsigned integers, reverting on\n     * overflow.\n     *\n     * Counterpart to Solidity's `+` operator.\n     *\n     * Requirements:\n     *\n     * - Addition cannot overflow.\n     */"
+        },
+        {
+          "id": 11,
+          "node_type": 32,
+          "src": {
+            "line": 99,
+            "column": 4,
+            "start": 2998,
+            "end": 3257,
+            "length": 260,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the subtraction of two unsigned integers, reverting on\n     * overflow (when the result is negative).\n     *\n     * Counterpart to Solidity's `-` operator.\n     *\n     * Requirements:\n     *\n     * - Subtraction cannot overflow.\n     */"
+        },
+        {
+          "id": 12,
+          "node_type": 32,
+          "src": {
+            "line": 113,
+            "column": 4,
+            "start": 3365,
+            "end": 3600,
+            "length": 236,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the multiplication of two unsigned integers, reverting on\n     * overflow.\n     *\n     * Counterpart to Solidity's `*` operator.\n     *\n     * Requirements:\n     *\n     * - Multiplication cannot overflow.\n     */"
+        },
+        {
+          "id": 13,
+          "node_type": 32,
+          "src": {
+            "line": 127,
+            "column": 4,
+            "start": 3708,
+            "end": 4160,
+            "length": 453,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the integer division of two unsigned integers, reverting on\n     * division by zero. The result is rounded towards zero.\n     *\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\n     * uses an invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     *\n     * - The divisor cannot be zero.\n     */"
+        },
+        {
+          "id": 14,
+          "node_type": 32,
+          "src": {
+            "line": 143,
+            "column": 4,
+            "start": 4268,
+            "end": 4709,
+            "length": 442,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\n     * reverting when dividing by zero.\n     *\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\n     * invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     *\n     * - The divisor cannot be zero.\n     */"
+        },
+        {
+          "id": 15,
+          "node_type": 32,
+          "src": {
+            "line": 159,
+            "column": 4,
+            "start": 4817,
+            "end": 5269,
+            "length": 453,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\n     * overflow (when the result is negative).\n     *\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\n     * message unnecessarily. For custom revert reasons use {trySub}.\n     *\n     * Counterpart to Solidity's `-` operator.\n     *\n     * Requirements:\n     *\n     * - Subtraction cannot overflow.\n     */"
+        },
+        {
+          "id": 16,
+          "node_type": 32,
+          "src": {
+            "line": 183,
+            "column": 4,
+            "start": 5512,
+            "end": 5984,
+            "length": 473,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the integer division of two unsigned integers, reverting with custom message on\n     * division by zero. The result is rounded towards zero.\n     *\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\n     * uses an invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     *\n     * - The divisor cannot be zero.\n     */"
+        },
+        {
+          "id": 17,
+          "node_type": 32,
+          "src": {
+            "line": 206,
+            "column": 4,
+            "start": 6226,
+            "end": 6860,
+            "length": 635,
+            "parent_index": 1
+          },
+          "value": "/**\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\n     * reverting with custom message when dividing by zero.\n     *\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\n     * message unnecessarily. For custom revert reasons use {tryMod}.\n     *\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\n     * invalid opcode to revert (consuming all remaining gas).\n     *\n     * Requirements:\n     *\n     * - The divisor cannot be zero.\n     */"
+        }
+      ]
+    }
+  ]
+}

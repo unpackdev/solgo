@@ -68,6 +68,11 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Path:    "IERC20.sol",
 						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
 					},
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
+					},
 				},
 				BaseSourceUnit: "TokenSale",
 			},
@@ -96,11 +101,25 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			syntaxErrs := parser.Parse()
 			assert.Empty(t, syntaxErrs)
 
-			prettyJson, err := astBuilder.ToPrettyJSON()
+			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
+				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)
+				assert.NoError(t, err)
+				assert.NotEmpty(t, prettyJson)
+
+				err = astBuilder.WriteToFile(
+					"../data/tests/ast/"+sourceUnit.GetName()+".solgo.ast.json",
+					prettyJson,
+				)
+				assert.NoError(t, err)
+			}
+
+			prettyJson, err := astBuilder.ToPrettyJSON(astBuilder.GetRoot())
 			assert.NoError(t, err)
 			assert.NotEmpty(t, prettyJson)
-
-			err = astBuilder.WritePrettyJSONToFile("../data/tests/ast/" + testCase.sources.BaseSourceUnit + ".solgo.ast.json")
+			err = astBuilder.WriteToFile(
+				"../data/tests/ast/"+testCase.sources.BaseSourceUnit+".solgo.ast.json",
+				prettyJson,
+			)
 			assert.NoError(t, err)
 
 			astJson, err := astBuilder.ToJSON()

@@ -75,8 +75,8 @@ func (b *ASTBuilder) parseInterfaceDefinition(sourceUnitCtx *parser.SourceUnitCo
 			ParentIndex: sourceUnit.Id,
 		},
 		Abstract: false,
-		NodeType: ast_pb.NodeType_CONTRACT_DEFINITION,
-		Kind:     ast_pb.NodeType_KIND_CONTRACT,
+		NodeType: ast_pb.NodeType_INTERFACE_DEFINITION,
+		Kind:     ast_pb.NodeType_KIND_INTERFACE,
 	}
 
 	// Discover linearized base contracts...

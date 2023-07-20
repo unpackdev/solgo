@@ -49,8 +49,8 @@ func (b *ASTBuilder) ToJSONString() (string, error) {
 	return string(bts), nil
 }
 
-func (b *ASTBuilder) ToPrettyJSON() ([]byte, error) {
-	return json.MarshalIndent(b.astRoot, "", "  ")
+func (b *ASTBuilder) ToPrettyJSON(data interface{}) ([]byte, error) {
+	return json.MarshalIndent(data, "", "  ")
 }
 
 func (b *ASTBuilder) WriteJSONToFile(path string) error {
@@ -61,16 +61,8 @@ func (b *ASTBuilder) WriteJSONToFile(path string) error {
 	return ioutil.WriteFile(path, bts, 0644)
 }
 
-func (b *ASTBuilder) WritePrettyJSONToFile(path string) error {
-	bts, err := b.ToPrettyJSON()
-	if err != nil {
-		return err
-	}
-	return ioutil.WriteFile(path, bts, 0644)
-}
-
-func (b *ASTBuilder) NodeToPrettyJson(node interface{}) ([]byte, error) {
-	return json.MarshalIndent(node, "", "  ")
+func (b *ASTBuilder) WriteToFile(path string, data []byte) error {
+	return ioutil.WriteFile(path, data, 0644)
 }
 
 func (b *ASTBuilder) NodeToJson(node interface{}) ([]byte, error) {
