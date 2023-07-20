@@ -381,7 +381,6 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 					)
 				}
 			}
-			//b.dumpNode(toReturn)
 		}
 
 	case *parser.MemberAccessContext:
