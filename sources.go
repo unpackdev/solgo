@@ -13,8 +13,8 @@ type SourceUnit struct {
 }
 
 type Sources struct {
-	SourceUnits    []SourceUnit `yaml:"source_units" json:"source_units"`
-	BaseSourceUnit string       `yaml:"base_source_unit" json:"base_source_unit"`
+	SourceUnits         []SourceUnit `yaml:"source_units" json:"source_units"`
+	EntrySourceUnitName string       `yaml:"entry_source_unit" json:"base_source_unit"`
 }
 
 func (s Sources) Prepare() error {
@@ -64,12 +64,4 @@ func (s Sources) GetSourceUnitByPath(path string) *SourceUnit {
 		}
 	}
 	return nil
-}
-
-func (s Sources) Merge() string {
-	var toReturn string
-	for _, sourceUnit := range s.SourceUnits {
-		toReturn += sourceUnit.Content
-	}
-	return toReturn
 }

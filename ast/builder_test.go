@@ -92,6 +92,29 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "ERC20",
 			},
 		},
+		{
+			name: "Token Sale ERC20 Test",
+			sources: solgo.Sources{
+				SourceUnits: []solgo.SourceUnit{
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
+					},
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+					},
+					{
+						Name:    "TokenSale",
+						Path:    "TokenSale.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
+					},
+				},
+				EntrySourceUnitName: "TokenSale",
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
