@@ -79,19 +79,6 @@ func (b *ASTBuilder) findImportPathsForSourceUnit(
 					absolutePath := filepath.Base(source.Path)
 					if importNode.AbsolutePath == absolutePath {
 						importNode.SourceUnit = sourceUnit.Id
-						for _, symbol := range sourceUnit.ExportedSymbols {
-							if symbol.AbsolutePath == absolutePath {
-								currentSourceUnit.ExportedSymbols = append(
-									currentSourceUnit.ExportedSymbols,
-									&ast_pb.ExportedSymbol{
-										Id:           symbol.Id,
-										Name:         symbol.Name,
-										AbsolutePath: absolutePath,
-									},
-								)
-								break
-							}
-						}
 					}
 				}
 			}
@@ -101,14 +88,37 @@ func (b *ASTBuilder) findImportPathsForSourceUnit(
 	}
 
 	filteredImports := make([]*ast_pb.Node, 0)
-	maxLine := int64(-1)
 
 	for i := len(imports) - 1; i >= 0; i-- {
-		pragma := imports[i]
-		if maxLine == -1 || (int64(contractLine)-pragma.Src.Line <= 20 && pragma.Src.Line-maxLine >= -1) {
-			pragma.Src.ParentIndex = currentSourceUnit.Id
-			filteredImports = append([]*ast_pb.Node{pragma}, filteredImports...)
-			maxLine = pragma.Src.Line
+		importNode := imports[i]
+		/* 		fmt.Println(
+			importNode.Src.Line,
+			contractLine,
+			contractLine-importNode.Src.Line,
+			importNode.AbsolutePath,
+			importNode.Src.Line-int64(contractLine),
+			(int64(contractLine)-importNode.Src.Line <= 20 && int64(contractLine)-importNode.Src.Line >= -1),
+		) */
+		if int64(contractLine)-importNode.Src.Line <= 20 && int64(contractLine)-importNode.Src.Line >= -1 {
+			importNode.Src.ParentIndex = currentSourceUnit.Id
+			filteredImports = append([]*ast_pb.Node{importNode}, filteredImports...)
+		}
+	}
+
+	for _, importNode := range filteredImports {
+		for _, sourceUnit := range b.sourceUnits {
+			for _, symbol := range sourceUnit.ExportedSymbols {
+				if symbol.AbsolutePath == importNode.AbsolutePath {
+					currentSourceUnit.ExportedSymbols = append(
+						currentSourceUnit.ExportedSymbols,
+						&ast_pb.ExportedSymbol{
+							Id:           symbol.Id,
+							Name:         symbol.Name,
+							AbsolutePath: symbol.AbsolutePath,
+						},
+					)
+				}
+			}
 		}
 	}
 

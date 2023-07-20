@@ -78,6 +78,11 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Path:    "IERC20Metadata.sol",
 						Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
 					},
+					{
+						Name:    "Context",
+						Path:    "Context.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
+					},
 				},
 				BaseSourceUnit: "TokenSale",
 			},

@@ -38,6 +38,10 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 			node.StateMutability = ast_pb.Mutability_IMMUTABLE
 		} else if stateMutability.GetText() == "payable" {
 			node.StateMutability = ast_pb.Mutability_PAYABLE
+		} else if stateMutability.GetText() == "pure" {
+			node.StateMutability = ast_pb.Mutability_PURE
+		} else if stateMutability.GetText() == "view" {
+			node.StateMutability = ast_pb.Mutability_VIEW
 		} else {
 			node.StateMutability = ast_pb.Mutability_MUTABLE
 		}
@@ -47,16 +51,16 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 		node.StateMutability = ast_pb.Mutability_NONPAYABLE
 	}
 
+	// Check if function is virtual.
+	for _, virtual := range fd.AllVirtual() {
+		node.Virtual = virtual.GetText() == "virtual"
+	}
+
 	// Get function modifiers.
 	for _, modifier := range fd.AllModifierInvocation() {
 		panic("Modifier here...")
 		_ = modifier
 		//node.Modifiers = append(node.Modifiers, modifier.GetText())
-	}
-
-	// Check if function is virtual.
-	for _, virtual := range fd.AllVirtual() {
-		node.Virtual = virtual.GetText() == "virtual"
 	}
 
 	// Check if function is override.

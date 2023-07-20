@@ -74,7 +74,7 @@ func (b *ASTBuilder) parseContractDefinition(sourceUnitCtx *parser.SourceUnitCon
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: sourceUnit.Id,
 		},
-		Abstract:             false,
+		Abstract:             ctx.Abstract() != nil,
 		NodeType:             ast_pb.NodeType_CONTRACT_DEFINITION,
 		Kind:                 ast_pb.NodeType_KIND_CONTRACT,
 		BaseContracts:        make([]*ast_pb.BaseContract, 0),
