@@ -75,8 +75,6 @@ func (b *ASTBuilder) parseSimpleStatement(sourceUnit *ast_pb.SourceUnit, node *a
 			sourceUnit, node, bodyNode, toReturn,
 			expressionStatement.(*parser.ExpressionStatementContext),
 		)
-	} else {
-		panic("Unknown simple statement type...")
 	}
 
 	return toReturn

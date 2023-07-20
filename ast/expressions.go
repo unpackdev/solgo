@@ -341,12 +341,12 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 			}
 		}
 
-		/* 		for _, treeCtx := range childCtx.GetChildren() {
-			switch cCtx := treeCtx.(type) {
-			case *parser.IdentifierContext:
-				fmt.Println(cCtx.Identifier().GetSymbol())
-			}
-		} */
+		if toReturn.TypeDescriptions == nil {
+			zap.L().Warn(
+				"Unknown primary expression type description",
+				zap.String("name", childCtx.GetText()),
+			)
+		}
 
 	case *parser.MemberAccessContext:
 		toReturn.NodeType = ast_pb.NodeType_MEMBER_ACCESS
@@ -395,6 +395,11 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 							TypeIdentifier: "t_bytes_calldata_ptr",
 							TypeString:     "bytes calldata",
 						}
+					default:
+						zap.L().Warn(
+							"Unknown magic message member",
+							zap.String("member", toReturn.MemberName),
+						)
 					}
 				}
 			}
@@ -420,6 +425,7 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 				sourceUnit, fnNode, bodyNode, toReturn, toReturn.Id, childCtx.Expression(),
 			)
 		}
+
 	case *parser.AddSubOperationContext:
 		toReturn.NodeType = ast_pb.NodeType_BINARY_OPERATION
 
@@ -503,7 +509,10 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 		}
 
 	default:
-		panic(fmt.Sprintf("Expression Reflect Unimplemented: %s \n", reflect.TypeOf(childCtx)))
+		zap.L().Warn(
+			"Expression type not implemented...",
+			zap.String("reflection_type", reflect.TypeOf(childCtx).String()),
+		)
 	}
 
 	return toReturn

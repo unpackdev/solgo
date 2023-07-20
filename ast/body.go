@@ -56,8 +56,10 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 		panic("Struct definition....")
 	} else if enumDefinition := bodyElement.EnumDefinition(); enumDefinition != nil {
 		panic("Enum definition....")
-	} else {
-		panic("Another type of body element that needs to be parsed...")
+	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
+		panic("User defined value....")
+	} else if errorDefinition := bodyElement.ErrorDefinition(); errorDefinition != nil {
+		panic("Error definition....")
 	}
 
 	return toReturn

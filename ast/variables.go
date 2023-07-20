@@ -5,6 +5,7 @@ import (
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
 func (b *ASTBuilder) parseStateVariableDeclaration(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, ctx *parser.StateVariableDeclarationContext) *ast_pb.Node {
@@ -143,7 +144,12 @@ func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, nod
 	}
 
 	if variableCtx.VariableDeclarationTuple() != nil {
-		panic("Tuple is fucking finally not nil...")
+		zap.L().Warn(
+			"Variable declaration tuple found, we should implement it...",
+			zap.Int("line", int(declaration.Src.Line)),
+			zap.String("declaration_name", declaration.Name),
+			zap.String("declaration_type_name", declaration.TypeName.Name),
+		)
 	}
 
 	expressionCtx := variableCtx.Expression()
@@ -178,13 +184,8 @@ func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, nod
 		argument.NodeType = ast_pb.NodeType_BINARY_OPERATION
 		argument.Operator = ast_pb.Operator_ADDITION
 
-		operatorCtx := childCtx.AllExpression()
-		if len(operatorCtx) != 2 {
-			panic("Expected two operands for binary operation...")
-		}
-
-		leftHandExpressionCtx := operatorCtx[0]
-		rightHandExpressionCtx := operatorCtx[1]
+		leftHandExpressionCtx := childCtx.Expression(0)
+		rightHandExpressionCtx := childCtx.Expression(1)
 
 		leftHandExpression := &ast_pb.Expression{
 			Id: atomic.AddInt64(&b.nextID, 1) - 1,
