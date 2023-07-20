@@ -16,7 +16,7 @@ func (b *ASTBuilder) parseEnumDefinition(sourceUnit *ast_pb.SourceUnit, enumNode
 	for _, enumCtx := range ctx.GetEnumValues() {
 		enumNode.Members = append(
 			enumNode.Members,
-			&ast_pb.EnumMember{
+			&ast_pb.Parameter{
 				Id: atomic.AddInt64(&b.nextID, 1) - 1,
 				Src: &ast_pb.Src{
 					Line:        int64(enumCtx.GetStart().GetLine()),

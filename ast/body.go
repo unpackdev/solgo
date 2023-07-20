@@ -50,20 +50,24 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 			toReturn,
 			constructorDefinition.(*parser.ConstructorDefinitionContext),
 		)
-	} else if modifierDefinition := bodyElement.ModifierDefinition(); modifierDefinition != nil {
-		panic("Modifier definition....")
-	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {
-		panic("Fallback function definition....")
-	} else if receiveFunctionDefinition := bodyElement.ReceiveFunctionDefinition(); receiveFunctionDefinition != nil {
-		panic("Receive function definition....")
-	} else if structDefinition := bodyElement.StructDefinition(); structDefinition != nil {
-		panic("Struct definition....")
 	} else if enumDefinition := bodyElement.EnumDefinition(); enumDefinition != nil {
 		toReturn = b.parseEnumDefinition(
 			sourceUnit,
 			toReturn,
 			enumDefinition.(*parser.EnumDefinitionContext),
 		)
+	} else if structDefinition := bodyElement.StructDefinition(); structDefinition != nil {
+		toReturn = b.parseStructDefinition(
+			sourceUnit,
+			toReturn,
+			structDefinition.(*parser.StructDefinitionContext),
+		)
+	} else if modifierDefinition := bodyElement.ModifierDefinition(); modifierDefinition != nil {
+		panic("Modifier definition....")
+	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {
+		panic("Fallback function definition....")
+	} else if receiveFunctionDefinition := bodyElement.ReceiveFunctionDefinition(); receiveFunctionDefinition != nil {
+		panic("Receive function definition....")
 	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
 		panic("User defined value....")
 	} else if errorDefinition := bodyElement.ErrorDefinition(); errorDefinition != nil {

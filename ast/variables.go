@@ -199,7 +199,7 @@ func (b *ASTBuilder) generateTypeName(ctx interface{}, node *ast_pb.Node, typeNa
 			zap.L().Warn(
 				"Unsupported type name @ state variable traversal",
 				zap.String("type_name", specificCtx.GetText()),
-				zap.String("type_name_node_type", typeNameNode.NodeType.String()),
+				zap.String("type_name_node_type", typeNameNode.String()),
 				zap.String("type", fmt.Sprintf("%T", specificCtx)),
 			)
 		}
