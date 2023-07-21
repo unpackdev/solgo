@@ -64,15 +64,27 @@ func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.
 	}
 
 	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {
-		panic("It's revert statement...")
+		return b.parseRevertStatement(
+			sourceUnit,
+			node, bodyNode,
+			revertStatement.(*parser.RevertStatementContext),
+		)
 	}
 
 	if forStatement := statementCtx.ForStatement(); forStatement != nil {
-		panic("It's for statement...")
+		return b.parseForLoopStatement(
+			sourceUnit,
+			node, bodyNode,
+			forStatement.(*parser.ForStatementContext),
+		)
 	}
 
 	if doWhileStatement := statementCtx.DoWhileStatement(); doWhileStatement != nil {
-		panic("It's do while statement...")
+		return b.parseDoWhileStatement(
+			sourceUnit,
+			node, bodyNode,
+			doWhileStatement.(*parser.DoWhileStatementContext),
+		)
 	}
 
 	return nil

@@ -113,11 +113,36 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 	toReturn := &ast_pb.Expression{
 		Id: atomic.AddInt64(&b.nextID, 1) - 1,
 		Src: &ast_pb.Src{
-			Line:        int64(expressionCtx.GetStart().GetLine()),
-			Column:      int64(expressionCtx.GetStart().GetColumn()),
-			Start:       int64(expressionCtx.GetStart().GetStart()),
-			End:         int64(expressionCtx.GetStop().GetStop()),
-			Length:      int64(expressionCtx.GetStop().GetStop() - expressionCtx.GetStart().GetStart() + 1),
+			Line: func() int64 {
+				if expressionCtx.GetStart() != nil {
+					return int64(expressionCtx.GetStart().GetLine())
+				}
+				return 0
+			}(),
+			Column: func() int64 {
+				if expressionCtx.GetStart() != nil {
+					return int64(expressionCtx.GetStart().GetColumn())
+				}
+				return 0
+			}(),
+			Start: func() int64 {
+				if expressionCtx.GetStart() != nil {
+					return int64(expressionCtx.GetStart().GetStart())
+				}
+				return 0
+			}(),
+			End: func() int64 {
+				if expressionCtx.GetStop() != nil {
+					return int64(expressionCtx.GetStop().GetStop())
+				}
+				return 0
+			}(),
+			Length: func() int64 {
+				if expressionCtx.GetStart() != nil && expressionCtx.GetStop() != nil {
+					return int64(expressionCtx.GetStop().GetStop()) - int64(expressionCtx.GetStart().GetStart())
+				}
+				return 0
+			}(),
 			ParentIndex: parentIndex,
 		},
 		Name:                   expressionCtx.GetText(),
@@ -167,6 +192,16 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 					toReturn.ReferencedDeclaration = parameter.Id
 					toReturn.TypeDescriptions = parameter.GetTypeName().GetTypeDescriptions()
 				}
+			}
+		}
+	}
+
+	if !referenceFound {
+		for _, errorNode := range b.currentErrors {
+			if errorNode.GetName() == expressionCtx.GetText() {
+				referenceFound = true
+				toReturn.ReferencedDeclaration = errorNode.Id
+				toReturn.TypeDescriptions = errorNode.GetTypeName().GetTypeDescriptions()
 			}
 		}
 	}

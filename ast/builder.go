@@ -23,6 +23,7 @@ type ASTBuilder struct {
 	currentEvents         []*ast_pb.Node
 	currentEnums          []*ast_pb.Node
 	currentStructs        []*ast_pb.Node
+	currentErrors         []*ast_pb.Node
 	astRoot               *ast_pb.RootSourceUnit
 	entrySourceUnit       *ast_pb.Node
 }

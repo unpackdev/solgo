@@ -91,6 +91,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "ERC20",
 			},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
 		},
 		{
 			name: "Token Sale ERC20 Test",
@@ -114,6 +115,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "TokenSale",
 			},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
 		},
 		{
 			name: "Lottery Test",
@@ -127,6 +129,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "Lottery",
 			},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast")),
 		},
 	}
 

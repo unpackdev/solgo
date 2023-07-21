@@ -5,6 +5,7 @@ import (
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
 func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierNode *ast_pb.Node, bodyElement parser.IContractBodyElementContext) *ast_pb.Node {
@@ -80,10 +81,18 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 			toReturn,
 			receiveFunctionDefinition.(*parser.ReceiveFunctionDefinitionContext),
 		)
-	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
-		panic("User defined value....")
 	} else if errorDefinition := bodyElement.ErrorDefinition(); errorDefinition != nil {
-		panic("Error definition....")
+		toReturn = b.parseErrorDefinition(
+			sourceUnit,
+			toReturn,
+			errorDefinition.(*parser.ErrorDefinitionContext),
+		)
+	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
+		zap.L().Warn(
+			"User defined value type definition not implemented",
+			zap.String("source_unit_name", sourceUnit.GetName()),
+			zap.Int64("line", int64(bodyElement.GetStart().GetLine())),
+		)
 	}
 
 	return toReturn

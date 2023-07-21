@@ -353,9 +353,11 @@ func (b *ASTBuilder) parseVariableDeclaration(sourceUnit *ast_pb.SourceUnit, nod
 	statementNode.Declarations = append(statementNode.Declarations, declaration)
 	statementNode.Assignments = append(statementNode.Assignments, declaration.Id)
 
-	statementNode.InitialValue = b.parseExpression(
-		sourceUnit, node, bodyNode, nil, statementNode.Id, variableCtx.Expression(),
-	)
+	if variableCtx.Expression() != nil {
+		statementNode.InitialValue = b.parseExpression(
+			sourceUnit, node, bodyNode, nil, statementNode.Id, variableCtx.Expression(),
+		)
+	}
 
 	return statementNode
 }
