@@ -420,6 +420,17 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 		}
 
 		if toReturn.Expression != nil {
+			for _, enum := range b.currentEnums {
+				if enum.Name == toReturn.Expression.Name {
+					toReturn.ReferencedDeclaration = enum.Id
+					toReturn.TypeDescriptions = enum.TypeDescriptions
+
+					if toReturn.Expression.TypeDescriptions == nil {
+						toReturn.Expression.TypeDescriptions = enum.TypeDescriptions
+					}
+				}
+			}
+
 			if toReturn.Expression.TypeDescriptions != nil {
 				if toReturn.Expression.TypeDescriptions.TypeIdentifier == "t_magic_message" {
 					switch toReturn.MemberName {
@@ -432,6 +443,11 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 						toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
 							TypeIdentifier: "t_bytes_calldata_ptr",
 							TypeString:     "bytes calldata",
+						}
+					case "value":
+						toReturn.TypeDescriptions = &ast_pb.TypeDescriptions{
+							TypeIdentifier: "t_uint256",
+							TypeString:     "uint256",
 						}
 					default:
 						zap.L().Warn(

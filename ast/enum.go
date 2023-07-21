@@ -32,6 +32,23 @@ func (b *ASTBuilder) parseEnumDefinition(sourceUnit *ast_pb.SourceUnit, enumNode
 		)
 	}
 
+	enumNode.TypeDescriptions = &ast_pb.TypeDescriptions{
+		TypeIdentifier: func() string {
+			return fmt.Sprintf(
+				"t_enum_$_%s_$%d",
+				enumNode.Name,
+				enumNode.Id,
+			)
+		}(),
+		TypeString: func() string {
+			return fmt.Sprintf(
+				"enum %s.%s",
+				sourceUnit.GetName(),
+				enumNode.Name,
+			)
+		}(),
+	}
+
 	b.currentEnums = append(b.currentEnums, enumNode)
 
 	return enumNode

@@ -82,5 +82,7 @@ func (b *ASTBuilder) parseStructDefinition(sourceUnit *ast_pb.SourceUnit, struct
 		structNode.Members = append(structNode.Members, parameter)
 	}
 
+	b.currentStructs = append(b.currentStructs, structNode)
+
 	return structNode
 }

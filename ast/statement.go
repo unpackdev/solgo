@@ -9,19 +9,58 @@ import (
 
 func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, bodyNode *ast_pb.Body, parentStatement *ast_pb.Statement, statementCtx parser.IStatementContext) *ast_pb.Statement {
 	if simpleStatement := statementCtx.SimpleStatement(); simpleStatement != nil {
-		return b.parseSimpleStatement(sourceUnit, node, bodyNode, simpleStatement.(*parser.SimpleStatementContext))
+		return b.parseSimpleStatement(
+			sourceUnit,
+			node, bodyNode,
+			simpleStatement.(*parser.SimpleStatementContext),
+		)
 	}
 
 	if returnStatement := statementCtx.ReturnStatement(); returnStatement != nil {
-		return b.parseReturnStatement(sourceUnit, node, bodyNode, parentStatement.Id, returnStatement.(*parser.ReturnStatementContext))
+		return b.parseReturnStatement(
+			sourceUnit, node, bodyNode, parentStatement.Id,
+			returnStatement.(*parser.ReturnStatementContext),
+		)
 	}
 
 	if ifStatement := statementCtx.IfStatement(); ifStatement != nil {
-		return b.parseIfStatement(sourceUnit, node, bodyNode, ifStatement.(*parser.IfStatementContext))
+		return b.parseIfStatement(
+			sourceUnit,
+			node, bodyNode,
+			ifStatement.(*parser.IfStatementContext),
+		)
 	}
 
 	if emitStatement := statementCtx.EmitStatement(); emitStatement != nil {
-		return b.parseEmitStatement(sourceUnit, node, bodyNode, emitStatement.(*parser.EmitStatementContext))
+		return b.parseEmitStatement(
+			sourceUnit,
+			node, bodyNode,
+			emitStatement.(*parser.EmitStatementContext),
+		)
+	}
+
+	if whileStatement := statementCtx.WhileStatement(); whileStatement != nil {
+		return b.parseWhileStatement(
+			sourceUnit,
+			node, bodyNode,
+			whileStatement.(*parser.WhileStatementContext),
+		)
+	}
+
+	if breakStatement := statementCtx.BreakStatement(); breakStatement != nil {
+		return b.parseBreakStatement(
+			sourceUnit,
+			node, bodyNode,
+			breakStatement.(*parser.BreakStatementContext),
+		)
+	}
+
+	if continueStatement := statementCtx.ContinueStatement(); continueStatement != nil {
+		return b.parseContinueStatement(
+			sourceUnit,
+			node, bodyNode,
+			continueStatement.(*parser.ContinueStatementContext),
+		)
 	}
 
 	if revertStatement := statementCtx.RevertStatement(); revertStatement != nil {
@@ -32,20 +71,8 @@ func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.
 		panic("It's for statement...")
 	}
 
-	if whileStatement := statementCtx.WhileStatement(); whileStatement != nil {
-		//panic("It's while statement...")
-	}
-
 	if doWhileStatement := statementCtx.DoWhileStatement(); doWhileStatement != nil {
 		panic("It's do while statement...")
-	}
-
-	if continueStatement := statementCtx.ContinueStatement(); continueStatement != nil {
-		panic("It's continue statement...")
-	}
-
-	if breakStatement := statementCtx.BreakStatement(); breakStatement != nil {
-		panic("It's break statement...")
 	}
 
 	return nil

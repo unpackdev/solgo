@@ -57,10 +57,47 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 	}
 
 	// Get function modifiers.
-	for _, modifier := range fd.AllModifierInvocation() {
-		panic("Modifier here...")
-		_ = modifier
-		//node.Modifiers = append(node.Modifiers, modifier.GetText())
+	for _, modifierCtx := range fd.AllModifierInvocation() {
+		modifier := &ast_pb.Modifier{
+			Id: atomic.AddInt64(&b.nextID, 1) - 1,
+			Src: &ast_pb.Src{
+				Line:        int64(modifierCtx.GetStart().GetLine()),
+				Column:      int64(modifierCtx.GetStart().GetColumn()),
+				Start:       int64(modifierCtx.GetStart().GetStart()),
+				End:         int64(modifierCtx.GetStop().GetStop()),
+				Length:      int64(modifierCtx.GetStop().GetStop() - modifierCtx.GetStart().GetStart() + 1),
+				ParentIndex: node.Id,
+			},
+			NodeType: ast_pb.NodeType_MODIFIER_INVOCATION,
+		}
+
+		if modifierCtx.CallArgumentList() != nil {
+			for _, argumentCtx := range modifierCtx.CallArgumentList().AllExpression() {
+				argument := b.parseExpression(
+					sourceUnit, nil, nil, nil, modifier.Id, argumentCtx,
+				)
+				modifier.Arguments = append(modifier.Arguments, argument)
+			}
+		}
+
+		identifierCtx := modifierCtx.IdentifierPath()
+		if identifierCtx != nil {
+			modifier.ModifierName = &ast_pb.ModifierName{
+				Id: atomic.AddInt64(&b.nextID, 1) - 1,
+				Src: &ast_pb.Src{
+					Line:        int64(identifierCtx.GetStart().GetLine()),
+					Column:      int64(identifierCtx.GetStart().GetColumn()),
+					Start:       int64(identifierCtx.GetStart().GetStart()),
+					End:         int64(identifierCtx.GetStop().GetStop()),
+					Length:      int64(identifierCtx.GetStop().GetStop() - identifierCtx.GetStart().GetStart() + 1),
+					ParentIndex: modifier.Id,
+				},
+				NodeType: ast_pb.NodeType_IDENTIFIER,
+				Name:     identifierCtx.GetText(),
+			}
+		}
+
+		node.Modifiers = append(node.Modifiers, modifier)
 	}
 
 	// Check if function is override.

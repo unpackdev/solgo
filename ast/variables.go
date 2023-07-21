@@ -6,7 +6,6 @@ import (
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
-	"go.uber.org/zap"
 )
 
 func (b *ASTBuilder) parseStateVariableDeclaration(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, ctx *parser.StateVariableDeclarationContext) *ast_pb.Node {
@@ -217,7 +216,6 @@ func (b *ASTBuilder) generateTypeName(sourceUnit *ast_pb.SourceUnit, ctx interfa
 				}
 			}
 
-			// Lets figure out type...
 			// Search for argument reference in state variable declarations.
 			referenceFound := false
 
@@ -260,12 +258,35 @@ func (b *ASTBuilder) generateTypeName(sourceUnit *ast_pb.SourceUnit, ctx interfa
 				}
 			}
 
-			zap.L().Debug(
-				"Unsupported type name @ state variable traversal",
-				zap.String("type_name", specificCtx.GetText()),
-				zap.String("type_name_node_type", typeNameNode.String()),
-				zap.String("type", fmt.Sprintf("%T", specificCtx)),
-			)
+			if !referenceFound {
+				for _, node := range b.currentStructs {
+					if node.GetName() == pathCtx.GetText() {
+						referenceFound = true
+						typeName.PathNode.ReferencedDeclaration = node.Id
+						typeName.ReferencedDeclaration = node.Id
+
+						typeDescription := &ast_pb.TypeDescriptions{
+							TypeIdentifier: func() string {
+								return fmt.Sprintf(
+									"t_struct_$_%s_$%d",
+									pathCtx.GetText(),
+									node.Id,
+								)
+							}(),
+							TypeString: func() string {
+								return fmt.Sprintf(
+									"struct %s.%s",
+									sourceUnit.GetName(),
+									pathCtx.GetText(),
+								)
+							}(),
+						}
+
+						typeName.TypeDescriptions = typeDescription
+						typeName.TypeDescriptions = typeDescription
+					}
+				}
+			}
 		}
 	}
 

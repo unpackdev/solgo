@@ -66,6 +66,10 @@
                   "length": 41,
                   "parent_index": 3
                 },
+                "type_descriptions": {
+                  "type_identifier": "t_enum_$_LotteryState_$4",
+                  "type_string": "enum Lottery.LotteryState"
+                },
                 "canonical_name": "Lottery.LotteryState",
                 "members": [
                   {
@@ -238,7 +242,7 @@
                   "value_type": {
                     "id": 16,
                     "name": "Player",
-                    "node_type": 30,
+                    "node_type": 69,
                     "src": {
                       "line": 10,
                       "column": 23,
@@ -246,18 +250,37 @@
                       "end": 227,
                       "length": 6,
                       "parent_index": 13
-                    }
+                    },
+                    "type_descriptions": {
+                      "type_identifier": "t_struct_$_Player_$7",
+                      "type_string": "struct Lottery.Player"
+                    },
+                    "path_node": {
+                      "id": 17,
+                      "name": "Player",
+                      "node_type": 52,
+                      "referenced_declaration": 7,
+                      "src": {
+                        "line": 10,
+                        "column": 23,
+                        "start": 222,
+                        "end": 227,
+                        "length": 6,
+                        "parent_index": 16
+                      }
+                    },
+                    "referenced_declaration": 7
                   }
                 },
                 "is_state_variable": true,
                 "type_descriptions": {
-                  "type_identifier": "t_mapping(address=\u003ePlayer)",
-                  "type_string": "mapping(address=\u003ePlayer)"
+                  "type_identifier": "t_mapping_$t_address_$t_struct Lottery.Player$",
+                  "type_string": "mapping(address =\u003e Player)"
                 },
                 "storage_location": 1
               },
               {
-                "id": 18,
+                "id": 19,
                 "name": "playerAddresses",
                 "node_type": 44,
                 "src": {
@@ -266,13 +289,13 @@
                   "start": 250,
                   "end": 282,
                   "length": 33,
-                  "parent_index": 17
+                  "parent_index": 18
                 },
                 "visibility": 3,
                 "state_mutability": 1,
-                "scope": 17,
+                "scope": 18,
                 "type_name": {
-                  "id": 19,
+                  "id": 20,
                   "name": "address[]",
                   "node_type": 55,
                   "src": {
@@ -281,7 +304,7 @@
                     "start": 250,
                     "end": 258,
                     "length": 9,
-                    "parent_index": 18
+                    "parent_index": 19
                   },
                   "type_descriptions": {
                     "type_identifier": "t_address[]",
@@ -296,7 +319,7 @@
                 "storage_location": 1
               },
               {
-                "id": 21,
+                "id": 22,
                 "name": "state",
                 "node_type": 44,
                 "src": {
@@ -305,13 +328,13 @@
                   "start": 289,
                   "end": 314,
                   "length": 26,
-                  "parent_index": 20
+                  "parent_index": 21
                 },
                 "visibility": 3,
                 "state_mutability": 1,
-                "scope": 20,
+                "scope": 21,
                 "type_name": {
-                  "id": 22,
+                  "id": 23,
                   "name": "LotteryState",
                   "node_type": 55,
                   "src": {
@@ -320,7 +343,7 @@
                     "start": 289,
                     "end": 300,
                     "length": 12,
-                    "parent_index": 21
+                    "parent_index": 22
                   },
                   "type_descriptions": {
                     "type_identifier": "t_LotteryState",
@@ -335,7 +358,7 @@
                 "storage_location": 1
               },
               {
-                "id": 23,
+                "id": 24,
                 "name": "PlayerJoined",
                 "node_type": 57,
                 "src": {
@@ -343,28 +366,28 @@
                   "start": 321,
                   "end": 353,
                   "length": 33,
-                  "parent_index": 23
+                  "parent_index": 24
                 },
                 "parameters": {
-                  "id": 24,
+                  "id": 25,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 25,
+                      "id": 26,
                       "mutability": 1,
                       "name": "addr",
                       "node_type": 30,
-                      "scope": 24,
+                      "scope": 25,
                       "src": {
                         "line": 15,
                         "column": 23,
                         "start": 340,
                         "end": 351,
                         "length": 12,
-                        "parent_index": 24
+                        "parent_index": 25
                       },
                       "type_name": {
-                        "id": 26,
+                        "id": 27,
                         "name": "address",
                         "node_type": 30,
                         "src": {
@@ -373,7 +396,7 @@
                           "start": 340,
                           "end": 351,
                           "length": 12,
-                          "parent_index": 24
+                          "parent_index": 25
                         },
                         "type_descriptions": {
                           "type_identifier": "t_address",
@@ -388,12 +411,12 @@
                     "start": 340,
                     "end": 351,
                     "length": 31,
-                    "parent_index": 23
+                    "parent_index": 24
                   }
                 }
               },
               {
-                "id": 27,
+                "id": 28,
                 "name": "LotteryFinished",
                 "node_type": 57,
                 "src": {
@@ -401,28 +424,28 @@
                   "start": 359,
                   "end": 396,
                   "length": 38,
-                  "parent_index": 27
+                  "parent_index": 28
                 },
                 "parameters": {
-                  "id": 28,
+                  "id": 29,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 29,
+                      "id": 30,
                       "mutability": 1,
                       "name": "winner",
                       "node_type": 30,
-                      "scope": 28,
+                      "scope": 29,
                       "src": {
                         "line": 16,
                         "column": 26,
                         "start": 381,
                         "end": 394,
                         "length": 14,
-                        "parent_index": 28
+                        "parent_index": 29
                       },
                       "type_name": {
-                        "id": 30,
+                        "id": 31,
                         "name": "address",
                         "node_type": 30,
                         "src": {
@@ -431,7 +454,7 @@
                           "start": 381,
                           "end": 394,
                           "length": 14,
-                          "parent_index": 28
+                          "parent_index": 29
                         },
                         "type_descriptions": {
                           "type_identifier": "t_address",
@@ -446,12 +469,13 @@
                     "start": 381,
                     "end": 394,
                     "length": 36,
-                    "parent_index": 27
+                    "parent_index": 28
                   }
                 }
               },
               {
-                "id": 31,
+                "id": 32,
+                "name": "inState",
                 "node_type": 68,
                 "src": {
                   "line": 18,
@@ -459,10 +483,225 @@
                   "end": 525,
                   "length": 123,
                   "parent_index": 3
+                },
+                "visibility": 1,
+                "parameters": {
+                  "id": 33,
+                  "node_type": 43,
+                  "parameters": [
+                    {
+                      "id": 34,
+                      "mutability": 1,
+                      "name": "_state",
+                      "node_type": 44,
+                      "scope": 32,
+                      "src": {
+                        "line": 18,
+                        "column": 21,
+                        "start": 420,
+                        "end": 438,
+                        "length": 19,
+                        "parent_index": 33
+                      },
+                      "type_descriptions": {
+                        "type_identifier": "t_enum_$_LotteryState_$4",
+                        "type_string": "enum Lottery.LotteryState"
+                      },
+                      "type_name": {
+                        "id": 35,
+                        "name": "LotteryState",
+                        "node_type": 69,
+                        "src": {
+                          "line": 18,
+                          "column": 21,
+                          "start": 420,
+                          "end": 438,
+                          "length": 19,
+                          "parent_index": 33
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_enum_$_LotteryState_$4",
+                          "type_string": "enum Lottery.LotteryState"
+                        },
+                        "path_node": {
+                          "id": 36,
+                          "name": "LotteryState",
+                          "node_type": 52,
+                          "referenced_declaration": 4,
+                          "src": {
+                            "line": 18,
+                            "column": 21,
+                            "start": 420,
+                            "end": 431,
+                            "length": 12,
+                            "parent_index": 35
+                          }
+                        },
+                        "referenced_declaration": 4
+                      },
+                      "visibility": 1
+                    }
+                  ],
+                  "src": {
+                    "line": 18,
+                    "start": 420,
+                    "end": 438,
+                    "length": 19,
+                    "parent_index": 32
+                  }
+                },
+                "body": {
+                  "id": 37,
+                  "node_type": 46,
+                  "src": {
+                    "line": 18,
+                    "column": 42,
+                    "start": 441,
+                    "end": 525,
+                    "length": 85,
+                    "parent_index": 32
+                  },
+                  "statements": [
+                    {
+                      "id": 38,
+                      "node_type": 24,
+                      "src": {
+                        "line": 19,
+                        "column": 8,
+                        "start": 451,
+                        "end": 508,
+                        "length": 58,
+                        "parent_index": 37
+                      },
+                      "expression": {
+                        "id": 39,
+                        "node_type": 24,
+                        "src": {
+                          "line": 19,
+                          "column": 8,
+                          "start": 451,
+                          "end": 507,
+                          "length": 57,
+                          "parent_index": 38
+                        },
+                        "expression": {
+                          "id": 40,
+                          "name": "require",
+                          "node_type": 16,
+                          "src": {
+                            "line": 19,
+                            "column": 8,
+                            "start": 451,
+                            "end": 457,
+                            "length": 7,
+                            "parent_index": 39
+                          },
+                          "argument_types": [
+                            {
+                              "type_identifier": "t_LotteryState",
+                              "type_string": "LotteryState"
+                            },
+                            {
+                              "type_identifier": "t_string_literal",
+                              "type_string": "literal_string \"Invalid state for this action\""
+                            }
+                          ]
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "id": 41,
+                          "name": "state==_state",
+                          "node_type": 19,
+                          "src": {
+                            "line": 19,
+                            "column": 16,
+                            "start": 459,
+                            "end": 473,
+                            "length": 15,
+                            "parent_index": 40
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_LotteryState",
+                            "type_string": "LotteryState"
+                          },
+                          "operator": 11,
+                          "left_expression": {
+                            "id": 42,
+                            "name": "state",
+                            "node_type": 16,
+                            "src": {
+                              "line": 19,
+                              "column": 16,
+                              "start": 459,
+                              "end": 463,
+                              "length": 5,
+                              "parent_index": 41
+                            },
+                            "referenced_declaration": 22,
+                            "type_descriptions": {
+                              "type_identifier": "t_LotteryState",
+                              "type_string": "LotteryState"
+                            }
+                          },
+                          "right_expression": {
+                            "id": 43,
+                            "name": "_state",
+                            "node_type": 16,
+                            "src": {
+                              "line": 19,
+                              "column": 25,
+                              "start": 468,
+                              "end": 473,
+                              "length": 6,
+                              "parent_index": 41
+                            },
+                            "referenced_declaration": 34,
+                            "type_descriptions": {
+                              "type_identifier": "t_enum_$_LotteryState_$4",
+                              "type_string": "enum Lottery.LotteryState"
+                            }
+                          }
+                        },
+                        {
+                          "id": 44,
+                          "node_type": 17,
+                          "src": {
+                            "line": 19,
+                            "column": 33,
+                            "start": 476,
+                            "end": 506,
+                            "length": 31,
+                            "parent_index": 40
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_string_literal",
+                            "type_string": "literal_string \"Invalid state for this action\""
+                          },
+                          "kind": 50,
+                          "value": "Invalid state for this action",
+                          "hex_value": "496e76616c696420737461746520666f72207468697320616374696f6e",
+                          "is_pure": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": 45,
+                      "src": {
+                        "line": 20,
+                        "column": 8,
+                        "start": 518,
+                        "end": 519,
+                        "length": 2,
+                        "parent_index": 37
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "id": 33,
+                "id": 46,
+                "name": "notOwner",
                 "node_type": 68,
                 "src": {
                   "line": 23,
@@ -470,30 +709,297 @@
                   "end": 641,
                   "length": 110,
                   "parent_index": 3
+                },
+                "visibility": 1,
+                "body": {
+                  "id": 47,
+                  "node_type": 46,
+                  "src": {
+                    "line": 23,
+                    "column": 24,
+                    "start": 552,
+                    "end": 641,
+                    "length": 90,
+                    "parent_index": 46
+                  },
+                  "statements": [
+                    {
+                      "id": 48,
+                      "node_type": 24,
+                      "src": {
+                        "line": 24,
+                        "column": 8,
+                        "start": 562,
+                        "end": 624,
+                        "length": 63,
+                        "parent_index": 47
+                      },
+                      "expression": {
+                        "id": 49,
+                        "node_type": 24,
+                        "src": {
+                          "line": 24,
+                          "column": 8,
+                          "start": 562,
+                          "end": 623,
+                          "length": 62,
+                          "parent_index": 48
+                        },
+                        "expression": {
+                          "id": 50,
+                          "name": "require",
+                          "node_type": 16,
+                          "src": {
+                            "line": 24,
+                            "column": 8,
+                            "start": 562,
+                            "end": 568,
+                            "length": 7,
+                            "parent_index": 49
+                          },
+                          "argument_types": [
+                            {
+                              "type_identifier": "t_address",
+                              "type_string": "address"
+                            },
+                            {
+                              "type_identifier": "t_string_literal",
+                              "type_string": "literal_string \"The owner cannot participate\""
+                            }
+                          ]
+                        }
+                      },
+                      "arguments": [
+                        {
+                          "id": 51,
+                          "name": "msg.sender!=owner()",
+                          "node_type": 19,
+                          "src": {
+                            "line": 24,
+                            "column": 16,
+                            "start": 570,
+                            "end": 590,
+                            "length": 21,
+                            "parent_index": 50
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_address",
+                            "type_string": "address"
+                          },
+                          "operator": 12,
+                          "left_expression": {
+                            "id": 52,
+                            "name": "msg.sender",
+                            "node_type": 23,
+                            "src": {
+                              "line": 24,
+                              "column": 16,
+                              "start": 570,
+                              "end": 579,
+                              "length": 10,
+                              "parent_index": 51
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_address",
+                              "type_string": "address"
+                            },
+                            "expression": {
+                              "id": 53,
+                              "name": "msg",
+                              "node_type": 16,
+                              "src": {
+                                "line": 24,
+                                "column": 16,
+                                "start": 570,
+                                "end": 572,
+                                "length": 3,
+                                "parent_index": 52
+                              },
+                              "type_descriptions": {
+                                "type_identifier": "t_magic_message",
+                                "type_string": "msg"
+                              }
+                            },
+                            "member_name": "sender"
+                          },
+                          "right_expression": {
+                            "id": 54,
+                            "name": "owner()",
+                            "node_type": 24,
+                            "src": {
+                              "line": 24,
+                              "column": 30,
+                              "start": 584,
+                              "end": 590,
+                              "length": 7,
+                              "parent_index": 51
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_function_call",
+                              "type_string": "function()"
+                            },
+                            "expression": {
+                              "id": 55,
+                              "name": "owner",
+                              "node_type": 16,
+                              "src": {
+                                "line": 24,
+                                "column": 30,
+                                "start": 584,
+                                "end": 588,
+                                "length": 5,
+                                "parent_index": 54
+                              },
+                              "type_descriptions": {
+                                "type_identifier": "t_function_call",
+                                "type_string": "function()"
+                              }
+                            },
+                            "kind": 24
+                          }
+                        },
+                        {
+                          "id": 56,
+                          "node_type": 17,
+                          "src": {
+                            "line": 24,
+                            "column": 39,
+                            "start": 593,
+                            "end": 622,
+                            "length": 30,
+                            "parent_index": 50
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_string_literal",
+                            "type_string": "literal_string \"The owner cannot participate\""
+                          },
+                          "kind": 50,
+                          "value": "The owner cannot participate",
+                          "hex_value": "546865206f776e65722063616e6e6f74207061727469636970617465",
+                          "is_pure": true
+                        }
+                      ]
+                    },
+                    {
+                      "id": 57,
+                      "src": {
+                        "line": 25,
+                        "column": 8,
+                        "start": 634,
+                        "end": 635,
+                        "length": 2,
+                        "parent_index": 47
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "id": 35,
+                "id": 58,
+                "name": "fallback",
+                "node_type": 42,
                 "src": {
                   "line": 28,
                   "start": 648,
                   "end": 678,
                   "length": 31,
                   "parent_index": 3
+                },
+                "kind": 70,
+                "implemented": true,
+                "visibility": 4,
+                "state_mutability": 3,
+                "parameters": {
+                  "id": 59,
+                  "node_type": 43,
+                  "src": {
+                    "line": 28,
+                    "column": 4,
+                    "start": 648,
+                    "end": 678,
+                    "length": 31,
+                    "parent_index": 58
+                  }
+                },
+                "return_parameters": {
+                  "id": 60,
+                  "node_type": 43,
+                  "src": {
+                    "line": 28,
+                    "column": 4,
+                    "start": 648,
+                    "end": 678,
+                    "length": 31,
+                    "parent_index": 58
+                  }
+                },
+                "body": {
+                  "id": 61,
+                  "node_type": 46,
+                  "src": {
+                    "line": 28,
+                    "column": 32,
+                    "start": 676,
+                    "end": 678,
+                    "length": 3,
+                    "parent_index": 58
+                  }
                 }
               },
               {
-                "id": 36,
+                "id": 62,
+                "name": "fallback",
+                "node_type": 42,
                 "src": {
                   "line": 29,
                   "start": 684,
                   "end": 713,
                   "length": 30,
                   "parent_index": 3
+                },
+                "kind": 71,
+                "implemented": true,
+                "visibility": 4,
+                "state_mutability": 3,
+                "parameters": {
+                  "id": 63,
+                  "node_type": 43,
+                  "src": {
+                    "line": 29,
+                    "column": 4,
+                    "start": 684,
+                    "end": 713,
+                    "length": 30,
+                    "parent_index": 62
+                  }
+                },
+                "return_parameters": {
+                  "id": 64,
+                  "node_type": 43,
+                  "src": {
+                    "line": 29,
+                    "column": 4,
+                    "start": 684,
+                    "end": 713,
+                    "length": 30,
+                    "parent_index": 62
+                  }
+                },
+                "body": {
+                  "id": 65,
+                  "node_type": 46,
+                  "src": {
+                    "line": 29,
+                    "column": 31,
+                    "start": 711,
+                    "end": 713,
+                    "length": 3,
+                    "parent_index": 62
+                  }
                 }
               },
               {
-                "id": 37,
+                "id": 66,
                 "node_type": 42,
                 "src": {
                   "line": 31,
@@ -507,7 +1013,7 @@
                 "visibility": 1,
                 "state_mutability": 4,
                 "return_parameters": {
-                  "id": 38,
+                  "id": 67,
                   "node_type": 43,
                   "src": {
                     "line": 31,
@@ -515,12 +1021,12 @@
                     "start": 720,
                     "end": 780,
                     "length": 61,
-                    "parent_index": 37
+                    "parent_index": 66
                   }
                 }
               },
               {
-                "id": 39,
+                "id": 68,
                 "name": "join",
                 "node_type": 42,
                 "src": {
@@ -535,7 +1041,7 @@
                 "visibility": 3,
                 "state_mutability": 3,
                 "return_parameters": {
-                  "id": 40,
+                  "id": 75,
                   "node_type": 43,
                   "src": {
                     "line": 35,
@@ -543,11 +1049,11 @@
                     "start": 787,
                     "end": 1175,
                     "length": 389,
-                    "parent_index": 39
+                    "parent_index": 68
                   }
                 },
                 "body": {
-                  "id": 41,
+                  "id": 76,
                   "node_type": 46,
                   "src": {
                     "line": 35,
@@ -555,11 +1061,11 @@
                     "start": 859,
                     "end": 1175,
                     "length": 317,
-                    "parent_index": 39
+                    "parent_index": 68
                   },
                   "statements": [
                     {
-                      "id": 42,
+                      "id": 77,
                       "node_type": 24,
                       "src": {
                         "line": 36,
@@ -567,10 +1073,10 @@
                         "start": 869,
                         "end": 912,
                         "length": 44,
-                        "parent_index": 41
+                        "parent_index": 76
                       },
                       "expression": {
-                        "id": 43,
+                        "id": 78,
                         "node_type": 24,
                         "src": {
                           "line": 36,
@@ -578,10 +1084,10 @@
                           "start": 869,
                           "end": 911,
                           "length": 43,
-                          "parent_index": 42
+                          "parent_index": 77
                         },
                         "expression": {
-                          "id": 44,
+                          "id": 79,
                           "name": "require",
                           "node_type": 16,
                           "src": {
@@ -590,7 +1096,7 @@
                             "start": 869,
                             "end": 875,
                             "length": 7,
-                            "parent_index": 43
+                            "parent_index": 78
                           },
                           "argument_types": [
                             {
@@ -606,7 +1112,7 @@
                       },
                       "arguments": [
                         {
-                          "id": 45,
+                          "id": 80,
                           "name": "msg.value\u003e0",
                           "node_type": 19,
                           "src": {
@@ -615,7 +1121,7 @@
                             "start": 877,
                             "end": 889,
                             "length": 13,
-                            "parent_index": 44
+                            "parent_index": 79
                           },
                           "type_descriptions": {
                             "type_identifier": "t_bool",
@@ -623,7 +1129,7 @@
                           },
                           "operator": 7,
                           "left_expression": {
-                            "id": 46,
+                            "id": 81,
                             "name": "msg.value",
                             "node_type": 23,
                             "src": {
@@ -632,10 +1138,14 @@
                               "start": 877,
                               "end": 885,
                               "length": 9,
-                              "parent_index": 45
+                              "parent_index": 80
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_uint256",
+                              "type_string": "uint256"
                             },
                             "expression": {
-                              "id": 47,
+                              "id": 82,
                               "name": "msg",
                               "node_type": 16,
                               "src": {
@@ -644,7 +1154,7 @@
                                 "start": 877,
                                 "end": 879,
                                 "length": 3,
-                                "parent_index": 46
+                                "parent_index": 81
                               },
                               "type_descriptions": {
                                 "type_identifier": "t_magic_message",
@@ -654,7 +1164,7 @@
                             "member_name": "value"
                           },
                           "right_expression": {
-                            "id": 48,
+                            "id": 83,
                             "name": "0",
                             "node_type": 17,
                             "src": {
@@ -663,7 +1173,7 @@
                               "start": 889,
                               "end": 889,
                               "length": 1,
-                              "parent_index": 45
+                              "parent_index": 80
                             },
                             "type_descriptions": {
                               "type_identifier": "t_rational_0_by_1",
@@ -676,8 +1186,7 @@
                           }
                         },
                         {
-                          "id": 49,
-                          "name": "\"No value provided\"",
+                          "id": 84,
                           "node_type": 17,
                           "src": {
                             "line": 36,
@@ -685,7 +1194,7 @@
                             "start": 892,
                             "end": 910,
                             "length": 19,
-                            "parent_index": 44
+                            "parent_index": 79
                           },
                           "type_descriptions": {
                             "type_identifier": "t_string_literal",
@@ -699,17 +1208,17 @@
                       ]
                     },
                     {
-                      "id": 50,
+                      "id": 85,
                       "node_type": 48,
                       "src": {
                         "line": 38,
                         "start": 923,
                         "end": 1074,
                         "length": 152,
-                        "parent_index": 39
+                        "parent_index": 68
                       },
                       "condition": {
-                        "id": 51,
+                        "id": 86,
                         "name": "players[msg.sender].addr==address(0)",
                         "node_type": 19,
                         "src": {
@@ -718,11 +1227,11 @@
                           "start": 927,
                           "end": 964,
                           "length": 38,
-                          "parent_index": 50
+                          "parent_index": 85
                         },
                         "operator": 11,
                         "left_expression": {
-                          "id": 52,
+                          "id": 87,
                           "name": "players[msg.sender].addr",
                           "node_type": 23,
                           "src": {
@@ -731,10 +1240,10 @@
                             "start": 927,
                             "end": 950,
                             "length": 24,
-                            "parent_index": 51
+                            "parent_index": 86
                           },
                           "expression": {
-                            "id": 53,
+                            "id": 88,
                             "name": "players[msg.sender]",
                             "node_type": 22,
                             "src": {
@@ -743,10 +1252,10 @@
                               "start": 927,
                               "end": 945,
                               "length": 19,
-                              "parent_index": 52
+                              "parent_index": 87
                             },
                             "base_expression": {
-                              "id": 54,
+                              "id": 89,
                               "name": "players",
                               "node_type": 16,
                               "src": {
@@ -755,7 +1264,7 @@
                                 "start": 927,
                                 "end": 933,
                                 "length": 7,
-                                "parent_index": 53
+                                "parent_index": 88
                               },
                               "referenced_declaration": 13,
                               "type_descriptions": {
@@ -764,7 +1273,7 @@
                               }
                             },
                             "index_expression": {
-                              "id": 55,
+                              "id": 90,
                               "name": "msg.sender",
                               "node_type": 23,
                               "src": {
@@ -773,14 +1282,14 @@
                                 "start": 935,
                                 "end": 944,
                                 "length": 10,
-                                "parent_index": 53
+                                "parent_index": 88
                               },
                               "type_descriptions": {
                                 "type_identifier": "t_address",
                                 "type_string": "address"
                               },
                               "expression": {
-                                "id": 56,
+                                "id": 91,
                                 "name": "msg",
                                 "node_type": 16,
                                 "src": {
@@ -789,7 +1298,7 @@
                                   "start": 935,
                                   "end": 937,
                                   "length": 3,
-                                  "parent_index": 55
+                                  "parent_index": 90
                                 },
                                 "type_descriptions": {
                                   "type_identifier": "t_magic_message",
@@ -802,7 +1311,7 @@
                           "member_name": "addr"
                         },
                         "right_expression": {
-                          "id": 57,
+                          "id": 92,
                           "name": "address(0)",
                           "node_type": 24,
                           "src": {
@@ -811,14 +1320,14 @@
                             "start": 955,
                             "end": 964,
                             "length": 10,
-                            "parent_index": 51
+                            "parent_index": 86
                           },
                           "type_descriptions": {
                             "type_identifier": "t_function_call",
                             "type_string": "function(int_const 0)"
                           },
                           "expression": {
-                            "id": 59,
+                            "id": 94,
                             "name": "address",
                             "node_type": 16,
                             "src": {
@@ -827,7 +1336,7 @@
                               "start": 955,
                               "end": 961,
                               "length": 7,
-                              "parent_index": 57
+                              "parent_index": 92
                             },
                             "type_descriptions": {
                               "type_identifier": "t_function_call",
@@ -837,7 +1346,7 @@
                           "kind": 24,
                           "arguments": [
                             {
-                              "id": 58,
+                              "id": 93,
                               "name": "0",
                               "node_type": 17,
                               "src": {
@@ -846,7 +1355,7 @@
                                 "start": 963,
                                 "end": 963,
                                 "length": 1,
-                                "parent_index": 57
+                                "parent_index": 92
                               },
                               "type_descriptions": {
                                 "type_identifier": "t_rational_0_by_1",
@@ -861,18 +1370,18 @@
                         }
                       },
                       "true_body": {
-                        "id": 60,
+                        "id": 95,
                         "node_type": 46,
                         "src": {
                           "line": 38,
                           "start": 967,
                           "end": 1074,
                           "length": 108,
-                          "parent_index": 50
+                          "parent_index": 85
                         },
                         "statements": [
                           {
-                            "id": 61,
+                            "id": 96,
                             "node_type": 56,
                             "src": {
                               "line": 39,
@@ -880,21 +1389,21 @@
                               "start": 981,
                               "end": 1018,
                               "length": 38,
-                              "parent_index": 41
+                              "parent_index": 76
                             },
                             "expression": {
-                              "id": 62,
+                              "id": 97,
                               "node_type": 27,
                               "src": {
                                 "line": 39,
                                 "column": 12,
                                 "start": 981,
                                 "end": 1017,
-                                "parent_index": 61
+                                "parent_index": 96
                               },
                               "operator": 11,
                               "left_expression": {
-                                "id": 63,
+                                "id": 98,
                                 "name": "players[msg.sender].addr",
                                 "node_type": 23,
                                 "src": {
@@ -903,10 +1412,10 @@
                                   "start": 981,
                                   "end": 1004,
                                   "length": 24,
-                                  "parent_index": 61
+                                  "parent_index": 96
                                 },
                                 "expression": {
-                                  "id": 64,
+                                  "id": 99,
                                   "name": "players[msg.sender]",
                                   "node_type": 22,
                                   "src": {
@@ -915,10 +1424,10 @@
                                     "start": 981,
                                     "end": 999,
                                     "length": 19,
-                                    "parent_index": 63
+                                    "parent_index": 98
                                   },
                                   "base_expression": {
-                                    "id": 65,
+                                    "id": 100,
                                     "name": "players",
                                     "node_type": 16,
                                     "src": {
@@ -927,7 +1436,7 @@
                                       "start": 981,
                                       "end": 987,
                                       "length": 7,
-                                      "parent_index": 64
+                                      "parent_index": 99
                                     },
                                     "referenced_declaration": 13,
                                     "type_descriptions": {
@@ -936,7 +1445,7 @@
                                     }
                                   },
                                   "index_expression": {
-                                    "id": 66,
+                                    "id": 101,
                                     "name": "msg.sender",
                                     "node_type": 23,
                                     "src": {
@@ -945,14 +1454,14 @@
                                       "start": 989,
                                       "end": 998,
                                       "length": 10,
-                                      "parent_index": 64
+                                      "parent_index": 99
                                     },
                                     "type_descriptions": {
                                       "type_identifier": "t_address",
                                       "type_string": "address"
                                     },
                                     "expression": {
-                                      "id": 67,
+                                      "id": 102,
                                       "name": "msg",
                                       "node_type": 16,
                                       "src": {
@@ -961,7 +1470,7 @@
                                         "start": 989,
                                         "end": 991,
                                         "length": 3,
-                                        "parent_index": 66
+                                        "parent_index": 101
                                       },
                                       "type_descriptions": {
                                         "type_identifier": "t_magic_message",
@@ -974,7 +1483,7 @@
                                 "member_name": "addr"
                               },
                               "right_expression": {
-                                "id": 68,
+                                "id": 103,
                                 "name": "msg.sender",
                                 "node_type": 23,
                                 "src": {
@@ -983,14 +1492,14 @@
                                   "start": 1008,
                                   "end": 1017,
                                   "length": 10,
-                                  "parent_index": 61
+                                  "parent_index": 96
                                 },
                                 "type_descriptions": {
                                   "type_identifier": "t_address",
                                   "type_string": "address"
                                 },
                                 "expression": {
-                                  "id": 69,
+                                  "id": 104,
                                   "name": "msg",
                                   "node_type": 16,
                                   "src": {
@@ -999,7 +1508,7 @@
                                     "start": 1008,
                                     "end": 1010,
                                     "length": 3,
-                                    "parent_index": 68
+                                    "parent_index": 103
                                   },
                                   "type_descriptions": {
                                     "type_identifier": "t_magic_message",
@@ -1011,7 +1520,7 @@
                             }
                           },
                           {
-                            "id": 70,
+                            "id": 105,
                             "node_type": 24,
                             "src": {
                               "line": 40,
@@ -1019,10 +1528,10 @@
                               "start": 1032,
                               "end": 1064,
                               "length": 33,
-                              "parent_index": 41
+                              "parent_index": 76
                             },
                             "expression": {
-                              "id": 71,
+                              "id": 106,
                               "node_type": 24,
                               "src": {
                                 "line": 40,
@@ -1030,10 +1539,10 @@
                                 "start": 1032,
                                 "end": 1063,
                                 "length": 32,
-                                "parent_index": 70
+                                "parent_index": 105
                               },
                               "expression": {
-                                "id": 72,
+                                "id": 107,
                                 "name": "playerAddresses.push",
                                 "node_type": 16,
                                 "src": {
@@ -1042,7 +1551,7 @@
                                   "start": 1032,
                                   "end": 1051,
                                   "length": 20,
-                                  "parent_index": 71
+                                  "parent_index": 106
                                 },
                                 "argument_types": [
                                   {
@@ -1054,7 +1563,7 @@
                             },
                             "arguments": [
                               {
-                                "id": 73,
+                                "id": 108,
                                 "name": "msg.sender",
                                 "node_type": 23,
                                 "src": {
@@ -1063,14 +1572,14 @@
                                   "start": 1053,
                                   "end": 1062,
                                   "length": 10,
-                                  "parent_index": 72
+                                  "parent_index": 107
                                 },
                                 "type_descriptions": {
                                   "type_identifier": "t_address",
                                   "type_string": "address"
                                 },
                                 "expression": {
-                                  "id": 74,
+                                  "id": 109,
                                   "name": "msg",
                                   "node_type": 16,
                                   "src": {
@@ -1079,7 +1588,7 @@
                                     "start": 1053,
                                     "end": 1055,
                                     "length": 3,
-                                    "parent_index": 73
+                                    "parent_index": 108
                                   },
                                   "type_descriptions": {
                                     "type_identifier": "t_magic_message",
@@ -1094,7 +1603,7 @@
                       }
                     },
                     {
-                      "id": 75,
+                      "id": 110,
                       "node_type": 56,
                       "src": {
                         "line": 43,
@@ -1102,21 +1611,21 @@
                         "start": 1085,
                         "end": 1129,
                         "length": 45,
-                        "parent_index": 41
+                        "parent_index": 76
                       },
                       "expression": {
-                        "id": 76,
+                        "id": 111,
                         "node_type": 27,
                         "src": {
                           "line": 43,
                           "column": 8,
                           "start": 1085,
                           "end": 1128,
-                          "parent_index": 75
+                          "parent_index": 110
                         },
                         "operator": 13,
                         "left_expression": {
-                          "id": 77,
+                          "id": 112,
                           "name": "players[msg.sender].ticketCount",
                           "node_type": 23,
                           "src": {
@@ -1125,10 +1634,10 @@
                             "start": 1085,
                             "end": 1115,
                             "length": 31,
-                            "parent_index": 75
+                            "parent_index": 110
                           },
                           "expression": {
-                            "id": 78,
+                            "id": 113,
                             "name": "players[msg.sender]",
                             "node_type": 22,
                             "src": {
@@ -1137,10 +1646,10 @@
                               "start": 1085,
                               "end": 1103,
                               "length": 19,
-                              "parent_index": 77
+                              "parent_index": 112
                             },
                             "base_expression": {
-                              "id": 79,
+                              "id": 114,
                               "name": "players",
                               "node_type": 16,
                               "src": {
@@ -1149,7 +1658,7 @@
                                 "start": 1085,
                                 "end": 1091,
                                 "length": 7,
-                                "parent_index": 78
+                                "parent_index": 113
                               },
                               "referenced_declaration": 13,
                               "type_descriptions": {
@@ -1158,7 +1667,7 @@
                               }
                             },
                             "index_expression": {
-                              "id": 80,
+                              "id": 115,
                               "name": "msg.sender",
                               "node_type": 23,
                               "src": {
@@ -1167,14 +1676,14 @@
                                 "start": 1093,
                                 "end": 1102,
                                 "length": 10,
-                                "parent_index": 78
+                                "parent_index": 113
                               },
                               "type_descriptions": {
                                 "type_identifier": "t_address",
                                 "type_string": "address"
                               },
                               "expression": {
-                                "id": 81,
+                                "id": 116,
                                 "name": "msg",
                                 "node_type": 16,
                                 "src": {
@@ -1183,7 +1692,7 @@
                                   "start": 1093,
                                   "end": 1095,
                                   "length": 3,
-                                  "parent_index": 80
+                                  "parent_index": 115
                                 },
                                 "type_descriptions": {
                                   "type_identifier": "t_magic_message",
@@ -1196,7 +1705,7 @@
                           "member_name": "ticketCount"
                         },
                         "right_expression": {
-                          "id": 82,
+                          "id": 117,
                           "name": "msg.value",
                           "node_type": 23,
                           "src": {
@@ -1205,10 +1714,14 @@
                             "start": 1120,
                             "end": 1128,
                             "length": 9,
-                            "parent_index": 75
+                            "parent_index": 110
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
                           },
                           "expression": {
-                            "id": 83,
+                            "id": 118,
                             "name": "msg",
                             "node_type": 16,
                             "src": {
@@ -1217,7 +1730,7 @@
                               "start": 1120,
                               "end": 1122,
                               "length": 3,
-                              "parent_index": 82
+                              "parent_index": 117
                             },
                             "type_descriptions": {
                               "type_identifier": "t_magic_message",
@@ -1229,17 +1742,17 @@
                       }
                     },
                     {
-                      "id": 84,
+                      "id": 119,
                       "node_type": 64,
                       "src": {
                         "line": 45,
                         "start": 1140,
                         "end": 1169,
                         "length": 30,
-                        "parent_index": 39
+                        "parent_index": 68
                       },
                       "expression": {
-                        "id": 87,
+                        "id": 122,
                         "name": "PlayerJoined",
                         "node_type": 16,
                         "src": {
@@ -1248,12 +1761,12 @@
                           "start": 1145,
                           "end": 1156,
                           "length": 12,
-                          "parent_index": 84
+                          "parent_index": 119
                         }
                       },
                       "arguments": [
                         {
-                          "id": 85,
+                          "id": 120,
                           "name": "msg.sender",
                           "node_type": 23,
                           "src": {
@@ -1262,14 +1775,14 @@
                             "start": 1158,
                             "end": 1167,
                             "length": 10,
-                            "parent_index": 84
+                            "parent_index": 119
                           },
                           "type_descriptions": {
                             "type_identifier": "t_address",
                             "type_string": "address"
                           },
                           "expression": {
-                            "id": 86,
+                            "id": 121,
                             "name": "msg",
                             "node_type": 16,
                             "src": {
@@ -1278,7 +1791,7 @@
                               "start": 1158,
                               "end": 1160,
                               "length": 3,
-                              "parent_index": 85
+                              "parent_index": 120
                             },
                             "type_descriptions": {
                               "type_identifier": "t_magic_message",
@@ -1290,10 +1803,100 @@
                       ]
                     }
                   ]
-                }
+                },
+                "modifiers": [
+                  {
+                    "id": 69,
+                    "node_type": 72,
+                    "src": {
+                      "line": 35,
+                      "column": 35,
+                      "start": 818,
+                      "end": 848,
+                      "length": 31,
+                      "parent_index": 68
+                    },
+                    "arguments": [
+                      {
+                        "id": 70,
+                        "name": "LotteryState.Accepting",
+                        "node_type": 23,
+                        "src": {
+                          "line": 35,
+                          "column": 43,
+                          "start": 826,
+                          "end": 847,
+                          "length": 22,
+                          "parent_index": 69
+                        },
+                        "referenced_declaration": 4,
+                        "type_descriptions": {
+                          "type_identifier": "t_enum_$_LotteryState_$4",
+                          "type_string": "enum Lottery.LotteryState"
+                        },
+                        "expression": {
+                          "id": 71,
+                          "name": "LotteryState",
+                          "node_type": 16,
+                          "src": {
+                            "line": 35,
+                            "column": 43,
+                            "start": 826,
+                            "end": 837,
+                            "length": 12,
+                            "parent_index": 70
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_enum_$_LotteryState_$4",
+                            "type_string": "enum Lottery.LotteryState"
+                          }
+                        },
+                        "member_name": "Accepting"
+                      }
+                    ],
+                    "modifier_name": {
+                      "id": 72,
+                      "name": "inState",
+                      "node_type": 16,
+                      "src": {
+                        "line": 35,
+                        "column": 35,
+                        "start": 818,
+                        "end": 824,
+                        "length": 7,
+                        "parent_index": 69
+                      }
+                    }
+                  },
+                  {
+                    "id": 73,
+                    "node_type": 72,
+                    "src": {
+                      "line": 35,
+                      "column": 67,
+                      "start": 850,
+                      "end": 857,
+                      "length": 8,
+                      "parent_index": 68
+                    },
+                    "modifier_name": {
+                      "id": 74,
+                      "name": "notOwner",
+                      "node_type": 16,
+                      "src": {
+                        "line": 35,
+                        "column": 67,
+                        "start": 850,
+                        "end": 857,
+                        "length": 8,
+                        "parent_index": 73
+                      }
+                    }
+                  }
+                ]
               },
               {
-                "id": 88,
+                "id": 123,
                 "name": "finishLottery",
                 "node_type": 42,
                 "src": {
@@ -1308,7 +1911,7 @@
                 "visibility": 3,
                 "state_mutability": 4,
                 "return_parameters": {
-                  "id": 89,
+                  "id": 128,
                   "node_type": 43,
                   "src": {
                     "line": 48,
@@ -1316,11 +1919,11 @@
                     "start": 1182,
                     "end": 1964,
                     "length": 783,
-                    "parent_index": 88
+                    "parent_index": 123
                   }
                 },
                 "body": {
-                  "id": 90,
+                  "id": 129,
                   "node_type": 46,
                   "src": {
                     "line": 48,
@@ -1328,11 +1931,11 @@
                     "start": 1246,
                     "end": 1964,
                     "length": 719,
-                    "parent_index": 88
+                    "parent_index": 123
                   },
                   "statements": [
                     {
-                      "id": 91,
+                      "id": 130,
                       "node_type": 56,
                       "src": {
                         "line": 49,
@@ -1340,21 +1943,21 @@
                         "start": 1256,
                         "end": 1285,
                         "length": 30,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "expression": {
-                        "id": 92,
+                        "id": 131,
                         "node_type": 27,
                         "src": {
                           "line": 49,
                           "column": 8,
                           "start": 1256,
                           "end": 1284,
-                          "parent_index": 91
+                          "parent_index": 130
                         },
                         "operator": 11,
                         "left_expression": {
-                          "id": 93,
+                          "id": 132,
                           "name": "state",
                           "node_type": 16,
                           "src": {
@@ -1363,16 +1966,16 @@
                             "start": 1256,
                             "end": 1260,
                             "length": 5,
-                            "parent_index": 91
+                            "parent_index": 130
                           },
-                          "referenced_declaration": 21,
+                          "referenced_declaration": 22,
                           "type_descriptions": {
                             "type_identifier": "t_LotteryState",
                             "type_string": "LotteryState"
                           }
                         },
                         "right_expression": {
-                          "id": 94,
+                          "id": 133,
                           "name": "LotteryState.Finished",
                           "node_type": 23,
                           "src": {
@@ -1381,10 +1984,15 @@
                             "start": 1264,
                             "end": 1284,
                             "length": 21,
-                            "parent_index": 91
+                            "parent_index": 130
+                          },
+                          "referenced_declaration": 4,
+                          "type_descriptions": {
+                            "type_identifier": "t_enum_$_LotteryState_$4",
+                            "type_string": "enum Lottery.LotteryState"
                           },
                           "expression": {
-                            "id": 95,
+                            "id": 134,
                             "name": "LotteryState",
                             "node_type": 16,
                             "src": {
@@ -1393,7 +2001,11 @@
                               "start": 1264,
                               "end": 1275,
                               "length": 12,
-                              "parent_index": 94
+                              "parent_index": 133
+                            },
+                            "type_descriptions": {
+                              "type_identifier": "t_enum_$_LotteryState_$4",
+                              "type_string": "enum Lottery.LotteryState"
                             }
                           },
                           "member_name": "Finished"
@@ -1401,7 +2013,7 @@
                       }
                     },
                     {
-                      "id": 96,
+                      "id": 135,
                       "node_type": 45,
                       "src": {
                         "line": 51,
@@ -1409,26 +2021,26 @@
                         "start": 1296,
                         "end": 1361,
                         "length": 66,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "declarations": [
                         {
-                          "id": 97,
+                          "id": 136,
                           "mutability": 1,
                           "name": "index",
                           "node_type": 44,
-                          "scope": 90,
+                          "scope": 129,
                           "src": {
                             "line": 51,
                             "column": 8,
                             "start": 1296,
                             "end": 1308,
                             "length": 13,
-                            "parent_index": 96
+                            "parent_index": 135
                           },
                           "storage_location": 1,
                           "type_name": {
-                            "id": 98,
+                            "id": 137,
                             "name": "uint256",
                             "node_type": 30,
                             "src": {
@@ -1437,7 +2049,7 @@
                               "start": 1296,
                               "end": 1302,
                               "length": 7,
-                              "parent_index": 96
+                              "parent_index": 135
                             },
                             "type_descriptions": {
                               "type_identifier": "t_uint256",
@@ -1452,10 +2064,10 @@
                         }
                       ],
                       "assignments": [
-                        97
+                        136
                       ],
                       "initial_value": {
-                        "id": 99,
+                        "id": 138,
                         "name": "uint256(block.timestamp)%playerAddresses.length",
                         "node_type": 19,
                         "src": {
@@ -1464,7 +2076,7 @@
                           "start": 1312,
                           "end": 1360,
                           "length": 49,
-                          "parent_index": 96
+                          "parent_index": 135
                         },
                         "type_descriptions": {
                           "type_identifier": "t_function_call",
@@ -1472,7 +2084,7 @@
                         },
                         "operator": 5,
                         "left_expression": {
-                          "id": 100,
+                          "id": 139,
                           "name": "uint256(block.timestamp)",
                           "node_type": 24,
                           "src": {
@@ -1481,14 +2093,14 @@
                             "start": 1312,
                             "end": 1335,
                             "length": 24,
-                            "parent_index": 99
+                            "parent_index": 138
                           },
                           "type_descriptions": {
                             "type_identifier": "t_function_call",
                             "type_string": "function()"
                           },
                           "expression": {
-                            "id": 103,
+                            "id": 142,
                             "name": "uint256",
                             "node_type": 16,
                             "src": {
@@ -1497,7 +2109,7 @@
                               "start": 1312,
                               "end": 1318,
                               "length": 7,
-                              "parent_index": 100
+                              "parent_index": 139
                             },
                             "type_descriptions": {
                               "type_identifier": "t_function_call",
@@ -1507,7 +2119,7 @@
                           "kind": 24,
                           "arguments": [
                             {
-                              "id": 101,
+                              "id": 140,
                               "name": "block.timestamp",
                               "node_type": 23,
                               "src": {
@@ -1516,10 +2128,10 @@
                                 "start": 1320,
                                 "end": 1334,
                                 "length": 15,
-                                "parent_index": 100
+                                "parent_index": 139
                               },
                               "expression": {
-                                "id": 102,
+                                "id": 141,
                                 "name": "block",
                                 "node_type": 16,
                                 "src": {
@@ -1528,7 +2140,7 @@
                                   "start": 1320,
                                   "end": 1324,
                                   "length": 5,
-                                  "parent_index": 101
+                                  "parent_index": 140
                                 }
                               },
                               "member_name": "timestamp"
@@ -1536,7 +2148,7 @@
                           ]
                         },
                         "right_expression": {
-                          "id": 104,
+                          "id": 143,
                           "name": "playerAddresses.length",
                           "node_type": 23,
                           "src": {
@@ -1545,10 +2157,10 @@
                             "start": 1339,
                             "end": 1360,
                             "length": 22,
-                            "parent_index": 99
+                            "parent_index": 138
                           },
                           "expression": {
-                            "id": 105,
+                            "id": 144,
                             "name": "playerAddresses",
                             "node_type": 16,
                             "src": {
@@ -1557,9 +2169,9 @@
                               "start": 1339,
                               "end": 1353,
                               "length": 15,
-                              "parent_index": 104
+                              "parent_index": 143
                             },
-                            "referenced_declaration": 18,
+                            "referenced_declaration": 19,
                             "type_descriptions": {
                               "type_identifier": "t_address[]",
                               "type_string": "address[]"
@@ -1570,7 +2182,7 @@
                       }
                     },
                     {
-                      "id": 106,
+                      "id": 145,
                       "node_type": 45,
                       "src": {
                         "line": 52,
@@ -1578,26 +2190,26 @@
                         "start": 1371,
                         "end": 1398,
                         "length": 28,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "declarations": [
                         {
-                          "id": 107,
+                          "id": 146,
                           "mutability": 1,
                           "name": "winner",
                           "node_type": 44,
-                          "scope": 90,
+                          "scope": 129,
                           "src": {
                             "line": 52,
                             "column": 8,
                             "start": 1371,
                             "end": 1384,
                             "length": 14,
-                            "parent_index": 106
+                            "parent_index": 145
                           },
                           "storage_location": 1,
                           "type_name": {
-                            "id": 108,
+                            "id": 147,
                             "name": "address",
                             "node_type": 30,
                             "src": {
@@ -1606,7 +2218,7 @@
                               "start": 1371,
                               "end": 1377,
                               "length": 7,
-                              "parent_index": 106
+                              "parent_index": 145
                             },
                             "type_descriptions": {
                               "type_identifier": "t_address",
@@ -1621,10 +2233,10 @@
                         }
                       ],
                       "assignments": [
-                        107
+                        146
                       ],
                       "initial_value": {
-                        "id": 109,
+                        "id": 148,
                         "name": "address(0)",
                         "node_type": 24,
                         "src": {
@@ -1633,14 +2245,14 @@
                           "start": 1388,
                           "end": 1397,
                           "length": 10,
-                          "parent_index": 106
+                          "parent_index": 145
                         },
                         "type_descriptions": {
                           "type_identifier": "t_function_call",
                           "type_string": "function(int_const 0)"
                         },
                         "expression": {
-                          "id": 111,
+                          "id": 150,
                           "name": "address",
                           "node_type": 16,
                           "src": {
@@ -1649,7 +2261,7 @@
                             "start": 1388,
                             "end": 1394,
                             "length": 7,
-                            "parent_index": 109
+                            "parent_index": 148
                           },
                           "type_descriptions": {
                             "type_identifier": "t_function_call",
@@ -1659,7 +2271,7 @@
                         "kind": 24,
                         "arguments": [
                           {
-                            "id": 110,
+                            "id": 149,
                             "name": "0",
                             "node_type": 17,
                             "src": {
@@ -1668,7 +2280,7 @@
                               "start": 1396,
                               "end": 1396,
                               "length": 1,
-                              "parent_index": 109
+                              "parent_index": 148
                             },
                             "type_descriptions": {
                               "type_identifier": "t_rational_0_by_1",
@@ -1683,7 +2295,7 @@
                       }
                     },
                     {
-                      "id": 112,
+                      "id": 151,
                       "node_type": 45,
                       "src": {
                         "line": 53,
@@ -1691,26 +2303,26 @@
                         "start": 1408,
                         "end": 1425,
                         "length": 18,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "declarations": [
                         {
-                          "id": 113,
+                          "id": 152,
                           "mutability": 1,
                           "name": "count",
                           "node_type": 44,
-                          "scope": 90,
+                          "scope": 129,
                           "src": {
                             "line": 53,
                             "column": 8,
                             "start": 1408,
                             "end": 1420,
                             "length": 13,
-                            "parent_index": 112
+                            "parent_index": 151
                           },
                           "storage_location": 1,
                           "type_name": {
-                            "id": 114,
+                            "id": 153,
                             "name": "uint256",
                             "node_type": 30,
                             "src": {
@@ -1719,7 +2331,7 @@
                               "start": 1408,
                               "end": 1414,
                               "length": 7,
-                              "parent_index": 112
+                              "parent_index": 151
                             },
                             "type_descriptions": {
                               "type_identifier": "t_uint256",
@@ -1734,10 +2346,10 @@
                         }
                       ],
                       "assignments": [
-                        113
+                        152
                       ],
                       "initial_value": {
-                        "id": 115,
+                        "id": 154,
                         "name": "0",
                         "node_type": 17,
                         "src": {
@@ -1746,7 +2358,7 @@
                           "start": 1424,
                           "end": 1424,
                           "length": 1,
-                          "parent_index": 112
+                          "parent_index": 151
                         },
                         "type_descriptions": {
                           "type_identifier": "t_rational_0_by_1",
@@ -1758,9 +2370,386 @@
                         "is_pure": true
                       }
                     },
-                    null,
                     {
-                      "id": 116,
+                      "id": 155,
+                      "node_type": 73,
+                      "src": {
+                        "line": 55,
+                        "start": 1444,
+                        "end": 1763,
+                        "length": 320,
+                        "parent_index": 123
+                      },
+                      "condition": {
+                        "id": 156,
+                        "name": "count\u003cplayerAddresses.length",
+                        "node_type": 19,
+                        "src": {
+                          "line": 55,
+                          "column": 14,
+                          "start": 1450,
+                          "end": 1479,
+                          "length": 30,
+                          "parent_index": 155
+                        },
+                        "type_descriptions": {
+                          "type_identifier": "t_bool",
+                          "type_string": "bool"
+                        },
+                        "operator": 9,
+                        "left_expression": {
+                          "id": 157,
+                          "name": "count",
+                          "node_type": 16,
+                          "src": {
+                            "line": 55,
+                            "column": 14,
+                            "start": 1450,
+                            "end": 1454,
+                            "length": 5,
+                            "parent_index": 156
+                          },
+                          "referenced_declaration": 152,
+                          "type_descriptions": {
+                            "type_identifier": "t_uint256",
+                            "type_string": "uint256"
+                          }
+                        },
+                        "right_expression": {
+                          "id": 158,
+                          "name": "playerAddresses.length",
+                          "node_type": 23,
+                          "src": {
+                            "line": 55,
+                            "column": 22,
+                            "start": 1458,
+                            "end": 1479,
+                            "length": 22,
+                            "parent_index": 156
+                          },
+                          "expression": {
+                            "id": 159,
+                            "name": "playerAddresses",
+                            "node_type": 16,
+                            "src": {
+                              "line": 55,
+                              "column": 22,
+                              "start": 1458,
+                              "end": 1472,
+                              "length": 15,
+                              "parent_index": 158
+                            },
+                            "referenced_declaration": 19,
+                            "type_descriptions": {
+                              "type_identifier": "t_address[]",
+                              "type_string": "address[]"
+                            }
+                          },
+                          "member_name": "length"
+                        }
+                      },
+                      "body": {
+                        "id": 160,
+                        "node_type": 46,
+                        "src": {
+                          "line": 55,
+                          "column": 46,
+                          "start": 1482,
+                          "end": 1763,
+                          "length": 282,
+                          "parent_index": 155
+                        },
+                        "statements": [
+                          {
+                            "id": 161,
+                            "node_type": 48,
+                            "src": {
+                              "line": 56,
+                              "start": 1496,
+                              "end": 1600,
+                              "length": 105,
+                              "parent_index": 123
+                            },
+                            "condition": {
+                              "id": 162,
+                              "name": "index==count",
+                              "node_type": 19,
+                              "src": {
+                                "line": 56,
+                                "column": 15,
+                                "start": 1499,
+                                "end": 1512,
+                                "length": 14,
+                                "parent_index": 161
+                              },
+                              "operator": 11,
+                              "left_expression": {
+                                "id": 163,
+                                "name": "index",
+                                "node_type": 16,
+                                "src": {
+                                  "line": 56,
+                                  "column": 15,
+                                  "start": 1499,
+                                  "end": 1503,
+                                  "length": 5,
+                                  "parent_index": 162
+                                }
+                              },
+                              "right_expression": {
+                                "id": 164,
+                                "name": "count",
+                                "node_type": 16,
+                                "src": {
+                                  "line": 56,
+                                  "column": 24,
+                                  "start": 1508,
+                                  "end": 1512,
+                                  "length": 5,
+                                  "parent_index": 162
+                                }
+                              }
+                            },
+                            "true_body": {
+                              "id": 165,
+                              "node_type": 46,
+                              "src": {
+                                "line": 56,
+                                "start": 1514,
+                                "end": 1600,
+                                "length": 87,
+                                "parent_index": 161
+                              },
+                              "statements": [
+                                {
+                                  "id": 166,
+                                  "node_type": 56,
+                                  "src": {
+                                    "line": 57,
+                                    "column": 16,
+                                    "start": 1532,
+                                    "end": 1563,
+                                    "length": 32,
+                                    "parent_index": 160
+                                  },
+                                  "expression": {
+                                    "id": 167,
+                                    "node_type": 27,
+                                    "src": {
+                                      "line": 57,
+                                      "column": 16,
+                                      "start": 1532,
+                                      "end": 1562,
+                                      "parent_index": 166
+                                    },
+                                    "operator": 11,
+                                    "left_expression": {
+                                      "id": 168,
+                                      "name": "winner",
+                                      "node_type": 16,
+                                      "src": {
+                                        "line": 57,
+                                        "column": 16,
+                                        "start": 1532,
+                                        "end": 1537,
+                                        "length": 6,
+                                        "parent_index": 166
+                                      }
+                                    },
+                                    "right_expression": {
+                                      "id": 169,
+                                      "name": "playerAddresses[count]",
+                                      "node_type": 22,
+                                      "src": {
+                                        "line": 57,
+                                        "column": 25,
+                                        "start": 1541,
+                                        "end": 1562,
+                                        "length": 22,
+                                        "parent_index": 166
+                                      },
+                                      "base_expression": {
+                                        "id": 170,
+                                        "name": "playerAddresses",
+                                        "node_type": 16,
+                                        "src": {
+                                          "line": 57,
+                                          "column": 25,
+                                          "start": 1541,
+                                          "end": 1555,
+                                          "length": 15,
+                                          "parent_index": 169
+                                        },
+                                        "referenced_declaration": 19,
+                                        "type_descriptions": {
+                                          "type_identifier": "t_address[]",
+                                          "type_string": "address[]"
+                                        }
+                                      },
+                                      "index_expression": {
+                                        "id": 171,
+                                        "name": "count",
+                                        "node_type": 16,
+                                        "src": {
+                                          "line": 57,
+                                          "column": 41,
+                                          "start": 1557,
+                                          "end": 1561,
+                                          "length": 5,
+                                          "parent_index": 169
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "id": 172,
+                                  "node_type": 74,
+                                  "src": {
+                                    "line": 58,
+                                    "start": 1581,
+                                    "end": 1586,
+                                    "length": 6,
+                                    "parent_index": 123
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": 173,
+                            "src": {
+                              "line": 61,
+                              "column": 12,
+                              "start": 1615,
+                              "end": 1622,
+                              "length": 8,
+                              "parent_index": 160
+                            }
+                          },
+                          {
+                            "id": 174,
+                            "node_type": 48,
+                            "src": {
+                              "line": 64,
+                              "start": 1693,
+                              "end": 1753,
+                              "length": 61,
+                              "parent_index": 123
+                            },
+                            "condition": {
+                              "id": 175,
+                              "name": "count%2==1",
+                              "node_type": 19,
+                              "src": {
+                                "line": 64,
+                                "column": 16,
+                                "start": 1697,
+                                "end": 1710,
+                                "length": 14,
+                                "parent_index": 174
+                              },
+                              "operator": 11,
+                              "left_expression": {
+                                "id": 176,
+                                "name": "count%2",
+                                "node_type": 19,
+                                "src": {
+                                  "line": 64,
+                                  "column": 16,
+                                  "start": 1697,
+                                  "end": 1705,
+                                  "length": 9,
+                                  "parent_index": 175
+                                },
+                                "operator": 5,
+                                "left_expression": {
+                                  "id": 177,
+                                  "name": "count",
+                                  "node_type": 16,
+                                  "src": {
+                                    "line": 64,
+                                    "column": 16,
+                                    "start": 1697,
+                                    "end": 1701,
+                                    "length": 5,
+                                    "parent_index": 176
+                                  }
+                                },
+                                "right_expression": {
+                                  "id": 178,
+                                  "name": "2",
+                                  "node_type": 17,
+                                  "src": {
+                                    "line": 64,
+                                    "column": 24,
+                                    "start": 1705,
+                                    "end": 1705,
+                                    "length": 1,
+                                    "parent_index": 176
+                                  },
+                                  "type_descriptions": {
+                                    "type_identifier": "t_rational_2_by_1",
+                                    "type_string": "int_const 2"
+                                  },
+                                  "kind": 49,
+                                  "value": "2",
+                                  "hex_value": "32",
+                                  "is_pure": true
+                                }
+                              },
+                              "right_expression": {
+                                "id": 179,
+                                "name": "1",
+                                "node_type": 17,
+                                "src": {
+                                  "line": 64,
+                                  "column": 29,
+                                  "start": 1710,
+                                  "end": 1710,
+                                  "length": 1,
+                                  "parent_index": 175
+                                },
+                                "type_descriptions": {
+                                  "type_identifier": "t_rational_1_by_1",
+                                  "type_string": "int_const 1"
+                                },
+                                "kind": 49,
+                                "value": "1",
+                                "hex_value": "31",
+                                "is_pure": true
+                              }
+                            },
+                            "true_body": {
+                              "id": 180,
+                              "node_type": 46,
+                              "src": {
+                                "line": 64,
+                                "start": 1713,
+                                "end": 1753,
+                                "length": 41,
+                                "parent_index": 174
+                              },
+                              "statements": [
+                                {
+                                  "id": 181,
+                                  "node_type": 75,
+                                  "src": {
+                                    "line": 65,
+                                    "start": 1731,
+                                    "end": 1739,
+                                    "length": 9,
+                                    "parent_index": 123
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": 182,
                       "node_type": 24,
                       "src": {
                         "line": 69,
@@ -1768,10 +2757,10 @@
                         "start": 1774,
                         "end": 1826,
                         "length": 53,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "expression": {
-                        "id": 117,
+                        "id": 183,
                         "node_type": 24,
                         "src": {
                           "line": 69,
@@ -1779,10 +2768,10 @@
                           "start": 1774,
                           "end": 1825,
                           "length": 52,
-                          "parent_index": 116
+                          "parent_index": 182
                         },
                         "expression": {
-                          "id": 118,
+                          "id": 184,
                           "name": "require",
                           "node_type": 16,
                           "src": {
@@ -1791,7 +2780,7 @@
                             "start": 1774,
                             "end": 1780,
                             "length": 7,
-                            "parent_index": 117
+                            "parent_index": 183
                           },
                           "argument_types": [
                             {
@@ -1807,7 +2796,7 @@
                       },
                       "arguments": [
                         {
-                          "id": 119,
+                          "id": 185,
                           "name": "winner!=address(0)",
                           "node_type": 19,
                           "src": {
@@ -1816,7 +2805,7 @@
                             "start": 1782,
                             "end": 1801,
                             "length": 20,
-                            "parent_index": 118
+                            "parent_index": 184
                           },
                           "type_descriptions": {
                             "type_identifier": "t_address",
@@ -1824,7 +2813,7 @@
                           },
                           "operator": 12,
                           "left_expression": {
-                            "id": 120,
+                            "id": 186,
                             "name": "winner",
                             "node_type": 16,
                             "src": {
@@ -1833,16 +2822,16 @@
                               "start": 1782,
                               "end": 1787,
                               "length": 6,
-                              "parent_index": 119
+                              "parent_index": 185
                             },
-                            "referenced_declaration": 107,
+                            "referenced_declaration": 146,
                             "type_descriptions": {
                               "type_identifier": "t_address",
                               "type_string": "address"
                             }
                           },
                           "right_expression": {
-                            "id": 121,
+                            "id": 187,
                             "name": "address(0)",
                             "node_type": 24,
                             "src": {
@@ -1851,14 +2840,14 @@
                               "start": 1792,
                               "end": 1801,
                               "length": 10,
-                              "parent_index": 119
+                              "parent_index": 185
                             },
                             "type_descriptions": {
                               "type_identifier": "t_function_call",
                               "type_string": "function(int_const 0)"
                             },
                             "expression": {
-                              "id": 123,
+                              "id": 189,
                               "name": "address",
                               "node_type": 16,
                               "src": {
@@ -1867,7 +2856,7 @@
                                 "start": 1792,
                                 "end": 1798,
                                 "length": 7,
-                                "parent_index": 121
+                                "parent_index": 187
                               },
                               "type_descriptions": {
                                 "type_identifier": "t_function_call",
@@ -1877,7 +2866,7 @@
                             "kind": 24,
                             "arguments": [
                               {
-                                "id": 122,
+                                "id": 188,
                                 "name": "0",
                                 "node_type": 17,
                                 "src": {
@@ -1886,7 +2875,7 @@
                                   "start": 1800,
                                   "end": 1800,
                                   "length": 1,
-                                  "parent_index": 121
+                                  "parent_index": 187
                                 },
                                 "type_descriptions": {
                                   "type_identifier": "t_rational_0_by_1",
@@ -1901,8 +2890,7 @@
                           }
                         },
                         {
-                          "id": 124,
-                          "name": "\"Winner is not valid\"",
+                          "id": 190,
                           "node_type": 17,
                           "src": {
                             "line": 69,
@@ -1910,7 +2898,7 @@
                             "start": 1804,
                             "end": 1824,
                             "length": 21,
-                            "parent_index": 118
+                            "parent_index": 184
                           },
                           "type_descriptions": {
                             "type_identifier": "t_string_literal",
@@ -1924,17 +2912,17 @@
                       ]
                     },
                     {
-                      "id": 125,
+                      "id": 191,
                       "node_type": 64,
                       "src": {
                         "line": 71,
                         "start": 1837,
                         "end": 1865,
                         "length": 29,
-                        "parent_index": 88
+                        "parent_index": 123
                       },
                       "expression": {
-                        "id": 127,
+                        "id": 193,
                         "name": "LotteryFinished",
                         "node_type": 16,
                         "src": {
@@ -1943,12 +2931,12 @@
                           "start": 1842,
                           "end": 1856,
                           "length": 15,
-                          "parent_index": 125
+                          "parent_index": 191
                         }
                       },
                       "arguments": [
                         {
-                          "id": 126,
+                          "id": 192,
                           "name": "winner",
                           "node_type": 16,
                           "src": {
@@ -1957,9 +2945,9 @@
                             "start": 1858,
                             "end": 1863,
                             "length": 6,
-                            "parent_index": 125
+                            "parent_index": 191
                           },
-                          "referenced_declaration": 107,
+                          "referenced_declaration": 146,
                           "type_descriptions": {
                             "type_identifier": "t_address",
                             "type_string": "address"
@@ -1968,7 +2956,7 @@
                       ]
                     },
                     {
-                      "id": 128,
+                      "id": 194,
                       "node_type": 45,
                       "src": {
                         "line": 73,
@@ -1976,26 +2964,26 @@
                         "start": 1876,
                         "end": 1915,
                         "length": 40,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "declarations": [
                         {
-                          "id": 129,
+                          "id": 195,
                           "mutability": 1,
                           "name": "balance",
                           "node_type": 44,
-                          "scope": 90,
+                          "scope": 129,
                           "src": {
                             "line": 73,
                             "column": 8,
                             "start": 1876,
                             "end": 1890,
                             "length": 15,
-                            "parent_index": 128
+                            "parent_index": 194
                           },
                           "storage_location": 1,
                           "type_name": {
-                            "id": 130,
+                            "id": 196,
                             "name": "uint256",
                             "node_type": 30,
                             "src": {
@@ -2004,7 +2992,7 @@
                               "start": 1876,
                               "end": 1882,
                               "length": 7,
-                              "parent_index": 128
+                              "parent_index": 194
                             },
                             "type_descriptions": {
                               "type_identifier": "t_uint256",
@@ -2019,10 +3007,10 @@
                         }
                       ],
                       "assignments": [
-                        129
+                        195
                       ],
                       "initial_value": {
-                        "id": 131,
+                        "id": 197,
                         "name": "address(this).balance",
                         "node_type": 23,
                         "src": {
@@ -2031,10 +3019,10 @@
                           "start": 1894,
                           "end": 1914,
                           "length": 21,
-                          "parent_index": 128
+                          "parent_index": 194
                         },
                         "expression": {
-                          "id": 132,
+                          "id": 198,
                           "name": "address(this)",
                           "node_type": 24,
                           "src": {
@@ -2043,14 +3031,14 @@
                             "start": 1894,
                             "end": 1906,
                             "length": 13,
-                            "parent_index": 131
+                            "parent_index": 197
                           },
                           "type_descriptions": {
                             "type_identifier": "t_function_call",
                             "type_string": "function()"
                           },
                           "expression": {
-                            "id": 134,
+                            "id": 200,
                             "name": "address",
                             "node_type": 16,
                             "src": {
@@ -2059,7 +3047,7 @@
                               "start": 1894,
                               "end": 1900,
                               "length": 7,
-                              "parent_index": 132
+                              "parent_index": 198
                             },
                             "type_descriptions": {
                               "type_identifier": "t_function_call",
@@ -2069,7 +3057,7 @@
                           "kind": 24,
                           "arguments": [
                             {
-                              "id": 133,
+                              "id": 199,
                               "name": "this",
                               "node_type": 16,
                               "src": {
@@ -2078,7 +3066,7 @@
                                 "start": 1902,
                                 "end": 1905,
                                 "length": 4,
-                                "parent_index": 132
+                                "parent_index": 198
                               }
                             }
                           ]
@@ -2087,7 +3075,7 @@
                       }
                     },
                     {
-                      "id": 135,
+                      "id": 201,
                       "node_type": 24,
                       "src": {
                         "line": 74,
@@ -2095,10 +3083,10 @@
                         "start": 1925,
                         "end": 1958,
                         "length": 34,
-                        "parent_index": 90
+                        "parent_index": 129
                       },
                       "expression": {
-                        "id": 136,
+                        "id": 202,
                         "node_type": 24,
                         "src": {
                           "line": 74,
@@ -2106,10 +3094,10 @@
                           "start": 1925,
                           "end": 1957,
                           "length": 33,
-                          "parent_index": 135
+                          "parent_index": 201
                         },
                         "expression": {
-                          "id": 137,
+                          "id": 203,
                           "name": "payable(winner).transfer",
                           "node_type": 16,
                           "src": {
@@ -2118,7 +3106,7 @@
                             "start": 1925,
                             "end": 1948,
                             "length": 24,
-                            "parent_index": 136
+                            "parent_index": 202
                           },
                           "argument_types": [
                             {
@@ -2130,7 +3118,7 @@
                       },
                       "arguments": [
                         {
-                          "id": 138,
+                          "id": 204,
                           "name": "balance",
                           "node_type": 16,
                           "src": {
@@ -2139,9 +3127,9 @@
                             "start": 1950,
                             "end": 1956,
                             "length": 7,
-                            "parent_index": 137
+                            "parent_index": 203
                           },
-                          "referenced_declaration": 129,
+                          "referenced_declaration": 195,
                           "type_descriptions": {
                             "type_identifier": "t_uint256",
                             "type_string": "uint256"
@@ -2150,10 +3138,75 @@
                       ]
                     }
                   ]
-                }
+                },
+                "modifiers": [
+                  {
+                    "id": 124,
+                    "node_type": 72,
+                    "src": {
+                      "line": 48,
+                      "column": 36,
+                      "start": 1214,
+                      "end": 1244,
+                      "length": 31,
+                      "parent_index": 123
+                    },
+                    "arguments": [
+                      {
+                        "id": 125,
+                        "name": "LotteryState.Accepting",
+                        "node_type": 23,
+                        "src": {
+                          "line": 48,
+                          "column": 44,
+                          "start": 1222,
+                          "end": 1243,
+                          "length": 22,
+                          "parent_index": 124
+                        },
+                        "referenced_declaration": 4,
+                        "type_descriptions": {
+                          "type_identifier": "t_enum_$_LotteryState_$4",
+                          "type_string": "enum Lottery.LotteryState"
+                        },
+                        "expression": {
+                          "id": 126,
+                          "name": "LotteryState",
+                          "node_type": 16,
+                          "src": {
+                            "line": 48,
+                            "column": 44,
+                            "start": 1222,
+                            "end": 1233,
+                            "length": 12,
+                            "parent_index": 125
+                          },
+                          "type_descriptions": {
+                            "type_identifier": "t_enum_$_LotteryState_$4",
+                            "type_string": "enum Lottery.LotteryState"
+                          }
+                        },
+                        "member_name": "Accepting"
+                      }
+                    ],
+                    "modifier_name": {
+                      "id": 127,
+                      "name": "inState",
+                      "node_type": 16,
+                      "src": {
+                        "line": 48,
+                        "column": 36,
+                        "start": 1214,
+                        "end": 1220,
+                        "length": 7,
+                        "parent_index": 124
+                      }
+                    }
+                  }
+                ]
               },
               {
-                "id": 139,
+                "id": 205,
                 "name": "owner",
                 "node_type": 42,
                 "src": {
@@ -2168,24 +3221,24 @@
                 "visibility": 3,
                 "state_mutability": 5,
                 "parameters": {
-                  "id": 140,
+                  "id": 206,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 141,
+                      "id": 207,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 139,
+                      "scope": 205,
                       "src": {
                         "line": 77,
                         "column": 42,
                         "start": 2009,
                         "end": 2015,
                         "length": 7,
-                        "parent_index": 140
+                        "parent_index": 206
                       },
                       "type_name": {
-                        "id": 142,
+                        "id": 208,
                         "name": "address",
                         "node_type": 30,
                         "src": {
@@ -2194,7 +3247,7 @@
                           "start": 2009,
                           "end": 2015,
                           "length": 7,
-                          "parent_index": 140
+                          "parent_index": 206
                         },
                         "type_descriptions": {
                           "type_identifier": "t_address",
@@ -2209,28 +3262,28 @@
                     "start": 2009,
                     "end": 2015,
                     "length": 7,
-                    "parent_index": 139
+                    "parent_index": 205
                   }
                 },
                 "return_parameters": {
-                  "id": 143,
+                  "id": 209,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 144,
+                      "id": 210,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 139,
+                      "scope": 205,
                       "src": {
                         "line": 77,
                         "column": 42,
                         "start": 2009,
                         "end": 2015,
                         "length": 7,
-                        "parent_index": 143
+                        "parent_index": 209
                       },
                       "type_name": {
-                        "id": 145,
+                        "id": 211,
                         "name": "address",
                         "node_type": 30,
                         "src": {
@@ -2239,7 +3292,7 @@
                           "start": 2009,
                           "end": 2015,
                           "length": 7,
-                          "parent_index": 143
+                          "parent_index": 209
                         },
                         "type_descriptions": {
                           "type_identifier": "t_address",
@@ -2254,11 +3307,11 @@
                     "start": 2009,
                     "end": 2015,
                     "length": 7,
-                    "parent_index": 139
+                    "parent_index": 205
                   }
                 },
                 "body": {
-                  "id": 146,
+                  "id": 212,
                   "node_type": 46,
                   "src": {
                     "line": 77,
@@ -2266,11 +3319,11 @@
                     "start": 2018,
                     "end": 2054,
                     "length": 37,
-                    "parent_index": 139
+                    "parent_index": 205
                   },
                   "statements": [
                     {
-                      "id": 147,
+                      "id": 213,
                       "node_type": 47,
                       "src": {
                         "line": 78,
@@ -2278,10 +3331,10 @@
                         "start": 2028,
                         "end": 2048,
                         "length": 21,
-                        "parent_index": 146
+                        "parent_index": 212
                       },
                       "expression": {
-                        "id": 148,
+                        "id": 214,
                         "name": "address(this)",
                         "node_type": 24,
                         "src": {
@@ -2290,14 +3343,14 @@
                           "start": 2035,
                           "end": 2047,
                           "length": 13,
-                          "parent_index": 147
+                          "parent_index": 213
                         },
                         "type_descriptions": {
                           "type_identifier": "t_function_call",
                           "type_string": "function()"
                         },
                         "expression": {
-                          "id": 150,
+                          "id": 216,
                           "name": "address",
                           "node_type": 16,
                           "src": {
@@ -2306,7 +3359,7 @@
                             "start": 2035,
                             "end": 2041,
                             "length": 7,
-                            "parent_index": 148
+                            "parent_index": 214
                           },
                           "type_descriptions": {
                             "type_identifier": "t_function_call",
@@ -2316,7 +3369,7 @@
                         "kind": 24,
                         "arguments": [
                           {
-                            "id": 149,
+                            "id": 215,
                             "name": "this",
                             "node_type": 16,
                             "src": {
@@ -2325,18 +3378,18 @@
                               "start": 2043,
                               "end": 2046,
                               "length": 4,
-                              "parent_index": 148
+                              "parent_index": 214
                             }
                           }
                         ]
                       },
-                      "function_return_parameters": 143
+                      "function_return_parameters": 209
                     }
                   ]
                 }
               },
               {
-                "id": 151,
+                "id": 217,
                 "name": "balance",
                 "node_type": 42,
                 "src": {
@@ -2351,24 +3404,24 @@
                 "visibility": 3,
                 "state_mutability": 5,
                 "parameters": {
-                  "id": 152,
+                  "id": 218,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 153,
+                      "id": 219,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 151,
+                      "scope": 217,
                       "src": {
                         "line": 81,
                         "column": 44,
                         "start": 2101,
                         "end": 2107,
                         "length": 7,
-                        "parent_index": 152
+                        "parent_index": 218
                       },
                       "type_name": {
-                        "id": 154,
+                        "id": 220,
                         "name": "uint256",
                         "node_type": 30,
                         "src": {
@@ -2377,7 +3430,7 @@
                           "start": 2101,
                           "end": 2107,
                           "length": 7,
-                          "parent_index": 152
+                          "parent_index": 218
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -2392,28 +3445,28 @@
                     "start": 2101,
                     "end": 2107,
                     "length": 7,
-                    "parent_index": 151
+                    "parent_index": 217
                   }
                 },
                 "return_parameters": {
-                  "id": 155,
+                  "id": 221,
                   "node_type": 43,
                   "parameters": [
                     {
-                      "id": 156,
+                      "id": 222,
                       "mutability": 1,
                       "node_type": 30,
-                      "scope": 151,
+                      "scope": 217,
                       "src": {
                         "line": 81,
                         "column": 44,
                         "start": 2101,
                         "end": 2107,
                         "length": 7,
-                        "parent_index": 155
+                        "parent_index": 221
                       },
                       "type_name": {
-                        "id": 157,
+                        "id": 223,
                         "name": "uint256",
                         "node_type": 30,
                         "src": {
@@ -2422,7 +3475,7 @@
                           "start": 2101,
                           "end": 2107,
                           "length": 7,
-                          "parent_index": 155
+                          "parent_index": 221
                         },
                         "type_descriptions": {
                           "type_identifier": "t_uint256",
@@ -2437,11 +3490,11 @@
                     "start": 2101,
                     "end": 2107,
                     "length": 7,
-                    "parent_index": 151
+                    "parent_index": 217
                   }
                 },
                 "body": {
-                  "id": 158,
+                  "id": 224,
                   "node_type": 46,
                   "src": {
                     "line": 81,
@@ -2449,11 +3502,11 @@
                     "start": 2110,
                     "end": 2154,
                     "length": 45,
-                    "parent_index": 151
+                    "parent_index": 217
                   },
                   "statements": [
                     {
-                      "id": 159,
+                      "id": 225,
                       "node_type": 47,
                       "src": {
                         "line": 82,
@@ -2461,10 +3514,10 @@
                         "start": 2120,
                         "end": 2148,
                         "length": 29,
-                        "parent_index": 158
+                        "parent_index": 224
                       },
                       "expression": {
-                        "id": 160,
+                        "id": 226,
                         "name": "address(this).balance",
                         "node_type": 23,
                         "src": {
@@ -2473,10 +3526,10 @@
                           "start": 2127,
                           "end": 2147,
                           "length": 21,
-                          "parent_index": 159
+                          "parent_index": 225
                         },
                         "expression": {
-                          "id": 161,
+                          "id": 227,
                           "name": "address(this)",
                           "node_type": 24,
                           "src": {
@@ -2485,14 +3538,14 @@
                             "start": 2127,
                             "end": 2139,
                             "length": 13,
-                            "parent_index": 160
+                            "parent_index": 226
                           },
                           "type_descriptions": {
                             "type_identifier": "t_function_call",
                             "type_string": "function()"
                           },
                           "expression": {
-                            "id": 163,
+                            "id": 229,
                             "name": "address",
                             "node_type": 16,
                             "src": {
@@ -2501,7 +3554,7 @@
                               "start": 2127,
                               "end": 2133,
                               "length": 7,
-                              "parent_index": 161
+                              "parent_index": 227
                             },
                             "type_descriptions": {
                               "type_identifier": "t_function_call",
@@ -2511,7 +3564,7 @@
                           "kind": 24,
                           "arguments": [
                             {
-                              "id": 162,
+                              "id": 228,
                               "name": "this",
                               "node_type": 16,
                               "src": {
@@ -2520,29 +3573,19 @@
                                 "start": 2135,
                                 "end": 2138,
                                 "length": 4,
-                                "parent_index": 161
+                                "parent_index": 227
                               }
                             }
                           ]
                         },
                         "member_name": "balance"
                       },
-                      "function_return_parameters": 155
+                      "function_return_parameters": 221
                     }
                   ]
                 }
               }
             ]
-          }
-        ],
-        "nodes_new": [
-          {
-            "type_url": "type.googleapis.com/txpull.v1.ast.ModifierDefinition",
-            "value": "CCAQRBoMCBIYkwMgjQQoezAf"
-          },
-          {
-            "type_url": "type.googleapis.com/txpull.v1.ast.ModifierDefinition",
-            "value": "CCIQRBoMCBcYlAQggQUobjAh"
           }
         ]
       },
