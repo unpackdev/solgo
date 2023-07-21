@@ -1,13 +1,15 @@
 package ast
 
 import (
+	"fmt"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
-func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parser.IParameterListContext) *ast_pb.ParametersList {
+func (b *ASTBuilder) traverseParameterList(sourceUnit *ast_pb.SourceUnit, node *ast_pb.Node, parameterCtx parser.IParameterListContext) *ast_pb.ParametersList {
 	if parameterCtx == nil || parameterCtx.IsEmpty() {
 		return nil
 	}
@@ -67,9 +69,10 @@ func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parse
 			}
 		}
 
-		if paramCtx.GetType_().ElementaryTypeName() != nil {
+		typeCtx := paramCtx.TypeName()
+		if typeCtx.ElementaryTypeName() != nil {
 			pNode.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
-			typeCtx := paramCtx.GetType_().ElementaryTypeName()
+			typeCtx := typeCtx.ElementaryTypeName()
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeCtx.GetText(),
 			)
@@ -90,6 +93,90 @@ func (b *ASTBuilder) traverseParameterList(node *ast_pb.Node, parameterCtx parse
 					TypeString:     normalizedTypeName,
 				},
 			}
+		} else if typeCtx.MappingType() != nil {
+			zap.L().Warn("Mapping type is not supported yet")
+		} else if typeCtx.FunctionTypeName() != nil {
+			zap.L().Warn("Function type is not supported yet")
+		} else {
+			// It seems to be a user defined type but that does not exist as type in parser...
+			pNode.TypeName = &ast_pb.TypeName{
+				Id:   atomic.AddInt64(&b.nextID, 1) - 1,
+				Name: typeCtx.GetText(),
+				Src: &ast_pb.Src{
+					Line:        int64(paramCtx.GetStart().GetLine()),
+					Column:      int64(paramCtx.GetStart().GetColumn()),
+					Start:       int64(paramCtx.GetStart().GetStart()),
+					End:         int64(paramCtx.GetStop().GetStop()),
+					Length:      int64(paramCtx.GetStop().GetStop() - paramCtx.GetStart().GetStart() + 1),
+					ParentIndex: parametersList.Id,
+				},
+				NodeType: ast_pb.NodeType_USER_DEFINED_PATH_NAME,
+			}
+
+			pathCtx := typeCtx.IdentifierPath()
+			if pathCtx != nil {
+				pNode.TypeName.PathNode = &ast_pb.PathNode{
+					Id:   atomic.AddInt64(&b.nextID, 1) - 1,
+					Name: pathCtx.GetText(),
+					Src: &ast_pb.Src{
+						Line:        int64(pathCtx.GetStart().GetLine()),
+						Column:      int64(pathCtx.GetStart().GetColumn()),
+						Start:       int64(pathCtx.GetStart().GetStart()),
+						End:         int64(pathCtx.GetStop().GetStop()),
+						Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
+						ParentIndex: pNode.TypeName.Id,
+					},
+					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
+				}
+			}
+
+			// Lets figure out type...
+			// Search for argument reference in state variable declarations.
+			referenceFound := false
+
+			for _, node := range b.currentStateVariables {
+				if node.GetName() == pathCtx.GetText() {
+					referenceFound = true
+					pNode.TypeName.PathNode.ReferencedDeclaration = node.Id
+					pNode.TypeName.ReferencedDeclaration = node.Id
+					pNode.TypeName.TypeDescriptions = node.TypeDescriptions
+					pNode.TypeDescriptions = node.TypeDescriptions
+				}
+			}
+
+			if !referenceFound {
+				for _, node := range b.currentEnums {
+					if node.GetName() == pathCtx.GetText() {
+						referenceFound = true
+						pNode.TypeName.PathNode.ReferencedDeclaration = node.Id
+						pNode.TypeName.ReferencedDeclaration = node.Id
+
+						typeDescription := &ast_pb.TypeDescriptions{
+							TypeIdentifier: func() string {
+								return fmt.Sprintf(
+									"t_enum_$_%s_$%d",
+									pathCtx.GetText(),
+									node.Id,
+								)
+							}(),
+							TypeString: func() string {
+								return fmt.Sprintf(
+									"enum %s.%s",
+									sourceUnit.GetName(),
+									pathCtx.GetText(),
+								)
+							}(),
+						}
+
+						pNode.TypeName.TypeDescriptions = typeDescription
+						pNode.TypeDescriptions = typeDescription
+					}
+				}
+			}
+		}
+
+		if typeCtx.Expression() != nil {
+			fmt.Println("Expression type is not supported yet")
 		}
 
 		parametersList.Parameters = append(parametersList.Parameters, pNode)

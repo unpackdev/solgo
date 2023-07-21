@@ -83,19 +83,19 @@ func (b *ASTBuilder) parseStateVariableDeclaration(sourceUnit *ast_pb.SourceUnit
 		}(),
 	}
 
-	node.TypeName = b.traverseTypeName(typeNameCtx, nodeCtx, nil)
+	node.TypeName = b.traverseTypeName(sourceUnit, typeNameCtx, nodeCtx, nil)
 
 	b.currentStateVariables = append(b.currentStateVariables, nodeCtx)
 	return nodeCtx
 }
 
-func (b *ASTBuilder) traverseTypeName(typeNameCtx parser.ITypeNameContext, node *ast_pb.Node, typeNameNode *ast_pb.TypeName) *ast_pb.TypeName {
+func (b *ASTBuilder) traverseTypeName(sourceUnit *ast_pb.SourceUnit, typeNameCtx parser.ITypeNameContext, node *ast_pb.Node, typeNameNode *ast_pb.TypeName) *ast_pb.TypeName {
 	if mappingCtx := typeNameCtx.MappingType(); mappingCtx != nil {
 		keyCtx := mappingCtx.GetKey()
 		valueCtx := mappingCtx.GetValue()
 
-		node.TypeName.KeyType = b.generateTypeName(keyCtx, node, typeNameNode)
-		node.TypeName.ValueType = b.generateTypeName(valueCtx, node, typeNameNode)
+		node.TypeName.KeyType = b.generateTypeName(sourceUnit, keyCtx, node, typeNameNode)
+		node.TypeName.ValueType = b.generateTypeName(sourceUnit, valueCtx, node, typeNameNode)
 
 		if node.TypeName.KeyType != nil &&
 			node.TypeName.ValueType != nil &&
@@ -124,7 +124,7 @@ func (b *ASTBuilder) traverseTypeName(typeNameCtx parser.ITypeNameContext, node 
 	return node.TypeName
 }
 
-func (b *ASTBuilder) generateTypeName(ctx interface{}, node *ast_pb.Node, typeNameNode *ast_pb.TypeName) *ast_pb.TypeName {
+func (b *ASTBuilder) generateTypeName(sourceUnit *ast_pb.SourceUnit, ctx interface{}, node *ast_pb.Node, typeNameNode *ast_pb.TypeName) *ast_pb.TypeName {
 	var typeName ast_pb.TypeName
 
 	typeName.Id = atomic.AddInt64(&b.nextID, 1) - 1
@@ -156,8 +156,8 @@ func (b *ASTBuilder) generateTypeName(ctx interface{}, node *ast_pb.Node, typeNa
 		keyCtx := specificCtx.GetKey()
 		valueCtx := specificCtx.GetValue()
 
-		typeNameNode.KeyType = b.generateTypeName(keyCtx, node, typeNameNode)
-		typeNameNode.ValueType = b.generateTypeName(valueCtx, node, typeNameNode)
+		typeNameNode.KeyType = b.generateTypeName(sourceUnit, keyCtx, node, typeNameNode)
+		typeNameNode.ValueType = b.generateTypeName(sourceUnit, valueCtx, node, typeNameNode)
 
 		if typeNameNode.KeyType != nil &&
 			typeNameNode.ValueType != nil &&
@@ -194,9 +194,73 @@ func (b *ASTBuilder) generateTypeName(ctx interface{}, node *ast_pb.Node, typeNa
 			}
 		} else if specificCtx.MappingType() != nil {
 			typeName.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
-			b.generateTypeName(specificCtx.MappingType(), node, &typeName)
+			b.generateTypeName(sourceUnit, specificCtx.MappingType(), node, &typeName)
 		} else {
-			zap.L().Warn(
+
+			// It seems to be a user defined type but that does not exist as type in parser...
+			typeName.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+
+			pathCtx := specificCtx.IdentifierPath()
+			if pathCtx != nil {
+				typeName.PathNode = &ast_pb.PathNode{
+					Id:   atomic.AddInt64(&b.nextID, 1) - 1,
+					Name: pathCtx.GetText(),
+					Src: &ast_pb.Src{
+						Line:        int64(pathCtx.GetStart().GetLine()),
+						Column:      int64(pathCtx.GetStart().GetColumn()),
+						Start:       int64(pathCtx.GetStart().GetStart()),
+						End:         int64(pathCtx.GetStop().GetStop()),
+						Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
+						ParentIndex: typeName.Id,
+					},
+					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
+				}
+			}
+
+			// Lets figure out type...
+			// Search for argument reference in state variable declarations.
+			referenceFound := false
+
+			for _, node := range b.currentStateVariables {
+				if node.GetName() == pathCtx.GetText() {
+					referenceFound = true
+					typeName.PathNode.ReferencedDeclaration = node.Id
+					typeName.ReferencedDeclaration = node.Id
+					typeName.TypeDescriptions = node.TypeDescriptions
+				}
+			}
+
+			if !referenceFound {
+				for _, node := range b.currentEnums {
+					if node.GetName() == pathCtx.GetText() {
+						referenceFound = true
+						typeName.PathNode.ReferencedDeclaration = node.Id
+						typeName.ReferencedDeclaration = node.Id
+
+						typeDescription := &ast_pb.TypeDescriptions{
+							TypeIdentifier: func() string {
+								return fmt.Sprintf(
+									"t_enum_$_%s_$%d",
+									pathCtx.GetText(),
+									node.Id,
+								)
+							}(),
+							TypeString: func() string {
+								return fmt.Sprintf(
+									"enum %s.%s",
+									sourceUnit.GetName(),
+									pathCtx.GetText(),
+								)
+							}(),
+						}
+
+						typeName.TypeDescriptions = typeDescription
+						typeName.TypeDescriptions = typeDescription
+					}
+				}
+			}
+
+			zap.L().Debug(
 				"Unsupported type name @ state variable traversal",
 				zap.String("type_name", specificCtx.GetText()),
 				zap.String("type_name_node_type", typeNameNode.String()),

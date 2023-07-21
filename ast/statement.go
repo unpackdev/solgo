@@ -33,7 +33,7 @@ func (b *ASTBuilder) parseStatement(sourceUnit *ast_pb.SourceUnit, node *ast_pb.
 	}
 
 	if whileStatement := statementCtx.WhileStatement(); whileStatement != nil {
-		panic("It's while statement...")
+		//panic("It's while statement...")
 	}
 
 	if doWhileStatement := statementCtx.DoWhileStatement(); doWhileStatement != nil {

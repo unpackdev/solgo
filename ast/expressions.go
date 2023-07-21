@@ -160,11 +160,13 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 	// If search for reference in statement declarations failed,
 	// search for reference in function parameters.
 	if !referenceFound {
-		for _, parameter := range fnNode.GetParameters().Parameters {
-			if parameter.GetName() == expressionCtx.GetText() {
-				referenceFound = true
-				toReturn.ReferencedDeclaration = parameter.Id
-				toReturn.TypeDescriptions = parameter.GetTypeName().GetTypeDescriptions()
+		if fnNode.GetParameters() != nil {
+			for _, parameter := range fnNode.GetParameters().Parameters {
+				if parameter.GetName() == expressionCtx.GetText() {
+					referenceFound = true
+					toReturn.ReferencedDeclaration = parameter.Id
+					toReturn.TypeDescriptions = parameter.GetTypeName().GetTypeDescriptions()
+				}
 			}
 		}
 	}
@@ -275,6 +277,7 @@ func (b *ASTBuilder) parseExpression(sourceUnit *ast_pb.SourceUnit, fnNode *ast_
 			}
 
 			if literalCtx.StringLiteral() != nil {
+				toReturn.Name = ""
 				toReturn.Kind = ast_pb.NodeType_STRING
 
 				toReturn.Value = strings.TrimSpace(

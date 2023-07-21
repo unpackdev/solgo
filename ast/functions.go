@@ -58,7 +58,7 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 
 	// Get function modifiers.
 	for _, modifier := range fd.AllModifierInvocation() {
-		panic("Modifier here...")
+		//panic("Modifier here...")
 		_ = modifier
 		//node.Modifiers = append(node.Modifiers, modifier.GetText())
 	}
@@ -85,11 +85,11 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 
 	// Extract function parameters.
 	if len(fd.AllParameterList()) > 0 {
-		node.Parameters = b.traverseParameterList(node, fd.AllParameterList()[0])
+		node.Parameters = b.traverseParameterList(sourceUnit, node, fd.AllParameterList()[0])
 	}
 
 	// Extract function return parameters.
-	node.ReturnParameters = b.traverseParameterList(node, fd.GetReturnParameters())
+	node.ReturnParameters = b.traverseParameterList(sourceUnit, node, fd.GetReturnParameters())
 	if node.ReturnParameters == nil {
 		node.ReturnParameters = &ast_pb.ParametersList{
 			Id: atomic.AddInt64(&b.nextID, 1) - 1,

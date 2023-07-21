@@ -1,7 +1,6 @@
 package ast
 
 import (
-	"fmt"
 	"sync/atomic"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -122,8 +121,6 @@ func (b *ASTBuilder) parseContractDefinition(sourceUnitCtx *parser.SourceUnitCon
 
 			for _, unitNode := range b.sourceUnits {
 				if unitNode.GetName() == inheritanceSpecifierCtx.IdentifierPath().GetText() {
-					fmt.Println("Unit Discovered", inheritanceSpecifierCtx.IdentifierPath().GetText(), "=>", unitNode.GetName(), "|", unitNode.GetSourceUnitDefinitionId())
-
 					baseContract.BaseName.ReferencedDeclaration = unitNode.GetSourceUnitDefinitionId()
 					identifierNode.LinearizedBaseContracts = append(
 						identifierNode.LinearizedBaseContracts, unitNode.GetSourceUnitDefinitionId(),

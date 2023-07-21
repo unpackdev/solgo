@@ -32,5 +32,7 @@ func (b *ASTBuilder) parseEnumDefinition(sourceUnit *ast_pb.SourceUnit, enumNode
 		)
 	}
 
+	b.currentEnums = append(b.currentEnums, enumNode)
+
 	return enumNode
 }

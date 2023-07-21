@@ -118,7 +118,7 @@ func TestContractListener(t *testing.T) {
 				License: "MIT",
 				Name:    "Dummy",
 				Pragmas: []string{
-					"solidity ^0.8.5",
+					"solidity ^0.8.0",
 				},
 				IsContract: true,
 			},

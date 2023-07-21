@@ -63,7 +63,11 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 			structDefinition.(*parser.StructDefinitionContext),
 		)
 	} else if modifierDefinition := bodyElement.ModifierDefinition(); modifierDefinition != nil {
-		panic("Modifier definition....")
+		toReturn = b.parseModifierDefinition(
+			sourceUnit,
+			toReturn,
+			modifierDefinition.(*parser.ModifierDefinitionContext),
+		)
 	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {
 		panic("Fallback function definition....")
 	} else if receiveFunctionDefinition := bodyElement.ReceiveFunctionDefinition(); receiveFunctionDefinition != nil {

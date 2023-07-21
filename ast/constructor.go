@@ -38,7 +38,7 @@ func (b *ASTBuilder) parseConstructorDefinition(sourceUnit *ast_pb.SourceUnit, n
 
 	// Extract function parameters.
 	if ctx.ParameterList() != nil {
-		node.Parameters = b.traverseParameterList(node, ctx.ParameterList())
+		node.Parameters = b.traverseParameterList(sourceUnit, node, ctx.ParameterList())
 	}
 
 	// Return arguments of cumstructor are pretty much useless as they are always empty.
