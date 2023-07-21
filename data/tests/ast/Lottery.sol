@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 contract Lottery {
     enum LotteryState { Accepting, Finished }
@@ -15,13 +15,25 @@ contract Lottery {
     event PlayerJoined(address addr);
     event LotteryFinished(address winner);
 
+    // Define custom errors
+    error InvalidState();
+    error OwnerCannotParticipate();
+    error NoValueProvided();
+    error InvalidWinner();
+    error InvalidPlayerAddress();
+    error OnlyOwnerCanCall();
+
     modifier inState(LotteryState _state) {
-        require(state == _state, "Invalid state for this action");
+        if (state != _state) {
+            revert InvalidState();
+        }
         _;
     }
 
     modifier notOwner() {
-        require(msg.sender != owner(), "The owner cannot participate");
+        if (msg.sender == owner()) {
+            revert OwnerCannotParticipate();
+        }
         _;
     }
 
@@ -33,7 +45,9 @@ contract Lottery {
     }
 
     function join() public payable inState(LotteryState.Accepting) notOwner {
-        require(msg.value > 0, "No value provided");
+        if (msg.value == 0) {
+            revert NoValueProvided();
+        }
 
         if (players[msg.sender].addr == address(0)) {
             players[msg.sender].addr = msg.sender;
@@ -66,7 +80,9 @@ contract Lottery {
             }
         }
 
-        require(winner != address(0), "Winner is not valid");
+        if (winner == address(0)) {
+            revert InvalidWinner();
+        }
 
         emit LotteryFinished(winner);
 
@@ -81,4 +97,45 @@ contract Lottery {
     function balance() public view returns (uint256) {
         return address(this).balance;
     }
+
+    // New function using for loop
+    function checkAllPlayers() public view returns (bool) {
+        for (uint i = 0; i < playerAddresses.length; i++) {
+            if (players[playerAddresses[i]].addr == address(0)) {
+                revert InvalidPlayerAddress();
+            }
+        }
+        return true;
+    }
+
+    // New function using revert
+    function requireOwner() public view {
+        if (msg.sender != owner()) {
+            revert OnlyOwnerCanCall();
+        }
+    }
+
+    function integerToString(uint _i) internal pure 
+      returns (string memory) {
+      
+      if (_i == 0) {
+         return "0";
+      }
+      uint j = _i;
+      uint len;
+      
+      while (j != 0) {
+         len++;
+         j /= 10;
+      }
+      bytes memory bstr = new bytes(len);
+      uint k = len - 1;
+      
+      do {                   // do while loop	
+         bstr[k--] = bytes1(uint8(48 + _i % 10));
+         _i /= 10;
+      }
+      while (_i != 0);
+      return string(bstr);
+   }
 }
