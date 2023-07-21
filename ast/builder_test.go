@@ -152,6 +152,12 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			syntaxErrs := parser.Parse()
 			assert.Empty(t, syntaxErrs)
 
+			// This step is actually quite important as it resolves all the
+			// references in the AST. Without this step, the AST will be
+			// incomplete.
+			err = astBuilder.ResolveReferences()
+			assert.NoError(t, err)
+
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
 				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)
 				assert.NoError(t, err)

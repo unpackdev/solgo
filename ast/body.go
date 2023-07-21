@@ -69,9 +69,17 @@ func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierN
 			modifierDefinition.(*parser.ModifierDefinitionContext),
 		)
 	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {
-		panic("Fallback function definition....")
+		toReturn = b.parseFallbackFunctionDefinition(
+			sourceUnit,
+			toReturn,
+			fallbackFunctionDefinition.(*parser.FallbackFunctionDefinitionContext),
+		)
 	} else if receiveFunctionDefinition := bodyElement.ReceiveFunctionDefinition(); receiveFunctionDefinition != nil {
-		panic("Receive function definition....")
+		toReturn = b.parseReceiveFunctionDefinition(
+			sourceUnit,
+			toReturn,
+			receiveFunctionDefinition.(*parser.ReceiveFunctionDefinitionContext),
+		)
 	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
 		panic("User defined value....")
 	} else if errorDefinition := bodyElement.ErrorDefinition(); errorDefinition != nil {

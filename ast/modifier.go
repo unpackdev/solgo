@@ -56,6 +56,6 @@ func (b *ASTBuilder) parseModifierDefinition(sourceUnit *ast_pb.SourceUnit, modi
 		modifierNode.Body = bodyNode
 	}
 
-	b.dumpNode("")
+	//b.dumpNode(modifierNode)
 	return modifierNode
 }

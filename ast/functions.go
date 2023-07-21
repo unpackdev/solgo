@@ -58,7 +58,7 @@ func (b *ASTBuilder) parseFunctionDefinition(sourceUnit *ast_pb.SourceUnit, node
 
 	// Get function modifiers.
 	for _, modifier := range fd.AllModifierInvocation() {
-		//panic("Modifier here...")
+		panic("Modifier here...")
 		_ = modifier
 		//node.Modifiers = append(node.Modifiers, modifier.GetText())
 	}

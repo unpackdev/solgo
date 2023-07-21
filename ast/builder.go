@@ -94,3 +94,12 @@ func (b *ASTBuilder) FindNodeById(nodeId int64) (*ast_pb.Node, bool) {
 
 	return nil, false
 }
+
+func (b *ASTBuilder) ResolveReferences() error {
+	for _, unit := range b.astRoot.GetSourceUnits() {
+		for _, node := range unit.GetRoot().GetNodes() {
+			fmt.Println(node.NodeType)
+		}
+	}
+	return nil
+}
