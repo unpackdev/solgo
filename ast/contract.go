@@ -1,182 +1,196 @@
 package ast
 
 import (
-	"sync/atomic"
-
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-func (b *ASTBuilder) parseContractDefinition(sourceUnitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext) *ast_pb.SourceUnit {
-	sourceUnit := &ast_pb.SourceUnit{
-		Id: atomic.AddInt64(&b.nextID, 1) - 1,
-		AbsolutePath: func() string {
-			for _, unit := range b.sources.SourceUnits {
-				if unit.Name == ctx.Identifier().GetText() {
-					return unit.Path
-				}
-			}
-			return ""
-		}(),
-		ExportedSymbols: make([]*ast_pb.ExportedSymbol, 0),
-		NodeType:        ast_pb.NodeType_SOURCE_UNIT,
-		Root:            &ast_pb.RootNode{},
-		Name:            ctx.Identifier().GetText(),
-		Src: &ast_pb.Src{
-			Line:   int64(ctx.GetStart().GetLine()),
-			Column: int64(ctx.GetStart().GetColumn()),
-			Start:  int64(ctx.GetStart().GetStart()),
-		},
-		Comments: b.comments,
+type ContractNode[T any] struct {
+	*ASTBuilder
+
+	Id                      int64           `json:"id"`
+	Name                    string          `json:"name"`
+	NodeType                ast_pb.NodeType `json:"node_type"`
+	Src                     SrcNode         `json:"src"`
+	Abstract                bool            `json:"abstract"`
+	Kind                    ast_pb.NodeType `json:"kind"`
+	FullyImplemented        bool            `json:"fully_implemented"`
+	Nodes                   []T             `json:"nodes"`
+	LinearizedBaseContracts []int64         `json:"linearized_base_contracts"`
+	BaseContracts           []*BaseContract `json:"base_contracts"`
+	ContractDependencies    []int64         `json:"contract_dependencies"`
+}
+
+func NewContractDefinition(b *ASTBuilder) *ContractNode[Node] {
+	return &ContractNode[Node]{
+		ASTBuilder: b,
+	}
+}
+
+func (l ContractNode[T]) GetId() int64 {
+	return l.Id
+}
+
+func (l ContractNode[T]) GetType() ast_pb.NodeType {
+	return l.NodeType
+}
+
+func (l ContractNode[T]) GetSrc() SrcNode {
+	return l.Src
+}
+
+func (l ContractNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node]) {
+	unit.Src = SrcNode{
+		Id:          l.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: rootNode.Id,
 	}
 
-	// Alright lets get the license of the contract...
-	sourceUnit.License = b.GetLicense(b.comments)
+	// Set the absolute path of the source unit from provided sources map.
+	// We are not dynamically loading files like the solc compiler does so we need to
+	// provide the absolute path of the source unit from the sources map.
+	unit.SetAbsolutePathFromSources(l.sources)
+	unit.ExportedSymbols = append(unit.ExportedSymbols, Symbol{
+		Id:           unit.Id,
+		Name:         unit.Name,
+		AbsolutePath: unit.AbsolutePath,
+	})
 
-	// Alright lets extract bloody pragmas...
-	sourceUnit.Root.Nodes = append(
-		sourceUnit.Root.Nodes,
-		b.findPragmasForSourceUnit(sourceUnitCtx, sourceUnit, nil, ctx, nil)...,
+	// Now we are going to resolve pragmas for current source unit...
+	unit.Nodes = append(
+		unit.Nodes,
+		FindPragmasForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
 	)
 
-	// Now extraction of import paths...
-	sourceUnit.Root.Nodes = append(
-		sourceUnit.Root.Nodes,
-		b.findImportPathsForSourceUnit(sourceUnitCtx, sourceUnit, nil, ctx, nil)...,
+	// Now we are going to resolve import paths for current source unit...
+	unit.Nodes = append(
+		unit.Nodes,
+		FindImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
 	)
 
-	id := atomic.AddInt64(&b.nextID, 1) - 1
-	identifierName := ctx.Identifier().GetText()
-
-	sourceUnit.ExportedSymbols = append(
-		sourceUnit.ExportedSymbols,
-		&ast_pb.ExportedSymbol{
-			Id:   id,
-			Name: identifierName,
-			AbsolutePath: func() string {
-				for _, unit := range b.sources.SourceUnits {
-					if unit.Name == identifierName {
-						return unit.Path
-					}
-				}
-				return ""
-			}(),
-		},
-	)
-
-	identifierNode := &ast_pb.Node{
-		Id:   id,
-		Name: identifierName,
-		Src: &ast_pb.Src{
+	contractNode := &ContractNode[Node]{
+		Id:   l.GetNextID(),
+		Name: ctx.Identifier().GetText(),
+		Src: SrcNode{
 			Line:        int64(ctx.GetStart().GetLine()),
 			Column:      int64(ctx.GetStart().GetColumn()),
 			Start:       int64(ctx.GetStart().GetStart()),
 			End:         int64(ctx.GetStop().GetStop()),
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-			ParentIndex: sourceUnit.Id,
+			ParentIndex: unit.Id,
 		},
-		Abstract:             ctx.Abstract() != nil,
-		NodeType:             ast_pb.NodeType_CONTRACT_DEFINITION,
-		Kind:                 ast_pb.NodeType_KIND_CONTRACT,
-		BaseContracts:        make([]*ast_pb.BaseContract, 0),
-		ContractDependencies: make([]int64, 0),
+		Abstract:                false,
+		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,
+		Kind:                    ast_pb.NodeType_KIND_CONTRACT,
+		LinearizedBaseContracts: make([]int64, 0),
+		ContractDependencies:    make([]int64, 0),
+		BaseContracts:           make([]*BaseContract, 0),
+		Nodes:                   make([]Node, 0),
+		FullyImplemented:        true,
 	}
-
-	// Discover linearized base contracts...
-	// The linearizedBaseContracts field contains an array of IDs that represent the
-	// contracts in the inheritance hierarchy, starting from the most derived contract
-	// (the contract itself) and ending with the most base contract.
-	// The IDs correspond to the id fields of the ContractDefinition nodes in the AST.
-	identifierNode.LinearizedBaseContracts = []int64{id}
 
 	if ctx.InheritanceSpecifierList() != nil {
 		inheritanceCtx := ctx.InheritanceSpecifierList()
 
 		for _, inheritanceSpecifierCtx := range inheritanceCtx.AllInheritanceSpecifier() {
-			baseContract := &ast_pb.BaseContract{
-				Id: atomic.AddInt64(&b.nextID, 1) - 1,
-				Src: &ast_pb.Src{
+			baseContract := &BaseContract{
+				Id: l.GetNextID(),
+				Src: SrcNode{
+					Id:          l.GetNextID(),
 					Line:        int64(inheritanceSpecifierCtx.GetStart().GetLine()),
 					Column:      int64(inheritanceSpecifierCtx.GetStart().GetColumn()),
 					Start:       int64(inheritanceSpecifierCtx.GetStart().GetStart()),
 					End:         int64(inheritanceSpecifierCtx.GetStop().GetStop()),
 					Length:      int64(inheritanceSpecifierCtx.GetStop().GetStop() - inheritanceSpecifierCtx.GetStart().GetStart() + 1),
-					ParentIndex: identifierNode.Id,
+					ParentIndex: contractNode.Id,
 				},
 				NodeType: ast_pb.NodeType_INHERITANCE_SPECIFIER,
-				BaseName: &ast_pb.BaseContractName{
-					Id: atomic.AddInt64(&b.nextID, 1) - 1,
-					Src: &ast_pb.Src{
+				BaseName: &BaseContractName{
+					Id: l.GetNextID(),
+					Src: SrcNode{
+						Id:          l.GetNextID(),
 						Line:        int64(inheritanceSpecifierCtx.GetStart().GetLine()),
 						Column:      int64(inheritanceSpecifierCtx.GetStart().GetColumn()),
 						Start:       int64(inheritanceSpecifierCtx.GetStart().GetStart()),
 						End:         int64(inheritanceSpecifierCtx.GetStop().GetStop()),
 						Length:      int64(inheritanceSpecifierCtx.GetStop().GetStop() - inheritanceSpecifierCtx.GetStart().GetStart() + 1),
-						ParentIndex: identifierNode.Id,
+						ParentIndex: contractNode.Id,
 					},
 					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 					Name:     inheritanceSpecifierCtx.IdentifierPath().GetText(),
 				},
 			}
 
-			for _, unitNode := range b.sourceUnits {
+			for _, unitNode := range l.sourceUnits {
 				if unitNode.GetName() == inheritanceSpecifierCtx.IdentifierPath().GetText() {
-					baseContract.BaseName.ReferencedDeclaration = unitNode.GetSourceUnitDefinitionId()
-					identifierNode.LinearizedBaseContracts = append(
-						identifierNode.LinearizedBaseContracts, unitNode.GetSourceUnitDefinitionId(),
+					baseContract.BaseName.ReferencedDeclaration = unitNode.GetId()
+					contractNode.LinearizedBaseContracts = append(
+						contractNode.LinearizedBaseContracts, unitNode.GetId(),
 					)
-					identifierNode.ContractDependencies = append(
-						identifierNode.ContractDependencies, unitNode.GetSourceUnitDefinitionId(),
+					contractNode.ContractDependencies = append(
+						contractNode.ContractDependencies, unitNode.GetId(),
 					)
 
-					sourceUnit.ExportedSymbols = append(
-						sourceUnit.ExportedSymbols,
-						&ast_pb.ExportedSymbol{
-							Id:   unitNode.GetSourceUnitDefinitionId(),
-							Name: unitNode.GetName(),
-							AbsolutePath: func() string {
-								for _, unit := range b.sources.SourceUnits {
-									if unit.Name == unitNode.GetName() {
-										return unit.Path
+					symbolFound := false
+					for _, symbol := range unitNode.GetExportedSymbols() {
+						if symbol.GetName() == unitNode.GetName() {
+							symbolFound = true
+						}
+					}
+
+					if !symbolFound {
+						unit.ExportedSymbols = append(
+							unit.ExportedSymbols,
+							Symbol{
+								Id:   unitNode.GetId(),
+								Name: unitNode.GetName(),
+								AbsolutePath: func() string {
+									for _, unit := range l.sources.SourceUnits {
+										if unit.Name == unitNode.GetName() {
+											return unit.Path
+										}
 									}
-								}
-								return ""
-							}(),
-						},
-					)
+									return ""
+								}(),
+							},
+						)
+					}
 				}
 			}
 
-			identifierNode.BaseContracts = append(identifierNode.BaseContracts, baseContract)
+			contractNode.BaseContracts = append(contractNode.BaseContracts, baseContract)
 		}
 	}
-
-	// Allright now the fun part begins. We need to traverse through the body of the library
-	// and extract all of the nodes...
-
-	// First lets define nodes...
-	identifierNode.Nodes = make([]*ast_pb.Node, 0)
-
-	fullyImplemented := true
 
 	for _, bodyElement := range ctx.AllContractBodyElement() {
 		if bodyElement.IsEmpty() {
+			contractNode.FullyImplemented = false
 			continue
 		}
 
-		bodyNode := b.parseBodyElement(sourceUnit, identifierNode, bodyElement)
-		identifierNode.Nodes = append(identifierNode.Nodes, bodyNode)
+		bodyNode := NewBodyNode[Node](l.ASTBuilder)
+		subBodyNode := bodyNode.Parse(unit, contractNode, bodyElement)
+		if subBodyNode != nil {
+			contractNode.Nodes = append(
+				contractNode.Nodes,
+				subBodyNode,
+			)
 
-		// Lets check if we have any functions in the body...
-		if bodyNode.NodeType == ast_pb.NodeType_FUNCTION_DEFINITION {
-			if !bodyNode.Implemented {
-				fullyImplemented = false
+			if bodyNode.NodeType == ast_pb.NodeType_FUNCTION_DEFINITION {
+				if !bodyNode.Implemented {
+					contractNode.FullyImplemented = false
+				}
 			}
+
+			//l.dumpNode(subBodyNode)
+		} else {
+			contractNode.FullyImplemented = false
 		}
 	}
 
-	identifierNode.FullyImplemented = fullyImplemented
-	sourceUnit.Root.Nodes = append(sourceUnit.Root.Nodes, identifierNode)
-
-	return sourceUnit
+	unit.Nodes = append(unit.Nodes, contractNode)
 }

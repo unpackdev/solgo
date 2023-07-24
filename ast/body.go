@@ -1,99 +1,63 @@
 package ast
 
 import (
-	"sync/atomic"
-
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
-	"go.uber.org/zap"
 )
 
-func (b *ASTBuilder) parseBodyElement(sourceUnit *ast_pb.SourceUnit, identifierNode *ast_pb.Node, bodyElement parser.IContractBodyElementContext) *ast_pb.Node {
-	id := atomic.AddInt64(&b.nextID, 1) - 1
-	toReturn := &ast_pb.Node{
-		Id: id,
-		Src: &ast_pb.Src{
-			Line:        int64(bodyElement.GetStart().GetLine()),
-			Start:       int64(bodyElement.GetStart().GetStart()),
-			End:         int64(bodyElement.GetStop().GetStop()),
-			Length:      int64(bodyElement.GetStop().GetStop() - bodyElement.GetStart().GetStart() + 1),
-			ParentIndex: identifierNode.Id,
-		},
+type BodyNode[T any] struct {
+	*ASTBuilder
+
+	Id          int64           `json:"id"`
+	NodeType    ast_pb.NodeType `json:"node_type"`
+	Kind        ast_pb.NodeType `json:"kind"`
+	Src         SrcNode         `json:"src"`
+	Implemented bool            `json:"implemented"`
+	Statements  []T             `json:"statements"`
+}
+
+func NewBodyNode[T any](b *ASTBuilder) *BodyNode[T] {
+	return &BodyNode[T]{
+		ASTBuilder: b,
+		Statements: make([]T, 0),
+	}
+}
+
+func (b *BodyNode[T]) GetId() int64 {
+	return b.Id
+}
+
+func (b *BodyNode[T]) GetType() ast_pb.NodeType {
+	return b.NodeType
+}
+
+func (b *BodyNode[T]) GetSrc() SrcNode {
+	return b.Src
+}
+
+func (b *BodyNode[T]) Parse(
+	unit *SourceUnit[Node],
+	contractNode Node,
+	bodyCtx parser.IContractBodyElementContext,
+) Node {
+	for _, bodyChildCtx := range bodyCtx.GetChildren() {
+		switch childCtx := bodyChildCtx.(type) {
+		case *parser.FunctionDefinitionContext:
+			fn := NewFunctionNode[Node](b.ASTBuilder)
+			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
+		}
 	}
 
-	if usingForDeclaration := bodyElement.UsingDirective(); usingForDeclaration != nil {
-		toReturn = b.parseUsingForDeclaration(
-			sourceUnit,
-			toReturn,
-			usingForDeclaration.(*parser.UsingDirectiveContext),
-		)
-	} else if stateVariableDeclaration := bodyElement.StateVariableDeclaration(); stateVariableDeclaration != nil {
-		toReturn = b.parseStateVariableDeclaration(
-			sourceUnit,
-			toReturn,
-			stateVariableDeclaration.(*parser.StateVariableDeclarationContext),
-		)
-	} else if eventDefinition := bodyElement.EventDefinition(); eventDefinition != nil {
-		toReturn = b.parseEventDefinition(
-			sourceUnit,
-			toReturn,
-			eventDefinition.(*parser.EventDefinitionContext),
-		)
-	} else if functionDefinition := bodyElement.FunctionDefinition(); functionDefinition != nil {
-		toReturn = b.parseFunctionDefinition(
-			sourceUnit,
-			toReturn,
-			functionDefinition.(*parser.FunctionDefinitionContext),
-		)
-	} else if constructorDefinition := bodyElement.ConstructorDefinition(); constructorDefinition != nil {
-		toReturn = b.parseConstructorDefinition(
-			sourceUnit,
-			toReturn,
-			constructorDefinition.(*parser.ConstructorDefinitionContext),
-		)
-	} else if enumDefinition := bodyElement.EnumDefinition(); enumDefinition != nil {
-		toReturn = b.parseEnumDefinition(
-			sourceUnit,
-			toReturn,
-			enumDefinition.(*parser.EnumDefinitionContext),
-		)
-	} else if structDefinition := bodyElement.StructDefinition(); structDefinition != nil {
-		toReturn = b.parseStructDefinition(
-			sourceUnit,
-			toReturn,
-			structDefinition.(*parser.StructDefinitionContext),
-		)
-	} else if modifierDefinition := bodyElement.ModifierDefinition(); modifierDefinition != nil {
-		toReturn = b.parseModifierDefinition(
-			sourceUnit,
-			toReturn,
-			modifierDefinition.(*parser.ModifierDefinitionContext),
-		)
-	} else if fallbackFunctionDefinition := bodyElement.FallbackFunctionDefinition(); fallbackFunctionDefinition != nil {
-		toReturn = b.parseFallbackFunctionDefinition(
-			sourceUnit,
-			toReturn,
-			fallbackFunctionDefinition.(*parser.FallbackFunctionDefinitionContext),
-		)
-	} else if receiveFunctionDefinition := bodyElement.ReceiveFunctionDefinition(); receiveFunctionDefinition != nil {
-		toReturn = b.parseReceiveFunctionDefinition(
-			sourceUnit,
-			toReturn,
-			receiveFunctionDefinition.(*parser.ReceiveFunctionDefinitionContext),
-		)
-	} else if errorDefinition := bodyElement.ErrorDefinition(); errorDefinition != nil {
-		toReturn = b.parseErrorDefinition(
-			sourceUnit,
-			toReturn,
-			errorDefinition.(*parser.ErrorDefinitionContext),
-		)
-	} else if userDefinedValue := bodyElement.UserDefinedValueTypeDefinition(); userDefinedValue != nil {
-		zap.L().Warn(
-			"User defined value type definition not implemented",
-			zap.String("source_unit_name", sourceUnit.GetName()),
-			zap.Int64("line", int64(bodyElement.GetStart().GetLine())),
-		)
+	// Could not find any function definitions so we'll just return the body node.
+	b.Id = b.GetNextID()
+	b.Src = SrcNode{
+		Id:          b.GetNextID(),
+		Line:        int64(bodyCtx.GetStart().GetLine()),
+		Column:      int64(bodyCtx.GetStart().GetColumn()),
+		Start:       int64(bodyCtx.GetStart().GetStart()),
+		End:         int64(bodyCtx.GetStop().GetStop()),
+		Length:      int64(bodyCtx.GetStop().GetStop() - bodyCtx.GetStart().GetStart() + 1),
+		ParentIndex: contractNode.GetId(),
 	}
-
-	return toReturn
+	return b
 }

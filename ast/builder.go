@@ -15,29 +15,30 @@ type ASTBuilder struct {
 	sources               solgo.Sources          // sources is the source code of the Solidity files.
 	parser                *parser.SolidityParser // parser is the Solidity parser instance.
 	nextID                int64                  // nextID is the next ID to assign to a node.
-	comments              []*ast_pb.Comment
+	comments              []*CommentNode
 	commentsParsed        bool
-	sourceUnits           []*ast_pb.SourceUnit
+	astRoot               *RootNode
+	entrySourceUnit       *ast_pb.Node
+	sourceUnits           []*SourceUnit[Node]
 	currentSourceUnit     *ast_pb.SourceUnit
 	currentStateVariables []*ast_pb.Node
 	currentEvents         []*ast_pb.Node
 	currentEnums          []*ast_pb.Node
 	currentStructs        []*ast_pb.Node
 	currentErrors         []*ast_pb.Node
-	astRoot               *ast_pb.RootSourceUnit
-	entrySourceUnit       *ast_pb.Node
 }
 
 func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {
 	return &ASTBuilder{
-		parser:   parser,
-		sources:  sources,
-		comments: make([]*ast_pb.Comment, 0),
-		nextID:   1,
+		parser:      parser,
+		sources:     sources,
+		comments:    make([]*CommentNode, 0),
+		sourceUnits: make([]*SourceUnit[Node], 0),
+		nextID:      1,
 	}
 }
 
-func (b *ASTBuilder) GetRoot() *ast_pb.RootSourceUnit {
+func (b *ASTBuilder) GetRoot() *RootNode {
 	return b.astRoot
 }
 
@@ -78,30 +79,30 @@ func (b *ASTBuilder) FindNodesByType(nodeType ast_pb.NodeType) ([]*ast_pb.Node, 
 	for _, unit := range b.sourceUnits {
 		fmt.Println(unit)
 
-		for _, root := range unit.Root.Nodes {
+		/* 		for _, root := range unit.Nodes.Nodes {
 			fmt.Println(root.NodeType)
-		}
+		} */
 	}
 	return nodes, false
 }
 
 func (b *ASTBuilder) FindNodeById(nodeId int64) (*ast_pb.Node, bool) {
-	for _, unit := range b.astRoot.GetSourceUnits() {
-		for _, node := range unit.GetRoot().GetNodes() {
-			if node.GetId() == nodeId {
-				return node, true
-			}
-		}
-	}
-
+	/* 	for _, unit := range b.astRoot.GetSourceUnits() {
+	   		for _, node := range unit.GetRoot().GetNodes() {
+	   			if node.GetId() == nodeId {
+	   				return node, true
+	   			}
+	   		}
+	   	}
+	*/
 	return nil, false
 }
 
 func (b *ASTBuilder) ResolveReferences() error {
-	for _, unit := range b.astRoot.GetSourceUnits() {
+	/* 	for _, unit := range b.astRoot.GetSourceUnits() {
 		for _, node := range unit.GetRoot().GetNodes() {
 			fmt.Println(node.NodeType)
 		}
-	}
+	} */
 	return nil
 }

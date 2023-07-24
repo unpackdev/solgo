@@ -1,69 +1,127 @@
 package ast
 
 import (
+	"fmt"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/parser"
 )
 
+type SourceUnit[T any] struct {
+	// Id is the unique identifier of the source unit.
+	Id int64 `json:"id"`
+
+	// License is the license of the source unit.
+	License string `json:"license"`
+
+	// ExportedSymbols is the list of source units, including its names
+	// and node tree ids used by current source unit.
+	ExportedSymbols []Symbol `json:"exported_symbols"`
+
+	// AbsolutePath is the absolute path of the source unit.
+	AbsolutePath string `json:"absolute_path"`
+
+	// Name is the name of the source unit.
+	// This is going to be one of the following: contract, interface or library name.
+	// It's here for convenience.
+	Name string `json:"name"`
+
+	// NodeType is the type of the AST node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Nodes is the list of AST nodes.
+	Nodes []T `json:"nodes"`
+
+	// Src is the source code location.
+	Src SrcNode `json:"src"`
+}
+
+func NewSourceUnit[T any](builder *ASTBuilder, name string, license string) *SourceUnit[T] {
+	return &SourceUnit[T]{
+		Id:              builder.GetNextID(),
+		Name:            name,
+		License:         license,
+		Nodes:           make([]T, 0),
+		NodeType:        ast_pb.NodeType_SOURCE_UNIT,
+		ExportedSymbols: make([]Symbol, 0),
+	}
+}
+
+func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources solgo.Sources) {
+	for _, unit := range sources.SourceUnits {
+		if unit.Name == s.Name {
+			s.AbsolutePath = unit.Path
+		}
+	}
+}
+
+func (s *SourceUnit[T]) GetNodes() []T {
+	return s.Nodes
+}
+
+func (s *SourceUnit[T]) GetName() string {
+	return s.Name
+}
+
+func (s *SourceUnit[T]) GetId() int64 {
+	return s.Id
+}
+
+func (s *SourceUnit[T]) GetType() ast_pb.NodeType {
+	return s.NodeType
+}
+
+func (s *SourceUnit[T]) GetSrc() SrcNode {
+	return s.Src
+}
+
+func (s *SourceUnit[T]) GetExportedSymbols() []Symbol {
+	return s.ExportedSymbols
+}
+
+func (s *SourceUnit[T]) ToProto() *ast_pb.SourceUnit {
+	return &ast_pb.SourceUnit{
+		Id:           s.Id,
+		License:      s.License,
+		AbsolutePath: s.AbsolutePath,
+		Name:         s.Name,
+		NodeType:     s.NodeType,
+	}
+}
+
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
+	license := GetLicense(b.comments)
+
+	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments).(*RootNode)
+	b.astRoot = rootNode
+
 	for _, child := range ctx.GetChildren() {
-		if libraryCtx, ok := child.(*parser.LibraryDefinitionContext); ok {
-			b.currentSourceUnit = b.parseLibraryDefinition(ctx, libraryCtx)
-			b.sourceUnits = append(b.sourceUnits, b.currentSourceUnit)
+		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
+			fmt.Println("Interface Definition", interfaceCtx.GetName())
+			sourceUnit := NewSourceUnit[Node](b, interfaceCtx.Identifier().GetText(), license)
+			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
-		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
-			b.currentSourceUnit = b.parseInterfaceDefinition(ctx, interfaceCtx)
-			b.sourceUnits = append(b.sourceUnits, b.currentSourceUnit)
+		if libraryCtx, ok := child.(*parser.LibraryDefinitionContext); ok {
+			sourceUnit := NewSourceUnit[Node](b, libraryCtx.Identifier().GetText(), license)
+			libraryNode := NewLibraryDefinition(b)
+			libraryNode.Parse(ctx, libraryCtx, rootNode, sourceUnit)
+			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
 		if contractCtx, ok := child.(*parser.ContractDefinitionContext); ok {
-			b.currentSourceUnit = b.parseContractDefinition(ctx, contractCtx)
-			b.sourceUnits = append(b.sourceUnits, b.currentSourceUnit)
+			sourceUnit := NewSourceUnit[Node](b, contractCtx.Identifier().GetText(), license)
+			contractNode := NewContractDefinition(b)
+			contractNode.Parse(ctx, contractCtx, rootNode, sourceUnit)
+			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 	}
 }
 
 func (b *ASTBuilder) ExitSourceUnit(ctx *parser.SourceUnitContext) {
-	b.astRoot = &ast_pb.RootSourceUnit{SourceUnits: b.sourceUnits}
+	b.astRoot.SourceUnits = append(b.astRoot.SourceUnits, b.sourceUnits...)
 
-	// We should now discover the highest source unit that has the most of the
-	// inheritance chain and set it as the execution source unit.
-	// This is a bit of a hack, but it works for now.
-	high := int64(0)
-
-	for _, sourceUnit := range b.sourceUnits {
-		for _, node := range sourceUnit.GetRoot().GetNodes() {
-			if node.GetNodeType() == ast_pb.NodeType_CONTRACT_DEFINITION {
-				for _, c := range node.GetLinearizedBaseContracts() {
-					if c > high {
-						high = c
-					}
-				}
-			} else if node.GetNodeType() == ast_pb.NodeType_INTERFACE_DEFINITION {
-				for _, c := range node.GetLinearizedBaseContracts() {
-					if c > high {
-						high = c
-					}
-				}
-			} else if node.GetNodeType() == ast_pb.NodeType_LIBRARY_DEFINITION {
-				for _, c := range node.GetLinearizedBaseContracts() {
-					if c > high {
-						high = c
-					}
-				}
-			}
-		}
-	}
-
-	if high > 0 {
-		b.astRoot.EntrySourceUnit = high
-		if node, ok := b.FindNodeById(high); ok {
-			b.entrySourceUnit = node
-		}
-	}
-
-	b.currentSourceUnit = nil
-	b.currentStateVariables = nil
-	b.currentEvents = nil
+	//rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments).(*RootNode)
+	//b.astRoot = rootNode
 }
