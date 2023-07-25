@@ -9,15 +9,15 @@ import (
 type TypeName struct {
 	*ASTBuilder
 
-	Id                    int64             `json:"id"`
-	NodeType              ast_pb.NodeType   `json:"node_type"`
-	Src                   SrcNode           `json:"src"`
-	Name                  string            `json:"name,omitempty"`
-	TypeDescriptions      *TypeDescriptions `json:"type_descriptions,omitempty"`
-	KeyType               *TypeName         `json:"key_type,omitempty"`
-	ValueType             *TypeName         `json:"value_type,omitempty"`
-	PathNode              *PathNode         `json:"path_node,omitempty"`
-	ReferencedDeclaration int64             `json:"referenced_declaration"`
+	Id                    int64           `json:"id"`
+	NodeType              ast_pb.NodeType `json:"node_type"`
+	Src                   SrcNode         `json:"src"`
+	Name                  string          `json:"name,omitempty"`
+	TypeDescription       TypeDescription `json:"type_descriptions,omitempty"`
+	KeyType               *TypeName       `json:"key_type,omitempty"`
+	ValueType             *TypeName       `json:"value_type,omitempty"`
+	PathNode              *PathNode       `json:"path_node,omitempty"`
+	ReferencedDeclaration int64           `json:"referenced_declaration"`
 }
 
 func NewTypeName(b *ASTBuilder) *TypeName {
@@ -42,8 +42,8 @@ func (t *TypeName) GetName() string {
 	return t.Name
 }
 
-func (t *TypeName) GetTypeDescriptions() *TypeDescriptions {
-	return t.TypeDescriptions
+func (t *TypeName) GetTypeDescriptions() TypeDescription {
+	return t.TypeDescription
 }
 
 func (t *TypeName) GetPathNode() *PathNode {
@@ -62,28 +62,28 @@ func (t *TypeName) GetValueType() *TypeName {
 	return t.ValueType
 }
 
-func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pNode *Parameter, ctx *parser.ElementaryTypeNameContext) {
+func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.ElementaryTypeNameContext) {
 	t.Name = ctx.GetText()
 	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 
 	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 		ctx.GetText(),
 	)
-	t.TypeDescriptions = &TypeDescriptions{
+	t.TypeDescription = TypeDescription{
 		TypeIdentifier: normalizedTypeIdentifier,
 		TypeString:     normalizedTypeName,
 	}
 }
 
-func (t *TypeName) parseUserDefinedTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pNode *Parameter, ctx antlr.Tree) {
+func (t *TypeName) parseUserDefinedTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx antlr.Tree) {
 	panic("User defined type name is not supported yet @ TypeName.Parse")
 }
 
-func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pNode *Parameter, ctx *parser.MappingTypeContext) {
+func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.MappingTypeContext) {
 	panic("Mapping type name is not supported yet @ TypeName.Parse")
 }
 
-func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], pNode *Parameter, ctx parser.ITypeNameContext) {
+func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.ITypeNameContext) {
 	t.Id = t.GetNextID()
 	t.Src = SrcNode{
 		Id:          t.GetNextID(),
@@ -92,17 +92,17 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: pNode.GetId(),
+		ParentIndex: parentNodeId,
 	}
 
 	for _, child := range ctx.GetChildren() {
 		switch childCtx := child.(type) {
 		case *parser.ElementaryTypeNameContext:
-			t.parseElementaryTypeName(unit, pNode, childCtx)
+			t.parseElementaryTypeName(unit, parentNodeId, childCtx)
 		case *parser.MappingTypeContext:
-			t.parseMappingTypeName(unit, pNode, childCtx)
+			t.parseMappingTypeName(unit, parentNodeId, childCtx)
 		default:
-			t.parseUserDefinedTypeName(unit, pNode, childCtx)
+			t.parseUserDefinedTypeName(unit, parentNodeId, childCtx)
 		}
 	}
 
@@ -190,8 +190,6 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 				zap.String("expression", ctx.Expression().GetText()),
 			)
 		} */
-
-	pNode.TypeName = t
 }
 
 type PathNode struct {
@@ -202,7 +200,7 @@ type PathNode struct {
 	Src                   SrcNode         `json:"src"`
 }
 
-type TypeDescriptions struct {
+type TypeDescription struct {
 	TypeIdentifier string `json:"type_identifier"`
 	TypeString     string `json:"type_string"`
 }

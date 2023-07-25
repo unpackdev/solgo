@@ -5,6 +5,9 @@ import (
 	"os"
 	"regexp"
 	"strings"
+
+	ast_pb "github.com/txpull/protos/dist/go/ast"
+	"github.com/txpull/solgo/parser"
 )
 
 func getLiterals(literal string) []string {
@@ -110,4 +113,17 @@ func (b *ASTBuilder) dumpNode(whatever interface{}) {
 	j, _ := b.ToPrettyJSON(whatever)
 	fmt.Println(string(j))
 	os.Exit(1)
+}
+
+func getStorageLocationFromDataLocationCtx(ctx parser.IDataLocationContext) ast_pb.StorageLocation {
+	if ctx != nil {
+		if ctx.Memory() != nil {
+			return ast_pb.StorageLocation_MEMORY
+		} else if ctx.Storage() != nil {
+			return ast_pb.StorageLocation_STORAGE
+		} else if ctx.Calldata() != nil {
+			return ast_pb.StorageLocation_CALLDATA
+		}
+	}
+	return ast_pb.StorageLocation_DEFAULT
 }

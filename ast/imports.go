@@ -33,6 +33,10 @@ func (i ImportNode) GetSrc() SrcNode {
 	return i.Src
 }
 
+func (i *ImportNode) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
+}
+
 func (i ImportNode) ToProto() NodeType {
 	return ast_pb.Import{}
 }

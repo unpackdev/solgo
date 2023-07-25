@@ -8,21 +8,21 @@ import (
 type FunctionNode[T ast_pb.Function] struct {
 	*ASTBuilder
 
-	Id               int64                  `json:"id"`
-	Name             string                 `json:"name"`
-	NodeType         ast_pb.NodeType        `json:"node_type"`
-	Kind             ast_pb.NodeType        `json:"kind"`
-	Src              SrcNode                `json:"src"`
-	Body             *BodyNode[ast_pb.Body] `json:"body"`
-	Implemented      bool                   `json:"implemented"`
-	Visibility       ast_pb.Visibility      `json:"visibility"`
-	StateMutability  ast_pb.Mutability      `json:"state_mutability"`
-	Virtual          bool                   `json:"virtual"`
-	Modifiers        []Modifier             `json:"modifiers"`
-	Overrides        []OverrideSpecifier    `json:"overrides"`
-	Parameters       *ParameterList[T]      `json:"parameters"`
-	ReturnParameters *ParameterList[T]      `json:"return_parameters"`
-	Scope            int64                  `json:"scope"`
+	Id               int64               `json:"id"`
+	Name             string              `json:"name"`
+	NodeType         ast_pb.NodeType     `json:"node_type"`
+	Kind             ast_pb.NodeType     `json:"kind"`
+	Src              SrcNode             `json:"src"`
+	Body             *BodyNode           `json:"body"`
+	Implemented      bool                `json:"implemented"`
+	Visibility       ast_pb.Visibility   `json:"visibility"`
+	StateMutability  ast_pb.Mutability   `json:"state_mutability"`
+	Virtual          bool                `json:"virtual"`
+	Modifiers        []Modifier          `json:"modifiers"`
+	Overrides        []OverrideSpecifier `json:"overrides"`
+	Parameters       *ParameterList[T]   `json:"parameters"`
+	ReturnParameters *ParameterList[T]   `json:"return_parameters"`
+	Scope            int64               `json:"scope"`
 }
 
 func NewFunctionNode[T ast_pb.Function](b *ASTBuilder) *FunctionNode[T] {
@@ -45,6 +45,58 @@ func (f FunctionNode[T]) GetType() ast_pb.NodeType {
 
 func (f FunctionNode[T]) GetSrc() SrcNode {
 	return f.Src
+}
+
+func (f FunctionNode[T]) GetParameters() *ParameterList[T] {
+	return f.Parameters
+}
+
+func (f FunctionNode[T]) GetReturnParameters() *ParameterList[T] {
+	return f.ReturnParameters
+}
+
+func (f FunctionNode[T]) GetBody() *BodyNode {
+	return f.Body
+}
+
+func (f FunctionNode[T]) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+func (f FunctionNode[T]) IsImplemented() bool {
+	return f.Implemented
+}
+
+func (f FunctionNode[T]) GetModifiers() []Modifier {
+	return f.Modifiers
+}
+
+func (f FunctionNode[T]) GetOverrides() []OverrideSpecifier {
+	return f.Overrides
+}
+
+func (f FunctionNode[T]) GetVisibility() ast_pb.Visibility {
+	return f.Visibility
+}
+
+func (f FunctionNode[T]) GetStateMutability() ast_pb.Mutability {
+	return f.StateMutability
+}
+
+func (f FunctionNode[T]) IsVirtual() bool {
+	return f.Virtual
+}
+
+func (f FunctionNode[T]) GetScope() int64 {
+	return f.Scope
+}
+
+func (f FunctionNode[T]) GetName() string {
+	return f.Name
+}
+
+func (f FunctionNode[T]) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
 }
 
 func (f FunctionNode[T]) ToProto() NodeType {
@@ -120,7 +172,7 @@ func (f FunctionNode[T]) Parse(
 	// And now we are going to the big league. We are going to traverse the function body.
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 
-		bodyNode := NewBodyNode[ast_pb.Body](f.ASTBuilder)
+		bodyNode := NewBodyNode(f.ASTBuilder)
 		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
 		f.Body = bodyNode
 

@@ -40,6 +40,10 @@ func (l LibraryNode[T]) GetSrc() SrcNode {
 	return l.Src
 }
 
+func (l LibraryNode[T]) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
+}
+
 func (l LibraryNode[T]) ToProto() NodeType {
 	return ast_pb.Contract{}
 }
@@ -106,7 +110,7 @@ func (l LibraryNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Lib
 			continue
 		}
 
-		bodyNode := NewBodyNode[ast_pb.Body](l.ASTBuilder)
+		bodyNode := NewBodyNode(l.ASTBuilder)
 		subBodyNode := bodyNode.Parse(unit, libraryNode, bodyElement)
 		if subBodyNode != nil {
 			libraryNode.Nodes = append(

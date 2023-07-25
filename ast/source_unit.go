@@ -80,6 +80,10 @@ func (s *SourceUnit[T]) GetExportedSymbols() []Symbol {
 	return s.ExportedSymbols
 }
 
+func (s *SourceUnit[T]) GetTypeDescriptions() TypeDescription {
+	return TypeDescription{}
+}
+
 func (s *SourceUnit[T]) ToProto() *ast_pb.SourceUnit {
 	return &ast_pb.SourceUnit{
 		Id:           s.Id,

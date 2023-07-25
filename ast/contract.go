@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type ContractNode[T any] struct {
+type ContractNode[T NodeType] struct {
 	*ASTBuilder
 
 	Id                      int64            `json:"id"`
@@ -37,6 +37,42 @@ func (l ContractNode[T]) GetType() ast_pb.NodeType {
 
 func (l ContractNode[T]) GetSrc() SrcNode {
 	return l.Src
+}
+
+func (l ContractNode[T]) GetName() string {
+	return l.Name
+}
+
+func (l ContractNode[T]) IsAbstract() bool {
+	return l.Abstract
+}
+
+func (l ContractNode[T]) GetKind() ast_pb.NodeType {
+	return l.Kind
+}
+
+func (l ContractNode[T]) IsFullyImplemented() bool {
+	return l.FullyImplemented
+}
+
+func (l ContractNode[T]) GetNodes() []Node[NodeType] {
+	return l.Nodes
+}
+
+func (l ContractNode[T]) GetLinearizedBaseContracts() []int64 {
+	return l.LinearizedBaseContracts
+}
+
+func (l ContractNode[T]) GetBaseContracts() []*BaseContract {
+	return l.BaseContracts
+}
+
+func (l ContractNode[T]) GetContractDependencies() []int64 {
+	return l.ContractDependencies
+}
+
+func (l ContractNode[T]) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
 }
 
 func (l ContractNode[T]) ToProto() NodeType {
@@ -110,7 +146,7 @@ func (l ContractNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Co
 			continue
 		}
 
-		bodyNode := NewBodyNode[ast_pb.Body](l.ASTBuilder)
+		bodyNode := NewBodyNode(l.ASTBuilder)
 		childNode := bodyNode.Parse(unit, contractNode, bodyElement)
 		if childNode != nil {
 			contractNode.Nodes = append(

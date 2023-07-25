@@ -61,3 +61,7 @@ func (r *RootNode) GetType() ast_pb.NodeType {
 func (r *RootNode) GetSrc() SrcNode {
 	return SrcNode{}
 }
+
+func (r *RootNode) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
+}

@@ -42,6 +42,10 @@ func (l InterfaceNode[T]) GetSrc() SrcNode {
 	return l.Src
 }
 
+func (l InterfaceNode[T]) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
+}
+
 func (l InterfaceNode[T]) ToProto() NodeType {
 	return ast_pb.Contract{}
 }
@@ -110,7 +114,7 @@ func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.I
 			continue
 		}
 
-		bodyNode := NewBodyNode[ast_pb.Body](l.ASTBuilder)
+		bodyNode := NewBodyNode(l.ASTBuilder)
 		childNode := bodyNode.Parse(unit, interfaceNode, bodyElement)
 		if childNode != nil {
 			interfaceNode.Nodes = append(

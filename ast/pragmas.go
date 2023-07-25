@@ -33,6 +33,10 @@ func (p PragmaNode) GetSrc() SrcNode {
 	return p.Src
 }
 
+func (p PragmaNode) GetTypeDescription() TypeDescription {
+	return TypeDescription{}
+}
+
 func (p PragmaNode) ToProto() NodeType {
 	return ast_pb.Pragma{}
 }

@@ -42,6 +42,10 @@ func (p *Parameter) GetSrc() SrcNode {
 	return p.Src
 }
 
+func (p *Parameter) GetName() string {
+	return p.Name
+}
+
 func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx *parser.ParameterDeclarationContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
@@ -62,8 +66,8 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 	p.StorageLocation = p.getStorageLocationFromCtx(ctx)
 
 	typeName := NewTypeName(p.ASTBuilder)
-	typeName.Parse(unit, fnNode, p, ctx.TypeName())
-
+	typeName.Parse(unit, fnNode, p.GetId(), ctx.TypeName())
+	p.TypeName = typeName
 }
 
 func (p *Parameter) getStorageLocationFromCtx(ctx *parser.ParameterDeclarationContext) ast_pb.StorageLocation {
