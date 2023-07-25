@@ -32,7 +32,7 @@ func (m *Modifier) GetSrc() SrcNode {
 	return m.Src
 }
 
-func (m *Modifier) Parse(unit *SourceUnit[Node], fnNode Node, ctx parser.IModifierInvocationContext) {
+func (m *Modifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], ctx parser.IModifierInvocationContext) {
 	m.Id = m.GetNextID()
 	m.Src = SrcNode{
 		Id:          m.GetNextID(),

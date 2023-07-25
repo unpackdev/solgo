@@ -8,7 +8,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type SourceUnit[T any] struct {
+type SourceUnit[T NodeType] struct {
 	// Id is the unique identifier of the source unit.
 	Id int64 `json:"id"`
 
@@ -31,7 +31,7 @@ type SourceUnit[T any] struct {
 	NodeType ast_pb.NodeType `json:"node_type"`
 
 	// Nodes is the list of AST nodes.
-	Nodes []T `json:"nodes"`
+	Nodes []Node[NodeType] `json:"nodes"`
 
 	// Src is the source code location.
 	Src SrcNode `json:"src"`
@@ -42,7 +42,7 @@ func NewSourceUnit[T any](builder *ASTBuilder, name string, license string) *Sou
 		Id:              builder.GetNextID(),
 		Name:            name,
 		License:         license,
-		Nodes:           make([]T, 0),
+		Nodes:           make([]Node[NodeType], 0),
 		NodeType:        ast_pb.NodeType_SOURCE_UNIT,
 		ExportedSymbols: make([]Symbol, 0),
 	}
@@ -56,7 +56,7 @@ func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources solgo.Sources) {
 	}
 }
 
-func (s *SourceUnit[T]) GetNodes() []T {
+func (s *SourceUnit[T]) GetNodes() []Node[NodeType] {
 	return s.Nodes
 }
 
@@ -99,19 +99,19 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	for _, child := range ctx.GetChildren() {
 		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
 			fmt.Println("Interface Definition", interfaceCtx.GetName())
-			sourceUnit := NewSourceUnit[Node](b, interfaceCtx.Identifier().GetText(), license)
+			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, interfaceCtx.Identifier().GetText(), license)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
 		if libraryCtx, ok := child.(*parser.LibraryDefinitionContext); ok {
-			sourceUnit := NewSourceUnit[Node](b, libraryCtx.Identifier().GetText(), license)
+			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, libraryCtx.Identifier().GetText(), license)
 			libraryNode := NewLibraryDefinition(b)
 			libraryNode.Parse(ctx, libraryCtx, rootNode, sourceUnit)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
 		if contractCtx, ok := child.(*parser.ContractDefinitionContext); ok {
-			sourceUnit := NewSourceUnit[Node](b, contractCtx.Identifier().GetText(), license)
+			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, contractCtx.Identifier().GetText(), license)
 			contractNode := NewContractDefinition(b)
 			contractNode.Parse(ctx, contractCtx, rootNode, sourceUnit)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)

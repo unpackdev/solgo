@@ -33,14 +33,18 @@ func (i ImportNode) GetSrc() SrcNode {
 	return i.Src
 }
 
-func FindImportPathsForSourceUnit(
+func (i ImportNode) ToProto() NodeType {
+	return ast_pb.Import{}
+}
+
+func parseImportPathsForSourceUnit(
 	b *ASTBuilder,
 	unitCtx *parser.SourceUnitContext,
-	unit *SourceUnit[Node],
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	libraryCtx *parser.LibraryDefinitionContext,
 	contractCtx *parser.ContractDefinitionContext,
 	interfaceCtx *parser.InterfaceDefinitionContext,
-) []Node {
+) []Node[NodeType] {
 	imports := make([]*ImportNode, 0)
 
 	contractLine := func() int64 {
@@ -112,7 +116,7 @@ func FindImportPathsForSourceUnit(
 		}
 	}
 
-	filteredImports := make([]Node, 0)
+	filteredImports := make([]Node[NodeType], 0)
 
 	for i := len(imports) - 1; i >= 0; i-- {
 		importNode := imports[i]
@@ -132,7 +136,7 @@ func FindImportPathsForSourceUnit(
 					}
 				}
 			}
-			filteredImports = append([]Node{importNode}, filteredImports...)
+			filteredImports = append([]Node[NodeType]{importNode}, filteredImports...)
 		}
 	}
 

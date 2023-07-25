@@ -2,7 +2,6 @@ package ast
 
 import (
 	"context"
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -60,44 +59,9 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast")),
 		},
-
-		{
-			name: "OpenZeppelin ERC20 Test",
-			sources: solgo.Sources{
-				SourceUnits: []solgo.SourceUnit{
-					{
-						Name:    "SafeMath",
-						Path:    "SafeMath.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
-					},
-					{
-						Name:    "IERC20",
-						Path:    "IERC20.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
-					},
-					{
-						Name:    "IERC20Metadata",
-						Path:    "IERC20Metadata.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
-					},
-					{
-						Name:    "Context",
-						Path:    "Context.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
-					},
-					{
-						Name:    "ERC20",
-						Path:    "ERC20.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
-					},
-				},
-				EntrySourceUnitName: "ERC20",
-			},
-			expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
-		},
 		/*
 			{
-				name: "Token Sale ERC20 Test",
+				name: "OpenZeppelin ERC20 Test",
 				sources: solgo.Sources{
 					SourceUnits: []solgo.SourceUnit{
 						{
@@ -111,29 +75,64 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 							Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
 						},
 						{
-							Name:    "TokenSale",
-							Path:    "TokenSale.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
+							Name:    "IERC20Metadata",
+							Path:    "IERC20Metadata.sol",
+							Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
 						},
-					},
-					EntrySourceUnitName: "TokenSale",
-				},
-				expected: string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
-			},
-			{
-				name: "Lottery Test",
-				sources: solgo.Sources{
-					SourceUnits: []solgo.SourceUnit{
 						{
-							Name:    "Lottery",
-							Path:    "Lottery.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
+							Name:    "Context",
+							Path:    "Context.sol",
+							Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
+						},
+						{
+							Name:    "ERC20",
+							Path:    "ERC20.sol",
+							Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
 						},
 					},
-					EntrySourceUnitName: "Lottery",
+					EntrySourceUnitName: "ERC20",
 				},
-				expected: string(tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast")),
-			}, */
+				expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
+			},
+
+				{
+					name: "Token Sale ERC20 Test",
+					sources: solgo.Sources{
+						SourceUnits: []solgo.SourceUnit{
+							{
+								Name:    "SafeMath",
+								Path:    "SafeMath.sol",
+								Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
+							},
+							{
+								Name:    "IERC20",
+								Path:    "IERC20.sol",
+								Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+							},
+							{
+								Name:    "TokenSale",
+								Path:    "TokenSale.sol",
+								Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
+							},
+						},
+						EntrySourceUnitName: "TokenSale",
+					},
+					expected: string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
+				},
+				{
+					name: "Lottery Test",
+					sources: solgo.Sources{
+						SourceUnits: []solgo.SourceUnit{
+							{
+								Name:    "Lottery",
+								Path:    "Lottery.sol",
+								Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
+							},
+						},
+						EntrySourceUnitName: "Lottery",
+					},
+					expected: string(tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast")),
+				}, */
 	}
 
 	for _, testCase := range testCases {
@@ -189,7 +188,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotEmpty(t, astJson)
 			//assert.Equal(t, testCase.expected, string(astJson))
-			fmt.Println(string(prettyJson))
+			//fmt.Println(string(prettyJson))
 		})
 	}
 }

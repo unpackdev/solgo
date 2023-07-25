@@ -19,7 +19,7 @@ type ASTBuilder struct {
 	commentsParsed        bool
 	astRoot               *RootNode
 	entrySourceUnit       *ast_pb.Node
-	sourceUnits           []*SourceUnit[Node]
+	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
 	currentSourceUnit     *ast_pb.SourceUnit
 	currentStateVariables []*ast_pb.Node
 	currentEvents         []*ast_pb.Node
@@ -33,7 +33,7 @@ func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBui
 		parser:      parser,
 		sources:     sources,
 		comments:    make([]*CommentNode, 0),
-		sourceUnits: make([]*SourceUnit[Node], 0),
+		sourceUnits: make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
 		nextID:      1,
 	}
 }

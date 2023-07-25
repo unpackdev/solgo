@@ -17,6 +17,8 @@ type Parameter struct {
 	StorageLocation ast_pb.StorageLocation `json:"storage_location"`
 	Visibility      ast_pb.Visibility      `json:"visibility"`
 	Mutability      ast_pb.Mutability      `json:"mutability"`
+	Constant        bool                   `json:"constant"`
+	StateVariable   bool                   `json:"state_variable"`
 }
 
 func NewParameter(b *ASTBuilder) *Parameter {
@@ -40,7 +42,7 @@ func (p *Parameter) GetSrc() SrcNode {
 	return p.Src
 }
 
-func (p *Parameter) Parse(unit *SourceUnit[Node], fnNode Node, plNode Node, ctx *parser.ParameterDeclarationContext) {
+func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx *parser.ParameterDeclarationContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),

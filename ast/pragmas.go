@@ -33,6 +33,10 @@ func (p PragmaNode) GetSrc() SrcNode {
 	return p.Src
 }
 
+func (p PragmaNode) ToProto() NodeType {
+	return ast_pb.Pragma{}
+}
+
 // CreatePragmaNodeFromCtx creates a new PragmaNode from the provided pragma context.
 // It sets the ID of the new node to the next available ID from the provided ASTBuilder,
 // and sets the source information of the node based on the provided pragma context.
@@ -47,7 +51,7 @@ func (p PragmaNode) GetSrc() SrcNode {
 //     and literals of the new node are set based on this context.
 //
 // The function returns a pointer to the newly created PragmaNode.
-func CreatePragmaNodeFromCtx(b *ASTBuilder, unit *SourceUnit[Node], pragmaCtx *parser.PragmaDirectiveContext) *PragmaNode {
+func CreatePragmaNodeFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceUnit]], pragmaCtx *parser.PragmaDirectiveContext) *PragmaNode {
 	return &PragmaNode{
 		Id: b.GetNextID(),
 		Src: SrcNode{
@@ -91,13 +95,13 @@ func (b *ASTBuilder) EnterPragmaDirective(ctx *parser.PragmaDirectiveContext) {}
 // The function returns a slice of Node, each representing a pragma directive. The pragmas
 // are filtered such that only those that are within 10-20 lines of the contract definition
 // are kept. The returned pragmas are ordered by their line number in ascending order.
-func FindPragmasForSourceUnit(
+func parsePragmasForSourceUnit(
 	b *ASTBuilder,
 	sourceUnit *parser.SourceUnitContext,
-	unit *SourceUnit[Node],
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	libraryCtx *parser.LibraryDefinitionContext,
 	contractCtx *parser.ContractDefinitionContext,
-	interfaceCtx *parser.InterfaceDefinitionContext) []Node {
+	interfaceCtx *parser.InterfaceDefinitionContext) []Node[NodeType] {
 	pragmas := make([]*PragmaNode, 0)
 
 	contractLine := func() int64 {
@@ -154,7 +158,7 @@ func FindPragmasForSourceUnit(
 
 	// Post pragma cleanup...
 	// Remove pragmas that have large gaps between the lines, keep only higher lines
-	filteredPragmas := make([]Node, 0)
+	filteredPragmas := make([]Node[NodeType], 0)
 	maxLine := int64(-1)
 
 	// Iterate through the collected pragmas in reverse order and ensure only
@@ -163,7 +167,7 @@ func FindPragmasForSourceUnit(
 		pragma := pragmas[i]
 		if maxLine == -1 || (int64(contractLine)-pragma.Src.Line <= 10 && pragma.Src.Line-maxLine >= -1) {
 			pragma.Src.ParentIndex = unit.Id
-			filteredPragmas = append([]Node{Node(pragma)}, filteredPragmas...)
+			filteredPragmas = append([]Node[NodeType]{Node[NodeType](pragma)}, filteredPragmas...)
 			maxLine = pragma.Src.Line
 		}
 	}

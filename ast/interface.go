@@ -8,21 +8,21 @@ import (
 type InterfaceNode[T any] struct {
 	*ASTBuilder
 
-	Id                      int64           `json:"id"`
-	Name                    string          `json:"name"`
-	NodeType                ast_pb.NodeType `json:"node_type"`
-	Src                     SrcNode         `json:"src"`
-	Abstract                bool            `json:"abstract"`
-	Kind                    ast_pb.NodeType `json:"kind"`
-	FullyImplemented        bool            `json:"fully_implemented"`
-	Nodes                   []T             `json:"nodes"`
-	LinearizedBaseContracts []int64         `json:"linearized_base_contracts"`
-	BaseContracts           []*BaseContract `json:"base_contracts"`
-	ContractDependencies    []int64         `json:"contract_dependencies"`
+	Id                      int64            `json:"id"`
+	Name                    string           `json:"name"`
+	NodeType                ast_pb.NodeType  `json:"node_type"`
+	Src                     SrcNode          `json:"src"`
+	Abstract                bool             `json:"abstract"`
+	Kind                    ast_pb.NodeType  `json:"kind"`
+	FullyImplemented        bool             `json:"fully_implemented"`
+	Nodes                   []Node[NodeType] `json:"nodes"`
+	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"`
+	BaseContracts           []*BaseContract  `json:"base_contracts"`
+	ContractDependencies    []int64          `json:"contract_dependencies"`
 }
 
-func NewInterfaceDefinition(b *ASTBuilder) *InterfaceNode[Node] {
-	return &InterfaceNode[Node]{
+func NewInterfaceDefinition(b *ASTBuilder) *InterfaceNode[ast_pb.Contract] {
+	return &InterfaceNode[ast_pb.Contract]{
 		ASTBuilder:              b,
 		LinearizedBaseContracts: make([]int64, 0),
 		ContractDependencies:    make([]int64, 0),
@@ -42,7 +42,11 @@ func (l InterfaceNode[T]) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node]) {
+func (l InterfaceNode[T]) ToProto() NodeType {
+	return ast_pb.Contract{}
+}
+
+func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -66,16 +70,16 @@ func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.I
 	// Now we are going to resolve pragmas for current source unit...
 	unit.Nodes = append(
 		unit.Nodes,
-		FindPragmasForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...,
+		parsePragmasForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...,
 	)
 
 	// Now we are going to resolve import paths for current source unit...
 	unit.Nodes = append(
 		unit.Nodes,
-		FindImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...,
+		parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...,
 	)
 
-	interfaceNode := &InterfaceNode[Node]{
+	interfaceNode := &InterfaceNode[ast_pb.Contract]{
 		Id:   l.GetNextID(),
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{
@@ -89,82 +93,16 @@ func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.I
 		Abstract:         false,
 		NodeType:         ast_pb.NodeType_CONTRACT_DEFINITION,
 		Kind:             ast_pb.NodeType_KIND_LIBRARY,
-		Nodes:            make([]Node, 0),
+		Nodes:            make([]Node[NodeType], 0),
 		FullyImplemented: true,
 	}
 
-	if ctx.InheritanceSpecifierList() != nil {
-		inheritanceCtx := ctx.InheritanceSpecifierList()
-
-		for _, inheritanceSpecifierCtx := range inheritanceCtx.AllInheritanceSpecifier() {
-			baseContract := &BaseContract{
-				Id: l.GetNextID(),
-				Src: SrcNode{
-					Id:          l.GetNextID(),
-					Line:        int64(inheritanceSpecifierCtx.GetStart().GetLine()),
-					Column:      int64(inheritanceSpecifierCtx.GetStart().GetColumn()),
-					Start:       int64(inheritanceSpecifierCtx.GetStart().GetStart()),
-					End:         int64(inheritanceSpecifierCtx.GetStop().GetStop()),
-					Length:      int64(inheritanceSpecifierCtx.GetStop().GetStop() - inheritanceSpecifierCtx.GetStart().GetStart() + 1),
-					ParentIndex: interfaceNode.Id,
-				},
-				NodeType: ast_pb.NodeType_INHERITANCE_SPECIFIER,
-				BaseName: &BaseContractName{
-					Id: l.GetNextID(),
-					Src: SrcNode{
-						Id:          l.GetNextID(),
-						Line:        int64(inheritanceSpecifierCtx.GetStart().GetLine()),
-						Column:      int64(inheritanceSpecifierCtx.GetStart().GetColumn()),
-						Start:       int64(inheritanceSpecifierCtx.GetStart().GetStart()),
-						End:         int64(inheritanceSpecifierCtx.GetStop().GetStop()),
-						Length:      int64(inheritanceSpecifierCtx.GetStop().GetStop() - inheritanceSpecifierCtx.GetStart().GetStart() + 1),
-						ParentIndex: interfaceNode.Id,
-					},
-					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
-					Name:     inheritanceSpecifierCtx.IdentifierPath().GetText(),
-				},
-			}
-
-			for _, unitNode := range l.sourceUnits {
-				if unitNode.GetName() == inheritanceSpecifierCtx.IdentifierPath().GetText() {
-					baseContract.BaseName.ReferencedDeclaration = unitNode.GetId()
-					interfaceNode.LinearizedBaseContracts = append(
-						interfaceNode.LinearizedBaseContracts, unitNode.GetId(),
-					)
-					interfaceNode.ContractDependencies = append(
-						interfaceNode.ContractDependencies, unitNode.GetId(),
-					)
-
-					symbolFound := false
-					for _, symbol := range unitNode.GetExportedSymbols() {
-						if symbol.GetName() == unitNode.GetName() {
-							symbolFound = true
-						}
-					}
-
-					if !symbolFound {
-						unit.ExportedSymbols = append(
-							unit.ExportedSymbols,
-							Symbol{
-								Id:   unitNode.GetId(),
-								Name: unitNode.GetName(),
-								AbsolutePath: func() string {
-									for _, unit := range l.sources.SourceUnits {
-										if unit.Name == unitNode.GetName() {
-											return unit.Path
-										}
-									}
-									return ""
-								}(),
-							},
-						)
-					}
-				}
-			}
-
-			interfaceNode.BaseContracts = append(interfaceNode.BaseContracts, baseContract)
-		}
-	}
+	interfaceNode.BaseContracts = append(
+		interfaceNode.BaseContracts,
+		parseInheritanceFromCtx(
+			l.ASTBuilder, unit, interfaceNode, ctx.InheritanceSpecifierList(),
+		)...,
+	)
 
 	for _, bodyElement := range ctx.AllContractBodyElement() {
 		if bodyElement.IsEmpty() {
@@ -172,12 +110,12 @@ func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.I
 			continue
 		}
 
-		bodyNode := NewBodyNode[Node](l.ASTBuilder)
-		subBodyNode := bodyNode.Parse(unit, interfaceNode, bodyElement)
-		if subBodyNode != nil {
+		bodyNode := NewBodyNode[ast_pb.Body](l.ASTBuilder)
+		childNode := bodyNode.Parse(unit, interfaceNode, bodyElement)
+		if childNode != nil {
 			interfaceNode.Nodes = append(
 				interfaceNode.Nodes,
-				subBodyNode,
+				childNode,
 			)
 
 			if bodyNode.NodeType == ast_pb.NodeType_FUNCTION_DEFINITION {
@@ -185,8 +123,6 @@ func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.I
 					interfaceNode.FullyImplemented = false
 				}
 			}
-
-			//l.dumpNode(subBodyNode)
 		} else {
 			interfaceNode.FullyImplemented = false
 		}

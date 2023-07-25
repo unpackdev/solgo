@@ -5,29 +5,29 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type FunctionNode[T any] struct {
+type FunctionNode[T ast_pb.Function] struct {
 	*ASTBuilder
 
-	Id               int64               `json:"id"`
-	Name             string              `json:"name"`
-	NodeType         ast_pb.NodeType     `json:"node_type"`
-	Kind             ast_pb.NodeType     `json:"kind"`
-	Src              SrcNode             `json:"src"`
-	Body             []T                 `json:"body"`
-	Implemented      bool                `json:"implemented"`
-	Visibility       ast_pb.Visibility   `json:"visibility"`
-	StateMutability  ast_pb.Mutability   `json:"state_mutability"`
-	Virtual          bool                `json:"virtual"`
-	Modifiers        []Modifier          `json:"modifiers"`
-	Overrides        []OverrideSpecifier `json:"overrides"`
-	Parameters       *ParameterList[T]   `json:"parameters"`
-	ReturnParameters *ParameterList[T]   `json:"return_parameters"`
+	Id               int64                  `json:"id"`
+	Name             string                 `json:"name"`
+	NodeType         ast_pb.NodeType        `json:"node_type"`
+	Kind             ast_pb.NodeType        `json:"kind"`
+	Src              SrcNode                `json:"src"`
+	Body             *BodyNode[ast_pb.Body] `json:"body"`
+	Implemented      bool                   `json:"implemented"`
+	Visibility       ast_pb.Visibility      `json:"visibility"`
+	StateMutability  ast_pb.Mutability      `json:"state_mutability"`
+	Virtual          bool                   `json:"virtual"`
+	Modifiers        []Modifier             `json:"modifiers"`
+	Overrides        []OverrideSpecifier    `json:"overrides"`
+	Parameters       *ParameterList[T]      `json:"parameters"`
+	ReturnParameters *ParameterList[T]      `json:"return_parameters"`
+	Scope            int64                  `json:"scope"`
 }
 
-func NewFunctionNode[T any](b *ASTBuilder) *FunctionNode[T] {
+func NewFunctionNode[T ast_pb.Function](b *ASTBuilder) *FunctionNode[T] {
 	return &FunctionNode[T]{
 		ASTBuilder: b,
-		Body:       make([]T, 0),
 		NodeType:   ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:       ast_pb.NodeType_KIND_FUNCTION,
 		Modifiers:  make([]Modifier, 0),
@@ -47,13 +47,18 @@ func (f FunctionNode[T]) GetSrc() SrcNode {
 	return f.Src
 }
 
+func (f FunctionNode[T]) ToProto() NodeType {
+	return ast_pb.Function{}
+}
+
 func (f FunctionNode[T]) Parse(
-	unit *SourceUnit[Node],
-	contractNode Node,
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
 	ctx *parser.FunctionDefinitionContext,
-) Node {
+) Node[NodeType] {
 	f.Id = f.GetNextID()
+	f.Scope = contractNode.GetId()
 	if ctx.Identifier() != nil {
 		f.Name = ctx.Identifier().GetText()
 	}
@@ -104,11 +109,85 @@ func (f FunctionNode[T]) Parse(
 	}
 
 	// Set function return parameters if they exist.
+	// @TODO: Consider traversing through body to discover name of the return parameters even
+	// if they are not defined in (name uint) format.
 	if ctx.GetReturnParameters() != nil {
 		returnParams := NewParameterList[T](f.ASTBuilder)
 		returnParams.Parse(unit, f, ctx.GetReturnParameters())
 		f.ReturnParameters = returnParams
 	}
+
+	// And now we are going to the big league. We are going to traverse the function body.
+	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
+
+		bodyNode := NewBodyNode[ast_pb.Body](f.ASTBuilder)
+		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
+		f.Body = bodyNode
+
+		/* 		bodyNode := &ast_pb.Body{
+		   			Id: atomic.AddInt64(&b.nextID, 1) - 1,
+		   			Src: &ast_pb.Src{
+		   				Line:        int64(fd.Block().GetStart().GetLine()),
+		   				Column:      int64(fd.Block().GetStart().GetColumn()),
+		   				Start:       int64(fd.Block().GetStart().GetStart()),
+		   				End:         int64(fd.Block().GetStop().GetStop()),
+		   				Length:      int64(fd.Block().GetStop().GetStop() - fd.Block().GetStart().GetStart() + 1),
+		   				ParentIndex: node.Id,
+		   			},
+		   			NodeType: ast_pb.NodeType_BLOCK,
+		   		}
+
+		   		for _, statement := range fd.Block().AllStatement() {
+		   			if statement.IsEmpty() {
+		   				continue
+		   			}
+
+		   			// Parent index statement in this case is used only to be able provide
+		   			// index to the parent node. It is not used for anything else.
+		   			parentIndexStmt := &ast_pb.Statement{Id: bodyNode.Id}
+
+		   			bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(
+		   				sourceUnit, node, bodyNode, parentIndexStmt, statement,
+		   			))
+		   		}
+
+		   		node.Body = bodyNode */
+	}
+
+	/* 	if fd.Block() != nil && len(fd.Block().AllUncheckedBlock()) > 0 {
+		for _, uncheckedBlockCtx := range fd.Block().AllUncheckedBlock() {
+			bodyNode := &ast_pb.Body{
+				Id: atomic.AddInt64(&b.nextID, 1) - 1,
+				Src: &ast_pb.Src{
+					Line:        int64(fd.Block().GetStart().GetLine()),
+					Column:      int64(fd.Block().GetStart().GetColumn()),
+					Start:       int64(fd.Block().GetStart().GetStart()),
+					End:         int64(fd.Block().GetStop().GetStop()),
+					Length:      int64(fd.Block().GetStop().GetStop() - fd.Block().GetStart().GetStart() + 1),
+					ParentIndex: node.Id,
+				},
+				NodeType: ast_pb.NodeType_UNCHECKED_BLOCK,
+			}
+
+			if uncheckedBlockCtx.Block() != nil && !uncheckedBlockCtx.Block().IsEmpty() {
+				for _, statement := range uncheckedBlockCtx.Block().AllStatement() {
+					if statement.IsEmpty() {
+						continue
+					}
+
+					// Parent index statement in this case is used only to be able provide
+					// index to the parent node. It is not used for anything else.
+					parentIndexStmt := &ast_pb.Statement{Id: bodyNode.Id}
+
+					bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(
+						sourceUnit, node, bodyNode, parentIndexStmt, statement,
+					))
+				}
+			}
+
+			node.Body = bodyNode
+		}
+	} */
 
 	return f
 }

@@ -1,25 +1,27 @@
 package ast
 
 import (
+	"fmt"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type BodyNode[T any] struct {
+type BodyNode[T NodeType] struct {
 	*ASTBuilder
 
-	Id          int64           `json:"id"`
-	NodeType    ast_pb.NodeType `json:"node_type"`
-	Kind        ast_pb.NodeType `json:"kind"`
-	Src         SrcNode         `json:"src"`
-	Implemented bool            `json:"implemented"`
-	Statements  []T             `json:"statements"`
+	Id          int64                    `json:"id"`
+	NodeType    ast_pb.NodeType          `json:"node_type"`
+	Kind        ast_pb.NodeType          `json:"kind,omitempty"`
+	Src         SrcNode                  `json:"src"`
+	Implemented bool                     `json:"implemented"`
+	Statements  []Node[ast_pb.Statement] `json:"statements"`
 }
 
-func NewBodyNode[T any](b *ASTBuilder) *BodyNode[T] {
-	return &BodyNode[T]{
+func NewBodyNode[T ast_pb.Body](b *ASTBuilder) *BodyNode[ast_pb.Body] {
+	return &BodyNode[ast_pb.Body]{
 		ASTBuilder: b,
-		Statements: make([]T, 0),
+		Statements: make([]Node[ast_pb.Statement], 0),
 	}
 }
 
@@ -35,15 +37,19 @@ func (b *BodyNode[T]) GetSrc() SrcNode {
 	return b.Src
 }
 
+func (b *BodyNode[T]) ToProto() NodeType {
+	return ast_pb.Body{}
+}
+
 func (b *BodyNode[T]) Parse(
-	unit *SourceUnit[Node],
-	contractNode Node,
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
-) Node {
+) Node[NodeType] {
 	for _, bodyChildCtx := range bodyCtx.GetChildren() {
 		switch childCtx := bodyChildCtx.(type) {
 		case *parser.FunctionDefinitionContext:
-			fn := NewFunctionNode[Node](b.ASTBuilder)
+			fn := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
 			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
 		}
 	}
@@ -59,5 +65,48 @@ func (b *BodyNode[T]) Parse(
 		Length:      int64(bodyCtx.GetStop().GetStop() - bodyCtx.GetStart().GetStart() + 1),
 		ParentIndex: contractNode.GetId(),
 	}
+	return b
+}
+
+func (b *BodyNode[T]) ParseBlock(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
+	fnNode Node[NodeType],
+	bodyCtx parser.IBlockContext,
+) Node[NodeType] {
+	// Could not find any function definitions so we'll just return the body node.
+	b.Id = b.GetNextID()
+	b.NodeType = ast_pb.NodeType_BLOCK
+	b.Src = SrcNode{
+		Id:          b.GetNextID(),
+		Line:        int64(bodyCtx.GetStart().GetLine()),
+		Column:      int64(bodyCtx.GetStart().GetColumn()),
+		Start:       int64(bodyCtx.GetStart().GetStart()),
+		End:         int64(bodyCtx.GetStop().GetStop()),
+		Length:      int64(bodyCtx.GetStop().GetStop() - bodyCtx.GetStart().GetStart() + 1),
+		ParentIndex: contractNode.GetId(),
+	}
+
+	for _, statementCtx := range bodyCtx.AllStatement() {
+		for _, child := range statementCtx.GetChildren() {
+			switch childCtx := child.(type) {
+			case *parser.SimpleStatementContext:
+				statement := NewSimpleStatement[T](b.ASTBuilder)
+				statement.Parse(unit, contractNode, b, childCtx)
+				b.Statements = append(b.Statements, statement)
+
+				fmt.Println("Simple statement", childCtx.GetText())
+			case *parser.ReturnStatementContext:
+				fmt.Println("Return statement", childCtx.GetText())
+			case *parser.ExpressionStatementContext:
+				fmt.Println("Expression statement", childCtx.GetText())
+			case *parser.IfStatementContext:
+				fmt.Println("If statement", childCtx.GetText())
+			}
+
+			fmt.Printf("Child type: %T \n", child)
+		}
+	}
+
 	return b
 }

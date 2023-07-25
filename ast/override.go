@@ -31,7 +31,7 @@ func (o *OverrideSpecifier) GetSrc() SrcNode {
 	return o.Src
 }
 
-func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node], fnNode Node, ctx parser.IOverrideSpecifierContext) {
+func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], ctx parser.IOverrideSpecifierContext) {
 	o.Id = o.GetNextID()
 	o.Src = SrcNode{
 		Id:          o.GetNextID(),

@@ -1,5 +1,9 @@
 package ast
 
+import (
+	ast_pb "github.com/txpull/protos/dist/go/ast"
+)
+
 type SrcNode struct {
 	// Id is the unique identifier of the source node.
 	Id int64 `json:"id"`
@@ -62,4 +66,16 @@ func (s SrcNode) GetLength() int64 {
 // GetParentIndex returns the index of the parent node.
 func (s SrcNode) GetParentIndex() int64 {
 	return s.ParentIndex
+}
+
+func (s SrcNode) ToProto() *ast_pb.Src {
+	return &ast_pb.Src{
+		//Id:          s.Id,
+		Line:        s.Line,
+		Column:      s.Column,
+		Start:       s.Start,
+		End:         s.End,
+		Length:      s.Length,
+		ParentIndex: s.ParentIndex,
+	}
 }

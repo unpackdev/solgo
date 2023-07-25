@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type ParameterList[T any] struct {
+type ParameterList[T NodeType] struct {
 	*ASTBuilder
 
 	Id         int64           `json:"id"`
@@ -34,7 +34,11 @@ func (p *ParameterList[T]) GetSrc() SrcNode {
 	return p.Src
 }
 
-func (p *ParameterList[T]) Parse(unit *SourceUnit[Node], fNode Node, ctx parser.IParameterListContext) {
+func (p *ParameterList[T]) ToProto() ast_pb.ParametersList {
+	return ast_pb.ParametersList{}
+}
+
+func (p *ParameterList[T]) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode Node[NodeType], ctx parser.IParameterListContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),

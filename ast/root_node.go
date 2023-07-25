@@ -16,15 +16,15 @@ type RootNode struct {
 	EntrySourceUnit int64 `json:"entry_source_unit"`
 
 	// SourceUnits is the list of source units.
-	SourceUnits []*SourceUnit[Node] `json:"root"`
+	SourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]] `json:"root"`
 
 	// Comments is the list of comments.
 	Comments []*CommentNode `json:"comments"`
 }
 
 // NewRootNode creates a new root node.
-func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node], comments []*CommentNode) Node {
-	return Node(&RootNode{
+func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]], comments []*CommentNode) Node[*ast_pb.RootNode] {
+	return Node[*ast_pb.RootNode](&RootNode{
 		Id:              builder.GetNextID(),
 		EntrySourceUnit: entrySourceUnit,
 		NodeType:        ast_pb.NodeType_ROOT_SOURCE_UNIT,
@@ -34,7 +34,7 @@ func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*Sour
 }
 
 // GetSourceUnits returns the source units of the root node.
-func (r *RootNode) GetSourceUnits() []*SourceUnit[Node] {
+func (r *RootNode) GetSourceUnits() []*SourceUnit[Node[ast_pb.SourceUnit]] {
 	return r.SourceUnits
 }
 
