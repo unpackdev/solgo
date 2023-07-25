@@ -36,9 +36,11 @@ func (e *ExpressionStatement) Parse(
 			statementNode := NewFunctionCall(e.ASTBuilder)
 			statementNode.Parse(unit, contractNode, fnNode, bodyNode, childCtx)
 			return statementNode
-		//case *parser.AssignmentContext:
-		//statementNode := NewAssignmentNode(e.ASTBuilder)
-		//return statementNode.Parse(unit, contractNode, fnNode, bodyNode, e, childCtx)
+		case *parser.AssignmentContext:
+			assignment := NewAssignment(e.ASTBuilder)
+			assignment.ParseStatement(unit, contractNode, fnNode, bodyNode, ctx, childCtx)
+			//e.dumpNode(assignment)
+			return assignment
 		case *antlr.TerminalNodeImpl:
 			continue
 		default:

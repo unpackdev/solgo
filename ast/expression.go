@@ -41,10 +41,30 @@ func (e *Expression) Parse(
 	case *parser.OrderComparisonContext:
 		binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
 		return binaryExp.ParseOrderComparison(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.MulDivModOperationContext:
+		binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
+		return binaryExp.ParseMulDivMod(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.EqualityComparisonContext:
+		binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
+		return binaryExp.ParseEqualityComparison(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.AssignmentContext:
+		assignment := NewAssignment(e.ASTBuilder)
+		assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+		return assignment
+	case *parser.FunctionCallContext:
+		statementNode := NewFunctionCall(e.ASTBuilder)
+		statementNode.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
+		//e.dumpNode(statementNode)
+		return statementNode
+	case *parser.MemberAccessContext:
+		memberAccess := NewMemberAccessExpression(e.ASTBuilder)
+		memberAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+		return memberAccess
 	case *parser.PrimaryExpressionContext:
 		primaryExp := NewPrimaryExpression(e.ASTBuilder)
 		primaryExp.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 		return primaryExp
+
 	default:
 		panic("Expression type not supported @ Expression.Parse")
 	}

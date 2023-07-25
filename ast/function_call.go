@@ -80,6 +80,7 @@ func (f *FunctionCall) Parse(
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 		ParentIndex: fnNode.GetId(),
 	}
 
@@ -102,49 +103,4 @@ func (f *FunctionCall) Parse(
 			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
 		)
 	}
-	f.dumpNode(f)
 }
-
-/**
-statementNode.Expression = &ast_pb.Expression{
-		Id: atomic.AddInt64(&b.nextID, 1) - 1,
-		Src: &ast_pb.Src{
-			Line:        int64(fnCtx.GetStart().GetLine()),
-			Column:      int64(fnCtx.GetStart().GetColumn()),
-			Start:       int64(fnCtx.GetStart().GetStart()),
-			End:         int64(fnCtx.GetStop().GetStop()),
-			Length:      int64(fnCtx.GetStop().GetStop() - fnCtx.GetStart().GetStart() + 1),
-			ParentIndex: statementNode.Id,
-		},
-		NodeType: ast_pb.NodeType_FUNCTION_CALL,
-	}
-
-	expressionCtx := fnCtx.Expression()
-	nameExpression := &ast_pb.Expression{
-		Id: atomic.AddInt64(&b.nextID, 1) - 1,
-		Src: &ast_pb.Src{
-			Line:        int64(expressionCtx.GetStart().GetLine()),
-			Column:      int64(expressionCtx.GetStart().GetColumn()),
-			Start:       int64(expressionCtx.GetStart().GetStart()),
-			End:         int64(expressionCtx.GetStop().GetStop()),
-			Length:      int64(expressionCtx.GetStop().GetStop() - expressionCtx.GetStart().GetStart() + 1),
-			ParentIndex: statementNode.Expression.Id,
-		},
-		NodeType: ast_pb.NodeType_IDENTIFIER,
-		Name:     expressionCtx.GetText(),
-	}
-
-	if fnCtx.CallArgumentList() != nil {
-		for _, expressionCtx := range fnCtx.CallArgumentList().AllExpression() {
-			argument := b.parseExpression(
-				sourceUnit, fnNode, bodyNode, nil, nameExpression.Id, expressionCtx,
-			)
-			statementNode.Arguments = append(statementNode.Arguments, argument)
-			nameExpression.ArgumentTypes = append(
-				nameExpression.ArgumentTypes, argument.TypeDescriptions,
-			)
-		}
-	}
-
-	statementNode.Expression.Expression = nameExpression
-**/
