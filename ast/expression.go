@@ -71,6 +71,9 @@ func (e *Expression) Parse(
 	case *parser.UnaryPrefixOperationContext:
 		unaryPrefixOperation := NewUnaryPrefixExpression(e.ASTBuilder)
 		return unaryPrefixOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.NewExprContext:
+		newExpr := NewExprExpression(e.ASTBuilder)
+		return newExpr.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
 		panic("Expression type not supported @ Expression.Parse")
