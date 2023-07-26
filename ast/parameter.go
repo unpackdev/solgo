@@ -104,6 +104,30 @@ func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	p.TypeName = typeName
 }
 
+func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], contractNode Node[NodeType], structNode *StructDefinition, ctx parser.IStructMemberContext) {
+	p.Id = p.GetNextID()
+	p.Src = SrcNode{
+		Id:          p.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: structNode.GetId(),
+	}
+	p.Scope = contractNode.GetId()
+
+	if ctx.Identifier() != nil {
+		p.Name = ctx.Identifier().GetText()
+	}
+
+	//p.StorageLocation = p.getStorageLocationFromCtx(ctx)
+
+	typeName := NewTypeName(p.ASTBuilder)
+	typeName.Parse(unit, contractNode, p.GetId(), ctx.TypeName())
+	p.TypeName = typeName
+}
+
 func (p *Parameter) getStorageLocationFromCtx(ctx *parser.ParameterDeclarationContext) ast_pb.StorageLocation {
 	storageLocationMap := map[string]ast_pb.StorageLocation{
 		"memory":   ast_pb.StorageLocation_MEMORY,

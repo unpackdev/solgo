@@ -83,6 +83,9 @@ func (b *BodyNode) Parse(
 		case *parser.EnumDefinitionContext:
 			enum := NewEnumDefinition(b.ASTBuilder)
 			return enum.Parse(unit, contractNode, bodyCtx, childCtx)
+		case *parser.StructDefinitionContext:
+			structDef := NewStructDefinition(b.ASTBuilder)
+			return structDef.Parse(unit, contractNode, bodyCtx, childCtx)
 		case *parser.ConstructorDefinitionContext:
 			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
 			return statement.Parse(unit, contractNode, childCtx)
