@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math"
-	"reflect"
 	"strconv"
 	"strings"
 
@@ -150,8 +149,6 @@ func (p *PrimaryExpression) Parse(
 						p.TypeDescription = declaration.TypeName.TypeDescription
 					}
 				}
-			default:
-				fmt.Println("Statement type: ", reflect.TypeOf(statement))
 			}
 
 			/*

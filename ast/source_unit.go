@@ -80,11 +80,14 @@ func (s *SourceUnit[T]) GetExportedSymbols() []Symbol {
 	return s.ExportedSymbols
 }
 
-func (s *SourceUnit[T]) GetTypeDescriptions() TypeDescription {
-	return TypeDescription{}
+func (s *SourceUnit[T]) GetTypeDescription() *TypeDescription {
+	return &TypeDescription{
+		TypeIdentifier: fmt.Sprintf("t_contract$_%s_$%d", s.Name, s.Id),
+		TypeString:     fmt.Sprintf("contract %s", s.Name),
+	}
 }
 
-func (s *SourceUnit[T]) ToProto() *ast_pb.SourceUnit {
+func (s *SourceUnit[T]) ToProto() NodeType {
 	return &ast_pb.SourceUnit{
 		Id:           s.Id,
 		License:      s.License,

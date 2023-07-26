@@ -78,6 +78,33 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 	}
 }
 
+func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.IdentifierPathContext) {
+	t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+	if len(ctx.AllIdentifier()) > 0 {
+		identifierCtx := ctx.Identifier(0)
+		t.PathNode = &PathNode{
+			Id:   t.GetNextID(),
+			Name: identifierCtx.GetText(),
+			Src: SrcNode{
+				Id:          t.GetNextID(),
+				Line:        int64(identifierCtx.GetStart().GetLine()),
+				Column:      int64(identifierCtx.GetStart().GetColumn()),
+				Start:       int64(identifierCtx.GetStart().GetStart()),
+				End:         int64(identifierCtx.GetStop().GetStop()),
+				Length:      int64(identifierCtx.GetStop().GetStop() - identifierCtx.GetStart().GetStart() + 1),
+				ParentIndex: t.Id,
+			},
+			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
+		}
+
+		if ref, refTypeDescription := discoverReferenceByCtxName(t.ASTBuilder, identifierCtx.GetText()); ref != nil {
+			t.PathNode.ReferencedDeclaration = ref.GetId()
+			t.ReferencedDeclaration = ref.GetId()
+			t.TypeDescription = refTypeDescription
+		}
+	}
+}
+
 func (t *TypeName) parseUserDefinedTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx antlr.Tree) {
 	panic("User defined type name is not supported yet @ TypeName.Parse")
 
@@ -352,6 +379,8 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			t.parseElementaryTypeName(unit, parentNodeId, childCtx)
 		case *parser.MappingTypeContext:
 			t.parseMappingTypeName(unit, parentNodeId, childCtx)
+		case *parser.IdentifierPathContext:
+			t.parseIdentifierPath(unit, parentNodeId, childCtx)
 		default:
 			panic(fmt.Sprintf("Unknown type name @ TypeName.Parse: %T", childCtx))
 			//t.parseUserDefinedTypeName(unit, parentNodeId, childCtx)

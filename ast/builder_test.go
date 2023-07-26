@@ -93,8 +93,6 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
 		},
-		/**
-
 		{
 			name: "Token Sale ERC20 Test",
 			sources: solgo.Sources{
@@ -119,6 +117,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
 		},
+		/**
 		{
 			name: "Lottery Test",
 			sources: solgo.Sources{
