@@ -175,39 +175,9 @@ func (f FunctionNode[T]) Parse(
 
 	// And now we are going to the big league. We are going to traverse the function body.
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-
 		bodyNode := NewBodyNode(f.ASTBuilder)
 		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
 		f.Body = bodyNode
-
-		/* 		bodyNode := &ast_pb.Body{
-		   			Id: atomic.AddInt64(&b.nextID, 1) - 1,
-		   			Src: &ast_pb.Src{
-		   				Line:        int64(fd.Block().GetStart().GetLine()),
-		   				Column:      int64(fd.Block().GetStart().GetColumn()),
-		   				Start:       int64(fd.Block().GetStart().GetStart()),
-		   				End:         int64(fd.Block().GetStop().GetStop()),
-		   				Length:      int64(fd.Block().GetStop().GetStop() - fd.Block().GetStart().GetStart() + 1),
-		   				ParentIndex: node.Id,
-		   			},
-		   			NodeType: ast_pb.NodeType_BLOCK,
-		   		}
-
-		   		for _, statement := range fd.Block().AllStatement() {
-		   			if statement.IsEmpty() {
-		   				continue
-		   			}
-
-		   			// Parent index statement in this case is used only to be able provide
-		   			// index to the parent node. It is not used for anything else.
-		   			parentIndexStmt := &ast_pb.Statement{Id: bodyNode.Id}
-
-		   			bodyNode.Statements = append(bodyNode.Statements, b.parseStatement(
-		   				sourceUnit, node, bodyNode, parentIndexStmt, statement,
-		   			))
-		   		}
-
-		   		node.Body = bodyNode */
 	}
 
 	/* 	if fd.Block() != nil && len(fd.Block().AllUncheckedBlock()) > 0 {

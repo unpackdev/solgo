@@ -69,6 +69,11 @@ func (b *BodyNode) Parse(
 ) Node[NodeType] {
 	for _, bodyChildCtx := range bodyCtx.GetChildren() {
 		switch childCtx := bodyChildCtx.(type) {
+		case *parser.ConstructorDefinitionContext:
+			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+			b.Statements = append(b.Statements, statement.Parse(
+				unit, contractNode, childCtx,
+			))
 		case *parser.FunctionDefinitionContext:
 			fn := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
 			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
@@ -121,6 +126,11 @@ func (b *BodyNode) ParseBlock(
 	for _, statementCtx := range bodyCtx.AllStatement() {
 		for _, child := range statementCtx.GetChildren() {
 			switch childCtx := child.(type) {
+			case *parser.ConstructorDefinitionContext:
+				statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, childCtx,
+				))
 			case *parser.SimpleStatementContext:
 				statement := NewSimpleStatement[NodeType](b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
@@ -138,6 +148,57 @@ func (b *BodyNode) ParseBlock(
 				))
 			default:
 				panic(fmt.Sprintf("Unknown statement type @ BodyNode.ParseBlock: %s", reflect.TypeOf(childCtx)))
+			}
+		}
+	}
+
+	return b
+}
+
+func (b *BodyNode) ParseUncheckedBlock(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
+	fnNode Node[NodeType],
+	bodyCtx parser.IUncheckedBlockContext,
+) Node[NodeType] {
+	// Could not find any function definitions so we'll just return the body node.
+	b.Id = b.GetNextID()
+	b.NodeType = ast_pb.NodeType_UNCHECKED_BLOCK
+	b.Src = SrcNode{
+		Id:          b.GetNextID(),
+		Line:        int64(bodyCtx.GetStart().GetLine()),
+		Column:      int64(bodyCtx.GetStart().GetColumn()),
+		Start:       int64(bodyCtx.GetStart().GetStart()),
+		End:         int64(bodyCtx.GetStop().GetStop()),
+		Length:      int64(bodyCtx.GetStop().GetStop() - bodyCtx.GetStart().GetStart() + 1),
+		ParentIndex: contractNode.GetId(),
+	}
+
+	for _, statementCtx := range bodyCtx.Block().AllStatement() {
+		for _, child := range statementCtx.GetChildren() {
+			switch childCtx := child.(type) {
+			case *parser.ConstructorDefinitionContext:
+				statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, childCtx,
+				))
+			case *parser.SimpleStatementContext:
+				statement := NewSimpleStatement[NodeType](b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.ReturnStatementContext:
+				statement := NewReturnStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.IfStatementContext:
+				statement := NewIfStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			default:
+				panic(fmt.Sprintf("Unknown statement type @ BodyNode.ParseUncheckedBlock: %s", reflect.TypeOf(childCtx)))
 			}
 		}
 	}

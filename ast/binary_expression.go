@@ -74,13 +74,23 @@ func (a *BinaryOperationExpression) ParseAddSub(
 	ctx *parser.AddSubOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
-		Line:        int64(ctx.GetStart().GetLine()),
-		Column:      int64(ctx.GetStart().GetColumn()),
-		Start:       int64(ctx.GetStart().GetStart()),
-		End:         int64(ctx.GetStop().GetStop()),
-		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: vDeclar.GetId(),
+		Id:     a.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if expNode != nil {
+				return expNode.GetId()
+			}
+
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
+
+			return bodyNode.GetId()
+		}(),
 	}
 
 	a.Operator = ast_pb.Operator_ADDITION

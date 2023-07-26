@@ -164,9 +164,17 @@ func (p *PrimaryExpression) Parse(
 	// If search for reference in statement declarations failed,
 	// search for reference in function parameters.
 	if !referenceFound && fnNode != nil {
-		fnNode := fnNode.(FunctionNode[ast_pb.Function])
-		if fnNode.GetParameters() != nil {
-			for _, parameter := range fnNode.GetParameters().Parameters {
+		switch fnNodeCtx := fnNode.(type) {
+		case *Constructor[ast_pb.Function]:
+			for _, parameter := range fnNodeCtx.GetParameters().Parameters {
+				if parameter.Name == ctx.GetText() {
+					referenceFound = true
+					p.ReferencedDeclaration = parameter.Id
+					p.TypeDescription = parameter.TypeName.TypeDescription
+				}
+			}
+		case *FunctionNode[ast_pb.Function]:
+			for _, parameter := range fnNodeCtx.GetParameters().Parameters {
 				if parameter.Name == ctx.GetText() {
 					referenceFound = true
 					p.ReferencedDeclaration = parameter.Id

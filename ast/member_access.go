@@ -132,7 +132,8 @@ func (m *MemberAccessExpression) Parse(
 	   		}
 	*/
 
-	if m.Expression.GetTypeDescription().TypeString == "t_magic_message" {
+	if m.Expression != nil && m.Expression.GetTypeDescription() != nil &&
+		m.Expression.GetTypeDescription().TypeIdentifier == "t_magic_message" {
 		switch m.MemberName {
 		case "sender":
 			m.TypeDescription = &TypeDescription{

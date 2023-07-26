@@ -39,9 +39,11 @@ func (e *ExpressionStatement) Parse(
 		case *parser.AssignmentContext:
 			assignment := NewAssignment(e.ASTBuilder)
 			assignment.ParseStatement(unit, contractNode, fnNode, bodyNode, ctx, childCtx)
-			//e.dumpNode(assignment)
 			return assignment
 		case *antlr.TerminalNodeImpl:
+			// @TODO: Not sure what to do with this... It's usually just a semicolon. Perhaps to
+			// add to each expression statement semicolon_found?
+			// Not important right now at all...
 			continue
 		default:
 			fmt.Println("Expression Type: ", reflect.TypeOf(childCtx).String())
