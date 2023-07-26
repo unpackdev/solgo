@@ -136,13 +136,18 @@ func (b *BodyNode) ParseBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
-			case *parser.ReturnStatementContext:
-				statement := NewReturnStatement(b.ASTBuilder)
+			case *parser.EmitStatementContext:
+				statement := NewEmitStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
 			case *parser.IfStatementContext:
 				statement := NewIfStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.ReturnStatementContext:
+				statement := NewReturnStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
@@ -187,13 +192,18 @@ func (b *BodyNode) ParseUncheckedBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
-			case *parser.ReturnStatementContext:
-				statement := NewReturnStatement(b.ASTBuilder)
+			case *parser.EmitStatementContext:
+				statement := NewEmitStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
 			case *parser.IfStatementContext:
 				statement := NewIfStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.ReturnStatementContext:
+				statement := NewReturnStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))

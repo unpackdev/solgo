@@ -103,14 +103,4 @@ func (i *IndexAccess) Parse(
 		i.IndexExpression.GetTypeDescription(),
 		i.BaseExpression.GetTypeDescription(),
 	}
-
-	/* 	toReturn.NodeType = ast_pb.NodeType_INDEX_ACCESS
-
-	   	toReturn.BaseExpression = b.parseExpression(
-	   		sourceUnit, fnNode, bodyNode, toReturn, toReturn.Id, childCtx.Expression(0),
-	   	)
-	   	toReturn.IndexExpression = b.parseExpression(
-	   		sourceUnit, fnNode, bodyNode, toReturn, toReturn.Id, childCtx.Expression(1),
-	   	) */
-	i.dumpNode(i)
 }
