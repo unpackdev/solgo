@@ -2,6 +2,7 @@ package ast
 
 import (
 	"fmt"
+	"reflect"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -67,6 +68,16 @@ func (b *BodyNode) Parse(
 		case *parser.FunctionDefinitionContext:
 			fn := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
 			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
+		case *parser.UsingDirectiveContext:
+			using := NewUsingDirective(b.ASTBuilder)
+			using.Parse(unit, contractNode, bodyCtx, childCtx)
+			return using
+		case *parser.StateVariableDeclarationContext:
+			stateVar := NewStateVariableDeclaration(b.ASTBuilder)
+			stateVar.Parse(unit, contractNode, bodyCtx, childCtx)
+			return stateVar
+		default:
+			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
 		}
 	}
 
@@ -111,17 +122,18 @@ func (b *BodyNode) ParseBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
-
-				fmt.Println("Simple statement", childCtx.GetText())
 			case *parser.ReturnStatementContext:
-				fmt.Println("Return statement", childCtx.GetText())
+				statement := NewReturnStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			case *parser.ExpressionStatementContext:
 				fmt.Println("Expression statement", childCtx.GetText())
 			case *parser.IfStatementContext:
 				fmt.Println("If statement", childCtx.GetText())
+			default:
+				panic(fmt.Sprintf("Unknown statement type @ BodyNode.ParseBlock: %s", reflect.TypeOf(childCtx)))
 			}
-
-			fmt.Printf("Child type: %T \n", child)
 		}
 	}
 

@@ -1,9 +1,6 @@
 package ast
 
 import (
-	"fmt"
-	"reflect"
-
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
@@ -83,7 +80,6 @@ func (m *MemberAccessExpression) Parse(
 	}
 
 	if expNode != nil {
-		fmt.Println("Expression TypeA: ", reflect.TypeOf(expNode))
 		if expNode.GetType() == ast_pb.NodeType_FUNCTION_CALL {
 			fcNode := expNode.(*FunctionCall)
 			for _, arguments := range fcNode.GetArguments() {

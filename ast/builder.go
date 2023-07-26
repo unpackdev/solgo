@@ -2,7 +2,6 @@ package ast
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -21,7 +20,7 @@ type ASTBuilder struct {
 	entrySourceUnit       *ast_pb.Node
 	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
 	currentSourceUnit     *ast_pb.SourceUnit
-	currentStateVariables []*ast_pb.Node
+	currentStateVariables []*StateVariableDeclaration
 	currentEvents         []*ast_pb.Node
 	currentEnums          []*ast_pb.Node
 	currentStructs        []*ast_pb.Node
@@ -76,13 +75,12 @@ func (b *ASTBuilder) NodeToJson(node interface{}) ([]byte, error) {
 
 func (b *ASTBuilder) FindNodesByType(nodeType ast_pb.NodeType) ([]*ast_pb.Node, bool) {
 	var nodes []*ast_pb.Node
-	for _, unit := range b.sourceUnits {
-		fmt.Println(unit)
+	/* for _, unit := range b.sourceUnits {
 
-		/* 		for _, root := range unit.Nodes.Nodes {
+				for _, root := range unit.Nodes.Nodes {
 			fmt.Println(root.NodeType)
-		} */
-	}
+		}
+	} */
 	return nodes, false
 }
 

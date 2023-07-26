@@ -1,9 +1,12 @@
 package ast
 
 import (
+	"fmt"
+
 	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
 type TypeName struct {
@@ -77,6 +80,72 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 
 func (t *TypeName) parseUserDefinedTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx antlr.Tree) {
 	panic("User defined type name is not supported yet @ TypeName.Parse")
+
+	/**
+		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+
+	pathCtx := ctx.IdentifierPath()
+	if pathCtx != nil {
+		pNode.TypeName.PathNode = &PathNode{
+			Id:   t.GetNextID(),
+			Name: pathCtx.GetText(),
+			Src: SrcNode{
+				Id:          t.GetNextID(),
+				Line:        int64(pathCtx.GetStart().GetLine()),
+				Column:      int64(pathCtx.GetStart().GetColumn()),
+				Start:       int64(pathCtx.GetStart().GetStart()),
+				End:         int64(pathCtx.GetStop().GetStop()),
+				Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
+				ParentIndex: t.Id,
+			},
+			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
+		}
+	}
+
+	// Lets figure out type...
+	// Search for argument reference in state variable declarations.
+	referenceFound := false
+
+	for _, node := range t.currentStateVariables {
+		if node.GetName() == pathCtx.GetText() {
+			referenceFound = true
+			t.PathNode.ReferencedDeclaration = node.Id
+			t.ReferencedDeclaration = node.Id
+			//t.TypeDescriptions = node.TypeDescriptions
+			//t.TypeDescriptions = node.TypeDescriptions
+		}
+	}
+
+	if !referenceFound {
+		for _, node := range t.currentEnums {
+			if node.GetName() == pathCtx.GetText() {
+				referenceFound = true
+				t.PathNode.ReferencedDeclaration = node.Id
+				t.ReferencedDeclaration = node.Id
+
+				typeDescription := &TypeDescriptions{
+					TypeIdentifier: func() string {
+						return fmt.Sprintf(
+							"t_enum_$_%s_$%d",
+							pathCtx.GetText(),
+							node.Id,
+						)
+					}(),
+					TypeString: func() string {
+						return fmt.Sprintf(
+							"enum %s.%s",
+							unit.GetName(),
+							pathCtx.GetText(),
+						)
+					}(),
+				}
+
+				t.TypeDescriptions = typeDescription
+				t.TypeDescriptions = typeDescription
+			}
+		}
+	}
+	**/
 }
 
 func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.MappingTypeContext) {
@@ -100,96 +169,20 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 		case *parser.ElementaryTypeNameContext:
 			t.parseElementaryTypeName(unit, parentNodeId, childCtx)
 		case *parser.MappingTypeContext:
-			t.parseMappingTypeName(unit, parentNodeId, childCtx)
+			panic(fmt.Sprintf("Mapping type name @ TypeName.Parse: %T", childCtx))
+			//t.parseMappingTypeName(unit, parentNodeId, childCtx)
 		default:
-			t.parseUserDefinedTypeName(unit, parentNodeId, childCtx)
+			panic(fmt.Sprintf("Unknown type name @ TypeName.Parse: %T", childCtx))
+			//t.parseUserDefinedTypeName(unit, parentNodeId, childCtx)
 		}
 	}
 
-	/*
-		if ctx.MappingType() != nil {
-			zap.L().Warn(
-				"Mapping type is not supported yet @ TypeName.Parse",
-				zap.String("mapping_type", ctx.MappingType().GetText()),
-			)
-		} else if ctx.FunctionTypeName() != nil {
-			zap.L().Warn(
-				"Function type is not supported yet @ TypeName.Parse",
-				zap.String("function_type", ctx.FunctionTypeName().GetText()),
-			)
-		} else {
-			// It seems to be a user defined type but that does not exist as type in parser...
-			t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
-
-			pathCtx := ctx.IdentifierPath()
-			if pathCtx != nil {
-				pNode.TypeName.PathNode = &PathNode{
-					Id:   t.GetNextID(),
-					Name: pathCtx.GetText(),
-					Src: SrcNode{
-						Id:          t.GetNextID(),
-						Line:        int64(pathCtx.GetStart().GetLine()),
-						Column:      int64(pathCtx.GetStart().GetColumn()),
-						Start:       int64(pathCtx.GetStart().GetStart()),
-						End:         int64(pathCtx.GetStop().GetStop()),
-						Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
-						ParentIndex: t.Id,
-					},
-					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
-				}
-			}
-
-			// Lets figure out type...
-			// Search for argument reference in state variable declarations.
-			referenceFound := false
-
-			for _, node := range t.currentStateVariables {
-				if node.GetName() == pathCtx.GetText() {
-					referenceFound = true
-					t.PathNode.ReferencedDeclaration = node.Id
-					t.ReferencedDeclaration = node.Id
-					//t.TypeDescriptions = node.TypeDescriptions
-					//t.TypeDescriptions = node.TypeDescriptions
-				}
-			}
-
-			if !referenceFound {
-				for _, node := range t.currentEnums {
-					if node.GetName() == pathCtx.GetText() {
-						referenceFound = true
-						t.PathNode.ReferencedDeclaration = node.Id
-						t.ReferencedDeclaration = node.Id
-
-						typeDescription := &TypeDescriptions{
-							TypeIdentifier: func() string {
-								return fmt.Sprintf(
-									"t_enum_$_%s_$%d",
-									pathCtx.GetText(),
-									node.Id,
-								)
-							}(),
-							TypeString: func() string {
-								return fmt.Sprintf(
-									"enum %s.%s",
-									unit.GetName(),
-									pathCtx.GetText(),
-								)
-							}(),
-						}
-
-						t.TypeDescriptions = typeDescription
-						t.TypeDescriptions = typeDescription
-					}
-				}
-			}
-		}
-
-		if ctx.Expression() != nil {
-			zap.L().Warn(
-				"Expression type is not supported yet @ TypeName.Parse",
-				zap.String("expression", ctx.Expression().GetText()),
-			)
-		} */
+	if ctx.Expression() != nil {
+		zap.L().Warn(
+			"Expression type is not supported yet @ TypeName.Parse",
+			zap.String("expression", ctx.Expression().GetText()),
+		)
+	}
 }
 
 type PathNode struct {

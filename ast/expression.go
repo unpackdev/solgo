@@ -31,9 +31,6 @@ func (e *Expression) Parse(
 	exprNode Node[NodeType],
 	ctx parser.IExpressionContext,
 ) Node[NodeType] {
-	fmt.Println("Expression: ", ctx.GetText())
-	fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
-
 	switch ctxType := ctx.(type) {
 	case *parser.AddSubOperationContext:
 		binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
@@ -54,7 +51,6 @@ func (e *Expression) Parse(
 	case *parser.FunctionCallContext:
 		statementNode := NewFunctionCall(e.ASTBuilder)
 		statementNode.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
-		//e.dumpNode(statementNode)
 		return statementNode
 	case *parser.MemberAccessContext:
 		memberAccess := NewMemberAccessExpression(e.ASTBuilder)
@@ -66,6 +62,7 @@ func (e *Expression) Parse(
 		return primaryExp
 
 	default:
+		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
 		panic("Expression type not supported @ Expression.Parse")
 	}
 }
