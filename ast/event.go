@@ -9,14 +9,13 @@ import (
 
 type EventDefinition struct {
 	*ASTBuilder
-	SourceUnitName string
-
-	Id         int64                                 `json:"id"`
-	NodeType   ast_pb.NodeType                       `json:"node_type"`
-	Src        SrcNode                               `json:"src"`
-	Parameters *ParameterList[ast_pb.ParametersList] `json:"parameters"`
-	Name       string                                `json:"name"`
-	Anonymous  bool                                  `json:"anonymous"`
+	SourceUnitName string                                `json:"-"`
+	Id             int64                                 `json:"id"`
+	NodeType       ast_pb.NodeType                       `json:"node_type"`
+	Src            SrcNode                               `json:"src"`
+	Parameters     *ParameterList[ast_pb.ParametersList] `json:"parameters"`
+	Name           string                                `json:"name"`
+	Anonymous      bool                                  `json:"anonymous"`
 }
 
 func NewEventDefinition(b *ASTBuilder) *EventDefinition {

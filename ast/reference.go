@@ -1,7 +1,6 @@
 package ast
 
 func discoverReferenceByCtxName(b *ASTBuilder, name string) (Node[NodeType], *TypeDescription) {
-
 	for _, node := range b.sourceUnits {
 		if node.GetName() == name {
 			return node, node.GetTypeDescription()
@@ -17,6 +16,13 @@ func discoverReferenceByCtxName(b *ASTBuilder, name string) (Node[NodeType], *Ty
 	for _, node := range b.currentEvents {
 		eventNode := node.(*EventDefinition)
 		if eventNode.GetName() == name {
+			return node, node.GetTypeDescription()
+		}
+	}
+
+	for _, node := range b.currentEnums {
+		enumNode := node.(*EnumDefinition)
+		if enumNode.GetName() == name {
 			return node, node.GetTypeDescription()
 		}
 	}

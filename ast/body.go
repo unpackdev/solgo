@@ -79,17 +79,16 @@ func (b *BodyNode) Parse(
 			return stateVar
 		case *parser.EventDefinitionContext:
 			event := NewEventDefinition(b.ASTBuilder)
-			event.Parse(unit, contractNode, bodyCtx, childCtx)
-			return event
+			return event.Parse(unit, contractNode, bodyCtx, childCtx)
+		case *parser.EnumDefinitionContext:
+			enum := NewEnumDefinition(b.ASTBuilder)
+			return enum.Parse(unit, contractNode, bodyCtx, childCtx)
 		case *parser.ConstructorDefinitionContext:
 			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
-			b.Statements = append(b.Statements, statement.Parse(
-				unit, contractNode, childCtx,
-			))
+			return statement.Parse(unit, contractNode, childCtx)
 		case *parser.FunctionDefinitionContext:
-			fn := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
-			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
-
+			statement := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
+			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
 		default:
 			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
 		}

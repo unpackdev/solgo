@@ -11,14 +11,14 @@ type Parameter struct {
 	Id              int64                  `json:"id"`
 	NodeType        ast_pb.NodeType        `json:"node_type"`
 	Src             SrcNode                `json:"src"`
-	Scope           int64                  `json:"scope"`
+	Scope           int64                  `json:"scope,omitempty"`
 	Name            string                 `json:"name"`
 	TypeName        *TypeName              `json:"type_name,omitempty"`
-	StorageLocation ast_pb.StorageLocation `json:"storage_location"`
-	Visibility      ast_pb.Visibility      `json:"visibility"`
-	StateMutability ast_pb.Mutability      `json:"state_mutability"`
-	Constant        bool                   `json:"constant"`
-	StateVariable   bool                   `json:"state_variable"`
+	StorageLocation ast_pb.StorageLocation `json:"storage_location,omitempty"`
+	Visibility      ast_pb.Visibility      `json:"visibility,omitempty"`
+	StateMutability ast_pb.Mutability      `json:"state_mutability,omitempty"`
+	Constant        bool                   `json:"constant,omitempty"`
+	StateVariable   bool                   `json:"state_variable,omitempty"`
 }
 
 func NewParameter(b *ASTBuilder) *Parameter {
