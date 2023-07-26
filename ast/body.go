@@ -101,6 +101,9 @@ func (b *BodyNode) Parse(
 		case *parser.FallbackFunctionDefinitionContext:
 			statement := NewFallbackDefinition(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
+		case *parser.ReceiveFunctionDefinitionContext:
+			statement := NewReceiveDefinition(b.ASTBuilder)
+			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
 		default:
 			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
 		}

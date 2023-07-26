@@ -114,23 +114,18 @@ func (c *Constructor) Parse(
 	c.Visibility = c.getVisibilityFromCtx(ctx)
 
 	params := NewParameterList(c.ASTBuilder)
-	params.Parse(unit, c, ctx.ParameterList())
+	if ctx.ParameterList() != nil {
+		params.Parse(unit, c, ctx.ParameterList())
+	} else {
+		params.Src = c.Src
+		params.Src.ParentIndex = c.Id
+	}
 	c.Parameters = params
 
-	c.ReturnParameters = &ParameterList{
-		Id: c.GetNextID(),
-		Src: SrcNode{
-			Id:          c.GetNextID(),
-			Line:        int64(ctx.GetStart().GetLine()),
-			Column:      int64(ctx.GetStart().GetColumn()),
-			Start:       int64(ctx.GetStart().GetStart()),
-			End:         int64(ctx.GetStop().GetStop()),
-			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-			ParentIndex: c.Id,
-		},
-		NodeType:   ast_pb.NodeType_PARAMETER_LIST,
-		Parameters: []*Parameter{},
-	}
+	returnParams := NewParameterList(c.ASTBuilder)
+	returnParams.Src = c.Src
+	returnParams.Src.ParentIndex = c.Id
+	c.ReturnParameters = returnParams
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 		bodyNode := NewBodyNode(c.ASTBuilder)
