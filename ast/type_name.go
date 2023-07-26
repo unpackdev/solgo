@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 
+	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
@@ -63,6 +64,68 @@ func (t *TypeName) GetKeyType() *TypeName {
 
 func (t *TypeName) GetValueType() *TypeName {
 	return t.ValueType
+}
+
+func (t *TypeName) GetStateMutability() ast_pb.Mutability {
+	return t.StateMutability
+}
+
+func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.TypeNameContext) {
+	t.Name = ctx.GetText()
+	t.Src = SrcNode{
+		Id:          t.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
+	}
+
+	if ctx.ElementaryTypeName() != nil {
+		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+			ctx.ElementaryTypeName().GetText(),
+		)
+
+		t.TypeDescription = &TypeDescription{
+			TypeString:     normalizedTypeName,
+			TypeIdentifier: normalizedTypeIdentifier,
+		}
+	} else if ctx.MappingType() != nil {
+		t.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
+		t.generateTypeName(unit, ctx.MappingType(), t, t)
+	} else if ctx.FunctionTypeName() != nil {
+		panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", ctx))
+	} else {
+		// It seems to be a user defined type but that does not exist as type in parser...
+		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+
+		pathCtx := ctx.IdentifierPath()
+		if pathCtx != nil {
+			t.PathNode = &PathNode{
+				Id:   t.GetNextID(),
+				Name: pathCtx.GetText(),
+				Src: SrcNode{
+					Id:          t.GetNextID(),
+					Line:        int64(pathCtx.GetStart().GetLine()),
+					Column:      int64(pathCtx.GetStart().GetColumn()),
+					Start:       int64(pathCtx.GetStart().GetStart()),
+					End:         int64(pathCtx.GetStop().GetStop()),
+					Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
+					ParentIndex: t.GetId(),
+				},
+				NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
+			}
+		}
+
+		if ref, refTypeDescription := discoverReferenceByCtxName(t.ASTBuilder, pathCtx.GetText()); ref != nil {
+			if t.PathNode != nil {
+				t.PathNode.ReferencedDeclaration = ref.GetId()
+			}
+			t.ReferencedDeclaration = ref.GetId()
+			t.TypeDescription = refTypeDescription
+		}
+	}
 }
 
 func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.ElementaryTypeNameContext) {
@@ -195,105 +258,10 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		} else if specificCtx.MappingType() != nil {
 			typeName.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 			t.generateTypeName(sourceUnit, specificCtx.MappingType(), parentNode, typeName)
+		} else if specificCtx.FunctionTypeName() != nil {
+			panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", specificCtx))
 		} else {
-			// It seems to be a user defined type but that does not exist as type in parser...
-			typeName.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
-
-			pathCtx := specificCtx.IdentifierPath()
-			if pathCtx != nil {
-				typeName.PathNode = &PathNode{
-					Id:   t.GetNextID(),
-					Name: pathCtx.GetText(),
-					Src: SrcNode{
-						Id:          t.GetNextID(),
-						Line:        int64(pathCtx.GetStart().GetLine()),
-						Column:      int64(pathCtx.GetStart().GetColumn()),
-						Start:       int64(pathCtx.GetStart().GetStart()),
-						End:         int64(pathCtx.GetStop().GetStop()),
-						Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
-						ParentIndex: typeName.GetId(),
-					},
-					NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
-				}
-			}
-
-			if ref, refTypeDescription := discoverReferenceByCtxName(t.ASTBuilder, pathCtx.GetText()); ref != nil {
-				t.PathNode.ReferencedDeclaration = ref.GetId()
-				t.ReferencedDeclaration = ref.GetId()
-				t.TypeDescription = refTypeDescription
-			}
-
-			// Search for argument reference in state variable declarations.
-			/* 			referenceFound := false
-
-			   			for _, node := range b.currentStateVariables {
-			   				if node.GetName() == pathCtx.GetText() {
-			   					referenceFound = true
-			   					typeName.PathNode.ReferencedDeclaration = node.Id
-			   					typeName.ReferencedDeclaration = node.Id
-			   					typeName.TypeDescriptions = node.TypeDescriptions
-			   				}
-			   			}
-
-			   			if !referenceFound {
-			   				for _, node := range b.currentEnums {
-			   					if node.GetName() == pathCtx.GetText() {
-			   						referenceFound = true
-			   						typeName.PathNode.ReferencedDeclaration = node.Id
-			   						typeName.ReferencedDeclaration = node.Id
-
-			   						typeDescription := &ast_pb.TypeDescriptions{
-			   							TypeIdentifier: func() string {
-			   								return fmt.Sprintf(
-			   									"t_enum_$_%s_$%d",
-			   									pathCtx.GetText(),
-			   									node.Id,
-			   								)
-			   							}(),
-			   							TypeString: func() string {
-			   								return fmt.Sprintf(
-			   									"enum %s.%s",
-			   									sourceUnit.GetName(),
-			   									pathCtx.GetText(),
-			   								)
-			   							}(),
-			   						}
-
-			   						typeName.TypeDescriptions = typeDescription
-			   						typeName.TypeDescriptions = typeDescription
-			   					}
-			   				}
-			   			}
-
-			   			if !referenceFound {
-			   				for _, node := range b.currentStructs {
-			   					if node.GetName() == pathCtx.GetText() {
-			   						referenceFound = true
-			   						typeName.PathNode.ReferencedDeclaration = node.Id
-			   						typeName.ReferencedDeclaration = node.Id
-
-			   						typeDescription := &ast_pb.TypeDescriptions{
-			   							TypeIdentifier: func() string {
-			   								return fmt.Sprintf(
-			   									"t_struct_$_%s_$%d",
-			   									pathCtx.GetText(),
-			   									node.Id,
-			   								)
-			   							}(),
-			   							TypeString: func() string {
-			   								return fmt.Sprintf(
-			   									"struct %s.%s",
-			   									sourceUnit.GetName(),
-			   									pathCtx.GetText(),
-			   								)
-			   							}(),
-			   						}
-
-			   						typeName.TypeDescriptions = typeDescription
-			   						typeName.TypeDescriptions = typeDescription
-			   					}
-			   				}
-			   			} */
+			t.parseTypeName(sourceUnit, parentNode.GetId(), specificCtx.(*parser.TypeNameContext))
 		}
 	}
 
@@ -320,6 +288,10 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			t.parseMappingTypeName(unit, parentNodeId, childCtx)
 		case *parser.IdentifierPathContext:
 			t.parseIdentifierPath(unit, parentNodeId, childCtx)
+		case *parser.TypeNameContext:
+			t.parseTypeName(unit, parentNodeId, childCtx)
+		case *antlr.TerminalNodeImpl:
+			continue
 		default:
 			panic(fmt.Sprintf("Unknown type name @ TypeName.Parse: %T", childCtx))
 			//t.parseUserDefinedTypeName(unit, parentNodeId, childCtx)
