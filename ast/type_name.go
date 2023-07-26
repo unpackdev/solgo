@@ -45,7 +45,7 @@ func (t *TypeName) GetName() string {
 	return t.Name
 }
 
-func (t *TypeName) GetTypeDescriptions() *TypeDescription {
+func (t *TypeName) GetTypeDescription() *TypeDescription {
 	return t.TypeDescription
 }
 

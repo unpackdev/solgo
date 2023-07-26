@@ -127,9 +127,13 @@ func (p *PrimaryExpression) Parse(
 		if node.GetName() == ctx.GetText() {
 			referenceFound = true
 			p.ReferencedDeclaration = node.Id
-			p.TypeDescription = &TypeDescription{
-				TypeIdentifier: node.TypeName.GetTypeDescriptions().TypeIdentifier,
-				TypeString:     node.TypeName.GetTypeDescriptions().TypeString,
+			if node.TypeName != nil && node.TypeName.GetTypeDescription() != nil {
+				p.TypeDescription = &TypeDescription{
+					TypeIdentifier: node.TypeName.GetTypeDescription().TypeIdentifier,
+					TypeString:     node.TypeName.GetTypeDescription().TypeString,
+				}
+			} else if node.GetTypeDescription() != nil {
+				p.TypeDescription = node.TypeDescription
 			}
 		}
 	}

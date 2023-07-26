@@ -60,7 +60,10 @@ func (e *Expression) Parse(
 		primaryExp := NewPrimaryExpression(e.ASTBuilder)
 		primaryExp.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 		return primaryExp
-
+	case *parser.IndexAccessContext:
+		indexAccess := NewIndexAccess(e.ASTBuilder)
+		indexAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+		return indexAccess
 	default:
 		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
 		panic("Expression type not supported @ Expression.Parse")
