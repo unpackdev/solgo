@@ -8,12 +8,12 @@ import (
 type UsingDirective struct {
 	*ASTBuilder
 
-	Id              int64           `json:"id"`
-	NodeType        ast_pb.NodeType `json:"node_type"`
-	Src             SrcNode         `json:"src"`
-	TypeDescription TypeDescription `json:"type_description"`
-	TypeName        *TypeName       `json:"type_name"`
-	LibraryName     *LibraryName    `json:"library_name"`
+	Id              int64            `json:"id"`
+	NodeType        ast_pb.NodeType  `json:"node_type"`
+	Src             SrcNode          `json:"src"`
+	TypeDescription *TypeDescription `json:"type_description"`
+	TypeName        *TypeName        `json:"type_name"`
+	LibraryName     *LibraryName     `json:"library_name"`
 }
 
 type LibraryName struct {
@@ -46,8 +46,28 @@ func (u *UsingDirective) GetSrc() SrcNode {
 	return u.Src
 }
 
-func (u *UsingDirective) GetTypeDescription() TypeDescription {
+func (u *UsingDirective) GetTypeDescription() *TypeDescription {
 	return u.TypeDescription
+}
+
+func (u *UsingDirective) GetTypeName() *TypeName {
+	return u.TypeName
+}
+
+func (u *UsingDirective) GetLibraryName() *LibraryName {
+	return u.LibraryName
+}
+
+func (u *UsingDirective) GetReferencedDeclaration() int64 {
+	return u.TypeName.ReferencedDeclaration
+}
+
+func (u *UsingDirective) GetPathNode() *PathNode {
+	return u.TypeName.PathNode
+}
+
+func (u *UsingDirective) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (u *UsingDirective) ToProto() NodeType {

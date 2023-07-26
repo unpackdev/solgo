@@ -50,12 +50,16 @@ func (v *VariableDeclaration) GetInitialValue() Node[NodeType] {
 	return v.InitialValue
 }
 
-func (v *VariableDeclaration) GetTypeDescription() TypeDescription {
+func (v *VariableDeclaration) GetTypeDescription() *TypeDescription {
 	if len(v.Declarations) > 0 {
 		return v.Declarations[0].GetTypeDescription()
 	}
 
-	return TypeDescription{}
+	return nil
+}
+
+func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (v *VariableDeclaration) ToProto() NodeType {

@@ -62,8 +62,12 @@ func (f *FunctionCall) GetTryCall() bool {
 	return f.TryCall
 }
 
-func (f *FunctionCall) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (f *FunctionCall) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (f *FunctionCall) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (f *FunctionCall) Parse(

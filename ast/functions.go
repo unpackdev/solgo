@@ -95,8 +95,12 @@ func (f FunctionNode[T]) GetName() string {
 	return f.Name
 }
 
-func (f FunctionNode[T]) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (f FunctionNode[T]) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (f FunctionNode[T]) GetNodes() []Node[NodeType] {
+	return f.Body.GetNodes()
 }
 
 func (f FunctionNode[T]) ToProto() NodeType {

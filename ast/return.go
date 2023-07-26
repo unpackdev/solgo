@@ -43,11 +43,15 @@ func (r *ReturnStatement) GetFunctionReturnParameters() int64 {
 	return r.FunctionReturnParameters
 }
 
-func (r *ReturnStatement) GetTypeDescription() TypeDescription {
+func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
 	if r.Expression != nil {
 		return r.Expression.GetTypeDescription()
 	}
-	return TypeDescription{}
+	return nil
+}
+
+func (r *ReturnStatement) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (r *ReturnStatement) ToProto() NodeType {

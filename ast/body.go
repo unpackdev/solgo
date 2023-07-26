@@ -50,8 +50,12 @@ func (b *BodyNode) GetImplemented() bool {
 	return b.Implemented
 }
 
-func (b *BodyNode) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (b *BodyNode) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (b *BodyNode) GetNodes() []Node[NodeType] {
+	return b.Statements
 }
 
 func (b *BodyNode) ToProto() NodeType {

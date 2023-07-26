@@ -15,7 +15,7 @@ type StateVariableDeclaration struct {
 	NodeType        ast_pb.NodeType        `json:"node_type"`
 	Src             SrcNode                `json:"src"`
 	Scope           int64                  `json:"scope"`
-	TypeDescription TypeDescription        `json:"type_description"`
+	TypeDescription *TypeDescription       `json:"type_description"`
 	Visibility      ast_pb.Visibility      `json:"visibility"`
 	StorageLocation ast_pb.StorageLocation `json:"storage_location"`
 	StateMutability ast_pb.Mutability      `json:"mutability"`
@@ -45,12 +45,40 @@ func (v *StateVariableDeclaration) GetSrc() SrcNode {
 	return v.Src
 }
 
-func (v *StateVariableDeclaration) GetTypeDescription() TypeDescription {
+func (v *StateVariableDeclaration) GetTypeDescription() *TypeDescription {
 	return v.TypeDescription
 }
 
 func (v *StateVariableDeclaration) GetName() string {
 	return v.Name
+}
+
+func (v *StateVariableDeclaration) GetVisibility() ast_pb.Visibility {
+	return v.Visibility
+}
+
+func (v *StateVariableDeclaration) GetStorageLocation() ast_pb.StorageLocation {
+	return v.StorageLocation
+}
+
+func (v *StateVariableDeclaration) GetStateMutability() ast_pb.Mutability {
+	return v.StateMutability
+}
+
+func (v *StateVariableDeclaration) GetTypeName() *TypeName {
+	return v.TypeName
+}
+
+func (v *StateVariableDeclaration) GetReferencedDeclaration() int64 {
+	return v.TypeName.ReferencedDeclaration
+}
+
+func (v *StateVariableDeclaration) GetNodes() []Node[NodeType] {
+	return nil
+}
+
+func (v *StateVariableDeclaration) GetScope() int64 {
+	return v.Scope
 }
 
 func (v *StateVariableDeclaration) ToProto() NodeType {

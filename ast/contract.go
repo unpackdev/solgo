@@ -71,8 +71,8 @@ func (l ContractNode[T]) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-func (l ContractNode[T]) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (l ContractNode[T]) GetTypeDescription() *TypeDescription {
+	return nil
 }
 
 func (l ContractNode[T]) ToProto() NodeType {

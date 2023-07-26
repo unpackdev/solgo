@@ -12,15 +12,15 @@ import (
 type TypeName struct {
 	*ASTBuilder
 
-	Id                    int64           `json:"id"`
-	NodeType              ast_pb.NodeType `json:"node_type"`
-	Src                   SrcNode         `json:"src"`
-	Name                  string          `json:"name,omitempty"`
-	TypeDescription       TypeDescription `json:"type_descriptions,omitempty"`
-	KeyType               *TypeName       `json:"key_type,omitempty"`
-	ValueType             *TypeName       `json:"value_type,omitempty"`
-	PathNode              *PathNode       `json:"path_node,omitempty"`
-	ReferencedDeclaration int64           `json:"referenced_declaration"`
+	Id                    int64            `json:"id"`
+	NodeType              ast_pb.NodeType  `json:"node_type"`
+	Src                   SrcNode          `json:"src"`
+	Name                  string           `json:"name,omitempty"`
+	TypeDescription       *TypeDescription `json:"type_descriptions,omitempty"`
+	KeyType               *TypeName        `json:"key_type,omitempty"`
+	ValueType             *TypeName        `json:"value_type,omitempty"`
+	PathNode              *PathNode        `json:"path_node,omitempty"`
+	ReferencedDeclaration int64            `json:"referenced_declaration"`
 }
 
 func NewTypeName(b *ASTBuilder) *TypeName {
@@ -45,7 +45,7 @@ func (t *TypeName) GetName() string {
 	return t.Name
 }
 
-func (t *TypeName) GetTypeDescriptions() TypeDescription {
+func (t *TypeName) GetTypeDescriptions() *TypeDescription {
 	return t.TypeDescription
 }
 
@@ -72,7 +72,7 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 		ctx.GetText(),
 	)
-	t.TypeDescription = TypeDescription{
+	t.TypeDescription = &TypeDescription{
 		TypeIdentifier: normalizedTypeIdentifier,
 		TypeString:     normalizedTypeName,
 	}

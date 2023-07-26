@@ -33,8 +33,32 @@ func (i ImportNode) GetSrc() SrcNode {
 	return i.Src
 }
 
-func (i *ImportNode) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (i *ImportNode) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (i ImportNode) GetAbsolutePath() string {
+	return i.AbsolutePath
+}
+
+func (i ImportNode) GetFile() string {
+	return i.File
+}
+
+func (i ImportNode) GetScope() int64 {
+	return i.Scope
+}
+
+func (i ImportNode) GetUnitAlias() string {
+	return i.UnitAlias
+}
+
+func (i ImportNode) GetSourceUnit() int64 {
+	return i.SourceUnit
+}
+
+func (i ImportNode) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (i ImportNode) ToProto() NodeType {

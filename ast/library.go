@@ -40,8 +40,44 @@ func (l LibraryNode[T]) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l LibraryNode[T]) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (l LibraryNode[T]) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (l LibraryNode[T]) GetName() string {
+	return l.Name
+}
+
+func (l LibraryNode[T]) IsAbstract() bool {
+	return l.Abstract
+}
+
+func (l LibraryNode[T]) GetKind() ast_pb.NodeType {
+	return l.Kind
+}
+
+func (l LibraryNode[T]) IsFullyImplemented() bool {
+	return l.FullyImplemented
+}
+
+func (l LibraryNode[T]) GetNodes() []Node[NodeType] {
+	return l.Nodes
+}
+
+func (l LibraryNode[T]) GetScope() int64 {
+	return l.Scope
+}
+
+func (l LibraryNode[T]) GetLinearizedBaseContracts() []int64 {
+	return l.LinearizedBaseContracts
+}
+
+func (l LibraryNode[T]) GetBaseContracts() []*BaseContract {
+	return l.BaseContracts
+}
+
+func (l LibraryNode[T]) GetContractDependencies() []int64 {
+	return l.ContractDependencies
 }
 
 func (l LibraryNode[T]) ToProto() NodeType {

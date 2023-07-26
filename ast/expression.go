@@ -18,8 +18,8 @@ func NewExpression(b *ASTBuilder) *Expression {
 	}
 }
 
-func (e *Expression) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (e *Expression) GetTypeDescription() *TypeDescription {
+	return nil
 }
 
 func (e *Expression) Parse(

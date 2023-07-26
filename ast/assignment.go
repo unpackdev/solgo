@@ -40,8 +40,12 @@ func (a *Assignment) GetSrc() SrcNode {
 	return a.Src
 }
 
-func (a *Assignment) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (a *Assignment) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (a *Assignment) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (a *Assignment) ToProto() NodeType {

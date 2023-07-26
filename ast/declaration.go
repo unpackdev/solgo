@@ -90,8 +90,12 @@ func (d *Declaration) GetValueType() *TypeName {
 	return nil
 }
 
-func (d *Declaration) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (d *Declaration) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (d *Declaration) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (d *Declaration) ToProto() NodeType {

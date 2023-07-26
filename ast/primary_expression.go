@@ -15,18 +15,18 @@ import (
 type PrimaryExpression struct {
 	*ASTBuilder
 
-	Id                     int64             `json:"id"`
-	NodeType               ast_pb.NodeType   `json:"node_type"`
-	Kind                   ast_pb.NodeType   `json:"kind,omitempty"`
-	Value                  string            `json:"value,omitempty"`
-	HexValue               string            `json:"hex_value,omitempty"`
-	Src                    SrcNode           `json:"src"`
-	Name                   string            `json:"name,omitempty"`
-	TypeDescription        TypeDescription   `json:"type_descriptions,omitempty"`
-	OverloadedDeclarations []int64           `json:"overloaded_declarations"`
-	ReferencedDeclaration  int64             `json:"referenced_declaration"`
-	IsPure                 bool              `json:"is_pure"`
-	ArgumentTypes          []TypeDescription `json:"argument_types,omitempty"`
+	Id                     int64              `json:"id"`
+	NodeType               ast_pb.NodeType    `json:"node_type"`
+	Kind                   ast_pb.NodeType    `json:"kind,omitempty"`
+	Value                  string             `json:"value,omitempty"`
+	HexValue               string             `json:"hex_value,omitempty"`
+	Src                    SrcNode            `json:"src"`
+	Name                   string             `json:"name,omitempty"`
+	TypeDescription        *TypeDescription   `json:"type_descriptions,omitempty"`
+	OverloadedDeclarations []int64            `json:"overloaded_declarations"`
+	ReferencedDeclaration  int64              `json:"referenced_declaration"`
+	IsPure                 bool               `json:"is_pure"`
+	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`
 }
 
 func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
@@ -53,8 +53,24 @@ func (p *PrimaryExpression) GetName() string {
 	return p.Name
 }
 
-func (p *PrimaryExpression) GetTypeDescription() TypeDescription {
+func (p *PrimaryExpression) GetTypeDescription() *TypeDescription {
 	return p.TypeDescription
+}
+
+func (p *PrimaryExpression) GetArgumentTypes() []*TypeDescription {
+	return p.ArgumentTypes
+}
+
+func (p *PrimaryExpression) GetReferencedDeclaration() int64 {
+	return p.ReferencedDeclaration
+}
+
+func (p *PrimaryExpression) GetNodes() []Node[NodeType] {
+	return nil
+}
+
+func (p *PrimaryExpression) GetKind() ast_pb.NodeType {
+	return p.Kind
 }
 
 func (p *PrimaryExpression) ToProto() NodeType {
@@ -111,7 +127,7 @@ func (p *PrimaryExpression) Parse(
 		if node.GetName() == ctx.GetText() {
 			referenceFound = true
 			p.ReferencedDeclaration = node.Id
-			p.TypeDescription = TypeDescription{
+			p.TypeDescription = &TypeDescription{
 				TypeIdentifier: node.TypeName.GetTypeDescriptions().TypeIdentifier,
 				TypeString:     node.TypeName.GetTypeDescriptions().TypeString,
 			}
@@ -188,7 +204,7 @@ func (p *PrimaryExpression) Parse(
 			)
 			p.HexValue = hex.EncodeToString([]byte(p.Value))
 
-			p.TypeDescription = TypeDescription{
+			p.TypeDescription = &TypeDescription{
 				TypeIdentifier: "t_bool",
 				TypeString:     "bool",
 			}
@@ -203,7 +219,7 @@ func (p *PrimaryExpression) Parse(
 			)
 			p.HexValue = hex.EncodeToString([]byte(p.Value))
 
-			p.TypeDescription = TypeDescription{
+			p.TypeDescription = &TypeDescription{
 				TypeIdentifier: "t_string_literal",
 				TypeString: fmt.Sprintf(
 					"literal_string %s",
@@ -230,7 +246,7 @@ func (p *PrimaryExpression) Parse(
 				// The denominator is a power of 10 equal to the number of digits in the fractional part
 				denominator := int(math.Pow(10, float64(len(parts[1]))))
 
-				p.TypeDescription = TypeDescription{
+				p.TypeDescription = &TypeDescription{
 					TypeIdentifier: fmt.Sprintf("t_rational_%d_by_%d", numerator, denominator),
 					TypeString: fmt.Sprintf(
 						"fixed_const %s",
@@ -243,7 +259,7 @@ func (p *PrimaryExpression) Parse(
 				// The denominator for an integer is 1
 				denominator := 1
 
-				p.TypeDescription = TypeDescription{
+				p.TypeDescription = &TypeDescription{
 					TypeIdentifier: fmt.Sprintf("t_rational_%d_by_%d", numerator, denominator),
 					TypeString: fmt.Sprintf(
 						"int_const %s",
@@ -261,7 +277,7 @@ func (p *PrimaryExpression) Parse(
 			)
 			p.HexValue = hex.EncodeToString([]byte(p.Value))
 
-			p.TypeDescription = TypeDescription{
+			p.TypeDescription = &TypeDescription{
 				TypeIdentifier: "t_string_hex_literal",
 				TypeString: fmt.Sprintf(
 					"literal_hex_string %s",
@@ -270,7 +286,7 @@ func (p *PrimaryExpression) Parse(
 			}
 		} else {
 			if ctx.GetText() == "msg" {
-				p.TypeDescription = TypeDescription{
+				p.TypeDescription = &TypeDescription{
 					TypeIdentifier: "t_magic_message",
 					TypeString:     "msg",
 				}

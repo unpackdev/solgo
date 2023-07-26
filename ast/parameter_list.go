@@ -34,8 +34,16 @@ func (p *ParameterList[T]) GetSrc() SrcNode {
 	return p.Src
 }
 
-func (p *ParameterList[T]) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (p *ParameterList[T]) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (p *ParameterList[T]) GetParameters() []*Parameter {
+	return p.Parameters
+}
+
+func (p *ParameterList[T]) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (p *ParameterList[T]) ToProto() ast_pb.ParametersList {

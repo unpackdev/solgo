@@ -33,8 +33,16 @@ func (p PragmaNode) GetSrc() SrcNode {
 	return p.Src
 }
 
-func (p PragmaNode) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (p PragmaNode) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (p PragmaNode) GetLiterals() []string {
+	return p.Literals
+}
+
+func (p PragmaNode) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (p PragmaNode) ToProto() NodeType {

@@ -43,6 +43,18 @@ func (r *RootNode) GetSourceUnitCount() int32 {
 	return int32(len(r.SourceUnits))
 }
 
+func (r *RootNode) GetEntrySourceUnit() int64 {
+	return r.EntrySourceUnit
+}
+
+func (r *RootNode) GetComments() []*CommentNode {
+	return r.Comments
+}
+
+func (r *RootNode) GetNodes() []Node[NodeType] {
+	return nil
+}
+
 // ToProto returns the protobuf representation of the root node.
 func (r *RootNode) ToProto() *ast_pb.RootNode {
 	return &ast_pb.RootNode{
@@ -62,6 +74,6 @@ func (r *RootNode) GetSrc() SrcNode {
 	return SrcNode{}
 }
 
-func (r *RootNode) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (r *RootNode) GetTypeDescription() *TypeDescription {
+	return nil
 }

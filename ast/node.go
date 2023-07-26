@@ -6,7 +6,8 @@ type Node[T NodeType] interface {
 	GetId() int64
 	GetType() ast_pb.NodeType
 	GetSrc() SrcNode
-	GetTypeDescription() TypeDescription
+	GetTypeDescription() *TypeDescription
+	GetNodes() []Node[NodeType]
 	ToProto() T
 }
 

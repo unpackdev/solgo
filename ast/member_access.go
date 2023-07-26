@@ -9,17 +9,17 @@ import (
 type MemberAccessExpression struct {
 	*ASTBuilder
 
-	Id              int64             `json:"id"`
-	IsConstant      bool              `json:"is_constant"`
-	IsLValue        bool              `json:"is_l_value"`
-	IsPure          bool              `json:"is_pure"`
-	LValueRequested bool              `json:"l_value_requested"`
-	NodeType        ast_pb.NodeType   `json:"node_type"`
-	Src             SrcNode           `json:"src"`
-	Expression      Node[NodeType]    `json:"expression"`
-	MemberName      string            `json:"member_name"`
-	ArgumentTypes   []TypeDescription `json:"argument_types"`
-	TypeDescription TypeDescription   `json:"type_descriptions"`
+	Id              int64              `json:"id"`
+	IsConstant      bool               `json:"is_constant"`
+	IsLValue        bool               `json:"is_l_value"`
+	IsPure          bool               `json:"is_pure"`
+	LValueRequested bool               `json:"l_value_requested"`
+	NodeType        ast_pb.NodeType    `json:"node_type"`
+	Src             SrcNode            `json:"src"`
+	Expression      Node[NodeType]     `json:"expression"`
+	MemberName      string             `json:"member_name"`
+	ArgumentTypes   []*TypeDescription `json:"argument_types"`
+	TypeDescription *TypeDescription   `json:"type_descriptions"`
 }
 
 func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
@@ -27,7 +27,7 @@ func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 		ASTBuilder:    b,
 		Id:            b.GetNextID(),
 		NodeType:      ast_pb.NodeType_MEMBER_ACCESS,
-		ArgumentTypes: []TypeDescription{},
+		ArgumentTypes: []*TypeDescription{},
 	}
 }
 
@@ -51,8 +51,16 @@ func (m *MemberAccessExpression) GetMemberName() string {
 	return m.MemberName
 }
 
-func (m *MemberAccessExpression) GetTypeDescription() TypeDescription {
+func (m *MemberAccessExpression) GetTypeDescription() *TypeDescription {
 	return m.TypeDescription
+}
+
+func (m *MemberAccessExpression) GetArgumentTypes() []*TypeDescription {
+	return m.ArgumentTypes
+}
+
+func (m *MemberAccessExpression) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (m *MemberAccessExpression) ToProto() NodeType {
@@ -127,17 +135,17 @@ func (m *MemberAccessExpression) Parse(
 	if m.Expression.GetTypeDescription().TypeString == "t_magic_message" {
 		switch m.MemberName {
 		case "sender":
-			m.TypeDescription = TypeDescription{
+			m.TypeDescription = &TypeDescription{
 				TypeIdentifier: "t_address",
 				TypeString:     "address",
 			}
 		case "data":
-			m.TypeDescription = TypeDescription{
+			m.TypeDescription = &TypeDescription{
 				TypeIdentifier: "t_bytes_calldata_ptr",
 				TypeString:     "bytes calldata",
 			}
 		case "value":
-			m.TypeDescription = TypeDescription{
+			m.TypeDescription = &TypeDescription{
 				TypeIdentifier: "t_uint256",
 				TypeString:     "uint256",
 			}

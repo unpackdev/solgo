@@ -42,8 +42,40 @@ func (l InterfaceNode[T]) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l InterfaceNode[T]) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (l InterfaceNode[T]) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (l InterfaceNode[T]) GetName() string {
+	return l.Name
+}
+
+func (l InterfaceNode[T]) IsAbstract() bool {
+	return l.Abstract
+}
+
+func (l InterfaceNode[T]) GetKind() ast_pb.NodeType {
+	return l.Kind
+}
+
+func (l InterfaceNode[T]) IsFullyImplemented() bool {
+	return l.FullyImplemented
+}
+
+func (l InterfaceNode[T]) GetNodes() []Node[NodeType] {
+	return l.Nodes
+}
+
+func (l InterfaceNode[T]) GetBaseContracts() []*BaseContract {
+	return l.BaseContracts
+}
+
+func (l InterfaceNode[T]) GetContractDependencies() []int64 {
+	return l.ContractDependencies
+}
+
+func (l InterfaceNode[T]) GetLinearizedBaseContracts() []int64 {
+	return l.LinearizedBaseContracts
 }
 
 func (l InterfaceNode[T]) ToProto() NodeType {

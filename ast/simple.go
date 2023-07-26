@@ -34,8 +34,12 @@ func (s *SimpleStatement[T]) GetSrc() SrcNode {
 	return s.Src
 }
 
-func (s *SimpleStatement[T]) GetTypeDescription() TypeDescription {
-	return TypeDescription{}
+func (s *SimpleStatement[T]) GetTypeDescription() *TypeDescription {
+	return nil
+}
+
+func (s *SimpleStatement[T]) GetNodes() []Node[NodeType] {
+	return nil
 }
 
 func (s *SimpleStatement[T]) ToProto() NodeType {

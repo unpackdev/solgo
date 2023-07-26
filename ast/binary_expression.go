@@ -52,8 +52,12 @@ func (a *BinaryOperationExpression) GetRightExpression() Node[NodeType] {
 	return a.RightExpression
 }
 
-func (a *BinaryOperationExpression) GetTypeDescription() TypeDescription {
+func (a *BinaryOperationExpression) GetTypeDescription() *TypeDescription {
 	return a.LeftExpression.GetTypeDescription()
+}
+
+func (a *BinaryOperationExpression) GetNodes() []Node[NodeType] {
+	return []Node[NodeType]{a.LeftExpression, a.RightExpression}
 }
 
 func (a *BinaryOperationExpression) ToProto() NodeType {
