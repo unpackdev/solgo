@@ -170,6 +170,11 @@ func (b *BodyNode) ParseBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
+			case *parser.DoWhileStatementContext:
+				statement := NewDoWhiteStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			case *parser.WhileStatementContext:
 				statement := NewWhileStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
@@ -241,13 +246,38 @@ func (b *BodyNode) ParseUncheckedBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
+			case *parser.ForStatementContext:
+				statement := NewForStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			case *parser.IfStatementContext:
 				statement := NewIfStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
+			case *parser.WhileStatementContext:
+				statement := NewWhileStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.BreakStatementContext:
+				statement := NewBreakStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.ContinueStatementContext:
+				statement := NewContinueStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			case *parser.ReturnStatementContext:
 				statement := NewReturnStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.RevertStatementContext:
+				statement := NewRevertStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))

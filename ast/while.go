@@ -81,7 +81,6 @@ func (w *WhileStatement) Parse(
 	}
 
 	expression := NewExpression(w.ASTBuilder)
-
 	w.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, w, ctx.Expression())
 
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {
