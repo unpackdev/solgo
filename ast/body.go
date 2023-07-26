@@ -131,10 +131,11 @@ func (b *BodyNode) ParseBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
-			case *parser.ExpressionStatementContext:
-				fmt.Println("Expression statement", childCtx.GetText())
 			case *parser.IfStatementContext:
-				fmt.Println("If statement", childCtx.GetText())
+				statement := NewIfStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			default:
 				panic(fmt.Sprintf("Unknown statement type @ BodyNode.ParseBlock: %s", reflect.TypeOf(childCtx)))
 			}
