@@ -78,5 +78,18 @@ func discoverReferenceByCtxName(b *ASTBuilder, name string) (Node[NodeType], *Ty
 		}
 	}
 
+	for _, modifier := range b.currentModifiers {
+		modifierNode := modifier.(*ModifierDefinition)
+		if modifierNode.GetName() == name {
+			return modifier, modifier.GetTypeDescription()
+		}
+
+		for _, parameter := range modifierNode.Parameters.Parameters {
+			if parameter.GetName() == name {
+				return modifier, modifier.GetTypeDescription()
+			}
+		}
+	}
+
 	return nil, nil
 }

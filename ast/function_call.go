@@ -76,7 +76,7 @@ func (f *FunctionCall) Parse(
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
 	ctx *parser.FunctionCallContext,
-) {
+) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
 		Id:          f.GetNextID(),
@@ -107,4 +107,6 @@ func (f *FunctionCall) Parse(
 			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
 		)
 	}
+
+	return f
 }

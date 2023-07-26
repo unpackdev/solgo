@@ -31,6 +31,7 @@ type PrimaryExpression struct {
 func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 	return &PrimaryExpression{
 		ASTBuilder:             b,
+		Id:                     b.GetNextID(),
 		OverloadedDeclarations: make([]int64, 0),
 		NodeType:               ast_pb.NodeType_IDENTIFIER,
 	}
@@ -84,8 +85,7 @@ func (p *PrimaryExpression) Parse(
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
 	ctx *parser.PrimaryExpressionContext,
-) {
-	p.Id = p.GetNextID()
+) Node[NodeType] {
 	p.Src = SrcNode{
 		Id:     p.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
@@ -127,7 +127,7 @@ func (p *PrimaryExpression) Parse(
 	// So we are going to do some hack here to make it work properly...
 	if p.Name == "_" {
 		p.NodeType = ast_pb.NodeType_PLACEHOLDER_STATEMENT
-		return
+		return p
 	}
 
 	literalCtx := ctx.Literal()
@@ -243,4 +243,6 @@ func (p *PrimaryExpression) Parse(
 			}
 		}
 	}
+
+	return p
 }

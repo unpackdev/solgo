@@ -12,7 +12,7 @@ type IfStatement struct {
 	NodeType  ast_pb.NodeType `json:"node_type"`
 	Src       SrcNode         `json:"src"`
 	Condition Node[NodeType]  `json:"condition"`
-	Body      Node[NodeType]  `json:"true_body"`
+	Body      Node[NodeType]  `json:"body"`
 }
 
 func NewIfStatement(b *ASTBuilder) *IfStatement {

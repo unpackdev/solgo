@@ -82,7 +82,7 @@ func (a *Assignment) Parse(
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
 	ctx *parser.AssignmentContext,
-) {
+) Node[NodeType] {
 	a.NodeType = ast_pb.NodeType_ASSIGNMENT
 	a.Src = SrcNode{
 		Id:          a.GetNextID(),
@@ -142,4 +142,6 @@ func (a *Assignment) Parse(
 	a.RightExpression = expression.Parse(
 		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(1),
 	)
+
+	return a
 }

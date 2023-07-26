@@ -68,7 +68,7 @@ func (i *IndexAccess) Parse(
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
 	ctx *parser.IndexAccessContext,
-) {
+) Node[NodeType] {
 	i.Src = SrcNode{
 		Id:     i.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
@@ -103,4 +103,6 @@ func (i *IndexAccess) Parse(
 		i.IndexExpression.GetTypeDescription(),
 		i.BaseExpression.GetTypeDescription(),
 	}
+
+	return i
 }

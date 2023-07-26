@@ -75,7 +75,7 @@ func (m *MemberAccessExpression) Parse(
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
 	ctx *parser.MemberAccessContext,
-) {
+) Node[NodeType] {
 
 	m.NodeType = ast_pb.NodeType_MEMBER_ACCESS
 	m.MemberName = ctx.Identifier().GetText()
@@ -98,39 +98,6 @@ func (m *MemberAccessExpression) Parse(
 			}
 		}
 	}
-
-	// Now we are going to search through all existing source units in hope
-	// to discover reference declaration...
-	/** for _, units := range m.sourceUnits {
-		if units.GetNodes() != nil && len(units.GetNodes()) > 0 {
-			for _, nodeCtx := range units.GetNodes() {
-				fmt.Println("Node Type: ", nodeCtx.GetType())
-				if nodeCtx.GetType() == ast_pb.NodeType_CONTRACT_DEFINITION {
-					contractDef := nodeCtx.(ContractNode[*ast_pb.Contract])
-					for _, node := range contractDef.Nodes {
-						fmt.Println("Node Type AAA: ", node.GetType())
-					}
-				}
-				 				for _, node := range nodeCtx.Nodes {
-					if node.Name == toReturn.MemberName {
-						toReturn.ReferencedDeclaration = node.Id
-					}
-				}
-			}
-		}
-	} **/
-
-	/* 		for _, enum := range b.currentEnums {
-	   			if enum.Name == toReturn.Expression.Name {
-	   				toReturn.ReferencedDeclaration = enum.Id
-	   				toReturn.TypeDescriptions = enum.TypeDescriptions
-
-	   				if toReturn.Expression.TypeDescriptions == nil {
-	   					toReturn.Expression.TypeDescriptions = enum.TypeDescriptions
-	   				}
-	   			}
-	   		}
-	*/
 
 	if m.Expression != nil && m.Expression.GetTypeDescription() != nil &&
 		m.Expression.GetTypeDescription().TypeIdentifier == "t_magic_message" {
@@ -157,4 +124,6 @@ func (m *MemberAccessExpression) Parse(
 			)
 		}
 	}
+
+	return m
 }

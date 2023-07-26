@@ -46,28 +46,22 @@ func (e *Expression) Parse(
 		return binaryExp.ParseEqualityComparison(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.AssignmentContext:
 		assignment := NewAssignment(e.ASTBuilder)
-		assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
-		return assignment
+		return assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.FunctionCallContext:
 		statementNode := NewFunctionCall(e.ASTBuilder)
-		statementNode.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
-		return statementNode
+		return statementNode.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
 	case *parser.MemberAccessContext:
 		memberAccess := NewMemberAccessExpression(e.ASTBuilder)
-		memberAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
-		return memberAccess
+		return memberAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.PrimaryExpressionContext:
 		primaryExp := NewPrimaryExpression(e.ASTBuilder)
-		primaryExp.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
-		return primaryExp
+		return primaryExp.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.IndexAccessContext:
 		indexAccess := NewIndexAccess(e.ASTBuilder)
-		indexAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
-		return indexAccess
+		return indexAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.MetaTypeContext:
 		metaType := NewMetaTypeExpression(e.ASTBuilder)
-		metaType.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
-		return metaType
+		return metaType.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
 	default:
 		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
 		panic("Expression type not supported @ Expression.Parse")

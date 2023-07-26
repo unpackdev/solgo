@@ -47,8 +47,13 @@ func (e *ExpressionStatement) Parse(
 			continue
 		case *parser.PrimaryExpressionContext:
 			primaryExpression := NewPrimaryExpression(e.ASTBuilder)
-			primaryExpression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
-			return primaryExpression
+			return primaryExpression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
+		case *parser.UnarySuffixOperationContext:
+			unarySuffixOperation := NewUnarySuffixExpression(e.ASTBuilder)
+			return unarySuffixOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
+		case *parser.UnaryPrefixOperationContext:
+			unaryPrefixOperation := NewUnaryPrefixExpression(e.ASTBuilder)
+			return unaryPrefixOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
 		default:
 			fmt.Println("Expression Type: ", reflect.TypeOf(childCtx).String())
 			panic("Expression statement child not recognized @ ExpressionStatement.Parse")
