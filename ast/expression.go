@@ -61,7 +61,10 @@ func (e *Expression) Parse(
 		return indexAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.MetaTypeContext:
 		metaType := NewMetaTypeExpression(e.ASTBuilder)
-		return metaType.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
+		return metaType.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.PayableConversionContext:
+		payableConversion := NewPayableConversionExpression(e.ASTBuilder)
+		return payableConversion.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
 		panic("Expression type not supported @ Expression.Parse")

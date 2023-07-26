@@ -55,16 +55,28 @@ func (m *MetaTypeExpression) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
+	vDeclar *VariableDeclaration,
+	exprNode Node[NodeType],
 	ctx *parser.MetaTypeContext,
 ) Node[NodeType] {
 	m.Src = SrcNode{
-		Id:          m.GetNextID(),
-		Line:        int64(ctx.GetStart().GetLine()),
-		Column:      int64(ctx.GetStart().GetColumn()),
-		Start:       int64(ctx.GetStart().GetStart()),
-		End:         int64(ctx.GetStop().GetStop()),
-		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: bodyNode.GetId(),
+		Id:     m.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
+
+			if exprNode != nil {
+				return exprNode.GetId()
+			}
+
+			return bodyNode.GetId()
+		}(),
 	}
 
 	m.Name = ctx.Type().GetText()
