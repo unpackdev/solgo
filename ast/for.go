@@ -54,7 +54,7 @@ func (f *ForStatement) GetBody() *BodyNode {
 }
 
 func (f *ForStatement) GetNodes() []Node[NodeType] {
-	return nil
+	return f.Body.Statements
 }
 
 func (f *ForStatement) GetTypeDescription() *TypeDescription {
