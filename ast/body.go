@@ -151,12 +151,17 @@ func (b *BodyNode) ParseBlock(
 					unit, contractNode, childCtx,
 				))
 			case *parser.SimpleStatementContext:
-				statement := NewSimpleStatement[NodeType](b.ASTBuilder)
+				statement := NewSimpleStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
 			case *parser.EmitStatementContext:
 				statement := NewEmitStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.ForStatementContext:
+				statement := NewForStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
@@ -227,7 +232,7 @@ func (b *BodyNode) ParseUncheckedBlock(
 					unit, contractNode, childCtx,
 				))
 			case *parser.SimpleStatementContext:
-				statement := NewSimpleStatement[NodeType](b.ASTBuilder)
+				statement := NewSimpleStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))

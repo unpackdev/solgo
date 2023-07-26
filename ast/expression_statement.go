@@ -54,6 +54,9 @@ func (e *ExpressionStatement) Parse(
 		case *parser.UnaryPrefixOperationContext:
 			unaryPrefixOperation := NewUnaryPrefixExpression(e.ASTBuilder)
 			return unaryPrefixOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
+		case *parser.OrderComparisonContext:
+			binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
+			return binaryExp.ParseOrderComparison(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
 		default:
 			fmt.Println("Expression Type: ", reflect.TypeOf(childCtx).String())
 			panic("Expression statement child not recognized @ ExpressionStatement.Parse")
@@ -62,28 +65,3 @@ func (e *ExpressionStatement) Parse(
 
 	return nil
 }
-
-/**
-	for _, child := range eCtx.GetChildren() {
-		switch childCtx := child.(type) {
-		case *parser.FunctionCallContext:
-			statementNode.NodeType = ast_pb.NodeType_FUNCTION_CALL
-			statementNode = b.parseFunctionCall(
-				sourceUnit, fnNode, bodyNode, statementNode, childCtx,
-			)
-		case *parser.AssignmentContext:
-			statementNode = b.parseAssignment(
-				sourceUnit, fnNode, bodyNode, statementNode, childCtx,
-			)
-		case *antlr.TerminalNodeImpl:
-			continue
-		default:
-			zap.L().Warn(
-				"Expression statement child not recognized",
-				zap.String("type", reflect.TypeOf(childCtx).String()),
-			)
-		}
-	}
-
-	return statementNode
-**/

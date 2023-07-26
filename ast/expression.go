@@ -65,6 +65,12 @@ func (e *Expression) Parse(
 	case *parser.PayableConversionContext:
 		payableConversion := NewPayableConversionExpression(e.ASTBuilder)
 		return payableConversion.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.UnarySuffixOperationContext:
+		unarySuffixOperation := NewUnarySuffixExpression(e.ASTBuilder)
+		return unarySuffixOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.UnaryPrefixOperationContext:
+		unaryPrefixOperation := NewUnaryPrefixExpression(e.ASTBuilder)
+		return unaryPrefixOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
 		panic("Expression type not supported @ Expression.Parse")

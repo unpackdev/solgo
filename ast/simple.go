@@ -8,7 +8,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type SimpleStatement[T NodeType] struct {
+type SimpleStatement struct {
 	*ASTBuilder
 
 	Id       int64           `json:"id"`
@@ -16,37 +16,37 @@ type SimpleStatement[T NodeType] struct {
 	Src      SrcNode         `json:"src"`
 }
 
-func NewSimpleStatement[T any](b *ASTBuilder) *SimpleStatement[T] {
-	return &SimpleStatement[T]{
+func NewSimpleStatement(b *ASTBuilder) *SimpleStatement {
+	return &SimpleStatement{
 		ASTBuilder: b,
 	}
 }
 
-func (s *SimpleStatement[T]) GetId() int64 {
+func (s *SimpleStatement) GetId() int64 {
 	return s.Id
 }
 
-func (s *SimpleStatement[T]) GetType() ast_pb.NodeType {
+func (s *SimpleStatement) GetType() ast_pb.NodeType {
 	return s.NodeType
 }
 
-func (s *SimpleStatement[T]) GetSrc() SrcNode {
+func (s *SimpleStatement) GetSrc() SrcNode {
 	return s.Src
 }
 
-func (s *SimpleStatement[T]) GetTypeDescription() *TypeDescription {
+func (s *SimpleStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (s *SimpleStatement[T]) GetNodes() []Node[NodeType] {
+func (s *SimpleStatement) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (s *SimpleStatement[T]) ToProto() NodeType {
+func (s *SimpleStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
 }
 
-func (s *SimpleStatement[T]) Parse(
+func (s *SimpleStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
