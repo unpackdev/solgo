@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type ContractNode[T NodeType] struct {
+type ContractNode struct {
 	*ASTBuilder
 
 	Id                      int64            `json:"id"`
@@ -21,65 +21,65 @@ type ContractNode[T NodeType] struct {
 	ContractDependencies    []int64          `json:"contract_dependencies"`
 }
 
-func NewContractDefinition(b *ASTBuilder) *ContractNode[Node[ast_pb.Contract]] {
-	return &ContractNode[Node[ast_pb.Contract]]{
+func NewContractDefinition(b *ASTBuilder) *ContractNode {
+	return &ContractNode{
 		ASTBuilder: b,
 	}
 }
 
-func (l ContractNode[T]) GetId() int64 {
+func (l ContractNode) GetId() int64 {
 	return l.Id
 }
 
-func (l ContractNode[T]) GetType() ast_pb.NodeType {
+func (l ContractNode) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
-func (l ContractNode[T]) GetSrc() SrcNode {
+func (l ContractNode) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l ContractNode[T]) GetName() string {
+func (l ContractNode) GetName() string {
 	return l.Name
 }
 
-func (l ContractNode[T]) IsAbstract() bool {
+func (l ContractNode) IsAbstract() bool {
 	return l.Abstract
 }
 
-func (l ContractNode[T]) GetKind() ast_pb.NodeType {
+func (l ContractNode) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
-func (l ContractNode[T]) IsFullyImplemented() bool {
+func (l ContractNode) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
-func (l ContractNode[T]) GetNodes() []Node[NodeType] {
+func (l ContractNode) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
-func (l ContractNode[T]) GetLinearizedBaseContracts() []int64 {
+func (l ContractNode) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
-func (l ContractNode[T]) GetBaseContracts() []*BaseContract {
+func (l ContractNode) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
-func (l ContractNode[T]) GetContractDependencies() []int64 {
+func (l ContractNode) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-func (l ContractNode[T]) GetTypeDescription() *TypeDescription {
+func (l ContractNode) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (l ContractNode[T]) ToProto() NodeType {
+func (l ContractNode) ToProto() NodeType {
 	return ast_pb.Contract{}
 }
 
-func (l ContractNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l ContractNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -112,7 +112,7 @@ func (l ContractNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Co
 		parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
 	)
 
-	contractNode := &ContractNode[ast_pb.Contract]{
+	contractNode := &ContractNode{
 		Id:   l.GetNextID(),
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{

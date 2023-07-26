@@ -58,7 +58,8 @@ func (r *ReturnStatement) ToProto() NodeType {
 	return ast_pb.Return{}
 }
 
-func (r *ReturnStatement) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
+func (r *ReturnStatement) Parse(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
@@ -74,7 +75,7 @@ func (r *ReturnStatement) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 		ParentIndex: fnNode.GetId(),
 	}
 
-	fnCtx := fnNode.(FunctionNode[ast_pb.Function])
+	fnCtx := fnNode.(FunctionNode)
 	if fnCtx.GetReturnParameters() != nil {
 		r.FunctionReturnParameters = fnCtx.GetId()
 	}

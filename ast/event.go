@@ -9,13 +9,13 @@ import (
 
 type EventDefinition struct {
 	*ASTBuilder
-	SourceUnitName string                                `json:"-"`
-	Id             int64                                 `json:"id"`
-	NodeType       ast_pb.NodeType                       `json:"node_type"`
-	Src            SrcNode                               `json:"src"`
-	Parameters     *ParameterList[ast_pb.ParametersList] `json:"parameters"`
-	Name           string                                `json:"name"`
-	Anonymous      bool                                  `json:"anonymous"`
+	SourceUnitName string          `json:"-"`
+	Id             int64           `json:"id"`
+	NodeType       ast_pb.NodeType `json:"node_type"`
+	Src            SrcNode         `json:"src"`
+	Parameters     *ParameterList  `json:"parameters"`
+	Name           string          `json:"name"`
+	Anonymous      bool            `json:"anonymous"`
 }
 
 func NewEventDefinition(b *ASTBuilder) *EventDefinition {
@@ -57,7 +57,7 @@ func (e *EventDefinition) GetTypeDescription() *TypeDescription {
 	}
 }
 
-func (e *EventDefinition) GetParameters() *ParameterList[ast_pb.ParametersList] {
+func (e *EventDefinition) GetParameters() *ParameterList {
 	return e.Parameters
 }
 
@@ -88,7 +88,7 @@ func (e *EventDefinition) Parse(
 	e.Anonymous = ctx.Anonymous() != nil
 	e.Name = ctx.Identifier().GetText()
 
-	parameters := NewParameterList[ast_pb.ParametersList](e.ASTBuilder)
+	parameters := NewParameterList(e.ASTBuilder)
 	parameters.ParseEventParameters(unit, e, ctx.AllEventParameter())
 	e.Parameters = parameters
 

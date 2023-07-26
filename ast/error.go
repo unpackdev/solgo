@@ -9,13 +9,13 @@ import (
 
 type ErrorDefinition struct {
 	*ASTBuilder
-	SourceUnitName  string                                `json:"-"`
-	Id              int64                                 `json:"id"`
-	NodeType        ast_pb.NodeType                       `json:"node_type"`
-	Src             SrcNode                               `json:"src"`
-	Name            string                                `json:"name"`
-	Parameters      *ParameterList[ast_pb.ParametersList] `json:"parameters"`
-	TypeDescription *TypeDescription                      `json:"type_descriptions"`
+	SourceUnitName  string           `json:"-"`
+	Id              int64            `json:"id"`
+	NodeType        ast_pb.NodeType  `json:"node_type"`
+	Src             SrcNode          `json:"src"`
+	Name            string           `json:"name"`
+	Parameters      *ParameterList   `json:"parameters"`
+	TypeDescription *TypeDescription `json:"type_descriptions"`
 }
 
 func NewErrorDefinition(b *ASTBuilder) *ErrorDefinition {
@@ -46,7 +46,7 @@ func (e *ErrorDefinition) GetTypeDescription() *TypeDescription {
 	return e.TypeDescription
 }
 
-func (e *ErrorDefinition) GetParameters() *ParameterList[ast_pb.ParametersList] {
+func (e *ErrorDefinition) GetParameters() *ParameterList {
 	return e.Parameters
 }
 
@@ -89,7 +89,7 @@ func (e *ErrorDefinition) Parse(
 		),
 	}
 
-	parameters := NewParameterList[ast_pb.ParametersList](e.ASTBuilder)
+	parameters := NewParameterList(e.ASTBuilder)
 	parameters.ParseErrorParameters(unit, e, ctx.AllErrorParameter())
 	e.Parameters = parameters
 

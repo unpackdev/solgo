@@ -25,6 +25,7 @@ type ASTBuilder struct {
 	currentEnums          []Node[NodeType]
 	currentStructs        []Node[NodeType]
 	currentErrors         []Node[NodeType]
+	currentModifiers      []Node[NodeType]
 }
 
 func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {

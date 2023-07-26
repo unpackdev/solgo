@@ -90,14 +90,14 @@ func (b *BodyNode) Parse(
 			errorDef := NewErrorDefinition(b.ASTBuilder)
 			return errorDef.Parse(unit, contractNode, bodyCtx, childCtx)
 		case *parser.ConstructorDefinitionContext:
-			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+			statement := NewConstructor(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, childCtx)
 		case *parser.FunctionDefinitionContext:
-			statement := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
+			statement := NewFunctionNode(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
-			/* 		case *parser.ModifierDefinitionContext:
+		case *parser.ModifierDefinitionContext:
 			statement := NewModifierDefinition(b.ASTBuilder)
-			return statement.Parse(unit, contractNode, bodyCtx, childCtx) */
+			return statement.ParseDefinition(unit, contractNode, bodyCtx, childCtx)
 		default:
 			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
 		}
@@ -140,7 +140,7 @@ func (b *BodyNode) ParseBlock(
 		for _, child := range statementCtx.GetChildren() {
 			switch childCtx := child.(type) {
 			case *parser.ConstructorDefinitionContext:
-				statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+				statement := NewConstructor(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, childCtx,
 				))
@@ -161,6 +161,11 @@ func (b *BodyNode) ParseBlock(
 				))
 			case *parser.ReturnStatementContext:
 				statement := NewReturnStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
+			case *parser.RevertStatementContext:
+				statement := NewRevertStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
@@ -196,7 +201,7 @@ func (b *BodyNode) ParseUncheckedBlock(
 		for _, child := range statementCtx.GetChildren() {
 			switch childCtx := child.(type) {
 			case *parser.ConstructorDefinitionContext:
-				statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+				statement := NewConstructor(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, childCtx,
 				))

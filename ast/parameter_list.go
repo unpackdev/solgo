@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type ParameterList[T NodeType] struct {
+type ParameterList struct {
 	*ASTBuilder
 
 	Id         int64           `json:"id"`
@@ -14,44 +14,44 @@ type ParameterList[T NodeType] struct {
 	Parameters []*Parameter    `json:"parameters"`
 }
 
-func NewParameterList[T any](b *ASTBuilder) *ParameterList[T] {
-	return &ParameterList[T]{
+func NewParameterList(b *ASTBuilder) *ParameterList {
+	return &ParameterList{
 		ASTBuilder: b,
+		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_PARAMETER_LIST,
 		Parameters: make([]*Parameter, 0),
 	}
 }
 
-func (p *ParameterList[T]) GetId() int64 {
+func (p *ParameterList) GetId() int64 {
 	return p.Id
 }
 
-func (p *ParameterList[T]) GetType() ast_pb.NodeType {
+func (p *ParameterList) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
-func (p *ParameterList[T]) GetSrc() SrcNode {
+func (p *ParameterList) GetSrc() SrcNode {
 	return p.Src
 }
 
-func (p *ParameterList[T]) GetTypeDescription() *TypeDescription {
+func (p *ParameterList) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (p *ParameterList[T]) GetParameters() []*Parameter {
+func (p *ParameterList) GetParameters() []*Parameter {
 	return p.Parameters
 }
 
-func (p *ParameterList[T]) GetNodes() []Node[NodeType] {
+func (p *ParameterList) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (p *ParameterList[T]) ToProto() ast_pb.ParametersList {
+func (p *ParameterList) ToProto() ast_pb.ParametersList {
 	return ast_pb.ParametersList{}
 }
 
-func (p *ParameterList[T]) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode Node[NodeType], ctx parser.IParameterListContext) {
-	p.Id = p.GetNextID()
+func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode Node[NodeType], ctx parser.IParameterListContext) {
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -74,8 +74,7 @@ func (p *ParameterList[T]) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNod
 	}
 }
 
-func (p *ParameterList[T]) ParseEventParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IEventParameterContext) {
-	p.Id = p.GetNextID()
+func (p *ParameterList) ParseEventParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IEventParameterContext) {
 	p.Src = eNode.GetSrc()
 	p.Src.ParentIndex = eNode.GetId()
 
@@ -86,8 +85,7 @@ func (p *ParameterList[T]) ParseEventParameters(unit *SourceUnit[Node[ast_pb.Sou
 	}
 }
 
-func (p *ParameterList[T]) ParseErrorParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IErrorParameterContext) {
-	p.Id = p.GetNextID()
+func (p *ParameterList) ParseErrorParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IErrorParameterContext) {
 	p.Src = eNode.GetSrc()
 	p.Src.ParentIndex = eNode.GetId()
 

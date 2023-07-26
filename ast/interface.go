@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type InterfaceNode[T any] struct {
+type InterfaceNode struct {
 	*ASTBuilder
 
 	Id                      int64            `json:"id"`
@@ -21,8 +21,8 @@ type InterfaceNode[T any] struct {
 	ContractDependencies    []int64          `json:"contract_dependencies"`
 }
 
-func NewInterfaceDefinition(b *ASTBuilder) *InterfaceNode[ast_pb.Contract] {
-	return &InterfaceNode[ast_pb.Contract]{
+func NewInterfaceDefinition(b *ASTBuilder) *InterfaceNode {
+	return &InterfaceNode{
 		ASTBuilder:              b,
 		LinearizedBaseContracts: make([]int64, 0),
 		ContractDependencies:    make([]int64, 0),
@@ -30,59 +30,59 @@ func NewInterfaceDefinition(b *ASTBuilder) *InterfaceNode[ast_pb.Contract] {
 	}
 }
 
-func (l InterfaceNode[T]) GetId() int64 {
+func (l InterfaceNode) GetId() int64 {
 	return l.Id
 }
 
-func (l InterfaceNode[T]) GetType() ast_pb.NodeType {
+func (l InterfaceNode) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
-func (l InterfaceNode[T]) GetSrc() SrcNode {
+func (l InterfaceNode) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l InterfaceNode[T]) GetTypeDescription() *TypeDescription {
+func (l InterfaceNode) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (l InterfaceNode[T]) GetName() string {
+func (l InterfaceNode) GetName() string {
 	return l.Name
 }
 
-func (l InterfaceNode[T]) IsAbstract() bool {
+func (l InterfaceNode) IsAbstract() bool {
 	return l.Abstract
 }
 
-func (l InterfaceNode[T]) GetKind() ast_pb.NodeType {
+func (l InterfaceNode) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
-func (l InterfaceNode[T]) IsFullyImplemented() bool {
+func (l InterfaceNode) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
-func (l InterfaceNode[T]) GetNodes() []Node[NodeType] {
+func (l InterfaceNode) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
-func (l InterfaceNode[T]) GetBaseContracts() []*BaseContract {
+func (l InterfaceNode) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
-func (l InterfaceNode[T]) GetContractDependencies() []int64 {
+func (l InterfaceNode) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-func (l InterfaceNode[T]) GetLinearizedBaseContracts() []int64 {
+func (l InterfaceNode) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
-func (l InterfaceNode[T]) ToProto() NodeType {
+func (l InterfaceNode) ToProto() NodeType {
 	return ast_pb.Contract{}
 }
 
-func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l InterfaceNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -115,7 +115,7 @@ func (l InterfaceNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.I
 		parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...,
 	)
 
-	interfaceNode := &InterfaceNode[ast_pb.Contract]{
+	interfaceNode := &InterfaceNode{
 		Id:   l.GetNextID(),
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{

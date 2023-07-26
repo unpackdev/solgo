@@ -5,109 +5,109 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type FunctionNode[T ast_pb.Function] struct {
+type FunctionNode struct {
 	*ASTBuilder
 
-	Id               int64               `json:"id"`
-	Name             string              `json:"name"`
-	NodeType         ast_pb.NodeType     `json:"node_type"`
-	Kind             ast_pb.NodeType     `json:"kind"`
-	Src              SrcNode             `json:"src"`
-	Body             *BodyNode           `json:"body"`
-	Implemented      bool                `json:"implemented"`
-	Visibility       ast_pb.Visibility   `json:"visibility"`
-	StateMutability  ast_pb.Mutability   `json:"state_mutability"`
-	Virtual          bool                `json:"virtual"`
-	Modifiers        []Modifier          `json:"modifiers"`
-	Overrides        []OverrideSpecifier `json:"overrides"`
-	Parameters       *ParameterList[T]   `json:"parameters"`
-	ReturnParameters *ParameterList[T]   `json:"return_parameters"`
-	Scope            int64               `json:"scope"`
+	Id               int64                `json:"id"`
+	Name             string               `json:"name"`
+	NodeType         ast_pb.NodeType      `json:"node_type"`
+	Kind             ast_pb.NodeType      `json:"kind"`
+	Src              SrcNode              `json:"src"`
+	Body             *BodyNode            `json:"body"`
+	Implemented      bool                 `json:"implemented"`
+	Visibility       ast_pb.Visibility    `json:"visibility"`
+	StateMutability  ast_pb.Mutability    `json:"state_mutability"`
+	Virtual          bool                 `json:"virtual"`
+	Modifiers        []ModifierDefinition `json:"modifiers"`
+	Overrides        []OverrideSpecifier  `json:"overrides"`
+	Parameters       *ParameterList       `json:"parameters"`
+	ReturnParameters *ParameterList       `json:"return_parameters"`
+	Scope            int64                `json:"scope"`
 }
 
-func NewFunctionNode[T ast_pb.Function](b *ASTBuilder) *FunctionNode[T] {
-	return &FunctionNode[T]{
+func NewFunctionNode(b *ASTBuilder) *FunctionNode {
+	return &FunctionNode{
 		ASTBuilder: b,
 		NodeType:   ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:       ast_pb.NodeType_KIND_FUNCTION,
-		Modifiers:  make([]Modifier, 0),
+		Modifiers:  make([]ModifierDefinition, 0),
 		Overrides:  make([]OverrideSpecifier, 0),
 	}
 }
 
-func (f FunctionNode[T]) GetId() int64 {
+func (f FunctionNode) GetId() int64 {
 	return f.Id
 }
 
-func (f FunctionNode[T]) GetType() ast_pb.NodeType {
+func (f FunctionNode) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
-func (f FunctionNode[T]) GetSrc() SrcNode {
+func (f FunctionNode) GetSrc() SrcNode {
 	return f.Src
 }
 
-func (f FunctionNode[T]) GetParameters() *ParameterList[T] {
+func (f FunctionNode) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
-func (f FunctionNode[T]) GetReturnParameters() *ParameterList[T] {
+func (f FunctionNode) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
-func (f FunctionNode[T]) GetBody() *BodyNode {
+func (f FunctionNode) GetBody() *BodyNode {
 	return f.Body
 }
 
-func (f FunctionNode[T]) GetKind() ast_pb.NodeType {
+func (f FunctionNode) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
-func (f FunctionNode[T]) IsImplemented() bool {
+func (f FunctionNode) IsImplemented() bool {
 	return f.Implemented
 }
 
-func (f FunctionNode[T]) GetModifiers() []Modifier {
+func (f FunctionNode) GetModifiers() []ModifierDefinition {
 	return f.Modifiers
 }
 
-func (f FunctionNode[T]) GetOverrides() []OverrideSpecifier {
+func (f FunctionNode) GetOverrides() []OverrideSpecifier {
 	return f.Overrides
 }
 
-func (f FunctionNode[T]) GetVisibility() ast_pb.Visibility {
+func (f FunctionNode) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
-func (f FunctionNode[T]) GetStateMutability() ast_pb.Mutability {
+func (f FunctionNode) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
-func (f FunctionNode[T]) IsVirtual() bool {
+func (f FunctionNode) IsVirtual() bool {
 	return f.Virtual
 }
 
-func (f FunctionNode[T]) GetScope() int64 {
+func (f FunctionNode) GetScope() int64 {
 	return f.Scope
 }
 
-func (f FunctionNode[T]) GetName() string {
+func (f FunctionNode) GetName() string {
 	return f.Name
 }
 
-func (f FunctionNode[T]) GetTypeDescription() *TypeDescription {
+func (f FunctionNode) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (f FunctionNode[T]) GetNodes() []Node[NodeType] {
+func (f FunctionNode) GetNodes() []Node[NodeType] {
 	return f.Body.GetNodes()
 }
 
-func (f FunctionNode[T]) ToProto() NodeType {
+func (f FunctionNode) ToProto() NodeType {
 	return ast_pb.Function{}
 }
 
-func (f FunctionNode[T]) Parse(
+func (f FunctionNode) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
@@ -145,7 +145,7 @@ func (f FunctionNode[T]) Parse(
 
 	// Set function modifiers.
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
-		modifier := NewModifier(f.ASTBuilder)
+		modifier := NewModifierDefinition(f.ASTBuilder)
 		modifier.Parse(unit, f, modifierCtx)
 		f.Modifiers = append(f.Modifiers, *modifier)
 	}
@@ -159,7 +159,7 @@ func (f FunctionNode[T]) Parse(
 
 	// Set function parameters if they exist.
 	if len(ctx.AllParameterList()) > 0 {
-		params := NewParameterList[T](f.ASTBuilder)
+		params := NewParameterList(f.ASTBuilder)
 		params.Parse(unit, f, ctx.AllParameterList()[0])
 		f.Parameters = params
 	}
@@ -168,7 +168,7 @@ func (f FunctionNode[T]) Parse(
 	// @TODO: Consider traversing through body to discover name of the return parameters even
 	// if they are not defined in (name uint) format.
 	if ctx.GetReturnParameters() != nil {
-		returnParams := NewParameterList[T](f.ASTBuilder)
+		returnParams := NewParameterList(f.ASTBuilder)
 		returnParams.Parse(unit, f, ctx.GetReturnParameters())
 		f.ReturnParameters = returnParams
 	}
@@ -218,7 +218,7 @@ func (f FunctionNode[T]) Parse(
 	return f
 }
 
-func (f FunctionNode[T]) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
+func (f FunctionNode) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
 	visibilityMap := map[string]ast_pb.Visibility{
 		"public":   ast_pb.Visibility_PUBLIC,
 		"private":  ast_pb.Visibility_PRIVATE,
@@ -235,7 +235,7 @@ func (f FunctionNode[T]) getVisibilityFromCtx(ctx *parser.FunctionDefinitionCont
 	return ast_pb.Visibility_INTERNAL
 }
 
-func (f FunctionNode[T]) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
+func (f FunctionNode) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable": ast_pb.Mutability_PAYABLE,
 		"pure":    ast_pb.Mutability_PURE,

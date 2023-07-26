@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type Constructor[T ast_pb.Function] struct {
+type Constructor struct {
 	*ASTBuilder
 
 	Id               int64             `json:"id"`
@@ -15,14 +15,14 @@ type Constructor[T ast_pb.Function] struct {
 	StateMutability  ast_pb.Mutability `json:"state_mutability"`
 	Visibility       ast_pb.Visibility `json:"visibility"`
 	Implemented      bool              `json:"implemented"`
-	Parameters       *ParameterList[T] `json:"parameters"`
-	ReturnParameters *ParameterList[T] `json:"return_parameters"`
+	Parameters       *ParameterList    `json:"parameters"`
+	ReturnParameters *ParameterList    `json:"return_parameters"`
 	Scope            int64             `json:"scope"`
 	Body             *BodyNode         `json:"body"`
 }
 
-func NewConstructor[T ast_pb.Function](b *ASTBuilder) *Constructor[T] {
-	return &Constructor[T]{
+func NewConstructor(b *ASTBuilder) *Constructor {
+	return &Constructor{
 		ASTBuilder:      b,
 		Id:              b.GetNextID(),
 		NodeType:        ast_pb.NodeType_FUNCTION_DEFINITION,
@@ -31,63 +31,63 @@ func NewConstructor[T ast_pb.Function](b *ASTBuilder) *Constructor[T] {
 	}
 }
 
-func (c *Constructor[T]) GetId() int64 {
+func (c *Constructor) GetId() int64 {
 	return c.Id
 }
 
-func (c *Constructor[T]) GetSrc() SrcNode {
+func (c *Constructor) GetSrc() SrcNode {
 	return c.Src
 }
 
-func (c *Constructor[T]) GetType() ast_pb.NodeType {
+func (c *Constructor) GetType() ast_pb.NodeType {
 	return c.NodeType
 }
 
-func (c *Constructor[T]) GetNodes() []Node[NodeType] {
+func (c *Constructor) GetNodes() []Node[NodeType] {
 	return c.Body.Statements
 }
 
-func (c *Constructor[T]) GetTypeDescription() *TypeDescription {
+func (c *Constructor) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (c *Constructor[T]) GetParameters() *ParameterList[T] {
+func (c *Constructor) GetParameters() *ParameterList {
 	return c.Parameters
 }
 
-func (c *Constructor[T]) GetReturnParameters() *ParameterList[T] {
+func (c *Constructor) GetReturnParameters() *ParameterList {
 	return c.ReturnParameters
 }
 
-func (c *Constructor[T]) GetBody() *BodyNode {
+func (c *Constructor) GetBody() *BodyNode {
 	return c.Body
 }
 
-func (c *Constructor[T]) GetKind() ast_pb.NodeType {
+func (c *Constructor) GetKind() ast_pb.NodeType {
 	return c.Kind
 }
 
-func (c *Constructor[T]) IsImplemented() bool {
+func (c *Constructor) IsImplemented() bool {
 	return c.Implemented
 }
 
-func (c *Constructor[T]) GetVisibility() ast_pb.Visibility {
+func (c *Constructor) GetVisibility() ast_pb.Visibility {
 	return c.Visibility
 }
 
-func (c *Constructor[T]) GetStateMutability() ast_pb.Mutability {
+func (c *Constructor) GetStateMutability() ast_pb.Mutability {
 	return c.StateMutability
 }
 
-func (c *Constructor[T]) GetScope() int64 {
+func (c *Constructor) GetScope() int64 {
 	return c.Scope
 }
 
-func (c *Constructor[T]) ToProto() NodeType {
+func (c *Constructor) ToProto() NodeType {
 	return ast_pb.Function{}
 }
 
-func (c *Constructor[T]) Parse(
+func (c *Constructor) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	ctx *parser.ConstructorDefinitionContext,
@@ -113,11 +113,11 @@ func (c *Constructor[T]) Parse(
 
 	c.Visibility = c.getVisibilityFromCtx(ctx)
 
-	params := NewParameterList[T](c.ASTBuilder)
+	params := NewParameterList(c.ASTBuilder)
 	params.Parse(unit, c, ctx.ParameterList())
 	c.Parameters = params
 
-	c.ReturnParameters = &ParameterList[T]{
+	c.ReturnParameters = &ParameterList{
 		Id: c.GetNextID(),
 		Src: SrcNode{
 			Id:          c.GetNextID(),
@@ -149,7 +149,7 @@ func (c *Constructor[T]) Parse(
 	return c
 }
 
-func (c *Constructor[T]) getVisibilityFromCtx(ctx *parser.ConstructorDefinitionContext) ast_pb.Visibility {
+func (c *Constructor) getVisibilityFromCtx(ctx *parser.ConstructorDefinitionContext) ast_pb.Visibility {
 	visibilityMap := map[string]ast_pb.Visibility{
 		"public":   ast_pb.Visibility_PUBLIC,
 		"internal": ast_pb.Visibility_INTERNAL,

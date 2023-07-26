@@ -1,9 +1,34 @@
 package ast
 
+type NodeWithParameters interface {
+	GetName() string
+	GetNodes() []Node[NodeType]
+	GetTypeDescription() *TypeDescription
+	GetParameters() *ParameterList
+}
+
+func checkParameters(node NodeWithParameters, name string) bool {
+	for _, parameter := range node.GetParameters().Parameters {
+		if parameter.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
 func discoverReferenceByCtxName(b *ASTBuilder, name string) (Node[NodeType], *TypeDescription) {
 	for _, node := range b.sourceUnits {
 		if node.GetName() == name {
 			return node, node.GetTypeDescription()
+		}
+
+		for _, subNode := range node.GetNodes() {
+			switch nodeCtx := subNode.(type) {
+			case NodeWithParameters:
+				if nodeCtx.GetName() == name || checkParameters(nodeCtx, name) {
+					return subNode, subNode.GetTypeDescription()
+				}
+			}
 		}
 	}
 

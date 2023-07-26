@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type LibraryNode[T any] struct {
+type LibraryNode struct {
 	*ASTBuilder
 
 	Id                      int64            `json:"id"`
@@ -22,69 +22,69 @@ type LibraryNode[T any] struct {
 	Scope                   int64            `json:"scope"`
 }
 
-func NewLibraryDefinition(b *ASTBuilder) *LibraryNode[ast_pb.Contract] {
-	return &LibraryNode[ast_pb.Contract]{
+func NewLibraryDefinition(b *ASTBuilder) *LibraryNode {
+	return &LibraryNode{
 		ASTBuilder: b,
 	}
 }
 
-func (l LibraryNode[T]) GetId() int64 {
+func (l LibraryNode) GetId() int64 {
 	return l.Id
 }
 
-func (l LibraryNode[T]) GetType() ast_pb.NodeType {
+func (l LibraryNode) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
-func (l LibraryNode[T]) GetSrc() SrcNode {
+func (l LibraryNode) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l LibraryNode[T]) GetTypeDescription() *TypeDescription {
+func (l LibraryNode) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (l LibraryNode[T]) GetName() string {
+func (l LibraryNode) GetName() string {
 	return l.Name
 }
 
-func (l LibraryNode[T]) IsAbstract() bool {
+func (l LibraryNode) IsAbstract() bool {
 	return l.Abstract
 }
 
-func (l LibraryNode[T]) GetKind() ast_pb.NodeType {
+func (l LibraryNode) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
-func (l LibraryNode[T]) IsFullyImplemented() bool {
+func (l LibraryNode) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
-func (l LibraryNode[T]) GetNodes() []Node[NodeType] {
+func (l LibraryNode) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
-func (l LibraryNode[T]) GetScope() int64 {
+func (l LibraryNode) GetScope() int64 {
 	return l.Scope
 }
 
-func (l LibraryNode[T]) GetLinearizedBaseContracts() []int64 {
+func (l LibraryNode) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
-func (l LibraryNode[T]) GetBaseContracts() []*BaseContract {
+func (l LibraryNode) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
-func (l LibraryNode[T]) GetContractDependencies() []int64 {
+func (l LibraryNode) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-func (l LibraryNode[T]) ToProto() NodeType {
+func (l LibraryNode) ToProto() NodeType {
 	return ast_pb.Contract{}
 }
 
-func (l LibraryNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l LibraryNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -118,7 +118,7 @@ func (l LibraryNode[T]) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Lib
 	)
 
 	libraryId := l.GetNextID()
-	libraryNode := &LibraryNode[ast_pb.Contract]{
+	libraryNode := &LibraryNode{
 		Id:   libraryId,
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{

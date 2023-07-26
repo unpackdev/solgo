@@ -45,6 +45,10 @@ func (e *ExpressionStatement) Parse(
 			// add to each expression statement semicolon_found?
 			// Not important right now at all...
 			continue
+		case *parser.PrimaryExpressionContext:
+			primaryExpression := NewPrimaryExpression(e.ASTBuilder)
+			primaryExpression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, childCtx)
+			return primaryExpression
 		default:
 			fmt.Println("Expression Type: ", reflect.TypeOf(childCtx).String())
 			panic("Expression statement child not recognized @ ExpressionStatement.Parse")

@@ -117,82 +117,17 @@ func (p *PrimaryExpression) Parse(
 
 	if ctx.Identifier() != nil {
 		p.Name = ctx.Identifier().GetText()
-	}
-
-	referenceFound := false
-
-	// Search for argument reference in state variable declarations.
-	for _, node := range p.currentStateVariables {
-		if node.GetName() == ctx.GetText() {
-			referenceFound = true
-			p.ReferencedDeclaration = node.Id
-			if node.TypeName != nil && node.TypeName.GetTypeDescription() != nil {
-				p.TypeDescription = &TypeDescription{
-					TypeIdentifier: node.TypeName.GetTypeDescription().TypeIdentifier,
-					TypeString:     node.TypeName.GetTypeDescription().TypeString,
-				}
-			} else if node.GetTypeDescription() != nil {
-				p.TypeDescription = node.TypeDescription
-			}
+		if ref, refTypeDescription := discoverReferenceByCtxName(p.ASTBuilder, p.Name); ref != nil {
+			p.ReferencedDeclaration = ref.GetId()
+			p.TypeDescription = refTypeDescription
 		}
 	}
 
-	// Search for argument reference in statement declarations.
-	if !referenceFound {
-		for _, statement := range bodyNode.Statements {
-			switch statementCtx := statement.(type) {
-			case *VariableDeclaration:
-				for _, declaration := range statementCtx.Declarations {
-					if declaration.Name == ctx.GetText() {
-						referenceFound = true
-						p.ReferencedDeclaration = declaration.Id
-						p.TypeDescription = declaration.TypeName.TypeDescription
-					}
-				}
-			}
-
-			/*
-				for _, argument := range statement.GetArguments() {
-					if argument.GetName() == expressionCtx.GetText() {
-						referenceFound = true
-						toReturn.ReferencedDeclaration = argument.Id
-						toReturn.TypeDescriptions = argument.GetTypeDescriptions()
-					}
-				} */
-		}
-	}
-
-	// If search for reference in statement declarations failed,
-	// search for reference in function parameters.
-	if !referenceFound && fnNode != nil {
-		switch fnNodeCtx := fnNode.(type) {
-		case *Constructor[ast_pb.Function]:
-			for _, parameter := range fnNodeCtx.GetParameters().Parameters {
-				if parameter.Name == ctx.GetText() {
-					referenceFound = true
-					p.ReferencedDeclaration = parameter.Id
-					p.TypeDescription = parameter.TypeName.TypeDescription
-				}
-			}
-		case *FunctionNode[ast_pb.Function]:
-			for _, parameter := range fnNodeCtx.GetParameters().Parameters {
-				if parameter.Name == ctx.GetText() {
-					referenceFound = true
-					p.ReferencedDeclaration = parameter.Id
-					p.TypeDescription = parameter.TypeName.TypeDescription
-				}
-			}
-		}
-	}
-
-	if !referenceFound {
-		/* 		for _, errorNode := range b.currentErrors {
-			if errorNode.GetName() == expressionCtx.GetText() {
-				referenceFound = true
-				toReturn.ReferencedDeclaration = errorNode.Id
-				toReturn.TypeDescriptions = errorNode.GetTypeName().GetTypeDescriptions()
-			}
-		} */
+	// There is a case where we get PlaceholderStatement as a PrimaryExpression and this one does nothing really...
+	// So we are going to do some hack here to make it work properly...
+	if p.Name == "_" {
+		p.NodeType = ast_pb.NodeType_PLACEHOLDER_STATEMENT
+		return
 	}
 
 	literalCtx := ctx.Literal()
