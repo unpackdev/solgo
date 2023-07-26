@@ -3,7 +3,6 @@ package ast
 import (
 	"fmt"
 
-	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
@@ -12,15 +11,16 @@ import (
 type TypeName struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`
-	NodeType              ast_pb.NodeType  `json:"node_type"`
-	Src                   SrcNode          `json:"src"`
-	Name                  string           `json:"name,omitempty"`
-	TypeDescription       *TypeDescription `json:"type_descriptions,omitempty"`
-	KeyType               *TypeName        `json:"key_type,omitempty"`
-	ValueType             *TypeName        `json:"value_type,omitempty"`
-	PathNode              *PathNode        `json:"path_node,omitempty"`
-	ReferencedDeclaration int64            `json:"referenced_declaration"`
+	Id                    int64             `json:"id"`
+	NodeType              ast_pb.NodeType   `json:"node_type"`
+	Src                   SrcNode           `json:"src"`
+	Name                  string            `json:"name,omitempty"`
+	TypeDescription       *TypeDescription  `json:"type_descriptions,omitempty"`
+	KeyType               *TypeName         `json:"key_type,omitempty"`
+	ValueType             *TypeName         `json:"value_type,omitempty"`
+	PathNode              *PathNode         `json:"path_node,omitempty"`
+	StateMutability       ast_pb.Mutability `json:"state_mutability,omitempty"`
+	ReferencedDeclaration int64             `json:"referenced_declaration"`
 }
 
 func NewTypeName(b *ASTBuilder) *TypeName {
@@ -72,6 +72,14 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 		ctx.GetText(),
 	)
+
+	switch normalizedTypeIdentifier {
+	case "t_address":
+		t.StateMutability = ast_pb.Mutability_NONPAYABLE
+	case "t_address_payable":
+		t.StateMutability = ast_pb.Mutability_PAYABLE
+	}
+
 	t.TypeDescription = &TypeDescription{
 		TypeIdentifier: normalizedTypeIdentifier,
 		TypeString:     normalizedTypeName,
@@ -103,76 +111,6 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			t.TypeDescription = refTypeDescription
 		}
 	}
-}
-
-func (t *TypeName) parseUserDefinedTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx antlr.Tree) {
-	panic("User defined type name is not supported yet @ TypeName.Parse")
-
-	/**
-		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
-
-	pathCtx := ctx.IdentifierPath()
-	if pathCtx != nil {
-		pNode.TypeName.PathNode = &PathNode{
-			Id:   t.GetNextID(),
-			Name: pathCtx.GetText(),
-			Src: SrcNode{
-				Id:          t.GetNextID(),
-				Line:        int64(pathCtx.GetStart().GetLine()),
-				Column:      int64(pathCtx.GetStart().GetColumn()),
-				Start:       int64(pathCtx.GetStart().GetStart()),
-				End:         int64(pathCtx.GetStop().GetStop()),
-				Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
-				ParentIndex: t.Id,
-			},
-			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
-		}
-	}
-
-	// Lets figure out type...
-	// Search for argument reference in state variable declarations.
-	referenceFound := false
-
-	for _, node := range t.currentStateVariables {
-		if node.GetName() == pathCtx.GetText() {
-			referenceFound = true
-			t.PathNode.ReferencedDeclaration = node.Id
-			t.ReferencedDeclaration = node.Id
-			//t.TypeDescriptions = node.TypeDescriptions
-			//t.TypeDescriptions = node.TypeDescriptions
-		}
-	}
-
-	if !referenceFound {
-		for _, node := range t.currentEnums {
-			if node.GetName() == pathCtx.GetText() {
-				referenceFound = true
-				t.PathNode.ReferencedDeclaration = node.Id
-				t.ReferencedDeclaration = node.Id
-
-				typeDescription := &TypeDescriptions{
-					TypeIdentifier: func() string {
-						return fmt.Sprintf(
-							"t_enum_$_%s_$%d",
-							pathCtx.GetText(),
-							node.Id,
-						)
-					}(),
-					TypeString: func() string {
-						return fmt.Sprintf(
-							"enum %s.%s",
-							unit.GetName(),
-							pathCtx.GetText(),
-						)
-					}(),
-				}
-
-				t.TypeDescriptions = typeDescription
-				t.TypeDescriptions = typeDescription
-			}
-		}
-	}
-	**/
 }
 
 func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.MappingTypeContext) {
@@ -280,8 +218,9 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			}
 
 			if ref, refTypeDescription := discoverReferenceByCtxName(t.ASTBuilder, pathCtx.GetText()); ref != nil {
-				_ = refTypeDescription
-				panic("Reference found but not implemented yet @ TypeName.generateTypeName")
+				t.PathNode.ReferencedDeclaration = ref.GetId()
+				t.ReferencedDeclaration = ref.GetId()
+				t.TypeDescription = refTypeDescription
 			}
 
 			// Search for argument reference in state variable declarations.

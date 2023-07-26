@@ -73,3 +73,32 @@ func (p *ParameterList[T]) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNod
 		p.Parameters = append(p.Parameters, param)
 	}
 }
+
+func (p *ParameterList[T]) ParseEventParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IEventParameterContext) {
+	p.Id = p.GetNextID()
+	p.Src = eNode.GetSrc()
+	p.Src.ParentIndex = eNode.GetId()
+
+	for _, paramCtx := range ctx {
+		param := NewParameter(p.ASTBuilder)
+		param.ParseEventParameter(unit, eNode, p, paramCtx)
+		p.Parameters = append(p.Parameters, param)
+	}
+
+	/*
+
+
+
+		// No need to move forwards as there are no parameters to parse in this context.
+		if ctx == nil || ctx.IsEmpty() {
+			return
+		}
+
+
+			 	for _, paramCtx := range ctx.AllParameterDeclaration() {
+					param := NewParameter(p.ASTBuilder)
+					param.Parse(unit, fNode, p, paramCtx.(*parser.ParameterDeclarationContext))
+					p.Parameters = append(p.Parameters, param)
+				}
+	*/
+}

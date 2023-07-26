@@ -17,14 +17,14 @@ type ASTBuilder struct {
 	comments              []*CommentNode
 	commentsParsed        bool
 	astRoot               *RootNode
-	entrySourceUnit       *ast_pb.Node
+	entrySourceUnit       *SourceUnit[Node[ast_pb.SourceUnit]]
 	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
 	currentSourceUnit     *ast_pb.SourceUnit
 	currentStateVariables []*StateVariableDeclaration
-	currentEvents         []*ast_pb.Node
-	currentEnums          []*ast_pb.Node
-	currentStructs        []*ast_pb.Node
-	currentErrors         []*ast_pb.Node
+	currentEvents         []Node[NodeType]
+	currentEnums          []Node[NodeType]
+	currentStructs        []Node[NodeType]
+	currentErrors         []Node[NodeType]
 }
 
 func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {

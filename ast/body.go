@@ -69,14 +69,6 @@ func (b *BodyNode) Parse(
 ) Node[NodeType] {
 	for _, bodyChildCtx := range bodyCtx.GetChildren() {
 		switch childCtx := bodyChildCtx.(type) {
-		case *parser.ConstructorDefinitionContext:
-			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
-			b.Statements = append(b.Statements, statement.Parse(
-				unit, contractNode, childCtx,
-			))
-		case *parser.FunctionDefinitionContext:
-			fn := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
-			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
 		case *parser.UsingDirectiveContext:
 			using := NewUsingDirective(b.ASTBuilder)
 			using.Parse(unit, contractNode, bodyCtx, childCtx)
@@ -85,6 +77,19 @@ func (b *BodyNode) Parse(
 			stateVar := NewStateVariableDeclaration(b.ASTBuilder)
 			stateVar.Parse(unit, contractNode, bodyCtx, childCtx)
 			return stateVar
+		case *parser.EventDefinitionContext:
+			event := NewEventDefinition(b.ASTBuilder)
+			event.Parse(unit, contractNode, bodyCtx, childCtx)
+			return event
+		case *parser.ConstructorDefinitionContext:
+			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
+			b.Statements = append(b.Statements, statement.Parse(
+				unit, contractNode, childCtx,
+			))
+		case *parser.FunctionDefinitionContext:
+			fn := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
+			return fn.Parse(unit, contractNode, bodyCtx, childCtx)
+
 		default:
 			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
 		}

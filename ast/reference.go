@@ -14,5 +14,12 @@ func discoverReferenceByCtxName(b *ASTBuilder, name string) (Node[NodeType], *Ty
 		}
 	}
 
+	for _, node := range b.currentEvents {
+		eventNode := node.(*EventDefinition)
+		if eventNode.GetName() == name {
+			return node, node.GetTypeDescription()
+		}
+	}
+
 	return nil, nil
 }

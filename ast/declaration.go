@@ -10,7 +10,7 @@ type Declaration struct {
 
 	IsConstant      bool                   `json:"is_constant"`
 	Id              int64                  `json:"id"`
-	Mutability      ast_pb.Mutability      `json:"mutability"`
+	StateMutability ast_pb.Mutability      `json:"state_mutability"`
 	Name            string                 `json:"name"`
 	NodeType        ast_pb.NodeType        `json:"node_type"`
 	Scope           int64                  `json:"scope"`
@@ -54,8 +54,8 @@ func (d *Declaration) GetScope() int64 {
 	return d.Scope
 }
 
-func (d *Declaration) GetMutability() ast_pb.Mutability {
-	return d.Mutability
+func (d *Declaration) GetStateMutability() ast_pb.Mutability {
+	return d.StateMutability
 }
 
 func (d *Declaration) GetVisibility() ast_pb.Visibility {
@@ -123,7 +123,7 @@ func (d *Declaration) ParseVariableDeclaration(
 
 	d.StorageLocation = getStorageLocationFromDataLocationCtx(ctx.DataLocation())
 	d.Visibility = ast_pb.Visibility_INTERNAL
-	d.Mutability = ast_pb.Mutability_MUTABLE
+	d.StateMutability = ast_pb.Mutability_MUTABLE
 
 	if ctx.Identifier() != nil {
 		d.Name = ctx.Identifier().GetText()
