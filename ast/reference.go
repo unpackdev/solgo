@@ -40,5 +40,18 @@ func discoverReferenceByCtxName(b *ASTBuilder, name string) (Node[NodeType], *Ty
 		}
 	}
 
+	for _, node := range b.currentErrors {
+		errorNode := node.(*ErrorDefinition)
+		if errorNode.GetName() == name {
+			return node, node.GetTypeDescription()
+		}
+
+		for _, member := range errorNode.Parameters.Parameters {
+			if member.GetName() == name {
+				return node, node.GetTypeDescription()
+			}
+		}
+	}
+
 	return nil, nil
 }

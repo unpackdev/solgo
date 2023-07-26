@@ -86,12 +86,18 @@ func (b *BodyNode) Parse(
 		case *parser.StructDefinitionContext:
 			structDef := NewStructDefinition(b.ASTBuilder)
 			return structDef.Parse(unit, contractNode, bodyCtx, childCtx)
+		case *parser.ErrorDefinitionContext:
+			errorDef := NewErrorDefinition(b.ASTBuilder)
+			return errorDef.Parse(unit, contractNode, bodyCtx, childCtx)
 		case *parser.ConstructorDefinitionContext:
 			statement := NewConstructor[ast_pb.Function](b.ASTBuilder)
 			return statement.Parse(unit, contractNode, childCtx)
 		case *parser.FunctionDefinitionContext:
 			statement := NewFunctionNode[ast_pb.Function](b.ASTBuilder)
 			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
+			/* 		case *parser.ModifierDefinitionContext:
+			statement := NewModifierDefinition(b.ASTBuilder)
+			return statement.Parse(unit, contractNode, bodyCtx, childCtx) */
 		default:
 			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
 		}

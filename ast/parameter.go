@@ -67,6 +67,16 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 
 	typeName := NewTypeName(p.ASTBuilder)
 	typeName.Parse(unit, fnNode, p.GetId(), ctx.TypeName())
+
+	if typeName.TypeDescription != nil {
+		switch typeName.TypeDescription.TypeIdentifier {
+		case "t_address":
+			p.StateMutability = ast_pb.Mutability_NONPAYABLE
+		case "t_address_payable":
+			p.StateMutability = ast_pb.Mutability_PAYABLE
+		}
+	}
+
 	p.TypeName = typeName
 }
 
@@ -125,6 +135,50 @@ func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit
 
 	typeName := NewTypeName(p.ASTBuilder)
 	typeName.Parse(unit, contractNode, p.GetId(), ctx.TypeName())
+
+	if typeName.TypeDescription != nil {
+		switch typeName.TypeDescription.TypeIdentifier {
+		case "t_address":
+			p.StateMutability = ast_pb.Mutability_NONPAYABLE
+		case "t_address_payable":
+			p.StateMutability = ast_pb.Mutability_PAYABLE
+		}
+	}
+
+	p.TypeName = typeName
+}
+
+func (p *Parameter) ParseErrorParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx parser.IErrorParameterContext) {
+	p.Id = p.GetNextID()
+	p.Src = SrcNode{
+		Id:          p.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: plNode.GetId(),
+	}
+	p.Scope = fnNode.GetId()
+
+	if ctx.Identifier() != nil {
+		p.Name = ctx.Identifier().GetText()
+	}
+
+	p.StorageLocation = ast_pb.StorageLocation_MEMORY
+
+	typeName := NewTypeName(p.ASTBuilder)
+	typeName.Parse(unit, fnNode, p.GetId(), ctx.TypeName())
+
+	if typeName.TypeDescription != nil {
+		switch typeName.TypeDescription.TypeIdentifier {
+		case "t_address":
+			p.StateMutability = ast_pb.Mutability_NONPAYABLE
+		case "t_address_payable":
+			p.StateMutability = ast_pb.Mutability_PAYABLE
+		}
+	}
+
 	p.TypeName = typeName
 }
 
