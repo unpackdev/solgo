@@ -105,8 +105,9 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 
 	for _, child := range ctx.GetChildren() {
 		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
-			fmt.Println("Interface Definition", interfaceCtx.GetName())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, interfaceCtx.Identifier().GetText(), license)
+			interfaceNode := NewInterfaceDefinition(b)
+			interfaceNode.Parse(ctx, interfaceCtx, rootNode, sourceUnit)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
@@ -128,7 +129,4 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 
 func (b *ASTBuilder) ExitSourceUnit(ctx *parser.SourceUnitContext) {
 	b.astRoot.SourceUnits = append(b.astRoot.SourceUnits, b.sourceUnits...)
-
-	//rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments).(*RootNode)
-	//b.astRoot = rootNode
 }
