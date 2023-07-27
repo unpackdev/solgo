@@ -1,8 +1,6 @@
 package ast
 
 import (
-	"fmt"
-
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -66,17 +64,19 @@ func (a *YulStatement) Parse(
 		ParentIndex: assemblyNode.GetId(),
 	}
 
-	for _, childCtx := range ctx.GetChildren() {
-		switch child := childCtx.(type) {
-		case *parser.YulAssignmentContext:
-			assignment := NewYulAssignment(a.ASTBuilder)
-			a.Statements = append(a.Statements,
-				assignment.Parse(unit, contractNode, fnNode, bodyNode, assemblyNode, a, child),
-			)
-		default:
-			panic(fmt.Sprintf("Unimplemented YulStatementContext @ YulStatement.Parse(): %T", child))
-		}
-	}
+	/*
+		NEXT RELEASE PRIORITY
+		for _, childCtx := range ctx.GetChildren() {
+			switch child := childCtx.(type) {
+			case *parser.YulAssignmentContext:
+				assignment := NewYulAssignment(a.ASTBuilder)
+				a.Statements = append(a.Statements,
+					assignment.Parse(unit, contractNode, fnNode, bodyNode, assemblyNode, a, child),
+				)
+			default:
+				panic(fmt.Sprintf("Unimplemented YulStatementContext @ YulStatement.Parse(): %T", child))
+			}
+		} */
 
 	return a
 }

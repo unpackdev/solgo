@@ -147,7 +147,7 @@ func (l InterfaceNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Inte
 		}
 
 		bodyNode := NewBodyNode(l.ASTBuilder)
-		childNode := bodyNode.Parse(unit, interfaceNode, bodyElement)
+		childNode := bodyNode.ParseDefinitions(unit, interfaceNode, bodyElement)
 		if childNode != nil {
 			interfaceNode.Nodes = append(
 				interfaceNode.Nodes,

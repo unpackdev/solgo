@@ -1,8 +1,6 @@
 package ast
 
 import (
-	"fmt"
-
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -83,10 +81,5 @@ func (a *AssemblyStatement) Parse(
 			),
 		)
 	}
-
-	if ctx.AssemblyDialect() != nil {
-		fmt.Println("Assembly Dialect: ", ctx.AssemblyDialect().GetText())
-	}
-
 	return a
 }
