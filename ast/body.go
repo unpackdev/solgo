@@ -175,6 +175,11 @@ func (b *BodyNode) ParseBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
+			case *parser.TryStatementContext:
+				statement := NewTryStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			case *parser.WhileStatementContext:
 				statement := NewWhileStatement(b.ASTBuilder)
 				b.Statements = append(b.Statements, statement.Parse(

@@ -1,7 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+interface IDummyContract {
+    function dummyFunction() external returns (bool);
+}
+
 contract Lottery {
+    uint256 public constant DUMMY_CONSTANT = 12345;
+    
     enum LotteryState { Accepting, Finished }
     struct Player {
         address addr;
@@ -14,6 +20,8 @@ contract Lottery {
 
     event PlayerJoined(address addr);
     event LotteryFinished(address winner);
+    event ExternalCallSuccessful();
+    event ExternalCallFailed(string reason);
 
     // Define custom errors
     error InvalidState();
@@ -112,6 +120,16 @@ contract Lottery {
     function requireOwner() public view {
         if (msg.sender != owner()) {
             revert OnlyOwnerCanCall();
+        }
+    }
+
+    function callExternalFunction(address externalContractAddress) public {
+        IDummyContract dummyContract = IDummyContract(externalContractAddress);
+
+        try dummyContract.dummyFunction() {
+            emit ExternalCallSuccessful();
+        } catch (bytes memory /*lowLevelData*/) {
+            emit ExternalCallFailed("External contract failed");
         }
     }
 
