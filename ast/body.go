@@ -205,6 +205,11 @@ func (b *BodyNode) ParseBlock(
 				b.Statements = append(b.Statements, statement.Parse(
 					unit, contractNode, fnNode, b, childCtx,
 				))
+			case *parser.AssemblyStatementContext:
+				statement := NewAssemblyStatement(b.ASTBuilder)
+				b.Statements = append(b.Statements, statement.Parse(
+					unit, contractNode, fnNode, b, childCtx,
+				))
 			default:
 				panic(fmt.Sprintf("Unknown statement type @ BodyNode.ParseBlock: %s", reflect.TypeOf(childCtx)))
 			}
