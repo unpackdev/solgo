@@ -75,17 +75,37 @@ func (f *FunctionCall) Parse(
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
+	vDeclar *VariableDeclaration,
+	expNode Node[NodeType],
 	ctx *parser.FunctionCallContext,
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:          f.GetNextID(),
-		Line:        int64(ctx.GetStart().GetLine()),
-		Column:      int64(ctx.GetStart().GetColumn()),
-		Start:       int64(ctx.GetStart().GetStart()),
-		End:         int64(ctx.GetStop().GetStop()),
-		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: fnNode.GetId(),
+		Id:     f.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
+
+			if expNode != nil {
+				return expNode.GetId()
+			}
+
+			if bodyNode != nil {
+				return bodyNode.GetId()
+			}
+
+			if fnNode != nil {
+				return fnNode.GetId()
+			}
+
+			return contractNode.GetId()
+		}(),
 	}
 
 	expression := NewExpression(f.ASTBuilder)

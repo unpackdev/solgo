@@ -117,6 +117,21 @@ func (p *PrimaryExpression) Parse(
 
 	if ctx.Identifier() != nil {
 		p.Name = ctx.Identifier().GetText()
+
+		// We cannot reach all of the parameter type description by simply discoveryReference
+		// as some of the nodes such as this one is not yet written and is not accessible by
+		// the discoverReferenceByCtxName()
+		if fnNode != nil {
+			for _, param := range fnNode.(FunctionNode).GetParameters().GetParameters() {
+				if param.GetName() == p.Name {
+					if param.GetTypeName() != nil {
+						p.TypeDescription = param.GetTypeName().GetTypeDescription()
+						p.ReferencedDeclaration = p.GetId()
+					}
+				}
+			}
+		}
+
 		if ref, refTypeDescription := discoverReferenceByCtxName(p.ASTBuilder, p.Name); ref != nil {
 			p.ReferencedDeclaration = ref.GetId()
 			p.TypeDescription = refTypeDescription

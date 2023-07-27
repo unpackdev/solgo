@@ -3,7 +3,6 @@ package ast
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
-	"go.uber.org/zap"
 )
 
 type MemberAccessExpression struct {
@@ -76,15 +75,55 @@ func (m *MemberAccessExpression) Parse(
 	expNode Node[NodeType],
 	ctx *parser.MemberAccessContext,
 ) Node[NodeType] {
+	m.Src = SrcNode{
+		Id:     m.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
 
+			if expNode != nil {
+				return expNode.GetId()
+			}
+
+			return bodyNode.GetId()
+		}(),
+	}
 	m.NodeType = ast_pb.NodeType_MEMBER_ACCESS
 	m.MemberName = ctx.Identifier().GetText()
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(m.ASTBuilder)
 		m.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, vDeclar, m, ctx.Expression(),
 		)
+		m.TypeDescription = m.Expression.GetTypeDescription()
+
+		if m.Expression.GetTypeDescription() != nil &&
+			m.Expression.GetTypeDescription().TypeIdentifier == "t_magic_message" {
+			switch m.MemberName {
+			case "sender":
+				m.TypeDescription = &TypeDescription{
+					TypeIdentifier: "t_address",
+					TypeString:     "address",
+				}
+			case "data":
+				m.TypeDescription = &TypeDescription{
+					TypeIdentifier: "t_bytes_calldata_ptr",
+					TypeString:     "bytes calldata",
+				}
+			case "value":
+				m.TypeDescription = &TypeDescription{
+					TypeIdentifier: "t_uint256",
+					TypeString:     "uint256",
+				}
+			}
+		}
 	}
 
 	if expNode != nil {
@@ -96,32 +135,6 @@ func (m *MemberAccessExpression) Parse(
 					arguments.GetTypeDescription(),
 				)
 			}
-		}
-	}
-
-	if m.Expression != nil && m.Expression.GetTypeDescription() != nil &&
-		m.Expression.GetTypeDescription().TypeIdentifier == "t_magic_message" {
-		switch m.MemberName {
-		case "sender":
-			m.TypeDescription = &TypeDescription{
-				TypeIdentifier: "t_address",
-				TypeString:     "address",
-			}
-		case "data":
-			m.TypeDescription = &TypeDescription{
-				TypeIdentifier: "t_bytes_calldata_ptr",
-				TypeString:     "bytes calldata",
-			}
-		case "value":
-			m.TypeDescription = &TypeDescription{
-				TypeIdentifier: "t_uint256",
-				TypeString:     "uint256",
-			}
-		default:
-			zap.L().Warn(
-				"Unknown magic message member",
-				zap.String("member", m.MemberName),
-			)
 		}
 	}
 

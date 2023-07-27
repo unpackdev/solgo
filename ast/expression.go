@@ -18,10 +18,6 @@ func NewExpression(b *ASTBuilder) *Expression {
 	}
 }
 
-func (e *Expression) GetTypeDescription() *TypeDescription {
-	return nil
-}
-
 func (e *Expression) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -49,7 +45,7 @@ func (e *Expression) Parse(
 		return assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.FunctionCallContext:
 		statementNode := NewFunctionCall(e.ASTBuilder)
-		return statementNode.Parse(unit, contractNode, fnNode, bodyNode, ctxType)
+		return statementNode.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.MemberAccessContext:
 		memberAccess := NewMemberAccessExpression(e.ASTBuilder)
 		return memberAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)

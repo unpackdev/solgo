@@ -46,6 +46,34 @@ func (p *Parameter) GetName() string {
 	return p.Name
 }
 
+func (p *Parameter) GetTypeDescription() *TypeDescription {
+	return p.TypeName.TypeDescription
+}
+
+func (p *Parameter) GetVisibility() ast_pb.Visibility {
+	return p.Visibility
+}
+
+func (p *Parameter) GetStateMutability() ast_pb.Mutability {
+	return p.StateMutability
+}
+
+func (p *Parameter) IsConstant() bool {
+	return p.Constant
+}
+
+func (p *Parameter) IsStateVariable() bool {
+	return p.StateVariable
+}
+
+func (p *Parameter) GetTypeName() *TypeName {
+	return p.TypeName
+}
+
+func (p *Parameter) GetNodes() []Node[NodeType] {
+	return nil
+}
+
 func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx *parser.ParameterDeclarationContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{

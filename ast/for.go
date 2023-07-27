@@ -85,14 +85,15 @@ func (f *ForStatement) Parse(
 	if ctx.SimpleStatement() != nil {
 		statement := NewSimpleStatement(f.ASTBuilder)
 		f.Initialiser = statement.Parse(
-			unit, contractNode, fnNode, bodyNode, ctx.SimpleStatement().(*parser.SimpleStatementContext),
+			unit, contractNode, fnNode, bodyNode, f, ctx.SimpleStatement().(*parser.SimpleStatementContext),
 		)
 	}
 
 	if ctx.ExpressionStatement() != nil {
-		expr := NewExpressionStatement(f.ASTBuilder)
-		f.Condition = expr.Parse(
-			unit, contractNode, fnNode, bodyNode, ctx.ExpressionStatement().(*parser.ExpressionStatementContext),
+		f.Condition = parseExpressionStatement(
+			f.ASTBuilder,
+			unit, contractNode, fnNode,
+			bodyNode, f, ctx.ExpressionStatement().(*parser.ExpressionStatementContext),
 		)
 	}
 

@@ -2,7 +2,6 @@ package ast
 
 import (
 	"fmt"
-	"reflect"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -51,9 +50,9 @@ func (s *SimpleStatement) Parse(
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
+	parentNode Node[NodeType],
 	ctx *parser.SimpleStatementContext,
 ) Node[NodeType] {
-
 	for _, child := range ctx.GetChildren() {
 		switch childCtx := child.(type) {
 		case *parser.VariableDeclarationStatementContext:
@@ -61,11 +60,17 @@ func (s *SimpleStatement) Parse(
 			varDeclar.Parse(unit, contractNode, fnNode, bodyNode, childCtx)
 			return varDeclar
 		case *parser.ExpressionStatementContext:
-			expr := NewExpressionStatement(s.ASTBuilder)
-			return expr.Parse(unit, contractNode, fnNode, bodyNode, childCtx)
+			return parseExpressionStatement(
+				s.ASTBuilder,
+				unit, contractNode, fnNode, bodyNode, parentNode, childCtx,
+			)
 		default:
-			fmt.Println("Statement child type:", reflect.TypeOf(childCtx))
-			panic("Unknown simple statement child type @ SimpleStatement.Parse")
+			panic(
+				fmt.Sprintf(
+					"Unknown simple statement child type @ SimpleStatement.Parse: %T",
+					childCtx,
+				),
+			)
 		}
 	}
 

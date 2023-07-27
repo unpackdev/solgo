@@ -235,7 +235,7 @@ func (b *BodyNode) parseStatements(
 	case *parser.SimpleStatementContext:
 		statement := NewSimpleStatement(b.ASTBuilder)
 		b.Statements = append(b.Statements, statement.Parse(
-			unit, contractNode, fnNode, b, childCtx,
+			unit, contractNode, fnNode, b, nil, childCtx,
 		))
 	case *parser.EmitStatementContext:
 		statement := NewEmitStatement(b.ASTBuilder)
