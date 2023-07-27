@@ -128,13 +128,31 @@ func (p *PrimaryExpression) Parse(
 						p.TypeDescription = param.GetTypeName().GetTypeDescription()
 						p.ReferencedDeclaration = p.GetId()
 					}
+					break
 				}
 			}
 		}
 
-		if ref, refTypeDescription := discoverReferenceByCtxName(p.ASTBuilder, p.Name); ref != nil {
-			p.ReferencedDeclaration = ref.GetId()
-			p.TypeDescription = refTypeDescription
+		if bodyNode != nil {
+			for _, statement := range bodyNode.GetStatements() {
+				if statement.GetType() == ast_pb.NodeType_VARIABLE_DECLARATION {
+					vDeclar := statement.(*VariableDeclaration)
+					for _, declaration := range vDeclar.GetDeclarations() {
+						if declaration.GetName() == p.Name {
+							p.TypeDescription = declaration.GetTypeName().GetTypeDescription()
+							p.ReferencedDeclaration = vDeclar.GetId()
+							break
+						}
+					}
+				}
+			}
+		}
+
+		if p.TypeDescription == nil {
+			if ref, refTypeDescription := discoverReferenceByCtxName(p.ASTBuilder, p.Name); ref != nil {
+				p.ReferencedDeclaration = ref.GetId()
+				p.TypeDescription = refTypeDescription
+			}
 		}
 	}
 
