@@ -9,13 +9,13 @@ import (
 type FunctionCall struct {
 	*ASTBuilder
 
-	Id            int64              `json:"id"`                       // Unique identifier for the node.
-	NodeType      ast_pb.NodeType    `json:"node_type"`                // Type of the node.
-	Kind          ast_pb.NodeType    `json:"kind"`                     // Kind of the node.
-	Src           SrcNode            `json:"src"`                      // Source location of the node.
-	ArgumentTypes []*TypeDescription `json:"argument_types,omitempty"` // Types of the arguments.
-	Arguments     []Node[NodeType]   `json:"arguments"`                // Arguments of the function call.
-	Expression    Node[NodeType]     `json:"expression"`               // Expression of the function call.
+	Id            int64              `json:"id"`             // Unique identifier for the node.
+	NodeType      ast_pb.NodeType    `json:"node_type"`      // Type of the node.
+	Kind          ast_pb.NodeType    `json:"kind"`           // Kind of the node.
+	Src           SrcNode            `json:"src"`            // Source location of the node.
+	ArgumentTypes []*TypeDescription `json:"argument_types"` // Types of the arguments.
+	Arguments     []Node[NodeType]   `json:"arguments"`      // Arguments of the function call.
+	Expression    Node[NodeType]     `json:"expression"`     // Expression of the function call.
 }
 
 // NewFunctionCall creates a new FunctionCall node with a given ASTBuilder.

@@ -11,23 +11,26 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// PrimaryExpression represents a primary expression node in the AST.
 type PrimaryExpression struct {
 	*ASTBuilder
 
-	Id                     int64              `json:"id"`
-	NodeType               ast_pb.NodeType    `json:"node_type"`
-	Kind                   ast_pb.NodeType    `json:"kind,omitempty"`
-	Value                  string             `json:"value,omitempty"`
-	HexValue               string             `json:"hex_value,omitempty"`
-	Src                    SrcNode            `json:"src"`
-	Name                   string             `json:"name,omitempty"`
-	TypeDescription        *TypeDescription   `json:"type_descriptions,omitempty"`
-	OverloadedDeclarations []int64            `json:"overloaded_declarations"`
-	ReferencedDeclaration  int64              `json:"referenced_declaration"`
-	IsPure                 bool               `json:"is_pure"`
-	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`
+	Id                     int64              `json:"id"`                          // Unique identifier for the node.
+	NodeType               ast_pb.NodeType    `json:"node_type"`                   // Type of the node.
+	Kind                   ast_pb.NodeType    `json:"kind,omitempty"`              // Kind of the node.
+	Value                  string             `json:"value,omitempty"`             // Value of the node.
+	HexValue               string             `json:"hex_value,omitempty"`         // Hexadecimal value of the node.
+	Src                    SrcNode            `json:"src"`                         // Source location of the node.
+	Name                   string             `json:"name,omitempty"`              // Name of the node.
+	TypeDescription        *TypeDescription   `json:"type_descriptions,omitempty"` // Type description of the node.
+	OverloadedDeclarations []int64            `json:"overloaded_declarations"`     // Overloaded declarations of the node.
+	ReferencedDeclaration  int64              `json:"referenced_declaration"`      // Referenced declaration of the node.
+	IsPure                 bool               `json:"is_pure"`                     // Indicates if the node is pure.
+	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`    // Argument types of the node.
 }
 
+// NewPrimaryExpression creates a new PrimaryExpression node with a given ASTBuilder.
+// It initializes the OverloadedDeclarations slice and sets the NodeType to IDENTIFIER.
 func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 	return &PrimaryExpression{
 		ASTBuilder:             b,
@@ -37,46 +40,60 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 	}
 }
 
+// GetId returns the unique identifier of the PrimaryExpression node.
 func (p *PrimaryExpression) GetId() int64 {
 	return p.Id
 }
 
+// GetType returns the type of the PrimaryExpression node.
 func (p *PrimaryExpression) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
+// GetSrc returns the source location of the PrimaryExpression node.
 func (p *PrimaryExpression) GetSrc() SrcNode {
 	return p.Src
 }
 
+// GetName returns the name of the PrimaryExpression node.
 func (p *PrimaryExpression) GetName() string {
 	return p.Name
 }
 
+// GetTypeDescription returns the type description of the PrimaryExpression node.
 func (p *PrimaryExpression) GetTypeDescription() *TypeDescription {
 	return p.TypeDescription
 }
 
+// GetArgumentTypes returns the argument types of the PrimaryExpression node.
 func (p *PrimaryExpression) GetArgumentTypes() []*TypeDescription {
 	return p.ArgumentTypes
 }
 
+// GetReferencedDeclaration returns the referenced declaration of the PrimaryExpression node.
 func (p *PrimaryExpression) GetReferencedDeclaration() int64 {
 	return p.ReferencedDeclaration
 }
 
+// GetNodes returns a slice of nodes that includes the expression of the PrimaryExpression node.
 func (p *PrimaryExpression) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+// GetKind returns the kind of the PrimaryExpression node.
 func (p *PrimaryExpression) GetKind() ast_pb.NodeType {
 	return p.Kind
 }
 
+// ToProto returns a protobuf representation of the PrimaryExpression node.
+// Currently, it returns an empty PrimaryExpression and needs to be implemented.
 func (p *PrimaryExpression) ToProto() NodeType {
 	return ast_pb.PrimaryExpression{}
 }
 
+// Parse takes a parser.PrimaryExpressionContext and parses it into a PrimaryExpression node.
+// It sets the Src, Name, NodeType, Kind, Value, HexValue, TypeDescription, and other properties of the PrimaryExpression node.
+// It returns the created PrimaryExpression node.
 func (p *PrimaryExpression) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
