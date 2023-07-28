@@ -5,18 +5,34 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// The CatchStatement struct represents a 'catch' clause in a 'try-catch' statement in Solidity.
 type CatchStatement struct {
+	// Embedding the ASTBuilder to provide common functionality
 	*ASTBuilder
 
-	Id         int64           `json:"id"`
-	Name       string          `json:"name, omitempty"`
-	NodeType   ast_pb.NodeType `json:"node_type"`
-	Kind       ast_pb.NodeType `json:"kind"`
-	Src        SrcNode         `json:"src"`
-	Body       *BodyNode       `json:"body"`
-	Parameters *ParameterList  `json:"parameters"`
+	// The unique identifier for the 'catch' clause
+	Id int64 `json:"id"`
+
+	// The name of the exception variable in the 'catch' clause, if any
+	Name string `json:"name,omitempty"`
+
+	// The type of the node, which is 'TRY_CATCH_CLAUSE' for a 'catch' clause
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// The kind of the node, which is 'CATCH' for a 'catch' clause
+	Kind ast_pb.NodeType `json:"kind"`
+
+	// The source information about the 'catch' clause, such as its line and column numbers in the source file
+	Src SrcNode `json:"src"`
+
+	// The body of the 'catch' clause, which is a block of statements
+	Body *BodyNode `json:"body"`
+
+	// The parameters of the 'catch' clause, if any
+	Parameters *ParameterList `json:"parameters"`
 }
 
+// NewCatchClauseStatement creates a new CatchStatement instance.
 func NewCatchClauseStatement(b *ASTBuilder) *CatchStatement {
 	return &CatchStatement{
 		ASTBuilder: b,
@@ -25,42 +41,59 @@ func NewCatchClauseStatement(b *ASTBuilder) *CatchStatement {
 	}
 }
 
+// GetId returns the unique identifier of the 'catch' clause.
 func (t *CatchStatement) GetId() int64 {
 	return t.Id
 }
 
+// GetType returns the type of the node, which is 'TRY_CATCH_CLAUSE' for a 'catch' clause.
 func (t *CatchStatement) GetType() ast_pb.NodeType {
 	return t.NodeType
 }
 
+// GetSrc returns the source information about the 'catch' clause.
 func (t *CatchStatement) GetSrc() SrcNode {
 	return t.Src
 }
 
+// GetBody returns the body of the 'catch' clause.
 func (t *CatchStatement) GetBody() *BodyNode {
 	return t.Body
 }
 
+// GetKind returns the kind of the node, which is 'CATCH' for a 'catch' clause.
 func (t *CatchStatement) GetKind() ast_pb.NodeType {
 	return t.Kind
 }
 
+// GetParameters returns the parameters of the 'catch' clause.
 func (t *CatchStatement) GetParameters() *ParameterList {
 	return t.Parameters
 }
 
+// GetTypeDescription returns the type description of the 'catch' clause, which is nil as 'catch' clauses do not have a type description.
 func (t *CatchStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetNodes returns the statements in the body of the 'catch' clause.
 func (t *CatchStatement) GetNodes() []Node[NodeType] {
 	return t.Body.Statements
 }
 
+// ToProto returns the protobuf representation of the 'catch' clause.
 func (t *CatchStatement) ToProto() NodeType {
-	return ast_pb.Catch{}
+	return ast_pb.Catch{
+		Id:         t.Id,
+		NodeType:   t.NodeType,
+		Kind:       t.Kind,
+		Src:        t.Src.ToProto(),
+		Body:       t.Body.ToProto().(*ast_pb.Body),
+		Parameters: &ast_pb.ParametersList{},
+	}
 }
 
+// Parse parses a 'catch' clause from the provided parser.CatchClauseContext and returns the corresponding CatchStatement.
 func (t *CatchStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
