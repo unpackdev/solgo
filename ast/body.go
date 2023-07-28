@@ -122,7 +122,7 @@ func (b *BodyNode) ParseDefinitions(
 			statement := NewConstructor(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, childCtx)
 		case *parser.FunctionDefinitionContext:
-			statement := NewFunctionNode(b.ASTBuilder)
+			statement := NewFunction(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
 		case *parser.ModifierDefinitionContext:
 			statement := NewModifierDefinition(b.ASTBuilder)

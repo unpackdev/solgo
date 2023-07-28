@@ -139,13 +139,26 @@ func (p *PrimaryExpression) Parse(
 		// as some of the nodes such as this one is not yet written and is not accessible by
 		// the discoverReferenceByCtxName()
 		if fnNode != nil {
-			for _, param := range fnNode.(FunctionNode).GetParameters().GetParameters() {
-				if param.GetName() == p.Name {
-					if param.GetTypeName() != nil {
-						p.TypeDescription = param.GetTypeName().GetTypeDescription()
-						p.ReferencedDeclaration = p.GetId()
+			switch fnNodeCtx := fnNode.(type) {
+			case *Constructor:
+				for _, param := range fnNodeCtx.GetParameters().GetParameters() {
+					if param.GetName() == p.Name {
+						if param.GetTypeName() != nil {
+							p.TypeDescription = param.GetTypeName().GetTypeDescription()
+							p.ReferencedDeclaration = p.GetId()
+						}
+						break
 					}
-					break
+				}
+			case Function:
+				for _, param := range fnNodeCtx.GetParameters().GetParameters() {
+					if param.GetName() == p.Name {
+						if param.GetTypeName() != nil {
+							p.TypeDescription = param.GetTypeName().GetTypeDescription()
+							p.ReferencedDeclaration = p.GetId()
+						}
+						break
+					}
 				}
 			}
 		}

@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type FunctionNode struct {
+type Function struct {
 	*ASTBuilder
 
 	Id               int64                `json:"id"`
@@ -25,8 +25,8 @@ type FunctionNode struct {
 	Scope            int64                `json:"scope"`
 }
 
-func NewFunctionNode(b *ASTBuilder) *FunctionNode {
-	return &FunctionNode{
+func NewFunction(b *ASTBuilder) *Function {
+	return &Function{
 		ASTBuilder:  b,
 		NodeType:    ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:        ast_pb.NodeType_KIND_FUNCTION,
@@ -36,79 +36,79 @@ func NewFunctionNode(b *ASTBuilder) *FunctionNode {
 	}
 }
 
-func (f FunctionNode) GetId() int64 {
+func (f Function) GetId() int64 {
 	return f.Id
 }
 
-func (f FunctionNode) GetType() ast_pb.NodeType {
+func (f Function) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
-func (f FunctionNode) GetSrc() SrcNode {
+func (f Function) GetSrc() SrcNode {
 	return f.Src
 }
 
-func (f FunctionNode) GetParameters() *ParameterList {
+func (f Function) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
-func (f FunctionNode) GetReturnParameters() *ParameterList {
+func (f Function) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
-func (f FunctionNode) GetBody() *BodyNode {
+func (f Function) GetBody() *BodyNode {
 	return f.Body
 }
 
-func (f FunctionNode) GetKind() ast_pb.NodeType {
+func (f Function) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
-func (f FunctionNode) IsImplemented() bool {
+func (f Function) IsImplemented() bool {
 	return f.Implemented
 }
 
-func (f FunctionNode) GetModifiers() []ModifierDefinition {
+func (f Function) GetModifiers() []ModifierDefinition {
 	return f.Modifiers
 }
 
-func (f FunctionNode) GetOverrides() []OverrideSpecifier {
+func (f Function) GetOverrides() []OverrideSpecifier {
 	return f.Overrides
 }
 
-func (f FunctionNode) GetVisibility() ast_pb.Visibility {
+func (f Function) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
-func (f FunctionNode) GetStateMutability() ast_pb.Mutability {
+func (f Function) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
-func (f FunctionNode) IsVirtual() bool {
+func (f Function) IsVirtual() bool {
 	return f.Virtual
 }
 
-func (f FunctionNode) GetScope() int64 {
+func (f Function) GetScope() int64 {
 	return f.Scope
 }
 
-func (f FunctionNode) GetName() string {
+func (f Function) GetName() string {
 	return f.Name
 }
 
-func (f FunctionNode) GetTypeDescription() *TypeDescription {
+func (f Function) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (f FunctionNode) GetNodes() []Node[NodeType] {
+func (f Function) GetNodes() []Node[NodeType] {
 	return f.Body.GetNodes()
 }
 
-func (f FunctionNode) ToProto() NodeType {
+func (f Function) ToProto() NodeType {
 	return ast_pb.Function{}
 }
 
-func (f FunctionNode) Parse(
+func (f Function) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
@@ -198,7 +198,7 @@ func (f FunctionNode) Parse(
 	return f
 }
 
-func (f FunctionNode) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
+func (f Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
 	visibilityMap := map[string]ast_pb.Visibility{
 		"public":   ast_pb.Visibility_PUBLIC,
 		"private":  ast_pb.Visibility_PRIVATE,
@@ -215,7 +215,7 @@ func (f FunctionNode) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext
 	return ast_pb.Visibility_INTERNAL
 }
 
-func (f FunctionNode) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
+func (f Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable": ast_pb.Mutability_PAYABLE,
 		"pure":    ast_pb.Mutability_PURE,
@@ -231,7 +231,7 @@ func (f FunctionNode) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionCo
 	return ast_pb.Mutability_NONPAYABLE
 }
 
-func (f *FunctionNode) getVirtualState(ctx *parser.FunctionDefinitionContext) bool {
+func (f *Function) getVirtualState(ctx *parser.FunctionDefinitionContext) bool {
 	for _, virtual := range ctx.AllVirtual() {
 		if virtual.GetText() == "virtual" {
 			return true
