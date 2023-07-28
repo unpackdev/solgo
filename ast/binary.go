@@ -5,19 +5,31 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// BinaryOperationExpression represents a binary operation in a Solidity source file.
+// A binary operation is an operation that operates on two operands like +, -, *, / etc.
 type BinaryOperationExpression struct {
-	*ASTBuilder
+	*ASTBuilder // Embedding the ASTBuilder to provide common functionality across all AST nodes.
 
-	Id              int64           `json:"id"`
-	IsConstant      bool            `json:"is_constant"`
-	IsPure          bool            `json:"is_pure"`
-	NodeType        ast_pb.NodeType `json:"node_type"`
-	Src             SrcNode         `json:"src"`
-	Operator        ast_pb.Operator `json:"operator"`
-	LeftExpression  Node[NodeType]  `json:"left_expression"`
-	RightExpression Node[NodeType]  `json:"right_expression"`
+	// Id is the unique identifier of the binary operation.
+	Id int64 `json:"id"`
+	// IsConstant indicates whether the binary operation is a constant.
+	IsConstant bool `json:"is_constant"`
+	// IsPure indicates whether the binary operation is pure (i.e., it does not read or modify state).
+	IsPure bool `json:"is_pure"`
+	// NodeType is the type of the node.
+	// For a BinaryOperationExpression, this is always NodeType_BINARY_OPERATION.
+	NodeType ast_pb.NodeType `json:"node_type"`
+	// Src contains source information about the node, such as its line and column numbers in the source file.
+	Src SrcNode `json:"src"`
+	// Operator is the operator of the binary operation.
+	Operator ast_pb.Operator `json:"operator"`
+	// LeftExpression is the left operand of the binary operation.
+	LeftExpression Node[NodeType] `json:"left_expression"`
+	// RightExpression is the right operand of the binary operation.
+	RightExpression Node[NodeType] `json:"right_expression"`
 }
 
+// NewBinaryOperationExpression is a constructor function that initializes a new BinaryOperationExpression with a unique ID and the NodeType set to NodeType_BINARY_OPERATION.
 func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperationExpression {
 	return &BinaryOperationExpression{
 		ASTBuilder: b,
@@ -26,42 +38,52 @@ func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperationExpression {
 	}
 }
 
+// GetId is a getter method that returns the unique identifier of the binary operation.
 func (a *BinaryOperationExpression) GetId() int64 {
 	return a.Id
 }
 
+// GetType is a getter method that returns the node type of the binary operation.
 func (a *BinaryOperationExpression) GetType() ast_pb.NodeType {
 	return a.NodeType
 }
 
+// GetSrc is a getter method that returns the source information of the binary operation.
 func (a *BinaryOperationExpression) GetSrc() SrcNode {
 	return a.Src
 }
 
+// GetOperator is a getter method that returns the operator of the binary operation.
 func (a *BinaryOperationExpression) GetOperator() ast_pb.Operator {
 	return a.Operator
 }
 
+// GetLeftExpression is a getter method that returns the left operand of the binary operation.
 func (a *BinaryOperationExpression) GetLeftExpression() Node[NodeType] {
 	return a.LeftExpression
 }
 
+// GetRightExpression is a getter method that returns the right operand of the binary operation.
 func (a *BinaryOperationExpression) GetRightExpression() Node[NodeType] {
 	return a.RightExpression
 }
 
+// GetTypeDescription is a getter method that returns the type description of the left operand of the binary operation.
 func (a *BinaryOperationExpression) GetTypeDescription() *TypeDescription {
 	return a.LeftExpression.GetTypeDescription()
 }
 
+// GetNodes is a getter method that returns a slice of the operands of the binary operation.
 func (a *BinaryOperationExpression) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{a.LeftExpression, a.RightExpression}
 }
 
+// ToProto is a method that returns the protobuf representation of the binary operation.
 func (a *BinaryOperationExpression) ToProto() NodeType {
 	return ast_pb.BinaryOperationExpression{}
 }
 
+// ParseAddSub is a method that parses addition and subtraction operations.
 func (a *BinaryOperationExpression) ParseAddSub(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -108,6 +130,7 @@ func (a *BinaryOperationExpression) ParseAddSub(
 	return a
 }
 
+// ParseOrderComparison is a method that parses order comparison operations.
 func (a *BinaryOperationExpression) ParseOrderComparison(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -159,6 +182,7 @@ func (a *BinaryOperationExpression) ParseOrderComparison(
 	return a
 }
 
+// ParseMulDivMod is a method that parses multiplication, division, and modulo operations.
 func (a *BinaryOperationExpression) ParseMulDivMod(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -208,6 +232,7 @@ func (a *BinaryOperationExpression) ParseMulDivMod(
 	return a
 }
 
+// ParseEqualityComparison is a method that parses equality comparison operations.
 func (a *BinaryOperationExpression) ParseEqualityComparison(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
