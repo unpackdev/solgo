@@ -71,7 +71,11 @@ func (e *Expression) Parse(
 		newExpr := NewExprExpression(e.ASTBuilder)
 		return newExpr.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
-		fmt.Println("Expression Type: ", reflect.TypeOf(ctx))
-		panic("Expression type not supported @ Expression.Parse")
+		panic(
+			fmt.Sprintf(
+				"Expression type not supported @ Expression.Parse: %T",
+				reflect.TypeOf(ctx),
+			),
+		)
 	}
 }

@@ -94,12 +94,12 @@ func (p *PrimaryExpression) Parse(
 		End:    int64(ctx.GetStop().GetStop()),
 		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 		ParentIndex: func() int64 {
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
 			if expNode != nil {
 				return expNode.GetId()
+			}
+
+			if vDeclar != nil {
+				return vDeclar.GetId()
 			}
 
 			return bodyNode.GetId()
@@ -232,10 +232,7 @@ func (p *PrimaryExpression) Parse(
 				}
 			} else {
 				numerator, _ := strconv.Atoi(p.Value)
-
-				// The denominator for an integer is 1
 				denominator := 1
-
 				p.TypeDescription = &TypeDescription{
 					TypeIdentifier: fmt.Sprintf("t_rational_%d_by_%d", numerator, denominator),
 					TypeString: fmt.Sprintf(

@@ -10,9 +10,7 @@ type BinaryOperationExpression struct {
 
 	Id              int64           `json:"id"`
 	IsConstant      bool            `json:"is_constant"`
-	IsLValue        bool            `json:"is_l_value"`
 	IsPure          bool            `json:"is_pure"`
-	LValueRequested bool            `json:"l_value_requested"`
 	NodeType        ast_pb.NodeType `json:"node_type"`
 	Src             SrcNode         `json:"src"`
 	Operator        ast_pb.Operator `json:"operator"`
@@ -100,11 +98,11 @@ func (a *BinaryOperationExpression) ParseAddSub(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
 	return a
@@ -151,11 +149,11 @@ func (a *BinaryOperationExpression) ParseOrderComparison(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
 	return a
@@ -200,11 +198,11 @@ func (a *BinaryOperationExpression) ParseMulDivMod(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
 	return a
@@ -247,11 +245,11 @@ func (a *BinaryOperationExpression) ParseEqualityComparison(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, expNode, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
 	return a

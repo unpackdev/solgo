@@ -5,22 +5,21 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// FunctionCall represents a function call node in the AST.
 type FunctionCall struct {
 	*ASTBuilder
 
-	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
-	Kind            ast_pb.NodeType  `json:"kind"`
-	Src             SrcNode          `json:"src"`
-	IsConstant      bool             `json:"is_constant"`
-	IsLValue        bool             `json:"is_l_value"`
-	IsPure          bool             `json:"is_pure"`
-	LValueRequested bool             `json:"l_value_requested"`
-	Arguments       []Node[NodeType] `json:"arguments"`
-	TryCall         bool             `json:"try_call"`
-	Expression      Node[NodeType]   `json:"expression"`
+	Id            int64              `json:"id"`                       // Unique identifier for the node.
+	NodeType      ast_pb.NodeType    `json:"node_type"`                // Type of the node.
+	Kind          ast_pb.NodeType    `json:"kind"`                     // Kind of the node.
+	Src           SrcNode            `json:"src"`                      // Source location of the node.
+	ArgumentTypes []*TypeDescription `json:"argument_types,omitempty"` // Types of the arguments.
+	Arguments     []Node[NodeType]   `json:"arguments"`                // Arguments of the function call.
+	Expression    Node[NodeType]     `json:"expression"`               // Expression of the function call.
 }
 
+// NewFunctionCall creates a new FunctionCall node with a given ASTBuilder.
+// It initializes the Arguments slice and sets the NodeType and Kind to FUNCTION_CALL.
 func NewFunctionCall(b *ASTBuilder) *FunctionCall {
 	return &FunctionCall{
 		ASTBuilder: b,
@@ -30,46 +29,61 @@ func NewFunctionCall(b *ASTBuilder) *FunctionCall {
 	}
 }
 
+// GetId returns the unique identifier of the FunctionCall node.
 func (f *FunctionCall) GetId() int64 {
 	return f.Id
 }
 
+// GetType returns the type of the FunctionCall node.
 func (f *FunctionCall) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetSrc returns the source location of the FunctionCall node.
 func (f *FunctionCall) GetSrc() SrcNode {
 	return f.Src
 }
 
+// GetArguments returns the arguments of the FunctionCall node.
 func (f *FunctionCall) GetArguments() []Node[NodeType] {
 	return f.Arguments
 }
 
-func (f *FunctionCall) ToProto() NodeType {
-	return ast_pb.Statement{}
+// GetArgumentTypes returns the types of the arguments of the FunctionCall node.
+func (f *FunctionCall) GetArgumentTypes() []*TypeDescription {
+	return f.ArgumentTypes
 }
 
+// GetKind returns the kind of the FunctionCall node.
 func (f *FunctionCall) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
+// GetExpression returns the expression of the FunctionCall node.
 func (f *FunctionCall) GetExpression() Node[NodeType] {
 	return f.Expression
 }
 
-func (f *FunctionCall) GetTryCall() bool {
-	return f.TryCall
-}
-
+// GetTypeDescription returns the type description of the FunctionCall node.
+// Currently, it returns nil and needs to be implemented.
 func (f *FunctionCall) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetNodes returns a slice of nodes that includes the expression of the FunctionCall node.
 func (f *FunctionCall) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{f.Expression}
 }
 
+// ToProto returns a protobuf representation of the FunctionCall node.
+// Currently, it returns an empty Statement and needs to be implemented.
+func (f *FunctionCall) ToProto() NodeType {
+	return ast_pb.Statement{}
+}
+
+// Parse takes a parser.FunctionCallContext and parses it into a FunctionCall node.
+// It sets the Id, Src, Arguments, ArgumentTypes, and Expression of the FunctionCall node.
+// It returns the created FunctionCall node.
 func (f *FunctionCall) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -112,12 +126,15 @@ func (f *FunctionCall) Parse(
 
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, expressionCtx)
 			f.Arguments = append(
 				f.Arguments,
-				expression.Parse(
-					unit, contractNode, fnNode,
-					bodyNode, nil, f, expressionCtx,
-				),
+				expr,
+			)
+
+			f.ArgumentTypes = append(
+				f.ArgumentTypes,
+				expr.GetTypeDescription(),
 			)
 		}
 	}
