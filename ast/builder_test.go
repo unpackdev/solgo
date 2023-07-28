@@ -59,41 +59,41 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast")),
 		},
-		/*
-			{
-				name: "OpenZeppelin ERC20 Test",
-				sources: solgo.Sources{
-					SourceUnits: []solgo.SourceUnit{
-						{
-							Name:    "SafeMath",
-							Path:    "SafeMath.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
-						},
-						{
-							Name:    "IERC20",
-							Path:    "IERC20.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
-						},
-						{
-							Name:    "IERC20Metadata",
-							Path:    "IERC20Metadata.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
-						},
-						{
-							Name:    "Context",
-							Path:    "Context.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
-						},
-						{
-							Name:    "ERC20",
-							Path:    "ERC20.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
-						},
+		{
+			name: "OpenZeppelin ERC20 Test",
+			sources: solgo.Sources{
+				SourceUnits: []solgo.SourceUnit{
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
 					},
-					EntrySourceUnitName: "ERC20",
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+					},
+					{
+						Name:    "IERC20Metadata",
+						Path:    "IERC20Metadata.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
+					},
+					{
+						Name:    "Context",
+						Path:    "Context.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
+					},
+					{
+						Name:    "ERC20",
+						Path:    "ERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
+					},
 				},
-				expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
+				EntrySourceUnitName: "ERC20",
 			},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
+		},
+		/*
 			{
 				name: "Token Sale ERC20 Test",
 				sources: solgo.Sources{

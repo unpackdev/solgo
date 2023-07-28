@@ -2,7 +2,6 @@ package ast
 
 import (
 	"fmt"
-	"reflect"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -70,11 +69,14 @@ func (e *Expression) Parse(
 	case *parser.NewExprContext:
 		newExpr := NewExprExpression(e.ASTBuilder)
 		return newExpr.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.TupleContext:
+		tupleExpr := NewTupleExpression(e.ASTBuilder)
+		return tupleExpr.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		panic(
 			fmt.Sprintf(
 				"Expression type not supported @ Expression.Parse: %T",
-				reflect.TypeOf(ctx),
+				ctx,
 			),
 		)
 	}
