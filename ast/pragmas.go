@@ -21,32 +21,44 @@ type PragmaNode struct {
 	Literals []string `json:"literals"`
 }
 
+// GetId returns the unique identifier of the pragma directive.
 func (p PragmaNode) GetId() int64 {
 	return p.Id
 }
 
+// GetType returns the type of the node. For a PragmaNode, this is always NodeType_PRAGMA_DIRECTIVE.
 func (p PragmaNode) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
+// GetSrc returns the source information about the node, such as its line and column numbers in the source file.
 func (p PragmaNode) GetSrc() SrcNode {
 	return p.Src
 }
 
+// GetTypeDescription returns the type description of the node. For a PragmaNode, this is always nil.
 func (p PragmaNode) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetLiterals returns a slice of strings that represent the literals of the pragma directive.
 func (p PragmaNode) GetLiterals() []string {
 	return p.Literals
 }
 
+// GetNodes returns the child nodes of the node. For a PragmaNode, this is always nil.
 func (p PragmaNode) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+// ToProto returns the protobuf representation of the node.
 func (p PragmaNode) ToProto() NodeType {
-	return ast_pb.Pragma{}
+	return ast_pb.Pragma{
+		Id:       p.Id,
+		NodeType: p.NodeType,
+		Src:      p.Src.ToProto(),
+		Literals: p.Literals,
+	}
 }
 
 // CreatePragmaNodeFromCtx creates a new PragmaNode from the provided pragma context.
