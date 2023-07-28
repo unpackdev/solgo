@@ -93,45 +93,45 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			},
 			expected: string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
 		},
-		/*
-			{
-				name: "Token Sale ERC20 Test",
-				sources: solgo.Sources{
-					SourceUnits: []solgo.SourceUnit{
-						{
-							Name:    "SafeMath",
-							Path:    "SafeMath.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
-						},
-						{
-							Name:    "IERC20",
-							Path:    "IERC20.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
-						},
-						{
-							Name:    "TokenSale",
-							Path:    "TokenSale.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
-						},
+
+		{
+			name: "Token Sale ERC20 Test",
+			sources: solgo.Sources{
+				SourceUnits: []solgo.SourceUnit{
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
 					},
-					EntrySourceUnitName: "TokenSale",
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+					},
+					{
+						Name:    "TokenSale",
+						Path:    "TokenSale.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
+					},
 				},
-				expected: string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
+				EntrySourceUnitName: "TokenSale",
 			},
-			{
-				name: "Lottery Test",
-				sources: solgo.Sources{
-					SourceUnits: []solgo.SourceUnit{
-						{
-							Name:    "Lottery",
-							Path:    "Lottery.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
-						},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
+		},
+		{
+			name: "Lottery Test",
+			sources: solgo.Sources{
+				SourceUnits: []solgo.SourceUnit{
+					{
+						Name:    "Lottery",
+						Path:    "Lottery.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
 					},
-					EntrySourceUnitName: "Lottery",
 				},
-				expected: string(tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast")),
-			}, */
+				EntrySourceUnitName: "Lottery",
+			},
+			expected: string(tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast")),
+		},
 	}
 
 	for _, testCase := range testCases {

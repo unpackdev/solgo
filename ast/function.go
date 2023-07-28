@@ -154,20 +154,26 @@ func (f Function) Parse(
 	}
 
 	// Set function parameters if they exist.
+	params := NewParameterList(f.ASTBuilder)
 	if len(ctx.AllParameterList()) > 0 {
-		params := NewParameterList(f.ASTBuilder)
 		params.Parse(unit, f, ctx.AllParameterList()[0])
-		f.Parameters = params
+	} else {
+		params.Src = f.Src
+		params.Src.ParentIndex = f.Id
 	}
+	f.Parameters = params
 
 	// Set function return parameters if they exist.
 	// @TODO: Consider traversing through body to discover name of the return parameters even
 	// if they are not defined in (name uint) format.
+	returnParams := NewParameterList(f.ASTBuilder)
 	if ctx.GetReturnParameters() != nil {
-		returnParams := NewParameterList(f.ASTBuilder)
 		returnParams.Parse(unit, f, ctx.GetReturnParameters())
-		f.ReturnParameters = returnParams
+	} else {
+		returnParams.Src = f.Src
+		returnParams.Src.ParentIndex = f.Id
 	}
+	f.ReturnParameters = returnParams
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 		bodyNode := NewBodyNode(f.ASTBuilder)
