@@ -13,7 +13,13 @@ The parser is generated from a Solidity grammar file using Antlr, producing a le
 
 This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Golang for their analysis tools.
 
-**Note: This project is still in development and is not yet ready for use in production.**
+## WARNINGS
+
+- Protocol buffers are still under heavy development, some of them only boilerplated.
+- Abstract Syntax Tree (AST) is still under heavy development. Functional to a point but with bugs and some
+  deliberate panics so code can be captured and fixed!
+- This project is still under heavy development, some of the features are not implemented yet.
+- This project is not yet ready for use in production.
 
 ## Why?
 
