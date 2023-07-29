@@ -54,7 +54,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 
 ## Extensions
 
-- [SolGo RPC](https://github.com/txpull/solgo-rpc): A RPC server that exposes the functionality of SolGo via a gRPC.
+- [SolGo RPC](https://github.com/txpull/solgo-rpc): A RPC server that exposes the functionality of SolGo via a gRPC. **(Under development)**
 
 
 ## Getting Started
