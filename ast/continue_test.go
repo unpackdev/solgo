@@ -21,7 +21,7 @@ func TestContinueStatement(t *testing.T) {
 		{
 			name: "Test NewContinueStatement",
 			test: func(t *testing.T) {
-				assert.Equal(t, b.GetNextID(), cs.GetId())
+				assert.Equal(t, b.GetNextID(), cs.GetId()+1)
 				assert.Equal(t, ast_pb.NodeType_CONTINUE, cs.GetType())
 			},
 		},

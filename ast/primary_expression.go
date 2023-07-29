@@ -179,13 +179,15 @@ func (p *PrimaryExpression) Parse(
 					}
 				}
 			case Function:
-				for _, param := range fnNodeCtx.GetParameters().GetParameters() {
-					if param.GetName() == p.Name {
-						if param.GetTypeName() != nil {
-							p.TypeDescription = param.GetTypeName().GetTypeDescription()
-							p.ReferencedDeclaration = p.GetId()
+				if fnNodeCtx.GetParameters() != nil {
+					for _, param := range fnNodeCtx.GetParameters().GetParameters() {
+						if param.GetName() == p.Name {
+							if param.GetTypeName() != nil {
+								p.TypeDescription = param.GetTypeName().GetTypeDescription()
+								p.ReferencedDeclaration = p.GetId()
+							}
+							break
 						}
-						break
 					}
 				}
 			}

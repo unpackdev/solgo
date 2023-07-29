@@ -10,23 +10,23 @@ import (
 type Function struct {
 	*ASTBuilder
 
-	Id                    int64                `json:"id"`
-	Name                  string               `json:"name"`
-	NodeType              ast_pb.NodeType      `json:"node_type"`
-	Kind                  ast_pb.NodeType      `json:"kind"`
-	Src                   SrcNode              `json:"src"`
-	Body                  *BodyNode            `json:"body"`
-	Implemented           bool                 `json:"implemented"`
-	Visibility            ast_pb.Visibility    `json:"visibility"`
-	StateMutability       ast_pb.Mutability    `json:"state_mutability"`
-	Virtual               bool                 `json:"virtual"`
-	Modifiers             []ModifierDefinition `json:"modifiers"`
-	Overrides             []OverrideSpecifier  `json:"overrides"`
-	Parameters            *ParameterList       `json:"parameters"`
-	ReturnParameters      *ParameterList       `json:"return_parameters"`
-	Scope                 int64                `json:"scope"`
-	ReferencedDeclaration int64                `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription     `json:"type_description"`
+	Id                    int64                 `json:"id"`
+	Name                  string                `json:"name"`
+	NodeType              ast_pb.NodeType       `json:"node_type"`
+	Kind                  ast_pb.NodeType       `json:"kind"`
+	Src                   SrcNode               `json:"src"`
+	Body                  *BodyNode             `json:"body"`
+	Implemented           bool                  `json:"implemented"`
+	Visibility            ast_pb.Visibility     `json:"visibility"`
+	StateMutability       ast_pb.Mutability     `json:"state_mutability"`
+	Virtual               bool                  `json:"virtual"`
+	Modifiers             []*ModifierInvocation `json:"modifiers"`
+	Overrides             []*OverrideSpecifier  `json:"overrides"`
+	Parameters            *ParameterList        `json:"parameters"`
+	ReturnParameters      *ParameterList        `json:"return_parameters"`
+	Scope                 int64                 `json:"scope"`
+	ReferencedDeclaration int64                 `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription      `json:"type_description"`
 }
 
 func NewFunction(b *ASTBuilder) *Function {
@@ -34,8 +34,8 @@ func NewFunction(b *ASTBuilder) *Function {
 		ASTBuilder:  b,
 		NodeType:    ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:        ast_pb.NodeType_KIND_FUNCTION,
-		Modifiers:   make([]ModifierDefinition, 0),
-		Overrides:   make([]OverrideSpecifier, 0),
+		Modifiers:   make([]*ModifierInvocation, 0),
+		Overrides:   make([]*OverrideSpecifier, 0),
 		Implemented: true,
 	}
 }
@@ -79,11 +79,11 @@ func (f Function) IsImplemented() bool {
 	return f.Implemented
 }
 
-func (f Function) GetModifiers() []ModifierDefinition {
+func (f Function) GetModifiers() []*ModifierInvocation {
 	return f.Modifiers
 }
 
-func (f Function) GetOverrides() []OverrideSpecifier {
+func (f Function) GetOverrides() []*OverrideSpecifier {
 	return f.Overrides
 }
 
@@ -152,16 +152,16 @@ func (f Function) Parse(
 
 	// Set function modifiers.
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
-		modifier := NewModifierDefinition(f.ASTBuilder)
-		modifier.Parse(unit, f, modifierCtx)
-		f.Modifiers = append(f.Modifiers, *modifier)
+		modifier := NewModifierInvocation(f.ASTBuilder)
+		modifier.Parse(unit, contractNode, f, nil, modifierCtx)
+		f.Modifiers = append(f.Modifiers, modifier)
 	}
 
 	// Set function override specifier.
 	for _, overrideCtx := range ctx.AllOverrideSpecifier() {
 		overrideSpecifier := NewOverrideSpecifier(f.ASTBuilder)
 		overrideSpecifier.Parse(unit, f, overrideCtx)
-		f.Overrides = append(f.Overrides, *overrideSpecifier)
+		f.Overrides = append(f.Overrides, overrideSpecifier)
 	}
 
 	// Set function parameters if they exist.
