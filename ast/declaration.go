@@ -91,6 +91,9 @@ func (d *Declaration) GetValueType() *TypeName {
 }
 
 func (d *Declaration) GetTypeDescription() *TypeDescription {
+	if d.TypeName != nil {
+		return d.TypeName.GetTypeDescription()
+	}
 	return nil
 }
 

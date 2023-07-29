@@ -15,18 +15,18 @@ import (
 type PrimaryExpression struct {
 	*ASTBuilder
 
-	Id                     int64              `json:"id"`                          // Unique identifier for the node.
-	NodeType               ast_pb.NodeType    `json:"node_type"`                   // Type of the node.
-	Kind                   ast_pb.NodeType    `json:"kind,omitempty"`              // Kind of the node.
-	Value                  string             `json:"value,omitempty"`             // Value of the node.
-	HexValue               string             `json:"hex_value,omitempty"`         // Hexadecimal value of the node.
-	Src                    SrcNode            `json:"src"`                         // Source location of the node.
-	Name                   string             `json:"name,omitempty"`              // Name of the node.
-	TypeDescription        *TypeDescription   `json:"type_descriptions,omitempty"` // Type description of the node.
-	OverloadedDeclarations []int64            `json:"overloaded_declarations"`     // Overloaded declarations of the node.
-	ReferencedDeclaration  int64              `json:"referenced_declaration"`      // Referenced declaration of the node.
-	IsPure                 bool               `json:"is_pure"`                     // Indicates if the node is pure.
-	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`    // Argument types of the node.
+	Id                     int64              `json:"id"`                         // Unique identifier for the node.
+	NodeType               ast_pb.NodeType    `json:"node_type"`                  // Type of the node.
+	Kind                   ast_pb.NodeType    `json:"kind,omitempty"`             // Kind of the node.
+	Value                  string             `json:"value,omitempty"`            // Value of the node.
+	HexValue               string             `json:"hex_value,omitempty"`        // Hexadecimal value of the node.
+	Src                    SrcNode            `json:"src"`                        // Source location of the node.
+	Name                   string             `json:"name,omitempty"`             // Name of the node.
+	TypeDescription        *TypeDescription   `json:"type_description,omitempty"` // Type description of the node.
+	OverloadedDeclarations []int64            `json:"overloaded_declarations"`    // Overloaded declarations of the node.
+	ReferencedDeclaration  int64              `json:"referenced_declaration"`     // Referenced declaration of the node.
+	IsPure                 bool               `json:"is_pure"`                    // Indicates if the node is pure.
+	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`   // Argument types of the node.
 }
 
 // NewPrimaryExpression creates a new PrimaryExpression node with a given ASTBuilder.
@@ -179,7 +179,7 @@ func (p *PrimaryExpression) Parse(
 		}
 
 		if p.TypeDescription == nil {
-			if ref, refTypeDescription := discoverReferenceByCtxName(p.ASTBuilder, p.Name); ref != nil {
+			if ref, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); ref != nil {
 				p.ReferencedDeclaration = ref.GetId()
 				p.TypeDescription = refTypeDescription
 			}

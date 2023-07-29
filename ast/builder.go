@@ -2,6 +2,7 @@ package ast
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -11,6 +12,7 @@ import (
 
 type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
+	resolver              *Resolver
 	sources               solgo.Sources          // sources is the source code of the Solidity files.
 	parser                *parser.SolidityParser // parser is the Solidity parser instance.
 	nextID                int64                  // nextID is the next ID to assign to a node.
@@ -26,16 +28,27 @@ type ASTBuilder struct {
 	currentStructs        []Node[NodeType]
 	currentErrors         []Node[NodeType]
 	currentModifiers      []Node[NodeType]
+	currentFunctions      []Node[NodeType]
+	currentVariables      []Node[NodeType]
 }
 
 func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {
-	return &ASTBuilder{
+	builder := &ASTBuilder{
 		parser:      parser,
 		sources:     sources,
 		comments:    make([]*CommentNode, 0),
 		sourceUnits: make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
 		nextID:      1,
 	}
+
+	// Used for resolving references.
+	builder.resolver = NewResolver(builder)
+
+	return builder
+}
+
+func (b *ASTBuilder) GetResolver() *Resolver {
+	return b.resolver
 }
 
 func (b *ASTBuilder) GetRoot() *RootNode {
@@ -98,6 +111,12 @@ func (b *ASTBuilder) FindNodeById(nodeId int64) (*ast_pb.Node, bool) {
 }
 
 func (b *ASTBuilder) ResolveReferences() error {
+	if err := b.resolver.Resolve(); err != nil {
+		return err
+	}
+
+	fmt.Println("Unresolved references:", b.resolver.GetUnprocessedCount())
+
 	/* 	for _, unit := range b.astRoot.GetSourceUnits() {
 		for _, node := range unit.GetRoot().GetNodes() {
 			fmt.Println(node.NodeType)

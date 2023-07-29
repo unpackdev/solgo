@@ -8,10 +8,11 @@ import (
 type ParameterList struct {
 	*ASTBuilder
 
-	Id         int64           `json:"id"`
-	NodeType   ast_pb.NodeType `json:"node_type"`
-	Src        SrcNode         `json:"src"`
-	Parameters []*Parameter    `json:"parameters"`
+	Id             int64              `json:"id"`
+	NodeType       ast_pb.NodeType    `json:"node_type"`
+	Src            SrcNode            `json:"src"`
+	Parameters     []*Parameter       `json:"parameters"`
+	ParameterTypes []*TypeDescription `json:"parameter_types"`
 }
 
 func NewParameterList(b *ASTBuilder) *ParameterList {
@@ -43,6 +44,10 @@ func (p *ParameterList) GetParameters() []*Parameter {
 	return p.Parameters
 }
 
+func (p *ParameterList) GetParameterTypes() []*TypeDescription {
+	return p.ParameterTypes
+}
+
 func (p *ParameterList) GetNodes() []Node[NodeType] {
 	return nil
 }
@@ -71,6 +76,7 @@ func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode N
 		param := NewParameter(p.ASTBuilder)
 		param.Parse(unit, fNode, p, paramCtx.(*parser.ParameterDeclarationContext))
 		p.Parameters = append(p.Parameters, param)
+		p.ParameterTypes = append(p.ParameterTypes, param.TypeName.TypeDescription)
 	}
 }
 

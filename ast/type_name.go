@@ -16,7 +16,7 @@ type TypeName struct {
 	NodeType              ast_pb.NodeType   `json:"node_type"`
 	Src                   SrcNode           `json:"src"`
 	Name                  string            `json:"name,omitempty"`
-	TypeDescription       *TypeDescription  `json:"type_descriptions,omitempty"`
+	TypeDescription       *TypeDescription  `json:"type_description,omitempty"`
 	KeyType               *TypeName         `json:"key_type,omitempty"`
 	ValueType             *TypeName         `json:"value_type,omitempty"`
 	PathNode              *PathNode         `json:"path_node,omitempty"`
@@ -70,6 +70,14 @@ func (t *TypeName) GetStateMutability() ast_pb.Mutability {
 	return t.StateMutability
 }
 
+func (t *TypeName) GetNodes() []Node[NodeType] {
+	return nil
+}
+
+func (t *TypeName) ToProto() NodeType {
+	return &ast_pb.TypeName{}
+}
+
 func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.TypeNameContext) {
 	t.Name = ctx.GetText()
 	t.Src = SrcNode{
@@ -118,7 +126,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			}
 		}
 
-		if ref, refTypeDescription := discoverReferenceByCtxName(t.ASTBuilder, pathCtx.GetText()); ref != nil {
+		if ref, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); ref != nil {
 			if t.PathNode != nil {
 				t.PathNode.ReferencedDeclaration = ref.GetId()
 			}
@@ -168,7 +176,7 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
-		if ref, refTypeDescription := discoverReferenceByCtxName(t.ASTBuilder, identifierCtx.GetText()); ref != nil {
+		if ref, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); ref != nil {
 			t.PathNode.ReferencedDeclaration = ref.GetId()
 			t.ReferencedDeclaration = ref.GetId()
 			t.TypeDescription = refTypeDescription
@@ -182,6 +190,15 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 
 	t.KeyType = t.generateTypeName(unit, keyCtx, t, t)
 	t.ValueType = t.generateTypeName(unit, valueCtx, t, t)
+
+	t.TypeDescription = &TypeDescription{
+		TypeString: fmt.Sprintf("mapping(%s => %s)", t.KeyType.Name, t.ValueType.Name),
+		TypeIdentifier: fmt.Sprintf(
+			"t_mapping_$%s_$%s$",
+			t.KeyType.TypeDescription.TypeIdentifier,
+			t.ValueType.TypeDescription.TypeIdentifier,
+		),
+	}
 }
 
 func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUnit]], ctx interface{}, parentNode *TypeName, typeNameNode *TypeName) *TypeName {
@@ -203,6 +220,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			Length:      int64(specificCtx.GetStop().GetStop() - specificCtx.GetStart().GetStart() + 1),
 			ParentIndex: parentNode.GetId(),
 		}
+
 		if specificCtx.ElementaryTypeName() != nil {
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				specificCtx.ElementaryTypeName().GetText(),
@@ -217,23 +235,17 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		typeNameNode.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 		keyCtx := specificCtx.GetKey()
 		valueCtx := specificCtx.GetValue()
-
 		typeNameNode.KeyType = t.generateTypeName(sourceUnit, keyCtx, parentNode, typeNameNode)
 		typeNameNode.ValueType = t.generateTypeName(sourceUnit, valueCtx, parentNode, typeNameNode)
-
-		if typeNameNode.KeyType != nil &&
-			typeNameNode.ValueType != nil &&
-			typeNameNode.KeyType.TypeDescription != nil &&
-			typeNameNode.ValueType.TypeDescription != nil {
-			parentNode.TypeDescription = &TypeDescription{
-				TypeString: fmt.Sprintf("mapping(%s => %s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
-				TypeIdentifier: fmt.Sprintf(
-					"t_mapping_$t_%s_$t_%s$",
-					typeNameNode.KeyType.TypeDescription.TypeString,
-					typeNameNode.ValueType.TypeDescription.TypeString,
-				),
-			}
+		typeNameNode.TypeDescription = &TypeDescription{
+			TypeString: fmt.Sprintf("mapping(%s => %s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
+			TypeIdentifier: fmt.Sprintf(
+				"t_mapping_$%s_$%s$",
+				typeNameNode.KeyType.TypeDescription.TypeIdentifier,
+				typeNameNode.ValueType.TypeDescription.TypeIdentifier,
+			),
 		}
+		parentNode.TypeDescription = t.TypeDescription
 	case parser.ITypeNameContext:
 		typeName.Name = specificCtx.GetText()
 		typeName.Src = SrcNode{
@@ -263,6 +275,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		} else {
 			t.parseTypeName(sourceUnit, parentNode.GetId(), specificCtx.(*parser.TypeNameContext))
 		}
+	default:
 	}
 
 	return typeName

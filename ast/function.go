@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"strings"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -23,6 +25,7 @@ type Function struct {
 	Parameters       *ParameterList       `json:"parameters"`
 	ReturnParameters *ParameterList       `json:"return_parameters"`
 	Scope            int64                `json:"scope"`
+	TypeDescription  *TypeDescription     `json:"type_description"`
 }
 
 func NewFunction(b *ASTBuilder) *Function {
@@ -97,7 +100,7 @@ func (f Function) GetName() string {
 }
 
 func (f Function) GetTypeDescription() *TypeDescription {
-	return nil
+	return f.TypeDescription
 }
 
 func (f Function) GetNodes() []Node[NodeType] {
@@ -199,9 +202,36 @@ func (f Function) Parse(
 				}
 			}
 		}
+	} else {
+		bodyNode := NewBodyNode(f.ASTBuilder)
+		bodyNode.Src = f.Src
+		bodyNode.Src.ParentIndex = f.Id
+		f.Body = bodyNode
 	}
 
+	f.TypeDescription = f.buildTypeDescription()
+
+	f.currentFunctions = append(f.currentFunctions, f)
 	return f
+}
+
+func (f Function) buildTypeDescription() *TypeDescription {
+	typeString := "function("
+	typeIdentifier := "t_function_"
+	typeStrings := make([]string, 0)
+	typeIdentifiers := make([]string, 0)
+
+	for _, paramType := range f.GetParameters().GetParameterTypes() {
+		typeStrings = append(typeStrings, paramType.TypeString)
+		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
+	}
+	typeString += strings.Join(typeStrings, ",") + ")"
+	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	return &TypeDescription{
+		TypeString:     typeString,
+		TypeIdentifier: typeIdentifier,
+	}
 }
 
 func (f Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {

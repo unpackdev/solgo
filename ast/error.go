@@ -15,7 +15,7 @@ type ErrorDefinition struct {
 	Src             SrcNode          `json:"src"`
 	Name            string           `json:"name"`
 	Parameters      *ParameterList   `json:"parameters"`
-	TypeDescription *TypeDescription `json:"type_descriptions"`
+	TypeDescription *TypeDescription `json:"type_description"`
 }
 
 func NewErrorDefinition(b *ASTBuilder) *ErrorDefinition {

@@ -18,7 +18,7 @@ type MemberAccessExpression struct {
 	Expression      Node[NodeType]     `json:"expression"`
 	MemberName      string             `json:"member_name"`
 	ArgumentTypes   []*TypeDescription `json:"argument_types"`
-	TypeDescription *TypeDescription   `json:"type_descriptions"`
+	TypeDescription *TypeDescription   `json:"type_description"`
 }
 
 func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {

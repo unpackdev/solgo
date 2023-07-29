@@ -15,7 +15,7 @@ type EnumDefinition struct {
 	Src             SrcNode          `json:"src"`
 	Name            string           `json:"name"`
 	CanonicalName   string           `json:"canonical_name"`
-	TypeDescription *TypeDescription `json:"type_descriptions"`
+	TypeDescription *TypeDescription `json:"type_description"`
 	Members         []*Parameter     `json:"members"`
 }
 

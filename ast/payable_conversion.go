@@ -13,7 +13,7 @@ type PayableConversionExpression struct {
 	Src             SrcNode            `json:"src"`
 	Arguments       []Node[NodeType]   `json:"arguments"`
 	ArgumentTypes   []*TypeDescription `json:"argument_types"`
-	TypeDescription *TypeDescription   `json:"type_descriptions"`
+	TypeDescription *TypeDescription   `json:"type_description"`
 	Payable         bool               `json:"payable"`
 }
 

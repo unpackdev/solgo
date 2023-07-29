@@ -180,6 +180,7 @@ func (c *Constructor) Parse(
 		}
 	}
 
+	c.currentFunctions = append(c.currentFunctions, c)
 	return c
 }
 

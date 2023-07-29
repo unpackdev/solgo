@@ -94,4 +94,6 @@ func (v *VariableDeclaration) Parse(
 		expression := NewExpression(v.ASTBuilder)
 		v.InitialValue = expression.Parse(unit, contractNode, fnNode, bodyNode, v, nil, ctx.Expression())
 	}
+
+	v.currentVariables = append(v.currentVariables, v)
 }

@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"strings"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -9,13 +11,14 @@ import (
 type FunctionCall struct {
 	*ASTBuilder
 
-	Id            int64              `json:"id"`             // Unique identifier for the node.
-	NodeType      ast_pb.NodeType    `json:"node_type"`      // Type of the node.
-	Kind          ast_pb.NodeType    `json:"kind"`           // Kind of the node.
-	Src           SrcNode            `json:"src"`            // Source location of the node.
-	ArgumentTypes []*TypeDescription `json:"argument_types"` // Types of the arguments.
-	Arguments     []Node[NodeType]   `json:"arguments"`      // Arguments of the function call.
-	Expression    Node[NodeType]     `json:"expression"`     // Expression of the function call.
+	Id              int64              `json:"id"`               // Unique identifier for the node.
+	NodeType        ast_pb.NodeType    `json:"node_type"`        // Type of the node.
+	Kind            ast_pb.NodeType    `json:"kind"`             // Kind of the node.
+	Src             SrcNode            `json:"src"`              // Source location of the node.
+	ArgumentTypes   []*TypeDescription `json:"argument_types"`   // Types of the arguments.
+	Arguments       []Node[NodeType]   `json:"arguments"`        // Arguments of the function call.
+	Expression      Node[NodeType]     `json:"expression"`       // Expression of the function call.
+	TypeDescription *TypeDescription   `json:"type_description"` // Type description of the function call.
 }
 
 // NewFunctionCall creates a new FunctionCall node with a given ASTBuilder.
@@ -67,7 +70,7 @@ func (f *FunctionCall) GetExpression() Node[NodeType] {
 // GetTypeDescription returns the type description of the FunctionCall node.
 // Currently, it returns nil and needs to be implemented.
 func (f *FunctionCall) GetTypeDescription() *TypeDescription {
-	return nil
+	return f.TypeDescription
 }
 
 // GetNodes returns a slice of nodes that includes the expression of the FunctionCall node.
@@ -145,5 +148,32 @@ func (f *FunctionCall) Parse(
 		)
 	}
 
+	f.TypeDescription = f.buildTypeDescription()
 	return f
+}
+
+func (f *FunctionCall) buildTypeDescription() *TypeDescription {
+	typeString := "function("
+	typeIdentifier := "t_function_"
+	typeStrings := make([]string, 0)
+	typeIdentifiers := make([]string, 0)
+
+	for _, paramType := range f.GetArgumentTypes() {
+		if strings.Contains(paramType.TypeString, "literal_string") {
+			typeStrings = append(typeStrings, "string memory")
+			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
+			continue
+		}
+
+		typeStrings = append(typeStrings, paramType.TypeString)
+		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
+	}
+
+	typeString += strings.Join(typeStrings, ",") + ")"
+	typeIdentifier += strings.Join(typeIdentifiers, "$") + "$"
+
+	return &TypeDescription{
+		TypeString:     typeString,
+		TypeIdentifier: typeIdentifier,
+	}
 }
