@@ -240,7 +240,7 @@ func (r *Resolver) byFunction(name string) (Node[NodeType], *TypeDescription) {
 				}
 			}
 
-		case Function:
+		case *Function:
 
 			if nodeCtx.GetName() == name {
 				return node, node.GetTypeDescription()

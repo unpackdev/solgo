@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strings"
 
 	cid "github.com/ipfs/go-cid"
@@ -66,7 +66,7 @@ func (p *IpfsProvider) GetMetadataByCID(cid string) (*ContractMetadata, error) {
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(content)
+	data, err := io.ReadAll(content)
 	if err != nil {
 		return nil, err
 	}

@@ -80,7 +80,7 @@ func (r *ReturnStatement) Parse(
 		ParentIndex: fnNode.GetId(),
 	}
 
-	fnCtx := fnNode.(Function)
+	fnCtx := fnNode.(*Function)
 	if fnCtx.GetReturnParameters() != nil {
 		r.FunctionReturnParameters = fnCtx.GetId()
 	}

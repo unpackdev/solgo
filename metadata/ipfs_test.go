@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"io"
-	"io/ioutil"
 	"strings"
 	"testing"
 
@@ -141,7 +140,7 @@ func TestGetMetadataByCID(t *testing.T) {
 			provider, err := NewIpfsProvider(context.Background(), &MockShell{
 				CatFunc: func(path string) (io.ReadCloser, error) {
 					// Mock the Cat function to return the metadata content
-					return ioutil.NopCloser(strings.NewReader(tt.mockCatContent)), nil
+					return io.NopCloser(strings.NewReader(tt.mockCatContent)), nil
 				},
 			})
 			assert.NoError(t, err)

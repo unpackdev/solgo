@@ -109,6 +109,7 @@ func normalizeTypeDescription(typeName string) (string, string) {
 	}
 }
 
+// nolint:unused // To be used in subsequent PR.
 func (b *ASTBuilder) dumpNode(whatever interface{}) {
 	j, _ := b.ToPrettyJSON(whatever)
 	fmt.Println(string(j))
