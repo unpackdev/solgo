@@ -108,7 +108,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	license := getLicense(b.comments)
 
 	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments).(*RootNode)
-	b.astRoot = rootNode
+	b.tree.SetRoot(rootNode)
 
 	for _, child := range ctx.GetChildren() {
 		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
@@ -137,5 +137,5 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 // ExitSourceUnit is called when the ASTBuilder exits a source unit context.
 // It appends the source units to the root node.
 func (b *ASTBuilder) ExitSourceUnit(ctx *parser.SourceUnitContext) {
-	b.astRoot.SourceUnits = append(b.astRoot.SourceUnits, b.sourceUnits...)
+	b.tree.AppendRootNodes(b.sourceUnits...)
 }
