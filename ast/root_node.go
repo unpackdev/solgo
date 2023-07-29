@@ -22,7 +22,7 @@ type RootNode struct {
 	Comments []*CommentNode `json:"comments"`
 }
 
-// NewRootNode creates a new root node.
+// NewRootNode creates a new RootNode with the provided ASTBuilder, entry source unit, source units, and comments.
 func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]], comments []*CommentNode) Node[*ast_pb.RootNode] {
 	return Node[*ast_pb.RootNode](&RootNode{
 		Id:              builder.GetNextID(),
@@ -31,6 +31,27 @@ func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*Sour
 		Comments:        comments,
 		SourceUnits:     sourceUnits,
 	})
+}
+
+// GetId returns the id of the RootNode node.
+func (r *RootNode) GetId() int64 {
+	return r.Id
+}
+
+// GetType returns the type of the RootNode node.
+func (r *RootNode) GetType() ast_pb.NodeType {
+	return r.NodeType
+}
+
+// GetSrc returns the source code location of the RootNode node.
+func (r *RootNode) GetSrc() SrcNode {
+	return SrcNode{}
+}
+
+// GetTypeDescription returns the type description of the RootNode node.
+// RootNode nodes do not have type descriptions.
+func (r *RootNode) GetTypeDescription() *TypeDescription {
+	return nil
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the RootNode node.
@@ -48,14 +69,22 @@ func (r *RootNode) GetSourceUnitCount() int32 {
 	return int32(len(r.SourceUnits))
 }
 
+// GetEntrySourceUnit returns the entry source unit of the root node.
 func (r *RootNode) GetEntrySourceUnit() int64 {
 	return r.EntrySourceUnit
 }
 
+// SetEntrySourceUnit sets the entry source unit of the root node.
+func (r *RootNode) SetEntrySourceUnit(entrySourceUnit int64) {
+	r.EntrySourceUnit = entrySourceUnit
+}
+
+// GetComments returns the comments of the root node.
 func (r *RootNode) GetComments() []*CommentNode {
 	return r.Comments
 }
 
+// GetNodes returns the nodes of the root node.
 func (r *RootNode) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	for _, sourceUnit := range r.SourceUnits {
@@ -69,20 +98,4 @@ func (r *RootNode) ToProto() *ast_pb.RootNode {
 	return &ast_pb.RootNode{
 		Nodes: make([]*ast_pb.Node, 0),
 	}
-}
-
-func (r *RootNode) GetId() int64 {
-	return r.Id
-}
-
-func (r *RootNode) GetType() ast_pb.NodeType {
-	return r.NodeType
-}
-
-func (r *RootNode) GetSrc() SrcNode {
-	return SrcNode{}
-}
-
-func (r *RootNode) GetTypeDescription() *TypeDescription {
-	return nil
 }

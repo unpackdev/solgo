@@ -191,6 +191,17 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			astJson, err := astBuilder.ToJSON()
 			assert.NoError(t, err)
 			assert.NotEmpty(t, astJson)
+
+			// Zero is here for the first contract that's empty...
+			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))
+
+			// We need to check that the entry source unit name is correct.
+			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
+				if astBuilder.GetRoot().EntrySourceUnit == sourceUnit.GetId() {
+					assert.Equal(t, sourceUnit.GetName(), testCase.sources.EntrySourceUnitName)
+				}
+			}
+
 			//assert.Equal(t, testCase.expected, string(astJson))
 			//fmt.Println(string(prettyJson))
 		})

@@ -95,9 +95,21 @@ func (r *Resolver) resolveByNode(name string, node Node[NodeType]) (Node[NodeTyp
 	return nil, nil
 }
 
-// Resolve attempts to resolve all UnprocessedNodes in the Resolver.
+// Resolve attempts to resolve all UnprocessedNodes in the Resolver and sets the entry source unit for the AST.
 // It updates the node references in the AST and removes the nodes from the UnprocessedNodes map once they are resolved.
+// If a node cannot be resolved, it is left in the UnprocessedNodes map for future resolution.
 func (r *Resolver) Resolve() error {
+
+	var entrySourceUnit int64
+	for _, node := range r.sourceUnits {
+		for _, entry := range node.GetExportedSymbols() {
+			if entry.GetId() > entrySourceUnit {
+				entrySourceUnit = entry.GetId()
+			}
+		}
+	}
+	r.tree.astRoot.SetEntrySourceUnit(entrySourceUnit)
+
 	for nodeId, node := range r.UnprocessedNodes {
 		if rNode, rNodeType := r.resolveByNode(node.Name, node.Node); rNode != nil {
 			if updated := r.tree.UpdateNodeReferenceById(nodeId, rNode.GetId(), rNodeType); updated {
