@@ -22,31 +22,36 @@ func NewYulStatement(b *ASTBuilder) *YulStatement {
 	}
 }
 
-func (a *YulStatement) GetId() int64 {
-	return a.Id
+// SetReferenceDescriptor sets the reference descriptions of the YulStatement node.
+func (y *YulStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
 }
 
-func (a *YulStatement) GetType() ast_pb.NodeType {
-	return a.NodeType
+func (y *YulStatement) GetId() int64 {
+	return y.Id
 }
 
-func (a *YulStatement) GetSrc() SrcNode {
-	return a.Src
+func (y *YulStatement) GetType() ast_pb.NodeType {
+	return y.NodeType
 }
 
-func (a *YulStatement) GetNodes() []Node[NodeType] {
-	return a.Statements
+func (y *YulStatement) GetSrc() SrcNode {
+	return y.Src
 }
 
-func (a *YulStatement) GetTypeDescription() *TypeDescription {
+func (y *YulStatement) GetNodes() []Node[NodeType] {
+	return y.Statements
+}
+
+func (y *YulStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (a *YulStatement) ToProto() NodeType {
+func (y *YulStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
 }
 
-func (a *YulStatement) Parse(
+func (y *YulStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -54,8 +59,8 @@ func (a *YulStatement) Parse(
 	assemblyNode *AssemblyStatement,
 	ctx *parser.YulStatementContext,
 ) Node[NodeType] {
-	a.Src = SrcNode{
-		Id:          a.GetNextID(),
+	y.Src = SrcNode{
+		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -69,8 +74,8 @@ func (a *YulStatement) Parse(
 		for _, childCtx := range ctx.GetChildren() {
 			switch child := childCtx.(type) {
 			case *parser.YulAssignmentContext:
-				assignment := NewYulAssignment(a.ASTBuilder)
-				a.Statements = append(a.Statements,
+				assignment := NewYulAssignment(y.ASTBuilder)
+				y.Statements = append(y.Statements,
 					assignment.Parse(unit, contractNode, fnNode, bodyNode, assemblyNode, a, child),
 				)
 			default:
@@ -78,5 +83,5 @@ func (a *YulStatement) Parse(
 			}
 		} */
 
-	return a
+	return y
 }

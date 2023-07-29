@@ -23,6 +23,11 @@ func NewBreakStatement(b *ASTBuilder) *BreakStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the BreakStatement node.
+func (b *BreakStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId returns the unique identifier of the break statement.
 func (b *BreakStatement) GetId() int64 {
 	return b.Id

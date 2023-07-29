@@ -11,14 +11,15 @@ import (
 type FunctionCall struct {
 	*ASTBuilder
 
-	Id              int64              `json:"id"`               // Unique identifier for the node.
-	NodeType        ast_pb.NodeType    `json:"node_type"`        // Type of the node.
-	Kind            ast_pb.NodeType    `json:"kind"`             // Kind of the node.
-	Src             SrcNode            `json:"src"`              // Source location of the node.
-	ArgumentTypes   []*TypeDescription `json:"argument_types"`   // Types of the arguments.
-	Arguments       []Node[NodeType]   `json:"arguments"`        // Arguments of the function call.
-	Expression      Node[NodeType]     `json:"expression"`       // Expression of the function call.
-	TypeDescription *TypeDescription   `json:"type_description"` // Type description of the function call.
+	Id                    int64              `json:"id"`                               // Unique identifier for the node.
+	NodeType              ast_pb.NodeType    `json:"node_type"`                        // Type of the node.
+	Kind                  ast_pb.NodeType    `json:"kind"`                             // Kind of the node.
+	Src                   SrcNode            `json:"src"`                              // Source location of the node.
+	ArgumentTypes         []*TypeDescription `json:"argument_types"`                   // Types of the arguments.
+	Arguments             []Node[NodeType]   `json:"arguments"`                        // Arguments of the function call.
+	Expression            Node[NodeType]     `json:"expression"`                       // Expression of the function call.
+	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"` // Referenced declaration of the function call.
+	TypeDescription       *TypeDescription   `json:"type_description"`                 // Type description of the function call.
 }
 
 // NewFunctionCall creates a new FunctionCall node with a given ASTBuilder.
@@ -30,6 +31,13 @@ func NewFunctionCall(b *ASTBuilder) *FunctionCall {
 		NodeType:   ast_pb.NodeType_FUNCTION_CALL,
 		Kind:       ast_pb.NodeType_FUNCTION_CALL,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the FunctionCall node.
+func (f *FunctionCall) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	f.ReferencedDeclaration = refId
+	f.TypeDescription = refDesc
+	return false
 }
 
 // GetId returns the unique identifier of the FunctionCall node.

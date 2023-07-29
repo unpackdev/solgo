@@ -67,6 +67,10 @@ func (a *AssemblyStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
 }
 
+func (a *AssemblyStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // Parse parses an AssemblyStatementContext to populate the fields of the AssemblyStatement.
 func (a *AssemblyStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],

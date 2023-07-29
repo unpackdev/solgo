@@ -21,6 +21,11 @@ func NewContinueStatement(b *ASTBuilder) *ContinueStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ContinueStatement node.
+func (b *ContinueStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (b *ContinueStatement) GetId() int64 {
 	return b.Id
 }

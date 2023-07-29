@@ -23,6 +23,11 @@ func NewIfStatement(b *ASTBuilder) *IfStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the IfStatement node.
+func (i *IfStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (i *IfStatement) GetId() int64 {
 	return i.Id
 }

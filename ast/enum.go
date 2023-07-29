@@ -27,6 +27,12 @@ func NewEnumDefinition(b *ASTBuilder) *EnumDefinition {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the EnumDefinition node.
+// We don't need to do any reference description updates here, at least for now...
+func (e *EnumDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (e *EnumDefinition) GetId() int64 {
 	return e.Id
 }

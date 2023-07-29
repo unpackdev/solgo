@@ -41,6 +41,11 @@ func NewCatchClauseStatement(b *ASTBuilder) *CatchStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the CatchStatement node.
+func (t *CatchStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId returns the unique identifier of the 'catch' clause.
 func (t *CatchStatement) GetId() int64 {
 	return t.Id

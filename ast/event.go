@@ -26,6 +26,12 @@ func NewEventDefinition(b *ASTBuilder) *EventDefinition {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the EventDefinition node.
+// We don't need to do any reference description updates here, at least for now...
+func (e *EventDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (e *EventDefinition) GetId() int64 {
 	return e.Id
 }

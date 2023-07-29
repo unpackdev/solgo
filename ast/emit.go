@@ -23,6 +23,11 @@ func NewEmitStatement(b *ASTBuilder) *Emit {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the Emit node.
+func (e *Emit) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (e *Emit) GetId() int64 {
 	return e.Id
 }

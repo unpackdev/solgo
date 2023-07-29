@@ -26,6 +26,11 @@ func NewTryStatement(b *ASTBuilder) *TryStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the TryStatement node.
+func (t *TryStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (t *TryStatement) GetId() int64 {
 	return t.Id
 }

@@ -33,6 +33,11 @@ func NewStateVariableDeclaration(b *ASTBuilder) *StateVariableDeclaration {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the StateVariableDeclaration node.
+func (v *StateVariableDeclaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (v *StateVariableDeclaration) GetId() int64 {
 	return v.Id
 }

@@ -12,14 +12,15 @@ import (
 type Assignment struct {
 	*ASTBuilder
 
-	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
-	Src             SrcNode          `json:"src"`
-	Expression      Node[NodeType]   `json:"expression,omitempty"`
-	Operator        ast_pb.Operator  `json:"operator,omitempty"`
-	LeftExpression  Node[NodeType]   `json:"left_expression,omitempty"`
-	RightExpression Node[NodeType]   `json:"right_expression,omitempty"`
-	TypeDescription *TypeDescription `json:"type_description,omitempty"`
+	Id                    int64            `json:"id"`
+	NodeType              ast_pb.NodeType  `json:"node_type"`
+	Src                   SrcNode          `json:"src"`
+	Expression            Node[NodeType]   `json:"expression,omitempty"`
+	Operator              ast_pb.Operator  `json:"operator,omitempty"`
+	LeftExpression        Node[NodeType]   `json:"left_expression,omitempty"`
+	RightExpression       Node[NodeType]   `json:"right_expression,omitempty"`
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription `json:"type_description,omitempty"`
 }
 
 // NewAssignment creates a new Assignment node with a given ASTBuilder.
@@ -59,6 +60,13 @@ func (a *Assignment) GetNodes() []Node[NodeType] {
 // ToProto returns a protobuf representation of the Assignment node.
 func (a *Assignment) ToProto() NodeType {
 	return ast_pb.Statement{}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the Assignment node.
+func (a *Assignment) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	a.ReferencedDeclaration = refId
+	a.TypeDescription = refDesc
+	return false
 }
 
 // ParseStatement parses an expression statement context into the Assignment node.

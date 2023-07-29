@@ -9,6 +9,7 @@ type Node[T NodeType] interface {
 	GetTypeDescription() *TypeDescription
 	GetNodes() []Node[NodeType]
 	ToProto() T
+	SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool
 }
 
 type NodeType interface {

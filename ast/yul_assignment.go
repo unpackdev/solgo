@@ -30,31 +30,36 @@ func NewYulAssignment(b *ASTBuilder) *YulAssignment {
 	}
 }
 
-func (a *YulAssignment) GetId() int64 {
-	return a.Id
+// SetReferenceDescriptor sets the reference descriptions of the YulAssignment node.
+func (y *YulAssignment) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
 }
 
-func (a *YulAssignment) GetType() ast_pb.NodeType {
-	return a.NodeType
+func (y *YulAssignment) GetId() int64 {
+	return y.Id
 }
 
-func (a *YulAssignment) GetSrc() SrcNode {
-	return a.Src
+func (y *YulAssignment) GetType() ast_pb.NodeType {
+	return y.NodeType
 }
 
-func (a *YulAssignment) GetNodes() []Node[NodeType] {
+func (y *YulAssignment) GetSrc() SrcNode {
+	return y.Src
+}
+
+func (y *YulAssignment) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (a *YulAssignment) GetTypeDescription() *TypeDescription {
+func (y *YulAssignment) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (a *YulAssignment) ToProto() NodeType {
+func (y *YulAssignment) ToProto() NodeType {
 	return ast_pb.Statement{}
 }
 
-func (a *YulAssignment) Parse(
+func (y *YulAssignment) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -63,8 +68,8 @@ func (a *YulAssignment) Parse(
 	statementNode *YulStatement,
 	ctx *parser.YulAssignmentContext,
 ) Node[NodeType] {
-	a.Src = SrcNode{
-		Id:          a.GetNextID(),
+	y.Src = SrcNode{
+		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -72,5 +77,5 @@ func (a *YulAssignment) Parse(
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 		ParentIndex: assemblyNode.GetId(),
 	}
-	return a
+	return y
 }

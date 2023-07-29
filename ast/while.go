@@ -24,6 +24,11 @@ func NewWhileStatement(b *ASTBuilder) *WhileStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the WhileStatement node.
+func (w *WhileStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (w *WhileStatement) GetId() int64 {
 	return w.Id
 }

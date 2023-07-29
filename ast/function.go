@@ -10,22 +10,23 @@ import (
 type Function struct {
 	*ASTBuilder
 
-	Id               int64                `json:"id"`
-	Name             string               `json:"name"`
-	NodeType         ast_pb.NodeType      `json:"node_type"`
-	Kind             ast_pb.NodeType      `json:"kind"`
-	Src              SrcNode              `json:"src"`
-	Body             *BodyNode            `json:"body"`
-	Implemented      bool                 `json:"implemented"`
-	Visibility       ast_pb.Visibility    `json:"visibility"`
-	StateMutability  ast_pb.Mutability    `json:"state_mutability"`
-	Virtual          bool                 `json:"virtual"`
-	Modifiers        []ModifierDefinition `json:"modifiers"`
-	Overrides        []OverrideSpecifier  `json:"overrides"`
-	Parameters       *ParameterList       `json:"parameters"`
-	ReturnParameters *ParameterList       `json:"return_parameters"`
-	Scope            int64                `json:"scope"`
-	TypeDescription  *TypeDescription     `json:"type_description"`
+	Id                    int64                `json:"id"`
+	Name                  string               `json:"name"`
+	NodeType              ast_pb.NodeType      `json:"node_type"`
+	Kind                  ast_pb.NodeType      `json:"kind"`
+	Src                   SrcNode              `json:"src"`
+	Body                  *BodyNode            `json:"body"`
+	Implemented           bool                 `json:"implemented"`
+	Visibility            ast_pb.Visibility    `json:"visibility"`
+	StateMutability       ast_pb.Mutability    `json:"state_mutability"`
+	Virtual               bool                 `json:"virtual"`
+	Modifiers             []ModifierDefinition `json:"modifiers"`
+	Overrides             []OverrideSpecifier  `json:"overrides"`
+	Parameters            *ParameterList       `json:"parameters"`
+	ReturnParameters      *ParameterList       `json:"return_parameters"`
+	Scope                 int64                `json:"scope"`
+	ReferencedDeclaration int64                `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription     `json:"type_description"`
 }
 
 func NewFunction(b *ASTBuilder) *Function {
@@ -37,6 +38,13 @@ func NewFunction(b *ASTBuilder) *Function {
 		Overrides:   make([]OverrideSpecifier, 0),
 		Implemented: true,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the Function node.
+func (f Function) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	f.ReferencedDeclaration = refId
+	f.TypeDescription = refDesc
+	return false
 }
 
 func (f Function) GetId() int64 {

@@ -10,17 +10,18 @@ import (
 type StructDefinition struct {
 	*ASTBuilder
 
-	SourceUnitName  string                 `json:"-"`
-	Id              int64                  `json:"id"`
-	NodeType        ast_pb.NodeType        `json:"node_type"`
-	Src             SrcNode                `json:"src"`
-	Kind            ast_pb.NodeType        `json:"kind,omitempty"`
-	Name            string                 `json:"name"`
-	CanonicalName   string                 `json:"canonical_name"`
-	TypeDescription *TypeDescription       `json:"type_description"`
-	Members         []*Parameter           `json:"members"`
-	Visibility      ast_pb.Visibility      `json:"visibility"`
-	StorageLocation ast_pb.StorageLocation `json:"storage_location"`
+	SourceUnitName        string                 `json:"-"`
+	Id                    int64                  `json:"id"`
+	NodeType              ast_pb.NodeType        `json:"node_type"`
+	Src                   SrcNode                `json:"src"`
+	Kind                  ast_pb.NodeType        `json:"kind,omitempty"`
+	Name                  string                 `json:"name"`
+	CanonicalName         string                 `json:"canonical_name"`
+	ReferencedDeclaration int64                  `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription       `json:"type_description"`
+	Members               []*Parameter           `json:"members"`
+	Visibility            ast_pb.Visibility      `json:"visibility"`
+	StorageLocation       ast_pb.StorageLocation `json:"storage_location"`
 }
 
 func NewStructDefinition(b *ASTBuilder) *StructDefinition {
@@ -31,6 +32,13 @@ func NewStructDefinition(b *ASTBuilder) *StructDefinition {
 		Visibility:      ast_pb.Visibility_PUBLIC,
 		StorageLocation: ast_pb.StorageLocation_DEFAULT,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the StructDefinition node.
+func (s *StructDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	s.ReferencedDeclaration = refId
+	s.TypeDescription = refDesc
+	return false
 }
 
 func (s *StructDefinition) GetId() int64 {
@@ -107,7 +115,7 @@ func (s *StructDefinition) Parse(
 
 	s.TypeDescription = &TypeDescription{
 		TypeIdentifier: fmt.Sprintf(
-			"t_struct&_%s_%s_&%d", s.SourceUnitName, s.GetName(), s.GetId(),
+			"t_struct$_%s_%s_$%d", s.SourceUnitName, s.GetName(), s.GetId(),
 		),
 		TypeString: fmt.Sprintf(
 			"struct %s.%s", s.SourceUnitName, s.GetName(),

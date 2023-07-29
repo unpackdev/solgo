@@ -30,6 +30,11 @@ func NewInterfaceDefinition(b *ASTBuilder) *InterfaceNode {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the InterfaceNode node.
+func (l InterfaceNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (l InterfaceNode) GetId() int64 {
 	return l.Id
 }

@@ -28,6 +28,9 @@ type TupleExpression struct {
 	// The components of the tuple expression
 	Components []Node[NodeType] `json:"components"`
 
+	// The referenced declaration of the tuple expression
+	ReferencedDeclaration int64 `json:"referenced_declaration,omitempty"`
+
 	// The type description of the tuple expression
 	TypeDescription *TypeDescription `json:"type_description"`
 }
@@ -39,6 +42,13 @@ func NewTupleExpression(b *ASTBuilder) *TupleExpression {
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_TUPLE_EXPRESSION,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the TupleExpression node.
+func (t *TupleExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	t.ReferencedDeclaration = refId
+	t.TypeDescription = refDesc
+	return false
 }
 
 // GetId returns the unique identifier of the tuple expression.

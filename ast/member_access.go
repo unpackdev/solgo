@@ -8,17 +8,18 @@ import (
 type MemberAccessExpression struct {
 	*ASTBuilder
 
-	Id              int64              `json:"id"`
-	IsConstant      bool               `json:"is_constant"`
-	IsLValue        bool               `json:"is_l_value"`
-	IsPure          bool               `json:"is_pure"`
-	LValueRequested bool               `json:"l_value_requested"`
-	NodeType        ast_pb.NodeType    `json:"node_type"`
-	Src             SrcNode            `json:"src"`
-	Expression      Node[NodeType]     `json:"expression"`
-	MemberName      string             `json:"member_name"`
-	ArgumentTypes   []*TypeDescription `json:"argument_types"`
-	TypeDescription *TypeDescription   `json:"type_description"`
+	Id                    int64              `json:"id"`
+	IsConstant            bool               `json:"is_constant"`
+	IsLValue              bool               `json:"is_l_value"`
+	IsPure                bool               `json:"is_pure"`
+	LValueRequested       bool               `json:"l_value_requested"`
+	NodeType              ast_pb.NodeType    `json:"node_type"`
+	Src                   SrcNode            `json:"src"`
+	Expression            Node[NodeType]     `json:"expression"`
+	MemberName            string             `json:"member_name"`
+	ArgumentTypes         []*TypeDescription `json:"argument_types"`
+	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"type_description"`
 }
 
 func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
@@ -28,6 +29,13 @@ func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 		NodeType:      ast_pb.NodeType_MEMBER_ACCESS,
 		ArgumentTypes: []*TypeDescription{},
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the MemberAccessExpression node.
+func (m *MemberAccessExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	m.ReferencedDeclaration = refId
+	m.TypeDescription = refDesc
+	return false
 }
 
 func (m *MemberAccessExpression) GetId() int64 {
@@ -104,8 +112,7 @@ func (m *MemberAccessExpression) Parse(
 		)
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
-		if m.Expression.GetTypeDescription() != nil &&
-			m.Expression.GetTypeDescription().TypeIdentifier == "t_magic_message" {
+		if m.TypeDescription.TypeIdentifier == "t_magic_message" {
 			switch m.MemberName {
 			case "sender":
 				m.TypeDescription = &TypeDescription{
@@ -118,6 +125,21 @@ func (m *MemberAccessExpression) Parse(
 					TypeString:     "bytes calldata",
 				}
 			case "value":
+				m.TypeDescription = &TypeDescription{
+					TypeIdentifier: "t_uint256",
+					TypeString:     "uint256",
+				}
+			case "timestamp":
+				m.TypeDescription = &TypeDescription{
+					TypeIdentifier: "t_uint256",
+					TypeString:     "uint256",
+				}
+			}
+		}
+
+		if m.TypeDescription.TypeIdentifier == "t_magic_block" {
+			switch m.MemberName {
+			case "timestamp":
 				m.TypeDescription = &TypeDescription{
 					TypeIdentifier: "t_uint256",
 					TypeString:     "uint256",

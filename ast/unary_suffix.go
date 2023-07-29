@@ -8,17 +8,18 @@ import (
 type UnarySuffixExpression struct {
 	*ASTBuilder
 
-	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
-	Src             SrcNode          `json:"src"`
-	Operator        ast_pb.Operator  `json:"operator"`
-	Expression      Node[NodeType]   `json:"expression"`
-	TypeDescription *TypeDescription `json:"type_description"`
-	Prefix          bool             `json:"prefix"`
-	IsConstant      bool             `json:"is_constant"`
-	IsLValue        bool             `json:"is_l_value"`
-	IsPure          bool             `json:"is_pure"`
-	LValueRequested bool             `json:"l_value_requested"`
+	Id                    int64            `json:"id"`
+	NodeType              ast_pb.NodeType  `json:"node_type"`
+	Src                   SrcNode          `json:"src"`
+	Operator              ast_pb.Operator  `json:"operator"`
+	Expression            Node[NodeType]   `json:"expression"`
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription `json:"type_description"`
+	Prefix                bool             `json:"prefix"`
+	IsConstant            bool             `json:"is_constant"`
+	IsLValue              bool             `json:"is_l_value"`
+	IsPure                bool             `json:"is_pure"`
+	LValueRequested       bool             `json:"l_value_requested"`
 }
 
 func NewUnarySuffixExpression(b *ASTBuilder) *UnarySuffixExpression {
@@ -27,6 +28,13 @@ func NewUnarySuffixExpression(b *ASTBuilder) *UnarySuffixExpression {
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_UNARY_OPERATION,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the UnarySuffixExpression node.
+func (u *UnarySuffixExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	u.ReferencedDeclaration = refId
+	u.TypeDescription = refDesc
+	return false
 }
 
 func (u *UnarySuffixExpression) GetId() int64 {

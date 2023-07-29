@@ -40,6 +40,13 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the PrimaryExpression node.
+func (p *PrimaryExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	p.ReferencedDeclaration = refId
+	p.TypeDescription = refDesc
+	return false
+}
+
 // GetId returns the unique identifier of the PrimaryExpression node.
 func (p *PrimaryExpression) GetId() int64 {
 	return p.Id
@@ -121,6 +128,27 @@ func (p *PrimaryExpression) Parse(
 
 			return bodyNode.GetId()
 		}(),
+	}
+
+	// This is a magic message type and should be treated accordingly...
+	if ctx.GetText() == "msg" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_message",
+			TypeString:     "msg",
+		}
+	}
+
+	// This is a magic block type and should be treated accordingly...
+	if ctx.GetText() == "block" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_block",
+			TypeString:     "block",
+		}
+	}
+
+	// This is a magic this type and should be treated by setting type description to the contract type
+	if ctx.GetText() == "this" {
+		p.TypeDescription = unit.GetTypeDescription()
 	}
 
 	if expNode != nil {

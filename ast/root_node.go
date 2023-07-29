@@ -33,6 +33,11 @@ func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*Sour
 	})
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the RootNode node.
+func (r *RootNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetSourceUnits returns the source units of the root node.
 func (r *RootNode) GetSourceUnits() []*SourceUnit[Node[ast_pb.SourceUnit]] {
 	return r.SourceUnits
@@ -52,7 +57,11 @@ func (r *RootNode) GetComments() []*CommentNode {
 }
 
 func (r *RootNode) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := make([]Node[NodeType], 0)
+	for _, sourceUnit := range r.SourceUnits {
+		toReturn = append(toReturn, sourceUnit)
+	}
+	return toReturn
 }
 
 // ToProto returns the protobuf representation of the root node.

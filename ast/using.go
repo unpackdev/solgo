@@ -34,6 +34,13 @@ func NewUsingDirective(b *ASTBuilder) *UsingDirective {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the UsingDirective node.
+func (u *UsingDirective) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	u.TypeDescription = refDesc
+	u.LibraryName.ReferencedDeclaration = refId
+	return false
+}
+
 func (u *UsingDirective) GetId() int64 {
 	return u.Id
 }

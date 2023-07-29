@@ -1,6 +1,9 @@
 package ast
 
 import (
+	"fmt"
+	"strings"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -8,13 +11,14 @@ import (
 type PayableConversionExpression struct {
 	*ASTBuilder
 
-	Id              int64              `json:"id"`
-	NodeType        ast_pb.NodeType    `json:"node_type"`
-	Src             SrcNode            `json:"src"`
-	Arguments       []Node[NodeType]   `json:"arguments"`
-	ArgumentTypes   []*TypeDescription `json:"argument_types"`
-	TypeDescription *TypeDescription   `json:"type_description"`
-	Payable         bool               `json:"payable"`
+	Id                    int64              `json:"id"`
+	NodeType              ast_pb.NodeType    `json:"node_type"`
+	Src                   SrcNode            `json:"src"`
+	Arguments             []Node[NodeType]   `json:"arguments"`
+	ArgumentTypes         []*TypeDescription `json:"argument_types"`
+	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"type_description"`
+	Payable               bool               `json:"payable"`
 }
 
 func NewPayableConversionExpression(b *ASTBuilder) *PayableConversionExpression {
@@ -24,6 +28,13 @@ func NewPayableConversionExpression(b *ASTBuilder) *PayableConversionExpression 
 		NodeType:      ast_pb.NodeType_PAYABLE_CONVERSION,
 		ArgumentTypes: []*TypeDescription{},
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the PayableConversionExpression node.
+func (p *PayableConversionExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	p.ReferencedDeclaration = refId
+	p.TypeDescription = refDesc
+	return false
 }
 
 func (p *PayableConversionExpression) GetId() int64 {
@@ -94,6 +105,9 @@ func (p *PayableConversionExpression) Parse(
 
 	expression := NewExpression(p.ASTBuilder)
 
+	typeStrings := []string{}
+	typeIdentifiers := []string{}
+
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
 			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, p, expressionCtx)
@@ -101,11 +115,30 @@ func (p *PayableConversionExpression) Parse(
 				p.Arguments,
 				expr,
 			)
+
+			typeStrings = append(typeStrings, expr.GetTypeDescription().TypeString)
+			typeIdentifiers = append(typeIdentifiers, expr.GetTypeDescription().TypeIdentifier)
+
 			p.ArgumentTypes = append(
 				p.ArgumentTypes,
 				expr.GetTypeDescription(),
 			)
 		}
+	}
+
+	p.TypeDescription = &TypeDescription{
+		TypeString: func() string {
+			return fmt.Sprintf(
+				"function(%s) payable",
+				strings.Join(typeStrings, ","),
+			)
+		}(),
+		TypeIdentifier: func() string {
+			return fmt.Sprintf(
+				"t_function_payable$_%s$",
+				strings.Join(typeIdentifiers, "$_"),
+			)
+		}(),
 	}
 
 	return p

@@ -21,6 +21,11 @@ type PragmaNode struct {
 	Literals []string `json:"literals"`
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the PragmaNode node.
+func (p PragmaNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId returns the unique identifier of the pragma directive.
 func (p PragmaNode) GetId() int64 {
 	return p.Id

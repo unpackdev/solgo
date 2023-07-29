@@ -8,12 +8,13 @@ import (
 type NewExpr struct {
 	*ASTBuilder
 
-	Id              int64              `json:"id"`
-	NodeType        ast_pb.NodeType    `json:"node_type"`
-	Src             SrcNode            `json:"src"`
-	ArgumentTypes   []*TypeDescription `json:"argument_types"`
-	TypeName        *TypeName          `json:"type_name"`
-	TypeDescription *TypeDescription   `json:"type_description"`
+	Id                    int64              `json:"id"`
+	NodeType              ast_pb.NodeType    `json:"node_type"`
+	Src                   SrcNode            `json:"src"`
+	ArgumentTypes         []*TypeDescription `json:"argument_types"`
+	TypeName              *TypeName          `json:"type_name"`
+	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"type_description"`
 }
 
 func NewExprExpression(b *ASTBuilder) *NewExpr {
@@ -23,6 +24,13 @@ func NewExprExpression(b *ASTBuilder) *NewExpr {
 		NodeType:      ast_pb.NodeType_NEW_EXPRESSION,
 		ArgumentTypes: make([]*TypeDescription, 0),
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the NewExpr node.
+func (m *NewExpr) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	m.ReferencedDeclaration = refId
+	m.TypeDescription = refDesc
+	return false
 }
 
 func (n *NewExpr) GetId() int64 {

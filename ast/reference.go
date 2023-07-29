@@ -1,7 +1,7 @@
 package ast
 
-import "fmt"
-
+// Resolver is a structure that helps in resolving the nodes of an Abstract Syntax Tree (AST).
+// It contains a reference to an ASTBuilder and a map of UnprocessedNodes.
 type Resolver struct {
 	*ASTBuilder
 
@@ -10,12 +10,14 @@ type Resolver struct {
 	UnprocessedNodes map[int64]UnprocessedNode
 }
 
+// UnprocessedNode is a structure that represents a node that could not be processed during the parsing of the AST.
 type UnprocessedNode struct {
 	Id   int64          `json:"id"`
 	Name string         `json:"name"`
 	Node Node[NodeType] `json:"ref"`
 }
 
+// NewResolver creates a new Resolver with the provided ASTBuilder and initializes the UnprocessedNodes map.
 func NewResolver(builder *ASTBuilder) *Resolver {
 	return &Resolver{
 		ASTBuilder:       builder,
@@ -23,14 +25,18 @@ func NewResolver(builder *ASTBuilder) *Resolver {
 	}
 }
 
+// GetUnprocessedNodes returns the map of UnprocessedNodes in the Resolver.
 func (r *Resolver) GetUnprocessedNodes() map[int64]UnprocessedNode {
 	return r.UnprocessedNodes
 }
 
+// GetUnprocessedCount returns the number of UnprocessedNodes in the Resolver.
 func (r *Resolver) GetUnprocessedCount() int {
 	return len(r.UnprocessedNodes)
 }
 
+// ResolveByNode attempts to resolve a node by its name and returns the resolved Node and its TypeDescription.
+// If the node cannot be found, it is added to the UnprocessedNodes map for future resolution.
 func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (Node[NodeType], *TypeDescription) {
 	rNode, rNodeType := r.resolveByNode(name, node)
 
@@ -47,6 +53,8 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (Node[NodeTyp
 	return rNode, rNodeType
 }
 
+// resolveByNode is a helper function that attempts to resolve a node by its name by checking various node types.
+// It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) resolveByNode(name string, node Node[NodeType]) (Node[NodeType], *TypeDescription) {
 	if node, nodeType := r.bySourceUnit(name); node != nil && nodeType != nil {
 		return node, nodeType
@@ -87,15 +95,14 @@ func (r *Resolver) resolveByNode(name string, node Node[NodeType]) (Node[NodeTyp
 	return nil, nil
 }
 
+// Resolve attempts to resolve all UnprocessedNodes in the Resolver.
+// It updates the node references in the AST and removes the nodes from the UnprocessedNodes map once they are resolved.
 func (r *Resolver) Resolve() error {
 	for nodeId, node := range r.UnprocessedNodes {
 		if rNode, rNodeType := r.resolveByNode(node.Name, node.Node); rNode != nil {
-			delete(r.UnprocessedNodes, nodeId)
-			//fmt.Println("Node resolved: ", node.Name)
-			_ = rNode
-			_ = rNodeType
-		} else {
-			fmt.Println("Node could not be resolved: ", node.Name)
+			if updated := r.tree.UpdateNodeReferenceById(nodeId, rNode.GetId(), rNodeType); updated {
+				delete(r.UnprocessedNodes, nodeId)
+			}
 		}
 	}
 
@@ -240,6 +247,8 @@ func (r *Resolver) byFunction(name string) (Node[NodeType], *TypeDescription) {
 	return nil, nil
 }
 
+// byRecursiveSearch is a helper function that attempts to resolve a node by its name by recursively searching the node's children.
+// It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[NodeType], *TypeDescription) {
 	return nil, nil
 }

@@ -35,6 +35,11 @@ func NewLibraryDefinition(b *ASTBuilder) *LibraryNode {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the LibraryNode node.
+func (l LibraryNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId returns the unique identifier of the library node.
 func (l LibraryNode) GetId() int64 {
 	return l.Id

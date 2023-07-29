@@ -25,6 +25,11 @@ func NewRevertStatement(b *ASTBuilder) *RevertStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the RevertStatement node.
+func (r *RevertStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (r *RevertStatement) GetId() int64 {
 	return r.Id
 }

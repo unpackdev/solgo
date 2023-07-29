@@ -43,6 +43,11 @@ func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources solgo.Sources) {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the SourceUnit node.
+func (s *SourceUnit[T]) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetLicense returns the license of the source unit.
 func (s *SourceUnit[T]) GetLicense() string {
 	return s.License

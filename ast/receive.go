@@ -31,6 +31,11 @@ func NewReceiveDefinition(b *ASTBuilder) *ReceiveDefinition {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ReceiveDefinition node.
+func (f *ReceiveDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (f *ReceiveDefinition) GetId() int64 {
 	return f.Id
 }

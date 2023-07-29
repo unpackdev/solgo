@@ -30,6 +30,13 @@ func NewTypeName(b *ASTBuilder) *TypeName {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the TypeName node.
+func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	t.ReferencedDeclaration = refId
+	t.TypeDescription = refDesc
+	return false
+}
+
 func (t *TypeName) GetId() int64 {
 	return t.Id
 }
@@ -231,6 +238,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 				TypeIdentifier: normalizedTypeIdentifier,
 			}
 		}
+
 	case parser.IMappingTypeContext:
 		typeNameNode.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 		keyCtx := specificCtx.GetKey()
@@ -275,7 +283,14 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		} else {
 			t.parseTypeName(sourceUnit, parentNode.GetId(), specificCtx.(*parser.TypeNameContext))
 		}
-	default:
+	}
+
+	// We're still not able to discover reference, so what we're going to do now is look for the references...
+	if typeName.TypeDescription == nil {
+		if ref, refTypeDescription := t.GetResolver().ResolveByNode(typeName, typeName.Name); ref != nil {
+			typeName.ReferencedDeclaration = ref.GetId()
+			typeName.TypeDescription = refTypeDescription
+		}
 	}
 
 	return typeName

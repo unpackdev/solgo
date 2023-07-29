@@ -27,6 +27,11 @@ func NewModifierDefinition(b *ASTBuilder) *ModifierDefinition {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ModifierDefinition node.
+func (m *ModifierDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (m *ModifierDefinition) GetId() int64 {
 	return m.Id
 }

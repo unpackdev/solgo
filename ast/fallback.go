@@ -31,6 +31,12 @@ func NewFallbackDefinition(b *ASTBuilder) *FallbackDefinition {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the FallbackDefinition node.
+// We don't need to do any reference description updates here, at least for now...
+func (f *FallbackDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (f *FallbackDefinition) GetId() int64 {
 	return f.Id
 }

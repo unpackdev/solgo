@@ -26,6 +26,11 @@ func NewVariableDeclarationStatement(b *ASTBuilder) *VariableDeclaration {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the VariableDeclaration node.
+func (v *VariableDeclaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (v *VariableDeclaration) GetId() int64 {
 	return v.Id
 }

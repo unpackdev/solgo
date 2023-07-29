@@ -21,6 +21,11 @@ type ImportNode struct {
 	SourceUnit   int64           `json:"source_unit"`
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ImportNode node.
+func (i ImportNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (i ImportNode) GetId() int64 {
 	return i.Id
 }

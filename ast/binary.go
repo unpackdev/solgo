@@ -38,6 +38,11 @@ func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperationExpression {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the BinaryOperationExpression node.
+func (a *BinaryOperationExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId is a getter method that returns the unique identifier of the binary operation.
 func (a *BinaryOperationExpression) GetId() int64 {
 	return a.Id

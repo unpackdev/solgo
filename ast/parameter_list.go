@@ -24,6 +24,11 @@ func NewParameterList(b *ASTBuilder) *ParameterList {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ParameterList node.
+func (p *ParameterList) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (p *ParameterList) GetId() int64 {
 	return p.Id
 }

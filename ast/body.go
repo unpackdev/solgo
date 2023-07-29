@@ -33,6 +33,11 @@ func NewBodyNode(b *ASTBuilder) *BodyNode {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the BodyNode node.
+func (b *BodyNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId returns the unique identifier of the body node.
 func (b *BodyNode) GetId() int64 {
 	return b.Id

@@ -8,11 +8,12 @@ import (
 type MetaTypeExpression struct {
 	*ASTBuilder
 
-	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
-	Name            string           `json:"name"`
-	Src             SrcNode          `json:"src"`
-	TypeDescription *TypeDescription `json:"type_description"`
+	Id                    int64            `json:"id"`
+	NodeType              ast_pb.NodeType  `json:"node_type"`
+	Name                  string           `json:"name"`
+	Src                   SrcNode          `json:"src"`
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription `json:"type_description"`
 }
 
 func NewMetaTypeExpression(b *ASTBuilder) *MetaTypeExpression {
@@ -21,6 +22,13 @@ func NewMetaTypeExpression(b *ASTBuilder) *MetaTypeExpression {
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_IDENTIFIER,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the MetaTypeExpression node.
+func (m *MetaTypeExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	m.ReferencedDeclaration = refId
+	m.TypeDescription = refDesc
+	return false
 }
 
 func (m *MetaTypeExpression) GetId() int64 {

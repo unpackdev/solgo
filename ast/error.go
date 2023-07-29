@@ -26,6 +26,12 @@ func NewErrorDefinition(b *ASTBuilder) *ErrorDefinition {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ErrorDefinition node.
+// We don't need to do any reference description updates here, at least for now...
+func (e *ErrorDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (e *ErrorDefinition) GetId() int64 {
 	return e.Id
 }

@@ -8,12 +8,14 @@ import (
 type IndexAccess struct {
 	*ASTBuilder
 
-	Id               int64              `json:"id"`
-	NodeType         ast_pb.NodeType    `json:"node_type"`
-	Src              SrcNode            `json:"src"`
-	IndexExpression  Node[NodeType]     `json:"index_expression"`
-	BaseExpression   Node[NodeType]     `json:"base_expression"`
-	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
+	Id                    int64              `json:"id"`
+	NodeType              ast_pb.NodeType    `json:"node_type"`
+	Src                   SrcNode            `json:"src"`
+	IndexExpression       Node[NodeType]     `json:"index_expression"`
+	BaseExpression        Node[NodeType]     `json:"base_expression"`
+	TypeDescriptions      []*TypeDescription `json:"type_descriptions"`
+	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"type_description"`
 }
 
 func NewIndexAccess(b *ASTBuilder) *IndexAccess {
@@ -22,6 +24,13 @@ func NewIndexAccess(b *ASTBuilder) *IndexAccess {
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_INDEX_ACCESS,
 	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the IndexAccess node.
+func (i *IndexAccess) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	i.ReferencedDeclaration = refId
+	i.TypeDescription = refDesc
+	return false
 }
 
 func (i *IndexAccess) GetId() int64 {
@@ -45,7 +54,7 @@ func (i *IndexAccess) GetBaseExpression() Node[NodeType] {
 }
 
 func (i *IndexAccess) GetTypeDescription() *TypeDescription {
-	return nil
+	return i.TypeDescription
 }
 
 func (i *IndexAccess) GetTypeDescriptions() []*TypeDescription {
@@ -94,6 +103,7 @@ func (i *IndexAccess) Parse(
 	i.IndexExpression = expression.Parse(
 		unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(0),
 	)
+	i.TypeDescription = i.IndexExpression.GetTypeDescription()
 
 	i.BaseExpression = expression.Parse(
 		unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(1),

@@ -21,6 +21,11 @@ func NewSimpleStatement(b *ASTBuilder) *SimpleStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the SimpleStatement node.
+func (s *SimpleStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (s *SimpleStatement) GetId() int64 {
 	return s.Id
 }

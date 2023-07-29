@@ -55,6 +55,11 @@ func NewConstructor(b *ASTBuilder) *Constructor {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the Constructor node.
+func (c *Constructor) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 // GetId returns the unique identifier of the constructor.
 func (c *Constructor) GetId() int64 {
 	return c.Id

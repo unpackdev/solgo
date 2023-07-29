@@ -23,6 +23,11 @@ func NewReturnStatement(b *ASTBuilder) *ReturnStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ReturnStatement node.
+func (r *ReturnStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (r *ReturnStatement) GetId() int64 {
 	return r.Id
 }

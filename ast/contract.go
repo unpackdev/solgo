@@ -27,6 +27,11 @@ func NewContractDefinition(b *ASTBuilder) *ContractNode {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ContractNode node.
+func (l ContractNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (l ContractNode) GetId() int64 {
 	return l.Id
 }
@@ -159,8 +164,6 @@ func (l ContractNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contr
 					contractNode.FullyImplemented = false
 				}
 			}
-
-			//l.dumpNode(subBodyNode)
 		} else {
 			contractNode.FullyImplemented = false
 		}

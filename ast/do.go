@@ -23,6 +23,11 @@ func NewDoWhiteStatement(b *ASTBuilder) *DoWhiteStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the DoWhiteStatement node.
+func (d *DoWhiteStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (d *DoWhiteStatement) GetId() int64 {
 	return d.Id
 }

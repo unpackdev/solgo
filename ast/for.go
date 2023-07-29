@@ -25,6 +25,12 @@ func NewForStatement(b *ASTBuilder) *ForStatement {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the ForStatement node.
+// We don't need to do any reference description updates here, at least for now...
+func (f *ForStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (f *ForStatement) GetId() int64 {
 	return f.Id
 }
