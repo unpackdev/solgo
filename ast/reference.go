@@ -7,7 +7,7 @@ type Resolver struct {
 
 	// Nodes that could not be processed while parsing AST.
 	// This will resolve issues with forward referencing...
-	UnprocessedNodes []UnprocessedNode
+	UnprocessedNodes map[int64]UnprocessedNode
 }
 
 type UnprocessedNode struct {
@@ -19,11 +19,11 @@ type UnprocessedNode struct {
 func NewResolver(builder *ASTBuilder) *Resolver {
 	return &Resolver{
 		ASTBuilder:       builder,
-		UnprocessedNodes: make([]UnprocessedNode, 0),
+		UnprocessedNodes: make(map[int64]UnprocessedNode, 0),
 	}
 }
 
-func (r *Resolver) GetUnprocessedNodes() []UnprocessedNode {
+func (r *Resolver) GetUnprocessedNodes() map[int64]UnprocessedNode {
 	return r.UnprocessedNodes
 }
 
@@ -37,14 +37,11 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (Node[NodeTyp
 	// Node could not be found in this moment, we are going to see if we can discover it in the
 	// future at the end of whole parsing process.
 	if rNode == nil && rNodeType == nil {
-		r.UnprocessedNodes = append(
-			r.UnprocessedNodes,
-			UnprocessedNode{
-				Id:   node.GetId(),
-				Name: name,
-				Node: node,
-			},
-		)
+		r.UnprocessedNodes[node.GetId()] = UnprocessedNode{
+			Id:   node.GetId(),
+			Name: name,
+			Node: node,
+		}
 	}
 
 	return rNode, rNodeType
@@ -91,9 +88,10 @@ func (r *Resolver) resolveByNode(name string, node Node[NodeType]) (Node[NodeTyp
 }
 
 func (r *Resolver) Resolve() error {
-	for _, node := range r.UnprocessedNodes {
+	for nodeId, node := range r.UnprocessedNodes {
 		if rNode, rNodeType := r.resolveByNode(node.Name, node.Node); rNode != nil {
-			fmt.Println("Node resolved: ", node.Name)
+			delete(r.UnprocessedNodes, nodeId)
+			//fmt.Println("Node resolved: ", node.Name)
 			_ = rNode
 			_ = rNodeType
 		} else {
@@ -222,9 +220,9 @@ func (r *Resolver) byFunction(name string) (Node[NodeType], *TypeDescription) {
 					}
 				}
 			}
-			return nil, nil
 
 		case Function:
+
 			if nodeCtx.GetName() == name {
 				return node, node.GetTypeDescription()
 			}

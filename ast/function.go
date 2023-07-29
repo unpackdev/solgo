@@ -210,7 +210,6 @@ func (f Function) Parse(
 	}
 
 	f.TypeDescription = f.buildTypeDescription()
-
 	f.currentFunctions = append(f.currentFunctions, f)
 	return f
 }
