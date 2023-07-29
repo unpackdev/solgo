@@ -1,7 +1,20 @@
 package ast
 
-// Node is the interface that all AST nodes implement.
-type Node interface {
-	// Children returns the child nodes of this node.
-	Children() []Node
+import ast_pb "github.com/txpull/protos/dist/go/ast"
+
+type Node[T NodeType] interface {
+	GetId() int64
+	GetType() ast_pb.NodeType
+	GetSrc() SrcNode
+	GetTypeDescription() *TypeDescription
+	GetNodes() []Node[NodeType]
+	ToProto() T
+	SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool
+}
+
+type NodeType interface {
+	ast_pb.Pragma | ast_pb.Import | ast_pb.Modifier | ast_pb.SourceUnit |
+		ast_pb.Function | ast_pb.Contract | ast_pb.Statement | ast_pb.Body |
+		ast_pb.VariableDeclaration | ast_pb.PrimaryExpression | ast_pb.Expression |
+		ast_pb.BinaryOperationExpression | ast_pb.Return | ast_pb.ParametersList | ast_pb.Parameter | any
 }
