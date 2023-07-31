@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"time"
 
 	cid "github.com/ipfs/go-cid"
 )
@@ -61,24 +62,44 @@ func (p *IpfsProvider) GetMetadataByCID(cid string) (*ContractMetadata, error) {
 		return nil, err
 	}
 
-	content, err := p.client.Cat(fmt.Sprintf("/ipfs/%s", hash))
-	if err != nil {
+	done := time.After(30 * time.Second)
+	result := make(chan *ContractMetadata)
+	errs := make(chan error)
+
+	go func() {
+		content, err := p.client.Cat(fmt.Sprintf("/ipfs/%s", hash))
+		if err != nil {
+			errs <- err
+			return
+		}
+
+		data, err := io.ReadAll(content)
+		if err != nil {
+			errs <- err
+			return
+		}
+
+		var toReturn ContractMetadata
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			errs <- err
+			return
+		}
+
+		// Inject as well raw data in case that we need to do some additional operations on top of it
+		// eg. save it to the database...
+		toReturn.Raw = string(data)
+
+		result <- &toReturn
+	}()
+
+	select {
+	case <-p.ctx.Done():
+		return nil, fmt.Errorf("context cancelled while fetching content from IPFS")
+	case <-done:
+		return nil, fmt.Errorf("timeout while fetching content from IPFS")
+	case res := <-result:
+		return res, nil
+	case err := <-errs:
 		return nil, err
 	}
-
-	data, err := io.ReadAll(content)
-	if err != nil {
-		return nil, err
-	}
-
-	var toReturn ContractMetadata
-	if err := json.Unmarshal(data, &toReturn); err != nil {
-		return nil, err
-	}
-
-	// Inject as well raw data in case that we need to do some additional operations on top of it
-	// eg. save it to the database...
-	toReturn.Raw = string(data)
-
-	return &toReturn, nil
 }

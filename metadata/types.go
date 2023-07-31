@@ -1,6 +1,14 @@
 package metadata
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/golang/protobuf/ptypes/any"
+	"github.com/golang/protobuf/ptypes/wrappers"
+	metadata_pb "github.com/txpull/protos/dist/go/metadata"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/anypb"
+)
 
 // ContractMetadata represents the metadata of a contract stored in IPFS.
 // The metadata includes information about the compiler, language, settings, output, and sources.
@@ -51,10 +59,75 @@ type ContractMetadata struct {
 		Abi []interface{} `json:"abi"`
 	}
 	Sources map[string]struct {
-		Content string `json:"content"`
-		Keccak  string `json:"keccak256"`
-		License string `json:"license"`
+		Content   string   `json:"content"`
+		Keccak256 string   `json:"keccak256"`
+		License   string   `json:"license"`
+		Urls      []string `json:"urls"`
 	} `json:"sources"`
+}
+
+func (c *ContractMetadata) ToProto() *metadata_pb.Metadata {
+	abiValue := &any.Any{}
+	bytes, _ := json.Marshal(c.Output.Abi)
+	abiBytesValue := &wrappers.BytesValue{
+		Value: bytes,
+	}
+	if err := anypb.MarshalFrom(abiValue, abiBytesValue, proto.MarshalOptions{}); err != nil {
+		panic(err)
+	}
+
+	sources := map[string]*metadata_pb.Metadata_Source{}
+	for sourceName, source := range c.Sources {
+		sources[sourceName] = &metadata_pb.Metadata_Source{
+			Content:   source.Content,
+			Keccak256: source.Keccak256,
+			License:   source.License,
+			Urls:      source.Urls,
+		}
+	}
+
+	return &metadata_pb.Metadata{
+		Raw:     c.Raw,
+		Version: int32(c.Version),
+		Compiler: &metadata_pb.Metadata_Compiler{
+			Version:   c.Compiler.Version,
+			Keccak256: c.Compiler.Keccak256,
+		},
+		Language: c.Language,
+		Settings: &metadata_pb.Metadata_Settings{
+			EvmVersion:        c.Settings.EvmVersion,
+			CompilationTarget: c.Settings.CompilationTarget,
+			Libraries:         c.Settings.Libraries,
+			Remappings:        c.Settings.Remappings,
+			Metadata: &metadata_pb.Metadata_Settings_MetadataSettings{
+				BytecodeHash:      c.Settings.Metadata.BytecodeHash,
+				UseLiteralContent: c.Settings.Metadata.UseLiteralContent,
+				AppendCbor:        c.Settings.Metadata.AppendCBOR,
+			},
+			Optimizer: &metadata_pb.Metadata_Settings_Optimizer{
+				Enabled: c.Settings.Optimizer.Enabled,
+				Runs:    int32(c.Settings.Optimizer.Runs),
+				Details: &metadata_pb.Metadata_Settings_Optimizer_Details{
+					Peephole:          c.Settings.Optimizer.Details.Peephole,
+					Inliner:           c.Settings.Optimizer.Details.Inliner,
+					JumpdestRemover:   c.Settings.Optimizer.Details.JumpdestRemover,
+					OrderLiterals:     c.Settings.Optimizer.Details.OrderLiterals,
+					Deduplicate:       c.Settings.Optimizer.Details.Deduplicate,
+					Cse:               c.Settings.Optimizer.Details.Cse,
+					ConstantOptimizer: c.Settings.Optimizer.Details.ConstantOptimizer,
+					Yul:               c.Settings.Optimizer.Details.Yul,
+					YulDetails: &metadata_pb.Metadata_Settings_Optimizer_Details_YulDetails{
+						StackAllocation: c.Settings.Optimizer.Details.YulDetails.StackAllocation,
+						OptimizerSteps:  int32(c.Settings.Optimizer.Details.YulDetails.OptimizerSteps),
+					},
+				},
+			},
+		},
+		Output: &metadata_pb.Metadata_Output{
+			Abi: abiValue,
+		},
+		Sources: sources,
+	}
 }
 
 // AbiToJSON converts the ABI of the contract to a JSON string.

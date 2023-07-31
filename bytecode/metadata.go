@@ -8,6 +8,7 @@ import (
 
 	"github.com/fxamacker/cbor/v2"
 	"github.com/mr-tron/base58"
+	metadata_pb "github.com/txpull/protos/dist/go/metadata"
 )
 
 // Metadata represents the metadata contained in Ethereum contract creation bytecode.
@@ -22,6 +23,20 @@ type Metadata struct {
 	Bzzr0             []byte `cbor:"bzzr0"`        // The Swarm hash of the metadata, if present (version 0)
 	Experimental      []byte `cbor:"experimental"` // Experimental metadata, if present
 	Solc              []byte `cbor:"solc"`         // The version of the Solidity compiler used
+}
+
+func (m *Metadata) ToProto() *metadata_pb.BytecodeMetadata {
+	return &metadata_pb.BytecodeMetadata{
+		ExecutionBytecode: m.executionBytecode,
+		CborLength:        uint32(m.cborLength),
+		Raw:               m.raw,
+		Ipfs:              m.GetIPFS(),
+		Bzzr1:             m.GetBzzr1(),
+		Bzzr0:             m.GetBzzr0(),
+		Experimental:      m.GetExperimental(),
+		Solc:              m.GetCompilerVersion(),
+		Solgo:             "",
+	}
 }
 
 // GetCompilerVersion returns the version of the Solidity compiler used to compile the contract.
