@@ -2,7 +2,7 @@ package ast
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo"
@@ -20,7 +20,6 @@ type ASTBuilder struct {
 	nextID                int64                  // nextID is the next ID to assign to a node.
 	comments              []*CommentNode
 	commentsParsed        bool
-	entrySourceUnit       *SourceUnit[Node[ast_pb.SourceUnit]]
 	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
 	currentStateVariables []*StateVariableDeclaration
 	currentEvents         []Node[NodeType]
@@ -77,12 +76,12 @@ func (b *ASTBuilder) WriteJSONToFile(path string) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(path, bts, 0644)
+	return os.WriteFile(path, bts, 0644)
 }
 
 // WriteToFile writes the provided data byte array to a file at the provided path.
 func (b *ASTBuilder) WriteToFile(path string, data []byte) error {
-	return ioutil.WriteFile(path, data, 0644)
+	return os.WriteFile(path, data, 0644)
 }
 
 // ResolveReferences resolves the references in the AST using the Resolver of the ASTBuilder.

@@ -41,85 +41,85 @@ func NewFunction(b *ASTBuilder) *Function {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Function node.
-func (f Function) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (f *Function) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	f.ReferencedDeclaration = refId
 	f.TypeDescription = refDesc
 	return false
 }
 
-func (f Function) GetId() int64 {
+func (f *Function) GetId() int64 {
 	return f.Id
 }
 
-func (f Function) GetType() ast_pb.NodeType {
+func (f *Function) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
-func (f Function) GetSrc() SrcNode {
+func (f *Function) GetSrc() SrcNode {
 	return f.Src
 }
 
-func (f Function) GetParameters() *ParameterList {
+func (f *Function) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
-func (f Function) GetReturnParameters() *ParameterList {
+func (f *Function) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
-func (f Function) GetBody() *BodyNode {
+func (f *Function) GetBody() *BodyNode {
 	return f.Body
 }
 
-func (f Function) GetKind() ast_pb.NodeType {
+func (f *Function) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
-func (f Function) IsImplemented() bool {
+func (f *Function) IsImplemented() bool {
 	return f.Implemented
 }
 
-func (f Function) GetModifiers() []*ModifierInvocation {
+func (f *Function) GetModifiers() []*ModifierInvocation {
 	return f.Modifiers
 }
 
-func (f Function) GetOverrides() []*OverrideSpecifier {
+func (f *Function) GetOverrides() []*OverrideSpecifier {
 	return f.Overrides
 }
 
-func (f Function) GetVisibility() ast_pb.Visibility {
+func (f *Function) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
-func (f Function) GetStateMutability() ast_pb.Mutability {
+func (f *Function) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
-func (f Function) IsVirtual() bool {
+func (f *Function) IsVirtual() bool {
 	return f.Virtual
 }
 
-func (f Function) GetScope() int64 {
+func (f *Function) GetScope() int64 {
 	return f.Scope
 }
 
-func (f Function) GetName() string {
+func (f *Function) GetName() string {
 	return f.Name
 }
 
-func (f Function) GetTypeDescription() *TypeDescription {
+func (f *Function) GetTypeDescription() *TypeDescription {
 	return f.TypeDescription
 }
 
-func (f Function) GetNodes() []Node[NodeType] {
+func (f *Function) GetNodes() []Node[NodeType] {
 	return f.Body.GetNodes()
 }
 
-func (f Function) ToProto() NodeType {
+func (f *Function) ToProto() NodeType {
 	return ast_pb.Function{}
 }
 
-func (f Function) Parse(
+func (f *Function) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
@@ -222,7 +222,7 @@ func (f Function) Parse(
 	return f
 }
 
-func (f Function) buildTypeDescription() *TypeDescription {
+func (f *Function) buildTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
 	typeStrings := make([]string, 0)
@@ -241,7 +241,7 @@ func (f Function) buildTypeDescription() *TypeDescription {
 	}
 }
 
-func (f Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
+func (f *Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
 	visibilityMap := map[string]ast_pb.Visibility{
 		"public":   ast_pb.Visibility_PUBLIC,
 		"private":  ast_pb.Visibility_PRIVATE,
@@ -258,7 +258,7 @@ func (f Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) as
 	return ast_pb.Visibility_INTERNAL
 }
 
-func (f Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
+func (f *Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable": ast_pb.Mutability_PAYABLE,
 		"pure":    ast_pb.Mutability_PURE,

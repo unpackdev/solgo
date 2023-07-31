@@ -178,7 +178,7 @@ func (p *PrimaryExpression) Parse(
 						break
 					}
 				}
-			case Function:
+			case *Function:
 				if fnNodeCtx.GetParameters() != nil {
 					for _, param := range fnNodeCtx.GetParameters().GetParameters() {
 						if param.GetName() == p.Name {
