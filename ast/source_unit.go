@@ -107,7 +107,7 @@ func (s *SourceUnit[T]) ToProto() NodeType {
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	license := getLicense(b.comments)
 
-	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments).(*RootNode)
+	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments)
 	b.tree.SetRoot(rootNode)
 
 	for _, child := range ctx.GetChildren() {

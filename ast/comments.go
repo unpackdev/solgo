@@ -19,6 +19,31 @@ type CommentNode struct {
 	Text string `json:"text"`
 }
 
+func (c *CommentNode) GetId() int64 {
+	return c.Id
+}
+
+func (c *CommentNode) GetType() ast_pb.NodeType {
+	return c.NodeType
+}
+
+func (c *CommentNode) GetSrc() SrcNode {
+	return c.Src
+}
+
+func (c *CommentNode) GetText() string {
+	return c.Text
+}
+
+func (c *CommentNode) ToProto() *ast_pb.Comment {
+	return &ast_pb.Comment{
+		Id:       c.Id,
+		NodeType: c.NodeType,
+		Src:      c.Src.ToProto(),
+		Text:     c.Text,
+	}
+}
+
 // EnterEveryRule is called when the parser enters any rule in the grammar.
 // It is used to search for license and any comments that code has.
 // ANTLR parser by default have comments disabled to be parsed as tokens, so we need to
