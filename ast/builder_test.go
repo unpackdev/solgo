@@ -39,7 +39,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "Empty",
 			},
-			expected:             string(tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast")),
+			expected:             tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -59,7 +59,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "SimpleStorage",
 			},
-			expected:             string(tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast")),
+			expected:             tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
 			unresolvedReferences: 4,
 		},
 		{
@@ -94,7 +94,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "ERC20",
 			},
-			expected:             string(tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast")),
+			expected:             tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
 			unresolvedReferences: 15,
 		},
 
@@ -120,7 +120,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "TokenSale",
 			},
-			expected:             string(tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast")),
+			expected:             tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
 			unresolvedReferences: 15,
 		},
 		{
@@ -135,7 +135,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				},
 				EntrySourceUnitName: "Lottery",
 			},
-			expected: string(tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast")),
+			expected: tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
 		},
 	}
 
