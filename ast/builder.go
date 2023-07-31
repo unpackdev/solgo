@@ -2,421 +2,93 @@ package ast
 
 import (
 	"encoding/json"
-	"fmt"
-	"strings"
-	"time"
+	"io/ioutil"
 
+	ast_pb "github.com/txpull/protos/dist/go/ast"
+	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/parser"
 )
 
+// ASTBuilder is a structure that helps in building and manipulating an Abstract Syntax Tree (AST).
+// It contains a reference to a Solidity parser, the source code of the Solidity files, and various nodes of the AST.
 type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
-	currentContract *ContractNode
-	astRoot         *RootNode
-	errors          []error
-	parseTime       time.Time
-	pragmas         [][]string
+	resolver              *Resolver
+	tree                  *Tree
+	sources               solgo.Sources          // sources is the source code of the Solidity files.
+	parser                *parser.SolidityParser // parser is the Solidity parser instance.
+	nextID                int64                  // nextID is the next ID to assign to a node.
+	comments              []*CommentNode
+	commentsParsed        bool
+	entrySourceUnit       *SourceUnit[Node[ast_pb.SourceUnit]]
+	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
+	currentStateVariables []*StateVariableDeclaration
+	currentEvents         []Node[NodeType]
+	currentEnums          []Node[NodeType]
+	currentStructs        []Node[NodeType]
+	currentErrors         []Node[NodeType]
+	currentModifiers      []Node[NodeType]
+	currentFunctions      []Node[NodeType]
+	currentVariables      []Node[NodeType]
 }
 
-func NewAstBuilder() *ASTBuilder {
-	return &ASTBuilder{
-		pragmas: make([][]string, 0),
+// NewAstBuilder creates a new ASTBuilder with the provided Solidity parser and source code.
+func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {
+	builder := &ASTBuilder{
+		parser:      parser,
+		sources:     sources,
+		comments:    make([]*CommentNode, 0),
+		sourceUnits: make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
+		nextID:      1,
 	}
+
+	// Used for resolving references.
+	builder.resolver = NewResolver(builder)
+
+	// Used for traversing the AST.
+	builder.tree = NewTree(builder)
+
+	return builder
 }
 
-func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
-	b.currentContract = nil
-
-	b.astRoot = &RootNode{Contracts: make([]*ContractNode, 0)}
-
-	b.errors = nil
-	b.parseTime = time.Now()
-
-	for _, pragma := range ctx.AllPragmaDirective() {
-		for _, token := range pragma.AllPragmaToken() {
-			pragmas := make([]string, 0)
-			pragmas = append(pragmas, strings.TrimSpace(token.GetText()))
-			b.pragmas = append(b.pragmas, pragmas)
-		}
-	}
+// GetResolver returns the Resolver of the ASTBuilder.
+func (b *ASTBuilder) GetResolver() *Resolver {
+	return b.resolver
 }
 
-func (b *ASTBuilder) EnterContractDefinition(ctx *parser.ContractDefinitionContext) {
-	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(),
-		StateVariables: make([]*StateVariableNode, 0),
-		Kind:           "contract",
-	}
-
-	if ctx.InheritanceSpecifierList() != nil {
-		for _, inheritance := range ctx.InheritanceSpecifierList().AllInheritanceSpecifier() {
-			b.currentContract.Inherits = append(b.currentContract.Inherits, inheritance.GetText())
-		}
-	}
-
-	if ctx.Abstract() != nil {
-		b.currentContract.Kind = "abstract"
-	}
-
-	fmt.Printf("Contract: %+v\n", b.currentContract)
-
-	b.astRoot.Contracts = append(b.astRoot.Contracts, b.currentContract)
+// GetRoot returns the root node of the AST from the Tree of the ASTBuilder.
+func (b *ASTBuilder) GetRoot() *RootNode {
+	return b.tree.GetRoot()
 }
 
-func (b *ASTBuilder) ExitContractDefinition(ctx *parser.ContractDefinitionContext) {
-	b.currentContract = nil
+// ToJSON converts the root node of the AST to a JSON byte array.
+func (b *ASTBuilder) ToJSON() ([]byte, error) {
+	return json.Marshal(b.tree.GetRoot())
 }
 
-func (b *ASTBuilder) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {
-	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(),
-		StateVariables: make([]*StateVariableNode, 0),
-		Kind:           "interface",
-	}
-
-	if ctx.InheritanceSpecifierList() != nil {
-		for _, inheritance := range ctx.InheritanceSpecifierList().AllInheritanceSpecifier() {
-			b.currentContract.Inherits = append(b.currentContract.Inherits, inheritance.GetText())
-		}
-	}
+// ToPrettyJSON converts the provided data to a pretty (indented) JSON byte array.
+func (b *ASTBuilder) ToPrettyJSON(data interface{}) ([]byte, error) {
+	return json.MarshalIndent(data, "", "  ")
 }
 
-func (b *ASTBuilder) EnterLibraryDefinition(ctx *parser.LibraryDefinitionContext) {
-	b.currentContract = &ContractNode{
-		Name:           ctx.Identifier().GetText(),
-		StateVariables: make([]*StateVariableNode, 0),
-		Kind:           "library",
-	}
-}
-
-func (b *ASTBuilder) EnterUsingDirective(ctx *parser.UsingDirectiveContext) {
-	usingDirective := &UsingDirectiveNode{
-		Type:       ctx.TypeName().GetText(),
-		IsWildcard: ctx.Mul() != nil,
-		IsGlobal:   ctx.Global() != nil,
-	}
-
-	if ctx.AllUserDefinableOperator() != nil {
-		for _, operator := range ctx.AllUserDefinableOperator() {
-			if operator.GetText() == "userDefined" {
-				usingDirective.IsUserDef = true
-			}
-		}
-	}
-
-	if ctx.AllIdentifierPath() != nil {
-		for _, identifier := range ctx.AllIdentifierPath() {
-			usingDirective.Alias = identifier.GetText()
-		}
-	}
-
-	b.currentContract.Using = append(b.currentContract.Using, usingDirective)
-}
-
-func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDeclarationContext) {
-	variable := &StateVariableNode{
-		Name: func() string {
-			if ctx.Identifier() != nil {
-				return ctx.Identifier().GetText()
-			}
-			return ""
-		}(),
-		Type: ctx.GetType_().GetText(),
-	}
-
-	if ctx.GetVisibilitySet() {
-		if ctx.AllInternal() != nil {
-			variable.Visibility = "internal"
-		} else if ctx.AllPrivate() != nil {
-			variable.Visibility = "private"
-		} else if ctx.AllPublic() != nil {
-			variable.Visibility = "public"
-		}
-	}
-
-	if ctx.GetConstantnessSet() {
-		for _, constant := range ctx.AllConstant() {
-			if constant.GetText() == "constant" {
-				variable.IsConstant = true
-			}
-		}
-	}
-
-	if ctx.AllImmutable() != nil {
-		for _, modifier := range ctx.AllImmutable() {
-			if modifier.GetText() == "immutable" {
-				variable.IsImmutable = true
-			}
-		}
-	}
-
-	if initialValue := ctx.GetInitialValue(); initialValue != nil {
-		variable.InitialValue = initialValue.GetText()
-	}
-
-	b.currentContract.StateVariables = append(b.currentContract.StateVariables, variable)
-}
-
-func (b *ASTBuilder) EnterEnumDefinition(ctx *parser.EnumDefinitionContext) {
-	enum := &EnumNode{
-		Name:         ctx.GetName().GetText(),
-		MemberValues: make([]*EnumMemberNode, len(ctx.GetEnumValues())),
-	}
-
-	for i, valueCtx := range ctx.GetEnumValues() {
-		enum.MemberValues[i] = &EnumMemberNode{Name: valueCtx.GetText()}
-	}
-
-	b.currentContract.Enums = append(b.currentContract.Enums, enum)
-}
-
-func (b *ASTBuilder) EnterConstructorDefinition(ctx *parser.ConstructorDefinitionContext) {
-	constructor := &ConstructorNode{
-		Parameters: make([]*VariableNode, 0),
-		Body:       make([]*StatementNode, 0),
-	}
-
-	if arguments := ctx.GetArguments(); arguments != nil {
-		for _, parameterCtx := range arguments.AllParameterDeclaration() {
-			constructor.Parameters = append(constructor.Parameters, &VariableNode{
-				Name: func() string {
-					if parameterCtx.Identifier() != nil {
-						return parameterCtx.Identifier().GetText()
-					}
-					return ""
-				}(),
-				Type: parameterCtx.TypeName().GetText(),
-			})
-		}
-	}
-
-	if body := ctx.GetBody(); body != nil {
-		for _, statementCtx := range body.AllStatement() {
-			constructor.Body = append(constructor.Body, &StatementNode{
-				Raw:     b.getTextSliceWithOriginalFormatting(statementCtx),
-				TextRaw: statementCtx.GetText(),
-			})
-		}
-	}
-
-	b.currentContract.Constructor = constructor
-}
-
-func (b *ASTBuilder) EnterStructDefinition(ctx *parser.StructDefinitionContext) {
-	structNode := &StructNode{
-		Name: ctx.GetName().GetText(),
-	}
-
-	for _, memberCtx := range ctx.AllStructMember() {
-		structNode.Members = append(structNode.Members, &StructMemberNode{
-			Name: func() string {
-				if memberCtx.Identifier() != nil {
-					return memberCtx.Identifier().GetText()
-				}
-				return ""
-			}(),
-			Type: memberCtx.GetType_().GetText(),
-		})
-	}
-
-	b.currentContract.Structs = append(b.currentContract.Structs, structNode)
-}
-
-func (b *ASTBuilder) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
-	errorNode := &ErrorNode{
-		Name:   ctx.GetName().GetText(),
-		Values: make([]*ErrorValueNode, 0),
-	}
-
-	for _, errorParamCtx := range ctx.GetParameters() {
-		errorValue := &ErrorValueNode{
-			Name: func() string {
-				if errorParamCtx.Identifier() != nil {
-					return errorParamCtx.Identifier().GetText()
-				}
-				return ""
-			}(),
-			Type: errorParamCtx.GetType_().GetText(),
-			Code: 0,
-		}
-		errorNode.Values = append(errorNode.Values, errorValue)
-	}
-
-	b.currentContract.Errors = append(b.currentContract.Errors, errorNode)
-}
-
-func (b *ASTBuilder) EnterFunctionDefinition(ctx *parser.FunctionDefinitionContext) {
-	currentFunction := b.CreateFunction(ctx)
-	b.currentContract.Functions = append(b.currentContract.Functions, currentFunction)
-}
-
-func (b *ASTBuilder) EnterFallbackFunctionDefinition(ctx *parser.FallbackFunctionDefinitionContext) {
-	fallbackFunction := &FunctionNode{
-		Name:             "fallback",
-		Parameters:       make([]*VariableNode, 0),
-		ReturnParameters: make([]*VariableNode, 0),
-		Body:             make([]*StatementNode, 0),
-		Visibility:       make([]*VisibilityNode, 0),
-		Mutability:       make([]*MutabilityNode, 0),
-		Modifiers:        make([]*ModifierNode, 0),
-		Overrides:        false,
-		IsVirtual:        false,
-		IsFallback:       true,
-	}
-
-	// Handle virtual modifier
-	if ctx.GetVirtualSet() {
-		fallbackFunction.IsVirtual = true
-	}
-
-	if ctx.GetVisibilitySet() {
-		for _, externalCtx := range ctx.AllExternal() {
-			fallbackFunction.Visibility = append(fallbackFunction.Visibility, &VisibilityNode{
-				Visibility: externalCtx.GetText(),
-			})
-		}
-	}
-
-	if ctx.GetMutabilitySet() {
-		for _, mutabilityCtx := range ctx.AllStateMutability() {
-			fallbackFunction.Mutability = append(fallbackFunction.Mutability, &MutabilityNode{
-				Mutability: mutabilityCtx.GetText(),
-			})
-		}
-	}
-
-	if len(fallbackFunction.Mutability) == 0 {
-		fallbackFunction.Mutability = append(fallbackFunction.Mutability, &MutabilityNode{
-			Mutability: "nonpayable",
-		})
-	}
-
-	if ctx.GetOverrideSpecifierSet() {
-		for _, overrideCtx := range ctx.AllOverrideSpecifier() {
-			fallbackFunction.Overrides = !overrideCtx.IsEmpty()
-		}
-	}
-
-	for _, modifierCtx := range ctx.AllModifierInvocation() {
-		fallbackFunction.Modifiers = append(fallbackFunction.Modifiers, &ModifierNode{
-			Modifier: modifierCtx.GetText(),
-		})
-	}
-
-	if parameters := ctx.AllParameterList(); parameters != nil {
-		for _, parameterCtx := range parameters {
-			for _, param := range parameterCtx.AllParameterDeclaration() {
-				fallbackFunction.Parameters = append(fallbackFunction.Parameters, &VariableNode{
-					Name: func() string {
-						if param.Identifier() != nil {
-							return param.Identifier().GetText()
-						}
-						return ""
-					}(),
-					Type: param.TypeName().GetText(),
-				})
-			}
-		}
-	}
-
-	if body := ctx.GetBody(); body != nil {
-		for _, statementCtx := range body.AllStatement() {
-			statement := &StatementNode{
-				Raw:     b.getTextSliceWithOriginalFormatting(statementCtx),
-				TextRaw: statementCtx.GetText(),
-			}
-			fallbackFunction.Body = append(fallbackFunction.Body, statement)
-		}
-	}
-
-	b.currentContract.Functions = append(b.currentContract.Functions, fallbackFunction)
-}
-
-func (b *ASTBuilder) EnterReceiveFunctionDefinition(ctx *parser.ReceiveFunctionDefinitionContext) {
-	receiveFn := &FunctionNode{
-		Name:             "receive",
-		Parameters:       make([]*VariableNode, 0),
-		ReturnParameters: make([]*VariableNode, 0),
-		Body:             make([]*StatementNode, 0),
-		Visibility:       make([]*VisibilityNode, 0),
-		Mutability:       make([]*MutabilityNode, 0),
-		Modifiers:        make([]*ModifierNode, 0),
-		Overrides:        false,
-		IsVirtual:        false,
-		IsReceive:        true,
-	}
-
-	if ctx.GetVirtualSet() {
-		receiveFn.IsVirtual = true
-	}
-
-	if ctx.GetOverrideSpecifierSet() {
-		for _, overrideCtx := range ctx.AllOverrideSpecifier() {
-			receiveFn.Overrides = !overrideCtx.IsEmpty()
-		}
-	}
-
-	if body := ctx.GetBody(); body != nil {
-		for _, statementCtx := range body.AllStatement() {
-			statement := &StatementNode{
-				Raw:     b.getTextSliceWithOriginalFormatting(statementCtx),
-				TextRaw: statementCtx.GetText(),
-			}
-			receiveFn.Body = append(receiveFn.Body, statement)
-		}
-	}
-
-	b.currentContract.Functions = append(b.currentContract.Functions, receiveFn)
-}
-
-func (b *ASTBuilder) EnterEventDefinition(ctx *parser.EventDefinitionContext) {
-	event := &EventNode{
-		Name:      ctx.GetName().GetText(),
-		Anonymous: ctx.Anonymous() != nil,
-	}
-
-	if ctx.AllEventParameter() != nil {
-		event.Parameters = make([]*EventParameterNode, 0)
-
-		for _, parameterCtx := range ctx.AllEventParameter() {
-			event.Parameters = append(event.Parameters, &EventParameterNode{
-				Name: func() string {
-					if parameterCtx.Identifier() != nil {
-						return parameterCtx.Identifier().GetText()
-					}
-					return ""
-				}(),
-				Type:    parameterCtx.GetType_().GetText(),
-				Indexed: parameterCtx.Indexed() != nil,
-			})
-		}
-	}
-
-	b.currentContract.Events = append(b.currentContract.Events, event)
-}
-
-func (b *ASTBuilder) GetTree() Node {
-	return b.astRoot
-}
-
-func (b *ASTBuilder) GetPragmas() [][]string {
-	return b.pragmas
-}
-
-func (b *ASTBuilder) GetErrors() []error {
-	return b.errors
-}
-
-func (b *ASTBuilder) GetParseTime() time.Duration {
-	return time.Since(b.parseTime)
-}
-
-// ToJSON converts the ABI object into a JSON string.
-func (b *ASTBuilder) ToJSON() (string, error) {
-	abiJSON, err := json.Marshal(b.astRoot)
+// WriteJSONToFile writes the root node of the AST as a JSON byte array to a file at the provided path.
+func (b *ASTBuilder) WriteJSONToFile(path string) error {
+	bts, err := b.ToJSON()
 	if err != nil {
-		return "", err
+		return err
 	}
+	return ioutil.WriteFile(path, bts, 0644)
+}
 
-	return string(abiJSON), nil
+// WriteToFile writes the provided data byte array to a file at the provided path.
+func (b *ASTBuilder) WriteToFile(path string, data []byte) error {
+	return ioutil.WriteFile(path, data, 0644)
+}
+
+// ResolveReferences resolves the references in the AST using the Resolver of the ASTBuilder.
+func (b *ASTBuilder) ResolveReferences() error {
+	if err := b.resolver.Resolve(); err != nil {
+		return err
+	}
+	return nil
 }

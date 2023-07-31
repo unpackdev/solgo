@@ -1,178 +1,285 @@
 package ast
 
 import (
+	"strings"
+
+	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type VisibilityNode struct {
-	Visibility string `json:"value"`
+type Function struct {
+	*ASTBuilder
+
+	Id                    int64                 `json:"id"`
+	Name                  string                `json:"name"`
+	NodeType              ast_pb.NodeType       `json:"node_type"`
+	Kind                  ast_pb.NodeType       `json:"kind"`
+	Src                   SrcNode               `json:"src"`
+	Body                  *BodyNode             `json:"body"`
+	Implemented           bool                  `json:"implemented"`
+	Visibility            ast_pb.Visibility     `json:"visibility"`
+	StateMutability       ast_pb.Mutability     `json:"state_mutability"`
+	Virtual               bool                  `json:"virtual"`
+	Modifiers             []*ModifierInvocation `json:"modifiers"`
+	Overrides             []*OverrideSpecifier  `json:"overrides"`
+	Parameters            *ParameterList        `json:"parameters"`
+	ReturnParameters      *ParameterList        `json:"return_parameters"`
+	Scope                 int64                 `json:"scope"`
+	ReferencedDeclaration int64                 `json:"referenced_declaration,omitempty"`
+	TypeDescription       *TypeDescription      `json:"type_description"`
 }
 
-func (v *VisibilityNode) Children() []Node {
-	return nil
+func NewFunction(b *ASTBuilder) *Function {
+	return &Function{
+		ASTBuilder:  b,
+		NodeType:    ast_pb.NodeType_FUNCTION_DEFINITION,
+		Kind:        ast_pb.NodeType_KIND_FUNCTION,
+		Modifiers:   make([]*ModifierInvocation, 0),
+		Overrides:   make([]*OverrideSpecifier, 0),
+		Implemented: true,
+	}
 }
 
-type MutabilityNode struct {
-	Mutability string `json:"value"`
+// SetReferenceDescriptor sets the reference descriptions of the Function node.
+func (f Function) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	f.ReferencedDeclaration = refId
+	f.TypeDescription = refDesc
+	return false
 }
 
-func (m *MutabilityNode) Children() []Node {
-	return nil
+func (f Function) GetId() int64 {
+	return f.Id
 }
 
-type ModifierNode struct {
-	Modifier string `json:"value"`
+func (f Function) GetType() ast_pb.NodeType {
+	return f.NodeType
 }
 
-func (m *ModifierNode) Children() []Node {
-	return nil
+func (f Function) GetSrc() SrcNode {
+	return f.Src
 }
 
-type FunctionNode struct {
-	Name             string            `json:"name"`
-	Parameters       []*VariableNode   `json:"parameters"`
-	ReturnParameters []*VariableNode   `json:"return_parameters"`
-	Body             []*StatementNode  `json:"body"`
-	Visibility       []*VisibilityNode `json:"visibility"`
-	Mutability       []*MutabilityNode `json:"mutability"`
-	Modifiers        []*ModifierNode   `json:"modifiers"`
-	IsVirtual        bool              `json:"is_virtual"`
-	IsReceive        bool              `json:"is_receive"`
-	IsFallback       bool              `json:"is_fallback"`
-	Overrides        bool              `json:"overrides"`
+func (f Function) GetParameters() *ParameterList {
+	return f.Parameters
 }
 
-func (f *FunctionNode) Children() []Node {
-	var nodes []Node
-
-	// Append Parameters
-	for _, param := range f.Parameters {
-		nodes = append(nodes, param)
-	}
-
-	// Append ReturnParameters
-	for _, retParam := range f.ReturnParameters {
-		nodes = append(nodes, retParam)
-	}
-
-	// Append Body
-	for _, stmt := range f.Body {
-		nodes = append(nodes, stmt)
-	}
-
-	// Append Visibility
-	for _, vis := range f.Visibility {
-		nodes = append(nodes, vis)
-	}
-
-	// Append Mutability
-	for _, mut := range f.Mutability {
-		nodes = append(nodes, mut)
-	}
-
-	// Append Modifiers
-	for _, mod := range f.Modifiers {
-		nodes = append(nodes, mod)
-	}
-
-	return nodes
+func (f Function) GetReturnParameters() *ParameterList {
+	return f.ReturnParameters
 }
 
-func (b *ASTBuilder) CreateFunction(ctx *parser.FunctionDefinitionContext) *FunctionNode {
-	toReturn := &FunctionNode{
-		Name:             ctx.Identifier().GetText(),
-		Parameters:       make([]*VariableNode, 0),
-		ReturnParameters: make([]*VariableNode, 0),
-		Body:             make([]*StatementNode, 0),
-		Visibility:       make([]*VisibilityNode, 0),
-		Mutability:       make([]*MutabilityNode, 0),
-		Modifiers:        make([]*ModifierNode, 0),
+func (f Function) GetBody() *BodyNode {
+	return f.Body
+}
+
+func (f Function) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+func (f Function) IsImplemented() bool {
+	return f.Implemented
+}
+
+func (f Function) GetModifiers() []*ModifierInvocation {
+	return f.Modifiers
+}
+
+func (f Function) GetOverrides() []*OverrideSpecifier {
+	return f.Overrides
+}
+
+func (f Function) GetVisibility() ast_pb.Visibility {
+	return f.Visibility
+}
+
+func (f Function) GetStateMutability() ast_pb.Mutability {
+	return f.StateMutability
+}
+
+func (f Function) IsVirtual() bool {
+	return f.Virtual
+}
+
+func (f Function) GetScope() int64 {
+	return f.Scope
+}
+
+func (f Function) GetName() string {
+	return f.Name
+}
+
+func (f Function) GetTypeDescription() *TypeDescription {
+	return f.TypeDescription
+}
+
+func (f Function) GetNodes() []Node[NodeType] {
+	return f.Body.GetNodes()
+}
+
+func (f Function) ToProto() NodeType {
+	return ast_pb.Function{}
+}
+
+func (f Function) Parse(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
+	bodyCtx parser.IContractBodyElementContext,
+	ctx *parser.FunctionDefinitionContext,
+) Node[NodeType] {
+	f.Id = f.GetNextID()
+	f.Scope = contractNode.GetId()
+	if ctx.Identifier() != nil {
+		f.Name = ctx.Identifier().GetText()
+	}
+	f.Implemented = ctx.Block() != nil && !ctx.Block().IsEmpty()
+	f.Src = SrcNode{
+		Id:          f.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: contractNode.GetId(),
 	}
 
-	if ctx.GetVisibilitySet() {
-		for _, visibilityCtx := range ctx.AllVisibility() {
-			toReturn.Visibility = append(toReturn.Visibility, &VisibilityNode{
-				Visibility: visibilityCtx.GetText(),
-			})
-		}
-	}
+	// Set function visibility state.
+	f.Visibility = f.getVisibilityFromCtx(ctx)
 
-	if ctx.GetMutabilitySet() {
-		for _, mutabilityCtx := range ctx.AllStateMutability() {
-			toReturn.Mutability = append(toReturn.Mutability, &MutabilityNode{
-				Mutability: mutabilityCtx.GetText(),
-			})
-		}
-	}
+	// Set function state mutability.
+	f.StateMutability = f.getStateMutabilityFromCtx(ctx)
 
-	if len(toReturn.Mutability) == 0 {
-		toReturn.Mutability = append(toReturn.Mutability, &MutabilityNode{
-			Mutability: "nonpayable",
-		})
-	}
+	// Set if function is virtual.
+	f.Virtual = f.getVirtualState(ctx)
 
-	if ctx.GetVirtualSet() {
-		toReturn.IsVirtual = true
-	}
-
-	if ctx.GetOverrideSpecifierSet() {
-		for _, overrideCtx := range ctx.AllOverrideSpecifier() {
-			toReturn.Overrides = overrideCtx.GetText() == "override"
-		}
-	}
-
+	// Set function modifiers.
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
-		toReturn.Modifiers = append(toReturn.Modifiers, &ModifierNode{
-			Modifier: modifierCtx.GetText(),
-		})
+		modifier := NewModifierInvocation(f.ASTBuilder)
+		modifier.Parse(unit, contractNode, f, nil, modifierCtx)
+		f.Modifiers = append(f.Modifiers, modifier)
 	}
 
-	// Handle function parameters
-	if arguments := ctx.GetArguments(); arguments != nil {
-		for _, parameterCtx := range arguments.AllParameterDeclaration() {
-			parameterType := parameterCtx.TypeName().GetText()
-			toReturn.Parameters = append(toReturn.Parameters, &VariableNode{
-				Name: func() string {
-					if parameterCtx.Identifier() != nil {
-						return parameterCtx.Identifier().GetText()
-					}
-					return ""
-				}(),
-				Type: parameterType,
-			})
+	// Set function override specifier.
+	for _, overrideCtx := range ctx.AllOverrideSpecifier() {
+		overrideSpecifier := NewOverrideSpecifier(f.ASTBuilder)
+		overrideSpecifier.Parse(unit, f, overrideCtx)
+		f.Overrides = append(f.Overrides, overrideSpecifier)
+	}
+
+	// Set function parameters if they exist.
+	params := NewParameterList(f.ASTBuilder)
+	if len(ctx.AllParameterList()) > 0 {
+		params.Parse(unit, f, ctx.AllParameterList()[0])
+	} else {
+		params.Src = f.Src
+		params.Src.ParentIndex = f.Id
+	}
+	f.Parameters = params
+
+	// Set function return parameters if they exist.
+	// @TODO: Consider traversing through body to discover name of the return parameters even
+	// if they are not defined in (name uint) format.
+	returnParams := NewParameterList(f.ASTBuilder)
+	if ctx.GetReturnParameters() != nil {
+		returnParams.Parse(unit, f, ctx.GetReturnParameters())
+	} else {
+		returnParams.Src = f.Src
+		returnParams.Src.ParentIndex = f.Id
+	}
+	f.ReturnParameters = returnParams
+
+	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
+		bodyNode := NewBodyNode(f.ASTBuilder)
+		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
+		f.Body = bodyNode
+
+		// In case at any point we discover that the function is not implemented, we set the
+		// implemented flag to false.
+		if !bodyNode.Implemented {
+			f.Implemented = false
 		}
-	}
 
-	if returnParameters := ctx.GetReturnParameters(); returnParameters != nil {
-		for _, parameterCtx := range returnParameters.AllParameterDeclaration() {
-			parameterType := parameterCtx.TypeName().GetText()
-			toReturn.ReturnParameters = append(toReturn.ReturnParameters, &VariableNode{
-				Name: func() string {
-					if parameterCtx.Identifier() != nil {
-						return parameterCtx.Identifier().GetText()
-					}
-					return ""
-				}(),
-				Type: parameterType,
-			})
-		}
-	}
+		if ctx.Block().AllUncheckedBlock() != nil {
+			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
+				bodyNode := NewBodyNode(f.ASTBuilder)
+				bodyNode.ParseUncheckedBlock(unit, contractNode, f, uncheckedCtx)
+				f.Body.Statements = append(f.Body.Statements, bodyNode)
 
-	if body := ctx.GetBody(); body != nil {
-		for _, statementCtx := range body.AllStatement() {
-			// Create a new StatementNode with the text of the statement.
-			// Apparently whitespaces are stripped from the statementCtx.GetText() result...
-			// This whole statement node will be replaced by a more complex one in the future and there
-			// will be a dedicated function to parse each statement ctx.
-			statement := &StatementNode{
-				Raw:     b.getTextSliceWithOriginalFormatting(statementCtx),
-				TextRaw: statementCtx.GetText(),
+				// In case at any point we discover that the function is not implemented, we set the
+				// implemented flag to false.
+				if !bodyNode.Implemented {
+					f.Implemented = false
+				}
 			}
+		}
+	} else {
+		bodyNode := NewBodyNode(f.ASTBuilder)
+		bodyNode.Src = f.Src
+		bodyNode.Src.ParentIndex = f.Id
+		f.Body = bodyNode
+	}
 
-			// Add the statement to the current function.
-			toReturn.Body = append(toReturn.Body, statement)
+	f.TypeDescription = f.buildTypeDescription()
+	f.currentFunctions = append(f.currentFunctions, f)
+	return f
+}
+
+func (f Function) buildTypeDescription() *TypeDescription {
+	typeString := "function("
+	typeIdentifier := "t_function_"
+	typeStrings := make([]string, 0)
+	typeIdentifiers := make([]string, 0)
+
+	for _, paramType := range f.GetParameters().GetParameterTypes() {
+		typeStrings = append(typeStrings, paramType.TypeString)
+		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
+	}
+	typeString += strings.Join(typeStrings, ",") + ")"
+	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	return &TypeDescription{
+		TypeString:     typeString,
+		TypeIdentifier: typeIdentifier,
+	}
+}
+
+func (f Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
+	visibilityMap := map[string]ast_pb.Visibility{
+		"public":   ast_pb.Visibility_PUBLIC,
+		"private":  ast_pb.Visibility_PRIVATE,
+		"internal": ast_pb.Visibility_INTERNAL,
+		"external": ast_pb.Visibility_EXTERNAL,
+	}
+
+	for _, visibility := range ctx.AllVisibility() {
+		if v, ok := visibilityMap[visibility.GetText()]; ok {
+			return v
 		}
 	}
 
-	return toReturn
+	return ast_pb.Visibility_INTERNAL
+}
+
+func (f Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
+	mutabilityMap := map[string]ast_pb.Mutability{
+		"payable": ast_pb.Mutability_PAYABLE,
+		"pure":    ast_pb.Mutability_PURE,
+		"view":    ast_pb.Mutability_VIEW,
+	}
+
+	for _, stateMutability := range ctx.AllStateMutability() {
+		if m, ok := mutabilityMap[stateMutability.GetText()]; ok {
+			return m
+		}
+	}
+
+	return ast_pb.Mutability_NONPAYABLE
+}
+
+func (f *Function) getVirtualState(ctx *parser.FunctionDefinitionContext) bool {
+	for _, virtual := range ctx.AllVirtual() {
+		if virtual.GetText() == "virtual" {
+			return true
+		}
+	}
+
+	return false
 }

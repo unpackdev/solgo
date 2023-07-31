@@ -3,7 +3,6 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/txpull/solgo)](https://goreportcard.com/report/github.com/txpull/solgo)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/txpull/solgo)](https://pkg.go.dev/github.com/txpull/solgo)
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 # Solidity Parser in Golang
 
@@ -13,7 +12,13 @@ The parser is generated from a Solidity grammar file using Antlr, producing a le
 
 This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Golang for their analysis tools.
 
-**Note: This project is still in development and is not yet ready for use in production.**
+## WARNINGS
+
+- Protocol buffers are still under heavy development, some of them only boilerplated.
+- Abstract Syntax Tree (AST) is still under heavy development. Functional to a point but with bugs and some
+  deliberate panics so code can be captured and fixed!
+- This project is still under heavy development, some of the features are not implemented yet.
+- This project is not yet ready for use in production.
 
 ## Why?
 
@@ -37,12 +42,18 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 
 ## Features
 
-- **Syntactic Analysis**: SolGo transforms Solidity code into a parse tree that can be traversed and manipulated, providing a detailed syntactic analysis of the code.
-- **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
-- **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
-- **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
+- **Protocol Buffers**: SolGo uses [Protocol Buffers](https://github.com/txpull/protos) to define the structure of the data that is passed between the parser and the listener. This provides a structured format for the data, enabling more effective analysis.
 - **AST (Abstract Syntax Tree) Generation:** SolGo includes an ASTBuilder that constructs an Abstract Syntax Tree for Solidity code. The AST represents the structure of the code and provides a high-level representation of its elements.
 - **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the ethereum-based networks.
+- **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
+- **Syntactic Analysis**: SolGo transforms Solidity code into a parse tree that can be traversed and manipulated, providing a detailed syntactic analysis of the code.
+- **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
+- **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
+
+
+## Extensions
+
+- [SolGo RPC](https://github.com/txpull/solgo-rpc): A RPC server that exposes the functionality of SolGo via a gRPC. **(Under development)**
 
 
 ## Getting Started

@@ -14,6 +14,8 @@ import (
 type Parser struct {
 	// ctx is the context in which SolGo operates. It can be used to control cancellation of parsing.
 	ctx context.Context
+	// sources is a struct that contains the sources of the Solidity contract.
+	sources Sources
 	// inputRaw is the raw input reader from which the Solidity contract is read.
 	inputRaw io.Reader
 	// inputStream is the ANTLR input stream which is used by the lexer.
@@ -71,6 +73,52 @@ func NewParser(ctx context.Context, input io.Reader) (*Parser, error) {
 		errListener:    errListener,
 		listeners:      make(listeners),
 	}, nil
+}
+
+// NewParserFromSources creates a new instance of parser from a reader.
+// It takes a context and an io.Reader from which the Solidity contract is read.
+// It initializes an input stream, lexer, token stream, and parser, and sets up error listeners.
+func NewParserFromSources(ctx context.Context, sources Sources) (*Parser, error) {
+	if err := sources.Prepare(); err != nil {
+		return nil, fmt.Errorf("error preparing sources: %w", err)
+	}
+
+	// Create an input stream from the input
+	inputStream := antlr.NewInputStream(sources.GetCombinedSource())
+
+	// Create a new SyntaxErrorListener
+	errListener := syntaxerrors.NewSyntaxErrorListener()
+
+	// Create a new Solidity lexer with the input stream
+	lexer := parser.NewSolidityLexer(inputStream)
+
+	// Remove the default error listeners
+	lexer.RemoveErrorListeners()
+
+	// Add our SyntaxErrorListener
+	lexer.AddErrorListener(errListener)
+
+	// Create a new token stream from the lexer
+	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+
+	// Create a new ContextualParser with the token stream and listener
+	contextualParser := syntaxerrors.NewContextualParser(stream, errListener)
+
+	return &Parser{
+		ctx:            ctx,
+		sources:        sources,
+		inputRaw:       nil,
+		inputStream:    inputStream,
+		lexer:          lexer,
+		tokenStream:    stream,
+		solidityParser: contextualParser,
+		errListener:    errListener,
+		listeners:      make(listeners),
+	}, nil
+}
+
+func (s *Parser) GetSources() Sources {
+	return s.sources
 }
 
 // GetInput returns the raw input reader from which the Solidity contract is read.
