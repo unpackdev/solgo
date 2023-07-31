@@ -36,17 +36,52 @@ func (p *AbiParser) InjectConstructor(ctx *parser.ConstructorDefinitionContext) 
 					}
 					return ""
 				}(),
-				Type:         normalizeTypeName(paramCtx.TypeName().GetText()),
-				InternalType: normalizeTypeName(paramCtx.TypeName().GetText()),
+				Type: func() string {
+					if _, ok := p.definedInterfaces[paramCtx.TypeName().GetText()]; ok {
+						return "address"
+					}
+					ntype, found := normalizeTypeNameWithStatus(paramCtx.TypeName().GetText())
+					if !found {
+						return "address"
+					}
+
+					return ntype
+				}(),
+				InternalType: func() string {
+					if _, ok := p.definedInterfaces[paramCtx.TypeName().GetText()]; ok {
+						return fmt.Sprintf("contract %s", paramCtx.TypeName().GetText())
+					}
+					ntype, found := normalizeTypeNameWithStatus(paramCtx.TypeName().GetText())
+					if !found {
+						return fmt.Sprintf("contract %s", paramCtx.TypeName().GetText())
+					}
+					return ntype
+				}(),
 			})
 		}
 	}
 
-	p.abi = append(p.abi, MethodConstructor{
+	constructor := MethodConstructor{
 		Type:    "constructor",
 		Inputs:  inputs,
 		Outputs: make([]MethodIO, 0),
-	})
+		StateMutability: func() string {
+			if ctx.AllPayable() != nil {
+				for _, payable := range ctx.AllPayable() {
+					if payable.GetText() == "payable" {
+						return "payable"
+					}
+				}
+			}
+			return "nonpayable"
+		}(),
+	}
+
+	p.abi = append(p.abi, constructor)
+	dcontract := p.definedContracts[p.contractName]
+	dcontract.Constructor = constructor
+	p.definedContracts[p.contractName] = dcontract
+
 	return nil
 }
 
@@ -478,4 +513,17 @@ func (p *AbiParser) ToABI() (*abi.ABI, error) {
 // ToStruct returns the ABI object.
 func (p *AbiParser) ToStruct() ABI {
 	return p.abi
+}
+
+// GetConstructor returns the constructor of the contract.
+func (p *AbiParser) GetConstructor() (*MethodConstructor, error) {
+	if p.contractName == "" {
+		return nil, errors.New("contract name is not defined")
+	}
+
+	if _, ok := p.definedContracts[p.contractName]; !ok {
+		return nil, errors.New("contract is not defined")
+	}
+	toReturn := p.definedContracts[p.contractName].Constructor
+	return &toReturn, nil
 }

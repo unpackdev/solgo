@@ -39,6 +39,12 @@ func (l *AbiListener) EnterContractDefinition(ctx *parser.ContractDefinitionCont
 			}(),
 		}
 	}
+
+	if ctx.InheritanceSpecifierList() != nil {
+		for _, inheritance := range ctx.InheritanceSpecifierList().AllInheritanceSpecifier() {
+			l.parser.definedInterfaces[inheritance.GetText()] = true
+		}
+	}
 }
 
 func (l *AbiListener) EnterInterfaceDefinition(ctx *parser.InterfaceDefinitionContext) {

@@ -35,7 +35,7 @@ func TestIpfsProvider(t *testing.T) {
 		{
 			name:    "Partial Metadata",
 			hash:    "ipfs://QmPL7gzcnyeyKUqQCJsvc5qbc9hqaopuRLtfuyLNsgn5oS",
-			want:    tests.ReadJsonBytesForTest(t, "SushiXSwapMetadata"),
+			want:    tests.ReadJsonBytesForTest(t, "SushiXSwapMetadata").Bytes,
 			wantErr: false,
 		},
 	}
