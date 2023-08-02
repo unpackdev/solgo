@@ -7,8 +7,6 @@ import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/types/known/structpb"
 )
 
 // LibraryNode represents a library node in the abstract syntax tree.
@@ -112,17 +110,6 @@ func (l LibraryNode) GetContractDependencies() []int64 {
 // ToProto converts the LibraryNode to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
 func (l LibraryNode) ToProto() NodeType {
-	nodes := []*v3.TypedStruct{}
-	baseContracts := []*ast_pb.BaseContract{}
-
-	for _, baseContract := range l.BaseContracts {
-		baseContracts = append(baseContracts, baseContract.ToProto())
-	}
-
-	for _, node := range l.Nodes {
-		nodes = append(nodes, node.ToProto().(*v3.TypedStruct))
-	}
-
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
 		NodeType:                l.NodeType,
@@ -133,24 +120,19 @@ func (l LibraryNode) ToProto() NodeType {
 		FullyImplemented:        l.FullyImplemented,
 		LinearizedBaseContracts: l.LinearizedBaseContracts,
 		ContractDependencies:    l.ContractDependencies,
-		Nodes:                   nodes,
-		BaseContracts:           baseContracts,
+		Nodes:                   make([]*v3.TypedStruct, 0),
+		BaseContracts:           make([]*ast_pb.BaseContract, 0),
 	}
 
-	jsonBytes, err := protojson.Marshal(&proto)
-	if err != nil {
-		panic(err)
+	for _, baseContract := range l.BaseContracts {
+		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
 	}
 
-	s := &structpb.Struct{}
-	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
-		panic(err)
+	for _, node := range l.Nodes {
+		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
 	}
 
-	return &v3.TypedStruct{
-		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Contract",
-		Value:   s,
-	}
+	return NewTypedStruct(&proto, "Contract")
 }
 
 // Parse parses the source unit context and library definition context to populate the library node.

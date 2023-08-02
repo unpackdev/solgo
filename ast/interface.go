@@ -4,8 +4,6 @@ import (
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type InterfaceNode struct {
@@ -87,9 +85,6 @@ func (l InterfaceNode) GetLinearizedBaseContracts() []int64 {
 }
 
 func (l InterfaceNode) ToProto() NodeType {
-	nodes := []*v3.TypedStruct{}
-	baseContracts := []*ast_pb.BaseContract{}
-
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
 		NodeType:                l.NodeType,
@@ -100,24 +95,19 @@ func (l InterfaceNode) ToProto() NodeType {
 		FullyImplemented:        l.FullyImplemented,
 		LinearizedBaseContracts: l.LinearizedBaseContracts,
 		ContractDependencies:    l.ContractDependencies,
-		Nodes:                   nodes,
-		BaseContracts:           baseContracts,
+		Nodes:                   make([]*v3.TypedStruct, 0),
+		BaseContracts:           make([]*ast_pb.BaseContract, 0),
 	}
 
-	jsonBytes, err := protojson.Marshal(&proto)
-	if err != nil {
-		panic(err)
+	for _, baseContract := range l.BaseContracts {
+		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
 	}
 
-	s := &structpb.Struct{}
-	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
-		panic(err)
+	for _, node := range l.Nodes {
+		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
 	}
 
-	return &v3.TypedStruct{
-		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Contract",
-		Value:   s,
-	}
+	return NewTypedStruct(&proto, "Contract")
 }
 
 func (l InterfaceNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
