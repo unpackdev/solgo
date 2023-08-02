@@ -379,7 +379,7 @@ type TypeDescription struct {
 	TypeString     string `json:"type_string"`
 }
 
-func (td *TypeDescription) ToProto() *ast_pb.TypeDescription {
+func (td TypeDescription) ToProto() *ast_pb.TypeDescription {
 	return &ast_pb.TypeDescription{
 		TypeString:     td.TypeString,
 		TypeIdentifier: td.TypeIdentifier,

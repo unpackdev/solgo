@@ -47,7 +47,7 @@ func (s *SimpleStatement) GetNodes() []Node[NodeType] {
 }
 
 func (s *SimpleStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	return nil
 }
 
 func (s *SimpleStatement) Parse(

@@ -196,6 +196,7 @@ func (p *PrimaryExpression) Parse(
 			for _, argument := range expNodeCtx.GetArguments() {
 				p.ArgumentTypes = append(p.ArgumentTypes, argument.GetTypeDescription())
 			}
+			p.TypeDescription = p.buildArgumentTypeDescription()
 		}
 	}
 
@@ -374,4 +375,23 @@ func (p *PrimaryExpression) Parse(
 	}
 
 	return p
+}
+
+func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
+	typeString := "function("
+	typeIdentifier := "t_function_"
+	typeStrings := make([]string, 0)
+	typeIdentifiers := make([]string, 0)
+
+	for _, paramType := range p.GetArgumentTypes() {
+		typeStrings = append(typeStrings, paramType.TypeString)
+		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
+	}
+	typeString += strings.Join(typeStrings, ",") + ")"
+	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	return &TypeDescription{
+		TypeString:     typeString,
+		TypeIdentifier: typeIdentifier,
+	}
 }

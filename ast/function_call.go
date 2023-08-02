@@ -3,6 +3,7 @@ package ast
 import (
 	"strings"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -86,10 +87,33 @@ func (f *FunctionCall) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{f.Expression}
 }
 
+// GetReferenceDeclaration returns the referenced declaration of the FunctionCall node.
+func (f *FunctionCall) GetReferenceDeclaration() int64 {
+	return f.ReferencedDeclaration
+}
+
 // ToProto returns a protobuf representation of the FunctionCall node.
 // Currently, it returns an empty Statement and needs to be implemented.
 func (f *FunctionCall) ToProto() NodeType {
-	return ast_pb.Statement{}
+	proto := ast_pb.FunctionCall{
+		Id:                    f.GetId(),
+		NodeType:              f.GetType(),
+		Kind:                  f.GetKind(),
+		Src:                   f.Src.ToProto(),
+		ReferencedDeclaration: f.GetReferenceDeclaration(),
+		Expression:            f.GetExpression().ToProto().(*v3.TypedStruct),
+		TypeDescription:       f.GetTypeDescription().ToProto(),
+	}
+
+	for _, arg := range f.GetArguments() {
+		proto.Arguments = append(proto.Arguments, arg.ToProto().(*v3.TypedStruct))
+	}
+
+	for _, argType := range f.GetArgumentTypes() {
+		proto.ArgumentTypes = append(proto.ArgumentTypes, argType.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "FunctionCall")
 }
 
 // Parse takes a parser.FunctionCallContext and parses it into a FunctionCall node.
@@ -167,10 +191,6 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
-		if paramType == nil {
-			continue
-		}
-
 		if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
