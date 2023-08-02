@@ -96,7 +96,7 @@ func (a *BinaryOperationExpression) IsPure() bool {
 
 // ToProto is a method that returns the protobuf representation of the binary operation.
 func (a *BinaryOperationExpression) ToProto() NodeType {
-	proto := ast_pb.BinaryOperationExpression{
+	proto := ast_pb.BinaryOperation{
 		Id:              a.GetId(),
 		IsConstant:      a.IsConstant(),
 		IsPure:          a.IsPure(),
@@ -108,7 +108,7 @@ func (a *BinaryOperationExpression) ToProto() NodeType {
 		TypeDescription: a.GetTypeDescription().ToProto(),
 	}
 
-	return NewTypedStruct(&proto, "BinaryOperationExpression")
+	return NewTypedStruct(&proto, "BinaryOperation")
 }
 
 // ParseAddSub is a method that parses addition and subtraction operations.

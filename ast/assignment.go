@@ -3,6 +3,7 @@ package ast
 import (
 	"reflect"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
@@ -57,9 +58,58 @@ func (a *Assignment) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+// GetExpression returns the expression of the Assignment node.
+func (a *Assignment) GetExpression() Node[NodeType] {
+	return a.Expression
+}
+
+// GetOperator returns the operator of the Assignment node.
+func (a *Assignment) GetOperator() ast_pb.Operator {
+	return a.Operator
+}
+
+// GetLeftExpression returns the left expression of the Assignment node.
+func (a *Assignment) GetLeftExpression() Node[NodeType] {
+	return a.LeftExpression
+}
+
+// GetRightExpression returns the right expression of the Assignment node.
+func (a *Assignment) GetRightExpression() Node[NodeType] {
+	return a.RightExpression
+}
+
+// GetReferencedDeclaration returns the referenced declaration of the Assignment node.
+func (a *Assignment) GetReferencedDeclaration() int64 {
+	return a.ReferencedDeclaration
+}
+
 // ToProto returns a protobuf representation of the Assignment node.
 func (a *Assignment) ToProto() NodeType {
-	return ast_pb.Statement{}
+	proto := ast_pb.Assignment{
+		Id:                    a.GetId(),
+		NodeType:              a.GetType(),
+		Src:                   a.GetSrc().ToProto(),
+		ReferencedDeclaration: a.GetReferencedDeclaration(),
+		Operator:              a.GetOperator(),
+	}
+
+	if a.GetExpression() != nil {
+		proto.Expression = a.GetExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	if a.GetLeftExpression() != nil {
+		proto.LeftExpression = a.GetLeftExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	if a.GetRightExpression() != nil {
+		proto.RightExpression = a.GetRightExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	if a.GetTypeDescription() != nil {
+		proto.TypeDescription = a.GetTypeDescription().ToProto()
+	}
+
+	return NewTypedStruct(&proto, "Assignment")
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Assignment node.

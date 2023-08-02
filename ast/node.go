@@ -17,6 +17,6 @@ type NodeType interface {
 		ast_pb.Function | ast_pb.Contract | ast_pb.Statement | ast_pb.Body |
 		ast_pb.Variable | ast_pb.PrimaryExpression | ast_pb.Expression | ast_pb.Using |
 		ast_pb.Declaration | ast_pb.TypeName | ast_pb.BaseContract | ast_pb.TypeDescription |
-		ast_pb.BinaryOperationExpression | ast_pb.Return | ast_pb.ParameterList | ast_pb.Parameter |
-		ast_pb.StateVariable | ast_pb.Event | any
+		ast_pb.BinaryOperation | ast_pb.Return | ast_pb.ParameterList | ast_pb.Parameter |
+		ast_pb.StateVariable | ast_pb.Event | ast_pb.If | ast_pb.Catch | ast_pb.FunctionCall | any
 }
