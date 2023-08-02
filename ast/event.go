@@ -3,8 +3,11 @@ package ast
 import (
 	"fmt"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type EventDefinition struct {
@@ -72,7 +75,31 @@ func (e *EventDefinition) GetNodes() []Node[NodeType] {
 }
 
 func (e *EventDefinition) ToProto() NodeType {
-	return ast_pb.Event{}
+	proto := ast_pb.Event{
+		Id:              e.GetId(),
+		Name:            e.GetName(),
+		NodeType:        e.GetType(),
+		Src:             e.GetSrc().ToProto(),
+		Anonymous:       e.IsAnonymous(),
+		Parameters:      e.GetParameters().ToProto(),
+		TypeDescription: e.GetTypeDescription().ToProto(),
+	}
+
+	// Marshal the Pragma into JSON
+	jsonBytes, err := protojson.Marshal(&proto)
+	if err != nil {
+		panic(err)
+	}
+
+	s := &structpb.Struct{}
+	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
+		panic(err)
+	}
+
+	return &v3.TypedStruct{
+		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Event",
+		Value:   s,
+	}
 }
 
 func (e *EventDefinition) Parse(
@@ -101,16 +128,3 @@ func (e *EventDefinition) Parse(
 	e.currentEvents = append(e.currentEvents, e)
 	return e
 }
-
-/**
-func (b *ASTBuilder) parseEventDefinition(sourceUnit *ast_pb.SourceUnit, identifierNode *ast_pb.Node, eventDefinitionCtx *parser.EventDefinitionContext) *ast_pb.Node {
-
-
-
-	nodeCtx.Parameters = parametersList
-	b.currentEvents = append(b.currentEvents, nodeCtx)
-
-	return nodeCtx
-}
-
-**/

@@ -1,8 +1,11 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type InterfaceNode struct {
@@ -84,7 +87,37 @@ func (l InterfaceNode) GetLinearizedBaseContracts() []int64 {
 }
 
 func (l InterfaceNode) ToProto() NodeType {
-	return ast_pb.Contract{}
+	nodes := []*v3.TypedStruct{}
+	baseContracts := []*ast_pb.BaseContract{}
+
+	proto := ast_pb.Contract{
+		Id:                      l.Id,
+		NodeType:                l.NodeType,
+		Kind:                    l.Kind,
+		Src:                     l.Src.ToProto(),
+		Name:                    l.Name,
+		Abstract:                l.Abstract,
+		FullyImplemented:        l.FullyImplemented,
+		LinearizedBaseContracts: l.LinearizedBaseContracts,
+		ContractDependencies:    l.ContractDependencies,
+		Nodes:                   nodes,
+		BaseContracts:           baseContracts,
+	}
+
+	jsonBytes, err := protojson.Marshal(&proto)
+	if err != nil {
+		panic(err)
+	}
+
+	s := &structpb.Struct{}
+	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
+		panic(err)
+	}
+
+	return &v3.TypedStruct{
+		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Contract",
+		Value:   s,
+	}
 }
 
 func (l InterfaceNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {

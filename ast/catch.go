@@ -94,7 +94,7 @@ func (t *CatchStatement) ToProto() NodeType {
 		Kind:       t.Kind,
 		Src:        t.Src.ToProto(),
 		Body:       t.Body.ToProto().(*ast_pb.Body),
-		Parameters: &ast_pb.ParametersList{},
+		Parameters: &ast_pb.ParameterList{},
 	}
 }
 

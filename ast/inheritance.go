@@ -46,7 +46,7 @@ func parseInheritanceFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceU
 				baseContract.BaseName.ReferencedDeclaration = unitNode.GetId()
 
 				switch nodeCtx := contractNode.(type) {
-				case *ContractNode:
+				case *Contract:
 					nodeCtx.LinearizedBaseContracts = append(
 						nodeCtx.LinearizedBaseContracts, unitNode.GetId(),
 					)

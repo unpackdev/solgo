@@ -1,8 +1,11 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 // The Constructor struct represents a constructor function in a Solidity contract.
@@ -127,7 +130,42 @@ func (c *Constructor) GetScope() int64 {
 
 // ToProto returns the protobuf representation of the constructor.
 func (c *Constructor) ToProto() NodeType {
-	return ast_pb.Function{}
+	proto := ast_pb.Function{
+		Id:               c.GetId(),
+		NodeType:         c.GetType(),
+		Kind:             c.GetKind(),
+		Src:              c.GetSrc().ToProto(),
+		Implemented:      c.IsImplemented(),
+		Scope:            c.GetScope(),
+		Visibility:       c.GetVisibility(),
+		StateMutability:  c.GetStateMutability(),
+		Parameters:       c.GetParameters().ToProto(),
+		ReturnParameters: c.GetReturnParameters().ToProto(),
+	}
+
+	if c.GetBody() != nil {
+		proto.Body = c.GetBody().ToProto().(*ast_pb.Body)
+	}
+
+	if c.GetTypeDescription() != nil {
+		proto.TypeDescription = c.GetTypeDescription().ToProto()
+	}
+
+	// Marshal the Pragma into JSON
+	jsonBytes, err := protojson.Marshal(&proto)
+	if err != nil {
+		panic(err)
+	}
+
+	s := &structpb.Struct{}
+	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
+		panic(err)
+	}
+
+	return &v3.TypedStruct{
+		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Function",
+		Value:   s,
+	}
 }
 
 // Parse parses a constructor from the provided parser.ConstructorDefinitionContext and returns the corresponding Constructor.

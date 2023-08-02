@@ -110,6 +110,6 @@ func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
 		NodeType:        r.NodeType,
 		EntrySourceUnit: r.EntrySourceUnit,
 		SourceUnits:     sourceUnits,
-		Comments:        comments,
+		//Comments:        comments,
 	}
 }

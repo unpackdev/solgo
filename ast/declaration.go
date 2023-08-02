@@ -101,8 +101,26 @@ func (d *Declaration) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (d *Declaration) ToProto() NodeType {
-	return ast_pb.Declaration{}
+func (d *Declaration) ToProto() *ast_pb.Declaration {
+	toReturn := &ast_pb.Declaration{
+		Id:              d.Id,
+		Name:            d.Name,
+		NodeType:        d.NodeType,
+		Scope:           d.Scope,
+		Src:             d.Src.ToProto(),
+		Mutability:      d.StateMutability,
+		StorageLocation: d.StorageLocation,
+		Visibility:      d.Visibility,
+		IsConstant:      d.IsConstant,
+		IsStateVariable: d.IsStateVariable,
+		TypeDescription: d.GetTypeDescription().ToProto(),
+	}
+
+	if d.GetTypeName() != nil {
+		toReturn.TypeName = d.GetTypeName().ToProto().(*ast_pb.TypeName)
+	}
+
+	return toReturn
 }
 
 func (d *Declaration) ParseVariableDeclaration(

@@ -82,7 +82,7 @@ func (b *BodyNode) GetNodes() []Node[NodeType] {
 // ToProto converts the BodyNode to a protocol buffer representation.
 // As BodyNode does not have a protocol buffer representation, it returns an empty Body.
 func (b *BodyNode) ToProto() NodeType {
-	return ast_pb.Body{}
+	return &ast_pb.Body{}
 }
 
 // ParseDefinitions is a method of the BodyNode struct. It parses the definitions of a contract body element context.

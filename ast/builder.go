@@ -60,6 +60,10 @@ func (b *ASTBuilder) GetRoot() *RootNode {
 	return b.tree.GetRoot()
 }
 
+func (b *ASTBuilder) ToProto() *ast_pb.RootSourceUnit {
+	return b.tree.GetRoot().ToProto()
+}
+
 // ToJSON converts the root node of the AST to a JSON byte array.
 func (b *ASTBuilder) ToJSON() ([]byte, error) {
 	return json.Marshal(b.tree.GetRoot())

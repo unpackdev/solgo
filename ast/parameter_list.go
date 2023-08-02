@@ -57,8 +57,18 @@ func (p *ParameterList) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (p *ParameterList) ToProto() ast_pb.ParametersList {
-	return ast_pb.ParametersList{}
+func (p *ParameterList) ToProto() *ast_pb.ParameterList {
+	toReturn := &ast_pb.ParameterList{
+		Id:       p.GetId(),
+		NodeType: p.GetType(),
+		Src:      p.GetSrc().ToProto(),
+	}
+
+	for _, parameter := range p.GetParameters() {
+		toReturn.Parameters = append(toReturn.Parameters, parameter.ToProto())
+	}
+
+	return toReturn
 }
 
 func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode Node[NodeType], ctx parser.IParameterListContext) {

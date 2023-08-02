@@ -284,3 +284,46 @@ func (a *BinaryOperationExpression) ParseEqualityComparison(
 
 	return a
 }
+
+func (a *BinaryOperationExpression) ParseOr(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
+	fnNode Node[NodeType],
+	bodyNode *BodyNode,
+	vDeclar *VariableDeclaration,
+	expNode Node[NodeType],
+	ctx *parser.OrOperationContext,
+) Node[NodeType] {
+	a.Src = SrcNode{
+		Id:     a.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if expNode != nil {
+				return expNode.GetId()
+			}
+
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
+
+			return bodyNode.GetId()
+		}(),
+	}
+
+	a.Operator = ast_pb.Operator_OR
+
+	expression := NewExpression(a.ASTBuilder)
+	a.LeftExpression = expression.Parse(
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+	)
+
+	a.RightExpression = expression.Parse(
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+	)
+
+	return a
+}

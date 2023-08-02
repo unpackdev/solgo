@@ -1,8 +1,11 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type VariableDeclaration struct {
@@ -68,7 +71,39 @@ func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
 }
 
 func (v *VariableDeclaration) ToProto() NodeType {
-	return ast_pb.VariableDeclaration{}
+	declarations := []*ast_pb.Declaration{}
+
+	for _, declaration := range v.Declarations {
+		declarations = append(declarations, declaration.ToProto())
+	}
+
+	proto := ast_pb.Variable{
+		Id:           v.Id,
+		NodeType:     v.NodeType,
+		Src:          v.Src.ToProto(),
+		Assignments:  v.Assignments,
+		Declarations: declarations,
+	}
+
+	if v.GetInitialValue() != nil {
+		proto.InitialValue = v.GetInitialValue().ToProto().(*v3.TypedStruct)
+	}
+
+	// Marshal the Pragma into JSON
+	jsonBytes, err := protojson.Marshal(&proto)
+	if err != nil {
+		panic(err)
+	}
+
+	s := &structpb.Struct{}
+	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
+		panic(err)
+	}
+
+	return &v3.TypedStruct{
+		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Variable",
+		Value:   s,
+	}
 }
 
 func (v *VariableDeclaration) Parse(

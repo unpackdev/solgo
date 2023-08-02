@@ -112,37 +112,39 @@ func (m *MemberAccessExpression) Parse(
 		)
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
-		if m.TypeDescription.TypeIdentifier == "t_magic_message" {
-			switch m.MemberName {
-			case "sender":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_address",
-					TypeString:     "address",
-				}
-			case "data":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_bytes_calldata_ptr",
-					TypeString:     "bytes calldata",
-				}
-			case "value":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_uint256",
-					TypeString:     "uint256",
-				}
-			case "timestamp":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_uint256",
-					TypeString:     "uint256",
+		if m.TypeDescription != nil {
+			if m.TypeDescription.TypeIdentifier == "t_magic_message" {
+				switch m.MemberName {
+				case "sender":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_address",
+						TypeString:     "address",
+					}
+				case "data":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_bytes_calldata_ptr",
+						TypeString:     "bytes calldata",
+					}
+				case "value":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_uint256",
+						TypeString:     "uint256",
+					}
+				case "timestamp":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_uint256",
+						TypeString:     "uint256",
+					}
 				}
 			}
-		}
 
-		if m.TypeDescription.TypeIdentifier == "t_magic_block" {
-			switch m.MemberName {
-			case "timestamp":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_uint256",
-					TypeString:     "uint256",
+			if m.TypeDescription.TypeIdentifier == "t_magic_block" {
+				switch m.MemberName {
+				case "timestamp":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_uint256",
+						TypeString:     "uint256",
+					}
 				}
 			}
 		}

@@ -89,8 +89,30 @@ func (s *StructDefinition) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+func (s *StructDefinition) GetReferencedDeclaration() int64 {
+	return s.ReferencedDeclaration
+}
+
 func (s *StructDefinition) ToProto() NodeType {
-	return ast_pb.Struct{}
+	proto := ast_pb.Struct{
+		Id:                    s.GetId(),
+		Name:                  s.GetName(),
+		CanonicalName:         s.GetCanonicalName(),
+		NodeType:              s.GetType(),
+		Kind:                  s.GetKind(),
+		Visibility:            s.GetVisibility(),
+		StorageLocation:       s.GetStorageLocation(),
+		ReferencedDeclaration: s.GetReferencedDeclaration(),
+		Src:                   s.GetSrc().ToProto(),
+		Members:               make([]*ast_pb.Parameter, 0, len(s.GetMembers())),
+		TypeDescription:       s.GetTypeDescription().ToProto(),
+	}
+
+	for _, member := range s.GetMembers() {
+		proto.Members = append(proto.Members, member.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "Struct")
 }
 
 func (s *StructDefinition) Parse(

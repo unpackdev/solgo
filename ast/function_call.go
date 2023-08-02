@@ -167,6 +167,10 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
+		if paramType == nil {
+			continue
+		}
+
 		if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
@@ -184,4 +188,126 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 		TypeString:     typeString,
 		TypeIdentifier: typeIdentifier,
 	}
+}
+
+// FunctionCallOption represents a function call node in the AST.
+type FunctionCallOption struct {
+	*ASTBuilder
+
+	Id                    int64            `json:"id"`                               // Unique identifier for the node.
+	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the node.
+	Kind                  ast_pb.NodeType  `json:"kind"`                             // Kind of the node.
+	Src                   SrcNode          `json:"src"`                              // Source location of the node.
+	Expression            Node[NodeType]   `json:"expression"`                       // Expression of the function call.
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration of the function call.
+	TypeDescription       *TypeDescription `json:"type_description"`                 // Type description of the function call.
+}
+
+// NewFunctionCall creates a new FunctionCallOption node with a given ASTBuilder.
+// It initializes the Arguments slice and sets the NodeType and Kind to FUNCTION_CALL.
+func NewFunctionCallOption(b *ASTBuilder) *FunctionCallOption {
+	return &FunctionCallOption{
+		ASTBuilder: b,
+		NodeType:   ast_pb.NodeType_FUNCTION_CALL_OPTION,
+		Kind:       ast_pb.NodeType_FUNCTION_CALL_OPTION,
+	}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the FunctionCallOption node.
+func (f *FunctionCallOption) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	f.ReferencedDeclaration = refId
+	f.TypeDescription = refDesc
+	return false
+}
+
+// GetId returns the unique identifier of the FunctionCallOption node.
+func (f *FunctionCallOption) GetId() int64 {
+	return f.Id
+}
+
+// GetType returns the type of the FunctionCallOption node.
+func (f *FunctionCallOption) GetType() ast_pb.NodeType {
+	return f.NodeType
+}
+
+// GetSrc returns the source location of the FunctionCallOption node.
+func (f *FunctionCallOption) GetSrc() SrcNode {
+	return f.Src
+}
+
+// GetKind returns the kind of the FunctionCallOption node.
+func (f *FunctionCallOption) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+// GetExpression returns the expression of the FunctionCallOption node.
+func (f *FunctionCallOption) GetExpression() Node[NodeType] {
+	return f.Expression
+}
+
+// GetTypeDescription returns the type description of the FunctionCallOption node.
+// Currently, it returns nil and needs to be implemented.
+func (f *FunctionCallOption) GetTypeDescription() *TypeDescription {
+	return f.TypeDescription
+}
+
+// GetNodes returns a slice of nodes that includes the expression of the FunctionCallOption node.
+func (f *FunctionCallOption) GetNodes() []Node[NodeType] {
+	return []Node[NodeType]{f.Expression}
+}
+
+// ToProto returns a protobuf representation of the FunctionCallOption node.
+// Currently, it returns an empty Statement and needs to be implemented.
+func (f *FunctionCallOption) ToProto() NodeType {
+	return ast_pb.Statement{}
+}
+
+func (f *FunctionCallOption) Parse(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
+	fnNode Node[NodeType],
+	bodyNode *BodyNode,
+	vDeclar *VariableDeclaration,
+	expNode Node[NodeType],
+	ctx *parser.FunctionCallOptionsContext,
+) Node[NodeType] {
+	f.Id = f.GetNextID()
+	f.Src = SrcNode{
+		Id:     f.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
+
+			if expNode != nil {
+				return expNode.GetId()
+			}
+
+			if bodyNode != nil {
+				return bodyNode.GetId()
+			}
+
+			if fnNode != nil {
+				return fnNode.GetId()
+			}
+
+			return contractNode.GetId()
+		}(),
+	}
+
+	expression := NewExpression(f.ASTBuilder)
+
+	if ctx.Expression() != nil {
+		f.Expression = expression.Parse(
+			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
+		)
+		f.TypeDescription = f.Expression.GetTypeDescription()
+	}
+
+	return f
 }

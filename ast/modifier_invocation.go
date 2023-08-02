@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -12,24 +13,36 @@ type ModifierName struct {
 	Src      SrcNode         `json:"src"`
 }
 
+func (m *ModifierName) ToProto() *ast_pb.ModifierName {
+	return &ast_pb.ModifierName{
+		Id:       m.Id,
+		Name:     m.Name,
+		NodeType: m.NodeType,
+		Src:      m.Src.ToProto(),
+	}
+}
+
 type ModifierInvocation struct {
 	*ASTBuilder
 
-	Id           int64            `json:"id"`
-	Name         string           `json:"name"`
-	NodeType     ast_pb.NodeType  `json:"node_type"`
-	Kind         ast_pb.NodeType  `json:"kind"`
-	Src          SrcNode          `json:"src"`
-	Arguments    []Node[NodeType] `json:"arguments"`
-	ModifierName *ModifierName    `json:"modifier_name,omitempty"`
+	Id            int64              `json:"id"`
+	Name          string             `json:"name"`
+	NodeType      ast_pb.NodeType    `json:"node_type"`
+	Kind          ast_pb.NodeType    `json:"kind"`
+	Src           SrcNode            `json:"src"`
+	ArgumentTypes []*TypeDescription `json:"argument_types"`
+	Arguments     []Node[NodeType]   `json:"arguments"`
+	ModifierName  *ModifierName      `json:"modifier_name,omitempty"`
 }
 
 func NewModifierInvocation(b *ASTBuilder) *ModifierInvocation {
 	return &ModifierInvocation{
-		ASTBuilder: b,
-		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_MODIFIER_INVOCATION,
-		Kind:       ast_pb.NodeType_MODIFIER_INVOCATION,
+		ASTBuilder:    b,
+		Id:            b.GetNextID(),
+		NodeType:      ast_pb.NodeType_MODIFIER_INVOCATION,
+		Kind:          ast_pb.NodeType_MODIFIER_INVOCATION,
+		Arguments:     make([]Node[NodeType], 0),
+		ArgumentTypes: make([]*TypeDescription, 0),
 	}
 }
 
@@ -44,6 +57,10 @@ func (m *ModifierInvocation) GetId() int64 {
 
 func (m *ModifierInvocation) GetType() ast_pb.NodeType {
 	return m.NodeType
+}
+
+func (m *ModifierInvocation) GetKind() ast_pb.NodeType {
+	return m.Kind
 }
 
 func (m *ModifierInvocation) GetSrc() SrcNode {
@@ -62,8 +79,39 @@ func (m *ModifierInvocation) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+func (m *ModifierInvocation) GetArguments() []Node[NodeType] {
+	return m.Arguments
+}
+
+func (m *ModifierInvocation) GetArgumentTypes() []*TypeDescription {
+	return m.ArgumentTypes
+}
+
 func (m *ModifierInvocation) ToProto() NodeType {
-	return &ast_pb.Modifier{}
+	toReturn := &ast_pb.ModifierInvocation{
+		Id:            m.GetId(),
+		Name:          m.GetName(),
+		NodeType:      m.GetType(),
+		Kind:          m.GetKind(),
+		Src:           m.Src.ToProto(),
+		ModifierName:  m.ModifierName.ToProto(),
+		Arguments:     make([]*v3.TypedStruct, 0),
+		ArgumentTypes: []*ast_pb.TypeDescription{},
+	}
+
+	for _, arg := range m.GetArguments() {
+		toReturn.Arguments = append(
+			toReturn.Arguments,
+			arg.ToProto().(*v3.TypedStruct),
+		)
+
+		toReturn.ArgumentTypes = append(
+			toReturn.ArgumentTypes,
+			arg.GetTypeDescription().ToProto(),
+		)
+	}
+
+	return toReturn
 }
 
 func (m *ModifierInvocation) Parse(
@@ -110,6 +158,11 @@ func (m *ModifierInvocation) Parse(
 			m.Arguments = append(
 				m.Arguments,
 				expr,
+			)
+
+			m.ArgumentTypes = append(
+				m.ArgumentTypes,
+				expr.GetTypeDescription(),
 			)
 		}
 	}

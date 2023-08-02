@@ -3,8 +3,11 @@ package ast
 import (
 	"strings"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type Function struct {
@@ -115,9 +118,68 @@ func (f *Function) GetNodes() []Node[NodeType] {
 	return f.Body.GetNodes()
 }
 
-func (f *Function) ToProto() NodeType {
-	return ast_pb.Function{}
+func (f *Function) GetReferencedDeclaration() int64 {
+	return f.ReferencedDeclaration
 }
+
+func (f *Function) ToProto() NodeType {
+	proto := ast_pb.Function{
+		Id:                    f.GetId(),
+		Name:                  f.GetName(),
+		NodeType:              f.GetType(),
+		Kind:                  f.GetKind(),
+		Src:                   f.GetSrc().ToProto(),
+		ReferencedDeclaration: f.GetReferencedDeclaration(),
+		Implemented:           f.IsImplemented(),
+		Virtual:               f.IsVirtual(),
+		Scope:                 f.GetScope(),
+		Visibility:            f.GetVisibility(),
+		StateMutability:       f.GetStateMutability(),
+		Modifiers:             make([]*ast_pb.ModifierInvocation, 0),
+		Overrides:             make([]*ast_pb.OverrideSpecifier, 0),
+		Parameters:            f.GetParameters().ToProto(),
+		ReturnParameters:      f.GetReturnParameters().ToProto(),
+		Body:                  f.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	if f.GetTypeDescription() != nil {
+		proto.TypeDescription = f.GetTypeDescription().ToProto()
+	}
+
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto().(*ast_pb.ModifierInvocation))
+	}
+
+	for _, override := range f.GetOverrides() {
+		proto.Overrides = append(proto.Overrides, override.ToProto())
+	}
+
+	// Marshal the Pragma into JSON
+	jsonBytes, err := protojson.Marshal(&proto)
+	if err != nil {
+		panic(err)
+	}
+
+	s := &structpb.Struct{}
+	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
+		panic(err)
+	}
+
+	return &v3.TypedStruct{
+		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Function",
+		Value:   s,
+	}
+}
+
+/**
+
+Modifiers             []*ModifierInvocation `json:"modifiers"`
+Overrides             []*OverrideSpecifier  `json:"overrides"`
+Parameters            *ParameterList        `json:"parameters"`
+ReturnParameters      *ParameterList        `json:"return_parameters"`
+
+TypeDescription       *TypeDescription      `json:"type_description"`
+**/
 
 func (f *Function) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],

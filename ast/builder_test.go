@@ -2,6 +2,7 @@ package ast
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -201,6 +202,9 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					assert.Equal(t, sourceUnit.GetName(), testCase.sources.EntrySourceUnitName)
 				}
 			}
+
+			p, _ := astBuilder.ToPrettyJSON(astBuilder.ToProto())
+			fmt.Println(string(p))
 
 			//assert.Equal(t, testCase.expected, string(astJson))
 			//fmt.Println(string(prettyJson))

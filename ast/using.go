@@ -1,8 +1,11 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type UsingDirective struct {
@@ -24,6 +27,16 @@ type LibraryName struct {
 	Src                   SrcNode         `json:"src"`
 	Name                  string          `json:"name"`
 	ReferencedDeclaration int64           `json:"referenced_declaration"`
+}
+
+func (ln *LibraryName) ToProto() *ast_pb.LibraryName {
+	return &ast_pb.LibraryName{
+		Id:                    ln.Id,
+		Name:                  ln.Name,
+		NodeType:              ln.NodeType,
+		ReferencedDeclaration: ln.ReferencedDeclaration,
+		Src:                   ln.Src.ToProto(),
+	}
 }
 
 func NewUsingDirective(b *ASTBuilder) *UsingDirective {
@@ -78,7 +91,30 @@ func (u *UsingDirective) GetNodes() []Node[NodeType] {
 }
 
 func (u *UsingDirective) ToProto() NodeType {
-	return ast_pb.UsingDirective{}
+	proto := ast_pb.Using{
+		Id:          u.Id,
+		Name:        u.LibraryName.Name,
+		NodeType:    u.NodeType,
+		Src:         u.Src.ToProto(),
+		LibraryName: u.LibraryName.ToProto(),
+		TypeName:    u.TypeName.ToProto().(*ast_pb.TypeName),
+	}
+
+	// Marshal the Pragma into JSON
+	jsonBytes, err := protojson.Marshal(&proto)
+	if err != nil {
+		panic(err)
+	}
+
+	s := &structpb.Struct{}
+	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
+		panic(err)
+	}
+
+	return &v3.TypedStruct{
+		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Using",
+		Value:   s,
+	}
 }
 
 func (u *UsingDirective) Parse(
