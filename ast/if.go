@@ -63,7 +63,10 @@ func (i *IfStatement) ToProto() NodeType {
 		NodeType:  i.GetType(),
 		Src:       i.GetSrc().ToProto(),
 		Condition: i.GetCondition().ToProto().(*v3.TypedStruct),
-		Body:      i.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	if i.GetBody() != nil {
+		proto.Body = i.GetBody().ToProto().(*ast_pb.Body)
 	}
 
 	return NewTypedStruct(&proto, "If")
