@@ -95,7 +95,7 @@ func (b *BodyNode) ToProto() NodeType {
 		proto.Statements = append(proto.Statements, statement.ToProto().(*v3.TypedStruct))
 	}
 
-	return NewTypedStruct(&proto, "Body")
+	return &proto
 }
 
 // ParseDefinitions is a method of the BodyNode struct. It parses the definitions of a contract body element context.

@@ -86,16 +86,24 @@ func (t *CatchStatement) GetNodes() []Node[NodeType] {
 	return t.Body.Statements
 }
 
+// GetName returns the name of the exception variable in the 'catch' clause, if any.
+func (t *CatchStatement) GetName() string {
+	return t.Name
+}
+
 // ToProto returns the protobuf representation of the 'catch' clause.
 func (t *CatchStatement) ToProto() NodeType {
-	return ast_pb.Catch{
-		Id:         t.Id,
-		NodeType:   t.NodeType,
-		Kind:       t.Kind,
-		Src:        t.Src.ToProto(),
-		Body:       t.Body.ToProto().(*ast_pb.Body),
-		Parameters: &ast_pb.ParameterList{},
+	proto := ast_pb.Catch{
+		Id:         t.GetId(),
+		Name:       t.GetName(),
+		NodeType:   t.GetType(),
+		Kind:       t.GetKind(),
+		Src:        t.GetSrc().ToProto(),
+		Parameters: t.GetParameters().ToProto(),
+		Body:       t.GetBody().ToProto().(*ast_pb.Body),
 	}
+
+	return NewTypedStruct(&proto, "Catch")
 }
 
 // Parse parses a 'catch' clause from the provided parser.CatchClauseContext and returns the corresponding CatchStatement.
