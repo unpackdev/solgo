@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -13,9 +14,9 @@ type BinaryOperationExpression struct {
 	// Id is the unique identifier of the binary operation.
 	Id int64 `json:"id"`
 	// IsConstant indicates whether the binary operation is a constant.
-	IsConstant bool `json:"is_constant"`
+	Constant bool `json:"is_constant"`
 	// IsPure indicates whether the binary operation is pure (i.e., it does not read or modify state).
-	IsPure bool `json:"is_pure"`
+	Pure bool `json:"is_pure"`
 	// NodeType is the type of the node.
 	// For a BinaryOperationExpression, this is always NodeType_BINARY_OPERATION.
 	NodeType ast_pb.NodeType `json:"node_type"`
@@ -83,9 +84,31 @@ func (a *BinaryOperationExpression) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{a.LeftExpression, a.RightExpression}
 }
 
+// IsConstant is a getter method that returns whether the binary operation is a constant.
+func (a *BinaryOperationExpression) IsConstant() bool {
+	return a.Constant
+}
+
+// IsPure is a getter method that returns whether the binary operation is pure.
+func (a *BinaryOperationExpression) IsPure() bool {
+	return a.Pure
+}
+
 // ToProto is a method that returns the protobuf representation of the binary operation.
 func (a *BinaryOperationExpression) ToProto() NodeType {
-	return ast_pb.BinaryOperationExpression{}
+	proto := ast_pb.BinaryOperationExpression{
+		Id:              a.GetId(),
+		IsConstant:      a.IsConstant(),
+		IsPure:          a.IsPure(),
+		NodeType:        a.GetType(),
+		Src:             a.GetSrc().ToProto(),
+		Operator:        a.GetOperator(),
+		LeftExpression:  a.GetLeftExpression().ToProto().(*v3.TypedStruct),
+		RightExpression: a.GetRightExpression().ToProto().(*v3.TypedStruct),
+		TypeDescription: a.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "BinaryOperationExpression")
 }
 
 // ParseAddSub is a method that parses addition and subtraction operations.

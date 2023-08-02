@@ -81,7 +81,6 @@ func (b *BodyNode) GetNodes() []Node[NodeType] {
 }
 
 // ToProto converts the BodyNode to a protocol buffer representation.
-// As BodyNode does not have a protocol buffer representation, it returns an empty Body.
 func (b *BodyNode) ToProto() NodeType {
 	proto := ast_pb.Body{
 		Id:          b.GetId(),
