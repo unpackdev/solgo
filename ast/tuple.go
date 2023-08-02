@@ -135,7 +135,7 @@ func (t *TupleExpression) Parse(
 		// A bit of a hack as we have interfaces but it works...
 		switch exprCtx := expr.(type) {
 		case *PrimaryExpression:
-			if exprCtx.IsPure {
+			if exprCtx.IsPure() {
 				t.IsPure = true
 				break
 			}
