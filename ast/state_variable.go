@@ -1,11 +1,8 @@
 package ast
 
 import (
-	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/types/known/structpb"
 )
 
 type StateVariableDeclaration struct {
@@ -111,21 +108,7 @@ func (v *StateVariableDeclaration) ToProto() NodeType {
 		proto.TypeDescription = v.GetTypeDescription().ToProto()
 	}
 
-	// Marshal the Pragma into JSON
-	jsonBytes, err := protojson.Marshal(&proto)
-	if err != nil {
-		panic(err)
-	}
-
-	s := &structpb.Struct{}
-	if err := protojson.Unmarshal(jsonBytes, s); err != nil {
-		panic(err)
-	}
-
-	return &v3.TypedStruct{
-		TypeUrl: "github.com/txpull/protos/txpull.v1.ast.Variable",
-		Value:   s,
-	}
+	return NewTypedStruct(&proto, "Variable")
 }
 
 func (v *StateVariableDeclaration) Parse(
