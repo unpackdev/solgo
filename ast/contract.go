@@ -135,9 +135,10 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 	)
 
 	// Now we are going to resolve import paths for current source unit...
+	nodeImports := parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)
 	unit.Nodes = append(
 		unit.Nodes,
-		parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
+		nodeImports...,
 	)
 
 	contractNode := &Contract{
@@ -167,6 +168,24 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 			l.ASTBuilder, unit, contractNode, ctx.InheritanceSpecifierList(),
 		)...,
 	)
+	unit.BaseContracts = contractNode.BaseContracts
+
+	contractNode.LinearizedBaseContracts = append(
+		contractNode.LinearizedBaseContracts,
+		contractNode.GetId(),
+	)
+
+	for _, nodeImport := range nodeImports {
+		contractNode.LinearizedBaseContracts = append(
+			contractNode.LinearizedBaseContracts,
+			nodeImport.GetId(),
+		)
+
+		contractNode.ContractDependencies = append(
+			contractNode.ContractDependencies,
+			nodeImport.GetId(),
+		)
+	}
 
 	for _, bodyElement := range ctx.AllContractBodyElement() {
 		if bodyElement.IsEmpty() {
@@ -193,4 +212,5 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 	}
 
 	unit.Nodes = append(unit.Nodes, contractNode)
+	unit.Contract = contractNode
 }

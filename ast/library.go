@@ -9,9 +9,9 @@ import (
 	"go.uber.org/zap"
 )
 
-// LibraryNode represents a library node in the abstract syntax tree.
+// Library represents a library node in the abstract syntax tree.
 // It includes various attributes like id, name, type, source node, abstract status, kind, implementation status, nodes, base contracts, contract dependencies and scope.
-type LibraryNode struct {
+type Library struct {
 	*ASTBuilder
 
 	Id                      int64            `json:"id"`                        // Id is the unique identifier of the library node.
@@ -28,88 +28,88 @@ type LibraryNode struct {
 	Scope                   int64            `json:"scope"`                     // Scope is the scope of the library.
 }
 
-// NewLibraryDefinition creates a new LibraryNode with the provided ASTBuilder.
-// It returns a pointer to the created LibraryNode.
-func NewLibraryDefinition(b *ASTBuilder) *LibraryNode {
-	return &LibraryNode{
+// NewLibraryDefinition creates a new Library with the provided ASTBuilder.
+// It returns a pointer to the created Library.
+func NewLibraryDefinition(b *ASTBuilder) *Library {
+	return &Library{
 		ASTBuilder: b,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the LibraryNode node.
-func (l LibraryNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the Library node.
+func (l Library) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
 // GetId returns the unique identifier of the library node.
-func (l LibraryNode) GetId() int64 {
+func (l Library) GetId() int64 {
 	return l.Id
 }
 
 // GetType returns the type of the library node.
-func (l LibraryNode) GetType() ast_pb.NodeType {
+func (l Library) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
 // GetSrc returns the source node associated with the library node.
-func (l LibraryNode) GetSrc() SrcNode {
+func (l Library) GetSrc() SrcNode {
 	return l.Src
 }
 
 // GetTypeDescription returns the type description of the library node.
 // Currently, it returns nil and needs to be implemented.
-func (l LibraryNode) GetTypeDescription() *TypeDescription {
+func (l Library) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
 // GetName returns the name of the library.
-func (l LibraryNode) GetName() string {
+func (l Library) GetName() string {
 	return l.Name
 }
 
 // IsAbstract returns a boolean indicating whether the library is abstract.
-func (l LibraryNode) IsAbstract() bool {
+func (l Library) IsAbstract() bool {
 	return l.Abstract
 }
 
 // GetKind returns the kind of the library node.
-func (l LibraryNode) GetKind() ast_pb.NodeType {
+func (l Library) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
 // IsFullyImplemented returns a boolean indicating whether the library is fully implemented.
-func (l LibraryNode) IsFullyImplemented() bool {
+func (l Library) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
 // GetNodes returns the nodes associated with the library.
-func (l LibraryNode) GetNodes() []Node[NodeType] {
+func (l Library) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
 // GetScope returns the scope of the library.
-func (l LibraryNode) GetScope() int64 {
+func (l Library) GetScope() int64 {
 	return l.Scope
 }
 
 // GetLinearizedBaseContracts returns the linearized base contracts of the library.
-func (l LibraryNode) GetLinearizedBaseContracts() []int64 {
+func (l Library) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
 // GetBaseContracts returns the base contracts of the library.
-func (l LibraryNode) GetBaseContracts() []*BaseContract {
+func (l Library) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
 // GetContractDependencies returns the contract dependencies of the library.
-func (l LibraryNode) GetContractDependencies() []int64 {
+func (l Library) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-// ToProto converts the LibraryNode to a protocol buffer representation.
+// ToProto converts the Library to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
-func (l LibraryNode) ToProto() NodeType {
+func (l Library) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
 		NodeType:                l.NodeType,
@@ -138,7 +138,7 @@ func (l LibraryNode) ToProto() NodeType {
 // Parse parses the source unit context and library definition context to populate the library node.
 // It takes a SourceUnitContext, a LibraryDefinitionContext, a RootNode and a SourceUnit as arguments.
 // It does not return anything.
-func (l LibraryNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -172,7 +172,7 @@ func (l LibraryNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Librar
 	)
 
 	libraryId := l.GetNextID()
-	libraryNode := &LibraryNode{
+	libraryNode := &Library{
 		Id:   libraryId,
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{
@@ -219,4 +219,5 @@ func (l LibraryNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Librar
 	}
 
 	unit.Nodes = append(unit.Nodes, libraryNode)
+	unit.Contract = libraryNode
 }

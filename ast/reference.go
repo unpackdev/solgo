@@ -105,19 +105,14 @@ func (r *Resolver) resolveByNode(name string, node Node[NodeType]) (int64, *Type
 // It updates the node references in the AST and removes the nodes from the UnprocessedNodes map once they are resolved.
 // If a node cannot be resolved, it is left in the UnprocessedNodes map for future resolution.
 func (r *Resolver) Resolve() []error {
+	// Resolve all source unit symbols that are not resolved yet.
+	r.resolveExportedSymbols()
 
-	var entrySourceUnit int64
-	for _, node := range r.sourceUnits {
-		for _, entry := range node.GetExportedSymbols() {
-			if entry.GetId() > entrySourceUnit {
-				entrySourceUnit = entry.GetId()
-			}
-		}
-	}
-	r.tree.astRoot.SetEntrySourceUnit(entrySourceUnit)
+	// In case that enbtry source unit is not set, we are going to set it now.
+	// Do some kumbaya to figure it out...
+	r.resolveEntrySourceUnit()
 
 	var errors []error
-
 	for nodeId, node := range r.UnprocessedNodes {
 		if rNodeId, rNodeType := r.resolveByNode(node.Name, node.Node); rNodeType != nil {
 			if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
@@ -132,6 +127,84 @@ func (r *Resolver) Resolve() []error {
 	}
 
 	return errors
+}
+
+func (r *Resolver) resolveExportedSymbols() {
+	for _, sourceNode := range r.sourceUnits {
+
+		// In case any imports are available and they are not exported
+		// we are going to append them to the exported symbols.
+		for _, node := range sourceNode.GetNodes() {
+			if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
+				importNode := node.(*Import)
+				if !r.symbolExists(importNode.GetName(), sourceNode.GetExportedSymbols()) {
+					sourceNode.ExportedSymbols = append(
+						sourceNode.ExportedSymbols,
+						Symbol{
+							Id:           importNode.GetId(),
+							Name:         importNode.GetName(),
+							AbsolutePath: importNode.GetAbsolutePath(),
+						},
+					)
+				}
+			}
+		}
+
+		// Base contracts will be available if contract or interface inherits any of the
+		// clases or interfaces.
+		for _, baseContract := range sourceNode.GetBaseContracts() {
+			if !r.symbolExists(baseContract.GetBaseName().GetName(), sourceNode.GetExportedSymbols()) {
+				sourceNode.ExportedSymbols = append(
+					sourceNode.ExportedSymbols,
+					Symbol{
+						Id:   baseContract.GetId(),
+						Name: baseContract.GetBaseName().GetName(),
+					},
+				)
+			}
+		}
+	}
+}
+
+func (r *Resolver) symbolExists(name string, symbols []Symbol) bool {
+	for _, symbol := range symbols {
+		if symbol.GetName() == name {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (r *Resolver) resolveEntrySourceUnit() {
+	// Entry source unit is already calculated, we are going to skip the check.
+	if r.tree.astRoot.EntrySourceUnit != 0 {
+		return
+	}
+
+	var entrySourceUnit int64
+	for _, node := range r.sourceUnits {
+		for _, entry := range node.GetExportedSymbols() {
+			if len(r.sources.EntrySourceUnitName) > 0 &&
+				r.sources.EntrySourceUnitName == entry.GetName() {
+				r.tree.astRoot.SetEntrySourceUnit(entry.GetId())
+				return
+			}
+
+			// We should look for the highest amount of exported symbols and then
+			// take that source unit as entry source unit.
+			// This is not the best solution, that is for sure...
+			// Or go with the highest source unit id, that should work as well?
+			// Well none of these should work...
+			// Probably the best one would be the one that is not imported by any other
+			// source unit and has the highest amount of exported symbols and is contract type.
+			if entry.GetId() > entrySourceUnit {
+				entrySourceUnit = entry.GetId()
+			}
+		}
+	}
+
+	r.tree.astRoot.SetEntrySourceUnit(entrySourceUnit)
 }
 
 func (r *Resolver) bySourceUnit(name string) (int64, *TypeDescription) {

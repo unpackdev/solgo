@@ -34,6 +34,11 @@ func (b *BaseContract) GetSrc() SrcNode {
 	return b.Src
 }
 
+// GetBaseName returns the name of the base contract.
+func (b *BaseContract) GetBaseName() *BaseContractName {
+	return b.BaseName
+}
+
 // ToProto returns the protobuf representation of the base contract.
 func (b *BaseContract) ToProto() *ast_pb.BaseContract {
 	return &ast_pb.BaseContract{
@@ -73,6 +78,11 @@ func (b *BaseContractName) GetType() ast_pb.NodeType {
 // GetSrc returns source information about the node, such as its line and column numbers in the source file.
 func (b *BaseContractName) GetSrc() SrcNode {
 	return b.Src
+}
+
+// GetName returns the name of the base contract name.
+func (b *BaseContractName) GetName() string {
+	return b.Name
 }
 
 // ToProto returns the protobuf representation of the base contract name.
