@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -65,8 +66,27 @@ func (i *IndexAccess) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+func (i *IndexAccess) GetReferencedDeclaration() int64 {
+	return i.ReferencedDeclaration
+}
+
 func (i *IndexAccess) ToProto() NodeType {
-	return ast_pb.IndexAccessExpression{}
+	proto := ast_pb.IndexAccess{
+		Id:                    i.GetId(),
+		NodeType:              i.GetType(),
+		Src:                   i.Src.ToProto(),
+		IndexExpression:       i.GetIndexExpression().ToProto().(*v3.TypedStruct),
+		BaseExpression:        i.GetBaseExpression().ToProto().(*v3.TypedStruct),
+		TypeDescriptions:      make([]*ast_pb.TypeDescription, 0),
+		ReferencedDeclaration: i.GetReferencedDeclaration(),
+		TypeDescription:       i.GetTypeDescription().ToProto(),
+	}
+
+	for _, td := range i.GetTypeDescriptions() {
+		proto.TypeDescriptions = append(proto.TypeDescriptions, td.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "IndexAccess")
 }
 
 func (i *IndexAccess) Parse(

@@ -18,7 +18,7 @@ import (
 // If it is, the function uses a regular expression to find the SPDX-License-Identifier in the comment text.
 // If the SPDX-License-Identifier is found, the function returns the license as a string.
 // If the SPDX-License-Identifier is not found in any of the comments, the function returns the string "unknown".
-func getLicense(comments []*CommentNode) string {
+func getLicense(comments []*Comment) string {
 	// Define the regular expression for the SPDX-License-Identifier.
 	licenseRegex := regexp.MustCompile(`SPDX-License-Identifier:\s*(.+)`)
 

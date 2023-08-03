@@ -95,7 +95,12 @@ func (b *BodyNode) ToProto() NodeType {
 		proto.Statements = append(proto.Statements, statement.ToProto().(*v3.TypedStruct))
 	}
 
-	return &proto
+	switch b.NodeType {
+	case ast_pb.NodeType_UNCHECKED_BLOCK:
+		return NewTypedStruct(&proto, "Block")
+	default:
+		return &proto
+	}
 }
 
 // ParseDefinitions is a method of the BodyNode struct. It parses the definitions of a contract body element context.
@@ -271,7 +276,7 @@ func (b *BodyNode) parseStatements(
 			unit, contractNode, fnNode, b, childCtx,
 		))
 	case *parser.DoWhileStatementContext:
-		statement := NewDoWhiteStatement(b.ASTBuilder)
+		statement := NewDoWhileStatement(b.ASTBuilder)
 		b.Statements = append(b.Statements, statement.Parse(
 			unit, contractNode, fnNode, b, childCtx,
 		))

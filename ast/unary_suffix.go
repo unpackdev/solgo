@@ -1,11 +1,12 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type UnarySuffixExpression struct {
+type UnarySuffix struct {
 	*ASTBuilder
 
 	Id                    int64            `json:"id"`
@@ -16,80 +17,99 @@ type UnarySuffixExpression struct {
 	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
 	TypeDescription       *TypeDescription `json:"type_description"`
 	Prefix                bool             `json:"prefix"`
-	IsConstant            bool             `json:"is_constant"`
-	IsLValue              bool             `json:"is_l_value"`
-	IsPure                bool             `json:"is_pure"`
+	Constant              bool             `json:"is_constant"`
+	LValue                bool             `json:"is_l_value"`
+	Pure                  bool             `json:"is_pure"`
 	LValueRequested       bool             `json:"l_value_requested"`
 }
 
-func NewUnarySuffixExpression(b *ASTBuilder) *UnarySuffixExpression {
-	return &UnarySuffixExpression{
+func NewUnarySuffixExpression(b *ASTBuilder) *UnarySuffix {
+	return &UnarySuffix{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_UNARY_OPERATION,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the UnarySuffixExpression node.
-func (u *UnarySuffixExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the UnarySuffix node.
+func (u *UnarySuffix) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	u.ReferencedDeclaration = refId
 	u.TypeDescription = refDesc
 	return false
 }
 
-func (u *UnarySuffixExpression) GetId() int64 {
+func (u *UnarySuffix) GetId() int64 {
 	return u.Id
 }
 
-func (u *UnarySuffixExpression) GetType() ast_pb.NodeType {
+func (u *UnarySuffix) GetType() ast_pb.NodeType {
 	return u.NodeType
 }
 
-func (u *UnarySuffixExpression) GetSrc() SrcNode {
+func (u *UnarySuffix) GetSrc() SrcNode {
 	return u.Src
 }
 
-func (u *UnarySuffixExpression) GetOperator() ast_pb.Operator {
+func (u *UnarySuffix) GetOperator() ast_pb.Operator {
 	return u.Operator
 }
 
-func (u *UnarySuffixExpression) GetExpression() Node[NodeType] {
+func (u *UnarySuffix) GetExpression() Node[NodeType] {
 	return u.Expression
 }
 
-func (u *UnarySuffixExpression) GetTypeDescription() *TypeDescription {
+func (u *UnarySuffix) GetTypeDescription() *TypeDescription {
 	return u.TypeDescription
 }
 
-func (u *UnarySuffixExpression) GetNodes() []Node[NodeType] {
+func (u *UnarySuffix) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{u.Expression}
 }
 
-func (u *UnarySuffixExpression) GetPrefix() bool {
+func (u *UnarySuffix) GetPrefix() bool {
 	return u.Prefix
 }
 
-func (u *UnarySuffixExpression) GetIsConstant() bool {
-	return u.IsConstant
+func (u *UnarySuffix) IsConstant() bool {
+	return u.Constant
 }
 
-func (u *UnarySuffixExpression) GetIsLValue() bool {
-	return u.IsLValue
+func (u *UnarySuffix) IsLValue() bool {
+	return u.LValue
 }
 
-func (u *UnarySuffixExpression) GetIsPure() bool {
-	return u.IsPure
+func (u *UnarySuffix) IsPure() bool {
+	return u.Pure
 }
 
-func (u *UnarySuffixExpression) GetLValueRequested() bool {
+func (u *UnarySuffix) IsLValueRequested() bool {
 	return u.LValueRequested
 }
 
-func (u *UnarySuffixExpression) ToProto() NodeType {
-	return &ast_pb.UnarySuffixOperator{}
+func (u *UnarySuffix) GetReferencedDeclaration() int64 {
+	return u.ReferencedDeclaration
 }
 
-func (u *UnarySuffixExpression) Parse(
+func (u *UnarySuffix) ToProto() NodeType {
+	proto := ast_pb.UnarySuffix{
+		Id:                    u.GetId(),
+		NodeType:              u.GetType(),
+		Src:                   u.GetSrc().ToProto(),
+		Operator:              u.GetOperator(),
+		Prefix:                u.GetPrefix(),
+		IsConstant:            u.IsConstant(),
+		IsLValue:              u.IsLValue(),
+		IsPure:                u.IsPure(),
+		LValueRequested:       u.IsLValueRequested(),
+		ReferencedDeclaration: u.GetReferencedDeclaration(),
+		Expression:            u.GetExpression().ToProto().(*v3.TypedStruct),
+		TypeDescription:       u.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "UnarySuffix")
+}
+
+func (u *UnarySuffix) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -121,5 +141,6 @@ func (u *UnarySuffixExpression) Parse(
 
 	expression := NewExpression(u.ASTBuilder)
 	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, ctx.Expression())
+	u.TypeDescription = u.Expression.GetTypeDescription()
 	return u
 }

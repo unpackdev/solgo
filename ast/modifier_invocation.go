@@ -76,7 +76,7 @@ func (m *ModifierInvocation) GetTypeDescription() *TypeDescription {
 }
 
 func (m *ModifierInvocation) GetNodes() []Node[NodeType] {
-	return nil
+	return m.Arguments
 }
 
 func (m *ModifierInvocation) GetArguments() []Node[NodeType] {

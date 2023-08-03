@@ -19,11 +19,11 @@ type RootNode struct {
 	SourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]] `json:"root"`
 
 	// Comments is the list of comments.
-	Comments []*CommentNode `json:"comments"`
+	Comments []*Comment `json:"comments"`
 }
 
 // NewRootNode creates a new RootNode with the provided ASTBuilder, entry source unit, source units, and comments.
-func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]], comments []*CommentNode) *RootNode {
+func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]], comments []*Comment) *RootNode {
 	return &RootNode{
 		Id:              builder.GetNextID(),
 		EntrySourceUnit: entrySourceUnit,
@@ -80,7 +80,7 @@ func (r *RootNode) SetEntrySourceUnit(entrySourceUnit int64) {
 }
 
 // GetComments returns the comments of the root node.
-func (r *RootNode) GetComments() []*CommentNode {
+func (r *RootNode) GetComments() []*Comment {
 	return r.Comments
 }
 

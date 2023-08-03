@@ -61,8 +61,25 @@ func (n *NewExpr) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+func (n *NewExpr) GetReferencedDeclaration() int64 {
+	return n.ReferencedDeclaration
+}
+
 func (n *NewExpr) ToProto() NodeType {
-	return ast_pb.Node{} // @TODO: Lazy right now...
+	protos := ast_pb.NewExpression{
+		Id:                    n.GetId(),
+		NodeType:              n.GetType(),
+		Src:                   n.GetSrc().ToProto(),
+		ReferencedDeclaration: n.GetReferencedDeclaration(),
+		TypeName:              n.GetTypeName().ToProto().(*ast_pb.TypeName),
+		TypeDescription:       n.GetTypeDescription().ToProto(),
+	}
+
+	for _, arguments := range n.GetArgumentTypes() {
+		protos.ArgumentTypes = append(protos.ArgumentTypes, arguments.ToProto())
+	}
+
+	return NewTypedStruct(&protos, "NewExpression")
 }
 
 func (n *NewExpr) Parse(
@@ -98,6 +115,5 @@ func (n *NewExpr) Parse(
 	typeName.Parse(unit, fnNode, n.GetId(), ctx.TypeName())
 	n.TypeName = typeName
 	n.TypeDescription = typeName.GetTypeDescription()
-
 	return n
 }

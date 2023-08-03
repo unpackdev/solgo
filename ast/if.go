@@ -50,7 +50,7 @@ func (i *IfStatement) GetTypeDescription() *TypeDescription {
 }
 
 func (i *IfStatement) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{i.Condition, i.Body}
 }
 
 func (i *IfStatement) GetBody() Node[NodeType] {

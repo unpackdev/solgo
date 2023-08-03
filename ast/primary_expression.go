@@ -115,6 +115,10 @@ func (p *PrimaryExpression) GetOverloadedDeclarations() []int64 {
 // ToProto returns a protobuf representation of the PrimaryExpression node.
 // Currently, it returns an empty PrimaryExpression and needs to be implemented.
 func (p *PrimaryExpression) ToProto() NodeType {
+	/* 	if p.GetTypeDescription() == nil {
+		p.dumpNode(p)
+	} */
+
 	proto := ast_pb.PrimaryExpression{
 		Id:                     p.GetId(),
 		Name:                   p.GetName(),
@@ -249,8 +253,8 @@ func (p *PrimaryExpression) Parse(
 		}
 
 		if p.TypeDescription == nil {
-			if ref, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); ref != nil {
-				p.ReferencedDeclaration = ref.GetId()
+			if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); refTypeDescription != nil {
+				p.ReferencedDeclaration = refId
 				p.TypeDescription = refTypeDescription
 			}
 		}
@@ -260,6 +264,10 @@ func (p *PrimaryExpression) Parse(
 	// So we are going to do some hack here to make it work properly...
 	if p.Name == "_" {
 		p.NodeType = ast_pb.NodeType_PLACEHOLDER_STATEMENT
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_placeholder_literal",
+			TypeString:     "t_placeholder",
+		}
 		return p
 	}
 

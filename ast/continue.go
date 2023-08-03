@@ -47,7 +47,13 @@ func (b *ContinueStatement) GetNodes() []Node[NodeType] {
 }
 
 func (b *ContinueStatement) ToProto() NodeType {
-	return ast_pb.Continue{}
+	proto := ast_pb.Continue{
+		Id:       b.GetId(),
+		NodeType: b.GetType(),
+		Src:      b.GetSrc().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "Continue")
 }
 
 func (b *ContinueStatement) Parse(

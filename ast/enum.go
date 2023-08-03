@@ -111,10 +111,11 @@ func (e *EnumDefinition) Parse(
 	}
 
 	for _, enumCtx := range ctx.GetEnumValues() {
+		id := e.GetNextID()
 		e.Members = append(
 			e.Members,
 			&Parameter{
-				Id: e.GetNextID(),
+				Id: id,
 				Src: SrcNode{
 					Line:        int64(enumCtx.GetStart().GetLine()),
 					Column:      int64(enumCtx.GetStart().GetColumn()),
@@ -125,6 +126,10 @@ func (e *EnumDefinition) Parse(
 				},
 				Name:     enumCtx.GetText(),
 				NodeType: ast_pb.NodeType_ENUM_VALUE,
+				TypeDescription: &TypeDescription{
+					TypeIdentifier: fmt.Sprintf("t_enum_$_%s$_%s_$%d", e.Name, enumCtx.GetText(), id),
+					TypeString:     fmt.Sprintf("enum %s.%s", e.CanonicalName, enumCtx.GetText()),
+				},
 			},
 		)
 	}

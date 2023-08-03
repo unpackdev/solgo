@@ -84,7 +84,9 @@ func (f *FunctionCall) GetTypeDescription() *TypeDescription {
 
 // GetNodes returns a slice of nodes that includes the expression of the FunctionCall node.
 func (f *FunctionCall) GetNodes() []Node[NodeType] {
-	return []Node[NodeType]{f.Expression}
+	toReturn := []Node[NodeType]{f.Expression}
+	toReturn = append(toReturn, f.Arguments...)
+	return toReturn
 }
 
 // GetReferenceDeclaration returns the referenced declaration of the FunctionCall node.
@@ -95,6 +97,7 @@ func (f *FunctionCall) GetReferenceDeclaration() int64 {
 // ToProto returns a protobuf representation of the FunctionCall node.
 // Currently, it returns an empty Statement and needs to be implemented.
 func (f *FunctionCall) ToProto() NodeType {
+
 	proto := ast_pb.FunctionCall{
 		Id:                    f.GetId(),
 		NodeType:              f.GetType(),

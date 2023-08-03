@@ -55,7 +55,7 @@ func (a *Assignment) GetTypeDescription() *TypeDescription {
 
 // GetNodes returns the child nodes of the Assignment node.
 func (a *Assignment) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{a.Expression, a.LeftExpression, a.RightExpression}
 }
 
 // GetExpression returns the expression of the Assignment node.

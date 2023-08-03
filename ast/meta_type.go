@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type MetaTypeExpression struct {
+type MetaType struct {
 	*ASTBuilder
 
 	Id                    int64            `json:"id"`
@@ -16,50 +16,63 @@ type MetaTypeExpression struct {
 	TypeDescription       *TypeDescription `json:"type_description"`
 }
 
-func NewMetaTypeExpression(b *ASTBuilder) *MetaTypeExpression {
-	return &MetaTypeExpression{
+func NewMetaTypeExpression(b *ASTBuilder) *MetaType {
+	return &MetaType{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_IDENTIFIER,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the MetaTypeExpression node.
-func (m *MetaTypeExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the MetaType node.
+func (m *MetaType) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	m.ReferencedDeclaration = refId
 	m.TypeDescription = refDesc
 	return false
 }
 
-func (m *MetaTypeExpression) GetId() int64 {
+func (m *MetaType) GetId() int64 {
 	return m.Id
 }
 
-func (m *MetaTypeExpression) GetType() ast_pb.NodeType {
+func (m *MetaType) GetType() ast_pb.NodeType {
 	return m.NodeType
 }
 
-func (m *MetaTypeExpression) GetSrc() SrcNode {
+func (m *MetaType) GetSrc() SrcNode {
 	return m.Src
 }
 
-func (m *MetaTypeExpression) GetName() string {
+func (m *MetaType) GetName() string {
 	return m.Name
 }
 
-func (m *MetaTypeExpression) GetTypeDescription() *TypeDescription {
+func (m *MetaType) GetTypeDescription() *TypeDescription {
 	return m.TypeDescription
 }
 
-func (m *MetaTypeExpression) GetNodes() []Node[NodeType] {
+func (m *MetaType) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (m *MetaTypeExpression) ToProto() NodeType {
-	return ast_pb.MetaTypeExpression{}
+func (m *MetaType) GetReferencedDeclaration() int64 {
+	return m.ReferencedDeclaration
 }
 
-func (m *MetaTypeExpression) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
+func (m *MetaType) ToProto() NodeType {
+	proto := ast_pb.MetaType{
+		Id:                    m.GetId(),
+		Name:                  m.GetName(),
+		NodeType:              m.GetType(),
+		Src:                   m.GetSrc().ToProto(),
+		ReferencedDeclaration: m.GetReferencedDeclaration(),
+		TypeDescription:       m.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "MetaType")
+}
+
+func (m *MetaType) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,

@@ -57,11 +57,13 @@ func (b *BreakStatement) GetNodes() []Node[NodeType] {
 
 // ToProto returns the protobuf representation of the break statement.
 func (b *BreakStatement) ToProto() NodeType {
-	return ast_pb.Break{
-		Id:       b.Id,
-		NodeType: b.NodeType,
-		Src:      b.Src.ToProto(),
+	proto := ast_pb.Break{
+		Id:       b.GetId(),
+		NodeType: b.GetType(),
+		Src:      b.GetSrc().ToProto(),
 	}
+
+	return NewTypedStruct(&proto, "Break")
 }
 
 // Parse populates the BreakStatement fields using the provided parser context.

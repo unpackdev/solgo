@@ -19,6 +19,7 @@ type Parameter struct {
 	StateMutability ast_pb.Mutability      `json:"state_mutability,omitempty"`
 	Constant        bool                   `json:"constant,omitempty"`
 	StateVariable   bool                   `json:"state_variable,omitempty"`
+	TypeDescription *TypeDescription       `json:"type_description,omitempty"`
 }
 
 func NewParameter(b *ASTBuilder) *Parameter {
@@ -55,7 +56,7 @@ func (p *Parameter) GetTypeDescription() *TypeDescription {
 	if p.TypeName != nil {
 		return p.TypeName.TypeDescription
 	}
-	return &TypeDescription{}
+	return p.TypeDescription
 }
 
 func (p *Parameter) GetVisibility() ast_pb.Visibility {

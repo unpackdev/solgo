@@ -92,7 +92,7 @@ func (m *MemberAccessExpression) IsLValueRequested() bool {
 }
 
 func (m *MemberAccessExpression) ToProto() NodeType {
-	proto := ast_pb.MemberAccessExpression{
+	proto := ast_pb.MemberAccess{
 		Id:                    m.GetId(),
 		MemberName:            m.GetMemberName(),
 		NodeType:              m.GetType(),
@@ -107,7 +107,11 @@ func (m *MemberAccessExpression) ToProto() NodeType {
 		TypeDescription:       m.GetTypeDescription().ToProto(),
 	}
 
-	return NewTypedStruct(&proto, "MemberAccessExpression")
+	for _, arg := range m.GetArgumentTypes() {
+		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "MemberAccess")
 }
 
 func (m *MemberAccessExpression) Parse(

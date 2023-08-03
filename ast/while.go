@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -10,10 +11,10 @@ type WhileStatement struct {
 
 	Id        int64           `json:"id"`
 	NodeType  ast_pb.NodeType `json:"node_type"`
+	Kind      ast_pb.NodeType `json:"kind"`
 	Src       SrcNode         `json:"src"`
 	Condition Node[NodeType]  `json:"condition"`
 	Body      *BodyNode       `json:"body"`
-	Kind      ast_pb.NodeType `json:"kind"`
 }
 
 func NewWhileStatement(b *ASTBuilder) *WhileStatement {
@@ -53,20 +54,28 @@ func (w *WhileStatement) GetKind() ast_pb.NodeType {
 	return w.Kind
 }
 
-func (w *WhileStatement) GetImplemented() bool {
-	return true
-}
-
 func (w *WhileStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
 func (w *WhileStatement) GetNodes() []Node[NodeType] {
-	return w.Body.Statements
+	toReturn := make([]Node[NodeType], 0)
+	toReturn = append(toReturn, w.Condition)
+	toReturn = append(toReturn, w.Body.GetNodes()...)
+	return toReturn
 }
 
 func (w *WhileStatement) ToProto() NodeType {
-	return ast_pb.While{}
+	proto := ast_pb.While{
+		Id:        w.GetId(),
+		NodeType:  w.GetType(),
+		Kind:      w.GetKind(),
+		Src:       w.GetSrc().ToProto(),
+		Condition: w.GetCondition().ToProto().(*v3.TypedStruct),
+		Body:      w.Body.ToProto().(*ast_pb.Body),
+	}
+
+	return NewTypedStruct(&proto, "While")
 }
 
 func (w *WhileStatement) Parse(

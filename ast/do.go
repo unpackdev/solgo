@@ -1,11 +1,12 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type DoWhiteStatement struct {
+type DoWhileStatement struct {
 	*ASTBuilder
 
 	Id        int64           `json:"id"`
@@ -15,52 +16,62 @@ type DoWhiteStatement struct {
 	Body      *BodyNode       `json:"body"`
 }
 
-func NewDoWhiteStatement(b *ASTBuilder) *DoWhiteStatement {
-	return &DoWhiteStatement{
+func NewDoWhileStatement(b *ASTBuilder) *DoWhileStatement {
+	return &DoWhileStatement{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_DO_WHILE_STATEMENT,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the DoWhiteStatement node.
-func (d *DoWhiteStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the DoWhileStatement node.
+func (d *DoWhileStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (d *DoWhiteStatement) GetId() int64 {
+func (d *DoWhileStatement) GetId() int64 {
 	return d.Id
 }
 
-func (d *DoWhiteStatement) GetType() ast_pb.NodeType {
+func (d *DoWhileStatement) GetType() ast_pb.NodeType {
 	return d.NodeType
 }
 
-func (d *DoWhiteStatement) GetSrc() SrcNode {
+func (d *DoWhileStatement) GetSrc() SrcNode {
 	return d.Src
 }
 
-func (d *DoWhiteStatement) GetCondition() Node[NodeType] {
+func (d *DoWhileStatement) GetCondition() Node[NodeType] {
 	return d.Condition
 }
 
-func (d *DoWhiteStatement) GetBody() *BodyNode {
+func (d *DoWhileStatement) GetBody() *BodyNode {
 	return d.Body
 }
 
-func (d *DoWhiteStatement) GetNodes() []Node[NodeType] {
-	return d.Body.Statements
+func (d *DoWhileStatement) GetNodes() []Node[NodeType] {
+	toReturn := []Node[NodeType]{d.Condition}
+	toReturn = append(toReturn, d.Body.GetNodes()...)
+	return toReturn
 }
 
-func (d *DoWhiteStatement) GetTypeDescription() *TypeDescription {
+func (d *DoWhileStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (d *DoWhiteStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+func (d *DoWhileStatement) ToProto() NodeType {
+	protos := ast_pb.Do{
+		Id:        d.GetId(),
+		NodeType:  d.GetType(),
+		Src:       d.GetSrc().ToProto(),
+		Condition: d.GetCondition().ToProto().(*v3.TypedStruct),
+		Body:      d.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	return NewTypedStruct(&protos, "Do")
 }
 
-func (d *DoWhiteStatement) Parse(
+func (d *DoWhileStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],

@@ -204,16 +204,7 @@ func (l LibraryNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Librar
 		childNode := bodyNode.ParseDefinitions(unit, libraryNode, bodyElement)
 		if childNode != nil {
 			libraryNode.Nodes = append(libraryNode.Nodes, childNode)
-
 			if bodyNode.NodeType == ast_pb.NodeType_FUNCTION_DEFINITION && !bodyNode.Implemented {
-				zap.L().Warn(
-					"Discovered partial body node implementation. Checkout why this is happening.",
-					zap.String("contract", libraryNode.Name),
-					zap.String("contract_kind", libraryNode.Kind.String()),
-					zap.String("body_node_type", childNode.GetType().String()),
-					zap.String("body_element_type", reflect.TypeOf(bodyElement).String()),
-				)
-
 				libraryNode.FullyImplemented = false
 			}
 		} else {

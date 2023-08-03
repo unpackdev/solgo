@@ -18,7 +18,7 @@ type ASTBuilder struct {
 	sources               solgo.Sources          // sources is the source code of the Solidity files.
 	parser                *parser.SolidityParser // parser is the Solidity parser instance.
 	nextID                int64                  // nextID is the next ID to assign to a node.
-	comments              []*CommentNode
+	comments              []*Comment
 	commentsParsed        bool
 	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
 	currentStateVariables []*StateVariableDeclaration
@@ -36,7 +36,7 @@ func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBui
 	builder := &ASTBuilder{
 		parser:      parser,
 		sources:     sources,
-		comments:    make([]*CommentNode, 0),
+		comments:    make([]*Comment, 0),
 		sourceUnits: make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
 		nextID:      1,
 	}
@@ -89,9 +89,25 @@ func (b *ASTBuilder) WriteToFile(path string, data []byte) error {
 }
 
 // ResolveReferences resolves the references in the AST using the Resolver of the ASTBuilder.
-func (b *ASTBuilder) ResolveReferences() error {
+func (b *ASTBuilder) ResolveReferences() []error {
 	if err := b.resolver.Resolve(); err != nil {
 		return err
 	}
+
+	// Cleanup the builder so garbage collector and memory usage is minimized...
+	b.GarbageCollect()
+
 	return nil
+}
+
+// GarbageCollect cleans up the ASTBuilder after resolving references.
+func (b *ASTBuilder) GarbageCollect() {
+	b.currentEnums = nil
+	b.currentErrors = nil
+	b.currentEvents = nil
+	b.currentFunctions = nil
+	b.currentModifiers = nil
+	b.currentStateVariables = nil
+	b.currentStructs = nil
+	b.currentVariables = nil
 }

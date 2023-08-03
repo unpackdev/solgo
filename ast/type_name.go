@@ -155,11 +155,11 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			}
 		}
 
-		if ref, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); ref != nil {
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
 			if t.PathNode != nil {
-				t.PathNode.ReferencedDeclaration = ref.GetId()
+				t.PathNode.ReferencedDeclaration = refId
 			}
-			t.ReferencedDeclaration = ref.GetId()
+			t.ReferencedDeclaration = refId
 			t.TypeDescription = refTypeDescription
 		}
 	}
@@ -205,9 +205,9 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
-		if ref, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); ref != nil {
-			t.PathNode.ReferencedDeclaration = ref.GetId()
-			t.ReferencedDeclaration = ref.GetId()
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
+			t.PathNode.ReferencedDeclaration = refId
+			t.ReferencedDeclaration = refId
 			t.TypeDescription = refTypeDescription
 		}
 	}
@@ -309,8 +309,8 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 
 	// We're still not able to discover reference, so what we're going to do now is look for the references...
 	if typeName.TypeDescription == nil {
-		if ref, refTypeDescription := t.GetResolver().ResolveByNode(typeName, typeName.Name); ref != nil {
-			typeName.ReferencedDeclaration = ref.GetId()
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(typeName, typeName.Name); refTypeDescription != nil {
+			typeName.ReferencedDeclaration = refId
 			typeName.TypeDescription = refTypeDescription
 		}
 	}

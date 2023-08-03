@@ -53,7 +53,7 @@ func (m *ModifierDefinition) GetTypeDescription() *TypeDescription {
 }
 
 func (m *ModifierDefinition) GetNodes() []Node[NodeType] {
-	return nil
+	return m.Body.GetNodes()
 }
 
 func (m *ModifierDefinition) IsVirtual() bool {
@@ -115,6 +115,8 @@ func (m *ModifierDefinition) ParseDefinition(
 	parameters := NewParameterList(m.ASTBuilder)
 	if ctx.ParameterList() != nil {
 		parameters.Parse(unit, contractNode, ctx.ParameterList())
+	} else {
+		parameters.Src = m.Src
 	}
 	m.Parameters = parameters
 
