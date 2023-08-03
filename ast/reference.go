@@ -150,7 +150,6 @@ func (r *Resolver) Resolve() []error {
 	}
 
 	for nodeId, node := range r.UnprocessedNodes {
-		r.dumpNode(node)
 		errors = append(
 			errors,
 			fmt.Errorf(

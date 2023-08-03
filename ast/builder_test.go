@@ -198,17 +198,18 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				"../data/tests/ast/"+testCase.sources.EntrySourceUnitName+".solgo.ast.proto.json",
 				astPretty,
 			)
+			assert.NoError(t, err)
 
 			// Zero is here for the first contract that's empty...
 			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))
 
 			// We need to check that the entry source unit name is correct.
-			/* 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
-			   				if astBuilder.GetRoot().EntrySourceUnit == sourceUnit.GetId() {
-			   					assert.Equal(t, sourceUnit.GetName(), testCase.sources.EntrySourceUnitName)
-			   				}
-			   			}
-			*/
+			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
+				if astBuilder.GetRoot().EntrySourceUnit == sourceUnit.GetId() {
+					assert.Equal(t, sourceUnit.GetName(), testCase.sources.EntrySourceUnitName)
+				}
+			}
+
 			//assert.Equal(t, testCase.expected, string(astJson))
 			//fmt.Println(string(prettyJson))
 		})
