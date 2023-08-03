@@ -103,6 +103,11 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			sources: solgo.Sources{
 				SourceUnits: []solgo.SourceUnit{
 					{
+						Name:    "TokenSale",
+						Path:    "TokenSale.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
+					},
+					{
 						Name:    "SafeMath",
 						Path:    "SafeMath.sol",
 						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
@@ -111,11 +116,6 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 						Name:    "IERC20",
 						Path:    "IERC20.sol",
 						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
-					},
-					{
-						Name:    "TokenSale",
-						Path:    "TokenSale.sol",
-						Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
 					},
 				},
 				EntrySourceUnitName: "TokenSale",
@@ -198,6 +198,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				"../data/tests/ast/"+testCase.sources.EntrySourceUnitName+".solgo.ast.proto.json",
 				astPretty,
 			)
+			assert.NoError(t, err)
 
 			// Zero is here for the first contract that's empty...
 			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))

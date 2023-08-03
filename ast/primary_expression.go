@@ -115,10 +115,6 @@ func (p *PrimaryExpression) GetOverloadedDeclarations() []int64 {
 // ToProto returns a protobuf representation of the PrimaryExpression node.
 // Currently, it returns an empty PrimaryExpression and needs to be implemented.
 func (p *PrimaryExpression) ToProto() NodeType {
-	/* 	if p.GetTypeDescription() == nil {
-		p.dumpNode(p)
-	} */
-
 	proto := ast_pb.PrimaryExpression{
 		Id:                     p.GetId(),
 		Name:                   p.GetName(),
@@ -173,6 +169,10 @@ func (p *PrimaryExpression) Parse(
 		}(),
 	}
 
+	if ctx.Identifier() != nil {
+		p.Name = ctx.Identifier().GetText()
+	}
+
 	// This is a magic message type and should be treated accordingly...
 	if ctx.GetText() == "msg" {
 		p.TypeDescription = &TypeDescription{
@@ -194,6 +194,17 @@ func (p *PrimaryExpression) Parse(
 		p.TypeDescription = unit.GetTypeDescription()
 	}
 
+	// There is a case where we get PlaceholderStatement as a PrimaryExpression and this one does nothing really...
+	// So we are going to do some hack here to make it work properly...
+	if p.Name == "_" {
+		p.NodeType = ast_pb.NodeType_PLACEHOLDER_STATEMENT
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_placeholder_literal",
+			TypeString:     "t_placeholder",
+		}
+		return p
+	}
+
 	if expNode != nil {
 		switch expNodeCtx := expNode.(type) {
 		case *FunctionCall:
@@ -205,8 +216,6 @@ func (p *PrimaryExpression) Parse(
 	}
 
 	if ctx.Identifier() != nil {
-		p.Name = ctx.Identifier().GetText()
-
 		// We cannot reach all of the parameter type description by simply discoveryReference
 		// as some of the nodes such as this one is not yet written and is not accessible by
 		// the discoverReferenceByCtxName()
@@ -258,17 +267,6 @@ func (p *PrimaryExpression) Parse(
 				p.TypeDescription = refTypeDescription
 			}
 		}
-	}
-
-	// There is a case where we get PlaceholderStatement as a PrimaryExpression and this one does nothing really...
-	// So we are going to do some hack here to make it work properly...
-	if p.Name == "_" {
-		p.NodeType = ast_pb.NodeType_PLACEHOLDER_STATEMENT
-		p.TypeDescription = &TypeDescription{
-			TypeIdentifier: "t_placeholder_literal",
-			TypeString:     "t_placeholder",
-		}
-		return p
 	}
 
 	literalCtx := ctx.Literal()

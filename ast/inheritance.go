@@ -53,7 +53,7 @@ func parseInheritanceFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceU
 					nodeCtx.ContractDependencies = append(
 						nodeCtx.ContractDependencies, unitNode.GetId(),
 					)
-				case *InterfaceNode:
+				case *Interface:
 					nodeCtx.LinearizedBaseContracts = append(
 						nodeCtx.LinearizedBaseContracts, unitNode.GetId(),
 					)

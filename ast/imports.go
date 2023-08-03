@@ -8,7 +8,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type ImportNode struct {
+type Import struct {
 	// Id is the unique identifier of the import node.
 	Id int64 `json:"id"`
 
@@ -21,52 +21,58 @@ type ImportNode struct {
 	SourceUnit   int64           `json:"source_unit"`
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the ImportNode node.
-func (i ImportNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the Import node.
+func (i Import) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (i ImportNode) GetId() int64 {
+func (i Import) GetId() int64 {
 	return i.Id
 }
 
-func (i ImportNode) GetType() ast_pb.NodeType {
+func (i Import) GetType() ast_pb.NodeType {
 	return i.NodeType
 }
 
-func (i ImportNode) GetSrc() SrcNode {
+func (i Import) GetSrc() SrcNode {
 	return i.Src
 }
 
-func (i *ImportNode) GetTypeDescription() *TypeDescription {
+func (i *Import) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (i ImportNode) GetAbsolutePath() string {
+func (i Import) GetAbsolutePath() string {
 	return i.AbsolutePath
 }
 
-func (i ImportNode) GetFile() string {
+func (i Import) GetFile() string {
 	return i.File
 }
 
-func (i ImportNode) GetScope() int64 {
+func (i Import) GetScope() int64 {
 	return i.Scope
 }
 
-func (i ImportNode) GetUnitAlias() string {
+func (i Import) GetUnitAlias() string {
 	return i.UnitAlias
 }
 
-func (i ImportNode) GetSourceUnit() int64 {
+func (i Import) GetSourceUnit() int64 {
 	return i.SourceUnit
 }
 
-func (i ImportNode) GetNodes() []Node[NodeType] {
+func (i Import) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (i ImportNode) ToProto() NodeType {
+func (i Import) GetName() string {
+	base := filepath.Base(i.AbsolutePath)
+	ext := filepath.Ext(base)
+	return strings.TrimSuffix(base, ext)
+}
+
+func (i Import) ToProto() NodeType {
 	proto := ast_pb.Import{
 		Id:           i.GetId(),
 		NodeType:     i.GetType(),
@@ -89,7 +95,7 @@ func parseImportPathsForSourceUnit(
 	contractCtx *parser.ContractDefinitionContext,
 	interfaceCtx *parser.InterfaceDefinitionContext,
 ) []Node[NodeType] {
-	imports := make([]*ImportNode, 0)
+	imports := make([]*Import, 0)
 
 	contractLine := func() int64 {
 		if libraryCtx != nil {
@@ -116,7 +122,7 @@ func parseImportPathsForSourceUnit(
 
 		if importCtx, ok := child.(*parser.ImportDirectiveContext); ok {
 			// First pragma encountered, add it to the result
-			importNode := &ImportNode{
+			importNode := &Import{
 				Id:       b.GetNextID(),
 				NodeType: ast_pb.NodeType_IMPORT_DIRECTIVE,
 				Src: SrcNode{
@@ -177,6 +183,7 @@ func parseImportPathsForSourceUnit(
 								AbsolutePath: symbol.AbsolutePath,
 							},
 						)
+
 					}
 				}
 			}
