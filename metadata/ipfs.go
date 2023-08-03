@@ -89,6 +89,33 @@ func (p *IpfsProvider) GetMetadataByCID(cid string) (*ContractMetadata, error) {
 		// eg. save it to the database...
 		toReturn.Raw = string(data)
 
+		// There are contracts that do contain sources but are not available immediately at first metadata lookup.
+		// These sources usually contain bzz and ipfs locations. Sometimes reachable, sometimes not, never the less,
+		// this is a way how to fetch those contracts.
+		for sourceName, source := range toReturn.Sources {
+			if len(source.Content) < 10 {
+				for _, url := range source.Urls {
+					if strings.HasPrefix(url, "dweb:/ipfs/") {
+						url := strings.TrimPrefix(url, "dweb:/ipfs/")
+						subContent, err := p.client.Cat(fmt.Sprintf("/ipfs/%s", url))
+						if err != nil {
+							errs <- err
+							return
+						}
+
+						data, err := io.ReadAll(subContent)
+						if err != nil {
+							errs <- err
+							return
+						}
+						source.Content = string(data)
+						toReturn.Sources[sourceName] = source
+					}
+				}
+			}
+
+		}
+
 		result <- &toReturn
 	}()
 
