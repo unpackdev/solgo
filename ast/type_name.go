@@ -34,7 +34,7 @@ func NewTypeName(b *ASTBuilder) *TypeName {
 func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	t.ReferencedDeclaration = refId
 	t.TypeDescription = refDesc
-	return false
+	return true
 }
 
 func (t *TypeName) GetId() int64 {
@@ -87,9 +87,16 @@ func (t *TypeName) ToProto() NodeType {
 		Name:                  t.GetName(),
 		NodeType:              t.GetType(),
 		Src:                   t.GetSrc().ToProto(),
-		TypeDescription:       t.GetTypeDescription().ToProto(),
 		ReferencedDeclaration: t.ReferencedDeclaration,
 		StateMutability:       t.StateMutability,
+	}
+
+	// In case it's nil, we'll do our best to resolve it later on in
+	// the final resolver pass.
+	// This usually means that contract A is not yet processed while
+	// contract B is referencing it.
+	if t.GetTypeDescription() != nil {
+		toReturn.TypeDescription = t.GetTypeDescription().ToProto()
 	}
 
 	if t.GetPathNode() != nil {
@@ -276,6 +283,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			),
 		}
 		parentNode.TypeDescription = t.TypeDescription
+		typeName = typeNameNode
 	case parser.ITypeNameContext:
 		typeName.Name = specificCtx.GetText()
 		typeName.Src = SrcNode{

@@ -1489,8 +1489,8 @@
                                         "start": "1947"
                                       },
                                       "typeDescription": {
-                                        "typeIdentifier": "t_tuple$_t_bool$_t_uint256$",
-                                        "typeString": "tuple(bool,uint256)"
+                                        "typeIdentifier": "t_tuple$_t_uint256$_t_bool$",
+                                        "typeString": "tuple(uint256,bool)"
                                       }
                                     }
                                   },
@@ -1507,8 +1507,8 @@
                                     "start": "1940"
                                   },
                                   "typeDescription": {
-                                    "typeIdentifier": "t_tuple$_t_bool$_t_uint256$",
-                                    "typeString": "tuple(bool,uint256)"
+                                    "typeIdentifier": "t_tuple$_t_uint256$_t_bool$",
+                                    "typeString": "tuple(uint256,bool)"
                                   }
                                 }
                               }
@@ -1951,8 +1951,8 @@
                                         "start": "2282"
                                       },
                                       "typeDescription": {
-                                        "typeIdentifier": "t_tuple$_t_uint256$_t_bool$",
-                                        "typeString": "tuple(uint256,bool)"
+                                        "typeIdentifier": "t_tuple$_t_bool$_t_uint256$",
+                                        "typeString": "tuple(bool,uint256)"
                                       }
                                     }
                                   },
@@ -1969,8 +1969,8 @@
                                     "start": "2275"
                                   },
                                   "typeDescription": {
-                                    "typeIdentifier": "t_tuple$_t_uint256$_t_bool$",
-                                    "typeString": "tuple(uint256,bool)"
+                                    "typeIdentifier": "t_tuple$_t_bool$_t_uint256$",
+                                    "typeString": "tuple(bool,uint256)"
                                   }
                                 }
                               }
@@ -5581,6 +5581,9 @@
               "fullyImplemented": true,
               "id": "629",
               "kind": "KIND_LIBRARY",
+              "linearizedBaseContracts": [
+                "629"
+              ],
               "name": "IERC20",
               "nodeType": "CONTRACT_DEFINITION",
               "nodes": [
@@ -7107,13 +7110,16 @@
                 }
               ],
               "contractDependencies": [
-                "619"
+                "619",
+                "786"
               ],
               "fullyImplemented": true,
               "id": "790",
               "kind": "KIND_LIBRARY",
               "linearizedBaseContracts": [
-                "619"
+                "619",
+                "790",
+                "786"
               ],
               "name": "IERC20Metadata",
               "nodeType": "CONTRACT_DEFINITION",
@@ -7624,6 +7630,9 @@
               "fullyImplemented": true,
               "id": "854",
               "kind": "KIND_CONTRACT",
+              "linearizedBaseContracts": [
+                "854"
+              ],
               "name": "Context",
               "nodeType": "CONTRACT_DEFINITION",
               "nodes": [
@@ -8088,6 +8097,18 @@
           "id": 901,
           "name": "ERC20",
           "absolute_path": "ERC20.sol"
+        },
+        {
+          "id": 918,
+          "name": "Context"
+        },
+        {
+          "id": 922,
+          "name": "IERC20"
+        },
+        {
+          "id": 926,
+          "name": "IERC20Metadata"
         }
       ],
       "node_type": 1,
@@ -8219,7 +8240,8 @@
               "linearizedBaseContracts": [
                 "843",
                 "619",
-                "778"
+                "778",
+                "917"
               ],
               "name": "ERC20",
               "nodeType": "CONTRACT_DEFINITION",
@@ -8881,7 +8903,7 @@
                                 "id": "1021",
                                 "name": "_name",
                                 "nodeType": "IDENTIFIER",
-                                "referencedDeclaration": "959",
+                                "referencedDeclaration": "988",
                                 "src": {
                                   "column": "15",
                                   "end": "13583",
@@ -9090,7 +9112,7 @@
                                 "id": "1044",
                                 "name": "_symbol",
                                 "nodeType": "IDENTIFIER",
-                                "referencedDeclaration": "964",
+                                "referencedDeclaration": "996",
                                 "src": {
                                   "column": "15",
                                   "end": "13798",
@@ -15858,7 +15880,7 @@
                                 "id": "1643",
                                 "name": "Transfer",
                                 "nodeType": "IDENTIFIER",
-                                "referencedDeclaration": "747",
+                                "referencedDeclaration": "1535",
                                 "src": {
                                   "column": "13",
                                   "end": "20294",
@@ -17249,7 +17271,7 @@
                                 "id": "1755",
                                 "name": "Transfer",
                                 "nodeType": "IDENTIFIER",
-                                "referencedDeclaration": "747",
+                                "referencedDeclaration": "1535",
                                 "src": {
                                   "column": "13",
                                   "end": "21273",
@@ -17687,7 +17709,7 @@
                                           "id": "1793",
                                           "name": "_totalSupply",
                                           "nodeType": "IDENTIFIER",
-                                          "referencedDeclaration": "954",
+                                          "referencedDeclaration": "1627",
                                           "src": {
                                             "column": "12",
                                             "end": "21229",
@@ -19041,7 +19063,7 @@
                                               "id": "1925",
                                               "name": "currentAllowance",
                                               "nodeType": "IDENTIFIER",
-                                              "referencedDeclaration": "1395",
+                                              "referencedDeclaration": "1413",
                                               "src": {
                                                 "column": "20",
                                                 "end": "22655",

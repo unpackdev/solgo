@@ -35,6 +35,10 @@ func NewStateVariableDeclaration(b *ASTBuilder) *StateVariableDeclaration {
 
 // SetReferenceDescriptor sets the reference descriptions of the StateVariableDeclaration node.
 func (v *StateVariableDeclaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	if v.TypeName != nil {
+		v.TypeDescription = refDesc
+		return v.TypeName.SetReferenceDescriptor(refId, refDesc)
+	}
 	return false
 }
 
@@ -79,7 +83,7 @@ func (v *StateVariableDeclaration) GetReferencedDeclaration() int64 {
 }
 
 func (v *StateVariableDeclaration) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{v.TypeName}
 }
 
 func (v *StateVariableDeclaration) GetScope() int64 {

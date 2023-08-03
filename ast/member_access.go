@@ -68,7 +68,7 @@ func (m *MemberAccessExpression) GetArgumentTypes() []*TypeDescription {
 }
 
 func (m *MemberAccessExpression) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{m.Expression}
 }
 
 func (m *MemberAccessExpression) GetReferencedDeclaration() int64 {
@@ -150,39 +150,45 @@ func (m *MemberAccessExpression) Parse(
 		m.Expression = expression.Parse(
 			unit, contractNode, fnNode, bodyNode, vDeclar, m, ctx.Expression(),
 		)
+
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
-		if m.TypeDescription.TypeIdentifier == "t_magic_message" {
-			switch m.MemberName {
-			case "sender":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_address",
-					TypeString:     "address",
-				}
-			case "data":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_bytes_calldata_ptr",
-					TypeString:     "bytes calldata",
-				}
-			case "value":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_uint256",
-					TypeString:     "uint256",
-				}
-			case "timestamp":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_uint256",
-					TypeString:     "uint256",
+		// Forward type declaration for non magic messages...
+		// That's why we have nil check here. Magic messages will still be set
+		// as they are calculated in TypeName.
+		if m.TypeDescription != nil {
+			if m.TypeDescription.TypeIdentifier == "t_magic_message" {
+				switch m.MemberName {
+				case "sender":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_address",
+						TypeString:     "address",
+					}
+				case "data":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_bytes_calldata_ptr",
+						TypeString:     "bytes calldata",
+					}
+				case "value":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_uint256",
+						TypeString:     "uint256",
+					}
+				case "timestamp":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_uint256",
+						TypeString:     "uint256",
+					}
 				}
 			}
-		}
 
-		if m.TypeDescription.TypeIdentifier == "t_magic_block" {
-			switch m.MemberName {
-			case "timestamp":
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: "t_uint256",
-					TypeString:     "uint256",
+			if m.TypeDescription.TypeIdentifier == "t_magic_block" {
+				switch m.MemberName {
+				case "timestamp":
+					m.TypeDescription = &TypeDescription{
+						TypeIdentifier: "t_uint256",
+						TypeString:     "uint256",
+					}
 				}
 			}
 		}

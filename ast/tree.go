@@ -84,10 +84,19 @@ func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, no
 		return false
 	}
 
-	//fmt.Println("Found node to update reference descriptor", child.GetId(), nodeId, nodeRefId, typeRef)
+	//fmt.Println("Ref", "Child", child.GetId(), "Want", nodeId)
 
 	if child.GetId() == nodeId {
 		child.SetReferenceDescriptor(nodeRefId, typeRef)
+
+		// Update parent reference if necessary...
+		parentChild := t.GetById(child.GetSrc().GetParentIndex())
+		if parentChild != nil {
+			if parentChild.GetTypeDescription() == nil {
+				parentChild.SetReferenceDescriptor(nodeRefId, typeRef)
+			}
+		}
+
 		return true
 	}
 
@@ -108,6 +117,10 @@ func (t *Tree) byRecursiveId(node Node[NodeType], id int64) Node[NodeType] {
 	}
 
 	for _, child := range node.GetNodes() {
+		if child == nil {
+			continue
+		}
+
 		if n := t.byRecursiveId(child, id); n != nil {
 			return n
 		}

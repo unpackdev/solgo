@@ -84,7 +84,7 @@ func (p *Parameter) GetTypeName() *TypeName {
 }
 
 func (p *Parameter) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{p.TypeName}
 }
 
 func (p *Parameter) ToProto() *ast_pb.Parameter {

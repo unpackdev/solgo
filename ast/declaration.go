@@ -30,6 +30,15 @@ func NewDeclaration(b *ASTBuilder) *Declaration {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the VariableDeclaration node.
+func (v *Declaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	if v.TypeName != nil {
+		return v.TypeName.SetReferenceDescriptor(refId, refDesc)
+	}
+
+	return false
+}
+
 func (d *Declaration) GetId() int64 {
 	return d.Id
 }
@@ -74,22 +83,6 @@ func (d *Declaration) GetIsStateVariable() bool {
 	return d.IsStateVariable
 }
 
-func (d *Declaration) GetPathNode() *PathNode {
-	return nil
-}
-
-func (d *Declaration) GetReferencedDeclaration() int64 {
-	return 0
-}
-
-func (d *Declaration) GetKeyType() *TypeName {
-	return nil
-}
-
-func (d *Declaration) GetValueType() *TypeName {
-	return nil
-}
-
 func (d *Declaration) GetTypeDescription() *TypeDescription {
 	if d.TypeName != nil {
 		return d.TypeName.GetTypeDescription()
@@ -98,10 +91,14 @@ func (d *Declaration) GetTypeDescription() *TypeDescription {
 }
 
 func (d *Declaration) GetNodes() []Node[NodeType] {
+	if d.TypeName != nil {
+		return []Node[NodeType]{d.TypeName}
+	}
+
 	return nil
 }
 
-func (d *Declaration) ToProto() *ast_pb.Declaration {
+func (d *Declaration) ToProto() NodeType {
 	toReturn := &ast_pb.Declaration{
 		Id:              d.Id,
 		Name:            d.Name,

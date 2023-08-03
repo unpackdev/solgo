@@ -116,6 +116,12 @@ func (b *ASTBuilder) dumpNode(whatever interface{}) {
 	os.Exit(1)
 }
 
+// nolint:unused
+func (b *ASTBuilder) dumpNodeNoExit(whatever interface{}) {
+	j, _ := b.ToPrettyJSON(whatever)
+	fmt.Println(string(j))
+}
+
 func getStorageLocationFromDataLocationCtx(ctx parser.IDataLocationContext) ast_pb.StorageLocation {
 	if ctx != nil {
 		if ctx.Memory() != nil {

@@ -65,7 +65,12 @@ func (v *VariableDeclaration) GetTypeDescription() *TypeDescription {
 }
 
 func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := []Node[NodeType]{v.InitialValue}
+	for _, declaration := range v.GetDeclarations() {
+		toReturn = append(toReturn, declaration)
+	}
+
+	return toReturn
 }
 
 func (v *VariableDeclaration) ToProto() NodeType {
@@ -82,7 +87,10 @@ func (v *VariableDeclaration) ToProto() NodeType {
 	}
 
 	for _, declaration := range v.GetDeclarations() {
-		proto.Declarations = append(proto.Declarations, declaration.ToProto())
+		proto.Declarations = append(
+			proto.Declarations,
+			declaration.ToProto().(*ast_pb.Declaration),
+		)
 	}
 
 	return NewTypedStruct(&proto, "Variable")
