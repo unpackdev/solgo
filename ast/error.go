@@ -65,7 +65,16 @@ func (e *ErrorDefinition) GetNodes() []Node[NodeType] {
 }
 
 func (e *ErrorDefinition) ToProto() NodeType {
-	return ast_pb.Error{}
+	proto := ast_pb.Error{
+		Id:              e.GetId(),
+		Name:            e.GetName(),
+		NodeType:        e.GetType(),
+		Src:             e.GetSrc().ToProto(),
+		Parameters:      e.GetParameters().ToProto(),
+		TypeDescription: e.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "Error")
 }
 
 func (e *ErrorDefinition) Parse(

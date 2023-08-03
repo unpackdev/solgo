@@ -87,7 +87,28 @@ func (v *StateVariableDeclaration) GetScope() int64 {
 }
 
 func (v *StateVariableDeclaration) ToProto() NodeType {
-	return ast_pb.VariableDeclaration{}
+	proto := ast_pb.StateVariable{
+		Id:              v.Id,
+		NodeType:        v.NodeType,
+		Src:             v.Src.ToProto(),
+		Name:            v.Name,
+		Visibility:      v.Visibility,
+		StorageLocation: v.StorageLocation,
+		StateMutability: v.StateMutability,
+		Scope:           v.Scope,
+		IsConstant:      v.IsConstant,
+		IsStateVariable: v.IsStateVariable,
+	}
+
+	if v.GetTypeName() != nil {
+		proto.TypeName = v.GetTypeName().ToProto().(*ast_pb.TypeName)
+	}
+
+	if v.GetTypeDescription() != nil {
+		proto.TypeDescription = v.GetTypeDescription().ToProto()
+	}
+
+	return NewTypedStruct(&proto, "Variable")
 }
 
 func (v *StateVariableDeclaration) Parse(

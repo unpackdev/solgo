@@ -3,6 +3,7 @@ package ast
 import (
 	"reflect"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
@@ -109,7 +110,29 @@ func (l LibraryNode) GetContractDependencies() []int64 {
 // ToProto converts the LibraryNode to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
 func (l LibraryNode) ToProto() NodeType {
-	return ast_pb.Contract{}
+	proto := ast_pb.Contract{
+		Id:                      l.Id,
+		NodeType:                l.NodeType,
+		Kind:                    l.Kind,
+		Src:                     l.Src.ToProto(),
+		Name:                    l.Name,
+		Abstract:                l.Abstract,
+		FullyImplemented:        l.FullyImplemented,
+		LinearizedBaseContracts: l.LinearizedBaseContracts,
+		ContractDependencies:    l.ContractDependencies,
+		Nodes:                   make([]*v3.TypedStruct, 0),
+		BaseContracts:           make([]*ast_pb.BaseContract, 0),
+	}
+
+	for _, baseContract := range l.BaseContracts {
+		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
+	}
+
+	for _, node := range l.Nodes {
+		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "Contract")
 }
 
 // Parse parses the source unit context and library definition context to populate the library node.
@@ -181,16 +204,7 @@ func (l LibraryNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Librar
 		childNode := bodyNode.ParseDefinitions(unit, libraryNode, bodyElement)
 		if childNode != nil {
 			libraryNode.Nodes = append(libraryNode.Nodes, childNode)
-
 			if bodyNode.NodeType == ast_pb.NodeType_FUNCTION_DEFINITION && !bodyNode.Implemented {
-				zap.L().Warn(
-					"Discovered partial body node implementation. Checkout why this is happening.",
-					zap.String("contract", libraryNode.Name),
-					zap.String("contract_kind", libraryNode.Kind.String()),
-					zap.String("body_node_type", childNode.GetType().String()),
-					zap.String("body_element_type", reflect.TypeOf(bodyElement).String()),
-				)
-
 				libraryNode.FullyImplemented = false
 			}
 		} else {

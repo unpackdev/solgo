@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/parser"
@@ -93,12 +94,36 @@ func (s *SourceUnit[T]) GetTypeDescription() *TypeDescription {
 
 // ToProto converts the SourceUnit to a protocol buffer representation.
 func (s *SourceUnit[T]) ToProto() NodeType {
+	exportedSymbols := []*ast_pb.ExportedSymbol{}
+
+	for _, symbol := range s.ExportedSymbols {
+		exportedSymbols = append(
+			exportedSymbols,
+			&ast_pb.ExportedSymbol{
+				Id:           symbol.GetId(),
+				Name:         symbol.GetName(),
+				AbsolutePath: symbol.GetAbsolutePath(),
+			},
+		)
+	}
+
+	nodes := []*v3.TypedStruct{}
+
+	for _, node := range s.Nodes {
+		nodes = append(nodes, node.ToProto().(*v3.TypedStruct))
+	}
+
 	return &ast_pb.SourceUnit{
-		Id:           s.Id,
-		License:      s.License,
-		AbsolutePath: s.AbsolutePath,
-		Name:         s.Name,
-		NodeType:     s.NodeType,
+		Id:              s.Id,
+		License:         s.License,
+		AbsolutePath:    s.AbsolutePath,
+		Name:            s.Name,
+		NodeType:        s.NodeType,
+		Src:             s.GetSrc().ToProto(),
+		ExportedSymbols: exportedSymbols,
+		Root: &ast_pb.RootNode{
+			Nodes: nodes,
+		},
 	}
 }
 
@@ -107,7 +132,7 @@ func (s *SourceUnit[T]) ToProto() NodeType {
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 	license := getLicense(b.comments)
 
-	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments).(*RootNode)
+	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments)
 	b.tree.SetRoot(rootNode)
 
 	for _, child := range ctx.GetChildren() {

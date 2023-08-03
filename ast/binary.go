@@ -1,23 +1,24 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-// BinaryOperationExpression represents a binary operation in a Solidity source file.
+// BinaryOperation represents a binary operation in a Solidity source file.
 // A binary operation is an operation that operates on two operands like +, -, *, / etc.
-type BinaryOperationExpression struct {
+type BinaryOperation struct {
 	*ASTBuilder // Embedding the ASTBuilder to provide common functionality across all AST nodes.
 
 	// Id is the unique identifier of the binary operation.
 	Id int64 `json:"id"`
 	// IsConstant indicates whether the binary operation is a constant.
-	IsConstant bool `json:"is_constant"`
+	Constant bool `json:"is_constant"`
 	// IsPure indicates whether the binary operation is pure (i.e., it does not read or modify state).
-	IsPure bool `json:"is_pure"`
+	Pure bool `json:"is_pure"`
 	// NodeType is the type of the node.
-	// For a BinaryOperationExpression, this is always NodeType_BINARY_OPERATION.
+	// For a BinaryOperation, this is always NodeType_BINARY_OPERATION.
 	NodeType ast_pb.NodeType `json:"node_type"`
 	// Src contains source information about the node, such as its line and column numbers in the source file.
 	Src SrcNode `json:"src"`
@@ -29,67 +30,89 @@ type BinaryOperationExpression struct {
 	RightExpression Node[NodeType] `json:"right_expression"`
 }
 
-// NewBinaryOperationExpression is a constructor function that initializes a new BinaryOperationExpression with a unique ID and the NodeType set to NodeType_BINARY_OPERATION.
-func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperationExpression {
-	return &BinaryOperationExpression{
+// NewBinaryOperationExpression is a constructor function that initializes a new BinaryOperation with a unique ID and the NodeType set to NodeType_BINARY_OPERATION.
+func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperation {
+	return &BinaryOperation{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_BINARY_OPERATION,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the BinaryOperationExpression node.
-func (a *BinaryOperationExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the BinaryOperation node.
+func (a *BinaryOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
 // GetId is a getter method that returns the unique identifier of the binary operation.
-func (a *BinaryOperationExpression) GetId() int64 {
+func (a *BinaryOperation) GetId() int64 {
 	return a.Id
 }
 
 // GetType is a getter method that returns the node type of the binary operation.
-func (a *BinaryOperationExpression) GetType() ast_pb.NodeType {
+func (a *BinaryOperation) GetType() ast_pb.NodeType {
 	return a.NodeType
 }
 
 // GetSrc is a getter method that returns the source information of the binary operation.
-func (a *BinaryOperationExpression) GetSrc() SrcNode {
+func (a *BinaryOperation) GetSrc() SrcNode {
 	return a.Src
 }
 
 // GetOperator is a getter method that returns the operator of the binary operation.
-func (a *BinaryOperationExpression) GetOperator() ast_pb.Operator {
+func (a *BinaryOperation) GetOperator() ast_pb.Operator {
 	return a.Operator
 }
 
 // GetLeftExpression is a getter method that returns the left operand of the binary operation.
-func (a *BinaryOperationExpression) GetLeftExpression() Node[NodeType] {
+func (a *BinaryOperation) GetLeftExpression() Node[NodeType] {
 	return a.LeftExpression
 }
 
 // GetRightExpression is a getter method that returns the right operand of the binary operation.
-func (a *BinaryOperationExpression) GetRightExpression() Node[NodeType] {
+func (a *BinaryOperation) GetRightExpression() Node[NodeType] {
 	return a.RightExpression
 }
 
 // GetTypeDescription is a getter method that returns the type description of the left operand of the binary operation.
-func (a *BinaryOperationExpression) GetTypeDescription() *TypeDescription {
+func (a *BinaryOperation) GetTypeDescription() *TypeDescription {
 	return a.LeftExpression.GetTypeDescription()
 }
 
 // GetNodes is a getter method that returns a slice of the operands of the binary operation.
-func (a *BinaryOperationExpression) GetNodes() []Node[NodeType] {
+func (a *BinaryOperation) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{a.LeftExpression, a.RightExpression}
 }
 
+// IsConstant is a getter method that returns whether the binary operation is a constant.
+func (a *BinaryOperation) IsConstant() bool {
+	return a.Constant
+}
+
+// IsPure is a getter method that returns whether the binary operation is pure.
+func (a *BinaryOperation) IsPure() bool {
+	return a.Pure
+}
+
 // ToProto is a method that returns the protobuf representation of the binary operation.
-func (a *BinaryOperationExpression) ToProto() NodeType {
-	return ast_pb.BinaryOperationExpression{}
+func (a *BinaryOperation) ToProto() NodeType {
+	proto := ast_pb.BinaryOperation{
+		Id:              a.GetId(),
+		IsConstant:      a.IsConstant(),
+		IsPure:          a.IsPure(),
+		NodeType:        a.GetType(),
+		Src:             a.GetSrc().ToProto(),
+		Operator:        a.GetOperator(),
+		LeftExpression:  a.GetLeftExpression().ToProto().(*v3.TypedStruct),
+		RightExpression: a.GetRightExpression().ToProto().(*v3.TypedStruct),
+		TypeDescription: a.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "BinaryOperation")
 }
 
 // ParseAddSub is a method that parses addition and subtraction operations.
-func (a *BinaryOperationExpression) ParseAddSub(
+func (a *BinaryOperation) ParseAddSub(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -136,7 +159,7 @@ func (a *BinaryOperationExpression) ParseAddSub(
 }
 
 // ParseOrderComparison is a method that parses order comparison operations.
-func (a *BinaryOperationExpression) ParseOrderComparison(
+func (a *BinaryOperation) ParseOrderComparison(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -188,7 +211,7 @@ func (a *BinaryOperationExpression) ParseOrderComparison(
 }
 
 // ParseMulDivMod is a method that parses multiplication, division, and modulo operations.
-func (a *BinaryOperationExpression) ParseMulDivMod(
+func (a *BinaryOperation) ParseMulDivMod(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -238,7 +261,7 @@ func (a *BinaryOperationExpression) ParseMulDivMod(
 }
 
 // ParseEqualityComparison is a method that parses equality comparison operations.
-func (a *BinaryOperationExpression) ParseEqualityComparison(
+func (a *BinaryOperation) ParseEqualityComparison(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -272,6 +295,49 @@ func (a *BinaryOperationExpression) ParseEqualityComparison(
 	} else if ctx.NotEqual() != nil {
 		a.Operator = ast_pb.Operator_NOT_EQUAL
 	}
+
+	expression := NewExpression(a.ASTBuilder)
+	a.LeftExpression = expression.Parse(
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+	)
+
+	a.RightExpression = expression.Parse(
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+	)
+
+	return a
+}
+
+func (a *BinaryOperation) ParseOr(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	contractNode Node[NodeType],
+	fnNode Node[NodeType],
+	bodyNode *BodyNode,
+	vDeclar *VariableDeclaration,
+	expNode Node[NodeType],
+	ctx *parser.OrOperationContext,
+) Node[NodeType] {
+	a.Src = SrcNode{
+		Id:     a.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: func() int64 {
+			if expNode != nil {
+				return expNode.GetId()
+			}
+
+			if vDeclar != nil {
+				return vDeclar.GetId()
+			}
+
+			return bodyNode.GetId()
+		}(),
+	}
+
+	a.Operator = ast_pb.Operator_OR
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(

@@ -67,7 +67,18 @@ func (i ImportNode) GetNodes() []Node[NodeType] {
 }
 
 func (i ImportNode) ToProto() NodeType {
-	return ast_pb.Import{}
+	proto := ast_pb.Import{
+		Id:           i.GetId(),
+		NodeType:     i.GetType(),
+		Src:          i.GetSrc().ToProto(),
+		AbsolutePath: i.GetAbsolutePath(),
+		File:         i.GetFile(),
+		Scope:        i.GetScope(),
+		UnitAlias:    i.GetUnitAlias(),
+		SourceUnit:   i.GetSourceUnit(),
+	}
+
+	return NewTypedStruct(&proto, "Import")
 }
 
 func parseImportPathsForSourceUnit(

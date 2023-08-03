@@ -5,6 +5,7 @@ import (
 	"reflect"
 
 	"github.com/antlr4-go/antlr/v4"
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -80,9 +81,26 @@ func (b *BodyNode) GetNodes() []Node[NodeType] {
 }
 
 // ToProto converts the BodyNode to a protocol buffer representation.
-// As BodyNode does not have a protocol buffer representation, it returns an empty Body.
 func (b *BodyNode) ToProto() NodeType {
-	return ast_pb.Body{}
+	proto := ast_pb.Body{
+		Id:          b.GetId(),
+		NodeType:    b.GetType(),
+		Kind:        b.GetKind(),
+		Implemented: b.IsImplemented(),
+		Src:         b.GetSrc().ToProto(),
+		Statements:  make([]*v3.TypedStruct, 0),
+	}
+
+	for _, statement := range b.GetStatements() {
+		proto.Statements = append(proto.Statements, statement.ToProto().(*v3.TypedStruct))
+	}
+
+	switch b.NodeType {
+	case ast_pb.NodeType_UNCHECKED_BLOCK:
+		return NewTypedStruct(&proto, "Block")
+	default:
+		return &proto
+	}
 }
 
 // ParseDefinitions is a method of the BodyNode struct. It parses the definitions of a contract body element context.
@@ -258,7 +276,7 @@ func (b *BodyNode) parseStatements(
 			unit, contractNode, fnNode, b, childCtx,
 		))
 	case *parser.DoWhileStatementContext:
-		statement := NewDoWhiteStatement(b.ASTBuilder)
+		statement := NewDoWhileStatement(b.ASTBuilder)
 		b.Statements = append(b.Statements, statement.Parse(
 			unit, contractNode, fnNode, b, childCtx,
 		))

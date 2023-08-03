@@ -25,7 +25,7 @@ type PrimaryExpression struct {
 	TypeDescription        *TypeDescription   `json:"type_description,omitempty"` // Type description of the node.
 	OverloadedDeclarations []int64            `json:"overloaded_declarations"`    // Overloaded declarations of the node.
 	ReferencedDeclaration  int64              `json:"referenced_declaration"`     // Referenced declaration of the node.
-	IsPure                 bool               `json:"is_pure"`                    // Indicates if the node is pure.
+	Pure                   bool               `json:"is_pure"`                    // Indicates if the node is pure.
 	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`   // Argument types of the node.
 }
 
@@ -92,10 +92,53 @@ func (p *PrimaryExpression) GetKind() ast_pb.NodeType {
 	return p.Kind
 }
 
+// GetValue returns the value of the PrimaryExpression node.
+func (p *PrimaryExpression) GetValue() string {
+	return p.Value
+}
+
+// GetHexValue returns the hexadecimal value of the PrimaryExpression node.
+func (p *PrimaryExpression) GetHexValue() string {
+	return p.HexValue
+}
+
+// IsPure returns true if the PrimaryExpression node is pure.
+func (p *PrimaryExpression) IsPure() bool {
+	return p.Pure
+}
+
+// GetOverloadedDeclarations returns the overloaded declarations of the PrimaryExpression node.
+func (p *PrimaryExpression) GetOverloadedDeclarations() []int64 {
+	return p.OverloadedDeclarations
+}
+
 // ToProto returns a protobuf representation of the PrimaryExpression node.
 // Currently, it returns an empty PrimaryExpression and needs to be implemented.
 func (p *PrimaryExpression) ToProto() NodeType {
-	return ast_pb.PrimaryExpression{}
+	/* 	if p.GetTypeDescription() == nil {
+		p.dumpNode(p)
+	} */
+
+	proto := ast_pb.PrimaryExpression{
+		Id:                     p.GetId(),
+		Name:                   p.GetName(),
+		Value:                  p.GetValue(),
+		HexValue:               p.GetHexValue(),
+		NodeType:               p.GetType(),
+		Kind:                   p.GetKind(),
+		Src:                    p.GetSrc().ToProto(),
+		ReferencedDeclaration:  p.GetReferencedDeclaration(),
+		IsPure:                 p.IsPure(),
+		OverloadedDeclarations: p.GetOverloadedDeclarations(),
+		ArgumentTypes:          make([]*ast_pb.TypeDescription, 0),
+		TypeDescription:        p.GetTypeDescription().ToProto(),
+	}
+
+	for _, arg := range p.GetArgumentTypes() {
+		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "PrimaryExpression")
 }
 
 // Parse takes a parser.PrimaryExpressionContext and parses it into a PrimaryExpression node.
@@ -157,6 +200,7 @@ func (p *PrimaryExpression) Parse(
 			for _, argument := range expNodeCtx.GetArguments() {
 				p.ArgumentTypes = append(p.ArgumentTypes, argument.GetTypeDescription())
 			}
+			p.TypeDescription = p.buildArgumentTypeDescription()
 		}
 	}
 
@@ -209,8 +253,8 @@ func (p *PrimaryExpression) Parse(
 		}
 
 		if p.TypeDescription == nil {
-			if ref, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); ref != nil {
-				p.ReferencedDeclaration = ref.GetId()
+			if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); refTypeDescription != nil {
+				p.ReferencedDeclaration = refId
 				p.TypeDescription = refTypeDescription
 			}
 		}
@@ -220,13 +264,17 @@ func (p *PrimaryExpression) Parse(
 	// So we are going to do some hack here to make it work properly...
 	if p.Name == "_" {
 		p.NodeType = ast_pb.NodeType_PLACEHOLDER_STATEMENT
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_placeholder_literal",
+			TypeString:     "t_placeholder",
+		}
 		return p
 	}
 
 	literalCtx := ctx.Literal()
 	if literalCtx != nil {
 		p.NodeType = ast_pb.NodeType_LITERAL
-		p.IsPure = true
+		p.Pure = true
 
 		if literalCtx.BooleanLiteral() != nil {
 			if p.Name == "true" || p.Name == "false" {
@@ -335,4 +383,23 @@ func (p *PrimaryExpression) Parse(
 	}
 
 	return p
+}
+
+func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
+	typeString := "function("
+	typeIdentifier := "t_function_"
+	typeStrings := make([]string, 0)
+	typeIdentifiers := make([]string, 0)
+
+	for _, paramType := range p.GetArgumentTypes() {
+		typeStrings = append(typeStrings, paramType.TypeString)
+		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
+	}
+	typeString += strings.Join(typeStrings, ",") + ")"
+	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	return &TypeDescription{
+		TypeString:     typeString,
+		TypeIdentifier: typeIdentifier,
+	}
 }

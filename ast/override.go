@@ -31,6 +31,14 @@ func (o *OverrideSpecifier) GetSrc() SrcNode {
 	return o.Src
 }
 
+func (o *OverrideSpecifier) ToProto() *ast_pb.OverrideSpecifier {
+	return &ast_pb.OverrideSpecifier{
+		Id:       o.Id,
+		NodeType: o.NodeType,
+		Src:      o.Src.ToProto(),
+	}
+}
+
 func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], ctx parser.IOverrideSpecifierContext) {
 	o.Id = o.GetNextID()
 	o.Src = SrcNode{
@@ -43,4 +51,12 @@ func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnN
 		ParentIndex: fnNode.GetId(),
 	}
 	o.NodeType = ast_pb.NodeType_OVERRIDE_SPECIFIER
+
+	if ctx.AllIdentifierPath() != nil {
+		for _, pathCtx := range ctx.AllIdentifierPath() {
+			for _, identifierCtx := range pathCtx.AllIdentifier() {
+				_ = identifierCtx
+			}
+		}
+	}
 }

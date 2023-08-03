@@ -8,7 +8,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type CommentNode struct {
+type Comment struct {
 	// Id is the unique identifier of the comment node.
 	Id int64 `json:"id"`
 	// Src is the source node locations of the comment node.
@@ -17,6 +17,31 @@ type CommentNode struct {
 	NodeType ast_pb.NodeType `json:"node_type"`
 	// Value is the value of the comment node.
 	Text string `json:"text"`
+}
+
+func (c *Comment) GetId() int64 {
+	return c.Id
+}
+
+func (c *Comment) GetType() ast_pb.NodeType {
+	return c.NodeType
+}
+
+func (c *Comment) GetSrc() SrcNode {
+	return c.Src
+}
+
+func (c *Comment) GetText() string {
+	return c.Text
+}
+
+func (c *Comment) ToProto() *ast_pb.Comment {
+	return &ast_pb.Comment{
+		Id:       c.Id,
+		NodeType: c.NodeType,
+		Src:      c.Src.ToProto(),
+		Text:     c.Text,
+	}
 }
 
 // EnterEveryRule is called when the parser enters any rule in the grammar.
@@ -30,7 +55,7 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 
 		for _, token := range tokens {
 			if token.GetTokenType() == parser.SolidityLexerLINE_COMMENT {
-				comment := &CommentNode{
+				comment := &Comment{
 					Id: b.GetNextID(),
 					Src: SrcNode{
 						Line:        int64(token.GetLine()),
@@ -51,7 +76,7 @@ func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 				b.comments = append(b.comments, comment)
 			}
 			if token.GetTokenType() == parser.SolidityLexerCOMMENT {
-				comment := &CommentNode{
+				comment := &Comment{
 					Id: b.GetNextID(),
 					Src: SrcNode{
 						Line:        int64(token.GetLine()),

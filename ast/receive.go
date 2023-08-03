@@ -64,8 +64,46 @@ func (f *ReceiveDefinition) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
+func (f *ReceiveDefinition) GetBody() *BodyNode {
+	return f.Body
+}
+
+func (f *ReceiveDefinition) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+func (f *ReceiveDefinition) IsImplemented() bool {
+	return f.Implemented
+}
+
+func (f *ReceiveDefinition) IsVirtual() bool {
+	return f.Virtual
+}
+
+func (f *ReceiveDefinition) GetVisibility() ast_pb.Visibility {
+	return f.Visibility
+}
+
+func (f *ReceiveDefinition) GetStateMutability() ast_pb.Mutability {
+	return f.StateMutability
+}
+
 func (f *ReceiveDefinition) ToProto() NodeType {
-	return &ast_pb.Receive{}
+	proto := ast_pb.Receive{
+		Id:               f.GetId(),
+		NodeType:         f.GetType(),
+		Kind:             f.GetKind(),
+		Src:              f.GetSrc().ToProto(),
+		Virtual:          f.IsVirtual(),
+		Implemented:      f.IsImplemented(),
+		Visibility:       f.GetVisibility(),
+		StateMutability:  f.GetStateMutability(),
+		Parameters:       f.GetParameters().ToProto(),
+		ReturnParameters: f.GetReturnParameters().ToProto(),
+		Body:             f.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	return NewTypedStruct(&proto, "Receive")
 }
 
 func (f *ReceiveDefinition) Parse(

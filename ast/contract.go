@@ -1,11 +1,12 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type ContractNode struct {
+type Contract struct {
 	*ASTBuilder
 
 	Id                      int64            `json:"id"`
@@ -21,70 +22,92 @@ type ContractNode struct {
 	ContractDependencies    []int64          `json:"contract_dependencies"`
 }
 
-func NewContractDefinition(b *ASTBuilder) *ContractNode {
-	return &ContractNode{
+func NewContractDefinition(b *ASTBuilder) *Contract {
+	return &Contract{
 		ASTBuilder: b,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the ContractNode node.
-func (l ContractNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the Contract node.
+func (c Contract) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (l ContractNode) GetId() int64 {
-	return l.Id
+func (c Contract) GetId() int64 {
+	return c.Id
 }
 
-func (l ContractNode) GetType() ast_pb.NodeType {
-	return l.NodeType
+func (c Contract) GetType() ast_pb.NodeType {
+	return c.NodeType
 }
 
-func (l ContractNode) GetSrc() SrcNode {
-	return l.Src
+func (c Contract) GetSrc() SrcNode {
+	return c.Src
 }
 
-func (l ContractNode) GetName() string {
-	return l.Name
+func (c Contract) GetName() string {
+	return c.Name
 }
 
-func (l ContractNode) IsAbstract() bool {
-	return l.Abstract
+func (c Contract) IsAbstract() bool {
+	return c.Abstract
 }
 
-func (l ContractNode) GetKind() ast_pb.NodeType {
-	return l.Kind
+func (c Contract) GetKind() ast_pb.NodeType {
+	return c.Kind
 }
 
-func (l ContractNode) IsFullyImplemented() bool {
-	return l.FullyImplemented
+func (c Contract) IsFullyImplemented() bool {
+	return c.FullyImplemented
 }
 
-func (l ContractNode) GetNodes() []Node[NodeType] {
-	return l.Nodes
+func (c Contract) GetNodes() []Node[NodeType] {
+	return c.Nodes
 }
 
-func (l ContractNode) GetLinearizedBaseContracts() []int64 {
-	return l.LinearizedBaseContracts
+func (c Contract) GetLinearizedBaseContracts() []int64 {
+	return c.LinearizedBaseContracts
 }
 
-func (l ContractNode) GetBaseContracts() []*BaseContract {
-	return l.BaseContracts
+func (c Contract) GetBaseContracts() []*BaseContract {
+	return c.BaseContracts
 }
 
-func (l ContractNode) GetContractDependencies() []int64 {
-	return l.ContractDependencies
+func (c Contract) GetContractDependencies() []int64 {
+	return c.ContractDependencies
 }
 
-func (l ContractNode) GetTypeDescription() *TypeDescription {
+func (c Contract) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (l ContractNode) ToProto() NodeType {
-	return ast_pb.Contract{}
+func (c Contract) ToProto() NodeType {
+	proto := ast_pb.Contract{
+		Id:                      c.Id,
+		NodeType:                c.NodeType,
+		Kind:                    c.Kind,
+		Src:                     c.Src.ToProto(),
+		Name:                    c.Name,
+		Abstract:                c.Abstract,
+		FullyImplemented:        c.FullyImplemented,
+		LinearizedBaseContracts: c.LinearizedBaseContracts,
+		ContractDependencies:    c.ContractDependencies,
+		Nodes:                   make([]*v3.TypedStruct, 0),
+		BaseContracts:           make([]*ast_pb.BaseContract, 0),
+	}
+
+	for _, baseContract := range c.BaseContracts {
+		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
+	}
+
+	for _, node := range c.Nodes {
+		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "Contract")
 }
 
-func (l ContractNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -117,7 +140,7 @@ func (l ContractNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contr
 		parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
 	)
 
-	contractNode := &ContractNode{
+	contractNode := &Contract{
 		Id:   l.GetNextID(),
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{

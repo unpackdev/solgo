@@ -82,7 +82,29 @@ func (t *TypeName) GetNodes() []Node[NodeType] {
 }
 
 func (t *TypeName) ToProto() NodeType {
-	return &ast_pb.TypeName{}
+	toReturn := &ast_pb.TypeName{
+		Id:                    t.GetId(),
+		Name:                  t.GetName(),
+		NodeType:              t.GetType(),
+		Src:                   t.GetSrc().ToProto(),
+		TypeDescription:       t.GetTypeDescription().ToProto(),
+		ReferencedDeclaration: t.ReferencedDeclaration,
+		StateMutability:       t.StateMutability,
+	}
+
+	if t.GetPathNode() != nil {
+		toReturn.PathNode = t.GetPathNode().ToProto()
+	}
+
+	if t.GetKeyType() != nil {
+		toReturn.KeyType = t.GetKeyType().ToProto().(*ast_pb.TypeName)
+	}
+
+	if t.GetValueType() != nil {
+		toReturn.ValueType = t.GetValueType().ToProto().(*ast_pb.TypeName)
+	}
+
+	return toReturn
 }
 
 func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.TypeNameContext) {
@@ -133,11 +155,11 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			}
 		}
 
-		if ref, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); ref != nil {
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
 			if t.PathNode != nil {
-				t.PathNode.ReferencedDeclaration = ref.GetId()
+				t.PathNode.ReferencedDeclaration = refId
 			}
-			t.ReferencedDeclaration = ref.GetId()
+			t.ReferencedDeclaration = refId
 			t.TypeDescription = refTypeDescription
 		}
 	}
@@ -183,9 +205,9 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
-		if ref, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); ref != nil {
-			t.PathNode.ReferencedDeclaration = ref.GetId()
-			t.ReferencedDeclaration = ref.GetId()
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
+			t.PathNode.ReferencedDeclaration = refId
+			t.ReferencedDeclaration = refId
 			t.TypeDescription = refTypeDescription
 		}
 	}
@@ -287,8 +309,8 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 
 	// We're still not able to discover reference, so what we're going to do now is look for the references...
 	if typeName.TypeDescription == nil {
-		if ref, refTypeDescription := t.GetResolver().ResolveByNode(typeName, typeName.Name); ref != nil {
-			typeName.ReferencedDeclaration = ref.GetId()
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(typeName, typeName.Name); refTypeDescription != nil {
+			typeName.ReferencedDeclaration = refId
 			typeName.TypeDescription = refTypeDescription
 		}
 	}
@@ -342,7 +364,24 @@ type PathNode struct {
 	Src                   SrcNode         `json:"src"`
 }
 
+func (pn *PathNode) ToProto() *ast_pb.PathNode {
+	return &ast_pb.PathNode{
+		Id:                    pn.Id,
+		Name:                  pn.Name,
+		NodeType:              pn.NodeType,
+		ReferencedDeclaration: pn.ReferencedDeclaration,
+		Src:                   pn.Src.ToProto(),
+	}
+}
+
 type TypeDescription struct {
 	TypeIdentifier string `json:"type_identifier"`
 	TypeString     string `json:"type_string"`
+}
+
+func (td TypeDescription) ToProto() *ast_pb.TypeDescription {
+	return &ast_pb.TypeDescription{
+		TypeString:     td.TypeString,
+		TypeIdentifier: td.TypeIdentifier,
+	}
 }

@@ -39,6 +39,9 @@ func (e *Expression) Parse(
 	case *parser.EqualityComparisonContext:
 		binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
 		return binaryExp.ParseEqualityComparison(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.OrOperationContext:
+		binaryExp := NewBinaryOperationExpression(e.ASTBuilder)
+		return binaryExp.ParseOr(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.AssignmentContext:
 		assignment := NewAssignment(e.ASTBuilder)
 		return assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
@@ -72,6 +75,9 @@ func (e *Expression) Parse(
 	case *parser.TupleContext:
 		tupleExpr := NewTupleExpression(e.ASTBuilder)
 		return tupleExpr.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.FunctionCallOptionsContext:
+		statementNode := NewFunctionCallOption(e.ASTBuilder)
+		return statementNode.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		panic(
 			fmt.Sprintf(

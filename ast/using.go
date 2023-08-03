@@ -26,6 +26,16 @@ type LibraryName struct {
 	ReferencedDeclaration int64           `json:"referenced_declaration"`
 }
 
+func (ln *LibraryName) ToProto() *ast_pb.LibraryName {
+	return &ast_pb.LibraryName{
+		Id:                    ln.Id,
+		Name:                  ln.Name,
+		NodeType:              ln.NodeType,
+		ReferencedDeclaration: ln.ReferencedDeclaration,
+		Src:                   ln.Src.ToProto(),
+	}
+}
+
 func NewUsingDirective(b *ASTBuilder) *UsingDirective {
 	return &UsingDirective{
 		ASTBuilder: b,
@@ -78,7 +88,16 @@ func (u *UsingDirective) GetNodes() []Node[NodeType] {
 }
 
 func (u *UsingDirective) ToProto() NodeType {
-	return ast_pb.UsingDirective{}
+	proto := ast_pb.Using{
+		Id:          u.Id,
+		Name:        u.LibraryName.Name,
+		NodeType:    u.NodeType,
+		Src:         u.Src.ToProto(),
+		LibraryName: u.LibraryName.ToProto(),
+		TypeName:    u.TypeName.ToProto().(*ast_pb.TypeName),
+	}
+
+	return NewTypedStruct(&proto, "Using")
 }
 
 func (u *UsingDirective) Parse(

@@ -115,8 +115,43 @@ func (f *Function) GetNodes() []Node[NodeType] {
 	return f.Body.GetNodes()
 }
 
+func (f *Function) GetReferencedDeclaration() int64 {
+	return f.ReferencedDeclaration
+}
+
 func (f *Function) ToProto() NodeType {
-	return ast_pb.Function{}
+	proto := ast_pb.Function{
+		Id:                    f.GetId(),
+		Name:                  f.GetName(),
+		NodeType:              f.GetType(),
+		Kind:                  f.GetKind(),
+		Src:                   f.GetSrc().ToProto(),
+		ReferencedDeclaration: f.GetReferencedDeclaration(),
+		Implemented:           f.IsImplemented(),
+		Virtual:               f.IsVirtual(),
+		Scope:                 f.GetScope(),
+		Visibility:            f.GetVisibility(),
+		StateMutability:       f.GetStateMutability(),
+		Modifiers:             make([]*ast_pb.ModifierInvocation, 0),
+		Overrides:             make([]*ast_pb.OverrideSpecifier, 0),
+		Parameters:            f.GetParameters().ToProto(),
+		ReturnParameters:      f.GetReturnParameters().ToProto(),
+		Body:                  f.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	if f.GetTypeDescription() != nil {
+		proto.TypeDescription = f.GetTypeDescription().ToProto()
+	}
+
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto().(*ast_pb.ModifierInvocation))
+	}
+
+	for _, override := range f.GetOverrides() {
+		proto.Overrides = append(proto.Overrides, override.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "Function")
 }
 
 func (f *Function) Parse(

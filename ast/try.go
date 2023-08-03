@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -60,11 +61,44 @@ func (t *TryStatement) GetTypeDescription() *TypeDescription {
 }
 
 func (t *TryStatement) GetNodes() []Node[NodeType] {
-	return t.Body.Statements
+	toReturn := make([]Node[NodeType], 0)
+	toReturn = append(toReturn, t.Body)
+	toReturn = append(toReturn, t.Expression)
+	toReturn = append(toReturn, t.Clauses...)
+	return toReturn
+}
+
+func (t *TryStatement) GetExpression() Node[NodeType] {
+	return t.Expression
+}
+
+func (t *TryStatement) GetClauses() []Node[NodeType] {
+	return t.Clauses
 }
 
 func (t *TryStatement) ToProto() NodeType {
-	return ast_pb.Try{}
+	proto := ast_pb.Try{
+		Id:       t.GetId(),
+		NodeType: t.GetType(),
+		Kind:     t.GetKind(),
+		Src:      t.GetSrc().ToProto(),
+	}
+
+	if t.GetExpression() != nil {
+		proto.Expression = t.GetExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	if t.GetClauses() != nil {
+		for _, clause := range t.GetClauses() {
+			proto.Clauses = append(proto.Clauses, clause.ToProto().(*v3.TypedStruct))
+		}
+	}
+
+	if t.GetBody() != nil {
+		proto.Body = t.GetBody().ToProto().(*ast_pb.Body)
+	}
+
+	return NewTypedStruct(&proto, "Try")
 }
 
 func (t *TryStatement) Parse(

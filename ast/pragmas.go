@@ -58,12 +58,14 @@ func (p PragmaNode) GetNodes() []Node[NodeType] {
 
 // ToProto returns the protobuf representation of the node.
 func (p PragmaNode) ToProto() NodeType {
-	return ast_pb.Pragma{
+	proto := ast_pb.Pragma{
 		Id:       p.Id,
 		NodeType: p.NodeType,
 		Src:      p.Src.ToProto(),
 		Literals: p.Literals,
 	}
+
+	return NewTypedStruct(&proto, "Pragma")
 }
 
 // CreatePragmaNodeFromCtx creates a new PragmaNode from the provided pragma context.

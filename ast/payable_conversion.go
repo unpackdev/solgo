@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"strings"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type PayableConversionExpression struct {
+type PayableConversion struct {
 	*ASTBuilder
 
 	Id                    int64              `json:"id"`
@@ -21,8 +22,8 @@ type PayableConversionExpression struct {
 	Payable               bool               `json:"payable"`
 }
 
-func NewPayableConversionExpression(b *ASTBuilder) *PayableConversionExpression {
-	return &PayableConversionExpression{
+func NewPayableConversionExpression(b *ASTBuilder) *PayableConversion {
+	return &PayableConversion{
 		ASTBuilder:    b,
 		Id:            b.GetNextID(),
 		NodeType:      ast_pb.NodeType_PAYABLE_CONVERSION,
@@ -30,50 +31,72 @@ func NewPayableConversionExpression(b *ASTBuilder) *PayableConversionExpression 
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the PayableConversionExpression node.
-func (p *PayableConversionExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the PayableConversion node.
+func (p *PayableConversion) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	p.ReferencedDeclaration = refId
 	p.TypeDescription = refDesc
 	return false
 }
 
-func (p *PayableConversionExpression) GetId() int64 {
+func (p *PayableConversion) GetId() int64 {
 	return p.Id
 }
 
-func (p *PayableConversionExpression) GetType() ast_pb.NodeType {
+func (p *PayableConversion) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
-func (p *PayableConversionExpression) GetSrc() SrcNode {
+func (p *PayableConversion) GetSrc() SrcNode {
 	return p.Src
 }
 
-func (p *PayableConversionExpression) GetTypeDescription() *TypeDescription {
+func (p *PayableConversion) GetTypeDescription() *TypeDescription {
 	return p.TypeDescription
 }
 
-func (p *PayableConversionExpression) GetArgumentTypes() []*TypeDescription {
+func (p *PayableConversion) GetArgumentTypes() []*TypeDescription {
 	return p.ArgumentTypes
 }
 
-func (p *PayableConversionExpression) GetArguments() []Node[NodeType] {
+func (p *PayableConversion) GetArguments() []Node[NodeType] {
 	return p.Arguments
 }
 
-func (p *PayableConversionExpression) IsPayable() bool {
+func (p *PayableConversion) IsPayable() bool {
 	return p.Payable
 }
 
-func (p *PayableConversionExpression) GetNodes() []Node[NodeType] {
-	return nil
+func (p *PayableConversion) GetNodes() []Node[NodeType] {
+	return p.Arguments
 }
 
-func (p *PayableConversionExpression) ToProto() NodeType {
-	return ast_pb.PayableConversion{}
+func (p *PayableConversion) GetReferencedDeclaration() int64 {
+	return p.ReferencedDeclaration
 }
 
-func (p *PayableConversionExpression) Parse(
+func (p *PayableConversion) ToProto() NodeType {
+	proto := ast_pb.PayableConversion{
+		Id:                    p.GetId(),
+		Src:                   p.GetSrc().ToProto(),
+		NodeType:              p.GetType(),
+		Payable:               p.IsPayable(),
+		ReferencedDeclaration: p.GetReferencedDeclaration(),
+		ArgumentTypes:         make([]*ast_pb.TypeDescription, 0),
+		Arguments:             make([]*v3.TypedStruct, 0),
+	}
+
+	for _, arg := range p.GetArgumentTypes() {
+		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
+	}
+
+	for _, arg := range p.GetArguments() {
+		proto.Arguments = append(proto.Arguments, arg.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "PayableConversion")
+}
+
+func (p *PayableConversion) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],

@@ -66,7 +66,21 @@ func (e *EnumDefinition) GetSourceUnitName() string {
 }
 
 func (e *EnumDefinition) ToProto() NodeType {
-	return &ast_pb.Enum{}
+	proto := ast_pb.Enum{
+		Id:              e.GetId(),
+		Name:            e.GetName(),
+		CanonicalName:   e.GetCanonicalName(),
+		NodeType:        e.GetType(),
+		Src:             e.GetSrc().ToProto(),
+		Members:         make([]*ast_pb.Parameter, 0),
+		TypeDescription: e.GetTypeDescription().ToProto(),
+	}
+
+	for _, member := range e.GetMembers() {
+		proto.Members = append(proto.Members, member.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "Enum")
 }
 
 func (e *EnumDefinition) GetNodes() []Node[NodeType] {
@@ -97,10 +111,11 @@ func (e *EnumDefinition) Parse(
 	}
 
 	for _, enumCtx := range ctx.GetEnumValues() {
+		id := e.GetNextID()
 		e.Members = append(
 			e.Members,
 			&Parameter{
-				Id: e.GetNextID(),
+				Id: id,
 				Src: SrcNode{
 					Line:        int64(enumCtx.GetStart().GetLine()),
 					Column:      int64(enumCtx.GetStart().GetColumn()),
@@ -111,6 +126,10 @@ func (e *EnumDefinition) Parse(
 				},
 				Name:     enumCtx.GetText(),
 				NodeType: ast_pb.NodeType_ENUM_VALUE,
+				TypeDescription: &TypeDescription{
+					TypeIdentifier: fmt.Sprintf("t_enum_$_%s$_%s_$%d", e.Name, enumCtx.GetText(), id),
+					TypeString:     fmt.Sprintf("enum %s.%s", e.CanonicalName, enumCtx.GetText()),
+				},
 			},
 		)
 	}

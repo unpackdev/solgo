@@ -53,11 +53,38 @@ func (m *ModifierDefinition) GetTypeDescription() *TypeDescription {
 }
 
 func (m *ModifierDefinition) GetNodes() []Node[NodeType] {
-	return nil
+	return m.Body.GetNodes()
+}
+
+func (m *ModifierDefinition) IsVirtual() bool {
+	return m.Virtual
+}
+
+func (m *ModifierDefinition) GetVisibility() ast_pb.Visibility {
+	return m.Visibility
+}
+
+func (m *ModifierDefinition) GetParameters() *ParameterList {
+	return m.Parameters
+}
+
+func (m *ModifierDefinition) GetBody() *BodyNode {
+	return m.Body
 }
 
 func (m *ModifierDefinition) ToProto() NodeType {
-	return &ast_pb.Modifier{}
+	proto := ast_pb.Modifier{
+		Id:         m.GetId(),
+		Name:       m.GetName(),
+		NodeType:   m.GetType(),
+		Src:        m.GetSrc().ToProto(),
+		Virtual:    m.IsVirtual(),
+		Visibility: m.GetVisibility(),
+		Parameters: m.GetParameters().ToProto(),
+		Body:       m.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	return NewTypedStruct(&proto, "Modifier")
 }
 
 func (m *ModifierDefinition) ParseDefinition(
@@ -88,6 +115,8 @@ func (m *ModifierDefinition) ParseDefinition(
 	parameters := NewParameterList(m.ASTBuilder)
 	if ctx.ParameterList() != nil {
 		parameters.Parse(unit, contractNode, ctx.ParameterList())
+	} else {
+		parameters.Src = m.Src
 	}
 	m.Parameters = parameters
 

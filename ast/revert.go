@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -51,11 +52,26 @@ func (r *RevertStatement) GetExpression() Node[NodeType] {
 }
 
 func (r *RevertStatement) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := make([]Node[NodeType], 0)
+	toReturn = append(toReturn, r.Arguments...)
+	toReturn = append(toReturn, r.Expression)
+	return toReturn
 }
 
 func (r *RevertStatement) ToProto() NodeType {
-	return &ast_pb.Revert{}
+	proto := ast_pb.Revert{
+		Id:         r.Id,
+		NodeType:   r.NodeType,
+		Src:        r.Src.ToProto(),
+		Arguments:  make([]*v3.TypedStruct, 0),
+		Expression: r.Expression.ToProto().(*v3.TypedStruct),
+	}
+
+	for _, arg := range r.Arguments {
+		proto.Arguments = append(proto.Arguments, arg.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "Revert")
 }
 
 func (r *RevertStatement) GetTypeDescription() *TypeDescription {

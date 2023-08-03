@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -84,7 +85,29 @@ func (l InterfaceNode) GetLinearizedBaseContracts() []int64 {
 }
 
 func (l InterfaceNode) ToProto() NodeType {
-	return ast_pb.Contract{}
+	proto := ast_pb.Contract{
+		Id:                      l.Id,
+		NodeType:                l.NodeType,
+		Kind:                    l.Kind,
+		Src:                     l.Src.ToProto(),
+		Name:                    l.Name,
+		Abstract:                l.Abstract,
+		FullyImplemented:        l.FullyImplemented,
+		LinearizedBaseContracts: l.LinearizedBaseContracts,
+		ContractDependencies:    l.ContractDependencies,
+		Nodes:                   make([]*v3.TypedStruct, 0),
+		BaseContracts:           make([]*ast_pb.BaseContract, 0),
+	}
+
+	for _, baseContract := range l.BaseContracts {
+		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
+	}
+
+	for _, node := range l.Nodes {
+		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "Contract")
 }
 
 func (l InterfaceNode) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {

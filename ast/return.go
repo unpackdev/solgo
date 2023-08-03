@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -60,7 +61,16 @@ func (r *ReturnStatement) GetNodes() []Node[NodeType] {
 }
 
 func (r *ReturnStatement) ToProto() NodeType {
-	return ast_pb.Return{}
+	proto := ast_pb.Return{
+		Id:                       r.GetId(),
+		NodeType:                 r.GetType(),
+		Src:                      r.Src.ToProto(),
+		FunctionReturnParameters: r.GetFunctionReturnParameters(),
+		Expression:               r.GetExpression().ToProto().(*v3.TypedStruct),
+		TypeDescription:          r.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "Return")
 }
 
 func (r *ReturnStatement) Parse(

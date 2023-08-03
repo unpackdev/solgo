@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -20,10 +21,10 @@ type TupleExpression struct {
 	Src SrcNode `json:"src"`
 
 	// Whether the tuple expression is constant
-	IsConstant bool `json:"is_constant"`
+	Constant bool `json:"is_constant"`
 
 	// Whether the tuple expression is pure
-	IsPure bool `json:"is_pure"`
+	Pure bool `json:"is_pure"`
 
 	// The components of the tuple expression
 	Components []Node[NodeType] `json:"components"`
@@ -81,13 +82,38 @@ func (t *TupleExpression) GetTypeDescription() *TypeDescription {
 	return t.TypeDescription
 }
 
+// IsConstant returns whether the tuple expression is constant.
+func (t *TupleExpression) IsConstant() bool {
+	return t.Constant
+}
+
+// IsPure returns whether the tuple expression is pure.
+func (t *TupleExpression) IsPure() bool {
+	return t.Pure
+}
+
+// GetReferencedDeclaration returns the referenced declaration of the tuple expression.
+func (t *TupleExpression) GetReferencedDeclaration() int64 {
+	return t.ReferencedDeclaration
+}
+
 // ToProto returns the protobuf representation of the tuple expression.
 func (t *TupleExpression) ToProto() NodeType {
-	return ast_pb.Tuple{
-		Id:       t.Id,
-		NodeType: t.NodeType,
-		Src:      t.Src.ToProto(),
+	proto := ast_pb.Tuple{
+		Id:                    t.GetId(),
+		NodeType:              t.GetType(),
+		Src:                   t.GetSrc().ToProto(),
+		IsConstant:            t.IsConstant(),
+		IsPure:                t.IsPure(),
+		ReferencedDeclaration: t.GetReferencedDeclaration(),
+		TypeDescription:       t.GetTypeDescription().ToProto(),
 	}
+
+	for _, component := range t.GetComponents() {
+		proto.Components = append(proto.Components, component.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "Tuple")
 }
 
 // Parse parses a tuple expression from the provided parser.TupleContext and returns the corresponding TupleExpression.
@@ -135,8 +161,8 @@ func (t *TupleExpression) Parse(
 		// A bit of a hack as we have interfaces but it works...
 		switch exprCtx := expr.(type) {
 		case *PrimaryExpression:
-			if exprCtx.IsPure {
-				t.IsPure = true
+			if exprCtx.IsPure() {
+				t.Pure = true
 				break
 			}
 		}

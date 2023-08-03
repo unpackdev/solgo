@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -60,7 +61,9 @@ func (f *ForStatement) GetBody() *BodyNode {
 }
 
 func (f *ForStatement) GetNodes() []Node[NodeType] {
-	return f.Body.Statements
+	toReturn := []Node[NodeType]{f.Initialiser, f.Condition, f.Closure}
+	toReturn = append(toReturn, f.Body.GetNodes()...)
+	return toReturn
 }
 
 func (f *ForStatement) GetTypeDescription() *TypeDescription {
@@ -68,7 +71,29 @@ func (f *ForStatement) GetTypeDescription() *TypeDescription {
 }
 
 func (f *ForStatement) ToProto() NodeType {
-	return ast_pb.For{}
+	proto := ast_pb.For{
+		Id:       f.GetId(),
+		NodeType: f.GetType(),
+		Src:      f.GetSrc().ToProto(),
+	}
+
+	if f.GetInitialiser() != nil {
+		proto.Initialiser = f.GetInitialiser().ToProto().(*v3.TypedStruct)
+	}
+
+	if f.GetCondition() != nil {
+		proto.Condition = f.GetCondition().ToProto().(*v3.TypedStruct)
+	}
+
+	if f.GetClosure() != nil {
+		proto.Closure = f.GetClosure().ToProto().(*v3.TypedStruct)
+	}
+
+	if f.GetBody() != nil {
+		proto.Body = f.GetBody().ToProto().(*ast_pb.Body)
+	}
+
+	return NewTypedStruct(&proto, "For")
 }
 
 // https://docs.soliditylang.org/en/v0.8.19/grammar.html#a4.SolidityParser.forStatement

@@ -1,95 +1,115 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
-type UnaryPrefixExpression struct {
+type UnaryPrefix struct {
 	*ASTBuilder
 
 	Id                    int64            `json:"id"`
 	NodeType              ast_pb.NodeType  `json:"node_type"`
 	Src                   SrcNode          `json:"src"`
 	Operator              ast_pb.Operator  `json:"operator"`
-	Expression            Node[NodeType]   `json:"expression"`
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription `json:"type_description"`
 	Prefix                bool             `json:"prefix"`
-	IsConstant            bool             `json:"is_constant"`
-	IsLValue              bool             `json:"is_l_value"`
-	IsPure                bool             `json:"is_pure"`
+	Constant              bool             `json:"is_constant"`
+	LValue                bool             `json:"is_l_value"`
+	Pure                  bool             `json:"is_pure"`
 	LValueRequested       bool             `json:"l_value_requested"`
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
+	Expression            Node[NodeType]   `json:"expression"`
+	TypeDescription       *TypeDescription `json:"type_description"`
 }
 
-func NewUnaryPrefixExpression(b *ASTBuilder) *UnaryPrefixExpression {
-	return &UnaryPrefixExpression{
+func NewUnaryPrefixExpression(b *ASTBuilder) *UnaryPrefix {
+	return &UnaryPrefix{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_UNARY_OPERATION,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the UnaryPrefixExpression node.
-func (u *UnaryPrefixExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the UnaryPrefix node.
+func (u *UnaryPrefix) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	u.ReferencedDeclaration = refId
 	u.TypeDescription = refDesc
 	return false
 }
 
-func (u *UnaryPrefixExpression) GetId() int64 {
+func (u *UnaryPrefix) GetId() int64 {
 	return u.Id
 }
 
-func (u *UnaryPrefixExpression) GetType() ast_pb.NodeType {
+func (u *UnaryPrefix) GetType() ast_pb.NodeType {
 	return u.NodeType
 }
 
-func (u *UnaryPrefixExpression) GetSrc() SrcNode {
+func (u *UnaryPrefix) GetSrc() SrcNode {
 	return u.Src
 }
 
-func (u *UnaryPrefixExpression) GetOperator() ast_pb.Operator {
+func (u *UnaryPrefix) GetOperator() ast_pb.Operator {
 	return u.Operator
 }
 
-func (u *UnaryPrefixExpression) GetExpression() Node[NodeType] {
+func (u *UnaryPrefix) GetExpression() Node[NodeType] {
 	return u.Expression
 }
 
-func (u *UnaryPrefixExpression) GetTypeDescription() *TypeDescription {
+func (u *UnaryPrefix) GetTypeDescription() *TypeDescription {
 	return u.TypeDescription
 }
 
-func (u *UnaryPrefixExpression) GetNodes() []Node[NodeType] {
+func (u *UnaryPrefix) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{u.Expression}
 }
 
-func (u *UnaryPrefixExpression) GetPrefix() bool {
+func (u *UnaryPrefix) GetPrefix() bool {
 	return u.Prefix
 }
 
-func (u *UnaryPrefixExpression) GetIsConstant() bool {
-	return u.IsConstant
+func (u *UnaryPrefix) IsConstant() bool {
+	return u.Constant
 }
 
-func (u *UnaryPrefixExpression) GetIsLValue() bool {
-	return u.IsLValue
+func (u *UnaryPrefix) IsLValue() bool {
+	return u.LValue
 }
 
-func (u *UnaryPrefixExpression) GetIsPure() bool {
-	return u.IsPure
+func (u *UnaryPrefix) IsPure() bool {
+	return u.Pure
 }
 
-func (u *UnaryPrefixExpression) GetLValueRequested() bool {
+func (u *UnaryPrefix) IsLValueRequested() bool {
 	return u.LValueRequested
 }
 
-func (u *UnaryPrefixExpression) ToProto() NodeType {
-	return &ast_pb.UnaryPrefixOperator{}
+func (u *UnaryPrefix) GetReferencedDeclaration() int64 {
+	return u.ReferencedDeclaration
 }
 
-func (u *UnaryPrefixExpression) Parse(
+func (u *UnaryPrefix) ToProto() NodeType {
+	proto := ast_pb.UnaryPrefix{
+		Id:                    u.GetId(),
+		NodeType:              u.GetType(),
+		Src:                   u.GetSrc().ToProto(),
+		Operator:              u.GetOperator(),
+		Prefix:                u.GetPrefix(),
+		IsConstant:            u.IsConstant(),
+		IsLValue:              u.IsLValue(),
+		IsPure:                u.IsPure(),
+		LValueRequested:       u.IsLValueRequested(),
+		ReferencedDeclaration: u.GetReferencedDeclaration(),
+		Expression:            u.GetExpression().ToProto().(*v3.TypedStruct),
+		TypeDescription:       u.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "UnaryPrefix")
+}
+
+func (u *UnaryPrefix) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
@@ -127,5 +147,6 @@ func (u *UnaryPrefixExpression) Parse(
 
 	expression := NewExpression(u.ASTBuilder)
 	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, ctx.Expression())
+	u.TypeDescription = u.Expression.GetTypeDescription()
 	return u
 }

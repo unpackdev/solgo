@@ -164,8 +164,9 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			// This step is actually quite important as it resolves all the
 			// references in the AST. Without this step, the AST will be
 			// incomplete.
-			err = astBuilder.ResolveReferences()
-			assert.NoError(t, err)
+			errs := astBuilder.ResolveReferences()
+			var errsExpected []error
+			assert.Equal(t, errsExpected, errs)
 
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
 				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)
@@ -191,6 +192,12 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			astJson, err := astBuilder.ToJSON()
 			assert.NoError(t, err)
 			assert.NotEmpty(t, astJson)
+
+			astPretty, _ := astBuilder.ToPrettyJSON(astBuilder.ToProto())
+			err = astBuilder.WriteToFile(
+				"../data/tests/ast/"+testCase.sources.EntrySourceUnitName+".solgo.ast.proto.json",
+				astPretty,
+			)
 
 			// Zero is here for the first contract that's empty...
 			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))

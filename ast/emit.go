@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -53,11 +54,26 @@ func (e *Emit) GetTypeDescription() *TypeDescription {
 }
 
 func (e *Emit) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := make([]Node[NodeType], 0)
+	toReturn = append(toReturn, e.Arguments...)
+	toReturn = append(toReturn, e.Expression)
+	return toReturn
 }
 
 func (e *Emit) ToProto() NodeType {
-	return ast_pb.Emit{}
+	proto := ast_pb.Emit{
+		Id:         e.GetId(),
+		NodeType:   e.GetType(),
+		Src:        e.GetSrc().ToProto(),
+		Arguments:  make([]*v3.TypedStruct, 0),
+		Expression: e.GetExpression().ToProto().(*v3.TypedStruct),
+	}
+
+	for _, argument := range e.GetArguments() {
+		proto.Arguments = append(proto.Arguments, argument.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&proto, "Emit")
 }
 
 func (e *Emit) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],

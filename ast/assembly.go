@@ -63,8 +63,15 @@ func (a *AssemblyStatement) GetTypeDescription() *TypeDescription {
 }
 
 // ToProto returns the protobuf representation of the assembly statement.
+// @TODO: Implement body type...
 func (a *AssemblyStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	proto := ast_pb.Assembly{
+		Id:       a.GetId(),
+		NodeType: a.GetType(),
+		Src:      a.GetSrc().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "Assembly")
 }
 
 func (a *AssemblyStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {

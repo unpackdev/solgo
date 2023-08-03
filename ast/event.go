@@ -72,7 +72,17 @@ func (e *EventDefinition) GetNodes() []Node[NodeType] {
 }
 
 func (e *EventDefinition) ToProto() NodeType {
-	return ast_pb.Event{}
+	proto := ast_pb.Event{
+		Id:              e.GetId(),
+		Name:            e.GetName(),
+		NodeType:        e.GetType(),
+		Src:             e.GetSrc().ToProto(),
+		Anonymous:       e.IsAnonymous(),
+		Parameters:      e.GetParameters().ToProto(),
+		TypeDescription: e.GetTypeDescription().ToProto(),
+	}
+
+	return NewTypedStruct(&proto, "Event")
 }
 
 func (e *EventDefinition) Parse(
@@ -101,16 +111,3 @@ func (e *EventDefinition) Parse(
 	e.currentEvents = append(e.currentEvents, e)
 	return e
 }
-
-/**
-func (b *ASTBuilder) parseEventDefinition(sourceUnit *ast_pb.SourceUnit, identifierNode *ast_pb.Node, eventDefinitionCtx *parser.EventDefinitionContext) *ast_pb.Node {
-
-
-
-	nodeCtx.Parameters = parametersList
-	b.currentEvents = append(b.currentEvents, nodeCtx)
-
-	return nodeCtx
-}
-
-**/

@@ -65,8 +65,46 @@ func (f *FallbackDefinition) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
+func (f *FallbackDefinition) GetBody() *BodyNode {
+	return f.Body
+}
+
+func (f *FallbackDefinition) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+func (f *FallbackDefinition) GetVisibility() ast_pb.Visibility {
+	return f.Visibility
+}
+
+func (f *FallbackDefinition) GetStateMutability() ast_pb.Mutability {
+	return f.StateMutability
+}
+
+func (f *FallbackDefinition) IsVirtual() bool {
+	return f.Virtual
+}
+
+func (f *FallbackDefinition) IsImplemented() bool {
+	return f.Implemented
+}
+
 func (f *FallbackDefinition) ToProto() NodeType {
-	return &ast_pb.Fallback{}
+	proto := ast_pb.Fallback{
+		Id:               f.GetId(),
+		NodeType:         f.GetType(),
+		Kind:             f.GetKind(),
+		Src:              f.GetSrc().ToProto(),
+		Virtual:          f.IsVirtual(),
+		Implemented:      f.IsImplemented(),
+		Visibility:       f.GetVisibility(),
+		StateMutability:  f.GetStateMutability(),
+		Parameters:       f.GetParameters().ToProto(),
+		ReturnParameters: f.GetReturnParameters().ToProto(),
+		Body:             f.GetBody().ToProto().(*ast_pb.Body),
+	}
+
+	return NewTypedStruct(&proto, "Fallback")
 }
 
 func (f *FallbackDefinition) Parse(

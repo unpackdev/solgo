@@ -19,18 +19,18 @@ type RootNode struct {
 	SourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]] `json:"root"`
 
 	// Comments is the list of comments.
-	Comments []*CommentNode `json:"comments"`
+	Comments []*Comment `json:"comments"`
 }
 
 // NewRootNode creates a new RootNode with the provided ASTBuilder, entry source unit, source units, and comments.
-func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]], comments []*CommentNode) Node[*ast_pb.RootNode] {
-	return Node[*ast_pb.RootNode](&RootNode{
+func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]], comments []*Comment) *RootNode {
+	return &RootNode{
 		Id:              builder.GetNextID(),
 		EntrySourceUnit: entrySourceUnit,
 		NodeType:        ast_pb.NodeType_ROOT_SOURCE_UNIT,
 		Comments:        comments,
 		SourceUnits:     sourceUnits,
-	})
+	}
 }
 
 // GetId returns the id of the RootNode node.
@@ -80,7 +80,7 @@ func (r *RootNode) SetEntrySourceUnit(entrySourceUnit int64) {
 }
 
 // GetComments returns the comments of the root node.
-func (r *RootNode) GetComments() []*CommentNode {
+func (r *RootNode) GetComments() []*Comment {
 	return r.Comments
 }
 
@@ -94,8 +94,22 @@ func (r *RootNode) GetNodes() []Node[NodeType] {
 }
 
 // ToProto returns the protobuf representation of the root node.
-func (r *RootNode) ToProto() *ast_pb.RootNode {
-	return &ast_pb.RootNode{
-		Nodes: make([]*ast_pb.Node, 0),
+func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
+	sourceUnits := []*ast_pb.SourceUnit{}
+	for _, sourceUnit := range r.SourceUnits {
+		sourceUnits = append(sourceUnits, sourceUnit.ToProto().(*ast_pb.SourceUnit))
+	}
+
+	comments := []*ast_pb.Comment{}
+	for _, comment := range r.Comments {
+		comments = append(comments, comment.ToProto())
+	}
+
+	return &ast_pb.RootSourceUnit{
+		Id:              r.Id,
+		NodeType:        r.NodeType,
+		EntrySourceUnit: r.EntrySourceUnit,
+		SourceUnits:     sourceUnits,
+		//Comments:        comments,
 	}
 }

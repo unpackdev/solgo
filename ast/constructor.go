@@ -127,7 +127,28 @@ func (c *Constructor) GetScope() int64 {
 
 // ToProto returns the protobuf representation of the constructor.
 func (c *Constructor) ToProto() NodeType {
-	return ast_pb.Function{}
+	proto := ast_pb.Function{
+		Id:               c.GetId(),
+		NodeType:         c.GetType(),
+		Kind:             c.GetKind(),
+		Src:              c.GetSrc().ToProto(),
+		Implemented:      c.IsImplemented(),
+		Scope:            c.GetScope(),
+		Visibility:       c.GetVisibility(),
+		StateMutability:  c.GetStateMutability(),
+		Parameters:       c.GetParameters().ToProto(),
+		ReturnParameters: c.GetReturnParameters().ToProto(),
+	}
+
+	if c.GetBody() != nil {
+		proto.Body = c.GetBody().ToProto().(*ast_pb.Body)
+	}
+
+	if c.GetTypeDescription() != nil {
+		proto.TypeDescription = c.GetTypeDescription().ToProto()
+	}
+
+	return NewTypedStruct(&proto, "Function")
 }
 
 // Parse parses a constructor from the provided parser.ConstructorDefinitionContext and returns the corresponding Constructor.

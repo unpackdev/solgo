@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -68,7 +69,23 @@ func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
 }
 
 func (v *VariableDeclaration) ToProto() NodeType {
-	return ast_pb.VariableDeclaration{}
+	proto := ast_pb.Variable{
+		Id:           v.Id,
+		NodeType:     v.NodeType,
+		Src:          v.Src.ToProto(),
+		Assignments:  v.Assignments,
+		Declarations: make([]*ast_pb.Declaration, 0),
+	}
+
+	if v.GetInitialValue() != nil {
+		proto.InitialValue = v.GetInitialValue().ToProto().(*v3.TypedStruct)
+	}
+
+	for _, declaration := range v.GetDeclarations() {
+		proto.Declarations = append(proto.Declarations, declaration.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "Variable")
 }
 
 func (v *VariableDeclaration) Parse(

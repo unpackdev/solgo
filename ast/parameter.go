@@ -19,6 +19,7 @@ type Parameter struct {
 	StateMutability ast_pb.Mutability      `json:"state_mutability,omitempty"`
 	Constant        bool                   `json:"constant,omitempty"`
 	StateVariable   bool                   `json:"state_variable,omitempty"`
+	TypeDescription *TypeDescription       `json:"type_description,omitempty"`
 }
 
 func NewParameter(b *ASTBuilder) *Parameter {
@@ -46,8 +47,16 @@ func (p *Parameter) GetName() string {
 	return p.Name
 }
 
+func (p *Parameter) GetScope() int64 {
+	return p.Id
+}
+
 func (p *Parameter) GetTypeDescription() *TypeDescription {
-	return p.TypeName.TypeDescription
+	// Enum value type can have type name as nil
+	if p.TypeName != nil {
+		return p.TypeName.TypeDescription
+	}
+	return p.TypeDescription
 }
 
 func (p *Parameter) GetVisibility() ast_pb.Visibility {
@@ -56,6 +65,10 @@ func (p *Parameter) GetVisibility() ast_pb.Visibility {
 
 func (p *Parameter) GetStateMutability() ast_pb.Mutability {
 	return p.StateMutability
+}
+
+func (p *Parameter) GetStorageLocation() ast_pb.StorageLocation {
+	return p.StorageLocation
 }
 
 func (p *Parameter) IsConstant() bool {
@@ -74,7 +87,32 @@ func (p *Parameter) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx *parser.ParameterDeclarationContext) {
+func (p *Parameter) ToProto() *ast_pb.Parameter {
+	toReturn := &ast_pb.Parameter{
+		Id:              p.GetId(),
+		Name:            p.GetName(),
+		NodeType:        p.GetType(),
+		Src:             p.GetSrc().ToProto(),
+		Scope:           p.GetScope(),
+		Constant:        p.IsConstant(),
+		StateVariable:   p.IsStateVariable(),
+		StateMutability: p.GetStateMutability(),
+		Visibility:      p.GetVisibility(),
+		StorageLocation: p.GetStorageLocation(),
+	}
+
+	if p.GetTypeName() != nil {
+		toReturn.TypeName = p.GetTypeName().ToProto().(*ast_pb.TypeName)
+	}
+
+	if p.GetTypeDescription() != nil {
+		toReturn.TypeDescription = p.GetTypeDescription().ToProto()
+	}
+
+	return toReturn
+}
+
+func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[*ast_pb.ParameterList], ctx *parser.ParameterDeclarationContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),
@@ -108,7 +146,7 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 	p.TypeName = typeName
 }
 
-func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx parser.IEventParameterContext) {
+func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[*ast_pb.ParameterList], ctx parser.IEventParameterContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),
@@ -176,7 +214,7 @@ func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit
 	p.TypeName = typeName
 }
 
-func (p *Parameter) ParseErrorParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[ast_pb.ParametersList], ctx parser.IErrorParameterContext) {
+func (p *Parameter) ParseErrorParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[*ast_pb.ParameterList], ctx parser.IErrorParameterContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),

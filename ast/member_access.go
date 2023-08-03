@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
@@ -9,9 +10,9 @@ type MemberAccessExpression struct {
 	*ASTBuilder
 
 	Id                    int64              `json:"id"`
-	IsConstant            bool               `json:"is_constant"`
-	IsLValue              bool               `json:"is_l_value"`
-	IsPure                bool               `json:"is_pure"`
+	Constant              bool               `json:"is_constant"`
+	LValue                bool               `json:"is_l_value"`
+	Pure                  bool               `json:"is_pure"`
 	LValueRequested       bool               `json:"l_value_requested"`
 	NodeType              ast_pb.NodeType    `json:"node_type"`
 	Src                   SrcNode            `json:"src"`
@@ -70,8 +71,47 @@ func (m *MemberAccessExpression) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+func (m *MemberAccessExpression) GetReferencedDeclaration() int64 {
+	return m.ReferencedDeclaration
+}
+
+func (m *MemberAccessExpression) IsConstant() bool {
+	return m.Constant
+}
+
+func (m *MemberAccessExpression) IsLValue() bool {
+	return m.LValue
+}
+
+func (m *MemberAccessExpression) IsPure() bool {
+	return m.Pure
+}
+
+func (m *MemberAccessExpression) IsLValueRequested() bool {
+	return m.LValueRequested
+}
+
 func (m *MemberAccessExpression) ToProto() NodeType {
-	return ast_pb.MemberAccessExpression{}
+	proto := ast_pb.MemberAccess{
+		Id:                    m.GetId(),
+		MemberName:            m.GetMemberName(),
+		NodeType:              m.GetType(),
+		Src:                   m.GetSrc().ToProto(),
+		ReferencedDeclaration: m.GetReferencedDeclaration(),
+		IsConstant:            m.IsConstant(),
+		IsLValue:              m.IsLValue(),
+		IsPure:                m.IsPure(),
+		LValueRequested:       m.IsLValueRequested(),
+		Expression:            m.GetExpression().ToProto().(*v3.TypedStruct),
+		ArgumentTypes:         make([]*ast_pb.TypeDescription, 0),
+		TypeDescription:       m.GetTypeDescription().ToProto(),
+	}
+
+	for _, arg := range m.GetArgumentTypes() {
+		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
+	}
+
+	return NewTypedStruct(&proto, "MemberAccess")
 }
 
 func (m *MemberAccessExpression) Parse(
