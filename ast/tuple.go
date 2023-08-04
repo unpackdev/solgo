@@ -166,8 +166,6 @@ func (t *TupleExpression) Parse(
 	}
 
 	t.TypeDescription = t.buildTypeDescription()
-
-	t.dumpNode(t)
 	return t
 }
 
