@@ -194,6 +194,12 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
+		if paramType == nil {
+			typeStrings = append(typeStrings, "unknown")
+			typeIdentifiers = append(typeIdentifiers, "$_unknown")
+			continue
+		}
+
 		if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
