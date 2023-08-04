@@ -66,7 +66,12 @@ func (b *ASTBuilder) ToProto() *ast_pb.RootSourceUnit {
 
 // ToJSON converts the root node of the AST to a JSON byte array.
 func (b *ASTBuilder) ToJSON() ([]byte, error) {
-	return json.Marshal(b.tree.GetRoot())
+	return b.InterfaceToJSON(b.tree.GetRoot())
+}
+
+// ToPrettyJSON converts the provided data to a JSON byte array.
+func (b *ASTBuilder) InterfaceToJSON(data interface{}) ([]byte, error) {
+	return json.Marshal(data)
 }
 
 // ToPrettyJSON converts the provided data to a pretty (indented) JSON byte array.

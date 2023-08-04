@@ -68,11 +68,8 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 // resolveByNode is a helper function that attempts to resolve a node by its name by checking various node types.
 // It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
-	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
-		return node, nodeType
-	}
 
-	if node, nodeType := r.byFunction(name); nodeType != nil {
+	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
 		return node, nodeType
 	}
 
@@ -104,6 +101,9 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 		return node, nodeType
 	}
 
+	if node, nodeType := r.byFunction(name); nodeType != nil {
+		return node, nodeType
+	}
 	return 0, nil
 }
 
@@ -290,6 +290,12 @@ func (r *Resolver) byEvents(name string) (int64, *TypeDescription) {
 		if eventNode.GetName() == name {
 			return node.GetId(), node.GetTypeDescription()
 		}
+
+		for _, parameter := range eventNode.GetParameters().GetParameters() {
+			if parameter.GetName() == name {
+				return node.GetId(), parameter.GetTypeDescription()
+			}
+		}
 	}
 
 	return 0, nil
@@ -319,7 +325,7 @@ func (r *Resolver) byStructs(name string) (int64, *TypeDescription) {
 			return node.GetId(), node.GetTypeDescription()
 		}
 
-		for _, member := range structNode.Members {
+		for _, member := range structNode.GetMembers() {
 			if member.GetName() == name {
 				return node.GetId(), node.GetTypeDescription()
 			}

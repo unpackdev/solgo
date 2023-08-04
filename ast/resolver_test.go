@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -38,7 +39,7 @@ func TestResolver(t *testing.T) {
 				},
 				EntrySourceUnitName: "TestContract",
 			},
-			expected:             ``,
+			expected:             tests.ReadJsonBytesForTest(t, "ast/resolver/TestContract").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -58,7 +59,7 @@ func TestResolver(t *testing.T) {
 				},
 				EntrySourceUnitName: "DerivedContract",
 			},
-			expected:             ``,
+			expected:             tests.ReadJsonBytesForTest(t, "ast/resolver/DerivedContract").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -71,14 +72,14 @@ func TestResolver(t *testing.T) {
 						Content: "pragma solidity ^0.5.0; library SafeMath { function add(uint256 a, uint256 b) internal pure returns (uint256) { uint256 c = a + b; require(c >= a, 'SafeMath: addition overflow'); return c; } }",
 					},
 					{
-						Name:    "TestContract",
-						Path:    "TestContract.sol",
-						Content: "pragma solidity ^0.5.0; import './SafeMath.sol'; contract TestContract { using SafeMath for uint256; uint256 public value; function increaseValue(uint256 _value) public { value = value.add(_value); } }",
+						Name:    "LibraryContract",
+						Path:    "LibraryContract.sol",
+						Content: "pragma solidity ^0.5.0; import './SafeMath.sol'; contract LibraryContract { using SafeMath for uint256; uint256 public value; function increaseValue(uint256 _value) public { value = value.add(_value); } }",
 					},
 				},
-				EntrySourceUnitName: "TestContract",
+				EntrySourceUnitName: "LibraryContract",
 			},
-			expected:             ``,
+			expected:             tests.ReadJsonBytesForTest(t, "ast/resolver/LibraryContract").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -91,14 +92,14 @@ func TestResolver(t *testing.T) {
 						Content: "pragma solidity ^0.5.0; interface IERC20 { function totalSupply() external view returns (uint256); function balanceOf(address account) external view returns (uint256); function transfer(address recipient, uint256 amount) external returns (bool); }",
 					},
 					{
-						Name:    "TestContract",
-						Path:    "TestContract.sol",
-						Content: "pragma solidity ^0.5.0; import './IERC20.sol'; contract TestContract is IERC20 { uint256 public totalSupply; mapping(address => uint256) private _balances; function balanceOf(address account) public view returns (uint256) { return _balances[account]; } function transfer(address recipient, uint256 amount) public returns (bool) { _balances[msg.sender] -= amount; _balances[recipient] += amount; return true; } }",
+						Name:    "InterfaceContract",
+						Path:    "InterfaceContract.sol",
+						Content: "pragma solidity ^0.5.0; import './IERC20.sol'; contract InterfaceContract is IERC20 { uint256 public totalSupply; mapping(address => uint256) private _balances; function balanceOf(address account) public view returns (uint256) { return _balances[account]; } function transfer(address recipient, uint256 amount) public returns (bool) { _balances[msg.sender] -= amount; _balances[recipient] += amount; return true; } }",
 					},
 				},
-				EntrySourceUnitName: "TestContract",
+				EntrySourceUnitName: "InterfaceContract",
 			},
-			expected:             ``,
+			expected:             tests.ReadJsonBytesForTest(t, "ast/resolver/InterfaceContract").Content,
 			unresolvedReferences: 0,
 		},
 	}
@@ -122,6 +123,13 @@ func TestResolver(t *testing.T) {
 
 			errs := astBuilder.ResolveReferences()
 			assert.Equal(t, int(testCase.unresolvedReferences), len(errs))
+
+			/* 			astPretty, _ := astBuilder.ToJSON()
+			   			err = astBuilder.WriteToFile(
+			   				"../data/tests/ast/resolver/"+testCase.sources.EntrySourceUnitName+".json",
+			   				astPretty,
+			   			)
+			   			assert.NoError(t, err) */
 
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
 				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)

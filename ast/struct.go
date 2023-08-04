@@ -19,7 +19,7 @@ type StructDefinition struct {
 	CanonicalName         string                 `json:"canonical_name"`
 	ReferencedDeclaration int64                  `json:"referenced_declaration,omitempty"`
 	TypeDescription       *TypeDescription       `json:"type_description"`
-	Members               []*Parameter           `json:"members"`
+	Members               []Node[NodeType]       `json:"members"`
 	Visibility            ast_pb.Visibility      `json:"visibility"`
 	StorageLocation       ast_pb.StorageLocation `json:"storage_location"`
 }
@@ -66,7 +66,14 @@ func (s *StructDefinition) GetCanonicalName() string {
 }
 
 func (s *StructDefinition) GetMembers() []*Parameter {
-	return s.Members
+	toReturn := make([]*Parameter, 0)
+
+	for _, member := range s.Members {
+		if param, ok := member.(*Parameter); ok {
+			toReturn = append(toReturn, param)
+		}
+	}
+	return toReturn
 }
 
 func (s *StructDefinition) GetSourceUnitName() string {
@@ -86,7 +93,7 @@ func (s *StructDefinition) GetStorageLocation() ast_pb.StorageLocation {
 }
 
 func (s *StructDefinition) GetNodes() []Node[NodeType] {
-	return nil
+	return s.Members
 }
 
 func (s *StructDefinition) GetReferencedDeclaration() int64 {
@@ -109,7 +116,7 @@ func (s *StructDefinition) ToProto() NodeType {
 	}
 
 	for _, member := range s.GetMembers() {
-		proto.Members = append(proto.Members, member.ToProto())
+		proto.Members = append(proto.Members, member.ToProto().(*ast_pb.Parameter))
 	}
 
 	return NewTypedStruct(&proto, "Struct")

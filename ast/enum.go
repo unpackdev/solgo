@@ -16,7 +16,7 @@ type EnumDefinition struct {
 	Name            string           `json:"name"`
 	CanonicalName   string           `json:"canonical_name"`
 	TypeDescription *TypeDescription `json:"type_description"`
-	Members         []*Parameter     `json:"members"`
+	Members         []Node[NodeType] `json:"members"`
 }
 
 func NewEnumDefinition(b *ASTBuilder) *EnumDefinition {
@@ -58,7 +58,13 @@ func (e *EnumDefinition) GetCanonicalName() string {
 }
 
 func (e *EnumDefinition) GetMembers() []*Parameter {
-	return e.Members
+	toReturn := make([]*Parameter, 0)
+
+	for _, member := range e.Members {
+		toReturn = append(toReturn, member.(*Parameter))
+	}
+
+	return toReturn
 }
 
 func (e *EnumDefinition) GetSourceUnitName() string {
@@ -77,14 +83,17 @@ func (e *EnumDefinition) ToProto() NodeType {
 	}
 
 	for _, member := range e.GetMembers() {
-		proto.Members = append(proto.Members, member.ToProto())
+		proto.Members = append(
+			proto.Members,
+			member.ToProto().(*ast_pb.Parameter),
+		)
 	}
 
 	return NewTypedStruct(&proto, "Enum")
 }
 
 func (e *EnumDefinition) GetNodes() []Node[NodeType] {
-	return nil
+	return e.Members
 }
 
 func (e *EnumDefinition) Parse(
@@ -133,56 +142,7 @@ func (e *EnumDefinition) Parse(
 			},
 		)
 	}
-
 	e.currentEnums = append(e.currentEnums, e)
 
 	return e
 }
-
-/**
-func (b *ASTBuilder) parseEnumDefinition(sourceUnit *ast_pb.SourceUnit, enumNode *ast_pb.Node, ctx *parser.EnumDefinitionContext) *ast_pb.Node {
-	enumNode.NodeType = ast_pb.NodeType_ENUM_DEFINITION
-	enumNode.Name = ctx.GetName().GetText()
-	enumNode.CanonicalName = fmt.Sprintf("%s.%s", sourceUnit.Name, enumNode.Name)
-
-	for _, enumCtx := range ctx.GetEnumValues() {
-		enumNode.Members = append(
-			enumNode.Members,
-			&ast_pb.Parameter{
-				Id: atomic.AddInt64(&b.nextID, 1) - 1,
-				Src: &ast_pb.Src{
-					Line:        int64(enumCtx.GetStart().GetLine()),
-					Column:      int64(enumCtx.GetStart().GetColumn()),
-					Start:       int64(enumCtx.GetStart().GetStart()),
-					End:         int64(enumCtx.GetStop().GetStop()),
-					Length:      int64(enumCtx.GetStop().GetStop() - enumCtx.GetStart().GetStart()),
-					ParentIndex: enumNode.Id,
-				},
-				Name:     enumCtx.GetText(),
-				NodeType: ast_pb.NodeType_ENUM_VALUE,
-			},
-		)
-	}
-
-	enumNode.TypeDescriptions = &ast_pb.TypeDescriptions{
-		TypeIdentifier: func() string {
-			return fmt.Sprintf(
-				"t_enum_$_%s_$%d",
-				enumNode.Name,
-				enumNode.Id,
-			)
-		}(),
-		TypeString: func() string {
-			return fmt.Sprintf(
-				"enum %s.%s",
-				sourceUnit.GetName(),
-				enumNode.Name,
-			)
-		}(),
-	}
-
-	b.currentEnums = append(b.currentEnums, enumNode)
-
-	return enumNode
-}
-**/

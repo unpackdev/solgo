@@ -188,7 +188,6 @@ func (p *PrimaryExpression) Parse(
 		p.Name = ctx.Identifier().GetText()
 	}
 
-	// This is a magic message type and should be treated accordingly...
 	if ctx.GetText() == "msg" {
 		p.TypeDescription = &TypeDescription{
 			TypeIdentifier: "t_magic_message",
@@ -196,11 +195,27 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
-	// This is a magic block type and should be treated accordingly...
 	if ctx.GetText() == "block" {
 		p.TypeDescription = &TypeDescription{
 			TypeIdentifier: "t_magic_block",
 			TypeString:     "block",
+		}
+	}
+
+	if ctx.GetText() == "abi" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_abi",
+			TypeString:     "abi",
+		}
+	}
+
+	// For now just like this but in the future we should look into figuring out which contract
+	// is being referenced here...
+	// We would need to search for function declarations and match them accordingly...
+	if ctx.GetText() == "super" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_super",
+			TypeString:     "super",
 		}
 	}
 

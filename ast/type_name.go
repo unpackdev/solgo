@@ -3,7 +3,6 @@ package ast
 import (
 	"fmt"
 
-	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 	"go.uber.org/zap"
@@ -348,11 +347,6 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			t.parseIdentifierPath(unit, parentNodeId, childCtx)
 		case *parser.TypeNameContext:
 			t.parseTypeName(unit, parentNodeId, childCtx)
-		case *antlr.TerminalNodeImpl:
-			continue
-		default:
-			panic(fmt.Sprintf("Unknown type name @ TypeName.Parse: %T", childCtx))
-			//t.parseUserDefinedTypeName(unit, parentNodeId, childCtx)
 		}
 	}
 

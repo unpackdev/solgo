@@ -65,7 +65,11 @@ func (v *VariableDeclaration) GetTypeDescription() *TypeDescription {
 }
 
 func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
-	toReturn := []Node[NodeType]{v.InitialValue}
+	toReturn := []Node[NodeType]{}
+	if v.GetInitialValue() != nil {
+		toReturn = append(toReturn, v.GetInitialValue())
+	}
+
 	for _, declaration := range v.GetDeclarations() {
 		toReturn = append(toReturn, declaration)
 	}

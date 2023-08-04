@@ -88,25 +88,30 @@ func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, no
 
 	if child.GetId() == nodeId {
 		child.SetReferenceDescriptor(nodeRefId, typeRef)
-
-		// Update parent reference if necessary...
-		parentChild := t.GetById(child.GetSrc().GetParentIndex())
-		if parentChild != nil {
-			if parentChild.GetTypeDescription() == nil {
-				parentChild.SetReferenceDescriptor(nodeRefId, typeRef)
-			}
-		}
-
+		t.updateParentReference(child, nodeRefId, typeRef)
 		return true
 	}
 
 	for _, c := range child.GetNodes() {
+		if c == nil {
+			t.dumpNode(child)
+		}
 		if n := t.byRecursiveReferenceUpdate(c, nodeId, nodeRefId, typeRef); n {
 			return n
 		}
 	}
 
 	return false
+}
+
+// updateParentReference is a helper function that updates the reference descriptor of a node's parent.
+func (t *Tree) updateParentReference(child Node[NodeType], nodeRefId int64, typeRef *TypeDescription) {
+	parentChild := t.GetById(child.GetSrc().GetParentIndex())
+	if parentChild != nil && parentChild.GetTypeDescription() == nil {
+		if updated := parentChild.SetReferenceDescriptor(nodeRefId, typeRef); updated {
+			t.updateParentReference(parentChild, nodeRefId, typeRef)
+		}
+	}
 }
 
 // byRecursiveId is a helper function that attempts to find a node by its ID by recursively searching the node's children.

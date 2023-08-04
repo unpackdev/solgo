@@ -97,15 +97,17 @@ func (f *FunctionCall) GetReferenceDeclaration() int64 {
 // ToProto returns a protobuf representation of the FunctionCall node.
 // Currently, it returns an empty Statement and needs to be implemented.
 func (f *FunctionCall) ToProto() NodeType {
-
 	proto := ast_pb.FunctionCall{
 		Id:                    f.GetId(),
 		NodeType:              f.GetType(),
 		Kind:                  f.GetKind(),
 		Src:                   f.Src.ToProto(),
 		ReferencedDeclaration: f.GetReferenceDeclaration(),
-		Expression:            f.GetExpression().ToProto().(*v3.TypedStruct),
 		TypeDescription:       f.GetTypeDescription().ToProto(),
+	}
+
+	if f.GetExpression() != nil {
+		proto.Expression = f.GetExpression().ToProto().(*v3.TypedStruct)
 	}
 
 	for _, arg := range f.GetArguments() {
@@ -113,6 +115,10 @@ func (f *FunctionCall) ToProto() NodeType {
 	}
 
 	for _, argType := range f.GetArgumentTypes() {
+		if argType == nil {
+			continue
+		}
+
 		proto.ArgumentTypes = append(proto.ArgumentTypes, argType.ToProto())
 	}
 
@@ -285,10 +291,28 @@ func (f *FunctionCallOption) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{f.Expression}
 }
 
+// GetReferenceDeclaration returns the referenced declaration of the FunctionCallOption node.
+func (f *FunctionCallOption) GetReferenceDeclaration() int64 {
+	return f.ReferencedDeclaration
+}
+
 // ToProto returns a protobuf representation of the FunctionCallOption node.
 // Currently, it returns an empty Statement and needs to be implemented.
 func (f *FunctionCallOption) ToProto() NodeType {
-	return ast_pb.Statement{}
+	proto := ast_pb.FunctionCallOption{
+		Id:                    f.GetId(),
+		NodeType:              f.GetType(),
+		Kind:                  f.GetKind(),
+		Src:                   f.Src.ToProto(),
+		ReferencedDeclaration: f.GetReferenceDeclaration(),
+		TypeDescription:       f.GetTypeDescription().ToProto(),
+	}
+
+	if f.GetExpression() != nil {
+		proto.Expression = f.GetExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	return NewTypedStruct(&proto, "FunctionCallOption")
 }
 
 func (f *FunctionCallOption) Parse(
