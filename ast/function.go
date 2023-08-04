@@ -264,6 +264,12 @@ func (f *Function) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetParameters().GetParameterTypes() {
+		if paramType == nil {
+			typeStrings = append(typeStrings, "unknown")
+			typeIdentifiers = append(typeIdentifiers, "t_unknown")
+			continue
+		}
+
 		typeStrings = append(typeStrings, paramType.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}

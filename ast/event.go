@@ -68,7 +68,7 @@ func (e *EventDefinition) GetParameters() *ParameterList {
 }
 
 func (e *EventDefinition) GetNodes() []Node[NodeType] {
-	return nil
+	return e.Parameters.GetNodes()
 }
 
 func (e *EventDefinition) ToProto() NodeType {

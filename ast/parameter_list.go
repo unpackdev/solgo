@@ -54,7 +54,13 @@ func (p *ParameterList) GetParameterTypes() []*TypeDescription {
 }
 
 func (p *ParameterList) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := make([]Node[NodeType], 0)
+
+	for _, parameter := range p.GetParameters() {
+		toReturn = append(toReturn, parameter)
+	}
+
+	return toReturn
 }
 
 func (p *ParameterList) ToProto() *ast_pb.ParameterList {
@@ -65,7 +71,10 @@ func (p *ParameterList) ToProto() *ast_pb.ParameterList {
 	}
 
 	for _, parameter := range p.GetParameters() {
-		toReturn.Parameters = append(toReturn.Parameters, parameter.ToProto())
+		toReturn.Parameters = append(
+			toReturn.Parameters,
+			parameter.ToProto().(*ast_pb.Parameter),
+		)
 	}
 
 	return toReturn

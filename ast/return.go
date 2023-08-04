@@ -57,7 +57,7 @@ func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
 }
 
 func (r *ReturnStatement) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{r.Expression}
 }
 
 func (r *ReturnStatement) ToProto() NodeType {

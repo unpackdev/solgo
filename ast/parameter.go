@@ -31,6 +31,11 @@ func NewParameter(b *ASTBuilder) *Parameter {
 	}
 }
 
+// SetReferenceDescriptor sets the reference descriptions of the Parameter node.
+func (p *Parameter) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	return false
+}
+
 func (p *Parameter) GetId() int64 {
 	return p.Id
 }
@@ -84,10 +89,14 @@ func (p *Parameter) GetTypeName() *TypeName {
 }
 
 func (p *Parameter) GetNodes() []Node[NodeType] {
-	return []Node[NodeType]{p.TypeName}
+	if p.TypeName != nil {
+		return []Node[NodeType]{p.TypeName}
+	}
+
+	return nil
 }
 
-func (p *Parameter) ToProto() *ast_pb.Parameter {
+func (p *Parameter) ToProto() NodeType {
 	toReturn := &ast_pb.Parameter{
 		Id:              p.GetId(),
 		Name:            p.GetName(),

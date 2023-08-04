@@ -91,6 +91,9 @@ func (u *UnaryPrefix) GetReferencedDeclaration() int64 {
 }
 
 func (u *UnaryPrefix) ToProto() NodeType {
+	if u.GetTypeDescription() == nil {
+		u.dumpNode(u)
+	}
 	proto := ast_pb.UnaryPrefix{
 		Id:                    u.GetId(),
 		NodeType:              u.GetType(),

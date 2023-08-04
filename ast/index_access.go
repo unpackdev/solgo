@@ -63,7 +63,7 @@ func (i *IndexAccess) GetTypeDescriptions() []*TypeDescription {
 }
 
 func (i *IndexAccess) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{i.IndexExpression, i.BaseExpression}
 }
 
 func (i *IndexAccess) GetReferencedDeclaration() int64 {

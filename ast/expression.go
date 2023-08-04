@@ -78,6 +78,9 @@ func (e *Expression) Parse(
 	case *parser.FunctionCallOptionsContext:
 		statementNode := NewFunctionCallOption(e.ASTBuilder)
 		return statementNode.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.IndexRangeAccessContext:
+		indexRangeAccess := NewIndexRangeAccessExpression(e.ASTBuilder)
+		return indexRangeAccess.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		panic(
 			fmt.Sprintf(

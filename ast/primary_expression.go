@@ -127,10 +127,25 @@ func (p *PrimaryExpression) ToProto() NodeType {
 		IsPure:                 p.IsPure(),
 		OverloadedDeclarations: p.GetOverloadedDeclarations(),
 		ArgumentTypes:          make([]*ast_pb.TypeDescription, 0),
-		TypeDescription:        p.GetTypeDescription().ToProto(),
+	}
+
+	if p.GetTypeDescription() != nil {
+		proto.TypeDescription = p.GetTypeDescription().ToProto()
+	} else {
+		proto.TypeDescription = &ast_pb.TypeDescription{
+			TypeString:     "unknown",
+			TypeIdentifier: "t_unknown",
+		}
 	}
 
 	for _, arg := range p.GetArgumentTypes() {
+		if arg == nil {
+			proto.ArgumentTypes = append(proto.ArgumentTypes, &ast_pb.TypeDescription{
+				TypeString:     "unknown",
+				TypeIdentifier: "t_unknown",
+			})
+			continue
+		}
 		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
 	}
 
@@ -173,7 +188,6 @@ func (p *PrimaryExpression) Parse(
 		p.Name = ctx.Identifier().GetText()
 	}
 
-	// This is a magic message type and should be treated accordingly...
 	if ctx.GetText() == "msg" {
 		p.TypeDescription = &TypeDescription{
 			TypeIdentifier: "t_magic_message",
@@ -181,11 +195,27 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
-	// This is a magic block type and should be treated accordingly...
 	if ctx.GetText() == "block" {
 		p.TypeDescription = &TypeDescription{
 			TypeIdentifier: "t_magic_block",
 			TypeString:     "block",
+		}
+	}
+
+	if ctx.GetText() == "abi" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_abi",
+			TypeString:     "abi",
+		}
+	}
+
+	// For now just like this but in the future we should look into figuring out which contract
+	// is being referenced here...
+	// We would need to search for function declarations and match them accordingly...
+	if ctx.GetText() == "super" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_super",
+			TypeString:     "super",
 		}
 	}
 
@@ -353,7 +383,7 @@ func (p *PrimaryExpression) Parse(
 			p.Value = strings.TrimSpace(
 				// There can be hex 22 at beginning and end of literal.
 				// We should drop it as that's ASCII for double quote.
-				strings.ReplaceAll(literalCtx.StringLiteral().GetText(), "\"", ""),
+				strings.ReplaceAll(literalCtx.HexStringLiteral().GetText(), "\"", ""),
 			)
 			p.HexValue = hex.EncodeToString([]byte(p.Value))
 
@@ -361,7 +391,7 @@ func (p *PrimaryExpression) Parse(
 				TypeIdentifier: "t_string_hex_literal",
 				TypeString: fmt.Sprintf(
 					"literal_hex_string %s",
-					literalCtx.StringLiteral().GetText(),
+					literalCtx.HexStringLiteral().GetText(),
 				),
 			}
 		} else {
@@ -390,6 +420,12 @@ func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range p.GetArgumentTypes() {
+		if paramType == nil {
+			typeStrings = append(typeStrings, "unknown")
+			typeIdentifiers = append(typeIdentifiers, "$_unknown")
+			continue
+		}
+
 		typeStrings = append(typeStrings, paramType.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}

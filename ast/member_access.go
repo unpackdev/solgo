@@ -36,7 +36,7 @@ func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 func (m *MemberAccessExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	m.ReferencedDeclaration = refId
 	m.TypeDescription = refDesc
-	return false
+	return true
 }
 
 func (m *MemberAccessExpression) GetId() int64 {

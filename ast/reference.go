@@ -68,11 +68,8 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 // resolveByNode is a helper function that attempts to resolve a node by its name by checking various node types.
 // It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
-	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
-		return node, nodeType
-	}
 
-	if node, nodeType := r.byFunction(name); nodeType != nil {
+	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
 		return node, nodeType
 	}
 
@@ -104,6 +101,9 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 		return node, nodeType
 	}
 
+	if node, nodeType := r.byFunction(name); nodeType != nil {
+		return node, nodeType
+	}
 	return 0, nil
 }
 
@@ -290,6 +290,12 @@ func (r *Resolver) byEvents(name string) (int64, *TypeDescription) {
 		if eventNode.GetName() == name {
 			return node.GetId(), node.GetTypeDescription()
 		}
+
+		for _, parameter := range eventNode.GetParameters().GetParameters() {
+			if parameter.GetName() == name {
+				return node.GetId(), parameter.GetTypeDescription()
+			}
+		}
 	}
 
 	return 0, nil
@@ -319,7 +325,7 @@ func (r *Resolver) byStructs(name string) (int64, *TypeDescription) {
 			return node.GetId(), node.GetTypeDescription()
 		}
 
-		for _, member := range structNode.Members {
+		for _, member := range structNode.GetMembers() {
 			if member.GetName() == name {
 				return node.GetId(), node.GetTypeDescription()
 			}
@@ -400,8 +406,8 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 		return nil, nil
 	}
 
-	if node.GetType() == ast_pb.NodeType_DO_WHILE_STATEMENT {
-		nodeCtx := node.(*DoWhileStatement)
+	switch nodeCtx := node.(type) {
+	case *DoWhileStatement:
 		for _, condition := range nodeCtx.GetCondition().GetNodes() {
 			if primary, ok := condition.(*PrimaryExpression); ok {
 				if primary.GetName() == name {
@@ -409,23 +415,14 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 				}
 			}
 		}
-	}
 
-	if node.GetType() == ast_pb.NodeType_FOR_STATEMENT {
-		nodeCtx := node.(*ForStatement)
+	case *ForStatement:
 		for _, condition := range nodeCtx.GetCondition().GetNodes() {
 			if primary, ok := condition.(*PrimaryExpression); ok {
 				if primary.GetName() == name {
 					return primary, primary.GetTypeDescription()
 				}
 			}
-		}
-	}
-
-	if node.GetType() == ast_pb.NodeType_IDENTIFIER {
-		nodeCtx := node.(*PrimaryExpression)
-		if nodeCtx.GetName() == name {
-			return nodeCtx, nodeCtx.GetTypeDescription()
 		}
 	}
 
@@ -434,11 +431,13 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 			continue
 		}
 
-		// Needs to be here as there are no parent nodes available...
+		// Needs to be here as there are no parent nodes available so it wont be captured by the
+		// main function block.
 		if n.GetType() == ast_pb.NodeType_IDENTIFIER {
-			nodeCtx := n.(*PrimaryExpression)
-			if nodeCtx.GetName() == name {
-				return nodeCtx, nodeCtx.GetTypeDescription()
+			if nodeCtx, ok := n.(*PrimaryExpression); ok {
+				if nodeCtx.GetName() == name {
+					return nodeCtx, nodeCtx.GetTypeDescription()
+				}
 			}
 		}
 
@@ -449,25 +448,3 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 
 	return nil, nil
 }
-
-/* func (r *Resolver) hasMember(node interface{}, member string) bool {
-	val := reflect.ValueOf(node)
-	if val.Kind() == reflect.Ptr {
-		val = val.Elem()
-	}
-
-	if val.Kind() != reflect.Struct {
-		return false
-	}
-
-	typeOfInput := val.Type()
-	for i := 0; i < val.NumField(); i++ {
-		if typeOfInput.Field(i).Name == member {
-			return true
-		}
-	}
-
-	field := val.FieldByName(member)
-	return field.IsValid()
-}
-*/
