@@ -58,8 +58,8 @@ func TestSources(t *testing.T) {
 		t.Run(testCase.name, func(t *testing.T) {
 			err := testCase.sources.Prepare()
 			assert.NoError(t, err)
-			//combinedSource := testCase.sources.GetCombinedSource()
-			//assert.Equal(t, testCase.expected, combinedSource)
+			combinedSource := testCase.sources.GetCombinedSource()
+			assert.Equal(t, testCase.expected, combinedSource)
 			assert.Equal(t, testCase.expectedUnits, len(testCase.sources.SourceUnits))
 		})
 	}
