@@ -51,6 +51,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Syntactic Analysis**: SolGo transforms Solidity code into a parse tree that can be traversed and manipulated, providing a detailed syntactic analysis of the code.
 - **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
 - **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
+- **Automatic Source Detection**: SolGo automatically loads and integrates Solidity contracts from well-known libraries such as [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts). This feature allows for seamless interaction and analysis of contracts that rely on these libraries, enhancing the overall understanding of the contract's structure and dependencies.
 
 
 ## Extensions
