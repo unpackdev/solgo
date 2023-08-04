@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"strings"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -146,8 +148,6 @@ func (t *TupleExpression) Parse(
 		}(),
 	}
 
-	types := map[string]string{}
-
 	expression := NewExpression(t.ASTBuilder)
 	for _, tupleCtx := range ctx.TupleExpression().AllExpression() {
 		expr := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, t, tupleCtx)
@@ -155,9 +155,6 @@ func (t *TupleExpression) Parse(
 			t.Components,
 			expr,
 		)
-
-		types[expr.GetTypeDescription().TypeString] = expr.GetTypeDescription().TypeIdentifier
-
 		// A bit of a hack as we have interfaces but it works...
 		switch exprCtx := expr.(type) {
 		case *PrimaryExpression:
@@ -168,17 +165,29 @@ func (t *TupleExpression) Parse(
 		}
 	}
 
-	t.TypeDescription = &TypeDescription{
-		TypeString:     "tuple(",
-		TypeIdentifier: "t_tuple$_",
-	}
+	t.TypeDescription = t.buildTypeDescription()
 
-	for typeName, typeDescription := range types {
-		t.TypeDescription.TypeString += typeName + ","
-		t.TypeDescription.TypeIdentifier += typeDescription + "$_"
-	}
-
-	t.TypeDescription.TypeString = t.TypeDescription.TypeString[:len(t.TypeDescription.TypeString)-1] + ")"
-	t.TypeDescription.TypeIdentifier = t.TypeDescription.TypeIdentifier[:len(t.TypeDescription.TypeIdentifier)-1]
+	t.dumpNode(t)
 	return t
+}
+
+func (t *TupleExpression) buildTypeDescription() *TypeDescription {
+	typeString := "tuple("
+	typeIdentifier := "t_tuple_"
+	typeStrings := make([]string, 0)
+	typeIdentifiers := make([]string, 0)
+
+	for _, component := range t.GetComponents() {
+		td := component.GetTypeDescription()
+		typeStrings = append(typeStrings, td.TypeString)
+		typeIdentifiers = append(typeIdentifiers, "$_"+td.TypeIdentifier)
+	}
+	typeString += strings.Join(typeStrings, ",") + ")"
+	typeIdentifier += strings.Join(typeIdentifiers, "_")
+	typeIdentifier += "$"
+
+	return &TypeDescription{
+		TypeString:     typeString,
+		TypeIdentifier: typeIdentifier,
+	}
 }
