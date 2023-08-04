@@ -9,24 +9,33 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
+// Argument represents a single argument in a contract constructor.
+// It includes the argument's name, type, value, and whether it is indexed.
 type Argument struct {
-	Name    string `json:"name"`
-	Type    string `json:"type"`
-	Value   string `json:"value"`
-	Indexed bool   `json:"indexed"`
+	Name    string `json:"name"`    // Name of the argument
+	Type    string `json:"type"`    // Type of the argument
+	Value   string `json:"value"`   // Value of the argument
+	Indexed bool   `json:"indexed"` // Indicates if the argument is indexed
 }
 
+// Constructor represents a contract constructor.
+// It includes the ABI of the constructor, the raw signature, and the arguments.
 type Constructor struct {
-	Abi          string `json:"abi"`
-	SignatureRaw string `json:"signature_raw"`
-	Arguments    []Argument
+	Abi          string     `json:"abi"`           // ABI of the constructor
+	SignatureRaw string     `json:"signature_raw"` // Raw signature of the constructor
+	Arguments    []Argument // List of arguments in the constructor
 }
 
+// DecodeConstructorFromAbi decodes the constructor from the provided ABI and bytecode.
+// It returns a Constructor object and an error if any occurred during the decoding process.
+//
+// The function first checks if the bytecode is empty or does not start with '['. If so, it prepends '[' to the constructorAbi.
+// Then it attempts to parse the ABI using the abi.JSON function from the go-ethereum library.
+// If the ABI parsing is successful, it unpacks the values from the bytecode using the UnpackValues function.
+// It then checks if the number of unpacked values matches the number of inputs in the constructor.
+// If they match, it creates an Argument object for each input and adds it to the arguments slice.
+// Finally, it returns a Constructor object containing the ABI, raw signature, and arguments.
 func DecodeConstructorFromAbi(bytecode []byte, constructorAbi string) (*Constructor, error) {
-	if len(bytecode) == 0 || bytecode[0] != '[' {
-		constructorAbi = "[" + constructorAbi + "]"
-	}
-
 	parsed, err := abi.JSON(strings.NewReader(constructorAbi))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse ABI: %w", err)
