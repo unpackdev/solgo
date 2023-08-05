@@ -89,6 +89,22 @@ func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (l *Interface) GetConstructor() *Constructor {
+	return nil
+}
+
+func (l *Interface) GetFunctions() []*Function {
+	toReturn := make([]*Function, 0)
+
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Function); ok {
+			toReturn = append(toReturn, function)
+		}
+	}
+
+	return toReturn
+}
+
 func (l *Interface) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,

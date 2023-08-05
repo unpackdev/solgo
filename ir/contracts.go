@@ -15,6 +15,8 @@ type ContractNode interface {
 	ToProto() ast.NodeType
 	SetReferenceDescriptor(refId int64, refDesc *ast.TypeDescription) bool
 	GetStateVariables() []*ast.StateVariableDeclaration
+	GetConstructor() *ast.Constructor
+	GetFunctions() []*ast.Function
 }
 
 type Contract struct {
@@ -31,6 +33,8 @@ type Contract struct {
 	Imports        []*Import                                    `json:"imports"`
 	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
+	Constructor    *Constructor                                 `json:"constructor,omitempty"`
+	Function       []*Function                                  `json:"functions"`
 }
 
 func (c *Contract) GetAST() *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] {
@@ -90,6 +94,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Imports:        make([]*Import, 0),
 		Symbols:        unit.GetExportedSymbols(),
 		StateVariables: make([]*StateVariable, 0),
+		Function:       make([]*Function, 0),
 	}
 
 	for _, pragma := range unit.GetPragmas() {
@@ -111,6 +116,19 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		contractNode.StateVariables = append(
 			contractNode.StateVariables,
 			b.processStateVariables(stateVariable),
+		)
+	}
+
+	// Process constructor of the contract.
+	if contract.GetConstructor() != nil {
+		contractNode.Constructor = b.processConstructor(contract.GetConstructor())
+	}
+
+	// Process functions of the contract.
+	for _, function := range contract.GetFunctions() {
+		contractNode.Function = append(
+			contractNode.Function,
+			b.processFunction(function),
 		)
 	}
 

@@ -93,6 +93,28 @@ func (s *Contract) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (s *Contract) GetConstructor() *Constructor {
+	for _, node := range s.GetNodes() {
+		if constructor, ok := node.(*Constructor); ok {
+			return constructor
+		}
+	}
+
+	return nil
+}
+
+func (s *Contract) GetFunctions() []*Function {
+	toReturn := make([]*Function, 0)
+
+	for _, node := range s.GetNodes() {
+		if function, ok := node.(*Function); ok {
+			toReturn = append(toReturn, function)
+		}
+	}
+
+	return toReturn
+}
+
 func (c *Contract) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      c.Id,

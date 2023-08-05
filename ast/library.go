@@ -119,6 +119,28 @@ func (l *Library) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (l *Library) GetConstructor() *Constructor {
+	for _, node := range l.GetNodes() {
+		if constructor, ok := node.(*Constructor); ok {
+			return constructor
+		}
+	}
+
+	return nil
+}
+
+func (l *Library) GetFunctions() []*Function {
+	toReturn := make([]*Function, 0)
+
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Function); ok {
+			toReturn = append(toReturn, function)
+		}
+	}
+
+	return toReturn
+}
+
 // ToProto converts the Library to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
 func (l *Library) ToProto() NodeType {
