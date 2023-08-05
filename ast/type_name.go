@@ -227,7 +227,7 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	t.ValueType = t.generateTypeName(unit, valueCtx, t, t)
 
 	t.TypeDescription = &TypeDescription{
-		TypeString: fmt.Sprintf("mapping(%s => %s)", t.KeyType.Name, t.ValueType.Name),
+		TypeString: fmt.Sprintf("mapping(%s=>%s)", t.KeyType.Name, t.ValueType.Name),
 		TypeIdentifier: fmt.Sprintf(
 			"t_mapping_$%s_$%s$",
 			t.KeyType.TypeDescription.TypeIdentifier,
@@ -274,9 +274,9 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		typeNameNode.KeyType = t.generateTypeName(sourceUnit, keyCtx, parentNode, typeNameNode)
 		typeNameNode.ValueType = t.generateTypeName(sourceUnit, valueCtx, parentNode, typeNameNode)
 		typeNameNode.TypeDescription = &TypeDescription{
-			TypeString: fmt.Sprintf("mapping(%s => %s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
+			TypeString: fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
 			TypeIdentifier: fmt.Sprintf(
-				"t_mapping_$%s_$%s$",
+				"t_mapping_$%s_$%s",
 				typeNameNode.KeyType.TypeDescription.TypeIdentifier,
 				typeNameNode.ValueType.TypeDescription.TypeIdentifier,
 			),

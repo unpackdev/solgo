@@ -50,6 +50,11 @@ func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBui
 	return builder
 }
 
+// GetParser returns the Solidity parser of the ASTBuilder.
+func (b *ASTBuilder) GetParser() *parser.SolidityParser {
+	return b.parser
+}
+
 // GetResolver returns the Resolver of the ASTBuilder.
 func (b *ASTBuilder) GetResolver() *Resolver {
 	return b.resolver

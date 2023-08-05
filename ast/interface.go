@@ -32,59 +32,64 @@ func NewInterfaceDefinition(b *ASTBuilder) *Interface {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Interface node.
-func (l Interface) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (l *Interface) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (l Interface) GetId() int64 {
+func (l *Interface) GetId() int64 {
 	return l.Id
 }
 
-func (l Interface) GetType() ast_pb.NodeType {
+func (l *Interface) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
-func (l Interface) GetSrc() SrcNode {
+func (l *Interface) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l Interface) GetTypeDescription() *TypeDescription {
+func (l *Interface) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (l Interface) GetName() string {
+func (l *Interface) GetName() string {
 	return l.Name
 }
 
-func (l Interface) IsAbstract() bool {
+func (l *Interface) IsAbstract() bool {
 	return l.Abstract
 }
 
-func (l Interface) GetKind() ast_pb.NodeType {
+func (l *Interface) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
-func (l Interface) IsFullyImplemented() bool {
+func (l *Interface) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
-func (l Interface) GetNodes() []Node[NodeType] {
+func (l *Interface) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
-func (l Interface) GetBaseContracts() []*BaseContract {
+func (l *Interface) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
-func (l Interface) GetContractDependencies() []int64 {
+func (l *Interface) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-func (l Interface) GetLinearizedBaseContracts() []int64 {
+func (l *Interface) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
-func (l Interface) ToProto() NodeType {
+func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
+	toReturn := make([]*StateVariableDeclaration, 0)
+	return toReturn
+}
+
+func (l *Interface) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
 		NodeType:                l.NodeType,
@@ -110,7 +115,7 @@ func (l Interface) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Contract")
 }
 
-func (l Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),

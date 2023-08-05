@@ -37,79 +37,91 @@ func NewLibraryDefinition(b *ASTBuilder) *Library {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Library node.
-func (l Library) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (l *Library) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
 // GetId returns the unique identifier of the library node.
-func (l Library) GetId() int64 {
+func (l *Library) GetId() int64 {
 	return l.Id
 }
 
 // GetType returns the type of the library node.
-func (l Library) GetType() ast_pb.NodeType {
+func (l *Library) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
 // GetSrc returns the source node associated with the library node.
-func (l Library) GetSrc() SrcNode {
+func (l *Library) GetSrc() SrcNode {
 	return l.Src
 }
 
 // GetTypeDescription returns the type description of the library node.
 // Currently, it returns nil and needs to be implemented.
-func (l Library) GetTypeDescription() *TypeDescription {
+func (l *Library) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
 // GetName returns the name of the library.
-func (l Library) GetName() string {
+func (l *Library) GetName() string {
 	return l.Name
 }
 
 // IsAbstract returns a boolean indicating whether the library is abstract.
-func (l Library) IsAbstract() bool {
+func (l *Library) IsAbstract() bool {
 	return l.Abstract
 }
 
 // GetKind returns the kind of the library node.
-func (l Library) GetKind() ast_pb.NodeType {
+func (l *Library) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
 // IsFullyImplemented returns a boolean indicating whether the library is fully implemented.
-func (l Library) IsFullyImplemented() bool {
+func (l *Library) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
 // GetNodes returns the nodes associated with the library.
-func (l Library) GetNodes() []Node[NodeType] {
+func (l *Library) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
 // GetScope returns the scope of the library.
-func (l Library) GetScope() int64 {
+func (l *Library) GetScope() int64 {
 	return l.Scope
 }
 
 // GetLinearizedBaseContracts returns the linearized base contracts of the library.
-func (l Library) GetLinearizedBaseContracts() []int64 {
+func (l *Library) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
 // GetBaseContracts returns the base contracts of the library.
-func (l Library) GetBaseContracts() []*BaseContract {
+func (l *Library) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
 // GetContractDependencies returns the contract dependencies of the library.
-func (l Library) GetContractDependencies() []int64 {
+func (l *Library) GetContractDependencies() []int64 {
 	return l.ContractDependencies
+}
+
+func (l *Library) GetStateVariables() []*StateVariableDeclaration {
+	toReturn := make([]*StateVariableDeclaration, 0)
+
+	for _, node := range l.GetNodes() {
+		if stateVariable, ok := node.(*StateVariableDeclaration); ok {
+			toReturn = append(toReturn, stateVariable)
+		}
+	}
+
+	return toReturn
 }
 
 // ToProto converts the Library to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
-func (l Library) ToProto() NodeType {
+func (l *Library) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
 		NodeType:                l.NodeType,
@@ -138,7 +150,7 @@ func (l Library) ToProto() NodeType {
 // Parse parses the source unit context and library definition context to populate the library node.
 // It takes a SourceUnitContext, a LibraryDefinitionContext, a RootNode and a SourceUnit as arguments.
 // It does not return anything.
-func (l Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l *Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),

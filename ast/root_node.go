@@ -64,6 +64,33 @@ func (r *RootNode) GetSourceUnits() []*SourceUnit[Node[ast_pb.SourceUnit]] {
 	return r.SourceUnits
 }
 
+// GetSourceUnitByName returns the source unit with the provided name.
+func (r *RootNode) GetSourceUnitByName(name string) *SourceUnit[Node[ast_pb.SourceUnit]] {
+	for _, sourceUnit := range r.SourceUnits {
+		if sourceUnit.Name == name {
+			return sourceUnit
+		}
+	}
+
+	return nil
+}
+
+// GetSourceUnitById returns the source unit with the provided id.
+func (r *RootNode) GetSourceUnitById(id int64) *SourceUnit[Node[ast_pb.SourceUnit]] {
+	for _, sourceUnit := range r.SourceUnits {
+		if sourceUnit.Id == id {
+			return sourceUnit
+		}
+	}
+
+	return nil
+}
+
+// HasSourceUnits returns true if the root node has source units.
+func (r *RootNode) HasSourceUnits() bool {
+	return len(r.SourceUnits) > 0
+}
+
 // GetSourceUnitCount returns the number of source units of the root node.
 func (r *RootNode) GetSourceUnitCount() int32 {
 	return int32(len(r.SourceUnits))
@@ -110,6 +137,6 @@ func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
 		NodeType:        r.NodeType,
 		EntrySourceUnit: r.EntrySourceUnit,
 		SourceUnits:     sourceUnits,
-		//Comments:        comments,
+		Comments:        comments,
 	}
 }
