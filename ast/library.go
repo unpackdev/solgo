@@ -119,6 +119,18 @@ func (l *Library) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (l *Library) GetStructs() []*StructDefinition {
+	toReturn := make([]*StructDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if structNode, ok := node.(*StructDefinition); ok {
+			toReturn = append(toReturn, structNode)
+		}
+	}
+
+	return toReturn
+}
+
 func (l *Library) GetEnums() []*EnumDefinition {
 	toReturn := make([]*EnumDefinition, 0)
 

@@ -86,6 +86,25 @@ func (l *Interface) GetLinearizedBaseContracts() []int64 {
 
 func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
 	toReturn := make([]*StateVariableDeclaration, 0)
+
+	for _, node := range l.GetNodes() {
+		if stateVariable, ok := node.(*StateVariableDeclaration); ok {
+			toReturn = append(toReturn, stateVariable)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetStructs() []*StructDefinition {
+	toReturn := make([]*StructDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if structNode, ok := node.(*StructDefinition); ok {
+			toReturn = append(toReturn, structNode)
+		}
+	}
+
 	return toReturn
 }
 
@@ -126,6 +145,12 @@ func (l *Interface) GetEvents() []*EventDefinition {
 }
 
 func (l *Interface) GetConstructor() *Constructor {
+	for _, node := range l.GetNodes() {
+		if constructor, ok := node.(*Constructor); ok {
+			return constructor
+		}
+	}
+
 	return nil
 }
 

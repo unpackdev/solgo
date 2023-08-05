@@ -15,6 +15,7 @@ type ContractNode interface {
 	ToProto() ast.NodeType
 	SetReferenceDescriptor(refId int64, refDesc *ast.TypeDescription) bool
 	GetStateVariables() []*ast.StateVariableDeclaration
+	GetStructs() []*ast.StructDefinition
 	GetConstructor() *ast.Constructor
 	GetFunctions() []*ast.Function
 	GetFallback() *ast.Fallback
@@ -38,6 +39,7 @@ type Contract struct {
 	Imports        []*Import                                    `json:"imports"`
 	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
+	Structs        []*Struct                                    `json:"structs"`
 	Enums          []*Enum                                      `json:"enums"`
 	Events         []*Event                                     `json:"events"`
 	Errors         []*Error                                     `json:"errors"`
@@ -104,6 +106,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Imports:        make([]*Import, 0),
 		Symbols:        unit.GetExportedSymbols(),
 		StateVariables: make([]*StateVariable, 0),
+		Structs:        make([]*Struct, 0),
 		Enums:          make([]*Enum, 0),
 		Events:         make([]*Event, 0),
 		Errors:         make([]*Error, 0),
@@ -129,6 +132,14 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		contractNode.StateVariables = append(
 			contractNode.StateVariables,
 			b.processStateVariables(stateVariable),
+		)
+	}
+
+	// Process structs of the contract.
+	for _, structNode := range contract.GetStructs() {
+		contractNode.Structs = append(
+			contractNode.Structs,
+			b.processStruct(structNode),
 		)
 	}
 

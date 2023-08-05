@@ -93,6 +93,18 @@ func (s *Contract) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (s *Contract) GetStructs() []*StructDefinition {
+	toReturn := make([]*StructDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if structNode, ok := node.(*StructDefinition); ok {
+			toReturn = append(toReturn, structNode)
+		}
+	}
+
+	return toReturn
+}
+
 func (s *Contract) GetEnums() []*EnumDefinition {
 	toReturn := make([]*EnumDefinition, 0)
 
