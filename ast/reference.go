@@ -117,6 +117,9 @@ func (r *Resolver) Resolve() []error {
 	// to be processed, we are going to see 0 for the source_unit. We need to sort this out...
 	r.resolveImportDirectives()
 
+	// Resolve all of the reference ids within the contracts base_contracts
+	r.resolveBaseContracts()
+
 	// Resolve all source unit symbols that are not resolved yet.
 	r.resolveExportedSymbols()
 
@@ -187,6 +190,21 @@ func (r *Resolver) resolveImportDirectives() {
 	}
 }
 
+func (r *Resolver) resolveBaseContracts() {
+	for _, sourceNode := range r.sourceUnits {
+		for _, baseContract := range sourceNode.GetBaseContracts() {
+			if baseContract.GetBaseName() != nil {
+				if baseContract.GetBaseName().GetReferencedDeclaration() == 0 {
+					for _, sourceNode := range r.sourceUnits {
+						if sourceNode.GetName() == baseContract.GetBaseName().GetName() {
+							baseContract.BaseName.ReferencedDeclaration = sourceNode.GetId()
+						}
+					}
+				}
+			}
+		}
+	}
+}
 func (r *Resolver) resolveExportedSymbols() {
 	for _, sourceNode := range r.sourceUnits {
 

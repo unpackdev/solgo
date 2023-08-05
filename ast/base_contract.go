@@ -85,6 +85,11 @@ func (b *BaseContractName) GetName() string {
 	return b.Name
 }
 
+// GetReferencedDeclaration returns the unique identifier of the source unit contract declaration that this name references.
+func (b *BaseContractName) GetReferencedDeclaration() int64 {
+	return b.ReferencedDeclaration
+}
+
 // ToProto returns the protobuf representation of the base contract name.
 func (b *BaseContractName) ToProto() *ast_pb.BaseContractName {
 	return &ast_pb.BaseContractName{
