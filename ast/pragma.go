@@ -5,13 +5,13 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-// PragmaNode represents a pragma directive in a Solidity source file.
+// Pragma represents a pragma directive in a Solidity source file.
 // A pragma directive provides instructions to the compiler about how to treat the source code (e.g., compiler version).
-type PragmaNode struct {
+type Pragma struct {
 	// Id is the unique identifier of the pragma directive.
 	Id int64 `json:"id"`
 	// NodeType is the type of the node.
-	// For a PragmaNode, this is always NodeType_PRAGMA_DIRECTIVE.
+	// For a Pragma, this is always NodeType_PRAGMA_DIRECTIVE.
 	NodeType ast_pb.NodeType `json:"node_type"`
 	// SrcNode contains source information about the node, such as its line and column numbers in the source file.
 	Src SrcNode `json:"src"`
@@ -19,45 +19,52 @@ type PragmaNode struct {
 	// For example, for the pragma directive "pragma solidity ^0.5.0;", the literals would
 	// be ["solidity", "^", "0", ".", "5", ".", "0"].
 	Literals []string `json:"literals"`
+	// Text is the text of the pragma directive.
+	Text string `json:"text"`
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the PragmaNode node.
-func (p PragmaNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the Pragma node.
+func (p *Pragma) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
 // GetId returns the unique identifier of the pragma directive.
-func (p PragmaNode) GetId() int64 {
+func (p *Pragma) GetId() int64 {
 	return p.Id
 }
 
-// GetType returns the type of the node. For a PragmaNode, this is always NodeType_PRAGMA_DIRECTIVE.
-func (p PragmaNode) GetType() ast_pb.NodeType {
+// GetType returns the type of the node. For a Pragma, this is always NodeType_PRAGMA_DIRECTIVE.
+func (p *Pragma) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
 // GetSrc returns the source information about the node, such as its line and column numbers in the source file.
-func (p PragmaNode) GetSrc() SrcNode {
+func (p *Pragma) GetSrc() SrcNode {
 	return p.Src
 }
 
-// GetTypeDescription returns the type description of the node. For a PragmaNode, this is always nil.
-func (p PragmaNode) GetTypeDescription() *TypeDescription {
+// GetTypeDescription returns the type description of the node. For a Pragma, this is always nil.
+func (p *Pragma) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
 // GetLiterals returns a slice of strings that represent the literals of the pragma directive.
-func (p PragmaNode) GetLiterals() []string {
+func (p *Pragma) GetLiterals() []string {
 	return p.Literals
 }
 
-// GetNodes returns the child nodes of the node. For a PragmaNode, this is always nil.
-func (p PragmaNode) GetNodes() []Node[NodeType] {
+// GetText returns the text of the pragma directive.
+func (p *Pragma) GetText() string {
+	return p.Text
+}
+
+// GetNodes returns the child nodes of the node. For a Pragma, this is always nil.
+func (p *Pragma) GetNodes() []Node[NodeType] {
 	return nil
 }
 
 // ToProto returns the protobuf representation of the node.
-func (p PragmaNode) ToProto() NodeType {
+func (p *Pragma) ToProto() NodeType {
 	proto := ast_pb.Pragma{
 		Id:       p.Id,
 		NodeType: p.NodeType,
@@ -68,7 +75,7 @@ func (p PragmaNode) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Pragma")
 }
 
-// CreatePragmaNodeFromCtx creates a new PragmaNode from the provided pragma context.
+// CreatePragmaFromCtx creates a new Pragma from the provided pragma context.
 // It sets the ID of the new node to the next available ID from the provided ASTBuilder,
 // and sets the source information of the node based on the provided pragma context.
 // The NodeType of the new node is set to NodeType_PRAGMA_DIRECTIVE, and the literals
@@ -81,9 +88,9 @@ func (p PragmaNode) ToProto() NodeType {
 //   - pragmaCtx: The pragma context from which to create the new node. The source information
 //     and literals of the new node are set based on this context.
 //
-// The function returns a pointer to the newly created PragmaNode.
-func CreatePragmaNodeFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceUnit]], pragmaCtx *parser.PragmaDirectiveContext) *PragmaNode {
-	return &PragmaNode{
+// The function returns a pointer to the newly created Pragma.
+func CreatePragmaFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceUnit]], pragmaCtx *parser.PragmaDirectiveContext) *Pragma {
+	return &Pragma{
 		Id: b.GetNextID(),
 		Src: SrcNode{
 			Id:          b.GetNextID(),
@@ -96,6 +103,7 @@ func CreatePragmaNodeFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceU
 		},
 		NodeType: ast_pb.NodeType_PRAGMA_DIRECTIVE,
 		Literals: getLiterals(pragmaCtx.GetText()),
+		Text:     pragmaCtx.GetText(),
 	}
 }
 
@@ -133,7 +141,7 @@ func parsePragmasForSourceUnit(
 	libraryCtx *parser.LibraryDefinitionContext,
 	contractCtx *parser.ContractDefinitionContext,
 	interfaceCtx *parser.InterfaceDefinitionContext) []Node[NodeType] {
-	pragmas := make([]*PragmaNode, 0)
+	pragmas := make([]*Pragma, 0)
 
 	contractLine := func() int64 {
 		switch {
@@ -172,7 +180,7 @@ func parsePragmasForSourceUnit(
 
 			// First pragma encountered, add it to the result
 			if prevLine == -1 {
-				pragma := CreatePragmaNodeFromCtx(b, unit, pragmaCtx)
+				pragma := CreatePragmaFromCtx(b, unit, pragmaCtx)
 				pragmas = append(pragmas, pragma)
 				prevLine = int64(pragmaLine)
 
@@ -180,7 +188,7 @@ func parsePragmasForSourceUnit(
 			}
 
 			// Add the pragma to the result
-			pragmas = append(pragmas, CreatePragmaNodeFromCtx(b, unit, pragmaCtx))
+			pragmas = append(pragmas, CreatePragmaFromCtx(b, unit, pragmaCtx))
 
 			// Update the previous line number
 			prevLine = pragmaLine

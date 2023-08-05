@@ -3,7 +3,7 @@ package ast
 type Symbol struct {
 	Id           int64  `json:"id"`
 	Name         string `json:"name"`
-	AbsolutePath string `json:"absolutePath"`
+	AbsolutePath string `json:"absolute_path"`
 }
 
 func NewSymbol(id int64, name string, absolutePath string) Symbol {

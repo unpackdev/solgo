@@ -25,7 +25,10 @@ type Contract struct {
 	Kind           ast_pb.NodeType                              `json:"kind"`
 	Name           string                                       `json:"name"`
 	License        string                                       `json:"license"`
+	Language       Language                                     `json:"language"`
 	AbsolutePath   string                                       `json:"absolute_path"`
+	Symbols        []ast.Symbol                                 `json:"symbols"`
+	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
 }
 
@@ -80,8 +83,19 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Name:           unit.GetName(),
 		SourceUnitId:   unit.GetId(),
 		License:        unit.GetLicense(),
+		Language:       LanguageSolidity,
 		AbsolutePath:   unit.GetAbsolutePath(),
+		Symbols:        unit.GetExportedSymbols(),
 		StateVariables: make([]*StateVariable, 0),
+		Pragmas:        make([]*Pragma, 0),
+	}
+
+	// Deal with pragmas...
+	for _, pragma := range unit.GetPragmas() {
+		contractNode.Pragmas = append(
+			contractNode.Pragmas,
+			b.processPragma(pragma),
+		)
 	}
 
 	// Process state variables of the contract.
@@ -91,11 +105,6 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 			b.processStateVariables(stateVariable),
 		)
 	}
-
-	//for _, symbol := range contract.GetExportedSymbols() {
-	//contractNode.Symbols = append(contractNode.Symbols, b.processSymbol(symbol))
-	//fmt.Println(symbol)
-	//}
 
 	return contractNode
 }

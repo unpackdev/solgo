@@ -110,6 +110,18 @@ func (s *SourceUnit[T]) GetTypeDescription() *TypeDescription {
 	}
 }
 
+func (s *SourceUnit[T]) GetPragmas() []*Pragma {
+	toReturn := make([]*Pragma, 0)
+
+	for _, node := range s.Nodes {
+		if node.GetType() == ast_pb.NodeType_PRAGMA_DIRECTIVE {
+			toReturn = append(toReturn, node.(*Pragma))
+		}
+	}
+
+	return toReturn
+}
+
 // ToProto converts the SourceUnit to a protocol buffer representation.
 func (s *SourceUnit[T]) ToProto() NodeType {
 	exportedSymbols := []*ast_pb.ExportedSymbol{}
