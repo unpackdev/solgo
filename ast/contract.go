@@ -115,6 +115,26 @@ func (s *Contract) GetFunctions() []*Function {
 	return toReturn
 }
 
+func (s *Contract) GetFallback() *Fallback {
+	for _, node := range s.GetNodes() {
+		if function, ok := node.(*Fallback); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (s *Contract) GetReceive() *Receive {
+	for _, node := range s.GetNodes() {
+		if function, ok := node.(*Receive); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
 func (c *Contract) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      c.Id,

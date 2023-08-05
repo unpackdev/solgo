@@ -105,6 +105,26 @@ func (l *Interface) GetFunctions() []*Function {
 	return toReturn
 }
 
+func (l *Interface) GetFallback() *Fallback {
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Fallback); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (l *Interface) GetReceive() *Receive {
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Receive); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
 func (l *Interface) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,

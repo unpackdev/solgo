@@ -5,7 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type FallbackDefinition struct {
+type Fallback struct {
 	*ASTBuilder
 
 	Id               int64             `json:"id"`
@@ -21,8 +21,8 @@ type FallbackDefinition struct {
 	Virtual          bool              `json:"virtual"`
 }
 
-func NewFallbackDefinition(b *ASTBuilder) *FallbackDefinition {
-	return &FallbackDefinition{
+func NewFallbackDefinition(b *ASTBuilder) *Fallback {
+	return &Fallback{
 		ASTBuilder:      b,
 		Id:              b.GetNextID(),
 		NodeType:        ast_pb.NodeType_FUNCTION_DEFINITION,
@@ -31,65 +31,65 @@ func NewFallbackDefinition(b *ASTBuilder) *FallbackDefinition {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the FallbackDefinition node.
+// SetReferenceDescriptor sets the reference descriptions of the Fallback node.
 // We don't need to do any reference description updates here, at least for now...
-func (f *FallbackDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (f *Fallback) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (f *FallbackDefinition) GetId() int64 {
+func (f *Fallback) GetId() int64 {
 	return f.Id
 }
 
-func (f *FallbackDefinition) GetSrc() SrcNode {
+func (f *Fallback) GetSrc() SrcNode {
 	return f.Src
 }
 
-func (f *FallbackDefinition) GetType() ast_pb.NodeType {
+func (f *Fallback) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
-func (f *FallbackDefinition) GetNodes() []Node[NodeType] {
+func (f *Fallback) GetNodes() []Node[NodeType] {
 	return f.Body.Statements
 }
 
-func (f *FallbackDefinition) GetTypeDescription() *TypeDescription {
+func (f *Fallback) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (f *FallbackDefinition) GetParameters() *ParameterList {
+func (f *Fallback) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
-func (f *FallbackDefinition) GetReturnParameters() *ParameterList {
+func (f *Fallback) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
-func (f *FallbackDefinition) GetBody() *BodyNode {
+func (f *Fallback) GetBody() *BodyNode {
 	return f.Body
 }
 
-func (f *FallbackDefinition) GetKind() ast_pb.NodeType {
+func (f *Fallback) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
-func (f *FallbackDefinition) GetVisibility() ast_pb.Visibility {
+func (f *Fallback) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
-func (f *FallbackDefinition) GetStateMutability() ast_pb.Mutability {
+func (f *Fallback) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
-func (f *FallbackDefinition) IsVirtual() bool {
+func (f *Fallback) IsVirtual() bool {
 	return f.Virtual
 }
 
-func (f *FallbackDefinition) IsImplemented() bool {
+func (f *Fallback) IsImplemented() bool {
 	return f.Implemented
 }
 
-func (f *FallbackDefinition) ToProto() NodeType {
+func (f *Fallback) ToProto() NodeType {
 	proto := ast_pb.Fallback{
 		Id:               f.GetId(),
 		NodeType:         f.GetType(),
@@ -107,7 +107,7 @@ func (f *FallbackDefinition) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Fallback")
 }
 
-func (f *FallbackDefinition) Parse(
+func (f *Fallback) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
@@ -170,7 +170,7 @@ func (f *FallbackDefinition) Parse(
 	return f
 }
 
-func (f *FallbackDefinition) getVisibilityFromCtx(ctx *parser.FallbackFunctionDefinitionContext) ast_pb.Visibility {
+func (f *Fallback) getVisibilityFromCtx(ctx *parser.FallbackFunctionDefinitionContext) ast_pb.Visibility {
 	for _, visibility := range ctx.AllExternal() {
 		if visibility.GetText() == "external" {
 			f.Visibility = ast_pb.Visibility_EXTERNAL
@@ -180,7 +180,7 @@ func (f *FallbackDefinition) getVisibilityFromCtx(ctx *parser.FallbackFunctionDe
 	return ast_pb.Visibility_INTERNAL
 }
 
-func (f *FallbackDefinition) getStateMutabilityFromCtx(ctx *parser.FallbackFunctionDefinitionContext) ast_pb.Mutability {
+func (f *Fallback) getStateMutabilityFromCtx(ctx *parser.FallbackFunctionDefinitionContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable":    ast_pb.Mutability_PAYABLE,
 		"pure":       ast_pb.Mutability_PURE,

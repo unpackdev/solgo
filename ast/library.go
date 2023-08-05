@@ -141,6 +141,26 @@ func (l *Library) GetFunctions() []*Function {
 	return toReturn
 }
 
+func (l *Library) GetFallback() *Fallback {
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Fallback); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (l *Library) GetReceive() *Receive {
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Receive); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
 // ToProto converts the Library to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
 func (l *Library) ToProto() NodeType {

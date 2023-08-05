@@ -17,6 +17,8 @@ type ContractNode interface {
 	GetStateVariables() []*ast.StateVariableDeclaration
 	GetConstructor() *ast.Constructor
 	GetFunctions() []*ast.Function
+	GetFallback() *ast.Fallback
+	GetReceive() *ast.Receive
 }
 
 type Contract struct {
@@ -34,7 +36,9 @@ type Contract struct {
 	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
 	Constructor    *Constructor                                 `json:"constructor,omitempty"`
-	Function       []*Function                                  `json:"functions"`
+	Functions      []*Function                                  `json:"functions"`
+	Fallback       *Fallback                                    `json:"fallback,omitempty"`
+	Receive        *Receive                                     `json:"receive,omitempty"`
 }
 
 func (c *Contract) GetAST() *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] {
@@ -94,7 +98,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Imports:        make([]*Import, 0),
 		Symbols:        unit.GetExportedSymbols(),
 		StateVariables: make([]*StateVariable, 0),
-		Function:       make([]*Function, 0),
+		Functions:      make([]*Function, 0),
 	}
 
 	for _, pragma := range unit.GetPragmas() {
@@ -126,10 +130,20 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 
 	// Process functions of the contract.
 	for _, function := range contract.GetFunctions() {
-		contractNode.Function = append(
-			contractNode.Function,
+		contractNode.Functions = append(
+			contractNode.Functions,
 			b.processFunction(function),
 		)
+	}
+
+	// Process fallback of the contract.
+	if contract.GetFallback() != nil {
+		contractNode.Fallback = b.processFallback(contract.GetFallback())
+	}
+
+	// Process receive of the contract.
+	if contract.GetReceive() != nil {
+		contractNode.Receive = b.processReceive(contract.GetReceive())
 	}
 
 	return contractNode
