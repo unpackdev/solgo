@@ -8,17 +8,19 @@ import (
 type Fallback struct {
 	*ASTBuilder
 
-	Id               int64             `json:"id"`
-	NodeType         ast_pb.NodeType   `json:"node_type"`
-	Kind             ast_pb.NodeType   `json:"kind"`
-	Src              SrcNode           `json:"src"`
-	Implemented      bool              `json:"implemented"`
-	Visibility       ast_pb.Visibility `json:"visibility"`
-	StateMutability  ast_pb.Mutability `json:"state_mutability"`
-	Parameters       *ParameterList    `json:"parameters"`
-	ReturnParameters *ParameterList    `json:"return_parameters"`
-	Body             *BodyNode         `json:"body"`
-	Virtual          bool              `json:"virtual"`
+	Id               int64                 `json:"id"`
+	NodeType         ast_pb.NodeType       `json:"node_type"`
+	Kind             ast_pb.NodeType       `json:"kind"`
+	Src              SrcNode               `json:"src"`
+	Implemented      bool                  `json:"implemented"`
+	Visibility       ast_pb.Visibility     `json:"visibility"`
+	StateMutability  ast_pb.Mutability     `json:"state_mutability"`
+	Modifiers        []*ModifierInvocation `json:"modifiers"`
+	Overrides        []*OverrideSpecifier  `json:"overrides"`
+	Parameters       *ParameterList        `json:"parameters"`
+	ReturnParameters *ParameterList        `json:"return_parameters"`
+	Body             *BodyNode             `json:"body"`
+	Virtual          bool                  `json:"virtual"`
 }
 
 func NewFallbackDefinition(b *ASTBuilder) *Fallback {
@@ -28,6 +30,8 @@ func NewFallbackDefinition(b *ASTBuilder) *Fallback {
 		NodeType:        ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:            ast_pb.NodeType_FALLBACK,
 		StateMutability: ast_pb.Mutability_NONPAYABLE,
+		Modifiers:       make([]*ModifierInvocation, 0),
+		Overrides:       make([]*OverrideSpecifier, 0),
 	}
 }
 
@@ -55,6 +59,14 @@ func (f *Fallback) GetNodes() []Node[NodeType] {
 
 func (f *Fallback) GetTypeDescription() *TypeDescription {
 	return nil
+}
+
+func (f *Fallback) GetModifiers() []*ModifierInvocation {
+	return f.Modifiers
+}
+
+func (f *Fallback) GetOverrides() []*OverrideSpecifier {
+	return f.Overrides
 }
 
 func (f *Fallback) GetParameters() *ParameterList {
@@ -152,6 +164,20 @@ func (f *Fallback) Parse(
 		returnParams.Src.ParentIndex = f.Id
 	}
 	f.ReturnParameters = returnParams
+
+	// Set function modifiers.
+	for _, modifierCtx := range ctx.AllModifierInvocation() {
+		modifier := NewModifierInvocation(f.ASTBuilder)
+		modifier.Parse(unit, contractNode, f, nil, modifierCtx)
+		f.Modifiers = append(f.Modifiers, modifier)
+	}
+
+	// Set function override specifier.
+	for _, overrideCtx := range ctx.AllOverrideSpecifier() {
+		overrideSpecifier := NewOverrideSpecifier(f.ASTBuilder)
+		overrideSpecifier.Parse(unit, f, overrideCtx)
+		f.Overrides = append(f.Overrides, overrideSpecifier)
+	}
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 		bodyNode := NewBodyNode(f.ASTBuilder)
