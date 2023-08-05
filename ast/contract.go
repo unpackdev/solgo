@@ -93,6 +93,42 @@ func (s *Contract) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (s *Contract) GetEnums() []*EnumDefinition {
+	toReturn := make([]*EnumDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if enum, ok := node.(*EnumDefinition); ok {
+			toReturn = append(toReturn, enum)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetErrors() []*ErrorDefinition {
+	toReturn := make([]*ErrorDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if errorNode, ok := node.(*ErrorDefinition); ok {
+			toReturn = append(toReturn, errorNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetEvents() []*EventDefinition {
+	toReturn := make([]*EventDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if event, ok := node.(*EventDefinition); ok {
+			toReturn = append(toReturn, event)
+		}
+	}
+
+	return toReturn
+}
+
 func (s *Contract) GetConstructor() *Constructor {
 	for _, node := range s.GetNodes() {
 		if constructor, ok := node.(*Constructor); ok {

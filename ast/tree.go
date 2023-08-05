@@ -93,9 +93,6 @@ func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, no
 	}
 
 	for _, c := range child.GetNodes() {
-		if c == nil {
-			t.dumpNode(child)
-		}
 		if n := t.byRecursiveReferenceUpdate(c, nodeId, nodeRefId, typeRef); n {
 			return n
 		}

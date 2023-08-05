@@ -19,6 +19,9 @@ type ContractNode interface {
 	GetFunctions() []*ast.Function
 	GetFallback() *ast.Fallback
 	GetReceive() *ast.Receive
+	GetEnums() []*ast.EnumDefinition
+	GetEvents() []*ast.EventDefinition
+	GetErrors() []*ast.ErrorDefinition
 }
 
 type Contract struct {
@@ -35,6 +38,9 @@ type Contract struct {
 	Imports        []*Import                                    `json:"imports"`
 	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
+	Enums          []*Enum                                      `json:"enums"`
+	Events         []*Event                                     `json:"events"`
+	Errors         []*Error                                     `json:"errors"`
 	Constructor    *Constructor                                 `json:"constructor,omitempty"`
 	Functions      []*Function                                  `json:"functions"`
 	Fallback       *Fallback                                    `json:"fallback,omitempty"`
@@ -98,6 +104,9 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Imports:        make([]*Import, 0),
 		Symbols:        unit.GetExportedSymbols(),
 		StateVariables: make([]*StateVariable, 0),
+		Enums:          make([]*Enum, 0),
+		Events:         make([]*Event, 0),
+		Errors:         make([]*Error, 0),
 		Functions:      make([]*Function, 0),
 	}
 
@@ -120,6 +129,30 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		contractNode.StateVariables = append(
 			contractNode.StateVariables,
 			b.processStateVariables(stateVariable),
+		)
+	}
+
+	// Process enums of the contract.
+	for _, enum := range contract.GetEnums() {
+		contractNode.Enums = append(
+			contractNode.Enums,
+			b.processEnum(enum),
+		)
+	}
+
+	// Process events of the contract.
+	for _, event := range contract.GetEvents() {
+		contractNode.Events = append(
+			contractNode.Events,
+			b.processEvent(event),
+		)
+	}
+
+	// Process errors of the contract.
+	for _, errorNode := range contract.GetErrors() {
+		contractNode.Errors = append(
+			contractNode.Errors,
+			b.processError(errorNode),
 		)
 	}
 

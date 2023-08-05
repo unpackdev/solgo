@@ -89,6 +89,42 @@ func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (l *Interface) GetEnums() []*EnumDefinition {
+	toReturn := make([]*EnumDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if enum, ok := node.(*EnumDefinition); ok {
+			toReturn = append(toReturn, enum)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetErrors() []*ErrorDefinition {
+	toReturn := make([]*ErrorDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if errorNode, ok := node.(*ErrorDefinition); ok {
+			toReturn = append(toReturn, errorNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetEvents() []*EventDefinition {
+	toReturn := make([]*EventDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if event, ok := node.(*EventDefinition); ok {
+			toReturn = append(toReturn, event)
+		}
+	}
+
+	return toReturn
+}
+
 func (l *Interface) GetConstructor() *Constructor {
 	return nil
 }

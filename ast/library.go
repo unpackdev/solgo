@@ -119,6 +119,42 @@ func (l *Library) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+func (l *Library) GetEnums() []*EnumDefinition {
+	toReturn := make([]*EnumDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if enum, ok := node.(*EnumDefinition); ok {
+			toReturn = append(toReturn, enum)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Library) GetErrors() []*ErrorDefinition {
+	toReturn := make([]*ErrorDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if errorNode, ok := node.(*ErrorDefinition); ok {
+			toReturn = append(toReturn, errorNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Library) GetEvents() []*EventDefinition {
+	toReturn := make([]*EventDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if event, ok := node.(*EventDefinition); ok {
+			toReturn = append(toReturn, event)
+		}
+	}
+
+	return toReturn
+}
+
 func (l *Library) GetConstructor() *Constructor {
 	for _, node := range l.GetNodes() {
 		if constructor, ok := node.(*Constructor); ok {

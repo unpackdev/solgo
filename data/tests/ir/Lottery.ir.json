@@ -40,6 +40,9 @@
 				}
 			],
 			"state_variables": [],
+			"enums": [],
+			"events": [],
+			"errors": [],
 			"functions": [
 				{
 					"id": 16,
@@ -173,6 +176,161 @@
 					"type_description": {
 						"type_identifier": "t_enum_$_LotteryState_$42",
 						"type_string": "enum Lottery.LotteryState"
+					}
+				}
+			],
+			"enums": [
+				{
+					"id": 42,
+					"node_type": 66,
+					"name": "LotteryState",
+					"canonical_name": "Lottery.LotteryState",
+					"members": [
+						{
+							"id": 44,
+							"node_type": 15,
+							"name": "Accepting",
+							"type": "enum",
+							"type_description": {
+								"type_identifier": "t_enum_$_LotteryState$_Accepting_$44",
+								"type_string": "enum Lottery.LotteryState.Accepting"
+							}
+						},
+						{
+							"id": 45,
+							"node_type": 15,
+							"name": "Finished",
+							"type": "enum",
+							"type_description": {
+								"type_identifier": "t_enum_$_LotteryState$_Finished_$45",
+								"type_string": "enum Lottery.LotteryState.Finished"
+							}
+						}
+					]
+				}
+			],
+			"events": [
+				{
+					"id": 83,
+					"node_type": 57,
+					"name": "PlayerJoined",
+					"anonymous": false,
+					"parameters": [
+						{
+							"id": 86,
+							"node_type": 44,
+							"name": "addr",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 91,
+					"node_type": 57,
+					"name": "LotteryFinished",
+					"anonymous": false,
+					"parameters": [
+						{
+							"id": 94,
+							"node_type": 44,
+							"name": "winner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 99,
+					"node_type": 57,
+					"name": "ExternalCallSuccessful",
+					"anonymous": false,
+					"parameters": []
+				},
+				{
+					"id": 103,
+					"node_type": 57,
+					"name": "ExternalCallFailed",
+					"anonymous": false,
+					"parameters": [
+						{
+							"id": 106,
+							"node_type": 44,
+							"name": "reason",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					]
+				}
+			],
+			"errors": [
+				{
+					"id": 111,
+					"node_type": 77,
+					"name": "InvalidState",
+					"parameters": [],
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_InvalidState_$111",
+						"type_string": "error Lottery.InvalidState"
+					}
+				},
+				{
+					"id": 115,
+					"node_type": 77,
+					"name": "OwnerCannotParticipate",
+					"parameters": [],
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_OwnerCannotParticipate_$115",
+						"type_string": "error Lottery.OwnerCannotParticipate"
+					}
+				},
+				{
+					"id": 119,
+					"node_type": 77,
+					"name": "NoValueProvided",
+					"parameters": [],
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_NoValueProvided_$119",
+						"type_string": "error Lottery.NoValueProvided"
+					}
+				},
+				{
+					"id": 123,
+					"node_type": 77,
+					"name": "InvalidWinner",
+					"parameters": [],
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_InvalidWinner_$123",
+						"type_string": "error Lottery.InvalidWinner"
+					}
+				},
+				{
+					"id": 127,
+					"node_type": 77,
+					"name": "InvalidPlayerAddress",
+					"parameters": [],
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_InvalidPlayerAddress_$127",
+						"type_string": "error Lottery.InvalidPlayerAddress"
+					}
+				},
+				{
+					"id": 131,
+					"node_type": 77,
+					"name": "OnlyOwnerCanCall",
+					"parameters": [],
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_OnlyOwnerCanCall_$131",
+						"type_string": "error Lottery.OnlyOwnerCanCall"
 					}
 				}
 			],
