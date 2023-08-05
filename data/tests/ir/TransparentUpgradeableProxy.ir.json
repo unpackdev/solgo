@@ -1,0 +1,2938 @@
+{
+	"node_type": 80,
+	"entry_contract_id": 565,
+	"entry_contract_name": "TransparentUpgradeableProxy",
+	"contracts_count": 13,
+	"contracts": [
+		{
+			"id": 128,
+			"source_unit_id": 119,
+			"node_type": 35,
+			"kind": 36,
+			"name": "AdminUpgradeabilityProxy",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "",
+			"symbols": [
+				{
+					"id": 119,
+					"name": "AdminUpgradeabilityProxy",
+					"absolute_path": ""
+				},
+				{
+					"id": 153,
+					"name": "BeaconProxy",
+					"absolute_path": "BeaconProxy.sol"
+				},
+				{
+					"id": 310,
+					"name": "UpgradeableBeacon",
+					"absolute_path": "UpgradeableBeacon.sol"
+				},
+				{
+					"id": 454,
+					"name": "ERC1967Proxy",
+					"absolute_path": "ERC1967Proxy.sol"
+				},
+				{
+					"id": 565,
+					"name": "TransparentUpgradeableProxy",
+					"absolute_path": "TransparentUpgradeableProxy.sol"
+				},
+				{
+					"id": 868,
+					"name": "ProxyAdmin",
+					"absolute_path": "ProxyAdmin.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 123,
+					"node_type": 29,
+					"absolute_path": "BeaconProxy.sol",
+					"file": "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol",
+					"unit_alias": "",
+					"source_unit_id": 153,
+					"contract_id": 167
+				},
+				{
+					"id": 124,
+					"node_type": 29,
+					"absolute_path": "UpgradeableBeacon.sol",
+					"file": "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol",
+					"unit_alias": "",
+					"source_unit_id": 310,
+					"contract_id": 329
+				},
+				{
+					"id": 125,
+					"node_type": 29,
+					"absolute_path": "ERC1967Proxy.sol",
+					"file": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
+					"unit_alias": "",
+					"source_unit_id": 454,
+					"contract_id": 477
+				},
+				{
+					"id": 126,
+					"node_type": 29,
+					"absolute_path": "TransparentUpgradeableProxy.sol",
+					"file": "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
+					"unit_alias": "",
+					"source_unit_id": 565,
+					"contract_id": 591
+				},
+				{
+					"id": 127,
+					"node_type": 29,
+					"absolute_path": "ProxyAdmin.sol",
+					"file": "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol",
+					"unit_alias": "",
+					"source_unit_id": 868,
+					"contract_id": 898
+				}
+			],
+			"pragmas": [
+				{
+					"id": 121,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"constructor": {},
+			"functions": []
+		},
+		{
+			"id": 167,
+			"source_unit_id": 153,
+			"node_type": 35,
+			"kind": 36,
+			"name": "BeaconProxy",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "BeaconProxy.sol",
+			"symbols": [
+				{
+					"id": 153,
+					"name": "BeaconProxy",
+					"absolute_path": "BeaconProxy.sol"
+				},
+				{
+					"id": 119,
+					"name": "IBeacon",
+					"absolute_path": "IBeacon.sol"
+				},
+				{
+					"id": 119,
+					"name": "Proxy",
+					"absolute_path": "Proxy.sol"
+				},
+				{
+					"id": 119,
+					"name": "ERC1967Upgrade",
+					"absolute_path": "ERC1967Upgrade.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 164,
+					"node_type": 29,
+					"absolute_path": "IBeacon.sol",
+					"file": "./IBeacon.sol",
+					"unit_alias": "",
+					"source_unit_id": 119,
+					"contract_id": 128
+				},
+				{
+					"id": 165,
+					"node_type": 29,
+					"absolute_path": "Proxy.sol",
+					"file": "../Proxy.sol",
+					"unit_alias": "",
+					"source_unit_id": 119,
+					"contract_id": 128
+				},
+				{
+					"id": 166,
+					"node_type": 29,
+					"absolute_path": "ERC1967Upgrade.sol",
+					"file": "../ERC1967/ERC1967Upgrade.sol",
+					"unit_alias": "",
+					"source_unit_id": 119,
+					"contract_id": 128
+				}
+			],
+			"pragmas": [
+				{
+					"id": 157,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"constructor": {},
+			"functions": [
+				{
+					"id": 229,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_beacon",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 233,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 239,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 252,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_implementation",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 258,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 264,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 285,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_setBeacon",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 289,
+							"node_type": 44,
+							"name": "beacon",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 293,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 329,
+			"source_unit_id": 310,
+			"node_type": 35,
+			"kind": 36,
+			"name": "UpgradeableBeacon",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "UpgradeableBeacon.sol",
+			"symbols": [
+				{
+					"id": 310,
+					"name": "UpgradeableBeacon",
+					"absolute_path": "UpgradeableBeacon.sol"
+				},
+				{
+					"id": 153,
+					"name": "IBeacon",
+					"absolute_path": "IBeacon.sol"
+				},
+				{
+					"id": 153,
+					"name": "Ownable",
+					"absolute_path": "Ownable.sol"
+				},
+				{
+					"id": 153,
+					"name": "Address",
+					"absolute_path": "Address.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 326,
+					"node_type": 29,
+					"absolute_path": "IBeacon.sol",
+					"file": "./IBeacon.sol",
+					"unit_alias": "",
+					"source_unit_id": 153,
+					"contract_id": 167
+				},
+				{
+					"id": 327,
+					"node_type": 29,
+					"absolute_path": "Ownable.sol",
+					"file": "../../access/Ownable.sol",
+					"unit_alias": "",
+					"source_unit_id": 153,
+					"contract_id": 167
+				},
+				{
+					"id": 328,
+					"node_type": 29,
+					"absolute_path": "Address.sol",
+					"file": "../../utils/Address.sol",
+					"unit_alias": "",
+					"source_unit_id": 153,
+					"contract_id": 167
+				}
+			],
+			"pragmas": [
+				{
+					"id": 316,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 339,
+					"contract_id": 329,
+					"name": "_implementation",
+					"node_type": 44,
+					"visibility": 2,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "address",
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				}
+			],
+			"constructor": {},
+			"functions": [
+				{
+					"id": 370,
+					"node_type": 42,
+					"kind": 41,
+					"name": "implementation",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 376,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 382,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 393,
+					"node_type": 42,
+					"kind": 41,
+					"name": "upgradeTo",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 395,
+							"node_type": 72,
+							"name": "onlyOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 401,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 421,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_setImplementation",
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 425,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 477,
+			"source_unit_id": 454,
+			"node_type": 35,
+			"kind": 36,
+			"name": "ERC1967Proxy",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "ERC1967Proxy.sol",
+			"symbols": [
+				{
+					"id": 454,
+					"name": "ERC1967Proxy",
+					"absolute_path": "ERC1967Proxy.sol"
+				},
+				{
+					"id": 310,
+					"name": "Proxy",
+					"absolute_path": "Proxy.sol"
+				},
+				{
+					"id": 310,
+					"name": "ERC1967Upgrade",
+					"absolute_path": "ERC1967Upgrade.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 475,
+					"node_type": 29,
+					"absolute_path": "Proxy.sol",
+					"file": "../Proxy.sol",
+					"unit_alias": "",
+					"source_unit_id": 310,
+					"contract_id": 329
+				},
+				{
+					"id": 476,
+					"node_type": 29,
+					"absolute_path": "ERC1967Upgrade.sol",
+					"file": "./ERC1967Upgrade.sol",
+					"unit_alias": "",
+					"source_unit_id": 310,
+					"contract_id": 329
+				}
+			],
+			"pragmas": [
+				{
+					"id": 462,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"constructor": {},
+			"functions": [
+				{
+					"id": 539,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_implementation",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 545,
+							"node_type": 44,
+							"name": "impl",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 551,
+							"node_type": 44,
+							"name": "impl",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 591,
+			"source_unit_id": 565,
+			"node_type": 35,
+			"kind": 36,
+			"name": "TransparentUpgradeableProxy",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "TransparentUpgradeableProxy.sol",
+			"symbols": [
+				{
+					"id": 565,
+					"name": "TransparentUpgradeableProxy",
+					"absolute_path": "TransparentUpgradeableProxy.sol"
+				},
+				{
+					"id": 592,
+					"name": "ERC1967Proxy",
+					"absolute_path": ""
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 575,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"constructor": {},
+			"functions": [
+				{
+					"id": 671,
+					"node_type": 42,
+					"kind": 41,
+					"name": "admin",
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 673,
+							"node_type": 72,
+							"name": "ifAdmin",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 679,
+							"node_type": 44,
+							"name": "admin_",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 685,
+							"node_type": 44,
+							"name": "admin_",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 702,
+					"node_type": 42,
+					"kind": 41,
+					"name": "implementation",
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 704,
+							"node_type": 72,
+							"name": "ifAdmin",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 710,
+							"node_type": 44,
+							"name": "implementation_",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 716,
+							"node_type": 44,
+							"name": "implementation_",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 733,
+					"node_type": 42,
+					"kind": 41,
+					"name": "changeAdmin",
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 735,
+							"node_type": 72,
+							"name": "ifAdmin",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 741,
+							"node_type": 44,
+							"name": "newAdmin",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 755,
+					"node_type": 42,
+					"kind": 41,
+					"name": "upgradeTo",
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 757,
+							"node_type": 72,
+							"name": "ifAdmin",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 763,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 785,
+					"node_type": 42,
+					"kind": 41,
+					"name": "upgradeToAndCall",
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 787,
+							"node_type": 72,
+							"name": "ifAdmin",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 793,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 797,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 815,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_admin",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 819,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 825,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 838,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_beforeFallback",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [],
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 898,
+			"source_unit_id": 868,
+			"node_type": 35,
+			"kind": 36,
+			"name": "ProxyAdmin",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "ProxyAdmin.sol",
+			"symbols": [
+				{
+					"id": 868,
+					"name": "ProxyAdmin",
+					"absolute_path": "ProxyAdmin.sol"
+				},
+				{
+					"id": 565,
+					"name": "TransparentUpgradeableProxy",
+					"absolute_path": "TransparentUpgradeableProxy.sol"
+				},
+				{
+					"id": 565,
+					"name": "Ownable",
+					"absolute_path": "Ownable.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 896,
+					"node_type": 29,
+					"absolute_path": "TransparentUpgradeableProxy.sol",
+					"file": "./TransparentUpgradeableProxy.sol",
+					"unit_alias": "",
+					"source_unit_id": 565,
+					"contract_id": 591
+				},
+				{
+					"id": 897,
+					"node_type": 29,
+					"absolute_path": "Ownable.sol",
+					"file": "../../access/Ownable.sol",
+					"unit_alias": "",
+					"source_unit_id": 565,
+					"contract_id": 591
+				}
+			],
+			"pragmas": [
+				{
+					"id": 880,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 904,
+					"node_type": 42,
+					"kind": 41,
+					"name": "getProxyImplementation",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 908,
+							"node_type": 44,
+							"name": "proxy",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_string": "contract TransparentUpgradeableProxy"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 916,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 957,
+					"node_type": 42,
+					"kind": 41,
+					"name": "getProxyAdmin",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 961,
+							"node_type": 44,
+							"name": "proxy",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_string": "contract TransparentUpgradeableProxy"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 969,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 1010,
+					"node_type": 42,
+					"kind": 41,
+					"name": "changeProxyAdmin",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 1012,
+							"node_type": 72,
+							"name": "onlyOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 1018,
+							"node_type": 44,
+							"name": "proxy",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_string": "contract TransparentUpgradeableProxy"
+							}
+						},
+						{
+							"id": 1024,
+							"node_type": 44,
+							"name": "newAdmin",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1040,
+					"node_type": 42,
+					"kind": 41,
+					"name": "upgrade",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 1042,
+							"node_type": 72,
+							"name": "onlyOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 1048,
+							"node_type": 44,
+							"name": "proxy",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_string": "contract TransparentUpgradeableProxy"
+							}
+						},
+						{
+							"id": 1054,
+							"node_type": 44,
+							"name": "implementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1070,
+					"node_type": 42,
+					"kind": 41,
+					"name": "upgradeAndCall",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 3,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 1072,
+							"node_type": 72,
+							"name": "onlyOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 1078,
+							"node_type": 44,
+							"name": "proxy",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_string": "contract TransparentUpgradeableProxy"
+							}
+						},
+						{
+							"id": 1084,
+							"node_type": 44,
+							"name": "implementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1088,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 1143,
+			"source_unit_id": 1107,
+			"node_type": 35,
+			"kind": 37,
+			"name": "IBeacon",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "IBeacon.sol",
+			"symbols": [
+				{
+					"id": 1107,
+					"name": "IBeacon",
+					"absolute_path": "IBeacon.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 1121,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 1145,
+					"node_type": 42,
+					"kind": 41,
+					"name": "implementation",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1149,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 1155,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 1194,
+			"source_unit_id": 1160,
+			"node_type": 35,
+			"kind": 36,
+			"name": "Proxy",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "Proxy.sol",
+			"symbols": [
+				{
+					"id": 1160,
+					"name": "Proxy",
+					"absolute_path": "Proxy.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 1176,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 1196,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_delegate",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1200,
+							"node_type": 44,
+							"name": "implementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1216,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_implementation",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1220,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 1226,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 1232,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_fallback",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [],
+					"return": []
+				},
+				{
+					"id": 1273,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_beforeFallback",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [],
+					"return": []
+				}
+			],
+			"fallback": {
+				"id": 1251,
+				"node_type": 42
+			},
+			"receive": {
+				"id": 1262,
+				"node_type": 42
+			}
+		},
+		{
+			"id": 1318,
+			"source_unit_id": 1279,
+			"node_type": 35,
+			"kind": 36,
+			"name": "ERC1967Upgrade",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "ERC1967Upgrade.sol",
+			"symbols": [
+				{
+					"id": 1279,
+					"name": "ERC1967Upgrade",
+					"absolute_path": "ERC1967Upgrade.sol"
+				},
+				{
+					"id": 1107,
+					"name": "IBeacon",
+					"absolute_path": "IBeacon.sol"
+				},
+				{
+					"id": 1160,
+					"name": "Address",
+					"absolute_path": "Address.sol"
+				},
+				{
+					"id": 1160,
+					"name": "StorageSlot",
+					"absolute_path": "StorageSlot.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 1315,
+					"node_type": 29,
+					"absolute_path": "IBeacon.sol",
+					"file": "../beacon/IBeacon.sol",
+					"unit_alias": "",
+					"source_unit_id": 1160,
+					"contract_id": 1194
+				},
+				{
+					"id": 1316,
+					"node_type": 29,
+					"absolute_path": "Address.sol",
+					"file": "../../utils/Address.sol",
+					"unit_alias": "",
+					"source_unit_id": 1160,
+					"contract_id": 1194
+				},
+				{
+					"id": 1317,
+					"node_type": 29,
+					"absolute_path": "StorageSlot.sol",
+					"file": "../../utils/StorageSlot.sol",
+					"unit_alias": "",
+					"source_unit_id": 1160,
+					"contract_id": 1194
+				}
+			],
+			"pragmas": [
+				{
+					"id": 1297,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"2",
+						";"
+					],
+					"text": "pragma solidity ^0.8.2;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 1320,
+					"contract_id": 1318,
+					"name": "_ROLLBACK_SLOT",
+					"node_type": 44,
+					"visibility": 2,
+					"is_constant": true,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "bytes32",
+					"type_description": {
+						"type_identifier": "t_bytes32",
+						"type_string": "bytes32"
+					}
+				},
+				{
+					"id": 1325,
+					"contract_id": 1318,
+					"name": "_IMPLEMENTATION_SLOT",
+					"node_type": 44,
+					"visibility": 1,
+					"is_constant": true,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "bytes32",
+					"type_description": {
+						"type_identifier": "t_bytes32",
+						"type_string": "bytes32"
+					}
+				},
+				{
+					"id": 1709,
+					"contract_id": 1318,
+					"name": "_ADMIN_SLOT",
+					"node_type": 44,
+					"visibility": 1,
+					"is_constant": true,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "bytes32",
+					"type_description": {
+						"type_identifier": "t_bytes32",
+						"type_string": "bytes32"
+					}
+				},
+				{
+					"id": 1827,
+					"contract_id": 1318,
+					"name": "_BEACON_SLOT",
+					"node_type": 44,
+					"visibility": 1,
+					"is_constant": true,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "bytes32",
+					"type_description": {
+						"type_identifier": "t_bytes32",
+						"type_string": "bytes32"
+					}
+				}
+			],
+			"functions": [
+				{
+					"id": 1338,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_getImplementation",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1342,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 1348,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 1367,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_setImplementation",
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1371,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1409,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_upgradeTo",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1413,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1433,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_upgradeToAndCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1437,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1441,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 1445,
+							"node_type": 44,
+							"name": "forceCall",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1491,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_upgradeToAndCallSecure",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1495,
+							"node_type": 44,
+							"name": "newImplementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1499,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 1503,
+							"node_type": 44,
+							"name": "forceCall",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1643,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_upgradeBeaconToAndCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1647,
+							"node_type": 44,
+							"name": "newBeacon",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1651,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 1655,
+							"node_type": 44,
+							"name": "forceCall",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1726,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_getAdmin",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1730,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 1736,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 1755,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_setAdmin",
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1759,
+							"node_type": 44,
+							"name": "newAdmin",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1799,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_changeAdmin",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1803,
+							"node_type": 44,
+							"name": "newAdmin",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 1840,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_getBeacon",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1844,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 1850,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 1869,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_setBeacon",
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1873,
+							"node_type": 44,
+							"name": "newBeacon",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 1973,
+			"source_unit_id": 1932,
+			"node_type": 35,
+			"kind": 37,
+			"name": "Address",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "Address.sol",
+			"symbols": [
+				{
+					"id": 1932,
+					"name": "Address",
+					"absolute_path": "Address.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 1952,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 1975,
+					"node_type": 42,
+					"kind": 41,
+					"name": "isContract",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 1979,
+							"node_type": 44,
+							"name": "account",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 1985,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 2011,
+					"node_type": 42,
+					"kind": 41,
+					"name": "sendValue",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2015,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "addresspayable",
+							"type_description": {
+								"type_identifier": "t_address_payable",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2019,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 2065,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2069,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2073,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2079,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2098,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2102,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2106,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2110,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2116,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2137,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionCallWithValue",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2141,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2145,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2149,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2155,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2176,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionCallWithValue",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2180,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2184,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2188,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 2192,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2198,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2259,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionStaticCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2263,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2267,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2273,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2292,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionStaticCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2296,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2300,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2304,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2310,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2351,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionDelegateCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2355,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2359,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2365,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2384,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionDelegateCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2388,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2392,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2396,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2402,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2443,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_verifyCallResult",
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2447,
+							"node_type": 44,
+							"name": "success",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 2451,
+							"node_type": 44,
+							"name": "returndata",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2455,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2461,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 2520,
+			"source_unit_id": 2477,
+			"node_type": 35,
+			"kind": 37,
+			"name": "StorageSlot",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "StorageSlot.sol",
+			"symbols": [
+				{
+					"id": 2477,
+					"name": "StorageSlot",
+					"absolute_path": "StorageSlot.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 2499,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 2550,
+					"node_type": 42,
+					"kind": 41,
+					"name": "getAddressSlot",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2554,
+							"node_type": 44,
+							"name": "slot",
+							"type": "bytes32",
+							"type_description": {
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2560,
+							"node_type": 44,
+							"name": "r",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_struct$_StorageSlot_AddressSlot_$2522",
+								"type_string": "struct StorageSlot.AddressSlot"
+							}
+						}
+					]
+				},
+				{
+					"id": 2574,
+					"node_type": 42,
+					"kind": 41,
+					"name": "getBooleanSlot",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2578,
+							"node_type": 44,
+							"name": "slot",
+							"type": "bytes32",
+							"type_description": {
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2584,
+							"node_type": 44,
+							"name": "r",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_struct$_StorageSlot_BooleanSlot_$2529",
+								"type_string": "struct StorageSlot.BooleanSlot"
+							}
+						}
+					]
+				},
+				{
+					"id": 2598,
+					"node_type": 42,
+					"kind": 41,
+					"name": "getBytes32Slot",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2602,
+							"node_type": 44,
+							"name": "slot",
+							"type": "bytes32",
+							"type_description": {
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2608,
+							"node_type": 44,
+							"name": "r",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_struct$_StorageSlot_Bytes32Slot_$2536",
+								"type_string": "struct StorageSlot.Bytes32Slot"
+							}
+						}
+					]
+				},
+				{
+					"id": 2622,
+					"node_type": 42,
+					"kind": 41,
+					"name": "getUint256Slot",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2626,
+							"node_type": 44,
+							"name": "slot",
+							"type": "bytes32",
+							"type_description": {
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2632,
+							"node_type": 44,
+							"name": "r",
+							"type": "",
+							"type_description": {
+								"type_identifier": "t_struct$_StorageSlot_Uint256Slot_$2543",
+								"type_string": "struct StorageSlot.Uint256Slot"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 2691,
+			"source_unit_id": 2645,
+			"node_type": 35,
+			"kind": 36,
+			"name": "Ownable",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "Ownable.sol",
+			"symbols": [
+				{
+					"id": 2645,
+					"name": "Ownable",
+					"absolute_path": "Ownable.sol"
+				},
+				{
+					"id": 2477,
+					"name": "Context",
+					"absolute_path": "Context.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 2690,
+					"node_type": 29,
+					"absolute_path": "Context.sol",
+					"file": "../utils/Context.sol",
+					"unit_alias": "",
+					"source_unit_id": 2477,
+					"contract_id": 2520
+				}
+			],
+			"pragmas": [
+				{
+					"id": 2669,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 2697,
+					"contract_id": 2691,
+					"name": "_owner",
+					"node_type": 44,
+					"visibility": 2,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "address",
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				}
+			],
+			"constructor": {},
+			"functions": [
+				{
+					"id": 2751,
+					"node_type": 42,
+					"kind": 41,
+					"name": "owner",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2755,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2761,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 2796,
+					"node_type": 42,
+					"kind": 41,
+					"name": "renounceOwnership",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 2798,
+							"node_type": 72,
+							"name": "onlyOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [],
+					"return": []
+				},
+				{
+					"id": 2831,
+					"node_type": 42,
+					"kind": 41,
+					"name": "transferOwnership",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 2833,
+							"node_type": 72,
+							"name": "onlyOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [
+						{
+							"id": 2839,
+							"node_type": 44,
+							"name": "newOwner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 2926,
+			"source_unit_id": 2878,
+			"node_type": 35,
+			"kind": 36,
+			"name": "Context",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "Context.sol",
+			"symbols": [
+				{
+					"id": 2878,
+					"name": "Context",
+					"absolute_path": "Context.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 2904,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 2928,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_msgSender",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2932,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2938,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 2951,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_msgData",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2955,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2961,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -111,6 +111,12 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 // It updates the node references in the AST and removes the nodes from the UnprocessedNodes map once they are resolved.
 // If a node cannot be resolved, it is left in the UnprocessedNodes map for future resolution.
 func (r *Resolver) Resolve() []error {
+
+	// Resolve all of the import directives. Basically reasoning behind it is that import directive
+	// when it searches for the source unit, if unit is going to be parsed afterward and is not yet
+	// to be processed, we are going to see 0 for the source_unit. We need to sort this out...
+	r.resolveImportDirectives()
+
 	// Resolve all source unit symbols that are not resolved yet.
 	r.resolveExportedSymbols()
 
@@ -162,6 +168,25 @@ func (r *Resolver) Resolve() []error {
 	return errors
 }
 
+func (r *Resolver) resolveImportDirectives() {
+	for _, sourceNode := range r.sourceUnits {
+		// In case any imports are available and they are not exported
+		// we are going to append them to the exported symbols.
+		for _, node := range sourceNode.GetNodes() {
+			if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
+				importNode := node.(*Import)
+				if importNode.GetSourceUnit() == 0 {
+					for _, sourceNode := range r.sourceUnits {
+						if sourceNode.GetAbsolutePath() == importNode.GetAbsolutePath() {
+							node.SetReferenceDescriptor(sourceNode.GetId(), nil)
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 func (r *Resolver) resolveExportedSymbols() {
 	for _, sourceNode := range r.sourceUnits {
 
@@ -174,7 +199,7 @@ func (r *Resolver) resolveExportedSymbols() {
 					sourceNode.ExportedSymbols = append(
 						sourceNode.ExportedSymbols,
 						Symbol{
-							Id:           importNode.GetId(),
+							Id:           importNode.GetSourceUnit(),
 							Name:         importNode.GetName(),
 							AbsolutePath: importNode.GetAbsolutePath(),
 						},
@@ -222,6 +247,9 @@ func (r *Resolver) resolveEntrySourceUnit() {
 		for _, entry := range node.GetExportedSymbols() {
 			if len(r.sources.EntrySourceUnitName) > 0 &&
 				r.sources.EntrySourceUnitName == entry.GetName() {
+				if entry.GetId() == 126 {
+					r.dumpNode(entry)
+				}
 				r.tree.astRoot.SetEntrySourceUnit(entry.GetId())
 				return
 			}

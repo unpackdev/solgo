@@ -2,7 +2,6 @@ package ir
 
 import (
 	"context"
-	"fmt"
 	"path/filepath"
 	"testing"
 
@@ -70,167 +69,167 @@ func TestIrBuilderFromSources(t *testing.T) {
 			},
 			expected:             tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
 			unresolvedReferences: 0,
-		}, /*
-			{
-				name:       "OpenZeppelin ERC20 Test",
-				outputPath: "ast/",
-				sources: solgo.Sources{
-					SourceUnits: []*solgo.SourceUnit{
-						{
-							Name:    "SafeMath",
-							Path:    "SafeMath.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
-						},
-						{
-							Name:    "IERC20",
-							Path:    "IERC20.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
-						},
-						{
-							Name:    "IERC20Metadata",
-							Path:    "IERC20Metadata.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
-						},
-						{
-							Name:    "Context",
-							Path:    "Context.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
-						},
-						{
-							Name:    "ERC20",
-							Path:    "ERC20.sol",
-							Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
-						},
+		},
+		{
+			name:       "OpenZeppelin ERC20 Test",
+			outputPath: "ast/",
+			sources: solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
 					},
-					EntrySourceUnitName:  "ERC20",
-					MaskLocalSourcesPath: true,
-					LocalSourcesPath:     "../sources/",
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+					},
+					{
+						Name:    "IERC20Metadata",
+						Path:    "IERC20Metadata.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20Metadata").Content,
+					},
+					{
+						Name:    "Context",
+						Path:    "Context.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Context").Content,
+					},
+					{
+						Name:    "ERC20",
+						Path:    "ERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/ERC20").Content,
+					},
 				},
-				expected:             tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
-				unresolvedReferences: 0,
+				EntrySourceUnitName:  "ERC20",
+				MaskLocalSourcesPath: true,
+				LocalSourcesPath:     "../sources/",
 			},
+			expected:             tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
+			unresolvedReferences: 0,
+		},
 
-				{
-					name:       "Token Sale ERC20 Test",
-					outputPath: "ast/",
-					sources: solgo.Sources{
-						SourceUnits: []*solgo.SourceUnit{
-							{
-								Name:    "TokenSale",
-								Path:    "TokenSale.sol",
-								Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
-							},
-							{
-								Name:    "SafeMath",
-								Path:    "SafeMath.sol",
-								Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
-							},
-							{
-								Name:    "IERC20",
-								Path:    "IERC20.sol",
-								Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
-							},
-						},
-						EntrySourceUnitName: "TokenSale",
-						LocalSourcesPath:    "../sources/",
+		{
+			name:       "Token Sale ERC20 Test",
+			outputPath: "ast/",
+			sources: solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "TokenSale",
+						Path:    "TokenSale.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/TokenSale").Content,
 					},
-					expected:             tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
-					unresolvedReferences: 0,
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/SafeMath").Content,
+					},
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/IERC20").Content,
+					},
 				},
-				{
-					name:       "Lottery Test",
-					outputPath: "ast/",
-					sources: solgo.Sources{
-						SourceUnits: []*solgo.SourceUnit{
-							{
-								Name:    "Lottery",
-								Path:    "Lottery.sol",
-								Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
-							},
-						},
-						EntrySourceUnitName: "Lottery",
-						LocalSourcesPath:    "../sources/",
+				EntrySourceUnitName: "TokenSale",
+				LocalSourcesPath:    "../sources/",
+			},
+			expected:             tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
+			unresolvedReferences: 0,
+		},
+		{
+			name:       "Lottery Test",
+			outputPath: "ast/",
+			sources: solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Lottery",
+						Path:    "Lottery.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Lottery").Content,
 					},
-					expected:             tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
-					unresolvedReferences: 0,
 				},
-				{
-					name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
-					outputPath: "contracts/cheelee/",
-					sources: solgo.Sources{
-						SourceUnits: []*solgo.SourceUnit{
-							{
-								Name:    "Import",
-								Path:    "Import.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Import").Content,
-							},
-							{
-								Name:    "BeaconProxy",
-								Path:    "BeaconProxy.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/BeaconProxy").Content,
-							},
-							{
-								Name:    "UpgradeableBeacon",
-								Path:    "UpgradeableBeacon.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/UpgradeableBeacon").Content,
-							},
-							{
-								Name:    "ERC1967Proxy",
-								Path:    "ERC1967Proxy.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/ERC1967Proxy").Content,
-							},
-							{
-								Name:    "TransparentUpgradeableProxy",
-								Path:    "TransparentUpgradeableProxy.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/TransparentUpgradeableProxy").Content,
-							},
-							{
-								Name:    "ProxyAdmin",
-								Path:    "ProxyAdmin.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/ProxyAdmin").Content,
-							},
-							{
-								Name:    "IBeacon",
-								Path:    "IBeacon.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/IBeacon").Content,
-							},
-							{
-								Name:    "Proxy",
-								Path:    "Proxy.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Proxy").Content,
-							},
-							{
-								Name:    "ERC1967Upgrade",
-								Path:    "ERC1967Upgrade.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/ERC1967Upgrade").Content,
-							},
-							{
-								Name:    "Address",
-								Path:    "Address.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Address").Content,
-							},
-							{
-								Name:    "StorageSlot",
-								Path:    "StorageSlot.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/StorageSlot").Content,
-							},
-							{
-								Name:    "Ownable",
-								Path:    "Ownable.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Ownable").Content,
-							},
-							{
-								Name:    "Context",
-								Path:    "Context.sol",
-								Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Context").Content,
-							},
-						},
-						EntrySourceUnitName: "TransparentUpgradeableProxy",
-						LocalSourcesPath:    buildFullPath("../sources/"),
+				EntrySourceUnitName: "Lottery",
+				LocalSourcesPath:    "../sources/",
+			},
+			expected:             tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
+			unresolvedReferences: 0,
+		},
+		{
+			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
+			outputPath: "contracts/cheelee/",
+			sources: solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Import",
+						Path:    "Import.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Import").Content,
 					},
-					expected:             tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast").Content,
-					unresolvedReferences: 0,
-				}, */
+					{
+						Name:    "BeaconProxy",
+						Path:    "BeaconProxy.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/BeaconProxy").Content,
+					},
+					{
+						Name:    "UpgradeableBeacon",
+						Path:    "UpgradeableBeacon.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/UpgradeableBeacon").Content,
+					},
+					{
+						Name:    "ERC1967Proxy",
+						Path:    "ERC1967Proxy.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/ERC1967Proxy").Content,
+					},
+					{
+						Name:    "TransparentUpgradeableProxy",
+						Path:    "TransparentUpgradeableProxy.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/TransparentUpgradeableProxy").Content,
+					},
+					{
+						Name:    "ProxyAdmin",
+						Path:    "ProxyAdmin.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/ProxyAdmin").Content,
+					},
+					{
+						Name:    "IBeacon",
+						Path:    "IBeacon.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/IBeacon").Content,
+					},
+					{
+						Name:    "Proxy",
+						Path:    "Proxy.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Proxy").Content,
+					},
+					{
+						Name:    "ERC1967Upgrade",
+						Path:    "ERC1967Upgrade.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/ERC1967Upgrade").Content,
+					},
+					{
+						Name:    "Address",
+						Path:    "Address.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Address").Content,
+					},
+					{
+						Name:    "StorageSlot",
+						Path:    "StorageSlot.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/StorageSlot").Content,
+					},
+					{
+						Name:    "Ownable",
+						Path:    "Ownable.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Ownable").Content,
+					},
+					{
+						Name:    "Context",
+						Path:    "Context.sol",
+						Content: tests.ReadContractFileForTest(t, "contracts/cheelee/Context").Content,
+					},
+				},
+				EntrySourceUnitName: "TransparentUpgradeableProxy",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expected:             tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast").Content,
+			unresolvedReferences: 0,
+		},
 	}
 
 	for _, testCase := range testCases {
@@ -255,7 +254,14 @@ func TestIrBuilderFromSources(t *testing.T) {
 			pretty, err := parser.ToJSONPretty()
 			assert.NoError(t, err)
 			assert.NotNil(t, pretty)
-			fmt.Println(string(pretty))
+
+			// Leaving it here for now to make unit tests pass...
+			// This will be removed before final push to the main branch
+			err = parser.GetAstBuilder().WriteToFile(
+				"../data/tests/ir/"+testCase.sources.EntrySourceUnitName+".ir.json",
+				pretty,
+			)
+			assert.NoError(t, err)
 
 		})
 	}

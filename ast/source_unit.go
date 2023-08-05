@@ -13,7 +13,7 @@ import (
 // It includes various attributes like id, license, exported symbols, absolute path, name, node type, nodes, and source node.
 type SourceUnit[T NodeType] struct {
 	Id              int64            `json:"id"`               // Id is the unique identifier of the source unit.
-	Contract        Node[NodeType]   `json:"_"`                // Contract is the contract associated with the source unit.
+	Contract        Node[NodeType]   `json:"-"`                // Contract is the contract associated with the source unit.
 	BaseContracts   []*BaseContract  `json:"base_contracts"`   // BaseContracts are the base contracts of the source unit.
 	License         string           `json:"license"`          // License is the license of the source unit.
 	ExportedSymbols []Symbol         `json:"exported_symbols"` // ExportedSymbols is the list of source units, including its names and node tree ids used by current source unit.

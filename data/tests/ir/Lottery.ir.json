@@ -1,0 +1,469 @@
+{
+	"node_type": 80,
+	"entry_contract_id": 31,
+	"entry_contract_name": "Lottery",
+	"contracts_count": 2,
+	"contracts": [
+		{
+			"id": 14,
+			"source_unit_id": 10,
+			"node_type": 35,
+			"kind": 37,
+			"name": "IDummyContract",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "",
+			"symbols": [
+				{
+					"id": 10,
+					"name": "IDummyContract",
+					"absolute_path": ""
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 12,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"4",
+						";"
+					],
+					"text": "pragma solidity ^0.8.4;"
+				}
+			],
+			"state_variables": [],
+			"functions": [
+				{
+					"id": 16,
+					"node_type": 42,
+					"kind": 41,
+					"name": "dummyFunction",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 20,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 26,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 35,
+			"source_unit_id": 31,
+			"node_type": 35,
+			"kind": 36,
+			"name": "Lottery",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "Lottery.sol",
+			"symbols": [
+				{
+					"id": 31,
+					"name": "Lottery",
+					"absolute_path": "Lottery.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 33,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"4",
+						";"
+					],
+					"text": "pragma solidity ^0.8.4;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 37,
+					"contract_id": 35,
+					"name": "DUMMY_CONSTANT",
+					"node_type": 44,
+					"visibility": 3,
+					"is_constant": true,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "uint256",
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					}
+				},
+				{
+					"id": 58,
+					"contract_id": 35,
+					"name": "players",
+					"node_type": 44,
+					"visibility": 3,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "Player",
+					"type_description": {
+						"type_identifier": "t_mapping_$t_address_$t_struct$_Lottery_Player_$47$",
+						"type_string": "mapping(address=\u003ePlayer)"
+					}
+				},
+				{
+					"id": 70,
+					"contract_id": 35,
+					"name": "playerAddresses",
+					"node_type": 44,
+					"visibility": 3,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "address",
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				},
+				{
+					"id": 76,
+					"contract_id": 35,
+					"name": "state",
+					"node_type": 44,
+					"visibility": 3,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "enum Lottery.LotteryState",
+					"type_description": {
+						"type_identifier": "t_enum_$_LotteryState_$42",
+						"type_string": "enum Lottery.LotteryState"
+					}
+				}
+			],
+			"constructor": {},
+			"functions": [
+				{
+					"id": 221,
+					"node_type": 42,
+					"kind": 41,
+					"name": "join",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 3,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 223,
+							"node_type": 72,
+							"name": "inState",
+							"argument_types": [
+								{
+									"type_identifier": "t_enum_$_LotteryState_$42",
+									"type_string": "enum Lottery.LotteryState"
+								}
+							]
+						},
+						{
+							"id": 231,
+							"node_type": 72,
+							"name": "notOwner",
+							"argument_types": []
+						}
+					],
+					"parameters": [],
+					"return": []
+				},
+				{
+					"id": 332,
+					"node_type": 42,
+					"kind": 41,
+					"name": "finishLottery",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [
+						{
+							"id": 334,
+							"node_type": 72,
+							"name": "inState",
+							"argument_types": [
+								{
+									"type_identifier": "t_enum_$_LotteryState_$42",
+									"type_string": "enum Lottery.LotteryState"
+								}
+							]
+						}
+					],
+					"parameters": [],
+					"return": []
+				},
+				{
+					"id": 500,
+					"node_type": 42,
+					"kind": 41,
+					"name": "owner",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 504,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 510,
+							"node_type": 44,
+							"name": "",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 525,
+					"node_type": 42,
+					"kind": 41,
+					"name": "balance",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 529,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 535,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 552,
+					"node_type": 42,
+					"kind": 41,
+					"name": "checkAllPlayers",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 556,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 562,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 625,
+					"node_type": 42,
+					"kind": 41,
+					"name": "requireOwner",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [],
+					"return": []
+				},
+				{
+					"id": 650,
+					"node_type": 42,
+					"kind": 41,
+					"name": "callExternalFunction",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 654,
+							"node_type": 44,
+							"name": "externalContractAddress",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"return": []
+				},
+				{
+					"id": 705,
+					"node_type": 42,
+					"kind": 41,
+					"name": "integerToString",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 709,
+							"node_type": 44,
+							"name": "_i",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 715,
+							"node_type": 44,
+							"name": "",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					]
+				},
+				{
+					"id": 853,
+					"node_type": 42,
+					"kind": 41,
+					"name": "dummyFunctionAssembly",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 857,
+							"node_type": 44,
+							"name": "result",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 863,
+							"node_type": 44,
+							"name": "result",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			],
+			"fallback": {
+				"id": 190,
+				"node_type": 42
+			},
+			"receive": {
+				"id": 197,
+				"node_type": 42
+			}
+		}
+	]
+}

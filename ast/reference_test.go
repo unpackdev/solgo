@@ -126,10 +126,10 @@ func TestResolver(t *testing.T) {
 
 			// Leaving it here for now to make unit tests pass...
 			// This will be removed before final push to the main branch
-			astPretty, _ := astBuilder.ToJSON()
+			astData, _ := astBuilder.ToJSON()
 			err = astBuilder.WriteToFile(
 				"../data/tests/ast/resolver/"+testCase.sources.EntrySourceUnitName+".json",
-				astPretty,
+				astData,
 			)
 			assert.NoError(t, err)
 
