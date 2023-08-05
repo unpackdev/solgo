@@ -60,6 +60,11 @@ func (b *ASTBuilder) GetResolver() *Resolver {
 	return b.resolver
 }
 
+// GetTree returns the Tree of the ASTBuilder.
+func (b *ASTBuilder) GetTree() *Tree {
+	return b.tree
+}
+
 // GetRoot returns the root node of the AST from the Tree of the ASTBuilder.
 func (b *ASTBuilder) GetRoot() *RootNode {
 	return b.tree.GetRoot()

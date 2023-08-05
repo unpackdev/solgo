@@ -110,6 +110,18 @@ func (s *SourceUnit[T]) GetTypeDescription() *TypeDescription {
 	}
 }
 
+func (s *SourceUnit[T]) GetImports() []*Import {
+	toReturn := make([]*Import, 0)
+
+	for _, node := range s.Nodes {
+		if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
+			toReturn = append(toReturn, node.(*Import))
+		}
+	}
+
+	return toReturn
+}
+
 func (s *SourceUnit[T]) GetPragmas() []*Pragma {
 	toReturn := make([]*Pragma, 0)
 
