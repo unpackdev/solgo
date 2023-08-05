@@ -31,6 +31,9 @@ type Constructor struct {
 	// Whether the constructor is implemented or not
 	Implemented bool `json:"implemented"`
 
+	// The modifiers of the constructor
+	Modifiers []*ModifierInvocation `json:"modifiers"`
+
 	// The parameters of the constructor
 	Parameters *ParameterList `json:"parameters"`
 
@@ -52,6 +55,7 @@ func NewConstructor(b *ASTBuilder) *Constructor {
 		NodeType:        ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:            ast_pb.NodeType_CONSTRUCTOR,
 		StateMutability: ast_pb.Mutability_NONPAYABLE,
+		Modifiers:       make([]*ModifierInvocation, 0),
 	}
 }
 
@@ -83,6 +87,10 @@ func (c *Constructor) GetNodes() []Node[NodeType] {
 // GetTypeDescription returns the type description of the constructor, which is nil as constructors do not have a type description.
 func (c *Constructor) GetTypeDescription() *TypeDescription {
 	return nil
+}
+
+func (c *Constructor) GetModifiers() []*ModifierInvocation {
+	return c.Modifiers
 }
 
 // GetParameters returns the parameters of the constructor.
@@ -191,6 +199,13 @@ func (c *Constructor) Parse(
 	returnParams.Src = c.Src
 	returnParams.Src.ParentIndex = c.Id
 	c.ReturnParameters = returnParams
+
+	// Set function modifiers.
+	for _, modifierCtx := range ctx.AllModifierInvocation() {
+		modifier := NewModifierInvocation(c.ASTBuilder)
+		modifier.Parse(unit, contractNode, c, nil, modifierCtx)
+		c.Modifiers = append(c.Modifiers, modifier)
+	}
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 		bodyNode := NewBodyNode(c.ASTBuilder)

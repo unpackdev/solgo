@@ -1,6 +1,6 @@
 {
 	"node_type": 80,
-	"entry_contract_id": 565,
+	"entry_contract_id": 575,
 	"entry_contract_name": "TransparentUpgradeableProxy",
 	"contracts_count": 13,
 	"contracts": [
@@ -20,27 +20,27 @@
 					"absolute_path": ""
 				},
 				{
-					"id": 153,
+					"id": 163,
 					"name": "BeaconProxy",
 					"absolute_path": "BeaconProxy.sol"
 				},
 				{
-					"id": 310,
+					"id": 320,
 					"name": "UpgradeableBeacon",
 					"absolute_path": "UpgradeableBeacon.sol"
 				},
 				{
-					"id": 454,
+					"id": 464,
 					"name": "ERC1967Proxy",
 					"absolute_path": "ERC1967Proxy.sol"
 				},
 				{
-					"id": 565,
+					"id": 575,
 					"name": "TransparentUpgradeableProxy",
 					"absolute_path": "TransparentUpgradeableProxy.sol"
 				},
 				{
-					"id": 868,
+					"id": 886,
 					"name": "ProxyAdmin",
 					"absolute_path": "ProxyAdmin.sol"
 				}
@@ -52,8 +52,8 @@
 					"absolute_path": "BeaconProxy.sol",
 					"file": "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol",
 					"unit_alias": "",
-					"source_unit_id": 153,
-					"contract_id": 167
+					"source_unit_id": 163,
+					"contract_id": 177
 				},
 				{
 					"id": 124,
@@ -61,8 +61,8 @@
 					"absolute_path": "UpgradeableBeacon.sol",
 					"file": "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol",
 					"unit_alias": "",
-					"source_unit_id": 310,
-					"contract_id": 329
+					"source_unit_id": 320,
+					"contract_id": 339
 				},
 				{
 					"id": 125,
@@ -70,8 +70,8 @@
 					"absolute_path": "ERC1967Proxy.sol",
 					"file": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
 					"unit_alias": "",
-					"source_unit_id": 454,
-					"contract_id": 477
+					"source_unit_id": 464,
+					"contract_id": 487
 				},
 				{
 					"id": 126,
@@ -79,8 +79,8 @@
 					"absolute_path": "TransparentUpgradeableProxy.sol",
 					"file": "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
 					"unit_alias": "",
-					"source_unit_id": 565,
-					"contract_id": 591
+					"source_unit_id": 575,
+					"contract_id": 601
 				},
 				{
 					"id": 127,
@@ -88,8 +88,8 @@
 					"absolute_path": "ProxyAdmin.sol",
 					"file": "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol",
 					"unit_alias": "",
-					"source_unit_id": 868,
-					"contract_id": 898
+					"source_unit_id": 886,
+					"contract_id": 916
 				}
 			],
 			"pragmas": [
@@ -115,12 +115,75 @@
 			"enums": [],
 			"events": [],
 			"errors": [],
-			"constructor": {},
+			"constructor": {
+				"id": 134,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"virtual": false,
+				"modifiers": [
+					{
+						"id": 151,
+						"node_type": 72,
+						"name": "TransparentUpgradeableProxy",
+						"argument_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					}
+				],
+				"parameters": [
+					{
+						"id": 138,
+						"node_type": 44,
+						"name": "logic",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 142,
+						"node_type": 44,
+						"name": "admin",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 146,
+						"node_type": 44,
+						"name": "data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				],
+				"return": []
+			},
 			"functions": []
 		},
 		{
-			"id": 167,
-			"source_unit_id": 153,
+			"id": 177,
+			"source_unit_id": 163,
 			"node_type": 35,
 			"kind": 36,
 			"name": "BeaconProxy",
@@ -129,7 +192,7 @@
 			"absolute_path": "BeaconProxy.sol",
 			"symbols": [
 				{
-					"id": 153,
+					"id": 163,
 					"name": "BeaconProxy",
 					"absolute_path": "BeaconProxy.sol"
 				},
@@ -151,7 +214,7 @@
 			],
 			"imports": [
 				{
-					"id": 164,
+					"id": 174,
 					"node_type": 29,
 					"absolute_path": "IBeacon.sol",
 					"file": "./IBeacon.sol",
@@ -160,7 +223,7 @@
 					"contract_id": 128
 				},
 				{
-					"id": 165,
+					"id": 175,
 					"node_type": 29,
 					"absolute_path": "Proxy.sol",
 					"file": "../Proxy.sol",
@@ -169,7 +232,7 @@
 					"contract_id": 128
 				},
 				{
-					"id": 166,
+					"id": 176,
 					"node_type": 29,
 					"absolute_path": "ERC1967Upgrade.sol",
 					"file": "../ERC1967/ERC1967Upgrade.sol",
@@ -180,7 +243,7 @@
 			],
 			"pragmas": [
 				{
-					"id": 157,
+					"id": 167,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -201,10 +264,43 @@
 			"enums": [],
 			"events": [],
 			"errors": [],
-			"constructor": {},
+			"constructor": {
+				"id": 187,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"virtual": false,
+				"modifiers": [],
+				"parameters": [
+					{
+						"id": 191,
+						"node_type": 44,
+						"name": "beacon",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 195,
+						"node_type": 44,
+						"name": "data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				],
+				"return": []
+			},
 			"functions": [
 				{
-					"id": 229,
+					"id": 239,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_beacon",
@@ -216,7 +312,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 233,
+							"id": 243,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -228,7 +324,7 @@
 					],
 					"return": [
 						{
-							"id": 239,
+							"id": 249,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -240,7 +336,7 @@
 					]
 				},
 				{
-					"id": 252,
+					"id": 262,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_implementation",
@@ -252,7 +348,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 258,
+							"id": 268,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -264,7 +360,7 @@
 					],
 					"return": [
 						{
-							"id": 264,
+							"id": 274,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -276,7 +372,7 @@
 					]
 				},
 				{
-					"id": 285,
+					"id": 295,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_setBeacon",
@@ -288,7 +384,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 289,
+							"id": 299,
 							"node_type": 44,
 							"name": "beacon",
 							"type": "address",
@@ -298,7 +394,7 @@
 							}
 						},
 						{
-							"id": 293,
+							"id": 303,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -313,8 +409,8 @@
 			]
 		},
 		{
-			"id": 329,
-			"source_unit_id": 310,
+			"id": 339,
+			"source_unit_id": 320,
 			"node_type": 35,
 			"kind": 36,
 			"name": "UpgradeableBeacon",
@@ -323,58 +419,58 @@
 			"absolute_path": "UpgradeableBeacon.sol",
 			"symbols": [
 				{
-					"id": 310,
+					"id": 320,
 					"name": "UpgradeableBeacon",
 					"absolute_path": "UpgradeableBeacon.sol"
 				},
 				{
-					"id": 153,
+					"id": 163,
 					"name": "IBeacon",
 					"absolute_path": "IBeacon.sol"
 				},
 				{
-					"id": 153,
+					"id": 163,
 					"name": "Ownable",
 					"absolute_path": "Ownable.sol"
 				},
 				{
-					"id": 153,
+					"id": 163,
 					"name": "Address",
 					"absolute_path": "Address.sol"
 				}
 			],
 			"imports": [
 				{
-					"id": 326,
+					"id": 336,
 					"node_type": 29,
 					"absolute_path": "IBeacon.sol",
 					"file": "./IBeacon.sol",
 					"unit_alias": "",
-					"source_unit_id": 153,
-					"contract_id": 167
+					"source_unit_id": 163,
+					"contract_id": 177
 				},
 				{
-					"id": 327,
+					"id": 337,
 					"node_type": 29,
 					"absolute_path": "Ownable.sol",
 					"file": "../../access/Ownable.sol",
 					"unit_alias": "",
-					"source_unit_id": 153,
-					"contract_id": 167
+					"source_unit_id": 163,
+					"contract_id": 177
 				},
 				{
-					"id": 328,
+					"id": 338,
 					"node_type": 29,
 					"absolute_path": "Address.sol",
 					"file": "../../utils/Address.sol",
 					"unit_alias": "",
-					"source_unit_id": 153,
-					"contract_id": 167
+					"source_unit_id": 163,
+					"contract_id": 177
 				}
 			],
 			"pragmas": [
 				{
-					"id": 316,
+					"id": 326,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -392,8 +488,8 @@
 			],
 			"state_variables": [
 				{
-					"id": 339,
-					"contract_id": 329,
+					"id": 349,
+					"contract_id": 339,
 					"name": "_implementation",
 					"node_type": 44,
 					"visibility": 2,
@@ -411,13 +507,13 @@
 			"enums": [],
 			"events": [
 				{
-					"id": 344,
+					"id": 354,
 					"node_type": 57,
 					"name": "Upgraded",
 					"anonymous": false,
 					"parameters": [
 						{
-							"id": 347,
+							"id": 357,
 							"node_type": 44,
 							"name": "implementation",
 							"type": "address",
@@ -430,10 +526,33 @@
 				}
 			],
 			"errors": [],
-			"constructor": {},
+			"constructor": {
+				"id": 362,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4,
+				"virtual": false,
+				"modifiers": [],
+				"parameters": [
+					{
+						"id": 366,
+						"node_type": 44,
+						"name": "implementation_",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					}
+				],
+				"return": []
+			},
 			"functions": [
 				{
-					"id": 370,
+					"id": 380,
 					"node_type": 42,
 					"kind": 41,
 					"name": "implementation",
@@ -445,7 +564,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 376,
+							"id": 386,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -457,7 +576,7 @@
 					],
 					"return": [
 						{
-							"id": 382,
+							"id": 392,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -469,7 +588,7 @@
 					]
 				},
 				{
-					"id": 393,
+					"id": 403,
 					"node_type": 42,
 					"kind": 41,
 					"name": "upgradeTo",
@@ -480,7 +599,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 395,
+							"id": 405,
 							"node_type": 72,
 							"name": "onlyOwner",
 							"argument_types": []
@@ -488,7 +607,7 @@
 					],
 					"parameters": [
 						{
-							"id": 401,
+							"id": 411,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -501,7 +620,7 @@
 					"return": []
 				},
 				{
-					"id": 421,
+					"id": 431,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_setImplementation",
@@ -513,7 +632,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 425,
+							"id": 435,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -528,8 +647,8 @@
 			]
 		},
 		{
-			"id": 477,
-			"source_unit_id": 454,
+			"id": 487,
+			"source_unit_id": 464,
 			"node_type": 35,
 			"kind": 36,
 			"name": "ERC1967Proxy",
@@ -538,44 +657,44 @@
 			"absolute_path": "ERC1967Proxy.sol",
 			"symbols": [
 				{
-					"id": 454,
+					"id": 464,
 					"name": "ERC1967Proxy",
 					"absolute_path": "ERC1967Proxy.sol"
 				},
 				{
-					"id": 310,
+					"id": 320,
 					"name": "Proxy",
 					"absolute_path": "Proxy.sol"
 				},
 				{
-					"id": 310,
+					"id": 320,
 					"name": "ERC1967Upgrade",
 					"absolute_path": "ERC1967Upgrade.sol"
 				}
 			],
 			"imports": [
 				{
-					"id": 475,
+					"id": 485,
 					"node_type": 29,
 					"absolute_path": "Proxy.sol",
 					"file": "../Proxy.sol",
 					"unit_alias": "",
-					"source_unit_id": 310,
-					"contract_id": 329
+					"source_unit_id": 320,
+					"contract_id": 339
 				},
 				{
-					"id": 476,
+					"id": 486,
 					"node_type": 29,
 					"absolute_path": "ERC1967Upgrade.sol",
 					"file": "./ERC1967Upgrade.sol",
 					"unit_alias": "",
-					"source_unit_id": 310,
-					"contract_id": 329
+					"source_unit_id": 320,
+					"contract_id": 339
 				}
 			],
 			"pragmas": [
 				{
-					"id": 462,
+					"id": 472,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -596,10 +715,43 @@
 			"enums": [],
 			"events": [],
 			"errors": [],
-			"constructor": {},
+			"constructor": {
+				"id": 497,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"virtual": false,
+				"modifiers": [],
+				"parameters": [
+					{
+						"id": 501,
+						"node_type": 44,
+						"name": "_logic",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 505,
+						"node_type": 44,
+						"name": "_data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				],
+				"return": []
+			},
 			"functions": [
 				{
-					"id": 539,
+					"id": 549,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_implementation",
@@ -611,7 +763,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 545,
+							"id": 555,
 							"node_type": 44,
 							"name": "impl",
 							"type": "address",
@@ -623,7 +775,7 @@
 					],
 					"return": [
 						{
-							"id": 551,
+							"id": 561,
 							"node_type": 44,
 							"name": "impl",
 							"type": "address",
@@ -637,8 +789,8 @@
 			]
 		},
 		{
-			"id": 591,
-			"source_unit_id": 565,
+			"id": 601,
+			"source_unit_id": 575,
 			"node_type": 35,
 			"kind": 36,
 			"name": "TransparentUpgradeableProxy",
@@ -647,12 +799,12 @@
 			"absolute_path": "TransparentUpgradeableProxy.sol",
 			"symbols": [
 				{
-					"id": 565,
+					"id": 575,
 					"name": "TransparentUpgradeableProxy",
 					"absolute_path": "TransparentUpgradeableProxy.sol"
 				},
 				{
-					"id": 592,
+					"id": 602,
 					"name": "ERC1967Proxy",
 					"absolute_path": ""
 				}
@@ -660,7 +812,7 @@
 			"imports": [],
 			"pragmas": [
 				{
-					"id": 575,
+					"id": 585,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -681,10 +833,69 @@
 			"enums": [],
 			"events": [],
 			"errors": [],
-			"constructor": {},
+			"constructor": {
+				"id": 607,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"virtual": false,
+				"modifiers": [
+					{
+						"id": 624,
+						"node_type": 72,
+						"name": "ERC1967Proxy",
+						"argument_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					}
+				],
+				"parameters": [
+					{
+						"id": 611,
+						"node_type": 44,
+						"name": "_logic",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 615,
+						"node_type": 44,
+						"name": "admin_",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 619,
+						"node_type": 44,
+						"name": "_data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				],
+				"return": []
+			},
 			"functions": [
 				{
-					"id": 671,
+					"id": 689,
 					"node_type": 42,
 					"kind": 41,
 					"name": "admin",
@@ -695,7 +906,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 673,
+							"id": 691,
 							"node_type": 72,
 							"name": "ifAdmin",
 							"argument_types": []
@@ -703,7 +914,7 @@
 					],
 					"parameters": [
 						{
-							"id": 679,
+							"id": 697,
 							"node_type": 44,
 							"name": "admin_",
 							"type": "address",
@@ -715,7 +926,7 @@
 					],
 					"return": [
 						{
-							"id": 685,
+							"id": 703,
 							"node_type": 44,
 							"name": "admin_",
 							"type": "address",
@@ -727,7 +938,7 @@
 					]
 				},
 				{
-					"id": 702,
+					"id": 720,
 					"node_type": 42,
 					"kind": 41,
 					"name": "implementation",
@@ -738,7 +949,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 704,
+							"id": 722,
 							"node_type": 72,
 							"name": "ifAdmin",
 							"argument_types": []
@@ -746,7 +957,7 @@
 					],
 					"parameters": [
 						{
-							"id": 710,
+							"id": 728,
 							"node_type": 44,
 							"name": "implementation_",
 							"type": "address",
@@ -758,7 +969,7 @@
 					],
 					"return": [
 						{
-							"id": 716,
+							"id": 734,
 							"node_type": 44,
 							"name": "implementation_",
 							"type": "address",
@@ -770,7 +981,7 @@
 					]
 				},
 				{
-					"id": 733,
+					"id": 751,
 					"node_type": 42,
 					"kind": 41,
 					"name": "changeAdmin",
@@ -781,7 +992,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 735,
+							"id": 753,
 							"node_type": 72,
 							"name": "ifAdmin",
 							"argument_types": []
@@ -789,7 +1000,7 @@
 					],
 					"parameters": [
 						{
-							"id": 741,
+							"id": 759,
 							"node_type": 44,
 							"name": "newAdmin",
 							"type": "address",
@@ -802,7 +1013,7 @@
 					"return": []
 				},
 				{
-					"id": 755,
+					"id": 773,
 					"node_type": 42,
 					"kind": 41,
 					"name": "upgradeTo",
@@ -813,7 +1024,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 757,
+							"id": 775,
 							"node_type": 72,
 							"name": "ifAdmin",
 							"argument_types": []
@@ -821,7 +1032,7 @@
 					],
 					"parameters": [
 						{
-							"id": 763,
+							"id": 781,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -834,7 +1045,7 @@
 					"return": []
 				},
 				{
-					"id": 785,
+					"id": 803,
 					"node_type": 42,
 					"kind": 41,
 					"name": "upgradeToAndCall",
@@ -845,7 +1056,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 787,
+							"id": 805,
 							"node_type": 72,
 							"name": "ifAdmin",
 							"argument_types": []
@@ -853,7 +1064,7 @@
 					],
 					"parameters": [
 						{
-							"id": 793,
+							"id": 811,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -863,7 +1074,7 @@
 							}
 						},
 						{
-							"id": 797,
+							"id": 815,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -876,7 +1087,7 @@
 					"return": []
 				},
 				{
-					"id": 815,
+					"id": 833,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_admin",
@@ -888,7 +1099,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 819,
+							"id": 837,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -900,7 +1111,7 @@
 					],
 					"return": [
 						{
-							"id": 825,
+							"id": 843,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -912,7 +1123,7 @@
 					]
 				},
 				{
-					"id": 838,
+					"id": 856,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_beforeFallback",
@@ -928,8 +1139,8 @@
 			]
 		},
 		{
-			"id": 898,
-			"source_unit_id": 868,
+			"id": 916,
+			"source_unit_id": 886,
 			"node_type": 35,
 			"kind": 36,
 			"name": "ProxyAdmin",
@@ -938,44 +1149,44 @@
 			"absolute_path": "ProxyAdmin.sol",
 			"symbols": [
 				{
-					"id": 868,
+					"id": 886,
 					"name": "ProxyAdmin",
 					"absolute_path": "ProxyAdmin.sol"
 				},
 				{
-					"id": 565,
+					"id": 575,
 					"name": "TransparentUpgradeableProxy",
 					"absolute_path": "TransparentUpgradeableProxy.sol"
 				},
 				{
-					"id": 565,
+					"id": 575,
 					"name": "Ownable",
 					"absolute_path": "Ownable.sol"
 				}
 			],
 			"imports": [
 				{
-					"id": 896,
+					"id": 914,
 					"node_type": 29,
 					"absolute_path": "TransparentUpgradeableProxy.sol",
 					"file": "./TransparentUpgradeableProxy.sol",
 					"unit_alias": "",
-					"source_unit_id": 565,
-					"contract_id": 591
+					"source_unit_id": 575,
+					"contract_id": 601
 				},
 				{
-					"id": 897,
+					"id": 915,
 					"node_type": 29,
 					"absolute_path": "Ownable.sol",
 					"file": "../../access/Ownable.sol",
 					"unit_alias": "",
-					"source_unit_id": 565,
-					"contract_id": 591
+					"source_unit_id": 575,
+					"contract_id": 601
 				}
 			],
 			"pragmas": [
 				{
-					"id": 880,
+					"id": 898,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -998,7 +1209,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 904,
+					"id": 922,
 					"node_type": 42,
 					"kind": 41,
 					"name": "getProxyImplementation",
@@ -1010,19 +1221,19 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 908,
+							"id": 926,
 							"node_type": 44,
 							"name": "proxy",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$575",
 								"type_string": "contract TransparentUpgradeableProxy"
 							}
 						}
 					],
 					"return": [
 						{
-							"id": 916,
+							"id": 934,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1034,7 +1245,7 @@
 					]
 				},
 				{
-					"id": 957,
+					"id": 975,
 					"node_type": 42,
 					"kind": 41,
 					"name": "getProxyAdmin",
@@ -1046,19 +1257,19 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 961,
+							"id": 979,
 							"node_type": 44,
 							"name": "proxy",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$575",
 								"type_string": "contract TransparentUpgradeableProxy"
 							}
 						}
 					],
 					"return": [
 						{
-							"id": 969,
+							"id": 987,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1070,7 +1281,7 @@
 					]
 				},
 				{
-					"id": 1010,
+					"id": 1028,
 					"node_type": 42,
 					"kind": 41,
 					"name": "changeProxyAdmin",
@@ -1081,7 +1292,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 1012,
+							"id": 1030,
 							"node_type": 72,
 							"name": "onlyOwner",
 							"argument_types": []
@@ -1089,17 +1300,17 @@
 					],
 					"parameters": [
 						{
-							"id": 1018,
+							"id": 1036,
 							"node_type": 44,
 							"name": "proxy",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$575",
 								"type_string": "contract TransparentUpgradeableProxy"
 							}
 						},
 						{
-							"id": 1024,
+							"id": 1042,
 							"node_type": 44,
 							"name": "newAdmin",
 							"type": "address",
@@ -1112,7 +1323,7 @@
 					"return": []
 				},
 				{
-					"id": 1040,
+					"id": 1058,
 					"node_type": 42,
 					"kind": 41,
 					"name": "upgrade",
@@ -1123,7 +1334,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 1042,
+							"id": 1060,
 							"node_type": 72,
 							"name": "onlyOwner",
 							"argument_types": []
@@ -1131,17 +1342,17 @@
 					],
 					"parameters": [
 						{
-							"id": 1048,
+							"id": 1066,
 							"node_type": 44,
 							"name": "proxy",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$575",
 								"type_string": "contract TransparentUpgradeableProxy"
 							}
 						},
 						{
-							"id": 1054,
+							"id": 1072,
 							"node_type": 44,
 							"name": "implementation",
 							"type": "address",
@@ -1154,7 +1365,7 @@
 					"return": []
 				},
 				{
-					"id": 1070,
+					"id": 1088,
 					"node_type": 42,
 					"kind": 41,
 					"name": "upgradeAndCall",
@@ -1165,7 +1376,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 1072,
+							"id": 1090,
 							"node_type": 72,
 							"name": "onlyOwner",
 							"argument_types": []
@@ -1173,17 +1384,17 @@
 					],
 					"parameters": [
 						{
-							"id": 1078,
+							"id": 1096,
 							"node_type": 44,
 							"name": "proxy",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$565",
+								"type_identifier": "t_contract$_TransparentUpgradeableProxy_$575",
 								"type_string": "contract TransparentUpgradeableProxy"
 							}
 						},
 						{
-							"id": 1084,
+							"id": 1102,
 							"node_type": 44,
 							"name": "implementation",
 							"type": "address",
@@ -1193,7 +1404,7 @@
 							}
 						},
 						{
-							"id": 1088,
+							"id": 1106,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -1208,8 +1419,8 @@
 			]
 		},
 		{
-			"id": 1143,
-			"source_unit_id": 1107,
+			"id": 1161,
+			"source_unit_id": 1125,
 			"node_type": 35,
 			"kind": 37,
 			"name": "IBeacon",
@@ -1218,7 +1429,7 @@
 			"absolute_path": "IBeacon.sol",
 			"symbols": [
 				{
-					"id": 1107,
+					"id": 1125,
 					"name": "IBeacon",
 					"absolute_path": "IBeacon.sol"
 				}
@@ -1226,7 +1437,7 @@
 			"imports": [],
 			"pragmas": [
 				{
-					"id": 1121,
+					"id": 1139,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -1249,7 +1460,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 1145,
+					"id": 1163,
 					"node_type": 42,
 					"kind": 41,
 					"name": "implementation",
@@ -1261,7 +1472,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1149,
+							"id": 1167,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1273,7 +1484,7 @@
 					],
 					"return": [
 						{
-							"id": 1155,
+							"id": 1173,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1287,8 +1498,8 @@
 			]
 		},
 		{
-			"id": 1194,
-			"source_unit_id": 1160,
+			"id": 1212,
+			"source_unit_id": 1178,
 			"node_type": 35,
 			"kind": 36,
 			"name": "Proxy",
@@ -1297,7 +1508,7 @@
 			"absolute_path": "Proxy.sol",
 			"symbols": [
 				{
-					"id": 1160,
+					"id": 1178,
 					"name": "Proxy",
 					"absolute_path": "Proxy.sol"
 				}
@@ -1305,7 +1516,7 @@
 			"imports": [],
 			"pragmas": [
 				{
-					"id": 1176,
+					"id": 1194,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -1328,7 +1539,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 1196,
+					"id": 1214,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_delegate",
@@ -1340,7 +1551,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1200,
+							"id": 1218,
 							"node_type": 44,
 							"name": "implementation",
 							"type": "address",
@@ -1353,7 +1564,7 @@
 					"return": []
 				},
 				{
-					"id": 1216,
+					"id": 1234,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_implementation",
@@ -1365,7 +1576,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1220,
+							"id": 1238,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1377,7 +1588,7 @@
 					],
 					"return": [
 						{
-							"id": 1226,
+							"id": 1244,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1389,7 +1600,7 @@
 					]
 				},
 				{
-					"id": 1232,
+					"id": 1250,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_fallback",
@@ -1403,7 +1614,7 @@
 					"return": []
 				},
 				{
-					"id": 1273,
+					"id": 1291,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_beforeFallback",
@@ -1418,11 +1629,20 @@
 				}
 			],
 			"fallback": {
-				"id": 1251,
-				"node_type": 42
+				"id": 1269,
+				"node_type": 42,
+				"name": "fallback",
+				"kind": 70,
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"virtual": true,
+				"modifiers": [],
+				"parameters": [],
+				"return": []
 			},
 			"receive": {
-				"id": 1262,
+				"id": 1280,
 				"node_type": 42,
 				"name": "receive",
 				"kind": 71,
@@ -1435,8 +1655,8 @@
 			}
 		},
 		{
-			"id": 1318,
-			"source_unit_id": 1279,
+			"id": 1336,
+			"source_unit_id": 1297,
 			"node_type": 35,
 			"kind": 36,
 			"name": "ERC1967Upgrade",
@@ -1445,58 +1665,58 @@
 			"absolute_path": "ERC1967Upgrade.sol",
 			"symbols": [
 				{
-					"id": 1279,
+					"id": 1297,
 					"name": "ERC1967Upgrade",
 					"absolute_path": "ERC1967Upgrade.sol"
 				},
 				{
-					"id": 1107,
+					"id": 1125,
 					"name": "IBeacon",
 					"absolute_path": "IBeacon.sol"
 				},
 				{
-					"id": 1160,
+					"id": 1178,
 					"name": "Address",
 					"absolute_path": "Address.sol"
 				},
 				{
-					"id": 1160,
+					"id": 1178,
 					"name": "StorageSlot",
 					"absolute_path": "StorageSlot.sol"
 				}
 			],
 			"imports": [
 				{
-					"id": 1315,
+					"id": 1333,
 					"node_type": 29,
 					"absolute_path": "IBeacon.sol",
 					"file": "../beacon/IBeacon.sol",
 					"unit_alias": "",
-					"source_unit_id": 1160,
-					"contract_id": 1194
+					"source_unit_id": 1178,
+					"contract_id": 1212
 				},
 				{
-					"id": 1316,
+					"id": 1334,
 					"node_type": 29,
 					"absolute_path": "Address.sol",
 					"file": "../../utils/Address.sol",
 					"unit_alias": "",
-					"source_unit_id": 1160,
-					"contract_id": 1194
+					"source_unit_id": 1178,
+					"contract_id": 1212
 				},
 				{
-					"id": 1317,
+					"id": 1335,
 					"node_type": 29,
 					"absolute_path": "StorageSlot.sol",
 					"file": "../../utils/StorageSlot.sol",
 					"unit_alias": "",
-					"source_unit_id": 1160,
-					"contract_id": 1194
+					"source_unit_id": 1178,
+					"contract_id": 1212
 				}
 			],
 			"pragmas": [
 				{
-					"id": 1297,
+					"id": 1315,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -1514,8 +1734,8 @@
 			],
 			"state_variables": [
 				{
-					"id": 1320,
-					"contract_id": 1318,
+					"id": 1338,
+					"contract_id": 1336,
 					"name": "_ROLLBACK_SLOT",
 					"node_type": 44,
 					"visibility": 2,
@@ -1529,8 +1749,8 @@
 					}
 				},
 				{
-					"id": 1325,
-					"contract_id": 1318,
+					"id": 1343,
+					"contract_id": 1336,
 					"name": "_IMPLEMENTATION_SLOT",
 					"node_type": 44,
 					"visibility": 1,
@@ -1544,8 +1764,8 @@
 					}
 				},
 				{
-					"id": 1709,
-					"contract_id": 1318,
+					"id": 1727,
+					"contract_id": 1336,
 					"name": "_ADMIN_SLOT",
 					"node_type": 44,
 					"visibility": 1,
@@ -1559,8 +1779,8 @@
 					}
 				},
 				{
-					"id": 1827,
-					"contract_id": 1318,
+					"id": 1845,
+					"contract_id": 1336,
 					"name": "_BEACON_SLOT",
 					"node_type": 44,
 					"visibility": 1,
@@ -1578,13 +1798,13 @@
 			"enums": [],
 			"events": [
 				{
-					"id": 1330,
+					"id": 1348,
 					"node_type": 57,
 					"name": "Upgraded",
 					"anonymous": false,
 					"parameters": [
 						{
-							"id": 1333,
+							"id": 1351,
 							"node_type": 44,
 							"name": "implementation",
 							"type": "address",
@@ -1596,13 +1816,13 @@
 					]
 				},
 				{
-					"id": 1714,
+					"id": 1732,
 					"node_type": 57,
 					"name": "AdminChanged",
 					"anonymous": false,
 					"parameters": [
 						{
-							"id": 1717,
+							"id": 1735,
 							"node_type": 44,
 							"name": "previousAdmin",
 							"type": "address",
@@ -1612,7 +1832,7 @@
 							}
 						},
 						{
-							"id": 1721,
+							"id": 1739,
 							"node_type": 44,
 							"name": "newAdmin",
 							"type": "address",
@@ -1624,13 +1844,13 @@
 					]
 				},
 				{
-					"id": 1832,
+					"id": 1850,
 					"node_type": 57,
 					"name": "BeaconUpgraded",
 					"anonymous": false,
 					"parameters": [
 						{
-							"id": 1835,
+							"id": 1853,
 							"node_type": 44,
 							"name": "beacon",
 							"type": "address",
@@ -1645,7 +1865,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 1338,
+					"id": 1356,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_getImplementation",
@@ -1657,7 +1877,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1342,
+							"id": 1360,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1669,7 +1889,7 @@
 					],
 					"return": [
 						{
-							"id": 1348,
+							"id": 1366,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1681,7 +1901,7 @@
 					]
 				},
 				{
-					"id": 1367,
+					"id": 1385,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_setImplementation",
@@ -1693,7 +1913,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1371,
+							"id": 1389,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -1706,7 +1926,7 @@
 					"return": []
 				},
 				{
-					"id": 1409,
+					"id": 1427,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_upgradeTo",
@@ -1718,7 +1938,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1413,
+							"id": 1431,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -1731,7 +1951,7 @@
 					"return": []
 				},
 				{
-					"id": 1433,
+					"id": 1451,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_upgradeToAndCall",
@@ -1743,7 +1963,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1437,
+							"id": 1455,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -1753,7 +1973,7 @@
 							}
 						},
 						{
-							"id": 1441,
+							"id": 1459,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -1763,7 +1983,7 @@
 							}
 						},
 						{
-							"id": 1445,
+							"id": 1463,
 							"node_type": 44,
 							"name": "forceCall",
 							"type": "bool",
@@ -1776,7 +1996,7 @@
 					"return": []
 				},
 				{
-					"id": 1491,
+					"id": 1509,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_upgradeToAndCallSecure",
@@ -1788,7 +2008,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1495,
+							"id": 1513,
 							"node_type": 44,
 							"name": "newImplementation",
 							"type": "address",
@@ -1798,7 +2018,7 @@
 							}
 						},
 						{
-							"id": 1499,
+							"id": 1517,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -1808,7 +2028,7 @@
 							}
 						},
 						{
-							"id": 1503,
+							"id": 1521,
 							"node_type": 44,
 							"name": "forceCall",
 							"type": "bool",
@@ -1821,7 +2041,7 @@
 					"return": []
 				},
 				{
-					"id": 1643,
+					"id": 1661,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_upgradeBeaconToAndCall",
@@ -1833,7 +2053,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1647,
+							"id": 1665,
 							"node_type": 44,
 							"name": "newBeacon",
 							"type": "address",
@@ -1843,7 +2063,7 @@
 							}
 						},
 						{
-							"id": 1651,
+							"id": 1669,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -1853,7 +2073,7 @@
 							}
 						},
 						{
-							"id": 1655,
+							"id": 1673,
 							"node_type": 44,
 							"name": "forceCall",
 							"type": "bool",
@@ -1866,7 +2086,7 @@
 					"return": []
 				},
 				{
-					"id": 1726,
+					"id": 1744,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_getAdmin",
@@ -1878,7 +2098,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1730,
+							"id": 1748,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1890,7 +2110,7 @@
 					],
 					"return": [
 						{
-							"id": 1736,
+							"id": 1754,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1902,7 +2122,7 @@
 					]
 				},
 				{
-					"id": 1755,
+					"id": 1773,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_setAdmin",
@@ -1914,7 +2134,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1759,
+							"id": 1777,
 							"node_type": 44,
 							"name": "newAdmin",
 							"type": "address",
@@ -1927,7 +2147,7 @@
 					"return": []
 				},
 				{
-					"id": 1799,
+					"id": 1817,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_changeAdmin",
@@ -1939,7 +2159,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1803,
+							"id": 1821,
 							"node_type": 44,
 							"name": "newAdmin",
 							"type": "address",
@@ -1952,7 +2172,7 @@
 					"return": []
 				},
 				{
-					"id": 1840,
+					"id": 1858,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_getBeacon",
@@ -1964,7 +2184,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1844,
+							"id": 1862,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1976,7 +2196,7 @@
 					],
 					"return": [
 						{
-							"id": 1850,
+							"id": 1868,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -1988,7 +2208,7 @@
 					]
 				},
 				{
-					"id": 1869,
+					"id": 1887,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_setBeacon",
@@ -2000,7 +2220,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1873,
+							"id": 1891,
 							"node_type": 44,
 							"name": "newBeacon",
 							"type": "address",
@@ -2015,8 +2235,8 @@
 			]
 		},
 		{
-			"id": 1973,
-			"source_unit_id": 1932,
+			"id": 1991,
+			"source_unit_id": 1950,
 			"node_type": 35,
 			"kind": 37,
 			"name": "Address",
@@ -2025,7 +2245,7 @@
 			"absolute_path": "Address.sol",
 			"symbols": [
 				{
-					"id": 1932,
+					"id": 1950,
 					"name": "Address",
 					"absolute_path": "Address.sol"
 				}
@@ -2033,7 +2253,7 @@
 			"imports": [],
 			"pragmas": [
 				{
-					"id": 1952,
+					"id": 1970,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -2056,7 +2276,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 1975,
+					"id": 1993,
 					"node_type": 42,
 					"kind": 41,
 					"name": "isContract",
@@ -2068,7 +2288,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 1979,
+							"id": 1997,
 							"node_type": 44,
 							"name": "account",
 							"type": "address",
@@ -2080,7 +2300,7 @@
 					],
 					"return": [
 						{
-							"id": 1985,
+							"id": 2003,
 							"node_type": 44,
 							"name": "",
 							"type": "bool",
@@ -2092,7 +2312,7 @@
 					]
 				},
 				{
-					"id": 2011,
+					"id": 2029,
 					"node_type": 42,
 					"kind": 41,
 					"name": "sendValue",
@@ -2104,7 +2324,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2015,
+							"id": 2033,
 							"node_type": 44,
 							"name": "recipient",
 							"type": "addresspayable",
@@ -2114,7 +2334,7 @@
 							}
 						},
 						{
-							"id": 2019,
+							"id": 2037,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2127,7 +2347,7 @@
 					"return": []
 				},
 				{
-					"id": 2065,
+					"id": 2083,
 					"node_type": 42,
 					"kind": 41,
 					"name": "functionCall",
@@ -2139,7 +2359,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2069,
+							"id": 2087,
 							"node_type": 44,
 							"name": "target",
 							"type": "address",
@@ -2149,7 +2369,7 @@
 							}
 						},
 						{
-							"id": 2073,
+							"id": 2091,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -2161,7 +2381,7 @@
 					],
 					"return": [
 						{
-							"id": 2079,
+							"id": 2097,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2173,7 +2393,7 @@
 					]
 				},
 				{
-					"id": 2098,
+					"id": 2116,
 					"node_type": 42,
 					"kind": 41,
 					"name": "functionCall",
@@ -2185,7 +2405,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2102,
+							"id": 2120,
 							"node_type": 44,
 							"name": "target",
 							"type": "address",
@@ -2195,7 +2415,7 @@
 							}
 						},
 						{
-							"id": 2106,
+							"id": 2124,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -2205,7 +2425,7 @@
 							}
 						},
 						{
-							"id": 2110,
+							"id": 2128,
 							"node_type": 44,
 							"name": "errorMessage",
 							"type": "string",
@@ -2217,7 +2437,7 @@
 					],
 					"return": [
 						{
-							"id": 2116,
+							"id": 2134,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2229,7 +2449,7 @@
 					]
 				},
 				{
-					"id": 2137,
+					"id": 2155,
 					"node_type": 42,
 					"kind": 41,
 					"name": "functionCallWithValue",
@@ -2241,7 +2461,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2141,
+							"id": 2159,
 							"node_type": 44,
 							"name": "target",
 							"type": "address",
@@ -2251,7 +2471,7 @@
 							}
 						},
 						{
-							"id": 2145,
+							"id": 2163,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -2261,7 +2481,7 @@
 							}
 						},
 						{
-							"id": 2149,
+							"id": 2167,
 							"node_type": 44,
 							"name": "value",
 							"type": "uint256",
@@ -2273,7 +2493,7 @@
 					],
 					"return": [
 						{
-							"id": 2155,
+							"id": 2173,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2285,7 +2505,7 @@
 					]
 				},
 				{
-					"id": 2176,
+					"id": 2194,
 					"node_type": 42,
 					"kind": 41,
 					"name": "functionCallWithValue",
@@ -2296,75 +2516,9 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [],
 					"parameters": [
-						{
-							"id": 2180,
-							"node_type": 44,
-							"name": "target",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 2184,
-							"node_type": 44,
-							"name": "data",
-							"type": "bytes",
-							"type_description": {
-								"type_identifier": "t_bytes",
-								"type_string": "bytes"
-							}
-						},
-						{
-							"id": 2188,
-							"node_type": 44,
-							"name": "value",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 2192,
-							"node_type": 44,
-							"name": "errorMessage",
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					],
-					"return": [
 						{
 							"id": 2198,
 							"node_type": 44,
-							"name": "",
-							"type": "bytes",
-							"type_description": {
-								"type_identifier": "t_bytes",
-								"type_string": "bytes"
-							}
-						}
-					]
-				},
-				{
-					"id": 2259,
-					"node_type": 42,
-					"kind": 41,
-					"name": "functionStaticCall",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 5,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
-					"parameters": [
-						{
-							"id": 2263,
-							"node_type": 44,
 							"name": "target",
 							"type": "address",
 							"type_description": {
@@ -2373,53 +2527,7 @@
 							}
 						},
 						{
-							"id": 2267,
-							"node_type": 44,
-							"name": "data",
-							"type": "bytes",
-							"type_description": {
-								"type_identifier": "t_bytes",
-								"type_string": "bytes"
-							}
-						}
-					],
-					"return": [
-						{
-							"id": 2273,
-							"node_type": 44,
-							"name": "",
-							"type": "bytes",
-							"type_description": {
-								"type_identifier": "t_bytes",
-								"type_string": "bytes"
-							}
-						}
-					]
-				},
-				{
-					"id": 2292,
-					"node_type": 42,
-					"kind": 41,
-					"name": "functionStaticCall",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 5,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
-					"parameters": [
-						{
-							"id": 2296,
-							"node_type": 44,
-							"name": "target",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 2300,
+							"id": 2202,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -2429,7 +2537,17 @@
 							}
 						},
 						{
-							"id": 2304,
+							"id": 2206,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 2210,
 							"node_type": 44,
 							"name": "errorMessage",
 							"type": "string",
@@ -2441,7 +2559,7 @@
 					],
 					"return": [
 						{
-							"id": 2310,
+							"id": 2216,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2453,19 +2571,19 @@
 					]
 				},
 				{
-					"id": 2351,
+					"id": 2277,
 					"node_type": 42,
 					"kind": 41,
-					"name": "functionDelegateCall",
+					"name": "functionStaticCall",
 					"implemented": true,
 					"visibility": 1,
-					"state_mutability": 4,
+					"state_mutability": 5,
 					"virtual": false,
 					"referenced_declaration_id": 0,
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2355,
+							"id": 2281,
 							"node_type": 44,
 							"name": "target",
 							"type": "address",
@@ -2475,7 +2593,7 @@
 							}
 						},
 						{
-							"id": 2359,
+							"id": 2285,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -2487,7 +2605,7 @@
 					],
 					"return": [
 						{
-							"id": 2365,
+							"id": 2291,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2499,19 +2617,19 @@
 					]
 				},
 				{
-					"id": 2384,
+					"id": 2310,
 					"node_type": 42,
 					"kind": 41,
-					"name": "functionDelegateCall",
+					"name": "functionStaticCall",
 					"implemented": true,
 					"visibility": 1,
-					"state_mutability": 4,
+					"state_mutability": 5,
 					"virtual": false,
 					"referenced_declaration_id": 0,
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2388,
+							"id": 2314,
 							"node_type": 44,
 							"name": "target",
 							"type": "address",
@@ -2521,7 +2639,7 @@
 							}
 						},
 						{
-							"id": 2392,
+							"id": 2318,
 							"node_type": 44,
 							"name": "data",
 							"type": "bytes",
@@ -2531,7 +2649,7 @@
 							}
 						},
 						{
-							"id": 2396,
+							"id": 2322,
 							"node_type": 44,
 							"name": "errorMessage",
 							"type": "string",
@@ -2543,7 +2661,7 @@
 					],
 					"return": [
 						{
-							"id": 2402,
+							"id": 2328,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2555,7 +2673,109 @@
 					]
 				},
 				{
-					"id": 2443,
+					"id": 2369,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionDelegateCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2373,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2377,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2383,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2402,
+					"node_type": 42,
+					"kind": 41,
+					"name": "functionDelegateCall",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"parameters": [
+						{
+							"id": 2406,
+							"node_type": 44,
+							"name": "target",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2410,
+							"node_type": 44,
+							"name": "data",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						},
+						{
+							"id": 2414,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"return": [
+						{
+							"id": 2420,
+							"node_type": 44,
+							"name": "",
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
+				},
+				{
+					"id": 2461,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_verifyCallResult",
@@ -2567,7 +2787,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2447,
+							"id": 2465,
 							"node_type": 44,
 							"name": "success",
 							"type": "bool",
@@ -2577,7 +2797,7 @@
 							}
 						},
 						{
-							"id": 2451,
+							"id": 2469,
 							"node_type": 44,
 							"name": "returndata",
 							"type": "bytes",
@@ -2587,7 +2807,7 @@
 							}
 						},
 						{
-							"id": 2455,
+							"id": 2473,
 							"node_type": 44,
 							"name": "errorMessage",
 							"type": "string",
@@ -2599,7 +2819,7 @@
 					],
 					"return": [
 						{
-							"id": 2461,
+							"id": 2479,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -2613,8 +2833,8 @@
 			]
 		},
 		{
-			"id": 2520,
-			"source_unit_id": 2477,
+			"id": 2538,
+			"source_unit_id": 2495,
 			"node_type": 35,
 			"kind": 37,
 			"name": "StorageSlot",
@@ -2623,7 +2843,7 @@
 			"absolute_path": "StorageSlot.sol",
 			"symbols": [
 				{
-					"id": 2477,
+					"id": 2495,
 					"name": "StorageSlot",
 					"absolute_path": "StorageSlot.sol"
 				}
@@ -2631,7 +2851,7 @@
 			"imports": [],
 			"pragmas": [
 				{
-					"id": 2499,
+					"id": 2517,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -2650,7 +2870,7 @@
 			"state_variables": [],
 			"structs": [
 				{
-					"id": 2522,
+					"id": 2540,
 					"node_type": 67,
 					"name": "AddressSlot",
 					"canonical_name": "StorageSlot.AddressSlot",
@@ -2659,7 +2879,7 @@
 					"storage_location": 1,
 					"members": [
 						{
-							"id": 2524,
+							"id": 2542,
 							"node_type": 44,
 							"name": "value",
 							"type": "address",
@@ -2671,12 +2891,12 @@
 					],
 					"type": "struct",
 					"type_description": {
-						"type_identifier": "t_struct$_StorageSlot_AddressSlot_$2522",
+						"type_identifier": "t_struct$_StorageSlot_AddressSlot_$2540",
 						"type_string": "struct StorageSlot.AddressSlot"
 					}
 				},
 				{
-					"id": 2529,
+					"id": 2547,
 					"node_type": 67,
 					"name": "BooleanSlot",
 					"canonical_name": "StorageSlot.BooleanSlot",
@@ -2685,7 +2905,7 @@
 					"storage_location": 1,
 					"members": [
 						{
-							"id": 2531,
+							"id": 2549,
 							"node_type": 44,
 							"name": "value",
 							"type": "bool",
@@ -2697,12 +2917,12 @@
 					],
 					"type": "struct",
 					"type_description": {
-						"type_identifier": "t_struct$_StorageSlot_BooleanSlot_$2529",
+						"type_identifier": "t_struct$_StorageSlot_BooleanSlot_$2547",
 						"type_string": "struct StorageSlot.BooleanSlot"
 					}
 				},
 				{
-					"id": 2536,
+					"id": 2554,
 					"node_type": 67,
 					"name": "Bytes32Slot",
 					"canonical_name": "StorageSlot.Bytes32Slot",
@@ -2711,7 +2931,7 @@
 					"storage_location": 1,
 					"members": [
 						{
-							"id": 2538,
+							"id": 2556,
 							"node_type": 44,
 							"name": "value",
 							"type": "bytes32",
@@ -2723,12 +2943,12 @@
 					],
 					"type": "struct",
 					"type_description": {
-						"type_identifier": "t_struct$_StorageSlot_Bytes32Slot_$2536",
+						"type_identifier": "t_struct$_StorageSlot_Bytes32Slot_$2554",
 						"type_string": "struct StorageSlot.Bytes32Slot"
 					}
 				},
 				{
-					"id": 2543,
+					"id": 2561,
 					"node_type": 67,
 					"name": "Uint256Slot",
 					"canonical_name": "StorageSlot.Uint256Slot",
@@ -2737,7 +2957,7 @@
 					"storage_location": 1,
 					"members": [
 						{
-							"id": 2545,
+							"id": 2563,
 							"node_type": 44,
 							"name": "value",
 							"type": "uint256",
@@ -2749,7 +2969,7 @@
 					],
 					"type": "struct",
 					"type_description": {
-						"type_identifier": "t_struct$_StorageSlot_Uint256Slot_$2543",
+						"type_identifier": "t_struct$_StorageSlot_Uint256Slot_$2561",
 						"type_string": "struct StorageSlot.Uint256Slot"
 					}
 				}
@@ -2759,7 +2979,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 2550,
+					"id": 2568,
 					"node_type": 42,
 					"kind": 41,
 					"name": "getAddressSlot",
@@ -2771,7 +2991,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2554,
+							"id": 2572,
 							"node_type": 44,
 							"name": "slot",
 							"type": "bytes32",
@@ -2783,19 +3003,19 @@
 					],
 					"return": [
 						{
-							"id": 2560,
+							"id": 2578,
 							"node_type": 44,
 							"name": "r",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_struct$_StorageSlot_AddressSlot_$2522",
+								"type_identifier": "t_struct$_StorageSlot_AddressSlot_$2540",
 								"type_string": "struct StorageSlot.AddressSlot"
 							}
 						}
 					]
 				},
 				{
-					"id": 2574,
+					"id": 2592,
 					"node_type": 42,
 					"kind": 41,
 					"name": "getBooleanSlot",
@@ -2807,7 +3027,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2578,
+							"id": 2596,
 							"node_type": 44,
 							"name": "slot",
 							"type": "bytes32",
@@ -2819,19 +3039,19 @@
 					],
 					"return": [
 						{
-							"id": 2584,
+							"id": 2602,
 							"node_type": 44,
 							"name": "r",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_struct$_StorageSlot_BooleanSlot_$2529",
+								"type_identifier": "t_struct$_StorageSlot_BooleanSlot_$2547",
 								"type_string": "struct StorageSlot.BooleanSlot"
 							}
 						}
 					]
 				},
 				{
-					"id": 2598,
+					"id": 2616,
 					"node_type": 42,
 					"kind": 41,
 					"name": "getBytes32Slot",
@@ -2843,7 +3063,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2602,
+							"id": 2620,
 							"node_type": 44,
 							"name": "slot",
 							"type": "bytes32",
@@ -2855,19 +3075,19 @@
 					],
 					"return": [
 						{
-							"id": 2608,
+							"id": 2626,
 							"node_type": 44,
 							"name": "r",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_struct$_StorageSlot_Bytes32Slot_$2536",
+								"type_identifier": "t_struct$_StorageSlot_Bytes32Slot_$2554",
 								"type_string": "struct StorageSlot.Bytes32Slot"
 							}
 						}
 					]
 				},
 				{
-					"id": 2622,
+					"id": 2640,
 					"node_type": 42,
 					"kind": 41,
 					"name": "getUint256Slot",
@@ -2879,7 +3099,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2626,
+							"id": 2644,
 							"node_type": 44,
 							"name": "slot",
 							"type": "bytes32",
@@ -2891,12 +3111,12 @@
 					],
 					"return": [
 						{
-							"id": 2632,
+							"id": 2650,
 							"node_type": 44,
 							"name": "r",
 							"type": "",
 							"type_description": {
-								"type_identifier": "t_struct$_StorageSlot_Uint256Slot_$2543",
+								"type_identifier": "t_struct$_StorageSlot_Uint256Slot_$2561",
 								"type_string": "struct StorageSlot.Uint256Slot"
 							}
 						}
@@ -2905,8 +3125,8 @@
 			]
 		},
 		{
-			"id": 2691,
-			"source_unit_id": 2645,
+			"id": 2709,
+			"source_unit_id": 2663,
 			"node_type": 35,
 			"kind": 36,
 			"name": "Ownable",
@@ -2915,30 +3135,30 @@
 			"absolute_path": "Ownable.sol",
 			"symbols": [
 				{
-					"id": 2645,
+					"id": 2663,
 					"name": "Ownable",
 					"absolute_path": "Ownable.sol"
 				},
 				{
-					"id": 2477,
+					"id": 2495,
 					"name": "Context",
 					"absolute_path": "Context.sol"
 				}
 			],
 			"imports": [
 				{
-					"id": 2690,
+					"id": 2708,
 					"node_type": 29,
 					"absolute_path": "Context.sol",
 					"file": "../utils/Context.sol",
 					"unit_alias": "",
-					"source_unit_id": 2477,
-					"contract_id": 2520
+					"source_unit_id": 2495,
+					"contract_id": 2538
 				}
 			],
 			"pragmas": [
 				{
-					"id": 2669,
+					"id": 2687,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -2956,8 +3176,8 @@
 			],
 			"state_variables": [
 				{
-					"id": 2697,
-					"contract_id": 2691,
+					"id": 2715,
+					"contract_id": 2709,
 					"name": "_owner",
 					"node_type": 44,
 					"visibility": 2,
@@ -2975,13 +3195,13 @@
 			"enums": [],
 			"events": [
 				{
-					"id": 2702,
+					"id": 2720,
 					"node_type": 57,
 					"name": "OwnershipTransferred",
 					"anonymous": false,
 					"parameters": [
 						{
-							"id": 2705,
+							"id": 2723,
 							"node_type": 44,
 							"name": "previousOwner",
 							"type": "address",
@@ -2991,7 +3211,7 @@
 							}
 						},
 						{
-							"id": 2709,
+							"id": 2727,
 							"node_type": 44,
 							"name": "newOwner",
 							"type": "address",
@@ -3004,10 +3224,22 @@
 				}
 			],
 			"errors": [],
-			"constructor": {},
+			"constructor": {
+				"id": 2732,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4,
+				"virtual": false,
+				"modifiers": [],
+				"parameters": [],
+				"return": []
+			},
 			"functions": [
 				{
-					"id": 2751,
+					"id": 2769,
 					"node_type": 42,
 					"kind": 41,
 					"name": "owner",
@@ -3019,7 +3251,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2755,
+							"id": 2773,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -3031,7 +3263,7 @@
 					],
 					"return": [
 						{
-							"id": 2761,
+							"id": 2779,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -3043,7 +3275,7 @@
 					]
 				},
 				{
-					"id": 2796,
+					"id": 2814,
 					"node_type": 42,
 					"kind": 41,
 					"name": "renounceOwnership",
@@ -3054,7 +3286,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 2798,
+							"id": 2816,
 							"node_type": 72,
 							"name": "onlyOwner",
 							"argument_types": []
@@ -3064,7 +3296,7 @@
 					"return": []
 				},
 				{
-					"id": 2831,
+					"id": 2849,
 					"node_type": 42,
 					"kind": 41,
 					"name": "transferOwnership",
@@ -3075,7 +3307,7 @@
 					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
-							"id": 2833,
+							"id": 2851,
 							"node_type": 72,
 							"name": "onlyOwner",
 							"argument_types": []
@@ -3083,7 +3315,7 @@
 					],
 					"parameters": [
 						{
-							"id": 2839,
+							"id": 2857,
 							"node_type": 44,
 							"name": "newOwner",
 							"type": "address",
@@ -3098,8 +3330,8 @@
 			]
 		},
 		{
-			"id": 2926,
-			"source_unit_id": 2878,
+			"id": 2944,
+			"source_unit_id": 2896,
 			"node_type": 35,
 			"kind": 36,
 			"name": "Context",
@@ -3108,7 +3340,7 @@
 			"absolute_path": "Context.sol",
 			"symbols": [
 				{
-					"id": 2878,
+					"id": 2896,
 					"name": "Context",
 					"absolute_path": "Context.sol"
 				}
@@ -3116,7 +3348,7 @@
 			"imports": [],
 			"pragmas": [
 				{
-					"id": 2904,
+					"id": 2922,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -3139,7 +3371,7 @@
 			"errors": [],
 			"functions": [
 				{
-					"id": 2928,
+					"id": 2946,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_msgSender",
@@ -3151,7 +3383,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2932,
+							"id": 2950,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -3163,7 +3395,7 @@
 					],
 					"return": [
 						{
-							"id": 2938,
+							"id": 2956,
 							"node_type": 44,
 							"name": "",
 							"type": "address",
@@ -3175,7 +3407,7 @@
 					]
 				},
 				{
-					"id": 2951,
+					"id": 2969,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_msgData",
@@ -3187,7 +3419,7 @@
 					"modifiers": [],
 					"parameters": [
 						{
-							"id": 2955,
+							"id": 2973,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
@@ -3199,7 +3431,7 @@
 					],
 					"return": [
 						{
-							"id": 2961,
+							"id": 2979,
 							"node_type": 44,
 							"name": "",
 							"type": "bytes",
