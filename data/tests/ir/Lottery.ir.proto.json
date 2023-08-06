@@ -6,21 +6,18 @@
 	"contracts": [
 		{
 			"id": 14,
-			"source_unit_id": 10,
 			"node_type": 35,
 			"kind": 37,
+			"source_unit_id": 10,
 			"name": "IDummyContract",
 			"license": "MIT",
 			"language": "solidity",
-			"absolute_path": "",
 			"symbols": [
 				{
 					"id": 10,
-					"name": "IDummyContract",
-					"absolute_path": ""
+					"name": "IDummyContract"
 				}
 			],
-			"imports": [],
 			"pragmas": [
 				{
 					"id": 12,
@@ -39,28 +36,18 @@
 					"text": "pragma solidity ^0.8.4;"
 				}
 			],
-			"state_variables": [],
-			"structs": [],
-			"enums": [],
-			"events": [],
-			"errors": [],
 			"functions": [
 				{
 					"id": 16,
 					"node_type": 42,
 					"kind": 41,
 					"name": "dummyFunction",
-					"implemented": false,
 					"visibility": 4,
 					"state_mutability": 4,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 20,
 							"node_type": 44,
-							"name": "",
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
@@ -72,7 +59,6 @@
 						{
 							"id": 26,
 							"node_type": 44,
-							"name": "",
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
@@ -85,9 +71,9 @@
 		},
 		{
 			"id": 35,
-			"source_unit_id": 31,
 			"node_type": 35,
 			"kind": 36,
+			"source_unit_id": 31,
 			"name": "Lottery",
 			"license": "MIT",
 			"language": "solidity",
@@ -99,7 +85,6 @@
 					"absolute_path": "Lottery.sol"
 				}
 			],
-			"imports": [],
 			"pragmas": [
 				{
 					"id": 33,
@@ -121,9 +106,9 @@
 			"state_variables": [
 				{
 					"id": 37,
-					"contract_id": 35,
-					"name": "DUMMY_CONSTANT",
 					"node_type": 44,
+					"name": "DUMMY_CONSTANT",
+					"contract_id": 35,
 					"visibility": 3,
 					"is_constant": true,
 					"storage_location": 1,
@@ -136,11 +121,10 @@
 				},
 				{
 					"id": 58,
-					"contract_id": 35,
-					"name": "players",
 					"node_type": 44,
+					"name": "players",
+					"contract_id": 35,
 					"visibility": 3,
-					"is_constant": false,
 					"storage_location": 1,
 					"state_mutability": 1,
 					"type": "Player",
@@ -151,11 +135,10 @@
 				},
 				{
 					"id": 70,
-					"contract_id": 35,
-					"name": "playerAddresses",
 					"node_type": 44,
+					"name": "playerAddresses",
+					"contract_id": 35,
 					"visibility": 3,
-					"is_constant": false,
 					"storage_location": 1,
 					"state_mutability": 1,
 					"type": "address",
@@ -166,11 +149,10 @@
 				},
 				{
 					"id": 76,
-					"contract_id": 35,
-					"name": "state",
 					"node_type": 44,
+					"name": "state",
+					"contract_id": 35,
 					"visibility": 3,
-					"is_constant": false,
 					"storage_location": 1,
 					"state_mutability": 1,
 					"type": "enum Lottery.LotteryState",
@@ -184,10 +166,8 @@
 				{
 					"id": 47,
 					"node_type": 67,
-					"kind": 0,
 					"name": "Player",
 					"canonical_name": "Lottery.Player",
-					"referenced_declaration_id": 0,
 					"visibility": 3,
 					"storage_location": 1,
 					"members": [
@@ -251,141 +231,40 @@
 			],
 			"events": [
 				{
-					"id": 83,
-					"node_type": 57,
-					"name": "PlayerJoined",
-					"anonymous": false,
-					"parameters": [
-						{
-							"id": 86,
-							"node_type": 44,
-							"name": "addr",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					]
+					"id": 83
 				},
 				{
-					"id": 91,
-					"node_type": 57,
-					"name": "LotteryFinished",
-					"anonymous": false,
-					"parameters": [
-						{
-							"id": 94,
-							"node_type": 44,
-							"name": "winner",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					]
+					"id": 91
 				},
 				{
-					"id": 99,
-					"node_type": 57,
-					"name": "ExternalCallSuccessful",
-					"anonymous": false,
-					"parameters": []
+					"id": 99
 				},
 				{
-					"id": 103,
-					"node_type": 57,
-					"name": "ExternalCallFailed",
-					"anonymous": false,
-					"parameters": [
-						{
-							"id": 106,
-							"node_type": 44,
-							"name": "reason",
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					]
+					"id": 103
 				}
 			],
 			"errors": [
 				{
-					"id": 111,
-					"node_type": 77,
-					"name": "InvalidState",
-					"parameters": [],
-					"type_description": {
-						"type_identifier": "t_error$_Lottery_InvalidState_$111",
-						"type_string": "error Lottery.InvalidState"
-					}
+					"id": 111
 				},
 				{
-					"id": 115,
-					"node_type": 77,
-					"name": "OwnerCannotParticipate",
-					"parameters": [],
-					"type_description": {
-						"type_identifier": "t_error$_Lottery_OwnerCannotParticipate_$115",
-						"type_string": "error Lottery.OwnerCannotParticipate"
-					}
+					"id": 115
 				},
 				{
-					"id": 119,
-					"node_type": 77,
-					"name": "NoValueProvided",
-					"parameters": [],
-					"type_description": {
-						"type_identifier": "t_error$_Lottery_NoValueProvided_$119",
-						"type_string": "error Lottery.NoValueProvided"
-					}
+					"id": 119
 				},
 				{
-					"id": 123,
-					"node_type": 77,
-					"name": "InvalidWinner",
-					"parameters": [],
-					"type_description": {
-						"type_identifier": "t_error$_Lottery_InvalidWinner_$123",
-						"type_string": "error Lottery.InvalidWinner"
-					}
+					"id": 123
 				},
 				{
-					"id": 127,
-					"node_type": 77,
-					"name": "InvalidPlayerAddress",
-					"parameters": [],
-					"type_description": {
-						"type_identifier": "t_error$_Lottery_InvalidPlayerAddress_$127",
-						"type_string": "error Lottery.InvalidPlayerAddress"
-					}
+					"id": 127
 				},
 				{
-					"id": 131,
-					"node_type": 77,
-					"name": "OnlyOwnerCanCall",
-					"parameters": [],
-					"type_description": {
-						"type_identifier": "t_error$_Lottery_OnlyOwnerCanCall_$131",
-						"type_string": "error Lottery.OnlyOwnerCanCall"
-					}
+					"id": 131
 				}
 			],
 			"constructor": {
-				"id": 204,
-				"node_type": 42,
-				"kind": 11,
-				"name": "constructor",
-				"implemented": true,
-				"visibility": 1,
-				"state_mutability": 4,
-				"virtual": false,
-				"modifiers": [],
-				"parameters": [],
-				"return": []
+				"id": 204
 			},
 			"functions": [
 				{
@@ -396,8 +275,6 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 3,
-					"virtual": false,
-					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
 							"id": 223,
@@ -413,12 +290,9 @@
 						{
 							"id": 231,
 							"node_type": 72,
-							"name": "notOwner",
-							"argument_types": []
+							"name": "notOwner"
 						}
-					],
-					"parameters": [],
-					"return": []
+					]
 				},
 				{
 					"id": 332,
@@ -428,8 +302,6 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 4,
-					"virtual": false,
-					"referenced_declaration_id": 0,
 					"modifiers": [
 						{
 							"id": 334,
@@ -442,9 +314,7 @@
 								}
 							]
 						}
-					],
-					"parameters": [],
-					"return": []
+					]
 				},
 				{
 					"id": 500,
@@ -454,14 +324,10 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 5,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 504,
 							"node_type": 44,
-							"name": "",
 							"type": "address",
 							"type_description": {
 								"type_identifier": "t_address",
@@ -473,7 +339,6 @@
 						{
 							"id": 510,
 							"node_type": 44,
-							"name": "",
 							"type": "address",
 							"type_description": {
 								"type_identifier": "t_address",
@@ -490,14 +355,10 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 5,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 529,
 							"node_type": 44,
-							"name": "",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -509,7 +370,6 @@
 						{
 							"id": 535,
 							"node_type": 44,
-							"name": "",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -526,14 +386,10 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 5,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 556,
 							"node_type": 44,
-							"name": "",
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
@@ -545,7 +401,6 @@
 						{
 							"id": 562,
 							"node_type": 44,
-							"name": "",
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
@@ -561,12 +416,7 @@
 					"name": "requireOwner",
 					"implemented": true,
 					"visibility": 3,
-					"state_mutability": 5,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
-					"parameters": [],
-					"return": []
+					"state_mutability": 5
 				},
 				{
 					"id": 650,
@@ -576,9 +426,6 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 4,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 654,
@@ -590,8 +437,7 @@
 								"type_string": "address"
 							}
 						}
-					],
-					"return": []
+					]
 				},
 				{
 					"id": 705,
@@ -601,9 +447,6 @@
 					"implemented": true,
 					"visibility": 1,
 					"state_mutability": 6,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 709,
@@ -620,7 +463,6 @@
 						{
 							"id": 715,
 							"node_type": 44,
-							"name": "",
 							"type": "string",
 							"type_description": {
 								"type_identifier": "t_string",
@@ -637,9 +479,6 @@
 					"implemented": true,
 					"visibility": 3,
 					"state_mutability": 6,
-					"virtual": false,
-					"referenced_declaration_id": 0,
-					"modifiers": [],
 					"parameters": [
 						{
 							"id": 857,
@@ -667,29 +506,10 @@
 				}
 			],
 			"fallback": {
-				"id": 190,
-				"node_type": 42,
-				"name": "fallback",
-				"kind": 70,
-				"implemented": true,
-				"visibility": 1,
-				"state_mutability": 3,
-				"virtual": false,
-				"modifiers": [],
-				"parameters": [],
-				"return": []
+				"id": 190
 			},
 			"receive": {
-				"id": 197,
-				"node_type": 42,
-				"name": "receive",
-				"kind": 71,
-				"implemented": true,
-				"visibility": 1,
-				"state_mutability": 4,
-				"virtual": false,
-				"modifiers": [],
-				"parameters": []
+				"id": 197
 			}
 		}
 	]

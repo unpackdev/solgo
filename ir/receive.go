@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -61,6 +62,14 @@ func (f *Receive) GetModifiers() []*Modifier {
 
 func (f *Receive) GetParameters() []*Parameter {
 	return f.Parameters
+}
+
+func (f *Receive) ToProto() *ir_pb.Receive {
+	proto := &ir_pb.Receive{
+		Id: f.GetId(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processReceive(unit *ast.Receive) *Receive {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/ast"
 )
@@ -89,9 +90,18 @@ func (b *Builder) ToJSON() ([]byte, error) {
 	return json.Marshal(b.root)
 }
 
+func (b *Builder) ToProto() *ir_pb.Root {
+	return b.root.ToProto()
+}
+
 // ToJSONPretty returns the pretty JSON representation of the IR.
 func (b *Builder) ToJSONPretty() ([]byte, error) {
 	return json.MarshalIndent(b.root, "", "\t")
+}
+
+// ToJSONPretty returns the pretty JSON representation of the IR.
+func (b *Builder) ToProtoPretty() ([]byte, error) {
+	return json.MarshalIndent(b.root.ToProto(), "", "\t")
 }
 
 // Build returns the IR built from the sources.

@@ -5,7 +5,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/ast"
 )
 
 func TestContractMethods(t *testing.T) {
@@ -18,7 +17,7 @@ func TestContractMethods(t *testing.T) {
 		License:        "MIT",
 		Language:       LanguageSolidity,
 		AbsolutePath:   "/path/to/contract",
-		Symbols:        []ast.Symbol{},
+		Symbols:        []*Symbol{},
 		Imports:        []*Import{{}},
 		Pragmas:        []*Pragma{{}},
 		StateVariables: []*StateVariable{{}},
@@ -50,5 +49,5 @@ func TestContractMethods(t *testing.T) {
 	assert.Equal(t, []*Function{{}}, contract.GetFunctions())
 	assert.Equal(t, &Fallback{}, contract.GetFallback())
 	assert.Equal(t, &Receive{}, contract.GetReceive())
-	assert.Equal(t, []ast.Symbol{}, contract.GetSymbols())
+	assert.Equal(t, []*Symbol{}, contract.GetSymbols())
 }

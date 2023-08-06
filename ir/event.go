@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -47,6 +48,14 @@ func (e *Event) IsAnonymous() bool {
 // GetSrc returns the source location of the node.
 func (e *Event) GetSrc() ast.SrcNode {
 	return e.unit.GetSrc()
+}
+
+func (e *Event) ToProto() *ir_pb.Event {
+	proto := &ir_pb.Event{
+		Id: e.GetId(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processEvent(unit *ast.EventDefinition) *Event {

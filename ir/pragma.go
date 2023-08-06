@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -39,6 +40,17 @@ func (p *Pragma) GetText() string {
 func (p *Pragma) GetVersion() string {
 	parts := strings.Split(p.Text, " ")
 	return strings.Replace(parts[len(parts)-1], ";", "", -1)
+}
+
+func (p *Pragma) ToProto() *ir_pb.Pragma {
+	proto := &ir_pb.Pragma{
+		Id:       p.GetId(),
+		NodeType: p.GetNodeType(),
+		Literals: p.GetLiterals(),
+		Text:     p.GetText(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processPragma(unit *ast.Pragma) *Pragma {

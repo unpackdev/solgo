@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -47,6 +48,22 @@ func (e *Enum) GetMembers() []*Parameter {
 // GetSrc returns the source location of the node.
 func (e *Enum) GetSrc() ast.SrcNode {
 	return e.unit.GetSrc()
+}
+
+func (e *Enum) ToProto() *ir_pb.Enum {
+	proto := &ir_pb.Enum{
+		Id:            e.GetId(),
+		NodeType:      e.GetNodeType(),
+		Name:          e.GetName(),
+		CanonicalName: e.GetCanonicalName(),
+		Members:       make([]*ir_pb.Parameter, 0),
+	}
+
+	for _, member := range e.GetMembers() {
+		proto.Members = append(proto.Members, member.ToProto())
+	}
+
+	return proto
 }
 
 func (b *Builder) processEnum(unit *ast.EnumDefinition) *Enum {

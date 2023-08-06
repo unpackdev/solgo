@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -22,6 +23,16 @@ func (r *RootSourceUnit) GetAST() *ast.RootNode {
 // GetNodeType returns the type of the node in the AST.
 func (r *RootSourceUnit) GetNodeType() ast_pb.NodeType {
 	return r.NodeType
+}
+
+// GetEntryId returns the entry contract ID.
+func (r *RootSourceUnit) GetEntryId() int64 {
+	return r.EntryContractId
+}
+
+// GetEntryName returns the entry contract name.
+func (r *RootSourceUnit) GetEntryName() string {
+	return r.EntryContractName
 }
 
 // GetContracts returns the list of contracts in the IR.
@@ -69,7 +80,22 @@ func (r *RootSourceUnit) GetContractsCount() int32 {
 }
 
 // ToProto is a placeholder function for converting the RootSourceUnit to a protobuf message.
-func (r *RootSourceUnit) ToProto() {}
+func (r *RootSourceUnit) ToProto() *ir_pb.Root {
+	proto := &ir_pb.Root{
+		Id:                0,
+		NodeType:          r.GetNodeType(),
+		EntryContractId:   r.GetEntryId(),
+		EntryContractName: r.GetEntryName(),
+		ContractsCount:    r.GetContractsCount(),
+		Contracts:         make([]*ir_pb.Contract, 0),
+	}
+
+	for _, c := range r.GetContracts() {
+		proto.Contracts = append(proto.Contracts, c.ToProto())
+	}
+
+	return proto
+}
 
 // processRoot processes the given root node of an AST and returns a RootSourceUnit.
 // It populates the RootSourceUnit with the contracts from the AST.

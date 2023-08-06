@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -9,7 +10,7 @@ type Struct struct {
 	unit                    *ast.StructDefinition
 	Id                      int64                  `json:"id"`
 	NodeType                ast_pb.NodeType        `json:"node_type"`
-	Kind                    ast_pb.NodeType        `json:"kind,omitempty"`
+	Kind                    ast_pb.NodeType        `json:"kind"`
 	Name                    string                 `json:"name"`
 	CanonicalName           string                 `json:"canonical_name"`
 	ReferencedDeclarationId int64                  `json:"referenced_declaration_id"`
@@ -70,6 +71,28 @@ func (f *Struct) GetTypeDescription() *ast.TypeDescription {
 
 func (f *Struct) GetSrc() ast.SrcNode {
 	return f.unit.GetSrc()
+}
+
+func (f *Struct) ToProto() *ir_pb.Struct {
+	proto := &ir_pb.Struct{
+		Id:                      f.GetId(),
+		NodeType:                f.GetNodeType(),
+		Kind:                    f.GetKind(),
+		Name:                    f.GetName(),
+		CanonicalName:           f.GetCanonicalName(),
+		ReferencedDeclarationId: f.GetReferencedDeclarationId(),
+		Visibility:              f.GetVisibility(),
+		StorageLocation:         f.GetStorageLocation(),
+		Members:                 make([]*ir_pb.Parameter, 0),
+		Type:                    f.GetType(),
+		TypeDescription:         f.GetTypeDescription().ToProto(),
+	}
+
+	for _, member := range f.GetMembers() {
+		proto.Members = append(proto.Members, member.ToProto())
+	}
+
+	return proto
 }
 
 func (b *Builder) processStruct(unit *ast.StructDefinition) *Struct {

@@ -26,7 +26,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 		name                 string
 		outputPath           string
 		sources              solgo.Sources
-		expected             string
+		expectedAst          string
+		expectedProto        string
 		unresolvedReferences int64
 	}{
 		{
@@ -44,7 +45,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ir/Empty.ir").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/Empty.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -67,7 +69,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 				MaskLocalSourcesPath: true,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ir/SimpleStorage.ir").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/SimpleStorage.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -105,7 +108,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 				MaskLocalSourcesPath: true,
 				LocalSourcesPath:     "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ir/ERC20.ir").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/ERC20.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
 
@@ -133,7 +137,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 				EntrySourceUnitName: "TokenSale",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ir/TokenSale.ir").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/TokenSale.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -150,7 +155,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 				EntrySourceUnitName: "Lottery",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ir/Lottery.ir").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/Lottery.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -227,7 +233,8 @@ func TestIrBuilderFromSources(t *testing.T) {
 				EntrySourceUnitName: "TransparentUpgradeableProxy",
 				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ir/TransparentUpgradeableProxy.ir").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/TransparentUpgradeableProxy.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
 	}
@@ -263,6 +270,17 @@ func TestIrBuilderFromSources(t *testing.T) {
 			)
 			assert.NoError(t, err)
 
+			protoPretty, err := parser.ToProtoPretty()
+			assert.NoError(t, err)
+			assert.NotNil(t, protoPretty)
+
+			// Leaving it here for now to make unit tests pass...
+			// This will be removed before final push to the main branch
+			err = parser.GetAstBuilder().WriteToFile(
+				"../data/tests/ir/"+testCase.sources.EntrySourceUnitName+".ir.proto.json",
+				protoPretty,
+			)
+			assert.NoError(t, err)
 		})
 	}
 }

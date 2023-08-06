@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -62,6 +63,14 @@ func (f *Fallback) GetModifiers() []*Modifier {
 
 func (f *Fallback) GetParameters() []*Parameter {
 	return f.Parameters
+}
+
+func (f *Fallback) ToProto() *ir_pb.Fallback {
+	proto := &ir_pb.Fallback{
+		Id: f.GetId(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processFallback(unit *ast.Fallback) *Fallback {

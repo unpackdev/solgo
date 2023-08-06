@@ -7,7 +7,6 @@ import (
 )
 
 func TestContractMetadata(t *testing.T) {
-	// Create a ContractMetadata instance for testing
 	meta := &ContractMetadata{
 		Raw:     "raw",
 		Version: 1,

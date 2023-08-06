@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -67,6 +68,14 @@ func (f *Constructor) GetParameters() []*Parameter {
 
 func (f *Constructor) GetReturnParameters() []*Parameter {
 	return f.ReturnStatements
+}
+
+func (f *Constructor) ToProto() *ir_pb.Constructor {
+	proto := &ir_pb.Constructor{
+		Id: f.GetId(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {

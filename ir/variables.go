@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -66,6 +67,23 @@ func (v *StateVariable) GetTypeDescription() *ast.TypeDescription {
 
 func (v *StateVariable) GetSrc() ast.SrcNode {
 	return v.unit.GetSrc()
+}
+
+func (v *StateVariable) ToProto() *ir_pb.StateVariable {
+	proto := &ir_pb.StateVariable{
+		Id:              v.GetId(),
+		ContractId:      v.GetContractId(),
+		Name:            v.GetName(),
+		NodeType:        v.GetNodeType(),
+		Visibility:      v.GetVisibility(),
+		IsConstant:      v.IsConstant(),
+		StorageLocation: v.GetStorageLocation(),
+		StateMutability: v.GetStateMutability(),
+		Type:            v.GetType(),
+		TypeDescription: v.GetTypeDescription().ToProto(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processStateVariables(unit *ast.StateVariableDeclaration) *StateVariable {

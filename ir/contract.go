@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -35,7 +36,7 @@ type Contract struct {
 	License        string                                       `json:"license"`
 	Language       Language                                     `json:"language"`
 	AbsolutePath   string                                       `json:"absolute_path"`
-	Symbols        []ast.Symbol                                 `json:"symbols"`
+	Symbols        []*Symbol                                    `json:"symbols"`
 	Imports        []*Import                                    `json:"imports"`
 	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
@@ -133,12 +134,83 @@ func (c *Contract) GetReceive() *Receive {
 	return c.Receive
 }
 
-func (c *Contract) GetSymbols() []ast.Symbol {
+func (c *Contract) GetSymbols() []*Symbol {
 	return c.Symbols
 }
 
 func (c *Contract) GetLanguage() Language {
 	return c.Language
+}
+
+func (c *Contract) ToProto() *ir_pb.Contract {
+	proto := &ir_pb.Contract{
+		Id:             c.GetId(),
+		NodeType:       c.GetNodeType(),
+		Kind:           c.GetKind(),
+		Name:           c.GetName(),
+		License:        c.GetLicense(),
+		Language:       c.GetLanguage().String(),
+		AbsolutePath:   c.GetAbsolutePath(),
+		SourceUnitId:   c.GetSourceUnitId(),
+		Symbols:        make([]*ir_pb.Symbol, 0),
+		Imports:        make([]*ir_pb.Import, 0),
+		Pragmas:        make([]*ir_pb.Pragma, 0),
+		StateVariables: make([]*ir_pb.StateVariable, 0),
+		Structs:        make([]*ir_pb.Struct, 0),
+		Enums:          make([]*ir_pb.Enum, 0),
+		Events:         make([]*ir_pb.Event, 0),
+		Errors:         make([]*ir_pb.Error, 0),
+	}
+
+	for _, symbol := range c.GetSymbols() {
+		proto.Symbols = append(proto.Symbols, symbol.ToProto())
+	}
+
+	for _, imp := range c.GetImports() {
+		proto.Imports = append(proto.Imports, imp.ToProto())
+	}
+
+	for _, pragma := range c.GetPragmas() {
+		proto.Pragmas = append(proto.Pragmas, pragma.ToProto())
+	}
+
+	for _, stateVar := range c.GetStateVariables() {
+		proto.StateVariables = append(proto.StateVariables, stateVar.ToProto())
+	}
+
+	for _, strct := range c.GetStructs() {
+		proto.Structs = append(proto.Structs, strct.ToProto())
+	}
+
+	for _, enum := range c.GetEnums() {
+		proto.Enums = append(proto.Enums, enum.ToProto())
+	}
+
+	for _, event := range c.GetEvents() {
+		proto.Events = append(proto.Events, event.ToProto())
+	}
+
+	for _, err := range c.GetErrors() {
+		proto.Errors = append(proto.Errors, err.ToProto())
+	}
+
+	if c.GetConstructor() != nil {
+		proto.Constructor = c.GetConstructor().ToProto()
+	}
+
+	for _, fn := range c.GetFunctions() {
+		proto.Functions = append(proto.Functions, fn.ToProto())
+	}
+
+	if c.GetFallback() != nil {
+		proto.Fallback = c.GetFallback().ToProto()
+	}
+
+	if c.GetReceive() != nil {
+		proto.Receive = c.GetReceive().ToProto()
+	}
+
+	return proto
 }
 
 func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]]) *Contract {
@@ -156,7 +228,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		AbsolutePath:   unit.GetAbsolutePath(),
 		Pragmas:        make([]*Pragma, 0),
 		Imports:        make([]*Import, 0),
-		Symbols:        unit.GetExportedSymbols(),
+		Symbols:        make([]*Symbol, 0),
 		StateVariables: make([]*StateVariable, 0),
 		Structs:        make([]*Struct, 0),
 		Enums:          make([]*Enum, 0),
@@ -176,6 +248,14 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		contractNode.Imports = append(
 			contractNode.Imports,
 			b.processImport(importNode),
+		)
+	}
+
+	// Process symbols of the contract.
+	for _, symbol := range unit.GetExportedSymbols() {
+		contractNode.Symbols = append(
+			contractNode.Symbols,
+			b.processSymbol(symbol),
 		)
 	}
 

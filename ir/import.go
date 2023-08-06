@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -46,6 +47,20 @@ func (i *Import) GetSourceUnitId() int64 {
 
 func (i *Import) GetContractId() int64 {
 	return i.ContractId
+}
+
+func (i *Import) ToProto() *ir_pb.Import {
+	proto := &ir_pb.Import{
+		Id:           i.GetId(),
+		NodeType:     i.GetNodeType(),
+		SourceUnitId: i.GetSourceUnitId(),
+		ContractId:   i.GetContractId(),
+		AbsolutePath: i.GetAbsolutePath(),
+		File:         i.GetFile(),
+		UnitAlias:    i.GetUnitAlias(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processImport(unit *ast.Import) *Import {

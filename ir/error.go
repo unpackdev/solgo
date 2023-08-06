@@ -2,6 +2,7 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
 
@@ -32,6 +33,14 @@ func (e *Error) GetNodeType() ast_pb.NodeType {
 // GetSrc returns the source location of the node.
 func (e *Error) GetSrc() ast.SrcNode {
 	return e.unit.GetSrc()
+}
+
+func (e *Error) ToProto() *ir_pb.Error {
+	proto := &ir_pb.Error{
+		Id: e.GetId(),
+	}
+
+	return proto
 }
 
 func (b *Builder) processError(unit *ast.ErrorDefinition) *Error {

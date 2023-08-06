@@ -2,25 +2,9 @@ package ir
 
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 )
-
-type Parameter struct {
-	unit            *ast.Parameter       `json:"-"`
-	Id              int64                `json:"id"`
-	NodeType        ast_pb.NodeType      `json:"node_type"`
-	Name            string               `json:"name"`
-	Type            string               `json:"type"`
-	TypeDescription *ast.TypeDescription `json:"type_description"`
-}
-
-type Modifier struct {
-	unit          *ast.ModifierInvocation `json:"-"`
-	Id            int64                   `json:"id"`
-	NodeType      ast_pb.NodeType         `json:"node_type"`
-	Name          string                  `json:"name"`
-	ArgumentTypes []*ast.TypeDescription  `json:"argument_types"`
-}
 
 type Function struct {
 	unit *ast.Function
@@ -85,6 +69,41 @@ func (f *Function) GetParameters() []*Parameter {
 
 func (f *Function) GetReturnStatements() []*Parameter {
 	return f.ReturnStatements
+}
+
+func (f *Function) GetReferencedDeclarationId() int64 {
+	return f.ReferencedDeclarationId
+}
+
+func (f *Function) ToProto() *ir_pb.Function {
+	proto := &ir_pb.Function{
+		Id:                      f.GetId(),
+		NodeType:                f.GetNodeType(),
+		Kind:                    f.GetKind(),
+		Name:                    f.GetName(),
+		Implemented:             f.IsImplemented(),
+		Visibility:              f.GetVisibility(),
+		StateMutability:         f.GetStateMutability(),
+		Virtual:                 f.IsVirtual(),
+		ReferencedDeclarationId: f.GetReferencedDeclarationId(),
+		Modifiers:               make([]*ir_pb.Modifier, 0),
+		Parameters:              make([]*ir_pb.Parameter, 0),
+		Return:                  make([]*ir_pb.Parameter, 0),
+	}
+
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto())
+	}
+
+	for _, parameter := range f.GetParameters() {
+		proto.Parameters = append(proto.Parameters, parameter.ToProto())
+	}
+
+	for _, returnStatement := range f.GetReturnStatements() {
+		proto.Return = append(proto.Return, returnStatement.ToProto())
+	}
+
+	return proto
 }
 
 func (b *Builder) processFunction(unit *ast.Function) *Function {
