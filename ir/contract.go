@@ -89,6 +89,58 @@ func (c *Contract) GetSrc() ast.SrcNode {
 	return c.unit.GetContract().GetSrc()
 }
 
+func (c *Contract) GetKind() ast_pb.NodeType {
+	return c.Kind
+}
+
+func (c *Contract) GetImports() []*Import {
+	return c.Imports
+}
+
+func (c *Contract) GetPragmas() []*Pragma {
+	return c.Pragmas
+}
+
+func (c *Contract) GetStructs() []*Struct {
+	return c.Structs
+}
+
+func (c *Contract) GetEnums() []*Enum {
+	return c.Enums
+}
+
+func (c *Contract) GetEvents() []*Event {
+	return c.Events
+}
+
+func (c *Contract) GetErrors() []*Error {
+	return c.Errors
+}
+
+func (c *Contract) GetConstructor() *Constructor {
+	return c.Constructor
+}
+
+func (c *Contract) GetFunctions() []*Function {
+	return c.Functions
+}
+
+func (c *Contract) GetFallback() *Fallback {
+	return c.Fallback
+}
+
+func (c *Contract) GetReceive() *Receive {
+	return c.Receive
+}
+
+func (c *Contract) GetSymbols() []ast.Symbol {
+	return c.Symbols
+}
+
+func (c *Contract) GetLanguage() Language {
+	return c.Language
+}
+
 func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]]) *Contract {
 	contract := getContractByNodeType(unit.GetContract())
 	contractNode := &Contract{

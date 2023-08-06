@@ -43,6 +43,50 @@ func (f *Function) GetAST() *ast.Function {
 	return f.unit
 }
 
+func (f *Function) GetId() int64 {
+	return f.Id
+}
+
+func (f *Function) GetNodeType() ast_pb.NodeType {
+	return f.NodeType
+}
+
+func (f *Function) GetName() string {
+	return f.Name
+}
+
+func (f *Function) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+func (f *Function) IsImplemented() bool {
+	return f.Implemented
+}
+
+func (f *Function) GetVisibility() ast_pb.Visibility {
+	return f.Visibility
+}
+
+func (f *Function) GetStateMutability() ast_pb.Mutability {
+	return f.StateMutability
+}
+
+func (f *Function) IsVirtual() bool {
+	return f.Virtual
+}
+
+func (f *Function) GetModifiers() []*Modifier {
+	return f.Modifiers
+}
+
+func (f *Function) GetParameters() []*Parameter {
+	return f.Parameters
+}
+
+func (f *Function) GetReturnStatements() []*Parameter {
+	return f.ReturnStatements
+}
+
 func (b *Builder) processFunction(unit *ast.Function) *Function {
 	toReturn := &Function{
 		unit:                    unit,
