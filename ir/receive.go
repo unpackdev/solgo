@@ -66,7 +66,24 @@ func (f *Receive) GetParameters() []*Parameter {
 
 func (f *Receive) ToProto() *ir_pb.Receive {
 	proto := &ir_pb.Receive{
-		Id: f.GetId(),
+		Id:              f.GetId(),
+		NodeType:        f.GetNodeType(),
+		Kind:            f.GetKind(),
+		Name:            f.GetName(),
+		Implemented:     f.IsImplemented(),
+		Visibility:      f.GetVisibility(),
+		StateMutability: f.GetStateMutability(),
+		Virtual:         f.IsVirtual(),
+		Modifiers:       make([]*ir_pb.Modifier, 0),
+		Parameters:      make([]*ir_pb.Parameter, 0),
+	}
+
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto())
+	}
+
+	for _, parameter := range f.GetParameters() {
+		proto.Parameters = append(proto.Parameters, parameter.ToProto())
 	}
 
 	return proto

@@ -25,9 +25,24 @@ func (e *Error) GetId() int64 {
 	return e.Id
 }
 
+// GetName returns the name of the node.
+func (e *Error) GetName() string {
+	return e.Name
+}
+
+// GetParameters returns the parameters of the error.
+func (e *Error) GetParameters() []*Parameter {
+	return e.Parameters
+}
+
 // GetNodeType returns the type of the node in the AST.
 func (e *Error) GetNodeType() ast_pb.NodeType {
 	return e.NodeType
+}
+
+// GetTypeDescription returns the type description of the node.
+func (e *Error) GetTypeDescription() *ast.TypeDescription {
+	return e.TypeDescription
 }
 
 // GetSrc returns the source location of the node.
@@ -37,7 +52,15 @@ func (e *Error) GetSrc() ast.SrcNode {
 
 func (e *Error) ToProto() *ir_pb.Error {
 	proto := &ir_pb.Error{
-		Id: e.GetId(),
+		Id:              e.GetId(),
+		NodeType:        e.GetNodeType(),
+		Name:            e.GetName(),
+		Parameters:      make([]*ir_pb.Parameter, 0),
+		TypeDescription: e.GetTypeDescription().ToProto(),
+	}
+
+	for _, parameter := range e.GetParameters() {
+		proto.Parameters = append(proto.Parameters, parameter.ToProto())
 	}
 
 	return proto

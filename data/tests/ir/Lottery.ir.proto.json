@@ -231,40 +231,126 @@
 			],
 			"events": [
 				{
-					"id": 83
+					"id": 83,
+					"node_type": 57,
+					"name": "PlayerJoined",
+					"parameters": [
+						{
+							"id": 86,
+							"node_type": 44,
+							"name": "addr",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				},
 				{
-					"id": 91
+					"id": 91,
+					"node_type": 57,
+					"name": "LotteryFinished",
+					"parameters": [
+						{
+							"id": 94,
+							"node_type": 44,
+							"name": "winner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				},
 				{
-					"id": 99
+					"id": 99,
+					"node_type": 57,
+					"name": "ExternalCallSuccessful"
 				},
 				{
-					"id": 103
+					"id": 103,
+					"node_type": 57,
+					"name": "ExternalCallFailed",
+					"parameters": [
+						{
+							"id": 106,
+							"node_type": 44,
+							"name": "reason",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					]
 				}
 			],
 			"errors": [
 				{
-					"id": 111
+					"id": 111,
+					"node_type": 77,
+					"name": "InvalidState",
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_InvalidState_$111",
+						"type_string": "error Lottery.InvalidState"
+					}
 				},
 				{
-					"id": 115
+					"id": 115,
+					"node_type": 77,
+					"name": "OwnerCannotParticipate",
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_OwnerCannotParticipate_$115",
+						"type_string": "error Lottery.OwnerCannotParticipate"
+					}
 				},
 				{
-					"id": 119
+					"id": 119,
+					"node_type": 77,
+					"name": "NoValueProvided",
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_NoValueProvided_$119",
+						"type_string": "error Lottery.NoValueProvided"
+					}
 				},
 				{
-					"id": 123
+					"id": 123,
+					"node_type": 77,
+					"name": "InvalidWinner",
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_InvalidWinner_$123",
+						"type_string": "error Lottery.InvalidWinner"
+					}
 				},
 				{
-					"id": 127
+					"id": 127,
+					"node_type": 77,
+					"name": "InvalidPlayerAddress",
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_InvalidPlayerAddress_$127",
+						"type_string": "error Lottery.InvalidPlayerAddress"
+					}
 				},
 				{
-					"id": 131
+					"id": 131,
+					"node_type": 77,
+					"name": "OnlyOwnerCanCall",
+					"type_description": {
+						"type_identifier": "t_error$_Lottery_OnlyOwnerCanCall_$131",
+						"type_string": "error Lottery.OnlyOwnerCanCall"
+					}
 				}
 			],
 			"constructor": {
-				"id": 204
+				"id": 204,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4
 			},
 			"functions": [
 				{
@@ -506,10 +592,22 @@
 				}
 			],
 			"fallback": {
-				"id": 190
+				"id": 190,
+				"node_type": 42,
+				"kind": 70,
+				"name": "fallback",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3
 			},
 			"receive": {
-				"id": 197
+				"id": 197,
+				"node_type": 42,
+				"kind": 71,
+				"name": "receive",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4
 			}
 		}
 	]

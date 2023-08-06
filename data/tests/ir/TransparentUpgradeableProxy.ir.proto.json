@@ -104,7 +104,66 @@
 				}
 			],
 			"constructor": {
-				"id": 134
+				"id": 134,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"modifiers": [
+					{
+						"id": 151,
+						"node_type": 72,
+						"name": "TransparentUpgradeableProxy",
+						"argument_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					}
+				],
+				"parameters": [
+					{
+						"id": 138,
+						"node_type": 44,
+						"name": "logic",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 142,
+						"node_type": 44,
+						"name": "admin",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 146,
+						"node_type": 44,
+						"name": "data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				]
 			}
 		},
 		{
@@ -183,7 +242,35 @@
 				}
 			],
 			"constructor": {
-				"id": 187
+				"id": 187,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"parameters": [
+					{
+						"id": 191,
+						"node_type": 44,
+						"name": "beacon",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 195,
+						"node_type": 44,
+						"name": "data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				]
 			},
 			"functions": [
 				{
@@ -377,11 +464,43 @@
 			],
 			"events": [
 				{
-					"id": 354
+					"id": 354,
+					"node_type": 57,
+					"name": "Upgraded",
+					"parameters": [
+						{
+							"id": 357,
+							"node_type": 44,
+							"name": "implementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				}
 			],
 			"constructor": {
-				"id": 362
+				"id": 362,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4,
+				"parameters": [
+					{
+						"id": 366,
+						"node_type": 44,
+						"name": "implementation_",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					}
+				]
 			},
 			"functions": [
 				{
@@ -531,7 +650,35 @@
 				}
 			],
 			"constructor": {
-				"id": 497
+				"id": 497,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"parameters": [
+					{
+						"id": 501,
+						"node_type": 44,
+						"name": "_logic",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 505,
+						"node_type": 44,
+						"name": "_data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				]
 			},
 			"functions": [
 				{
@@ -609,7 +756,62 @@
 				}
 			],
 			"constructor": {
-				"id": 607
+				"id": 607,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"modifiers": [
+					{
+						"id": 624,
+						"node_type": 72,
+						"name": "ERC1967Proxy",
+						"argument_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					}
+				],
+				"parameters": [
+					{
+						"id": 611,
+						"node_type": 44,
+						"name": "_logic",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 615,
+						"node_type": 44,
+						"name": "admin_",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 619,
+						"node_type": 44,
+						"name": "_data",
+						"type": "bytes",
+						"type_description": {
+							"type_identifier": "t_bytes",
+							"type_string": "bytes"
+						}
+					}
+				]
 			},
 			"functions": [
 				{
@@ -1261,10 +1463,24 @@
 				}
 			],
 			"fallback": {
-				"id": 1269
+				"id": 1269,
+				"node_type": 42,
+				"kind": 70,
+				"name": "fallback",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 3,
+				"virtual": true
 			},
 			"receive": {
-				"id": 1280
+				"id": 1280,
+				"node_type": 42,
+				"kind": 71,
+				"name": "receive",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4,
+				"virtual": true
 			}
 		},
 		{
@@ -1406,13 +1622,65 @@
 			],
 			"events": [
 				{
-					"id": 1348
+					"id": 1348,
+					"node_type": 57,
+					"name": "Upgraded",
+					"parameters": [
+						{
+							"id": 1351,
+							"node_type": 44,
+							"name": "implementation",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				},
 				{
-					"id": 1732
+					"id": 1732,
+					"node_type": 57,
+					"name": "AdminChanged",
+					"parameters": [
+						{
+							"id": 1735,
+							"node_type": 44,
+							"name": "previousAdmin",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1739,
+							"node_type": 44,
+							"name": "newAdmin",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				},
 				{
-					"id": 1850
+					"id": 1850,
+					"node_type": 57,
+					"name": "BeaconUpgraded",
+					"parameters": [
+						{
+							"id": 1853,
+							"node_type": 44,
+							"name": "beacon",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				}
 			],
 			"functions": [
@@ -2621,11 +2889,41 @@
 			],
 			"events": [
 				{
-					"id": 2720
+					"id": 2720,
+					"node_type": 57,
+					"name": "OwnershipTransferred",
+					"parameters": [
+						{
+							"id": 2723,
+							"node_type": 44,
+							"name": "previousOwner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 2727,
+							"node_type": 44,
+							"name": "newOwner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
 				}
 			],
 			"constructor": {
-				"id": 2732
+				"id": 2732,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4
 			},
 			"functions": [
 				{

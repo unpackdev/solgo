@@ -52,7 +52,15 @@ func (e *Event) GetSrc() ast.SrcNode {
 
 func (e *Event) ToProto() *ir_pb.Event {
 	proto := &ir_pb.Event{
-		Id: e.GetId(),
+		Id:         e.GetId(),
+		NodeType:   e.GetNodeType(),
+		Name:       e.GetName(),
+		Anonymous:  e.IsAnonymous(),
+		Parameters: make([]*ir_pb.Parameter, 0),
+	}
+
+	for _, parameter := range e.GetParameters() {
+		proto.Parameters = append(proto.Parameters, parameter.ToProto())
 	}
 
 	return proto

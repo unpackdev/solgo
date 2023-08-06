@@ -86,5 +86,5 @@ func TestConstructorMethods(t *testing.T) {
 	assert.IsType(t, []*Parameter{}, constructorInstance.GetParameters())
 
 	// Test GetReturnStatements method
-	assert.IsType(t, []*Parameter{}, constructorInstance.GetReturnParameters())
+	assert.IsType(t, []*Parameter{}, constructorInstance.GetReturnStatements())
 }

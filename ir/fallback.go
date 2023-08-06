@@ -65,9 +65,35 @@ func (f *Fallback) GetParameters() []*Parameter {
 	return f.Parameters
 }
 
+func (f *Fallback) GetReturnStatements() []*Parameter {
+	return f.ReturnStatements
+}
+
 func (f *Fallback) ToProto() *ir_pb.Fallback {
 	proto := &ir_pb.Fallback{
-		Id: f.GetId(),
+		Id:              f.GetId(),
+		NodeType:        f.GetNodeType(),
+		Kind:            f.GetKind(),
+		Name:            f.GetName(),
+		Implemented:     f.IsImplemented(),
+		Visibility:      f.GetVisibility(),
+		StateMutability: f.GetStateMutability(),
+		Virtual:         f.IsVirtual(),
+		Modifiers:       make([]*ir_pb.Modifier, 0),
+		Parameters:      make([]*ir_pb.Parameter, 0),
+		Return:          make([]*ir_pb.Parameter, 0),
+	}
+
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto())
+	}
+
+	for _, parameter := range f.GetParameters() {
+		proto.Parameters = append(proto.Parameters, parameter.ToProto())
+	}
+
+	for _, returnStatement := range f.GetReturnStatements() {
+		proto.Return = append(proto.Return, returnStatement.ToProto())
 	}
 
 	return proto
