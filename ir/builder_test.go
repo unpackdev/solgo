@@ -269,6 +269,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 				pretty,
 			)
 			assert.NoError(t, err)
+			assert.Equal(t, testCase.expectedAst, string(pretty))
 
 			protoPretty, err := parser.ToProtoPretty()
 			assert.NoError(t, err)
@@ -281,6 +282,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 				protoPretty,
 			)
 			assert.NoError(t, err)
+			assert.Equal(t, testCase.expectedProto, string(protoPretty))
 		})
 	}
 }
