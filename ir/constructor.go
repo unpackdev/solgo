@@ -25,6 +25,50 @@ func (f *Constructor) GetAST() *ast.Constructor {
 	return f.unit
 }
 
+func (f *Constructor) GetId() int64 {
+	return f.Id
+}
+
+func (f *Constructor) GetNodeType() ast_pb.NodeType {
+	return f.NodeType
+}
+
+func (f *Constructor) GetName() string {
+	return f.Name
+}
+
+func (f *Constructor) GetKind() ast_pb.NodeType {
+	return f.Kind
+}
+
+func (f *Constructor) IsImplemented() bool {
+	return f.Implemented
+}
+
+func (f *Constructor) GetVisibility() ast_pb.Visibility {
+	return f.Visibility
+}
+
+func (f *Constructor) GetStateMutability() ast_pb.Mutability {
+	return f.StateMutability
+}
+
+func (f *Constructor) IsVirtual() bool {
+	return f.Virtual
+}
+
+func (f *Constructor) GetModifiers() []*Modifier {
+	return f.Modifiers
+}
+
+func (f *Constructor) GetParameters() []*Parameter {
+	return f.Parameters
+}
+
+func (f *Constructor) GetReturnParameters() []*Parameter {
+	return f.ReturnStatements
+}
+
 func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 	toReturn := &Constructor{
 		unit:             unit,
