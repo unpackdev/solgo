@@ -26,7 +26,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		name                 string
 		outputPath           string
 		sources              solgo.Sources
-		expected             string
+		expectedAst          string
+		expectedProto        string
 		unresolvedReferences int64
 	}{
 		{
@@ -43,7 +44,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "Empty",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -65,7 +67,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "SimpleStorage",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -102,10 +105,28 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "ERC20",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 		},
-
+		{
+			name:       "Token With Reference Resolution",
+			outputPath: "ast/",
+			sources: solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Token",
+						Path:    "Token.sol",
+						Content: tests.ReadContractFileForTest(t, "ast/Token").Content,
+					},
+				},
+				EntrySourceUnitName: "Token",
+				LocalSourcesPath:    "../sources/",
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Token.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Token.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+		},
 		{
 			name:       "Token Sale ERC20 Test",
 			outputPath: "ast/",
@@ -130,7 +151,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "TokenSale",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -147,7 +169,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "Lottery",
 				LocalSourcesPath:    "../sources/",
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 		},
 		{
@@ -224,7 +247,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				EntrySourceUnitName: "TransparentUpgradeableProxy",
 				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
-			expected:             tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast").Content,
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 		},
 	}
@@ -271,7 +295,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				assert.NoError(t, err)
 			}
 
-			prettyJson, err := astBuilder.ToPrettyJSON(astBuilder.GetRoot())
+			prettyJson, err := astBuilder.ToJSON()
 			assert.NoError(t, err)
 			assert.NotEmpty(t, prettyJson)
 			err = astBuilder.WriteToFile(
@@ -279,6 +303,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				prettyJson,
 			)
 			assert.NoError(t, err)
+			//assert.Equal(t, testCase.expectedAst, string(prettyJson))
 
 			astJson, err := astBuilder.ToJSON()
 			assert.NoError(t, err)
@@ -290,6 +315,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				astPretty,
 			)
 			assert.NoError(t, err)
+			assert.NotEmpty(t, astPretty)
+			assert.Equal(t, testCase.expectedProto, string(astPretty))
 
 			// Zero is here for the first contract that's empty...
 			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))
@@ -301,8 +328,6 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				}
 			}
 
-			//assert.Equal(t, testCase.expected, string(astJson))
-			//fmt.Println(string(prettyJson))
 		})
 	}
 }

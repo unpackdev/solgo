@@ -5,90 +5,103 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-type ReceiveDefinition struct {
+type Receive struct {
 	*ASTBuilder
 
-	Id               int64             `json:"id"`
-	NodeType         ast_pb.NodeType   `json:"node_type"`
-	Kind             ast_pb.NodeType   `json:"kind"`
-	Src              SrcNode           `json:"src"`
-	Implemented      bool              `json:"implemented"`
-	Visibility       ast_pb.Visibility `json:"visibility"`
-	StateMutability  ast_pb.Mutability `json:"state_mutability"`
-	Parameters       *ParameterList    `json:"parameters"`
-	ReturnParameters *ParameterList    `json:"return_parameters"`
-	Body             *BodyNode         `json:"body"`
-	Virtual          bool              `json:"virtual"`
+	Id               int64                 `json:"id"`
+	NodeType         ast_pb.NodeType       `json:"node_type"`
+	Kind             ast_pb.NodeType       `json:"kind"`
+	Src              SrcNode               `json:"src"`
+	Implemented      bool                  `json:"implemented"`
+	Visibility       ast_pb.Visibility     `json:"visibility"`
+	StateMutability  ast_pb.Mutability     `json:"state_mutability"`
+	Modifiers        []*ModifierInvocation `json:"modifiers"`
+	Overrides        []*OverrideSpecifier  `json:"overrides"`
+	Parameters       *ParameterList        `json:"parameters"`
+	ReturnParameters *ParameterList        `json:"return_parameters"`
+	Body             *BodyNode             `json:"body"`
+	Virtual          bool                  `json:"virtual"`
+	Payable          bool                  `json:"payable"`
 }
 
-func NewReceiveDefinition(b *ASTBuilder) *ReceiveDefinition {
-	return &ReceiveDefinition{
+func NewReceiveDefinition(b *ASTBuilder) *Receive {
+	return &Receive{
 		ASTBuilder:      b,
 		Id:              b.GetNextID(),
 		NodeType:        ast_pb.NodeType_FUNCTION_DEFINITION,
 		Kind:            ast_pb.NodeType_RECEIVE,
 		StateMutability: ast_pb.Mutability_NONPAYABLE,
+		Modifiers:       make([]*ModifierInvocation, 0),
+		Overrides:       make([]*OverrideSpecifier, 0),
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the ReceiveDefinition node.
-func (f *ReceiveDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+// SetReferenceDescriptor sets the reference descriptions of the Receive node.
+func (f *Receive) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (f *ReceiveDefinition) GetId() int64 {
+func (f *Receive) GetId() int64 {
 	return f.Id
 }
 
-func (f *ReceiveDefinition) GetSrc() SrcNode {
+func (f *Receive) GetSrc() SrcNode {
 	return f.Src
 }
 
-func (f *ReceiveDefinition) GetType() ast_pb.NodeType {
+func (f *Receive) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
-func (f *ReceiveDefinition) GetNodes() []Node[NodeType] {
+func (f *Receive) GetNodes() []Node[NodeType] {
 	return f.Body.Statements
 }
 
-func (f *ReceiveDefinition) GetTypeDescription() *TypeDescription {
+func (f *Receive) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (f *ReceiveDefinition) GetParameters() *ParameterList {
+func (f *Receive) GetModifiers() []*ModifierInvocation {
+	return f.Modifiers
+}
+
+func (f *Receive) GetOverrides() []*OverrideSpecifier {
+	return f.Overrides
+}
+
+func (f *Receive) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
-func (f *ReceiveDefinition) GetReturnParameters() *ParameterList {
+func (f *Receive) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
-func (f *ReceiveDefinition) GetBody() *BodyNode {
+func (f *Receive) GetBody() *BodyNode {
 	return f.Body
 }
 
-func (f *ReceiveDefinition) GetKind() ast_pb.NodeType {
+func (f *Receive) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
-func (f *ReceiveDefinition) IsImplemented() bool {
+func (f *Receive) IsImplemented() bool {
 	return f.Implemented
 }
 
-func (f *ReceiveDefinition) IsVirtual() bool {
+func (f *Receive) IsVirtual() bool {
 	return f.Virtual
 }
 
-func (f *ReceiveDefinition) GetVisibility() ast_pb.Visibility {
+func (f *Receive) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
-func (f *ReceiveDefinition) GetStateMutability() ast_pb.Mutability {
+func (f *Receive) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
-func (f *ReceiveDefinition) ToProto() NodeType {
+func (f *Receive) ToProto() NodeType {
 	proto := ast_pb.Receive{
 		Id:               f.GetId(),
 		NodeType:         f.GetType(),
@@ -103,10 +116,18 @@ func (f *ReceiveDefinition) ToProto() NodeType {
 		Body:             f.GetBody().ToProto().(*ast_pb.Body),
 	}
 
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto().(*ast_pb.ModifierInvocation))
+	}
+
+	for _, override := range f.GetOverrides() {
+		proto.Overrides = append(proto.Overrides, override.ToProto().(*ast_pb.OverrideSpecifier))
+	}
+
 	return NewTypedStruct(&proto, "Receive")
 }
 
-func (f *ReceiveDefinition) Parse(
+func (f *Receive) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
@@ -142,6 +163,18 @@ func (f *ReceiveDefinition) Parse(
 	returnParams.Src.ParentIndex = f.Id
 	f.ReturnParameters = returnParams
 
+	for _, modifierCtx := range ctx.AllModifierInvocation() {
+		modifier := NewModifierInvocation(f.ASTBuilder)
+		modifier.Parse(unit, contractNode, f, nil, modifierCtx)
+		f.Modifiers = append(f.Modifiers, modifier)
+	}
+
+	for _, overrideCtx := range ctx.AllOverrideSpecifier() {
+		overrideSpecifier := NewOverrideSpecifier(f.ASTBuilder)
+		overrideSpecifier.Parse(unit, f, overrideCtx)
+		f.Overrides = append(f.Overrides, overrideSpecifier)
+	}
+
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 		bodyNode := NewBodyNode(f.ASTBuilder)
 		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
@@ -159,7 +192,7 @@ func (f *ReceiveDefinition) Parse(
 	return f
 }
 
-func (f *ReceiveDefinition) getVisibilityFromCtx(ctx *parser.ReceiveFunctionDefinitionContext) ast_pb.Visibility {
+func (f *Receive) getVisibilityFromCtx(ctx *parser.ReceiveFunctionDefinitionContext) ast_pb.Visibility {
 	for _, visibility := range ctx.AllExternal() {
 		if visibility.GetText() == "external" {
 			f.Visibility = ast_pb.Visibility_EXTERNAL
@@ -169,7 +202,7 @@ func (f *ReceiveDefinition) getVisibilityFromCtx(ctx *parser.ReceiveFunctionDefi
 	return ast_pb.Visibility_INTERNAL
 }
 
-func (f *ReceiveDefinition) getStateMutabilityFromCtx(ctx *parser.ReceiveFunctionDefinitionContext) ast_pb.Mutability {
+func (f *Receive) getStateMutabilityFromCtx(ctx *parser.ReceiveFunctionDefinitionContext) ast_pb.Mutability {
 	for _, stateMutability := range ctx.AllPayable() {
 		if stateMutability.GetText() == "payable" {
 			f.StateMutability = ast_pb.Mutability_PAYABLE

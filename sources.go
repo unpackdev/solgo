@@ -20,9 +20,10 @@ type SourceUnit struct {
 
 // Sources represents a collection of SourceUnit. It includes a slice of SourceUnit and the name of the entry source unit.
 type Sources struct {
-	SourceUnits         []*SourceUnit `yaml:"source_units" json:"source_units"`
-	EntrySourceUnitName string        `yaml:"entry_source_unit" json:"base_source_unit"`
-	LocalSourcesPath    string        `yaml:"local_sources_path" json:"local_sources_path"`
+	SourceUnits          []*SourceUnit `yaml:"source_units" json:"source_units"`
+	EntrySourceUnitName  string        `yaml:"entry_source_unit" json:"base_source_unit"`
+	MaskLocalSourcesPath bool          `yaml:"mask_local_sources_path" json:"mask_local_sources_path"`
+	LocalSourcesPath     string        `yaml:"local_sources_path" json:"local_sources_path"`
 }
 
 // Prepare validates and prepares the Sources. It checks if each SourceUnit has either a path or content and a name.
@@ -158,7 +159,6 @@ func (s *Sources) GetLocalSource(partialPath string, relativeTo string) (*Source
 	}
 
 	if _, err := os.Stat(source.Path); os.IsNotExist(err) {
-		fmt.Println(source.Path)
 		return nil, err
 	}
 

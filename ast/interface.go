@@ -32,59 +32,161 @@ func NewInterfaceDefinition(b *ASTBuilder) *Interface {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Interface node.
-func (l Interface) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (l *Interface) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (l Interface) GetId() int64 {
+func (l *Interface) GetId() int64 {
 	return l.Id
 }
 
-func (l Interface) GetType() ast_pb.NodeType {
+func (l *Interface) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
-func (l Interface) GetSrc() SrcNode {
+func (l *Interface) GetSrc() SrcNode {
 	return l.Src
 }
 
-func (l Interface) GetTypeDescription() *TypeDescription {
+func (l *Interface) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (l Interface) GetName() string {
+func (l *Interface) GetName() string {
 	return l.Name
 }
 
-func (l Interface) IsAbstract() bool {
+func (l *Interface) IsAbstract() bool {
 	return l.Abstract
 }
 
-func (l Interface) GetKind() ast_pb.NodeType {
+func (l *Interface) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
-func (l Interface) IsFullyImplemented() bool {
+func (l *Interface) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
-func (l Interface) GetNodes() []Node[NodeType] {
+func (l *Interface) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
-func (l Interface) GetBaseContracts() []*BaseContract {
+func (l *Interface) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
-func (l Interface) GetContractDependencies() []int64 {
+func (l *Interface) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
-func (l Interface) GetLinearizedBaseContracts() []int64 {
+func (l *Interface) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
-func (l Interface) ToProto() NodeType {
+func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
+	toReturn := make([]*StateVariableDeclaration, 0)
+
+	for _, node := range l.GetNodes() {
+		if stateVariable, ok := node.(*StateVariableDeclaration); ok {
+			toReturn = append(toReturn, stateVariable)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetStructs() []*StructDefinition {
+	toReturn := make([]*StructDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if structNode, ok := node.(*StructDefinition); ok {
+			toReturn = append(toReturn, structNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetEnums() []*EnumDefinition {
+	toReturn := make([]*EnumDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if enum, ok := node.(*EnumDefinition); ok {
+			toReturn = append(toReturn, enum)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetErrors() []*ErrorDefinition {
+	toReturn := make([]*ErrorDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if errorNode, ok := node.(*ErrorDefinition); ok {
+			toReturn = append(toReturn, errorNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetEvents() []*EventDefinition {
+	toReturn := make([]*EventDefinition, 0)
+
+	for _, node := range l.GetNodes() {
+		if event, ok := node.(*EventDefinition); ok {
+			toReturn = append(toReturn, event)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetConstructor() *Constructor {
+	for _, node := range l.GetNodes() {
+		if constructor, ok := node.(*Constructor); ok {
+			return constructor
+		}
+	}
+
+	return nil
+}
+
+func (l *Interface) GetFunctions() []*Function {
+	toReturn := make([]*Function, 0)
+
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Function); ok {
+			toReturn = append(toReturn, function)
+		}
+	}
+
+	return toReturn
+}
+
+func (l *Interface) GetFallback() *Fallback {
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Fallback); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (l *Interface) GetReceive() *Receive {
+	for _, node := range l.GetNodes() {
+		if function, ok := node.(*Receive); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (l *Interface) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
 		NodeType:                l.NodeType,
@@ -110,7 +212,7 @@ func (l Interface) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Contract")
 }
 
-func (l Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -155,11 +257,14 @@ func (l Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfac
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: unit.Id,
 		},
-		Abstract:         false,
-		NodeType:         ast_pb.NodeType_CONTRACT_DEFINITION,
-		Kind:             ast_pb.NodeType_KIND_LIBRARY,
-		Nodes:            make([]Node[NodeType], 0),
-		FullyImplemented: true,
+		Abstract:                false,
+		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,
+		Kind:                    ast_pb.NodeType_KIND_LIBRARY,
+		Nodes:                   make([]Node[NodeType], 0),
+		BaseContracts:           make([]*BaseContract, 0),
+		ContractDependencies:    make([]int64, 0),
+		LinearizedBaseContracts: make([]int64, 0),
+		FullyImplemented:        true,
 	}
 
 	interfaceNode.BaseContracts = append(

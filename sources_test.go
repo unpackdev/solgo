@@ -60,6 +60,7 @@ func TestSources(t *testing.T) {
 			assert.NoError(t, err)
 			combinedSource := testCase.sources.GetCombinedSource()
 			assert.Equal(t, testCase.expected, combinedSource)
+			//os.WriteFile(fmt.Sprintf("combined_%d.sol", i), []byte(combinedSource), 0755)
 			assert.Equal(t, testCase.expectedUnits, len(testCase.sources.SourceUnits))
 		})
 	}

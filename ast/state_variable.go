@@ -10,8 +10,8 @@ type StateVariableDeclaration struct {
 
 	Id              int64                  `json:"id"`
 	Name            string                 `json:"name"`
-	IsConstant      bool                   `json:"is_constant"`
-	IsStateVariable bool                   `json:"is_state_variable"`
+	Constant        bool                   `json:"is_constant"`
+	StateVariable   bool                   `json:"is_state_variable"`
 	NodeType        ast_pb.NodeType        `json:"node_type"`
 	Src             SrcNode                `json:"src"`
 	Scope           int64                  `json:"scope"`
@@ -29,7 +29,7 @@ func NewStateVariableDeclaration(b *ASTBuilder) *StateVariableDeclaration {
 		NodeType:        ast_pb.NodeType_VARIABLE_DECLARATION,
 		StateMutability: ast_pb.Mutability_MUTABLE,
 		StorageLocation: ast_pb.StorageLocation_DEFAULT,
-		IsStateVariable: true,
+		StateVariable:   true,
 	}
 }
 
@@ -90,6 +90,14 @@ func (v *StateVariableDeclaration) GetScope() int64 {
 	return v.Scope
 }
 
+func (v *StateVariableDeclaration) IsConstant() bool {
+	return v.Constant
+}
+
+func (v *StateVariableDeclaration) IsStateVariable() bool {
+	return v.StateVariable
+}
+
 func (v *StateVariableDeclaration) ToProto() NodeType {
 	proto := ast_pb.StateVariable{
 		Id:              v.Id,
@@ -100,8 +108,8 @@ func (v *StateVariableDeclaration) ToProto() NodeType {
 		StorageLocation: v.StorageLocation,
 		StateMutability: v.StateMutability,
 		Scope:           v.Scope,
-		IsConstant:      v.IsConstant,
-		IsStateVariable: v.IsStateVariable,
+		IsConstant:      v.Constant,
+		IsStateVariable: v.StateVariable,
 	}
 
 	if v.GetTypeName() != nil {
@@ -141,7 +149,7 @@ func (v *StateVariableDeclaration) Parse(
 	}
 
 	for _, constantCtx := range ctx.AllConstant() {
-		v.IsConstant = constantCtx != nil
+		v.Constant = constantCtx != nil
 	}
 
 	typeName := NewTypeName(v.ASTBuilder)

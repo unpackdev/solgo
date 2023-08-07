@@ -73,6 +73,7 @@ func (n *NewExpr) ToProto() NodeType {
 		ReferencedDeclaration: n.GetReferencedDeclaration(),
 		TypeName:              n.GetTypeName().ToProto().(*ast_pb.TypeName),
 		TypeDescription:       n.GetTypeDescription().ToProto(),
+		ArgumentTypes:         make([]*ast_pb.TypeDescription, 0),
 	}
 
 	for _, arguments := range n.GetArgumentTypes() {

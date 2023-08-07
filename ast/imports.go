@@ -22,19 +22,26 @@ type Import struct {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Import node.
-func (i Import) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (i *Import) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	// Reasoning behind is a hack in resolver to set the source unit of the import
+	// as forward declaration of the source units occured.
+	if refId > 0 && refDesc == nil {
+		i.SourceUnit = refId
+		return true
+	}
+
 	return false
 }
 
-func (i Import) GetId() int64 {
+func (i *Import) GetId() int64 {
 	return i.Id
 }
 
-func (i Import) GetType() ast_pb.NodeType {
+func (i *Import) GetType() ast_pb.NodeType {
 	return i.NodeType
 }
 
-func (i Import) GetSrc() SrcNode {
+func (i *Import) GetSrc() SrcNode {
 	return i.Src
 }
 
@@ -42,37 +49,37 @@ func (i *Import) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (i Import) GetAbsolutePath() string {
+func (i *Import) GetAbsolutePath() string {
 	return i.AbsolutePath
 }
 
-func (i Import) GetFile() string {
+func (i *Import) GetFile() string {
 	return i.File
 }
 
-func (i Import) GetScope() int64 {
+func (i *Import) GetScope() int64 {
 	return i.Scope
 }
 
-func (i Import) GetUnitAlias() string {
+func (i *Import) GetUnitAlias() string {
 	return i.UnitAlias
 }
 
-func (i Import) GetSourceUnit() int64 {
+func (i *Import) GetSourceUnit() int64 {
 	return i.SourceUnit
 }
 
-func (i Import) GetNodes() []Node[NodeType] {
+func (i *Import) GetNodes() []Node[NodeType] {
 	return nil
 }
 
-func (i Import) GetName() string {
+func (i *Import) GetName() string {
 	base := filepath.Base(i.AbsolutePath)
 	ext := filepath.Ext(base)
 	return strings.TrimSuffix(base, ext)
 }
 
-func (i Import) ToProto() NodeType {
+func (i *Import) ToProto() NodeType {
 	proto := ast_pb.Import{
 		Id:           i.GetId(),
 		NodeType:     i.GetType(),

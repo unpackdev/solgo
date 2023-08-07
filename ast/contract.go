@@ -29,59 +29,161 @@ func NewContractDefinition(b *ASTBuilder) *Contract {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Contract node.
-func (c Contract) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (c *Contract) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-func (c Contract) GetId() int64 {
+func (c *Contract) GetId() int64 {
 	return c.Id
 }
 
-func (c Contract) GetType() ast_pb.NodeType {
+func (c *Contract) GetType() ast_pb.NodeType {
 	return c.NodeType
 }
 
-func (c Contract) GetSrc() SrcNode {
+func (c *Contract) GetSrc() SrcNode {
 	return c.Src
 }
 
-func (c Contract) GetName() string {
+func (c *Contract) GetName() string {
 	return c.Name
 }
 
-func (c Contract) IsAbstract() bool {
+func (c *Contract) IsAbstract() bool {
 	return c.Abstract
 }
 
-func (c Contract) GetKind() ast_pb.NodeType {
+func (c *Contract) GetKind() ast_pb.NodeType {
 	return c.Kind
 }
 
-func (c Contract) IsFullyImplemented() bool {
+func (c *Contract) IsFullyImplemented() bool {
 	return c.FullyImplemented
 }
 
-func (c Contract) GetNodes() []Node[NodeType] {
+func (c *Contract) GetNodes() []Node[NodeType] {
 	return c.Nodes
 }
 
-func (c Contract) GetLinearizedBaseContracts() []int64 {
+func (c *Contract) GetLinearizedBaseContracts() []int64 {
 	return c.LinearizedBaseContracts
 }
 
-func (c Contract) GetBaseContracts() []*BaseContract {
+func (c *Contract) GetBaseContracts() []*BaseContract {
 	return c.BaseContracts
 }
 
-func (c Contract) GetContractDependencies() []int64 {
+func (c *Contract) GetContractDependencies() []int64 {
 	return c.ContractDependencies
 }
 
-func (c Contract) GetTypeDescription() *TypeDescription {
+func (c *Contract) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
-func (c Contract) ToProto() NodeType {
+func (s *Contract) GetStateVariables() []*StateVariableDeclaration {
+	toReturn := make([]*StateVariableDeclaration, 0)
+
+	for _, node := range s.GetNodes() {
+		if stateVariable, ok := node.(*StateVariableDeclaration); ok {
+			toReturn = append(toReturn, stateVariable)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetStructs() []*StructDefinition {
+	toReturn := make([]*StructDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if structNode, ok := node.(*StructDefinition); ok {
+			toReturn = append(toReturn, structNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetEnums() []*EnumDefinition {
+	toReturn := make([]*EnumDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if enum, ok := node.(*EnumDefinition); ok {
+			toReturn = append(toReturn, enum)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetErrors() []*ErrorDefinition {
+	toReturn := make([]*ErrorDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if errorNode, ok := node.(*ErrorDefinition); ok {
+			toReturn = append(toReturn, errorNode)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetEvents() []*EventDefinition {
+	toReturn := make([]*EventDefinition, 0)
+
+	for _, node := range s.GetNodes() {
+		if event, ok := node.(*EventDefinition); ok {
+			toReturn = append(toReturn, event)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetConstructor() *Constructor {
+	for _, node := range s.GetNodes() {
+		if constructor, ok := node.(*Constructor); ok {
+			return constructor
+		}
+	}
+
+	return nil
+}
+
+func (s *Contract) GetFunctions() []*Function {
+	toReturn := make([]*Function, 0)
+
+	for _, node := range s.GetNodes() {
+		if function, ok := node.(*Function); ok {
+			toReturn = append(toReturn, function)
+		}
+	}
+
+	return toReturn
+}
+
+func (s *Contract) GetFallback() *Fallback {
+	for _, node := range s.GetNodes() {
+		if function, ok := node.(*Fallback); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (s *Contract) GetReceive() *Receive {
+	for _, node := range s.GetNodes() {
+		if function, ok := node.(*Receive); ok {
+			return function
+		}
+	}
+
+	return nil
+}
+
+func (c *Contract) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      c.Id,
 		NodeType:                c.NodeType,
@@ -107,9 +209,9 @@ func (c Contract) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Contract")
 }
 
-func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
-		Id:          l.GetNextID(),
+		Id:          c.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -121,7 +223,7 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 	// Set the absolute path of the source unit from provided sources map.
 	// We are not dynamically loading files like the solc compiler does so we need to
 	// provide the absolute path of the source unit from the sources map.
-	unit.SetAbsolutePathFromSources(l.sources)
+	unit.SetAbsolutePathFromSources(c.sources)
 	unit.ExportedSymbols = append(unit.ExportedSymbols, Symbol{
 		Id:           unit.Id,
 		Name:         unit.Name,
@@ -131,18 +233,18 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 	// Now we are going to resolve pragmas for current source unit...
 	unit.Nodes = append(
 		unit.Nodes,
-		parsePragmasForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
+		parsePragmasForSourceUnit(c.ASTBuilder, unitCtx, unit, nil, ctx, nil)...,
 	)
 
 	// Now we are going to resolve import paths for current source unit...
-	nodeImports := parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, ctx, nil)
+	nodeImports := parseImportPathsForSourceUnit(c.ASTBuilder, unitCtx, unit, nil, ctx, nil)
 	unit.Nodes = append(
 		unit.Nodes,
 		nodeImports...,
 	)
 
 	contractNode := &Contract{
-		Id:   l.GetNextID(),
+		Id:   c.GetNextID(),
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{
 			Line:        int64(ctx.GetStart().GetLine()),
@@ -165,7 +267,7 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 	contractNode.BaseContracts = append(
 		contractNode.BaseContracts,
 		parseInheritanceFromCtx(
-			l.ASTBuilder, unit, contractNode, ctx.InheritanceSpecifierList(),
+			c.ASTBuilder, unit, contractNode, ctx.InheritanceSpecifierList(),
 		)...,
 	)
 	unit.BaseContracts = contractNode.BaseContracts
@@ -193,7 +295,7 @@ func (l Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractD
 			continue
 		}
 
-		bodyNode := NewBodyNode(l.ASTBuilder)
+		bodyNode := NewBodyNode(c.ASTBuilder)
 		childNode := bodyNode.ParseDefinitions(unit, contractNode, bodyElement)
 		if childNode != nil {
 			contractNode.Nodes = append(

@@ -92,6 +92,9 @@ func (i *IfStatement) Parse(
 
 	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, ctx.Expression())
 
+	// i.Body set is just ridicolous as there are so many different ways for parsed ast to show nil
+	// instead of empty []. This was the way I've sorted it out. Future can decide if cleanup is necessary.
+	body := NewBodyNode(i.ASTBuilder)
 	if len(ctx.AllStatement()) > 0 {
 		for _, statementCtx := range ctx.AllStatement() {
 			if statementCtx.IsEmpty() {
@@ -99,12 +102,16 @@ func (i *IfStatement) Parse(
 			}
 
 			if statementCtx.Block() != nil {
-				body := NewBodyNode(i.ASTBuilder)
 				body.ParseBlock(unit, contractNode, fnNode, statementCtx.Block())
-				i.Body = body
 				break
 			}
+
+			i.Body = body
 		}
+
+		i.Body = body
+	} else {
+		i.Body = body
 	}
 
 	return i

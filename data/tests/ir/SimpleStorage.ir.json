@@ -1,0 +1,555 @@
+{
+	"node_type": 80,
+	"entry_contract_id": 234,
+	"entry_contract_name": "SimpleStorage",
+	"contracts_count": 2,
+	"contracts": [
+		{
+			"id": 19,
+			"source_unit_id": 13,
+			"node_type": 35,
+			"kind": 37,
+			"name": "MathLib",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "MathLib.sol",
+			"symbols": [
+				{
+					"id": 13,
+					"name": "MathLib",
+					"absolute_path": "MathLib.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 15,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				},
+				{
+					"id": 17,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"experimental",
+						"ABIEncoderV2",
+						";"
+					],
+					"text": "pragma experimental ABIEncoderV2;"
+				}
+			],
+			"state_variables": [],
+			"structs": [],
+			"enums": [],
+			"events": [],
+			"errors": [],
+			"functions": [
+				{
+					"id": 21,
+					"node_type": 42,
+					"kind": 41,
+					"name": "add",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 25,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 29,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 39,
+						"node_type": 46,
+						"kind": 0,
+						"statements": [
+							{
+								"id": 53,
+								"node_type": 24,
+								"kind": 24,
+								"name": "require",
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Addition overflow\""
+									}
+								],
+								"external": false,
+								"external_contract_id": 0,
+								"reference_statement_id": 0,
+								"referenced_declaration_id": 0,
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							}
+						]
+					},
+					"return": [
+						{
+							"id": 35,
+							"node_type": 44,
+							"name": "",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 70,
+					"node_type": 42,
+					"kind": 41,
+					"name": "sub",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 74,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 78,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 88,
+						"node_type": 46,
+						"kind": 0,
+						"statements": [
+							{
+								"id": 90,
+								"node_type": 24,
+								"kind": 24,
+								"name": "require",
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Subtraction underflow\""
+									}
+								],
+								"external": false,
+								"external_contract_id": 0,
+								"reference_statement_id": 0,
+								"referenced_declaration_id": 0,
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							}
+						]
+					},
+					"return": [
+						{
+							"id": 84,
+							"node_type": 44,
+							"name": "",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 119,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mul",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 123,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 127,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 137,
+						"node_type": 46,
+						"kind": 0,
+						"statements": [
+							{
+								"id": 165,
+								"node_type": 24,
+								"kind": 24,
+								"name": "require",
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Multiplication overflow\""
+									}
+								],
+								"external": false,
+								"external_contract_id": 0,
+								"reference_statement_id": 0,
+								"referenced_declaration_id": 0,
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							}
+						]
+					},
+					"return": [
+						{
+							"id": 133,
+							"node_type": 44,
+							"name": "",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 186,
+					"node_type": 42,
+					"kind": 41,
+					"name": "div",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 190,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 194,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 204,
+						"node_type": 46,
+						"kind": 0,
+						"statements": [
+							{
+								"id": 206,
+								"node_type": 24,
+								"kind": 24,
+								"name": "require",
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Division by zero\""
+									}
+								],
+								"external": false,
+								"external_contract_id": 0,
+								"reference_statement_id": 0,
+								"referenced_declaration_id": 0,
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							}
+						]
+					},
+					"return": [
+						{
+							"id": 200,
+							"node_type": 44,
+							"name": "",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 243,
+			"source_unit_id": 234,
+			"node_type": 35,
+			"kind": 36,
+			"name": "SimpleStorage",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "SimpleStorage.sol",
+			"symbols": [
+				{
+					"id": 234,
+					"name": "SimpleStorage",
+					"absolute_path": "SimpleStorage.sol"
+				},
+				{
+					"id": 13,
+					"name": "MathLib",
+					"absolute_path": "MathLib.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 242,
+					"node_type": 29,
+					"absolute_path": "MathLib.sol",
+					"file": "./MathLib.sol",
+					"unit_alias": "",
+					"source_unit_id": 13,
+					"contract_id": 19
+				}
+			],
+			"pragmas": [
+				{
+					"id": 240,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 252,
+					"contract_id": 243,
+					"name": "storedData",
+					"node_type": 44,
+					"visibility": 1,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "uint",
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					}
+				}
+			],
+			"structs": [],
+			"enums": [],
+			"events": [],
+			"errors": [],
+			"functions": [
+				{
+					"id": 257,
+					"node_type": 42,
+					"kind": 41,
+					"name": "increment",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 261,
+							"node_type": 44,
+							"name": "x",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 266,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": []
+				},
+				{
+					"id": 283,
+					"node_type": 42,
+					"kind": 41,
+					"name": "decrement",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 287,
+							"node_type": 44,
+							"name": "x",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 292,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": []
+				},
+				{
+					"id": 309,
+					"node_type": 42,
+					"kind": 41,
+					"name": "get",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 313,
+							"node_type": 44,
+							"name": "",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 323,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 319,
+							"node_type": 44,
+							"name": "",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1491 @@
+{
+	"node_type": 80,
+	"entry_contract_id": 31,
+	"entry_contract_name": "TokenSale",
+	"contracts_count": 3,
+	"contracts": [
+		{
+			"id": 37,
+			"source_unit_id": 31,
+			"node_type": 35,
+			"kind": 36,
+			"name": "TokenSale",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "TokenSale.sol",
+			"symbols": [
+				{
+					"id": 31,
+					"name": "TokenSale",
+					"absolute_path": "TokenSale.sol"
+				},
+				{
+					"id": 734,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
+				},
+				{
+					"id": 170,
+					"name": "SafeMath",
+					"absolute_path": "SafeMath.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 35,
+					"node_type": 29,
+					"absolute_path": "IERC20.sol",
+					"file": "./IERC20.sol",
+					"unit_alias": "",
+					"source_unit_id": 734,
+					"contract_id": 744
+				},
+				{
+					"id": 36,
+					"node_type": 29,
+					"absolute_path": "SafeMath.sol",
+					"file": "./SafeMath.sol",
+					"unit_alias": "",
+					"source_unit_id": 170,
+					"contract_id": 178
+				}
+			],
+			"pragmas": [
+				{
+					"id": 33,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 46,
+					"contract_id": 37,
+					"name": "token",
+					"node_type": 44,
+					"visibility": 2,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "contract IERC20",
+					"type_description": {
+						"type_identifier": "t_contract$_IERC20_$734",
+						"type_string": "contract IERC20"
+					}
+				},
+				{
+					"id": 53,
+					"contract_id": 37,
+					"name": "owner",
+					"node_type": 44,
+					"visibility": 2,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "address",
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				},
+				{
+					"id": 58,
+					"contract_id": 37,
+					"name": "tokenPrice",
+					"node_type": 44,
+					"visibility": 2,
+					"is_constant": false,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "uint256",
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					}
+				}
+			],
+			"structs": [],
+			"enums": [],
+			"events": [
+				{
+					"id": 63,
+					"node_type": 57,
+					"name": "TokensPurchased",
+					"anonymous": false,
+					"parameters": [
+						{
+							"id": 66,
+							"node_type": 44,
+							"name": "buyer",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 70,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			],
+			"errors": [],
+			"constructor": {
+				"id": 75,
+				"node_type": 42,
+				"kind": 11,
+				"name": "constructor",
+				"implemented": true,
+				"visibility": 1,
+				"state_mutability": 4,
+				"virtual": false,
+				"modifiers": [],
+				"parameters": [
+					{
+						"id": 79,
+						"node_type": 44,
+						"name": "_tokenAddress",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					{
+						"id": 83,
+						"node_type": 44,
+						"name": "_tokenPrice",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				],
+				"return": []
+			},
+			"functions": [
+				{
+					"id": 121,
+					"node_type": 42,
+					"kind": 41,
+					"name": "buyTokens",
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 125,
+							"node_type": 44,
+							"name": "_amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 130,
+						"node_type": 46,
+						"kind": 0,
+						"statements": [
+							{
+								"id": 146,
+								"node_type": 24,
+								"kind": 24,
+								"name": "",
+								"argument_types": [
+									{
+										"type_identifier": "t_function_",
+										"type_string": "function()"
+									},
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"external": true,
+								"external_contract_id": 37,
+								"external_contract_name": "TokenSale",
+								"reference_statement_id": 0,
+								"referenced_declaration_id": 0,
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$$_t_address$$_t_uint256$",
+									"type_string": "function(function(),address,uint256)"
+								}
+							}
+						]
+					},
+					"return": []
+				}
+			]
+		},
+		{
+			"id": 178,
+			"source_unit_id": 170,
+			"node_type": 35,
+			"kind": 37,
+			"name": "SafeMath",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "SafeMath.sol",
+			"symbols": [
+				{
+					"id": 170,
+					"name": "SafeMath",
+					"absolute_path": "SafeMath.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 174,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"structs": [],
+			"enums": [],
+			"events": [],
+			"errors": [],
+			"functions": [
+				{
+					"id": 180,
+					"node_type": 42,
+					"kind": 41,
+					"name": "tryAdd",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 184,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 188,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 202,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 194,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 198,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 236,
+					"node_type": 42,
+					"kind": 41,
+					"name": "trySub",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 240,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 244,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 258,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 250,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 254,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 284,
+					"node_type": 42,
+					"kind": 41,
+					"name": "tryMul",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 288,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 292,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 306,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 298,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 302,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 353,
+					"node_type": 42,
+					"kind": 41,
+					"name": "tryDiv",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 357,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 361,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 375,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 367,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 371,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 401,
+					"node_type": 42,
+					"kind": 41,
+					"name": "tryMod",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 405,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 409,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 423,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 415,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 419,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 449,
+					"node_type": 42,
+					"kind": 41,
+					"name": "add",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 453,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 457,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 467,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 463,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 478,
+					"node_type": 42,
+					"kind": 41,
+					"name": "sub",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 482,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 486,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 496,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 492,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 507,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mul",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 511,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 515,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 525,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 521,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 536,
+					"node_type": 42,
+					"kind": 41,
+					"name": "div",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 540,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 544,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 554,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 550,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 565,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mod",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 569,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 573,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 583,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 579,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 594,
+					"node_type": 42,
+					"kind": 41,
+					"name": "sub",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 598,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 602,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 606,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 616,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 612,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 641,
+					"node_type": 42,
+					"kind": 41,
+					"name": "div",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 645,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 649,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 653,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 663,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 659,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 688,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mod",
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 692,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 696,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 700,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 710,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 706,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 744,
+			"source_unit_id": 734,
+			"node_type": 35,
+			"kind": 37,
+			"name": "IERC20",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "IERC20.sol",
+			"symbols": [
+				{
+					"id": 734,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
+				}
+			],
+			"imports": [],
+			"pragmas": [
+				{
+					"id": 740,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [],
+			"structs": [],
+			"enums": [],
+			"events": [
+				{
+					"id": 862,
+					"node_type": 57,
+					"name": "Transfer",
+					"anonymous": false,
+					"parameters": [
+						{
+							"id": 865,
+							"node_type": 44,
+							"name": "from",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 869,
+							"node_type": 44,
+							"name": "to",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 873,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 878,
+					"node_type": 57,
+					"name": "Approval",
+					"anonymous": false,
+					"parameters": [
+						{
+							"id": 881,
+							"node_type": 44,
+							"name": "owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 885,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 889,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			],
+			"errors": [],
+			"functions": [
+				{
+					"id": 746,
+					"node_type": 42,
+					"kind": 41,
+					"name": "totalSupply",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 750,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 760,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 756,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 762,
+					"node_type": 42,
+					"kind": 41,
+					"name": "balanceOf",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 766,
+							"node_type": 44,
+							"name": "account",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 776,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 772,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 778,
+					"node_type": 42,
+					"kind": 41,
+					"name": "transfer",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 782,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 786,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 796,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 792,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 798,
+					"node_type": 42,
+					"kind": 41,
+					"name": "allowance",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 802,
+							"node_type": 44,
+							"name": "owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 806,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 816,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 812,
+							"node_type": 44,
+							"name": "",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 818,
+					"node_type": 42,
+					"kind": 41,
+					"name": "approve",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 822,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 826,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 836,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 832,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 838,
+					"node_type": 42,
+					"kind": 41,
+					"name": "transferFrom",
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"referenced_declaration_id": 0,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": [
+						{
+							"id": 842,
+							"node_type": 44,
+							"name": "sender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 846,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 850,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 860,
+						"node_type": 46,
+						"kind": 0,
+						"statements": []
+					},
+					"return": [
+						{
+							"id": 856,
+							"node_type": 44,
+							"name": "",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

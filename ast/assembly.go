@@ -102,6 +102,7 @@ func (a *AssemblyStatement) Parse(
 	a.Body.Src = a.Src
 	a.Body.Src.ParentIndex = a.Id
 	a.Body.NodeType = ast_pb.NodeType_AST
+	a.Body.Statements = make([]Node[NodeType], 0)
 
 	for _, yulCtx := range ctx.AllYulStatement() {
 		a.Body.Statements = append(a.Body.Statements,

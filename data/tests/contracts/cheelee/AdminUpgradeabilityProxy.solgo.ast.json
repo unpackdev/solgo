@@ -1,36 +1,66 @@
 {
   "id": 119,
+  "base_contracts": [
+    {
+      "id": 129,
+      "node_type": 62,
+      "src": {
+        "id": 130,
+        "line": 11,
+        "column": 37,
+        "start": 531,
+        "end": 557,
+        "length": 27,
+        "parent_index": 128
+      },
+      "base_name": {
+        "id": 131,
+        "node_type": 52,
+        "src": {
+          "id": 132,
+          "line": 11,
+          "column": 37,
+          "start": 531,
+          "end": 557,
+          "length": 27,
+          "parent_index": 128
+        },
+        "name": "TransparentUpgradeableProxy",
+        "referenced_declaration": 583
+      }
+    }
+  ],
   "license": "MIT",
   "exported_symbols": [
     {
       "id": 119,
       "name": "AdminUpgradeabilityProxy",
-      "absolutePath": ""
+      "absolute_path": ""
     },
     {
-      "id": 123,
+      "id": 163,
       "name": "BeaconProxy",
-      "absolutePath": "BeaconProxy.sol"
+      "absolute_path": "BeaconProxy.sol"
     },
     {
-      "id": 124,
+      "id": 324,
       "name": "UpgradeableBeacon",
-      "absolutePath": "UpgradeableBeacon.sol"
+      "absolute_path": "UpgradeableBeacon.sol"
     },
     {
-      "id": 125,
+      "id": 468,
       "name": "ERC1967Proxy",
-      "absolutePath": "ERC1967Proxy.sol"
+      "absolute_path": "ERC1967Proxy.sol"
     },
     {
-      "id": 126,
+      "id": 583,
       "name": "TransparentUpgradeableProxy",
-      "absolutePath": "TransparentUpgradeableProxy.sol"
+      "absolute_path": "TransparentUpgradeableProxy.sol"
     },
     {
-      "id": 127,
+      "id": 900,
       "name": "ProxyAdmin",
-      "absolutePath": "ProxyAdmin.sol"
+      "absolute_path": "ProxyAdmin.sol"
     }
   ],
   "absolute_path": "",
@@ -59,7 +89,8 @@
         ".",
         "0",
         ";"
-      ]
+      ],
+      "text": "pragma solidity ^0.8.0;"
     },
     {
       "id": 123,
@@ -77,7 +108,7 @@
       "file": "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol",
       "scope": 119,
       "unit_alias": "",
-      "source_unit": 0
+      "source_unit": 163
     },
     {
       "id": 124,
@@ -95,7 +126,7 @@
       "file": "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol",
       "scope": 119,
       "unit_alias": "",
-      "source_unit": 0
+      "source_unit": 324
     },
     {
       "id": 125,
@@ -113,7 +144,7 @@
       "file": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
       "scope": 119,
       "unit_alias": "",
-      "source_unit": 0
+      "source_unit": 468
     },
     {
       "id": 126,
@@ -131,7 +162,7 @@
       "file": "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
       "scope": 119,
       "unit_alias": "",
-      "source_unit": 0
+      "source_unit": 583
     },
     {
       "id": 127,
@@ -149,7 +180,7 @@
       "file": "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol",
       "scope": 119,
       "unit_alias": "",
-      "source_unit": 0
+      "source_unit": 900
     },
     {
       "id": 128,
@@ -184,6 +215,116 @@
           "state_mutability": 3,
           "visibility": 1,
           "implemented": true,
+          "modifiers": [
+            {
+              "id": 151,
+              "name": "TransparentUpgradeableProxy",
+              "node_type": 72,
+              "kind": 72,
+              "src": {
+                "id": 152,
+                "line": 12,
+                "column": 73,
+                "start": 634,
+                "end": 680,
+                "length": 47,
+                "parent_index": 134
+              },
+              "argument_types": [
+                {
+                  "type_identifier": "t_address",
+                  "type_string": "address"
+                },
+                {
+                  "type_identifier": "t_address",
+                  "type_string": "address"
+                },
+                {
+                  "type_identifier": "t_bytes",
+                  "type_string": "bytes"
+                }
+              ],
+              "arguments": [
+                {
+                  "id": 155,
+                  "node_type": 16,
+                  "src": {
+                    "id": 156,
+                    "line": 12,
+                    "column": 101,
+                    "start": 662,
+                    "end": 666,
+                    "length": 5,
+                    "parent_index": 151
+                  },
+                  "name": "logic",
+                  "type_description": {
+                    "type_identifier": "t_address",
+                    "type_string": "address"
+                  },
+                  "overloaded_declarations": [],
+                  "referenced_declaration": 155,
+                  "is_pure": false
+                },
+                {
+                  "id": 157,
+                  "node_type": 16,
+                  "src": {
+                    "id": 158,
+                    "line": 12,
+                    "column": 108,
+                    "start": 669,
+                    "end": 673,
+                    "length": 5,
+                    "parent_index": 151
+                  },
+                  "name": "admin",
+                  "type_description": {
+                    "type_identifier": "t_address",
+                    "type_string": "address"
+                  },
+                  "overloaded_declarations": [],
+                  "referenced_declaration": 157,
+                  "is_pure": false
+                },
+                {
+                  "id": 159,
+                  "node_type": 16,
+                  "src": {
+                    "id": 160,
+                    "line": 12,
+                    "column": 115,
+                    "start": 676,
+                    "end": 679,
+                    "length": 4,
+                    "parent_index": 151
+                  },
+                  "name": "data",
+                  "type_description": {
+                    "type_identifier": "t_bytes",
+                    "type_string": "bytes"
+                  },
+                  "overloaded_declarations": [],
+                  "referenced_declaration": 159,
+                  "is_pure": false
+                }
+              ],
+              "modifier_name": {
+                "id": 153,
+                "name": "TransparentUpgradeableProxy",
+                "node_type": 0,
+                "src": {
+                  "id": 154,
+                  "line": 12,
+                  "column": 73,
+                  "start": 634,
+                  "end": 660,
+                  "length": 27,
+                  "parent_index": 151
+                }
+              }
+            }
+          ],
           "parameters": {
             "id": 136,
             "node_type": 43,
@@ -339,15 +480,15 @@
               "parent_index": 134
             },
             "parameters": [],
-            "parameter_types": null
+            "parameter_types": []
           },
           "scope": 128,
           "body": {
-            "id": 151,
+            "id": 161,
             "node_type": 46,
             "kind": 0,
             "src": {
-              "id": 152,
+              "id": 162,
               "line": 12,
               "column": 121,
               "start": 682,
@@ -394,7 +535,7 @@
               "parent_index": 128
             },
             "name": "TransparentUpgradeableProxy",
-            "referenced_declaration": 0
+            "referenced_declaration": 583
           }
         }
       ],

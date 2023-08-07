@@ -112,7 +112,14 @@ func (f *Function) GetTypeDescription() *TypeDescription {
 }
 
 func (f *Function) GetNodes() []Node[NodeType] {
-	return f.Body.GetNodes()
+	toReturn := []Node[NodeType]{}
+	toReturn = append(toReturn, f.GetBody().GetNodes()...)
+
+	for _, override := range f.GetOverrides() {
+		toReturn = append(toReturn, override)
+	}
+
+	return toReturn
 }
 
 func (f *Function) GetReferencedDeclaration() int64 {
@@ -148,7 +155,7 @@ func (f *Function) ToProto() NodeType {
 	}
 
 	for _, override := range f.GetOverrides() {
-		proto.Overrides = append(proto.Overrides, override.ToProto())
+		proto.Overrides = append(proto.Overrides, override.ToProto().(*ast_pb.OverrideSpecifier))
 	}
 
 	return NewTypedStruct(&proto, "Function")
@@ -264,12 +271,6 @@ func (f *Function) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetParameters().GetParameterTypes() {
-		if paramType == nil {
-			typeStrings = append(typeStrings, "unknown")
-			typeIdentifiers = append(typeIdentifiers, "t_unknown")
-			continue
-		}
-
 		typeStrings = append(typeStrings, paramType.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}
