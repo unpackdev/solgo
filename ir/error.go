@@ -6,9 +6,9 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// Error represents an error definition in the IR.
 type Error struct {
-	unit *ast.ErrorDefinition
-
+	unit            *ast.ErrorDefinition
 	Id              int64                `json:"id"`
 	NodeType        ast_pb.NodeType      `json:"node_type"`
 	Name            string               `json:"name"`
@@ -16,40 +16,42 @@ type Error struct {
 	TypeDescription *ast.TypeDescription `json:"type_description"`
 }
 
+// GetAST returns the AST (Abstract Syntax Tree) for the error definition.
 func (e *Error) GetAST() *ast.ErrorDefinition {
 	return e.unit
 }
 
-// GetId returns the unique identifier of the node.
+// GetId returns the ID of the error definition.
 func (e *Error) GetId() int64 {
 	return e.Id
 }
 
-// GetName returns the name of the node.
+// GetName returns the name of the error definition.
 func (e *Error) GetName() string {
 	return e.Name
 }
 
-// GetParameters returns the parameters of the error.
+// GetParameters returns the parameters of the error definition.
 func (e *Error) GetParameters() []*Parameter {
 	return e.Parameters
 }
 
-// GetNodeType returns the type of the node in the AST.
+// GetNodeType returns the NodeType of the error definition.
 func (e *Error) GetNodeType() ast_pb.NodeType {
 	return e.NodeType
 }
 
-// GetTypeDescription returns the type description of the node.
+// GetTypeDescription returns the type description of the error definition.
 func (e *Error) GetTypeDescription() *ast.TypeDescription {
 	return e.TypeDescription
 }
 
-// GetSrc returns the source location of the node.
+// GetSrc returns the source location of the error definition.
 func (e *Error) GetSrc() ast.SrcNode {
 	return e.unit.GetSrc()
 }
 
+// ToProto converts the Error to its protobuf representation.
 func (e *Error) ToProto() *ir_pb.Error {
 	proto := &ir_pb.Error{
 		Id:              e.GetId(),
@@ -66,6 +68,7 @@ func (e *Error) ToProto() *ir_pb.Error {
 	return proto
 }
 
+// processError processes the error definition unit and returns the Error.
 func (b *Builder) processError(unit *ast.ErrorDefinition) *Error {
 	toReturn := &Error{
 		unit:            unit,

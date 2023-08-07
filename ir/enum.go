@@ -6,9 +6,9 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// Enum represents an enumeration in the IR.
 type Enum struct {
-	unit *ast.EnumDefinition
-
+	unit          *ast.EnumDefinition
 	Id            int64           `json:"id"`
 	NodeType      ast_pb.NodeType `json:"node_type"`
 	Name          string          `json:"name"`
@@ -16,26 +16,27 @@ type Enum struct {
 	Members       []*Parameter    `json:"members"`
 }
 
+// GetAST returns the AST (Abstract Syntax Tree) for the enum.
 func (e *Enum) GetAST() *ast.EnumDefinition {
 	return e.unit
 }
 
-// GetNodeType returns the type of the node in the AST.
+// GetNodeType returns the NodeType of the enum.
 func (e *Enum) GetNodeType() ast_pb.NodeType {
 	return e.NodeType
 }
 
-// GetId returns the unique identifier of the node.
+// GetId returns the ID of the enum.
 func (e *Enum) GetId() int64 {
 	return e.Id
 }
 
-// GetName returns the name of the node.
+// GetName returns the name of the enum.
 func (e *Enum) GetName() string {
 	return e.Name
 }
 
-// GetCanonicalName returns the canonical name of the node.
+// GetCanonicalName returns the canonical name of the enum.
 func (e *Enum) GetCanonicalName() string {
 	return e.CanonicalName
 }
@@ -45,11 +46,12 @@ func (e *Enum) GetMembers() []*Parameter {
 	return e.Members
 }
 
-// GetSrc returns the source location of the node.
+// GetSrc returns the source location of the enum.
 func (e *Enum) GetSrc() ast.SrcNode {
 	return e.unit.GetSrc()
 }
 
+// ToProto converts the Enum to its protobuf representation.
 func (e *Enum) ToProto() *ir_pb.Enum {
 	proto := &ir_pb.Enum{
 		Id:            e.GetId(),
@@ -66,6 +68,7 @@ func (e *Enum) ToProto() *ir_pb.Enum {
 	return proto
 }
 
+// processEnum processes the enum unit and returns the Enum.
 func (b *Builder) processEnum(unit *ast.EnumDefinition) *Enum {
 	toReturn := &Enum{
 		unit:          unit,

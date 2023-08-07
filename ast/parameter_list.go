@@ -17,10 +17,11 @@ type ParameterList struct {
 
 func NewParameterList(b *ASTBuilder) *ParameterList {
 	return &ParameterList{
-		ASTBuilder: b,
-		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_PARAMETER_LIST,
-		Parameters: make([]*Parameter, 0),
+		ASTBuilder:     b,
+		Id:             b.GetNextID(),
+		NodeType:       ast_pb.NodeType_PARAMETER_LIST,
+		Parameters:     make([]*Parameter, 0),
+		ParameterTypes: make([]*TypeDescription, 0),
 	}
 }
 
@@ -90,7 +91,6 @@ func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode N
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 		ParentIndex: fNode.GetId(),
 	}
-	p.Parameters = make([]*Parameter, 0)
 
 	// No need to move forwards as there are no parameters to parse in this context.
 	if ctx == nil || ctx.IsEmpty() {
@@ -108,23 +108,23 @@ func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode N
 func (p *ParameterList) ParseEventParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IEventParameterContext) {
 	p.Src = eNode.GetSrc()
 	p.Src.ParentIndex = eNode.GetId()
-	p.Parameters = make([]*Parameter, 0)
 
 	for _, paramCtx := range ctx {
 		param := NewParameter(p.ASTBuilder)
 		param.ParseEventParameter(unit, eNode, p, paramCtx)
 		p.Parameters = append(p.Parameters, param)
+		p.ParameterTypes = append(p.ParameterTypes, param.TypeName.TypeDescription)
 	}
 }
 
 func (p *ParameterList) ParseErrorParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IErrorParameterContext) {
 	p.Src = eNode.GetSrc()
 	p.Src.ParentIndex = eNode.GetId()
-	p.Parameters = make([]*Parameter, 0)
 
 	for _, paramCtx := range ctx {
 		param := NewParameter(p.ASTBuilder)
 		param.ParseErrorParameter(unit, eNode, p, paramCtx)
 		p.Parameters = append(p.Parameters, param)
+		p.ParameterTypes = append(p.ParameterTypes, param.TypeName.TypeDescription)
 	}
 }

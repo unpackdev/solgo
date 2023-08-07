@@ -27,6 +27,7 @@ func NewPayableConversionExpression(b *ASTBuilder) *PayableConversion {
 		ASTBuilder:    b,
 		Id:            b.GetNextID(),
 		NodeType:      ast_pb.NodeType_PAYABLE_CONVERSION,
+		Arguments:     make([]Node[NodeType], 0),
 		ArgumentTypes: []*TypeDescription{},
 	}
 }

@@ -55,6 +55,10 @@
 							}
 						}
 					],
+					"body": {
+						"id": 30,
+						"node_type": 46
+					},
 					"return": [
 						{
 							"id": 26,
@@ -378,10 +382,14 @@
 							"node_type": 72,
 							"name": "notOwner"
 						}
-					]
+					],
+					"body": {
+						"id": 237,
+						"node_type": 46
+					}
 				},
 				{
-					"id": 332,
+					"id": 334,
 					"node_type": 42,
 					"kind": 41,
 					"name": "finishLottery",
@@ -390,7 +398,7 @@
 					"state_mutability": 4,
 					"modifiers": [
 						{
-							"id": 334,
+							"id": 336,
 							"node_type": 72,
 							"name": "inState",
 							"argument_types": [
@@ -400,10 +408,34 @@
 								}
 							]
 						}
-					]
+					],
+					"body": {
+						"id": 346,
+						"node_type": 46,
+						"statements": [
+							{
+								"type_url": "github.com/txpull/protos/txpull.v1.ir.FunctionCall",
+								"value": {
+									"argumentTypes": [
+										{
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									],
+									"id": "499",
+									"kind": "FUNCTION_CALL",
+									"nodeType": "FUNCTION_CALL",
+									"typeDescription": {
+										"typeIdentifier": "t_function_$_t_uint256$",
+										"typeString": "function(uint256)"
+									}
+								}
+							}
+						]
+					}
 				},
 				{
-					"id": 500,
+					"id": 510,
 					"node_type": 42,
 					"kind": 41,
 					"name": "owner",
@@ -412,7 +444,7 @@
 					"state_mutability": 5,
 					"parameters": [
 						{
-							"id": 504,
+							"id": 514,
 							"node_type": 44,
 							"type": "address",
 							"type_description": {
@@ -421,9 +453,13 @@
 							}
 						}
 					],
+					"body": {
+						"id": 524,
+						"node_type": 46
+					},
 					"return": [
 						{
-							"id": 510,
+							"id": 520,
 							"node_type": 44,
 							"type": "address",
 							"type_description": {
@@ -434,7 +470,7 @@
 					]
 				},
 				{
-					"id": 525,
+					"id": 537,
 					"node_type": 42,
 					"kind": 41,
 					"name": "balance",
@@ -443,7 +479,7 @@
 					"state_mutability": 5,
 					"parameters": [
 						{
-							"id": 529,
+							"id": 541,
 							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
@@ -452,9 +488,13 @@
 							}
 						}
 					],
+					"body": {
+						"id": 551,
+						"node_type": 46
+					},
 					"return": [
 						{
-							"id": 535,
+							"id": 547,
 							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
@@ -465,7 +505,7 @@
 					]
 				},
 				{
-					"id": 552,
+					"id": 566,
 					"node_type": 42,
 					"kind": 41,
 					"name": "checkAllPlayers",
@@ -474,7 +514,7 @@
 					"state_mutability": 5,
 					"parameters": [
 						{
-							"id": 556,
+							"id": 570,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -483,9 +523,13 @@
 							}
 						}
 					],
+					"body": {
+						"id": 580,
+						"node_type": 46
+					},
 					"return": [
 						{
-							"id": 562,
+							"id": 576,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -496,16 +540,20 @@
 					]
 				},
 				{
-					"id": 625,
+					"id": 641,
 					"node_type": 42,
 					"kind": 41,
 					"name": "requireOwner",
 					"implemented": true,
 					"visibility": 3,
-					"state_mutability": 5
+					"state_mutability": 5,
+					"body": {
+						"id": 645,
+						"node_type": 46
+					}
 				},
 				{
-					"id": 650,
+					"id": 666,
 					"node_type": 42,
 					"kind": 41,
 					"name": "callExternalFunction",
@@ -514,7 +562,7 @@
 					"state_mutability": 4,
 					"parameters": [
 						{
-							"id": 654,
+							"id": 670,
 							"node_type": 44,
 							"name": "externalContractAddress",
 							"type": "address",
@@ -523,10 +571,14 @@
 								"type_string": "address"
 							}
 						}
-					]
+					],
+					"body": {
+						"id": 675,
+						"node_type": 46
+					}
 				},
 				{
-					"id": 705,
+					"id": 721,
 					"node_type": 42,
 					"kind": 41,
 					"name": "integerToString",
@@ -535,7 +587,7 @@
 					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 709,
+							"id": 725,
 							"node_type": 44,
 							"name": "_i",
 							"type": "uint",
@@ -545,9 +597,13 @@
 							}
 						}
 					],
+					"body": {
+						"id": 735,
+						"node_type": 46
+					},
 					"return": [
 						{
-							"id": 715,
+							"id": 731,
 							"node_type": 44,
 							"type": "string",
 							"type_description": {
@@ -558,7 +614,7 @@
 					]
 				},
 				{
-					"id": 853,
+					"id": 875,
 					"node_type": 42,
 					"kind": 41,
 					"name": "dummyFunctionAssembly",
@@ -567,7 +623,7 @@
 					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 857,
+							"id": 879,
 							"node_type": 44,
 							"name": "result",
 							"type": "uint256",
@@ -577,9 +633,13 @@
 							}
 						}
 					],
+					"body": {
+						"id": 889,
+						"node_type": 46
+					},
 					"return": [
 						{
-							"id": 863,
+							"id": 885,
 							"node_type": 44,
 							"name": "result",
 							"type": "uint256",

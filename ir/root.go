@@ -6,7 +6,7 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
-// RootSourceUnit represents the root of a Solidity contract's AST as IR node.
+// RootSourceUnit represents the root of a Solidity contract's AST as an IR node.
 type RootSourceUnit struct {
 	unit              *ast.RootNode   `json:"-"`
 	NodeType          ast_pb.NodeType `json:"node_type"`
@@ -16,6 +16,7 @@ type RootSourceUnit struct {
 	Contracts         []*Contract     `json:"contracts"`
 }
 
+// GetAST returns the underlying AST node of the RootSourceUnit.
 func (r *RootSourceUnit) GetAST() *ast.RootNode {
 	return r.unit
 }
@@ -107,7 +108,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 		Contracts:      make([]*Contract, 0),
 	}
 
-	// No source units to process so we're going to stop processing the root from here...
+	// No source units to process, so we're going to stop processing the root from here...
 	if !root.HasSourceUnits() {
 		return rootNode
 	}

@@ -257,11 +257,14 @@ func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfa
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: unit.Id,
 		},
-		Abstract:         false,
-		NodeType:         ast_pb.NodeType_CONTRACT_DEFINITION,
-		Kind:             ast_pb.NodeType_KIND_LIBRARY,
-		Nodes:            make([]Node[NodeType], 0),
-		FullyImplemented: true,
+		Abstract:                false,
+		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,
+		Kind:                    ast_pb.NodeType_KIND_LIBRARY,
+		Nodes:                   make([]Node[NodeType], 0),
+		BaseContracts:           make([]*BaseContract, 0),
+		ContractDependencies:    make([]int64, 0),
+		LinearizedBaseContracts: make([]int64, 0),
+		FullyImplemented:        true,
 	}
 
 	interfaceNode.BaseContracts = append(

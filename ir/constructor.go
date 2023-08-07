@@ -1,3 +1,4 @@
+// Package ir provides an intermediate representation of the AST.
 package ir
 
 import (
@@ -6,6 +7,7 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// Constructor represents a contract constructor.
 type Constructor struct {
 	unit *ast.Constructor
 
@@ -22,54 +24,67 @@ type Constructor struct {
 	ReturnStatements []*Parameter      `json:"return"`
 }
 
+// GetAST returns the underlying ast.Constructor.
 func (f *Constructor) GetAST() *ast.Constructor {
 	return f.unit
 }
 
+// GetId returns the ID of the constructor.
 func (f *Constructor) GetId() int64 {
 	return f.Id
 }
 
+// GetNodeType returns the node type of the constructor.
 func (f *Constructor) GetNodeType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetName returns the name of the constructor.
 func (f *Constructor) GetName() string {
 	return f.Name
 }
 
+// GetKind returns the kind of the constructor.
 func (f *Constructor) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
+// IsImplemented checks if the constructor is implemented.
 func (f *Constructor) IsImplemented() bool {
 	return f.Implemented
 }
 
+// GetVisibility returns the visibility of the constructor.
 func (f *Constructor) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
+// GetStateMutability returns the state mutability of the constructor.
 func (f *Constructor) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
+// IsVirtual checks if the constructor is virtual.
 func (f *Constructor) IsVirtual() bool {
 	return f.Virtual
 }
 
+// GetModifiers returns the modifiers of the constructor.
 func (f *Constructor) GetModifiers() []*Modifier {
 	return f.Modifiers
 }
 
+// GetParameters returns the parameters of the constructor.
 func (f *Constructor) GetParameters() []*Parameter {
 	return f.Parameters
 }
 
+// GetReturnStatements returns the return statements of the constructor.
 func (f *Constructor) GetReturnStatements() []*Parameter {
 	return f.ReturnStatements
 }
 
+// ToProto converts the constructor to its protobuf representation.
 func (f *Constructor) ToProto() *ir_pb.Constructor {
 	proto := &ir_pb.Constructor{
 		Id:              f.GetId(),
@@ -100,6 +115,7 @@ func (f *Constructor) ToProto() *ir_pb.Constructor {
 	return proto
 }
 
+// processConstructor processes the given ast.Constructor and returns its IR representation.
 func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 	toReturn := &Constructor{
 		unit:             unit,

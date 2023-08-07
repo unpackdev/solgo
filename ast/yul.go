@@ -19,6 +19,7 @@ func NewYulStatement(b *ASTBuilder) *YulStatement {
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_YUL_STATEMENT,
+		Statements: make([]Node[NodeType], 0),
 	}
 }
 

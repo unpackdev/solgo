@@ -159,7 +159,6 @@ func (s *Sources) GetLocalSource(partialPath string, relativeTo string) (*Source
 	}
 
 	if _, err := os.Stat(source.Path); os.IsNotExist(err) {
-		fmt.Println(source.Path)
 		return nil, err
 	}
 

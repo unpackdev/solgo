@@ -169,6 +169,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			t.TypeDescription = refTypeDescription
 		}
 	}
+
 }
 
 func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.ElementaryTypeNameContext) {
@@ -358,6 +359,38 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 	}
 }
 
+func (t *TypeName) ParseElementary(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
+	t.Id = t.GetNextID()
+	t.Src = SrcNode{
+		Id:          t.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
+	}
+
+	t.Name = ctx.GetText()
+	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
+
+	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+		ctx.GetText(),
+	)
+
+	switch normalizedTypeIdentifier {
+	case "t_address":
+		t.StateMutability = ast_pb.Mutability_NONPAYABLE
+	case "t_address_payable":
+		t.StateMutability = ast_pb.Mutability_PAYABLE
+	}
+
+	t.TypeDescription = &TypeDescription{
+		TypeIdentifier: normalizedTypeIdentifier,
+		TypeString:     normalizedTypeName,
+	}
+}
+
 type PathNode struct {
 	Id                    int64           `json:"id"`
 	Name                  string          `json:"name"`
@@ -379,6 +412,14 @@ func (pn *PathNode) ToProto() *ast_pb.PathNode {
 type TypeDescription struct {
 	TypeIdentifier string `json:"type_identifier"`
 	TypeString     string `json:"type_string"`
+}
+
+func (td *TypeDescription) GetIdentifier() string {
+	return td.TypeIdentifier
+}
+
+func (td *TypeDescription) GetString() string {
+	return td.TypeString
 }
 
 func (td TypeDescription) ToProto() *ast_pb.TypeDescription {

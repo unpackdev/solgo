@@ -28,6 +28,8 @@ type BinaryOperation struct {
 	LeftExpression Node[NodeType] `json:"left_expression"`
 	// RightExpression is the right operand of the binary operation.
 	RightExpression Node[NodeType] `json:"right_expression"`
+	// TypeDescription is the type description of the binary operation.
+	TypeDescription *TypeDescription `json:"type_description"`
 }
 
 // NewBinaryOperationExpression is a constructor function that initializes a new BinaryOperation with a unique ID and the NodeType set to NodeType_BINARY_OPERATION.
@@ -76,7 +78,11 @@ func (a *BinaryOperation) GetRightExpression() Node[NodeType] {
 
 // GetTypeDescription is a getter method that returns the type description of the left operand of the binary operation.
 func (a *BinaryOperation) GetTypeDescription() *TypeDescription {
-	return a.LeftExpression.GetTypeDescription()
+	if a.TypeDescription == nil {
+		a.TypeDescription = a.LeftExpression.GetTypeDescription()
+	}
+
+	return a.TypeDescription
 }
 
 // GetNodes is a getter method that returns a slice of the operands of the binary operation.
@@ -155,6 +161,8 @@ func (a *BinaryOperation) ParseAddSub(
 		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
+	a.TypeDescription = a.LeftExpression.GetTypeDescription()
+
 	return a
 }
 
@@ -207,6 +215,11 @@ func (a *BinaryOperation) ParseOrderComparison(
 		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
+	a.TypeDescription = &TypeDescription{
+		TypeIdentifier: "t_bool",
+		TypeString:     "bool",
+	}
+
 	return a
 }
 
@@ -257,6 +270,8 @@ func (a *BinaryOperation) ParseMulDivMod(
 		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
+	a.TypeDescription = a.LeftExpression.GetTypeDescription()
+
 	return a
 }
 
@@ -305,6 +320,11 @@ func (a *BinaryOperation) ParseEqualityComparison(
 		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
+	a.TypeDescription = &TypeDescription{
+		TypeIdentifier: "t_bool",
+		TypeString:     "bool",
+	}
+
 	return a
 }
 
@@ -347,6 +367,8 @@ func (a *BinaryOperation) ParseOr(
 	a.RightExpression = expression.Parse(
 		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
+
+	a.TypeDescription = a.LeftExpression.GetTypeDescription()
 
 	return a
 }

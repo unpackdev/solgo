@@ -22,6 +22,7 @@ type PrimaryExpression struct {
 	HexValue               string             `json:"hex_value,omitempty"`        // Hexadecimal value of the node.
 	Src                    SrcNode            `json:"src"`                        // Source location of the node.
 	Name                   string             `json:"name,omitempty"`             // Name of the node.
+	TypeName               *TypeName          `json:"type_name,omitempty"`        // Type name of the node.
 	TypeDescription        *TypeDescription   `json:"type_description,omitempty"` // Type description of the node.
 	OverloadedDeclarations []int64            `json:"overloaded_declarations"`    // Overloaded declarations of the node.
 	ReferencedDeclaration  int64              `json:"referenced_declaration"`     // Referenced declaration of the node.
@@ -37,6 +38,7 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 		Id:                     b.GetNextID(),
 		OverloadedDeclarations: make([]int64, 0),
 		NodeType:               ast_pb.NodeType_IDENTIFIER,
+		ArgumentTypes:          make([]*TypeDescription, 0),
 	}
 }
 
@@ -112,6 +114,11 @@ func (p *PrimaryExpression) GetOverloadedDeclarations() []int64 {
 	return p.OverloadedDeclarations
 }
 
+// GetTypeName returns the type name of the PrimaryExpression node.
+func (p *PrimaryExpression) GetTypeName() *TypeName {
+	return p.TypeName
+}
+
 // ToProto returns a protobuf representation of the PrimaryExpression node.
 // Currently, it returns an empty PrimaryExpression and needs to be implemented.
 func (p *PrimaryExpression) ToProto() NodeType {
@@ -129,23 +136,15 @@ func (p *PrimaryExpression) ToProto() NodeType {
 		ArgumentTypes:          make([]*ast_pb.TypeDescription, 0),
 	}
 
+	if p.GetTypeName() != nil {
+		proto.TypeName = p.GetTypeName().ToProto().(*ast_pb.TypeName)
+	}
+
 	if p.GetTypeDescription() != nil {
 		proto.TypeDescription = p.GetTypeDescription().ToProto()
-	} else {
-		proto.TypeDescription = &ast_pb.TypeDescription{
-			TypeString:     "unknown",
-			TypeIdentifier: "t_unknown",
-		}
 	}
 
 	for _, arg := range p.GetArgumentTypes() {
-		if arg == nil {
-			proto.ArgumentTypes = append(proto.ArgumentTypes, &ast_pb.TypeDescription{
-				TypeString:     "unknown",
-				TypeIdentifier: "t_unknown",
-			})
-			continue
-		}
 		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
 	}
 
@@ -224,6 +223,20 @@ func (p *PrimaryExpression) Parse(
 		p.TypeDescription = unit.GetTypeDescription()
 	}
 
+	if ctx.GetText() == "now" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_now",
+			TypeString:     "now",
+		}
+	}
+
+	if ctx.GetText() == "assert" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_function_assert_pure$_t_bool_$returns$__$",
+			TypeString:     "function (bool) pure",
+		}
+	}
+
 	// There is a case where we get PlaceholderStatement as a PrimaryExpression and this one does nothing really...
 	// So we are going to do some hack here to make it work properly...
 	if p.Name == "_" {
@@ -233,6 +246,13 @@ func (p *PrimaryExpression) Parse(
 			TypeString:     "t_placeholder",
 		}
 		return p
+	}
+
+	if ctx.ElementaryTypeName() != nil {
+		typeName := NewTypeName(p.ASTBuilder)
+		typeName.ParseElementary(unit, fnNode, p.GetId(), ctx.ElementaryTypeName())
+		p.TypeName = typeName
+		p.TypeDescription = typeName.GetTypeDescription()
 	}
 
 	if expNode != nil {

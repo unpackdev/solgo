@@ -84,8 +84,6 @@ func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, no
 		return false
 	}
 
-	//fmt.Println("Ref", "Child", child.GetId(), "Want", nodeId)
-
 	if child.GetId() == nodeId {
 		child.SetReferenceDescriptor(nodeRefId, typeRef)
 		t.updateParentReference(child, nodeRefId, typeRef)

@@ -21,6 +21,7 @@ func NewEmitStatement(b *ASTBuilder) *Emit {
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_EMIT_STATEMENT,
+		Arguments:  make([]Node[NodeType], 0),
 	}
 }
 

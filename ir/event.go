@@ -6,9 +6,9 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// Event represents an event definition in the IR.
 type Event struct {
-	unit *ast.EventDefinition
-
+	unit       *ast.EventDefinition
 	Id         int64           `json:"id"`
 	NodeType   ast_pb.NodeType `json:"node_type"`
 	Name       string          `json:"name"`
@@ -16,40 +16,42 @@ type Event struct {
 	Parameters []*Parameter    `json:"parameters"`
 }
 
+// GetAST returns the AST (Abstract Syntax Tree) for the event definition.
 func (e *Event) GetAST() *ast.EventDefinition {
 	return e.unit
 }
 
-// GetId returns the unique identifier of the node.
+// GetId returns the ID of the event definition.
 func (e *Event) GetId() int64 {
 	return e.Id
 }
 
-// GetNodeType returns the type of the node in the AST.
+// GetNodeType returns the NodeType of the event definition.
 func (e *Event) GetNodeType() ast_pb.NodeType {
 	return e.NodeType
 }
 
-// GetName returns the name of the node.
+// GetName returns the name of the event definition.
 func (e *Event) GetName() string {
 	return e.Name
 }
 
-// GetParameters returns the parameters of the event.
+// GetParameters returns the parameters of the event definition.
 func (e *Event) GetParameters() []*Parameter {
 	return e.Parameters
 }
 
-// IsAnonymous returns whether the event is anonymous.
+// IsAnonymous returns whether the event definition is anonymous.
 func (e *Event) IsAnonymous() bool {
 	return e.Anonymous
 }
 
-// GetSrc returns the source location of the node.
+// GetSrc returns the source location of the event definition.
 func (e *Event) GetSrc() ast.SrcNode {
 	return e.unit.GetSrc()
 }
 
+// ToProto converts the Event to its protobuf representation.
 func (e *Event) ToProto() *ir_pb.Event {
 	proto := &ir_pb.Event{
 		Id:         e.GetId(),
@@ -66,6 +68,7 @@ func (e *Event) ToProto() *ir_pb.Event {
 	return proto
 }
 
+// processEvent processes the event definition unit and returns the Event.
 func (b *Builder) processEvent(unit *ast.EventDefinition) *Event {
 	toReturn := &Event{
 		unit:       unit,

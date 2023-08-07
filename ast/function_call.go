@@ -27,10 +27,11 @@ type FunctionCall struct {
 // It initializes the Arguments slice and sets the NodeType and Kind to FUNCTION_CALL.
 func NewFunctionCall(b *ASTBuilder) *FunctionCall {
 	return &FunctionCall{
-		ASTBuilder: b,
-		Arguments:  make([]Node[NodeType], 0),
-		NodeType:   ast_pb.NodeType_FUNCTION_CALL,
-		Kind:       ast_pb.NodeType_FUNCTION_CALL,
+		ASTBuilder:    b,
+		Arguments:     make([]Node[NodeType], 0),
+		ArgumentTypes: make([]*TypeDescription, 0),
+		NodeType:      ast_pb.NodeType_FUNCTION_CALL,
+		Kind:          ast_pb.NodeType_FUNCTION_CALL,
 	}
 }
 
@@ -104,6 +105,7 @@ func (f *FunctionCall) ToProto() NodeType {
 		Src:                   f.Src.ToProto(),
 		ReferencedDeclaration: f.GetReferenceDeclaration(),
 		TypeDescription:       f.GetTypeDescription().ToProto(),
+		ArgumentTypes:         make([]*ast_pb.TypeDescription, 0),
 	}
 
 	if f.GetExpression() != nil {
@@ -200,12 +202,6 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
-		if paramType == nil {
-			typeStrings = append(typeStrings, "unknown")
-			typeIdentifiers = append(typeIdentifiers, "$_unknown")
-			continue
-		}
-
 		if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)

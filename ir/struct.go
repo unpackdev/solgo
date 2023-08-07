@@ -6,8 +6,9 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// Struct represents a Solidity struct definition as an IR node.
 type Struct struct {
-	unit                    *ast.StructDefinition
+	unit                    *ast.StructDefinition  `json:"-"`
 	Id                      int64                  `json:"id"`
 	NodeType                ast_pb.NodeType        `json:"node_type"`
 	Kind                    ast_pb.NodeType        `json:"kind"`
@@ -21,58 +22,72 @@ type Struct struct {
 	TypeDescription         *ast.TypeDescription   `json:"type_description"`
 }
 
+// GetAST returns the underlying AST node of the Struct.
 func (f *Struct) GetAST() *ast.StructDefinition {
 	return f.unit
 }
 
+// GetId returns the unique identifier of the struct.
 func (f *Struct) GetId() int64 {
 	return f.Id
 }
 
+// GetName returns the name of the struct.
 func (f *Struct) GetName() string {
 	return f.Name
 }
 
+// GetNodeType returns the type of the node in the AST.
 func (f *Struct) GetNodeType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetKind returns the kind of the struct node in the AST.
 func (f *Struct) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
+// GetCanonicalName returns the canonical name of the struct.
 func (f *Struct) GetCanonicalName() string {
 	return f.CanonicalName
 }
 
+// GetReferencedDeclarationId returns the referenced declaration ID of the struct.
 func (f *Struct) GetReferencedDeclarationId() int64 {
 	return f.ReferencedDeclarationId
 }
 
+// GetVisibility returns the visibility of the struct.
 func (f *Struct) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
+// GetStorageLocation returns the storage location of the struct.
 func (f *Struct) GetStorageLocation() ast_pb.StorageLocation {
 	return f.StorageLocation
 }
 
+// GetMembers returns the list of members (parameters) in the struct.
 func (f *Struct) GetMembers() []*Parameter {
 	return f.Members
 }
 
+// GetType returns the type of the struct.
 func (f *Struct) GetType() string {
 	return f.Type
 }
 
+// GetTypeDescription returns the type description of the struct.
 func (f *Struct) GetTypeDescription() *ast.TypeDescription {
 	return f.TypeDescription
 }
 
+// GetSrc returns the source node of the struct.
 func (f *Struct) GetSrc() ast.SrcNode {
 	return f.unit.GetSrc()
 }
 
+// ToProto is a placeholder function for converting the Struct to a protobuf message.
 func (f *Struct) ToProto() *ir_pb.Struct {
 	proto := &ir_pb.Struct{
 		Id:                      f.GetId(),
@@ -95,6 +110,8 @@ func (f *Struct) ToProto() *ir_pb.Struct {
 	return proto
 }
 
+// processStruct processes the given struct definition node of an AST and returns a Struct.
+// It populates the Struct with the members (parameters) from the AST.
 func (b *Builder) processStruct(unit *ast.StructDefinition) *Struct {
 	toReturn := &Struct{
 		unit:                    unit,

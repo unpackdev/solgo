@@ -156,6 +156,10 @@ func (c *Constructor) ToProto() NodeType {
 		proto.TypeDescription = c.GetTypeDescription().ToProto()
 	}
 
+	for _, m := range c.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, m.ToProto().(*ast_pb.ModifierInvocation))
+	}
+
 	return NewTypedStruct(&proto, "Function")
 }
 
@@ -200,7 +204,6 @@ func (c *Constructor) Parse(
 	returnParams.Src.ParentIndex = c.Id
 	c.ReturnParameters = returnParams
 
-	// Set function modifiers.
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
 		modifier := NewModifierInvocation(c.ASTBuilder)
 		modifier.Parse(unit, contractNode, c, nil, modifierCtx)

@@ -116,6 +116,14 @@ func (f *Receive) ToProto() NodeType {
 		Body:             f.GetBody().ToProto().(*ast_pb.Body),
 	}
 
+	for _, modifier := range f.GetModifiers() {
+		proto.Modifiers = append(proto.Modifiers, modifier.ToProto().(*ast_pb.ModifierInvocation))
+	}
+
+	for _, override := range f.GetOverrides() {
+		proto.Overrides = append(proto.Overrides, override.ToProto().(*ast_pb.OverrideSpecifier))
+	}
+
 	return NewTypedStruct(&proto, "Receive")
 }
 
@@ -155,14 +163,12 @@ func (f *Receive) Parse(
 	returnParams.Src.ParentIndex = f.Id
 	f.ReturnParameters = returnParams
 
-	// Set function modifiers.
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
 		modifier := NewModifierInvocation(f.ASTBuilder)
 		modifier.Parse(unit, contractNode, f, nil, modifierCtx)
 		f.Modifiers = append(f.Modifiers, modifier)
 	}
 
-	// Set function override specifier.
 	for _, overrideCtx := range ctx.AllOverrideSpecifier() {
 		overrideSpecifier := NewOverrideSpecifier(f.ASTBuilder)
 		overrideSpecifier.Parse(unit, f, overrideCtx)

@@ -6,8 +6,10 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// ContractNode defines the interface for a contract node.
 type ContractNode interface {
 	GetId() int64
+	GetName() string
 	GetType() ast_pb.NodeType
 	GetKind() ast_pb.NodeType
 	GetSrc() ast.SrcNode
@@ -26,6 +28,7 @@ type ContractNode interface {
 	GetErrors() []*ast.ErrorDefinition
 }
 
+// Contract represents a contract in the Intermediate Representation (IR).
 type Contract struct {
 	unit           *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] `json:"-"`
 	Id             int64                                        `json:"id"`
@@ -50,98 +53,122 @@ type Contract struct {
 	Receive        *Receive                                     `json:"receive,omitempty"`
 }
 
+// GetAST returns the AST (Abstract Syntax Tree) for the contract.
 func (c *Contract) GetAST() *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] {
 	return c.unit
 }
 
+// GetId returns the ID of the contract.
 func (c *Contract) GetId() int64 {
 	return c.Id
 }
 
+// GetNodeType returns the NodeType of the contract.
 func (c *Contract) GetNodeType() ast_pb.NodeType {
 	return c.NodeType
 }
 
+// GetName returns the name of the contract.
 func (c *Contract) GetName() string {
 	return c.Name
 }
 
+// GetLicense returns the license of the contract.
 func (c *Contract) GetLicense() string {
 	return c.License
 }
 
+// GetAbsolutePath returns the absolute path of the contract.
 func (c *Contract) GetAbsolutePath() string {
 	return c.AbsolutePath
 }
 
+// GetStateVariables returns the state variables of the contract.
 func (c *Contract) GetStateVariables() []*StateVariable {
 	return c.StateVariables
 }
 
+// GetSourceUnitId returns the source unit ID of the contract.
 func (c *Contract) GetSourceUnitId() int64 {
 	return c.SourceUnitId
 }
 
+// GetUnitSrc returns the source node of the contract unit.
 func (c *Contract) GetUnitSrc() ast.SrcNode {
 	return c.unit.GetSrc()
 }
 
+// GetSrc returns the source node of the contract.
 func (c *Contract) GetSrc() ast.SrcNode {
 	return c.unit.GetContract().GetSrc()
 }
 
+// GetKind returns the kind of the contract.
 func (c *Contract) GetKind() ast_pb.NodeType {
 	return c.Kind
 }
 
+// GetImports returns the imports of the contract.
 func (c *Contract) GetImports() []*Import {
 	return c.Imports
 }
 
+// GetPragmas returns the pragmas of the contract.
 func (c *Contract) GetPragmas() []*Pragma {
 	return c.Pragmas
 }
 
+// GetStructs returns the structs of the contract.
 func (c *Contract) GetStructs() []*Struct {
 	return c.Structs
 }
 
+// GetEnums returns the enums of the contract.
 func (c *Contract) GetEnums() []*Enum {
 	return c.Enums
 }
 
+// GetEvents returns the events of the contract.
 func (c *Contract) GetEvents() []*Event {
 	return c.Events
 }
 
+// GetErrors returns the errors of the contract.
 func (c *Contract) GetErrors() []*Error {
 	return c.Errors
 }
 
+// GetConstructor returns the constructor of the contract.
 func (c *Contract) GetConstructor() *Constructor {
 	return c.Constructor
 }
 
+// GetFunctions returns the functions of the contract.
 func (c *Contract) GetFunctions() []*Function {
 	return c.Functions
 }
 
+// GetFallback returns the fallback of the contract.
 func (c *Contract) GetFallback() *Fallback {
 	return c.Fallback
 }
 
+// GetReceive returns the receive of the contract.
 func (c *Contract) GetReceive() *Receive {
 	return c.Receive
 }
 
+// GetSymbols returns the symbols of the contract.
 func (c *Contract) GetSymbols() []*Symbol {
 	return c.Symbols
 }
 
+// GetLanguage returns the programming language of the contract.
 func (c *Contract) GetLanguage() Language {
 	return c.Language
 }
 
+// ToProto converts the Contract to its protobuf representation.
 func (c *Contract) ToProto() *ir_pb.Contract {
 	proto := &ir_pb.Contract{
 		Id:             c.GetId(),
@@ -213,6 +240,7 @@ func (c *Contract) ToProto() *ir_pb.Contract {
 	return proto
 }
 
+// processContract processes the contract unit and returns the Contract.
 func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]]) *Contract {
 	contract := getContractByNodeType(unit.GetContract())
 	contractNode := &Contract{
@@ -308,7 +336,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 	for _, function := range contract.GetFunctions() {
 		contractNode.Functions = append(
 			contractNode.Functions,
-			b.processFunction(function),
+			b.processFunction(function, true),
 		)
 	}
 
@@ -325,6 +353,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 	return contractNode
 }
 
+// getContractByNodeType returns the ContractNode based on the node type.
 func getContractByNodeType(c ast.Node[ast.NodeType]) ContractNode {
 	switch contract := c.(type) {
 	case *ast.Library:
