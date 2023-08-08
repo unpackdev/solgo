@@ -27,7 +27,7 @@ func ReadContractFileForTest(t *testing.T, name string) TestContract {
 	_, err = os.Stat(contractsDir)
 	assert.NoError(t, err)
 
-	content, err := os.ReadFile(path)
+	content, err := os.ReadFile(filepath.Clean(path))
 	assert.NoError(t, err)
 
 	return TestContract{Path: path, Content: string(content)}
@@ -46,7 +46,7 @@ func ReadContractFileForTestFromRootPath(t *testing.T, name string) TestContract
 	_, err = os.Stat(contractsDir)
 	assert.NoError(t, err)
 
-	content, err := os.ReadFile(path)
+	content, err := os.ReadFile(filepath.Clean(path))
 	assert.NoError(t, err)
 
 	return TestContract{Path: path, Content: string(content)}
@@ -63,7 +63,7 @@ func ReadJsonBytesForTest(t *testing.T, name string) TestContract {
 	_, err = os.Stat(contractsDir)
 	assert.NoError(t, err)
 
-	content, err := os.ReadFile(path)
+	content, err := os.ReadFile(filepath.Clean(path))
 	assert.NoError(t, err)
 
 	return TestContract{Path: path, Content: string(content), Bytes: content}
@@ -80,7 +80,7 @@ func ReadJsonBytesForTestFromRootPath(t *testing.T, name string) TestContract {
 	_, err = os.Stat(contractsDir)
 	assert.NoError(t, err)
 
-	content, err := os.ReadFile(path)
+	content, err := os.ReadFile(filepath.Clean(path))
 	assert.NoError(t, err)
 
 	return TestContract{Path: path, Content: string(content), Bytes: content}
