@@ -95,12 +95,12 @@ func (b *ASTBuilder) WriteJSONToFile(path string) error {
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(path, bts, 0644)
+	return os.WriteFile(path, bts, 0600)
 }
 
 // WriteToFile writes the provided data byte array to a file at the provided path.
 func (b *ASTBuilder) WriteToFile(path string, data []byte) error {
-	return os.WriteFile(path, data, 0644)
+	return os.WriteFile(path, data, 0600)
 }
 
 // ResolveReferences resolves the references in the AST using the Resolver of the ASTBuilder.
