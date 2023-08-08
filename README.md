@@ -12,17 +12,15 @@ The parser is generated from a Solidity grammar file using Antlr, producing a le
 
 This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Golang for their analysis tools.
 
-## WARNINGS
+## Disclaimer
 
-- Protocol buffers are still under heavy development, some of them only boilerplated.
-- Abstract Syntax Tree (AST) is still under heavy development. Functional to a point but with bugs and some
-  deliberate panics so code can be captured and fixed!
-- This project is still under heavy development, some of the features are not implemented yet.
-- This project is not yet ready for use in production.
+Please be aware that this project is still under active development. While it is approaching a state suitable for production use, there may still be undiscovered issues or limitations. Over the next few weeks, extensive testing will be conducted on 1-2 million contracts to evaluate its performance and stability. Additional tests and comprehensive documentation will also be added during this phase.
+
+Once we are confident that the project is fully ready for production, this disclaimer will be removed. Until then, please use the software with caution and report any potential issues or feedback to help us improve its quality.
 
 ## Why?
 
-In my projects, I have a strong preference for using Golang or Rust over Javascript. I found myself needing to parse Solidity code and conduct some analysis on it. During my research, I discovered several projects that aimed to do this. However, they were either incomplete, not maintained, or not written in Go at all. This led me to the decision to create this project. The goal is to provide a Solidity parser in Golang that is as "complete as possible" and well-maintained. I'm excited to see how this project will develop and evolve.
+I have a strong preference for using Golang or Rust over Javascript. I found myself needing to parse Solidity code and conduct some analysis on it. During research, I discovered several projects that aimed to do this. However, they were either incomplete, not maintained, or not written in Go at all. This led me to the decision to create this project. The goal is to provide a Solidity parser in Golang that is as "complete as possible" and well-maintained. I'm excited to see how this project will develop and evolve.
 
 ## Documentation
 
@@ -44,15 +42,12 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 
 ## Features
 
-- **Protocol Buffers**: SolGo uses [Protocol Buffers](https://github.com/txpull/protos) to define the structure of the data that is passed between the parser and the listener. This provides a structured format for the data, enabling more effective analysis.
-- **AST (Abstract Syntax Tree) Generation:** SolGo includes an ASTBuilder that constructs an Abstract Syntax Tree for Solidity code. The AST represents the structure of the code and provides a high-level representation of its elements.
+- **Protocol Buffers**: SolGo uses [Protocol Buffers](https://github.com/txpull/protos) to provide a structured format for the data, enabling more effective analysis and a way to build a common interface for other tools. Supported languages: Go and Javascript. In the future, will be adding Rust and Python.
+- **Abstract Syntax Tree (AST) Generation:** SolGo includes an builder that constructs an Abstract Syntax Tree for Solidity code.
 - **Intermediate Representation (IR) Generation**: SolGo can generate an Intermediate Representation (IR) from the AST. The IR provides a language-agnostic representation of the contract, capturing key elements such as functions, state variables, events, and more. This enables more advanced analysis and manipulation of the contract.
-- **ABI Generation and Interaction:** SolGo can parse contract definitions to generate Ethereum contract ABIs (Application Binary Interfaces), providing a structured representation of the contract's functions, events, and variables. It also includes functionality for normalizing type names and handling complex types like mappings, enabling more effective interaction with contracts on the ethereum-based networks.
-- **Error Handling**: SolGo includes a SyntaxErrorListener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
-- **Syntactic Analysis**: SolGo transforms Solidity code into a parse tree that can be traversed and manipulated, providing a detailed syntactic analysis of the code.
-- **Listener Registration**: SolGo allows for the registration of custom listeners that can be invoked as the parser walks the parse tree, enabling custom handling of parse events.
-- **Contextual Parsing**: SolGo provides a ContextualSolidityParser that maintains a stack of contexts, allowing for context-specific parsing rules.
-- **Automatic Source Detection**: SolGo automatically loads and integrates Solidity contracts from well-known libraries such as [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts). This feature allows for seamless interaction and analysis of contracts that rely on these libraries, enhancing the overall understanding of the contract's structure and dependencies.
+- **Application Binary Interface (ABI) Generation:** SolGo includes an builder that can parse contract definitions to generate ABI for group of contracts or each contract individually. 
+- **Syntax Error Handling**: SolGo includes listener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
+- **Automatic Source Detection**: SolGo automatically loads and integrates Solidity contracts from well-known libraries such as [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts).
 
 
 ## Extensions

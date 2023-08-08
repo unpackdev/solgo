@@ -1,0 +1,28 @@
+package abi
+
+import (
+	"github.com/txpull/solgo/ir"
+)
+
+// processError processes an IR error and returns a Method representation of it.
+// It extracts the name and parameters of the error and sets its type to "error" and state mutability to "view".
+func (b *Builder) processError(unit *ir.Error) *Method {
+	toReturn := &Method{
+		Name:            unit.GetName(),
+		Inputs:          make([]MethodIO, 0),
+		Outputs:         make([]MethodIO, 0),
+		Type:            "error",
+		StateMutability: "view", // Errors in Ethereum are view-only and don't modify state.
+	}
+
+	for _, parameter := range unit.GetParameters() {
+		toReturn.Inputs = append(toReturn.Inputs, MethodIO{
+			Name:         parameter.GetName(),
+			Type:         parameter.GetTypeDescription().TypeString,
+			InternalType: parameter.GetTypeDescription().TypeString,
+			Indexed:      true, // Parameters for errors are indexed by default.
+		})
+	}
+
+	return toReturn
+}

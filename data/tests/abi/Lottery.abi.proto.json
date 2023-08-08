@@ -1,0 +1,289 @@
+{
+	"entryContractId": 31,
+	"entryContractName": "Lottery",
+	"contractsCount": 2,
+	"contracts": {
+		"IDummyContract": {
+			"methods": [
+				{
+					"inputs": [
+						{
+							"internalType": "bool",
+							"type": "bool"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "bool",
+							"type": "bool"
+						}
+					],
+					"name": "dummyFunction",
+					"type": "function",
+					"stateMutability": "nonpayable"
+				}
+			]
+		},
+		"Lottery": {
+			"methods": [
+				{
+					"outputs": [
+						{
+							"internalType": "uint256",
+							"type": "uint256"
+						}
+					],
+					"name": "DUMMY_CONSTANT",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "address",
+							"type": "address"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "address",
+							"name": "addr",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "ticketCount",
+							"type": "uint256"
+						}
+					],
+					"name": "players",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"outputs": [
+						{
+							"internalType": "address",
+							"type": "address"
+						}
+					],
+					"name": "playerAddresses",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"outputs": [
+						{
+							"internalType": "enum Lottery.LotteryState",
+							"type": "uint8"
+						}
+					],
+					"name": "state",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"outputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "addr",
+							"type": "address"
+						}
+					],
+					"name": "PlayerJoined",
+					"type": "event",
+					"stateMutability": "view"
+				},
+				{
+					"outputs": [
+						{
+							"indexed": true,
+							"internalType": "address",
+							"name": "winner",
+							"type": "address"
+						}
+					],
+					"name": "LotteryFinished",
+					"type": "event",
+					"stateMutability": "view"
+				},
+				{
+					"name": "ExternalCallSuccessful",
+					"type": "event",
+					"stateMutability": "view"
+				},
+				{
+					"outputs": [
+						{
+							"indexed": true,
+							"internalType": "string",
+							"name": "reason",
+							"type": "string"
+						}
+					],
+					"name": "ExternalCallFailed",
+					"type": "event",
+					"stateMutability": "view"
+				},
+				{
+					"name": "InvalidState",
+					"type": "error",
+					"stateMutability": "view"
+				},
+				{
+					"name": "OwnerCannotParticipate",
+					"type": "error",
+					"stateMutability": "view"
+				},
+				{
+					"name": "NoValueProvided",
+					"type": "error",
+					"stateMutability": "view"
+				},
+				{
+					"name": "InvalidWinner",
+					"type": "error",
+					"stateMutability": "view"
+				},
+				{
+					"name": "InvalidPlayerAddress",
+					"type": "error",
+					"stateMutability": "view"
+				},
+				{
+					"name": "OnlyOwnerCanCall",
+					"type": "error",
+					"stateMutability": "view"
+				},
+				{
+					"type": "constructor",
+					"stateMutability": "nonpayable"
+				},
+				{
+					"name": "join",
+					"type": "function",
+					"stateMutability": "payable"
+				},
+				{
+					"name": "finishLottery",
+					"type": "function",
+					"stateMutability": "nonpayable"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "address",
+							"type": "address"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "address",
+							"type": "address"
+						}
+					],
+					"name": "owner",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "uint256",
+							"type": "uint256"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "uint256",
+							"type": "uint256"
+						}
+					],
+					"name": "balance",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "bool",
+							"type": "bool"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "bool",
+							"type": "bool"
+						}
+					],
+					"name": "checkAllPlayers",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"name": "requireOwner",
+					"type": "function",
+					"stateMutability": "view"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "address",
+							"name": "externalContractAddress",
+							"type": "address"
+						}
+					],
+					"name": "callExternalFunction",
+					"type": "function",
+					"stateMutability": "nonpayable"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "uint256",
+							"name": "_i",
+							"type": "uint256"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "string",
+							"type": "string"
+						}
+					],
+					"name": "integerToString",
+					"type": "function",
+					"stateMutability": "pure"
+				},
+				{
+					"inputs": [
+						{
+							"internalType": "uint256",
+							"name": "result",
+							"type": "uint256"
+						}
+					],
+					"outputs": [
+						{
+							"internalType": "uint256",
+							"name": "result",
+							"type": "uint256"
+						}
+					],
+					"name": "dummyFunctionAssembly",
+					"type": "function",
+					"stateMutability": "pure"
+				},
+				{
+					"type": "fallback",
+					"stateMutability": "payable"
+				},
+				{
+					"type": "receive",
+					"stateMutability": "payable"
+				}
+			]
+		}
+	}
+}
