@@ -14,9 +14,10 @@ type MethodIO struct {
 
 // Method represents a contract function.
 type Method struct {
-	Inputs          []MethodIO `json:"inputs"`          // The input parameters of the function
-	Outputs         []MethodIO `json:"outputs"`         // The output parameters of the function
-	Name            string     `json:"name"`            // The name of the function
-	Type            string     `json:"type"`            // The type of the method (always "function" for functions)
-	StateMutability string     `json:"stateMutability"` // The state mutability of the function (pure, view, nonpayable, payable)
+	Components      []MethodIO `json:"components,omitempty"` // Components of the parameter, if it's a struct or tuple type
+	Inputs          []MethodIO `json:"inputs"`               // The input parameters of the function
+	Outputs         []MethodIO `json:"outputs"`              // The output parameters of the function
+	Name            string     `json:"name"`                 // The name of the function
+	Type            string     `json:"type"`                 // The type of the method (always "function" for functions)
+	StateMutability string     `json:"stateMutability"`      // The state mutability of the function (pure, view, nonpayable, payable)
 }

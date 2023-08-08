@@ -22,6 +22,12 @@ func (b *Builder) processContract(contract *ir.Contract) *Contract {
 		toReturn = append(toReturn, method)
 	}
 
+	// Let's process errors.
+	for _, errorNode := range contract.GetErrors() {
+		method := b.processError(errorNode)
+		toReturn = append(toReturn, method)
+	}
+
 	// Let's process constructor.
 	if contract.GetConstructor() != nil {
 		toReturn = append(
