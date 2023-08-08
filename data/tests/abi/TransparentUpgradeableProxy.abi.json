@@ -293,8 +293,50 @@
 				"stateMutability": "pure"
 			}
 		],
-		"AdminUpgradeabilityProxy": [],
+		"AdminUpgradeabilityProxy": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "logic",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "admin",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"outputs": [],
+				"name": "",
+				"type": "constructor",
+				"stateMutability": "payable"
+			}
+		],
 		"BeaconProxy": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "beacon",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"outputs": [],
+				"name": "",
+				"type": "constructor",
+				"stateMutability": "payable"
+			},
 			{
 				"inputs": [
 					{
@@ -393,6 +435,24 @@
 			}
 		],
 		"ERC1967Proxy": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_logic",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "_data",
+						"type": "bytes"
+					}
+				],
+				"outputs": [],
+				"name": "",
+				"type": "constructor",
+				"stateMutability": "payable"
+			},
 			{
 				"inputs": [
 					{
@@ -750,6 +810,13 @@
 				"stateMutability": "view"
 			},
 			{
+				"inputs": [],
+				"outputs": [],
+				"name": "",
+				"type": "constructor",
+				"stateMutability": "nonpayable"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -1043,6 +1110,29 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_logic",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "admin_",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "_data",
+						"type": "bytes"
+					}
+				],
+				"outputs": [],
+				"name": "",
+				"type": "constructor",
+				"stateMutability": "payable"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "admin_",
 						"type": "address"
 					}
@@ -1175,6 +1265,19 @@
 				"name": "Upgraded",
 				"type": "event",
 				"stateMutability": "view"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "implementation_",
+						"type": "address"
+					}
+				],
+				"outputs": [],
+				"name": "",
+				"type": "constructor",
+				"stateMutability": "nonpayable"
 			},
 			{
 				"inputs": [
