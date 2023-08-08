@@ -6,12 +6,13 @@ import (
 	"encoding/json"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
-	ir_pb "github.com/txpull/protos/dist/go/ir"
+	abi_pb "github.com/txpull/protos/dist/go/abi"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/ir"
 )
 
+// Builder facilitates the construction of Ethereum ABIs.
 type Builder struct {
 	ctx        context.Context // Context for the builder operations.
 	sources    solgo.Sources   // Source files to be processed.
@@ -21,8 +22,8 @@ type Builder struct {
 	resolver   *TypeResolver   // Type resolver for the ABI.
 }
 
-// NewBuilderFromSources creates a new ABI builder from given sources. It initializes
-// the necessary IR builder from the provided sources.
+// NewBuilderFromSources initializes a new ABI builder using the provided sources.
+// It sets up the necessary IR builder based on the given sources.
 func NewBuilderFromSources(ctx context.Context, sources solgo.Sources) (*Builder, error) {
 	parser, err := ir.NewBuilderFromSources(context.TODO(), sources)
 	if err != nil {
@@ -66,25 +67,25 @@ func (b *Builder) GetRoot() *Root {
 }
 
 // ToJSON returns the JSON representation of the ABI.
+// If the provided data is not nil, it marshals the data; otherwise, it marshals the root.
 func (b *Builder) ToJSON(d any) ([]byte, error) {
 	if d != nil {
 		return json.Marshal(d)
 	}
-
 	return json.Marshal(b.root)
 }
 
 // ToProto converts the ABI to its protocol buffer representation.
-func (b *Builder) ToProto() *ir_pb.Root {
+func (b *Builder) ToProto() *abi_pb.Root {
 	return b.root.ToProto()
 }
 
-// ToJSONPretty provides a prettified JSON representation of the ABI.
+// ToJSONPretty returns a prettified JSON representation of the ABI.
 func (b *Builder) ToJSONPretty() ([]byte, error) {
 	return json.MarshalIndent(b.GetRoot(), "", "\t")
 }
 
-// ToProtoPretty provides a prettified JSON representation of the protocol buffer version of the ABIs.
+// ToProtoPretty returns a prettified JSON representation of the protocol buffer version of the ABI.
 func (b *Builder) ToProtoPretty() ([]byte, error) {
 	return json.MarshalIndent(b.ToProto(), "", "\t")
 }
@@ -104,6 +105,7 @@ func (p *Builder) ToABI(contract *Contract) (*abi.ABI, error) {
 	return &toReturn, nil
 }
 
+// Parse processes the source files and returns any syntax or build errors.
 func (b *Builder) Parse() (errs []error) {
 	if syntaxErrs := b.GetParser().Parse(); syntaxErrs != nil {
 		errs = append(errs, syntaxErrs...)

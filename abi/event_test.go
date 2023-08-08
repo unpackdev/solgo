@@ -9,7 +9,6 @@ import (
 )
 
 func TestProcessEvent(t *testing.T) {
-	// Create a Builder object
 	builder := &Builder{}
 
 	testCases := []struct {
@@ -37,14 +36,11 @@ func TestProcessEvent(t *testing.T) {
 			expectedName:    "basicEvent",
 			expectedOutputs: 1,
 		},
-		// Add more test cases as needed
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			result := builder.processEvent(tc.input)
-
-			// Assertions
 			assert.Equal(t, tc.expectedType, result.Type)
 			assert.Equal(t, tc.expectedName, result.Name)
 			assert.Equal(t, tc.expectedOutputs, len(result.Outputs))

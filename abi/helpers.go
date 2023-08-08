@@ -10,19 +10,22 @@ import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 )
 
-// nolint:unused
+// dumpNode prints a formatted JSON representation of the provided interface and exits the program.
+// This function is primarily used for debugging purposes.
 func dumpNode(whatever interface{}) {
 	j, _ := json.MarshalIndent(whatever, "", "\t")
 	fmt.Println(string(j))
 	os.Exit(1)
 }
 
-// nolint:unused
+// dumpNodeNoExit prints a formatted JSON representation of the provided interface without exiting the program.
+// This function is primarily used for debugging purposes.
 func dumpNodeNoExit(whatever interface{}) {
 	j, _ := json.MarshalIndent(whatever, "", "\t")
 	fmt.Println(string(j))
 }
 
+// normalizeStateMutability converts the provided Mutability value to its corresponding string representation.
 func (b *Builder) normalizeStateMutability(m ast_pb.Mutability) string {
 	switch m {
 	case ast_pb.Mutability_PURE:
@@ -39,23 +42,17 @@ func (b *Builder) normalizeStateMutability(m ast_pb.Mutability) string {
 }
 
 // isMappingType checks if the given type name represents a mapping type in Solidity.
-// It returns true if the type name contains the string "mapping", and false otherwise.
 func isMappingType(name string) bool {
 	return strings.Contains(name, "mapping")
 }
 
 // isContractType checks if the given type name represents a contract type in Solidity.
-// It returns true if the type name contains the string "contract", and false otherwise.
 func isContractType(name string) bool {
 	return strings.Contains(name, "contract")
 }
 
-// parseMappingType parses a mapping type in Solidity ABI.
-// It takes a string of the form "mapping(keyType => valueType)" and returns three values:
-//   - A boolean indicating whether the parsing was successful. If the string is not a mapping type, this will be false.
-//   - A slice of strings representing the types of the keys in the mapping. If the mapping is nested, this will contain multiple elements.
-//   - A slice of strings representing the types of the values in the mapping. If the mapping is nested, the inner mappings will be flattened,
-//     and this will contain the types of the innermost values.
+// parseMappingType parses a Solidity ABI mapping type.
+// It returns a boolean indicating success, a slice of key types, and a slice of value types.
 func parseMappingType(typeName string) (bool, []string, []string) {
 	re := regexp.MustCompile(`mapping\((\w+)\s*=>\s*(.+)\)`)
 	matches := re.FindStringSubmatch(typeName)
@@ -67,7 +64,6 @@ func parseMappingType(typeName string) (bool, []string, []string) {
 	input := []string{matches[1]}
 	output := []string{matches[2]}
 
-	// If the output is another mapping, parse it recursively
 	if isMappingType(output[0]) {
 		_, nestedInput, nestedOutput := parseMappingType(output[0])
 		input = append(input, nestedInput...)
@@ -77,9 +73,7 @@ func parseMappingType(typeName string) (bool, []string, []string) {
 	return true, input, output
 }
 
-// normalizeTypeName normalizes the type name in Solidity to its canonical form.
-// For example, "uint" is normalized to "uint256", and "addresspayable" is normalized to "address".
-// If the type name is not one of the special cases, it is returned as is.
+// normalizeTypeName normalizes a Solidity type name to its canonical form.
 func normalizeTypeName(typeName string) string {
 	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
 	isSlice := strings.HasPrefix(typeName, "[]")
@@ -121,6 +115,7 @@ func normalizeTypeName(typeName string) string {
 	}
 }
 
+// normalizeTypeNameWithStatus normalizes a Solidity type name and returns a boolean indicating if the type is recognized.
 func normalizeTypeNameWithStatus(typeName string) (string, bool) {
 	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
 	isSlice := strings.HasPrefix(typeName, "[]")

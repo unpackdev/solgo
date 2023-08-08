@@ -9,7 +9,6 @@ import (
 )
 
 func TestProcessReceive(t *testing.T) {
-	// Create a mock Receive object
 	mockReceive := &ir.Receive{
 		Name: "mockReceive",
 		Parameters: []*ir.Parameter{
@@ -30,10 +29,7 @@ func TestProcessReceive(t *testing.T) {
 		},
 	}
 
-	// Create a Builder object
 	builder := &Builder{}
-
-	// Call the processReceive function
 	result := builder.processReceive(mockReceive)
 
 	// Assert that the returned Method object has the expected properties

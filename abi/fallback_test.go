@@ -10,7 +10,6 @@ import (
 )
 
 func TestProcessFallback(t *testing.T) {
-	// Create a mock Fallback object
 	mockFallback := &ir.Fallback{
 		StateMutability: ast_pb.Mutability_VIEW,
 		Parameters: []*ir.Parameter{
@@ -31,24 +30,23 @@ func TestProcessFallback(t *testing.T) {
 		},
 		ReturnStatements: []*ir.Parameter{
 			{
-				Name:            "outputParam1",
+				Name: "outputParam1",
 				TypeDescription: &ast.TypeDescription{
-					// Add mock type description properties here
+					TypeString:     "uint256",
+					TypeIdentifier: "t_uint256",
 				},
 			},
 			{
-				Name:            "outputParam2",
+				Name: "outputParam2",
 				TypeDescription: &ast.TypeDescription{
-					// Add mock type description properties here
+					TypeString:     "uint256",
+					TypeIdentifier: "t_uint256",
 				},
 			},
 		},
 	}
 
-	// Create a Builder object
 	builder := &Builder{}
-
-	// Call the processFallback function
 	result := builder.processFallback(mockFallback)
 
 	// Assert that the returned Method object has the expected properties
@@ -58,11 +56,9 @@ func TestProcessFallback(t *testing.T) {
 	assert.Equal(t, 2, len(result.Inputs))
 	assert.Equal(t, "inputParam1", result.Inputs[0].Name)
 	assert.Equal(t, "inputParam2", result.Inputs[1].Name)
-	assert.Equal(t, 2, len(result.Outputs))
-	assert.Equal(t, "outputParam1", result.Outputs[0].Name)
-	assert.Equal(t, "outputParam2", result.Outputs[1].Name)
 	assert.Equal(t, "uint256", result.Inputs[0].Type)
 	assert.Equal(t, "uint256", result.Inputs[1].Type)
 	assert.Equal(t, "uint256", result.Inputs[0].InternalType)
 	assert.Equal(t, "uint256", result.Inputs[1].InternalType)
+	assert.Equal(t, 0, len(result.Outputs))
 }

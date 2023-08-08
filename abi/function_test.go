@@ -10,7 +10,6 @@ import (
 )
 
 func TestProcessFunction(t *testing.T) {
-	// Create a Builder object
 	builder := &Builder{}
 
 	testCases := []struct {
@@ -57,14 +56,11 @@ func TestProcessFunction(t *testing.T) {
 			expectedInputs:  2,
 			expectedOutputs: 1,
 		},
-		// Add more test cases as needed
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			result := builder.processFunction(tc.input)
-
-			// Assertions
 			assert.Equal(t, tc.expectedType, result.Type)
 			assert.Equal(t, tc.expectedName, result.Name)
 			assert.Equal(t, tc.expectedInputs, len(result.Inputs))

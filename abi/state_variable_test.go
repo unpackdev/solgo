@@ -10,7 +10,6 @@ import (
 )
 
 func TestProcessStateVariable(t *testing.T) {
-	// Create a Builder object
 	builder := &Builder{}
 
 	testCases := []struct {
@@ -65,8 +64,6 @@ func TestProcessStateVariable(t *testing.T) {
 			result := builder.processStateVariable(tc.input)
 			assert.Equal(t, tc.expectedType, result.Type)
 			assert.Equal(t, tc.input.Name, result.Name)
-
-			// Specific assertions based on the test case
 			assert.Equal(t, tc.expectedOutput, result.Outputs[0].Type)
 		})
 	}

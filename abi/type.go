@@ -7,6 +7,7 @@ import (
 	"github.com/txpull/solgo/ir"
 )
 
+// Type represents a type within the Ethereum ABI.
 type Type struct {
 	Name         string
 	Type         string
@@ -14,10 +15,13 @@ type Type struct {
 	Outputs      []Type
 }
 
+// TypeResolver provides methods to resolve and discover types within the ABI.
 type TypeResolver struct {
 	parser *ir.Builder
 }
 
+// ResolveType determines the type of a given typeName based on its identifier.
+// It returns a string representation of the type.
 func (t *TypeResolver) ResolveType(typeName *ast.TypeDescription) string {
 	if strings.HasPrefix(typeName.GetIdentifier(), "t_mapping") {
 		return "mapping"
@@ -42,6 +46,8 @@ func (t *TypeResolver) ResolveType(typeName *ast.TypeDescription) string {
 	return normalizeTypeName(typeName.GetString())
 }
 
+// ResolveMappingType resolves the input and output types for a given mapping type.
+// It returns slices of MethodIO for inputs and outputs respectively.
 func (t *TypeResolver) ResolveMappingType(typeName *ast.TypeDescription) ([]MethodIO, []MethodIO) {
 	inputs := make([]MethodIO, 0)
 	outputs := make([]MethodIO, 0)
@@ -80,53 +86,7 @@ func (t *TypeResolver) ResolveMappingType(typeName *ast.TypeDescription) ([]Meth
 	return inputs, outputs
 }
 
-func (t *TypeResolver) discoverType(typeName string) Type {
-	toReturn := Type{
-		Outputs: make([]Type, 0),
-	}
-
-	discoveredType, found := normalizeTypeNameWithStatus(typeName)
-	if found {
-		toReturn.Type = discoveredType
-		toReturn.InternalType = discoveredType
-		return toReturn
-	} else {
-		for _, contract := range t.parser.GetRoot().GetContracts() {
-			for _, stateVar := range contract.GetStateVariables() {
-				if stateVar.GetName() == typeName {
-					panic("State var...")
-				}
-			}
-
-			for _, enumVar := range contract.GetEnums() {
-				if enumVar.GetName() == typeName {
-					panic("Enum var...")
-				}
-			}
-
-			for _, errorVar := range contract.GetErrors() {
-				if errorVar.GetName() == typeName {
-					panic("Error var...")
-				}
-			}
-
-			for _, structVar := range contract.GetStructs() {
-				if structVar.GetName() == typeName {
-					for _, member := range structVar.GetMembers() {
-						toReturn.Outputs = append(toReturn.Outputs, Type{
-							Name:         member.GetName(),
-							Type:         normalizeTypeName(member.GetTypeDescription().GetString()),
-							InternalType: member.GetTypeDescription().GetString(),
-						})
-					}
-				}
-			}
-		}
-	}
-
-	return toReturn
-}
-
+// ResolveStructType resolves the type of a given struct and returns its MethodIO representation.
 func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO {
 	nameCleaned := strings.Replace(typeName.GetString(), "struct ", "", -1)
 	nameCleaned = strings.TrimLeft(nameCleaned, "[]")
@@ -155,6 +115,39 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 						toReturn.Components = append(toReturn.Components, MethodIO{
 							Name:         member.GetName(),
 							Type:         dType.Type,
+							InternalType: member.GetTypeDescription().GetString(),
+						})
+					}
+				}
+			}
+		}
+	}
+
+	return toReturn
+}
+
+// discoverType determines the type of a given typeName.
+// It searches through the contracts and their structs to find a matching type.
+// Returns a Type representation of the discovered type.
+// @WARN: This function will probably need more work to handle more complex types.
+func (t *TypeResolver) discoverType(typeName string) Type {
+	toReturn := Type{
+		Outputs: make([]Type, 0),
+	}
+
+	discoveredType, found := normalizeTypeNameWithStatus(typeName)
+	if found {
+		toReturn.Type = discoveredType
+		toReturn.InternalType = discoveredType
+		return toReturn
+	} else {
+		for _, contract := range t.parser.GetRoot().GetContracts() {
+			for _, structVar := range contract.GetStructs() {
+				if structVar.GetName() == typeName {
+					for _, member := range structVar.GetMembers() {
+						toReturn.Outputs = append(toReturn.Outputs, Type{
+							Name:         member.GetName(),
+							Type:         normalizeTypeName(member.GetTypeDescription().GetString()),
 							InternalType: member.GetTypeDescription().GetString(),
 						})
 					}
