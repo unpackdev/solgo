@@ -30,7 +30,7 @@ func TestProcessStateVariable(t *testing.T) {
 				StateMutability: ast_pb.Mutability_VIEW,
 			},
 			expectedType:   "function",
-			expectedOutput: "mapping", // Adjust as per actual expected output
+			expectedOutput: "uint256",
 		},
 		{
 			name: "contract case",
@@ -63,13 +63,11 @@ func TestProcessStateVariable(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			result := builder.processStateVariable(tc.input)
-
-			// Common assertions for all cases
 			assert.Equal(t, tc.expectedType, result.Type)
 			assert.Equal(t, tc.input.Name, result.Name)
 
 			// Specific assertions based on the test case
-			//assert.Equal(t, tc.expectedOutput, result.Outputs[0].Type)
+			assert.Equal(t, tc.expectedOutput, result.Outputs[0].Type)
 		})
 	}
 }
