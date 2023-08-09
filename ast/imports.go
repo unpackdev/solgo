@@ -24,7 +24,7 @@ type Import struct {
 // SetReferenceDescriptor sets the reference descriptions of the Import node.
 func (i *Import) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	// Reasoning behind is a hack in resolver to set the source unit of the import
-	// as forward declaration of the source units occured.
+	// as forward declaration of the source units occurred.
 	if refId > 0 && refDesc == nil {
 		i.SourceUnit = refId
 		return true
