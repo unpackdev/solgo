@@ -48,6 +48,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Application Binary Interface (ABI) Generation:** SolGo includes an builder that can parse contract definitions to generate ABI for group of contracts or each contract individually. 
 - **Syntax Error Handling**: SolGo includes listener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Automatic Source Detection**: SolGo automatically loads and integrates Solidity contracts from well-known libraries such as [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts).
+- **Ethereum Improvement Proposals (EIP) Registry**: A package designed to provide a structured representation of Ethereum Improvement Proposals (EIPs) and Ethereum Request for Comments (ERCs). It simplifies the interaction with various contract standards by including functions, events, and a registry mechanism crafted for efficient management.
 
 
 ## Extensions
