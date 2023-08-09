@@ -7,48 +7,54 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEIPFunctions(t *testing.T) {
+func TestEIPStorage(t *testing.T) {
+
+	// Register all EIPs.
+	assert.NoError(t, LoadStandards())
+
 	tests := []struct {
 		name           string
 		eip            EIP
 		expectedExists bool
+		isStagnant     bool
 		expectedError  string
 	}{
 		{
-			name:           "Test ERC20",
-			eip:            NewErc20(),
+			name:           "Test EIP20",
+			eip:            NewEip20(),
 			expectedExists: true,
-			expectedError:  "",
+			expectedError:  "standard EIP20 already exists",
 		},
 		{
-			name:           "Test ERC721",
-			eip:            NewErc721(),
+			name:           "Test EIP721",
+			eip:            NewEip721(),
 			expectedExists: true,
-			expectedError:  "",
+			expectedError:  "standard EIP721 already exists",
 		},
 		{
-			name:           "Test ERC1155",
-			eip:            NewErc1155(),
+			name:           "Test EIP1155",
+			eip:            NewEip1155(),
 			expectedExists: true,
-			expectedError:  "",
+			expectedError:  "standard EIP1155 already exists",
 		},
 		{
 			name:           "Test EIP1820",
 			eip:            NewEip1820(),
 			expectedExists: true,
-			expectedError:  "",
+			expectedError:  "standard EIP1820 already exists",
 		},
 		{
 			name:           "Test EIP1822",
 			eip:            NewEip1822(),
 			expectedExists: true,
-			expectedError:  "",
+			isStagnant:     true,
+			expectedError:  "standard EIP1822 already exists",
 		},
 		{
 			name:           "Test EIP1967",
 			eip:            NewEip1967(),
 			expectedExists: true,
-			expectedError:  "",
+			expectedError:  "standard EIP1967 already exists",
 		},
 	}
 
@@ -64,6 +70,9 @@ func TestEIPFunctions(t *testing.T) {
 			// Test GetType
 			assert.NotNil(t, tt.eip.GetType())
 
+			// Test GetUrl
+			assert.NotEmpty(t, tt.eip.GetUrl())
+
 			// Test GetFunctions
 			assert.NotEmpty(t, tt.eip.GetFunctions())
 
@@ -76,6 +85,9 @@ func TestEIPFunctions(t *testing.T) {
 			// Test TokenCount
 			assert.GreaterOrEqual(t, tt.eip.TokenCount(), 0)
 
+			// Test IsStagnant
+			assert.Equal(t, tt.isStagnant, tt.eip.IsStagnant())
+
 			// Test ToProto
 			assert.NotNil(t, tt.eip.ToProto())
 
@@ -83,7 +95,7 @@ func TestEIPFunctions(t *testing.T) {
 			assert.NotEmpty(t, tt.eip.String())
 
 			// Test RegisterStandard
-			err := RegisterStandard(tt.eip.GetType(), tt.eip.GetStandard())
+			err := RegisterStandard(tt.eip.GetType(), tt.eip)
 			if tt.expectedError == "" {
 				assert.NoError(t, err)
 			} else {
@@ -98,6 +110,11 @@ func TestEIPFunctions(t *testing.T) {
 			registeredStandards := GetRegisteredStandards()
 			_, ok := registeredStandards[tt.eip.GetType()]
 			assert.True(t, ok, "standard %v not found in registered standards", tt.eip.GetType())
+
+			standard, bool := GetStandard(tt.eip.GetType())
+			assert.True(t, bool, "standard %v not found in registered standards", tt.eip.GetType())
+			assert.NotNil(t, standard)
+			assert.Equal(t, tt.eip.GetStandard(), standard.GetStandard())
 		})
 	}
 }

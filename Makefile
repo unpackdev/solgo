@@ -12,7 +12,10 @@ lint: ## Lint the Go code using golangci-lint
 
 .PHONY: test
 test: ## Run tests
-	go test -v -cover ./...
+	go test -v -cover  ./... -coverprofile cover.out
+
+cover-report: test
+	go tool cover -func cover.out
 
 .PHONY: generate
 generate: submodules ## Run tests

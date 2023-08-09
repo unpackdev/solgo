@@ -2,5 +2,5 @@ package eip
 
 func init() {
 	// Initialize the storage map so it can be accessed globally.
-	storage = make(map[Standard]ContractStandard)
+	storage = make(map[Standard]EIP)
 }

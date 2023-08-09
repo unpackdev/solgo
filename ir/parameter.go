@@ -14,6 +14,7 @@ type Parameter struct {
 	Name            string               `json:"name"`
 	Type            string               `json:"type"`
 	TypeDescription *ast.TypeDescription `json:"type_description"`
+	Indexed         bool                 `json:"indexed"`
 }
 
 // GetAST returns the underlying AST node for the Parameter.
@@ -34,6 +35,11 @@ func (p *Parameter) GetName() string {
 // GetNodeType returns the AST node type of the Parameter.
 func (p *Parameter) GetNodeType() ast_pb.NodeType {
 	return p.NodeType
+}
+
+// IsIndexed returns whether the Parameter is indexed.
+func (p *Parameter) IsIndexed() bool {
+	return p.Indexed
 }
 
 // GetType returns the type of the Parameter.

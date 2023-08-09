@@ -1,0 +1,96 @@
+{
+	"confidence": 3,
+	"confidence_points": 1,
+	"threshold": 0.9,
+	"maximum_tokens": 29,
+	"discovered_tokens": 29,
+	"standard": "EIP1822",
+	"contract": {
+		"name": "ERC1822 Full Match",
+		"functions": [
+			{
+				"name": "getImplementation",
+				"inputs": [],
+				"outputs": [
+					{
+						"type": "address",
+						"matched": true
+					}
+				],
+				"matched": true
+			},
+			{
+				"name": "upgradeTo",
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": false,
+						"matched": true
+					}
+				],
+				"outputs": [],
+				"matched": true
+			},
+			{
+				"name": "upgradeToAndCall",
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": false,
+						"matched": true
+					},
+					{
+						"type": "string",
+						"indexed": false,
+						"matched": true
+					}
+				],
+				"outputs": [],
+				"matched": true
+			},
+			{
+				"name": "setProxyOwner",
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": false,
+						"matched": true
+					}
+				],
+				"outputs": [],
+				"matched": true
+			}
+		],
+		"events": [
+			{
+				"name": "Upgraded",
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": true,
+						"matched": true
+					}
+				],
+				"outputs": [],
+				"matched": true
+			},
+			{
+				"name": "ProxyOwnershipTransferred",
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": true,
+						"matched": true
+					},
+					{
+						"type": "address",
+						"indexed": true,
+						"matched": true
+					}
+				],
+				"outputs": [],
+				"matched": true
+			}
+		]
+	}
+}

@@ -18,6 +18,11 @@ func (e Eip1822) GetType() Standard {
 	return e.Standard.Type
 }
 
+// GetUrl returns the URL of the EIP-1822 standard.
+func (e Eip1822) GetUrl() string {
+	return e.Standard.Url
+}
+
 // GetFunctions returns the functions associated with the EIP-1822 standard.
 func (e Eip1822) GetFunctions() []Function {
 	return e.Standard.Functions
@@ -31,6 +36,16 @@ func (e Eip1822) GetEvents() []Event {
 // GetStandard returns the complete EIP-1822 contract standard.
 func (e Eip1822) GetStandard() ContractStandard {
 	return e.Standard
+}
+
+// IsStagnant returns a boolean indicating whether the EIP-1822 standard is stagnant.
+func (e Eip1822) IsStagnant() bool {
+	return e.Standard.Stagnant
+}
+
+// ConfidenceCheck checks the contract for the EIP-1822 standard compliance.
+func (e Eip1822) ConfidenceCheck(contract *Contract) (Discovery, bool) {
+	return ConfidenceCheck(e, contract)
 }
 
 // TokenCount returns the number of tokens associated with the EIP-1822 standard.
@@ -52,10 +67,12 @@ func (e Eip1822) String() string {
 func NewEip1822() EIP {
 	return &Eip1822{
 		Standard: ContractStandard{
-			Name: "EIP-1822 Universal Proxy Standard (UPS)",
-			Type: EIP1822,
+			Name:     "EIP-1822 Universal Proxy Standard (UPS)",
+			Url:      "https://eips.ethereum.org/EIPS/eip-1822",
+			Stagnant: true,
+			Type:     EIP1822,
 			Functions: []Function{
-				newFunction("getImplementation", nil, []string{TypeAddress}),
+				newFunction("getImplementation", nil, []Output{{Type: TypeAddress}}),
 				newFunction("upgradeTo", []Input{{Type: TypeAddress}}, nil),
 				newFunction("upgradeToAndCall", []Input{{Type: TypeAddress, Indexed: false}, {Type: TypeString, Indexed: false}}, nil),
 				newFunction("setProxyOwner", []Input{{Type: TypeAddress}}, nil),
