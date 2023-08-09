@@ -1,0 +1,138 @@
+{
+	"standard": 1,
+	"confidence": 1,
+	"confidence_points": 19,
+	"maximum_tokens": 68,
+	"discovered_tokens": 13,
+	"contract": {
+		"name": "ERC20 Low Match",
+		"functions": [
+			{
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"type": "uint256",
+						"matched": true
+					}
+				],
+				"matched": true
+			},
+			{
+				"name": "balanceOf",
+				"inputs": [
+					{
+						"type": "address"
+					}
+				],
+				"outputs": [
+					{
+						"type": "uint256"
+					}
+				]
+			},
+			{
+				"name": "transfer",
+				"inputs": [
+					{
+						"type": "address"
+					},
+					{
+						"type": "uint256"
+					}
+				],
+				"outputs": [
+					{
+						"type": "bool"
+					}
+				]
+			},
+			{
+				"name": "transferFrom",
+				"inputs": [
+					{
+						"type": "address"
+					},
+					{
+						"type": "address"
+					},
+					{
+						"type": "uint256"
+					}
+				],
+				"outputs": [
+					{
+						"type": "bool"
+					}
+				]
+			},
+			{
+				"name": "approve",
+				"inputs": [
+					{
+						"type": "address"
+					},
+					{
+						"type": "uint256"
+					}
+				],
+				"outputs": [
+					{
+						"type": "bool"
+					}
+				]
+			},
+			{
+				"name": "allowance",
+				"inputs": [
+					{
+						"type": "address"
+					},
+					{
+						"type": "address"
+					}
+				],
+				"outputs": [
+					{
+						"type": "uint256"
+					}
+				]
+			}
+		],
+		"events": [
+			{
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": true,
+						"matched": true
+					},
+					{
+						"type": "address",
+						"indexed": true,
+						"matched": true
+					},
+					{
+						"type": "uint256",
+						"matched": true
+					}
+				],
+				"matched": true
+			},
+			{
+				"inputs": [
+					{
+						"type": "address",
+						"indexed": true
+					},
+					{
+						"type": "address",
+						"indexed": true
+					},
+					{
+						"type": "uint256"
+					}
+				]
+			}
+		]
+	}
+}

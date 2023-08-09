@@ -15,12 +15,22 @@ type EIP interface {
 	// functions defined in the Ethereum standard.
 	GetFunctions() []Function
 
+	// GetUrl returns the URL of the Ethereum standard.
+	GetUrl() string
+
+	// IsStagnant returns a boolean indicating whether the Ethereum standard is stagnant.
+	IsStagnant() bool
+
 	// GetEvents returns a slice of Event structs, representing the
 	// events defined in the Ethereum standard.
 	GetEvents() []Event
 
 	// GetStandard returns the complete representation of the Ethereum standard.
 	GetStandard() ContractStandard
+
+	// ConfidenceCheck returns a discovery confidence information and a boolean indicating whether
+	// the contract is to any level compliant with the Ethereum standard.
+	ConfidenceCheck(contract *Contract) (Discovery, bool)
 
 	// TokenCount returns the number of tokens associated with the Ethereum standard.
 	TokenCount() int

@@ -171,14 +171,15 @@ func (c *Contract) GetLanguage() Language {
 // ToProto converts the Contract to its protobuf representation.
 func (c *Contract) ToProto() *ir_pb.Contract {
 	proto := &ir_pb.Contract{
-		Id:             c.GetId(),
-		NodeType:       c.GetNodeType(),
-		Kind:           c.GetKind(),
-		Name:           c.GetName(),
-		License:        c.GetLicense(),
-		Language:       c.GetLanguage().String(),
-		AbsolutePath:   c.GetAbsolutePath(),
-		SourceUnitId:   c.GetSourceUnitId(),
+		Id:           c.GetId(),
+		NodeType:     c.GetNodeType(),
+		Kind:         c.GetKind(),
+		Name:         c.GetName(),
+		License:      c.GetLicense(),
+		Language:     c.GetLanguage().String(),
+		AbsolutePath: c.GetAbsolutePath(),
+		SourceUnitId: c.GetSourceUnitId(),
+		//Eips:           make([]*eip.ContractStandard, 0),
 		Symbols:        make([]*ir_pb.Symbol, 0),
 		Imports:        make([]*ir_pb.Import, 0),
 		Pragmas:        make([]*ir_pb.Pragma, 0),

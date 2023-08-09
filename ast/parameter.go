@@ -20,6 +20,7 @@ type Parameter struct {
 	Constant        bool                   `json:"constant,omitempty"`
 	StateVariable   bool                   `json:"state_variable,omitempty"`
 	TypeDescription *TypeDescription       `json:"type_description,omitempty"`
+	Indexed         bool                   `json:"indexed,omitempty"`
 }
 
 func NewParameter(b *ASTBuilder) *Parameter {
@@ -88,6 +89,10 @@ func (p *Parameter) GetTypeName() *TypeName {
 	return p.TypeName
 }
 
+func (p *Parameter) IsIndexed() bool {
+	return p.Indexed
+}
+
 func (p *Parameter) GetNodes() []Node[NodeType] {
 	if p.TypeName != nil {
 		return []Node[NodeType]{p.TypeName}
@@ -108,6 +113,7 @@ func (p *Parameter) ToProto() NodeType {
 		StateMutability: p.GetStateMutability(),
 		Visibility:      p.GetVisibility(),
 		StorageLocation: p.GetStorageLocation(),
+		Indexed:         p.IsIndexed(),
 	}
 
 	if p.GetTypeName() != nil {
@@ -167,6 +173,7 @@ func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 		ParentIndex: plNode.GetId(),
 	}
 	p.Scope = fnNode.GetId()
+	p.Indexed = ctx.Indexed() != nil
 
 	if ctx.Identifier() != nil {
 		p.Name = ctx.Identifier().GetText()

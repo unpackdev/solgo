@@ -5,32 +5,42 @@ package eip
 func TokenCount(cs ContractStandard) int {
 	count := 0
 
-	// Helper function to count tokens in a slice of types
-	countTokens := func(types []string) int {
-		tokenCount := 0
-		for range types {
-			// Add conditions here if there are specific token types to count
-			tokenCount++
-		}
-		return tokenCount
-	}
-
-	// Count tokens in functions
 	for _, function := range cs.Functions {
+		count++
+
 		for _, input := range function.Inputs {
-			count++                                    // Count the input type itself
-			count += countTokens([]string{input.Type}) // Count tokens in the input type
+			count++
+			if len(input.Type) > 0 {
+				count++
+			}
+			count++ // Indexed is always counted as it's a boolean
 		}
-		count += countTokens(function.Outputs) // Count tokens in the outputs
+
+		for _, output := range function.Outputs {
+			count++
+			if len(output.Type) > 0 {
+				count++
+			}
+		}
 	}
 
-	// Count tokens in events
 	for _, event := range cs.Events {
+		count++
+
 		for _, input := range event.Inputs {
-			count++                                    // Count the input type itself
-			count += countTokens([]string{input.Type}) // Count tokens in the input type
+			count++
+			if len(input.Type) > 0 {
+				count++
+			}
+			count++ // Indexed is always counted as it's a boolean
 		}
-		count += countTokens(event.Outputs) // Count tokens in the outputs
+
+		for _, output := range event.Outputs {
+			count++
+			if len(output.Type) > 0 {
+				count++
+			}
+		}
 	}
 
 	return count

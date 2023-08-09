@@ -85,6 +85,7 @@ func (b *Builder) processEvent(unit *ast.EventDefinition) *Event {
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),
+			Indexed:         parameter.IsIndexed(),
 			Type:            parameter.GetTypeName().GetName(),
 			TypeDescription: parameter.GetTypeDescription(),
 		})
