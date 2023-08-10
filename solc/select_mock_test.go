@@ -123,8 +123,6 @@ func TestMockUpgrade(t *testing.T) {
 			expectedResult: true,
 			expectedError:  nil,
 		},
-		// Note: The MockCommand always returns a successful upgrade.
-		// If there are scenarios where the upgrade can fail, you should add them here.
 	}
 
 	for _, tt := range tests {
