@@ -26,6 +26,7 @@ jobs:
       # Install and set a specific version of solc
       - name: Setup solc
         run: |
+          source solgoenv/bin/activate
           solc-select install 0.8.19
           solc-select use 0.8.19
 
