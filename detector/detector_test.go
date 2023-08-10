@@ -2,6 +2,7 @@ package detector
 
 import (
 	"context"
+	"encoding/hex"
 	"path/filepath"
 	"testing"
 
@@ -27,16 +28,12 @@ func TestDetectorFromSources(t *testing.T) {
 
 	// Define multiple test cases
 	testCases := []struct {
-		name                 string
-		outputPath           string
-		sources              solgo.Sources
-		expectedAbi          string
-		expectedProto        string
-		unresolvedReferences int64
+		name       string
+		sources    solgo.Sources
+		opcodeTest bool
 	}{
 		{
-			name:       "Empty Contract Test",
-			outputPath: "ast/",
+			name: "Empty Contract Test",
 			sources: solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -49,13 +46,10 @@ func TestDetectorFromSources(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/Empty.abi").Content,
-			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/Empty.abi.proto").Content,
-			unresolvedReferences: 0,
+			opcodeTest: true,
 		},
 		{
-			name:       "Simple Storage Contract Test",
-			outputPath: "ast/",
+			name: "Simple Storage Contract Test",
 			sources: solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -73,13 +67,9 @@ func TestDetectorFromSources(t *testing.T) {
 				MaskLocalSourcesPath: true,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/SimpleStorage.abi").Content,
-			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/SimpleStorage.abi.proto").Content,
-			unresolvedReferences: 0,
 		},
 		{
-			name:       "OpenZeppelin ERC20 Test",
-			outputPath: "ast/",
+			name: "OpenZeppelin ERC20 Test",
 			sources: solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -112,13 +102,9 @@ func TestDetectorFromSources(t *testing.T) {
 				MaskLocalSourcesPath: true,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/ERC20.abi").Content,
-			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/ERC20.abi.proto").Content,
-			unresolvedReferences: 0,
 		},
 		{
-			name:       "Token Sale ERC20 Test",
-			outputPath: "ast/",
+			name: "Token Sale ERC20 Test",
 			sources: solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -140,13 +126,9 @@ func TestDetectorFromSources(t *testing.T) {
 				EntrySourceUnitName: "TokenSale",
 				LocalSourcesPath:    "../sources/",
 			},
-			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/TokenSale.abi").Content,
-			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/TokenSale.abi.proto").Content,
-			unresolvedReferences: 0,
 		},
 		{
-			name:       "Lottery Test",
-			outputPath: "ast/",
+			name: "Lottery Test",
 			sources: solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -158,13 +140,9 @@ func TestDetectorFromSources(t *testing.T) {
 				EntrySourceUnitName: "Lottery",
 				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
-			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/Lottery.abi").Content,
-			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/Lottery.abi.proto").Content,
-			unresolvedReferences: 0,
 		},
 		{
-			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
-			outputPath: "contracts/cheelee/",
+			name: "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
 			sources: solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -236,16 +214,17 @@ func TestDetectorFromSources(t *testing.T) {
 				EntrySourceUnitName: "TransparentUpgradeableProxy",
 				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
-			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/TransparentUpgradeableProxy.abi").Content,
-			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/TransparentUpgradeableProxy.abi.proto").Content,
-			unresolvedReferences: 0,
 		},
 	}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			detector, err := NewDetectorFromSources(context.Background(), testCase.sources)
+			ctx, cancel := context.WithCancel(context.Background())
+			defer cancel()
+
+			detector, err := NewDetectorFromSources(ctx, testCase.sources)
 			assert.NoError(t, err)
+			assert.Equal(t, ctx, detector.GetContext())
 			assert.IsType(t, &Detector{}, detector)
 			assert.IsType(t, &abi.Builder{}, detector.GetABI())
 			assert.IsType(t, &ast.ASTBuilder{}, detector.GetAST())
@@ -253,6 +232,18 @@ func TestDetectorFromSources(t *testing.T) {
 			assert.IsType(t, &solgo.Parser{}, detector.GetParser())
 			assert.IsType(t, solgo.Sources{}, detector.GetSources())
 			assert.IsType(t, &solc.Select{}, detector.GetSolc())
+
+			if testCase.opcodeTest {
+				opcodeData := []byte{0x60, 0x01, 0x60, 0x10, 0x01} // PUSH1 0x01 PUSH1 0x10 ADD
+				opcode, err := detector.GetOpcodes(opcodeData)
+				assert.NoError(t, err)
+				assert.NotNil(t, opcode)
+
+				opcodeString := hex.EncodeToString(opcodeData)
+				opcode, err = detector.GetOpcodesFromHex(opcodeString)
+				assert.NoError(t, err)
+				assert.NotNil(t, opcode)
+			}
 		})
 	}
 }
