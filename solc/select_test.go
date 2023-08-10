@@ -1,6 +1,7 @@
 package solc
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -23,6 +24,10 @@ func TestUse(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if os.Getenv("TEST_SOLGO_SOLC_SELECT_DISABLED") == "true" {
+				t.Skip("Skipping test that requires solc-select")
+			}
+
 			s, err := NewSelect()
 			assert.NoError(t, err, "NewSelect() should not return an error")
 
@@ -50,6 +55,10 @@ func TestInstall(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if os.Getenv("TEST_SOLGO_SOLC_SELECT_DISABLED") == "true" {
+				t.Skip("Skipping test that requires solc-select")
+			}
+
 			s, err := NewSelect()
 			assert.NoError(t, err, "NewSelect() should not return an error")
 			result, _, err := s.Install(tt.version)
@@ -72,6 +81,10 @@ func TestVersions(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if os.Getenv("TEST_SOLGO_SOLC_SELECT_DISABLED") == "true" {
+				t.Skip("Skipping test that requires solc-select")
+			}
+
 			s, err := NewSelect()
 			assert.NoError(t, err, "NewSelect() should not return an error")
 			versions, err := s.Versions()
@@ -96,6 +109,10 @@ func TestUpgrade(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if os.Getenv("TEST_SOLGO_SOLC_SELECT_DISABLED") == "true" {
+				t.Skip("Skipping test that requires solc-select")
+			}
+
 			s, err := NewSelect()
 			assert.NoError(t, err, "NewSelect() should not return an error")
 			result, err := s.Upgrade()
@@ -121,6 +138,10 @@ func TestNewSelect(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if os.Getenv("TEST_SOLGO_SOLC_SELECT_DISABLED") == "true" {
+				t.Skip("Skipping test that requires solc-select")
+			}
+
 			s, err := NewSelect()
 			assert.NoError(t, err, "NewSelect() should not return an error")
 
