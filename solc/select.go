@@ -5,9 +5,11 @@ import (
 	"os"
 )
 
+// Select represents a utility structure that manages the version of solc in use.
+// It encapsulates the current version of solc and provides functionalities to interact with solc-select.
 type Select struct {
-	current   string
-	commander Commander
+	current   string    // The current version of solc in use.
+	commander Commander // Commander interface to execute shell commands.
 }
 
 // Get the current version of solc in use.
@@ -16,12 +18,13 @@ func (s *Select) Current() string {
 }
 
 // NewSelect initializes and returns a new instance of the Select struct.
-// The function first checks if solc-select is installed on the system.
-// If solc-select is not installed, it returns an error.
-// If solc-select is installed, the function fetches the list of available solc versions.
-// It then identifies the currently active solc version and sets it in the returned Select struct.
-// It checks if a Python virtual environment is set and initializes the current solc version.
-// If any step fails, an error is returned.
+// The function performs the following steps:
+// 1. Checks if solc-select is installed on the system.
+// 2. If solc-select is not installed, it returns an error.
+// 3. If solc-select is installed, the function fetches the list of available solc versions.
+// 4. Identifies the currently active solc version and sets it in the returned Select struct.
+// 5. Checks if a Python virtual environment is set and initializes the current solc version.
+// If any of the above steps fail, an error is returned.
 func NewSelect() (*Select, error) {
 	if os.Getenv("VIRTUAL_ENV") == "" {
 		return nil, errors.New(
