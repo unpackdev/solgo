@@ -2,5 +2,13 @@ language: go
 go:
   - 1.19.x
 
+before_install:
+  # Install solc-select
+  - python3 -m venv solgoenv
+  - source solgoenv/bin/activate
+  - pip3 install solc-select
+  # Install a specific version of solc and set it as the current version
+  - solc-select install 0.8.19
+  - solc-select use 0.8.19
 script:
   - make test
