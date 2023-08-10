@@ -1,0 +1,2991 @@
+0x0000 PUSH1 80 // Push 1 byte onto the stack.
+0x0002 PUSH1 40 // Push 1 byte onto the stack.
+0x0004 MSTORE // Save word to memory.
+0x0005 CALLVALUE // Get deposited value by the instruction/transaction responsible for this execution.
+0x0006 DUP1 // Duplicates the 1st stack item.
+0x0007 ISZERO // Checks if the top stack item is zero.
+0x0008 PUSH3 000011 // Push 3 bytes onto the stack.
+0x000c JUMPI // Conditionally alter the program counter.
+0x000d PUSH1 00 // Push 1 byte onto the stack.
+0x000f DUP1 // Duplicates the 1st stack item.
+0x0010 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0011 JUMPDEST // Mark a valid destination for jumps.
+0x0012 POP // Remove item from stack.
+0x0013 PUSH1 00 // Push 1 byte onto the stack.
+0x0015 PUSH3 000027 // Push 3 bytes onto the stack.
+0x0019 PUSH1 01 // Push 1 byte onto the stack.
+0x001b PUSH1 01 // Push 1 byte onto the stack.
+0x001d PUSH1 e0 // Push 1 byte onto the stack.
+0x001f SHL // Shift left.
+0x0020 SUB // Subtracts the second stack item from the first.
+0x0021 PUSH3 000142 // Push 3 bytes onto the stack.
+0x0025 AND // Bitwise AND operation between the two top stack items.
+0x0026 JUMP // Alter the program counter.
+0x0027 JUMPDEST // Mark a valid destination for jumps.
+0x0028 PUSH1 00 // Push 1 byte onto the stack.
+0x002a DUP1 // Duplicates the 1st stack item.
+0x002b SLOAD // Load word from storage.
+0x002c PUSH1 01 // Push 1 byte onto the stack.
+0x002e PUSH1 01 // Push 1 byte onto the stack.
+0x0030 PUSH1 a0 // Push 1 byte onto the stack.
+0x0032 SHL // Shift left.
+0x0033 SUB // Subtracts the second stack item from the first.
+0x0034 NOT // Bitwise NOT operation.
+0x0035 AND // Bitwise AND operation between the two top stack items.
+0x0036 PUSH1 01 // Push 1 byte onto the stack.
+0x0038 PUSH1 01 // Push 1 byte onto the stack.
+0x003a PUSH1 a0 // Push 1 byte onto the stack.
+0x003c SHL // Shift left.
+0x003d SUB // Subtracts the second stack item from the first.
+0x003e DUP4 // Duplicates the 4th stack item.
+0x003f AND // Bitwise AND operation between the two top stack items.
+0x0040 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0041 DUP2 // Duplicates the 2nd stack item.
+0x0042 OR // Bitwise OR operation between the two top stack items.
+0x0043 DUP3 // Duplicates the 3rd stack item.
+0x0044 SSTORE // Save word to storage.
+0x0045 PUSH1 40 // Push 1 byte onto the stack.
+0x0047 MLOAD // Load word from memory.
+0x0048 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0049 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x004a POP // Remove item from stack.
+0x004b SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x004c PUSH32 8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0 // Push 32 bytes onto the stack.
+0x006d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x006e DUP3 // Duplicates the 3rd stack item.
+0x006f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0070 LOG3 // Appends log record with 3 topics.
+0x0071 POP // Remove item from stack.
+0x0072 PUSH1 40 // Push 1 byte onto the stack.
+0x0074 DUP1 // Duplicates the 1st stack item.
+0x0075 MLOAD // Load word from memory.
+0x0076 DUP1 // Duplicates the 1st stack item.
+0x0077 DUP3 // Duplicates the 3rd stack item.
+0x0078 ADD // Adds the top two stack items.
+0x0079 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x007a SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x007b MSTORE // Save word to memory.
+0x007c PUSH1 0e // Push 1 byte onto the stack.
+0x007e DUP1 // Duplicates the 1st stack item.
+0x007f DUP3 // Duplicates the 3rd stack item.
+0x0080 MSTORE // Save word to memory.
+0x0081 PUSH14 22ba3432b932bab6902a37b5b2b7 // Push 14 bytes onto the stack.
+0x0090 PUSH1 91 // Push 1 byte onto the stack.
+0x0092 SHL // Shift left.
+0x0093 PUSH1 20 // Push 1 byte onto the stack.
+0x0095 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0096 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0097 ADD // Adds the top two stack items.
+0x0098 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0099 DUP3 // Duplicates the 3rd stack item.
+0x009a MSTORE // Save word to memory.
+0x009b PUSH3 0000a8 // Push 3 bytes onto the stack.
+0x009f SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x00a0 PUSH1 06 // Push 1 byte onto the stack.
+0x00a2 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x00a3 PUSH3 000147 // Push 3 bytes onto the stack.
+0x00a7 JUMP // Alter the program counter.
+0x00a8 JUMPDEST // Mark a valid destination for jumps.
+0x00a9 POP // Remove item from stack.
+0x00aa PUSH1 40 // Push 1 byte onto the stack.
+0x00ac DUP1 // Duplicates the 1st stack item.
+0x00ad MLOAD // Load word from memory.
+0x00ae DUP1 // Duplicates the 1st stack item.
+0x00af DUP3 // Duplicates the 3rd stack item.
+0x00b0 ADD // Adds the top two stack items.
+0x00b1 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x00b2 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x00b3 MSTORE // Save word to memory.
+0x00b4 PUSH1 03 // Push 1 byte onto the stack.
+0x00b6 DUP1 // Duplicates the 1st stack item.
+0x00b7 DUP3 // Duplicates the 3rd stack item.
+0x00b8 MSTORE // Save word to memory.
+0x00b9 PUSH3 08aa89 // Push 3 bytes onto the stack.
+0x00bd PUSH1 eb // Push 1 byte onto the stack.
+0x00bf SHL // Shift left.
+0x00c0 PUSH1 20 // Push 1 byte onto the stack.
+0x00c2 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x00c3 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x00c4 ADD // Adds the top two stack items.
+0x00c5 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x00c6 DUP3 // Duplicates the 3rd stack item.
+0x00c7 MSTORE // Save word to memory.
+0x00c8 PUSH3 0000d5 // Push 3 bytes onto the stack.
+0x00cc SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x00cd PUSH1 05 // Push 1 byte onto the stack.
+0x00cf SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x00d0 PUSH3 000147 // Push 3 bytes onto the stack.
+0x00d4 JUMP // Alter the program counter.
+0x00d5 JUMPDEST // Mark a valid destination for jumps.
+0x00d6 POP // Remove item from stack.
+0x00d7 PUSH1 04 // Push 1 byte onto the stack.
+0x00d9 DUP1 // Duplicates the 1st stack item.
+0x00da SLOAD // Load word from storage.
+0x00db PUSH1 ff // Push 1 byte onto the stack.
+0x00dd NOT // Bitwise NOT operation.
+0x00de AND // Bitwise AND operation between the two top stack items.
+0x00df PUSH1 12 // Push 1 byte onto the stack.
+0x00e1 OR // Bitwise OR operation between the two top stack items.
+0x00e2 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x00e3 SSTORE // Save word to storage.
+0x00e4 PUSH10 065a4da25d3016c00000 // Push 10 bytes onto the stack.
+0x00ef PUSH1 03 // Push 1 byte onto the stack.
+0x00f1 DUP2 // Duplicates the 2nd stack item.
+0x00f2 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x00f3 SSTORE // Save word to storage.
+0x00f4 CALLER // Get caller address.
+0x00f5 PUSH1 00 // Push 1 byte onto the stack.
+0x00f7 DUP2 // Duplicates the 2nd stack item.
+0x00f8 DUP2 // Duplicates the 2nd stack item.
+0x00f9 MSTORE // Save word to memory.
+0x00fa PUSH1 01 // Push 1 byte onto the stack.
+0x00fc PUSH1 20 // Push 1 byte onto the stack.
+0x00fe SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x00ff DUP2 // Duplicates the 2nd stack item.
+0x0100 MSTORE // Save word to memory.
+0x0101 PUSH1 40 // Push 1 byte onto the stack.
+0x0103 DUP1 // Duplicates the 1st stack item.
+0x0104 DUP4 // Duplicates the 4th stack item.
+0x0105 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0106 DUP6 // Duplicates the 6th stack item.
+0x0107 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0108 SSTORE // Save word to storage.
+0x0109 DUP1 // Duplicates the 1st stack item.
+0x010a MLOAD // Load word from memory.
+0x010b SWAP5 // Swaps the top stack item with the 6th stack item.
+0x010c DUP6 // Duplicates the 6th stack item.
+0x010d MSTORE // Save word to memory.
+0x010e MLOAD // Load word from memory.
+0x010f SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0110 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0111 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0112 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0113 PUSH32 ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef // Push 32 bytes onto the stack.
+0x0134 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0135 DUP2 // Duplicates the 2nd stack item.
+0x0136 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0137 SUB // Subtracts the second stack item from the first.
+0x0138 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0139 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x013a ADD // Adds the top two stack items.
+0x013b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x013c LOG3 // Appends log record with 3 topics.
+0x013d PUSH3 0001e9 // Push 3 bytes onto the stack.
+0x0141 JUMP // Alter the program counter.
+0x0142 JUMPDEST // Mark a valid destination for jumps.
+0x0143 CALLER // Get caller address.
+0x0144 JUMPDEST // Mark a valid destination for jumps.
+0x0145 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0146 JUMP // Alter the program counter.
+0x0147 JUMPDEST // Mark a valid destination for jumps.
+0x0148 DUP3 // Duplicates the 3rd stack item.
+0x0149 DUP1 // Duplicates the 1st stack item.
+0x014a SLOAD // Load word from storage.
+0x014b PUSH1 01 // Push 1 byte onto the stack.
+0x014d DUP2 // Duplicates the 2nd stack item.
+0x014e PUSH1 01 // Push 1 byte onto the stack.
+0x0150 AND // Bitwise AND operation between the two top stack items.
+0x0151 ISZERO // Checks if the top stack item is zero.
+0x0152 PUSH2 0100 // Push 2 bytes onto the stack.
+0x0155 MUL // Multiplies the top two stack items.
+0x0156 SUB // Subtracts the second stack item from the first.
+0x0157 AND // Bitwise AND operation between the two top stack items.
+0x0158 PUSH1 02 // Push 1 byte onto the stack.
+0x015a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x015b DIV // Divides the first stack item by the second.
+0x015c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x015d PUSH1 00 // Push 1 byte onto the stack.
+0x015f MSTORE // Save word to memory.
+0x0160 PUSH1 20 // Push 1 byte onto the stack.
+0x0162 PUSH1 00 // Push 1 byte onto the stack.
+0x0164 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0165 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0166 PUSH1 1f // Push 1 byte onto the stack.
+0x0168 ADD // Adds the top two stack items.
+0x0169 PUSH1 20 // Push 1 byte onto the stack.
+0x016b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x016c DIV // Divides the first stack item by the second.
+0x016d DUP2 // Duplicates the 2nd stack item.
+0x016e ADD // Adds the top two stack items.
+0x016f SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0170 DUP3 // Duplicates the 3rd stack item.
+0x0171 PUSH1 1f // Push 1 byte onto the stack.
+0x0173 LT // Checks if the first item is less than the second.
+0x0174 PUSH3 00018a // Push 3 bytes onto the stack.
+0x0178 JUMPI // Conditionally alter the program counter.
+0x0179 DUP1 // Duplicates the 1st stack item.
+0x017a MLOAD // Load word from memory.
+0x017b PUSH1 ff // Push 1 byte onto the stack.
+0x017d NOT // Bitwise NOT operation.
+0x017e AND // Bitwise AND operation between the two top stack items.
+0x017f DUP4 // Duplicates the 4th stack item.
+0x0180 DUP1 // Duplicates the 1st stack item.
+0x0181 ADD // Adds the top two stack items.
+0x0182 OR // Bitwise OR operation between the two top stack items.
+0x0183 DUP6 // Duplicates the 6th stack item.
+0x0184 SSTORE // Save word to storage.
+0x0185 PUSH3 0001ba // Push 3 bytes onto the stack.
+0x0189 JUMP // Alter the program counter.
+0x018a JUMPDEST // Mark a valid destination for jumps.
+0x018b DUP3 // Duplicates the 3rd stack item.
+0x018c DUP1 // Duplicates the 1st stack item.
+0x018d ADD // Adds the top two stack items.
+0x018e PUSH1 01 // Push 1 byte onto the stack.
+0x0190 ADD // Adds the top two stack items.
+0x0191 DUP6 // Duplicates the 6th stack item.
+0x0192 SSTORE // Save word to storage.
+0x0193 DUP3 // Duplicates the 3rd stack item.
+0x0194 ISZERO // Checks if the top stack item is zero.
+0x0195 PUSH3 0001ba // Push 3 bytes onto the stack.
+0x0199 JUMPI // Conditionally alter the program counter.
+0x019a SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x019b DUP3 // Duplicates the 3rd stack item.
+0x019c ADD // Adds the top two stack items.
+0x019d JUMPDEST // Mark a valid destination for jumps.
+0x019e DUP3 // Duplicates the 3rd stack item.
+0x019f DUP2 // Duplicates the 2nd stack item.
+0x01a0 GT // Checks if the first item is greater than the second.
+0x01a1 ISZERO // Checks if the top stack item is zero.
+0x01a2 PUSH3 0001ba // Push 3 bytes onto the stack.
+0x01a6 JUMPI // Conditionally alter the program counter.
+0x01a7 DUP3 // Duplicates the 3rd stack item.
+0x01a8 MLOAD // Load word from memory.
+0x01a9 DUP3 // Duplicates the 3rd stack item.
+0x01aa SSTORE // Save word to storage.
+0x01ab SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x01ac PUSH1 20 // Push 1 byte onto the stack.
+0x01ae ADD // Adds the top two stack items.
+0x01af SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x01b0 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x01b1 PUSH1 01 // Push 1 byte onto the stack.
+0x01b3 ADD // Adds the top two stack items.
+0x01b4 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x01b5 PUSH3 00019d // Push 3 bytes onto the stack.
+0x01b9 JUMP // Alter the program counter.
+0x01ba JUMPDEST // Mark a valid destination for jumps.
+0x01bb POP // Remove item from stack.
+0x01bc PUSH3 0001c8 // Push 3 bytes onto the stack.
+0x01c0 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x01c1 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x01c2 POP // Remove item from stack.
+0x01c3 PUSH3 0001cc // Push 3 bytes onto the stack.
+0x01c7 JUMP // Alter the program counter.
+0x01c8 JUMPDEST // Mark a valid destination for jumps.
+0x01c9 POP // Remove item from stack.
+0x01ca SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x01cb JUMP // Alter the program counter.
+0x01cc JUMPDEST // Mark a valid destination for jumps.
+0x01cd PUSH3 000144 // Push 3 bytes onto the stack.
+0x01d1 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x01d2 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x01d3 JUMPDEST // Mark a valid destination for jumps.
+0x01d4 DUP1 // Duplicates the 1st stack item.
+0x01d5 DUP3 // Duplicates the 3rd stack item.
+0x01d6 GT // Checks if the first item is greater than the second.
+0x01d7 ISZERO // Checks if the top stack item is zero.
+0x01d8 PUSH3 0001c8 // Push 3 bytes onto the stack.
+0x01dc JUMPI // Conditionally alter the program counter.
+0x01dd PUSH1 00 // Push 1 byte onto the stack.
+0x01df DUP2 // Duplicates the 2nd stack item.
+0x01e0 SSTORE // Save word to storage.
+0x01e1 PUSH1 01 // Push 1 byte onto the stack.
+0x01e3 ADD // Adds the top two stack items.
+0x01e4 PUSH3 0001d3 // Push 3 bytes onto the stack.
+0x01e8 JUMP // Alter the program counter.
+0x01e9 JUMPDEST // Mark a valid destination for jumps.
+0x01ea PUSH2 113d // Push 2 bytes onto the stack.
+0x01ed DUP1 // Duplicates the 1st stack item.
+0x01ee PUSH3 0001f9 // Push 3 bytes onto the stack.
+0x01f2 PUSH1 00 // Push 1 byte onto the stack.
+0x01f4 CODECOPY // Copy code running in current environment to memory.
+0x01f5 PUSH1 00 // Push 1 byte onto the stack.
+0x01f7 RETURN // Halt execution returning output data.
+0x01f8 INVALID // Designated invalid instruction.
+0x01f9 PUSH1 80 // Push 1 byte onto the stack.
+0x01fb PUSH1 40 // Push 1 byte onto the stack.
+0x01fd MSTORE // Save word to memory.
+0x01fe CALLVALUE // Get deposited value by the instruction/transaction responsible for this execution.
+0x01ff DUP1 // Duplicates the 1st stack item.
+0x0200 ISZERO // Checks if the top stack item is zero.
+0x0201 PUSH2 0010 // Push 2 bytes onto the stack.
+0x0204 JUMPI // Conditionally alter the program counter.
+0x0205 PUSH1 00 // Push 1 byte onto the stack.
+0x0207 DUP1 // Duplicates the 1st stack item.
+0x0208 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0209 JUMPDEST // Mark a valid destination for jumps.
+0x020a POP // Remove item from stack.
+0x020b PUSH1 04 // Push 1 byte onto the stack.
+0x020d CALLDATASIZE // Get size of input data in current environment.
+0x020e LT // Checks if the first item is less than the second.
+0x020f PUSH2 012c // Push 2 bytes onto the stack.
+0x0212 JUMPI // Conditionally alter the program counter.
+0x0213 PUSH1 00 // Push 1 byte onto the stack.
+0x0215 CALLDATALOAD // Get input data of current environment.
+0x0216 PUSH1 e0 // Push 1 byte onto the stack.
+0x0218 SHR // Shift right.
+0x0219 DUP1 // Duplicates the 1st stack item.
+0x021a PUSH4 893d20e8 // Push 4 bytes onto the stack.
+0x021f GT // Checks if the first item is greater than the second.
+0x0220 PUSH2 00ad // Push 2 bytes onto the stack.
+0x0223 JUMPI // Conditionally alter the program counter.
+0x0224 DUP1 // Duplicates the 1st stack item.
+0x0225 PUSH4 a9059cbb // Push 4 bytes onto the stack.
+0x022a GT // Checks if the first item is greater than the second.
+0x022b PUSH2 0071 // Push 2 bytes onto the stack.
+0x022e JUMPI // Conditionally alter the program counter.
+0x022f DUP1 // Duplicates the 1st stack item.
+0x0230 PUSH4 a9059cbb // Push 4 bytes onto the stack.
+0x0235 EQ // Checks if the two top stack items are equal.
+0x0236 PUSH2 035a // Push 2 bytes onto the stack.
+0x0239 JUMPI // Conditionally alter the program counter.
+0x023a DUP1 // Duplicates the 1st stack item.
+0x023b PUSH4 b09f1266 // Push 4 bytes onto the stack.
+0x0240 EQ // Checks if the two top stack items are equal.
+0x0241 PUSH2 0386 // Push 2 bytes onto the stack.
+0x0244 JUMPI // Conditionally alter the program counter.
+0x0245 DUP1 // Duplicates the 1st stack item.
+0x0246 PUSH4 d28d8852 // Push 4 bytes onto the stack.
+0x024b EQ // Checks if the two top stack items are equal.
+0x024c PUSH2 038e // Push 2 bytes onto the stack.
+0x024f JUMPI // Conditionally alter the program counter.
+0x0250 DUP1 // Duplicates the 1st stack item.
+0x0251 PUSH4 dd62ed3e // Push 4 bytes onto the stack.
+0x0256 EQ // Checks if the two top stack items are equal.
+0x0257 PUSH2 0396 // Push 2 bytes onto the stack.
+0x025a JUMPI // Conditionally alter the program counter.
+0x025b DUP1 // Duplicates the 1st stack item.
+0x025c PUSH4 f2fde38b // Push 4 bytes onto the stack.
+0x0261 EQ // Checks if the two top stack items are equal.
+0x0262 PUSH2 03c4 // Push 2 bytes onto the stack.
+0x0265 JUMPI // Conditionally alter the program counter.
+0x0266 PUSH2 012c // Push 2 bytes onto the stack.
+0x0269 JUMP // Alter the program counter.
+0x026a JUMPDEST // Mark a valid destination for jumps.
+0x026b DUP1 // Duplicates the 1st stack item.
+0x026c PUSH4 893d20e8 // Push 4 bytes onto the stack.
+0x0271 EQ // Checks if the two top stack items are equal.
+0x0272 PUSH2 02dd // Push 2 bytes onto the stack.
+0x0275 JUMPI // Conditionally alter the program counter.
+0x0276 DUP1 // Duplicates the 1st stack item.
+0x0277 PUSH4 8da5cb5b // Push 4 bytes onto the stack.
+0x027c EQ // Checks if the two top stack items are equal.
+0x027d PUSH2 0301 // Push 2 bytes onto the stack.
+0x0280 JUMPI // Conditionally alter the program counter.
+0x0281 DUP1 // Duplicates the 1st stack item.
+0x0282 PUSH4 95d89b41 // Push 4 bytes onto the stack.
+0x0287 EQ // Checks if the two top stack items are equal.
+0x0288 PUSH2 0309 // Push 2 bytes onto the stack.
+0x028b JUMPI // Conditionally alter the program counter.
+0x028c DUP1 // Duplicates the 1st stack item.
+0x028d PUSH4 a0712d68 // Push 4 bytes onto the stack.
+0x0292 EQ // Checks if the two top stack items are equal.
+0x0293 PUSH2 0311 // Push 2 bytes onto the stack.
+0x0296 JUMPI // Conditionally alter the program counter.
+0x0297 DUP1 // Duplicates the 1st stack item.
+0x0298 PUSH4 a457c2d7 // Push 4 bytes onto the stack.
+0x029d EQ // Checks if the two top stack items are equal.
+0x029e PUSH2 032e // Push 2 bytes onto the stack.
+0x02a1 JUMPI // Conditionally alter the program counter.
+0x02a2 PUSH2 012c // Push 2 bytes onto the stack.
+0x02a5 JUMP // Alter the program counter.
+0x02a6 JUMPDEST // Mark a valid destination for jumps.
+0x02a7 DUP1 // Duplicates the 1st stack item.
+0x02a8 PUSH4 32424aa3 // Push 4 bytes onto the stack.
+0x02ad GT // Checks if the first item is greater than the second.
+0x02ae PUSH2 00f4 // Push 2 bytes onto the stack.
+0x02b1 JUMPI // Conditionally alter the program counter.
+0x02b2 DUP1 // Duplicates the 1st stack item.
+0x02b3 PUSH4 32424aa3 // Push 4 bytes onto the stack.
+0x02b8 EQ // Checks if the two top stack items are equal.
+0x02b9 PUSH2 025c // Push 2 bytes onto the stack.
+0x02bc JUMPI // Conditionally alter the program counter.
+0x02bd DUP1 // Duplicates the 1st stack item.
+0x02be PUSH4 39509351 // Push 4 bytes onto the stack.
+0x02c3 EQ // Checks if the two top stack items are equal.
+0x02c4 PUSH2 0264 // Push 2 bytes onto the stack.
+0x02c7 JUMPI // Conditionally alter the program counter.
+0x02c8 DUP1 // Duplicates the 1st stack item.
+0x02c9 PUSH4 42966c68 // Push 4 bytes onto the stack.
+0x02ce EQ // Checks if the two top stack items are equal.
+0x02cf PUSH2 0290 // Push 2 bytes onto the stack.
+0x02d2 JUMPI // Conditionally alter the program counter.
+0x02d3 DUP1 // Duplicates the 1st stack item.
+0x02d4 PUSH4 70a08231 // Push 4 bytes onto the stack.
+0x02d9 EQ // Checks if the two top stack items are equal.
+0x02da PUSH2 02ad // Push 2 bytes onto the stack.
+0x02dd JUMPI // Conditionally alter the program counter.
+0x02de DUP1 // Duplicates the 1st stack item.
+0x02df PUSH4 715018a6 // Push 4 bytes onto the stack.
+0x02e4 EQ // Checks if the two top stack items are equal.
+0x02e5 PUSH2 02d3 // Push 2 bytes onto the stack.
+0x02e8 JUMPI // Conditionally alter the program counter.
+0x02e9 PUSH2 012c // Push 2 bytes onto the stack.
+0x02ec JUMP // Alter the program counter.
+0x02ed JUMPDEST // Mark a valid destination for jumps.
+0x02ee DUP1 // Duplicates the 1st stack item.
+0x02ef PUSH4 06fdde03 // Push 4 bytes onto the stack.
+0x02f4 EQ // Checks if the two top stack items are equal.
+0x02f5 PUSH2 0131 // Push 2 bytes onto the stack.
+0x02f8 JUMPI // Conditionally alter the program counter.
+0x02f9 DUP1 // Duplicates the 1st stack item.
+0x02fa PUSH4 095ea7b3 // Push 4 bytes onto the stack.
+0x02ff EQ // Checks if the two top stack items are equal.
+0x0300 PUSH2 01ae // Push 2 bytes onto the stack.
+0x0303 JUMPI // Conditionally alter the program counter.
+0x0304 DUP1 // Duplicates the 1st stack item.
+0x0305 PUSH4 18160ddd // Push 4 bytes onto the stack.
+0x030a EQ // Checks if the two top stack items are equal.
+0x030b PUSH2 01ee // Push 2 bytes onto the stack.
+0x030e JUMPI // Conditionally alter the program counter.
+0x030f DUP1 // Duplicates the 1st stack item.
+0x0310 PUSH4 23b872dd // Push 4 bytes onto the stack.
+0x0315 EQ // Checks if the two top stack items are equal.
+0x0316 PUSH2 0208 // Push 2 bytes onto the stack.
+0x0319 JUMPI // Conditionally alter the program counter.
+0x031a DUP1 // Duplicates the 1st stack item.
+0x031b PUSH4 313ce567 // Push 4 bytes onto the stack.
+0x0320 EQ // Checks if the two top stack items are equal.
+0x0321 PUSH2 023e // Push 2 bytes onto the stack.
+0x0324 JUMPI // Conditionally alter the program counter.
+0x0325 JUMPDEST // Mark a valid destination for jumps.
+0x0326 PUSH1 00 // Push 1 byte onto the stack.
+0x0328 DUP1 // Duplicates the 1st stack item.
+0x0329 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x032a JUMPDEST // Mark a valid destination for jumps.
+0x032b PUSH2 0139 // Push 2 bytes onto the stack.
+0x032e PUSH2 03ea // Push 2 bytes onto the stack.
+0x0331 JUMP // Alter the program counter.
+0x0332 JUMPDEST // Mark a valid destination for jumps.
+0x0333 PUSH1 40 // Push 1 byte onto the stack.
+0x0335 DUP1 // Duplicates the 1st stack item.
+0x0336 MLOAD // Load word from memory.
+0x0337 PUSH1 20 // Push 1 byte onto the stack.
+0x0339 DUP1 // Duplicates the 1st stack item.
+0x033a DUP3 // Duplicates the 3rd stack item.
+0x033b MSTORE // Save word to memory.
+0x033c DUP4 // Duplicates the 4th stack item.
+0x033d MLOAD // Load word from memory.
+0x033e DUP2 // Duplicates the 2nd stack item.
+0x033f DUP4 // Duplicates the 4th stack item.
+0x0340 ADD // Adds the top two stack items.
+0x0341 MSTORE // Save word to memory.
+0x0342 DUP4 // Duplicates the 4th stack item.
+0x0343 MLOAD // Load word from memory.
+0x0344 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0345 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0346 DUP4 // Duplicates the 4th stack item.
+0x0347 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0348 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0349 DUP4 // Duplicates the 4th stack item.
+0x034a ADD // Adds the top two stack items.
+0x034b SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x034c DUP6 // Duplicates the 6th stack item.
+0x034d ADD // Adds the top two stack items.
+0x034e SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x034f DUP1 // Duplicates the 1st stack item.
+0x0350 DUP4 // Duplicates the 4th stack item.
+0x0351 DUP4 // Duplicates the 4th stack item.
+0x0352 PUSH1 00 // Push 1 byte onto the stack.
+0x0354 JUMPDEST // Mark a valid destination for jumps.
+0x0355 DUP4 // Duplicates the 4th stack item.
+0x0356 DUP2 // Duplicates the 2nd stack item.
+0x0357 LT // Checks if the first item is less than the second.
+0x0358 ISZERO // Checks if the top stack item is zero.
+0x0359 PUSH2 0173 // Push 2 bytes onto the stack.
+0x035c JUMPI // Conditionally alter the program counter.
+0x035d DUP2 // Duplicates the 2nd stack item.
+0x035e DUP2 // Duplicates the 2nd stack item.
+0x035f ADD // Adds the top two stack items.
+0x0360 MLOAD // Load word from memory.
+0x0361 DUP4 // Duplicates the 4th stack item.
+0x0362 DUP3 // Duplicates the 3rd stack item.
+0x0363 ADD // Adds the top two stack items.
+0x0364 MSTORE // Save word to memory.
+0x0365 PUSH1 20 // Push 1 byte onto the stack.
+0x0367 ADD // Adds the top two stack items.
+0x0368 PUSH2 015b // Push 2 bytes onto the stack.
+0x036b JUMP // Alter the program counter.
+0x036c JUMPDEST // Mark a valid destination for jumps.
+0x036d POP // Remove item from stack.
+0x036e POP // Remove item from stack.
+0x036f POP // Remove item from stack.
+0x0370 POP // Remove item from stack.
+0x0371 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0372 POP // Remove item from stack.
+0x0373 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0374 DUP2 // Duplicates the 2nd stack item.
+0x0375 ADD // Adds the top two stack items.
+0x0376 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0377 PUSH1 1f // Push 1 byte onto the stack.
+0x0379 AND // Bitwise AND operation between the two top stack items.
+0x037a DUP1 // Duplicates the 1st stack item.
+0x037b ISZERO // Checks if the top stack item is zero.
+0x037c PUSH2 01a0 // Push 2 bytes onto the stack.
+0x037f JUMPI // Conditionally alter the program counter.
+0x0380 DUP1 // Duplicates the 1st stack item.
+0x0381 DUP3 // Duplicates the 3rd stack item.
+0x0382 SUB // Subtracts the second stack item from the first.
+0x0383 DUP1 // Duplicates the 1st stack item.
+0x0384 MLOAD // Load word from memory.
+0x0385 PUSH1 01 // Push 1 byte onto the stack.
+0x0387 DUP4 // Duplicates the 4th stack item.
+0x0388 PUSH1 20 // Push 1 byte onto the stack.
+0x038a SUB // Subtracts the second stack item from the first.
+0x038b PUSH2 0100 // Push 2 bytes onto the stack.
+0x038e EXP // Exponential operation.
+0x038f SUB // Subtracts the second stack item from the first.
+0x0390 NOT // Bitwise NOT operation.
+0x0391 AND // Bitwise AND operation between the two top stack items.
+0x0392 DUP2 // Duplicates the 2nd stack item.
+0x0393 MSTORE // Save word to memory.
+0x0394 PUSH1 20 // Push 1 byte onto the stack.
+0x0396 ADD // Adds the top two stack items.
+0x0397 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0398 POP // Remove item from stack.
+0x0399 JUMPDEST // Mark a valid destination for jumps.
+0x039a POP // Remove item from stack.
+0x039b SWAP3 // Swaps the top stack item with the 4th stack item.
+0x039c POP // Remove item from stack.
+0x039d POP // Remove item from stack.
+0x039e POP // Remove item from stack.
+0x039f PUSH1 40 // Push 1 byte onto the stack.
+0x03a1 MLOAD // Load word from memory.
+0x03a2 DUP1 // Duplicates the 1st stack item.
+0x03a3 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x03a4 SUB // Subtracts the second stack item from the first.
+0x03a5 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03a6 RETURN // Halt execution returning output data.
+0x03a7 JUMPDEST // Mark a valid destination for jumps.
+0x03a8 PUSH2 01da // Push 2 bytes onto the stack.
+0x03ab PUSH1 04 // Push 1 byte onto the stack.
+0x03ad DUP1 // Duplicates the 1st stack item.
+0x03ae CALLDATASIZE // Get size of input data in current environment.
+0x03af SUB // Subtracts the second stack item from the first.
+0x03b0 PUSH1 40 // Push 1 byte onto the stack.
+0x03b2 DUP2 // Duplicates the 2nd stack item.
+0x03b3 LT // Checks if the first item is less than the second.
+0x03b4 ISZERO // Checks if the top stack item is zero.
+0x03b5 PUSH2 01c4 // Push 2 bytes onto the stack.
+0x03b8 JUMPI // Conditionally alter the program counter.
+0x03b9 PUSH1 00 // Push 1 byte onto the stack.
+0x03bb DUP1 // Duplicates the 1st stack item.
+0x03bc REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x03bd JUMPDEST // Mark a valid destination for jumps.
+0x03be POP // Remove item from stack.
+0x03bf PUSH1 01 // Push 1 byte onto the stack.
+0x03c1 PUSH1 01 // Push 1 byte onto the stack.
+0x03c3 PUSH1 a0 // Push 1 byte onto the stack.
+0x03c5 SHL // Shift left.
+0x03c6 SUB // Subtracts the second stack item from the first.
+0x03c7 DUP2 // Duplicates the 2nd stack item.
+0x03c8 CALLDATALOAD // Get input data of current environment.
+0x03c9 AND // Bitwise AND operation between the two top stack items.
+0x03ca SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03cb PUSH1 20 // Push 1 byte onto the stack.
+0x03cd ADD // Adds the top two stack items.
+0x03ce CALLDATALOAD // Get input data of current environment.
+0x03cf PUSH2 0480 // Push 2 bytes onto the stack.
+0x03d2 JUMP // Alter the program counter.
+0x03d3 JUMPDEST // Mark a valid destination for jumps.
+0x03d4 PUSH1 40 // Push 1 byte onto the stack.
+0x03d6 DUP1 // Duplicates the 1st stack item.
+0x03d7 MLOAD // Load word from memory.
+0x03d8 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x03d9 ISZERO // Checks if the top stack item is zero.
+0x03da ISZERO // Checks if the top stack item is zero.
+0x03db DUP3 // Duplicates the 3rd stack item.
+0x03dc MSTORE // Save word to memory.
+0x03dd MLOAD // Load word from memory.
+0x03de SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03df DUP2 // Duplicates the 2nd stack item.
+0x03e0 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03e1 SUB // Subtracts the second stack item from the first.
+0x03e2 PUSH1 20 // Push 1 byte onto the stack.
+0x03e4 ADD // Adds the top two stack items.
+0x03e5 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03e6 RETURN // Halt execution returning output data.
+0x03e7 JUMPDEST // Mark a valid destination for jumps.
+0x03e8 PUSH2 01f6 // Push 2 bytes onto the stack.
+0x03eb PUSH2 049d // Push 2 bytes onto the stack.
+0x03ee JUMP // Alter the program counter.
+0x03ef JUMPDEST // Mark a valid destination for jumps.
+0x03f0 PUSH1 40 // Push 1 byte onto the stack.
+0x03f2 DUP1 // Duplicates the 1st stack item.
+0x03f3 MLOAD // Load word from memory.
+0x03f4 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x03f5 DUP3 // Duplicates the 3rd stack item.
+0x03f6 MSTORE // Save word to memory.
+0x03f7 MLOAD // Load word from memory.
+0x03f8 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03f9 DUP2 // Duplicates the 2nd stack item.
+0x03fa SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x03fb SUB // Subtracts the second stack item from the first.
+0x03fc PUSH1 20 // Push 1 byte onto the stack.
+0x03fe ADD // Adds the top two stack items.
+0x03ff SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0400 RETURN // Halt execution returning output data.
+0x0401 JUMPDEST // Mark a valid destination for jumps.
+0x0402 PUSH2 01da // Push 2 bytes onto the stack.
+0x0405 PUSH1 04 // Push 1 byte onto the stack.
+0x0407 DUP1 // Duplicates the 1st stack item.
+0x0408 CALLDATASIZE // Get size of input data in current environment.
+0x0409 SUB // Subtracts the second stack item from the first.
+0x040a PUSH1 60 // Push 1 byte onto the stack.
+0x040c DUP2 // Duplicates the 2nd stack item.
+0x040d LT // Checks if the first item is less than the second.
+0x040e ISZERO // Checks if the top stack item is zero.
+0x040f PUSH2 021e // Push 2 bytes onto the stack.
+0x0412 JUMPI // Conditionally alter the program counter.
+0x0413 PUSH1 00 // Push 1 byte onto the stack.
+0x0415 DUP1 // Duplicates the 1st stack item.
+0x0416 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0417 JUMPDEST // Mark a valid destination for jumps.
+0x0418 POP // Remove item from stack.
+0x0419 PUSH1 01 // Push 1 byte onto the stack.
+0x041b PUSH1 01 // Push 1 byte onto the stack.
+0x041d PUSH1 a0 // Push 1 byte onto the stack.
+0x041f SHL // Shift left.
+0x0420 SUB // Subtracts the second stack item from the first.
+0x0421 DUP2 // Duplicates the 2nd stack item.
+0x0422 CALLDATALOAD // Get input data of current environment.
+0x0423 DUP2 // Duplicates the 2nd stack item.
+0x0424 AND // Bitwise AND operation between the two top stack items.
+0x0425 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0426 PUSH1 20 // Push 1 byte onto the stack.
+0x0428 DUP2 // Duplicates the 2nd stack item.
+0x0429 ADD // Adds the top two stack items.
+0x042a CALLDATALOAD // Get input data of current environment.
+0x042b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x042c SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x042d AND // Bitwise AND operation between the two top stack items.
+0x042e SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x042f PUSH1 40 // Push 1 byte onto the stack.
+0x0431 ADD // Adds the top two stack items.
+0x0432 CALLDATALOAD // Get input data of current environment.
+0x0433 PUSH2 04a3 // Push 2 bytes onto the stack.
+0x0436 JUMP // Alter the program counter.
+0x0437 JUMPDEST // Mark a valid destination for jumps.
+0x0438 PUSH2 0246 // Push 2 bytes onto the stack.
+0x043b PUSH2 0530 // Push 2 bytes onto the stack.
+0x043e JUMP // Alter the program counter.
+0x043f JUMPDEST // Mark a valid destination for jumps.
+0x0440 PUSH1 40 // Push 1 byte onto the stack.
+0x0442 DUP1 // Duplicates the 1st stack item.
+0x0443 MLOAD // Load word from memory.
+0x0444 PUSH1 ff // Push 1 byte onto the stack.
+0x0446 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0447 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0448 AND // Bitwise AND operation between the two top stack items.
+0x0449 DUP3 // Duplicates the 3rd stack item.
+0x044a MSTORE // Save word to memory.
+0x044b MLOAD // Load word from memory.
+0x044c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x044d DUP2 // Duplicates the 2nd stack item.
+0x044e SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x044f SUB // Subtracts the second stack item from the first.
+0x0450 PUSH1 20 // Push 1 byte onto the stack.
+0x0452 ADD // Adds the top two stack items.
+0x0453 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0454 RETURN // Halt execution returning output data.
+0x0455 JUMPDEST // Mark a valid destination for jumps.
+0x0456 PUSH2 0246 // Push 2 bytes onto the stack.
+0x0459 PUSH2 0539 // Push 2 bytes onto the stack.
+0x045c JUMP // Alter the program counter.
+0x045d JUMPDEST // Mark a valid destination for jumps.
+0x045e PUSH2 01da // Push 2 bytes onto the stack.
+0x0461 PUSH1 04 // Push 1 byte onto the stack.
+0x0463 DUP1 // Duplicates the 1st stack item.
+0x0464 CALLDATASIZE // Get size of input data in current environment.
+0x0465 SUB // Subtracts the second stack item from the first.
+0x0466 PUSH1 40 // Push 1 byte onto the stack.
+0x0468 DUP2 // Duplicates the 2nd stack item.
+0x0469 LT // Checks if the first item is less than the second.
+0x046a ISZERO // Checks if the top stack item is zero.
+0x046b PUSH2 027a // Push 2 bytes onto the stack.
+0x046e JUMPI // Conditionally alter the program counter.
+0x046f PUSH1 00 // Push 1 byte onto the stack.
+0x0471 DUP1 // Duplicates the 1st stack item.
+0x0472 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0473 JUMPDEST // Mark a valid destination for jumps.
+0x0474 POP // Remove item from stack.
+0x0475 PUSH1 01 // Push 1 byte onto the stack.
+0x0477 PUSH1 01 // Push 1 byte onto the stack.
+0x0479 PUSH1 a0 // Push 1 byte onto the stack.
+0x047b SHL // Shift left.
+0x047c SUB // Subtracts the second stack item from the first.
+0x047d DUP2 // Duplicates the 2nd stack item.
+0x047e CALLDATALOAD // Get input data of current environment.
+0x047f AND // Bitwise AND operation between the two top stack items.
+0x0480 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0481 PUSH1 20 // Push 1 byte onto the stack.
+0x0483 ADD // Adds the top two stack items.
+0x0484 CALLDATALOAD // Get input data of current environment.
+0x0485 PUSH2 0542 // Push 2 bytes onto the stack.
+0x0488 JUMP // Alter the program counter.
+0x0489 JUMPDEST // Mark a valid destination for jumps.
+0x048a PUSH2 01da // Push 2 bytes onto the stack.
+0x048d PUSH1 04 // Push 1 byte onto the stack.
+0x048f DUP1 // Duplicates the 1st stack item.
+0x0490 CALLDATASIZE // Get size of input data in current environment.
+0x0491 SUB // Subtracts the second stack item from the first.
+0x0492 PUSH1 20 // Push 1 byte onto the stack.
+0x0494 DUP2 // Duplicates the 2nd stack item.
+0x0495 LT // Checks if the first item is less than the second.
+0x0496 ISZERO // Checks if the top stack item is zero.
+0x0497 PUSH2 02a6 // Push 2 bytes onto the stack.
+0x049a JUMPI // Conditionally alter the program counter.
+0x049b PUSH1 00 // Push 1 byte onto the stack.
+0x049d DUP1 // Duplicates the 1st stack item.
+0x049e REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x049f JUMPDEST // Mark a valid destination for jumps.
+0x04a0 POP // Remove item from stack.
+0x04a1 CALLDATALOAD // Get input data of current environment.
+0x04a2 PUSH2 0596 // Push 2 bytes onto the stack.
+0x04a5 JUMP // Alter the program counter.
+0x04a6 JUMPDEST // Mark a valid destination for jumps.
+0x04a7 PUSH2 01f6 // Push 2 bytes onto the stack.
+0x04aa PUSH1 04 // Push 1 byte onto the stack.
+0x04ac DUP1 // Duplicates the 1st stack item.
+0x04ad CALLDATASIZE // Get size of input data in current environment.
+0x04ae SUB // Subtracts the second stack item from the first.
+0x04af PUSH1 20 // Push 1 byte onto the stack.
+0x04b1 DUP2 // Duplicates the 2nd stack item.
+0x04b2 LT // Checks if the first item is less than the second.
+0x04b3 ISZERO // Checks if the top stack item is zero.
+0x04b4 PUSH2 02c3 // Push 2 bytes onto the stack.
+0x04b7 JUMPI // Conditionally alter the program counter.
+0x04b8 PUSH1 00 // Push 1 byte onto the stack.
+0x04ba DUP1 // Duplicates the 1st stack item.
+0x04bb REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x04bc JUMPDEST // Mark a valid destination for jumps.
+0x04bd POP // Remove item from stack.
+0x04be CALLDATALOAD // Get input data of current environment.
+0x04bf PUSH1 01 // Push 1 byte onto the stack.
+0x04c1 PUSH1 01 // Push 1 byte onto the stack.
+0x04c3 PUSH1 a0 // Push 1 byte onto the stack.
+0x04c5 SHL // Shift left.
+0x04c6 SUB // Subtracts the second stack item from the first.
+0x04c7 AND // Bitwise AND operation between the two top stack items.
+0x04c8 PUSH2 05b1 // Push 2 bytes onto the stack.
+0x04cb JUMP // Alter the program counter.
+0x04cc JUMPDEST // Mark a valid destination for jumps.
+0x04cd PUSH2 02db // Push 2 bytes onto the stack.
+0x04d0 PUSH2 05cc // Push 2 bytes onto the stack.
+0x04d3 JUMP // Alter the program counter.
+0x04d4 JUMPDEST // Mark a valid destination for jumps.
+0x04d5 STOP // Halts execution.
+0x04d6 JUMPDEST // Mark a valid destination for jumps.
+0x04d7 PUSH2 02e5 // Push 2 bytes onto the stack.
+0x04da PUSH2 0680 // Push 2 bytes onto the stack.
+0x04dd JUMP // Alter the program counter.
+0x04de JUMPDEST // Mark a valid destination for jumps.
+0x04df PUSH1 40 // Push 1 byte onto the stack.
+0x04e1 DUP1 // Duplicates the 1st stack item.
+0x04e2 MLOAD // Load word from memory.
+0x04e3 PUSH1 01 // Push 1 byte onto the stack.
+0x04e5 PUSH1 01 // Push 1 byte onto the stack.
+0x04e7 PUSH1 a0 // Push 1 byte onto the stack.
+0x04e9 SHL // Shift left.
+0x04ea SUB // Subtracts the second stack item from the first.
+0x04eb SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x04ec SWAP3 // Swaps the top stack item with the 4th stack item.
+0x04ed AND // Bitwise AND operation between the two top stack items.
+0x04ee DUP3 // Duplicates the 3rd stack item.
+0x04ef MSTORE // Save word to memory.
+0x04f0 MLOAD // Load word from memory.
+0x04f1 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x04f2 DUP2 // Duplicates the 2nd stack item.
+0x04f3 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x04f4 SUB // Subtracts the second stack item from the first.
+0x04f5 PUSH1 20 // Push 1 byte onto the stack.
+0x04f7 ADD // Adds the top two stack items.
+0x04f8 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x04f9 RETURN // Halt execution returning output data.
+0x04fa JUMPDEST // Mark a valid destination for jumps.
+0x04fb PUSH2 02e5 // Push 2 bytes onto the stack.
+0x04fe PUSH2 068f // Push 2 bytes onto the stack.
+0x0501 JUMP // Alter the program counter.
+0x0502 JUMPDEST // Mark a valid destination for jumps.
+0x0503 PUSH2 0139 // Push 2 bytes onto the stack.
+0x0506 PUSH2 069e // Push 2 bytes onto the stack.
+0x0509 JUMP // Alter the program counter.
+0x050a JUMPDEST // Mark a valid destination for jumps.
+0x050b PUSH2 01da // Push 2 bytes onto the stack.
+0x050e PUSH1 04 // Push 1 byte onto the stack.
+0x0510 DUP1 // Duplicates the 1st stack item.
+0x0511 CALLDATASIZE // Get size of input data in current environment.
+0x0512 SUB // Subtracts the second stack item from the first.
+0x0513 PUSH1 20 // Push 1 byte onto the stack.
+0x0515 DUP2 // Duplicates the 2nd stack item.
+0x0516 LT // Checks if the first item is less than the second.
+0x0517 ISZERO // Checks if the top stack item is zero.
+0x0518 PUSH2 0327 // Push 2 bytes onto the stack.
+0x051b JUMPI // Conditionally alter the program counter.
+0x051c PUSH1 00 // Push 1 byte onto the stack.
+0x051e DUP1 // Duplicates the 1st stack item.
+0x051f REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0520 JUMPDEST // Mark a valid destination for jumps.
+0x0521 POP // Remove item from stack.
+0x0522 CALLDATALOAD // Get input data of current environment.
+0x0523 PUSH2 06ff // Push 2 bytes onto the stack.
+0x0526 JUMP // Alter the program counter.
+0x0527 JUMPDEST // Mark a valid destination for jumps.
+0x0528 PUSH2 01da // Push 2 bytes onto the stack.
+0x052b PUSH1 04 // Push 1 byte onto the stack.
+0x052d DUP1 // Duplicates the 1st stack item.
+0x052e CALLDATASIZE // Get size of input data in current environment.
+0x052f SUB // Subtracts the second stack item from the first.
+0x0530 PUSH1 40 // Push 1 byte onto the stack.
+0x0532 DUP2 // Duplicates the 2nd stack item.
+0x0533 LT // Checks if the first item is less than the second.
+0x0534 ISZERO // Checks if the top stack item is zero.
+0x0535 PUSH2 0344 // Push 2 bytes onto the stack.
+0x0538 JUMPI // Conditionally alter the program counter.
+0x0539 PUSH1 00 // Push 1 byte onto the stack.
+0x053b DUP1 // Duplicates the 1st stack item.
+0x053c REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x053d JUMPDEST // Mark a valid destination for jumps.
+0x053e POP // Remove item from stack.
+0x053f PUSH1 01 // Push 1 byte onto the stack.
+0x0541 PUSH1 01 // Push 1 byte onto the stack.
+0x0543 PUSH1 a0 // Push 1 byte onto the stack.
+0x0545 SHL // Shift left.
+0x0546 SUB // Subtracts the second stack item from the first.
+0x0547 DUP2 // Duplicates the 2nd stack item.
+0x0548 CALLDATALOAD // Get input data of current environment.
+0x0549 AND // Bitwise AND operation between the two top stack items.
+0x054a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x054b PUSH1 20 // Push 1 byte onto the stack.
+0x054d ADD // Adds the top two stack items.
+0x054e CALLDATALOAD // Get input data of current environment.
+0x054f PUSH2 077c // Push 2 bytes onto the stack.
+0x0552 JUMP // Alter the program counter.
+0x0553 JUMPDEST // Mark a valid destination for jumps.
+0x0554 PUSH2 01da // Push 2 bytes onto the stack.
+0x0557 PUSH1 04 // Push 1 byte onto the stack.
+0x0559 DUP1 // Duplicates the 1st stack item.
+0x055a CALLDATASIZE // Get size of input data in current environment.
+0x055b SUB // Subtracts the second stack item from the first.
+0x055c PUSH1 40 // Push 1 byte onto the stack.
+0x055e DUP2 // Duplicates the 2nd stack item.
+0x055f LT // Checks if the first item is less than the second.
+0x0560 ISZERO // Checks if the top stack item is zero.
+0x0561 PUSH2 0370 // Push 2 bytes onto the stack.
+0x0564 JUMPI // Conditionally alter the program counter.
+0x0565 PUSH1 00 // Push 1 byte onto the stack.
+0x0567 DUP1 // Duplicates the 1st stack item.
+0x0568 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0569 JUMPDEST // Mark a valid destination for jumps.
+0x056a POP // Remove item from stack.
+0x056b PUSH1 01 // Push 1 byte onto the stack.
+0x056d PUSH1 01 // Push 1 byte onto the stack.
+0x056f PUSH1 a0 // Push 1 byte onto the stack.
+0x0571 SHL // Shift left.
+0x0572 SUB // Subtracts the second stack item from the first.
+0x0573 DUP2 // Duplicates the 2nd stack item.
+0x0574 CALLDATALOAD // Get input data of current environment.
+0x0575 AND // Bitwise AND operation between the two top stack items.
+0x0576 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0577 PUSH1 20 // Push 1 byte onto the stack.
+0x0579 ADD // Adds the top two stack items.
+0x057a CALLDATALOAD // Get input data of current environment.
+0x057b PUSH2 07ea // Push 2 bytes onto the stack.
+0x057e JUMP // Alter the program counter.
+0x057f JUMPDEST // Mark a valid destination for jumps.
+0x0580 PUSH2 0139 // Push 2 bytes onto the stack.
+0x0583 PUSH2 07fe // Push 2 bytes onto the stack.
+0x0586 JUMP // Alter the program counter.
+0x0587 JUMPDEST // Mark a valid destination for jumps.
+0x0588 PUSH2 0139 // Push 2 bytes onto the stack.
+0x058b PUSH2 088c // Push 2 bytes onto the stack.
+0x058e JUMP // Alter the program counter.
+0x058f JUMPDEST // Mark a valid destination for jumps.
+0x0590 PUSH2 01f6 // Push 2 bytes onto the stack.
+0x0593 PUSH1 04 // Push 1 byte onto the stack.
+0x0595 DUP1 // Duplicates the 1st stack item.
+0x0596 CALLDATASIZE // Get size of input data in current environment.
+0x0597 SUB // Subtracts the second stack item from the first.
+0x0598 PUSH1 40 // Push 1 byte onto the stack.
+0x059a DUP2 // Duplicates the 2nd stack item.
+0x059b LT // Checks if the first item is less than the second.
+0x059c ISZERO // Checks if the top stack item is zero.
+0x059d PUSH2 03ac // Push 2 bytes onto the stack.
+0x05a0 JUMPI // Conditionally alter the program counter.
+0x05a1 PUSH1 00 // Push 1 byte onto the stack.
+0x05a3 DUP1 // Duplicates the 1st stack item.
+0x05a4 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x05a5 JUMPDEST // Mark a valid destination for jumps.
+0x05a6 POP // Remove item from stack.
+0x05a7 PUSH1 01 // Push 1 byte onto the stack.
+0x05a9 PUSH1 01 // Push 1 byte onto the stack.
+0x05ab PUSH1 a0 // Push 1 byte onto the stack.
+0x05ad SHL // Shift left.
+0x05ae SUB // Subtracts the second stack item from the first.
+0x05af DUP2 // Duplicates the 2nd stack item.
+0x05b0 CALLDATALOAD // Get input data of current environment.
+0x05b1 DUP2 // Duplicates the 2nd stack item.
+0x05b2 AND // Bitwise AND operation between the two top stack items.
+0x05b3 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x05b4 PUSH1 20 // Push 1 byte onto the stack.
+0x05b6 ADD // Adds the top two stack items.
+0x05b7 CALLDATALOAD // Get input data of current environment.
+0x05b8 AND // Bitwise AND operation between the two top stack items.
+0x05b9 PUSH2 08e7 // Push 2 bytes onto the stack.
+0x05bc JUMP // Alter the program counter.
+0x05bd JUMPDEST // Mark a valid destination for jumps.
+0x05be PUSH2 02db // Push 2 bytes onto the stack.
+0x05c1 PUSH1 04 // Push 1 byte onto the stack.
+0x05c3 DUP1 // Duplicates the 1st stack item.
+0x05c4 CALLDATASIZE // Get size of input data in current environment.
+0x05c5 SUB // Subtracts the second stack item from the first.
+0x05c6 PUSH1 20 // Push 1 byte onto the stack.
+0x05c8 DUP2 // Duplicates the 2nd stack item.
+0x05c9 LT // Checks if the first item is less than the second.
+0x05ca ISZERO // Checks if the top stack item is zero.
+0x05cb PUSH2 03da // Push 2 bytes onto the stack.
+0x05ce JUMPI // Conditionally alter the program counter.
+0x05cf PUSH1 00 // Push 1 byte onto the stack.
+0x05d1 DUP1 // Duplicates the 1st stack item.
+0x05d2 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x05d3 JUMPDEST // Mark a valid destination for jumps.
+0x05d4 POP // Remove item from stack.
+0x05d5 CALLDATALOAD // Get input data of current environment.
+0x05d6 PUSH1 01 // Push 1 byte onto the stack.
+0x05d8 PUSH1 01 // Push 1 byte onto the stack.
+0x05da PUSH1 a0 // Push 1 byte onto the stack.
+0x05dc SHL // Shift left.
+0x05dd SUB // Subtracts the second stack item from the first.
+0x05de AND // Bitwise AND operation between the two top stack items.
+0x05df PUSH2 0912 // Push 2 bytes onto the stack.
+0x05e2 JUMP // Alter the program counter.
+0x05e3 JUMPDEST // Mark a valid destination for jumps.
+0x05e4 PUSH1 06 // Push 1 byte onto the stack.
+0x05e6 DUP1 // Duplicates the 1st stack item.
+0x05e7 SLOAD // Load word from storage.
+0x05e8 PUSH1 40 // Push 1 byte onto the stack.
+0x05ea DUP1 // Duplicates the 1st stack item.
+0x05eb MLOAD // Load word from memory.
+0x05ec PUSH1 20 // Push 1 byte onto the stack.
+0x05ee PUSH1 1f // Push 1 byte onto the stack.
+0x05f0 PUSH1 02 // Push 1 byte onto the stack.
+0x05f2 PUSH1 00 // Push 1 byte onto the stack.
+0x05f4 NOT // Bitwise NOT operation.
+0x05f5 PUSH2 0100 // Push 2 bytes onto the stack.
+0x05f8 PUSH1 01 // Push 1 byte onto the stack.
+0x05fa DUP9 // Duplicates the 9th stack item.
+0x05fb AND // Bitwise AND operation between the two top stack items.
+0x05fc ISZERO // Checks if the top stack item is zero.
+0x05fd MUL // Multiplies the top two stack items.
+0x05fe ADD // Adds the top two stack items.
+0x05ff SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0600 SWAP6 // Swaps the top stack item with the 7th stack item.
+0x0601 AND // Bitwise AND operation between the two top stack items.
+0x0602 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0603 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0604 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0605 DIV // Divides the first stack item by the second.
+0x0606 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0607 DUP5 // Duplicates the 5th stack item.
+0x0608 ADD // Adds the top two stack items.
+0x0609 DUP2 // Duplicates the 2nd stack item.
+0x060a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x060b DIV // Divides the first stack item by the second.
+0x060c DUP2 // Duplicates the 2nd stack item.
+0x060d MUL // Multiplies the top two stack items.
+0x060e DUP3 // Duplicates the 3rd stack item.
+0x060f ADD // Adds the top two stack items.
+0x0610 DUP2 // Duplicates the 2nd stack item.
+0x0611 ADD // Adds the top two stack items.
+0x0612 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0613 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0614 MSTORE // Save word to memory.
+0x0615 DUP3 // Duplicates the 3rd stack item.
+0x0616 DUP2 // Duplicates the 2nd stack item.
+0x0617 MSTORE // Save word to memory.
+0x0618 PUSH1 60 // Push 1 byte onto the stack.
+0x061a SWAP4 // Swaps the top stack item with the 5th stack item.
+0x061b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x061c SWAP3 // Swaps the top stack item with the 4th stack item.
+0x061d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x061e SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x061f DUP4 // Duplicates the 4th stack item.
+0x0620 ADD // Adds the top two stack items.
+0x0621 DUP3 // Duplicates the 3rd stack item.
+0x0622 DUP3 // Duplicates the 3rd stack item.
+0x0623 DUP1 // Duplicates the 1st stack item.
+0x0624 ISZERO // Checks if the top stack item is zero.
+0x0625 PUSH2 0476 // Push 2 bytes onto the stack.
+0x0628 JUMPI // Conditionally alter the program counter.
+0x0629 DUP1 // Duplicates the 1st stack item.
+0x062a PUSH1 1f // Push 1 byte onto the stack.
+0x062c LT // Checks if the first item is less than the second.
+0x062d PUSH2 044b // Push 2 bytes onto the stack.
+0x0630 JUMPI // Conditionally alter the program counter.
+0x0631 PUSH2 0100 // Push 2 bytes onto the stack.
+0x0634 DUP1 // Duplicates the 1st stack item.
+0x0635 DUP4 // Duplicates the 4th stack item.
+0x0636 SLOAD // Load word from storage.
+0x0637 DIV // Divides the first stack item by the second.
+0x0638 MUL // Multiplies the top two stack items.
+0x0639 DUP4 // Duplicates the 4th stack item.
+0x063a MSTORE // Save word to memory.
+0x063b SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x063c PUSH1 20 // Push 1 byte onto the stack.
+0x063e ADD // Adds the top two stack items.
+0x063f SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0640 PUSH2 0476 // Push 2 bytes onto the stack.
+0x0643 JUMP // Alter the program counter.
+0x0644 JUMPDEST // Mark a valid destination for jumps.
+0x0645 DUP3 // Duplicates the 3rd stack item.
+0x0646 ADD // Adds the top two stack items.
+0x0647 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0648 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0649 PUSH1 00 // Push 1 byte onto the stack.
+0x064b MSTORE // Save word to memory.
+0x064c PUSH1 20 // Push 1 byte onto the stack.
+0x064e PUSH1 00 // Push 1 byte onto the stack.
+0x0650 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0651 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0652 JUMPDEST // Mark a valid destination for jumps.
+0x0653 DUP2 // Duplicates the 2nd stack item.
+0x0654 SLOAD // Load word from storage.
+0x0655 DUP2 // Duplicates the 2nd stack item.
+0x0656 MSTORE // Save word to memory.
+0x0657 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0658 PUSH1 01 // Push 1 byte onto the stack.
+0x065a ADD // Adds the top two stack items.
+0x065b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x065c PUSH1 20 // Push 1 byte onto the stack.
+0x065e ADD // Adds the top two stack items.
+0x065f DUP1 // Duplicates the 1st stack item.
+0x0660 DUP4 // Duplicates the 4th stack item.
+0x0661 GT // Checks if the first item is greater than the second.
+0x0662 PUSH2 0459 // Push 2 bytes onto the stack.
+0x0665 JUMPI // Conditionally alter the program counter.
+0x0666 DUP3 // Duplicates the 3rd stack item.
+0x0667 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0668 SUB // Subtracts the second stack item from the first.
+0x0669 PUSH1 1f // Push 1 byte onto the stack.
+0x066b AND // Bitwise AND operation between the two top stack items.
+0x066c DUP3 // Duplicates the 3rd stack item.
+0x066d ADD // Adds the top two stack items.
+0x066e SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x066f JUMPDEST // Mark a valid destination for jumps.
+0x0670 POP // Remove item from stack.
+0x0671 POP // Remove item from stack.
+0x0672 POP // Remove item from stack.
+0x0673 POP // Remove item from stack.
+0x0674 POP // Remove item from stack.
+0x0675 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0676 POP // Remove item from stack.
+0x0677 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0678 JUMP // Alter the program counter.
+0x0679 JUMPDEST // Mark a valid destination for jumps.
+0x067a PUSH1 00 // Push 1 byte onto the stack.
+0x067c PUSH2 0494 // Push 2 bytes onto the stack.
+0x067f PUSH2 048d // Push 2 bytes onto the stack.
+0x0682 PUSH2 0988 // Push 2 bytes onto the stack.
+0x0685 JUMP // Alter the program counter.
+0x0686 JUMPDEST // Mark a valid destination for jumps.
+0x0687 DUP5 // Duplicates the 5th stack item.
+0x0688 DUP5 // Duplicates the 5th stack item.
+0x0689 PUSH2 098c // Push 2 bytes onto the stack.
+0x068c JUMP // Alter the program counter.
+0x068d JUMPDEST // Mark a valid destination for jumps.
+0x068e POP // Remove item from stack.
+0x068f PUSH1 01 // Push 1 byte onto the stack.
+0x0691 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0692 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0693 POP // Remove item from stack.
+0x0694 POP // Remove item from stack.
+0x0695 JUMP // Alter the program counter.
+0x0696 JUMPDEST // Mark a valid destination for jumps.
+0x0697 PUSH1 03 // Push 1 byte onto the stack.
+0x0699 SLOAD // Load word from storage.
+0x069a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x069b JUMP // Alter the program counter.
+0x069c JUMPDEST // Mark a valid destination for jumps.
+0x069d PUSH1 00 // Push 1 byte onto the stack.
+0x069f PUSH2 04b0 // Push 2 bytes onto the stack.
+0x06a2 DUP5 // Duplicates the 5th stack item.
+0x06a3 DUP5 // Duplicates the 5th stack item.
+0x06a4 DUP5 // Duplicates the 5th stack item.
+0x06a5 PUSH2 0a78 // Push 2 bytes onto the stack.
+0x06a8 JUMP // Alter the program counter.
+0x06a9 JUMPDEST // Mark a valid destination for jumps.
+0x06aa PUSH2 0526 // Push 2 bytes onto the stack.
+0x06ad DUP5 // Duplicates the 5th stack item.
+0x06ae PUSH2 04bc // Push 2 bytes onto the stack.
+0x06b1 PUSH2 0988 // Push 2 bytes onto the stack.
+0x06b4 JUMP // Alter the program counter.
+0x06b5 JUMPDEST // Mark a valid destination for jumps.
+0x06b6 PUSH2 0521 // Push 2 bytes onto the stack.
+0x06b9 DUP6 // Duplicates the 6th stack item.
+0x06ba PUSH1 40 // Push 1 byte onto the stack.
+0x06bc MLOAD // Load word from memory.
+0x06bd DUP1 // Duplicates the 1st stack item.
+0x06be PUSH1 60 // Push 1 byte onto the stack.
+0x06c0 ADD // Adds the top two stack items.
+0x06c1 PUSH1 40 // Push 1 byte onto the stack.
+0x06c3 MSTORE // Save word to memory.
+0x06c4 DUP1 // Duplicates the 1st stack item.
+0x06c5 PUSH1 28 // Push 1 byte onto the stack.
+0x06c7 DUP2 // Duplicates the 2nd stack item.
+0x06c8 MSTORE // Save word to memory.
+0x06c9 PUSH1 20 // Push 1 byte onto the stack.
+0x06cb ADD // Adds the top two stack items.
+0x06cc PUSH2 100e // Push 2 bytes onto the stack.
+0x06cf PUSH1 28 // Push 1 byte onto the stack.
+0x06d1 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x06d2 CODECOPY // Copy code running in current environment to memory.
+0x06d3 PUSH1 01 // Push 1 byte onto the stack.
+0x06d5 PUSH1 01 // Push 1 byte onto the stack.
+0x06d7 PUSH1 a0 // Push 1 byte onto the stack.
+0x06d9 SHL // Shift left.
+0x06da SUB // Subtracts the second stack item from the first.
+0x06db DUP11 // Duplicates the 11th stack item.
+0x06dc AND // Bitwise AND operation between the two top stack items.
+0x06dd PUSH1 00 // Push 1 byte onto the stack.
+0x06df SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x06e0 DUP2 // Duplicates the 2nd stack item.
+0x06e1 MSTORE // Save word to memory.
+0x06e2 PUSH1 02 // Push 1 byte onto the stack.
+0x06e4 PUSH1 20 // Push 1 byte onto the stack.
+0x06e6 MSTORE // Save word to memory.
+0x06e7 PUSH1 40 // Push 1 byte onto the stack.
+0x06e9 DUP2 // Duplicates the 2nd stack item.
+0x06ea KECCAK256 // Computes the Keccak-256 hash of input.
+0x06eb SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x06ec PUSH2 04fa // Push 2 bytes onto the stack.
+0x06ef PUSH2 0988 // Push 2 bytes onto the stack.
+0x06f2 JUMP // Alter the program counter.
+0x06f3 JUMPDEST // Mark a valid destination for jumps.
+0x06f4 PUSH1 01 // Push 1 byte onto the stack.
+0x06f6 PUSH1 01 // Push 1 byte onto the stack.
+0x06f8 PUSH1 a0 // Push 1 byte onto the stack.
+0x06fa SHL // Shift left.
+0x06fb SUB // Subtracts the second stack item from the first.
+0x06fc AND // Bitwise AND operation between the two top stack items.
+0x06fd DUP2 // Duplicates the 2nd stack item.
+0x06fe MSTORE // Save word to memory.
+0x06ff PUSH1 20 // Push 1 byte onto the stack.
+0x0701 DUP2 // Duplicates the 2nd stack item.
+0x0702 ADD // Adds the top two stack items.
+0x0703 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0704 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0705 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0706 MSTORE // Save word to memory.
+0x0707 PUSH1 40 // Push 1 byte onto the stack.
+0x0709 ADD // Adds the top two stack items.
+0x070a PUSH1 00 // Push 1 byte onto the stack.
+0x070c KECCAK256 // Computes the Keccak-256 hash of input.
+0x070d SLOAD // Load word from storage.
+0x070e SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x070f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0710 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x0715 PUSH2 0bd6 // Push 2 bytes onto the stack.
+0x0718 AND // Bitwise AND operation between the two top stack items.
+0x0719 JUMP // Alter the program counter.
+0x071a JUMPDEST // Mark a valid destination for jumps.
+0x071b PUSH2 098c // Push 2 bytes onto the stack.
+0x071e JUMP // Alter the program counter.
+0x071f JUMPDEST // Mark a valid destination for jumps.
+0x0720 POP // Remove item from stack.
+0x0721 PUSH1 01 // Push 1 byte onto the stack.
+0x0723 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0724 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0725 POP // Remove item from stack.
+0x0726 POP // Remove item from stack.
+0x0727 POP // Remove item from stack.
+0x0728 JUMP // Alter the program counter.
+0x0729 JUMPDEST // Mark a valid destination for jumps.
+0x072a PUSH1 04 // Push 1 byte onto the stack.
+0x072c SLOAD // Load word from storage.
+0x072d PUSH1 ff // Push 1 byte onto the stack.
+0x072f AND // Bitwise AND operation between the two top stack items.
+0x0730 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0731 JUMP // Alter the program counter.
+0x0732 JUMPDEST // Mark a valid destination for jumps.
+0x0733 PUSH1 04 // Push 1 byte onto the stack.
+0x0735 SLOAD // Load word from storage.
+0x0736 PUSH1 ff // Push 1 byte onto the stack.
+0x0738 AND // Bitwise AND operation between the two top stack items.
+0x0739 DUP2 // Duplicates the 2nd stack item.
+0x073a JUMP // Alter the program counter.
+0x073b JUMPDEST // Mark a valid destination for jumps.
+0x073c PUSH1 00 // Push 1 byte onto the stack.
+0x073e PUSH2 0494 // Push 2 bytes onto the stack.
+0x0741 PUSH2 054f // Push 2 bytes onto the stack.
+0x0744 PUSH2 0988 // Push 2 bytes onto the stack.
+0x0747 JUMP // Alter the program counter.
+0x0748 JUMPDEST // Mark a valid destination for jumps.
+0x0749 DUP5 // Duplicates the 5th stack item.
+0x074a PUSH2 0521 // Push 2 bytes onto the stack.
+0x074d DUP6 // Duplicates the 6th stack item.
+0x074e PUSH1 02 // Push 1 byte onto the stack.
+0x0750 PUSH1 00 // Push 1 byte onto the stack.
+0x0752 PUSH2 0560 // Push 2 bytes onto the stack.
+0x0755 PUSH2 0988 // Push 2 bytes onto the stack.
+0x0758 JUMP // Alter the program counter.
+0x0759 JUMPDEST // Mark a valid destination for jumps.
+0x075a PUSH1 01 // Push 1 byte onto the stack.
+0x075c PUSH1 01 // Push 1 byte onto the stack.
+0x075e PUSH1 a0 // Push 1 byte onto the stack.
+0x0760 SHL // Shift left.
+0x0761 SUB // Subtracts the second stack item from the first.
+0x0762 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0763 DUP2 // Duplicates the 2nd stack item.
+0x0764 AND // Bitwise AND operation between the two top stack items.
+0x0765 DUP3 // Duplicates the 3rd stack item.
+0x0766 MSTORE // Save word to memory.
+0x0767 PUSH1 20 // Push 1 byte onto the stack.
+0x0769 DUP1 // Duplicates the 1st stack item.
+0x076a DUP4 // Duplicates the 4th stack item.
+0x076b ADD // Adds the top two stack items.
+0x076c SWAP4 // Swaps the top stack item with the 5th stack item.
+0x076d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x076e SWAP4 // Swaps the top stack item with the 5th stack item.
+0x076f MSTORE // Save word to memory.
+0x0770 PUSH1 40 // Push 1 byte onto the stack.
+0x0772 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0773 DUP3 // Duplicates the 3rd stack item.
+0x0774 ADD // Adds the top two stack items.
+0x0775 PUSH1 00 // Push 1 byte onto the stack.
+0x0777 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0778 DUP2 // Duplicates the 2nd stack item.
+0x0779 KECCAK256 // Computes the Keccak-256 hash of input.
+0x077a SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x077b DUP13 // Duplicates the 13th stack item.
+0x077c AND // Bitwise AND operation between the two top stack items.
+0x077d DUP2 // Duplicates the 2nd stack item.
+0x077e MSTORE // Save word to memory.
+0x077f SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0780 MSTORE // Save word to memory.
+0x0781 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0782 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0783 SLOAD // Load word from storage.
+0x0784 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0785 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x078a PUSH2 0c6d // Push 2 bytes onto the stack.
+0x078d AND // Bitwise AND operation between the two top stack items.
+0x078e JUMP // Alter the program counter.
+0x078f JUMPDEST // Mark a valid destination for jumps.
+0x0790 PUSH1 00 // Push 1 byte onto the stack.
+0x0792 PUSH2 05a9 // Push 2 bytes onto the stack.
+0x0795 PUSH2 05a3 // Push 2 bytes onto the stack.
+0x0798 PUSH2 0988 // Push 2 bytes onto the stack.
+0x079b JUMP // Alter the program counter.
+0x079c JUMPDEST // Mark a valid destination for jumps.
+0x079d DUP4 // Duplicates the 4th stack item.
+0x079e PUSH2 0cce // Push 2 bytes onto the stack.
+0x07a1 JUMP // Alter the program counter.
+0x07a2 JUMPDEST // Mark a valid destination for jumps.
+0x07a3 POP // Remove item from stack.
+0x07a4 PUSH1 01 // Push 1 byte onto the stack.
+0x07a6 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x07a7 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x07a8 POP // Remove item from stack.
+0x07a9 JUMP // Alter the program counter.
+0x07aa JUMPDEST // Mark a valid destination for jumps.
+0x07ab PUSH1 01 // Push 1 byte onto the stack.
+0x07ad PUSH1 01 // Push 1 byte onto the stack.
+0x07af PUSH1 a0 // Push 1 byte onto the stack.
+0x07b1 SHL // Shift left.
+0x07b2 SUB // Subtracts the second stack item from the first.
+0x07b3 AND // Bitwise AND operation between the two top stack items.
+0x07b4 PUSH1 00 // Push 1 byte onto the stack.
+0x07b6 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x07b7 DUP2 // Duplicates the 2nd stack item.
+0x07b8 MSTORE // Save word to memory.
+0x07b9 PUSH1 01 // Push 1 byte onto the stack.
+0x07bb PUSH1 20 // Push 1 byte onto the stack.
+0x07bd MSTORE // Save word to memory.
+0x07be PUSH1 40 // Push 1 byte onto the stack.
+0x07c0 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x07c1 KECCAK256 // Computes the Keccak-256 hash of input.
+0x07c2 SLOAD // Load word from storage.
+0x07c3 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x07c4 JUMP // Alter the program counter.
+0x07c5 JUMPDEST // Mark a valid destination for jumps.
+0x07c6 PUSH2 05d4 // Push 2 bytes onto the stack.
+0x07c9 PUSH2 0988 // Push 2 bytes onto the stack.
+0x07cc JUMP // Alter the program counter.
+0x07cd JUMPDEST // Mark a valid destination for jumps.
+0x07ce PUSH1 00 // Push 1 byte onto the stack.
+0x07d0 SLOAD // Load word from storage.
+0x07d1 PUSH1 01 // Push 1 byte onto the stack.
+0x07d3 PUSH1 01 // Push 1 byte onto the stack.
+0x07d5 PUSH1 a0 // Push 1 byte onto the stack.
+0x07d7 SHL // Shift left.
+0x07d8 SUB // Subtracts the second stack item from the first.
+0x07d9 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x07da DUP2 // Duplicates the 2nd stack item.
+0x07db AND // Bitwise AND operation between the two top stack items.
+0x07dc SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x07dd AND // Bitwise AND operation between the two top stack items.
+0x07de EQ // Checks if the two top stack items are equal.
+0x07df PUSH2 0636 // Push 2 bytes onto the stack.
+0x07e2 JUMPI // Conditionally alter the program counter.
+0x07e3 PUSH1 40 // Push 1 byte onto the stack.
+0x07e5 DUP1 // Duplicates the 1st stack item.
+0x07e6 MLOAD // Load word from memory.
+0x07e7 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x07eb PUSH1 e5 // Push 1 byte onto the stack.
+0x07ed SHL // Shift left.
+0x07ee DUP2 // Duplicates the 2nd stack item.
+0x07ef MSTORE // Save word to memory.
+0x07f0 PUSH1 20 // Push 1 byte onto the stack.
+0x07f2 PUSH1 04 // Push 1 byte onto the stack.
+0x07f4 DUP3 // Duplicates the 3rd stack item.
+0x07f5 ADD // Adds the top two stack items.
+0x07f6 DUP2 // Duplicates the 2nd stack item.
+0x07f7 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x07f8 MSTORE // Save word to memory.
+0x07f9 PUSH1 24 // Push 1 byte onto the stack.
+0x07fb DUP3 // Duplicates the 3rd stack item.
+0x07fc ADD // Adds the top two stack items.
+0x07fd MSTORE // Save word to memory.
+0x07fe PUSH32 4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572 // Push 32 bytes onto the stack.
+0x081f PUSH1 44 // Push 1 byte onto the stack.
+0x0821 DUP3 // Duplicates the 3rd stack item.
+0x0822 ADD // Adds the top two stack items.
+0x0823 MSTORE // Save word to memory.
+0x0824 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0825 MLOAD // Load word from memory.
+0x0826 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0827 DUP2 // Duplicates the 2nd stack item.
+0x0828 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0829 SUB // Subtracts the second stack item from the first.
+0x082a PUSH1 64 // Push 1 byte onto the stack.
+0x082c ADD // Adds the top two stack items.
+0x082d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x082e REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x082f JUMPDEST // Mark a valid destination for jumps.
+0x0830 PUSH1 00 // Push 1 byte onto the stack.
+0x0832 DUP1 // Duplicates the 1st stack item.
+0x0833 SLOAD // Load word from storage.
+0x0834 PUSH1 40 // Push 1 byte onto the stack.
+0x0836 MLOAD // Load word from memory.
+0x0837 PUSH1 01 // Push 1 byte onto the stack.
+0x0839 PUSH1 01 // Push 1 byte onto the stack.
+0x083b PUSH1 a0 // Push 1 byte onto the stack.
+0x083d SHL // Shift left.
+0x083e SUB // Subtracts the second stack item from the first.
+0x083f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0840 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0841 AND // Bitwise AND operation between the two top stack items.
+0x0842 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0843 PUSH32 8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0 // Push 32 bytes onto the stack.
+0x0864 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0865 DUP4 // Duplicates the 4th stack item.
+0x0866 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0867 LOG3 // Appends log record with 3 topics.
+0x0868 PUSH1 00 // Push 1 byte onto the stack.
+0x086a DUP1 // Duplicates the 1st stack item.
+0x086b SLOAD // Load word from storage.
+0x086c PUSH1 01 // Push 1 byte onto the stack.
+0x086e PUSH1 01 // Push 1 byte onto the stack.
+0x0870 PUSH1 a0 // Push 1 byte onto the stack.
+0x0872 SHL // Shift left.
+0x0873 SUB // Subtracts the second stack item from the first.
+0x0874 NOT // Bitwise NOT operation.
+0x0875 AND // Bitwise AND operation between the two top stack items.
+0x0876 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0877 SSTORE // Save word to storage.
+0x0878 JUMP // Alter the program counter.
+0x0879 JUMPDEST // Mark a valid destination for jumps.
+0x087a PUSH1 00 // Push 1 byte onto the stack.
+0x087c PUSH2 068a // Push 2 bytes onto the stack.
+0x087f PUSH2 068f // Push 2 bytes onto the stack.
+0x0882 JUMP // Alter the program counter.
+0x0883 JUMPDEST // Mark a valid destination for jumps.
+0x0884 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0885 POP // Remove item from stack.
+0x0886 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0887 JUMP // Alter the program counter.
+0x0888 JUMPDEST // Mark a valid destination for jumps.
+0x0889 PUSH1 00 // Push 1 byte onto the stack.
+0x088b SLOAD // Load word from storage.
+0x088c PUSH1 01 // Push 1 byte onto the stack.
+0x088e PUSH1 01 // Push 1 byte onto the stack.
+0x0890 PUSH1 a0 // Push 1 byte onto the stack.
+0x0892 SHL // Shift left.
+0x0893 SUB // Subtracts the second stack item from the first.
+0x0894 AND // Bitwise AND operation between the two top stack items.
+0x0895 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0896 JUMP // Alter the program counter.
+0x0897 JUMPDEST // Mark a valid destination for jumps.
+0x0898 PUSH1 05 // Push 1 byte onto the stack.
+0x089a DUP1 // Duplicates the 1st stack item.
+0x089b SLOAD // Load word from storage.
+0x089c PUSH1 40 // Push 1 byte onto the stack.
+0x089e DUP1 // Duplicates the 1st stack item.
+0x089f MLOAD // Load word from memory.
+0x08a0 PUSH1 20 // Push 1 byte onto the stack.
+0x08a2 PUSH1 1f // Push 1 byte onto the stack.
+0x08a4 PUSH1 02 // Push 1 byte onto the stack.
+0x08a6 PUSH1 00 // Push 1 byte onto the stack.
+0x08a8 NOT // Bitwise NOT operation.
+0x08a9 PUSH2 0100 // Push 2 bytes onto the stack.
+0x08ac PUSH1 01 // Push 1 byte onto the stack.
+0x08ae DUP9 // Duplicates the 9th stack item.
+0x08af AND // Bitwise AND operation between the two top stack items.
+0x08b0 ISZERO // Checks if the top stack item is zero.
+0x08b1 MUL // Multiplies the top two stack items.
+0x08b2 ADD // Adds the top two stack items.
+0x08b3 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x08b4 SWAP6 // Swaps the top stack item with the 7th stack item.
+0x08b5 AND // Bitwise AND operation between the two top stack items.
+0x08b6 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x08b7 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x08b8 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x08b9 DIV // Divides the first stack item by the second.
+0x08ba SWAP4 // Swaps the top stack item with the 5th stack item.
+0x08bb DUP5 // Duplicates the 5th stack item.
+0x08bc ADD // Adds the top two stack items.
+0x08bd DUP2 // Duplicates the 2nd stack item.
+0x08be SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x08bf DIV // Divides the first stack item by the second.
+0x08c0 DUP2 // Duplicates the 2nd stack item.
+0x08c1 MUL // Multiplies the top two stack items.
+0x08c2 DUP3 // Duplicates the 3rd stack item.
+0x08c3 ADD // Adds the top two stack items.
+0x08c4 DUP2 // Duplicates the 2nd stack item.
+0x08c5 ADD // Adds the top two stack items.
+0x08c6 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x08c7 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x08c8 MSTORE // Save word to memory.
+0x08c9 DUP3 // Duplicates the 3rd stack item.
+0x08ca DUP2 // Duplicates the 2nd stack item.
+0x08cb MSTORE // Save word to memory.
+0x08cc PUSH1 60 // Push 1 byte onto the stack.
+0x08ce SWAP4 // Swaps the top stack item with the 5th stack item.
+0x08cf SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x08d0 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x08d1 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x08d2 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x08d3 DUP4 // Duplicates the 4th stack item.
+0x08d4 ADD // Adds the top two stack items.
+0x08d5 DUP3 // Duplicates the 3rd stack item.
+0x08d6 DUP3 // Duplicates the 3rd stack item.
+0x08d7 DUP1 // Duplicates the 1st stack item.
+0x08d8 ISZERO // Checks if the top stack item is zero.
+0x08d9 PUSH2 0476 // Push 2 bytes onto the stack.
+0x08dc JUMPI // Conditionally alter the program counter.
+0x08dd DUP1 // Duplicates the 1st stack item.
+0x08de PUSH1 1f // Push 1 byte onto the stack.
+0x08e0 LT // Checks if the first item is less than the second.
+0x08e1 PUSH2 044b // Push 2 bytes onto the stack.
+0x08e4 JUMPI // Conditionally alter the program counter.
+0x08e5 PUSH2 0100 // Push 2 bytes onto the stack.
+0x08e8 DUP1 // Duplicates the 1st stack item.
+0x08e9 DUP4 // Duplicates the 4th stack item.
+0x08ea SLOAD // Load word from storage.
+0x08eb DIV // Divides the first stack item by the second.
+0x08ec MUL // Multiplies the top two stack items.
+0x08ed DUP4 // Duplicates the 4th stack item.
+0x08ee MSTORE // Save word to memory.
+0x08ef SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x08f0 PUSH1 20 // Push 1 byte onto the stack.
+0x08f2 ADD // Adds the top two stack items.
+0x08f3 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x08f4 PUSH2 0476 // Push 2 bytes onto the stack.
+0x08f7 JUMP // Alter the program counter.
+0x08f8 JUMPDEST // Mark a valid destination for jumps.
+0x08f9 PUSH1 00 // Push 1 byte onto the stack.
+0x08fb PUSH2 0709 // Push 2 bytes onto the stack.
+0x08fe PUSH2 0988 // Push 2 bytes onto the stack.
+0x0901 JUMP // Alter the program counter.
+0x0902 JUMPDEST // Mark a valid destination for jumps.
+0x0903 PUSH1 00 // Push 1 byte onto the stack.
+0x0905 SLOAD // Load word from storage.
+0x0906 PUSH1 01 // Push 1 byte onto the stack.
+0x0908 PUSH1 01 // Push 1 byte onto the stack.
+0x090a PUSH1 a0 // Push 1 byte onto the stack.
+0x090c SHL // Shift left.
+0x090d SUB // Subtracts the second stack item from the first.
+0x090e SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x090f DUP2 // Duplicates the 2nd stack item.
+0x0910 AND // Bitwise AND operation between the two top stack items.
+0x0911 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0912 AND // Bitwise AND operation between the two top stack items.
+0x0913 EQ // Checks if the two top stack items are equal.
+0x0914 PUSH2 076b // Push 2 bytes onto the stack.
+0x0917 JUMPI // Conditionally alter the program counter.
+0x0918 PUSH1 40 // Push 1 byte onto the stack.
+0x091a DUP1 // Duplicates the 1st stack item.
+0x091b MLOAD // Load word from memory.
+0x091c PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0920 PUSH1 e5 // Push 1 byte onto the stack.
+0x0922 SHL // Shift left.
+0x0923 DUP2 // Duplicates the 2nd stack item.
+0x0924 MSTORE // Save word to memory.
+0x0925 PUSH1 20 // Push 1 byte onto the stack.
+0x0927 PUSH1 04 // Push 1 byte onto the stack.
+0x0929 DUP3 // Duplicates the 3rd stack item.
+0x092a ADD // Adds the top two stack items.
+0x092b DUP2 // Duplicates the 2nd stack item.
+0x092c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x092d MSTORE // Save word to memory.
+0x092e PUSH1 24 // Push 1 byte onto the stack.
+0x0930 DUP3 // Duplicates the 3rd stack item.
+0x0931 ADD // Adds the top two stack items.
+0x0932 MSTORE // Save word to memory.
+0x0933 PUSH32 4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572 // Push 32 bytes onto the stack.
+0x0954 PUSH1 44 // Push 1 byte onto the stack.
+0x0956 DUP3 // Duplicates the 3rd stack item.
+0x0957 ADD // Adds the top two stack items.
+0x0958 MSTORE // Save word to memory.
+0x0959 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x095a MLOAD // Load word from memory.
+0x095b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x095c DUP2 // Duplicates the 2nd stack item.
+0x095d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x095e SUB // Subtracts the second stack item from the first.
+0x095f PUSH1 64 // Push 1 byte onto the stack.
+0x0961 ADD // Adds the top two stack items.
+0x0962 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0963 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0964 JUMPDEST // Mark a valid destination for jumps.
+0x0965 PUSH2 05a9 // Push 2 bytes onto the stack.
+0x0968 PUSH2 0776 // Push 2 bytes onto the stack.
+0x096b PUSH2 0988 // Push 2 bytes onto the stack.
+0x096e JUMP // Alter the program counter.
+0x096f JUMPDEST // Mark a valid destination for jumps.
+0x0970 DUP4 // Duplicates the 4th stack item.
+0x0971 PUSH2 0dca // Push 2 bytes onto the stack.
+0x0974 JUMP // Alter the program counter.
+0x0975 JUMPDEST // Mark a valid destination for jumps.
+0x0976 PUSH1 00 // Push 1 byte onto the stack.
+0x0978 PUSH2 0494 // Push 2 bytes onto the stack.
+0x097b PUSH2 0789 // Push 2 bytes onto the stack.
+0x097e PUSH2 0988 // Push 2 bytes onto the stack.
+0x0981 JUMP // Alter the program counter.
+0x0982 JUMPDEST // Mark a valid destination for jumps.
+0x0983 DUP5 // Duplicates the 5th stack item.
+0x0984 PUSH2 0521 // Push 2 bytes onto the stack.
+0x0987 DUP6 // Duplicates the 6th stack item.
+0x0988 PUSH1 40 // Push 1 byte onto the stack.
+0x098a MLOAD // Load word from memory.
+0x098b DUP1 // Duplicates the 1st stack item.
+0x098c PUSH1 60 // Push 1 byte onto the stack.
+0x098e ADD // Adds the top two stack items.
+0x098f PUSH1 40 // Push 1 byte onto the stack.
+0x0991 MSTORE // Save word to memory.
+0x0992 DUP1 // Duplicates the 1st stack item.
+0x0993 PUSH1 25 // Push 1 byte onto the stack.
+0x0995 DUP2 // Duplicates the 2nd stack item.
+0x0996 MSTORE // Save word to memory.
+0x0997 PUSH1 20 // Push 1 byte onto the stack.
+0x0999 ADD // Adds the top two stack items.
+0x099a PUSH2 107f // Push 2 bytes onto the stack.
+0x099d PUSH1 25 // Push 1 byte onto the stack.
+0x099f SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x09a0 CODECOPY // Copy code running in current environment to memory.
+0x09a1 PUSH1 02 // Push 1 byte onto the stack.
+0x09a3 PUSH1 00 // Push 1 byte onto the stack.
+0x09a5 PUSH2 07b3 // Push 2 bytes onto the stack.
+0x09a8 PUSH2 0988 // Push 2 bytes onto the stack.
+0x09ab JUMP // Alter the program counter.
+0x09ac JUMPDEST // Mark a valid destination for jumps.
+0x09ad PUSH1 01 // Push 1 byte onto the stack.
+0x09af PUSH1 01 // Push 1 byte onto the stack.
+0x09b1 PUSH1 a0 // Push 1 byte onto the stack.
+0x09b3 SHL // Shift left.
+0x09b4 SUB // Subtracts the second stack item from the first.
+0x09b5 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x09b6 DUP2 // Duplicates the 2nd stack item.
+0x09b7 AND // Bitwise AND operation between the two top stack items.
+0x09b8 DUP3 // Duplicates the 3rd stack item.
+0x09b9 MSTORE // Save word to memory.
+0x09ba PUSH1 20 // Push 1 byte onto the stack.
+0x09bc DUP1 // Duplicates the 1st stack item.
+0x09bd DUP4 // Duplicates the 4th stack item.
+0x09be ADD // Adds the top two stack items.
+0x09bf SWAP4 // Swaps the top stack item with the 5th stack item.
+0x09c0 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x09c1 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x09c2 MSTORE // Save word to memory.
+0x09c3 PUSH1 40 // Push 1 byte onto the stack.
+0x09c5 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x09c6 DUP3 // Duplicates the 3rd stack item.
+0x09c7 ADD // Adds the top two stack items.
+0x09c8 PUSH1 00 // Push 1 byte onto the stack.
+0x09ca SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x09cb DUP2 // Duplicates the 2nd stack item.
+0x09cc KECCAK256 // Computes the Keccak-256 hash of input.
+0x09cd SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x09ce DUP14 // Duplicates the 14th stack item.
+0x09cf AND // Bitwise AND operation between the two top stack items.
+0x09d0 DUP2 // Duplicates the 2nd stack item.
+0x09d1 MSTORE // Save word to memory.
+0x09d2 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x09d3 MSTORE // Save word to memory.
+0x09d4 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x09d5 KECCAK256 // Computes the Keccak-256 hash of input.
+0x09d6 SLOAD // Load word from storage.
+0x09d7 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x09d8 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x09d9 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x09de PUSH2 0bd6 // Push 2 bytes onto the stack.
+0x09e1 AND // Bitwise AND operation between the two top stack items.
+0x09e2 JUMP // Alter the program counter.
+0x09e3 JUMPDEST // Mark a valid destination for jumps.
+0x09e4 PUSH1 00 // Push 1 byte onto the stack.
+0x09e6 PUSH2 0494 // Push 2 bytes onto the stack.
+0x09e9 PUSH2 07f7 // Push 2 bytes onto the stack.
+0x09ec PUSH2 0988 // Push 2 bytes onto the stack.
+0x09ef JUMP // Alter the program counter.
+0x09f0 JUMPDEST // Mark a valid destination for jumps.
+0x09f1 DUP5 // Duplicates the 5th stack item.
+0x09f2 DUP5 // Duplicates the 5th stack item.
+0x09f3 PUSH2 0a78 // Push 2 bytes onto the stack.
+0x09f6 JUMP // Alter the program counter.
+0x09f7 JUMPDEST // Mark a valid destination for jumps.
+0x09f8 PUSH1 05 // Push 1 byte onto the stack.
+0x09fa DUP1 // Duplicates the 1st stack item.
+0x09fb SLOAD // Load word from storage.
+0x09fc PUSH1 40 // Push 1 byte onto the stack.
+0x09fe DUP1 // Duplicates the 1st stack item.
+0x09ff MLOAD // Load word from memory.
+0x0a00 PUSH1 20 // Push 1 byte onto the stack.
+0x0a02 PUSH1 02 // Push 1 byte onto the stack.
+0x0a04 PUSH1 01 // Push 1 byte onto the stack.
+0x0a06 DUP6 // Duplicates the 6th stack item.
+0x0a07 AND // Bitwise AND operation between the two top stack items.
+0x0a08 ISZERO // Checks if the top stack item is zero.
+0x0a09 PUSH2 0100 // Push 2 bytes onto the stack.
+0x0a0c MUL // Multiplies the top two stack items.
+0x0a0d PUSH1 00 // Push 1 byte onto the stack.
+0x0a0f NOT // Bitwise NOT operation.
+0x0a10 ADD // Adds the top two stack items.
+0x0a11 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a12 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0a13 AND // Bitwise AND operation between the two top stack items.
+0x0a14 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0a15 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a16 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0a17 DIV // Divides the first stack item by the second.
+0x0a18 PUSH1 1f // Push 1 byte onto the stack.
+0x0a1a DUP2 // Duplicates the 2nd stack item.
+0x0a1b ADD // Adds the top two stack items.
+0x0a1c DUP5 // Duplicates the 5th stack item.
+0x0a1d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a1e DIV // Divides the first stack item by the second.
+0x0a1f DUP5 // Duplicates the 5th stack item.
+0x0a20 MUL // Multiplies the top two stack items.
+0x0a21 DUP3 // Duplicates the 3rd stack item.
+0x0a22 ADD // Adds the top two stack items.
+0x0a23 DUP5 // Duplicates the 5th stack item.
+0x0a24 ADD // Adds the top two stack items.
+0x0a25 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a26 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0a27 MSTORE // Save word to memory.
+0x0a28 DUP2 // Duplicates the 2nd stack item.
+0x0a29 DUP2 // Duplicates the 2nd stack item.
+0x0a2a MSTORE // Save word to memory.
+0x0a2b SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0a2c SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0a2d DUP4 // Duplicates the 4th stack item.
+0x0a2e ADD // Adds the top two stack items.
+0x0a2f DUP3 // Duplicates the 3rd stack item.
+0x0a30 DUP3 // Duplicates the 3rd stack item.
+0x0a31 DUP1 // Duplicates the 1st stack item.
+0x0a32 ISZERO // Checks if the top stack item is zero.
+0x0a33 PUSH2 0884 // Push 2 bytes onto the stack.
+0x0a36 JUMPI // Conditionally alter the program counter.
+0x0a37 DUP1 // Duplicates the 1st stack item.
+0x0a38 PUSH1 1f // Push 1 byte onto the stack.
+0x0a3a LT // Checks if the first item is less than the second.
+0x0a3b PUSH2 0859 // Push 2 bytes onto the stack.
+0x0a3e JUMPI // Conditionally alter the program counter.
+0x0a3f PUSH2 0100 // Push 2 bytes onto the stack.
+0x0a42 DUP1 // Duplicates the 1st stack item.
+0x0a43 DUP4 // Duplicates the 4th stack item.
+0x0a44 SLOAD // Load word from storage.
+0x0a45 DIV // Divides the first stack item by the second.
+0x0a46 MUL // Multiplies the top two stack items.
+0x0a47 DUP4 // Duplicates the 4th stack item.
+0x0a48 MSTORE // Save word to memory.
+0x0a49 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0a4a PUSH1 20 // Push 1 byte onto the stack.
+0x0a4c ADD // Adds the top two stack items.
+0x0a4d SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0a4e PUSH2 0884 // Push 2 bytes onto the stack.
+0x0a51 JUMP // Alter the program counter.
+0x0a52 JUMPDEST // Mark a valid destination for jumps.
+0x0a53 DUP3 // Duplicates the 3rd stack item.
+0x0a54 ADD // Adds the top two stack items.
+0x0a55 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0a56 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a57 PUSH1 00 // Push 1 byte onto the stack.
+0x0a59 MSTORE // Save word to memory.
+0x0a5a PUSH1 20 // Push 1 byte onto the stack.
+0x0a5c PUSH1 00 // Push 1 byte onto the stack.
+0x0a5e KECCAK256 // Computes the Keccak-256 hash of input.
+0x0a5f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a60 JUMPDEST // Mark a valid destination for jumps.
+0x0a61 DUP2 // Duplicates the 2nd stack item.
+0x0a62 SLOAD // Load word from storage.
+0x0a63 DUP2 // Duplicates the 2nd stack item.
+0x0a64 MSTORE // Save word to memory.
+0x0a65 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a66 PUSH1 01 // Push 1 byte onto the stack.
+0x0a68 ADD // Adds the top two stack items.
+0x0a69 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a6a PUSH1 20 // Push 1 byte onto the stack.
+0x0a6c ADD // Adds the top two stack items.
+0x0a6d DUP1 // Duplicates the 1st stack item.
+0x0a6e DUP4 // Duplicates the 4th stack item.
+0x0a6f GT // Checks if the first item is greater than the second.
+0x0a70 PUSH2 0867 // Push 2 bytes onto the stack.
+0x0a73 JUMPI // Conditionally alter the program counter.
+0x0a74 DUP3 // Duplicates the 3rd stack item.
+0x0a75 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0a76 SUB // Subtracts the second stack item from the first.
+0x0a77 PUSH1 1f // Push 1 byte onto the stack.
+0x0a79 AND // Bitwise AND operation between the two top stack items.
+0x0a7a DUP3 // Duplicates the 3rd stack item.
+0x0a7b ADD // Adds the top two stack items.
+0x0a7c SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0a7d JUMPDEST // Mark a valid destination for jumps.
+0x0a7e POP // Remove item from stack.
+0x0a7f POP // Remove item from stack.
+0x0a80 POP // Remove item from stack.
+0x0a81 POP // Remove item from stack.
+0x0a82 POP // Remove item from stack.
+0x0a83 DUP2 // Duplicates the 2nd stack item.
+0x0a84 JUMP // Alter the program counter.
+0x0a85 JUMPDEST // Mark a valid destination for jumps.
+0x0a86 PUSH1 06 // Push 1 byte onto the stack.
+0x0a88 DUP1 // Duplicates the 1st stack item.
+0x0a89 SLOAD // Load word from storage.
+0x0a8a PUSH1 40 // Push 1 byte onto the stack.
+0x0a8c DUP1 // Duplicates the 1st stack item.
+0x0a8d MLOAD // Load word from memory.
+0x0a8e PUSH1 20 // Push 1 byte onto the stack.
+0x0a90 PUSH1 02 // Push 1 byte onto the stack.
+0x0a92 PUSH1 01 // Push 1 byte onto the stack.
+0x0a94 DUP6 // Duplicates the 6th stack item.
+0x0a95 AND // Bitwise AND operation between the two top stack items.
+0x0a96 ISZERO // Checks if the top stack item is zero.
+0x0a97 PUSH2 0100 // Push 2 bytes onto the stack.
+0x0a9a MUL // Multiplies the top two stack items.
+0x0a9b PUSH1 00 // Push 1 byte onto the stack.
+0x0a9d NOT // Bitwise NOT operation.
+0x0a9e ADD // Adds the top two stack items.
+0x0a9f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0aa0 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0aa1 AND // Bitwise AND operation between the two top stack items.
+0x0aa2 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0aa3 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0aa4 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0aa5 DIV // Divides the first stack item by the second.
+0x0aa6 PUSH1 1f // Push 1 byte onto the stack.
+0x0aa8 DUP2 // Duplicates the 2nd stack item.
+0x0aa9 ADD // Adds the top two stack items.
+0x0aaa DUP5 // Duplicates the 5th stack item.
+0x0aab SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0aac DIV // Divides the first stack item by the second.
+0x0aad DUP5 // Duplicates the 5th stack item.
+0x0aae MUL // Multiplies the top two stack items.
+0x0aaf DUP3 // Duplicates the 3rd stack item.
+0x0ab0 ADD // Adds the top two stack items.
+0x0ab1 DUP5 // Duplicates the 5th stack item.
+0x0ab2 ADD // Adds the top two stack items.
+0x0ab3 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0ab4 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0ab5 MSTORE // Save word to memory.
+0x0ab6 DUP2 // Duplicates the 2nd stack item.
+0x0ab7 DUP2 // Duplicates the 2nd stack item.
+0x0ab8 MSTORE // Save word to memory.
+0x0ab9 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0aba SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0abb DUP4 // Duplicates the 4th stack item.
+0x0abc ADD // Adds the top two stack items.
+0x0abd DUP3 // Duplicates the 3rd stack item.
+0x0abe DUP3 // Duplicates the 3rd stack item.
+0x0abf DUP1 // Duplicates the 1st stack item.
+0x0ac0 ISZERO // Checks if the top stack item is zero.
+0x0ac1 PUSH2 0884 // Push 2 bytes onto the stack.
+0x0ac4 JUMPI // Conditionally alter the program counter.
+0x0ac5 DUP1 // Duplicates the 1st stack item.
+0x0ac6 PUSH1 1f // Push 1 byte onto the stack.
+0x0ac8 LT // Checks if the first item is less than the second.
+0x0ac9 PUSH2 0859 // Push 2 bytes onto the stack.
+0x0acc JUMPI // Conditionally alter the program counter.
+0x0acd PUSH2 0100 // Push 2 bytes onto the stack.
+0x0ad0 DUP1 // Duplicates the 1st stack item.
+0x0ad1 DUP4 // Duplicates the 4th stack item.
+0x0ad2 SLOAD // Load word from storage.
+0x0ad3 DIV // Divides the first stack item by the second.
+0x0ad4 MUL // Multiplies the top two stack items.
+0x0ad5 DUP4 // Duplicates the 4th stack item.
+0x0ad6 MSTORE // Save word to memory.
+0x0ad7 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0ad8 PUSH1 20 // Push 1 byte onto the stack.
+0x0ada ADD // Adds the top two stack items.
+0x0adb SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0adc PUSH2 0884 // Push 2 bytes onto the stack.
+0x0adf JUMP // Alter the program counter.
+0x0ae0 JUMPDEST // Mark a valid destination for jumps.
+0x0ae1 PUSH1 01 // Push 1 byte onto the stack.
+0x0ae3 PUSH1 01 // Push 1 byte onto the stack.
+0x0ae5 PUSH1 a0 // Push 1 byte onto the stack.
+0x0ae7 SHL // Shift left.
+0x0ae8 SUB // Subtracts the second stack item from the first.
+0x0ae9 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0aea DUP3 // Duplicates the 3rd stack item.
+0x0aeb AND // Bitwise AND operation between the two top stack items.
+0x0aec PUSH1 00 // Push 1 byte onto the stack.
+0x0aee SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0aef DUP2 // Duplicates the 2nd stack item.
+0x0af0 MSTORE // Save word to memory.
+0x0af1 PUSH1 02 // Push 1 byte onto the stack.
+0x0af3 PUSH1 20 // Push 1 byte onto the stack.
+0x0af5 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0af6 DUP2 // Duplicates the 2nd stack item.
+0x0af7 MSTORE // Save word to memory.
+0x0af8 PUSH1 40 // Push 1 byte onto the stack.
+0x0afa DUP1 // Duplicates the 1st stack item.
+0x0afb DUP4 // Duplicates the 4th stack item.
+0x0afc KECCAK256 // Computes the Keccak-256 hash of input.
+0x0afd SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0afe SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0aff SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0b00 AND // Bitwise AND operation between the two top stack items.
+0x0b01 DUP3 // Duplicates the 3rd stack item.
+0x0b02 MSTORE // Save word to memory.
+0x0b03 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0b04 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b05 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0b06 MSTORE // Save word to memory.
+0x0b07 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0b08 SLOAD // Load word from storage.
+0x0b09 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b0a JUMP // Alter the program counter.
+0x0b0b JUMPDEST // Mark a valid destination for jumps.
+0x0b0c PUSH2 091a // Push 2 bytes onto the stack.
+0x0b0f PUSH2 0988 // Push 2 bytes onto the stack.
+0x0b12 JUMP // Alter the program counter.
+0x0b13 JUMPDEST // Mark a valid destination for jumps.
+0x0b14 PUSH1 00 // Push 1 byte onto the stack.
+0x0b16 SLOAD // Load word from storage.
+0x0b17 PUSH1 01 // Push 1 byte onto the stack.
+0x0b19 PUSH1 01 // Push 1 byte onto the stack.
+0x0b1b PUSH1 a0 // Push 1 byte onto the stack.
+0x0b1d SHL // Shift left.
+0x0b1e SUB // Subtracts the second stack item from the first.
+0x0b1f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b20 DUP2 // Duplicates the 2nd stack item.
+0x0b21 AND // Bitwise AND operation between the two top stack items.
+0x0b22 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0b23 AND // Bitwise AND operation between the two top stack items.
+0x0b24 EQ // Checks if the two top stack items are equal.
+0x0b25 PUSH2 097c // Push 2 bytes onto the stack.
+0x0b28 JUMPI // Conditionally alter the program counter.
+0x0b29 PUSH1 40 // Push 1 byte onto the stack.
+0x0b2b DUP1 // Duplicates the 1st stack item.
+0x0b2c MLOAD // Load word from memory.
+0x0b2d PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0b31 PUSH1 e5 // Push 1 byte onto the stack.
+0x0b33 SHL // Shift left.
+0x0b34 DUP2 // Duplicates the 2nd stack item.
+0x0b35 MSTORE // Save word to memory.
+0x0b36 PUSH1 20 // Push 1 byte onto the stack.
+0x0b38 PUSH1 04 // Push 1 byte onto the stack.
+0x0b3a DUP3 // Duplicates the 3rd stack item.
+0x0b3b ADD // Adds the top two stack items.
+0x0b3c DUP2 // Duplicates the 2nd stack item.
+0x0b3d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b3e MSTORE // Save word to memory.
+0x0b3f PUSH1 24 // Push 1 byte onto the stack.
+0x0b41 DUP3 // Duplicates the 3rd stack item.
+0x0b42 ADD // Adds the top two stack items.
+0x0b43 MSTORE // Save word to memory.
+0x0b44 PUSH32 4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572 // Push 32 bytes onto the stack.
+0x0b65 PUSH1 44 // Push 1 byte onto the stack.
+0x0b67 DUP3 // Duplicates the 3rd stack item.
+0x0b68 ADD // Adds the top two stack items.
+0x0b69 MSTORE // Save word to memory.
+0x0b6a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b6b MLOAD // Load word from memory.
+0x0b6c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b6d DUP2 // Duplicates the 2nd stack item.
+0x0b6e SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b6f SUB // Subtracts the second stack item from the first.
+0x0b70 PUSH1 64 // Push 1 byte onto the stack.
+0x0b72 ADD // Adds the top two stack items.
+0x0b73 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b74 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0b75 JUMPDEST // Mark a valid destination for jumps.
+0x0b76 PUSH2 0985 // Push 2 bytes onto the stack.
+0x0b79 DUP2 // Duplicates the 2nd stack item.
+0x0b7a PUSH2 0ebc // Push 2 bytes onto the stack.
+0x0b7d JUMP // Alter the program counter.
+0x0b7e JUMPDEST // Mark a valid destination for jumps.
+0x0b7f POP // Remove item from stack.
+0x0b80 JUMP // Alter the program counter.
+0x0b81 JUMPDEST // Mark a valid destination for jumps.
+0x0b82 CALLER // Get caller address.
+0x0b83 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0b84 JUMP // Alter the program counter.
+0x0b85 JUMPDEST // Mark a valid destination for jumps.
+0x0b86 PUSH1 01 // Push 1 byte onto the stack.
+0x0b88 PUSH1 01 // Push 1 byte onto the stack.
+0x0b8a PUSH1 a0 // Push 1 byte onto the stack.
+0x0b8c SHL // Shift left.
+0x0b8d SUB // Subtracts the second stack item from the first.
+0x0b8e DUP4 // Duplicates the 4th stack item.
+0x0b8f AND // Bitwise AND operation between the two top stack items.
+0x0b90 PUSH2 09d1 // Push 2 bytes onto the stack.
+0x0b93 JUMPI // Conditionally alter the program counter.
+0x0b94 PUSH1 40 // Push 1 byte onto the stack.
+0x0b96 MLOAD // Load word from memory.
+0x0b97 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0b9b PUSH1 e5 // Push 1 byte onto the stack.
+0x0b9d SHL // Shift left.
+0x0b9e DUP2 // Duplicates the 2nd stack item.
+0x0b9f MSTORE // Save word to memory.
+0x0ba0 PUSH1 04 // Push 1 byte onto the stack.
+0x0ba2 ADD // Adds the top two stack items.
+0x0ba3 DUP1 // Duplicates the 1st stack item.
+0x0ba4 DUP1 // Duplicates the 1st stack item.
+0x0ba5 PUSH1 20 // Push 1 byte onto the stack.
+0x0ba7 ADD // Adds the top two stack items.
+0x0ba8 DUP3 // Duplicates the 3rd stack item.
+0x0ba9 DUP2 // Duplicates the 2nd stack item.
+0x0baa SUB // Subtracts the second stack item from the first.
+0x0bab DUP3 // Duplicates the 3rd stack item.
+0x0bac MSTORE // Save word to memory.
+0x0bad PUSH1 24 // Push 1 byte onto the stack.
+0x0baf DUP2 // Duplicates the 2nd stack item.
+0x0bb0 MSTORE // Save word to memory.
+0x0bb1 PUSH1 20 // Push 1 byte onto the stack.
+0x0bb3 ADD // Adds the top two stack items.
+0x0bb4 DUP1 // Duplicates the 1st stack item.
+0x0bb5 PUSH2 0fc4 // Push 2 bytes onto the stack.
+0x0bb8 PUSH1 24 // Push 1 byte onto the stack.
+0x0bba SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0bbb CODECOPY // Copy code running in current environment to memory.
+0x0bbc PUSH1 40 // Push 1 byte onto the stack.
+0x0bbe ADD // Adds the top two stack items.
+0x0bbf SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0bc0 POP // Remove item from stack.
+0x0bc1 POP // Remove item from stack.
+0x0bc2 PUSH1 40 // Push 1 byte onto the stack.
+0x0bc4 MLOAD // Load word from memory.
+0x0bc5 DUP1 // Duplicates the 1st stack item.
+0x0bc6 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0bc7 SUB // Subtracts the second stack item from the first.
+0x0bc8 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0bc9 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0bca JUMPDEST // Mark a valid destination for jumps.
+0x0bcb PUSH1 01 // Push 1 byte onto the stack.
+0x0bcd PUSH1 01 // Push 1 byte onto the stack.
+0x0bcf PUSH1 a0 // Push 1 byte onto the stack.
+0x0bd1 SHL // Shift left.
+0x0bd2 SUB // Subtracts the second stack item from the first.
+0x0bd3 DUP3 // Duplicates the 3rd stack item.
+0x0bd4 AND // Bitwise AND operation between the two top stack items.
+0x0bd5 PUSH2 0a16 // Push 2 bytes onto the stack.
+0x0bd8 JUMPI // Conditionally alter the program counter.
+0x0bd9 PUSH1 40 // Push 1 byte onto the stack.
+0x0bdb MLOAD // Load word from memory.
+0x0bdc PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0be0 PUSH1 e5 // Push 1 byte onto the stack.
+0x0be2 SHL // Shift left.
+0x0be3 DUP2 // Duplicates the 2nd stack item.
+0x0be4 MSTORE // Save word to memory.
+0x0be5 PUSH1 04 // Push 1 byte onto the stack.
+0x0be7 ADD // Adds the top two stack items.
+0x0be8 DUP1 // Duplicates the 1st stack item.
+0x0be9 DUP1 // Duplicates the 1st stack item.
+0x0bea PUSH1 20 // Push 1 byte onto the stack.
+0x0bec ADD // Adds the top two stack items.
+0x0bed DUP3 // Duplicates the 3rd stack item.
+0x0bee DUP2 // Duplicates the 2nd stack item.
+0x0bef SUB // Subtracts the second stack item from the first.
+0x0bf0 DUP3 // Duplicates the 3rd stack item.
+0x0bf1 MSTORE // Save word to memory.
+0x0bf2 PUSH1 22 // Push 1 byte onto the stack.
+0x0bf4 DUP2 // Duplicates the 2nd stack item.
+0x0bf5 MSTORE // Save word to memory.
+0x0bf6 PUSH1 20 // Push 1 byte onto the stack.
+0x0bf8 ADD // Adds the top two stack items.
+0x0bf9 DUP1 // Duplicates the 1st stack item.
+0x0bfa PUSH2 10e7 // Push 2 bytes onto the stack.
+0x0bfd PUSH1 22 // Push 1 byte onto the stack.
+0x0bff SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0c00 CODECOPY // Copy code running in current environment to memory.
+0x0c01 PUSH1 40 // Push 1 byte onto the stack.
+0x0c03 ADD // Adds the top two stack items.
+0x0c04 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0c05 POP // Remove item from stack.
+0x0c06 POP // Remove item from stack.
+0x0c07 PUSH1 40 // Push 1 byte onto the stack.
+0x0c09 MLOAD // Load word from memory.
+0x0c0a DUP1 // Duplicates the 1st stack item.
+0x0c0b SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0c0c SUB // Subtracts the second stack item from the first.
+0x0c0d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c0e REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0c0f JUMPDEST // Mark a valid destination for jumps.
+0x0c10 PUSH1 01 // Push 1 byte onto the stack.
+0x0c12 PUSH1 01 // Push 1 byte onto the stack.
+0x0c14 PUSH1 a0 // Push 1 byte onto the stack.
+0x0c16 SHL // Shift left.
+0x0c17 SUB // Subtracts the second stack item from the first.
+0x0c18 DUP1 // Duplicates the 1st stack item.
+0x0c19 DUP5 // Duplicates the 5th stack item.
+0x0c1a AND // Bitwise AND operation between the two top stack items.
+0x0c1b PUSH1 00 // Push 1 byte onto the stack.
+0x0c1d DUP2 // Duplicates the 2nd stack item.
+0x0c1e DUP2 // Duplicates the 2nd stack item.
+0x0c1f MSTORE // Save word to memory.
+0x0c20 PUSH1 02 // Push 1 byte onto the stack.
+0x0c22 PUSH1 20 // Push 1 byte onto the stack.
+0x0c24 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c25 DUP2 // Duplicates the 2nd stack item.
+0x0c26 MSTORE // Save word to memory.
+0x0c27 PUSH1 40 // Push 1 byte onto the stack.
+0x0c29 DUP1 // Duplicates the 1st stack item.
+0x0c2a DUP4 // Duplicates the 4th stack item.
+0x0c2b KECCAK256 // Computes the Keccak-256 hash of input.
+0x0c2c SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0c2d DUP8 // Duplicates the 8th stack item.
+0x0c2e AND // Bitwise AND operation between the two top stack items.
+0x0c2f DUP1 // Duplicates the 1st stack item.
+0x0c30 DUP5 // Duplicates the 5th stack item.
+0x0c31 MSTORE // Save word to memory.
+0x0c32 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0c33 DUP3 // Duplicates the 3rd stack item.
+0x0c34 MSTORE // Save word to memory.
+0x0c35 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0c36 DUP3 // Duplicates the 3rd stack item.
+0x0c37 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c38 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0c39 DUP6 // Duplicates the 6th stack item.
+0x0c3a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c3b SSTORE // Save word to storage.
+0x0c3c DUP2 // Duplicates the 2nd stack item.
+0x0c3d MLOAD // Load word from memory.
+0x0c3e DUP6 // Duplicates the 6th stack item.
+0x0c3f DUP2 // Duplicates the 2nd stack item.
+0x0c40 MSTORE // Save word to memory.
+0x0c41 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0c42 MLOAD // Load word from memory.
+0x0c43 PUSH32 8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925 // Push 32 bytes onto the stack.
+0x0c64 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0c65 DUP2 // Duplicates the 2nd stack item.
+0x0c66 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c67 SUB // Subtracts the second stack item from the first.
+0x0c68 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c69 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0c6a ADD // Adds the top two stack items.
+0x0c6b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0c6c LOG3 // Appends log record with 3 topics.
+0x0c6d POP // Remove item from stack.
+0x0c6e POP // Remove item from stack.
+0x0c6f POP // Remove item from stack.
+0x0c70 JUMP // Alter the program counter.
+0x0c71 JUMPDEST // Mark a valid destination for jumps.
+0x0c72 PUSH1 01 // Push 1 byte onto the stack.
+0x0c74 PUSH1 01 // Push 1 byte onto the stack.
+0x0c76 PUSH1 a0 // Push 1 byte onto the stack.
+0x0c78 SHL // Shift left.
+0x0c79 SUB // Subtracts the second stack item from the first.
+0x0c7a DUP4 // Duplicates the 4th stack item.
+0x0c7b AND // Bitwise AND operation between the two top stack items.
+0x0c7c PUSH2 0abd // Push 2 bytes onto the stack.
+0x0c7f JUMPI // Conditionally alter the program counter.
+0x0c80 PUSH1 40 // Push 1 byte onto the stack.
+0x0c82 MLOAD // Load word from memory.
+0x0c83 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0c87 PUSH1 e5 // Push 1 byte onto the stack.
+0x0c89 SHL // Shift left.
+0x0c8a DUP2 // Duplicates the 2nd stack item.
+0x0c8b MSTORE // Save word to memory.
+0x0c8c PUSH1 04 // Push 1 byte onto the stack.
+0x0c8e ADD // Adds the top two stack items.
+0x0c8f DUP1 // Duplicates the 1st stack item.
+0x0c90 DUP1 // Duplicates the 1st stack item.
+0x0c91 PUSH1 20 // Push 1 byte onto the stack.
+0x0c93 ADD // Adds the top two stack items.
+0x0c94 DUP3 // Duplicates the 3rd stack item.
+0x0c95 DUP2 // Duplicates the 2nd stack item.
+0x0c96 SUB // Subtracts the second stack item from the first.
+0x0c97 DUP3 // Duplicates the 3rd stack item.
+0x0c98 MSTORE // Save word to memory.
+0x0c99 PUSH1 25 // Push 1 byte onto the stack.
+0x0c9b DUP2 // Duplicates the 2nd stack item.
+0x0c9c MSTORE // Save word to memory.
+0x0c9d PUSH1 20 // Push 1 byte onto the stack.
+0x0c9f ADD // Adds the top two stack items.
+0x0ca0 DUP1 // Duplicates the 1st stack item.
+0x0ca1 PUSH2 0f9f // Push 2 bytes onto the stack.
+0x0ca4 PUSH1 25 // Push 1 byte onto the stack.
+0x0ca6 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0ca7 CODECOPY // Copy code running in current environment to memory.
+0x0ca8 PUSH1 40 // Push 1 byte onto the stack.
+0x0caa ADD // Adds the top two stack items.
+0x0cab SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0cac POP // Remove item from stack.
+0x0cad POP // Remove item from stack.
+0x0cae PUSH1 40 // Push 1 byte onto the stack.
+0x0cb0 MLOAD // Load word from memory.
+0x0cb1 DUP1 // Duplicates the 1st stack item.
+0x0cb2 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0cb3 SUB // Subtracts the second stack item from the first.
+0x0cb4 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0cb5 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0cb6 JUMPDEST // Mark a valid destination for jumps.
+0x0cb7 PUSH1 01 // Push 1 byte onto the stack.
+0x0cb9 PUSH1 01 // Push 1 byte onto the stack.
+0x0cbb PUSH1 a0 // Push 1 byte onto the stack.
+0x0cbd SHL // Shift left.
+0x0cbe SUB // Subtracts the second stack item from the first.
+0x0cbf DUP3 // Duplicates the 3rd stack item.
+0x0cc0 AND // Bitwise AND operation between the two top stack items.
+0x0cc1 PUSH2 0b02 // Push 2 bytes onto the stack.
+0x0cc4 JUMPI // Conditionally alter the program counter.
+0x0cc5 PUSH1 40 // Push 1 byte onto the stack.
+0x0cc7 MLOAD // Load word from memory.
+0x0cc8 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0ccc PUSH1 e5 // Push 1 byte onto the stack.
+0x0cce SHL // Shift left.
+0x0ccf DUP2 // Duplicates the 2nd stack item.
+0x0cd0 MSTORE // Save word to memory.
+0x0cd1 PUSH1 04 // Push 1 byte onto the stack.
+0x0cd3 ADD // Adds the top two stack items.
+0x0cd4 DUP1 // Duplicates the 1st stack item.
+0x0cd5 DUP1 // Duplicates the 1st stack item.
+0x0cd6 PUSH1 20 // Push 1 byte onto the stack.
+0x0cd8 ADD // Adds the top two stack items.
+0x0cd9 DUP3 // Duplicates the 3rd stack item.
+0x0cda DUP2 // Duplicates the 2nd stack item.
+0x0cdb SUB // Subtracts the second stack item from the first.
+0x0cdc DUP3 // Duplicates the 3rd stack item.
+0x0cdd MSTORE // Save word to memory.
+0x0cde PUSH1 23 // Push 1 byte onto the stack.
+0x0ce0 DUP2 // Duplicates the 2nd stack item.
+0x0ce1 MSTORE // Save word to memory.
+0x0ce2 PUSH1 20 // Push 1 byte onto the stack.
+0x0ce4 ADD // Adds the top two stack items.
+0x0ce5 DUP1 // Duplicates the 1st stack item.
+0x0ce6 PUSH2 105c // Push 2 bytes onto the stack.
+0x0ce9 PUSH1 23 // Push 1 byte onto the stack.
+0x0ceb SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0cec CODECOPY // Copy code running in current environment to memory.
+0x0ced PUSH1 40 // Push 1 byte onto the stack.
+0x0cef ADD // Adds the top two stack items.
+0x0cf0 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0cf1 POP // Remove item from stack.
+0x0cf2 POP // Remove item from stack.
+0x0cf3 PUSH1 40 // Push 1 byte onto the stack.
+0x0cf5 MLOAD // Load word from memory.
+0x0cf6 DUP1 // Duplicates the 1st stack item.
+0x0cf7 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0cf8 SUB // Subtracts the second stack item from the first.
+0x0cf9 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0cfa REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0cfb JUMPDEST // Mark a valid destination for jumps.
+0x0cfc PUSH2 0b45 // Push 2 bytes onto the stack.
+0x0cff DUP2 // Duplicates the 2nd stack item.
+0x0d00 PUSH1 40 // Push 1 byte onto the stack.
+0x0d02 MLOAD // Load word from memory.
+0x0d03 DUP1 // Duplicates the 1st stack item.
+0x0d04 PUSH1 60 // Push 1 byte onto the stack.
+0x0d06 ADD // Adds the top two stack items.
+0x0d07 PUSH1 40 // Push 1 byte onto the stack.
+0x0d09 MSTORE // Save word to memory.
+0x0d0a DUP1 // Duplicates the 1st stack item.
+0x0d0b PUSH1 26 // Push 1 byte onto the stack.
+0x0d0d DUP2 // Duplicates the 2nd stack item.
+0x0d0e MSTORE // Save word to memory.
+0x0d0f PUSH1 20 // Push 1 byte onto the stack.
+0x0d11 ADD // Adds the top two stack items.
+0x0d12 PUSH2 1036 // Push 2 bytes onto the stack.
+0x0d15 PUSH1 26 // Push 1 byte onto the stack.
+0x0d17 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0d18 CODECOPY // Copy code running in current environment to memory.
+0x0d19 PUSH1 01 // Push 1 byte onto the stack.
+0x0d1b PUSH1 01 // Push 1 byte onto the stack.
+0x0d1d PUSH1 a0 // Push 1 byte onto the stack.
+0x0d1f SHL // Shift left.
+0x0d20 SUB // Subtracts the second stack item from the first.
+0x0d21 DUP7 // Duplicates the 7th stack item.
+0x0d22 AND // Bitwise AND operation between the two top stack items.
+0x0d23 PUSH1 00 // Push 1 byte onto the stack.
+0x0d25 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d26 DUP2 // Duplicates the 2nd stack item.
+0x0d27 MSTORE // Save word to memory.
+0x0d28 PUSH1 01 // Push 1 byte onto the stack.
+0x0d2a PUSH1 20 // Push 1 byte onto the stack.
+0x0d2c MSTORE // Save word to memory.
+0x0d2d PUSH1 40 // Push 1 byte onto the stack.
+0x0d2f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d30 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0d31 SLOAD // Load word from storage.
+0x0d32 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0d33 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d34 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x0d39 PUSH2 0bd6 // Push 2 bytes onto the stack.
+0x0d3c AND // Bitwise AND operation between the two top stack items.
+0x0d3d JUMP // Alter the program counter.
+0x0d3e JUMPDEST // Mark a valid destination for jumps.
+0x0d3f PUSH1 01 // Push 1 byte onto the stack.
+0x0d41 PUSH1 01 // Push 1 byte onto the stack.
+0x0d43 PUSH1 a0 // Push 1 byte onto the stack.
+0x0d45 SHL // Shift left.
+0x0d46 SUB // Subtracts the second stack item from the first.
+0x0d47 DUP1 // Duplicates the 1st stack item.
+0x0d48 DUP6 // Duplicates the 6th stack item.
+0x0d49 AND // Bitwise AND operation between the two top stack items.
+0x0d4a PUSH1 00 // Push 1 byte onto the stack.
+0x0d4c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d4d DUP2 // Duplicates the 2nd stack item.
+0x0d4e MSTORE // Save word to memory.
+0x0d4f PUSH1 01 // Push 1 byte onto the stack.
+0x0d51 PUSH1 20 // Push 1 byte onto the stack.
+0x0d53 MSTORE // Save word to memory.
+0x0d54 PUSH1 40 // Push 1 byte onto the stack.
+0x0d56 DUP1 // Duplicates the 1st stack item.
+0x0d57 DUP3 // Duplicates the 3rd stack item.
+0x0d58 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0d59 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0d5a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d5b SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0d5c SSTORE // Save word to storage.
+0x0d5d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d5e DUP5 // Duplicates the 5th stack item.
+0x0d5f AND // Bitwise AND operation between the two top stack items.
+0x0d60 DUP2 // Duplicates the 2nd stack item.
+0x0d61 MSTORE // Save word to memory.
+0x0d62 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0d63 SLOAD // Load word from storage.
+0x0d64 PUSH2 0b7a // Push 2 bytes onto the stack.
+0x0d67 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d68 DUP3 // Duplicates the 3rd stack item.
+0x0d69 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x0d6e PUSH2 0c6d // Push 2 bytes onto the stack.
+0x0d71 AND // Bitwise AND operation between the two top stack items.
+0x0d72 JUMP // Alter the program counter.
+0x0d73 JUMPDEST // Mark a valid destination for jumps.
+0x0d74 PUSH1 01 // Push 1 byte onto the stack.
+0x0d76 PUSH1 01 // Push 1 byte onto the stack.
+0x0d78 PUSH1 a0 // Push 1 byte onto the stack.
+0x0d7a SHL // Shift left.
+0x0d7b SUB // Subtracts the second stack item from the first.
+0x0d7c DUP1 // Duplicates the 1st stack item.
+0x0d7d DUP5 // Duplicates the 5th stack item.
+0x0d7e AND // Bitwise AND operation between the two top stack items.
+0x0d7f PUSH1 00 // Push 1 byte onto the stack.
+0x0d81 DUP2 // Duplicates the 2nd stack item.
+0x0d82 DUP2 // Duplicates the 2nd stack item.
+0x0d83 MSTORE // Save word to memory.
+0x0d84 PUSH1 01 // Push 1 byte onto the stack.
+0x0d86 PUSH1 20 // Push 1 byte onto the stack.
+0x0d88 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d89 DUP2 // Duplicates the 2nd stack item.
+0x0d8a MSTORE // Save word to memory.
+0x0d8b PUSH1 40 // Push 1 byte onto the stack.
+0x0d8d SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0d8e DUP3 // Duplicates the 3rd stack item.
+0x0d8f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d90 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0d91 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0d92 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d93 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x0d94 SSTORE // Save word to storage.
+0x0d95 DUP1 // Duplicates the 1st stack item.
+0x0d96 MLOAD // Load word from memory.
+0x0d97 DUP6 // Duplicates the 6th stack item.
+0x0d98 DUP2 // Duplicates the 2nd stack item.
+0x0d99 MSTORE // Save word to memory.
+0x0d9a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0d9b MLOAD // Load word from memory.
+0x0d9c SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0d9d SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0d9e SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0d9f DUP8 // Duplicates the 8th stack item.
+0x0da0 AND // Bitwise AND operation between the two top stack items.
+0x0da1 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0da2 PUSH32 ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef // Push 32 bytes onto the stack.
+0x0dc3 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0dc4 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0dc5 DUP3 // Duplicates the 3rd stack item.
+0x0dc6 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0dc7 SUB // Subtracts the second stack item from the first.
+0x0dc8 ADD // Adds the top two stack items.
+0x0dc9 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0dca LOG3 // Appends log record with 3 topics.
+0x0dcb POP // Remove item from stack.
+0x0dcc POP // Remove item from stack.
+0x0dcd POP // Remove item from stack.
+0x0dce JUMP // Alter the program counter.
+0x0dcf JUMPDEST // Mark a valid destination for jumps.
+0x0dd0 PUSH1 00 // Push 1 byte onto the stack.
+0x0dd2 DUP2 // Duplicates the 2nd stack item.
+0x0dd3 DUP5 // Duplicates the 5th stack item.
+0x0dd4 DUP5 // Duplicates the 5th stack item.
+0x0dd5 GT // Checks if the first item is greater than the second.
+0x0dd6 ISZERO // Checks if the top stack item is zero.
+0x0dd7 PUSH2 0c65 // Push 2 bytes onto the stack.
+0x0dda JUMPI // Conditionally alter the program counter.
+0x0ddb PUSH1 40 // Push 1 byte onto the stack.
+0x0ddd MLOAD // Load word from memory.
+0x0dde PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0de2 PUSH1 e5 // Push 1 byte onto the stack.
+0x0de4 SHL // Shift left.
+0x0de5 DUP2 // Duplicates the 2nd stack item.
+0x0de6 MSTORE // Save word to memory.
+0x0de7 PUSH1 04 // Push 1 byte onto the stack.
+0x0de9 ADD // Adds the top two stack items.
+0x0dea DUP1 // Duplicates the 1st stack item.
+0x0deb DUP1 // Duplicates the 1st stack item.
+0x0dec PUSH1 20 // Push 1 byte onto the stack.
+0x0dee ADD // Adds the top two stack items.
+0x0def DUP3 // Duplicates the 3rd stack item.
+0x0df0 DUP2 // Duplicates the 2nd stack item.
+0x0df1 SUB // Subtracts the second stack item from the first.
+0x0df2 DUP3 // Duplicates the 3rd stack item.
+0x0df3 MSTORE // Save word to memory.
+0x0df4 DUP4 // Duplicates the 4th stack item.
+0x0df5 DUP2 // Duplicates the 2nd stack item.
+0x0df6 DUP2 // Duplicates the 2nd stack item.
+0x0df7 MLOAD // Load word from memory.
+0x0df8 DUP2 // Duplicates the 2nd stack item.
+0x0df9 MSTORE // Save word to memory.
+0x0dfa PUSH1 20 // Push 1 byte onto the stack.
+0x0dfc ADD // Adds the top two stack items.
+0x0dfd SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0dfe POP // Remove item from stack.
+0x0dff DUP1 // Duplicates the 1st stack item.
+0x0e00 MLOAD // Load word from memory.
+0x0e01 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e02 PUSH1 20 // Push 1 byte onto the stack.
+0x0e04 ADD // Adds the top two stack items.
+0x0e05 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e06 DUP1 // Duplicates the 1st stack item.
+0x0e07 DUP4 // Duplicates the 4th stack item.
+0x0e08 DUP4 // Duplicates the 4th stack item.
+0x0e09 PUSH1 00 // Push 1 byte onto the stack.
+0x0e0b JUMPDEST // Mark a valid destination for jumps.
+0x0e0c DUP4 // Duplicates the 4th stack item.
+0x0e0d DUP2 // Duplicates the 2nd stack item.
+0x0e0e LT // Checks if the first item is less than the second.
+0x0e0f ISZERO // Checks if the top stack item is zero.
+0x0e10 PUSH2 0c2a // Push 2 bytes onto the stack.
+0x0e13 JUMPI // Conditionally alter the program counter.
+0x0e14 DUP2 // Duplicates the 2nd stack item.
+0x0e15 DUP2 // Duplicates the 2nd stack item.
+0x0e16 ADD // Adds the top two stack items.
+0x0e17 MLOAD // Load word from memory.
+0x0e18 DUP4 // Duplicates the 4th stack item.
+0x0e19 DUP3 // Duplicates the 3rd stack item.
+0x0e1a ADD // Adds the top two stack items.
+0x0e1b MSTORE // Save word to memory.
+0x0e1c PUSH1 20 // Push 1 byte onto the stack.
+0x0e1e ADD // Adds the top two stack items.
+0x0e1f PUSH2 0c12 // Push 2 bytes onto the stack.
+0x0e22 JUMP // Alter the program counter.
+0x0e23 JUMPDEST // Mark a valid destination for jumps.
+0x0e24 POP // Remove item from stack.
+0x0e25 POP // Remove item from stack.
+0x0e26 POP // Remove item from stack.
+0x0e27 POP // Remove item from stack.
+0x0e28 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e29 POP // Remove item from stack.
+0x0e2a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e2b DUP2 // Duplicates the 2nd stack item.
+0x0e2c ADD // Adds the top two stack items.
+0x0e2d SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e2e PUSH1 1f // Push 1 byte onto the stack.
+0x0e30 AND // Bitwise AND operation between the two top stack items.
+0x0e31 DUP1 // Duplicates the 1st stack item.
+0x0e32 ISZERO // Checks if the top stack item is zero.
+0x0e33 PUSH2 0c57 // Push 2 bytes onto the stack.
+0x0e36 JUMPI // Conditionally alter the program counter.
+0x0e37 DUP1 // Duplicates the 1st stack item.
+0x0e38 DUP3 // Duplicates the 3rd stack item.
+0x0e39 SUB // Subtracts the second stack item from the first.
+0x0e3a DUP1 // Duplicates the 1st stack item.
+0x0e3b MLOAD // Load word from memory.
+0x0e3c PUSH1 01 // Push 1 byte onto the stack.
+0x0e3e DUP4 // Duplicates the 4th stack item.
+0x0e3f PUSH1 20 // Push 1 byte onto the stack.
+0x0e41 SUB // Subtracts the second stack item from the first.
+0x0e42 PUSH2 0100 // Push 2 bytes onto the stack.
+0x0e45 EXP // Exponential operation.
+0x0e46 SUB // Subtracts the second stack item from the first.
+0x0e47 NOT // Bitwise NOT operation.
+0x0e48 AND // Bitwise AND operation between the two top stack items.
+0x0e49 DUP2 // Duplicates the 2nd stack item.
+0x0e4a MSTORE // Save word to memory.
+0x0e4b PUSH1 20 // Push 1 byte onto the stack.
+0x0e4d ADD // Adds the top two stack items.
+0x0e4e SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0e4f POP // Remove item from stack.
+0x0e50 JUMPDEST // Mark a valid destination for jumps.
+0x0e51 POP // Remove item from stack.
+0x0e52 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0e53 POP // Remove item from stack.
+0x0e54 POP // Remove item from stack.
+0x0e55 POP // Remove item from stack.
+0x0e56 PUSH1 40 // Push 1 byte onto the stack.
+0x0e58 MLOAD // Load word from memory.
+0x0e59 DUP1 // Duplicates the 1st stack item.
+0x0e5a SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0e5b SUB // Subtracts the second stack item from the first.
+0x0e5c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e5d REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0e5e JUMPDEST // Mark a valid destination for jumps.
+0x0e5f POP // Remove item from stack.
+0x0e60 POP // Remove item from stack.
+0x0e61 POP // Remove item from stack.
+0x0e62 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e63 SUB // Subtracts the second stack item from the first.
+0x0e64 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0e65 JUMP // Alter the program counter.
+0x0e66 JUMPDEST // Mark a valid destination for jumps.
+0x0e67 PUSH1 00 // Push 1 byte onto the stack.
+0x0e69 DUP3 // Duplicates the 3rd stack item.
+0x0e6a DUP3 // Duplicates the 3rd stack item.
+0x0e6b ADD // Adds the top two stack items.
+0x0e6c DUP4 // Duplicates the 4th stack item.
+0x0e6d DUP2 // Duplicates the 2nd stack item.
+0x0e6e LT // Checks if the first item is less than the second.
+0x0e6f ISZERO // Checks if the top stack item is zero.
+0x0e70 PUSH2 0cc7 // Push 2 bytes onto the stack.
+0x0e73 JUMPI // Conditionally alter the program counter.
+0x0e74 PUSH1 40 // Push 1 byte onto the stack.
+0x0e76 DUP1 // Duplicates the 1st stack item.
+0x0e77 MLOAD // Load word from memory.
+0x0e78 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0e7c PUSH1 e5 // Push 1 byte onto the stack.
+0x0e7e SHL // Shift left.
+0x0e7f DUP2 // Duplicates the 2nd stack item.
+0x0e80 MSTORE // Save word to memory.
+0x0e81 PUSH1 20 // Push 1 byte onto the stack.
+0x0e83 PUSH1 04 // Push 1 byte onto the stack.
+0x0e85 DUP3 // Duplicates the 3rd stack item.
+0x0e86 ADD // Adds the top two stack items.
+0x0e87 MSTORE // Save word to memory.
+0x0e88 PUSH1 1b // Push 1 byte onto the stack.
+0x0e8a PUSH1 24 // Push 1 byte onto the stack.
+0x0e8c DUP3 // Duplicates the 3rd stack item.
+0x0e8d ADD // Adds the top two stack items.
+0x0e8e MSTORE // Save word to memory.
+0x0e8f PUSH32 536166654d6174683a206164646974696f6e206f766572666c6f770000000000 // Push 32 bytes onto the stack.
+0x0eb0 PUSH1 44 // Push 1 byte onto the stack.
+0x0eb2 DUP3 // Duplicates the 3rd stack item.
+0x0eb3 ADD // Adds the top two stack items.
+0x0eb4 MSTORE // Save word to memory.
+0x0eb5 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0eb6 MLOAD // Load word from memory.
+0x0eb7 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0eb8 DUP2 // Duplicates the 2nd stack item.
+0x0eb9 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0eba SUB // Subtracts the second stack item from the first.
+0x0ebb PUSH1 64 // Push 1 byte onto the stack.
+0x0ebd ADD // Adds the top two stack items.
+0x0ebe SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0ebf REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0ec0 JUMPDEST // Mark a valid destination for jumps.
+0x0ec1 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x0ec2 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x0ec3 POP // Remove item from stack.
+0x0ec4 POP // Remove item from stack.
+0x0ec5 POP // Remove item from stack.
+0x0ec6 JUMP // Alter the program counter.
+0x0ec7 JUMPDEST // Mark a valid destination for jumps.
+0x0ec8 PUSH1 01 // Push 1 byte onto the stack.
+0x0eca PUSH1 01 // Push 1 byte onto the stack.
+0x0ecc PUSH1 a0 // Push 1 byte onto the stack.
+0x0ece SHL // Shift left.
+0x0ecf SUB // Subtracts the second stack item from the first.
+0x0ed0 DUP3 // Duplicates the 3rd stack item.
+0x0ed1 AND // Bitwise AND operation between the two top stack items.
+0x0ed2 PUSH2 0d13 // Push 2 bytes onto the stack.
+0x0ed5 JUMPI // Conditionally alter the program counter.
+0x0ed6 PUSH1 40 // Push 1 byte onto the stack.
+0x0ed8 MLOAD // Load word from memory.
+0x0ed9 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0edd PUSH1 e5 // Push 1 byte onto the stack.
+0x0edf SHL // Shift left.
+0x0ee0 DUP2 // Duplicates the 2nd stack item.
+0x0ee1 MSTORE // Save word to memory.
+0x0ee2 PUSH1 04 // Push 1 byte onto the stack.
+0x0ee4 ADD // Adds the top two stack items.
+0x0ee5 DUP1 // Duplicates the 1st stack item.
+0x0ee6 DUP1 // Duplicates the 1st stack item.
+0x0ee7 PUSH1 20 // Push 1 byte onto the stack.
+0x0ee9 ADD // Adds the top two stack items.
+0x0eea DUP3 // Duplicates the 3rd stack item.
+0x0eeb DUP2 // Duplicates the 2nd stack item.
+0x0eec SUB // Subtracts the second stack item from the first.
+0x0eed DUP3 // Duplicates the 3rd stack item.
+0x0eee MSTORE // Save word to memory.
+0x0eef PUSH1 21 // Push 1 byte onto the stack.
+0x0ef1 DUP2 // Duplicates the 2nd stack item.
+0x0ef2 MSTORE // Save word to memory.
+0x0ef3 PUSH1 20 // Push 1 byte onto the stack.
+0x0ef5 ADD // Adds the top two stack items.
+0x0ef6 DUP1 // Duplicates the 1st stack item.
+0x0ef7 PUSH2 10a4 // Push 2 bytes onto the stack.
+0x0efa PUSH1 21 // Push 1 byte onto the stack.
+0x0efc SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0efd CODECOPY // Copy code running in current environment to memory.
+0x0efe PUSH1 40 // Push 1 byte onto the stack.
+0x0f00 ADD // Adds the top two stack items.
+0x0f01 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0f02 POP // Remove item from stack.
+0x0f03 POP // Remove item from stack.
+0x0f04 PUSH1 40 // Push 1 byte onto the stack.
+0x0f06 MLOAD // Load word from memory.
+0x0f07 DUP1 // Duplicates the 1st stack item.
+0x0f08 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0f09 SUB // Subtracts the second stack item from the first.
+0x0f0a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f0b REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x0f0c JUMPDEST // Mark a valid destination for jumps.
+0x0f0d PUSH2 0d56 // Push 2 bytes onto the stack.
+0x0f10 DUP2 // Duplicates the 2nd stack item.
+0x0f11 PUSH1 40 // Push 1 byte onto the stack.
+0x0f13 MLOAD // Load word from memory.
+0x0f14 DUP1 // Duplicates the 1st stack item.
+0x0f15 PUSH1 60 // Push 1 byte onto the stack.
+0x0f17 ADD // Adds the top two stack items.
+0x0f18 PUSH1 40 // Push 1 byte onto the stack.
+0x0f1a MSTORE // Save word to memory.
+0x0f1b DUP1 // Duplicates the 1st stack item.
+0x0f1c PUSH1 22 // Push 1 byte onto the stack.
+0x0f1e DUP2 // Duplicates the 2nd stack item.
+0x0f1f MSTORE // Save word to memory.
+0x0f20 PUSH1 20 // Push 1 byte onto the stack.
+0x0f22 ADD // Adds the top two stack items.
+0x0f23 PUSH2 10c5 // Push 2 bytes onto the stack.
+0x0f26 PUSH1 22 // Push 1 byte onto the stack.
+0x0f28 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0f29 CODECOPY // Copy code running in current environment to memory.
+0x0f2a PUSH1 01 // Push 1 byte onto the stack.
+0x0f2c PUSH1 01 // Push 1 byte onto the stack.
+0x0f2e PUSH1 a0 // Push 1 byte onto the stack.
+0x0f30 SHL // Shift left.
+0x0f31 SUB // Subtracts the second stack item from the first.
+0x0f32 DUP6 // Duplicates the 6th stack item.
+0x0f33 AND // Bitwise AND operation between the two top stack items.
+0x0f34 PUSH1 00 // Push 1 byte onto the stack.
+0x0f36 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f37 DUP2 // Duplicates the 2nd stack item.
+0x0f38 MSTORE // Save word to memory.
+0x0f39 PUSH1 01 // Push 1 byte onto the stack.
+0x0f3b PUSH1 20 // Push 1 byte onto the stack.
+0x0f3d MSTORE // Save word to memory.
+0x0f3e PUSH1 40 // Push 1 byte onto the stack.
+0x0f40 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f41 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0f42 SLOAD // Load word from storage.
+0x0f43 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0f44 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f45 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x0f4a PUSH2 0bd6 // Push 2 bytes onto the stack.
+0x0f4d AND // Bitwise AND operation between the two top stack items.
+0x0f4e JUMP // Alter the program counter.
+0x0f4f JUMPDEST // Mark a valid destination for jumps.
+0x0f50 PUSH1 01 // Push 1 byte onto the stack.
+0x0f52 PUSH1 01 // Push 1 byte onto the stack.
+0x0f54 PUSH1 a0 // Push 1 byte onto the stack.
+0x0f56 SHL // Shift left.
+0x0f57 SUB // Subtracts the second stack item from the first.
+0x0f58 DUP4 // Duplicates the 4th stack item.
+0x0f59 AND // Bitwise AND operation between the two top stack items.
+0x0f5a PUSH1 00 // Push 1 byte onto the stack.
+0x0f5c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f5d DUP2 // Duplicates the 2nd stack item.
+0x0f5e MSTORE // Save word to memory.
+0x0f5f PUSH1 01 // Push 1 byte onto the stack.
+0x0f61 PUSH1 20 // Push 1 byte onto the stack.
+0x0f63 MSTORE // Save word to memory.
+0x0f64 PUSH1 40 // Push 1 byte onto the stack.
+0x0f66 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f67 KECCAK256 // Computes the Keccak-256 hash of input.
+0x0f68 SSTORE // Save word to storage.
+0x0f69 PUSH1 03 // Push 1 byte onto the stack.
+0x0f6b SLOAD // Load word from storage.
+0x0f6c PUSH2 0d82 // Push 2 bytes onto the stack.
+0x0f6f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f70 DUP3 // Duplicates the 3rd stack item.
+0x0f71 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x0f76 PUSH2 0f5c // Push 2 bytes onto the stack.
+0x0f79 AND // Bitwise AND operation between the two top stack items.
+0x0f7a JUMP // Alter the program counter.
+0x0f7b JUMPDEST // Mark a valid destination for jumps.
+0x0f7c PUSH1 03 // Push 1 byte onto the stack.
+0x0f7e SSTORE // Save word to storage.
+0x0f7f PUSH1 40 // Push 1 byte onto the stack.
+0x0f81 DUP1 // Duplicates the 1st stack item.
+0x0f82 MLOAD // Load word from memory.
+0x0f83 DUP3 // Duplicates the 3rd stack item.
+0x0f84 DUP2 // Duplicates the 2nd stack item.
+0x0f85 MSTORE // Save word to memory.
+0x0f86 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0f87 MLOAD // Load word from memory.
+0x0f88 PUSH1 00 // Push 1 byte onto the stack.
+0x0f8a SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0f8b PUSH1 01 // Push 1 byte onto the stack.
+0x0f8d PUSH1 01 // Push 1 byte onto the stack.
+0x0f8f PUSH1 a0 // Push 1 byte onto the stack.
+0x0f91 SHL // Shift left.
+0x0f92 SUB // Subtracts the second stack item from the first.
+0x0f93 DUP6 // Duplicates the 6th stack item.
+0x0f94 AND // Bitwise AND operation between the two top stack items.
+0x0f95 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0f96 PUSH32 ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef // Push 32 bytes onto the stack.
+0x0fb7 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x0fb8 DUP2 // Duplicates the 2nd stack item.
+0x0fb9 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0fba SUB // Subtracts the second stack item from the first.
+0x0fbb PUSH1 20 // Push 1 byte onto the stack.
+0x0fbd ADD // Adds the top two stack items.
+0x0fbe SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x0fbf LOG3 // Appends log record with 3 topics.
+0x0fc0 POP // Remove item from stack.
+0x0fc1 POP // Remove item from stack.
+0x0fc2 JUMP // Alter the program counter.
+0x0fc3 JUMPDEST // Mark a valid destination for jumps.
+0x0fc4 PUSH1 01 // Push 1 byte onto the stack.
+0x0fc6 PUSH1 01 // Push 1 byte onto the stack.
+0x0fc8 PUSH1 a0 // Push 1 byte onto the stack.
+0x0fca SHL // Shift left.
+0x0fcb SUB // Subtracts the second stack item from the first.
+0x0fcc DUP3 // Duplicates the 3rd stack item.
+0x0fcd AND // Bitwise AND operation between the two top stack items.
+0x0fce PUSH2 0e25 // Push 2 bytes onto the stack.
+0x0fd1 JUMPI // Conditionally alter the program counter.
+0x0fd2 PUSH1 40 // Push 1 byte onto the stack.
+0x0fd4 DUP1 // Duplicates the 1st stack item.
+0x0fd5 MLOAD // Load word from memory.
+0x0fd6 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x0fda PUSH1 e5 // Push 1 byte onto the stack.
+0x0fdc SHL // Shift left.
+0x0fdd DUP2 // Duplicates the 2nd stack item.
+0x0fde MSTORE // Save word to memory.
+0x0fdf PUSH1 20 // Push 1 byte onto the stack.
+0x0fe1 PUSH1 04 // Push 1 byte onto the stack.
+0x0fe3 DUP3 // Duplicates the 3rd stack item.
+0x0fe4 ADD // Adds the top two stack items.
+0x0fe5 MSTORE // Save word to memory.
+0x0fe6 PUSH1 1f // Push 1 byte onto the stack.
+0x0fe8 PUSH1 24 // Push 1 byte onto the stack.
+0x0fea DUP3 // Duplicates the 3rd stack item.
+0x0feb ADD // Adds the top two stack items.
+0x0fec MSTORE // Save word to memory.
+0x0fed PUSH32 42455032303a206d696e7420746f20746865207a65726f206164647265737300 // Push 32 bytes onto the stack.
+0x100e PUSH1 44 // Push 1 byte onto the stack.
+0x1010 DUP3 // Duplicates the 3rd stack item.
+0x1011 ADD // Adds the top two stack items.
+0x1012 MSTORE // Save word to memory.
+0x1013 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1014 MLOAD // Load word from memory.
+0x1015 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1016 DUP2 // Duplicates the 2nd stack item.
+0x1017 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1018 SUB // Subtracts the second stack item from the first.
+0x1019 PUSH1 64 // Push 1 byte onto the stack.
+0x101b ADD // Adds the top two stack items.
+0x101c SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x101d REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x101e JUMPDEST // Mark a valid destination for jumps.
+0x101f PUSH1 03 // Push 1 byte onto the stack.
+0x1021 SLOAD // Load word from storage.
+0x1022 PUSH2 0e38 // Push 2 bytes onto the stack.
+0x1025 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1026 DUP3 // Duplicates the 3rd stack item.
+0x1027 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x102c PUSH2 0c6d // Push 2 bytes onto the stack.
+0x102f AND // Bitwise AND operation between the two top stack items.
+0x1030 JUMP // Alter the program counter.
+0x1031 JUMPDEST // Mark a valid destination for jumps.
+0x1032 PUSH1 03 // Push 1 byte onto the stack.
+0x1034 SSTORE // Save word to storage.
+0x1035 PUSH1 01 // Push 1 byte onto the stack.
+0x1037 PUSH1 01 // Push 1 byte onto the stack.
+0x1039 PUSH1 a0 // Push 1 byte onto the stack.
+0x103b SHL // Shift left.
+0x103c SUB // Subtracts the second stack item from the first.
+0x103d DUP3 // Duplicates the 3rd stack item.
+0x103e AND // Bitwise AND operation between the two top stack items.
+0x103f PUSH1 00 // Push 1 byte onto the stack.
+0x1041 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1042 DUP2 // Duplicates the 2nd stack item.
+0x1043 MSTORE // Save word to memory.
+0x1044 PUSH1 01 // Push 1 byte onto the stack.
+0x1046 PUSH1 20 // Push 1 byte onto the stack.
+0x1048 MSTORE // Save word to memory.
+0x1049 PUSH1 40 // Push 1 byte onto the stack.
+0x104b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x104c KECCAK256 // Computes the Keccak-256 hash of input.
+0x104d SLOAD // Load word from storage.
+0x104e PUSH2 0e64 // Push 2 bytes onto the stack.
+0x1051 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1052 DUP3 // Duplicates the 3rd stack item.
+0x1053 PUSH4 ffffffff // Push 4 bytes onto the stack.
+0x1058 PUSH2 0c6d // Push 2 bytes onto the stack.
+0x105b AND // Bitwise AND operation between the two top stack items.
+0x105c JUMP // Alter the program counter.
+0x105d JUMPDEST // Mark a valid destination for jumps.
+0x105e PUSH1 01 // Push 1 byte onto the stack.
+0x1060 PUSH1 01 // Push 1 byte onto the stack.
+0x1062 PUSH1 a0 // Push 1 byte onto the stack.
+0x1064 SHL // Shift left.
+0x1065 SUB // Subtracts the second stack item from the first.
+0x1066 DUP4 // Duplicates the 4th stack item.
+0x1067 AND // Bitwise AND operation between the two top stack items.
+0x1068 PUSH1 00 // Push 1 byte onto the stack.
+0x106a DUP2 // Duplicates the 2nd stack item.
+0x106b DUP2 // Duplicates the 2nd stack item.
+0x106c MSTORE // Save word to memory.
+0x106d PUSH1 01 // Push 1 byte onto the stack.
+0x106f PUSH1 20 // Push 1 byte onto the stack.
+0x1071 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1072 DUP2 // Duplicates the 2nd stack item.
+0x1073 MSTORE // Save word to memory.
+0x1074 PUSH1 40 // Push 1 byte onto the stack.
+0x1076 DUP1 // Duplicates the 1st stack item.
+0x1077 DUP4 // Duplicates the 4th stack item.
+0x1078 KECCAK256 // Computes the Keccak-256 hash of input.
+0x1079 SWAP5 // Swaps the top stack item with the 6th stack item.
+0x107a SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x107b SWAP5 // Swaps the top stack item with the 6th stack item.
+0x107c SSTORE // Save word to storage.
+0x107d DUP4 // Duplicates the 4th stack item.
+0x107e MLOAD // Load word from memory.
+0x107f DUP6 // Duplicates the 6th stack item.
+0x1080 DUP2 // Duplicates the 2nd stack item.
+0x1081 MSTORE // Save word to memory.
+0x1082 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x1083 MLOAD // Load word from memory.
+0x1084 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x1085 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x1086 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x1087 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x1088 PUSH32 ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef // Push 32 bytes onto the stack.
+0x10a9 SWAP3 // Swaps the top stack item with the 4th stack item.
+0x10aa DUP2 // Duplicates the 2nd stack item.
+0x10ab SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x10ac SUB // Subtracts the second stack item from the first.
+0x10ad SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x10ae SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x10af ADD // Adds the top two stack items.
+0x10b0 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x10b1 LOG3 // Appends log record with 3 topics.
+0x10b2 POP // Remove item from stack.
+0x10b3 POP // Remove item from stack.
+0x10b4 JUMP // Alter the program counter.
+0x10b5 JUMPDEST // Mark a valid destination for jumps.
+0x10b6 PUSH1 01 // Push 1 byte onto the stack.
+0x10b8 PUSH1 01 // Push 1 byte onto the stack.
+0x10ba PUSH1 a0 // Push 1 byte onto the stack.
+0x10bc SHL // Shift left.
+0x10bd SUB // Subtracts the second stack item from the first.
+0x10be DUP2 // Duplicates the 2nd stack item.
+0x10bf AND // Bitwise AND operation between the two top stack items.
+0x10c0 PUSH2 0f01 // Push 2 bytes onto the stack.
+0x10c3 JUMPI // Conditionally alter the program counter.
+0x10c4 PUSH1 40 // Push 1 byte onto the stack.
+0x10c6 MLOAD // Load word from memory.
+0x10c7 PUSH3 461bcd // Push 3 bytes onto the stack.
+0x10cb PUSH1 e5 // Push 1 byte onto the stack.
+0x10cd SHL // Shift left.
+0x10ce DUP2 // Duplicates the 2nd stack item.
+0x10cf MSTORE // Save word to memory.
+0x10d0 PUSH1 04 // Push 1 byte onto the stack.
+0x10d2 ADD // Adds the top two stack items.
+0x10d3 DUP1 // Duplicates the 1st stack item.
+0x10d4 DUP1 // Duplicates the 1st stack item.
+0x10d5 PUSH1 20 // Push 1 byte onto the stack.
+0x10d7 ADD // Adds the top two stack items.
+0x10d8 DUP3 // Duplicates the 3rd stack item.
+0x10d9 DUP2 // Duplicates the 2nd stack item.
+0x10da SUB // Subtracts the second stack item from the first.
+0x10db DUP3 // Duplicates the 3rd stack item.
+0x10dc MSTORE // Save word to memory.
+0x10dd PUSH1 26 // Push 1 byte onto the stack.
+0x10df DUP2 // Duplicates the 2nd stack item.
+0x10e0 MSTORE // Save word to memory.
+0x10e1 PUSH1 20 // Push 1 byte onto the stack.
+0x10e3 ADD // Adds the top two stack items.
+0x10e4 DUP1 // Duplicates the 1st stack item.
+0x10e5 PUSH2 0fe8 // Push 2 bytes onto the stack.
+0x10e8 PUSH1 26 // Push 1 byte onto the stack.
+0x10ea SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x10eb CODECOPY // Copy code running in current environment to memory.
+0x10ec PUSH1 40 // Push 1 byte onto the stack.
+0x10ee ADD // Adds the top two stack items.
+0x10ef SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x10f0 POP // Remove item from stack.
+0x10f1 POP // Remove item from stack.
+0x10f2 PUSH1 40 // Push 1 byte onto the stack.
+0x10f4 MLOAD // Load word from memory.
+0x10f5 DUP1 // Duplicates the 1st stack item.
+0x10f6 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x10f7 SUB // Subtracts the second stack item from the first.
+0x10f8 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x10f9 REVERT // Halt execution reverting state changes but returning data and remaining gas.
+0x10fa JUMPDEST // Mark a valid destination for jumps.
+0x10fb PUSH1 00 // Push 1 byte onto the stack.
+0x10fd DUP1 // Duplicates the 1st stack item.
+0x10fe SLOAD // Load word from storage.
+0x10ff PUSH1 40 // Push 1 byte onto the stack.
+0x1101 MLOAD // Load word from memory.
+0x1102 PUSH1 01 // Push 1 byte onto the stack.
+0x1104 PUSH1 01 // Push 1 byte onto the stack.
+0x1106 PUSH1 a0 // Push 1 byte onto the stack.
+0x1108 SHL // Shift left.
+0x1109 SUB // Subtracts the second stack item from the first.
+0x110a DUP1 // Duplicates the 1st stack item.
+0x110b DUP6 // Duplicates the 6th stack item.
+0x110c AND // Bitwise AND operation between the two top stack items.
+0x110d SWAP4 // Swaps the top stack item with the 5th stack item.
+0x110e SWAP3 // Swaps the top stack item with the 4th stack item.
+0x110f AND // Bitwise AND operation between the two top stack items.
+0x1110 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x1111 PUSH32 8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0 // Push 32 bytes onto the stack.
+0x1132 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x1133 LOG3 // Appends log record with 3 topics.
+0x1134 PUSH1 00 // Push 1 byte onto the stack.
+0x1136 DUP1 // Duplicates the 1st stack item.
+0x1137 SLOAD // Load word from storage.
+0x1138 PUSH1 01 // Push 1 byte onto the stack.
+0x113a PUSH1 01 // Push 1 byte onto the stack.
+0x113c PUSH1 a0 // Push 1 byte onto the stack.
+0x113e SHL // Shift left.
+0x113f SUB // Subtracts the second stack item from the first.
+0x1140 NOT // Bitwise NOT operation.
+0x1141 AND // Bitwise AND operation between the two top stack items.
+0x1142 PUSH1 01 // Push 1 byte onto the stack.
+0x1144 PUSH1 01 // Push 1 byte onto the stack.
+0x1146 PUSH1 a0 // Push 1 byte onto the stack.
+0x1148 SHL // Shift left.
+0x1149 SUB // Subtracts the second stack item from the first.
+0x114a SWAP3 // Swaps the top stack item with the 4th stack item.
+0x114b SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x114c SWAP3 // Swaps the top stack item with the 4th stack item.
+0x114d AND // Bitwise AND operation between the two top stack items.
+0x114e SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x114f SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1150 SWAP2 // Swaps the top stack item with the 3rd stack item.
+0x1151 OR // Bitwise OR operation between the two top stack items.
+0x1152 SWAP1 // Swaps the top stack item with the 2nd stack item.
+0x1153 SSTORE // Save word to storage.
+0x1154 JUMP // Alter the program counter.
+0x1155 JUMPDEST // Mark a valid destination for jumps.
+0x1156 PUSH1 00 // Push 1 byte onto the stack.
+0x1158 PUSH2 0cc7 // Push 2 bytes onto the stack.
+0x115b DUP4 // Duplicates the 4th stack item.
+0x115c DUP4 // Duplicates the 4th stack item.
+0x115d PUSH1 40 // Push 1 byte onto the stack.
+0x115f MLOAD // Load word from memory.
+0x1160 DUP1 // Duplicates the 1st stack item.
+0x1161 PUSH1 40 // Push 1 byte onto the stack.
+0x1163 ADD // Adds the top two stack items.
+0x1164 PUSH1 40 // Push 1 byte onto the stack.
+0x1166 MSTORE // Save word to memory.
+0x1167 DUP1 // Duplicates the 1st stack item.
+0x1168 PUSH1 1e // Push 1 byte onto the stack.
+0x116a DUP2 // Duplicates the 2nd stack item.
+0x116b MSTORE // Save word to memory.
+0x116c PUSH1 20 // Push 1 byte onto the stack.
+0x116e ADD // Adds the top two stack items.
+0x116f PUSH32 536166654d6174683a207375627472616374696f6e206f766572666c6f770000 // Push 32 bytes onto the stack.
+0x1190 DUP2 // Duplicates the 2nd stack item.
+0x1191 MSTORE // Save word to memory.
+0x1192 POP // Remove item from stack.
+0x1193 PUSH2 0bd6 // Push 2 bytes onto the stack.
+0x1196 JUMP // Alter the program counter.
+0x1197 INVALID // Designated invalid instruction.
+0x1198 TIMESTAMP // Get the block's timestamp.
+0x1199 GASLIMIT // Get the block's gas limit.
+0x119a POP // Remove item from stack.
+0x119b ORIGIN // Get execution origination address.
+0x119c ADDRESS // Get address of currently executing account.
+0x119d GASPRICE // Get price of gas in current environment.
+0x119e KECCAK256 // Computes the Keccak-256 hash of input.
+0x119f PUSH21 72616e736665722066726f6d20746865207a65726f // Push 21 bytes onto the stack.
+0x11b5 KECCAK256 // Computes the Keccak-256 hash of input.
+0x11b6 PUSH2 6464 // Push 2 bytes onto the stack.
+0x11b9 PUSH19 65737342455032303a20617070726f76652066 // Push 19 bytes onto the stack.
+0x11cd PUSH19 6f6d20746865207a65726f2061646472657373 // Push 19 bytes onto the stack.
+0x11e1 opcode 0x4f not defined
+0x11e2 PUSH24 6e61626c653a206e6577206f776e65722069732074686520 // Push 24 bytes onto the stack.
+0x11fb PUSH27 65726f206164647265737342455032303a207472616e7366657220 // Push 27 bytes onto the stack.
+0x1217 PUSH2 6d6f // Push 2 bytes onto the stack.
+0x121a PUSH22 6e74206578636565647320616c6c6f77616e63654245 // Push 22 bytes onto the stack.
+0x1231 POP // Remove item from stack.
+0x1232 ORIGIN // Get execution origination address.
+0x1233 ADDRESS // Get address of currently executing account.
+0x1234 GASPRICE // Get price of gas in current environment.
+0x1235 KECCAK256 // Computes the Keccak-256 hash of input.
+0x1236 PUSH21 72616e7366657220616d6f756e7420657863656564 // Push 21 bytes onto the stack.
+0x124c PUSH20 2062616c616e636542455032303a207472616e73 // Push 20 bytes onto the stack.
+0x1261 PUSH7 657220746f2074 // Push 7 bytes onto the stack.
+0x1269 PUSH9 65207a65726f206164 // Push 9 bytes onto the stack.
+0x1273 PUSH5 7265737342 // Push 5 bytes onto the stack.
+0x1279 GASLIMIT // Get the block's gas limit.
+0x127a POP // Remove item from stack.
+0x127b ORIGIN // Get execution origination address.
+0x127c ADDRESS // Get address of currently executing account.
+0x127d GASPRICE // Get price of gas in current environment.
+0x127e KECCAK256 // Computes the Keccak-256 hash of input.
+0x127f PUSH5 6563726561 // Push 5 bytes onto the stack.
+0x1285 PUSH20 656420616c6c6f77616e63652062656c6f77207a // Push 20 bytes onto the stack.
+0x129a PUSH6 726f42455032 // Push 6 bytes onto the stack.
+0x12a1 ADDRESS // Get address of currently executing account.
+0x12a2 GASPRICE // Get price of gas in current environment.
+0x12a3 KECCAK256 // Computes the Keccak-256 hash of input.
+0x12a4 PUSH3 75726e // Push 3 bytes onto the stack.
+0x12a8 KECCAK256 // Computes the Keccak-256 hash of input.
+0x12a9 PUSH7 726f6d20746865 // Push 7 bytes onto the stack.
+0x12b1 KECCAK256 // Computes the Keccak-256 hash of input.
+0x12b2 PUSH27 65726f206164647265737342455032303a206275726e20616d6f75 // Push 27 bytes onto the stack.
+0x12ce PUSH15 7420657863656564732062616c616e // Push 15 bytes onto the stack.
+0x12de PUSH4 65424550 // Push 4 bytes onto the stack.
+0x12e3 ORIGIN // Get execution origination address.
+0x12e4 ADDRESS // Get address of currently executing account.
+0x12e5 GASPRICE // Get price of gas in current environment.
+0x12e6 KECCAK256 // Computes the Keccak-256 hash of input.
+0x12e7 PUSH2 7070 // Push 2 bytes onto the stack.
+0x12ea PUSH19 6f766520746f20746865207a65726f20616464 // Push 19 bytes onto the stack.
+0x12fe PUSH19 657373a265627a7a72315820256f1d44cbbe2c // Push 19 bytes onto the stack.
+0x1312 opcode 0xc0 not defined
+0x1313 MSIZE // Get size of active memory in bytes.
+0x1314 SGT // Signed greater than.
+0x1315 opcode 0xe9 not defined
+0x1316 opcode 0xdd not defined
+0x1317 DUP11 // Duplicates the 11th stack item.
+0x1318 MOD // Modulus remainder operation.
+0x1319 MOD // Modulus remainder operation.
+0x131a POP // Remove item from stack.
+0x131b opcode 0xc0 not defined
+0x131c SWAP3 // Swaps the top stack item with the 4th stack item.
+0x131d MSTORE // Save word to memory.
+0x131e opcode 0xc not defined
+0x131f opcode 0xfc not defined
+0x1320 CREATE // Create a new account with associated code.
+0x1321 PUSH1 e4 // Push 1 byte onto the stack.
+0x1323 BASEFEE // Get the base fee of the current block.
+0x1324 DUP6 // Duplicates the 6th stack item.
+0x1325 MLOAD // Load word from memory.
+0x1326 opcode 0x1e not defined
+0x1327 SWAP15 // Swaps the top stack item with the 16th stack item.
+0x1328 SWAP4 // Swaps the top stack item with the 5th stack item.
+0x1329 opcode 0xc3 not defined
+0x132a DUP16 // Duplicates the 16th stack item.
+0x132b PUSH5 736f6c6343 // Push 5 bytes onto the stack.
+0x1331 STOP // Halts execution.
+0x1332 SDIV // Signed division operation.
+0x1333 LT // Checks if the first item is less than the second.
+0x1334 STOP // Halts execution.
+0x1335 ORIGIN // Get execution origination address.

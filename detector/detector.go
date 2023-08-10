@@ -2,11 +2,13 @@ package detector
 
 import (
 	"context"
+	"encoding/hex"
 
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/ir"
+	"github.com/txpull/solgo/opcode"
 	"github.com/txpull/solgo/solc"
 )
 
@@ -40,6 +42,11 @@ func NewDetectorFromSources(ctx context.Context, sources solgo.Sources) (*Detect
 	}, nil
 }
 
+// GetContext returns the context associated with the Detector.
+func (d *Detector) GetContext() context.Context {
+	return d.ctx
+}
+
 // GetSources returns the Solidity source files associated with the Detector.
 func (d *Detector) GetSources() solgo.Sources {
 	return d.sources
@@ -68,4 +75,21 @@ func (d *Detector) GetParser() *solgo.Parser {
 // GetSolc returns the solc compiler selector associated with the Detector.
 func (d *Detector) GetSolc() *solc.Select {
 	return d.solc
+}
+
+// GetOpcodes returns the opcodes decompiler from provided byte array.
+// It decompiles the bytecode of the contract, transaction, log to EVM opcodes.
+func (d *Detector) GetOpcodes(data []byte) (*opcode.Decompiler, error) {
+	return opcode.NewDecompiler(d.ctx, data)
+}
+
+// GetOpcodesFromHex returns the opcodes decompiler from provided hexadecimal string.
+// It decompiles the bytecode of the contract, transaction, log to EVM opcodes.
+func (d *Detector) GetOpcodesFromHex(data string) (*opcode.Decompiler, error) {
+	hexData, err := hex.DecodeString(data)
+	if err != nil {
+		return nil, err
+	}
+
+	return opcode.NewDecompiler(d.ctx, hexData)
 }
