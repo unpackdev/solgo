@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -37,8 +36,6 @@ func ReadContractFileForTest(t *testing.T, name string) TestContract {
 func ReadContractFileForTestFromRootPath(t *testing.T, name string) TestContract {
 	dir, err := os.Getwd()
 	assert.NoError(t, err)
-
-	fmt.Println(dir)
 
 	contractsDir := filepath.Join(dir, "data", "tests")
 	path := filepath.Join(contractsDir, name+".sol")
@@ -76,6 +73,23 @@ func ReadJsonBytesForTestFromRootPath(t *testing.T, name string) TestContract {
 
 	contractsDir := filepath.Join(dir, "data", "tests")
 	path := filepath.Join(contractsDir, name+".json")
+
+	_, err = os.Stat(contractsDir)
+	assert.NoError(t, err)
+
+	content, err := os.ReadFile(filepath.Clean(path))
+	assert.NoError(t, err)
+
+	return TestContract{Path: path, Content: string(content), Bytes: content}
+}
+
+// ReadDumpBytesForTest reads a dump file for testing purposes
+func ReadDumpBytesForTest(t *testing.T, name string) TestContract {
+	dir, err := os.Getwd()
+	assert.NoError(t, err)
+
+	contractsDir := filepath.Join(dir, "..", "data", "tests")
+	path := filepath.Join(contractsDir, name+".dump")
 
 	_, err = os.Stat(contractsDir)
 	assert.NoError(t, err)
