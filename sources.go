@@ -29,6 +29,17 @@ type Sources struct {
 // Prepare validates and prepares the Sources. It checks if each SourceUnit has either a path or content and a name.
 // If a SourceUnit has a path but no content, it reads the content from the file at the path.
 func (s *Sources) Prepare() error {
+
+	// We should verify that path can be discovered if local sources path is
+	// provided.
+	if s.LocalSourcesPath != "" {
+		if _, err := os.Stat(s.LocalSourcesPath); err != nil {
+			return fmt.Errorf("local sources path %s does not exist", s.LocalSourcesPath)
+		}
+	} else {
+		s.LocalSourcesPath = "./sources/"
+	}
+
 	for _, sourceUnit := range s.SourceUnits {
 		if sourceUnit.Path == "" && sourceUnit.Content == "" {
 			return fmt.Errorf("source unit must have either path or content")

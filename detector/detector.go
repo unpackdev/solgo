@@ -7,6 +7,7 @@ import (
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
+	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/opcode"
 	"github.com/txpull/solgo/solc"
@@ -24,6 +25,12 @@ type Detector struct {
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
 // It sets up the ABI builder and solc compiler selector which provide access to Global parser, AST and IR.
 func NewDetectorFromSources(ctx context.Context, sources solgo.Sources) (*Detector, error) {
+	if !eip.StandardsLoaded() {
+		if err := eip.LoadStandards(); err != nil {
+			return nil, err
+		}
+	}
+
 	builder, err := abi.NewBuilderFromSources(ctx, sources)
 	if err != nil {
 		return nil, err
@@ -92,4 +99,14 @@ func (d *Detector) GetOpcodesFromHex(data string) (*opcode.Decompiler, error) {
 	}
 
 	return opcode.NewDecompiler(d.ctx, hexData)
+}
+
+// Parse parses the Solidity source code and returns the errors encountered during the process.
+func (d *Detector) Parse() []error {
+	return d.builder.Parse()
+}
+
+// Build builds the ABI from the parsed source code and returns the errors encountered during the process.
+func (d *Detector) Build() error {
+	return d.builder.Build()
 }

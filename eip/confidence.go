@@ -5,6 +5,22 @@ import eip_pb "github.com/txpull/protos/dist/go/eip"
 // ConfidenceLevel represents the confidence level of a discovery.
 type ConfidenceLevel int
 
+// String returns the string representation of the confidence level.
+func (c ConfidenceLevel) String() string {
+	switch c {
+	case HighConfidence:
+		return "high"
+	case MediumConfidence:
+		return "medium"
+	case LowConfidence:
+		return "low"
+	case NoConfidence:
+		return "no_confidence"
+	default:
+		return "unknown"
+	}
+}
+
 // ConfidenceThreshold represents the threshold value for a confidence level.
 type ConfidenceThreshold float64
 
