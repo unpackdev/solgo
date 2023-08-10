@@ -30,7 +30,9 @@ jobs:
           solc-select install 0.8.19
           solc-select use 0.8.19
 
-      - run: go test -v -coverprofile=profile.cov ./...
+      - run: |
+          source solgoenv/bin/activate
+          go test -v -coverprofile=profile.cov ./...
 
       - name: Send coverage
         uses: shogo82148/actions-goveralls@v1.7.0
