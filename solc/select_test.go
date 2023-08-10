@@ -90,6 +90,7 @@ func TestVersions(t *testing.T) {
 			versions, err := s.Versions()
 			assert.GreaterOrEqual(t, len(versions), 1)
 			assert.Equal(t, tt.expectedError, err)
+			assert.NotEmpty(t, s.Current())
 		})
 	}
 }
@@ -123,7 +124,6 @@ func TestUpgrade(t *testing.T) {
 }
 
 func TestNewSelect(t *testing.T) {
-	t.Skip("Skipping test that requires solc-select to be installed")
 	tests := []struct {
 		name             string
 		expectedError    error

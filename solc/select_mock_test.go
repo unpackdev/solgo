@@ -97,12 +97,17 @@ func TestMockVersions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := &Select{
-				commander: &MockCommand{},
+				current: "0.8.19",
+				commander: &MockCommand{
+					current: "0.8.19",
+				},
 			}
 
 			versions, err := s.Versions()
 			assert.Equal(t, tt.expectedVersions, versions)
 			assert.Equal(t, tt.expectedError, err)
+			assert.NotEmpty(t, s.Current())
+			assert.NotEmpty(t, s.commander.Current())
 		})
 	}
 }
