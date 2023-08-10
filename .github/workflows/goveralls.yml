@@ -18,7 +18,10 @@ jobs:
 
       # Install solc-select
       - name: Install solc-select
-        run: pip3 install solc-select
+        run: |
+          python3 -m venv solgoenv
+          source solgoenv/bin/activate
+          pip3 install solc-select
 
       # Install and set a specific version of solc
       - name: Setup solc

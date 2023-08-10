@@ -1,5 +1,10 @@
 package solc
 
+import (
+	"errors"
+	"os"
+)
+
 type Select struct {
 	current   string
 	commander Commander
@@ -15,8 +20,16 @@ func (s *Select) Current() string {
 // If solc-select is not installed, it returns an error.
 // If solc-select is installed, the function fetches the list of available solc versions.
 // It then identifies the currently active solc version and sets it in the returned Select struct.
+// It checks if a Python virtual environment is set and initializes the current solc version.
 // If any step fails, an error is returned.
 func NewSelect() (*Select, error) {
+	if os.Getenv("VIRTUAL_ENV") == "" {
+		return nil, errors.New(
+			"Python virtual environment is not set. Security risk!\n" +
+				"Please run 'python3 -m venv solgoenv' and 'source solgoenv/bin/activate' before running this command.",
+		)
+	}
+
 	toReturn := &Select{
 		commander: &RealCommand{},
 	}
