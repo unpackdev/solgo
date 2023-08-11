@@ -5,6 +5,7 @@ import (
 	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/eip"
+	"go.uber.org/zap"
 )
 
 // RootSourceUnit represents the root of a Solidity contract's AST as an IR node.
@@ -173,8 +174,12 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	}
 
 	entrySourceUnit := root.GetSourceUnitById(root.GetEntrySourceUnit())
-	rootNode.EntryContractId = entrySourceUnit.GetId()
-	rootNode.EntryContractName = entrySourceUnit.GetName()
+	if entrySourceUnit == nil {
+		zap.L().Warn("Entry source unit not found. Make sure it's correctly set.", zap.Int64("id", root.GetEntrySourceUnit()))
+	} else {
+		rootNode.EntryContractId = entrySourceUnit.GetContract().GetId()
+		rootNode.EntryContractName = entrySourceUnit.GetName()
+	}
 
 	for _, su := range root.GetSourceUnits() {
 		rootNode.Contracts = append(

@@ -394,6 +394,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 
 					// Assert the confidence level and threshold against the expected values
 					assert.Equal(t, contract.expectedLevel, discovery.Confidence)
+					assert.NotEmpty(t, discovery.Confidence.String())
 					assert.Equal(t, contract.expectedThreshold, discovery.Threshold)
 					assert.Equal(t, contract.standardTokenCount, discovery.MaximumTokens)
 					assert.Equal(t, contract.discoveredTokenCount, discovery.DiscoveredTokens)
