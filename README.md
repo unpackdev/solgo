@@ -52,11 +52,6 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Ethereum Improvement Proposals (EIP) Registry**: A package designed to provide a structured representation of Ethereum Improvement Proposals (EIPs) and Ethereum Request for Comments (ERCs). It simplifies the interaction with various contract standards by including functions, events, and a registry mechanism crafted for efficient management.
 
 
-## Extensions
-
-- [SolGo RPC](https://github.com/txpull/solgo-rpc) (Coming soon): A RPC server that exposes the functionality of SolGo via a gRPC. This enables the use of SolGo in any language that supports gRPC, including Python, Java, C++, Rust and more.
-- [SolGo AI](https://github.com/txpull/solgo-ai) (Coming soon): A package that provides a set of tools for analyzing smart contracts, including a static analyzer, symbolic executor, and more using Artificial Intelligence (AI) and Machine Learning (ML) techniques.
-
 ## Contributing
 
 Contributions to SolGo are always welcome! If you have a feature request, bug report, or proposal for improvement, please open an issue. If you wish to contribute code, please fork the repository, make your changes, and submit a pull request.
