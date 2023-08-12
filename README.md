@@ -54,7 +54,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 
 ## Contributing
 
-Contributions to SolGo are always welcome! If you have a feature request, bug report, or proposal for improvement, please open an issue. If you wish to contribute code, please fork the repository, make your changes, and submit a pull request.
+Contributions to SolGo are always welcome! Please visit [Contributing](https://github.com/txpull/solgo/wiki/Contributing) for more information on how to get started.
 
 
 ## License
