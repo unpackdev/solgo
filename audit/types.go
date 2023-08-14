@@ -1,7 +1,5 @@
 package audit
 
-import "encoding/json"
-
 // Response represents the top-level structure of the Slither JSON output.
 type Response struct {
 	Success bool     `json:"success"` // Indicates the success status of the audit.
@@ -59,15 +57,4 @@ type TypeSpecificFields struct {
 type AdditionalFields struct {
 	UnderlyingType string `json:"underlying_type"`         // Underlying type of the element.
 	VariableName   string `json:"variable_name,omitempty"` // Name of the variable, if applicable.
-}
-
-// NewResponse creates a new Response object from the given data in bytes.
-// Bytes will be Slither JSON output.
-// Returns an error if the given data is not a valid JSON.
-func NewResponse(data []byte) (*Response, error) {
-	var toReturn *Response
-	if err := json.Unmarshal(data, &toReturn); err != nil {
-		return nil, err
-	}
-	return toReturn, nil
 }

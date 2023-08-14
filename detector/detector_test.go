@@ -10,6 +10,7 @@ import (
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
+	"github.com/txpull/solgo/audit"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/solc"
 	"github.com/txpull/solgo/tests"
@@ -232,6 +233,7 @@ func TestDetectorFromSources(t *testing.T) {
 			assert.IsType(t, &solgo.Parser{}, detector.GetParser())
 			assert.IsType(t, &solgo.Sources{}, detector.GetSources())
 			assert.IsType(t, &solc.Select{}, detector.GetSolc())
+			assert.IsType(t, &audit.Auditor{}, detector.GetAuditor())
 
 			if testCase.opcodeTest {
 				opcodeData := []byte{0x60, 0x01, 0x60, 0x10, 0x01} // PUSH1 0x01 PUSH1 0x10 ADD
