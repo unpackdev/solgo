@@ -3,18 +3,16 @@ package audit
 import (
 	"context"
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/tests"
-	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
-func TestSlither(t *testing.T) {
+func TestAuditor(t *testing.T) {
 	config := zap.NewDevelopmentConfig()
 	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	logger, err := config.Build()
@@ -75,37 +73,20 @@ func TestSlither(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			ctx, cancel := context.WithCancel(context.Background())
-			defer cancel()
-
-			slither, err := NewSlither(ctx, slitherConfig)
+			auditor, err := NewAuditor(context.Background(), slitherConfig, testCase.sources)
 			assert.NoError(t, err)
-			assert.NotNil(t, slither)
+			assert.NotNil(t, auditor)
+			assert.True(t, auditor.IsReady())
+			assert.IsType(t, testCase.sources, auditor.GetSources())
+			assert.IsType(t, slitherConfig, auditor.GetConfig())
+			assert.IsType(t, &Slither{}, auditor.GetSlither())
 
-			version, err := slither.Version()
+			response, err := auditor.Analyze()
 			assert.NoError(t, err)
-			assert.NotEmpty(t, version)
-
-			response, raw, err := slither.Analyze(testCase.sources)
-			assert.NoError(t, err)
-			assert.NotEmpty(t, raw)
-			assert.NotNil(t, response)
-
 			if testCase.wantErr {
 				assert.NotEmpty(t, response.Error)
 				assert.False(t, response.Success)
 			}
-
-			err = utils.WriteToFile(
-				"../data/tests/audits/"+testCase.sources.EntrySourceUnitName+".slither.raw.json",
-				raw,
-			)
-			assert.NoError(t, err)
 		})
 	}
-}
-
-func buildFullPath(relativePath string) string {
-	absPath, _ := filepath.Abs(relativePath)
-	return absPath
 }

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -13,11 +12,14 @@ import (
 	"github.com/txpull/solgo"
 )
 
+// Slither represents a wrapper around the Slither static analysis tool.
 type Slither struct {
-	ctx    context.Context
-	config *Config
+	ctx    context.Context // Context for executing commands.
+	config *Config         // Configuration for the Slither tool.
 }
 
+// NewSlither initializes a new Slither instance with the given context and configuration.
+// It checks for the presence of Slither on the machine and returns an error if not found.
 func NewSlither(ctx context.Context, config *Config) (*Slither, error) {
 	toReturn := &Slither{
 		ctx:    ctx,
@@ -35,7 +37,8 @@ func NewSlither(ctx context.Context, config *Config) (*Slither, error) {
 	return toReturn, nil
 }
 
-// IsInstalled checks if slither is installed on the machine
+// IsInstalled checks if Slither is installed on the machine by querying its version.
+// Returns true if installed, false otherwise.
 func (s *Slither) IsInstalled() bool {
 	cmd := exec.CommandContext(s.ctx, "slither", "--version")
 	if err := cmd.Run(); err != nil {
@@ -44,7 +47,8 @@ func (s *Slither) IsInstalled() bool {
 	return true
 }
 
-// Version retrieves the installed version of slither
+// Version retrieves the installed version of Slither.
+// Returns the version string or an error if unable to determine the version.
 func (s *Slither) Version() (string, error) {
 	cmd := exec.CommandContext(s.ctx, "slither", "--version")
 	var out bytes.Buffer
@@ -56,20 +60,22 @@ func (s *Slither) Version() (string, error) {
 	return version, nil
 }
 
+// Analyze performs a static analysis on the given sources using Slither.
+// It writes the sources to a temporary directory, runs Slither, and then cleans up.
+// Returns the analysis response, raw output, and any errors encountered.
 func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 	if sources == nil {
 		return nil, nil, ErrSourcesNotSet
 	}
 
-	// Make sure that sources are prepared for future consumption
+	// Ensure sources are prepared for analysis.
 	if !sources.ArePrepared() {
 		if err := sources.Prepare(); err != nil {
 			return nil, nil, err
 		}
 	}
 
-	// Write sources into the temporary directory for slither to consume.
-	// Later on we are going to drop this directory.
+	// Write sources to a temporary directory for Slither to analyze.
 	dirName := strings.ToLower(filepath.Base(sources.EntrySourceUnitName))
 	dir := filepath.Clean(filepath.Join(s.config.GetTempDir(), dirName))
 	if err := sources.WriteToDir(dir); err != nil {
@@ -87,36 +93,24 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 		return nil, nil, err
 	}
 
-	// #nosec G204
-	// G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
 	cmd := exec.CommandContext(s.ctx, "slither", args...)
-
 	output, err := cmd.CombinedOutput()
 
-	// @WARN: Figure out better exist status error management!
+	// Handle specific exit statuses.
 	if err != nil && (err.Error() != "exit status 255" && err.Error() != "exit status 4") {
-		fmt.Println(err.Error())
-
-		// Error itself usually gives exit status which is less then helpful to us
-		// at this point so instead, output will be returned back as error.
 		return nil, nil, errors.New(string(output))
 	}
 
-	// Cast the output into the response struct
+	// Parse the output into the Response struct.
 	response, err := NewResponse(output)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	// Lets first truncate the directory to make sure that we are not going to
-	// have any leftovers from the previous runs.
+	// Clean up the temporary directory.
 	if err := sources.TruncateDir(dir); err != nil {
 		return nil, nil, err
 	}
-
-	// Just in case let's remove the directory once we are done with it.
-	// No need for it. TruncateDir() should stay the same as purpose of it is to truncate
-	// the directory and not to remove it.
 	if err := os.Remove(dir); err != nil {
 		return nil, nil, err
 	}

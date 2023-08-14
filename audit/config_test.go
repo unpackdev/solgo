@@ -87,7 +87,7 @@ func TestConfigFunctions(t *testing.T) {
 
 	// Test AppendArguments
 	appendArgs := []string{"--json"}
-	config.AppendArguments(appendArgs)
+	config.AppendArguments(appendArgs...)
 	assert.Equal(t, config.GetArguments(), []string{"-", "--json"})
 }
 
@@ -97,4 +97,7 @@ func TestNewDefaultConfig(t *testing.T) {
 
 	_, err := NewDefaultConfig(tempDir)
 	assert.NoError(t, err)
+
+	_, err = NewDefaultConfig("fo")
+	assert.Error(t, err)
 }
