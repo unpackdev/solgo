@@ -24,9 +24,12 @@ func TestSlither(t *testing.T) {
 
 	// Global configuration for the slither as we'd need to define it only once for
 	// this particular test suite.
-	slitherConfig := &Config{
-		tempDir: buildFullPath("../data/tests/auditor-tests/"),
-	}
+	// Default configuration accepts temporary path so it can be tweaked as you wish.
+	// There are no defaults and this parameter is necessary to be set!
+	slitherConfig, err := NewDefaultConfig(
+		buildFullPath("../data/tests/auditor-tests/"),
+	)
+	assert.NoError(t, err)
 
 	// Define multiple test cases
 	testCases := []struct {
