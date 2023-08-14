@@ -70,4 +70,4 @@ SolGo is licensed under the Apache 2.0. See [LICENSE](LICENSE) for the full lice
 
 ## Acknowledgements
 
-We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible. Not to forget the Slither team for their hard work on the Slither tool as without it we would have hard time detecting vulnerabilities in smart contracts.
+We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible. Not to forget the Crytic and Slither contributors for their hard work on the Slither tool as without it we would have hard time detecting vulnerabilities in smart contracts.
