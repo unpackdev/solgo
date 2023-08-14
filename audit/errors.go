@@ -4,7 +4,7 @@ import "errors"
 
 var (
 	// ErrSlitherNotInstalled is returned when slither is not installed on the machine
-	ErrSlitherNotInstalled = errors.New("Slither is not installed. Please install slither using `pip3 install slither-analyzer`.")
+	ErrSlitherNotInstalled = errors.New("slither is not installed - please install slither using `pip3 install slither-analyzer`")
 
 	// ErrTempDirNotSet is returned when temp directory is not set
 	ErrTempDirNotSet = errors.New("directory where contracts will be temporairly stored is not set")

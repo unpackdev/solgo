@@ -94,7 +94,7 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 	output, err := cmd.CombinedOutput()
 
 	// @WARN: Figure out better exist status error management!
-	if err != nil && err.Error() != "exit status 255" {
+	if err != nil && (err.Error() != "exit status 255" && err.Error() != "exit status 4") {
 		fmt.Println(err.Error())
 
 		// Error itself usually gives exit status which is less then helpful to us
