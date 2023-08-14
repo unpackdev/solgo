@@ -3,6 +3,7 @@ package ir
 import (
 	"context"
 	"encoding/json"
+	"errors"
 
 	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo"
@@ -32,6 +33,10 @@ func NewBuilder(ctx context.Context, parser *solgo.Parser, astBuilder *ast.ASTBu
 // NewBuilderFromSources creates a new IR builder from given sources. It initializes
 // the necessary parser and AST builder from the provided sources.
 func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builder, error) {
+	if sources == nil {
+		return nil, errors.New("sources needed to initialize ir builder")
+	}
+
 	parser, err := solgo.NewParserFromSources(ctx, sources)
 	if err != nil {
 		return nil, err

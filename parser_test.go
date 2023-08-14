@@ -156,14 +156,17 @@ func TestNew_SyntaxErrors(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			// Create a new SolGo instance
-			solGo, err := NewParser(context.Background(), strings.NewReader(tc.contract))
+			parser, err := NewParser(context.Background(), strings.NewReader(tc.contract))
 			assert.NoError(t, err)
-			assert.NotNil(t, solGo)
+			assert.NotNil(t, parser)
 
-			syntaxErrors := solGo.Parse()
+			syntaxErrors := parser.Parse()
 
 			// Check that the syntax errors match the expected syntax errors
 			assert.Equal(t, tc.expected, syntaxErrors)
+			assert.IsType(t, []syntaxerrors.SyntaxError{}, syntaxErrors)
+			assert.IsType(t, &Sources{}, parser.GetSources())
+			assert.IsType(t, &syntaxerrors.ContextualParser{}, parser.GetContextualParser())
 		})
 	}
 }

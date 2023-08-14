@@ -270,6 +270,8 @@ func TestSlither(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotNil(t, slither)
 
+			assert.True(t, slither.IsInstalled())
+
 			version, err := slither.Version()
 			assert.NoError(t, err)
 			assert.NotEmpty(t, version)

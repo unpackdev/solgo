@@ -65,8 +65,11 @@ func TestSources(t *testing.T) {
 			assert.NotNil(t, testCase.sources.ToProto())
 			assert.NoError(t, testCase.sources.WriteToDir("./data/tests/sources/"))
 			assert.NoError(t, testCase.sources.TruncateDir("./data/tests/sources/"))
+			assert.True(t, testCase.sources.ArePrepared())
 			assert.True(t, testCase.sources.SourceUnitExistsIn(testCase.sources.SourceUnits[0].Name, testCase.sources.SourceUnits))
 			assert.True(t, testCase.sources.SourceUnitExists(testCase.sources.SourceUnits[0].Name))
+			assert.NotNil(t, testCase.sources.GetSourceUnitByName(testCase.sources.SourceUnits[0].Name))
+			assert.NotNil(t, testCase.sources.GetSourceUnitByPath(testCase.sources.SourceUnits[0].Path))
 		})
 	}
 }
