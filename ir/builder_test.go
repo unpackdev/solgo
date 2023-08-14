@@ -25,7 +25,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 	testCases := []struct {
 		name                 string
 		outputPath           string
-		sources              solgo.Sources
+		sources              *solgo.Sources
 		expectedAst          string
 		expectedProto        string
 		unresolvedReferences int64
@@ -33,7 +33,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		{
 			name:       "Empty Contract Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Empty",
@@ -52,7 +52,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "MathLib",
@@ -76,7 +76,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		{
 			name:       "OpenZeppelin ERC20 Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "SafeMath",
@@ -116,7 +116,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		{
 			name:       "Token Sale ERC20 Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "TokenSale",
@@ -144,7 +144,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		{
 			name:       "Lottery Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Lottery",
@@ -162,7 +162,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		{
 			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
 			outputPath: "contracts/cheelee/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Import",

@@ -15,7 +15,7 @@ import (
 // Builder facilitates the construction of Ethereum ABIs.
 type Builder struct {
 	ctx        context.Context // Context for the builder operations.
-	sources    solgo.Sources   // Source files to be processed.
+	sources    *solgo.Sources  // Source files to be processed.
 	parser     *ir.Builder     // Parser for the source code.
 	astBuilder *ast.ASTBuilder // AST Builder for generating AST from parsed source.
 	root       *Root           // Root of the generated ABI.
@@ -24,7 +24,7 @@ type Builder struct {
 
 // NewBuilderFromSources initializes a new ABI builder using the provided sources.
 // It sets up the necessary IR builder based on the given sources.
-func NewBuilderFromSources(ctx context.Context, sources solgo.Sources) (*Builder, error) {
+func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builder, error) {
 	parser, err := ir.NewBuilderFromSources(context.TODO(), sources)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func NewBuilderFromSources(ctx context.Context, sources solgo.Sources) (*Builder
 }
 
 // GetSources returns the source files being processed.
-func (b *Builder) GetSources() solgo.Sources {
+func (b *Builder) GetSources() *solgo.Sources {
 	return b.sources
 }
 

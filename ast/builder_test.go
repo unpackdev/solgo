@@ -25,7 +25,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 	testCases := []struct {
 		name                 string
 		outputPath           string
-		sources              solgo.Sources
+		sources              *solgo.Sources
 		expectedAst          string
 		expectedProto        string
 		unresolvedReferences int64
@@ -33,7 +33,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "Empty Contract Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Empty",
@@ -51,7 +51,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "MathLib",
@@ -74,7 +74,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "OpenZeppelin ERC20 Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "SafeMath",
@@ -112,7 +112,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "Token With Reference Resolution",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Token",
@@ -130,7 +130,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "Token Sale ERC20 Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "TokenSale",
@@ -158,7 +158,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "Lottery Test",
 			outputPath: "ast/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Lottery",
@@ -176,7 +176,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 		{
 			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
 			outputPath: "contracts/cheelee/",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Import",

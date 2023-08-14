@@ -15,7 +15,7 @@ type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
 	resolver              *Resolver
 	tree                  *Tree
-	sources               solgo.Sources          // sources is the source code of the Solidity files.
+	sources               *solgo.Sources         // sources is the source code of the Solidity files.
 	parser                *parser.SolidityParser // parser is the Solidity parser instance.
 	nextID                int64                  // nextID is the next ID to assign to a node.
 	comments              []*Comment
@@ -32,7 +32,7 @@ type ASTBuilder struct {
 }
 
 // NewAstBuilder creates a new ASTBuilder with the provided Solidity parser and source code.
-func NewAstBuilder(parser *parser.SolidityParser, sources solgo.Sources) *ASTBuilder {
+func NewAstBuilder(parser *parser.SolidityParser, sources *solgo.Sources) *ASTBuilder {
 	builder := &ASTBuilder{
 		parser:      parser,
 		sources:     sources,

@@ -10,7 +10,7 @@ import (
 
 func TestContinueStatement(t *testing.T) {
 	// Initialize the ASTBuilder and ContinueStatement
-	b := NewAstBuilder(nil, solgo.Sources{})
+	b := NewAstBuilder(nil, &solgo.Sources{})
 	cs := NewContinueStatement(b)
 
 	// Define test cases

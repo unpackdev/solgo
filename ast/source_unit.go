@@ -39,7 +39,7 @@ func NewSourceUnit[T any](builder *ASTBuilder, name string, license string) *Sou
 }
 
 // SetAbsolutePathFromSources sets the absolute path of the source unit from the provided sources.
-func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources solgo.Sources) {
+func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources *solgo.Sources) {
 	for _, unit := range sources.SourceUnits {
 		if unit.Name == s.Name {
 			s.AbsolutePath = unit.Path

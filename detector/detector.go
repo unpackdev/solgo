@@ -17,14 +17,14 @@ import (
 // Solidity source code. It encapsulates the context, sources, ABI builder, and solc compiler selector.
 type Detector struct {
 	ctx     context.Context // Context for the builder operations.
-	sources solgo.Sources   // Source files to be processed.
+	sources *solgo.Sources  // Source files to be processed.
 	builder *abi.Builder    // ABI builder for the source code.
 	solc    *solc.Select    // Solc selector for the solc compiler.
 }
 
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
 // It sets up the ABI builder and solc compiler selector which provide access to Global parser, AST and IR.
-func NewDetectorFromSources(ctx context.Context, sources solgo.Sources) (*Detector, error) {
+func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detector, error) {
 	if !eip.StandardsLoaded() {
 		if err := eip.LoadStandards(); err != nil {
 			return nil, err
@@ -55,7 +55,7 @@ func (d *Detector) GetContext() context.Context {
 }
 
 // GetSources returns the Solidity source files associated with the Detector.
-func (d *Detector) GetSources() solgo.Sources {
+func (d *Detector) GetSources() *solgo.Sources {
 	return d.sources
 }
 

@@ -23,13 +23,13 @@ func TestResolver(t *testing.T) {
 	// Define multiple test cases
 	testCases := []struct {
 		name                 string
-		sources              solgo.Sources
+		sources              *solgo.Sources
 		expected             string
 		unresolvedReferences int64
 	}{
 		{
 			name: "Test Case 1 - Simple Test Contract",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "TestContract",
@@ -44,7 +44,7 @@ func TestResolver(t *testing.T) {
 		},
 		{
 			name: "Test Case 2 - Contract with Inheritance",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "BaseContract",
@@ -64,7 +64,7 @@ func TestResolver(t *testing.T) {
 		},
 		{
 			name: "Test Case 3 - Contract with Library",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "SafeMath",
@@ -84,7 +84,7 @@ func TestResolver(t *testing.T) {
 		},
 		{
 			name: "Test Case 4 - Contract with Interface",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "IERC20",

@@ -6,7 +6,11 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
+
+	sources_pb "github.com/txpull/protos/dist/go/sources"
+	"github.com/txpull/solgo/metadata"
 )
 
 var ErrPathFound = errors.New("path found")
@@ -18,12 +22,66 @@ type SourceUnit struct {
 	Content string `yaml:"content" json:"content"`
 }
 
+// ToProto converts a SourceUnit to a protocol buffer SourceUnit.
+func (s *SourceUnit) ToProto() *sources_pb.SourceUnit {
+	return &sources_pb.SourceUnit{
+		Name:    s.Name,
+		Path:    s.Path,
+		Content: s.Content,
+	}
+}
+
 // Sources represents a collection of SourceUnit. It includes a slice of SourceUnit and the name of the entry source unit.
 type Sources struct {
 	SourceUnits          []*SourceUnit `yaml:"source_units" json:"source_units"`
 	EntrySourceUnitName  string        `yaml:"entry_source_unit" json:"base_source_unit"`
 	MaskLocalSourcesPath bool          `yaml:"mask_local_sources_path" json:"mask_local_sources_path"`
 	LocalSourcesPath     string        `yaml:"local_sources_path" json:"local_sources_path"`
+}
+
+// ToProto converts a Sources to a protocol buffer Sources.
+func (s *Sources) ToProto() *sources_pb.Sources {
+	var sourceUnits []*sources_pb.SourceUnit
+	for _, sourceUnit := range s.SourceUnits {
+		sourceUnits = append(sourceUnits, sourceUnit.ToProto())
+	}
+
+	return &sources_pb.Sources{
+		EntrySourceUnitName:  s.EntrySourceUnitName,
+		MaskLocalSourcesPath: s.MaskLocalSourcesPath,
+		LocalSourcesPath:     s.LocalSourcesPath,
+		SourceUnits:          sourceUnits,
+	}
+}
+
+// NewSourcesFromMetadata creates a Sources from a metadata package ContractMetadata.
+// This is a helper function that ensures easier integration when working with the metadata package.
+func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+	}
+
+	// First target is the target of the entry source unit...
+	for _, name := range md.Settings.CompilationTarget {
+		sources.EntrySourceUnitName = name
+		break
+	}
+
+	// Getting name looks surreal and easy, probably won't work in all cases and is
+	// too good to be true.
+	for name, source := range md.Sources {
+		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+			Name:    strings.TrimRight(filepath.Base(name), ".sol"),
+			Path:    name,
+			Content: source.Content,
+		})
+	}
+
+	return sources
 }
 
 // Prepare validates and prepares the Sources. It checks if each SourceUnit has either a path or content and a name.
