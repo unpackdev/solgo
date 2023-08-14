@@ -1,8 +1,9 @@
 package solc
 
 import (
-	"errors"
 	"os"
+
+	"go.uber.org/zap"
 )
 
 // Select represents a utility structure that manages the version of solc in use.
@@ -24,12 +25,12 @@ func (s *Select) Current() string {
 // 3. If solc-select is installed, the function fetches the list of available solc versions.
 // 4. Identifies the currently active solc version and sets it in the returned Select struct.
 // 5. Checks if a Python virtual environment is set and initializes the current solc version.
-// If any of the above steps fail, an error is returned.
+// If any of the above steps fail, an error and/or warning is returned.
 func NewSelect() (*Select, error) {
 	if os.Getenv("VIRTUAL_ENV") == "" {
-		return nil, errors.New(
-			"Python virtual environment is not set. Security risk!\n" +
-				"Please run 'python3 -m venv solgoenv' and 'source solgoenv/bin/activate' before running this command.",
+		zap.L().Warn(
+			"Python virtual environment is not set. Security risk!",
+			zap.String("message", "Please run 'python3 -m venv solgoenv' and 'source solgoenv/bin/activate' before running this command."),
 		)
 	}
 
