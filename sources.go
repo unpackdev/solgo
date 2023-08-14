@@ -34,10 +34,16 @@ func (s *SourceUnit) ToProto() *sources_pb.SourceUnit {
 
 // Sources represents a collection of SourceUnit. It includes a slice of SourceUnit and the name of the entry source unit.
 type Sources struct {
+	prepared             bool          `yaml:"-" json:"-"`
 	SourceUnits          []*SourceUnit `yaml:"source_units" json:"source_units"`
 	EntrySourceUnitName  string        `yaml:"entry_source_unit" json:"base_source_unit"`
 	MaskLocalSourcesPath bool          `yaml:"mask_local_sources_path" json:"mask_local_sources_path"`
 	LocalSourcesPath     string        `yaml:"local_sources_path" json:"local_sources_path"`
+}
+
+// ArePrepared returns true if the Sources has been prepared.
+func (s *Sources) ArePrepared() bool {
+	return s.prepared
 }
 
 // ToProto converts a Sources to a protocol buffer Sources.
@@ -125,6 +131,9 @@ func (s *Sources) Prepare() error {
 
 		s.SourceUnits = append(s.SourceUnits, importUnits...)
 	}
+
+	// Mark sources as prepared for future use.
+	s.prepared = true
 
 	return nil
 }
@@ -260,7 +269,7 @@ func (s *Sources) SourceUnitExistsIn(name string, units []*SourceUnit) bool {
 func (s *Sources) WriteToDir(path string) error {
 	// Ensure the specified directory exists or create it
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		if err := os.MkdirAll(path, 0600); err != nil {
+		if err := os.MkdirAll(path, 0700); err != nil {
 			return fmt.Errorf("failed to create directory %s: %v", path, err)
 		}
 	}
