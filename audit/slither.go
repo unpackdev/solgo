@@ -93,6 +93,8 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 		return nil, nil, err
 	}
 
+	// #nosec G204
+	// G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
 	cmd := exec.CommandContext(s.ctx, "slither", args...)
 	output, err := cmd.CombinedOutput()
 
