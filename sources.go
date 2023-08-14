@@ -11,6 +11,7 @@ import (
 
 	sources_pb "github.com/txpull/protos/dist/go/sources"
 	"github.com/txpull/solgo/metadata"
+	"github.com/txpull/solgo/utils"
 )
 
 var ErrPathFound = errors.New("path found")
@@ -259,8 +260,7 @@ func (s *Sources) SourceUnitExistsIn(name string, units []*SourceUnit) bool {
 func (s *Sources) WriteToDir(path string) error {
 	// Ensure the specified directory exists or create it
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		err := os.MkdirAll(path, 0600)
-		if err != nil {
+		if err := os.MkdirAll(path, 0600); err != nil {
 			return fmt.Errorf("failed to create directory %s: %v", path, err)
 		}
 	}
@@ -268,8 +268,7 @@ func (s *Sources) WriteToDir(path string) error {
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
-		err := os.WriteFile(filePath, []byte(sourceUnit.Content), 0644)
-		if err != nil {
+		if err := utils.WriteToFile(filePath, []byte(sourceUnit.Content)); err != nil {
 			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
 		}
 	}
@@ -280,7 +279,7 @@ func (s *Sources) WriteToDir(path string) error {
 // TruncateDir removes all files and subdirectories within the specified directory.
 func (s *Sources) TruncateDir(path string) error {
 	// Open the directory
-	dir, err := os.Open(path)
+	dir, err := os.Open(filepath.Clean(path))
 	if err != nil {
 		return fmt.Errorf("failed to open directory %s: %v", path, err)
 	}
