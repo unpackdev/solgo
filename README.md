@@ -56,7 +56,7 @@ Makes no sense to rewrite all of that hard work just to be written in Go. Theref
 - **Syntax Error Handling**: SolGo includes listener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Automatic Source Detection**: SolGo automatically loads and integrates Solidity contracts from well-known libraries such as [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts).
 - **Ethereum Improvement Proposals (EIP) Registry**: A package designed to provide a structured representation of Ethereum Improvement Proposals (EIPs) and Ethereum Request for Comments (ERCs). It simplifies the interaction with various contract standards by including functions, events, and a registry mechanism crafted for efficient management.
-
+- **Security Audits**: SolGo now includes an Audit package that is specifically designed to detect security vulnerabilities in Solidity smart contracts. This package uses [Slither](https://github.com/crytic/slither) advanced algorithms and patterns to scan and identify potential threats and weaknesses in the codebase, ensuring that contracts are secure and robust against malicious attacks.
 
 ## Contributing
 
