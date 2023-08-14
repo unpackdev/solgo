@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -94,6 +95,8 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 
 	// @WARN: Figure out better exist status error management!
 	if err != nil && err.Error() != "exit status 255" {
+		fmt.Println(err.Error())
+
 		// Error itself usually gives exit status which is less then helpful to us
 		// at this point so instead, output will be returned back as error.
 		return nil, nil, errors.New(string(output))

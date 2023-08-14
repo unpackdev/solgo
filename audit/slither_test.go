@@ -2,9 +2,11 @@ package audit
 
 import (
 	"context"
+	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/tests"
@@ -26,19 +28,16 @@ func TestSlither(t *testing.T) {
 	// this particular test suite.
 	// Default configuration accepts temporary path so it can be tweaked as you wish.
 	// There are no defaults and this parameter is necessary to be set!
-	slitherConfig, err := NewDefaultConfig(
-		buildFullPath("../data/tests/auditor-tests/"),
-	)
+	slitherConfig, err := NewDefaultConfig(os.TempDir())
+
 	assert.NoError(t, err)
 
 	// Define multiple test cases
 	testCases := []struct {
-		name                 string
-		outputPath           string
-		sources              *solgo.Sources
-		expectedAbi          string
-		expectedProto        string
-		unresolvedReferences int64
+		name       string
+		outputPath string
+		sources    *solgo.Sources
+		wantErr    bool
 	}{
 		{
 			name:       "Reentrancy Contract Test",
@@ -55,9 +54,24 @@ func TestSlither(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			//expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/Empty.abi").Content,
-			//expectedProto:        tests.ReadJsonBytesForTest(t, "abi/Empty.abi.proto").Content,
-			unresolvedReferences: 0,
+			wantErr: false,
+		},
+		{
+			name:       "FooBar Contract Test",
+			outputPath: "audits/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "FooBar",
+						Path:    tests.ReadContractFileForTest(t, "audits/FooBar").Path,
+						Content: tests.ReadContractFileForTest(t, "audits/FooBar").Content,
+					},
+				},
+				EntrySourceUnitName:  "FooBar",
+				MaskLocalSourcesPath: false,
+				LocalSourcesPath:     buildFullPath("../sources/"),
+			},
+			wantErr: true,
 		},
 	}
 
@@ -79,11 +93,18 @@ func TestSlither(t *testing.T) {
 			assert.NotEmpty(t, raw)
 			assert.NotNil(t, response)
 
+			if testCase.wantErr {
+				assert.NotEmpty(t, response.Error)
+				assert.False(t, response.Success)
+			}
+
 			err = utils.WriteToFile(
 				"../data/tests/audits/"+testCase.sources.EntrySourceUnitName+".slither.raw.json",
 				raw,
 			)
 			assert.NoError(t, err)
+
+			spew.Dump(response)
 		})
 	}
 }
