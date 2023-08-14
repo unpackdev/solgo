@@ -240,6 +240,79 @@ func (s *Sources) GetLocalSource(partialPath string, relativeTo string) (*Source
 	return source, nil
 }
 
+// SourceUnitExists returns true if a SourceUnit with the given name exists in the Sources.
+func (s *Sources) SourceUnitExists(name string) bool {
+	return s.SourceUnitExistsIn(name, s.SourceUnits)
+}
+
+// SourceUnitExistsIn returns true if a SourceUnit with the given name exists in the given slice of SourceUnits.
+func (s *Sources) SourceUnitExistsIn(name string, units []*SourceUnit) bool {
+	for _, sourceUnit := range units {
+		if sourceUnit.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
+// WriteToDir writes each SourceUnit's content to a file in the specified directory.
+func (s *Sources) WriteToDir(path string) error {
+	// Ensure the specified directory exists or create it
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		err := os.MkdirAll(path, 0600)
+		if err != nil {
+			return fmt.Errorf("failed to create directory %s: %v", path, err)
+		}
+	}
+
+	// Write each SourceUnit's content to a file in the specified directory
+	for _, sourceUnit := range s.SourceUnits {
+		filePath := filepath.Join(path, sourceUnit.Name+".sol")
+		err := os.WriteFile(filePath, []byte(sourceUnit.Content), 0644)
+		if err != nil {
+			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
+		}
+	}
+
+	return nil
+}
+
+// TruncateDir removes all files and subdirectories within the specified directory.
+func (s *Sources) TruncateDir(path string) error {
+	// Open the directory
+	dir, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("failed to open directory %s: %v", path, err)
+	}
+	defer dir.Close()
+
+	// Read the directory entries
+	entries, err := dir.Readdir(-1)
+	if err != nil {
+		return fmt.Errorf("failed to read directory entries for %s: %v", path, err)
+	}
+
+	// Iterate over each entry and remove it
+	for _, entry := range entries {
+		entryPath := filepath.Join(path, entry.Name())
+		if entry.IsDir() {
+			// If the entry is a directory, recursively remove it
+			err := os.RemoveAll(entryPath)
+			if err != nil {
+				return fmt.Errorf("failed to remove directory %s: %v", entryPath, err)
+			}
+		} else {
+			// If the entry is a file, remove it
+			err := os.Remove(entryPath)
+			if err != nil {
+				return fmt.Errorf("failed to remove file %s: %v", entryPath, err)
+			}
+		}
+	}
+
+	return nil
+}
+
 // handleImports extracts import statements from the source unit and adds them to the sources.
 func (s *Sources) handleImports(sourceUnit *SourceUnit) ([]*SourceUnit, error) {
 	imports := extractImports(sourceUnit.Content)
@@ -280,19 +353,7 @@ func (s *Sources) handleImports(sourceUnit *SourceUnit) ([]*SourceUnit, error) {
 	return sourceUnits, nil
 }
 
-func (s *Sources) SourceUnitExists(name string) bool {
-	return s.SourceUnitExistsIn(name, s.SourceUnits)
-}
-
-func (s *Sources) SourceUnitExistsIn(name string, units []*SourceUnit) bool {
-	for _, sourceUnit := range units {
-		if sourceUnit.Name == name {
-			return true
-		}
-	}
-	return false
-}
-
+// extractImports extracts import statements from the source unit.
 func extractImports(content string) []string {
 	re := regexp.MustCompile(`import "(.*?)";`)
 	matches := re.FindAllStringSubmatch(content, -1)
@@ -305,6 +366,7 @@ func extractImports(content string) []string {
 	return imports
 }
 
+// replaceOpenZeppelin replaces the @openzeppelin path with the actual path to the openzeppelin-contracts repository.
 func replaceOpenZeppelin(path string) string {
 	return strings.Replace(path, "@openzeppelin", filepath.Join("./sources/", "openzeppelin"), 1)
 }
