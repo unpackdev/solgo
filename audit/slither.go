@@ -75,9 +75,11 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 		return nil, nil, err
 	}
 
-	// Run slither on the temporary directory
-	cmd := exec.CommandContext(s.ctx, "slither", dir, "--json", "-")
+	args := []string{dir}
+	args = append(args, s.config.Arguments...)
+	cmd := exec.CommandContext(s.ctx, "slither", args...)
 	output, err := cmd.CombinedOutput()
+
 	// @WARN: Figure out better exist status error management!
 	if err != nil && err.Error() != "exit status 255" {
 		// Error itself usually gives exit status which is less then helpful to us
