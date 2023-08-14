@@ -76,7 +76,16 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 	}
 
 	args := []string{dir}
-	args = append(args, s.config.Arguments...)
+	sanitizedArgs, err := s.config.SanitizeArguments(s.config.Arguments)
+	if err != nil {
+		return nil, nil, err
+	}
+	args = append(args, sanitizedArgs...)
+
+	if err := s.config.Validate(); err != nil {
+		return nil, nil, err
+	}
+
 	cmd := exec.CommandContext(s.ctx, "slither", args...)
 	output, err := cmd.CombinedOutput()
 
