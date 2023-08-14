@@ -86,7 +86,9 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 		return nil, nil, err
 	}
 
+	/* #nosec */
 	cmd := exec.CommandContext(s.ctx, "slither", args...)
+
 	output, err := cmd.CombinedOutput()
 
 	// @WARN: Figure out better exist status error management!
