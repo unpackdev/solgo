@@ -39,6 +39,12 @@ Link to the grammar files can be found [here](https://github.com/ethereum/solidi
 
 We are using the ANTLR4 Go runtime library to generate the parser. Repository can be found [here](https://github.com/antlr4-go/antlr).
 
+## Crytic Slither
+
+We are using Slither to detect vulnerabilities in smart contracts. Repository can be found [here](https://github.com/crytic/slither).
+
+Makes no sense to rewrite all of that hard work just to be written in Go. Therefore, a bit of python will not hurt. In the future we may change direction.
+
 
 ## Features
 
@@ -64,4 +70,4 @@ SolGo is licensed under the Apache 2.0. See [LICENSE](LICENSE) for the full lice
 
 ## Acknowledgements
 
-We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible.
+We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible. Not to forget the Slither team for their hard work on the Slither tool as without it we would have hard time detecting vulnerabilities in smart contracts.
