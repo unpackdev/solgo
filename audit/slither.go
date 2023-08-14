@@ -29,10 +29,6 @@ func NewSlither(ctx context.Context, config *Config) (*Slither, error) {
 		return nil, ErrTempDirNotSet
 	}
 
-	if !toReturn.IsInstalled() {
-		return nil, ErrSlitherNotInstalled
-	}
-
 	return toReturn, nil
 }
 

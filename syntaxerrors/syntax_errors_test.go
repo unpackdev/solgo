@@ -87,6 +87,14 @@ func TestSyntaxErrorListener(t *testing.T) {
 
 			// Check that the errors match the expected errors
 			assert.Equal(t, tc.expected, listener.Errors)
+
+			for _, err := range listener.Errors {
+				assert.Equal(t, err.Context, "SourceUnit")
+				assert.Equal(t, err.Severity.String(), SeverityError.String())
+				assert.Equal(t, err.Line > 0, true)
+				assert.Equal(t, err.Message != "", true)
+				assert.NotEmpty(t, err.Error())
+			}
 		})
 	}
 }

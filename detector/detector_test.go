@@ -29,9 +29,10 @@ func TestDetectorFromSources(t *testing.T) {
 
 	// Define multiple test cases
 	testCases := []struct {
-		name       string
-		sources    *solgo.Sources
-		opcodeTest bool
+		name               string
+		sources            *solgo.Sources
+		opcodeTest         bool
+		corruptNewDetector bool
 	}{
 		{
 			name: "Empty Contract Test",
@@ -47,7 +48,8 @@ func TestDetectorFromSources(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			opcodeTest: true,
+			opcodeTest:         true,
+			corruptNewDetector: true,
 		},
 		{
 			name: "Simple Storage Contract Test",
@@ -235,6 +237,12 @@ func TestDetectorFromSources(t *testing.T) {
 			assert.IsType(t, &solc.Select{}, detector.GetSolc())
 			assert.IsType(t, &audit.Auditor{}, detector.GetAuditor())
 
+			syntaxErrs := detector.Parse()
+			assert.Equal(t, len(syntaxErrs), 0)
+
+			err = detector.Build()
+			assert.NoError(t, err)
+
 			if testCase.opcodeTest {
 				opcodeData := []byte{0x60, 0x01, 0x60, 0x10, 0x01} // PUSH1 0x01 PUSH1 0x10 ADD
 				opcode, err := detector.GetOpcodes(opcodeData)
@@ -245,6 +253,16 @@ func TestDetectorFromSources(t *testing.T) {
 				opcode, err = detector.GetOpcodesFromHex(opcodeString)
 				assert.NoError(t, err)
 				assert.NotNil(t, opcode)
+
+				opcode, err = detector.GetOpcodesFromHex("|fff")
+				assert.Error(t, err)
+				assert.Nil(t, opcode)
+			}
+
+			if testCase.corruptNewDetector {
+				detector, err := NewDetectorFromSources(ctx, nil)
+				assert.Error(t, err)
+				assert.Nil(t, detector)
 			}
 		})
 	}

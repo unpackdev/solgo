@@ -3,6 +3,7 @@ package detector
 import (
 	"context"
 	"encoding/hex"
+	"errors"
 	"os"
 
 	"github.com/txpull/solgo"
@@ -28,6 +29,10 @@ type Detector struct {
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
 // It sets up the ABI builder and solc compiler selector which provide access to Global parser, AST and IR.
 func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detector, error) {
+	if sources == nil {
+		return nil, errors.New("sources needed to initialize detector")
+	}
+
 	if !eip.StandardsLoaded() {
 		if err := eip.LoadStandards(); err != nil {
 			return nil, err
