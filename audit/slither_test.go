@@ -1,24 +1,20 @@
-package detector
+package audit
 
 import (
 	"context"
-	"encoding/hex"
+	"os"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/abi"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/audit"
-	"github.com/txpull/solgo/ir"
-	"github.com/txpull/solgo/solc"
 	"github.com/txpull/solgo/tests"
+	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
-func TestDetectorFromSources(t *testing.T) {
+func TestSlither(t *testing.T) {
 	config := zap.NewDevelopmentConfig()
 	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	logger, err := config.Build()
@@ -27,14 +23,57 @@ func TestDetectorFromSources(t *testing.T) {
 	// Replace the global logger.
 	zap.ReplaceGlobals(logger)
 
+	// Global configuration for the slither as we'd need to define it only once for
+	// this particular test suite.
+	// Default configuration accepts temporary path so it can be tweaked as you wish.
+	// There are no defaults and this parameter is necessary to be set!
+	slitherConfig, err := NewDefaultConfig(os.TempDir())
+	assert.NoError(t, err)
+
 	// Define multiple test cases
 	testCases := []struct {
 		name       string
+		outputPath string
 		sources    *solgo.Sources
-		opcodeTest bool
+		wantErr    bool
 	}{
 		{
-			name: "Empty Contract Test",
+			name:       "Reentrancy Contract Test",
+			outputPath: "audits/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "VulnerableBank",
+						Path:    tests.ReadContractFileForTest(t, "audits/VulnerableBank").Path,
+						Content: tests.ReadContractFileForTest(t, "audits/VulnerableBank").Content,
+					},
+				},
+				EntrySourceUnitName:  "VulnerableBank",
+				MaskLocalSourcesPath: false,
+				LocalSourcesPath:     buildFullPath("../sources/"),
+			},
+			wantErr: false,
+		},
+		{
+			name:       "FooBar Contract Test",
+			outputPath: "audits/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "FooBar",
+						Path:    tests.ReadContractFileForTest(t, "audits/FooBar").Path,
+						Content: tests.ReadContractFileForTest(t, "audits/FooBar").Content,
+					},
+				},
+				EntrySourceUnitName:  "FooBar",
+				MaskLocalSourcesPath: false,
+				LocalSourcesPath:     buildFullPath("../sources/"),
+			},
+			wantErr: true,
+		},
+		{
+			name:       "Empty Contract Test",
+			outputPath: "audits/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -45,12 +84,12 @@ func TestDetectorFromSources(t *testing.T) {
 				},
 				EntrySourceUnitName:  "Empty",
 				MaskLocalSourcesPath: false,
-				LocalSourcesPath:     buildFullPath("../sources/"),
+				LocalSourcesPath:     "../sources/",
 			},
-			opcodeTest: true,
 		},
 		{
-			name: "Simple Storage Contract Test",
+			name:       "Simple Storage Contract Test",
+			outputPath: "audits/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -70,7 +109,8 @@ func TestDetectorFromSources(t *testing.T) {
 			},
 		},
 		{
-			name: "OpenZeppelin ERC20 Test",
+			name:       "OpenZeppelin ERC20 Test",
+			outputPath: "audits/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -101,11 +141,12 @@ func TestDetectorFromSources(t *testing.T) {
 				},
 				EntrySourceUnitName:  "ERC20",
 				MaskLocalSourcesPath: true,
-				LocalSourcesPath:     buildFullPath("../sources/"),
+				LocalSourcesPath:     "../sources/",
 			},
 		},
 		{
-			name: "Token Sale ERC20 Test",
+			name:       "Token Sale ERC20 Test",
+			outputPath: "audits/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -129,7 +170,8 @@ func TestDetectorFromSources(t *testing.T) {
 			},
 		},
 		{
-			name: "Lottery Test",
+			name:       "Lottery Test",
+			outputPath: "audits/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -139,11 +181,12 @@ func TestDetectorFromSources(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Lottery",
-				LocalSourcesPath:    buildFullPath("../sources/"),
+				LocalSourcesPath:    "../sources/",
 			},
 		},
 		{
-			name: "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
+			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
+			outputPath: "contracts/cheelee/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -223,29 +266,29 @@ func TestDetectorFromSources(t *testing.T) {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			detector, err := NewDetectorFromSources(ctx, testCase.sources)
+			slither, err := NewSlither(ctx, slitherConfig)
 			assert.NoError(t, err)
-			assert.Equal(t, ctx, detector.GetContext())
-			assert.IsType(t, &Detector{}, detector)
-			assert.IsType(t, &abi.Builder{}, detector.GetABI())
-			assert.IsType(t, &ast.ASTBuilder{}, detector.GetAST())
-			assert.IsType(t, &ir.Builder{}, detector.GetIR())
-			assert.IsType(t, &solgo.Parser{}, detector.GetParser())
-			assert.IsType(t, &solgo.Sources{}, detector.GetSources())
-			assert.IsType(t, &solc.Select{}, detector.GetSolc())
-			assert.IsType(t, &audit.Auditor{}, detector.GetAuditor())
+			assert.NotNil(t, slither)
 
-			if testCase.opcodeTest {
-				opcodeData := []byte{0x60, 0x01, 0x60, 0x10, 0x01} // PUSH1 0x01 PUSH1 0x10 ADD
-				opcode, err := detector.GetOpcodes(opcodeData)
-				assert.NoError(t, err)
-				assert.NotNil(t, opcode)
+			version, err := slither.Version()
+			assert.NoError(t, err)
+			assert.NotEmpty(t, version)
 
-				opcodeString := hex.EncodeToString(opcodeData)
-				opcode, err = detector.GetOpcodesFromHex(opcodeString)
-				assert.NoError(t, err)
-				assert.NotNil(t, opcode)
+			response, raw, err := slither.Analyze(testCase.sources)
+			assert.NoError(t, err)
+			assert.NotEmpty(t, raw)
+			assert.NotNil(t, response)
+
+			if testCase.wantErr {
+				assert.NotEmpty(t, response.Error)
+				assert.False(t, response.Success)
 			}
+
+			err = utils.WriteToFile(
+				"../data/tests/audits/"+testCase.sources.EntrySourceUnitName+".slither.raw.json",
+				raw,
+			)
+			assert.NoError(t, err)
 		})
 	}
 }

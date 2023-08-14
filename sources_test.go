@@ -63,6 +63,10 @@ func TestSources(t *testing.T) {
 			//os.WriteFile(fmt.Sprintf("combined_%d.sol", i), []byte(combinedSource), 0755)
 			assert.Equal(t, testCase.expectedUnits, len(testCase.sources.SourceUnits))
 			assert.NotNil(t, testCase.sources.ToProto())
+			assert.NoError(t, testCase.sources.WriteToDir("./data/tests/sources/"))
+			assert.NoError(t, testCase.sources.TruncateDir("./data/tests/sources/"))
+			assert.True(t, testCase.sources.SourceUnitExistsIn(testCase.sources.SourceUnits[0].Name, testCase.sources.SourceUnits))
+			assert.True(t, testCase.sources.SourceUnitExists(testCase.sources.SourceUnits[0].Name))
 		})
 	}
 }

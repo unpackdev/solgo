@@ -39,6 +39,12 @@ Link to the grammar files can be found [here](https://github.com/ethereum/solidi
 
 We are using the ANTLR4 Go runtime library to generate the parser. Repository can be found [here](https://github.com/antlr4-go/antlr).
 
+## Crytic Slither
+
+We are using Slither to detect vulnerabilities in smart contracts. Repository can be found [here](https://github.com/crytic/slither).
+
+Makes no sense to rewrite all of that hard work just to be written in Go. Therefore, a bit of python will not hurt. In the future we may change direction.
+
 
 ## Features
 
@@ -50,7 +56,7 @@ We are using the ANTLR4 Go runtime library to generate the parser. Repository ca
 - **Syntax Error Handling**: SolGo includes listener which collects syntax errors encountered during parsing, providing detailed error information including line, column, message, severity, and context.
 - **Automatic Source Detection**: SolGo automatically loads and integrates Solidity contracts from well-known libraries such as [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts).
 - **Ethereum Improvement Proposals (EIP) Registry**: A package designed to provide a structured representation of Ethereum Improvement Proposals (EIPs) and Ethereum Request for Comments (ERCs). It simplifies the interaction with various contract standards by including functions, events, and a registry mechanism crafted for efficient management.
-
+- **Security Audits**: SolGo now includes an Audit package that is specifically designed to detect security vulnerabilities in Solidity smart contracts. This package uses [Slither](https://github.com/crytic/slither) advanced algorithms and patterns to scan and identify potential threats and weaknesses in the codebase, ensuring that contracts are secure and robust against malicious attacks.
 
 ## Contributing
 
@@ -64,4 +70,4 @@ SolGo is licensed under the Apache 2.0. See [LICENSE](LICENSE) for the full lice
 
 ## Acknowledgements
 
-We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible.
+We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible. Not to forget the Crytic and Slither contributors for their hard work on the Slither tool as without it we would have hard time detecting vulnerabilities in smart contracts.

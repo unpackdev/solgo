@@ -3,10 +3,12 @@ package detector
 import (
 	"context"
 	"encoding/hex"
+	"os"
 
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
+	"github.com/txpull/solgo/audit"
 	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/opcode"
@@ -20,6 +22,7 @@ type Detector struct {
 	sources *solgo.Sources  // Source files to be processed.
 	builder *abi.Builder    // ABI builder for the source code.
 	solc    *solc.Select    // Solc selector for the solc compiler.
+	auditor *audit.Auditor  // Static analysis auditor.
 }
 
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
@@ -41,11 +44,22 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		return nil, err
 	}
 
+	auditorConfig, err := audit.NewDefaultConfig(os.TempDir())
+	if err != nil {
+		return nil, err
+	}
+
+	auditor, err := audit.NewAuditor(ctx, auditorConfig, sources)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Detector{
 		ctx:     ctx,
 		sources: sources,
 		builder: builder,
 		solc:    solc,
+		auditor: auditor,
 	}, nil
 }
 
@@ -99,6 +113,13 @@ func (d *Detector) GetOpcodesFromHex(data string) (*opcode.Decompiler, error) {
 	}
 
 	return opcode.NewDecompiler(d.ctx, hexData)
+}
+
+// GetAuditor returns the static analysis auditor associated with the Detector.
+// It provides access to the auditor's report and the audit configuration as well
+// as the ability to run the auditor on the source code.
+func (d *Detector) GetAuditor() *audit.Auditor {
+	return d.auditor
 }
 
 // Parse parses the Solidity source code and returns the errors encountered during the process.
