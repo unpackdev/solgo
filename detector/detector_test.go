@@ -29,12 +29,12 @@ func TestDetectorFromSources(t *testing.T) {
 	// Define multiple test cases
 	testCases := []struct {
 		name       string
-		sources    solgo.Sources
+		sources    *solgo.Sources
 		opcodeTest bool
 	}{
 		{
 			name: "Empty Contract Test",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Empty",
@@ -50,7 +50,7 @@ func TestDetectorFromSources(t *testing.T) {
 		},
 		{
 			name: "Simple Storage Contract Test",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "MathLib",
@@ -70,7 +70,7 @@ func TestDetectorFromSources(t *testing.T) {
 		},
 		{
 			name: "OpenZeppelin ERC20 Test",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "SafeMath",
@@ -105,7 +105,7 @@ func TestDetectorFromSources(t *testing.T) {
 		},
 		{
 			name: "Token Sale ERC20 Test",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "TokenSale",
@@ -129,7 +129,7 @@ func TestDetectorFromSources(t *testing.T) {
 		},
 		{
 			name: "Lottery Test",
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Lottery",
@@ -143,7 +143,7 @@ func TestDetectorFromSources(t *testing.T) {
 		},
 		{
 			name: "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
-			sources: solgo.Sources{
+			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
 						Name:    "Import",
@@ -230,7 +230,7 @@ func TestDetectorFromSources(t *testing.T) {
 			assert.IsType(t, &ast.ASTBuilder{}, detector.GetAST())
 			assert.IsType(t, &ir.Builder{}, detector.GetIR())
 			assert.IsType(t, &solgo.Parser{}, detector.GetParser())
-			assert.IsType(t, solgo.Sources{}, detector.GetSources())
+			assert.IsType(t, &solgo.Sources{}, detector.GetSources())
 			assert.IsType(t, &solc.Select{}, detector.GetSolc())
 
 			if testCase.opcodeTest {

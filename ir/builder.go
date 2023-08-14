@@ -13,7 +13,7 @@ import (
 // Builder facilitates the creation of the IR from source code using solgo and AST tools.
 type Builder struct {
 	ctx        context.Context // Context for the builder operations.
-	sources    solgo.Sources   // Source files to be processed.
+	sources    *solgo.Sources  // Source files to be processed.
 	parser     *solgo.Parser   // Parser for the source code.
 	astBuilder *ast.ASTBuilder // AST Builder for generating AST from parsed source.
 	root       *RootSourceUnit // Root of the generated IR.
@@ -31,7 +31,7 @@ func NewBuilder(ctx context.Context, parser *solgo.Parser, astBuilder *ast.ASTBu
 
 // NewBuilderFromSources creates a new IR builder from given sources. It initializes
 // the necessary parser and AST builder from the provided sources.
-func NewBuilderFromSources(ctx context.Context, sources solgo.Sources) (*Builder, error) {
+func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builder, error) {
 	parser, err := solgo.NewParserFromSources(ctx, sources)
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (b *Builder) GetAstBuilder() *ast.ASTBuilder {
 }
 
 // GetSources returns the source files being processed.
-func (b *Builder) GetSources() solgo.Sources {
+func (b *Builder) GetSources() *solgo.Sources {
 	return b.sources
 }
 

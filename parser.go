@@ -15,7 +15,7 @@ type Parser struct {
 	// ctx is the context in which SolGo operates. It can be used to control cancellation of parsing.
 	ctx context.Context
 	// sources is a struct that contains the sources of the Solidity contract.
-	sources Sources
+	sources *Sources
 	// inputRaw is the raw input reader from which the Solidity contract is read.
 	inputRaw io.Reader
 	// inputStream is the ANTLR input stream which is used by the lexer.
@@ -78,7 +78,7 @@ func NewParser(ctx context.Context, input io.Reader) (*Parser, error) {
 // NewParserFromSources creates a new instance of parser from a reader.
 // It takes a context and an io.Reader from which the Solidity contract is read.
 // It initializes an input stream, lexer, token stream, and parser, and sets up error listeners.
-func NewParserFromSources(ctx context.Context, sources Sources) (*Parser, error) {
+func NewParserFromSources(ctx context.Context, sources *Sources) (*Parser, error) {
 	if err := sources.Prepare(); err != nil {
 		return nil, fmt.Errorf("error preparing sources: %w", err)
 	}
@@ -117,7 +117,8 @@ func NewParserFromSources(ctx context.Context, sources Sources) (*Parser, error)
 	}, nil
 }
 
-func (s *Parser) GetSources() Sources {
+// GetSources returns the sources of the Solidity contract.
+func (s *Parser) GetSources() *Sources {
 	return s.sources
 }
 
