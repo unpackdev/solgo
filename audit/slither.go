@@ -3,7 +3,6 @@ package audit
 import (
 	"bytes"
 	"context"
-	"errors"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -96,12 +95,11 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 	// #nosec G204
 	// G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
 	cmd := exec.CommandContext(s.ctx, "slither", args...)
-	output, err := cmd.CombinedOutput()
 
-	// Handle specific exit statuses.
-	if err != nil && (err.Error() != "exit status 255" && err.Error() != "exit status 4") {
-		return nil, nil, errors.New(string(output))
-	}
+	// Errors from the output return only exit codes and therefore makes no sense at this moment
+	// to deal with them. This should be changed in the future, when we have nothing else to
+	// work on and we are bored or someone from community starts to complain about it :)
+	output, _ := cmd.CombinedOutput()
 
 	// Parse the output into the Response struct.
 	response, err := NewResponse(output)
