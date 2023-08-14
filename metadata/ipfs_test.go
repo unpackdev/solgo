@@ -136,6 +136,23 @@ func TestGetMetadataByCID(t *testing.T) {
 			expectedRaw:  "{\n\t\t\t\t\"raw\": \"raw\",\n\t\t\t\t\"version\": 1,\n\t\t\t\t\"compiler\": {\n\t\t\t\t\t\"version\": \"0.8.0\",\n\t\t\t\t\t\"keccak256\": \"keccak256\"\n\t\t\t\t},\n\t\t\t\t\"language\": \"Solidity\",\n\t\t\t\t\"settings\": {\n\t\t\t\t\t\"evmVersion\": \"istanbul\",\n\t\t\t\t\t\"compilationTarget\": {\n\t\t\t\t\t\t\"contract.sol\": \"Contract\"\n\t\t\t\t\t},\n\t\t\t\t\t\"libraries\": {},\n\t\t\t\t\t\"remappings\": [],\n\t\t\t\t\t\"metadata\": {\n\t\t\t\t\t\t\"bytecodeHash\": \"ipfs\",\n\t\t\t\t\t\t\"useLiteralContent\": true,\n\t\t\t\t\t\t\"appendCBOR\": false\n\t\t\t\t\t},\n\t\t\t\t\t\"optimizer\": {\n\t\t\t\t\t\t\"enabled\": true,\n\t\t\t\t\t\t\"runs\": 200,\n\t\t\t\t\t\t\"details\": {\n\t\t\t\t\t\t\t\"peephole\": true,\n\t\t\t\t\t\t\t\"inliner\": true,\n\t\t\t\t\t\t\t\"jumpdestRemover\": true,\n\t\t\t\t\t\t\t\"orderLiterals\": true,\n\t\t\t\t\t\t\t\"deduplicate\": true,\n\t\t\t\t\t\t\t\"cse\": true,\n\t\t\t\t\t\t\t\"constantOptimizer\": true,\n\t\t\t\t\t\t\t\"yul\": true,\n\t\t\t\t\t\t\t\"yulDetails\": {\n\t\t\t\t\t\t\t\t\"stackAllocation\": true,\n\t\t\t\t\t\t\t\t\"optimizerSteps\": 1000\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t\"output\": {\n\t\t\t\t\t\"abi\": []\n\t\t\t\t},\n\t\t\t\t\"sources\": {\n\t\t\t\t\t\"contract.sol\": {\n\t\t\t\t\t\t\"content\": \"contract Contract {}\",\n\t\t\t\t\t\t\"keccak256\": \"keccak256\",\n\t\t\t\t\t\t\"license\": \"MIT\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}",
 			jsonByteSize: 2111,
 		},
+		{
+			name:        "Valid CID format but invalid IPFS hash",
+			cid:         "ipfs://QmInvalidHash",
+			expectError: true,
+		},
+		{
+			name:           "Error reading content",
+			cid:            "ipfs://QmValidHash",
+			mockCatContent: "Error reading content",
+			expectError:    true,
+		},
+		{
+			name:           "Error unmarshalling content",
+			cid:            "ipfs://QmValidHash",
+			mockCatContent: "{invalid_json}",
+			expectError:    true,
+		},
 	}
 
 	for _, tt := range tests {
