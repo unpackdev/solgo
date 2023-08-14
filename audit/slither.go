@@ -94,6 +94,7 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
 
 	// #nosec G204
 	// G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+	// We did sanitization and verification of the arguments above, so we are safe to use them.
 	cmd := exec.CommandContext(s.ctx, "slither", args...)
 
 	// Errors from the output return only exit codes and therefore makes no sense at this moment
