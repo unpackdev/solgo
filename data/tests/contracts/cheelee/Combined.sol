@@ -1,81 +1,4 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
-import "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol";
-import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
-import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
-import "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
-
-// Kept for backwards compatibility with older versions of Hardhat and Truffle plugins.
-contract AdminUpgradeabilityProxy is TransparentUpgradeableProxy {
-    constructor(address logic, address admin, bytes memory data) payable TransparentUpgradeableProxy(logic, admin, data) {}
-}
-
-// SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.7.0) (proxy/beacon/BeaconProxy.sol)
-
-pragma solidity ^0.8.0;
-
-import "./IBeacon.sol";
-import "../Proxy.sol";
-import "../ERC1967/ERC1967Upgrade.sol";
-
-/**
- * @dev This contract implements a proxy that gets the implementation address for each call from an {UpgradeableBeacon}.
- *
- * The beacon address is stored in storage slot `uint256(keccak256('eip1967.proxy.beacon')) - 1`, so that it doesn't
- * conflict with the storage layout of the implementation behind the proxy.
- *
- * _Available since v3.4._
- */
-contract BeaconProxy is Proxy, ERC1967Upgrade {
-    /**
-     * @dev Initializes the proxy with `beacon`.
-     *
-     * If `data` is nonempty, it's used as data in a delegate call to the implementation returned by the beacon. This
-     * will typically be an encoded function call, and allows initializing the storage of the proxy like a Solidity
-     * constructor.
-     *
-     * Requirements:
-     *
-     * - `beacon` must be a contract with the interface {IBeacon}.
-     */
-    constructor(address beacon, bytes memory data) payable {
-        _upgradeBeaconToAndCall(beacon, data, false);
-    }
-
-    /**
-     * @dev Returns the current beacon address.
-     */
-    function _beacon() internal view virtual returns (address) {
-        return _getBeacon();
-    }
-
-    /**
-     * @dev Returns the current implementation address of the associated beacon.
-     */
-    function _implementation() internal view virtual override returns (address) {
-        return IBeacon(_getBeacon()).implementation();
-    }
-
-    /**
-     * @dev Changes the proxy to use a new beacon. Deprecated: see {_upgradeBeaconToAndCall}.
-     *
-     * If `data` is nonempty, it's used as data in a delegate call to the implementation returned by the beacon.
-     *
-     * Requirements:
-     *
-     * - `beacon` must be a contract.
-     * - The implementation returned by `beacon` must be a contract.
-     */
-    function _setBeacon(address beacon, bytes memory data) internal virtual {
-        _upgradeBeaconToAndCall(beacon, data, false);
-    }
-}
-
-
-// SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (proxy/beacon/IBeacon.sol)
 
 pragma solidity ^0.8.0;
@@ -178,165 +101,6 @@ abstract contract Proxy {
      * If overridden should call `super._beforeFallback()`.
      */
     function _beforeFallback() internal virtual {}
-}
-
-
-// SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.9.0) (proxy/ERC1967/ERC1967Upgrade.sol)
-
-pragma solidity ^0.8.2;
-
-import "../beacon/IBeacon.sol";
-import "../../interfaces/IERC1967.sol";
-import "../../interfaces/draft-IERC1822.sol";
-import "../../utils/Address.sol";
-import "../../utils/StorageSlot.sol";
-
-/**
- * @dev This abstract contract provides getters and event emitting update functions for
- * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.
- *
- * _Available since v4.1._
- */
-abstract contract ERC1967Upgrade is IERC1967 {
-    // This is the keccak-256 hash of "eip1967.proxy.rollback" subtracted by 1
-    bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;
-
-    /**
-     * @dev Storage slot with the address of the current implementation.
-     * This is the keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1, and is
-     * validated in the constructor.
-     */
-    bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
-
-    /**
-     * @dev Returns the current implementation address.
-     */
-    function _getImplementation() internal view returns (address) {
-        return StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value;
-    }
-
-    /**
-     * @dev Stores a new address in the EIP1967 implementation slot.
-     */
-    function _setImplementation(address newImplementation) private {
-        require(Address.isContract(newImplementation), "ERC1967: new implementation is not a contract");
-        StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;
-    }
-
-    /**
-     * @dev Perform implementation upgrade
-     *
-     * Emits an {Upgraded} event.
-     */
-    function _upgradeTo(address newImplementation) internal {
-        _setImplementation(newImplementation);
-        emit Upgraded(newImplementation);
-    }
-
-    /**
-     * @dev Perform implementation upgrade with additional setup call.
-     *
-     * Emits an {Upgraded} event.
-     */
-    function _upgradeToAndCall(address newImplementation, bytes memory data, bool forceCall) internal {
-        _upgradeTo(newImplementation);
-        if (data.length > 0 || forceCall) {
-            Address.functionDelegateCall(newImplementation, data);
-        }
-    }
-
-    /**
-     * @dev Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
-     *
-     * Emits an {Upgraded} event.
-     */
-    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data, bool forceCall) internal {
-        // Upgrades from old implementations will perform a rollback test. This test requires the new
-        // implementation to upgrade back to the old, non-ERC1822 compliant, implementation. Removing
-        // this special case will break upgrade paths from old UUPS implementation to new ones.
-        if (StorageSlot.getBooleanSlot(_ROLLBACK_SLOT).value) {
-            _setImplementation(newImplementation);
-        } else {
-            try IERC1822Proxiable(newImplementation).proxiableUUID() returns (bytes32 slot) {
-                require(slot == _IMPLEMENTATION_SLOT, "ERC1967Upgrade: unsupported proxiableUUID");
-            } catch {
-                revert("ERC1967Upgrade: new implementation is not UUPS");
-            }
-            _upgradeToAndCall(newImplementation, data, forceCall);
-        }
-    }
-
-    /**
-     * @dev Storage slot with the admin of the contract.
-     * This is the keccak-256 hash of "eip1967.proxy.admin" subtracted by 1, and is
-     * validated in the constructor.
-     */
-    bytes32 internal constant _ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
-
-    /**
-     * @dev Returns the current admin.
-     */
-    function _getAdmin() internal view returns (address) {
-        return StorageSlot.getAddressSlot(_ADMIN_SLOT).value;
-    }
-
-    /**
-     * @dev Stores a new address in the EIP1967 admin slot.
-     */
-    function _setAdmin(address newAdmin) private {
-        require(newAdmin != address(0), "ERC1967: new admin is the zero address");
-        StorageSlot.getAddressSlot(_ADMIN_SLOT).value = newAdmin;
-    }
-
-    /**
-     * @dev Changes the admin of the proxy.
-     *
-     * Emits an {AdminChanged} event.
-     */
-    function _changeAdmin(address newAdmin) internal {
-        emit AdminChanged(_getAdmin(), newAdmin);
-        _setAdmin(newAdmin);
-    }
-
-    /**
-     * @dev The storage slot of the UpgradeableBeacon contract which defines the implementation for this proxy.
-     * This is bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)) and is validated in the constructor.
-     */
-    bytes32 internal constant _BEACON_SLOT = 0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50;
-
-    /**
-     * @dev Returns the current beacon.
-     */
-    function _getBeacon() internal view returns (address) {
-        return StorageSlot.getAddressSlot(_BEACON_SLOT).value;
-    }
-
-    /**
-     * @dev Stores a new beacon in the EIP1967 beacon slot.
-     */
-    function _setBeacon(address newBeacon) private {
-        require(Address.isContract(newBeacon), "ERC1967: new beacon is not a contract");
-        require(
-            Address.isContract(IBeacon(newBeacon).implementation()),
-            "ERC1967: beacon implementation is not a contract"
-        );
-        StorageSlot.getAddressSlot(_BEACON_SLOT).value = newBeacon;
-    }
-
-    /**
-     * @dev Perform beacon upgrade with additional setup call. Note: This upgrades the address of the beacon, it does
-     * not upgrade the implementation contained in the beacon (see {UpgradeableBeacon-_setImplementation} for that).
-     *
-     * Emits a {BeaconUpgraded} event.
-     */
-    function _upgradeBeaconToAndCall(address newBeacon, bytes memory data, bool forceCall) internal {
-        _setBeacon(newBeacon);
-        emit BeaconUpgraded(newBeacon);
-        if (data.length > 0 || forceCall) {
-            Address.functionDelegateCall(IBeacon(newBeacon).implementation(), data);
-        }
-    }
 }
 
 
@@ -777,68 +541,249 @@ library StorageSlot {
 
 
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (proxy/beacon/UpgradeableBeacon.sol)
+// OpenZeppelin Contracts (last updated v4.9.0) (proxy/ERC1967/ERC1967Upgrade.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.2;
 
-import "./IBeacon.sol";
-import "../../access/Ownable.sol";
+import "../beacon/IBeacon.sol";
+import "../../interfaces/IERC1967.sol";
+import "../../interfaces/draft-IERC1822.sol";
 import "../../utils/Address.sol";
+import "../../utils/StorageSlot.sol";
 
 /**
- * @dev This contract is used in conjunction with one or more instances of {BeaconProxy} to determine their
- * implementation contract, which is where they will delegate all function calls.
+ * @dev This abstract contract provides getters and event emitting update functions for
+ * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.
  *
- * An owner is able to change the implementation the beacon points to, thus upgrading the proxies that use this beacon.
+ * _Available since v4.1._
  */
-contract UpgradeableBeacon is IBeacon, Ownable {
-    address private _implementation;
+abstract contract ERC1967Upgrade is IERC1967 {
+    // This is the keccak-256 hash of "eip1967.proxy.rollback" subtracted by 1
+    bytes32 private constant _ROLLBACK_SLOT = 0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143;
 
     /**
-     * @dev Emitted when the implementation returned by the beacon is changed.
+     * @dev Storage slot with the address of the current implementation.
+     * This is the keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1, and is
+     * validated in the constructor.
      */
-    event Upgraded(address indexed implementation);
-
-    /**
-     * @dev Sets the address of the initial implementation, and the deployer account as the owner who can upgrade the
-     * beacon.
-     */
-    constructor(address implementation_) {
-        _setImplementation(implementation_);
-    }
+    bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
     /**
      * @dev Returns the current implementation address.
      */
-    function implementation() public view virtual override returns (address) {
-        return _implementation;
+    function _getImplementation() internal view returns (address) {
+        return StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value;
     }
 
     /**
-     * @dev Upgrades the beacon to a new implementation.
+     * @dev Stores a new address in the EIP1967 implementation slot.
+     */
+    function _setImplementation(address newImplementation) private {
+        require(Address.isContract(newImplementation), "ERC1967: new implementation is not a contract");
+        StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;
+    }
+
+    /**
+     * @dev Perform implementation upgrade
      *
      * Emits an {Upgraded} event.
-     *
-     * Requirements:
-     *
-     * - msg.sender must be the owner of the contract.
-     * - `newImplementation` must be a contract.
      */
-    function upgradeTo(address newImplementation) public virtual onlyOwner {
+    function _upgradeTo(address newImplementation) internal {
         _setImplementation(newImplementation);
         emit Upgraded(newImplementation);
     }
 
     /**
-     * @dev Sets the implementation contract address for this beacon
+     * @dev Perform implementation upgrade with additional setup call.
+     *
+     * Emits an {Upgraded} event.
+     */
+    function _upgradeToAndCall(address newImplementation, bytes memory data, bool forceCall) internal {
+        _upgradeTo(newImplementation);
+        if (data.length > 0 || forceCall) {
+            Address.functionDelegateCall(newImplementation, data);
+        }
+    }
+
+    /**
+     * @dev Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
+     *
+     * Emits an {Upgraded} event.
+     */
+    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data, bool forceCall) internal {
+        // Upgrades from old implementations will perform a rollback test. This test requires the new
+        // implementation to upgrade back to the old, non-ERC1822 compliant, implementation. Removing
+        // this special case will break upgrade paths from old UUPS implementation to new ones.
+        if (StorageSlot.getBooleanSlot(_ROLLBACK_SLOT).value) {
+            _setImplementation(newImplementation);
+        } else {
+            try IERC1822Proxiable(newImplementation).proxiableUUID() returns (bytes32 slot) {
+                require(slot == _IMPLEMENTATION_SLOT, "ERC1967Upgrade: unsupported proxiableUUID");
+            } catch {
+                revert("ERC1967Upgrade: new implementation is not UUPS");
+            }
+            _upgradeToAndCall(newImplementation, data, forceCall);
+        }
+    }
+
+    /**
+     * @dev Storage slot with the admin of the contract.
+     * This is the keccak-256 hash of "eip1967.proxy.admin" subtracted by 1, and is
+     * validated in the constructor.
+     */
+    bytes32 internal constant _ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
+
+    /**
+     * @dev Returns the current admin.
+     */
+    function _getAdmin() internal view returns (address) {
+        return StorageSlot.getAddressSlot(_ADMIN_SLOT).value;
+    }
+
+    /**
+     * @dev Stores a new address in the EIP1967 admin slot.
+     */
+    function _setAdmin(address newAdmin) private {
+        require(newAdmin != address(0), "ERC1967: new admin is the zero address");
+        StorageSlot.getAddressSlot(_ADMIN_SLOT).value = newAdmin;
+    }
+
+    /**
+     * @dev Changes the admin of the proxy.
+     *
+     * Emits an {AdminChanged} event.
+     */
+    function _changeAdmin(address newAdmin) internal {
+        emit AdminChanged(_getAdmin(), newAdmin);
+        _setAdmin(newAdmin);
+    }
+
+    /**
+     * @dev The storage slot of the UpgradeableBeacon contract which defines the implementation for this proxy.
+     * This is bytes32(uint256(keccak256('eip1967.proxy.beacon')) - 1)) and is validated in the constructor.
+     */
+    bytes32 internal constant _BEACON_SLOT = 0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50;
+
+    /**
+     * @dev Returns the current beacon.
+     */
+    function _getBeacon() internal view returns (address) {
+        return StorageSlot.getAddressSlot(_BEACON_SLOT).value;
+    }
+
+    /**
+     * @dev Stores a new beacon in the EIP1967 beacon slot.
+     */
+    function _setBeacon(address newBeacon) private {
+        require(Address.isContract(newBeacon), "ERC1967: new beacon is not a contract");
+        require(
+            Address.isContract(IBeacon(newBeacon).implementation()),
+            "ERC1967: beacon implementation is not a contract"
+        );
+        StorageSlot.getAddressSlot(_BEACON_SLOT).value = newBeacon;
+    }
+
+    /**
+     * @dev Perform beacon upgrade with additional setup call. Note: This upgrades the address of the beacon, it does
+     * not upgrade the implementation contained in the beacon (see {UpgradeableBeacon-_setImplementation} for that).
+     *
+     * Emits a {BeaconUpgraded} event.
+     */
+    function _upgradeBeaconToAndCall(address newBeacon, bytes memory data, bool forceCall) internal {
+        _setBeacon(newBeacon);
+        emit BeaconUpgraded(newBeacon);
+        if (data.length > 0 || forceCall) {
+            Address.functionDelegateCall(IBeacon(newBeacon).implementation(), data);
+        }
+    }
+}
+
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (proxy/beacon/BeaconProxy.sol)
+
+pragma solidity ^0.8.0;
+
+import "./IBeacon.sol";
+import "../Proxy.sol";
+import "../ERC1967/ERC1967Upgrade.sol";
+
+/**
+ * @dev This contract implements a proxy that gets the implementation address for each call from an {UpgradeableBeacon}.
+ *
+ * The beacon address is stored in storage slot `uint256(keccak256('eip1967.proxy.beacon')) - 1`, so that it doesn't
+ * conflict with the storage layout of the implementation behind the proxy.
+ *
+ * _Available since v3.4._
+ */
+contract BeaconProxy is Proxy, ERC1967Upgrade {
+    /**
+     * @dev Initializes the proxy with `beacon`.
+     *
+     * If `data` is nonempty, it's used as data in a delegate call to the implementation returned by the beacon. This
+     * will typically be an encoded function call, and allows initializing the storage of the proxy like a Solidity
+     * constructor.
      *
      * Requirements:
      *
-     * - `newImplementation` must be a contract.
+     * - `beacon` must be a contract with the interface {IBeacon}.
      */
-    function _setImplementation(address newImplementation) private {
-        require(Address.isContract(newImplementation), "UpgradeableBeacon: implementation is not a contract");
-        _implementation = newImplementation;
+    constructor(address beacon, bytes memory data) payable {
+        _upgradeBeaconToAndCall(beacon, data, false);
+    }
+
+    /**
+     * @dev Returns the current beacon address.
+     */
+    function _beacon() internal view virtual returns (address) {
+        return _getBeacon();
+    }
+
+    /**
+     * @dev Returns the current implementation address of the associated beacon.
+     */
+    function _implementation() internal view virtual override returns (address) {
+        return IBeacon(_getBeacon()).implementation();
+    }
+
+    /**
+     * @dev Changes the proxy to use a new beacon. Deprecated: see {_upgradeBeaconToAndCall}.
+     *
+     * If `data` is nonempty, it's used as data in a delegate call to the implementation returned by the beacon.
+     *
+     * Requirements:
+     *
+     * - `beacon` must be a contract.
+     * - The implementation returned by `beacon` must be a contract.
+     */
+    function _setBeacon(address beacon, bytes memory data) internal virtual {
+        _upgradeBeaconToAndCall(beacon, data, false);
+    }
+}
+
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
     }
 }
 
@@ -929,27 +874,68 @@ abstract contract Ownable is Context {
 
 
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+// OpenZeppelin Contracts v4.4.1 (proxy/beacon/UpgradeableBeacon.sol)
 
 pragma solidity ^0.8.0;
 
+import "./IBeacon.sol";
+import "../../access/Ownable.sol";
+import "../../utils/Address.sol";
+
 /**
- * @dev Provides information about the current execution context, including the
- * sender of the transaction and its data. While these are generally available
- * via msg.sender and msg.data, they should not be accessed in such a direct
- * manner, since when dealing with meta-transactions the account sending and
- * paying for execution may not be the actual sender (as far as an application
- * is concerned).
+ * @dev This contract is used in conjunction with one or more instances of {BeaconProxy} to determine their
+ * implementation contract, which is where they will delegate all function calls.
  *
- * This contract is only required for intermediate, library-like contracts.
+ * An owner is able to change the implementation the beacon points to, thus upgrading the proxies that use this beacon.
  */
-abstract contract Context {
-    function _msgSender() internal view virtual returns (address) {
-        return msg.sender;
+contract UpgradeableBeacon is IBeacon, Ownable {
+    address private _implementation;
+
+    /**
+     * @dev Emitted when the implementation returned by the beacon is changed.
+     */
+    event Upgraded(address indexed implementation);
+
+    /**
+     * @dev Sets the address of the initial implementation, and the deployer account as the owner who can upgrade the
+     * beacon.
+     */
+    constructor(address implementation_) {
+        _setImplementation(implementation_);
     }
 
-    function _msgData() internal view virtual returns (bytes calldata) {
-        return msg.data;
+    /**
+     * @dev Returns the current implementation address.
+     */
+    function implementation() public view virtual override returns (address) {
+        return _implementation;
+    }
+
+    /**
+     * @dev Upgrades the beacon to a new implementation.
+     *
+     * Emits an {Upgraded} event.
+     *
+     * Requirements:
+     *
+     * - msg.sender must be the owner of the contract.
+     * - `newImplementation` must be a contract.
+     */
+    function upgradeTo(address newImplementation) public virtual onlyOwner {
+        _setImplementation(newImplementation);
+        emit Upgraded(newImplementation);
+    }
+
+    /**
+     * @dev Sets the implementation contract address for this beacon
+     *
+     * Requirements:
+     *
+     * - `newImplementation` must be a contract.
+     */
+    function _setImplementation(address newImplementation) private {
+        require(Address.isContract(newImplementation), "UpgradeableBeacon: implementation is not a contract");
+        _implementation = newImplementation;
     }
 }
 
@@ -1261,4 +1247,19 @@ contract ProxyAdmin is Ownable {
     ) public payable virtual onlyOwner {
         proxy.upgradeToAndCall{value: msg.value}(implementation, data);
     }
+}
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
+import "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol";
+import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
+
+// Kept for backwards compatibility with older versions of Hardhat and Truffle plugins.
+contract AdminUpgradeabilityProxy is TransparentUpgradeableProxy {
+    constructor(address logic, address admin, bytes memory data) payable TransparentUpgradeableProxy(logic, admin, data) {}
 }
