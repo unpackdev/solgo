@@ -46,7 +46,7 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 func (p *PrimaryExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	p.ReferencedDeclaration = refId
 	p.TypeDescription = refDesc
-	return false
+	return true
 }
 
 // GetId returns the unique identifier of the PrimaryExpression node.

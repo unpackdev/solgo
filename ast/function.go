@@ -271,6 +271,9 @@ func (f *Function) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetParameters().GetParameterTypes() {
+		if paramType == nil {
+			f.dumpNode(f)
+		}
 		typeStrings = append(typeStrings, paramType.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}

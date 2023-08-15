@@ -1,6 +1,8 @@
 package eip
 
-import eip_pb "github.com/txpull/protos/dist/go/eip"
+import (
+	eip_pb "github.com/txpull/protos/dist/go/eip"
+)
 
 // ConfidenceLevel represents the confidence level of a discovery.
 type ConfidenceLevel int
@@ -131,6 +133,7 @@ func ConfidenceCheck(standard EIP, contract *Contract) (Discovery, bool) {
 	}
 
 	for _, event := range standard.GetEvents() {
+
 		eventFn := Event{
 			Name:    event.Name,
 			Inputs:  make([]Input, 0),
@@ -223,6 +226,7 @@ func eventMatch(newEvent *Event, standardEvent, event Event) (int, bool) {
 
 	if standardEvent.Name == event.Name {
 		totalTokenCount++
+		newEvent.Name = event.Name
 		for _, seInput := range standardEvent.Inputs {
 			newInput := Input{Type: seInput.Type, Indexed: seInput.Indexed}
 			for _, eventInput := range event.Inputs {

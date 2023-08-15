@@ -5,6 +5,7 @@ import (
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
 type Expression struct {
@@ -84,12 +85,18 @@ func (e *Expression) Parse(
 	case *parser.ExpOperationContext:
 		expOperation := NewExprOperationExpression(e.ASTBuilder)
 		return expOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.ConditionalContext:
+		conditional := NewConditionalExpression(e.ASTBuilder)
+		return conditional.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.AndOperationContext:
+		andOperation := NewAndOperationExpression(e.ASTBuilder)
+		return andOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
-		panic(
-			fmt.Sprintf(
-				"Expression type not supported @ Expression.Parse: %T",
-				ctx,
-			),
+		zap.L().Warn(
+			"Expression type not supported @ Expression.Parse",
+			zap.String("type", fmt.Sprintf("%T", ctx)),
 		)
 	}
+
+	return nil
 }

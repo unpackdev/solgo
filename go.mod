@@ -17,7 +17,7 @@ require (
 	google.golang.org/protobuf v1.31.0
 )
 
-//replace github.com/txpull/protos => ../protos
+replace github.com/txpull/protos => ../protos
 
 require (
 	github.com/benbjohnson/clock v1.3.5 // indirect
