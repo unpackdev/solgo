@@ -12,13 +12,13 @@ func TestSources(t *testing.T) {
 	// Define multiple test cases
 	testCases := []struct {
 		name          string
-		sources       Sources
+		sources       *Sources
 		expected      string
 		expectedUnits int
 	}{
 		{
 			name: "Test Case 1",
-			sources: Sources{
+			sources: &Sources{
 				SourceUnits: []*SourceUnit{
 					{
 						Name:    "Source 1",
@@ -39,7 +39,7 @@ func TestSources(t *testing.T) {
 		},
 		{
 			name: "Openzeppelin import",
-			sources: Sources{
+			sources: &Sources{
 				SourceUnits: []*SourceUnit{
 					{
 						Name:    "Import",
@@ -50,15 +50,54 @@ func TestSources(t *testing.T) {
 				EntrySourceUnitName: "Cheelee",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
-			expected:      tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Combined").Content, // @TODO
+			expected:      tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Combined").Content,
 			expectedUnits: 15,
+		},
+		{
+			name: "OpenZeppelin ERC20 Test",
+			sources: &Sources{
+				SourceUnits: []*SourceUnit{
+					{
+						Name:    "SafeMath",
+						Path:    "SafeMath.sol",
+						Content: tests.ReadContractFileForTestFromRootPath(t, "ast/SafeMath").Content,
+					},
+					{
+						Name:    "IERC20",
+						Path:    "IERC20.sol",
+						Content: tests.ReadContractFileForTestFromRootPath(t, "ast/IERC20").Content,
+					},
+					{
+						Name:    "IERC20Metadata",
+						Path:    "IERC20Metadata.sol",
+						Content: tests.ReadContractFileForTestFromRootPath(t, "ast/IERC20Metadata").Content,
+					},
+
+					{
+						Name:    "ERC20",
+						Path:    "ERC20.sol",
+						Content: tests.ReadContractFileForTestFromRootPath(t, "ast/ERC20").Content,
+					},
+					{
+						Name:    "Context",
+						Path:    "Context.sol",
+						Content: tests.ReadContractFileForTestFromRootPath(t, "ast/Context").Content,
+					},
+				},
+				EntrySourceUnitName: "ERC20",
+				LocalSourcesPath:    buildFullPath("./sources/"),
+			},
+			expected:      tests.ReadContractFileForTestFromRootPath(t, "contracts/erc20/Combined").Content,
+			expectedUnits: 5,
 		},
 	}
 
-	for _, testCase := range testCases {
+	for i, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			err := testCase.sources.Prepare()
 			assert.NoError(t, err)
+
+			assert.NoError(t, testCase.sources.SortContracts())
 			combinedSource := testCase.sources.GetCombinedSource()
 			assert.Equal(t, testCase.expected, combinedSource)
 			//os.WriteFile(fmt.Sprintf("combined_%d.sol", i), []byte(combinedSource), 0755)
