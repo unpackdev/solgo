@@ -88,6 +88,11 @@ func (f *Fallback) GetReturnStatements() []*Parameter {
 	return f.ReturnStatements
 }
 
+// GetSrc returns the source code location of the fallback function.
+func (f *Fallback) GetSrc() ast.SrcNode {
+	return f.unit.GetSrc()
+}
+
 // ToProto converts the Fallback to its protobuf representation.
 func (f *Fallback) ToProto() *ir_pb.Fallback {
 	proto := &ir_pb.Fallback{

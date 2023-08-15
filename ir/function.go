@@ -100,6 +100,11 @@ func (f *Function) GetBody() *Body {
 	return f.Body
 }
 
+// GetSrc returns the source code of the function.
+func (f *Function) GetSrc() ast.SrcNode {
+	return f.unit.GetSrc()
+}
+
 // ToProto returns the protocol buffer version of the function.
 func (f *Function) ToProto() *ir_pb.Function {
 	proto := &ir_pb.Function{

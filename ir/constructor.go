@@ -84,6 +84,11 @@ func (f *Constructor) GetReturnStatements() []*Parameter {
 	return f.ReturnStatements
 }
 
+// GetSrc returns the source code location of the constructor.
+func (f *Constructor) GetSrc() ast.SrcNode {
+	return f.unit.GetSrc()
+}
+
 // ToProto converts the constructor to its protobuf representation.
 func (f *Constructor) ToProto() *ir_pb.Constructor {
 	proto := &ir_pb.Constructor{

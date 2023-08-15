@@ -82,6 +82,11 @@ func (f *Receive) GetParameters() []*Parameter {
 	return f.Parameters
 }
 
+// GetSrc returns the source code location of the receive function.
+func (f *Receive) GetSrc() ast.SrcNode {
+	return f.unit.GetSrc()
+}
+
 // ToProto is a function that converts the Receive to a protobuf message.
 func (f *Receive) ToProto() *ir_pb.Receive {
 	proto := &ir_pb.Receive{
