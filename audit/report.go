@@ -21,8 +21,8 @@ const (
 // NewResponse parses the provided JSON data (typically from Slither) and returns
 // a structured Response object. If the data is not valid JSON or does not match
 // the expected structure, an error is returned.
-func NewResponse(data []byte) (*Response, error) {
-	var toReturn *Response
+func NewResponse(data []byte) (*Report, error) {
+	var toReturn *Report
 	if err := json.Unmarshal(data, &toReturn); err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func NewResponse(data []byte) (*Response, error) {
 
 // FilterDetectorsByImpact filters the audit results based on the specified impact level
 // and returns a list of detectors that match the given level.
-func (r *Response) FilterDetectorsByImpact(impact ImpactLevel) []Detector {
+func (r *Report) FilterDetectorsByImpact(impact ImpactLevel) []Detector {
 	var filtered []Detector
 	for _, detector := range r.Results.Detectors {
 		if ImpactLevel(detector.Impact) == impact {
@@ -42,12 +42,12 @@ func (r *Response) FilterDetectorsByImpact(impact ImpactLevel) []Detector {
 }
 
 // HasError determines if the audit response contains any error messages.
-func (r *Response) HasError() bool {
+func (r *Report) HasError() bool {
 	return r.Error != nil && *r.Error != ""
 }
 
 // ElementsByType retrieves all elements of a specified type from the audit results.
-func (r *Response) ElementsByType(elementType string) []Element {
+func (r *Report) ElementsByType(elementType string) []Element {
 	var elements []Element
 	for _, detector := range r.Results.Detectors {
 		for _, element := range detector.Elements {
@@ -61,7 +61,7 @@ func (r *Response) ElementsByType(elementType string) []Element {
 
 // UniqueImpactLevels identifies and returns a list of unique impact levels present
 // in the audit results.
-func (r *Response) UniqueImpactLevels() []string {
+func (r *Report) UniqueImpactLevels() []string {
 	impactSet := make(map[string]struct{})
 	for _, detector := range r.Results.Detectors {
 		impactSet[detector.Impact] = struct{}{}
@@ -75,7 +75,7 @@ func (r *Response) UniqueImpactLevels() []string {
 
 // DetectorsByCheck filters the audit results based on a specified check type
 // and returns a list of detectors that match the given check.
-func (r *Response) DetectorsByCheck(checkType string) []Detector {
+func (r *Report) DetectorsByCheck(checkType string) []Detector {
 	var detectors []Detector
 	for _, detector := range r.Results.Detectors {
 		if detector.Check == checkType {
@@ -87,7 +87,7 @@ func (r *Response) DetectorsByCheck(checkType string) []Detector {
 
 // CountByImpactLevel counts the number of detectors for each impact level
 // and returns a map of impact levels to their respective counts.
-func (r *Response) CountByImpactLevel() map[ImpactLevel]int {
+func (r *Report) CountByImpactLevel() map[ImpactLevel]int {
 	countMap := make(map[ImpactLevel]int)
 	for _, detector := range r.Results.Detectors {
 		countMap[ImpactLevel(detector.Impact)]++
@@ -97,7 +97,7 @@ func (r *Response) CountByImpactLevel() map[ImpactLevel]int {
 
 // HighConfidenceDetectors filters the audit results to return only those detectors
 // that have a high confidence level.
-func (r *Response) HighConfidenceDetectors() []Detector {
+func (r *Report) HighConfidenceDetectors() []Detector {
 	var detectors []Detector
 	for _, detector := range r.Results.Detectors {
 		if detector.Confidence == "High" {
@@ -108,6 +108,6 @@ func (r *Response) HighConfidenceDetectors() []Detector {
 }
 
 // HasIssues determines if the audit response contains any detected issues or vulnerabilities.
-func (r *Response) HasIssues() bool {
+func (r *Report) HasIssues() bool {
 	return r.Results != nil && len(r.Results.Detectors) > 0
 }
