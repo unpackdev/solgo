@@ -58,7 +58,9 @@ func (n *NewExpr) GetTypeDescription() *TypeDescription {
 }
 
 func (n *NewExpr) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{
+		n.GetTypeName(),
+	}
 }
 
 func (n *NewExpr) GetReferencedDeclaration() int64 {

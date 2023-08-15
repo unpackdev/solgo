@@ -86,7 +86,11 @@ func (p *PrimaryExpression) GetReferencedDeclaration() int64 {
 
 // GetNodes returns a slice of nodes that includes the expression of the PrimaryExpression node.
 func (p *PrimaryExpression) GetNodes() []Node[NodeType] {
-	return nil
+	if p.TypeName != nil {
+		return []Node[NodeType]{p.TypeName}
+	}
+
+	return []Node[NodeType]{}
 }
 
 // GetKind returns the kind of the PrimaryExpression node.

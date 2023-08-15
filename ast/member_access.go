@@ -154,10 +154,17 @@ func (m *MemberAccessExpression) Parse(
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
 		// This is an edge case in type discovery that we need to sort out.
-		if m.Expression.GetTypeDescription() == nil {
+		if m.Expression != nil && m.Expression.GetTypeDescription() == nil {
 			if refId, refTypeDescription := m.GetResolver().ResolveByNode(m, m.MemberName); refTypeDescription != nil {
 				m.ReferencedDeclaration = refId
 				m.TypeDescription = refTypeDescription
+			} else {
+				if primary, ok := m.Expression.(*PrimaryExpression); ok {
+					if refId, refTypeDescription := m.GetResolver().ResolveByNode(primary, primary.GetName()); refTypeDescription != nil {
+						m.ReferencedDeclaration = refId
+						m.TypeDescription = refTypeDescription
+					}
+				}
 			}
 		}
 

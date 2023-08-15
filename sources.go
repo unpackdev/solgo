@@ -82,7 +82,7 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	// too good to be true.
 	for name, source := range md.Sources {
 		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
-			Name:    strings.TrimRight(filepath.Base(name), ".sol"),
+			Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
 			Path:    name,
 			Content: source.Content,
 		})
@@ -403,12 +403,16 @@ func (s *Sources) SortContracts() error {
 	for _, sourceUnit := range s.SourceUnits {
 		imports := extractImports(sourceUnit.Content)
 		var dependencies []string
+		//fmt.Println("Unit name ->", sourceUnit.Name)
 		for _, imp := range imports {
 			baseName := filepath.Base(imp)
+			//fmt.Println("Unit name ->", sourceUnit.Name, "Basename -> ", baseName, "Contract Name ->", strings.TrimSuffix(baseName, ".sol"))
 			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
 		}
 		nodes = append(nodes, Node{Name: sourceUnit.Name, Dependencies: dependencies})
 	}
+
+	//spew.Dump(nodes)
 
 	sortedNames, err := topologicalSort(nodes)
 	if err != nil {
@@ -417,11 +421,14 @@ func (s *Sources) SortContracts() error {
 
 	var sortedSourceUnits []*SourceUnit
 	for _, name := range sortedNames {
-		sourceUnit := s.GetSourceUnitByName(name)
-		if sourceUnit != nil {
+		if sourceUnit := s.GetSourceUnitByName(name); sourceUnit != nil {
 			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
 		}
 	}
+
+	//for _, unit := range sortedSourceUnits {
+	//	fmt.Println(unit.Name)
+	//}
 
 	s.SourceUnits = sortedSourceUnits
 	return nil

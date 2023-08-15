@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -203,7 +204,11 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
-		if strings.Contains(paramType.TypeString, "literal_string") {
+		if paramType == nil {
+			typeStrings = append(typeStrings, fmt.Sprintf("unknown_%d", f.GetId()))
+			typeIdentifiers = append(typeIdentifiers, fmt.Sprintf("$_t_unknown_%d", f.GetId()))
+			continue
+		} else if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
 			continue

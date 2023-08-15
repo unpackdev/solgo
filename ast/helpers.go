@@ -68,42 +68,51 @@ func normalizeTypeName(typeName string) string {
 }
 
 func normalizeTypeDescription(typeName string) (string, string) {
-	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
-	isSlice := strings.HasPrefix(typeName, "[]")
+	isArray := strings.Contains(typeName, "[") && strings.Contains(typeName, "]")
+	isSlice := strings.HasSuffix(typeName, "[]")
 
 	switch {
 	case isArray:
 		numberPart := typeName[strings.Index(typeName, "[")+1 : strings.Index(typeName, "]")]
-		typePart := typeName[strings.Index(typeName, "]")+1:]
+		typePart := typeName[:strings.Index(typeName, "[")]
 		normalizedTypePart := normalizeTypeName(typePart)
-		return "[" + numberPart + "]" + normalizedTypePart, fmt.Sprintf("t_%s_array", normalizedTypePart)
+		return normalizedTypePart + "[" + numberPart + "]", fmt.Sprintf("t_%s_array", normalizedTypePart)
 
 	case isSlice:
-		typePart := typeName[2:]
-		return "[]" + normalizeTypeName(typePart), fmt.Sprintf("t_%s_slice", normalizeTypeName(typePart))
+		typePart := typeName[:len(typeName)-2]
+		normalizedTypePart := normalizeTypeName(typePart)
+		return normalizedTypePart + "[]", fmt.Sprintf("t_%s_slice", normalizedTypePart)
 
 	case strings.HasPrefix(typeName, "uint"):
 		if typeName == "uint" {
 			return "uint256", "t_uint256"
 		}
 		return typeName, fmt.Sprintf("t_%s", typeName)
+
 	case strings.HasPrefix(typeName, "int"):
 		if typeName == "int" {
 			return "int256", "t_int256"
 		}
 		return typeName, fmt.Sprintf("t_%s", typeName)
+
 	case strings.HasPrefix(typeName, "bool"):
 		return typeName, fmt.Sprintf("t_%s", typeName)
+
 	case strings.HasPrefix(typeName, "bytes"):
 		return typeName, fmt.Sprintf("t_%s", typeName)
+
 	case typeName == "string":
 		return "string", "t_string"
+
 	case typeName == "address":
 		return "address", "t_address"
+
 	case typeName == "addresspayable":
 		return "address", "t_address_payable"
+
 	case typeName == "tuple":
 		return "tuple", "t_tuple"
+
 	default:
 		return typeName, fmt.Sprintf("t_%s", typeName)
 	}

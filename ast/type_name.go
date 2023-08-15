@@ -77,7 +77,17 @@ func (t *TypeName) GetStateMutability() ast_pb.Mutability {
 }
 
 func (t *TypeName) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := []Node[NodeType]{}
+
+	if t.KeyType != nil {
+		toReturn = append(toReturn, t.KeyType)
+	}
+
+	if t.ValueType != nil {
+		toReturn = append(toReturn, t.ValueType)
+	}
+
+	return toReturn
 }
 
 func (t *TypeName) ToProto() NodeType {
@@ -159,15 +169,16 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				},
 				NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 			}
+
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
+				if t.PathNode != nil {
+					t.PathNode.ReferencedDeclaration = refId
+				}
+				t.ReferencedDeclaration = refId
+				t.TypeDescription = refTypeDescription
+			}
 		}
 
-		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
-			if t.PathNode != nil {
-				t.PathNode.ReferencedDeclaration = refId
-			}
-			t.ReferencedDeclaration = refId
-			t.TypeDescription = refTypeDescription
-		}
 	}
 
 }
@@ -217,6 +228,7 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			t.ReferencedDeclaration = refId
 			t.TypeDescription = refTypeDescription
 		}
+
 	}
 }
 
@@ -382,6 +394,10 @@ func (t *TypeName) ParseElementary(unit *SourceUnit[Node[ast_pb.SourceUnit]], fn
 	case "t_address":
 		t.StateMutability = ast_pb.Mutability_NONPAYABLE
 	case "t_address_payable":
+		t.StateMutability = ast_pb.Mutability_PAYABLE
+	}
+
+	if ctx.Payable() != nil {
 		t.StateMutability = ast_pb.Mutability_PAYABLE
 	}
 

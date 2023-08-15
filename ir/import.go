@@ -87,8 +87,9 @@ func (b *Builder) processImport(unit *ast.Import) *Import {
 
 	sourceUnit := b.astBuilder.GetTree().GetById(unit.GetSourceUnit())
 	if sourceUnit != nil {
-		su := sourceUnit.(*ast.SourceUnit[ast.Node[ast_pb.SourceUnit]])
-		toReturn.ContractId = su.GetContract().GetId()
+		if su, ok := sourceUnit.(*ast.SourceUnit[ast.Node[ast_pb.SourceUnit]]); ok {
+			toReturn.ContractId = su.GetContract().GetId()
+		}
 	}
 
 	return toReturn

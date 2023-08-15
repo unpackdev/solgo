@@ -129,7 +129,7 @@ func (a *Assignment) ToProto() NodeType {
 func (a *Assignment) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	a.ReferencedDeclaration = refId
 	a.TypeDescription = refDesc
-	return false
+	return true
 }
 
 // ParseStatement parses an expression statement context into the Assignment node.
@@ -168,6 +168,7 @@ func (a *Assignment) ParseStatement(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx)
+	a.TypeDescription = a.Expression.GetTypeDescription()
 }
 
 // Parse parses an assignment context into the Assignment node.

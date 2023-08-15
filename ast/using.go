@@ -84,7 +84,9 @@ func (u *UsingDirective) GetPathNode() *PathNode {
 }
 
 func (u *UsingDirective) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{
+		u.GetTypeName(),
+	}
 }
 
 func (u *UsingDirective) ToProto() NodeType {

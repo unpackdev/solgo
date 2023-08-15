@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"strings"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -114,9 +115,15 @@ func (f *Function) GetTypeDescription() *TypeDescription {
 func (f *Function) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{}
 	toReturn = append(toReturn, f.GetBody().GetNodes()...)
+	toReturn = append(toReturn, f.GetParameters().GetNodes()...)
+	toReturn = append(toReturn, f.GetReturnParameters().GetNodes()...)
 
 	for _, override := range f.GetOverrides() {
 		toReturn = append(toReturn, override)
+	}
+
+	for _, modifier := range f.GetModifiers() {
+		toReturn = append(toReturn, modifier)
 	}
 
 	return toReturn
@@ -271,6 +278,12 @@ func (f *Function) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetParameters().GetParameterTypes() {
+		if paramType == nil {
+			typeStrings = append(typeStrings, fmt.Sprintf("unknown_%d", f.GetId()))
+			typeIdentifiers = append(typeIdentifiers, fmt.Sprintf("$_t_unknown_%d", f.GetId()))
+			continue
+		}
+
 		typeStrings = append(typeStrings, paramType.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}

@@ -63,7 +63,11 @@ func (i *IndexAccess) GetTypeDescriptions() []*TypeDescription {
 }
 
 func (i *IndexAccess) GetNodes() []Node[NodeType] {
-	return []Node[NodeType]{i.IndexExpression, i.BaseExpression}
+	toReturn := []Node[NodeType]{i.IndexExpression}
+	if i.BaseExpression != nil {
+		toReturn = append(toReturn, i.BaseExpression)
+	}
+	return toReturn
 }
 
 func (i *IndexAccess) GetReferencedDeclaration() int64 {
@@ -125,13 +129,15 @@ func (i *IndexAccess) Parse(
 	)
 	i.TypeDescription = i.IndexExpression.GetTypeDescription()
 
-	i.BaseExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(1),
-	)
-
 	i.TypeDescriptions = []*TypeDescription{
 		i.IndexExpression.GetTypeDescription(),
-		i.BaseExpression.GetTypeDescription(),
+	}
+
+	if ctx.Expression(1) != nil {
+		i.BaseExpression = expression.Parse(
+			unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(1),
+		)
+		i.TypeDescriptions = append(i.TypeDescriptions, i.BaseExpression.GetTypeDescription())
 	}
 
 	return i

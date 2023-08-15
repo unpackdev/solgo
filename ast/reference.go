@@ -68,7 +68,6 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 // resolveByNode is a helper function that attempts to resolve a node by its name by checking various node types.
 // It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
-
 	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
 		return node, nodeType
 	}
@@ -104,6 +103,7 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 	if node, nodeType := r.byFunction(name); nodeType != nil {
 		return node, nodeType
 	}
+
 	return 0, nil
 }
 
@@ -144,8 +144,8 @@ func (r *Resolver) Resolve() []error {
 					errors = append(
 						errors,
 						fmt.Errorf(
-							"unable to update node reference by id %d - name: %s - type: %v",
-							nodeId, node.Name, rNodeType,
+							"unable to update node reference by id %d - name: %s - type: %v - reflect: %T",
+							nodeId, node.Name, rNodeType, node.Node,
 						),
 					)
 				}
@@ -166,6 +166,10 @@ func (r *Resolver) Resolve() []error {
 				nodeId, node.Name, reflect.TypeOf(node.Node),
 			),
 		)
+	}
+
+	for _, errorrr := range errors {
+		fmt.Println(errorrr)
 	}
 
 	return errors
@@ -287,6 +291,8 @@ func (r *Resolver) resolveEntrySourceUnit() {
 
 func (r *Resolver) bySourceUnit(name string) (int64, *TypeDescription) {
 	for _, node := range r.sourceUnits {
+		//fmt.Println(node.GetName())
+
 		if node.GetName() == name {
 			return node.GetId(), node.GetTypeDescription()
 		}
