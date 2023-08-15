@@ -1,6 +1,7 @@
 package solgo
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -31,7 +32,7 @@ func TestSources(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Source",
-				LocalSourcesPath:    "./sources/",
+				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
 			expected:      "Content of Source 1\n\nContent of Source 2",
 			expectedUnits: 2,
@@ -47,7 +48,7 @@ func TestSources(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Cheelee",
-				LocalSourcesPath:    "./sources/",
+				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
 			expected:      tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Combined").Content, // @TODO
 			expectedUnits: 15,
@@ -72,4 +73,9 @@ func TestSources(t *testing.T) {
 			assert.NotNil(t, testCase.sources.GetSourceUnitByPath(testCase.sources.SourceUnits[0].Path))
 		})
 	}
+}
+
+func buildFullPath(relativePath string) string {
+	absPath, _ := filepath.Abs(relativePath)
+	return absPath
 }

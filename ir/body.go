@@ -68,6 +68,11 @@ func (e *Body) GetNodes() []Statement {
 	return e.Statements
 }
 
+// GetStatements returns a list of statements contained within the body.
+func (e *Body) GetStatements() []Statement {
+	return e.Statements
+}
+
 // ToProto converts the Body into its protocol buffer representation.
 func (e *Body) ToProto() *ir_pb.Body {
 	proto := &ir_pb.Body{

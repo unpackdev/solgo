@@ -32,6 +32,15 @@ func TestDecodeContractCreationMetadata(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name:    "Test empty bytecode",
+			wantErr: true,
+		},
+		{
+			name:     "Test no cbor",
+			bytecode: []byte{0x01, 0x02},
+			wantErr:  true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -55,6 +64,10 @@ func TestDecodeContractCreationMetadata(t *testing.T) {
 				assert.Equal(t, tt.want.GetExperimental(), got.GetExperimental())
 				assert.Equal(t, tt.want.GetRawMetadata(), got.GetRawMetadata())
 				assert.Equal(t, tt.want.GetCborLength(), got.GetCborLength())
+				assert.NotNil(t, got.ToProto())
+
+				got.Experimental = []byte("true")
+				assert.True(t, got.GetExperimental())
 			}
 		})
 	}

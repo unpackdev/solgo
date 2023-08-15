@@ -20,16 +20,6 @@ type Builder struct {
 	root       *RootSourceUnit // Root of the generated IR.
 }
 
-// NewBuilder creates a new IR builder with a given parser and AST builder.
-func NewBuilder(ctx context.Context, parser *solgo.Parser, astBuilder *ast.ASTBuilder) *Builder {
-	return &Builder{
-		ctx:        ctx,
-		parser:     parser,
-		sources:    parser.GetSources(),
-		astBuilder: astBuilder,
-	}
-}
-
 // NewBuilderFromSources creates a new IR builder from given sources. It initializes
 // the necessary parser and AST builder from the provided sources.
 func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builder, error) {

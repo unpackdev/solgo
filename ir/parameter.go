@@ -52,6 +52,11 @@ func (p *Parameter) GetTypeDescription() *ast.TypeDescription {
 	return p.TypeDescription
 }
 
+// GetSrc returns the source code location for the Parameter.
+func (p *Parameter) GetSrc() ast.SrcNode {
+	return p.unit.GetSrc()
+}
+
 // ToProto converts the Parameter to its corresponding protobuf representation.
 func (p *Parameter) ToProto() *ir_pb.Parameter {
 	proto := &ir_pb.Parameter{

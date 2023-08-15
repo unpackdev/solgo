@@ -48,6 +48,11 @@ func (p *Pragma) GetVersion() string {
 	return strings.Replace(parts[len(parts)-1], ";", "", -1)
 }
 
+// GetSrc returns the source code location associated with the Pragma.
+func (p *Pragma) GetSrc() ast.SrcNode {
+	return p.unit.GetSrc()
+}
+
 // ToProto converts the Pragma to its corresponding protobuf representation.
 func (p *Pragma) ToProto() *ir_pb.Pragma {
 	proto := &ir_pb.Pragma{

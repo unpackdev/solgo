@@ -7,6 +7,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/ast"
+	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -29,6 +31,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 		expectedAst          string
 		expectedProto        string
 		unresolvedReferences int64
+		wantErr              bool
 	}{
 		{
 			name:       "Empty Contract Test",
@@ -237,13 +240,29 @@ func TestIrBuilderFromSources(t *testing.T) {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ir/TransparentUpgradeableProxy.ir.proto").Content,
 			unresolvedReferences: 0,
 		},
+		{
+			name:                 "Nil Sources",
+			outputPath:           "ast/",
+			unresolvedReferences: 0,
+			wantErr:              true,
+		},
 	}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			parser, err := NewBuilderFromSources(context.TODO(), testCase.sources)
-			assert.NoError(t, err)
-			assert.NotNil(t, parser)
+			if testCase.wantErr {
+				assert.Error(t, err)
+				assert.Nil(t, parser)
+				return
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, parser)
+			}
+			assert.IsType(t, &Builder{}, parser)
+			assert.IsType(t, &ast.ASTBuilder{}, parser.GetAstBuilder())
+			assert.IsType(t, &solgo.Parser{}, parser.GetParser())
+			assert.IsType(t, &solgo.Sources{}, parser.GetSources())
 
 			// Important step which will parse the sources and build the AST including check for
 			// reference errors and syntax errors.
@@ -271,6 +290,12 @@ func TestIrBuilderFromSources(t *testing.T) {
 			assert.NoError(t, err)
 			assert.Equal(t, testCase.expectedAst, string(pretty))
 
+			assert.NotNil(t, parser.ToProto())
+
+			j, err := parser.ToJSON()
+			assert.NotNil(t, j)
+			assert.NoError(t, err)
+
 			protoPretty, err := parser.ToProtoPretty()
 			assert.NoError(t, err)
 			assert.NotNil(t, protoPretty)
@@ -283,6 +308,127 @@ func TestIrBuilderFromSources(t *testing.T) {
 			)
 			assert.NoError(t, err)
 			assert.Equal(t, testCase.expectedProto, string(protoPretty))
+
+			for _, eip := range root.GetEips() {
+				assert.NotNil(t, eip)
+				assert.NotNil(t, eip.GetConfidence())
+				assert.NotNil(t, eip.GetContractId())
+				assert.NotNil(t, eip.GetContractName())
+				assert.NotNil(t, eip.GetStandard())
+				assert.NotNil(t, eip.ToProto())
+			}
+
+			assert.NotNil(t, root.HasEIP(eip.EIP1014))
+			assert.NotNil(t, root.GetAST())
+
+			for _, contract := range root.GetContracts() {
+				assert.NotNil(t, contract)
+				assert.NotNil(t, contract.GetAST())
+				assert.NotNil(t, contract.GetSrc())
+				assert.NotNil(t, contract.GetUnitSrc())
+				assert.NotNil(t, contract.ToProto())
+
+				if contract.GetFallback() != nil {
+					assert.NotNil(t, contract.GetFallback().GetAST())
+					assert.NotNil(t, contract.GetFallback().GetSrc())
+					assert.NotNil(t, contract.GetFallback().ToProto())
+				}
+
+				if contract.GetReceive() != nil {
+					assert.NotNil(t, contract.GetReceive().GetAST())
+					assert.NotNil(t, contract.GetReceive().GetSrc())
+					assert.NotNil(t, contract.GetReceive().ToProto())
+				}
+
+				if contract.GetConstructor() != nil {
+					assert.NotNil(t, contract.GetConstructor().GetAST())
+					assert.NotNil(t, contract.GetConstructor().GetSrc())
+					assert.NotNil(t, contract.GetConstructor().ToProto())
+				}
+
+				for _, pragma := range contract.GetPragmas() {
+					assert.NotNil(t, pragma)
+					assert.NotNil(t, pragma.GetAST())
+					assert.NotNil(t, pragma.GetSrc())
+					assert.NotNil(t, pragma.ToProto())
+				}
+
+				for _, enum := range contract.GetEnums() {
+					assert.NotNil(t, enum)
+					assert.NotNil(t, enum.GetAST())
+					assert.NotNil(t, enum.GetSrc())
+					assert.NotNil(t, enum.ToProto())
+				}
+
+				for _, structs := range contract.GetStructs() {
+					assert.NotNil(t, structs)
+					assert.NotNil(t, structs.GetAST())
+					assert.NotNil(t, structs.GetSrc())
+					assert.NotNil(t, structs.ToProto())
+				}
+
+				for _, function := range contract.GetFunctions() {
+					assert.NotNil(t, function)
+					assert.NotNil(t, function.GetAST())
+					assert.NotNil(t, function.GetSrc())
+					assert.NotNil(t, function.GetBody().GetAST())
+					assert.NotNil(t, function.GetBody().GetSrc())
+					assert.NotNil(t, function.ToProto())
+
+					for _, param := range function.GetParameters() {
+						assert.NotNil(t, param)
+						assert.NotNil(t, param.GetAST())
+						assert.NotNil(t, param.GetSrc())
+						assert.NotNil(t, param.ToProto())
+					}
+
+					for _, modifier := range function.GetModifiers() {
+						assert.NotNil(t, modifier)
+						assert.NotNil(t, modifier.GetAST())
+						assert.NotNil(t, modifier.GetSrc())
+						assert.NotNil(t, modifier.ToProto())
+					}
+
+					for _, override := range function.GetOverrides() {
+						assert.NotNil(t, override)
+						assert.NotNil(t, override.GetAST())
+						assert.NotNil(t, override.GetSrc())
+						assert.NotNil(t, override.ToProto())
+					}
+
+					for _, returns := range function.GetReturnStatements() {
+						assert.NotNil(t, returns)
+						assert.NotNil(t, returns.GetAST())
+						assert.NotNil(t, returns.GetSrc())
+						assert.NotNil(t, returns.ToProto())
+					}
+
+					for _, statement := range function.GetBody().GetStatements() {
+						if node, ok := statement.(*FunctionCall); ok {
+							assert.NotNil(t, node)
+							assert.NotNil(t, node.GetAST())
+							assert.NotNil(t, node.GetSrc())
+							assert.NotNil(t, node.GetId())
+							assert.Equal(t, len(node.GetNodes()), 0)
+							assert.NotNil(t, node.ToProto())
+						}
+					}
+				}
+
+				for _, variable := range contract.GetStateVariables() {
+					assert.NotNil(t, variable)
+					assert.NotNil(t, variable.GetAST())
+					assert.NotNil(t, variable.GetSrc())
+					assert.NotNil(t, variable.ToProto())
+				}
+
+				for _, event := range contract.GetEvents() {
+					assert.NotNil(t, event)
+					assert.NotNil(t, event.GetAST())
+					assert.NotNil(t, event.GetSrc())
+					assert.NotNil(t, event.ToProto())
+				}
+			}
 		})
 	}
 }

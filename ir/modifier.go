@@ -40,6 +40,11 @@ func (m *Modifier) GetArgumentTypes() []*ast.TypeDescription {
 	return m.ArgumentTypes
 }
 
+// GetSrc returns the source code location for the Modifier.
+func (m *Modifier) GetSrc() ast.SrcNode {
+	return m.unit.GetSrc()
+}
+
 // ToProto converts the Modifier to its corresponding protobuf representation.
 func (m *Modifier) ToProto() *ir_pb.Modifier {
 	proto := &ir_pb.Modifier{

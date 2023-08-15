@@ -66,6 +66,18 @@ func TestDecodeConstructorFromAbi(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name:           "Abi parser error",
+			bytecode:       []byte{},
+			constructorAbi: "Fuu",
+			wantErr:        true,
+		},
+		{
+			name:           "Abi unpack values error capture",
+			bytecode:       []byte{0x01, 0x02, 0x03, 0x04, 0x05},
+			constructorAbi: "{}",
+			wantErr:        true,
+		},
 	}
 
 	for _, tt := range tests {
