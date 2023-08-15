@@ -1,8 +1,6 @@
 package ast
 
 import (
-	"fmt"
-
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -160,31 +158,6 @@ func (m *MemberAccessExpression) Parse(
 			if refId, refTypeDescription := m.GetResolver().ResolveByNode(m, m.MemberName); refTypeDescription != nil {
 				m.ReferencedDeclaration = refId
 				m.TypeDescription = refTypeDescription
-			} else {
-				// Attempt to look into the function parameters to see if there we can find
-				// any type information.
-				if fnNode != nil {
-					if fn, ok := fnNode.(*Function); ok {
-						fmt.Println("It is function... ->", m.MemberName)
-						for _, param := range fn.GetParameters().GetParameters() {
-							fmt.Println("Param ->", param.Name, " -> Member -> ", m.MemberName)
-							if param.Name == m.MemberName {
-								m.TypeDescription = param.TypeDescription
-							}
-						}
-					}
-				}
-
-				//m.dumpNode(m.GetTypeDescription())
-
-				// It is a forward rule that we're not able to figure out now but in order
-				// to avoid having a nil type description we set it to a default value.
-				// The _id part is a bit of a hack but it will be used to later on help us resolve
-				// sequentially all unknowns with this type in the AST tree.
-				m.TypeDescription = &TypeDescription{
-					TypeIdentifier: fmt.Sprintf("t_unknown_%d", m.GetId()),
-					TypeString:     fmt.Sprintf("unknown_%d", m.GetId()),
-				}
 			}
 		}
 

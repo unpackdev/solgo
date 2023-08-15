@@ -1,7 +1,6 @@
 package ast
 
 import (
-	"fmt"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -187,51 +186,6 @@ func (f *FunctionCall) Parse(
 				expr,
 			)
 
-			if expr.GetTypeDescription() == nil {
-				if fnNode != nil {
-					fmt.Println("DUMP HERE... FUNCTION CALL FN AVAILABLE")
-					if fn, ok := fnNode.(*Function); ok {
-					refDiscoveryLoop:
-						for _, parameter := range fn.GetParameters().GetParameters() {
-							if exprIdentifier, ok := expr.(*PrimaryExpression); ok {
-								if parameter.GetName() == exprIdentifier.Name {
-									if expr.SetReferenceDescriptor(parameter.GetId(), parameter.GetTypeDescription()) {
-										// There can be freakin case where reference type description is
-										// not yet able to be discovered so we need to mark type description as unknown.
-										if parameter.GetTypeDescription() == nil {
-											if refId, refTypeDescription := f.GetResolver().ResolveByNode(expr, exprIdentifier.Name); refTypeDescription != nil {
-												expr.SetReferenceDescriptor(refId, refTypeDescription)
-
-												// Of course there can be fucking case where resolved referenced description is nil...
-												// What the fuck did I do with this parser?!
-												if refTypeDescription == nil {
-													expr.SetReferenceDescriptor(parameter.GetId(), &TypeDescription{
-														TypeIdentifier: fmt.Sprintf("t_unknown_%d", refId),
-														TypeString:     fmt.Sprintf("unknown_%d", refId),
-													})
-												}
-											} else {
-												expr.SetReferenceDescriptor(parameter.GetId(), &TypeDescription{
-													TypeIdentifier: fmt.Sprintf("t_unknown_%d", parameter.GetId()),
-													TypeString:     fmt.Sprintf("unknown_%d", parameter.GetId()),
-												})
-											}
-										} else {
-											fmt.Println("I AM INDEED HERE...")
-										}
-
-										break refDiscoveryLoop
-									}
-								}
-							}
-						}
-					}
-				}
-
-				fmt.Println("DUMP HERE... FUNCTION CALL")
-				f.dumpNode(f)
-			}
-
 			f.ArgumentTypes = append(
 				f.ArgumentTypes,
 				expr.GetTypeDescription(),
@@ -249,10 +203,6 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
-		if paramType == nil {
-			f.dumpNode(f)
-		}
-
 		if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
