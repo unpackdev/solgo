@@ -132,6 +132,10 @@ func (s *Sources) Prepare() error {
 		s.SourceUnits = append(s.SourceUnits, importUnits...)
 	}
 
+	if err := s.SortContracts(); err != nil {
+		return fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+	}
+
 	// Mark sources as prepared for future use.
 	s.prepared = true
 
@@ -385,4 +389,75 @@ func replaceOpenZeppelin(path string) string {
 func simplifyImportPaths(content string) string {
 	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
 	return re.ReplaceAllString(content, `import "./$1";`)
+}
+
+// Node represents a unit of source code in Solidity with its dependencies.
+type Node struct {
+	Name         string
+	Dependencies []string
+}
+
+// SortContracts sorts the SourceUnits based on their dependencies.
+func (s *Sources) SortContracts() error {
+	var nodes []Node
+	for _, sourceUnit := range s.SourceUnits {
+		imports := extractImports(sourceUnit.Content)
+		var dependencies []string
+		for _, imp := range imports {
+			baseName := filepath.Base(imp)
+			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
+		}
+		nodes = append(nodes, Node{Name: sourceUnit.Name, Dependencies: dependencies})
+	}
+
+	sortedNames, err := topologicalSort(nodes)
+	if err != nil {
+		return err
+	}
+
+	var sortedSourceUnits []*SourceUnit
+	for _, name := range sortedNames {
+		sourceUnit := s.GetSourceUnitByName(name)
+		if sourceUnit != nil {
+			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
+		}
+	}
+
+	s.SourceUnits = sortedSourceUnits
+	return nil
+}
+
+// topologicalSort sorts the nodes based on their dependencies.
+func topologicalSort(nodes []Node) ([]string, error) {
+	var sorted []string
+	visited := make(map[string]bool)
+	var visit func(nodeName string) error
+	visit = func(nodeName string) error {
+		if visited[nodeName] {
+			return nil
+		}
+		visited[nodeName] = true
+		for _, node := range nodes {
+			if node.Name == nodeName {
+				for _, dep := range node.Dependencies {
+					if err := visit(dep); err != nil {
+						return err
+					}
+				}
+				break
+			}
+		}
+		sorted = append(sorted, nodeName)
+		return nil
+	}
+
+	for _, node := range nodes {
+		if !visited[node.Name] {
+			if err := visit(node.Name); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	return sorted, nil
 }
