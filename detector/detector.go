@@ -136,3 +136,12 @@ func (d *Detector) Parse() []error {
 func (d *Detector) Build() error {
 	return d.builder.Build()
 }
+
+// Compile compiles the Solidity source code using the solc compiler and returns the errors encountered during the process.
+func (d *Detector) Analyze() (*audit.Report, error) {
+	if !d.auditor.IsReady() {
+		return nil, errors.New("auditor not ready - missing slither-analyzer pip3 python package")
+	}
+
+	return d.auditor.Analyze()
+}

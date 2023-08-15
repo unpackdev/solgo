@@ -58,7 +58,7 @@ func (s *Slither) Version() (string, error) {
 // Analyze performs a static analysis on the given sources using Slither.
 // It writes the sources to a temporary directory, runs Slither, and then cleans up.
 // Returns the analysis response, raw output, and any errors encountered.
-func (s *Slither) Analyze(sources *solgo.Sources) (*Response, []byte, error) {
+func (s *Slither) Analyze(sources *solgo.Sources) (*Report, []byte, error) {
 	if sources == nil {
 		return nil, nil, ErrSourcesNotSet
 	}

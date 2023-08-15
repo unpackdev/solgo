@@ -62,7 +62,7 @@ func (a *Auditor) GetSlither() *Slither {
 
 // Analyze performs an analysis of the smart contracts using the Slither tool.
 // It returns the analysis response or an error if the analysis fails.
-func (a *Auditor) Analyze() (*Response, error) {
+func (a *Auditor) Analyze() (*Report, error) {
 	response, _, err := a.slither.Analyze(a.sources)
 	if err != nil {
 		return nil, err

@@ -1,7 +1,7 @@
 package audit
 
-// Response represents the top-level structure of the Slither JSON output.
-type Response struct {
+// Report represents the top-level structure of the Slither JSON output.
+type Report struct {
 	Success bool     `json:"success"` // Indicates the success status of the audit.
 	Error   *string  `json:"error"`   // Contains any error messages, if present.
 	Results *Results `json:"results"` // Contains the results of the audit.

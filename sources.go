@@ -276,8 +276,9 @@ func (s *Sources) WriteToDir(path string) error {
 
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
+		content := simplifyImportPaths(sourceUnit.Content)
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
-		if err := utils.WriteToFile(filePath, []byte(sourceUnit.Content)); err != nil {
+		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
 			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
 		}
 	}
@@ -377,4 +378,11 @@ func extractImports(content string) []string {
 // replaceOpenZeppelin replaces the @openzeppelin path with the actual path to the openzeppelin-contracts repository.
 func replaceOpenZeppelin(path string) string {
 	return strings.Replace(path, "@openzeppelin", filepath.Join("./sources/", "openzeppelin"), 1)
+}
+
+// simplifyImportPaths simplifies the paths in import statements as file will already be present in the
+// directory for future consumption and is rather corrupted for import paths to stay the same.
+func simplifyImportPaths(content string) string {
+	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
+	return re.ReplaceAllString(content, `import "./$1";`)
 }
