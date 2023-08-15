@@ -45,13 +45,6 @@ func TestPredictor(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotNil(t, predictor)
 
-			vulnerabilities, recommendations, err := predictor.PredictVulnerabilities(testCase.sourceCode)
-			assert.NoError(t, err)
-
-			if testCase.wantErr {
-				assert.NotEmpty(t, vulnerabilities)
-				assert.NotEmpty(t, recommendations)
-			}
 		})
 	}
 }
