@@ -326,38 +326,45 @@ func TestIrBuilderFromSources(t *testing.T) {
 				assert.NotNil(t, contract.GetAST())
 				assert.NotNil(t, contract.GetSrc())
 				assert.NotNil(t, contract.GetUnitSrc())
+				assert.NotNil(t, contract.ToProto())
 
 				if contract.GetFallback() != nil {
 					assert.NotNil(t, contract.GetFallback().GetAST())
 					assert.NotNil(t, contract.GetFallback().GetSrc())
+					assert.NotNil(t, contract.GetFallback().ToProto())
 				}
 
 				if contract.GetReceive() != nil {
 					assert.NotNil(t, contract.GetReceive().GetAST())
 					assert.NotNil(t, contract.GetReceive().GetSrc())
+					assert.NotNil(t, contract.GetReceive().ToProto())
 				}
 
 				if contract.GetConstructor() != nil {
 					assert.NotNil(t, contract.GetConstructor().GetAST())
 					assert.NotNil(t, contract.GetConstructor().GetSrc())
+					assert.NotNil(t, contract.GetConstructor().ToProto())
 				}
 
 				for _, pragma := range contract.GetPragmas() {
 					assert.NotNil(t, pragma)
 					assert.NotNil(t, pragma.GetAST())
 					assert.NotNil(t, pragma.GetSrc())
+					assert.NotNil(t, pragma.ToProto())
 				}
 
 				for _, enum := range contract.GetEnums() {
 					assert.NotNil(t, enum)
 					assert.NotNil(t, enum.GetAST())
 					assert.NotNil(t, enum.GetSrc())
+					assert.NotNil(t, enum.ToProto())
 				}
 
 				for _, structs := range contract.GetStructs() {
 					assert.NotNil(t, structs)
 					assert.NotNil(t, structs.GetAST())
 					assert.NotNil(t, structs.GetSrc())
+					assert.NotNil(t, structs.ToProto())
 				}
 
 				for _, function := range contract.GetFunctions() {
@@ -366,29 +373,34 @@ func TestIrBuilderFromSources(t *testing.T) {
 					assert.NotNil(t, function.GetSrc())
 					assert.NotNil(t, function.GetBody().GetAST())
 					assert.NotNil(t, function.GetBody().GetSrc())
+					assert.NotNil(t, function.ToProto())
 
 					for _, param := range function.GetParameters() {
 						assert.NotNil(t, param)
 						assert.NotNil(t, param.GetAST())
 						assert.NotNil(t, param.GetSrc())
+						assert.NotNil(t, param.ToProto())
 					}
 
 					for _, modifier := range function.GetModifiers() {
 						assert.NotNil(t, modifier)
 						assert.NotNil(t, modifier.GetAST())
 						assert.NotNil(t, modifier.GetSrc())
+						assert.NotNil(t, modifier.ToProto())
 					}
 
 					for _, override := range function.GetOverrides() {
 						assert.NotNil(t, override)
 						assert.NotNil(t, override.GetAST())
 						assert.NotNil(t, override.GetSrc())
+						assert.NotNil(t, override.ToProto())
 					}
 
 					for _, returns := range function.GetReturnStatements() {
 						assert.NotNil(t, returns)
 						assert.NotNil(t, returns.GetAST())
 						assert.NotNil(t, returns.GetSrc())
+						assert.NotNil(t, returns.ToProto())
 					}
 
 					for _, statement := range function.GetBody().GetStatements() {
@@ -398,6 +410,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 							assert.NotNil(t, node.GetSrc())
 							assert.NotNil(t, node.GetId())
 							assert.Equal(t, len(node.GetNodes()), 0)
+							assert.NotNil(t, node.ToProto())
 						}
 					}
 				}
@@ -406,12 +419,14 @@ func TestIrBuilderFromSources(t *testing.T) {
 					assert.NotNil(t, variable)
 					assert.NotNil(t, variable.GetAST())
 					assert.NotNil(t, variable.GetSrc())
+					assert.NotNil(t, variable.ToProto())
 				}
 
 				for _, event := range contract.GetEvents() {
 					assert.NotNil(t, event)
 					assert.NotNil(t, event.GetAST())
 					assert.NotNil(t, event.GetSrc())
+					assert.NotNil(t, event.ToProto())
 				}
 			}
 		})
