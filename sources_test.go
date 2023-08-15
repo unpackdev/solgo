@@ -92,7 +92,7 @@ func TestSources(t *testing.T) {
 		},
 	}
 
-	for i, testCase := range testCases {
+	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			err := testCase.sources.Prepare()
 			assert.NoError(t, err)
