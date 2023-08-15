@@ -42,7 +42,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Empty",
-				LocalSourcesPath:    "../sources/",
+				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast.proto").Content,
@@ -65,7 +65,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "SimpleStorage",
-				LocalSourcesPath:    "../sources/",
+				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast.proto").Content,
@@ -103,7 +103,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "ERC20",
-				LocalSourcesPath:    "../sources/",
+				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast.proto").Content,
@@ -121,7 +121,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Token",
-				LocalSourcesPath:    "../sources/",
+				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Token.solgo.ast.proto").Content,
@@ -149,7 +149,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "TokenSale",
-				LocalSourcesPath:    "../sources/",
+				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast.proto").Content,
@@ -167,7 +167,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Lottery",
-				LocalSourcesPath:    "../sources/",
+				LocalSourcesPath:    buildFullPath("../sources/"),
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast.proto").Content,
@@ -316,7 +316,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			)
 			assert.NoError(t, err)
 			assert.NotEmpty(t, astPretty)
-			//assert.Equal(t, testCase.expectedProto, string(astPretty))
+			assert.Equal(t, testCase.expectedProto, string(astPretty))
 
 			// Zero is here for the first contract that's empty...
 			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))
