@@ -281,6 +281,7 @@ func (s *Sources) WriteToDir(path string) error {
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
 		content := simplifyImportPaths(sourceUnit.Content)
+
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
 			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
@@ -403,16 +404,12 @@ func (s *Sources) SortContracts() error {
 	for _, sourceUnit := range s.SourceUnits {
 		imports := extractImports(sourceUnit.Content)
 		var dependencies []string
-		//fmt.Println("Unit name ->", sourceUnit.Name)
 		for _, imp := range imports {
 			baseName := filepath.Base(imp)
-			//fmt.Println("Unit name ->", sourceUnit.Name, "Basename -> ", baseName, "Contract Name ->", strings.TrimSuffix(baseName, ".sol"))
 			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
 		}
 		nodes = append(nodes, Node{Name: sourceUnit.Name, Dependencies: dependencies})
 	}
-
-	//spew.Dump(nodes)
 
 	sortedNames, err := topologicalSort(nodes)
 	if err != nil {
@@ -425,10 +422,6 @@ func (s *Sources) SortContracts() error {
 			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
 		}
 	}
-
-	//for _, unit := range sortedSourceUnits {
-	//	fmt.Println(unit.Name)
-	//}
 
 	s.SourceUnits = sortedSourceUnits
 	return nil
