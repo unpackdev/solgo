@@ -28,4 +28,8 @@ jobs:
           solc-select use 0.8.19
 
       - name: Run Tests
-        run: make test
+        run: |
+          source solgoenv/bin/activate
+          solc-select install 0.8.19
+          solc-select use 0.8.19 
+          make test
