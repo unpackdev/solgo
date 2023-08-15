@@ -383,6 +383,6 @@ func replaceOpenZeppelin(path string) string {
 // simplifyImportPaths simplifies the paths in import statements as file will already be present in the
 // directory for future consumption and is rather corrupted for import paths to stay the same.
 func simplifyImportPaths(content string) string {
-	re := regexp.MustCompile(`import "(.*?/)?(.*?)";`)
-	return re.ReplaceAllString(content, `import "./$2";`)
+	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
+	return re.ReplaceAllString(content, `import "./$1";`)
 }
