@@ -5,6 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// Declaration is a struct that contains information about a variable declaration in the AST.
 type Declaration struct {
 	*ASTBuilder
 
@@ -21,6 +22,7 @@ type Declaration struct {
 	Visibility      ast_pb.Visibility      `json:"visibility"`
 }
 
+// NewDeclaration creates a new Declaration instance.
 func NewDeclaration(b *ASTBuilder) *Declaration {
 	return &Declaration{
 		ASTBuilder:      b,
@@ -39,50 +41,62 @@ func (v *Declaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescripti
 	return false
 }
 
+// GetId returns the ID of the Declaration.
 func (d *Declaration) GetId() int64 {
 	return d.Id
 }
 
+// GetType returns the NodeType of the Declaration.
 func (d *Declaration) GetType() ast_pb.NodeType {
 	return d.NodeType
 }
 
+// GetSrc returns the SrcNode of the Declaration.
 func (d *Declaration) GetSrc() SrcNode {
 	return d.Src
 }
 
+// GetName returns the name of the Declaration.
 func (d *Declaration) GetName() string {
 	return d.Name
 }
 
+// GetTypeName returns the TypeName of the Declaration.
 func (d *Declaration) GetTypeName() *TypeName {
 	return d.TypeName
 }
 
+// GetScope returns the scope of the Declaration.
 func (d *Declaration) GetScope() int64 {
 	return d.Scope
 }
 
+// GetStateMutability returns the state mutability of the Declaration.
 func (d *Declaration) GetStateMutability() ast_pb.Mutability {
 	return d.StateMutability
 }
 
+// GetVisibility returns the visibility of the Declaration.
 func (d *Declaration) GetVisibility() ast_pb.Visibility {
 	return d.Visibility
 }
 
+// GetStorageLocation returns the storage location of the Declaration.
 func (d *Declaration) GetStorageLocation() ast_pb.StorageLocation {
 	return d.StorageLocation
 }
 
+// GetIsConstant returns whether or not the Declaration is constant.
 func (d *Declaration) GetIsConstant() bool {
 	return d.IsConstant
 }
 
+// GetIsStateVariable returns whether or not the Declaration is a state variable.
 func (d *Declaration) GetIsStateVariable() bool {
 	return d.IsStateVariable
 }
 
+// GetTypeDescription returns the TypeDescription of the Declaration.
 func (d *Declaration) GetTypeDescription() *TypeDescription {
 	if d.TypeName != nil {
 		return d.TypeName.GetTypeDescription()
@@ -90,6 +104,7 @@ func (d *Declaration) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetNodes returns the nodes associated with the Declaration.
 func (d *Declaration) GetNodes() []Node[NodeType] {
 	if d.TypeName != nil {
 		return []Node[NodeType]{d.TypeName}
@@ -98,6 +113,7 @@ func (d *Declaration) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+// ToProto converts the Declaration to its corresponding protocol buffer representation.
 func (d *Declaration) ToProto() NodeType {
 	toReturn := &ast_pb.Declaration{
 		Id:              d.Id,
@@ -120,6 +136,7 @@ func (d *Declaration) ToProto() NodeType {
 	return toReturn
 }
 
+// ParseVariableDeclaration parses a VariableDeclaration and stores the relevant information in the Declaration.
 func (d *Declaration) ParseVariableDeclaration(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

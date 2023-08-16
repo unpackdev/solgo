@@ -6,6 +6,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// Contract represents a Solidity contract in the abstract syntax tree.
 type Contract struct {
 	*ASTBuilder
 
@@ -22,6 +23,7 @@ type Contract struct {
 	ContractDependencies    []int64          `json:"contract_dependencies"`
 }
 
+// NewContractDefinition creates a new instance of Contract.
 func NewContractDefinition(b *ASTBuilder) *Contract {
 	return &Contract{
 		ASTBuilder: b,
@@ -29,58 +31,72 @@ func NewContractDefinition(b *ASTBuilder) *Contract {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Contract node.
+// This function always returns false for now.
 func (c *Contract) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the ID of the Contract.
 func (c *Contract) GetId() int64 {
 	return c.Id
 }
 
+// GetType returns the NodeType of the Contract.
 func (c *Contract) GetType() ast_pb.NodeType {
 	return c.NodeType
 }
 
+// GetSrc returns the source information of the Contract.
 func (c *Contract) GetSrc() SrcNode {
 	return c.Src
 }
 
+// GetName returns the name of the Contract.
 func (c *Contract) GetName() string {
 	return c.Name
 }
 
+// IsAbstract returns whether the Contract is abstract.
 func (c *Contract) IsAbstract() bool {
 	return c.Abstract
 }
 
+// GetKind returns the kind of the Contract.
 func (c *Contract) GetKind() ast_pb.NodeType {
 	return c.Kind
 }
 
+// IsFullyImplemented returns whether the Contract is fully implemented.
 func (c *Contract) IsFullyImplemented() bool {
 	return c.FullyImplemented
 }
 
+// GetNodes returns the child nodes of the Contract.
 func (c *Contract) GetNodes() []Node[NodeType] {
 	return c.Nodes
 }
 
+// GetLinearizedBaseContracts returns the linearized base contracts of the Contract.
 func (c *Contract) GetLinearizedBaseContracts() []int64 {
 	return c.LinearizedBaseContracts
 }
 
+// GetBaseContracts returns the base contracts of the Contract.
 func (c *Contract) GetBaseContracts() []*BaseContract {
 	return c.BaseContracts
 }
 
+// GetContractDependencies returns the contract dependencies of the Contract.
 func (c *Contract) GetContractDependencies() []int64 {
 	return c.ContractDependencies
 }
 
+// GetTypeDescription returns the type description associated with the Contract.
 func (c *Contract) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetStateVariables returns the state variables defined in the Contract.
 func (s *Contract) GetStateVariables() []*StateVariableDeclaration {
 	toReturn := make([]*StateVariableDeclaration, 0)
 
@@ -93,6 +109,7 @@ func (s *Contract) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+// GetStructs returns the struct definitions defined in the Contract.
 func (s *Contract) GetStructs() []*StructDefinition {
 	toReturn := make([]*StructDefinition, 0)
 
@@ -105,6 +122,7 @@ func (s *Contract) GetStructs() []*StructDefinition {
 	return toReturn
 }
 
+// GetEnums returns the enum definitions defined in the Contract.
 func (s *Contract) GetEnums() []*EnumDefinition {
 	toReturn := make([]*EnumDefinition, 0)
 
@@ -117,6 +135,7 @@ func (s *Contract) GetEnums() []*EnumDefinition {
 	return toReturn
 }
 
+// GetErrors returns the error definitions defined in the Contract.
 func (s *Contract) GetErrors() []*ErrorDefinition {
 	toReturn := make([]*ErrorDefinition, 0)
 
@@ -129,6 +148,7 @@ func (s *Contract) GetErrors() []*ErrorDefinition {
 	return toReturn
 }
 
+// GetEvents returns the event definitions defined in the Contract.
 func (s *Contract) GetEvents() []*EventDefinition {
 	toReturn := make([]*EventDefinition, 0)
 
@@ -141,6 +161,7 @@ func (s *Contract) GetEvents() []*EventDefinition {
 	return toReturn
 }
 
+// GetConstructor returns the constructor definition of the Contract.
 func (s *Contract) GetConstructor() *Constructor {
 	for _, node := range s.GetNodes() {
 		if constructor, ok := node.(*Constructor); ok {
@@ -151,6 +172,7 @@ func (s *Contract) GetConstructor() *Constructor {
 	return nil
 }
 
+// GetFunctions returns the function definitions defined in the Contract.
 func (s *Contract) GetFunctions() []*Function {
 	toReturn := make([]*Function, 0)
 
@@ -163,6 +185,7 @@ func (s *Contract) GetFunctions() []*Function {
 	return toReturn
 }
 
+// GetFallback returns the fallback definition of the Contract.
 func (s *Contract) GetFallback() *Fallback {
 	for _, node := range s.GetNodes() {
 		if function, ok := node.(*Fallback); ok {
@@ -173,6 +196,7 @@ func (s *Contract) GetFallback() *Fallback {
 	return nil
 }
 
+// GetReceive returns the receive definition of the Contract.
 func (s *Contract) GetReceive() *Receive {
 	for _, node := range s.GetNodes() {
 		if function, ok := node.(*Receive); ok {
@@ -183,6 +207,7 @@ func (s *Contract) GetReceive() *Receive {
 	return nil
 }
 
+// ToProto converts the Contract to its corresponding protocol buffer representation.
 func (c *Contract) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      c.Id,
@@ -209,6 +234,7 @@ func (c *Contract) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Contract")
 }
 
+// Parse parses the Contract node from the parsing context and associates it with other nodes.
 func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
 		Id:          c.GetNextID(),
