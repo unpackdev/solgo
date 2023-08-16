@@ -254,9 +254,10 @@ func (p *PrimaryExpression) Parse(
 
 	if ctx.ElementaryTypeName() != nil {
 		typeName := NewTypeName(p.ASTBuilder)
-		typeName.ParseElementary(unit, fnNode, p.GetId(), ctx.ElementaryTypeName())
+		typeName.ParseElementaryType(unit, fnNode, p.GetId(), ctx.ElementaryTypeName())
 		p.TypeName = typeName
 		p.TypeDescription = typeName.GetTypeDescription()
+		p.Name = ctx.GetText()
 	}
 
 	if expNode != nil {
@@ -265,6 +266,11 @@ func (p *PrimaryExpression) Parse(
 			for _, argument := range expNodeCtx.GetArguments() {
 				p.ArgumentTypes = append(p.ArgumentTypes, argument.GetTypeDescription())
 			}
+
+			if p.TypeName != nil {
+				p.ArgumentTypes = append(p.ArgumentTypes, p.TypeName.GetTypeDescription())
+			}
+
 			p.TypeDescription = p.buildArgumentTypeDescription()
 		}
 	}
@@ -443,6 +449,12 @@ func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 	typeStrings := make([]string, 0)
 	typeIdentifiers := make([]string, 0)
 
+	// If it's this, we should just return the type description of the contract that is already set
+	// for current expression scope.
+	if p.GetName() == "this" {
+		return p.GetTypeDescription()
+	}
+
 	for _, paramType := range p.GetArgumentTypes() {
 		if paramType == nil {
 			typeStrings = append(typeStrings, "unknown")
@@ -454,7 +466,7 @@ func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}
 	typeString += strings.Join(typeStrings, ",") + ")"
-	typeIdentifier += strings.Join(typeIdentifiers, "$")
+	typeIdentifier += strings.Join(typeIdentifiers, "$") + "$"
 
 	return &TypeDescription{
 		TypeString:     typeString,

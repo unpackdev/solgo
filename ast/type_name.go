@@ -371,7 +371,7 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 	}
 }
 
-func (t *TypeName) ParseElementary(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
+func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
 	t.Id = t.GetNextID()
 	t.Src = SrcNode{
 		Id:          t.GetNextID(),

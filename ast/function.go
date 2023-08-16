@@ -2,6 +2,7 @@ package ast
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
@@ -289,6 +290,13 @@ func (f *Function) buildTypeDescription() *TypeDescription {
 	}
 	typeString += strings.Join(typeStrings, ",") + ")"
 	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	if !strings.HasSuffix(typeIdentifier, "$") {
+		typeIdentifier += "$"
+	}
+
+	re := regexp.MustCompile(`\${2,}`)
+	typeIdentifier = re.ReplaceAllString(typeIdentifier, "$")
 
 	return &TypeDescription{
 		TypeString:     typeString,

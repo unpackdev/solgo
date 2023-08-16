@@ -2,6 +2,7 @@ package ast
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -177,8 +178,6 @@ func (f *FunctionCall) Parse(
 		)
 	}
 
-	f.TypeDescription = f.buildTypeDescription()
-
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
 			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, expressionCtx)
@@ -194,6 +193,7 @@ func (f *FunctionCall) Parse(
 		}
 	}
 
+	f.TypeDescription = f.buildTypeDescription()
 	return f
 }
 
@@ -212,6 +212,10 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
 			continue
+		} else if strings.Contains(paramType.TypeString, "contract") {
+			typeStrings = append(typeStrings, "address")
+			typeIdentifiers = append(typeIdentifiers, "$_t_address")
+			continue
 		}
 
 		typeStrings = append(typeStrings, paramType.TypeString)
@@ -219,7 +223,14 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	}
 
 	typeString += strings.Join(typeStrings, ",") + ")"
-	typeIdentifier += strings.Join(typeIdentifiers, "$") + "$"
+	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	if !strings.HasSuffix(typeIdentifier, "$") {
+		typeIdentifier += "$"
+	}
+
+	re := regexp.MustCompile(`\${2,}`)
+	typeIdentifier = re.ReplaceAllString(typeIdentifier, "$")
 
 	return &TypeDescription{
 		TypeString:     typeString,
