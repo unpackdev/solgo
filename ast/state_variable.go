@@ -116,16 +116,16 @@ func (v *StateVariableDeclaration) IsStateVariable() bool {
 // ToProto returns the protobuf representation of the state variable declaration.
 func (v *StateVariableDeclaration) ToProto() NodeType {
 	proto := ast_pb.StateVariable{
-		Id:              v.Id,
-		NodeType:        v.NodeType,
-		Src:             v.Src.ToProto(),
-		Name:            v.Name,
-		Visibility:      v.Visibility,
-		StorageLocation: v.StorageLocation,
-		StateMutability: v.StateMutability,
-		Scope:           v.Scope,
-		IsConstant:      v.Constant,
-		IsStateVariable: v.StateVariable,
+		Id:              v.GetId(),
+		NodeType:        v.GetType(),
+		Src:             v.GetSrc().ToProto(),
+		Name:            v.GetName(),
+		Visibility:      v.GetVisibility(),
+		StorageLocation: v.GetStorageLocation(),
+		StateMutability: v.GetStateMutability(),
+		Scope:           v.GetScope(),
+		IsConstant:      v.IsConstant(),
+		IsStateVariable: v.IsStateVariable(),
 	}
 
 	if v.GetTypeName() != nil {

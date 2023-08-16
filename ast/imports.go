@@ -199,11 +199,7 @@ func parseImportPathsForSourceUnit(
 					if symbol.AbsolutePath == importNode.AbsolutePath {
 						unit.ExportedSymbols = append(
 							unit.ExportedSymbols,
-							Symbol{
-								Id:           symbol.Id,
-								Name:         symbol.Name,
-								AbsolutePath: symbol.AbsolutePath,
-							},
+							NewSymbol(symbol.Id, symbol.Name, symbol.AbsolutePath),
 						)
 
 					}

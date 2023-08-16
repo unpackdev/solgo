@@ -53,7 +53,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			var errsExpected []error
 			assert.Equal(t, errsExpected, errs)
 			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
-
+			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
 				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)
 				assert.NoError(t, err)
@@ -89,14 +89,31 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.NotEmpty(t, astPretty)
 			//assert.Equal(t, testCase.expectedProto, string(astPretty))
 
+			// Basic check for root
+			astRoot := astBuilder.GetRoot()
+
+			assert.NotNil(t, astRoot.GetSrc())
+			assert.NotNil(t, astRoot.GetTypeDescription())
+			assert.NotNil(t, astRoot.GetComments())
+			assert.GreaterOrEqual(t, astRoot.GetSourceUnitCount(), int32(0))
+
 			// Zero is here for the first contract that's empty...
-			assert.GreaterOrEqual(t, astBuilder.GetRoot().EntrySourceUnit, int64(0))
+			assert.GreaterOrEqual(t, astRoot.EntrySourceUnit, int64(0))
 
 			// We need to check that the entry source unit name is correct.
-			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
-				if astBuilder.GetRoot().EntrySourceUnit == sourceUnit.GetId() {
+			for _, sourceUnit := range astRoot.GetSourceUnits() {
+				if astRoot.GetEntrySourceUnit() == sourceUnit.GetId() {
 					assert.Equal(t, sourceUnit.GetName(), testCase.sources.EntrySourceUnitName)
 				}
+
+				assert.True(t, astRoot.HasSourceUnits())
+				assert.NotNil(t, astRoot.GetSourceUnitByName(sourceUnit.GetName()))
+				assert.NotNil(t, astRoot.GetSourceUnitById(sourceUnit.GetId()))
+
+				assert.GreaterOrEqual(t, len(sourceUnit.GetImports()), 0)
+				assert.GreaterOrEqual(t, len(sourceUnit.GetPragmas()), 0)
+				assert.NotNil(t, sourceUnit.GetContract())
+				assert.NotEmpty(t, sourceUnit.GetLicense())
 
 				// Recursive test against all nodes. A common place where we can add tests to check
 				// if the AST is correct.
@@ -208,6 +225,49 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 		}
 	}
 
+	if while, ok := node.(*WhileStatement); ok {
+		assert.NotNil(t, while.GetCondition())
+		assert.NotNil(t, while.GetBody())
+	}
+
+	if variable, ok := node.(*StateVariableDeclaration); ok {
+		assert.GreaterOrEqual(t, variable.GetReferencedDeclaration(), int64(0))
+	}
+
+	if variable, ok := node.(*VariableDeclaration); ok {
+		assert.GreaterOrEqual(t, len(variable.GetAssignments()), 0)
+	}
+
+	if using, ok := node.(*UsingDirective); ok {
+		if using.GetPathNode() != nil {
+			assert.NotEmpty(t, using.GetPathNode().Name)
+		}
+		assert.GreaterOrEqual(t, using.GetReferencedDeclaration(), int64(0))
+		assert.NotNil(t, using.GetLibraryName())
+	}
+
+	if typeName, ok := node.(*TypeName); ok {
+		assert.GreaterOrEqual(t, typeName.GetReferencedDeclaration(), int64(0))
+		assert.NotNil(t, typeName.GetStateMutability())
+		assert.NotNil(t, typeName.GetTypeDescription().GetIdentifier())
+		assert.NotNil(t, typeName.GetTypeDescription().GetString())
+	}
+
+	if try, ok := node.(*TryStatement); ok {
+		assert.NotNil(t, try.GetImplemented())
+	}
+
+	if strct, ok := node.(*StructDefinition); ok {
+		assert.NotEmpty(t, strct.GetSourceUnitName())
+	}
+
+	if revert, ok := node.(*RevertStatement); ok {
+		assert.GreaterOrEqual(t, len(revert.GetArguments()), 0)
+		if revert.GetExpression() != nil {
+			assert.NotNil(t, revert.GetExpression().GetSrc())
+		}
+	}
+
 	for _, childNode := range node.GetNodes() {
 		recursiveTest(t, childNode)
 	}
@@ -259,6 +319,9 @@ func TestAstReferenceSetDescriptor(t *testing.T) {
 			var errsExpected []error
 			assert.Equal(t, errsExpected, errs)
 			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
+
+			astBuilder.GetRoot().SetReferenceDescriptor(0, nil)
+			astBuilder.GetRoot().SetReferenceDescriptor(0, &TypeDescription{})
 
 			// We need to check that the entry source unit name is correct.
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {

@@ -220,11 +220,7 @@ func (r *Resolver) resolveExportedSymbols() {
 				if !r.symbolExists(importNode.GetName(), sourceNode.GetExportedSymbols()) {
 					sourceNode.ExportedSymbols = append(
 						sourceNode.ExportedSymbols,
-						Symbol{
-							Id:           importNode.GetSourceUnit(),
-							Name:         importNode.GetName(),
-							AbsolutePath: importNode.GetAbsolutePath(),
-						},
+						NewSymbol(importNode.GetSourceUnit(), importNode.GetName(), importNode.GetAbsolutePath()),
 					)
 				}
 			}
