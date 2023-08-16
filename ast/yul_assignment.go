@@ -1,5 +1,6 @@
 package ast
 
+/*
 import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -79,3 +80,4 @@ func (y *YulAssignment) Parse(
 	}
 	return y
 }
+*/

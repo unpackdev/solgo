@@ -93,10 +93,10 @@ func (b *BaseContractName) GetReferencedDeclaration() int64 {
 // ToProto returns the protobuf representation of the base contract name.
 func (b *BaseContractName) ToProto() *ast_pb.BaseContractName {
 	return &ast_pb.BaseContractName{
-		Id:                    b.Id,
-		NodeType:              b.NodeType,
-		Src:                   b.Src.ToProto(),
-		Name:                  b.Name,
-		ReferencedDeclaration: b.ReferencedDeclaration,
+		Id:                    b.GetId(),
+		NodeType:              b.GetType(),
+		Src:                   b.GetSrc().ToProto(),
+		Name:                  b.GetName(),
+		ReferencedDeclaration: b.GetReferencedDeclaration(),
 	}
 }

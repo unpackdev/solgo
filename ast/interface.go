@@ -220,24 +220,24 @@ func (l *Interface) GetReceive() *Receive {
 // ToProto converts the Interface node to its corresponding protocol buffer representation.
 func (l *Interface) ToProto() NodeType {
 	proto := ast_pb.Contract{
-		Id:                      l.Id,
-		NodeType:                l.NodeType,
-		Kind:                    l.Kind,
-		Src:                     l.Src.ToProto(),
-		Name:                    l.Name,
-		Abstract:                l.Abstract,
-		FullyImplemented:        l.FullyImplemented,
-		LinearizedBaseContracts: l.LinearizedBaseContracts,
-		ContractDependencies:    l.ContractDependencies,
+		Id:                      l.GetId(),
+		NodeType:                l.GetType(),
+		Kind:                    l.GetKind(),
+		Src:                     l.GetSrc().ToProto(),
+		Name:                    l.GetName(),
+		Abstract:                l.IsAbstract(),
+		FullyImplemented:        l.IsFullyImplemented(),
+		LinearizedBaseContracts: l.GetLinearizedBaseContracts(),
+		ContractDependencies:    l.GetContractDependencies(),
 		Nodes:                   make([]*v3.TypedStruct, 0),
 		BaseContracts:           make([]*ast_pb.BaseContract, 0),
 	}
 
-	for _, baseContract := range l.BaseContracts {
+	for _, baseContract := range l.GetBaseContracts() {
 		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
 	}
 
-	for _, node := range l.Nodes {
+	for _, node := range l.GetNodes() {
 		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
 	}
 

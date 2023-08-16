@@ -39,10 +39,10 @@ func (c *Comment) GetText() string {
 // ToProto converts the Comment to its corresponding protocol buffer representation.
 func (c *Comment) ToProto() *ast_pb.Comment {
 	return &ast_pb.Comment{
-		Id:       c.Id,
-		NodeType: c.NodeType,
-		Src:      c.Src.ToProto(),
-		Text:     c.Text,
+		Id:       c.GetId(),
+		NodeType: c.GetType(),
+		Src:      c.GetSrc().ToProto(),
+		Text:     c.GetText(),
 	}
 }
 

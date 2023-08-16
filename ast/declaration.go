@@ -116,16 +116,16 @@ func (d *Declaration) GetNodes() []Node[NodeType] {
 // ToProto converts the Declaration to its corresponding protocol buffer representation.
 func (d *Declaration) ToProto() NodeType {
 	toReturn := &ast_pb.Declaration{
-		Id:              d.Id,
-		Name:            d.Name,
-		NodeType:        d.NodeType,
-		Scope:           d.Scope,
-		Src:             d.Src.ToProto(),
-		Mutability:      d.StateMutability,
-		StorageLocation: d.StorageLocation,
-		Visibility:      d.Visibility,
-		IsConstant:      d.IsConstant,
-		IsStateVariable: d.IsStateVariable,
+		Id:              d.GetId(),
+		Name:            d.GetName(),
+		NodeType:        d.GetType(),
+		Scope:           d.GetScope(),
+		Src:             d.GetSrc().ToProto(),
+		Mutability:      d.GetStateMutability(),
+		StorageLocation: d.GetStorageLocation(),
+		Visibility:      d.GetVisibility(),
+		IsConstant:      d.GetIsConstant(),
+		IsStateVariable: d.GetIsStateVariable(),
 		TypeDescription: d.GetTypeDescription().ToProto(),
 	}
 
