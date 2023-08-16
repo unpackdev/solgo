@@ -6,16 +6,18 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// IfStatement represents an if statement node in the abstract syntax tree.
 type IfStatement struct {
 	*ASTBuilder
 
-	Id        int64           `json:"id"`
-	NodeType  ast_pb.NodeType `json:"node_type"`
-	Src       SrcNode         `json:"src"`
-	Condition Node[NodeType]  `json:"condition"`
-	Body      Node[NodeType]  `json:"body"`
+	Id        int64           `json:"id"`        // Unique identifier of the if statement node.
+	NodeType  ast_pb.NodeType `json:"node_type"` // Type of the node.
+	Src       SrcNode         `json:"src"`       // Source location information.
+	Condition Node[NodeType]  `json:"condition"` // Condition node.
+	Body      Node[NodeType]  `json:"body"`      // Body node.
 }
 
+// NewIfStatement creates a new instance of IfStatement with the provided ASTBuilder.
 func NewIfStatement(b *ASTBuilder) *IfStatement {
 	return &IfStatement{
 		ASTBuilder: b,
@@ -24,39 +26,50 @@ func NewIfStatement(b *ASTBuilder) *IfStatement {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the IfStatement node.
+// SetReferenceDescriptor sets the reference descriptors of the IfStatement node.
 func (i *IfStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the if statement node.
 func (i *IfStatement) GetId() int64 {
 	return i.Id
 }
 
+// GetType returns the type of the node.
 func (i *IfStatement) GetType() ast_pb.NodeType {
 	return i.NodeType
 }
 
+// GetSrc returns the source location information of the if statement node.
 func (i *IfStatement) GetSrc() SrcNode {
 	return i.Src
 }
 
+// GetCondition returns the condition node of the if statement.
 func (i *IfStatement) GetCondition() Node[NodeType] {
 	return i.Condition
 }
 
+// GetTypeDescription returns the type description of the if statement.
 func (i *IfStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "if",
+		TypeIdentifier: "$_t_if",
+	}
 }
 
+// GetNodes returns a list of nodes associated with the if statement (condition and body).
 func (i *IfStatement) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{i.Condition, i.Body}
 }
 
+// GetBody returns the body node of the if statement.
 func (i *IfStatement) GetBody() Node[NodeType] {
 	return i.Body
 }
 
+// ToProto converts the IfStatement node to its corresponding protobuf representation.
 func (i *IfStatement) ToProto() NodeType {
 	proto := ast_pb.If{
 		Id:        i.GetId(),
@@ -72,6 +85,7 @@ func (i *IfStatement) ToProto() NodeType {
 	return NewTypedStruct(&proto, "If")
 }
 
+// Parse parses the if statement context and populates the IfStatement fields.
 func (i *IfStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -92,8 +106,6 @@ func (i *IfStatement) Parse(
 
 	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, ctx.Expression())
 
-	// i.Body set is just ridicolous as there are so many different ways for parsed ast to show nil
-	// instead of empty []. This was the way I've sorted it out. Future can decide if cleanup is necessary.
 	body := NewBodyNode(i.ASTBuilder)
 	if len(ctx.AllStatement()) > 0 {
 		for _, statementCtx := range ctx.AllStatement() {

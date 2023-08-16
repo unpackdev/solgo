@@ -5,6 +5,8 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// parseInheritanceFromCtx parses inheritance specifiers from the given context and constructs BaseContract instances.
+// It returns a slice of constructed BaseContract instances.
 func parseInheritanceFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceUnit]], contractNode Node[NodeType], ctx parser.IInheritanceSpecifierListContext) []*BaseContract {
 	toReturn := []*BaseContract{}
 

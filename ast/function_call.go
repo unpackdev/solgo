@@ -197,6 +197,7 @@ func (f *FunctionCall) Parse(
 	return f
 }
 
+// buildTypeDescription constructs and returns the TypeDescription of the FunctionCall.
 func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
@@ -328,6 +329,9 @@ func (f *FunctionCallOption) ToProto() NodeType {
 	return NewTypedStruct(&proto, "FunctionCallOption")
 }
 
+// Parse takes a parser.FunctionCallOptionsContext and parses it into a FunctionCallOption node.
+// It sets the Id, Src, Expression, and TypeDescription of the FunctionCallOption node.
+// It returns the created FunctionCallOption node.
 func (f *FunctionCallOption) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

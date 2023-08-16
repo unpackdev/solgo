@@ -7,23 +7,24 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// StructDefinition represents a struct definition in the Solidity abstract syntax tree (AST).
 type StructDefinition struct {
-	*ASTBuilder
-
-	SourceUnitName        string                 `json:"-"`
-	Id                    int64                  `json:"id"`
-	NodeType              ast_pb.NodeType        `json:"node_type"`
-	Src                   SrcNode                `json:"src"`
-	Kind                  ast_pb.NodeType        `json:"kind,omitempty"`
-	Name                  string                 `json:"name"`
-	CanonicalName         string                 `json:"canonical_name"`
-	ReferencedDeclaration int64                  `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription       `json:"type_description"`
-	Members               []Node[NodeType]       `json:"members"`
-	Visibility            ast_pb.Visibility      `json:"visibility"`
-	StorageLocation       ast_pb.StorageLocation `json:"storage_location"`
+	*ASTBuilder                                  // Embedding the ASTBuilder for common functionality
+	SourceUnitName        string                 `json:"-"`                                // Name of the source unit
+	Id                    int64                  `json:"id"`                               // Unique identifier for the struct definition
+	NodeType              ast_pb.NodeType        `json:"node_type"`                        // Type of the node (STRUCT_DEFINITION for struct definition)
+	Src                   SrcNode                `json:"src"`                              // Source information about the struct definition
+	Kind                  ast_pb.NodeType        `json:"kind,omitempty"`                   // Kind of the struct definition (e.g., "contract")
+	Name                  string                 `json:"name"`                             // Name of the struct
+	CanonicalName         string                 `json:"canonical_name"`                   // Canonical name of the struct
+	ReferencedDeclaration int64                  `json:"referenced_declaration,omitempty"` // Referenced declaration of the struct definition
+	TypeDescription       *TypeDescription       `json:"type_description"`                 // Type description of the struct definition
+	Members               []Node[NodeType]       `json:"members"`                          // Members of the struct definition
+	Visibility            ast_pb.Visibility      `json:"visibility"`                       // Visibility of the struct definition
+	StorageLocation       ast_pb.StorageLocation `json:"storage_location"`                 // Storage location of the struct definition
 }
 
+// NewStructDefinition creates a new StructDefinition instance.
 func NewStructDefinition(b *ASTBuilder) *StructDefinition {
 	return &StructDefinition{
 		ASTBuilder:      b,
@@ -41,30 +42,37 @@ func (s *StructDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDesc
 	return false
 }
 
+// GetId returns the unique identifier of the struct definition.
 func (s *StructDefinition) GetId() int64 {
 	return s.Id
 }
 
+// GetType returns the type of the node, which is 'STRUCT_DEFINITION' for a struct definition.
 func (s *StructDefinition) GetType() ast_pb.NodeType {
 	return s.NodeType
 }
 
+// GetSrc returns the source information about the struct definition.
 func (s *StructDefinition) GetSrc() SrcNode {
 	return s.Src
 }
 
+// GetName returns the name of the struct definition.
 func (s *StructDefinition) GetName() string {
 	return s.Name
 }
 
+// GetTypeDescription returns the type description of the struct definition.
 func (s *StructDefinition) GetTypeDescription() *TypeDescription {
 	return s.TypeDescription
 }
 
+// GetCanonicalName returns the canonical name of the struct definition.
 func (s *StructDefinition) GetCanonicalName() string {
 	return s.CanonicalName
 }
 
+// GetMembers returns the members of the struct definition.
 func (s *StructDefinition) GetMembers() []*Parameter {
 	toReturn := make([]*Parameter, 0)
 
@@ -76,30 +84,37 @@ func (s *StructDefinition) GetMembers() []*Parameter {
 	return toReturn
 }
 
+// GetSourceUnitName returns the name of the source unit.
 func (s *StructDefinition) GetSourceUnitName() string {
 	return s.SourceUnitName
 }
 
+// GetKind returns the kind of the struct definition.
 func (s *StructDefinition) GetKind() ast_pb.NodeType {
 	return s.Kind
 }
 
+// GetVisibility returns the visibility of the struct definition.
 func (s *StructDefinition) GetVisibility() ast_pb.Visibility {
 	return s.Visibility
 }
 
+// GetStorageLocation returns the storage location of the struct definition.
 func (s *StructDefinition) GetStorageLocation() ast_pb.StorageLocation {
 	return s.StorageLocation
 }
 
+// GetNodes returns the members of the struct definition.
 func (s *StructDefinition) GetNodes() []Node[NodeType] {
 	return s.Members
 }
 
+// GetReferencedDeclaration returns the referenced declaration of the struct definition.
 func (s *StructDefinition) GetReferencedDeclaration() int64 {
 	return s.ReferencedDeclaration
 }
 
+// ToProto returns the protobuf representation of the struct definition.
 func (s *StructDefinition) ToProto() NodeType {
 	proto := ast_pb.Struct{
 		Id:                    s.GetId(),
@@ -122,6 +137,7 @@ func (s *StructDefinition) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Struct")
 }
 
+// Parse parses a struct definition from the provided parser.StructDefinitionContext and returns the corresponding StructDefinition.
 func (s *StructDefinition) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

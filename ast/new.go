@@ -5,6 +5,8 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// NewExpr represents a new expression node in the AST.
+// It contains information about the type being instantiated, type description, and related metadata.
 type NewExpr struct {
 	*ASTBuilder
 
@@ -17,6 +19,7 @@ type NewExpr struct {
 	TypeDescription       *TypeDescription   `json:"type_description"`
 }
 
+// NewExprExpression creates a new NewExpr instance with initial values.
 func NewExprExpression(b *ASTBuilder) *NewExpr {
 	return &NewExpr{
 		ASTBuilder:    b,
@@ -27,46 +30,55 @@ func NewExprExpression(b *ASTBuilder) *NewExpr {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the NewExpr node.
-func (m *NewExpr) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	m.ReferencedDeclaration = refId
-	m.TypeDescription = refDesc
+func (n *NewExpr) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	n.ReferencedDeclaration = refId
+	n.TypeDescription = refDesc
 	return false
 }
 
+// GetId returns the ID of the NewExpr node.
 func (n *NewExpr) GetId() int64 {
 	return n.Id
 }
 
+// GetType returns the NodeType of the NewExpr node.
 func (n *NewExpr) GetType() ast_pb.NodeType {
 	return n.NodeType
 }
 
+// GetSrc returns the source information of the NewExpr node.
 func (n *NewExpr) GetSrc() SrcNode {
 	return n.Src
 }
 
+// GetArgumentTypes returns the type descriptions of arguments in the new expression.
 func (n *NewExpr) GetArgumentTypes() []*TypeDescription {
 	return n.ArgumentTypes
 }
 
+// GetTypeName returns the type name associated with the new expression.
 func (n *NewExpr) GetTypeName() *TypeName {
 	return n.TypeName
 }
 
+// GetTypeDescription returns the type description associated with the new expression.
 func (n *NewExpr) GetTypeDescription() *TypeDescription {
 	return n.TypeDescription
 }
 
+// GetNodes returns the list of child nodes of the NewExpr node.
 func (n *NewExpr) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{
 		n.GetTypeName(),
 	}
 }
 
+// GetReferencedDeclaration returns the ID of the referenced declaration in the context of new expression.
 func (n *NewExpr) GetReferencedDeclaration() int64 {
 	return n.ReferencedDeclaration
 }
 
+// ToProto converts the NewExpr node to its corresponding protobuf representation.
 func (n *NewExpr) ToProto() NodeType {
 	protos := ast_pb.NewExpression{
 		Id:                    n.GetId(),
@@ -85,6 +97,7 @@ func (n *NewExpr) ToProto() NodeType {
 	return NewTypedStruct(&protos, "NewExpression")
 }
 
+// Parse populates the NewExpr node based on the provided context and other information.
 func (n *NewExpr) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -114,6 +127,7 @@ func (n *NewExpr) Parse(
 		}(),
 	}
 
+	// Parsing the type name associated with the new expression.
 	typeName := NewTypeName(n.ASTBuilder)
 	typeName.Parse(unit, fnNode, n.GetId(), ctx.TypeName())
 	n.TypeName = typeName

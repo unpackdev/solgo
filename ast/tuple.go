@@ -8,34 +8,17 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
-// The TupleExpression struct represents a tuple expression in Solidity.
+// TupleExpression represents a tuple expression in Solidity.
 type TupleExpression struct {
-	// Embedding the ASTBuilder to provide common functionality
-	*ASTBuilder
-
-	// The unique identifier for the tuple expression
-	Id int64 `json:"id"`
-
-	// The type of the node, which is 'TUPLE_EXPRESSION' for a tuple expression
-	NodeType ast_pb.NodeType `json:"node_type"`
-
-	// The source information about the tuple expression, such as its line and column numbers in the source file
-	Src SrcNode `json:"src"`
-
-	// Whether the tuple expression is constant
-	Constant bool `json:"is_constant"`
-
-	// Whether the tuple expression is pure
-	Pure bool `json:"is_pure"`
-
-	// The components of the tuple expression
-	Components []Node[NodeType] `json:"components"`
-
-	// The referenced declaration of the tuple expression
-	ReferencedDeclaration int64 `json:"referenced_declaration,omitempty"`
-
-	// The type description of the tuple expression
-	TypeDescription *TypeDescription `json:"type_description"`
+	*ASTBuilder                            // Embedding the ASTBuilder to provide common functionality
+	Id                    int64            `json:"id"`                               // Unique identifier for the tuple expression
+	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the node (TUPLE_EXPRESSION for a tuple expression)
+	Src                   SrcNode          `json:"src"`                              // Source information about the tuple expression
+	Constant              bool             `json:"is_constant"`                      // Whether the tuple expression is constant
+	Pure                  bool             `json:"is_pure"`                          // Whether the tuple expression is pure
+	Components            []Node[NodeType] `json:"components"`                       // Components of the tuple expression
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration of the tuple expression
+	TypeDescription       *TypeDescription `json:"type_description"`                 // Type description of the tuple expression
 }
 
 // NewTupleExpression creates a new TupleExpression instance.
@@ -169,6 +152,7 @@ func (t *TupleExpression) Parse(
 	return t
 }
 
+// buildTypeDescription constructs the type description of the tuple expression.
 func (t *TupleExpression) buildTypeDescription() *TypeDescription {
 	typeString := "tuple("
 	typeIdentifier := "t_tuple_"

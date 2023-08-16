@@ -46,12 +46,15 @@ func (b *ContinueStatement) GetSrc() SrcNode {
 
 // GetTypeDescription returns the type description associated with the ContinueStatement.
 func (b *ContinueStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "continue",
+		TypeIdentifier: "$_t_continue",
+	}
 }
 
 // GetNodes returns an empty list of child nodes for the ContinueStatement.
 func (b *ContinueStatement) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{}
 }
 
 // ToProto converts the ContinueStatement to its corresponding protocol buffer representation.

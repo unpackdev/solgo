@@ -168,13 +168,10 @@ func (r *Resolver) Resolve() []error {
 		)
 	}
 
-	for _, errorrr := range errors {
-		fmt.Println(errorrr)
-	}
-
 	return errors
 }
 
+// resolveImportDirectives resolves import directives in the AST.
 func (r *Resolver) resolveImportDirectives() {
 	for _, sourceNode := range r.sourceUnits {
 		// In case any imports are available and they are not exported
@@ -194,6 +191,7 @@ func (r *Resolver) resolveImportDirectives() {
 	}
 }
 
+// resolveBaseContracts resolves base contracts in the AST.
 func (r *Resolver) resolveBaseContracts() {
 	for _, sourceNode := range r.sourceUnits {
 		for _, baseContract := range sourceNode.GetBaseContracts() {
@@ -209,6 +207,8 @@ func (r *Resolver) resolveBaseContracts() {
 		}
 	}
 }
+
+// resolveExportedSymbols resolves exported symbols in the AST.
 func (r *Resolver) resolveExportedSymbols() {
 	for _, sourceNode := range r.sourceUnits {
 
@@ -246,6 +246,7 @@ func (r *Resolver) resolveExportedSymbols() {
 	}
 }
 
+// symbolExists checks if a symbol with a given name exists in a list of symbols.
 func (r *Resolver) symbolExists(name string, symbols []Symbol) bool {
 	for _, symbol := range symbols {
 		if symbol.GetName() == name {
@@ -256,6 +257,7 @@ func (r *Resolver) symbolExists(name string, symbols []Symbol) bool {
 	return false
 }
 
+// resolveEntrySourceUnit resolves the entry source unit in the AST.
 func (r *Resolver) resolveEntrySourceUnit() {
 	// Entry source unit is already calculated, we are going to skip the check.
 	// Note if you are reading this, it's the best practice to always set it as
@@ -320,13 +322,21 @@ func (r *Resolver) byStateVariables(name string) (int64, *TypeDescription) {
 
 func (r *Resolver) byVariables(name string) (int64, *TypeDescription) {
 	for _, node := range r.currentVariables {
-		variable := node.(*VariableDeclaration)
-
-		for _, declaration := range variable.Declarations {
-			if declaration.GetName() == name {
-				return node.GetId(), declaration.GetTypeDescription()
+		if variable, ok := node.(*VariableDeclaration); ok {
+			for _, declaration := range variable.Declarations {
+				if declaration.GetName() == name {
+					return node.GetId(), declaration.GetTypeDescription()
+				}
+			}
+		}
+		if variable, ok := node.(*Parameter); ok {
+			if variable.GetName() == name {
+				return node.GetId(), variable.GetTypeDescription()
 			}
 
+			if variable.GetTypeName() != nil && variable.GetTypeName().GetName() == name {
+				return node.GetId(), variable.GetTypeDescription()
+			}
 		}
 	}
 
@@ -472,6 +482,10 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 					return primary, primary.GetTypeDescription()
 				}
 			}
+		}
+	case *IndexAccess:
+		if nodeCtx.GetName() == name {
+			return nodeCtx, nodeCtx.GetTypeDescription()
 		}
 	}
 

@@ -45,7 +45,7 @@ func (p *Pragma) GetSrc() SrcNode {
 
 // GetTypeDescription returns the type description of the node. For a Pragma, this is always nil.
 func (p *Pragma) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{}
 }
 
 // GetLiterals returns a slice of strings that represent the literals of the pragma directive.
@@ -60,7 +60,7 @@ func (p *Pragma) GetText() string {
 
 // GetNodes returns the child nodes of the node. For a Pragma, this is always nil.
 func (p *Pragma) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{}
 }
 
 // ToProto returns the protobuf representation of the node.

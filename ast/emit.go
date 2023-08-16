@@ -6,16 +6,18 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// Emit represents an emit statement node in the abstract syntax tree.
 type Emit struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`
-	NodeType   ast_pb.NodeType  `json:"node_type"`
-	Src        SrcNode          `json:"src"`
-	Arguments  []Node[NodeType] `json:"arguments"`
-	Expression Node[NodeType]   `json:"expression"`
+	Id         int64            `json:"id"`         // Unique identifier of the emit statement node.
+	NodeType   ast_pb.NodeType  `json:"node_type"`  // Type of the node.
+	Src        SrcNode          `json:"src"`        // Source location information.
+	Arguments  []Node[NodeType] `json:"arguments"`  // List of arguments for the emit statement.
+	Expression Node[NodeType]   `json:"expression"` // Expression node associated with the emit statement.
 }
 
+// NewEmitStatement creates a new instance of Emit with the provided ASTBuilder.
 func NewEmitStatement(b *ASTBuilder) *Emit {
 	return &Emit{
 		ASTBuilder: b,
@@ -25,35 +27,45 @@ func NewEmitStatement(b *ASTBuilder) *Emit {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the Emit node.
+// SetReferenceDescriptor sets the reference descriptors of the Emit node.
 func (e *Emit) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the emit statement node.
 func (e *Emit) GetId() int64 {
 	return e.Id
 }
 
+// GetType returns the type of the node.
 func (e *Emit) GetType() ast_pb.NodeType {
 	return e.NodeType
 }
 
+// GetSrc returns the source location information of the emit statement node.
 func (e *Emit) GetSrc() SrcNode {
 	return e.Src
 }
 
+// GetArguments returns the list of arguments associated with the emit statement.
 func (e *Emit) GetArguments() []Node[NodeType] {
 	return e.Arguments
 }
 
+// GetExpression returns the expression node associated with the emit statement.
 func (e *Emit) GetExpression() Node[NodeType] {
 	return e.Expression
 }
 
+// GetTypeDescription returns the type description of the emit statement.
 func (e *Emit) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "emit",
+		TypeIdentifier: "$_t_emit",
+	}
 }
 
+// GetNodes returns a list of nodes associated with the emit statement (arguments and expression).
 func (e *Emit) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, e.Arguments...)
@@ -61,6 +73,7 @@ func (e *Emit) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// ToProto converts the Emit node to its corresponding protobuf representation.
 func (e *Emit) ToProto() NodeType {
 	proto := ast_pb.Emit{
 		Id:         e.GetId(),
@@ -77,6 +90,7 @@ func (e *Emit) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Emit")
 }
 
+// Parse parses the emit statement context and populates the Emit fields.
 func (e *Emit) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],

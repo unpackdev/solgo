@@ -440,6 +440,109 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
+	if fnNode != nil && p.TypeDescription == nil {
+		if fn, ok := fnNode.(*Function); ok {
+			for _, param := range fn.GetParameters().GetParameters() {
+				if param.GetName() == p.Name {
+					p.TypeDescription = param.GetTypeName().GetTypeDescription()
+					p.ReferencedDeclaration = fn.GetId()
+					break
+				}
+			}
+		}
+
+		if fn, ok := fnNode.(*ForStatement); ok {
+			found := false
+			if varD, ok := fn.GetInitialiser().(*VariableDeclaration); ok {
+				for _, declar := range varD.GetDeclarations() {
+					if declar.GetName() == p.Name {
+						p.TypeDescription = declar.GetTypeName().GetTypeDescription()
+						p.ReferencedDeclaration = varD.GetId()
+						found = true
+						break
+					}
+				}
+			}
+
+			// Seek the condition...
+			if !found {
+				if binOp, ok := fn.GetCondition().(*BinaryOperation); ok {
+					if left, ok := binOp.GetLeftExpression().(*PrimaryExpression); ok {
+						if left.GetName() == p.Name {
+							p.TypeDescription = left.GetTypeDescription()
+							p.ReferencedDeclaration = left.GetId()
+							found = true
+						}
+					}
+
+					if p.TypeDescription == nil {
+						if right, ok := binOp.GetRightExpression().(*BinaryOperation); ok {
+							if left, ok := right.GetLeftExpression().(*MemberAccessExpression); ok {
+								if left.GetMemberName() == p.Name {
+									p.TypeDescription = left.GetTypeDescription()
+									p.ReferencedDeclaration = left.GetId()
+									found = true
+								}
+
+								if p.TypeDescription == nil {
+									if left, ok := left.GetExpression().(*PrimaryExpression); ok {
+										if left.GetName() == p.Name {
+											p.TypeDescription = left.GetTypeDescription()
+											p.ReferencedDeclaration = left.GetId()
+											found = true
+										}
+									}
+								}
+							}
+
+							if p.TypeDescription == nil {
+								if left, ok := right.GetRightExpression().(*PrimaryExpression); ok {
+									if left.GetName() == p.Name {
+										p.TypeDescription = left.GetTypeDescription()
+										p.ReferencedDeclaration = left.GetId()
+										found = true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// If we still do not have type description set... Let's do one hack to search body node...
+	// @TODO: Improve this in the future to search recursively...
+	if bodyNode != nil && p.TypeDescription == nil {
+		for _, statement := range bodyNode.GetStatements() {
+			if expr, ok := statement.(*Assignment); ok {
+				for _, node := range expr.GetNodes() {
+					if pExpr, ok := node.(*PrimaryExpression); ok {
+						if pExpr.GetName() == p.Name {
+							p.TypeDescription = pExpr.GetTypeDescription()
+							p.ReferencedDeclaration = pExpr.GetId()
+							break
+						}
+					}
+
+					for _, subnode := range node.GetNodes() {
+						if pExpr, ok := subnode.(*PrimaryExpression); ok {
+							if pExpr.GetName() == p.Name {
+								p.TypeDescription = pExpr.GetTypeDescription()
+								p.ReferencedDeclaration = pExpr.GetId()
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/* 	if p.GetId() == 4220 {
+		p.dumpNode(fnNode)
+	} */
+
 	return p
 }
 

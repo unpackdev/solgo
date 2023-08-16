@@ -95,7 +95,10 @@ func (c *Constructor) GetNodes() []Node[NodeType] {
 
 // GetTypeDescription returns the type description of the constructor, which is nil as constructors do not have a type description.
 func (c *Constructor) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "constructor",
+		TypeIdentifier: "$_t_constructor",
+	}
 }
 
 func (c *Constructor) GetModifiers() []*ModifierInvocation {

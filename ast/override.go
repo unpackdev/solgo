@@ -6,62 +6,68 @@ import (
 	"go.uber.org/zap"
 )
 
+// OverrideSpecifier represents an override specifier node in the abstract syntax tree.
 type OverrideSpecifier struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`
-	NodeType              ast_pb.NodeType  `json:"node_type"`
-	Name                  string           `json:"name"`
-	Src                   SrcNode          `json:"src"`
-	ReferencedDeclaration int64            `json:"referenced_declaration"`
-	TypeDescription       *TypeDescription `json:"type_descriptions"`
+	Id                    int64            `json:"id"`                     // Unique identifier of the override specifier node.
+	NodeType              ast_pb.NodeType  `json:"node_type"`              // Type of the node.
+	Name                  string           `json:"name"`                   // Name of the overridden identifier.
+	Src                   SrcNode          `json:"src"`                    // Source location information.
+	ReferencedDeclaration int64            `json:"referenced_declaration"` // Referenced declaration identifier.
+	TypeDescription       *TypeDescription `json:"type_descriptions"`      // Type description of the override specifier.
 }
 
+// NewOverrideSpecifier creates a new instance of OverrideSpecifier with the provided ASTBuilder.
 func NewOverrideSpecifier(b *ASTBuilder) *OverrideSpecifier {
 	return &OverrideSpecifier{
 		ASTBuilder: b,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptor
+// SetReferenceDescriptor sets the reference descriptor of the OverrideSpecifier.
 func (o *OverrideSpecifier) SetReferenceDescriptor(refId int64, refType *TypeDescription) bool {
 	o.ReferencedDeclaration = refId
 	o.TypeDescription = refType
 	return true
 }
 
+// GetId returns the unique identifier of the override specifier node.
 func (o *OverrideSpecifier) GetId() int64 {
 	return o.Id
 }
 
+// GetType returns the type of the node.
 func (o *OverrideSpecifier) GetType() ast_pb.NodeType {
 	return o.NodeType
 }
 
+// GetSrc returns the source location information of the override specifier node.
 func (o *OverrideSpecifier) GetSrc() SrcNode {
 	return o.Src
 }
 
+// GetNodes returns an empty slice of nodes associated with the override specifier.
 func (o *OverrideSpecifier) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{}
 }
 
-// GetTypeDescription returns the type description
+// GetTypeDescription returns the type description of the override specifier.
 func (o *OverrideSpecifier) GetTypeDescription() *TypeDescription {
 	return o.TypeDescription
 }
 
-// GetReferencedDeclaration returns the referenced declaration
+// GetReferencedDeclaration returns the referenced declaration identifier of the override specifier.
 func (o *OverrideSpecifier) GetReferencedDeclaration() int64 {
 	return o.ReferencedDeclaration
 }
 
-// GetName returns the name of the identifier that is being overridden
+// GetName returns the name of the identifier that is being overridden.
 func (o *OverrideSpecifier) GetName() string {
 	return o.Name
 }
 
-// ToProto converts the node to its proto representation
+// ToProto converts the OverrideSpecifier node to its corresponding protobuf representation.
 func (o *OverrideSpecifier) ToProto() NodeType {
 	return &ast_pb.OverrideSpecifier{
 		Id:                    o.GetId(),
@@ -73,6 +79,7 @@ func (o *OverrideSpecifier) ToProto() NodeType {
 	}
 }
 
+// Parse parses the override specifier context and populates the OverrideSpecifier fields.
 func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], ctx parser.IOverrideSpecifierContext) {
 	o.Id = o.GetNextID()
 	o.Src = SrcNode{

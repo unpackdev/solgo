@@ -9,9 +9,11 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// Function represents a Solidity function definition within an abstract syntax tree.
 type Function struct {
-	*ASTBuilder
+	*ASTBuilder // Embedded ASTBuilder for creating the AST.
 
+	// Core properties of a function node.
 	Id                    int64                 `json:"id"`
 	Name                  string                `json:"name"`
 	NodeType              ast_pb.NodeType       `json:"node_type"`
@@ -31,6 +33,7 @@ type Function struct {
 	TypeDescription       *TypeDescription      `json:"type_description"`
 }
 
+// NewFunction creates and initializes a new Function node.
 func NewFunction(b *ASTBuilder) *Function {
 	return &Function{
 		ASTBuilder:  b,
@@ -49,70 +52,87 @@ func (f *Function) SetReferenceDescriptor(refId int64, refDesc *TypeDescription)
 	return false
 }
 
+// GetId returns the unique identifier of the Function node.
 func (f *Function) GetId() int64 {
 	return f.Id
 }
 
+// GetType returns the type of the Function node.
 func (f *Function) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetSrc returns the source location information of the Function node.
 func (f *Function) GetSrc() SrcNode {
 	return f.Src
 }
 
+// GetParameters returns the list of parameters of the Function node.
 func (f *Function) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
+// GetReturnParameters returns the list of return parameters of the Function node.
 func (f *Function) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
+// GetBody returns the body of the Function node.
 func (f *Function) GetBody() *BodyNode {
 	return f.Body
 }
 
+// GetKind returns the kind of the Function node.
 func (f *Function) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
+// IsImplemented returns true if the Function node is implemented, false otherwise.
 func (f *Function) IsImplemented() bool {
 	return f.Implemented
 }
 
+// GetModifiers returns the list of modifier invocations applied to the Function node.
 func (f *Function) GetModifiers() []*ModifierInvocation {
 	return f.Modifiers
 }
 
+// GetOverrides returns the list of override specifiers associated with the Function node.
 func (f *Function) GetOverrides() []*OverrideSpecifier {
 	return f.Overrides
 }
 
+// GetVisibility returns the visibility of the Function node.
 func (f *Function) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
+// GetStateMutability returns the state mutability of the Function node.
 func (f *Function) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
+// IsVirtual returns true if the Function node is declared as virtual, false otherwise.
 func (f *Function) IsVirtual() bool {
 	return f.Virtual
 }
 
+// GetScope returns the scope of the Function node.
 func (f *Function) GetScope() int64 {
 	return f.Scope
 }
 
+// GetName returns the name of the Function node.
 func (f *Function) GetName() string {
 	return f.Name
 }
 
+// GetTypeDescription returns the type description of the Function node.
 func (f *Function) GetTypeDescription() *TypeDescription {
 	return f.TypeDescription
 }
 
+// GetNodes returns a list of child nodes within the Function node.
 func (f *Function) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{}
 	toReturn = append(toReturn, f.GetBody().GetNodes()...)
@@ -130,10 +150,12 @@ func (f *Function) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// GetReferencedDeclaration returns the referenced declaration identifier associated with the Function node.
 func (f *Function) GetReferencedDeclaration() int64 {
 	return f.ReferencedDeclaration
 }
 
+// ToProto converts the Function node to its corresponding protobuf representation.
 func (f *Function) ToProto() NodeType {
 	proto := ast_pb.Function{
 		Id:                    f.GetId(),
@@ -169,12 +191,14 @@ func (f *Function) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Function")
 }
 
+// Parse parses the source code and constructs the Function node.
 func (f *Function) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	bodyCtx parser.IContractBodyElementContext,
 	ctx *parser.FunctionDefinitionContext,
 ) Node[NodeType] {
+	// Initialize basic properties.
 	f.Id = f.GetNextID()
 	f.Scope = contractNode.GetId()
 	if ctx.Identifier() != nil {
@@ -272,6 +296,7 @@ func (f *Function) Parse(
 	return f
 }
 
+// buildTypeDescription constructs the type description of the Function node.
 func (f *Function) buildTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
@@ -304,6 +329,7 @@ func (f *Function) buildTypeDescription() *TypeDescription {
 	}
 }
 
+// getVisibilityFromCtx extracts the visibility of the Function node from the parser context.
 func (f *Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Visibility {
 	visibilityMap := map[string]ast_pb.Visibility{
 		"public":   ast_pb.Visibility_PUBLIC,
@@ -321,6 +347,7 @@ func (f *Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) a
 	return ast_pb.Visibility_INTERNAL
 }
 
+// getStateMutabilityFromCtx extracts the state mutability of the Function node from the parser context.
 func (f *Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable": ast_pb.Mutability_PAYABLE,
@@ -337,6 +364,7 @@ func (f *Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionConte
 	return ast_pb.Mutability_NONPAYABLE
 }
 
+// getVirtualState determines if the Function node is declared as virtual from the parser context.
 func (f *Function) getVirtualState(ctx *parser.FunctionDefinitionContext) bool {
 	for _, virtual := range ctx.AllVirtual() {
 		if virtual.GetText() == "virtual" {

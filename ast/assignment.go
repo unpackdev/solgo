@@ -13,15 +13,15 @@ import (
 type Assignment struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`
-	NodeType              ast_pb.NodeType  `json:"node_type"`
-	Src                   SrcNode          `json:"src"`
-	Expression            Node[NodeType]   `json:"expression,omitempty"`
-	Operator              ast_pb.Operator  `json:"operator,omitempty"`
-	LeftExpression        Node[NodeType]   `json:"left_expression,omitempty"`
-	RightExpression       Node[NodeType]   `json:"right_expression,omitempty"`
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription `json:"type_description,omitempty"`
+	Id                    int64            `json:"id"`                               // Unique identifier for the Assignment node.
+	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the AST node.
+	Src                   SrcNode          `json:"src"`                              // Source location information.
+	Expression            Node[NodeType]   `json:"expression,omitempty"`             // Expression for the assignment (if used).
+	Operator              ast_pb.Operator  `json:"operator,omitempty"`               // Operator used in the assignment.
+	LeftExpression        Node[NodeType]   `json:"left_expression,omitempty"`        // Left-hand side expression.
+	RightExpression       Node[NodeType]   `json:"right_expression,omitempty"`       // Right-hand side expression.
+	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration identifier (if used).
+	TypeDescription       *TypeDescription `json:"type_description,omitempty"`       // Type description associated with the Assignment node.
 }
 
 // NewAssignment creates a new Assignment node with a given ASTBuilder.
@@ -142,6 +142,7 @@ func (a *Assignment) ParseStatement(
 	eCtx *parser.ExpressionStatementContext,
 	ctx *parser.AssignmentContext,
 ) {
+	// Setting the source location information.
 	a.Src = SrcNode{
 		Id:     a.GetNextID(),
 		Line:   int64(eCtx.GetStart().GetLine()),
@@ -166,6 +167,7 @@ func (a *Assignment) ParseStatement(
 		}(),
 	}
 
+	// Parsing the expression and setting the type description.
 	expression := NewExpression(a.ASTBuilder)
 	a.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx)
 	a.TypeDescription = a.Expression.GetTypeDescription()
@@ -181,6 +183,7 @@ func (a *Assignment) Parse(
 	expNode Node[NodeType],
 	ctx *parser.AssignmentContext,
 ) Node[NodeType] {
+	// Setting the type and source location information.
 	a.NodeType = ast_pb.NodeType_ASSIGNMENT
 	a.Src = SrcNode{
 		Id:     a.GetNextID(),
@@ -202,15 +205,22 @@ func (a *Assignment) Parse(
 		}(),
 	}
 
+	// Parsing the operator.
 	a.Operator = parseOperator(ctx.AssignOp())
+
+	// Parsing left and right expressions.
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0))
 	a.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1))
 
-	// What we are going to do here is take left expression type description and assign it to the
-	// asignment type description. This is because the left expression is the one that holds the
-	// type description of the assignment.
+	// Setting the type description based on the left expression.
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()
+
+	// If the left expression is nil, set the reference descriptor for the right expression.
+	if a.TypeDescription == nil {
+		a.LeftExpression.SetReferenceDescriptor(a.RightExpression.GetId(), a.RightExpression.GetTypeDescription())
+		a.TypeDescription = a.RightExpression.GetTypeDescription()
+	}
 
 	return a
 }

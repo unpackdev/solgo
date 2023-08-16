@@ -1,27 +1,33 @@
+// Package ast defines data structures and methods for abstract syntax tree nodes used in a specific programming language.
+// The package contains definitions for various AST nodes that represent different elements of the programming language's syntax.
 package ast
 
 import (
+	"fmt"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
 )
 
+// Interface represents an interface definition node in the abstract syntax tree (AST).
+// It encapsulates information about the characteristics and properties of an interface within the contract.
 type Interface struct {
-	*ASTBuilder
-
-	Id                      int64            `json:"id"`
-	Name                    string           `json:"name"`
-	NodeType                ast_pb.NodeType  `json:"node_type"`
-	Src                     SrcNode          `json:"src"`
-	Abstract                bool             `json:"abstract"`
-	Kind                    ast_pb.NodeType  `json:"kind"`
-	FullyImplemented        bool             `json:"fully_implemented"`
-	Nodes                   []Node[NodeType] `json:"nodes"`
-	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"`
-	BaseContracts           []*BaseContract  `json:"base_contracts"`
-	ContractDependencies    []int64          `json:"contract_dependencies"`
+	*ASTBuilder                              // Embedded ASTBuilder for building the AST.
+	Id                      int64            `json:"id"`                        // Unique identifier for the Interface node.
+	Name                    string           `json:"name"`                      // Name of the interface.
+	NodeType                ast_pb.NodeType  `json:"node_type"`                 // Type of the AST node.
+	Src                     SrcNode          `json:"src"`                       // Source location information.
+	Abstract                bool             `json:"abstract"`                  // Indicates whether the interface is abstract.
+	Kind                    ast_pb.NodeType  `json:"kind"`                      // Kind of the interface.
+	FullyImplemented        bool             `json:"fully_implemented"`         // Indicates whether the interface is fully implemented.
+	Nodes                   []Node[NodeType] `json:"nodes"`                     // List of child nodes within the interface.
+	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"` // List of linearized base contract identifiers.
+	BaseContracts           []*BaseContract  `json:"base_contracts"`            // List of base contracts.
+	ContractDependencies    []int64          `json:"contract_dependencies"`     // List of contract dependency identifiers.
 }
 
+// NewInterfaceDefinition creates a new Interface node with default values and returns it.
 func NewInterfaceDefinition(b *ASTBuilder) *Interface {
 	return &Interface{
 		ASTBuilder:              b,
@@ -32,58 +38,75 @@ func NewInterfaceDefinition(b *ASTBuilder) *Interface {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Interface node.
+// This function currently returns false, as no reference description updates are performed.
 func (l *Interface) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the Interface node.
 func (l *Interface) GetId() int64 {
 	return l.Id
 }
 
+// GetType returns the type of the AST node, which is NodeType_CONTRACT_DEFINITION for an interface.
 func (l *Interface) GetType() ast_pb.NodeType {
 	return l.NodeType
 }
 
+// GetSrc returns the source location information of the Interface node.
 func (l *Interface) GetSrc() SrcNode {
 	return l.Src
 }
 
+// GetTypeDescription returns the type description associated with the Interface node.
 func (l *Interface) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     fmt.Sprintf("contract %s", l.Name),
+		TypeIdentifier: fmt.Sprintf("$_t_contract_%s_%d", l.GetName(), l.GetId()),
+	}
 }
 
+// GetName returns the name of the interface.
 func (l *Interface) GetName() string {
 	return l.Name
 }
 
+// IsAbstract returns true if the Interface is abstract, false otherwise.
 func (l *Interface) IsAbstract() bool {
 	return l.Abstract
 }
 
+// GetKind returns the kind of the Interface node.
 func (l *Interface) GetKind() ast_pb.NodeType {
 	return l.Kind
 }
 
+// IsFullyImplemented returns true if the Interface is fully implemented, false otherwise.
 func (l *Interface) IsFullyImplemented() bool {
 	return l.FullyImplemented
 }
 
+// GetNodes returns a slice of child nodes within the interface.
 func (l *Interface) GetNodes() []Node[NodeType] {
 	return l.Nodes
 }
 
+// GetBaseContracts returns a list of base contracts associated with the Interface.
 func (l *Interface) GetBaseContracts() []*BaseContract {
 	return l.BaseContracts
 }
 
+// GetContractDependencies returns a list of contract dependency identifiers for the Interface.
 func (l *Interface) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
+// GetLinearizedBaseContracts returns a list of linearized base contract identifiers for the Interface.
 func (l *Interface) GetLinearizedBaseContracts() []int64 {
 	return l.LinearizedBaseContracts
 }
 
+// GetStateVariables returns a list of state variable declarations within the Interface.
 func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
 	toReturn := make([]*StateVariableDeclaration, 0)
 
@@ -96,6 +119,7 @@ func (l *Interface) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+// GetStructs returns a list of struct definitions within the Interface.
 func (l *Interface) GetStructs() []*StructDefinition {
 	toReturn := make([]*StructDefinition, 0)
 
@@ -108,6 +132,7 @@ func (l *Interface) GetStructs() []*StructDefinition {
 	return toReturn
 }
 
+// GetEnums returns a list of enum definitions within the Interface.
 func (l *Interface) GetEnums() []*EnumDefinition {
 	toReturn := make([]*EnumDefinition, 0)
 
@@ -120,6 +145,7 @@ func (l *Interface) GetEnums() []*EnumDefinition {
 	return toReturn
 }
 
+// GetErrors returns a list of error definitions within the Interface.
 func (l *Interface) GetErrors() []*ErrorDefinition {
 	toReturn := make([]*ErrorDefinition, 0)
 
@@ -132,6 +158,7 @@ func (l *Interface) GetErrors() []*ErrorDefinition {
 	return toReturn
 }
 
+// GetEvents returns a list of event definitions within the Interface.
 func (l *Interface) GetEvents() []*EventDefinition {
 	toReturn := make([]*EventDefinition, 0)
 
@@ -144,6 +171,7 @@ func (l *Interface) GetEvents() []*EventDefinition {
 	return toReturn
 }
 
+// GetConstructor returns the constructor node within the Interface, if present.
 func (l *Interface) GetConstructor() *Constructor {
 	for _, node := range l.GetNodes() {
 		if constructor, ok := node.(*Constructor); ok {
@@ -154,6 +182,7 @@ func (l *Interface) GetConstructor() *Constructor {
 	return nil
 }
 
+// GetFunctions returns a list of function definitions within the Interface.
 func (l *Interface) GetFunctions() []*Function {
 	toReturn := make([]*Function, 0)
 
@@ -166,6 +195,7 @@ func (l *Interface) GetFunctions() []*Function {
 	return toReturn
 }
 
+// GetFallback returns the fallback function node within the Interface, if present.
 func (l *Interface) GetFallback() *Fallback {
 	for _, node := range l.GetNodes() {
 		if function, ok := node.(*Fallback); ok {
@@ -176,6 +206,7 @@ func (l *Interface) GetFallback() *Fallback {
 	return nil
 }
 
+// GetReceive returns the receive function node within the Interface, if present.
 func (l *Interface) GetReceive() *Receive {
 	for _, node := range l.GetNodes() {
 		if function, ok := node.(*Receive); ok {
@@ -186,6 +217,7 @@ func (l *Interface) GetReceive() *Receive {
 	return nil
 }
 
+// ToProto converts the Interface node to its corresponding protocol buffer representation.
 func (l *Interface) ToProto() NodeType {
 	proto := ast_pb.Contract{
 		Id:                      l.Id,
@@ -212,7 +244,9 @@ func (l *Interface) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Contract")
 }
 
+// Parse is responsible for parsing the interface definition from the source unit context and populating the Interface node.
 func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.InterfaceDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
+	// Set the source location information for the source unit.
 	unit.Src = SrcNode{
 		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -224,28 +258,22 @@ func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfa
 	}
 
 	// Set the absolute path of the source unit from provided sources map.
-	// We are not dynamically loading files like the solc compiler does so we need to
-	// provide the absolute path of the source unit from the sources map.
+	// The absolute path is used to locate the source unit.
 	unit.SetAbsolutePathFromSources(l.sources)
+	// Add the exported symbol information for the source unit.
 	unit.ExportedSymbols = append(unit.ExportedSymbols, Symbol{
 		Id:           unit.Id,
 		Name:         unit.Name,
 		AbsolutePath: unit.AbsolutePath,
 	})
 
-	// Now we are going to resolve pragmas for current source unit...
-	unit.Nodes = append(
-		unit.Nodes,
-		parsePragmasForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...,
-	)
-
-	// Now we are going to resolve import paths for current source unit...
+	// Resolve pragmas for the source unit.
+	unit.Nodes = append(unit.Nodes, parsePragmasForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)...)
+	// Resolve import paths for the source unit.
 	nodeImports := parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)
-	unit.Nodes = append(
-		unit.Nodes,
-		nodeImports...,
-	)
+	unit.Nodes = append(unit.Nodes, nodeImports...)
 
+	// Create a new Interface node.
 	interfaceNode := &Interface{
 		Id:   l.GetNextID(),
 		Name: ctx.Identifier().GetText(),
@@ -267,31 +295,19 @@ func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfa
 		FullyImplemented:        true,
 	}
 
-	interfaceNode.BaseContracts = append(
-		interfaceNode.BaseContracts,
-		parseInheritanceFromCtx(
-			l.ASTBuilder, unit, interfaceNode, ctx.InheritanceSpecifierList(),
-		)...,
-	)
+	// Resolve and add base contracts.
+	interfaceNode.BaseContracts = append(interfaceNode.BaseContracts,
+		parseInheritanceFromCtx(l.ASTBuilder, unit, interfaceNode, ctx.InheritanceSpecifierList())...)
 	unit.BaseContracts = interfaceNode.BaseContracts
 
-	interfaceNode.LinearizedBaseContracts = append(
-		interfaceNode.LinearizedBaseContracts,
-		interfaceNode.GetId(),
-	)
-
+	// Add linearized base contracts and contract dependencies.
+	interfaceNode.LinearizedBaseContracts = append(interfaceNode.LinearizedBaseContracts, interfaceNode.GetId())
 	for _, nodeImport := range nodeImports {
-		interfaceNode.LinearizedBaseContracts = append(
-			interfaceNode.LinearizedBaseContracts,
-			nodeImport.GetId(),
-		)
-
-		interfaceNode.ContractDependencies = append(
-			interfaceNode.ContractDependencies,
-			nodeImport.GetId(),
-		)
+		interfaceNode.LinearizedBaseContracts = append(interfaceNode.LinearizedBaseContracts, nodeImport.GetId())
+		interfaceNode.ContractDependencies = append(interfaceNode.ContractDependencies, nodeImport.GetId())
 	}
 
+	// Parse contract body elements.
 	for _, bodyElement := range ctx.AllContractBodyElement() {
 		if bodyElement.IsEmpty() {
 			interfaceNode.FullyImplemented = false
@@ -301,11 +317,8 @@ func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfa
 		bodyNode := NewBodyNode(l.ASTBuilder)
 		childNode := bodyNode.ParseDefinitions(unit, interfaceNode, bodyElement)
 		if childNode != nil {
-			interfaceNode.Nodes = append(
-				interfaceNode.Nodes,
-				childNode,
-			)
-
+			interfaceNode.Nodes = append(interfaceNode.Nodes, childNode)
+			// Check if the body node is a function definition and if it's not implemented, mark the interface as not fully implemented.
 			if bodyNode.NodeType == ast_pb.NodeType_FUNCTION_DEFINITION {
 				if !bodyNode.Implemented {
 					interfaceNode.FullyImplemented = false

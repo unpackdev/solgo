@@ -5,6 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// UsingDirective represents a Solidity using directive, which is used to import and use symbols from external libraries.
 type UsingDirective struct {
 	*ASTBuilder
 
@@ -16,6 +17,7 @@ type UsingDirective struct {
 	LibraryName     *LibraryName     `json:"library_name"`
 }
 
+// LibraryName represents the name of an external library referenced in a using directive.
 type LibraryName struct {
 	*ASTBuilder
 
@@ -26,6 +28,7 @@ type LibraryName struct {
 	ReferencedDeclaration int64           `json:"referenced_declaration"`
 }
 
+// ToProto converts the LibraryName instance to its corresponding protocol buffer representation.
 func (ln *LibraryName) ToProto() *ast_pb.LibraryName {
 	return &ast_pb.LibraryName{
 		Id:                    ln.Id,
@@ -36,6 +39,7 @@ func (ln *LibraryName) ToProto() *ast_pb.LibraryName {
 	}
 }
 
+// NewUsingDirective creates a new UsingDirective instance with the given ASTBuilder.
 func NewUsingDirective(b *ASTBuilder) *UsingDirective {
 	return &UsingDirective{
 		ASTBuilder: b,
@@ -51,44 +55,54 @@ func (u *UsingDirective) SetReferenceDescriptor(refId int64, refDesc *TypeDescri
 	return false
 }
 
+// GetId returns the unique identifier of the UsingDirective.
 func (u *UsingDirective) GetId() int64 {
 	return u.Id
 }
 
+// GetType returns the node type of the UsingDirective.
 func (u *UsingDirective) GetType() ast_pb.NodeType {
 	return u.NodeType
 }
 
+// GetSrc returns the source location information of the UsingDirective.
 func (u *UsingDirective) GetSrc() SrcNode {
 	return u.Src
 }
 
+// GetTypeDescription returns the type description associated with the UsingDirective.
 func (u *UsingDirective) GetTypeDescription() *TypeDescription {
 	return u.TypeDescription
 }
 
+// GetTypeName returns the type name associated with the UsingDirective.
 func (u *UsingDirective) GetTypeName() *TypeName {
 	return u.TypeName
 }
 
+// GetLibraryName returns the library name associated with the UsingDirective.
 func (u *UsingDirective) GetLibraryName() *LibraryName {
 	return u.LibraryName
 }
 
+// GetReferencedDeclaration returns the referenced declaration of the UsingDirective.
 func (u *UsingDirective) GetReferencedDeclaration() int64 {
 	return u.TypeName.ReferencedDeclaration
 }
 
+// GetPathNode returns the path node associated with the UsingDirective.
 func (u *UsingDirective) GetPathNode() *PathNode {
 	return u.TypeName.PathNode
 }
 
+// GetNodes returns a list of child nodes for traversal within the UsingDirective.
 func (u *UsingDirective) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{
 		u.GetTypeName(),
 	}
 }
 
+// ToProto converts the UsingDirective instance to its corresponding protocol buffer representation.
 func (u *UsingDirective) ToProto() NodeType {
 	proto := ast_pb.Using{
 		Id:          u.Id,
@@ -102,6 +116,7 @@ func (u *UsingDirective) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Using")
 }
 
+// Parse populates the UsingDirective instance with information parsed from the provided contexts.
 func (u *UsingDirective) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -124,6 +139,7 @@ func (u *UsingDirective) Parse(
 	u.LibraryName = u.getLibraryName(ctx.IdentifierPath(0))
 }
 
+// getLibraryName extracts and returns the LibraryName instance from the provided identifier context.
 func (u *UsingDirective) getLibraryName(identifierCtx parser.IIdentifierPathContext) *LibraryName {
 	return &LibraryName{
 		Id:       u.GetNextID(),

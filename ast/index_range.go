@@ -6,6 +6,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// IndexRange represents an Index Range expression in the AST.
 type IndexRange struct {
 	*ASTBuilder
 
@@ -17,6 +18,7 @@ type IndexRange struct {
 	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
 }
 
+// NewIndexRange creates a new instance of IndexRange with initialized values.
 func NewIndexRangeAccessExpression(b *ASTBuilder) *IndexRange {
 	return &IndexRange{
 		ASTBuilder:       b,
@@ -26,39 +28,48 @@ func NewIndexRangeAccessExpression(b *ASTBuilder) *IndexRange {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the IndexRange node.
+// SetReferenceDescriptor is used to set reference descriptions for the IndexRange node.
+// However, this function always returns false.
 func (b *IndexRange) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the IndexRange node.
 func (f *IndexRange) GetId() int64 {
 	return f.Id
 }
 
+// GetType returns the node type of the IndexRange.
 func (f *IndexRange) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetSrc returns the source information of the IndexRange node.
 func (f *IndexRange) GetSrc() SrcNode {
 	return f.Src
 }
 
+// GetTypeDescription returns the type description associated with the IndexRange.
 func (f *IndexRange) GetTypeDescription() *TypeDescription {
 	return f.TypeDescriptions[0]
 }
 
+// GetNodes returns the list of nodes within the IndexRange.
 func (f *IndexRange) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{f.LeftExpression, f.RightExpression}
 }
 
+// GetLeftExpression returns the left expression of the IndexRange.
 func (f *IndexRange) GetLeftExpression() Node[NodeType] {
 	return f.LeftExpression
 }
 
+// GetRightExpression returns the right expression of the IndexRange.
 func (f *IndexRange) GetRightExpression() Node[NodeType] {
 	return f.RightExpression
 }
 
+// ToProto converts the IndexRange node to its Protocol Buffers representation.
 func (f *IndexRange) ToProto() NodeType {
 	proto := ast_pb.IndexRange{
 		Id:              f.GetId(),
@@ -72,6 +83,7 @@ func (f *IndexRange) ToProto() NodeType {
 	return NewTypedStruct(&proto, "IndexRange")
 }
 
+// Parse parses the IndexRange expression from the provided context and constructs the IndexRange node.
 func (f *IndexRange) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

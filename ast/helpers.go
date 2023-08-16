@@ -2,7 +2,6 @@ package ast
 
 import (
 	"fmt"
-	"os"
 	"regexp"
 	"strings"
 
@@ -10,6 +9,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// getLiterals extracts individual words from a given literal string.
 func getLiterals(literal string) []string {
 	// This regular expression matches sequences of word characters (letters, digits, underscores)
 	// and sequences of non-word characters. It treats each match as a separate word.
@@ -26,7 +26,9 @@ func getLiterals(literal string) []string {
 	return literals
 }
 
+// normalizeTypeName normalizes Solidity type names by handling array, slice, and common type variations.
 func normalizeTypeName(typeName string) string {
+	// Check if the type is an array.
 	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
 	isSlice := strings.HasPrefix(typeName, "[]")
 
@@ -67,6 +69,7 @@ func normalizeTypeName(typeName string) string {
 	}
 }
 
+// normalizeTypeDescription normalizes type names and generates corresponding type identifiers.
 func normalizeTypeDescription(typeName string) (string, string) {
 	isArray := strings.Contains(typeName, "[") && strings.Contains(typeName, "]")
 	isSlice := strings.HasSuffix(typeName, "[]")
@@ -118,19 +121,7 @@ func normalizeTypeDescription(typeName string) (string, string) {
 	}
 }
 
-// nolint:unused
-func (b *ASTBuilder) dumpNode(whatever interface{}) {
-	j, _ := b.ToPrettyJSON(whatever)
-	fmt.Println(string(j))
-	os.Exit(1)
-}
-
-// nolint:unused
-func (b *ASTBuilder) dumpNodeNoExit(whatever interface{}) {
-	j, _ := b.ToPrettyJSON(whatever)
-	fmt.Println(string(j))
-}
-
+// getStorageLocationFromDataLocationCtx extracts the storage location from the given data location context.
 func getStorageLocationFromDataLocationCtx(ctx parser.IDataLocationContext) ast_pb.StorageLocation {
 	if ctx != nil {
 		if ctx.Memory() != nil {

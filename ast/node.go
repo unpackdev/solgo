@@ -2,6 +2,7 @@ package ast
 
 import ast_pb "github.com/txpull/protos/dist/go/ast"
 
+// Node is an interface that defines methods common to all AST nodes.
 type Node[T NodeType] interface {
 	GetId() int64
 	GetType() ast_pb.NodeType
@@ -12,7 +13,9 @@ type Node[T NodeType] interface {
 	SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool
 }
 
+// NodeType is an alias type that represents the union of various AST node types.
 type NodeType interface {
+	// List of supported AST node types.
 	ast_pb.Pragma | ast_pb.Import | ast_pb.Modifier | ast_pb.SourceUnit |
 		ast_pb.Function | ast_pb.Contract | ast_pb.Statement | ast_pb.Body |
 		ast_pb.Variable | ast_pb.PrimaryExpression | ast_pb.Expression | ast_pb.Using |

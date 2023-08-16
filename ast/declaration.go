@@ -169,4 +169,6 @@ func (d *Declaration) ParseVariableDeclaration(
 	typeName := NewTypeName(d.ASTBuilder)
 	typeName.Parse(unit, fnNode, d.GetId(), ctx.TypeName())
 	d.TypeName = typeName
+
+	d.currentVariables = append(d.currentVariables, d)
 }

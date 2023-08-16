@@ -6,6 +6,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// UnarySuffix represents a unary operation applied as a suffix to an expression.
 type UnarySuffix struct {
 	*ASTBuilder
 
@@ -23,6 +24,7 @@ type UnarySuffix struct {
 	LValueRequested       bool             `json:"l_value_requested"`
 }
 
+// NewUnarySuffixExpression creates a new UnarySuffix instance with the given ASTBuilder.
 func NewUnarySuffixExpression(b *ASTBuilder) *UnarySuffix {
 	return &UnarySuffix{
 		ASTBuilder: b,
@@ -38,58 +40,72 @@ func (u *UnarySuffix) SetReferenceDescriptor(refId int64, refDesc *TypeDescripti
 	return false
 }
 
+// GetId returns the unique identifier of the UnarySuffix.
 func (u *UnarySuffix) GetId() int64 {
 	return u.Id
 }
 
+// GetType returns the node type of the UnarySuffix.
 func (u *UnarySuffix) GetType() ast_pb.NodeType {
 	return u.NodeType
 }
 
+// GetSrc returns the source location information of the UnarySuffix.
 func (u *UnarySuffix) GetSrc() SrcNode {
 	return u.Src
 }
 
+// GetOperator returns the unary operator applied to the expression.
 func (u *UnarySuffix) GetOperator() ast_pb.Operator {
 	return u.Operator
 }
 
+// GetExpression returns the expression to which the unary operation is applied.
 func (u *UnarySuffix) GetExpression() Node[NodeType] {
 	return u.Expression
 }
 
+// GetTypeDescription returns the type description associated with the UnarySuffix.
 func (u *UnarySuffix) GetTypeDescription() *TypeDescription {
 	return u.TypeDescription
 }
 
+// GetNodes returns a list of child nodes for traversal within the UnarySuffix.
 func (u *UnarySuffix) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{u.Expression}
 }
 
+// GetPrefix returns true if the unary operation is a prefix operation.
 func (u *UnarySuffix) GetPrefix() bool {
 	return u.Prefix
 }
 
+// IsConstant returns true if the operation's result is a constant.
 func (u *UnarySuffix) IsConstant() bool {
 	return u.Constant
 }
 
+// IsLValue returns true if the expression is an l-value.
 func (u *UnarySuffix) IsLValue() bool {
 	return u.LValue
 }
 
+// IsPure returns true if the operation is pure, i.e., it doesn't modify state.
 func (u *UnarySuffix) IsPure() bool {
 	return u.Pure
 }
 
+// IsLValueRequested returns true if an l-value is requested from the operation.
 func (u *UnarySuffix) IsLValueRequested() bool {
 	return u.LValueRequested
 }
 
+// GetReferencedDeclaration returns the referenced declaration of the UnarySuffix.
 func (u *UnarySuffix) GetReferencedDeclaration() int64 {
 	return u.ReferencedDeclaration
 }
 
+// ToProto converts the UnarySuffix instance to its corresponding protocol buffer representation.
 func (u *UnarySuffix) ToProto() NodeType {
 	proto := ast_pb.UnarySuffix{
 		Id:                    u.GetId(),
@@ -109,6 +125,7 @@ func (u *UnarySuffix) ToProto() NodeType {
 	return NewTypedStruct(&proto, "UnarySuffix")
 }
 
+// Parse populates the UnarySuffix instance with information parsed from the provided contexts.
 func (u *UnarySuffix) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

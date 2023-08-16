@@ -46,13 +46,16 @@ func (b *BreakStatement) GetSrc() SrcNode {
 // GetTypeDescription returns the type description of the break statement.
 // As the break statement doesn't have a type description, it returns nil.
 func (b *BreakStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "break",
+		TypeIdentifier: "$_t_magic_break",
+	}
 }
 
 // GetNodes returns the child nodes of the break statement.
 // As the break statement doesn't have any child nodes, it returns nil.
 func (b *BreakStatement) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{}
 }
 
 // ToProto returns the protobuf representation of the break statement.

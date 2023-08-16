@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"fmt"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
@@ -93,7 +95,10 @@ func (c *Contract) GetContractDependencies() []int64 {
 
 // GetTypeDescription returns the type description associated with the Contract.
 func (c *Contract) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     fmt.Sprintf("contract %s", c.Name),
+		TypeIdentifier: fmt.Sprintf("$_t_contract_%s_%d", c.GetName(), c.GetId()),
+	}
 }
 
 // GetStateVariables returns the state variables defined in the Contract.

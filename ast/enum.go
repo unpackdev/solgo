@@ -7,18 +7,20 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// EnumDefinition represents an enumeration definition in the Solidity abstract syntax tree (AST).
 type EnumDefinition struct {
-	*ASTBuilder
+	*ASTBuilder                      // Embedding the ASTBuilder for common functionality
 	SourceUnitName  string           `json:"-"`
-	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
-	Src             SrcNode          `json:"src"`
-	Name            string           `json:"name"`
-	CanonicalName   string           `json:"canonical_name"`
-	TypeDescription *TypeDescription `json:"type_description"`
-	Members         []Node[NodeType] `json:"members"`
+	Id              int64            `json:"id"`               // Unique identifier for the enumeration definition
+	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node (ENUM_DEFINITION for enumeration definition)
+	Src             SrcNode          `json:"src"`              // Source information about the enumeration definition
+	Name            string           `json:"name"`             // Name of the enumeration
+	CanonicalName   string           `json:"canonical_name"`   // Canonical name of the enumeration
+	TypeDescription *TypeDescription `json:"type_description"` // Type description of the enumeration
+	Members         []Node[NodeType] `json:"members"`          // Members of the enumeration
 }
 
+// NewEnumDefinition creates a new EnumDefinition instance.
 func NewEnumDefinition(b *ASTBuilder) *EnumDefinition {
 	return &EnumDefinition{
 		ASTBuilder: b,
@@ -33,30 +35,37 @@ func (e *EnumDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescri
 	return false
 }
 
+// GetId returns the unique identifier of the enumeration definition.
 func (e *EnumDefinition) GetId() int64 {
 	return e.Id
 }
 
+// GetType returns the type of the node, which is 'ENUM_DEFINITION' for an enumeration definition.
 func (e *EnumDefinition) GetType() ast_pb.NodeType {
 	return e.NodeType
 }
 
+// GetSrc returns the source information about the enumeration definition.
 func (e *EnumDefinition) GetSrc() SrcNode {
 	return e.Src
 }
 
+// GetName returns the name of the enumeration.
 func (e *EnumDefinition) GetName() string {
 	return e.Name
 }
 
+// GetTypeDescription returns the type description of the enumeration.
 func (e *EnumDefinition) GetTypeDescription() *TypeDescription {
 	return e.TypeDescription
 }
 
+// GetCanonicalName returns the canonical name of the enumeration.
 func (e *EnumDefinition) GetCanonicalName() string {
 	return e.CanonicalName
 }
 
+// GetMembers returns the members of the enumeration.
 func (e *EnumDefinition) GetMembers() []*Parameter {
 	toReturn := make([]*Parameter, 0)
 
@@ -67,10 +76,12 @@ func (e *EnumDefinition) GetMembers() []*Parameter {
 	return toReturn
 }
 
+// GetSourceUnitName returns the name of the source unit containing the enumeration.
 func (e *EnumDefinition) GetSourceUnitName() string {
 	return e.SourceUnitName
 }
 
+// ToProto returns the protobuf representation of the enumeration definition.
 func (e *EnumDefinition) ToProto() NodeType {
 	proto := ast_pb.Enum{
 		Id:              e.GetId(),
@@ -92,10 +103,12 @@ func (e *EnumDefinition) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Enum")
 }
 
+// GetNodes returns the members of the enumeration.
 func (e *EnumDefinition) GetNodes() []Node[NodeType] {
 	return e.Members
 }
 
+// Parse parses an enumeration definition from the provided parser.EnumDefinitionContext and updates the current instance.
 func (e *EnumDefinition) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

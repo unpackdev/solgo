@@ -6,6 +6,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// UnaryPrefix represents a unary operation applied as a prefix to an expression.
 type UnaryPrefix struct {
 	*ASTBuilder
 
@@ -23,6 +24,7 @@ type UnaryPrefix struct {
 	TypeDescription       *TypeDescription `json:"type_description"`
 }
 
+// NewUnaryPrefixExpression creates a new UnaryPrefix instance with the given ASTBuilder.
 func NewUnaryPrefixExpression(b *ASTBuilder) *UnaryPrefix {
 	return &UnaryPrefix{
 		ASTBuilder: b,
@@ -38,58 +40,72 @@ func (u *UnaryPrefix) SetReferenceDescriptor(refId int64, refDesc *TypeDescripti
 	return false
 }
 
+// GetId returns the unique identifier of the UnaryPrefix.
 func (u *UnaryPrefix) GetId() int64 {
 	return u.Id
 }
 
+// GetType returns the node type of the UnaryPrefix.
 func (u *UnaryPrefix) GetType() ast_pb.NodeType {
 	return u.NodeType
 }
 
+// GetSrc returns the source location information of the UnaryPrefix.
 func (u *UnaryPrefix) GetSrc() SrcNode {
 	return u.Src
 }
 
+// GetOperator returns the unary operator applied to the expression.
 func (u *UnaryPrefix) GetOperator() ast_pb.Operator {
 	return u.Operator
 }
 
+// GetExpression returns the expression to which the unary operation is applied.
 func (u *UnaryPrefix) GetExpression() Node[NodeType] {
 	return u.Expression
 }
 
+// GetTypeDescription returns the type description associated with the UnaryPrefix.
 func (u *UnaryPrefix) GetTypeDescription() *TypeDescription {
 	return u.TypeDescription
 }
 
+// GetNodes returns a list of child nodes for traversal within the UnaryPrefix.
 func (u *UnaryPrefix) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{u.Expression}
 }
 
+// GetPrefix returns true if the unary operation is a prefix operation.
 func (u *UnaryPrefix) GetPrefix() bool {
 	return u.Prefix
 }
 
+// IsConstant returns true if the operation's result is a constant.
 func (u *UnaryPrefix) IsConstant() bool {
 	return u.Constant
 }
 
+// IsLValue returns true if the expression is an l-value.
 func (u *UnaryPrefix) IsLValue() bool {
 	return u.LValue
 }
 
+// IsPure returns true if the operation is pure, i.e., it doesn't modify state.
 func (u *UnaryPrefix) IsPure() bool {
 	return u.Pure
 }
 
+// IsLValueRequested returns true if an l-value is requested from the operation.
 func (u *UnaryPrefix) IsLValueRequested() bool {
 	return u.LValueRequested
 }
 
+// GetReferencedDeclaration returns the referenced declaration of the UnaryPrefix.
 func (u *UnaryPrefix) GetReferencedDeclaration() int64 {
 	return u.ReferencedDeclaration
 }
 
+// ToProto converts the UnaryPrefix instance to its corresponding protocol buffer representation.
 func (u *UnaryPrefix) ToProto() NodeType {
 	proto := ast_pb.UnaryPrefix{
 		Id:                    u.GetId(),
@@ -109,6 +125,7 @@ func (u *UnaryPrefix) ToProto() NodeType {
 	return NewTypedStruct(&proto, "UnaryPrefix")
 }
 
+// Parse populates the UnaryPrefix instance with information parsed from the provided contexts.
 func (u *UnaryPrefix) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

@@ -6,8 +6,10 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
+// parseExpressionStatement is a utility function to parse an expression statement based on the provided context and parent node.
 func parseExpressionStatement(
 	b *ASTBuilder,
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
@@ -40,16 +42,14 @@ func parseExpressionStatement(
 			binaryExp := NewBinaryOperationExpression(b)
 			return binaryExp.ParseOrderComparison(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *antlr.TerminalNodeImpl:
-			// @TODO: Not sure what to do with this... It's usually just a semicolon. Perhaps to
+			// @TODO: Not sure what to do with this... It's usually just a semicolon (;). Perhaps to
 			// add to each expression statement semicolon_found?
 			// Not important right now at all...
 			continue
 		default:
-			panic(
-				fmt.Sprintf(
-					"Expression statement child not recognized @ ExpressionStatement.Parse: %T",
-					childCtx,
-				),
+			zap.L().Warn(
+				"Expression statement child not recognized @ ExpressionStatement.Parse",
+				zap.String("child_type", fmt.Sprintf("%T", childCtx)),
 			)
 		}
 	}

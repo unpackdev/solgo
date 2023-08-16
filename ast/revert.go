@@ -6,16 +6,18 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// RevertStatement represents a revert statement in the AST.
 type RevertStatement struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`
-	NodeType   ast_pb.NodeType  `json:"node_type"`
-	Src        SrcNode          `json:"src"`
-	Arguments  []Node[NodeType] `json:"arguments"`
-	Expression Node[NodeType]   `json:"expression"`
+	Id         int64            `json:"id"`         // Unique identifier for the RevertStatement node.
+	NodeType   ast_pb.NodeType  `json:"node_type"`  // Type of the AST node.
+	Src        SrcNode          `json:"src"`        // Source location information.
+	Arguments  []Node[NodeType] `json:"arguments"`  // List of argument expressions.
+	Expression Node[NodeType]   `json:"expression"` // Expression within the revert statement.
 }
 
+// NewRevertStatement creates a new RevertStatement node with a given ASTBuilder.
 func NewRevertStatement(b *ASTBuilder) *RevertStatement {
 	return &RevertStatement{
 		ASTBuilder: b,
@@ -31,26 +33,32 @@ func (r *RevertStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescr
 	return false
 }
 
+// GetId returns the ID of the RevertStatement node.
 func (r *RevertStatement) GetId() int64 {
 	return r.Id
 }
 
+// GetType returns the NodeType of the RevertStatement node.
 func (r *RevertStatement) GetType() ast_pb.NodeType {
 	return r.NodeType
 }
 
+// GetSrc returns the SrcNode of the RevertStatement node.
 func (r *RevertStatement) GetSrc() SrcNode {
 	return r.Src
 }
 
+// GetArguments returns the list of argument expressions.
 func (r *RevertStatement) GetArguments() []Node[NodeType] {
 	return r.Arguments
 }
 
+// GetExpression returns the expression within the revert statement.
 func (r *RevertStatement) GetExpression() Node[NodeType] {
 	return r.Expression
 }
 
+// GetNodes returns the child nodes of the RevertStatement node.
 func (r *RevertStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, r.Arguments...)
@@ -58,6 +66,7 @@ func (r *RevertStatement) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// ToProto returns a protobuf representation of the RevertStatement node.
 func (r *RevertStatement) ToProto() NodeType {
 	proto := ast_pb.Revert{
 		Id:         r.Id,
@@ -74,10 +83,15 @@ func (r *RevertStatement) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Revert")
 }
 
+// GetTypeDescription returns the TypeDescription of the RevertStatement node.
 func (r *RevertStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "revert",
+		TypeIdentifier: "$_t_revert",
+	}
 }
 
+// Parse parses a revert statement context into the RevertStatement node.
 func (r *RevertStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

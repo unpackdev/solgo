@@ -15,6 +15,7 @@ type Conditional struct {
 	Src              SrcNode            `json:"src"`
 	Expressions      []Node[NodeType]   `json:"expressions"`
 	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
+	TypeDescription  *TypeDescription   `json:"type_description"`
 }
 
 // NewConditionalExpression creates a new Conditional instance.

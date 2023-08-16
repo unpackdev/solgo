@@ -52,7 +52,7 @@ func (y *YulAssignment) GetNodes() []Node[NodeType] {
 }
 
 func (y *YulAssignment) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{}
 }
 
 func (y *YulAssignment) ToProto() NodeType {

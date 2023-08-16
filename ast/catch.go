@@ -78,7 +78,10 @@ func (t *CatchStatement) GetParameters() *ParameterList {
 
 // GetTypeDescription returns the type description of the 'catch' clause, which is nil as 'catch' clauses do not have a type description.
 func (t *CatchStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "catch",
+		TypeIdentifier: "$_t_catch",
+	}
 }
 
 // GetNodes returns the statements in the body of the 'catch' clause.
