@@ -539,25 +539,22 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
-	/* 	if p.GetId() == 4220 {
-		p.dumpNode(fnNode)
-	} */
-
 	return p
 }
 
+// buildArgumentTypeDescription constructs and returns a TypeDescription for the PrimaryExpression's argument types.
 func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
 	typeStrings := make([]string, 0)
 	typeIdentifiers := make([]string, 0)
 
-	// If it's this, we should just return the type description of the contract that is already set
-	// for current expression scope.
+	// If the PrimaryExpression is referring to "this", return the already set type description of the current expression scope.
 	if p.GetName() == "this" {
 		return p.GetTypeDescription()
 	}
 
+	// Loop through the argument types and construct type strings and identifiers.
 	for _, paramType := range p.GetArgumentTypes() {
 		if paramType == nil {
 			typeStrings = append(typeStrings, "unknown")

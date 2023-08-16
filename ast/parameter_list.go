@@ -5,6 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ParameterList represents a list of function or event parameters in the AST.
 type ParameterList struct {
 	*ASTBuilder
 
@@ -15,6 +16,7 @@ type ParameterList struct {
 	ParameterTypes []*TypeDescription `json:"parameter_types"`
 }
 
+// NewParameterList creates a new instance of ParameterList using the provided ASTBuilder.
 func NewParameterList(b *ASTBuilder) *ParameterList {
 	return &ParameterList{
 		ASTBuilder:     b,
@@ -30,30 +32,37 @@ func (p *ParameterList) SetReferenceDescriptor(refId int64, refDesc *TypeDescrip
 	return false
 }
 
+// GetId returns the ID of the ParameterList node.
 func (p *ParameterList) GetId() int64 {
 	return p.Id
 }
 
+// GetType returns the NodeType of the ParameterList node.
 func (p *ParameterList) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
+// GetSrc returns the source information of the ParameterList node.
 func (p *ParameterList) GetSrc() SrcNode {
 	return p.Src
 }
 
+// GetTypeDescription returns the type description of the ParameterList node.
 func (p *ParameterList) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetParameters returns the list of parameters in the ParameterList.
 func (p *ParameterList) GetParameters() []*Parameter {
 	return p.Parameters
 }
 
+// GetParameterTypes returns the list of parameter types in the ParameterList.
 func (p *ParameterList) GetParameterTypes() []*TypeDescription {
 	return p.ParameterTypes
 }
 
+// GetNodes returns a list of child nodes contained in the ParameterList.
 func (p *ParameterList) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 
@@ -64,6 +73,7 @@ func (p *ParameterList) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// ToProto converts the ParameterList into its corresponding Protocol Buffers representation.
 func (p *ParameterList) ToProto() *ast_pb.ParameterList {
 	toReturn := &ast_pb.ParameterList{
 		Id:       p.GetId(),
@@ -81,6 +91,7 @@ func (p *ParameterList) ToProto() *ast_pb.ParameterList {
 	return toReturn
 }
 
+// Parse parses the ParameterList node from the provided context.
 func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode Node[NodeType], ctx parser.IParameterListContext) {
 	p.Src = SrcNode{
 		Id:          p.GetNextID(),
@@ -105,6 +116,7 @@ func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode N
 	}
 }
 
+// ParseEventParameters parses event parameters from the provided context.
 func (p *ParameterList) ParseEventParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IEventParameterContext) {
 	p.Src = eNode.GetSrc()
 	p.Src.ParentIndex = eNode.GetId()
@@ -117,6 +129,7 @@ func (p *ParameterList) ParseEventParameters(unit *SourceUnit[Node[ast_pb.Source
 	}
 }
 
+// ParseErrorParameters parses error parameters from the provided context.
 func (p *ParameterList) ParseErrorParameters(unit *SourceUnit[Node[ast_pb.SourceUnit]], eNode Node[NodeType], ctx []parser.IErrorParameterContext) {
 	p.Src = eNode.GetSrc()
 	p.Src.ParentIndex = eNode.GetId()

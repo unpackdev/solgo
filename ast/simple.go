@@ -7,6 +7,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// SimpleStatement represents a simple statement in the AST.
 type SimpleStatement struct {
 	*ASTBuilder
 
@@ -15,6 +16,7 @@ type SimpleStatement struct {
 	Src      SrcNode         `json:"src"`
 }
 
+// NewSimpleStatement creates a new instance of SimpleStatement using the provided ASTBuilder.
 func NewSimpleStatement(b *ASTBuilder) *SimpleStatement {
 	return &SimpleStatement{
 		ASTBuilder: b,
@@ -26,30 +28,37 @@ func (s *SimpleStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescr
 	return false
 }
 
+// GetId returns the ID of the SimpleStatement node.
 func (s *SimpleStatement) GetId() int64 {
 	return s.Id
 }
 
+// GetType returns the NodeType of the SimpleStatement node.
 func (s *SimpleStatement) GetType() ast_pb.NodeType {
 	return s.NodeType
 }
 
+// GetSrc returns the source information of the SimpleStatement node.
 func (s *SimpleStatement) GetSrc() SrcNode {
 	return s.Src
 }
 
+// GetTypeDescription returns the type description of the SimpleStatement node.
 func (s *SimpleStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetNodes returns an empty list of child nodes for the SimpleStatement node.
 func (s *SimpleStatement) GetNodes() []Node[NodeType] {
 	return nil
 }
 
+// ToProto always returns nil for the SimpleStatement node.
 func (s *SimpleStatement) ToProto() NodeType {
 	return nil
 }
 
+// Parse parses the SimpleStatement node from the provided context.
 func (s *SimpleStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

@@ -9,6 +9,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// PayableConversion represents a payable conversion expression in the AST.
 type PayableConversion struct {
 	*ASTBuilder
 
@@ -22,6 +23,7 @@ type PayableConversion struct {
 	Payable               bool               `json:"payable"`
 }
 
+// NewPayableConversionExpression creates a new instance of PayableConversion using the provided ASTBuilder.
 func NewPayableConversionExpression(b *ASTBuilder) *PayableConversion {
 	return &PayableConversion{
 		ASTBuilder:    b,
@@ -39,42 +41,52 @@ func (p *PayableConversion) SetReferenceDescriptor(refId int64, refDesc *TypeDes
 	return false
 }
 
+// GetId returns the ID of the PayableConversion node.
 func (p *PayableConversion) GetId() int64 {
 	return p.Id
 }
 
+// GetType returns the NodeType of the PayableConversion node.
 func (p *PayableConversion) GetType() ast_pb.NodeType {
 	return p.NodeType
 }
 
+// GetSrc returns the source information of the PayableConversion node.
 func (p *PayableConversion) GetSrc() SrcNode {
 	return p.Src
 }
 
+// GetTypeDescription returns the type description of the PayableConversion node.
 func (p *PayableConversion) GetTypeDescription() *TypeDescription {
 	return p.TypeDescription
 }
 
+// GetArgumentTypes returns the list of argument types in the PayableConversion node.
 func (p *PayableConversion) GetArgumentTypes() []*TypeDescription {
 	return p.ArgumentTypes
 }
 
+// GetArguments returns the list of arguments in the PayableConversion node.
 func (p *PayableConversion) GetArguments() []Node[NodeType] {
 	return p.Arguments
 }
 
+// IsPayable returns whether the PayableConversion is marked as payable.
 func (p *PayableConversion) IsPayable() bool {
 	return p.Payable
 }
 
+// GetNodes returns a list of child nodes contained in the PayableConversion.
 func (p *PayableConversion) GetNodes() []Node[NodeType] {
 	return p.Arguments
 }
 
+// GetReferencedDeclaration returns the ID of the referenced declaration.
 func (p *PayableConversion) GetReferencedDeclaration() int64 {
 	return p.ReferencedDeclaration
 }
 
+// ToProto converts the PayableConversion into its corresponding Protocol Buffers representation.
 func (p *PayableConversion) ToProto() NodeType {
 	proto := ast_pb.PayableConversion{
 		Id:                    p.GetId(),
@@ -97,6 +109,7 @@ func (p *PayableConversion) ToProto() NodeType {
 	return NewTypedStruct(&proto, "PayableConversion")
 }
 
+// Parse parses the PayableConversion node from the provided context.
 func (p *PayableConversion) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
