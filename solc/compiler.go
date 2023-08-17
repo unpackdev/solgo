@@ -98,10 +98,11 @@ func (v *Compiler) Compile() (*CompilerResults, error) {
 		return nil, err
 	}
 
-	// Prepare the command
+	// #nosec G204
+	// G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+	// We did sanitization and verification of the arguments above, so we are safe to use them.
 	cmd := exec.Command("solc", args...)
 
-	// Set the combined source as input
 	cmd.Stdin = strings.NewReader(combinedSource)
 
 	// Capture the output
