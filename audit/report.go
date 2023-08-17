@@ -33,9 +33,11 @@ func NewResponse(data []byte) (*Report, error) {
 // and returns a list of detectors that match the given level.
 func (r *Report) FilterDetectorsByImpact(impact ImpactLevel) []Detector {
 	var filtered []Detector
-	for _, detector := range r.Results.Detectors {
-		if ImpactLevel(detector.Impact) == impact {
-			filtered = append(filtered, detector)
+	if r != nil && r.Results != nil {
+		for _, detector := range r.Results.Detectors {
+			if ImpactLevel(detector.Impact) == impact {
+				filtered = append(filtered, detector)
+			}
 		}
 	}
 	return filtered
@@ -89,8 +91,10 @@ func (r *Report) DetectorsByCheck(checkType string) []Detector {
 // and returns a map of impact levels to their respective counts.
 func (r *Report) CountByImpactLevel() map[ImpactLevel]int {
 	countMap := make(map[ImpactLevel]int)
-	for _, detector := range r.Results.Detectors {
-		countMap[ImpactLevel(detector.Impact)]++
+	if r != nil && r.Results != nil {
+		for _, detector := range r.Results.Detectors {
+			countMap[ImpactLevel(detector.Impact)]++
+		}
 	}
 	return countMap
 }
@@ -109,5 +113,5 @@ func (r *Report) HighConfidenceDetectors() []Detector {
 
 // HasIssues determines if the audit response contains any detected issues or vulnerabilities.
 func (r *Report) HasIssues() bool {
-	return r.Results != nil && len(r.Results.Detectors) > 0
+	return r != nil && r.Results != nil && len(r.Results.Detectors) > 0
 }
