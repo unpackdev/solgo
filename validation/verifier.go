@@ -71,17 +71,68 @@ func (v *Verifier) GetCompiler() *solc.Compiler {
 // If the bytecode does not match the compiled result, it returns a diff of the two.
 // Returns true if the bytecode matches, otherwise returns false.
 // Also returns an error if there's any issue in the compilation or verification process.
-func (v *Verifier) Verify(bytecode []byte) (bool, string, error) {
+func (v *Verifier) Verify(bytecode []byte) (*VerifyResult, error) {
 	results, err := v.compiler.Compile()
 	if err != nil {
-		return false, "", err
+		return nil, err
 	}
+
 	encoded := hex.EncodeToString(bytecode)
 	if encoded != results.Bytecode {
 		dmp := diffmatchpatch.New()
 		diffs := dmp.DiffMain(encoded, results.Bytecode, false)
-		return false, dmp.DiffPrettyText(diffs), errors.New("bytecode missmatch, failed to verify")
+
+		toReturn := &VerifyResult{
+			Verified:         false,
+			CompilerResults:  results,
+			ExpectedBytecode: encoded,
+			Diffs:            diffs,
+			DiffPretty:       dmp.DiffPrettyText(diffs),
+		}
+
+		return toReturn, errors.New("bytecode missmatch, failed to verify")
 	}
 
-	return true, "", nil
+	toReturn := &VerifyResult{
+		Verified:         true,
+		ExpectedBytecode: encoded,
+		CompilerResults:  results,
+		Diffs:            make([]diffmatchpatch.Diff, 0),
+	}
+
+	return toReturn, nil
+}
+
+// VerifyResult represents the result of the verification process.
+type VerifyResult struct {
+	Verified         bool                  // Whether the verification was successful or not.
+	CompilerResults  *solc.CompilerResults // The results from the solc compiler.
+	ExpectedBytecode string                // The expected bytecode.
+	Diffs            []diffmatchpatch.Diff // The diffs between the provided bytecode and the compiled bytecode.
+	DiffPretty       string                // The pretty printed diff between the provided bytecode and the compiled bytecode.
+}
+
+// IsVerified returns whether the verification was successful or not.
+func (vr *VerifyResult) IsVerified() bool {
+	return vr.Verified
+}
+
+// GetCompilerResults returns the results from the solc compiler.
+func (vr *VerifyResult) GetCompilerResults() *solc.CompilerResults {
+	return vr.CompilerResults
+}
+
+// GetExpectedBytecode returns the expected bytecode.
+func (vr *VerifyResult) GetExpectedBytecode() string {
+	return vr.ExpectedBytecode
+}
+
+// GetDiffs returns the diffs between the provided bytecode and the compiled bytecode.
+func (vr *VerifyResult) GetDiffs() []diffmatchpatch.Diff {
+	return vr.Diffs
+}
+
+// GetDiffPretty returns the pretty printed diff between the provided bytecode and the compiled bytecode.
+func (vr *VerifyResult) GetDiffPretty() string {
+	return vr.DiffPretty
 }

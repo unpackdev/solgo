@@ -36,6 +36,8 @@ func TestVerifier(t *testing.T) {
 		wantBuildErr       bool
 		wantNewVerifierErr bool
 		wantDiff           bool
+		diffCount          int
+		wantNilResults     bool
 		config             *solc.Config
 		bytecode           []byte
 	}{
@@ -99,10 +101,11 @@ func TestVerifier(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			wantErr:  true,
-			wantDiff: true,
-			config:   compilerConfig,
-			bytecode: []byte{0x01, 0x02, 0x03},
+			wantErr:   true,
+			wantDiff:  true,
+			diffCount: 6,
+			config:    compilerConfig,
+			bytecode:  []byte{0x01, 0x02, 0x03},
 		},
 		{
 			name:       "Reentrancy Contract Test Bytecode Match",
@@ -141,10 +144,11 @@ func TestVerifier(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			wantBuildErr: false,
-			wantErr:      true,
-			bytecode:     []byte{0x01, 0x02, 0x03},
-			config:       compilerConfig,
+			wantBuildErr:   false,
+			wantErr:        true,
+			wantNilResults: true,
+			bytecode:       []byte{0x01, 0x02, 0x03},
+			config:         compilerConfig,
 		},
 	}
 
@@ -169,22 +173,30 @@ func TestVerifier(t *testing.T) {
 			assert.NotNil(t, verifier.GetCompiler())
 			assert.NotNil(t, verifier.GetSources())
 
-			results, diff, err := verifier.Verify(testCase.bytecode)
+			results, err := verifier.Verify(testCase.bytecode)
 			if testCase.wantErr {
 				assert.Error(t, err)
-				assert.False(t, results)
-				if testCase.wantDiff {
-					assert.NotEmpty(t, diff)
-				} else {
-					assert.Empty(t, diff)
+				if !testCase.wantNilResults {
+					assert.NotNil(t, results)
+					assert.False(t, results.IsVerified())
+					assert.Equal(t, results.GetExpectedBytecode(), hex.EncodeToString(testCase.bytecode))
+					assert.NotNil(t, results.GetCompilerResults())
+					assert.NotEmpty(t, results.GetDiffPretty())
+					if testCase.wantDiff {
+						assert.Equal(t, len(results.GetDiffs()), testCase.diffCount)
+					} else {
+						assert.Equal(t, len(results.GetDiffs()), 0)
+					}
 				}
-
 				return
 			}
 
 			assert.NoError(t, err)
-			assert.True(t, results)
-			assert.Empty(t, diff)
+			assert.NotNil(t, results)
+			assert.Equal(t, len(results.GetDiffs()), 0)
+			assert.True(t, results.IsVerified())
+			assert.NotNil(t, results.GetCompilerResults())
+			assert.Empty(t, results.GetDiffPretty())
 		})
 	}
 }
