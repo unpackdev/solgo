@@ -10,6 +10,7 @@ import (
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/tests"
+	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -283,7 +284,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 
 			// Leaving it here for now to make unit tests pass...
 			// This will be removed before final push to the main branch
-			err = parser.GetAstBuilder().WriteToFile(
+			err = utils.WriteToFile(
 				"../data/tests/ir/"+testCase.sources.EntrySourceUnitName+".ir.json",
 				pretty,
 			)
@@ -302,7 +303,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 
 			// Leaving it here for now to make unit tests pass...
 			// This will be removed before final push to the main branch
-			err = parser.GetAstBuilder().WriteToFile(
+			err = utils.WriteToFile(
 				"../data/tests/ir/"+testCase.sources.EntrySourceUnitName+".ir.proto.json",
 				protoPretty,
 			)
@@ -411,6 +412,12 @@ func TestIrBuilderFromSources(t *testing.T) {
 							assert.NotNil(t, node.GetId())
 							assert.Equal(t, len(node.GetNodes()), 0)
 							assert.NotNil(t, node.ToProto())
+							if node.GetExternalContract() != nil {
+								assert.NotNil(t, node.GetExternalContract().GetSrc())
+							}
+							if node.GetReferenceStatement() != nil {
+								assert.NotEmpty(t, node.GetReferenceStatement().GetSrc())
+							}
 						}
 					}
 				}

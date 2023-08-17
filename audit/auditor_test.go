@@ -80,12 +80,13 @@ func TestAuditor(t *testing.T) {
 			assert.IsType(t, testCase.sources, auditor.GetSources())
 			assert.IsType(t, slitherConfig, auditor.GetConfig())
 			assert.IsType(t, &Slither{}, auditor.GetSlither())
-
-			response, err := auditor.Analyze()
+			report, err := auditor.Analyze()
 			assert.NoError(t, err)
 			if testCase.wantErr {
-				assert.NotEmpty(t, response.Error)
-				assert.False(t, response.Success)
+				assert.NotEmpty(t, report.Error)
+				assert.False(t, report.Success)
+			} else {
+				assert.NotNil(t, report.ToProto())
 			}
 		})
 	}

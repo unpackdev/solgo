@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/tests"
+	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -127,19 +128,19 @@ func TestResolver(t *testing.T) {
 			// Leaving it here for now to make unit tests pass...
 			// This will be removed before final push to the main branch
 			astData, _ := astBuilder.ToJSON()
-			err = astBuilder.WriteToFile(
+			err = utils.WriteToFile(
 				"../data/tests/ast/resolver/"+testCase.sources.EntrySourceUnitName+".json",
 				astData,
 			)
 			assert.NoError(t, err)
 
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
-				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)
+				prettyJson, err := utils.ToJSONPretty(sourceUnit)
 				assert.NoError(t, err)
 				assert.NotEmpty(t, prettyJson)
 			}
 
-			prettyJson, err := astBuilder.ToPrettyJSON(astBuilder.GetRoot())
+			prettyJson, err := utils.ToJSONPretty(astBuilder.GetRoot())
 			assert.NoError(t, err)
 			assert.NotEmpty(t, prettyJson)
 

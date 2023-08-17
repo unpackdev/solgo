@@ -66,10 +66,11 @@ func (p *Pragma) GetNodes() []Node[NodeType] {
 // ToProto returns the protobuf representation of the node.
 func (p *Pragma) ToProto() NodeType {
 	proto := ast_pb.Pragma{
-		Id:       p.Id,
-		NodeType: p.NodeType,
-		Src:      p.Src.ToProto(),
-		Literals: p.Literals,
+		Id:       p.GetId(),
+		NodeType: p.GetType(),
+		Src:      p.GetSrc().ToProto(),
+		Literals: p.GetLiterals(),
+		Text:     p.GetText(),
 	}
 
 	return NewTypedStruct(&proto, "Pragma")

@@ -8,6 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -55,11 +56,11 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
 			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
-				prettyJson, err := astBuilder.ToPrettyJSON(sourceUnit)
+				prettyJson, err := utils.ToJSONPretty(sourceUnit)
 				assert.NoError(t, err)
 				assert.NotEmpty(t, prettyJson)
 
-				err = astBuilder.WriteToFile(
+				err = utils.WriteToFile(
 					"../data/tests/"+testCase.outputPath+sourceUnit.GetName()+".solgo.ast.json",
 					prettyJson,
 				)
@@ -69,7 +70,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			prettyJson, err := astBuilder.ToJSON()
 			assert.NoError(t, err)
 			assert.NotEmpty(t, prettyJson)
-			err = astBuilder.WriteToFile(
+			err = utils.WriteToFile(
 				"../data/tests/"+testCase.outputPath+testCase.sources.EntrySourceUnitName+".solgo.ast.json",
 				prettyJson,
 			)
@@ -80,8 +81,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotEmpty(t, astJson)
 
-			astPretty, _ := astBuilder.ToPrettyJSON(astBuilder.ToProto())
-			err = astBuilder.WriteToFile(
+			astPretty, _ := utils.ToJSONPretty(astBuilder.ToProto())
+			err = utils.WriteToFile(
 				"../data/tests/"+testCase.outputPath+testCase.sources.EntrySourceUnitName+".solgo.ast.proto.json",
 				astPretty,
 			)
@@ -268,6 +269,14 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 		}
 	}
 
+	if enum, ok := node.(*EnumDefinition); ok {
+		assert.NotEmpty(t, enum.GetSourceUnitName())
+	}
+
+	if errNode, ok := node.(*ErrorDefinition); ok {
+		assert.NotEmpty(t, errNode.GetSourceUnitName())
+	}
+
 	for _, childNode := range node.GetNodes() {
 		recursiveTest(t, childNode)
 	}
@@ -311,6 +320,9 @@ func TestAstReferenceSetDescriptor(t *testing.T) {
 
 			syntaxErrs := parser.Parse()
 			assert.Empty(t, syntaxErrs)
+
+			assert.NotNil(t, astBuilder.GetParser())
+			assert.NotNil(t, astBuilder.GetTree())
 
 			// This step is actually quite important as it resolves all the
 			// references in the AST. Without this step, the AST will be

@@ -1,29 +1,11 @@
 package abi
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
 	"regexp"
 	"strings"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 )
-
-// dumpNode prints a formatted JSON representation of the provided interface and exits the program.
-// This function is primarily used for debugging purposes.
-func dumpNode(whatever interface{}) {
-	j, _ := json.MarshalIndent(whatever, "", "\t")
-	fmt.Println(string(j))
-	os.Exit(1)
-}
-
-// dumpNodeNoExit prints a formatted JSON representation of the provided interface without exiting the program.
-// This function is primarily used for debugging purposes.
-func dumpNodeNoExit(whatever interface{}) {
-	j, _ := json.MarshalIndent(whatever, "", "\t")
-	fmt.Println(string(j))
-}
 
 // normalizeStateMutability converts the provided Mutability value to its corresponding string representation.
 func (b *Builder) normalizeStateMutability(m ast_pb.Mutability) string {

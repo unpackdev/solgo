@@ -78,14 +78,19 @@ type Element struct {
 
 // ToProto converts the Element struct to its protobuf representation.
 func (e *Element) ToProto() *audit_pb.Element {
-	return &audit_pb.Element{
+	toReturn := &audit_pb.Element{
 		Type:               e.Type,
 		Name:               e.Name,
 		SourceMapping:      e.SourceMapping.ToProto(),
 		TypeSpecificFields: e.TypeSpecificFields.ToProto(),
 		Signature:          e.Signature,
-		AdditionalFields:   e.AdditionalFields.ToProto(),
 	}
+
+	if e.AdditionalFields != nil {
+		toReturn.AdditionalFields = e.AdditionalFields.ToProto()
+	}
+
+	return toReturn
 }
 
 // SourceMapping provides details about the source code location of an element.
@@ -124,10 +129,15 @@ type TypeSpecificFields struct {
 
 // ToProto converts the TypeSpecificFields struct to its protobuf representation.
 func (tsf *TypeSpecificFields) ToProto() *audit_pb.TypeSpecificFields {
-	return &audit_pb.TypeSpecificFields{
-		Parent:    tsf.Parent.ToProto(),
+	toReturn := &audit_pb.TypeSpecificFields{
 		Directive: tsf.Directive,
 	}
+
+	if tsf.Parent != nil {
+		toReturn.Parent = tsf.Parent.ToProto()
+	}
+
+	return toReturn
 }
 
 // AdditionalFields provides additional information about an element.
