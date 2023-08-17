@@ -51,7 +51,10 @@ func (r *RootNode) GetSrc() SrcNode {
 // GetTypeDescription returns the type description of the RootNode node.
 // RootNode nodes do not have type descriptions.
 func (r *RootNode) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "root",
+		TypeIdentifier: "t_root",
+	}
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the RootNode node.
@@ -133,9 +136,9 @@ func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
 	}
 
 	return &ast_pb.RootSourceUnit{
-		Id:              r.Id,
-		NodeType:        r.NodeType,
-		EntrySourceUnit: r.EntrySourceUnit,
+		Id:              r.GetId(),
+		NodeType:        r.GetType(),
+		EntrySourceUnit: r.GetEntrySourceUnit(),
 		SourceUnits:     sourceUnits,
 		Comments:        comments,
 	}

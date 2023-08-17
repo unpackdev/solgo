@@ -5,6 +5,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ContinueStatement represents a 'continue' statement in the abstract syntax tree.
 type ContinueStatement struct {
 	*ASTBuilder
 
@@ -13,6 +14,7 @@ type ContinueStatement struct {
 	Src      SrcNode         `json:"src"`
 }
 
+// NewContinueStatement creates a new instance of ContinueStatement.
 func NewContinueStatement(b *ASTBuilder) *ContinueStatement {
 	return &ContinueStatement{
 		ASTBuilder: b,
@@ -22,30 +24,40 @@ func NewContinueStatement(b *ASTBuilder) *ContinueStatement {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the ContinueStatement node.
+// This function always returns false for now.
 func (b *ContinueStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the ID of the ContinueStatement.
 func (b *ContinueStatement) GetId() int64 {
 	return b.Id
 }
 
+// GetType returns the NodeType of the ContinueStatement.
 func (b *ContinueStatement) GetType() ast_pb.NodeType {
 	return b.NodeType
 }
 
+// GetSrc returns the source information of the ContinueStatement.
 func (b *ContinueStatement) GetSrc() SrcNode {
 	return b.Src
 }
 
+// GetTypeDescription returns the type description associated with the ContinueStatement.
 func (b *ContinueStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "continue",
+		TypeIdentifier: "$_t_continue",
+	}
 }
 
+// GetNodes returns an empty list of child nodes for the ContinueStatement.
 func (b *ContinueStatement) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{}
 }
 
+// ToProto converts the ContinueStatement to its corresponding protocol buffer representation.
 func (b *ContinueStatement) ToProto() NodeType {
 	proto := ast_pb.Continue{
 		Id:       b.GetId(),
@@ -56,6 +68,7 @@ func (b *ContinueStatement) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Continue")
 }
 
+// Parse parses the ContinueStatement node from the parsing context and associates it with other nodes.
 func (b *ContinueStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

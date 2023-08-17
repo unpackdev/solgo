@@ -6,18 +6,20 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ForStatement represents a for loop statement in the AST.
 type ForStatement struct {
 	*ASTBuilder
 
-	Id          int64           `json:"id"`
-	NodeType    ast_pb.NodeType `json:"node_type"`
-	Src         SrcNode         `json:"src"`
-	Initialiser Node[NodeType]  `json:"initialiser"`
-	Condition   Node[NodeType]  `json:"condition"`
-	Closure     Node[NodeType]  `json:"closure"`
-	Body        *BodyNode       `json:"body"`
+	Id          int64           `json:"id"`          // Unique identifier for the ForStatement node.
+	NodeType    ast_pb.NodeType `json:"node_type"`   // Type of the AST node.
+	Src         SrcNode         `json:"src"`         // Source location information.
+	Initialiser Node[NodeType]  `json:"initialiser"` // Initialiser expression.
+	Condition   Node[NodeType]  `json:"condition"`   // Condition expression.
+	Closure     Node[NodeType]  `json:"closure"`     // Closure expression.
+	Body        *BodyNode       `json:"body"`        // Body of the for loop.
 }
 
+// NewForStatement creates a new ForStatement node with a given ASTBuilder.
 func NewForStatement(b *ASTBuilder) *ForStatement {
 	return &ForStatement{
 		ASTBuilder: b,
@@ -32,44 +34,57 @@ func (f *ForStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescript
 	return false
 }
 
+// GetId returns the ID of the ForStatement node.
 func (f *ForStatement) GetId() int64 {
 	return f.Id
 }
 
+// GetType returns the NodeType of the ForStatement node.
 func (f *ForStatement) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetSrc returns the SrcNode of the ForStatement node.
 func (f *ForStatement) GetSrc() SrcNode {
 	return f.Src
 }
 
+// GetInitialiser returns the initialiser expression.
 func (f *ForStatement) GetInitialiser() Node[NodeType] {
 	return f.Initialiser
 }
 
+// GetCondition returns the condition expression.
 func (f *ForStatement) GetCondition() Node[NodeType] {
 	return f.Condition
 }
 
+// GetClosure returns the closure expression.
 func (f *ForStatement) GetClosure() Node[NodeType] {
 	return f.Closure
 }
 
+// GetBody returns the body of the for loop.
 func (f *ForStatement) GetBody() *BodyNode {
 	return f.Body
 }
 
+// GetNodes returns the child nodes of the ForStatement node.
 func (f *ForStatement) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{f.Initialiser, f.Condition, f.Closure}
 	toReturn = append(toReturn, f.Body.GetNodes()...)
 	return toReturn
 }
 
+// GetTypeDescription returns the TypeDescription of the ForStatement node.
 func (f *ForStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "for",
+		TypeIdentifier: "$_t_for",
+	}
 }
 
+// ToProto returns a protobuf representation of the ForStatement node.
 func (f *ForStatement) ToProto() NodeType {
 	proto := ast_pb.For{
 		Id:       f.GetId(),
@@ -96,7 +111,8 @@ func (f *ForStatement) ToProto() NodeType {
 	return NewTypedStruct(&proto, "For")
 }
 
-// https://docs.soliditylang.org/en/v0.8.19/grammar.html#a4.SolidityParser.forStatement
+// Parse parses a for loop statement context into the ForStatement node.
+// Documentation: https://docs.soliditylang.org/en/v0.8.19/grammar.html#a4.SolidityParser.forStatement
 func (f *ForStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

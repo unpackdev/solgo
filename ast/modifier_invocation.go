@@ -6,13 +6,15 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ModifierName represents the name of a modifier in the abstract syntax tree.
 type ModifierName struct {
-	Id       int64           `json:"id"`
-	Name     string          `json:"name"`
-	NodeType ast_pb.NodeType `json:"node_type"`
-	Src      SrcNode         `json:"src"`
+	Id       int64           `json:"id"`        // Unique identifier of the modifier name node.
+	Name     string          `json:"name"`      // Name of the modifier.
+	NodeType ast_pb.NodeType `json:"node_type"` // Type of the node.
+	Src      SrcNode         `json:"src"`       // Source location information.
 }
 
+// ToProto converts the ModifierName node to its corresponding protobuf representation.
 func (m *ModifierName) ToProto() *ast_pb.ModifierName {
 	return &ast_pb.ModifierName{
 		Id:       m.Id,
@@ -22,19 +24,21 @@ func (m *ModifierName) ToProto() *ast_pb.ModifierName {
 	}
 }
 
+// ModifierInvocation represents a modifier invocation node in the abstract syntax tree.
 type ModifierInvocation struct {
 	*ASTBuilder
 
-	Id            int64              `json:"id"`
-	Name          string             `json:"name"`
-	NodeType      ast_pb.NodeType    `json:"node_type"`
-	Kind          ast_pb.NodeType    `json:"kind"`
-	Src           SrcNode            `json:"src"`
-	ArgumentTypes []*TypeDescription `json:"argument_types"`
-	Arguments     []Node[NodeType]   `json:"arguments"`
-	ModifierName  *ModifierName      `json:"modifier_name,omitempty"`
+	Id            int64              `json:"id"`                      // Unique identifier of the modifier invocation node.
+	Name          string             `json:"name"`                    // Name of the modifier invocation.
+	NodeType      ast_pb.NodeType    `json:"node_type"`               // Type of the node.
+	Kind          ast_pb.NodeType    `json:"kind"`                    // Kind of the modifier invocation.
+	Src           SrcNode            `json:"src"`                     // Source location information.
+	ArgumentTypes []*TypeDescription `json:"argument_types"`          // Types of the arguments.
+	Arguments     []Node[NodeType]   `json:"arguments"`               // Argument nodes.
+	ModifierName  *ModifierName      `json:"modifier_name,omitempty"` // Modifier name node.
 }
 
+// NewModifierInvocation creates a new instance of ModifierInvocation with the provided ASTBuilder.
 func NewModifierInvocation(b *ASTBuilder) *ModifierInvocation {
 	return &ModifierInvocation{
 		ASTBuilder:    b,
@@ -46,47 +50,57 @@ func NewModifierInvocation(b *ASTBuilder) *ModifierInvocation {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the ModifierInvocation node.
+// SetReferenceDescriptor sets the reference descriptors of the ModifierInvocation node.
 func (m *ModifierInvocation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the modifier invocation node.
 func (m *ModifierInvocation) GetId() int64 {
 	return m.Id
 }
 
+// GetType returns the type of the node.
 func (m *ModifierInvocation) GetType() ast_pb.NodeType {
 	return m.NodeType
 }
 
+// GetKind returns the kind of the modifier invocation.
 func (m *ModifierInvocation) GetKind() ast_pb.NodeType {
 	return m.Kind
 }
 
+// GetSrc returns the source location information of the modifier invocation node.
 func (m *ModifierInvocation) GetSrc() SrcNode {
 	return m.Src
 }
 
+// GetName returns the name of the modifier invocation.
 func (m *ModifierInvocation) GetName() string {
 	return m.Name
 }
 
+// GetTypeDescription returns the type description of the modifier invocation (returns nil).
 func (m *ModifierInvocation) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{}
 }
 
+// GetNodes returns a slice of nodes associated with the modifier invocation (arguments).
 func (m *ModifierInvocation) GetNodes() []Node[NodeType] {
 	return m.Arguments
 }
 
+// GetArguments returns a slice of argument nodes of the modifier invocation.
 func (m *ModifierInvocation) GetArguments() []Node[NodeType] {
 	return m.Arguments
 }
 
+// GetArgumentTypes returns a slice of argument types of the modifier invocation.
 func (m *ModifierInvocation) GetArgumentTypes() []*TypeDescription {
 	return m.ArgumentTypes
 }
 
+// ToProto converts the ModifierInvocation node to its corresponding protobuf representation.
 func (m *ModifierInvocation) ToProto() NodeType {
 	toReturn := &ast_pb.ModifierInvocation{
 		Id:            m.GetId(),
@@ -114,6 +128,7 @@ func (m *ModifierInvocation) ToProto() NodeType {
 	return toReturn
 }
 
+// Parse parses the modifier invocation context and populates the ModifierInvocation fields.
 func (m *ModifierInvocation) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

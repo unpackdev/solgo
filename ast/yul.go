@@ -45,7 +45,7 @@ func (y *YulStatement) GetNodes() []Node[NodeType] {
 }
 
 func (y *YulStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{}
 }
 
 func (y *YulStatement) ToProto() NodeType {

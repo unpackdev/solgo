@@ -10,6 +10,7 @@ import (
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/tests"
+	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -31,6 +32,7 @@ func TestBuilderFromSources(t *testing.T) {
 		expectedAbi          string
 		expectedProto        string
 		unresolvedReferences int64
+		isEmpty              bool
 	}{
 		{
 			name:       "Empty Contract Test",
@@ -50,6 +52,7 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/Empty.abi").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/Empty.abi.proto").Content,
 			unresolvedReferences: 0,
+			isEmpty:              true,
 		},
 		{
 			name:       "Simple Storage Contract Test",
@@ -260,11 +263,14 @@ func TestBuilderFromSources(t *testing.T) {
 			root := builder.GetRoot()
 			assert.NotNil(t, root)
 
-			/* 			assert.GreaterOrEqual(
-				t,
-				int32(len(builder.GetSources().SourceUnits)),
-				root.GetContractsCount(),
-			) */
+			assert.NotNil(t, builder.GetSources())
+			assert.NotNil(t, builder.GetTypeResolver())
+
+			if !testCase.isEmpty {
+				assert.NotNil(t, root.GetIR())
+				assert.NotNil(t, root.GetContractsAsSlice())
+				assert.NotNil(t, root.GetEntryContract())
+			}
 
 			pretty, err := builder.ToJSONPretty()
 			assert.NoError(t, err)
@@ -293,7 +299,7 @@ func TestBuilderFromSources(t *testing.T) {
 
 			// Leaving it here for now to make unit tests pass...
 			// This will be removed before final push to the main branch
-			err = builder.GetAstBuilder().WriteToFile(
+			err = utils.WriteToFile(
 				"../data/tests/abi/"+testCase.sources.EntrySourceUnitName+".abi.json",
 				pretty,
 			)
@@ -306,7 +312,7 @@ func TestBuilderFromSources(t *testing.T) {
 
 			// Leaving it here for now to make unit tests pass...
 			// This will be removed before final push to the main branch
-			err = builder.GetAstBuilder().WriteToFile(
+			err = utils.WriteToFile(
 				"../data/tests/abi/"+testCase.sources.EntrySourceUnitName+".abi.proto.json",
 				protoPretty,
 			)

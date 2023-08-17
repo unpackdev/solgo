@@ -72,7 +72,10 @@ func (b *BodyNode) IsImplemented() bool {
 // GetTypeDescription returns the type description of the body node.
 // As BodyNode does not have a type description, it returns nil.
 func (b *BodyNode) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "block",
+		TypeIdentifier: "$_t_block",
+	}
 }
 
 // GetNodes returns the nodes associated with the body node.

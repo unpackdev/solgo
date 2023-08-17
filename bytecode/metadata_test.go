@@ -65,6 +65,7 @@ func TestDecodeContractCreationMetadata(t *testing.T) {
 				assert.Equal(t, tt.want.GetRawMetadata(), got.GetRawMetadata())
 				assert.Equal(t, tt.want.GetCborLength(), got.GetCborLength())
 				assert.NotNil(t, got.ToProto())
+				assert.GreaterOrEqual(t, len(got.GetUrls()), 0)
 
 				got.Experimental = []byte("true")
 				assert.True(t, got.GetExperimental())

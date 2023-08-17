@@ -81,12 +81,24 @@ func (c *Constructor) GetType() ast_pb.NodeType {
 
 // GetNodes returns the statements in the body of the constructor.
 func (c *Constructor) GetNodes() []Node[NodeType] {
-	return c.Body.Statements
+	toReturn := []Node[NodeType]{}
+	toReturn = append(toReturn, c.Body.GetNodes()...)
+	toReturn = append(toReturn, c.GetParameters().GetNodes()...)
+	toReturn = append(toReturn, c.GetReturnParameters().GetNodes()...)
+
+	for _, m := range c.GetModifiers() {
+		toReturn = append(toReturn, m.GetNodes()...)
+	}
+
+	return toReturn
 }
 
 // GetTypeDescription returns the type description of the constructor, which is nil as constructors do not have a type description.
 func (c *Constructor) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "constructor",
+		TypeIdentifier: "$_t_constructor",
+	}
 }
 
 func (c *Constructor) GetModifiers() []*ModifierInvocation {

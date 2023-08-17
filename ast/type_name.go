@@ -8,6 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// TypeName represents a type name used in Solidity code.
 type TypeName struct {
 	*ASTBuilder
 
@@ -23,6 +24,7 @@ type TypeName struct {
 	ReferencedDeclaration int64             `json:"referenced_declaration"`
 }
 
+// NewTypeName creates a new TypeName instance with the given ASTBuilder.
 func NewTypeName(b *ASTBuilder) *TypeName {
 	return &TypeName{
 		ASTBuilder: b,
@@ -36,50 +38,72 @@ func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription)
 	return true
 }
 
+// GetId returns the unique identifier of the TypeName.
 func (t *TypeName) GetId() int64 {
 	return t.Id
 }
 
+// GetType returns the node type of the TypeName.
 func (t *TypeName) GetType() ast_pb.NodeType {
 	return t.NodeType
 }
 
+// GetSrc returns the source location information of the TypeName.
 func (t *TypeName) GetSrc() SrcNode {
 	return t.Src
 }
 
+// GetName returns the name of the type.
 func (t *TypeName) GetName() string {
 	return t.Name
 }
 
+// GetTypeDescription returns the type description associated with the TypeName.
 func (t *TypeName) GetTypeDescription() *TypeDescription {
 	return t.TypeDescription
 }
 
+// GetPathNode returns the path node associated with the TypeName.
 func (t *TypeName) GetPathNode() *PathNode {
 	return t.PathNode
 }
 
+// GetReferencedDeclaration returns the referenced declaration of the TypeName.
 func (t *TypeName) GetReferencedDeclaration() int64 {
 	return t.ReferencedDeclaration
 }
 
+// GetKeyType returns the key type for mapping types.
 func (t *TypeName) GetKeyType() *TypeName {
 	return t.KeyType
 }
 
+// GetValueType returns the value type for mapping types.
 func (t *TypeName) GetValueType() *TypeName {
 	return t.ValueType
 }
 
+// GetStateMutability returns the state mutability of the TypeName.
 func (t *TypeName) GetStateMutability() ast_pb.Mutability {
 	return t.StateMutability
 }
 
+// GetNodes returns a list of child nodes for traversal within the TypeName.
 func (t *TypeName) GetNodes() []Node[NodeType] {
-	return nil
+	toReturn := []Node[NodeType]{}
+
+	if t.KeyType != nil {
+		toReturn = append(toReturn, t.KeyType)
+	}
+
+	if t.ValueType != nil {
+		toReturn = append(toReturn, t.ValueType)
+	}
+
+	return toReturn
 }
 
+// ToProto converts the TypeName instance to its corresponding protocol buffer representation.
 func (t *TypeName) ToProto() NodeType {
 	toReturn := &ast_pb.TypeName{
 		Id:                    t.GetId(),
@@ -113,6 +137,7 @@ func (t *TypeName) ToProto() NodeType {
 	return toReturn
 }
 
+// parseTypeName parses the TypeName from the given TypeNameContext.
 func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.TypeNameContext) {
 	t.Name = ctx.GetText()
 	t.Src = SrcNode{
@@ -140,7 +165,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 	} else if ctx.FunctionTypeName() != nil {
 		panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", ctx))
 	} else {
-		// It seems to be a user defined type but that does not exist as type in parser...
+		// It seems to be a user-defined type but that does not exist as a type in the parser...
 		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
 
 		pathCtx := ctx.IdentifierPath()
@@ -159,19 +184,23 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				},
 				NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 			}
-		}
 
-		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
-			if t.PathNode != nil {
-				t.PathNode.ReferencedDeclaration = refId
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
+				if t.PathNode != nil {
+					t.PathNode.ReferencedDeclaration = refId
+				}
+				t.ReferencedDeclaration = refId
+				t.TypeDescription = refTypeDescription
 			}
-			t.ReferencedDeclaration = refId
-			t.TypeDescription = refTypeDescription
 		}
 	}
 
+	if t.GetType() == ast_pb.NodeType_NT_DEFAULT {
+		t.NodeType = ast_pb.NodeType_IDENTIFIER
+	}
 }
 
+// parseElementaryTypeName parses the ElementaryTypeName from the given ElementaryTypeNameContext.
 func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.ElementaryTypeNameContext) {
 	t.Name = ctx.GetText()
 	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
@@ -193,6 +222,7 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 	}
 }
 
+// parseIdentifierPath parses the IdentifierPath from the given IdentifierPathContext.
 func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.IdentifierPathContext) {
 	t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
 	if len(ctx.AllIdentifier()) > 0 {
@@ -220,6 +250,7 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 	}
 }
 
+// parseMappingTypeName parses the MappingTypeName from the given MappingTypeContext.
 func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.MappingTypeContext) {
 	keyCtx := ctx.GetKey()
 	valueCtx := ctx.GetValue()
@@ -237,6 +268,7 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	}
 }
 
+// generateTypeName generates the TypeName based on the given context.
 func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUnit]], ctx interface{}, parentNode *TypeName, typeNameNode *TypeName) *TypeName {
 	typeName := &TypeName{
 		ASTBuilder: t.ASTBuilder,
@@ -326,6 +358,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 	return typeName
 }
 
+// Parse parses the TypeName from the given TypeNameContext.
 func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.ITypeNameContext) {
 	t.Id = t.GetNextID()
 	t.Src = SrcNode{
@@ -359,7 +392,8 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 	}
 }
 
-func (t *TypeName) ParseElementary(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
+// ParseElementaryType parses the ElementaryTypeName from the given ElementaryTypeNameContext.
+func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
 	t.Id = t.GetNextID()
 	t.Src = SrcNode{
 		Id:          t.GetNextID(),
@@ -385,12 +419,17 @@ func (t *TypeName) ParseElementary(unit *SourceUnit[Node[ast_pb.SourceUnit]], fn
 		t.StateMutability = ast_pb.Mutability_PAYABLE
 	}
 
+	if ctx.Payable() != nil {
+		t.StateMutability = ast_pb.Mutability_PAYABLE
+	}
+
 	t.TypeDescription = &TypeDescription{
 		TypeIdentifier: normalizedTypeIdentifier,
 		TypeString:     normalizedTypeName,
 	}
 }
 
+// PathNode represents a path node within a TypeName.
 type PathNode struct {
 	Id                    int64           `json:"id"`
 	Name                  string          `json:"name"`
@@ -399,6 +438,7 @@ type PathNode struct {
 	Src                   SrcNode         `json:"src"`
 }
 
+// ToProto converts the PathNode instance to its corresponding protocol buffer representation.
 func (pn *PathNode) ToProto() *ast_pb.PathNode {
 	return &ast_pb.PathNode{
 		Id:                    pn.Id,
@@ -409,19 +449,23 @@ func (pn *PathNode) ToProto() *ast_pb.PathNode {
 	}
 }
 
+// TypeDescription represents a description of a type.
 type TypeDescription struct {
 	TypeIdentifier string `json:"type_identifier"`
 	TypeString     string `json:"type_string"`
 }
 
+// GetIdentifier returns the type identifier of the TypeDescription.
 func (td *TypeDescription) GetIdentifier() string {
 	return td.TypeIdentifier
 }
 
+// GetString returns the type string of the TypeDescription.
 func (td *TypeDescription) GetString() string {
 	return td.TypeString
 }
 
+// ToProto converts the TypeDescription instance to its corresponding protocol buffer representation.
 func (td TypeDescription) ToProto() *ast_pb.TypeDescription {
 	return &ast_pb.TypeDescription{
 		TypeString:     td.TypeString,

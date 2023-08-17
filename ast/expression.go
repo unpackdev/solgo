@@ -5,18 +5,39 @@ import (
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
+// Expression represents an AST node for an expression in Solidity.
 type Expression struct {
 	*ASTBuilder
 }
 
+// NewExpression creates a new Expression instance with the provided ASTBuilder.
+// The ASTBuilder is used to facilitate the construction of the AST.
 func NewExpression(b *ASTBuilder) *Expression {
 	return &Expression{
 		ASTBuilder: b,
 	}
 }
 
+// Parse analyzes the provided parser.IExpressionContext and constructs the
+// corresponding AST node. It supports various types of expressions in Solidity
+// such as binary operations, assignments, function calls, member accesses, etc.
+// If the expression type is not supported, a warning is logged.
+//
+// Parameters:
+// - unit: The source unit node.
+// - contractNode: The contract node within the source.
+// - fnNode: The function node within the contract.
+// - bodyNode: The body node of the function.
+// - vDecar: The variable declaration node.
+// - exprNode: The expression node.
+// - ctx: The context representing the expression to be parsed.
+//
+// Returns:
+//   - Node[NodeType]: The constructed AST node for the parsed expression. If the
+//     expression type is not supported, it returns nil.
 func (e *Expression) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -84,12 +105,18 @@ func (e *Expression) Parse(
 	case *parser.ExpOperationContext:
 		expOperation := NewExprOperationExpression(e.ASTBuilder)
 		return expOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.ConditionalContext:
+		conditional := NewConditionalExpression(e.ASTBuilder)
+		return conditional.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.AndOperationContext:
+		andOperation := NewAndOperationExpression(e.ASTBuilder)
+		return andOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
-		panic(
-			fmt.Sprintf(
-				"Expression type not supported @ Expression.Parse: %T",
-				ctx,
-			),
+		zap.L().Warn(
+			"Expression type not supported @ Expression.Parse",
+			zap.String("type", fmt.Sprintf("%T", ctx)),
 		)
 	}
+
+	return nil
 }

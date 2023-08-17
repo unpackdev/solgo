@@ -2,7 +2,6 @@ package ast
 
 import (
 	"encoding/json"
-	"os"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo"
@@ -82,25 +81,6 @@ func (b *ASTBuilder) ToJSON() ([]byte, error) {
 // ToPrettyJSON converts the provided data to a JSON byte array.
 func (b *ASTBuilder) InterfaceToJSON(data interface{}) ([]byte, error) {
 	return json.Marshal(data)
-}
-
-// ToPrettyJSON converts the provided data to a pretty (indented) JSON byte array.
-func (b *ASTBuilder) ToPrettyJSON(data interface{}) ([]byte, error) {
-	return json.MarshalIndent(data, "", "  ")
-}
-
-// WriteJSONToFile writes the root node of the AST as a JSON byte array to a file at the provided path.
-func (b *ASTBuilder) WriteJSONToFile(path string) error {
-	bts, err := b.ToJSON()
-	if err != nil {
-		return err
-	}
-	return os.WriteFile(path, bts, 0600)
-}
-
-// WriteToFile writes the provided data byte array to a file at the provided path.
-func (b *ASTBuilder) WriteToFile(path string, data []byte) error {
-	return os.WriteFile(path, data, 0600)
 }
 
 // ResolveReferences resolves the references in the AST using the Resolver of the ASTBuilder.

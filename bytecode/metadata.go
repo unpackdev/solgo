@@ -82,6 +82,21 @@ func (m *Metadata) GetCborLength() int16 {
 	return m.cborLength
 }
 
+// GetUrls returns the URLs of the contract's metadata.
+func (m *Metadata) GetUrls() []string {
+	urls := make([]string, 0)
+	if len(m.GetIPFS()) > 7 {
+		urls = append(urls, m.GetIPFS())
+	}
+	if len(m.GetBzzr0()) > 6 {
+		urls = append(urls, m.GetBzzr1())
+	}
+	if len(m.GetBzzr1()) > 6 {
+		urls = append(urls, m.GetBzzr0())
+	}
+	return urls
+}
+
 // DecodeContractMetadata decodes the metadata from Ethereum contract creation bytecode.
 // It returns a Metadata object and an error, if any occurred during decoding.
 func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {

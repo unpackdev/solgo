@@ -6,18 +6,20 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// TryStatement represents a try-catch statement in the AST.
 type TryStatement struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`
-	NodeType   ast_pb.NodeType  `json:"node_type"`
-	Src        SrcNode          `json:"src"`
-	Body       *BodyNode        `json:"body"`
-	Kind       ast_pb.NodeType  `json:"kind"`
-	Expression Node[NodeType]   `json:"expression"`
-	Clauses    []Node[NodeType] `json:"clauses"`
+	Id         int64            `json:"id"`         // Unique identifier for the TryStatement node.
+	NodeType   ast_pb.NodeType  `json:"node_type"`  // Type of the AST node.
+	Src        SrcNode          `json:"src"`        // Source location information.
+	Body       *BodyNode        `json:"body"`       // Body of the try block.
+	Kind       ast_pb.NodeType  `json:"kind"`       // Kind of try statement.
+	Expression Node[NodeType]   `json:"expression"` // Expression within the try block.
+	Clauses    []Node[NodeType] `json:"clauses"`    // List of catch clauses.
 }
 
+// NewTryStatement creates a new TryStatement node with a given ASTBuilder.
 func NewTryStatement(b *ASTBuilder) *TryStatement {
 	return &TryStatement{
 		ASTBuilder: b,
@@ -32,34 +34,45 @@ func (t *TryStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescript
 	return false
 }
 
+// GetId returns the ID of the TryStatement node.
 func (t *TryStatement) GetId() int64 {
 	return t.Id
 }
 
+// GetType returns the NodeType of the TryStatement node.
 func (t *TryStatement) GetType() ast_pb.NodeType {
 	return t.NodeType
 }
 
+// GetSrc returns the SrcNode of the TryStatement node.
 func (t *TryStatement) GetSrc() SrcNode {
 	return t.Src
 }
 
+// GetBody returns the body of the TryStatement node.
 func (t *TryStatement) GetBody() *BodyNode {
 	return t.Body
 }
 
+// GetKind returns the kind of the try statement.
 func (t *TryStatement) GetKind() ast_pb.NodeType {
 	return t.Kind
 }
 
+// GetImplemented returns true if the try statement is implemented.
 func (t *TryStatement) GetImplemented() bool {
 	return true
 }
 
+// GetTypeDescription returns the TypeDescription of the TryStatement node.
 func (t *TryStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "try",
+		TypeIdentifier: "$_t_try",
+	}
 }
 
+// GetNodes returns the child nodes of the TryStatement node.
 func (t *TryStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, t.Body)
@@ -68,14 +81,17 @@ func (t *TryStatement) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// GetExpression returns the expression within the try block.
 func (t *TryStatement) GetExpression() Node[NodeType] {
 	return t.Expression
 }
 
+// GetClauses returns the list of catch clauses.
 func (t *TryStatement) GetClauses() []Node[NodeType] {
 	return t.Clauses
 }
 
+// ToProto returns a protobuf representation of the TryStatement node.
 func (t *TryStatement) ToProto() NodeType {
 	proto := ast_pb.Try{
 		Id:       t.GetId(),
@@ -101,6 +117,7 @@ func (t *TryStatement) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Try")
 }
 
+// Parse parses a try-catch statement context into the TryStatement node.
 func (t *TryStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

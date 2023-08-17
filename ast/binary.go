@@ -328,6 +328,7 @@ func (a *BinaryOperation) ParseEqualityComparison(
 	return a
 }
 
+// ParseOr is a method that parses or comparison operations.
 func (a *BinaryOperation) ParseOr(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

@@ -46,7 +46,7 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 func (p *PrimaryExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	p.ReferencedDeclaration = refId
 	p.TypeDescription = refDesc
-	return false
+	return true
 }
 
 // GetId returns the unique identifier of the PrimaryExpression node.
@@ -86,7 +86,11 @@ func (p *PrimaryExpression) GetReferencedDeclaration() int64 {
 
 // GetNodes returns a slice of nodes that includes the expression of the PrimaryExpression node.
 func (p *PrimaryExpression) GetNodes() []Node[NodeType] {
-	return nil
+	if p.TypeName != nil {
+		return []Node[NodeType]{p.TypeName}
+	}
+
+	return []Node[NodeType]{}
 }
 
 // GetKind returns the kind of the PrimaryExpression node.
@@ -250,9 +254,10 @@ func (p *PrimaryExpression) Parse(
 
 	if ctx.ElementaryTypeName() != nil {
 		typeName := NewTypeName(p.ASTBuilder)
-		typeName.ParseElementary(unit, fnNode, p.GetId(), ctx.ElementaryTypeName())
+		typeName.ParseElementaryType(unit, fnNode, p.GetId(), ctx.ElementaryTypeName())
 		p.TypeName = typeName
 		p.TypeDescription = typeName.GetTypeDescription()
+		p.Name = ctx.GetText()
 	}
 
 	if expNode != nil {
@@ -261,6 +266,11 @@ func (p *PrimaryExpression) Parse(
 			for _, argument := range expNodeCtx.GetArguments() {
 				p.ArgumentTypes = append(p.ArgumentTypes, argument.GetTypeDescription())
 			}
+
+			if p.TypeName != nil {
+				p.ArgumentTypes = append(p.ArgumentTypes, p.TypeName.GetTypeDescription())
+			}
+
 			p.TypeDescription = p.buildArgumentTypeDescription()
 		}
 	}
@@ -430,15 +440,121 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
+	if fnNode != nil && p.TypeDescription == nil {
+		if fn, ok := fnNode.(*Function); ok {
+			for _, param := range fn.GetParameters().GetParameters() {
+				if param.GetName() == p.Name {
+					p.TypeDescription = param.GetTypeName().GetTypeDescription()
+					p.ReferencedDeclaration = fn.GetId()
+					break
+				}
+			}
+		}
+
+		if fn, ok := fnNode.(*ForStatement); ok {
+			found := false
+			if varD, ok := fn.GetInitialiser().(*VariableDeclaration); ok {
+				for _, declar := range varD.GetDeclarations() {
+					if declar.GetName() == p.Name {
+						p.TypeDescription = declar.GetTypeName().GetTypeDescription()
+						p.ReferencedDeclaration = varD.GetId()
+						found = true
+						break
+					}
+				}
+			}
+
+			// Seek the condition...
+			if !found {
+				if binOp, ok := fn.GetCondition().(*BinaryOperation); ok {
+					if left, ok := binOp.GetLeftExpression().(*PrimaryExpression); ok {
+						if left.GetName() == p.Name {
+							p.TypeDescription = left.GetTypeDescription()
+							p.ReferencedDeclaration = left.GetId()
+							found = true
+						}
+					}
+
+					if p.TypeDescription == nil {
+						if right, ok := binOp.GetRightExpression().(*BinaryOperation); ok {
+							if left, ok := right.GetLeftExpression().(*MemberAccessExpression); ok {
+								if left.GetMemberName() == p.Name {
+									p.TypeDescription = left.GetTypeDescription()
+									p.ReferencedDeclaration = left.GetId()
+									found = true
+								}
+
+								if p.TypeDescription == nil {
+									if left, ok := left.GetExpression().(*PrimaryExpression); ok {
+										if left.GetName() == p.Name {
+											p.TypeDescription = left.GetTypeDescription()
+											p.ReferencedDeclaration = left.GetId()
+											found = true
+										}
+									}
+								}
+							}
+
+							if p.TypeDescription == nil {
+								if left, ok := right.GetRightExpression().(*PrimaryExpression); ok {
+									if left.GetName() == p.Name {
+										p.TypeDescription = left.GetTypeDescription()
+										p.ReferencedDeclaration = left.GetId()
+										found = true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// If we still do not have type description set... Let's do one hack to search body node...
+	// @TODO: Improve this in the future to search recursively...
+	if bodyNode != nil && p.TypeDescription == nil {
+		for _, statement := range bodyNode.GetStatements() {
+			if expr, ok := statement.(*Assignment); ok {
+				for _, node := range expr.GetNodes() {
+					if pExpr, ok := node.(*PrimaryExpression); ok {
+						if pExpr.GetName() == p.Name {
+							p.TypeDescription = pExpr.GetTypeDescription()
+							p.ReferencedDeclaration = pExpr.GetId()
+							break
+						}
+					}
+
+					for _, subnode := range node.GetNodes() {
+						if pExpr, ok := subnode.(*PrimaryExpression); ok {
+							if pExpr.GetName() == p.Name {
+								p.TypeDescription = pExpr.GetTypeDescription()
+								p.ReferencedDeclaration = pExpr.GetId()
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	return p
 }
 
+// buildArgumentTypeDescription constructs and returns a TypeDescription for the PrimaryExpression's argument types.
 func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
 	typeStrings := make([]string, 0)
 	typeIdentifiers := make([]string, 0)
 
+	// If the PrimaryExpression is referring to "this", return the already set type description of the current expression scope.
+	if p.GetName() == "this" {
+		return p.GetTypeDescription()
+	}
+
+	// Loop through the argument types and construct type strings and identifiers.
 	for _, paramType := range p.GetArgumentTypes() {
 		if paramType == nil {
 			typeStrings = append(typeStrings, "unknown")
@@ -450,7 +566,7 @@ func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}
 	typeString += strings.Join(typeStrings, ",") + ")"
-	typeIdentifier += strings.Join(typeIdentifiers, "$")
+	typeIdentifier += strings.Join(typeIdentifiers, "$") + "$"
 
 	return &TypeDescription{
 		TypeString:     typeString,

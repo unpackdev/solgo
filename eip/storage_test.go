@@ -115,6 +115,9 @@ func TestEIPStorage(t *testing.T) {
 			assert.True(t, bool, "standard %v not found in registered standards", tt.eip.GetType())
 			assert.NotNil(t, standard)
 			assert.Equal(t, tt.eip.GetStandard(), standard.GetStandard())
+
+			assert.NotNil(t, GetSortedRegisteredStandards())
+			assert.True(t, StandardsLoaded())
 		})
 	}
 }

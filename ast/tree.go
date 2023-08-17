@@ -80,10 +80,6 @@ func (t *Tree) UpdateNodeReferenceById(nodeId int64, nodeRefId int64, typeRef *T
 func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, nodeRefId int64, typeRef *TypeDescription) bool {
 	// Sometimes, child can be nil so we need to make sure we check for that.
 	// For example in Assignment, not all of the expressions are always set.
-	if child == nil {
-		return false
-	}
-
 	if child.GetId() == nodeId {
 		child.SetReferenceDescriptor(nodeRefId, typeRef)
 		t.updateParentReference(child, nodeRefId, typeRef)
@@ -91,6 +87,12 @@ func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, no
 	}
 
 	for _, c := range child.GetNodes() {
+		if child.GetId() == nodeId {
+			child.SetReferenceDescriptor(nodeRefId, typeRef)
+			t.updateParentReference(child, nodeRefId, typeRef)
+			return true
+		}
+
 		if n := t.byRecursiveReferenceUpdate(c, nodeId, nodeRefId, typeRef); n {
 			return n
 		}

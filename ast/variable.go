@@ -6,17 +6,19 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// VariableDeclaration represents a variable declaration node in the abstract syntax tree.
 type VariableDeclaration struct {
 	*ASTBuilder
 
-	Id           int64           `json:"id"`
-	NodeType     ast_pb.NodeType `json:"node_type"`
-	Src          SrcNode         `json:"src"`
-	Assignments  []int64         `json:"assignments"`
-	Declarations []*Declaration  `json:"declarations"`
-	InitialValue Node[NodeType]  `json:"initial_value,omitempty"`
+	Id           int64           `json:"id"`                      // Unique identifier of the variable declaration node.
+	NodeType     ast_pb.NodeType `json:"node_type"`               // Type of the node.
+	Src          SrcNode         `json:"src"`                     // Source location information.
+	Assignments  []int64         `json:"assignments"`             // List of assignment identifiers.
+	Declarations []*Declaration  `json:"declarations"`            // List of declaration nodes.
+	InitialValue Node[NodeType]  `json:"initial_value,omitempty"` // Initial value node.
 }
 
+// NewVariableDeclarationStatement creates a new instance of VariableDeclaration with the provided ASTBuilder.
 func NewVariableDeclarationStatement(b *ASTBuilder) *VariableDeclaration {
 	return &VariableDeclaration{
 		ASTBuilder:   b,
@@ -27,43 +29,51 @@ func NewVariableDeclarationStatement(b *ASTBuilder) *VariableDeclaration {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the VariableDeclaration node.
+// SetReferenceDescriptor sets the reference descriptors of the VariableDeclaration node.
 func (v *VariableDeclaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the variable declaration node.
 func (v *VariableDeclaration) GetId() int64 {
 	return v.Id
 }
 
+// GetType returns the type of the node.
 func (v *VariableDeclaration) GetType() ast_pb.NodeType {
 	return v.NodeType
 }
 
+// GetSrc returns the source location information of the variable declaration node.
 func (v *VariableDeclaration) GetSrc() SrcNode {
 	return v.Src
 }
 
+// GetAssignments returns a list of assignment identifiers associated with the variable declaration.
 func (v *VariableDeclaration) GetAssignments() []int64 {
 	return v.Assignments
 }
 
+// GetDeclarations returns a list of declaration nodes associated with the variable declaration.
 func (v *VariableDeclaration) GetDeclarations() []*Declaration {
 	return v.Declarations
 }
 
+// GetInitialValue returns the initial value node associated with the variable declaration.
 func (v *VariableDeclaration) GetInitialValue() Node[NodeType] {
 	return v.InitialValue
 }
 
+// GetTypeDescription returns the type description associated with the variable declaration.
 func (v *VariableDeclaration) GetTypeDescription() *TypeDescription {
 	if len(v.Declarations) > 0 {
 		return v.Declarations[0].GetTypeDescription()
 	}
 
-	return nil
+	return &TypeDescription{}
 }
 
+// GetNodes returns a list of nodes associated with the variable declaration (initial value and declarations).
 func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{}
 	if v.GetInitialValue() != nil {
@@ -77,6 +87,7 @@ func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// ToProto converts the VariableDeclaration node to its corresponding protobuf representation.
 func (v *VariableDeclaration) ToProto() NodeType {
 	proto := ast_pb.Variable{
 		Id:           v.Id,
@@ -100,6 +111,7 @@ func (v *VariableDeclaration) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Variable")
 }
 
+// Parse parses the variable declaration statement context and populates the VariableDeclaration fields.
 func (v *VariableDeclaration) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

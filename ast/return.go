@@ -6,6 +6,7 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ReturnStatement represents a return statement in the AST.
 type ReturnStatement struct {
 	*ASTBuilder
 
@@ -16,6 +17,7 @@ type ReturnStatement struct {
 	Expression               Node[NodeType]  `json:"expression"`
 }
 
+// NewReturnStatement creates a new instance of ReturnStatement using the provided ASTBuilder.
 func NewReturnStatement(b *ASTBuilder) *ReturnStatement {
 	return &ReturnStatement{
 		ASTBuilder: b,
@@ -29,26 +31,32 @@ func (r *ReturnStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescr
 	return false
 }
 
+// GetId returns the ID of the ReturnStatement node.
 func (r *ReturnStatement) GetId() int64 {
 	return r.Id
 }
 
+// GetType returns the NodeType of the ReturnStatement node.
 func (r *ReturnStatement) GetType() ast_pb.NodeType {
 	return r.NodeType
 }
 
+// GetSrc returns the source information of the ReturnStatement node.
 func (r *ReturnStatement) GetSrc() SrcNode {
 	return r.Src
 }
 
+// GetExpression returns the expression associated with the ReturnStatement node.
 func (r *ReturnStatement) GetExpression() Node[NodeType] {
 	return r.Expression
 }
 
+// GetFunctionReturnParameters returns the ID of the function's return parameters.
 func (r *ReturnStatement) GetFunctionReturnParameters() int64 {
 	return r.FunctionReturnParameters
 }
 
+// GetTypeDescription returns the type description of the ReturnStatement's expression.
 func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
 	if r.Expression != nil {
 		return r.Expression.GetTypeDescription()
@@ -56,10 +64,12 @@ func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
 	return nil
 }
 
+// GetNodes returns a list of child nodes contained in the ReturnStatement.
 func (r *ReturnStatement) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{r.Expression}
 }
 
+// ToProto converts the ReturnStatement into its corresponding Protocol Buffers representation.
 func (r *ReturnStatement) ToProto() NodeType {
 	proto := ast_pb.Return{
 		Id:                       r.GetId(),
@@ -73,6 +83,7 @@ func (r *ReturnStatement) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Return")
 }
 
+// Parse parses the ReturnStatement node from the provided context.
 func (r *ReturnStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

@@ -82,7 +82,7 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	// too good to be true.
 	for name, source := range md.Sources {
 		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
-			Name:    strings.TrimRight(filepath.Base(name), ".sol"),
+			Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
 			Path:    name,
 			Content: source.Content,
 		})
@@ -281,6 +281,7 @@ func (s *Sources) WriteToDir(path string) error {
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
 		content := simplifyImportPaths(sourceUnit.Content)
+
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
 			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
@@ -417,8 +418,7 @@ func (s *Sources) SortContracts() error {
 
 	var sortedSourceUnits []*SourceUnit
 	for _, name := range sortedNames {
-		sourceUnit := s.GetSourceUnitByName(name)
-		if sourceUnit != nil {
+		if sourceUnit := s.GetSourceUnitByName(name); sourceUnit != nil {
 			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
 		}
 	}

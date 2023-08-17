@@ -6,17 +6,19 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ExprOperation represents an expression operation in the Solidity abstract syntax tree (AST).
 type ExprOperation struct {
 	*ASTBuilder
 
-	Id               int64              `json:"id"`
-	NodeType         ast_pb.NodeType    `json:"node_type"`
-	Src              SrcNode            `json:"src"`
-	LeftExpression   Node[NodeType]     `json:"left_expression"`
-	RightExpression  Node[NodeType]     `json:"right_expression"`
-	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
+	Id               int64              `json:"id"`                // Unique identifier for the expression operation
+	NodeType         ast_pb.NodeType    `json:"node_type"`         // Type of the node (EXPRESSION_OPERATION for expression operation)
+	Src              SrcNode            `json:"src"`               // Source information about the expression operation
+	LeftExpression   Node[NodeType]     `json:"left_expression"`   // Left expression in the operation
+	RightExpression  Node[NodeType]     `json:"right_expression"`  // Right expression in the operation
+	TypeDescriptions []*TypeDescription `json:"type_descriptions"` // Type descriptions of the expressions
 }
 
+// NewExprOperationExpression creates a new ExprOperation instance.
 func NewExprOperationExpression(b *ASTBuilder) *ExprOperation {
 	return &ExprOperation{
 		ASTBuilder:       b,
@@ -31,34 +33,42 @@ func (b *ExprOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescrip
 	return false
 }
 
+// GetId returns the unique identifier of the expression operation.
 func (f *ExprOperation) GetId() int64 {
 	return f.Id
 }
 
+// GetType returns the type of the node, which is 'EXPRESSION_OPERATION' for an expression operation.
 func (f *ExprOperation) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetSrc returns the source information about the expression operation.
 func (f *ExprOperation) GetSrc() SrcNode {
 	return f.Src
 }
 
+// GetTypeDescription returns the type description of the expression operation.
 func (f *ExprOperation) GetTypeDescription() *TypeDescription {
 	return f.TypeDescriptions[0]
 }
 
+// GetNodes returns the nodes representing the left and right expressions of the operation.
 func (f *ExprOperation) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{f.LeftExpression, f.RightExpression}
 }
 
+// GetLeftExpression returns the left expression in the operation.
 func (f *ExprOperation) GetLeftExpression() Node[NodeType] {
 	return f.LeftExpression
 }
 
+// GetRightExpression returns the right expression in the operation.
 func (f *ExprOperation) GetRightExpression() Node[NodeType] {
 	return f.RightExpression
 }
 
+// ToProto returns the protobuf representation of the expression operation.
 func (f *ExprOperation) ToProto() NodeType {
 	proto := ast_pb.ExprOperation{
 		Id:              f.GetId(),
@@ -72,6 +82,7 @@ func (f *ExprOperation) ToProto() NodeType {
 	return NewTypedStruct(&proto, "ExprOperation")
 }
 
+// Parse parses an expression operation from the provided parser.ExpOperationContext and updates the current instance.
 func (f *ExprOperation) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

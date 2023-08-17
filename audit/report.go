@@ -43,7 +43,7 @@ func (r *Report) FilterDetectorsByImpact(impact ImpactLevel) []Detector {
 
 // HasError determines if the audit response contains any error messages.
 func (r *Report) HasError() bool {
-	return r.Error != nil && *r.Error != ""
+	return r.Error != ""
 }
 
 // ElementsByType retrieves all elements of a specified type from the audit results.

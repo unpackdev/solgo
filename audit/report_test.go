@@ -77,7 +77,7 @@ func TestResponse(t *testing.T) {
 			// Test HasError function
 			if resp.HasError() {
 				assert.NotNil(t, resp.Error)
-				assert.NotEmpty(t, *resp.Error)
+				assert.NotEmpty(t, resp.Error)
 			}
 
 			// Test ElementsByType function

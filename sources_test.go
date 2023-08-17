@@ -1,6 +1,7 @@
 package solgo
 
 import (
+	"context"
 	"path/filepath"
 	"testing"
 
@@ -94,7 +95,11 @@ func TestSources(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			err := testCase.sources.Prepare()
+			parser, err := NewParserFromSources(context.Background(), testCase.sources)
+			assert.NoError(t, err)
+			assert.NotNil(t, parser)
+
+			err = testCase.sources.Prepare()
 			assert.NoError(t, err)
 
 			assert.NoError(t, testCase.sources.SortContracts())

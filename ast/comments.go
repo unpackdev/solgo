@@ -8,46 +8,48 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// Comment represents a comment in an abstract syntax tree.
 type Comment struct {
-	// Id is the unique identifier of the comment node.
-	Id int64 `json:"id"`
-	// Src is the source node locations of the comment node.
-	Src SrcNode `json:"src"`
-	// NodeType is the type of the AST node.
+	Id       int64           `json:"id"`
+	Src      SrcNode         `json:"src"`
 	NodeType ast_pb.NodeType `json:"node_type"`
-	// Value is the value of the comment node.
-	Text string `json:"text"`
+	Text     string          `json:"text"`
 }
 
+// GetId returns the ID of the Comment.
 func (c *Comment) GetId() int64 {
 	return c.Id
 }
 
+// GetType returns the NodeType of the Comment.
 func (c *Comment) GetType() ast_pb.NodeType {
 	return c.NodeType
 }
 
+// GetSrc returns the source information of the Comment.
 func (c *Comment) GetSrc() SrcNode {
 	return c.Src
 }
 
+// GetText returns the text value of the Comment.
 func (c *Comment) GetText() string {
 	return c.Text
 }
 
+// ToProto converts the Comment to its corresponding protocol buffer representation.
 func (c *Comment) ToProto() *ast_pb.Comment {
 	return &ast_pb.Comment{
-		Id:       c.Id,
-		NodeType: c.NodeType,
-		Src:      c.Src.ToProto(),
-		Text:     c.Text,
+		Id:       c.GetId(),
+		NodeType: c.GetType(),
+		Src:      c.GetSrc().ToProto(),
+		Text:     c.GetText(),
 	}
 }
 
 // EnterEveryRule is called when the parser enters any rule in the grammar.
-// It is used to search for license and any comments that code has.
-// ANTLR parser by default have comments disabled to be parsed as tokens, so we need to
-// search for them manually using the CommonTokenStream.
+// It is used to search for licenses and comments in the code.
+// ANTLR parser, by default, has comments disabled to be parsed as tokens.
+// Therefore, we manually search for them using the CommonTokenStream.
 func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
 	if !b.commentsParsed {
 		stream := b.parser.GetTokenStream().(*antlr.CommonTokenStream)

@@ -7,17 +7,19 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// ErrorDefinition represents an error definition node in the abstract syntax tree.
 type ErrorDefinition struct {
 	*ASTBuilder
-	SourceUnitName  string           `json:"-"`
-	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
-	Src             SrcNode          `json:"src"`
-	Name            string           `json:"name"`
-	Parameters      *ParameterList   `json:"parameters"`
-	TypeDescription *TypeDescription `json:"type_description"`
+	SourceUnitName  string           `json:"-"`                // Source unit name.
+	Id              int64            `json:"id"`               // Unique identifier of the error definition node.
+	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node.
+	Src             SrcNode          `json:"src"`              // Source location information.
+	Name            string           `json:"name"`             // Name of the error definition.
+	Parameters      *ParameterList   `json:"parameters"`       // List of error parameters.
+	TypeDescription *TypeDescription `json:"type_description"` // Type description of the error definition.
 }
 
+// NewErrorDefinition creates a new instance of ErrorDefinition with the provided ASTBuilder.
 func NewErrorDefinition(b *ASTBuilder) *ErrorDefinition {
 	return &ErrorDefinition{
 		ASTBuilder: b,
@@ -26,44 +28,52 @@ func NewErrorDefinition(b *ASTBuilder) *ErrorDefinition {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the ErrorDefinition node.
-// We don't need to do any reference description updates here, at least for now...
+// SetReferenceDescriptor sets the reference descriptors of the ErrorDefinition node.
 func (e *ErrorDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the error definition node.
 func (e *ErrorDefinition) GetId() int64 {
 	return e.Id
 }
 
+// GetType returns the type of the node.
 func (e *ErrorDefinition) GetType() ast_pb.NodeType {
 	return e.NodeType
 }
 
+// GetSrc returns the source location information of the error definition node.
 func (e *ErrorDefinition) GetSrc() SrcNode {
 	return e.Src
 }
 
+// GetName returns the name of the error definition.
 func (e *ErrorDefinition) GetName() string {
 	return e.Name
 }
 
+// GetTypeDescription returns the type description of the error definition.
 func (e *ErrorDefinition) GetTypeDescription() *TypeDescription {
 	return e.TypeDescription
 }
 
+// GetParameters returns the list of error parameters.
 func (e *ErrorDefinition) GetParameters() *ParameterList {
 	return e.Parameters
 }
 
+// GetSourceUnitName returns the source unit name associated with the error definition.
 func (e *ErrorDefinition) GetSourceUnitName() string {
 	return e.SourceUnitName
 }
 
+// GetNodes returns an empty slice of nodes associated with the error definition.
 func (e *ErrorDefinition) GetNodes() []Node[NodeType] {
-	return nil
+	return []Node[NodeType]{}
 }
 
+// ToProto converts the ErrorDefinition node to its corresponding protobuf representation.
 func (e *ErrorDefinition) ToProto() NodeType {
 	proto := ast_pb.Error{
 		Id:              e.GetId(),
@@ -77,6 +87,7 @@ func (e *ErrorDefinition) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Error")
 }
 
+// Parse parses the error definition context and populates the ErrorDefinition fields.
 func (e *ErrorDefinition) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

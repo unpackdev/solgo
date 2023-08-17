@@ -7,9 +7,13 @@ import (
 
 // allowedArgs defines a list of allowed arguments for slither.
 var allowedArgs = map[string]bool{
-	"--json":  true,
-	"-":       true,
-	"--codex": true,
+	"--json":                   true,
+	"-":                        true,
+	"--codex":                  true,
+	"--solc-disable-warnings":  true,
+	"--ignore-compile":         true,
+	"--fail-none":              true,
+	"--buidler-ignore-compile": true,
 }
 
 // requiredArgs defines a list of required arguments for slither.
@@ -34,7 +38,7 @@ func NewDefaultConfig(tempDir string) (*Config, error) {
 	toReturn := &Config{
 		tempDir: tempDir,
 		Arguments: []string{
-			"--json", "-", // Output to stdout.
+			"--ignore-compile", "--buidler-ignore-compile", "--fail-none", "--solc-disable-warnings", "--json", "-", // Output to stdout.
 		},
 	}
 

@@ -29,9 +29,18 @@ func (r *Root) GetEntryName() string {
 	return r.EntryContractName
 }
 
-// GetContracts returns the map of contracts in the ABI.
+// GetContracts returns the map of contracts.
 func (r *Root) GetContracts() map[string]*Contract {
 	return r.Contracts
+}
+
+// GetContractsAsSlice returns the slice contracts.
+func (r *Root) GetContractsAsSlice() []*Contract {
+	toReturn := make([]*Contract, 0)
+	for _, c := range r.Contracts {
+		toReturn = append(toReturn, c)
+	}
+	return toReturn
 }
 
 // GetContractByName retrieves a contract by its name from the ABI.

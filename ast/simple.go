@@ -5,8 +5,10 @@ import (
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	"github.com/txpull/solgo/parser"
+	"go.uber.org/zap"
 )
 
+// SimpleStatement represents a simple statement in the AST.
 type SimpleStatement struct {
 	*ASTBuilder
 
@@ -15,41 +17,15 @@ type SimpleStatement struct {
 	Src      SrcNode         `json:"src"`
 }
 
+// NewSimpleStatement creates a new instance of SimpleStatement using the provided ASTBuilder.
+// This instance is more like a placeholder for the actual statements that are returned from Parse()
 func NewSimpleStatement(b *ASTBuilder) *SimpleStatement {
 	return &SimpleStatement{
 		ASTBuilder: b,
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the SimpleStatement node.
-func (s *SimpleStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	return false
-}
-
-func (s *SimpleStatement) GetId() int64 {
-	return s.Id
-}
-
-func (s *SimpleStatement) GetType() ast_pb.NodeType {
-	return s.NodeType
-}
-
-func (s *SimpleStatement) GetSrc() SrcNode {
-	return s.Src
-}
-
-func (s *SimpleStatement) GetTypeDescription() *TypeDescription {
-	return nil
-}
-
-func (s *SimpleStatement) GetNodes() []Node[NodeType] {
-	return nil
-}
-
-func (s *SimpleStatement) ToProto() NodeType {
-	return nil
-}
-
+// Parse parses the SimpleStatement node from the provided context.
 func (s *SimpleStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -70,25 +46,12 @@ func (s *SimpleStatement) Parse(
 				unit, contractNode, fnNode, bodyNode, parentNode, childCtx,
 			)
 		default:
-			panic(
-				fmt.Sprintf(
-					"Unknown simple statement child type @ SimpleStatement.Parse: %T",
-					childCtx,
-				),
+			zap.L().Warn(
+				"Unknown simple statement child type @ SimpleStatement.Parse",
+				zap.String("child", fmt.Sprintf("%T", childCtx)),
 			)
 		}
 	}
 
-	s.Id = s.GetNextID()
-	s.Src = SrcNode{
-		Id:          s.GetNextID(),
-		Line:        int64(ctx.GetStart().GetLine()),
-		Column:      int64(ctx.GetStart().GetColumn()),
-		Start:       int64(ctx.GetStart().GetStart()),
-		End:         int64(ctx.GetStop().GetStop()),
-		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: bodyNode.GetId(),
-	}
-
-	return s
+	return nil
 }

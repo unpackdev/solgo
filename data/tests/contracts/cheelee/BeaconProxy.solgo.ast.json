@@ -1,1786 +1,1742 @@
 {
-  "id": 1533,
-  "base_contracts": [
-    {
-      "id": 1554,
-      "node_type": 62,
-      "src": {
-        "id": 1555,
-        "line": 582,
-        "column": 24,
-        "start": 21117,
-        "end": 21121,
-        "length": 5,
-        "parent_index": 1553
-      },
-      "base_name": {
-        "id": 1556,
-        "node_type": 52,
-        "src": {
-          "id": 1557,
-          "line": 582,
-          "column": 24,
-          "start": 21117,
-          "end": 21121,
-          "length": 5,
-          "parent_index": 1553
-        },
-        "name": "Proxy",
-        "referenced_declaration": 160
-      }
-    },
-    {
-      "id": 1558,
-      "node_type": 62,
-      "src": {
-        "id": 1559,
-        "line": 582,
-        "column": 31,
-        "start": 21124,
-        "end": 21137,
-        "length": 14,
-        "parent_index": 1553
-      },
-      "base_name": {
-        "id": 1560,
-        "node_type": 52,
-        "src": {
-          "id": 1561,
-          "line": 582,
-          "column": 31,
-          "start": 21124,
-          "end": 21137,
-          "length": 14,
-          "parent_index": 1553
-        },
-        "name": "ERC1967Upgrade",
-        "referenced_declaration": 902
-      }
-    }
-  ],
-  "license": "MIT",
-  "exported_symbols": [
-    {
-      "id": 1533,
-      "name": "BeaconProxy",
-      "absolute_path": "BeaconProxy.sol"
-    },
-    {
-      "id": 902,
-      "name": "ERC1967Upgrade",
-      "absolute_path": "ERC1967Upgrade.sol"
-    },
-    {
-      "id": 160,
-      "name": "Proxy",
-      "absolute_path": "Proxy.sol"
-    },
-    {
-      "id": 119,
-      "name": "IBeacon",
-      "absolute_path": "IBeacon.sol"
-    },
-    {
-      "id": 119,
-      "name": "IBeacon",
-      "absolute_path": "IBeacon.sol"
-    }
-  ],
-  "absolute_path": "BeaconProxy.sol",
-  "name": "BeaconProxy",
-  "node_type": 1,
-  "nodes": [
-    {
-      "id": 1545,
-      "node_type": 10,
-      "src": {
-        "id": 1546,
-        "line": 568,
-        "column": 0,
-        "start": 20626,
-        "end": 20648,
-        "length": 23,
-        "parent_index": 1533
-      },
-      "literals": [
-        "pragma",
-        "solidity",
-        "^",
-        "0",
-        ".",
-        "8",
-        ".",
-        "0",
-        ";"
-      ],
-      "text": "pragma solidity ^0.8.0;"
-    },
-    {
-      "id": 1550,
-      "node_type": 29,
-      "src": {
-        "id": 0,
-        "line": 570,
-        "column": 0,
-        "start": 20651,
-        "end": 20673,
-        "length": 23,
-        "parent_index": 1533
-      },
-      "absolute_path": "IBeacon.sol",
-      "file": "./IBeacon.sol",
-      "scope": 1533,
-      "unit_alias": "",
-      "source_unit": 902
-    },
-    {
-      "id": 1551,
-      "node_type": 29,
-      "src": {
-        "id": 0,
-        "line": 571,
-        "column": 0,
-        "start": 20675,
-        "end": 20696,
-        "length": 22,
-        "parent_index": 1533
-      },
-      "absolute_path": "Proxy.sol",
-      "file": "../Proxy.sol",
-      "scope": 1533,
-      "unit_alias": "",
-      "source_unit": 902
-    },
-    {
-      "id": 1552,
-      "node_type": 29,
-      "src": {
-        "id": 0,
-        "line": 572,
-        "column": 0,
-        "start": 20698,
-        "end": 20736,
-        "length": 39,
-        "parent_index": 1533
-      },
-      "absolute_path": "ERC1967Upgrade.sol",
-      "file": "../ERC1967/ERC1967Upgrade.sol",
-      "scope": 1533,
-      "unit_alias": "",
-      "source_unit": 902
-    },
-    {
-      "id": 1553,
-      "name": "BeaconProxy",
-      "node_type": 35,
-      "src": {
-        "id": 0,
-        "line": 582,
-        "column": 0,
-        "start": 21093,
-        "end": 22698,
-        "length": 1606,
-        "parent_index": 1533
-      },
-      "abstract": false,
-      "kind": 36,
-      "fully_implemented": true,
-      "nodes": [
-        {
-          "id": 1563,
-          "node_type": 42,
-          "src": {
-            "id": 1564,
-            "line": 594,
-            "column": 4,
-            "start": 21575,
-            "end": 21779,
-            "length": 205,
-            "parent_index": 1553
-          },
-          "kind": 11,
-          "state_mutability": 3,
-          "visibility": 1,
-          "implemented": true,
-          "modifiers": [],
-          "parameters": {
-            "id": 1565,
-            "node_type": 43,
-            "src": {
-              "id": 1566,
-              "line": 594,
-              "column": 16,
-              "start": 21587,
-              "end": 21619,
-              "length": 33,
-              "parent_index": 1563
-            },
-            "parameters": [
-              {
-                "id": 1567,
-                "node_type": 44,
-                "src": {
-                  "id": 1568,
-                  "line": 594,
-                  "column": 16,
-                  "start": 21587,
-                  "end": 21600,
-                  "length": 14,
-                  "parent_index": 1565
-                },
-                "scope": 1563,
-                "name": "beacon",
-                "type_name": {
-                  "id": 1569,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1570,
-                    "line": 594,
-                    "column": 16,
-                    "start": 21587,
-                    "end": 21593,
-                    "length": 7,
-                    "parent_index": 1567
-                  },
-                  "name": "address",
-                  "type_description": {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  "state_mutability": 4,
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 4
-              },
-              {
-                "id": 1571,
-                "node_type": 44,
-                "src": {
-                  "id": 1572,
-                  "line": 594,
-                  "column": 32,
-                  "start": 21603,
-                  "end": 21619,
-                  "length": 17,
-                  "parent_index": 1565
-                },
-                "scope": 1563,
-                "name": "data",
-                "type_name": {
-                  "id": 1573,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1574,
-                    "line": 594,
-                    "column": 32,
-                    "start": 21603,
-                    "end": 21607,
-                    "length": 5,
-                    "parent_index": 1571
-                  },
-                  "name": "bytes",
-                  "type_description": {
-                    "type_identifier": "t_bytes",
-                    "type_string": "bytes"
-                  },
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 1
-              }
-            ],
-            "parameter_types": [
-              {
-                "type_identifier": "t_address",
-                "type_string": "address"
-              },
-              {
-                "type_identifier": "t_bytes",
-                "type_string": "bytes"
-              }
-            ]
-          },
-          "return_parameters": {
-            "id": 1575,
-            "node_type": 43,
-            "src": {
-              "id": 1564,
-              "line": 594,
-              "column": 4,
-              "start": 21575,
-              "end": 21779,
-              "length": 205,
-              "parent_index": 1563
-            },
-            "parameters": [],
-            "parameter_types": []
-          },
-          "scope": 1553,
-          "body": {
-            "id": 1576,
-            "node_type": 46,
-            "kind": 0,
-            "src": {
-              "id": 1577,
-              "line": 594,
-              "column": 59,
-              "start": 21630,
-              "end": 21779,
-              "length": 150,
-              "parent_index": 1563
-            },
-            "implemented": true,
-            "statements": [
-              {
-                "id": 1578,
-                "node_type": 24,
-                "kind": 24,
-                "src": {
-                  "id": 1579,
-                  "line": 595,
-                  "column": 8,
-                  "start": 21640,
-                  "end": 21718,
-                  "length": 79,
-                  "parent_index": 1576
-                },
-                "argument_types": [
-                  {
-                    "type_identifier": "t_bool",
-                    "type_string": "bool"
-                  }
-                ],
-                "arguments": [
-                  {
-                    "id": 1580,
-                    "is_constant": false,
-                    "is_pure": false,
-                    "node_type": 19,
-                    "src": {
-                      "id": 1581,
-                      "line": 595,
-                      "column": 15,
-                      "start": 21647,
-                      "end": 21717,
-                      "length": 71,
-                      "parent_index": 1578
-                    },
-                    "operator": 11,
-                    "left_expression": {
-                      "id": 1582,
-                      "node_type": 16,
-                      "src": {
-                        "id": 1583,
-                        "line": 595,
-                        "column": 15,
-                        "start": 21647,
-                        "end": 21658,
-                        "length": 12,
-                        "parent_index": 1580
-                      },
-                      "name": "_BEACON_SLOT",
-                      "type_description": {
-                        "type_identifier": "t_bytes32",
-                        "type_string": "bytes32"
-                      },
-                      "overloaded_declarations": [],
-                      "referenced_declaration": 1428,
-                      "is_pure": false
-                    },
-                    "right_expression": {
-                      "id": 1584,
-                      "node_type": 24,
-                      "kind": 24,
-                      "src": {
-                        "id": 1585,
-                        "line": 595,
-                        "column": 31,
-                        "start": 21663,
-                        "end": 21717,
-                        "length": 55,
-                        "parent_index": 1580
-                      },
-                      "argument_types": [
-                        {
-                          "type_identifier": "t_function_$_t_function__t_string_literal$$",
-                          "type_string": "function(function(string memory))"
-                        }
-                      ],
-                      "arguments": [
-                        {
-                          "id": 1586,
-                          "is_constant": false,
-                          "is_pure": false,
-                          "node_type": 19,
-                          "src": {
-                            "id": 1587,
-                            "line": 595,
-                            "column": 39,
-                            "start": 21671,
-                            "end": 21716,
-                            "length": 46,
-                            "parent_index": 1584
-                          },
-                          "operator": 2,
-                          "left_expression": {
-                            "id": 1588,
-                            "node_type": 24,
-                            "kind": 24,
-                            "src": {
-                              "id": 1589,
-                              "line": 595,
-                              "column": 39,
-                              "start": 21671,
-                              "end": 21712,
-                              "length": 42,
-                              "parent_index": 1586
-                            },
-                            "argument_types": [
-                              {
-                                "type_identifier": "t_function__t_string_literal$",
-                                "type_string": "function(string memory)"
-                              }
-                            ],
-                            "arguments": [
-                              {
-                                "id": 1590,
-                                "node_type": 24,
-                                "kind": 24,
-                                "src": {
-                                  "id": 1591,
-                                  "line": 595,
-                                  "column": 47,
-                                  "start": 21679,
-                                  "end": 21711,
-                                  "length": 33,
-                                  "parent_index": 1588
-                                },
-                                "argument_types": [
-                                  {
-                                    "type_identifier": "t_string_literal",
-                                    "type_string": "literal_string \"eip1967.proxy.beacon\""
-                                  }
-                                ],
-                                "arguments": [
-                                  {
-                                    "id": 1592,
-                                    "node_type": 17,
-                                    "kind": 50,
-                                    "value": "eip1967.proxy.beacon",
-                                    "hex_value": "656970313936372e70726f78792e626561636f6e",
-                                    "src": {
-                                      "id": 1593,
-                                      "line": 595,
-                                      "column": 57,
-                                      "start": 21689,
-                                      "end": 21710,
-                                      "length": 22,
-                                      "parent_index": 1590
-                                    },
-                                    "type_description": {
-                                      "type_identifier": "t_string_literal",
-                                      "type_string": "literal_string \"eip1967.proxy.beacon\""
-                                    },
-                                    "overloaded_declarations": [],
-                                    "referenced_declaration": 0,
-                                    "is_pure": true
-                                  }
-                                ],
-                                "expression": {
-                                  "id": 1594,
-                                  "node_type": 16,
-                                  "src": {
-                                    "id": 1595,
-                                    "line": 595,
-                                    "column": 47,
-                                    "start": 21679,
-                                    "end": 21687,
-                                    "length": 9,
-                                    "parent_index": 1590
-                                  },
-                                  "name": "keccak256",
-                                  "type_description": {
-                                    "type_identifier": "t_function_$_t_string_literal",
-                                    "type_string": "function(literal_string \"eip1967.proxy.beacon\")"
-                                  },
-                                  "overloaded_declarations": [],
-                                  "referenced_declaration": 0,
-                                  "is_pure": false,
-                                  "argument_types": [
-                                    {
-                                      "type_identifier": "t_string_literal",
-                                      "type_string": "literal_string \"eip1967.proxy.beacon\""
-                                    }
-                                  ]
-                                },
-                                "type_description": {
-                                  "type_identifier": "t_function__t_string_literal$",
-                                  "type_string": "function(string memory)"
-                                }
-                              }
-                            ],
-                            "expression": {
-                              "id": 1596,
-                              "node_type": 16,
-                              "src": {
-                                "id": 1597,
-                                "line": 595,
-                                "column": 39,
-                                "start": 21671,
-                                "end": 21677,
-                                "length": 7,
-                                "parent_index": 1588
-                              },
-                              "type_name": {
-                                "id": 1598,
-                                "node_type": 30,
-                                "src": {
-                                  "id": 1599,
-                                  "line": 595,
-                                  "column": 39,
-                                  "start": 21671,
-                                  "end": 21677,
-                                  "length": 7,
-                                  "parent_index": 1596
-                                },
-                                "name": "uint256",
-                                "type_description": {
-                                  "type_identifier": "t_uint256",
-                                  "type_string": "uint256"
-                                },
-                                "referenced_declaration": 0
-                              },
-                              "type_description": {
-                                "type_identifier": "t_function_$_t_function__t_string_literal$",
-                                "type_string": "function(function(string memory))"
-                              },
-                              "overloaded_declarations": [],
-                              "referenced_declaration": 0,
-                              "is_pure": false,
-                              "argument_types": [
-                                {
-                                  "type_identifier": "t_function__t_string_literal$",
-                                  "type_string": "function(string memory)"
-                                }
-                              ]
-                            },
-                            "type_description": {
-                              "type_identifier": "t_function_$_t_function__t_string_literal$$",
-                              "type_string": "function(function(string memory))"
-                            }
-                          },
-                          "right_expression": {
-                            "id": 1600,
-                            "node_type": 17,
-                            "kind": 49,
-                            "value": "1",
-                            "hex_value": "31",
-                            "src": {
-                              "id": 1601,
-                              "line": 595,
-                              "column": 84,
-                              "start": 21716,
-                              "end": 21716,
-                              "length": 1,
-                              "parent_index": 1586
-                            },
-                            "type_description": {
-                              "type_identifier": "t_rational_1_by_1",
-                              "type_string": "int_const 1"
-                            },
-                            "overloaded_declarations": [],
-                            "referenced_declaration": 0,
-                            "is_pure": true
-                          },
-                          "type_description": {
-                            "type_identifier": "t_function_$_t_function__t_string_literal$$",
-                            "type_string": "function(function(string memory))"
-                          }
-                        }
-                      ],
-                      "expression": {
-                        "id": 1602,
-                        "node_type": 16,
-                        "src": {
-                          "id": 1603,
-                          "line": 595,
-                          "column": 31,
-                          "start": 21663,
-                          "end": 21669,
-                          "length": 7,
-                          "parent_index": 1584
-                        },
-                        "type_name": {
-                          "id": 1604,
-                          "node_type": 30,
-                          "src": {
-                            "id": 1605,
-                            "line": 595,
-                            "column": 31,
-                            "start": 21663,
-                            "end": 21669,
-                            "length": 7,
-                            "parent_index": 1602
-                          },
-                          "name": "bytes32",
-                          "type_description": {
-                            "type_identifier": "t_bytes32",
-                            "type_string": "bytes32"
-                          },
-                          "referenced_declaration": 0
-                        },
-                        "type_description": {
-                          "type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$$",
-                          "type_string": "function(function(function(string memory)))"
-                        },
-                        "overloaded_declarations": [],
-                        "referenced_declaration": 0,
-                        "is_pure": false,
-                        "argument_types": [
-                          {
-                            "type_identifier": "t_function_$_t_function__t_string_literal$$",
-                            "type_string": "function(function(string memory))"
-                          }
-                        ]
-                      },
-                      "type_description": {
-                        "type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$$$",
-                        "type_string": "function(function(function(string memory)))"
-                      }
-                    },
-                    "type_description": {
-                      "type_identifier": "t_bool",
-                      "type_string": "bool"
-                    }
-                  }
-                ],
-                "expression": {
-                  "id": 1606,
-                  "node_type": 16,
-                  "src": {
-                    "id": 1607,
-                    "line": 595,
-                    "column": 8,
-                    "start": 21640,
-                    "end": 21645,
-                    "length": 6,
-                    "parent_index": 1578
-                  },
-                  "name": "assert",
-                  "type_description": {
-                    "type_identifier": "t_function_$_t_bool",
-                    "type_string": "function(bool)"
-                  },
-                  "overloaded_declarations": [],
-                  "referenced_declaration": 0,
-                  "is_pure": false,
-                  "argument_types": [
-                    {
-                      "type_identifier": "t_bool",
-                      "type_string": "bool"
-                    }
-                  ]
-                },
-                "type_description": {
-                  "type_identifier": "t_function_$_t_bool$",
-                  "type_string": "function(bool)"
-                }
-              },
-              {
-                "id": 1608,
-                "node_type": 24,
-                "kind": 24,
-                "src": {
-                  "id": 1609,
-                  "line": 596,
-                  "column": 8,
-                  "start": 21729,
-                  "end": 21772,
-                  "length": 44,
-                  "parent_index": 1576
-                },
-                "argument_types": [
-                  {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  {
-                    "type_identifier": "t_bytes",
-                    "type_string": "bytes"
-                  },
-                  {
-                    "type_identifier": "t_bool",
-                    "type_string": "bool"
-                  }
-                ],
-                "arguments": [
-                  {
-                    "id": 1610,
-                    "node_type": 16,
-                    "src": {
-                      "id": 1611,
-                      "line": 596,
-                      "column": 32,
-                      "start": 21753,
-                      "end": 21758,
-                      "length": 6,
-                      "parent_index": 1608
-                    },
-                    "name": "beacon",
-                    "type_description": {
-                      "type_identifier": "t_address",
-                      "type_string": "address"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 1610,
-                    "is_pure": false
-                  },
-                  {
-                    "id": 1612,
-                    "node_type": 16,
-                    "src": {
-                      "id": 1613,
-                      "line": 596,
-                      "column": 40,
-                      "start": 21761,
-                      "end": 21764,
-                      "length": 4,
-                      "parent_index": 1608
-                    },
-                    "name": "data",
-                    "type_description": {
-                      "type_identifier": "t_bytes",
-                      "type_string": "bytes"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 1612,
-                    "is_pure": false,
-                    "argument_types": [
-                      {
-                        "type_identifier": "t_address",
-                        "type_string": "address"
-                      }
-                    ]
-                  },
-                  {
-                    "id": 1614,
-                    "node_type": 17,
-                    "kind": 61,
-                    "value": "false",
-                    "hex_value": "66616c7365",
-                    "src": {
-                      "id": 1615,
-                      "line": 596,
-                      "column": 46,
-                      "start": 21767,
-                      "end": 21771,
-                      "length": 5,
-                      "parent_index": 1608
-                    },
-                    "type_description": {
-                      "type_identifier": "t_bool",
-                      "type_string": "bool"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 0,
-                    "is_pure": true,
-                    "argument_types": [
-                      {
-                        "type_identifier": "t_address",
-                        "type_string": "address"
-                      },
-                      {
-                        "type_identifier": "t_bytes",
-                        "type_string": "bytes"
-                      }
-                    ]
-                  }
-                ],
-                "expression": {
-                  "id": 1616,
-                  "node_type": 16,
-                  "src": {
-                    "id": 1617,
-                    "line": 596,
-                    "column": 8,
-                    "start": 21729,
-                    "end": 21751,
-                    "length": 23,
-                    "parent_index": 1608
-                  },
-                  "name": "_upgradeBeaconToAndCall",
-                  "type_description": {
-                    "type_identifier": "t_function_$_t_address$$_t_bytes$$_t_bool",
-                    "type_string": "function(address,bytes,bool)"
-                  },
-                  "overloaded_declarations": [],
-                  "referenced_declaration": 0,
-                  "is_pure": false,
-                  "argument_types": [
-                    {
-                      "type_identifier": "t_address",
-                      "type_string": "address"
-                    },
-                    {
-                      "type_identifier": "t_bytes",
-                      "type_string": "bytes"
-                    },
-                    {
-                      "type_identifier": "t_bool",
-                      "type_string": "bool"
-                    }
-                  ]
-                },
-                "type_description": {
-                  "type_identifier": "t_function_$_t_address$$_t_bytes$$_t_bool$",
-                  "type_string": "function(address,bytes,bool)"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "id": 1619,
-          "name": "_beacon",
-          "node_type": 42,
-          "kind": 41,
-          "src": {
-            "id": 1620,
-            "line": 602,
-            "column": 4,
-            "start": 21850,
-            "end": 21944,
-            "length": 95,
-            "parent_index": 1553
-          },
-          "body": {
-            "id": 1633,
-            "node_type": 46,
-            "kind": 0,
-            "src": {
-              "id": 1634,
-              "line": 602,
-              "column": 63,
-              "start": 21909,
-              "end": 21944,
-              "length": 36,
-              "parent_index": 1619
-            },
-            "implemented": true,
-            "statements": [
-              {
-                "id": 1635,
-                "node_type": 47,
-                "src": {
-                  "id": 1636,
-                  "line": 603,
-                  "column": 8,
-                  "start": 21919,
-                  "end": 21938,
-                  "length": 20,
-                  "parent_index": 1619
-                },
-                "function_return_parameters": 1619,
-                "expression": {
-                  "id": 1637,
-                  "node_type": 24,
-                  "kind": 24,
-                  "src": {
-                    "id": 1638,
-                    "line": 603,
-                    "column": 15,
-                    "start": 21926,
-                    "end": 21937,
-                    "length": 12,
-                    "parent_index": 1633
-                  },
-                  "argument_types": [],
-                  "arguments": [],
-                  "expression": {
-                    "id": 1639,
-                    "node_type": 16,
-                    "src": {
-                      "id": 1640,
-                      "line": 603,
-                      "column": 15,
-                      "start": 21926,
-                      "end": 21935,
-                      "length": 10,
-                      "parent_index": 1637
-                    },
-                    "name": "_getBeacon",
-                    "type_description": {
-                      "type_identifier": "t_function_",
-                      "type_string": "function()"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 0,
-                    "is_pure": false
-                  },
-                  "type_description": {
-                    "type_identifier": "t_function_$",
-                    "type_string": "function()"
-                  }
-                }
-              }
-            ]
-          },
-          "implemented": true,
-          "visibility": 1,
-          "state_mutability": 5,
-          "virtual": true,
-          "modifiers": [],
-          "overrides": [],
-          "parameters": {
-            "id": 1621,
-            "node_type": 43,
-            "src": {
-              "id": 1622,
-              "line": 602,
-              "column": 54,
-              "start": 21900,
-              "end": 21906,
-              "length": 7,
-              "parent_index": 1619
-            },
-            "parameters": [
-              {
-                "id": 1623,
-                "node_type": 44,
-                "src": {
-                  "id": 1624,
-                  "line": 602,
-                  "column": 54,
-                  "start": 21900,
-                  "end": 21906,
-                  "length": 7,
-                  "parent_index": 1621
-                },
-                "scope": 1619,
-                "name": "",
-                "type_name": {
-                  "id": 1625,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1626,
-                    "line": 602,
-                    "column": 54,
-                    "start": 21900,
-                    "end": 21906,
-                    "length": 7,
-                    "parent_index": 1623
-                  },
-                  "name": "address",
-                  "type_description": {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  "state_mutability": 4,
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 4
-              }
-            ],
-            "parameter_types": [
-              {
-                "type_identifier": "t_address",
-                "type_string": "address"
-              }
-            ]
-          },
-          "return_parameters": {
-            "id": 1627,
-            "node_type": 43,
-            "src": {
-              "id": 1628,
-              "line": 602,
-              "column": 54,
-              "start": 21900,
-              "end": 21906,
-              "length": 7,
-              "parent_index": 1619
-            },
-            "parameters": [
-              {
-                "id": 1629,
-                "node_type": 44,
-                "src": {
-                  "id": 1630,
-                  "line": 602,
-                  "column": 54,
-                  "start": 21900,
-                  "end": 21906,
-                  "length": 7,
-                  "parent_index": 1627
-                },
-                "scope": 1619,
-                "name": "",
-                "type_name": {
-                  "id": 1631,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1632,
-                    "line": 602,
-                    "column": 54,
-                    "start": 21900,
-                    "end": 21906,
-                    "length": 7,
-                    "parent_index": 1629
-                  },
-                  "name": "address",
-                  "type_description": {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  "state_mutability": 4,
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 4
-              }
-            ],
-            "parameter_types": [
-              {
-                "type_identifier": "t_address",
-                "type_string": "address"
-              }
-            ]
-          },
-          "scope": 1553,
-          "type_description": {
-            "type_identifier": "t_function_$_t_address",
-            "type_string": "function(address)"
-          }
-        },
-        {
-          "id": 1642,
-          "name": "_implementation",
-          "node_type": 42,
-          "kind": 41,
-          "src": {
-            "id": 1643,
-            "line": 609,
-            "column": 4,
-            "start": 22048,
-            "end": 22185,
-            "length": 138,
-            "parent_index": 1553
-          },
-          "body": {
-            "id": 1658,
-            "node_type": 46,
-            "kind": 0,
-            "src": {
-              "id": 1659,
-              "line": 609,
-              "column": 80,
-              "start": 22124,
-              "end": 22185,
-              "length": 62,
-              "parent_index": 1642
-            },
-            "implemented": true,
-            "statements": [
-              {
-                "id": 1660,
-                "node_type": 47,
-                "src": {
-                  "id": 1661,
-                  "line": 610,
-                  "column": 8,
-                  "start": 22134,
-                  "end": 22179,
-                  "length": 46,
-                  "parent_index": 1642
-                },
-                "function_return_parameters": 1642,
-                "expression": {
-                  "id": 1662,
-                  "node_type": 24,
-                  "kind": 24,
-                  "src": {
-                    "id": 1663,
-                    "line": 610,
-                    "column": 15,
-                    "start": 22141,
-                    "end": 22178,
-                    "length": 38,
-                    "parent_index": 1658
-                  },
-                  "argument_types": [],
-                  "arguments": [],
-                  "expression": {
-                    "id": 1664,
-                    "is_constant": false,
-                    "is_l_value": false,
-                    "is_pure": false,
-                    "l_value_requested": false,
-                    "node_type": 23,
-                    "src": {
-                      "id": 1665,
-                      "line": 610,
-                      "column": 15,
-                      "start": 22141,
-                      "end": 22176,
-                      "length": 36,
-                      "parent_index": 1662
-                    },
-                    "expression": {
-                      "id": 1666,
-                      "node_type": 24,
-                      "kind": 24,
-                      "src": {
-                        "id": 1667,
-                        "line": 610,
-                        "column": 15,
-                        "start": 22141,
-                        "end": 22161,
-                        "length": 21,
-                        "parent_index": 1664
-                      },
-                      "argument_types": [
-                        {
-                          "type_identifier": "t_function_$",
-                          "type_string": "function()"
-                        }
-                      ],
-                      "arguments": [
-                        {
-                          "id": 1668,
-                          "node_type": 24,
-                          "kind": 24,
-                          "src": {
-                            "id": 1669,
-                            "line": 610,
-                            "column": 23,
-                            "start": 22149,
-                            "end": 22160,
-                            "length": 12,
-                            "parent_index": 1666
-                          },
-                          "argument_types": [],
-                          "arguments": [],
-                          "expression": {
-                            "id": 1670,
-                            "node_type": 16,
-                            "src": {
-                              "id": 1671,
-                              "line": 610,
-                              "column": 23,
-                              "start": 22149,
-                              "end": 22158,
-                              "length": 10,
-                              "parent_index": 1668
-                            },
-                            "name": "_getBeacon",
-                            "type_description": {
-                              "type_identifier": "t_function_",
-                              "type_string": "function()"
-                            },
-                            "overloaded_declarations": [],
-                            "referenced_declaration": 0,
-                            "is_pure": false
-                          },
-                          "type_description": {
-                            "type_identifier": "t_function_$",
-                            "type_string": "function()"
-                          }
-                        }
-                      ],
-                      "expression": {
-                        "id": 1672,
-                        "node_type": 16,
-                        "src": {
-                          "id": 1673,
-                          "line": 610,
-                          "column": 15,
-                          "start": 22141,
-                          "end": 22147,
-                          "length": 7,
-                          "parent_index": 1666
-                        },
-                        "name": "IBeacon",
-                        "type_description": {
-                          "type_identifier": "t_function_$_t_function_$",
-                          "type_string": "function(function())"
-                        },
-                        "overloaded_declarations": [],
-                        "referenced_declaration": 0,
-                        "is_pure": false,
-                        "argument_types": [
-                          {
-                            "type_identifier": "t_function_$",
-                            "type_string": "function()"
-                          }
-                        ]
-                      },
-                      "type_description": {
-                        "type_identifier": "t_function_$_t_function_$$",
-                        "type_string": "function(function())"
-                      }
-                    },
-                    "member_name": "implementation",
-                    "argument_types": [],
-                    "type_description": {
-                      "type_identifier": "t_function_$_t_function_$$",
-                      "type_string": "function(function())"
-                    }
-                  },
-                  "type_description": {
-                    "type_identifier": "t_function_$",
-                    "type_string": "function()"
-                  }
-                }
-              }
-            ]
-          },
-          "implemented": true,
-          "visibility": 1,
-          "state_mutability": 5,
-          "virtual": true,
-          "modifiers": [],
-          "overrides": [
-            {
-              "id": 1644,
-              "node_type": 63,
-              "name": "_implementation",
-              "src": {
-                "id": 1645,
-                "line": 609,
-                "column": 53,
-                "start": 22097,
-                "end": 22104,
-                "length": 8,
-                "parent_index": 1642
-              },
-              "referenced_declaration": 188,
-              "type_descriptions": {
-                "type_identifier": "t_function_$_t_address",
-                "type_string": "function(address)"
-              }
-            }
-          ],
-          "parameters": {
-            "id": 1646,
-            "node_type": 43,
-            "src": {
-              "id": 1647,
-              "line": 609,
-              "column": 71,
-              "start": 22115,
-              "end": 22121,
-              "length": 7,
-              "parent_index": 1642
-            },
-            "parameters": [
-              {
-                "id": 1648,
-                "node_type": 44,
-                "src": {
-                  "id": 1649,
-                  "line": 609,
-                  "column": 71,
-                  "start": 22115,
-                  "end": 22121,
-                  "length": 7,
-                  "parent_index": 1646
-                },
-                "scope": 1642,
-                "name": "",
-                "type_name": {
-                  "id": 1650,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1651,
-                    "line": 609,
-                    "column": 71,
-                    "start": 22115,
-                    "end": 22121,
-                    "length": 7,
-                    "parent_index": 1648
-                  },
-                  "name": "address",
-                  "type_description": {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  "state_mutability": 4,
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 4
-              }
-            ],
-            "parameter_types": [
-              {
-                "type_identifier": "t_address",
-                "type_string": "address"
-              }
-            ]
-          },
-          "return_parameters": {
-            "id": 1652,
-            "node_type": 43,
-            "src": {
-              "id": 1653,
-              "line": 609,
-              "column": 71,
-              "start": 22115,
-              "end": 22121,
-              "length": 7,
-              "parent_index": 1642
-            },
-            "parameters": [
-              {
-                "id": 1654,
-                "node_type": 44,
-                "src": {
-                  "id": 1655,
-                  "line": 609,
-                  "column": 71,
-                  "start": 22115,
-                  "end": 22121,
-                  "length": 7,
-                  "parent_index": 1652
-                },
-                "scope": 1642,
-                "name": "",
-                "type_name": {
-                  "id": 1656,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1657,
-                    "line": 609,
-                    "column": 71,
-                    "start": 22115,
-                    "end": 22121,
-                    "length": 7,
-                    "parent_index": 1654
-                  },
-                  "name": "address",
-                  "type_description": {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  "state_mutability": 4,
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 4
-              }
-            ],
-            "parameter_types": [
-              {
-                "type_identifier": "t_address",
-                "type_string": "address"
-              }
-            ]
-          },
-          "scope": 1553,
-          "type_description": {
-            "type_identifier": "t_function_$_t_address",
-            "type_string": "function(address)"
-          }
-        },
-        {
-          "id": 1675,
-          "name": "_setBeacon",
-          "node_type": 42,
-          "kind": 41,
-          "src": {
-            "id": 1676,
-            "line": 623,
-            "column": 4,
-            "start": 22564,
-            "end": 22696,
-            "length": 133,
-            "parent_index": 1553
-          },
-          "body": {
-            "id": 1688,
-            "node_type": 46,
-            "kind": 0,
-            "src": {
-              "id": 1689,
-              "line": 623,
-              "column": 76,
-              "start": 22636,
-              "end": 22696,
-              "length": 61,
-              "parent_index": 1675
-            },
-            "implemented": true,
-            "statements": [
-              {
-                "id": 1690,
-                "node_type": 24,
-                "kind": 24,
-                "src": {
-                  "id": 1691,
-                  "line": 624,
-                  "column": 8,
-                  "start": 22646,
-                  "end": 22689,
-                  "length": 44,
-                  "parent_index": 1688
-                },
-                "argument_types": [
-                  {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  {
-                    "type_identifier": "t_bytes",
-                    "type_string": "bytes"
-                  },
-                  {
-                    "type_identifier": "t_bool",
-                    "type_string": "bool"
-                  }
-                ],
-                "arguments": [
-                  {
-                    "id": 1692,
-                    "node_type": 16,
-                    "src": {
-                      "id": 1693,
-                      "line": 624,
-                      "column": 32,
-                      "start": 22670,
-                      "end": 22675,
-                      "length": 6,
-                      "parent_index": 1690
-                    },
-                    "name": "beacon",
-                    "type_description": {
-                      "type_identifier": "t_address",
-                      "type_string": "address"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 1692,
-                    "is_pure": false
-                  },
-                  {
-                    "id": 1694,
-                    "node_type": 16,
-                    "src": {
-                      "id": 1695,
-                      "line": 624,
-                      "column": 40,
-                      "start": 22678,
-                      "end": 22681,
-                      "length": 4,
-                      "parent_index": 1690
-                    },
-                    "name": "data",
-                    "type_description": {
-                      "type_identifier": "t_bytes",
-                      "type_string": "bytes"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 1694,
-                    "is_pure": false,
-                    "argument_types": [
-                      {
-                        "type_identifier": "t_address",
-                        "type_string": "address"
-                      }
-                    ]
-                  },
-                  {
-                    "id": 1696,
-                    "node_type": 17,
-                    "kind": 61,
-                    "value": "false",
-                    "hex_value": "66616c7365",
-                    "src": {
-                      "id": 1697,
-                      "line": 624,
-                      "column": 46,
-                      "start": 22684,
-                      "end": 22688,
-                      "length": 5,
-                      "parent_index": 1690
-                    },
-                    "type_description": {
-                      "type_identifier": "t_bool",
-                      "type_string": "bool"
-                    },
-                    "overloaded_declarations": [],
-                    "referenced_declaration": 0,
-                    "is_pure": true,
-                    "argument_types": [
-                      {
-                        "type_identifier": "t_address",
-                        "type_string": "address"
-                      },
-                      {
-                        "type_identifier": "t_bytes",
-                        "type_string": "bytes"
-                      }
-                    ]
-                  }
-                ],
-                "expression": {
-                  "id": 1698,
-                  "node_type": 16,
-                  "src": {
-                    "id": 1699,
-                    "line": 624,
-                    "column": 8,
-                    "start": 22646,
-                    "end": 22668,
-                    "length": 23,
-                    "parent_index": 1690
-                  },
-                  "name": "_upgradeBeaconToAndCall",
-                  "type_description": {
-                    "type_identifier": "t_function_$_t_address$$_t_bytes$$_t_bool",
-                    "type_string": "function(address,bytes,bool)"
-                  },
-                  "overloaded_declarations": [],
-                  "referenced_declaration": 0,
-                  "is_pure": false,
-                  "argument_types": [
-                    {
-                      "type_identifier": "t_address",
-                      "type_string": "address"
-                    },
-                    {
-                      "type_identifier": "t_bytes",
-                      "type_string": "bytes"
-                    },
-                    {
-                      "type_identifier": "t_bool",
-                      "type_string": "bool"
-                    }
-                  ]
-                },
-                "type_description": {
-                  "type_identifier": "t_function_$_t_address$$_t_bytes$$_t_bool$",
-                  "type_string": "function(address,bytes,bool)"
-                }
-              }
-            ]
-          },
-          "implemented": true,
-          "visibility": 1,
-          "state_mutability": 4,
-          "virtual": true,
-          "modifiers": [],
-          "overrides": [],
-          "parameters": {
-            "id": 1677,
-            "node_type": 43,
-            "src": {
-              "id": 1678,
-              "line": 623,
-              "column": 24,
-              "start": 22584,
-              "end": 22616,
-              "length": 33,
-              "parent_index": 1675
-            },
-            "parameters": [
-              {
-                "id": 1679,
-                "node_type": 44,
-                "src": {
-                  "id": 1680,
-                  "line": 623,
-                  "column": 24,
-                  "start": 22584,
-                  "end": 22597,
-                  "length": 14,
-                  "parent_index": 1677
-                },
-                "scope": 1675,
-                "name": "beacon",
-                "type_name": {
-                  "id": 1681,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1682,
-                    "line": 623,
-                    "column": 24,
-                    "start": 22584,
-                    "end": 22590,
-                    "length": 7,
-                    "parent_index": 1679
-                  },
-                  "name": "address",
-                  "type_description": {
-                    "type_identifier": "t_address",
-                    "type_string": "address"
-                  },
-                  "state_mutability": 4,
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 4
-              },
-              {
-                "id": 1683,
-                "node_type": 44,
-                "src": {
-                  "id": 1684,
-                  "line": 623,
-                  "column": 40,
-                  "start": 22600,
-                  "end": 22616,
-                  "length": 17,
-                  "parent_index": 1677
-                },
-                "scope": 1675,
-                "name": "data",
-                "type_name": {
-                  "id": 1685,
-                  "node_type": 30,
-                  "src": {
-                    "id": 1686,
-                    "line": 623,
-                    "column": 40,
-                    "start": 22600,
-                    "end": 22604,
-                    "length": 5,
-                    "parent_index": 1683
-                  },
-                  "name": "bytes",
-                  "type_description": {
-                    "type_identifier": "t_bytes",
-                    "type_string": "bytes"
-                  },
-                  "referenced_declaration": 0
-                },
-                "storage_location": 2,
-                "visibility": 1,
-                "state_mutability": 1
-              }
-            ],
-            "parameter_types": [
-              {
-                "type_identifier": "t_address",
-                "type_string": "address"
-              },
-              {
-                "type_identifier": "t_bytes",
-                "type_string": "bytes"
-              }
-            ]
-          },
-          "return_parameters": {
-            "id": 1687,
-            "node_type": 43,
-            "src": {
-              "id": 1676,
-              "line": 623,
-              "column": 4,
-              "start": 22564,
-              "end": 22696,
-              "length": 133,
-              "parent_index": 1675
-            },
-            "parameters": [],
-            "parameter_types": []
-          },
-          "scope": 1553,
-          "type_description": {
-            "type_identifier": "t_function_$_t_address$$_t_bytes",
-            "type_string": "function(address,bytes)"
-          }
-        }
-      ],
-      "linearized_base_contracts": [
-        160,
-        902,
-        1553,
-        1550,
-        1551,
-        1552
-      ],
-      "base_contracts": [
-        {
-          "id": 1554,
-          "node_type": 62,
-          "src": {
-            "id": 1555,
-            "line": 582,
-            "column": 24,
-            "start": 21117,
-            "end": 21121,
-            "length": 5,
-            "parent_index": 1553
-          },
-          "base_name": {
-            "id": 1556,
-            "node_type": 52,
-            "src": {
-              "id": 1557,
-              "line": 582,
-              "column": 24,
-              "start": 21117,
-              "end": 21121,
-              "length": 5,
-              "parent_index": 1553
-            },
-            "name": "Proxy",
-            "referenced_declaration": 160
-          }
-        },
-        {
-          "id": 1558,
-          "node_type": 62,
-          "src": {
-            "id": 1559,
-            "line": 582,
-            "column": 31,
-            "start": 21124,
-            "end": 21137,
-            "length": 14,
-            "parent_index": 1553
-          },
-          "base_name": {
-            "id": 1560,
-            "node_type": 52,
-            "src": {
-              "id": 1561,
-              "line": 582,
-              "column": 31,
-              "start": 21124,
-              "end": 21137,
-              "length": 14,
-              "parent_index": 1553
-            },
-            "name": "ERC1967Upgrade",
-            "referenced_declaration": 902
-          }
-        }
-      ],
-      "contract_dependencies": [
-        160,
-        902,
-        1550,
-        1551,
-        1552
-      ]
-    }
-  ],
-  "src": {
-    "id": 1534,
-    "line": 582,
-    "column": 0,
-    "start": 21093,
-    "end": 22698,
-    "length": 1606,
-    "parent_index": 118
-  }
+	"id": 1533,
+	"base_contracts": [
+		{
+			"id": 1554,
+			"node_type": 62,
+			"src": {
+				"id": 1555,
+				"line": 582,
+				"column": 24,
+				"start": 21117,
+				"end": 21121,
+				"length": 5,
+				"parent_index": 1553
+			},
+			"base_name": {
+				"id": 1556,
+				"node_type": 52,
+				"src": {
+					"id": 1557,
+					"line": 582,
+					"column": 24,
+					"start": 21117,
+					"end": 21121,
+					"length": 5,
+					"parent_index": 1553
+				},
+				"name": "Proxy",
+				"referenced_declaration": 160
+			}
+		},
+		{
+			"id": 1558,
+			"node_type": 62,
+			"src": {
+				"id": 1559,
+				"line": 582,
+				"column": 31,
+				"start": 21124,
+				"end": 21137,
+				"length": 14,
+				"parent_index": 1553
+			},
+			"base_name": {
+				"id": 1560,
+				"node_type": 52,
+				"src": {
+					"id": 1561,
+					"line": 582,
+					"column": 31,
+					"start": 21124,
+					"end": 21137,
+					"length": 14,
+					"parent_index": 1553
+				},
+				"name": "ERC1967Upgrade",
+				"referenced_declaration": 902
+			}
+		}
+	],
+	"license": "MIT",
+	"exported_symbols": [
+		{
+			"id": 1533,
+			"name": "BeaconProxy",
+			"absolute_path": "BeaconProxy.sol"
+		},
+		{
+			"id": 902,
+			"name": "ERC1967Upgrade",
+			"absolute_path": "ERC1967Upgrade.sol"
+		},
+		{
+			"id": 160,
+			"name": "Proxy",
+			"absolute_path": "Proxy.sol"
+		},
+		{
+			"id": 119,
+			"name": "IBeacon",
+			"absolute_path": "IBeacon.sol"
+		},
+		{
+			"id": 119,
+			"name": "IBeacon",
+			"absolute_path": "IBeacon.sol"
+		}
+	],
+	"absolute_path": "BeaconProxy.sol",
+	"name": "BeaconProxy",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 1545,
+			"node_type": 10,
+			"src": {
+				"id": 1546,
+				"line": 568,
+				"column": 0,
+				"start": 20626,
+				"end": 20648,
+				"length": 23,
+				"parent_index": 1533
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"^",
+				"0",
+				".",
+				"8",
+				".",
+				"0",
+				";"
+			],
+			"text": "pragma solidity ^0.8.0;"
+		},
+		{
+			"id": 1550,
+			"node_type": 29,
+			"src": {
+				"id": 0,
+				"line": 570,
+				"column": 0,
+				"start": 20651,
+				"end": 20673,
+				"length": 23,
+				"parent_index": 1533
+			},
+			"absolute_path": "IBeacon.sol",
+			"file": "./IBeacon.sol",
+			"scope": 1533,
+			"unit_alias": "",
+			"source_unit": 902
+		},
+		{
+			"id": 1551,
+			"node_type": 29,
+			"src": {
+				"id": 0,
+				"line": 571,
+				"column": 0,
+				"start": 20675,
+				"end": 20696,
+				"length": 22,
+				"parent_index": 1533
+			},
+			"absolute_path": "Proxy.sol",
+			"file": "../Proxy.sol",
+			"scope": 1533,
+			"unit_alias": "",
+			"source_unit": 902
+		},
+		{
+			"id": 1552,
+			"node_type": 29,
+			"src": {
+				"id": 0,
+				"line": 572,
+				"column": 0,
+				"start": 20698,
+				"end": 20736,
+				"length": 39,
+				"parent_index": 1533
+			},
+			"absolute_path": "ERC1967Upgrade.sol",
+			"file": "../ERC1967/ERC1967Upgrade.sol",
+			"scope": 1533,
+			"unit_alias": "",
+			"source_unit": 902
+		},
+		{
+			"id": 1553,
+			"name": "BeaconProxy",
+			"node_type": 35,
+			"src": {
+				"id": 0,
+				"line": 582,
+				"column": 0,
+				"start": 21093,
+				"end": 22698,
+				"length": 1606,
+				"parent_index": 1533
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 1563,
+					"node_type": 42,
+					"src": {
+						"id": 1564,
+						"line": 594,
+						"column": 4,
+						"start": 21575,
+						"end": 21779,
+						"length": 205,
+						"parent_index": 1553
+					},
+					"kind": 11,
+					"state_mutability": 3,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 1565,
+						"node_type": 43,
+						"src": {
+							"id": 1566,
+							"line": 594,
+							"column": 16,
+							"start": 21587,
+							"end": 21619,
+							"length": 33,
+							"parent_index": 1563
+						},
+						"parameters": [
+							{
+								"id": 1567,
+								"node_type": 44,
+								"src": {
+									"id": 1568,
+									"line": 594,
+									"column": 16,
+									"start": 21587,
+									"end": 21600,
+									"length": 14,
+									"parent_index": 1565
+								},
+								"scope": 1563,
+								"name": "beacon",
+								"type_name": {
+									"id": 1569,
+									"node_type": 30,
+									"src": {
+										"id": 1570,
+										"line": 594,
+										"column": 16,
+										"start": 21587,
+										"end": 21593,
+										"length": 7,
+										"parent_index": 1567
+									},
+									"name": "address",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"state_mutability": 4,
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1571,
+								"node_type": 44,
+								"src": {
+									"id": 1572,
+									"line": 594,
+									"column": 32,
+									"start": 21603,
+									"end": 21619,
+									"length": 17,
+									"parent_index": 1565
+								},
+								"scope": 1563,
+								"name": "data",
+								"type_name": {
+									"id": 1573,
+									"node_type": 30,
+									"src": {
+										"id": 1574,
+										"line": 594,
+										"column": 32,
+										"start": 21603,
+										"end": 21607,
+										"length": 5,
+										"parent_index": 1571
+									},
+									"name": "bytes",
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									},
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1575,
+						"node_type": 43,
+						"src": {
+							"id": 1564,
+							"line": 594,
+							"column": 4,
+							"start": 21575,
+							"end": 21779,
+							"length": 205,
+							"parent_index": 1563
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1553,
+					"body": {
+						"id": 1576,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1577,
+							"line": 594,
+							"column": 59,
+							"start": 21630,
+							"end": 21779,
+							"length": 150,
+							"parent_index": 1563
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 1578,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 1579,
+									"line": 595,
+									"column": 8,
+									"start": 21640,
+									"end": 21718,
+									"length": 79,
+									"parent_index": 1576
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								],
+								"arguments": [
+									{
+										"id": 1582,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 1583,
+											"line": 595,
+											"column": 15,
+											"start": 21647,
+											"end": 21717,
+											"length": 71,
+											"parent_index": 1578
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 1584,
+											"node_type": 16,
+											"src": {
+												"id": 1585,
+												"line": 595,
+												"column": 15,
+												"start": 21647,
+												"end": 21658,
+												"length": 12,
+												"parent_index": 1582
+											},
+											"name": "_BEACON_SLOT",
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 1428,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 1586,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 1587,
+												"line": 595,
+												"column": 31,
+												"start": 21663,
+												"end": 21717,
+												"length": 55,
+												"parent_index": 1582
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$_t_function__t_string_literal$",
+													"type_string": "function(function(string memory))"
+												}
+											],
+											"arguments": [
+												{
+													"id": 1592,
+													"is_constant": false,
+													"is_pure": false,
+													"node_type": 19,
+													"src": {
+														"id": 1593,
+														"line": 595,
+														"column": 39,
+														"start": 21671,
+														"end": 21716,
+														"length": 46,
+														"parent_index": 1586
+													},
+													"operator": 2,
+													"left_expression": {
+														"id": 1594,
+														"node_type": 24,
+														"kind": 24,
+														"src": {
+															"id": 1595,
+															"line": 595,
+															"column": 39,
+															"start": 21671,
+															"end": 21712,
+															"length": 42,
+															"parent_index": 1592
+														},
+														"argument_types": [
+															{
+																"type_identifier": "t_function__t_string_literal$",
+																"type_string": "function(string memory)"
+															}
+														],
+														"arguments": [
+															{
+																"id": 1600,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 1601,
+																	"line": 595,
+																	"column": 47,
+																	"start": 21679,
+																	"end": 21711,
+																	"length": 33,
+																	"parent_index": 1594
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_string_literal",
+																		"type_string": "literal_string \"eip1967.proxy.beacon\""
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 1604,
+																		"node_type": 17,
+																		"kind": 50,
+																		"value": "eip1967.proxy.beacon",
+																		"hex_value": "656970313936372e70726f78792e626561636f6e",
+																		"src": {
+																			"id": 1605,
+																			"line": 595,
+																			"column": 57,
+																			"start": 21689,
+																			"end": 21710,
+																			"length": 22,
+																			"parent_index": 1600
+																		},
+																		"type_description": {
+																			"type_identifier": "t_string_literal",
+																			"type_string": "literal_string \"eip1967.proxy.beacon\""
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 0,
+																		"is_pure": true
+																	}
+																],
+																"expression": {
+																	"id": 1602,
+																	"node_type": 16,
+																	"src": {
+																		"id": 1603,
+																		"line": 595,
+																		"column": 47,
+																		"start": 21679,
+																		"end": 21687,
+																		"length": 9,
+																		"parent_index": 1600
+																	},
+																	"name": "keccak256",
+																	"type_description": {
+																		"type_identifier": "t_function_$",
+																		"type_string": "function()"
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 0,
+																	"is_pure": false
+																},
+																"type_description": {
+																	"type_identifier": "t_function__t_string_literal$",
+																	"type_string": "function(string memory)"
+																}
+															}
+														],
+														"expression": {
+															"id": 1596,
+															"node_type": 16,
+															"src": {
+																"id": 1597,
+																"line": 595,
+																"column": 39,
+																"start": 21671,
+																"end": 21677,
+																"length": 7,
+																"parent_index": 1594
+															},
+															"name": "uint256",
+															"type_name": {
+																"id": 1598,
+																"node_type": 30,
+																"src": {
+																	"id": 1599,
+																	"line": 595,
+																	"column": 39,
+																	"start": 21671,
+																	"end": 21677,
+																	"length": 7,
+																	"parent_index": 1596
+																},
+																"name": "uint256",
+																"type_description": {
+																	"type_identifier": "t_uint256",
+																	"type_string": "uint256"
+																},
+																"referenced_declaration": 0
+															},
+															"type_description": {
+																"type_identifier": "t_function_$_t_uint256$",
+																"type_string": "function(uint256)"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 0,
+															"is_pure": false,
+															"argument_types": [
+																{
+																	"type_identifier": "t_uint256",
+																	"type_string": "uint256"
+																}
+															]
+														},
+														"type_description": {
+															"type_identifier": "t_function_$_t_function__t_string_literal$",
+															"type_string": "function(function(string memory))"
+														}
+													},
+													"right_expression": {
+														"id": 1606,
+														"node_type": 17,
+														"kind": 49,
+														"value": "1",
+														"hex_value": "31",
+														"src": {
+															"id": 1607,
+															"line": 595,
+															"column": 84,
+															"start": 21716,
+															"end": 21716,
+															"length": 1,
+															"parent_index": 1592
+														},
+														"type_description": {
+															"type_identifier": "t_rational_1_by_1",
+															"type_string": "int_const 1"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": true
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_function__t_string_literal$",
+														"type_string": "function(function(string memory))"
+													}
+												}
+											],
+											"expression": {
+												"id": 1588,
+												"node_type": 16,
+												"src": {
+													"id": 1589,
+													"line": 595,
+													"column": 31,
+													"start": 21663,
+													"end": 21669,
+													"length": 7,
+													"parent_index": 1586
+												},
+												"name": "bytes32",
+												"type_name": {
+													"id": 1590,
+													"node_type": 30,
+													"src": {
+														"id": 1591,
+														"line": 595,
+														"column": 31,
+														"start": 21663,
+														"end": 21669,
+														"length": 7,
+														"parent_index": 1588
+													},
+													"name": "bytes32",
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"referenced_declaration": 0
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_bytes32$",
+													"type_string": "function(bytes32)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$",
+												"type_string": "function(function(function(string memory)))"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									}
+								],
+								"expression": {
+									"id": 1580,
+									"node_type": 16,
+									"src": {
+										"id": 1581,
+										"line": 595,
+										"column": 8,
+										"start": 21640,
+										"end": 21645,
+										"length": 6,
+										"parent_index": 1578
+									},
+									"name": "assert",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$",
+									"type_string": "function(bool)"
+								}
+							},
+							{
+								"id": 1608,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 1609,
+									"line": 596,
+									"column": 8,
+									"start": 21729,
+									"end": 21772,
+									"length": 44,
+									"parent_index": 1576
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									},
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								],
+								"arguments": [
+									{
+										"id": 1612,
+										"node_type": 16,
+										"src": {
+											"id": 1613,
+											"line": 596,
+											"column": 32,
+											"start": 21753,
+											"end": 21758,
+											"length": 6,
+											"parent_index": 1608
+										},
+										"name": "beacon",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 1612,
+										"is_pure": false
+									},
+									{
+										"id": 1614,
+										"node_type": 16,
+										"src": {
+											"id": 1615,
+											"line": 596,
+											"column": 40,
+											"start": 21761,
+											"end": 21764,
+											"length": 4,
+											"parent_index": 1608
+										},
+										"name": "data",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 1614,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										]
+									},
+									{
+										"id": 1616,
+										"node_type": 17,
+										"kind": 61,
+										"value": "false",
+										"hex_value": "66616c7365",
+										"src": {
+											"id": 1617,
+											"line": 596,
+											"column": 46,
+											"start": 21767,
+											"end": 21771,
+											"length": 5,
+											"parent_index": 1608
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											{
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 1610,
+									"node_type": 16,
+									"src": {
+										"id": 1611,
+										"line": 596,
+										"column": 8,
+										"start": 21729,
+										"end": 21751,
+										"length": 23,
+										"parent_index": 1608
+									},
+									"name": "_upgradeBeaconToAndCall",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
+									"type_string": "function(address,bytes,bool)"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 1619,
+					"name": "_beacon",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1620,
+						"line": 602,
+						"column": 4,
+						"start": 21850,
+						"end": 21944,
+						"length": 95,
+						"parent_index": 1553
+					},
+					"body": {
+						"id": 1633,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1634,
+							"line": 602,
+							"column": 63,
+							"start": 21909,
+							"end": 21944,
+							"length": 36,
+							"parent_index": 1619
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 1635,
+								"node_type": 47,
+								"src": {
+									"id": 1636,
+									"line": 603,
+									"column": 8,
+									"start": 21919,
+									"end": 21938,
+									"length": 20,
+									"parent_index": 1619
+								},
+								"function_return_parameters": 1619,
+								"expression": {
+									"id": 1637,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 1638,
+										"line": 603,
+										"column": 15,
+										"start": 21926,
+										"end": 21937,
+										"length": 12,
+										"parent_index": 1633
+									},
+									"argument_types": [],
+									"arguments": [],
+									"expression": {
+										"id": 1639,
+										"node_type": 16,
+										"src": {
+											"id": 1640,
+											"line": 603,
+											"column": 15,
+											"start": 21926,
+											"end": 21935,
+											"length": 10,
+											"parent_index": 1637
+										},
+										"name": "_getBeacon",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1621,
+						"node_type": 43,
+						"src": {
+							"id": 1622,
+							"line": 602,
+							"column": 54,
+							"start": 21900,
+							"end": 21906,
+							"length": 7,
+							"parent_index": 1619
+						},
+						"parameters": [
+							{
+								"id": 1623,
+								"node_type": 44,
+								"src": {
+									"id": 1624,
+									"line": 602,
+									"column": 54,
+									"start": 21900,
+									"end": 21906,
+									"length": 7,
+									"parent_index": 1621
+								},
+								"scope": 1619,
+								"name": "",
+								"type_name": {
+									"id": 1625,
+									"node_type": 30,
+									"src": {
+										"id": 1626,
+										"line": 602,
+										"column": 54,
+										"start": 21900,
+										"end": 21906,
+										"length": 7,
+										"parent_index": 1623
+									},
+									"name": "address",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"state_mutability": 4,
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1627,
+						"node_type": 43,
+						"src": {
+							"id": 1628,
+							"line": 602,
+							"column": 54,
+							"start": 21900,
+							"end": 21906,
+							"length": 7,
+							"parent_index": 1619
+						},
+						"parameters": [
+							{
+								"id": 1629,
+								"node_type": 44,
+								"src": {
+									"id": 1630,
+									"line": 602,
+									"column": 54,
+									"start": 21900,
+									"end": 21906,
+									"length": 7,
+									"parent_index": 1627
+								},
+								"scope": 1619,
+								"name": "",
+								"type_name": {
+									"id": 1631,
+									"node_type": 30,
+									"src": {
+										"id": 1632,
+										"line": 602,
+										"column": 54,
+										"start": 21900,
+										"end": 21906,
+										"length": 7,
+										"parent_index": 1629
+									},
+									"name": "address",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"state_mutability": 4,
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"scope": 1553,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 1642,
+					"name": "_implementation",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1643,
+						"line": 609,
+						"column": 4,
+						"start": 22048,
+						"end": 22185,
+						"length": 138,
+						"parent_index": 1553
+					},
+					"body": {
+						"id": 1658,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1659,
+							"line": 609,
+							"column": 80,
+							"start": 22124,
+							"end": 22185,
+							"length": 62,
+							"parent_index": 1642
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 1660,
+								"node_type": 47,
+								"src": {
+									"id": 1661,
+									"line": 610,
+									"column": 8,
+									"start": 22134,
+									"end": 22179,
+									"length": 46,
+									"parent_index": 1642
+								},
+								"function_return_parameters": 1642,
+								"expression": {
+									"id": 1662,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 1663,
+										"line": 610,
+										"column": 15,
+										"start": 22141,
+										"end": 22178,
+										"length": 38,
+										"parent_index": 1658
+									},
+									"argument_types": [],
+									"arguments": [],
+									"expression": {
+										"id": 1664,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 1665,
+											"line": 610,
+											"column": 15,
+											"start": 22141,
+											"end": 22176,
+											"length": 36,
+											"parent_index": 1662
+										},
+										"expression": {
+											"id": 1666,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 1667,
+												"line": 610,
+												"column": 15,
+												"start": 22141,
+												"end": 22161,
+												"length": 21,
+												"parent_index": 1664
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											],
+											"arguments": [
+												{
+													"id": 1670,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 1671,
+														"line": 610,
+														"column": 23,
+														"start": 22149,
+														"end": 22160,
+														"length": 12,
+														"parent_index": 1666
+													},
+													"argument_types": [],
+													"arguments": [],
+													"expression": {
+														"id": 1672,
+														"node_type": 16,
+														"src": {
+															"id": 1673,
+															"line": 610,
+															"column": 23,
+															"start": 22149,
+															"end": 22158,
+															"length": 10,
+															"parent_index": 1670
+														},
+														"name": "_getBeacon",
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													},
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												}
+											],
+											"expression": {
+												"id": 1668,
+												"node_type": 16,
+												"src": {
+													"id": 1669,
+													"line": 610,
+													"column": 15,
+													"start": 22141,
+													"end": 22147,
+													"length": 7,
+													"parent_index": 1666
+												},
+												"name": "IBeacon",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"member_name": "implementation",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 1644,
+							"node_type": 63,
+							"name": "_implementation",
+							"src": {
+								"id": 1645,
+								"line": 609,
+								"column": 53,
+								"start": 22097,
+								"end": 22104,
+								"length": 8,
+								"parent_index": 1642
+							},
+							"referenced_declaration": 188,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_address$",
+								"type_string": "function(address)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 1646,
+						"node_type": 43,
+						"src": {
+							"id": 1647,
+							"line": 609,
+							"column": 71,
+							"start": 22115,
+							"end": 22121,
+							"length": 7,
+							"parent_index": 1642
+						},
+						"parameters": [
+							{
+								"id": 1648,
+								"node_type": 44,
+								"src": {
+									"id": 1649,
+									"line": 609,
+									"column": 71,
+									"start": 22115,
+									"end": 22121,
+									"length": 7,
+									"parent_index": 1646
+								},
+								"scope": 1642,
+								"name": "",
+								"type_name": {
+									"id": 1650,
+									"node_type": 30,
+									"src": {
+										"id": 1651,
+										"line": 609,
+										"column": 71,
+										"start": 22115,
+										"end": 22121,
+										"length": 7,
+										"parent_index": 1648
+									},
+									"name": "address",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"state_mutability": 4,
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1652,
+						"node_type": 43,
+						"src": {
+							"id": 1653,
+							"line": 609,
+							"column": 71,
+							"start": 22115,
+							"end": 22121,
+							"length": 7,
+							"parent_index": 1642
+						},
+						"parameters": [
+							{
+								"id": 1654,
+								"node_type": 44,
+								"src": {
+									"id": 1655,
+									"line": 609,
+									"column": 71,
+									"start": 22115,
+									"end": 22121,
+									"length": 7,
+									"parent_index": 1652
+								},
+								"scope": 1642,
+								"name": "",
+								"type_name": {
+									"id": 1656,
+									"node_type": 30,
+									"src": {
+										"id": 1657,
+										"line": 609,
+										"column": 71,
+										"start": 22115,
+										"end": 22121,
+										"length": 7,
+										"parent_index": 1654
+									},
+									"name": "address",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"state_mutability": 4,
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"scope": 1553,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 1675,
+					"name": "_setBeacon",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1676,
+						"line": 623,
+						"column": 4,
+						"start": 22564,
+						"end": 22696,
+						"length": 133,
+						"parent_index": 1553
+					},
+					"body": {
+						"id": 1688,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1689,
+							"line": 623,
+							"column": 76,
+							"start": 22636,
+							"end": 22696,
+							"length": 61,
+							"parent_index": 1675
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 1690,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 1691,
+									"line": 624,
+									"column": 8,
+									"start": 22646,
+									"end": 22689,
+									"length": 44,
+									"parent_index": 1688
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									},
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								],
+								"arguments": [
+									{
+										"id": 1694,
+										"node_type": 16,
+										"src": {
+											"id": 1695,
+											"line": 624,
+											"column": 32,
+											"start": 22670,
+											"end": 22675,
+											"length": 6,
+											"parent_index": 1690
+										},
+										"name": "beacon",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 1694,
+										"is_pure": false
+									},
+									{
+										"id": 1696,
+										"node_type": 16,
+										"src": {
+											"id": 1697,
+											"line": 624,
+											"column": 40,
+											"start": 22678,
+											"end": 22681,
+											"length": 4,
+											"parent_index": 1690
+										},
+										"name": "data",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 1696,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										]
+									},
+									{
+										"id": 1698,
+										"node_type": 17,
+										"kind": 61,
+										"value": "false",
+										"hex_value": "66616c7365",
+										"src": {
+											"id": 1699,
+											"line": 624,
+											"column": 46,
+											"start": 22684,
+											"end": 22688,
+											"length": 5,
+											"parent_index": 1690
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											{
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 1692,
+									"node_type": 16,
+									"src": {
+										"id": 1693,
+										"line": 624,
+										"column": 8,
+										"start": 22646,
+										"end": 22668,
+										"length": 23,
+										"parent_index": 1690
+									},
+									"name": "_upgradeBeaconToAndCall",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
+									"type_string": "function(address,bytes,bool)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1677,
+						"node_type": 43,
+						"src": {
+							"id": 1678,
+							"line": 623,
+							"column": 24,
+							"start": 22584,
+							"end": 22616,
+							"length": 33,
+							"parent_index": 1675
+						},
+						"parameters": [
+							{
+								"id": 1679,
+								"node_type": 44,
+								"src": {
+									"id": 1680,
+									"line": 623,
+									"column": 24,
+									"start": 22584,
+									"end": 22597,
+									"length": 14,
+									"parent_index": 1677
+								},
+								"scope": 1675,
+								"name": "beacon",
+								"type_name": {
+									"id": 1681,
+									"node_type": 30,
+									"src": {
+										"id": 1682,
+										"line": 623,
+										"column": 24,
+										"start": 22584,
+										"end": 22590,
+										"length": 7,
+										"parent_index": 1679
+									},
+									"name": "address",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"state_mutability": 4,
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1683,
+								"node_type": 44,
+								"src": {
+									"id": 1684,
+									"line": 623,
+									"column": 40,
+									"start": 22600,
+									"end": 22616,
+									"length": 17,
+									"parent_index": 1677
+								},
+								"scope": 1675,
+								"name": "data",
+								"type_name": {
+									"id": 1685,
+									"node_type": 30,
+									"src": {
+										"id": 1686,
+										"line": 623,
+										"column": 40,
+										"start": 22600,
+										"end": 22604,
+										"length": 5,
+										"parent_index": 1683
+									},
+									"name": "bytes",
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									},
+									"referenced_declaration": 0
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1687,
+						"node_type": 43,
+						"src": {
+							"id": 1676,
+							"line": 623,
+							"column": 4,
+							"start": 22564,
+							"end": 22696,
+							"length": 133,
+							"parent_index": 1675
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1553,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_bytes$",
+						"type_string": "function(address,bytes)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				160,
+				902,
+				1553,
+				1550,
+				1551,
+				1552
+			],
+			"base_contracts": [
+				{
+					"id": 1554,
+					"node_type": 62,
+					"src": {
+						"id": 1555,
+						"line": 582,
+						"column": 24,
+						"start": 21117,
+						"end": 21121,
+						"length": 5,
+						"parent_index": 1553
+					},
+					"base_name": {
+						"id": 1556,
+						"node_type": 52,
+						"src": {
+							"id": 1557,
+							"line": 582,
+							"column": 24,
+							"start": 21117,
+							"end": 21121,
+							"length": 5,
+							"parent_index": 1553
+						},
+						"name": "Proxy",
+						"referenced_declaration": 160
+					}
+				},
+				{
+					"id": 1558,
+					"node_type": 62,
+					"src": {
+						"id": 1559,
+						"line": 582,
+						"column": 31,
+						"start": 21124,
+						"end": 21137,
+						"length": 14,
+						"parent_index": 1553
+					},
+					"base_name": {
+						"id": 1560,
+						"node_type": 52,
+						"src": {
+							"id": 1561,
+							"line": 582,
+							"column": 31,
+							"start": 21124,
+							"end": 21137,
+							"length": 14,
+							"parent_index": 1553
+						},
+						"name": "ERC1967Upgrade",
+						"referenced_declaration": 902
+					}
+				}
+			],
+			"contract_dependencies": [
+				160,
+				902,
+				1550,
+				1551,
+				1552
+			]
+		}
+	],
+	"src": {
+		"id": 1534,
+		"line": 582,
+		"column": 0,
+		"start": 21093,
+		"end": 22698,
+		"length": 1606,
+		"parent_index": 118
+	}
 }

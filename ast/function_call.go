@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"fmt"
+	"regexp"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -170,6 +172,12 @@ func (f *FunctionCall) Parse(
 
 	expression := NewExpression(f.ASTBuilder)
 
+	if ctx.Expression() != nil {
+		f.Expression = expression.Parse(
+			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
+		)
+	}
+
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
 			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, expressionCtx)
@@ -185,16 +193,11 @@ func (f *FunctionCall) Parse(
 		}
 	}
 
-	if ctx.Expression() != nil {
-		f.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
-		)
-	}
-
 	f.TypeDescription = f.buildTypeDescription()
 	return f
 }
 
+// buildTypeDescription constructs and returns the TypeDescription of the FunctionCall.
 func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
@@ -202,9 +205,17 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetArgumentTypes() {
-		if strings.Contains(paramType.TypeString, "literal_string") {
+		if paramType == nil {
+			typeStrings = append(typeStrings, fmt.Sprintf("unknown_%d", f.GetId()))
+			typeIdentifiers = append(typeIdentifiers, fmt.Sprintf("$_t_unknown_%d", f.GetId()))
+			continue
+		} else if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)
+			continue
+		} else if strings.Contains(paramType.TypeString, "contract") {
+			typeStrings = append(typeStrings, "address")
+			typeIdentifiers = append(typeIdentifiers, "$_t_address")
 			continue
 		}
 
@@ -213,7 +224,14 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 	}
 
 	typeString += strings.Join(typeStrings, ",") + ")"
-	typeIdentifier += strings.Join(typeIdentifiers, "$") + "$"
+	typeIdentifier += strings.Join(typeIdentifiers, "$")
+
+	if !strings.HasSuffix(typeIdentifier, "$") {
+		typeIdentifier += "$"
+	}
+
+	re := regexp.MustCompile(`\${2,}`)
+	typeIdentifier = re.ReplaceAllString(typeIdentifier, "$")
 
 	return &TypeDescription{
 		TypeString:     typeString,
@@ -311,6 +329,9 @@ func (f *FunctionCallOption) ToProto() NodeType {
 	return NewTypedStruct(&proto, "FunctionCallOption")
 }
 
+// Parse takes a parser.FunctionCallOptionsContext and parses it into a FunctionCallOption node.
+// It sets the Id, Src, Expression, and TypeDescription of the FunctionCallOption node.
+// It returns the created FunctionCallOption node.
 func (f *FunctionCallOption) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

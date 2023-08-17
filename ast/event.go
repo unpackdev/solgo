@@ -7,17 +7,19 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// EventDefinition represents an event definition in the Solidity abstract syntax tree (AST).
 type EventDefinition struct {
-	*ASTBuilder
+	*ASTBuilder                    // Embedding the ASTBuilder for common functionality
 	SourceUnitName string          `json:"-"`
-	Id             int64           `json:"id"`
-	NodeType       ast_pb.NodeType `json:"node_type"`
-	Src            SrcNode         `json:"src"`
-	Parameters     *ParameterList  `json:"parameters"`
-	Name           string          `json:"name"`
-	Anonymous      bool            `json:"anonymous"`
+	Id             int64           `json:"id"`         // Unique identifier for the event definition
+	NodeType       ast_pb.NodeType `json:"node_type"`  // Type of the node (EVENT_DEFINITION for event definition)
+	Src            SrcNode         `json:"src"`        // Source information about the event definition
+	Parameters     *ParameterList  `json:"parameters"` // Parameters of the event
+	Name           string          `json:"name"`       // Name of the event
+	Anonymous      bool            `json:"anonymous"`  // Indicates if the event is anonymous
 }
 
+// NewEventDefinition creates a new EventDefinition instance.
 func NewEventDefinition(b *ASTBuilder) *EventDefinition {
 	return &EventDefinition{
 		ASTBuilder: b,
@@ -32,26 +34,32 @@ func (e *EventDefinition) SetReferenceDescriptor(refId int64, refDesc *TypeDescr
 	return false
 }
 
+// GetId returns the unique identifier of the event definition.
 func (e *EventDefinition) GetId() int64 {
 	return e.Id
 }
 
+// GetType returns the type of the node, which is 'EVENT_DEFINITION' for an event definition.
 func (e *EventDefinition) GetType() ast_pb.NodeType {
 	return e.NodeType
 }
 
+// GetSrc returns the source information about the event definition.
 func (e *EventDefinition) GetSrc() SrcNode {
 	return e.Src
 }
 
+// GetName returns the name of the event.
 func (e *EventDefinition) GetName() string {
 	return e.Name
 }
 
+// IsAnonymous returns whether the event is anonymous.
 func (e *EventDefinition) IsAnonymous() bool {
 	return e.Anonymous
 }
 
+// GetTypeDescription returns the type description of the event.
 func (e *EventDefinition) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{
 		TypeIdentifier: fmt.Sprintf(
@@ -63,14 +71,17 @@ func (e *EventDefinition) GetTypeDescription() *TypeDescription {
 	}
 }
 
+// GetParameters returns the parameters of the event.
 func (e *EventDefinition) GetParameters() *ParameterList {
 	return e.Parameters
 }
 
+// GetNodes returns the nodes representing the parameters of the event.
 func (e *EventDefinition) GetNodes() []Node[NodeType] {
 	return e.Parameters.GetNodes()
 }
 
+// ToProto returns the protobuf representation of the event definition.
 func (e *EventDefinition) ToProto() NodeType {
 	proto := ast_pb.Event{
 		Id:              e.GetId(),
@@ -85,6 +96,7 @@ func (e *EventDefinition) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Event")
 }
 
+// Parse parses an event definition from the provided parser.EventDefinitionContext and updates the current instance.
 func (e *EventDefinition) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

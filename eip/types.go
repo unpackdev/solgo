@@ -136,6 +136,7 @@ func (e *Event) ToProto() *eip_pb.Event {
 	}
 
 	return &eip_pb.Event{
+		Name:    e.Name,
 		Inputs:  protoInputs,
 		Outputs: protoOutputs,
 		Matched: e.Matched,

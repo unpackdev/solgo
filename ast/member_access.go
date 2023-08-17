@@ -6,6 +6,8 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// MemberAccessExpression represents a member access expression node in the AST.
+// It contains information about the accessed member, expression, type description, and related metadata.
 type MemberAccessExpression struct {
 	*ASTBuilder
 
@@ -23,6 +25,7 @@ type MemberAccessExpression struct {
 	TypeDescription       *TypeDescription   `json:"type_description"`
 }
 
+// NewMemberAccessExpression creates a new MemberAccessExpression instance with initial values.
 func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 	return &MemberAccessExpression{
 		ASTBuilder:    b,
@@ -39,58 +42,72 @@ func (m *MemberAccessExpression) SetReferenceDescriptor(refId int64, refDesc *Ty
 	return true
 }
 
+// GetId returns the ID of the MemberAccessExpression node.
 func (m *MemberAccessExpression) GetId() int64 {
 	return m.Id
 }
 
+// GetType returns the NodeType of the MemberAccessExpression node.
 func (m *MemberAccessExpression) GetType() ast_pb.NodeType {
 	return m.NodeType
 }
 
+// GetSrc returns the source information of the MemberAccessExpression node.
 func (m *MemberAccessExpression) GetSrc() SrcNode {
 	return m.Src
 }
 
+// GetExpression returns the expression being accessed in the member access.
 func (m *MemberAccessExpression) GetExpression() Node[NodeType] {
 	return m.Expression
 }
 
+// GetMemberName returns the name of the accessed member.
 func (m *MemberAccessExpression) GetMemberName() string {
 	return m.MemberName
 }
 
+// GetTypeDescription returns the type description associated with the member access.
 func (m *MemberAccessExpression) GetTypeDescription() *TypeDescription {
 	return m.TypeDescription
 }
 
+// GetArgumentTypes returns the type descriptions of arguments in case of function call member access.
 func (m *MemberAccessExpression) GetArgumentTypes() []*TypeDescription {
 	return m.ArgumentTypes
 }
 
+// GetNodes returns the list of child nodes of the MemberAccessExpression node.
 func (m *MemberAccessExpression) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{m.Expression}
 }
 
+// GetReferencedDeclaration returns the ID of the referenced declaration in the context of member access.
 func (m *MemberAccessExpression) GetReferencedDeclaration() int64 {
 	return m.ReferencedDeclaration
 }
 
+// IsConstant returns whether the member access is constant.
 func (m *MemberAccessExpression) IsConstant() bool {
 	return m.Constant
 }
 
+// IsLValue returns whether the member access is an l-value.
 func (m *MemberAccessExpression) IsLValue() bool {
 	return m.LValue
 }
 
+// IsPure returns whether the member access is pure.
 func (m *MemberAccessExpression) IsPure() bool {
 	return m.Pure
 }
 
+// IsLValueRequested returns whether an l-value is requested in the context of member access.
 func (m *MemberAccessExpression) IsLValueRequested() bool {
 	return m.LValueRequested
 }
 
+// ToProto converts the MemberAccessExpression node to its corresponding protobuf representation.
 func (m *MemberAccessExpression) ToProto() NodeType {
 	proto := ast_pb.MemberAccess{
 		Id:                    m.GetId(),
@@ -114,6 +131,7 @@ func (m *MemberAccessExpression) ToProto() NodeType {
 	return NewTypedStruct(&proto, "MemberAccess")
 }
 
+// Parse populates the MemberAccessExpression node based on the provided context and other information.
 func (m *MemberAccessExpression) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -145,6 +163,7 @@ func (m *MemberAccessExpression) Parse(
 	m.NodeType = ast_pb.NodeType_MEMBER_ACCESS
 	m.MemberName = ctx.Identifier().GetText()
 
+	// Parsing the expression in the member access.
 	if ctx.Expression() != nil {
 		expression := NewExpression(m.ASTBuilder)
 		m.Expression = expression.Parse(
@@ -153,9 +172,22 @@ func (m *MemberAccessExpression) Parse(
 
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
-		// Forward type declaration for non magic messages...
-		// That's why we have nil check here. Magic messages will still be set
-		// as they are calculated in TypeName.
+		// Handling edge case in type discovery.
+		if m.Expression != nil && m.Expression.GetTypeDescription() == nil {
+			if refId, refTypeDescription := m.GetResolver().ResolveByNode(m, m.MemberName); refTypeDescription != nil {
+				m.ReferencedDeclaration = refId
+				m.TypeDescription = refTypeDescription
+			} else {
+				if primary, ok := m.Expression.(*PrimaryExpression); ok {
+					if refId, refTypeDescription := m.GetResolver().ResolveByNode(primary, primary.GetName()); refTypeDescription != nil {
+						m.ReferencedDeclaration = refId
+						m.TypeDescription = refTypeDescription
+					}
+				}
+			}
+		}
+
+		// Forward type declaration for specific cases.
 		if m.TypeDescription != nil {
 			if m.TypeDescription.TypeIdentifier == "t_magic_message" {
 				switch m.MemberName {
@@ -194,6 +226,7 @@ func (m *MemberAccessExpression) Parse(
 		}
 	}
 
+	// Handling function call argument types.
 	if expNode != nil {
 		if expNode.GetType() == ast_pb.NodeType_FUNCTION_CALL {
 			fcNode := expNode.(*FunctionCall)

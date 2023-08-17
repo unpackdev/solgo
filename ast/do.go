@@ -6,16 +6,18 @@ import (
 	"github.com/txpull/solgo/parser"
 )
 
+// DoWhileStatement represents a do-while loop statement node in the abstract syntax tree (AST).
+// It encapsulates information about the condition and body of the loop.
 type DoWhileStatement struct {
-	*ASTBuilder
-
-	Id        int64           `json:"id"`
-	NodeType  ast_pb.NodeType `json:"node_type"`
-	Src       SrcNode         `json:"src"`
-	Condition Node[NodeType]  `json:"condition"`
-	Body      *BodyNode       `json:"body"`
+	*ASTBuilder                 // Embedded ASTBuilder for building the AST.
+	Id          int64           `json:"id"`        // Unique identifier for the DoWhileStatement node.
+	NodeType    ast_pb.NodeType `json:"node_type"` // Type of the AST node.
+	Src         SrcNode         `json:"src"`       // Source location information.
+	Condition   Node[NodeType]  `json:"condition"` // Condition expression for the do-while loop.
+	Body        *BodyNode       `json:"body"`      // Body of the do-while loop.
 }
 
+// NewDoWhileStatement creates a new DoWhileStatement node with default values and returns it.
 func NewDoWhileStatement(b *ASTBuilder) *DoWhileStatement {
 	return &DoWhileStatement{
 		ASTBuilder: b,
@@ -25,40 +27,52 @@ func NewDoWhileStatement(b *ASTBuilder) *DoWhileStatement {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the DoWhileStatement node.
+// This function currently returns false, as no reference description updates are performed.
 func (d *DoWhileStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the DoWhileStatement node.
 func (d *DoWhileStatement) GetId() int64 {
 	return d.Id
 }
 
+// GetType returns the type of the AST node, which is NodeType_DO_WHILE_STATEMENT for a do-while loop.
 func (d *DoWhileStatement) GetType() ast_pb.NodeType {
 	return d.NodeType
 }
 
+// GetSrc returns the source location information of the DoWhileStatement node.
 func (d *DoWhileStatement) GetSrc() SrcNode {
 	return d.Src
 }
 
+// GetCondition returns the condition expression of the do-while loop.
 func (d *DoWhileStatement) GetCondition() Node[NodeType] {
 	return d.Condition
 }
 
+// GetBody returns the body of the do-while loop.
 func (d *DoWhileStatement) GetBody() *BodyNode {
 	return d.Body
 }
 
+// GetNodes returns a slice of child nodes within the do-while loop.
 func (d *DoWhileStatement) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{d.Condition}
 	toReturn = append(toReturn, d.Body.GetNodes()...)
 	return toReturn
 }
 
+// GetTypeDescription returns the type description associated with the DoWhileStatement node.
 func (d *DoWhileStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "dowhile",
+		TypeIdentifier: "$_t_do_while",
+	}
 }
 
+// ToProto converts the DoWhileStatement node to its corresponding protocol buffer representation.
 func (d *DoWhileStatement) ToProto() NodeType {
 	protos := ast_pb.Do{
 		Id:        d.GetId(),
@@ -71,6 +85,7 @@ func (d *DoWhileStatement) ToProto() NodeType {
 	return NewTypedStruct(&protos, "Do")
 }
 
+// Parse is responsible for parsing the do-while loop statement from the context and populating the DoWhileStatement node.
 func (d *DoWhileStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

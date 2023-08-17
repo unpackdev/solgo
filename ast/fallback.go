@@ -1,28 +1,32 @@
+// Package ast defines data structures and methods for abstract syntax tree nodes used in a specific programming language.
+// The package contains definitions for various AST nodes that represent different elements of the programming language's syntax.
 package ast
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/parser"
+	ast_pb "github.com/txpull/protos/dist/go/ast" // Import for AST protocol buffer definitions.
+	"github.com/txpull/solgo/parser"              // Import for the solgo parser.
 )
 
+// Fallback represents a fallback function definition node in the abstract syntax tree (AST).
+// It encapsulates information about the characteristics and properties of a fallback function within a contract.
 type Fallback struct {
-	*ASTBuilder
-
-	Id               int64                 `json:"id"`
-	NodeType         ast_pb.NodeType       `json:"node_type"`
-	Kind             ast_pb.NodeType       `json:"kind"`
-	Src              SrcNode               `json:"src"`
-	Implemented      bool                  `json:"implemented"`
-	Visibility       ast_pb.Visibility     `json:"visibility"`
-	StateMutability  ast_pb.Mutability     `json:"state_mutability"`
-	Modifiers        []*ModifierInvocation `json:"modifiers"`
-	Overrides        []*OverrideSpecifier  `json:"overrides"`
-	Parameters       *ParameterList        `json:"parameters"`
-	ReturnParameters *ParameterList        `json:"return_parameters"`
-	Body             *BodyNode             `json:"body"`
-	Virtual          bool                  `json:"virtual"`
+	*ASTBuilder                            // Embedded ASTBuilder for building the AST.
+	Id               int64                 `json:"id"`                // Unique identifier for the Fallback node.
+	NodeType         ast_pb.NodeType       `json:"node_type"`         // Type of the AST node.
+	Kind             ast_pb.NodeType       `json:"kind"`              // Kind of the fallback function.
+	Src              SrcNode               `json:"src"`               // Source location information.
+	Implemented      bool                  `json:"implemented"`       // Indicates whether the function is implemented.
+	Visibility       ast_pb.Visibility     `json:"visibility"`        // Visibility of the fallback function.
+	StateMutability  ast_pb.Mutability     `json:"state_mutability"`  // State mutability of the fallback function.
+	Modifiers        []*ModifierInvocation `json:"modifiers"`         // List of modifier invocations applied to the fallback function.
+	Overrides        []*OverrideSpecifier  `json:"overrides"`         // List of override specifiers for the fallback function.
+	Parameters       *ParameterList        `json:"parameters"`        // List of parameters for the fallback function.
+	ReturnParameters *ParameterList        `json:"return_parameters"` // List of return parameters for the fallback function.
+	Body             *BodyNode             `json:"body"`              // Body of the fallback function.
+	Virtual          bool                  `json:"virtual"`           // Indicates whether the function is virtual.
 }
 
+// NewFallbackDefinition creates a new Fallback node with default values and returns it.
 func NewFallbackDefinition(b *ASTBuilder) *Fallback {
 	return &Fallback{
 		ASTBuilder:      b,
@@ -36,71 +40,90 @@ func NewFallbackDefinition(b *ASTBuilder) *Fallback {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Fallback node.
-// We don't need to do any reference description updates here, at least for now...
+// This function currently returns false, as no reference description updates are performed.
 func (f *Fallback) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the Fallback node.
 func (f *Fallback) GetId() int64 {
 	return f.Id
 }
 
+// GetSrc returns the source location information of the Fallback node.
 func (f *Fallback) GetSrc() SrcNode {
 	return f.Src
 }
 
+// GetType returns the type of the AST node, which is NodeType_FUNCTION_DEFINITION for a fallback function.
 func (f *Fallback) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
+// GetNodes returns a slice of child nodes within the body of the fallback function.
 func (f *Fallback) GetNodes() []Node[NodeType] {
 	return f.Body.Statements
 }
 
+// GetTypeDescription returns the type description associated with the Fallback node.
 func (f *Fallback) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     "fallback",
+		TypeIdentifier: "$_t_fallback",
+	}
 }
 
+// GetModifiers returns a list of modifier invocations applied to the Fallback node.
 func (f *Fallback) GetModifiers() []*ModifierInvocation {
 	return f.Modifiers
 }
 
+// GetOverrides returns a list of override specifiers for the Fallback node.
 func (f *Fallback) GetOverrides() []*OverrideSpecifier {
 	return f.Overrides
 }
 
+// GetParameters returns the list of parameters for the Fallback node.
 func (f *Fallback) GetParameters() *ParameterList {
 	return f.Parameters
 }
 
+// GetReturnParameters returns the list of return parameters for the Fallback node.
 func (f *Fallback) GetReturnParameters() *ParameterList {
 	return f.ReturnParameters
 }
 
+// GetBody returns the body of the Fallback node.
 func (f *Fallback) GetBody() *BodyNode {
 	return f.Body
 }
 
+// GetKind returns the kind of the Fallback node, which is NodeType_FALLBACK.
 func (f *Fallback) GetKind() ast_pb.NodeType {
 	return f.Kind
 }
 
+// GetVisibility returns the visibility of the Fallback function.
 func (f *Fallback) GetVisibility() ast_pb.Visibility {
 	return f.Visibility
 }
 
+// GetStateMutability returns the state mutability of the Fallback function.
 func (f *Fallback) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
 }
 
+// IsVirtual returns true if the Fallback function is virtual, false otherwise.
 func (f *Fallback) IsVirtual() bool {
 	return f.Virtual
 }
 
+// IsImplemented returns true if the Fallback function is implemented, false otherwise.
 func (f *Fallback) IsImplemented() bool {
 	return f.Implemented
 }
 
+// ToProto converts the Fallback node to its corresponding protocol buffer representation.
 func (f *Fallback) ToProto() NodeType {
 	proto := ast_pb.Fallback{
 		Id:               f.GetId(),
@@ -127,6 +150,8 @@ func (f *Fallback) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Fallback")
 }
 
+// Parse populates the properties of the Fallback node by parsing the corresponding context and information.
+// It returns the populated Fallback node.
 func (f *Fallback) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -200,6 +225,7 @@ func (f *Fallback) Parse(
 	return f
 }
 
+// getVisibilityFromCtx determines the visibility of the Fallback function based on the context.
 func (f *Fallback) getVisibilityFromCtx(ctx *parser.FallbackFunctionDefinitionContext) ast_pb.Visibility {
 	for _, visibility := range ctx.AllExternal() {
 		if visibility.GetText() == "external" {
@@ -210,6 +236,7 @@ func (f *Fallback) getVisibilityFromCtx(ctx *parser.FallbackFunctionDefinitionCo
 	return ast_pb.Visibility_INTERNAL
 }
 
+// getStateMutabilityFromCtx determines the state mutability of the Fallback function based on the context.
 func (f *Fallback) getStateMutabilityFromCtx(ctx *parser.FallbackFunctionDefinitionContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable":    ast_pb.Mutability_PAYABLE,

@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"reflect"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -59,7 +60,10 @@ func (l *Library) GetSrc() SrcNode {
 // GetTypeDescription returns the type description of the library node.
 // Currently, it returns nil and needs to be implemented.
 func (l *Library) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{
+		TypeString:     fmt.Sprintf("contract %s", l.Name),
+		TypeIdentifier: fmt.Sprintf("$_t_contract_%s_%d", l.GetName(), l.GetId()),
+	}
 }
 
 // GetName returns the name of the library.
@@ -107,6 +111,7 @@ func (l *Library) GetContractDependencies() []int64 {
 	return l.ContractDependencies
 }
 
+// GetStateVariables returns an array of state variable declarations in the library.
 func (l *Library) GetStateVariables() []*StateVariableDeclaration {
 	toReturn := make([]*StateVariableDeclaration, 0)
 
@@ -119,6 +124,7 @@ func (l *Library) GetStateVariables() []*StateVariableDeclaration {
 	return toReturn
 }
 
+// GetStructs returns an array of struct definitions in the library.
 func (l *Library) GetStructs() []*StructDefinition {
 	toReturn := make([]*StructDefinition, 0)
 
@@ -131,6 +137,7 @@ func (l *Library) GetStructs() []*StructDefinition {
 	return toReturn
 }
 
+// GetEnums returns an array of enum definitions in the library.
 func (l *Library) GetEnums() []*EnumDefinition {
 	toReturn := make([]*EnumDefinition, 0)
 
@@ -143,6 +150,7 @@ func (l *Library) GetEnums() []*EnumDefinition {
 	return toReturn
 }
 
+// GetErrors returns an array of error definitions in the library.
 func (l *Library) GetErrors() []*ErrorDefinition {
 	toReturn := make([]*ErrorDefinition, 0)
 
@@ -155,6 +163,7 @@ func (l *Library) GetErrors() []*ErrorDefinition {
 	return toReturn
 }
 
+// GetEvents returns an array of event definitions in the library.
 func (l *Library) GetEvents() []*EventDefinition {
 	toReturn := make([]*EventDefinition, 0)
 
@@ -167,6 +176,7 @@ func (l *Library) GetEvents() []*EventDefinition {
 	return toReturn
 }
 
+// GetConstructor returns the constructor definition in the library.
 func (l *Library) GetConstructor() *Constructor {
 	for _, node := range l.GetNodes() {
 		if constructor, ok := node.(*Constructor); ok {
@@ -177,6 +187,7 @@ func (l *Library) GetConstructor() *Constructor {
 	return nil
 }
 
+// GetFunctions returns an array of function definitions in the library.
 func (l *Library) GetFunctions() []*Function {
 	toReturn := make([]*Function, 0)
 
@@ -189,6 +200,7 @@ func (l *Library) GetFunctions() []*Function {
 	return toReturn
 }
 
+// GetFallback returns the fallback function definition in the library.
 func (l *Library) GetFallback() *Fallback {
 	for _, node := range l.GetNodes() {
 		if function, ok := node.(*Fallback); ok {
@@ -199,6 +211,7 @@ func (l *Library) GetFallback() *Fallback {
 	return nil
 }
 
+// GetReceive returns the receive function definition in the library.
 func (l *Library) GetReceive() *Receive {
 	for _, node := range l.GetNodes() {
 		if function, ok := node.(*Receive); ok {
@@ -213,24 +226,24 @@ func (l *Library) GetReceive() *Receive {
 // Currently, it returns an empty Contract and needs to be implemented.
 func (l *Library) ToProto() NodeType {
 	proto := ast_pb.Contract{
-		Id:                      l.Id,
-		NodeType:                l.NodeType,
-		Kind:                    l.Kind,
-		Src:                     l.Src.ToProto(),
-		Name:                    l.Name,
-		Abstract:                l.Abstract,
-		FullyImplemented:        l.FullyImplemented,
-		LinearizedBaseContracts: l.LinearizedBaseContracts,
-		ContractDependencies:    l.ContractDependencies,
+		Id:                      l.GetId(),
+		NodeType:                l.GetType(),
+		Kind:                    l.GetKind(),
+		Src:                     l.GetSrc().ToProto(),
+		Name:                    l.GetName(),
+		Abstract:                l.IsAbstract(),
+		FullyImplemented:        l.IsFullyImplemented(),
+		LinearizedBaseContracts: l.GetLinearizedBaseContracts(),
+		ContractDependencies:    l.GetContractDependencies(),
 		Nodes:                   make([]*v3.TypedStruct, 0),
 		BaseContracts:           make([]*ast_pb.BaseContract, 0),
 	}
 
-	for _, baseContract := range l.BaseContracts {
+	for _, baseContract := range l.GetBaseContracts() {
 		proto.BaseContracts = append(proto.BaseContracts, baseContract.ToProto())
 	}
 
-	for _, node := range l.Nodes {
+	for _, node := range l.GetNodes() {
 		proto.Nodes = append(proto.Nodes, node.ToProto().(*v3.TypedStruct))
 	}
 

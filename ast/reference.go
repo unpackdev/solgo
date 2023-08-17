@@ -68,7 +68,6 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 // resolveByNode is a helper function that attempts to resolve a node by its name by checking various node types.
 // It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
-
 	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
 		return node, nodeType
 	}
@@ -104,6 +103,7 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 	if node, nodeType := r.byFunction(name); nodeType != nil {
 		return node, nodeType
 	}
+
 	return 0, nil
 }
 
@@ -144,8 +144,8 @@ func (r *Resolver) Resolve() []error {
 					errors = append(
 						errors,
 						fmt.Errorf(
-							"unable to update node reference by id %d - name: %s - type: %v",
-							nodeId, node.Name, rNodeType,
+							"unable to update node reference by id %d - name: %s - type: %v - reflect: %T",
+							nodeId, node.Name, rNodeType, node.Node,
 						),
 					)
 				}
@@ -171,6 +171,7 @@ func (r *Resolver) Resolve() []error {
 	return errors
 }
 
+// resolveImportDirectives resolves import directives in the AST.
 func (r *Resolver) resolveImportDirectives() {
 	for _, sourceNode := range r.sourceUnits {
 		// In case any imports are available and they are not exported
@@ -190,6 +191,7 @@ func (r *Resolver) resolveImportDirectives() {
 	}
 }
 
+// resolveBaseContracts resolves base contracts in the AST.
 func (r *Resolver) resolveBaseContracts() {
 	for _, sourceNode := range r.sourceUnits {
 		for _, baseContract := range sourceNode.GetBaseContracts() {
@@ -205,6 +207,8 @@ func (r *Resolver) resolveBaseContracts() {
 		}
 	}
 }
+
+// resolveExportedSymbols resolves exported symbols in the AST.
 func (r *Resolver) resolveExportedSymbols() {
 	for _, sourceNode := range r.sourceUnits {
 
@@ -216,11 +220,7 @@ func (r *Resolver) resolveExportedSymbols() {
 				if !r.symbolExists(importNode.GetName(), sourceNode.GetExportedSymbols()) {
 					sourceNode.ExportedSymbols = append(
 						sourceNode.ExportedSymbols,
-						Symbol{
-							Id:           importNode.GetSourceUnit(),
-							Name:         importNode.GetName(),
-							AbsolutePath: importNode.GetAbsolutePath(),
-						},
+						NewSymbol(importNode.GetSourceUnit(), importNode.GetName(), importNode.GetAbsolutePath()),
 					)
 				}
 			}
@@ -242,6 +242,7 @@ func (r *Resolver) resolveExportedSymbols() {
 	}
 }
 
+// symbolExists checks if a symbol with a given name exists in a list of symbols.
 func (r *Resolver) symbolExists(name string, symbols []Symbol) bool {
 	for _, symbol := range symbols {
 		if symbol.GetName() == name {
@@ -252,6 +253,7 @@ func (r *Resolver) symbolExists(name string, symbols []Symbol) bool {
 	return false
 }
 
+// resolveEntrySourceUnit resolves the entry source unit in the AST.
 func (r *Resolver) resolveEntrySourceUnit() {
 	// Entry source unit is already calculated, we are going to skip the check.
 	// Note if you are reading this, it's the best practice to always set it as
@@ -287,6 +289,8 @@ func (r *Resolver) resolveEntrySourceUnit() {
 
 func (r *Resolver) bySourceUnit(name string) (int64, *TypeDescription) {
 	for _, node := range r.sourceUnits {
+		//fmt.Println(node.GetName())
+
 		if node.GetName() == name {
 			return node.GetId(), node.GetTypeDescription()
 		}
@@ -314,13 +318,21 @@ func (r *Resolver) byStateVariables(name string) (int64, *TypeDescription) {
 
 func (r *Resolver) byVariables(name string) (int64, *TypeDescription) {
 	for _, node := range r.currentVariables {
-		variable := node.(*VariableDeclaration)
-
-		for _, declaration := range variable.Declarations {
-			if declaration.GetName() == name {
-				return node.GetId(), declaration.GetTypeDescription()
+		if variable, ok := node.(*VariableDeclaration); ok {
+			for _, declaration := range variable.Declarations {
+				if declaration.GetName() == name {
+					return node.GetId(), declaration.GetTypeDescription()
+				}
+			}
+		}
+		if variable, ok := node.(*Parameter); ok {
+			if variable.GetName() == name {
+				return node.GetId(), variable.GetTypeDescription()
 			}
 
+			if variable.GetTypeName() != nil && variable.GetTypeName().GetName() == name {
+				return node.GetId(), variable.GetTypeDescription()
+			}
 		}
 	}
 
@@ -466,6 +478,10 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 					return primary, primary.GetTypeDescription()
 				}
 			}
+		}
+	case *IndexAccess:
+		if nodeCtx.GetName() == name {
+			return nodeCtx, nodeCtx.GetTypeDescription()
 		}
 	}
 

@@ -59,7 +59,7 @@ func (a *AssemblyStatement) GetNodes() []Node[NodeType] {
 // GetTypeDescription returns the type description of the assembly statement.
 // For an AssemblyStatement, this is always nil.
 func (a *AssemblyStatement) GetTypeDescription() *TypeDescription {
-	return nil
+	return &TypeDescription{}
 }
 
 // ToProto returns the protobuf representation of the assembly statement.
