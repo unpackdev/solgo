@@ -12,10 +12,12 @@ import (
 func TestSources(t *testing.T) {
 	// Define multiple test cases
 	testCases := []struct {
-		name          string
-		sources       *Sources
-		expected      string
-		expectedUnits int
+		name              string
+		sources           *Sources
+		expected          string
+		expectedUnits     int
+		noSourceUnit      bool
+		wantValidationErr bool
 	}{
 		{
 			name: "Test Case 1",
@@ -35,8 +37,10 @@ func TestSources(t *testing.T) {
 				EntrySourceUnitName: "Source",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
-			expected:      "Content of Source 1\n\nContent of Source 2",
-			expectedUnits: 2,
+			expected:          "Content of Source 1\n\nContent of Source 2",
+			expectedUnits:     2,
+			noSourceUnit:      true,
+			wantValidationErr: true,
 		},
 		{
 			name: "Openzeppelin import",
@@ -48,11 +52,12 @@ func TestSources(t *testing.T) {
 						Content: tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Import").Content,
 					},
 				},
-				EntrySourceUnitName: "Cheelee",
+				EntrySourceUnitName: "TransparentUpgradeableProxy",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
 			expected:      tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Combined").Content,
 			expectedUnits: 15,
+			noSourceUnit:  true,
 		},
 		{
 			name: "OpenZeppelin ERC20 Test",
@@ -96,6 +101,11 @@ func TestSources(t *testing.T) {
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			parser, err := NewParserFromSources(context.Background(), testCase.sources)
+			if testCase.wantValidationErr {
+				assert.Error(t, err)
+				assert.Nil(t, parser)
+				return
+			}
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
 
@@ -115,6 +125,12 @@ func TestSources(t *testing.T) {
 			assert.True(t, testCase.sources.SourceUnitExists(testCase.sources.SourceUnits[0].Name))
 			assert.NotNil(t, testCase.sources.GetSourceUnitByName(testCase.sources.SourceUnits[0].Name))
 			assert.NotNil(t, testCase.sources.GetSourceUnitByPath(testCase.sources.SourceUnits[0].Path))
+
+			if !testCase.noSourceUnit {
+				version, err := testCase.sources.GetSolidityVersion()
+				assert.NoError(t, err)
+				assert.NotEmpty(t, version)
+			}
 		})
 	}
 }

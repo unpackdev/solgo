@@ -31,7 +31,8 @@ jobs:
           solc-select install 0.8.19
           solc-select use 0.8.19
 
-      - run: |
+      - name: Run Coverage Profile
+        run: |
           source solgoenv/bin/activate
           go test -v -coverprofile=profile.cov ./...
 
