@@ -59,6 +59,7 @@ Makes no sense to rewrite all of that hard work just to be written in Go. Theref
 - **EIP & ERC Registry**: SolGo introduces a package `eip` exclusively for Ethereum Improvement Proposals (EIPs) and Ethereum Request for Comments (ERCs). This package streamlines interactions with diverse contract standards by encompassing functions, events, and a registry system optimized for proficient management.
 - **Solidity Compiler Detection & Compilation:** SolGo intelligently identifies the Solidity version employed for contract compilation. This not only streamlines the process of determining the compiler version but also equips users with the capability to seamlessly compile contracts.
 - **Security Audit Package**: Prioritizing security, SolGo has incorporated an `audit` package. This specialized package leverages [Slither](https://github.com/crytic/slither)'s sophisticated algorithms to scrutinize and pinpoint potential vulnerabilities in Solidity smart contracts, ensuring robust protection against adversarial threats.
+- **Contract Bytecode Validation:** Enhanced `validation` package ensures the integrity and authenticity of contract bytecode. By comparing the bytecode of a deployed contract with the expected bytecode generated from its source code, SolGo can detect any discrepancies or potential tampering. This feature is crucial for verifying that a deployed contract's bytecode corresponds accurately to its source code, providing an added layer of security and trust for developers and users alike.
 
 ## Contributing
 

@@ -1,4 +1,4 @@
-package contracts
+package validation
 
 import (
 	"context"
