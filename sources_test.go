@@ -52,7 +52,7 @@ func TestSources(t *testing.T) {
 						Content: tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Import").Content,
 					},
 				},
-				EntrySourceUnitName: "Cheelee",
+				EntrySourceUnitName: "TransparentUpgradeableProxy",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
 			expected:      tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Combined").Content,
