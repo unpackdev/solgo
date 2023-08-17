@@ -12,11 +12,12 @@ import (
 func TestSources(t *testing.T) {
 	// Define multiple test cases
 	testCases := []struct {
-		name          string
-		sources       *Sources
-		expected      string
-		expectedUnits int
-		noSourceUnit  bool
+		name              string
+		sources           *Sources
+		expected          string
+		expectedUnits     int
+		noSourceUnit      bool
+		wantValidationErr bool
 	}{
 		{
 			name: "Test Case 1",
@@ -36,9 +37,10 @@ func TestSources(t *testing.T) {
 				EntrySourceUnitName: "Source",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
-			expected:      "Content of Source 1\n\nContent of Source 2",
-			expectedUnits: 2,
-			noSourceUnit:  true,
+			expected:          "Content of Source 1\n\nContent of Source 2",
+			expectedUnits:     2,
+			noSourceUnit:      true,
+			wantValidationErr: true,
 		},
 		{
 			name: "Openzeppelin import",
@@ -99,6 +101,11 @@ func TestSources(t *testing.T) {
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			parser, err := NewParserFromSources(context.Background(), testCase.sources)
+			if testCase.wantValidationErr {
+				assert.Error(t, err)
+				assert.Nil(t, parser)
+				return
+			}
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
 

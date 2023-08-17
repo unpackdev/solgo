@@ -91,6 +91,39 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	return sources
 }
 
+// Validate checks the integrity of the Sources object.
+// It ensures that:
+// - There is at least one SourceUnit.
+// - Each SourceUnit has a name and either a path or content.
+// - If a SourceUnit has a path, the file at that path exists.
+// - The entry source unit name is valid.
+func (s *Sources) Validate() error {
+	// Ensure there is at least one SourceUnit.
+	if len(s.SourceUnits) == 0 {
+		return errors.New("no source units found")
+	}
+
+	// Validate each SourceUnit.
+	for _, sourceUnit := range s.SourceUnits {
+		if sourceUnit.Name == "" {
+			return errors.New("source unit must have a name")
+		}
+		if sourceUnit.Path == "" && sourceUnit.Content == "" {
+			return fmt.Errorf("source unit %s must have either path or content", sourceUnit.Name)
+		}
+	}
+
+	// Validate the entry source unit name.
+	if s.EntrySourceUnitName != "" {
+		entrySourceUnit := s.GetSourceUnitByName(s.EntrySourceUnitName)
+		if entrySourceUnit == nil {
+			return fmt.Errorf("entry source unit %s not found", s.EntrySourceUnitName)
+		}
+	}
+
+	return nil
+}
+
 // Prepare validates and prepares the Sources. It checks if each SourceUnit has either a path or content and a name.
 // If a SourceUnit has a path but no content, it reads the content from the file at the path.
 func (s *Sources) Prepare() error {
@@ -138,6 +171,10 @@ func (s *Sources) Prepare() error {
 
 	// Mark sources as prepared for future use.
 	s.prepared = true
+
+	if err := s.Validate(); err != nil {
+		return err
+	}
 
 	return nil
 }
