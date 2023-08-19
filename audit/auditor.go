@@ -3,23 +3,29 @@ package audit
 import (
 	"context"
 
+	"github.com/0x19/solc-switch"
 	"github.com/txpull/solgo"
 )
 
 // Auditor represents a structure that manages the auditing process
 // of smart contracts using the Slither tool.
 type Auditor struct {
-	ctx     context.Context // Context for the auditor operations.
-	config  *Config         // Configuration for the Slither tool.
-	sources *solgo.Sources  // Sources of the smart contracts to be audited.
-	slither *Slither        // Instance of the Slither tool.
+	ctx      context.Context // Context for the auditor operations.
+	config   *Config         // Configuration for the Slither tool.
+	sources  *solgo.Sources  // Sources of the smart contracts to be audited.
+	compiler *solc.Solc      // Instance of the solc compiler.
+	slither  *Slither        // Instance of the Slither tool.
 }
 
 // NewAuditor initializes a new Auditor instance with the provided context,
 // configuration, and sources. It ensures that the Slither tool is properly
 // initialized and that the sources are prepared for analysis.
-func NewAuditor(ctx context.Context, config *Config, sources *solgo.Sources) (*Auditor, error) {
-	slither, err := NewSlither(ctx, config)
+func NewAuditor(ctx context.Context, compiler *solc.Solc, config *Config, sources *solgo.Sources) (*Auditor, error) {
+	if err := compiler.Sync(); err != nil {
+		return nil, err
+	}
+
+	slither, err := NewSlither(ctx, compiler, config)
 	if err != nil {
 		return nil, err
 	}
@@ -32,10 +38,11 @@ func NewAuditor(ctx context.Context, config *Config, sources *solgo.Sources) (*A
 	}
 
 	return &Auditor{
-		ctx:     ctx,
-		config:  config,
-		sources: sources,
-		slither: slither,
+		ctx:      ctx,
+		config:   config,
+		sources:  sources,
+		slither:  slither,
+		compiler: compiler,
 	}, nil
 }
 

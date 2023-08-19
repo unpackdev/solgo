@@ -8,21 +8,24 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/0x19/solc-switch"
 	"github.com/txpull/solgo"
 )
 
 // Slither represents a wrapper around the Slither static analysis tool.
 type Slither struct {
-	ctx    context.Context // Context for executing commands.
-	config *Config         // Configuration for the Slither tool.
+	ctx      context.Context // Context for executing commands.
+	config   *Config         // Configuration for the Slither tool.
+	compiler *solc.Solc      // Instance of the solc compiler.
 }
 
 // NewSlither initializes a new Slither instance with the given context and configuration.
 // It checks for the presence of Slither on the machine and returns an error if not found.
-func NewSlither(ctx context.Context, config *Config) (*Slither, error) {
+func NewSlither(ctx context.Context, compiler *solc.Solc, config *Config) (*Slither, error) {
 	toReturn := &Slither{
-		ctx:    ctx,
-		config: config,
+		ctx:      ctx,
+		config:   config,
+		compiler: compiler,
 	}
 
 	if config.GetTempDir() == "" {
@@ -70,6 +73,19 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Report, []byte, error) {
 		}
 	}
 
+	// At this stage we should prepare compiler related settings.
+	// First we are going to start with understanding which compiler version we are going to use.
+	// To do so we'll extract it from parsed source.
+	solVersion, err := sources.GetSolidityVersion()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	solcPath, err := s.compiler.GetBinary(solVersion)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	// Write sources to a temporary directory for Slither to analyze.
 	dirName := strings.ToLower(filepath.Base(sources.EntrySourceUnitName))
 	dir := filepath.Clean(filepath.Join(s.config.GetTempDir(), dirName))
@@ -77,7 +93,7 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Report, []byte, error) {
 		return nil, nil, err
 	}
 
-	args := []string{dir}
+	args := []string{dir, "--solc-solcs-bin", solcPath}
 	sanitizedArgs, err := s.config.SanitizeArguments(s.config.Arguments)
 	if err != nil {
 		return nil, nil, err

@@ -28,7 +28,7 @@ type Detector struct {
 
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
 // It sets up the ABI builder and solc compiler selector which provide access to Global parser, AST and IR.
-func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detector, error) {
+func NewDetectorFromSources(ctx context.Context, config *solc.Config, sources *solgo.Sources) (*Detector, error) {
 	if sources == nil {
 		return nil, errors.New("sources needed to initialize detector")
 	}
@@ -44,12 +44,7 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		return nil, err
 	}
 
-	config, err := solc.NewDefaultConfig()
-	if err != nil {
-		return nil, err
-	}
-
-	solc, err := solc.New(ctx, config)
+	compiler, err := solc.New(ctx, config)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +54,7 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		return nil, err
 	}
 
-	auditor, err := audit.NewAuditor(ctx, auditorConfig, sources)
+	auditor, err := audit.NewAuditor(ctx, compiler, auditorConfig, sources)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +63,7 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		ctx:     ctx,
 		sources: sources,
 		builder: builder,
-		solc:    solc,
+		solc:    compiler,
 		auditor: auditor,
 	}, nil
 }

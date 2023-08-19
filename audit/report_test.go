@@ -3,8 +3,10 @@ package audit
 import (
 	"context"
 	"os"
+	"path/filepath"
 	"testing"
 
+	"github.com/0x19/solc-switch"
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/tests"
@@ -23,6 +25,25 @@ func TestResponse(t *testing.T) {
 
 	slitherConfig, err := NewDefaultConfig(os.TempDir())
 	assert.NoError(t, err)
+
+	solcConfig, err := solc.NewDefaultConfig()
+	assert.NoError(t, err)
+	assert.NotNil(t, solcConfig)
+
+	// Preparation of solc repository. In the tests, this is required as we need to due to CI/CD permissions
+	// have ability to set the releases path to the local repository.
+	// @TODO: in the future investigate permissions between different go modules.
+	cwd, err := os.Getwd()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, cwd)
+
+	releasesPath := filepath.Join(cwd, "..", "solc", "releases")
+	err = solcConfig.SetReleasesPath(releasesPath)
+	assert.NoError(t, err)
+
+	solc, err := solc.New(context.TODO(), solcConfig)
+	assert.NoError(t, err)
+	assert.NotNil(t, solc)
 
 	testCases := []struct {
 		name       string
@@ -51,7 +72,7 @@ func TestResponse(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			auditor, err := NewAuditor(context.Background(), slitherConfig, testCase.sources)
+			auditor, err := NewAuditor(context.TODO(), solc, slitherConfig, testCase.sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, auditor)
 			assert.True(t, auditor.IsReady())

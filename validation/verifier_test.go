@@ -35,6 +35,7 @@ func TestVerifier(t *testing.T) {
 
 	cwd, err := os.Getwd()
 	assert.NoError(t, err)
+	assert.NotEmpty(t, cwd)
 
 	releasesPath := filepath.Join(cwd, "..", "solc", "releases")
 	err = solcConfig.SetReleasesPath(releasesPath)

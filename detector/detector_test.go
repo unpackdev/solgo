@@ -3,6 +3,7 @@ package detector
 import (
 	"context"
 	"encoding/hex"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -26,6 +27,21 @@ func TestDetectorFromSources(t *testing.T) {
 
 	// Replace the global logger.
 	zap.ReplaceGlobals(logger)
+
+	solcConfig, err := solc.NewDefaultConfig()
+	assert.NoError(t, err)
+	assert.NotNil(t, solcConfig)
+
+	// Preparation of solc repository. In the tests, this is required as we need to due to CI/CD permissions
+	// have ability to set the releases path to the local repository.
+	// @TODO: in the future investigate permissions between different go modules.
+	cwd, err := os.Getwd()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, cwd)
+
+	releasesPath := filepath.Join(cwd, "..", "solc", "releases")
+	err = solcConfig.SetReleasesPath(releasesPath)
+	assert.NoError(t, err)
 
 	// Define multiple test cases
 	testCases := []struct {
@@ -225,7 +241,7 @@ func TestDetectorFromSources(t *testing.T) {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			detector, err := NewDetectorFromSources(ctx, testCase.sources)
+			detector, err := NewDetectorFromSources(ctx, solcConfig, testCase.sources)
 			assert.NoError(t, err)
 			assert.Equal(t, ctx, detector.GetContext())
 			assert.IsType(t, &Detector{}, detector)
@@ -260,7 +276,7 @@ func TestDetectorFromSources(t *testing.T) {
 			}
 
 			if testCase.corruptNewDetector {
-				detector, err := NewDetectorFromSources(ctx, nil)
+				detector, err := NewDetectorFromSources(ctx, solcConfig, nil)
 				assert.Error(t, err)
 				assert.Nil(t, detector)
 			}

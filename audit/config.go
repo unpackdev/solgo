@@ -14,6 +14,7 @@ var allowedArgs = map[string]bool{
 	"--ignore-compile":         true,
 	"--fail-none":              true,
 	"--buidler-ignore-compile": true,
+	"--solc-solcs-bin":         true,
 }
 
 // requiredArgs defines a list of required arguments for slither.
@@ -38,7 +39,11 @@ func NewDefaultConfig(tempDir string) (*Config, error) {
 	toReturn := &Config{
 		tempDir: tempDir,
 		Arguments: []string{
-			"--ignore-compile", "--buidler-ignore-compile", "--fail-none", "--solc-disable-warnings", "--json", "-", // Output to stdout.
+			"--ignore-compile",
+			"--buidler-ignore-compile",
+			"--fail-none",
+			"--solc-disable-warnings",
+			"--json", "-", // Output to stdout.
 		},
 	}
 
