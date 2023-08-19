@@ -6,6 +6,7 @@ import (
 	"errors"
 	"os"
 
+	"github.com/0x19/solc-switch"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
@@ -13,7 +14,6 @@ import (
 	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/opcode"
-	"github.com/txpull/solgo/solc"
 )
 
 // Detector is a utility structure that provides functionalities to detect and analyze
@@ -22,7 +22,7 @@ type Detector struct {
 	ctx     context.Context // Context for the builder operations.
 	sources *solgo.Sources  // Source files to be processed.
 	builder *abi.Builder    // ABI builder for the source code.
-	solc    *solc.Select    // Solc selector for the solc compiler.
+	solc    *solc.Solc      // Solc selector for the solc compiler.
 	auditor *audit.Auditor  // Static analysis auditor.
 }
 
@@ -44,7 +44,12 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		return nil, err
 	}
 
-	solc, err := solc.NewSelect()
+	config, err := solc.NewDefaultConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	solc, err := solc.New(ctx, config)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +104,7 @@ func (d *Detector) GetParser() *solgo.Parser {
 }
 
 // GetSolc returns the solc compiler selector associated with the Detector.
-func (d *Detector) GetSolc() *solc.Select {
+func (d *Detector) GetSolc() *solc.Solc {
 	return d.solc
 }
 
