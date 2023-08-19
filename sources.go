@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 
 	sources_pb "github.com/txpull/protos/dist/go/sources"
@@ -364,23 +365,30 @@ func (s *Sources) TruncateDir(path string) error {
 	return nil
 }
 
-// GetSolidityVersion extracts the Solidity version from the entry source unit.
+// GetSolidityVersion extracts the highest Solidity version from all source units.
 func (s *Sources) GetSolidityVersion() (string, error) {
-	// Get the entry source unit by its name
-	entrySourceUnit := s.GetSourceUnitByName(s.EntrySourceUnitName)
-	if entrySourceUnit == nil {
-		return "", fmt.Errorf("entry source unit not found")
-	}
-
 	// Use a regular expression to match the pragma solidity statement
 	// This regex will match versions like ^0.x.x and extract only 0.x.x
 	re := regexp.MustCompile(`pragma solidity\s*\^?(\d+\.\d+\.\d+);`)
-	match := re.FindStringSubmatch(entrySourceUnit.Content)
-	if len(match) < 2 {
-		return "", fmt.Errorf("solidity version not found in entry source unit")
+
+	var highestVersion string
+
+	for _, sourceUnit := range s.SourceUnits {
+		match := re.FindStringSubmatch(sourceUnit.Content)
+
+		if len(match) >= 2 {
+			currentVersion := match[1]
+			if compareVersions(currentVersion, highestVersion) > 0 {
+				highestVersion = currentVersion
+			}
+		}
 	}
 
-	return match[1], nil
+	if highestVersion == "" {
+		return "", fmt.Errorf("no solidity version found in any source unit")
+	}
+
+	return highestVersion, nil
 }
 
 // handleImports extracts import statements from the source unit and adds them to the sources.
@@ -516,4 +524,31 @@ func topologicalSort(nodes []Node) ([]string, error) {
 	}
 
 	return sorted, nil
+}
+
+// compareVersions compares two version strings and returns:
+// -1 if v1 < v2
+//
+//	0 if v1 == v2
+//	1 if v1 > v2
+func compareVersions(v1, v2 string) int {
+	v1Parts := strings.Split(v1, ".")
+	v2Parts := strings.Split(v2, ".")
+
+	// This is the first run to comparation and therefore, we should ensure it's setting it
+	// to the highest version.
+	if len(v2Parts) < 3 {
+		return 1
+	}
+
+	for i := 0; i < 3; i++ {
+		v1Int, _ := strconv.Atoi(v1Parts[i])
+		v2Int, _ := strconv.Atoi(v2Parts[i])
+		if v1Int < v2Int {
+			return -1
+		} else if v1Int > v2Int {
+			return 1
+		}
+	}
+	return 0
 }

@@ -3,16 +3,17 @@ package detector
 import (
 	"context"
 	"encoding/hex"
+	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/0x19/solc-switch"
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/audit"
 	"github.com/txpull/solgo/ir"
-	"github.com/txpull/solgo/solc"
 	"github.com/txpull/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -26,6 +27,21 @@ func TestDetectorFromSources(t *testing.T) {
 
 	// Replace the global logger.
 	zap.ReplaceGlobals(logger)
+
+	solcConfig, err := solc.NewDefaultConfig()
+	assert.NoError(t, err)
+	assert.NotNil(t, solcConfig)
+
+	// Preparation of solc repository. In the tests, this is required as we need to due to CI/CD permissions
+	// have ability to set the releases path to the local repository.
+	// @TODO: in the future investigate permissions between different go modules.
+	cwd, err := os.Getwd()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, cwd)
+
+	releasesPath := filepath.Join(cwd, "..", "data", "solc", "releases")
+	err = solcConfig.SetReleasesPath(releasesPath)
+	assert.NoError(t, err)
 
 	// Define multiple test cases
 	testCases := []struct {
@@ -225,7 +241,7 @@ func TestDetectorFromSources(t *testing.T) {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			detector, err := NewDetectorFromSources(ctx, testCase.sources)
+			detector, err := NewDetectorFromSources(ctx, solcConfig, testCase.sources)
 			assert.NoError(t, err)
 			assert.Equal(t, ctx, detector.GetContext())
 			assert.IsType(t, &Detector{}, detector)
@@ -234,7 +250,7 @@ func TestDetectorFromSources(t *testing.T) {
 			assert.IsType(t, &ir.Builder{}, detector.GetIR())
 			assert.IsType(t, &solgo.Parser{}, detector.GetParser())
 			assert.IsType(t, &solgo.Sources{}, detector.GetSources())
-			assert.IsType(t, &solc.Select{}, detector.GetSolc())
+			assert.IsType(t, &solc.Solc{}, detector.GetSolc())
 			assert.IsType(t, &audit.Auditor{}, detector.GetAuditor())
 
 			syntaxErrs := detector.Parse()
@@ -260,7 +276,7 @@ func TestDetectorFromSources(t *testing.T) {
 			}
 
 			if testCase.corruptNewDetector {
-				detector, err := NewDetectorFromSources(ctx, nil)
+				detector, err := NewDetectorFromSources(ctx, solcConfig, nil)
 				assert.Error(t, err)
 				assert.Nil(t, detector)
 			}

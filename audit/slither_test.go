@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/0x19/solc-switch"
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/tests"
@@ -30,12 +31,32 @@ func TestSlither(t *testing.T) {
 	slitherConfig, err := NewDefaultConfig(os.TempDir())
 	assert.NoError(t, err)
 
+	solcConfig, err := solc.NewDefaultConfig()
+	assert.NoError(t, err)
+	assert.NotNil(t, solcConfig)
+
+	// Preparation of solc repository. In the tests, this is required as we need to due to CI/CD permissions
+	// have ability to set the releases path to the local repository.
+	// @TODO: in the future investigate permissions between different go modules.
+	cwd, err := os.Getwd()
+	assert.NoError(t, err)
+	assert.NotEmpty(t, cwd)
+
+	releasesPath := filepath.Join(cwd, "..", "data", "solc", "releases")
+	err = solcConfig.SetReleasesPath(releasesPath)
+	assert.NoError(t, err)
+
+	solc, err := solc.New(context.TODO(), solcConfig)
+	assert.NoError(t, err)
+	assert.NotNil(t, solc)
+
 	// Define multiple test cases
 	testCases := []struct {
-		name       string
-		outputPath string
-		sources    *solgo.Sources
-		wantErr    bool
+		name        string
+		outputPath  string
+		sources     *solgo.Sources
+		wantErr     bool
+		wantSolcErr bool
 	}{
 		{
 			name:       "Reentrancy Contract Test",
@@ -69,7 +90,8 @@ func TestSlither(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     buildFullPath("../sources/"),
 			},
-			wantErr: true,
+			wantErr:     true,
+			wantSolcErr: true,
 		},
 		{
 			name:       "Empty Contract Test",
@@ -86,6 +108,7 @@ func TestSlither(t *testing.T) {
 				MaskLocalSourcesPath: false,
 				LocalSourcesPath:     "../sources/",
 			},
+			wantSolcErr: true,
 		},
 		{
 			name:       "Simple Storage Contract Test",
@@ -266,7 +289,7 @@ func TestSlither(t *testing.T) {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			slither, err := NewSlither(ctx, slitherConfig)
+			slither, err := NewSlither(ctx, solc, slitherConfig)
 			assert.NoError(t, err)
 			assert.NotNil(t, slither)
 
@@ -277,6 +300,13 @@ func TestSlither(t *testing.T) {
 			assert.NotEmpty(t, version)
 
 			response, raw, err := slither.Analyze(testCase.sources)
+			if testCase.wantSolcErr {
+				assert.Error(t, err)
+				assert.Empty(t, raw)
+				assert.Nil(t, response)
+				return
+			}
+
 			assert.NoError(t, err)
 			assert.NotEmpty(t, raw)
 			assert.NotNil(t, response)

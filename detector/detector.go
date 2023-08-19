@@ -6,6 +6,7 @@ import (
 	"errors"
 	"os"
 
+	"github.com/0x19/solc-switch"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
@@ -13,7 +14,6 @@ import (
 	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/opcode"
-	"github.com/txpull/solgo/solc"
 )
 
 // Detector is a utility structure that provides functionalities to detect and analyze
@@ -22,13 +22,13 @@ type Detector struct {
 	ctx     context.Context // Context for the builder operations.
 	sources *solgo.Sources  // Source files to be processed.
 	builder *abi.Builder    // ABI builder for the source code.
-	solc    *solc.Select    // Solc selector for the solc compiler.
+	solc    *solc.Solc      // Solc selector for the solc compiler.
 	auditor *audit.Auditor  // Static analysis auditor.
 }
 
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
 // It sets up the ABI builder and solc compiler selector which provide access to Global parser, AST and IR.
-func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detector, error) {
+func NewDetectorFromSources(ctx context.Context, config *solc.Config, sources *solgo.Sources) (*Detector, error) {
 	if sources == nil {
 		return nil, errors.New("sources needed to initialize detector")
 	}
@@ -44,7 +44,7 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		return nil, err
 	}
 
-	solc, err := solc.NewSelect()
+	compiler, err := solc.New(ctx, config)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		return nil, err
 	}
 
-	auditor, err := audit.NewAuditor(ctx, auditorConfig, sources)
+	auditor, err := audit.NewAuditor(ctx, compiler, auditorConfig, sources)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func NewDetectorFromSources(ctx context.Context, sources *solgo.Sources) (*Detec
 		ctx:     ctx,
 		sources: sources,
 		builder: builder,
-		solc:    solc,
+		solc:    compiler,
 		auditor: auditor,
 	}, nil
 }
@@ -99,7 +99,7 @@ func (d *Detector) GetParser() *solgo.Parser {
 }
 
 // GetSolc returns the solc compiler selector associated with the Detector.
-func (d *Detector) GetSolc() *solc.Select {
+func (d *Detector) GetSolc() *solc.Solc {
 	return d.solc
 }
 

@@ -3,6 +3,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      SOLC_SWITCH_GITHUB_TOKEN: ${{ secrets.SOLC_SWITCH_GITHUB_TOKEN }}
     strategy:
       fail-fast: false
       matrix:

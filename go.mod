@@ -3,6 +3,7 @@ module github.com/txpull/solgo
 go 1.19
 
 require (
+	github.com/0x19/solc-switch v0.0.0-20230819081719-fdaccabb1677
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
 	github.com/ethereum/go-ethereum v1.12.0
@@ -11,9 +12,10 @@ require (
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
 	github.com/mr-tron/base58 v1.2.0
+	github.com/sergi/go-diff v1.3.1
 	github.com/stretchr/testify v1.8.4
 	github.com/txpull/protos v0.1.6
-	go.uber.org/zap v1.24.0
+	go.uber.org/zap v1.25.0
 	google.golang.org/protobuf v1.31.0
 )
 
@@ -43,11 +45,9 @@ require (
 	github.com/multiformats/go-multistream v0.4.1 // indirect
 	github.com/multiformats/go-varint v0.0.7 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/whyrusleeping/tar-utils v0.0.0-20201201191210-20a61371de5b // indirect
 	github.com/x448/float16 v0.8.4 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.11.0 // indirect
 	golang.org/x/exp v0.0.0-20230713183714-613f0c0eb8a1 // indirect
