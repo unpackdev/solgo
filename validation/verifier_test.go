@@ -3,6 +3,7 @@ package validation
 import (
 	"context"
 	"encoding/hex"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -32,7 +33,13 @@ func TestVerifier(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, compilerConfig)
 
-	// Define multiple test cases
+	cwd, err := os.Getwd()
+	assert.NoError(t, err)
+
+	releasesPath := filepath.Join(cwd, "..", "solc", "releases")
+	err = solcConfig.SetReleasesPath(releasesPath)
+	assert.NoError(t, err)
+
 	testCases := []struct {
 		name                 string
 		outputPath           string
