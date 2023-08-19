@@ -4,6 +4,8 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
+      SOLC_SWITCH_GITHUB_TOKEN: ${{ secrets.SOLC_SWITCH_GITHUB_TOKEN }}
+    env:
       GO111MODULE: on
     steps:
       - name: Checkout Source

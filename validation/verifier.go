@@ -5,18 +5,18 @@ import (
 	"encoding/hex"
 	"errors"
 
+	"github.com/0x19/solc-switch"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/solc"
 )
 
 // Verifier is a utility that facilitates the verification of Ethereum smart contracts.
 // It uses the solc compiler to compile the provided sources and then verifies the bytecode.
 type Verifier struct {
-	ctx      context.Context // The context for the verifier operations.
-	compiler *solc.Compiler  // The solc compiler instance.
-	config   *solc.Config    // The configuration for the solc compiler.
-	sources  *solgo.Sources  // The sources of the Ethereum smart contracts to be verified.
+	ctx     context.Context // The context for the verifier operations.
+	solc    *solc.Solc      // The solc compiler instance.
+	config  *solc.Config    // The configuration for the solc compiler.
+	sources *solgo.Sources  // The sources of the Ethereum smart contracts to be verified.
 }
 
 // NewVerifier creates a new instance of Verifier.
@@ -39,16 +39,21 @@ func NewVerifier(ctx context.Context, config *solc.Config, sources *solgo.Source
 		}
 	}
 
-	compiler, err := solc.NewCompiler(ctx, config, sources)
+	solc, err := solc.New(ctx, config)
 	if err != nil {
 		return nil, err
 	}
 
+	// Do the releases synchronization in the background...
+	if err := solc.Sync(); err != nil {
+		return nil, err
+	}
+
 	return &Verifier{
-		ctx:      ctx,
-		compiler: compiler,
-		sources:  sources,
-		config:   config,
+		ctx:     ctx,
+		solc:    solc,
+		sources: sources,
+		config:  config,
 	}, nil
 }
 
@@ -63,16 +68,16 @@ func (v *Verifier) GetSources() *solgo.Sources {
 }
 
 // GetCompiler returns the solc compiler instance associated with the verifier.
-func (v *Verifier) GetCompiler() *solc.Compiler {
-	return v.compiler
+func (v *Verifier) GetCompiler() *solc.Solc {
+	return v.solc
 }
 
 // Verify compiles the sources using the solc compiler and then verifies the bytecode.
 // If the bytecode does not match the compiled result, it returns a diff of the two.
 // Returns true if the bytecode matches, otherwise returns false.
 // Also returns an error if there's any issue in the compilation or verification process.
-func (v *Verifier) Verify(bytecode []byte) (*VerifyResult, error) {
-	results, err := v.compiler.Compile()
+func (v *Verifier) Verify(ctx context.Context, bytecode []byte, compilerConfig *solc.CompilerConfig) (*VerifyResult, error) {
+	results, err := v.solc.Compile(ctx, v.sources.GetCombinedSource(), compilerConfig)
 	if err != nil {
 		return nil, err
 	}
