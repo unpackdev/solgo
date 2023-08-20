@@ -46,9 +46,13 @@ func TestSlither(t *testing.T) {
 	err = solcConfig.SetReleasesPath(releasesPath)
 	assert.NoError(t, err)
 
-	solc, err := solc.New(context.TODO(), solcConfig)
+	compiler, err := solc.New(context.TODO(), solcConfig)
 	assert.NoError(t, err)
-	assert.NotNil(t, solc)
+	assert.NotNil(t, compiler)
+
+	// Make sure to sync the releases...
+	err = compiler.Sync()
+	assert.NoError(t, err)
 
 	// Define multiple test cases
 	testCases := []struct {
@@ -289,7 +293,7 @@ func TestSlither(t *testing.T) {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			slither, err := NewSlither(ctx, solc, slitherConfig)
+			slither, err := NewSlither(ctx, compiler, slitherConfig)
 			assert.NoError(t, err)
 			assert.NotNil(t, slither)
 
