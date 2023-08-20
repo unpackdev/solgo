@@ -21,10 +21,6 @@ type Auditor struct {
 // configuration, and sources. It ensures that the Slither tool is properly
 // initialized and that the sources are prepared for analysis.
 func NewAuditor(ctx context.Context, compiler *solc.Solc, config *Config, sources *solgo.Sources) (*Auditor, error) {
-	if err := compiler.Sync(); err != nil {
-		return nil, err
-	}
-
 	slither, err := NewSlither(ctx, compiler, config)
 	if err != nil {
 		return nil, err

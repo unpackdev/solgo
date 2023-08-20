@@ -6,13 +6,13 @@
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/txpull/solgo)](https://pkg.go.dev/github.com/txpull/solgo)
 [![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7719/badge)](https://bestpractices.coreinfrastructure.org/projects/7719)
 
-# Solidity Parser in Go
+# Solidity Parser and Analyzer in Go
 
-SolGo contains a Solidity parser written in Go, using Antlr and AntlrGo for grammar parsing. The aim of this project is to provide a tool to parse Solidity source code into a structured format, enabling further analysis.
+**SolGo** - a robust tool crafted in Go, designed to dissect and analyze Solidity's source code.
 
-The parser is generated from a Solidity grammar file using Antlr, producing a lexer, parser, and listener using AntlrGo. This allows for the syntactic analysis of Solidity code, transforming it into a parse tree that can be traversed and manipulated.
+The parser is generated from a Solidity grammar file using **Antlr**, producing a lexer, parser, and listener using **AntlrGo**. This allows for the syntactic analysis of Solidity code, transforming it into a parse tree that offers offers a detailed syntactic representation of the code, allowing for intricate navigation and manipulation.
 
-This project is ideal for developers working with Solidity smart contracts who wish to leverage the power and efficiency of Go for their analysis tools.
+This project is ideal for those diving into data analysis, construction of robust APIs, developing advanced analysis tools, enhancing smart contract security, and anyone keen on harnessing Go for their Solidity endeavors.
 
 ## Disclaimer
 

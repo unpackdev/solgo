@@ -47,9 +47,13 @@ func TestAuditor(t *testing.T) {
 	err = solcConfig.SetReleasesPath(releasesPath)
 	assert.NoError(t, err)
 
-	solc, err := solc.New(context.TODO(), solcConfig)
+	compiler, err := solc.New(context.TODO(), solcConfig)
 	assert.NoError(t, err)
-	assert.NotNil(t, solc)
+	assert.NotNil(t, compiler)
+
+	// Make sure to sync the releases...
+	err = compiler.Sync()
+	assert.NoError(t, err)
 
 	// Define multiple test cases
 	testCases := []struct {
@@ -100,7 +104,7 @@ func TestAuditor(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			auditor, err := NewAuditor(context.Background(), solc, slitherConfig, testCase.sources)
+			auditor, err := NewAuditor(context.Background(), compiler, slitherConfig, testCase.sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, auditor)
 			assert.True(t, auditor.IsReady())

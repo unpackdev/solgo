@@ -3,7 +3,7 @@ module github.com/txpull/solgo
 go 1.19
 
 require (
-	github.com/0x19/solc-switch v0.0.0-20230819081719-fdaccabb1677
+	github.com/0x19/solc-switch v1.0.0
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
 	github.com/ethereum/go-ethereum v1.12.0
@@ -18,8 +18,6 @@ require (
 	go.uber.org/zap v1.25.0
 	google.golang.org/protobuf v1.31.0
 )
-
-//replace github.com/txpull/protos => ../protos
 
 require (
 	github.com/benbjohnson/clock v1.3.5 // indirect

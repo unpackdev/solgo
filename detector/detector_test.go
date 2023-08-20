@@ -43,6 +43,14 @@ func TestDetectorFromSources(t *testing.T) {
 	err = solcConfig.SetReleasesPath(releasesPath)
 	assert.NoError(t, err)
 
+	compiler, err := solc.New(context.Background(), solcConfig)
+	assert.NoError(t, err)
+	assert.NotNil(t, compiler)
+
+	// Make sure to sync the releases...
+	err = compiler.Sync()
+	assert.NoError(t, err)
+
 	// Define multiple test cases
 	testCases := []struct {
 		name               string
@@ -241,7 +249,7 @@ func TestDetectorFromSources(t *testing.T) {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			detector, err := NewDetectorFromSources(ctx, solcConfig, testCase.sources)
+			detector, err := NewDetectorFromSources(ctx, compiler, testCase.sources)
 			assert.NoError(t, err)
 			assert.Equal(t, ctx, detector.GetContext())
 			assert.IsType(t, &Detector{}, detector)
@@ -276,7 +284,7 @@ func TestDetectorFromSources(t *testing.T) {
 			}
 
 			if testCase.corruptNewDetector {
-				detector, err := NewDetectorFromSources(ctx, solcConfig, nil)
+				detector, err := NewDetectorFromSources(ctx, compiler, nil)
 				assert.Error(t, err)
 				assert.Nil(t, detector)
 			}
