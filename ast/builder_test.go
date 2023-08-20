@@ -67,7 +67,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				assert.NoError(t, err)
 			}
 
-			prettyJson, err := astBuilder.ToJSON()
+			prettyJson, err := utils.ToJSONPretty(astBuilder.GetRoot())
 			assert.NoError(t, err)
 			assert.NotEmpty(t, prettyJson)
 			err = utils.WriteToFile(
