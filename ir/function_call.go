@@ -1,6 +1,7 @@
 package ir
 
 import (
+	"fmt"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -89,6 +90,7 @@ func (e *FunctionCall) GetReferenceStatementId() int64 {
 
 // GetReferenceStatement returns the reference statement of the function call statement.
 func (e *FunctionCall) GetReferenceStatement() *Function {
+	fmt.Println("Here...", e.GetName())
 	return e.referencedUnit
 }
 
@@ -153,8 +155,6 @@ func (b *Builder) processFunctionCall(fn *Function, unit *ast.FunctionCall) *Fun
 		if node := b.byFunction(toReturn.Name); node != nil {
 			toReturn.referencedUnit = node
 			toReturn.ReferenceStatementId = node.GetId()
-
-			// b.dumpNode(unit)
 
 			nodeType := node.GetAST().GetTypeDescription()
 			if strings.Contains(nodeType.GetIdentifier(), "t_contract") {

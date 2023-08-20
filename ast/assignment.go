@@ -29,7 +29,7 @@ func NewAssignment(b *ASTBuilder) *Assignment {
 	return &Assignment{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_EXPRESSION_STATEMENT,
+		NodeType:   ast_pb.NodeType_ASSIGNMENT,
 	}
 }
 
@@ -66,6 +66,7 @@ func (a *Assignment) GetNodes() []Node[NodeType] {
 
 	if a.RightExpression != nil {
 		toReturn = append(toReturn, a.RightExpression)
+		toReturn = append(toReturn, a.RightExpression.GetNodes()...)
 	}
 
 	return toReturn
