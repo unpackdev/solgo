@@ -15,9 +15,9 @@ This project is ideal for those diving into data analysis, construction of robus
 
 ## Disclaimer
 
-Please be aware that this project is still under active development. While it is approaching a state suitable for production use, there may still be undiscovered issues or limitations. Over the next few weeks, extensive testing will be conducted on 1-2 million contracts to evaluate its performance and stability. Additional tests and comprehensive documentation will also be added during this phase.
+Please be aware that this project is still under active development. While it is approaching a state suitable for production use, there may still be undiscovered issues or limitations. Over the next few months, extensive testing will be conducted to evaluate its performance and stability. Additional tests and documentation will also be added during this phase.
 
-Once we are confident that the project is fully ready for production, this disclaimer will be removed. Until then, please use the software with caution and report any potential issues or feedback to help us improve its quality.
+Once I am confident that the project is fully ready for production, this disclaimer will be removed. Until then, please use the software with caution and report any potential issues or feedback to help improve its quality.
 
 ## Documentation
 
@@ -69,8 +69,3 @@ Contributions to SolGo are always welcome! Please visit [Contributing](https://g
 ## License
 
 SolGo is licensed under the Apache 2.0. See [LICENSE](LICENSE) for the full license text.
-
-
-## Acknowledgements
-
-We would like to express our gratitude to the Solidity team for maintaining the Solidity grammar files, and to the Antlr and AntlrGo team for providing the powerful Antlr tool that makes this project possible. Not to forget the Crytic and Slither contributors for their hard work on the Slither tool as without it we would have hard time detecting vulnerabilities in smart contracts.
