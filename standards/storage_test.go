@@ -5,11 +5,20 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	eip_pb "github.com/txpull/protos/dist/go/eip"
 )
 
 func TestEIPStorage(t *testing.T) {
 	// Register all EIPs.
 	assert.NoError(t, LoadStandards())
+
+	// Test non existing yet standard...
+	s, err := GetContractByStandard(Standard("CORRUPTED"))
+	assert.Error(t, err)
+	assert.Nil(t, s)
+
+	unknown := Standard("NOT_DEFINED_YET")
+	assert.Equal(t, unknown.ToProto(), eip_pb.Standard_UNKNOWN)
 
 	tests := []struct {
 		name           string

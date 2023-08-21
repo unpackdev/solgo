@@ -1,5 +1,6 @@
 package standards
 
+// standards is a map that stores ContractStandard instances indexed by their Standard identifier.
 var standards = map[Standard]ContractStandard{
 	EIP20: {
 		Name: "ERC-20 Token Standard",
