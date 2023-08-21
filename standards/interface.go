@@ -1,4 +1,4 @@
-package eip
+package standards
 
 import eip_pb "github.com/txpull/protos/dist/go/eip"
 
@@ -30,7 +30,7 @@ type EIP interface {
 
 	// ConfidenceCheck returns a discovery confidence information and a boolean indicating whether
 	// the contract is to any level compliant with the Ethereum standard.
-	ConfidenceCheck(contract *Contract) (Discovery, bool)
+	ConfidenceCheck(contract *ContractMatcher) (Discovery, bool)
 
 	// TokenCount returns the number of tokens associated with the Ethereum standard.
 	TokenCount() int

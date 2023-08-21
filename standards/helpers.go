@@ -1,4 +1,4 @@
-package eip
+package standards
 
 import (
 	"encoding/json"

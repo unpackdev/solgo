@@ -1,4 +1,4 @@
-package eip
+package standards
 
 import (
 	eip_pb "github.com/txpull/protos/dist/go/eip"
@@ -78,7 +78,7 @@ func CalculateDiscoveryConfidence(totalConfidence float64) (ConfidenceLevel, Con
 }
 
 // ConfidenceCheck checks the confidence of a contract against a standard EIP.
-func ConfidenceCheck(standard EIP, contract *Contract) (Discovery, bool) {
+func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) {
 	toReturn := Discovery{
 		Standard:         standard.GetType(),
 		Confidence:       NoConfidence,
@@ -86,7 +86,7 @@ func ConfidenceCheck(standard EIP, contract *Contract) (Discovery, bool) {
 		Threshold:        NoConfidenceThreshold,
 		MaximumTokens:    standard.TokenCount(),
 		DiscoveredTokens: 0,
-		Contract: &Contract{
+		Contract: &ContractMatcher{
 			Name:      contract.Name,
 			Functions: make([]Function, 0),
 			Events:    make([]Event, 0),

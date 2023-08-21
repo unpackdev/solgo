@@ -1,4 +1,4 @@
-package eip
+package standards
 
 import (
 	"path/filepath"
@@ -11,12 +11,12 @@ import (
 func TestEIPConfidenceDiscovery(t *testing.T) {
 	tests := []struct {
 		name       string
-		eip        EIP
+		standard   EIP
 		outputPath string
 		contracts  []struct {
 			name                 string
 			outputFile           string
-			contract             *Contract
+			contract             *ContractMatcher
 			expectedLevel        ConfidenceLevel
 			expectedThreshold    ConfidenceThreshold
 			standardTokenCount   int
@@ -28,13 +28,18 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		expectedError string
 	}{
 		{
-			name:       "Test EIP20",
-			eip:        NewEip20(),
+			name: "Test EIP20",
+			standard: func() EIP {
+				standard, err := GetContractByStandard(EIP20)
+				assert.NoError(t, err)
+				assert.NotNil(t, standard)
+				return standard
+			}(),
 			outputPath: "eip/",
 			contracts: []struct {
 				name                 string
 				outputFile           string
-				contract             *Contract
+				contract             *ContractMatcher
 				expectedLevel        ConfidenceLevel
 				expectedThreshold    ConfidenceThreshold
 				standardTokenCount   int
@@ -46,7 +51,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Full Match",
 					outputFile: "eip20_full_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC20 Full Match",
 						Functions: []Function{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
@@ -72,7 +77,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "High Match",
 					outputFile: "eip20_high_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC20 High Match",
 						Functions: []Function{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
@@ -98,7 +103,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Medium Match",
 					outputFile: "eip20_medium_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC20 Medium Match",
 						Functions: []Function{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
@@ -123,7 +128,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Low Match",
 					outputFile: "eip20_low_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC20 Low Match",
 						Functions: []Function{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
@@ -143,7 +148,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "No Match",
 					outputFile: "eip20_no_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name:      "ERC20 No Match",
 						Functions: []Function{},
 						Events:    []Event{},
@@ -160,13 +165,18 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 			expectedError: "",
 		},
 		{
-			name:       "Test EIP721",
-			eip:        NewEip721(),
+			name: "Test EIP721",
+			standard: func() EIP {
+				standard, err := GetContractByStandard(EIP721)
+				assert.NoError(t, err)
+				assert.NotNil(t, standard)
+				return standard
+			}(),
 			outputPath: "eip/",
 			contracts: []struct {
 				name                 string
 				outputFile           string
-				contract             *Contract
+				contract             *ContractMatcher
 				expectedLevel        ConfidenceLevel
 				expectedThreshold    ConfidenceThreshold
 				standardTokenCount   int
@@ -178,7 +188,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Full Match",
 					outputFile: "eip721_full_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC721 Full Match",
 						Functions: []Function{
 							newFunction("name", nil, []Output{{Type: TypeString}}),
@@ -209,13 +219,18 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 			},
 		},
 		{
-			name:       "Test EIP1155",
-			eip:        NewEip1155(),
+			name: "Test EIP1155",
+			standard: func() EIP {
+				standard, err := GetContractByStandard(EIP1155)
+				assert.NoError(t, err)
+				assert.NotNil(t, standard)
+				return standard
+			}(),
 			outputPath: "eip/",
 			contracts: []struct {
 				name                 string
 				outputFile           string
-				contract             *Contract
+				contract             *ContractMatcher
 				expectedLevel        ConfidenceLevel
 				expectedThreshold    ConfidenceThreshold
 				standardTokenCount   int
@@ -227,7 +242,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Full Match",
 					outputFile: "eip1155_full_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC1155 Full Match",
 						Functions: []Function{
 							newFunction("safeTransferFrom", []Input{{Type: TypeAddress}, {Type: TypeAddress}, {Type: TypeUint256}, {Type: TypeUint256}, {Type: TypeBytes}}, nil),
@@ -255,13 +270,18 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 			},
 		},
 		{
-			name:       "Test EIP1820",
-			eip:        NewEip1820(),
+			name: "Test EIP1820",
+			standard: func() EIP {
+				standard, err := GetContractByStandard(EIP1820)
+				assert.NoError(t, err)
+				assert.NotNil(t, standard)
+				return standard
+			}(),
 			outputPath: "eip/",
 			contracts: []struct {
 				name                 string
 				outputFile           string
-				contract             *Contract
+				contract             *ContractMatcher
 				expectedLevel        ConfidenceLevel
 				expectedThreshold    ConfidenceThreshold
 				standardTokenCount   int
@@ -273,7 +293,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Full Match",
 					outputFile: "eip1820_full_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC1820 Full Match",
 						Functions: []Function{
 							newFunction("setInterfaceImplementer", []Input{{Type: TypeAddress}, {Type: TypeBytes32}, {Type: TypeAddress}}, nil),
@@ -299,13 +319,18 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 			},
 		},
 		{
-			name:       "Test EIP1822",
-			eip:        NewEip1822(),
+			name: "Test EIP1822",
+			standard: func() EIP {
+				standard, err := GetContractByStandard(EIP1822)
+				assert.NoError(t, err)
+				assert.NotNil(t, standard)
+				return standard
+			}(),
 			outputPath: "eip/",
 			contracts: []struct {
 				name                 string
 				outputFile           string
-				contract             *Contract
+				contract             *ContractMatcher
 				expectedLevel        ConfidenceLevel
 				expectedThreshold    ConfidenceThreshold
 				standardTokenCount   int
@@ -317,7 +342,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Full Match",
 					outputFile: "eip1822_full_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC1822 Full Match",
 						Functions: []Function{
 							newFunction("getImplementation", nil, []Output{{Type: TypeAddress}}),
@@ -341,13 +366,18 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 			},
 		},
 		{
-			name:       "Test EIP1967",
-			eip:        NewEip1967(),
+			name: "Test EIP1967",
+			standard: func() EIP {
+				standard, err := GetContractByStandard(EIP1967)
+				assert.NoError(t, err)
+				assert.NotNil(t, standard)
+				return standard
+			}(),
 			outputPath: "eip/",
 			contracts: []struct {
 				name                 string
 				outputFile           string
-				contract             *Contract
+				contract             *ContractMatcher
 				expectedLevel        ConfidenceLevel
 				expectedThreshold    ConfidenceThreshold
 				standardTokenCount   int
@@ -359,7 +389,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 				{
 					name:       "Full Match",
 					outputFile: "eip1967_full_match",
-					contract: &Contract{
+					contract: &ContractMatcher{
 						Name: "ERC1967 Full Match",
 						Functions: []Function{
 							newFunction("setInterfaceImplementer", []Input{{Type: TypeAddress}, {Type: TypeBytes32}, {Type: TypeAddress}}, nil),
@@ -390,7 +420,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			for _, contract := range tt.contracts {
 				t.Run(contract.name, func(t *testing.T) {
-					discovery, found := tt.eip.ConfidenceCheck(contract.contract)
+					discovery, found := tt.standard.ConfidenceCheck(contract.contract)
 
 					// Assert the confidence level and threshold against the expected values
 					assert.Equal(t, contract.expectedLevel, discovery.Confidence)

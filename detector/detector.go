@@ -11,9 +11,9 @@ import (
 	"github.com/txpull/solgo/abi"
 	"github.com/txpull/solgo/ast"
 	"github.com/txpull/solgo/audit"
-	"github.com/txpull/solgo/eip"
 	"github.com/txpull/solgo/ir"
 	"github.com/txpull/solgo/opcode"
+	"github.com/txpull/solgo/standards"
 )
 
 // Detector is a utility structure that provides functionalities to detect and analyze
@@ -33,8 +33,8 @@ func NewDetectorFromSources(ctx context.Context, compiler *solc.Solc, sources *s
 		return nil, errors.New("sources needed to initialize detector")
 	}
 
-	if !eip.StandardsLoaded() {
-		if err := eip.LoadStandards(); err != nil {
+	if !standards.StandardsLoaded() {
+		if err := standards.LoadStandards(); err != nil {
 			return nil, err
 		}
 	}

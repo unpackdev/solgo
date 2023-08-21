@@ -1,4 +1,4 @@
-package eip
+package standards
 
 func init() {
 	// Initialize the storage map so it can be accessed globally.
