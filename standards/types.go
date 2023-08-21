@@ -1,4 +1,4 @@
-package eip
+package standards
 
 import (
 	eip_pb "github.com/txpull/protos/dist/go/eip"
@@ -192,9 +192,9 @@ func (cs *ContractStandard) ToProto() *eip_pb.ContractStandard {
 	}
 }
 
-// Contract represents an Ethereum smart contract that attempts to confirm to a standard interface,
+// ContractMatcher represents an Ethereum smart contract that attempts to confirm to a standard interface,
 // such as the ERC-20 or ERC-721 standards. Used while performing a contract standard detection.
-type Contract struct {
+type ContractMatcher struct {
 	// Name of the contract.
 	Name string `json:"name"`
 
@@ -206,7 +206,7 @@ type Contract struct {
 }
 
 // ToProto converts the Event to its protobuf representation.
-func (c *Contract) ToProto() *eip_pb.Contract {
+func (c *ContractMatcher) ToProto() *eip_pb.Contract {
 	protoFns := make([]*eip_pb.Function, 0)
 	protoEvents := make([]*eip_pb.Event, 0)
 
@@ -248,7 +248,7 @@ type Discovery struct {
 	Standard Standard `json:"standard"`
 
 	// Contract that is being scanned including mathed functions and events.
-	Contract *Contract `json:"contract"`
+	Contract *ContractMatcher `json:"contract"`
 }
 
 // ToProto converts the Discovery to its protobuf representation.

@@ -8,7 +8,7 @@ import (
 	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/eip"
+	"github.com/txpull/solgo/standards"
 )
 
 // Builder facilitates the creation of the IR from source code using solgo and AST tools.
@@ -38,8 +38,8 @@ func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builde
 		return nil, err
 	}
 
-	if !eip.StandardsLoaded() {
-		if err := eip.LoadStandards(); err != nil {
+	if !standards.StandardsLoaded() {
+		if err := standards.LoadStandards(); err != nil {
 			return nil, err
 		}
 	}

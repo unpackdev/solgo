@@ -1,4 +1,4 @@
-package eip
+package standards
 
 import (
 	"strings"
@@ -50,28 +50,10 @@ const (
 
 // LoadStandards loads list of supported Ethereum EIPs into the registry.
 func LoadStandards() error {
-	if err := RegisterStandard(EIP20, NewEip20()); err != nil {
-		return err
-	}
-
-	if err := RegisterStandard(EIP721, NewEip721()); err != nil {
-		return err
-	}
-
-	if err := RegisterStandard(EIP1155, NewEip1155()); err != nil {
-		return err
-	}
-
-	if err := RegisterStandard(EIP1820, NewEip1820()); err != nil {
-		return err
-	}
-
-	if err := RegisterStandard(EIP1822, NewEip1822()); err != nil {
-		return err
-	}
-
-	if err := RegisterStandard(EIP1967, NewEip1967()); err != nil {
-		return err
+	for name, standard := range standards {
+		if err := RegisterStandard(name, NewContract(standard)); err != nil {
+			return err
+		}
 	}
 
 	return nil

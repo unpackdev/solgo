@@ -1,4 +1,4 @@
-package eip
+package standards
 
 // TokenCount calculates and returns the total number of tokens (inputs and outputs)
 // present in the functions and events of a given ContractStandard.
