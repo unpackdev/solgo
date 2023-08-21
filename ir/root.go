@@ -4,7 +4,7 @@ import (
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/eip"
+	"github.com/txpull/solgo/standards"
 	"go.uber.org/zap"
 )
 
@@ -90,7 +90,7 @@ func (r *RootSourceUnit) GetEips() []*EIP {
 }
 
 // HasEips returns true if standard is already registered false otherwise.
-func (r *RootSourceUnit) HasEIP(standard eip.Standard) bool {
+func (r *RootSourceUnit) HasEIP(standard standards.Standard) bool {
 	for _, e := range r.Eips {
 		if e.Standard.Type == standard {
 			return true
@@ -117,13 +117,13 @@ func (r *RootSourceUnit) HasContractType(ctype string) bool {
 }
 
 // SetContractType sets the contract type for the given standard.
-func (r *RootSourceUnit) SetContractType(standard eip.Standard) {
+func (r *RootSourceUnit) SetContractType(standard standards.Standard) {
 	switch standard {
-	case eip.EIP20:
+	case standards.EIP20:
 		r.appendContractType("token")
-	case eip.EIP721, eip.EIP1155:
+	case standards.EIP721, standards.EIP1155:
 		r.appendContractType("nft")
-	case eip.EIP1967, eip.EIP1820:
+	case standards.EIP1967, standards.EIP1820:
 		r.appendContractType("proxy")
 		r.appendContractType("upgradeable")
 	}

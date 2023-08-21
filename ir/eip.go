@@ -2,7 +2,7 @@ package ir
 
 import (
 	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/eip"
+	"github.com/txpull/solgo/standards"
 )
 
 // EIP represents a specific Ethereum Improvement Proposal standard that a contract may adhere to.
@@ -14,10 +14,10 @@ type EIP struct {
 	ContractName string `json:"contract_name"`
 
 	// Confidence represents the confidence level of the contract adhering to a specific EIP standard.
-	Confidence eip.Discovery `json:"confidences"`
+	Confidence standards.Discovery `json:"confidences"`
 
 	// Standard provides details about the specific EIP standard.
-	Standard eip.ContractStandard `json:"standards"`
+	Standard standards.ContractStandard `json:"standards"`
 }
 
 // GetContractId returns the unique identifier for the contract.
@@ -31,12 +31,12 @@ func (e *EIP) GetContractName() string {
 }
 
 // GetConfidence returns the confidence level of the contract adhering to a specific EIP standard.
-func (e *EIP) GetConfidence() eip.Discovery {
+func (e *EIP) GetConfidence() standards.Discovery {
 	return e.Confidence
 }
 
 // GetStandard returns the EIP standard.
-func (e *EIP) GetStandard() eip.ContractStandard {
+func (e *EIP) GetStandard() standards.ContractStandard {
 	return e.Standard
 }
 
@@ -57,31 +57,31 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 	// Extracting functions and events to build actual contract that is going to
 	// be sent towards the EIP discovery package.
 
-	contract := &eip.Contract{
+	contract := &standards.ContractMatcher{
 		Name:      root.GetEntryName(),
-		Functions: make([]eip.Function, 0),
-		Events:    make([]eip.Event, 0),
+		Functions: make([]standards.Function, 0),
+		Events:    make([]standards.Event, 0),
 	}
 
 	for _, unit := range root.GetContracts() {
 		for _, function := range unit.GetFunctions() {
-			inputs := make([]eip.Input, 0)
-			outputs := make([]eip.Output, 0)
+			inputs := make([]standards.Input, 0)
+			outputs := make([]standards.Output, 0)
 
 			for _, param := range function.GetParameters() {
-				inputs = append(inputs, eip.Input{
+				inputs = append(inputs, standards.Input{
 					Type:    param.GetTypeDescription().GetString(),
 					Indexed: false, // Specific to events...
 				})
 			}
 
 			for _, ret := range function.GetReturnStatements() {
-				outputs = append(outputs, eip.Output{
+				outputs = append(outputs, standards.Output{
 					Type: ret.GetTypeDescription().GetString(),
 				})
 			}
 
-			contract.Functions = append(contract.Functions, eip.Function{
+			contract.Functions = append(contract.Functions, standards.Function{
 				Name:    function.GetName(),
 				Inputs:  inputs,
 				Outputs: outputs,
@@ -89,28 +89,28 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 		}
 
 		for _, event := range unit.GetEvents() {
-			inputs := make([]eip.Input, 0)
+			inputs := make([]standards.Input, 0)
 
 			for _, param := range event.GetParameters() {
-				inputs = append(inputs, eip.Input{
+				inputs = append(inputs, standards.Input{
 					Type:    param.GetTypeDescription().GetString(),
 					Indexed: param.IsIndexed(),
 				})
 			}
 
-			contract.Events = append(contract.Events, eip.Event{
+			contract.Events = append(contract.Events, standards.Event{
 				Name:    event.GetName(),
 				Inputs:  inputs,
-				Outputs: make([]eip.Output, 0),
+				Outputs: make([]standards.Output, 0),
 			})
 		}
 	}
 
 	// Now when we have full contract functions and events we can send it to the
 	// EIP discovery package to find out if it matches any of the EIPs.
-	for _, standard := range eip.GetSortedRegisteredStandards() {
+	for _, standard := range standards.GetSortedRegisteredStandards() {
 		if !root.HasEIP(standard.GetType()) {
-			if confidence, found := eip.ConfidenceCheck(standard, contract); found {
+			if confidence, found := standards.ConfidenceCheck(standard, contract); found {
 				root.Eips = append(root.Eips, &EIP{
 					ContractName: contract.Name,
 					ContractId:   root.GetEntryId(),

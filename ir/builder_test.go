@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo"
 	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/eip"
+	"github.com/txpull/solgo/standards"
 	"github.com/txpull/solgo/tests"
 	"github.com/txpull/solgo/utils"
 	"go.uber.org/zap"
@@ -319,7 +319,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 				assert.NotNil(t, eip.ToProto())
 			}
 
-			assert.NotNil(t, root.HasEIP(eip.EIP1014))
+			assert.NotNil(t, root.HasEIP(standards.EIP1014))
 			assert.NotNil(t, root.GetAST())
 
 			for _, contract := range root.GetContracts() {
