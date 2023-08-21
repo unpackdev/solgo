@@ -5,6 +5,7 @@ import (
 	"github.com/txpull/solgo/ast"
 )
 
+// byFunction searches for a function by its name in the contract's AST and returns a function if found.
 func (r *Builder) byFunction(name string) *Function {
 	for _, unit := range r.astBuilder.GetRoot().GetSourceUnits() {
 		contract := unit.GetContract()
@@ -20,6 +21,8 @@ func (r *Builder) byFunction(name string) *Function {
 	return nil
 }
 
+// LookupReferencedFunctionsByNode searches for referenced functions in the given AST nodes and returns a slice of functions.
+// It searches for referenced functions in member access expressions and function calls within the AST nodes recursively.
 func (r *Builder) LookupReferencedFunctionsByNode(nodes ast.Node[ast.NodeType]) []*Function {
 	var toReturn []*Function
 
