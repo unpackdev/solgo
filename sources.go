@@ -339,7 +339,7 @@ func (s *Sources) WriteToDir(path string) error {
 
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
-		content := SimplifyImportPaths(sourceUnit.Content)
+		content := utils.SimplifyImportPaths(sourceUnit.Content)
 
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
@@ -468,38 +468,6 @@ func extractImports(content string) []string {
 // replaceOpenZeppelin replaces the @openzeppelin path with the actual path to the openzeppelin-contracts repository.
 func replaceOpenZeppelin(path string) string {
 	return strings.Replace(path, "@openzeppelin", filepath.Join("./sources/", "openzeppelin"), 1)
-}
-
-// SimplifyImportPaths simplifies the paths in import statements as file will already be present in the
-// directory for future consumption and is rather corrupted for import paths to stay the same.
-func SimplifyImportPaths(content string) string {
-	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
-	return re.ReplaceAllString(content, `import "./$1";`)
-}
-
-// StripImportPaths removes the import paths entirely from the content.
-func StripImportPaths(content string) string {
-	re := regexp.MustCompile(`import ".*?";`)
-	return re.ReplaceAllString(content, "")
-}
-
-func StripExtraSPDXLines(content string) string {
-	lines := strings.Split(content, "\n")
-	foundSPDX := false
-	result := []string{}
-
-	for _, line := range lines {
-		if strings.HasPrefix(line, "// SPDX") {
-			if !foundSPDX {
-				result = append(result, line)
-				foundSPDX = true
-			}
-		} else {
-			result = append(result, line)
-		}
-	}
-
-	return strings.Join(result, "\n")
 }
 
 // Node represents a unit of source code in Solidity with its dependencies.

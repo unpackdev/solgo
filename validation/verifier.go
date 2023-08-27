@@ -8,6 +8,7 @@ import (
 	"github.com/0x19/solc-switch"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/utils"
 )
 
 // Verifier is a utility that facilitates the verification of Ethereum smart contracts.
@@ -76,8 +77,15 @@ func (v *Verifier) GetCompiler() *solc.Solc {
 // If the bytecode does not match the compiled result, it returns a diff of the two.
 // Returns true if the bytecode matches, otherwise returns false.
 // Also returns an error if there's any issue in the compilation or verification process.
-func (v *Verifier) Verify(ctx context.Context, bytecode []byte, compilerConfig *solc.CompilerConfig) (*VerifyResult, error) {
-	results, err := v.solc.Compile(ctx, solgo.StripExtraSPDXLines(solgo.StripImportPaths(v.sources.GetCombinedSource())), compilerConfig)
+func (v *Verifier) Verify(ctx context.Context, bytecode []byte, config *solc.CompilerConfig) (*VerifyResult, error) {
+	source := utils.StripExtraSPDXLines(
+		utils.StripImportPaths(
+			v.sources.GetCombinedSource(),
+		),
+	)
+	utils.WriteToFile("combined.sol", []byte(source))
+
+	results, err := v.solc.Compile(ctx, source, config)
 	if err != nil {
 		return nil, err
 	}
