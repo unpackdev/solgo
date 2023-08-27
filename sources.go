@@ -473,6 +473,8 @@ func replaceOpenZeppelin(path string) string {
 // Node represents a unit of source code in Solidity with its dependencies.
 type Node struct {
 	Name         string
+	Size         int
+	Content      string
 	Dependencies []string
 }
 
@@ -486,10 +488,27 @@ func (s *Sources) SortContracts() error {
 			baseName := filepath.Base(imp)
 			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
 		}
-		nodes = append(nodes, Node{Name: sourceUnit.Name, Dependencies: dependencies})
+		nodes = append(nodes, Node{
+			Name:         sourceUnit.Name,
+			Size:         len(sourceUnit.Content),
+			Content:      sourceUnit.Content,
+			Dependencies: dependencies,
+		})
 	}
 
-	sortedNames, err := topologicalSort(nodes)
+	// Preprocess nodes to keep only one node for each Name
+	uniqueNodes := make(map[string]Node)
+	for _, node := range nodes {
+		uniqueNodes[node.Name] = node
+	}
+
+	// Convert map values to a slice for the topological sort
+	preprocessedNodes := make([]Node, 0, len(uniqueNodes))
+	for _, node := range uniqueNodes {
+		preprocessedNodes = append(preprocessedNodes, node)
+	}
+
+	sortedNames, err := topologicalSort(preprocessedNodes)
 	if err != nil {
 		return err
 	}
@@ -509,29 +528,31 @@ func (s *Sources) SortContracts() error {
 func topologicalSort(nodes []Node) ([]string, error) {
 	var sorted []string
 	visited := make(map[string]bool)
-	var visit func(nodeName string) error
-	visit = func(nodeName string) error {
-		if visited[nodeName] {
+	var visit func(node Node) error
+	visit = func(node Node) error {
+		nodeKey := node.Name + "_" + strconv.Itoa(node.Size)
+		if visited[nodeKey] {
 			return nil
 		}
-		visited[nodeName] = true
-		for _, node := range nodes {
-			if node.Name == nodeName {
-				for _, dep := range node.Dependencies {
-					if err := visit(dep); err != nil {
+		visited[nodeKey] = true
+		for _, depName := range node.Dependencies {
+			for _, depNode := range nodes {
+				if depNode.Name == depName {
+					if err := visit(depNode); err != nil {
 						return err
 					}
+					break
 				}
-				break
 			}
 		}
-		sorted = append(sorted, nodeName)
+		sorted = append(sorted, node.Name)
 		return nil
 	}
 
 	for _, node := range nodes {
-		if !visited[node.Name] {
-			if err := visit(node.Name); err != nil {
+		nodeKey := node.Name + "_" + strconv.Itoa(node.Size)
+		if !visited[nodeKey] {
+			if err := visit(node); err != nil {
 				return nil, err
 			}
 		}
