@@ -24,6 +24,22 @@ type SourceUnit struct {
 	Content string `yaml:"content" json:"content"`
 }
 
+func (s *SourceUnit) String() string {
+	return fmt.Sprintf("SourceUnit{Name: %s, Path: %s, Content: %s}", s.Name, s.Path, s.Content)
+}
+
+func (s *SourceUnit) GetName() string {
+	return s.Name
+}
+
+func (s *SourceUnit) GetPath() string {
+	return s.Path
+}
+
+func (s *SourceUnit) GetContent() string {
+	return s.Content
+}
+
 // ToProto converts a SourceUnit to a protocol buffer SourceUnit.
 func (s *SourceUnit) ToProto() *sources_pb.SourceUnit {
 	return &sources_pb.SourceUnit{
@@ -45,6 +61,11 @@ type Sources struct {
 // ArePrepared returns true if the Sources has been prepared.
 func (s *Sources) ArePrepared() bool {
 	return s.prepared
+}
+
+// GetUnits returns the SourceUnits in the Sources.
+func (s *Sources) GetUnits() []*SourceUnit {
+	return s.SourceUnits
 }
 
 // ToProto converts a Sources to a protocol buffer Sources.
@@ -318,7 +339,7 @@ func (s *Sources) WriteToDir(path string) error {
 
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
-		content := simplifyImportPaths(sourceUnit.Content)
+		content := SimplifyImportPaths(sourceUnit.Content)
 
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
@@ -449,11 +470,36 @@ func replaceOpenZeppelin(path string) string {
 	return strings.Replace(path, "@openzeppelin", filepath.Join("./sources/", "openzeppelin"), 1)
 }
 
-// simplifyImportPaths simplifies the paths in import statements as file will already be present in the
+// SimplifyImportPaths simplifies the paths in import statements as file will already be present in the
 // directory for future consumption and is rather corrupted for import paths to stay the same.
-func simplifyImportPaths(content string) string {
+func SimplifyImportPaths(content string) string {
 	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
 	return re.ReplaceAllString(content, `import "./$1";`)
+}
+
+// StripImportPaths removes the import paths entirely from the content.
+func StripImportPaths(content string) string {
+	re := regexp.MustCompile(`import ".*?";`)
+	return re.ReplaceAllString(content, "")
+}
+
+func StripExtraSPDXLines(content string) string {
+	lines := strings.Split(content, "\n")
+	foundSPDX := false
+	result := []string{}
+
+	for _, line := range lines {
+		if strings.HasPrefix(line, "// SPDX") {
+			if !foundSPDX {
+				result = append(result, line)
+				foundSPDX = true
+			}
+		} else {
+			result = append(result, line)
+		}
+	}
+
+	return strings.Join(result, "\n")
 }
 
 // Node represents a unit of source code in Solidity with its dependencies.

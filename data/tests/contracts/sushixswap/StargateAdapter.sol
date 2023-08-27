@@ -2,7 +2,12 @@
 
 pragma solidity 0.8.11;
 
+import "./SafeERC20.sol";
+import "./IStargateReceiver.sol";
+import "./ImmutableState.sol";
 import "./IStargateAdapter.sol";
+import "./ISushiXSwap.sol";
+import "./IStargateWidget.sol";
 
 /// @title StargateAdapter
 /// @notice Adapter for function used by Stargate Bridge

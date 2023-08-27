@@ -77,7 +77,7 @@ func (v *Verifier) GetCompiler() *solc.Solc {
 // Returns true if the bytecode matches, otherwise returns false.
 // Also returns an error if there's any issue in the compilation or verification process.
 func (v *Verifier) Verify(ctx context.Context, bytecode []byte, compilerConfig *solc.CompilerConfig) (*VerifyResult, error) {
-	results, err := v.solc.Compile(ctx, v.sources.GetCombinedSource(), compilerConfig)
+	results, err := v.solc.Compile(ctx, solgo.StripExtraSPDXLines(solgo.StripImportPaths(v.sources.GetCombinedSource())), compilerConfig)
 	if err != nil {
 		return nil, err
 	}
