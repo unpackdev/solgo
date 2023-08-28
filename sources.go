@@ -103,12 +103,15 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	// Getting name looks surreal and easy, probably won't work in all cases and is
 	// too good to be true.
 	for name, source := range md.Sources {
+		fmt.Println(name)
 		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
 			Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
 			Path:    name,
 			Content: source.Content,
 		})
 	}
+
+	fmt.Println("-------------")
 
 	return sources
 }
@@ -217,6 +220,16 @@ func (s *Sources) GetCombinedSource() string {
 func (s *Sources) GetSourceUnitByName(name string) *SourceUnit {
 	for _, sourceUnit := range s.SourceUnits {
 		if sourceUnit.Name == name {
+			return sourceUnit
+		}
+	}
+	return nil
+}
+
+// GetSourceUnitByNameAndSize returns the SourceUnit with the given name and size from the Sources. If no such SourceUnit exists, it returns nil.
+func (s *Sources) GetSourceUnitByNameAndSize(name string, size int) *SourceUnit {
+	for _, sourceUnit := range s.SourceUnits {
+		if sourceUnit.Name == name && len(sourceUnit.Content) == size {
 			return sourceUnit
 		}
 	}
@@ -457,9 +470,9 @@ func extractImports(content string) []string {
 	re := regexp.MustCompile(`import "(.*?)";`)
 	matches := re.FindAllStringSubmatch(content, -1)
 
-	imports := make([]string, len(matches))
-	for i, match := range matches {
-		imports[i] = match[1]
+	imports := make([]string, 0)
+	for _, match := range matches {
+		imports = append(imports, match[1])
 	}
 
 	return imports
@@ -496,26 +509,32 @@ func (s *Sources) SortContracts() error {
 		})
 	}
 
-	// Preprocess nodes to keep only one node for each Name
-	uniqueNodes := make(map[string]Node)
+	// Use a combination of Name and Content for uniqueness
+	uniqueKey := func(node Node) string {
+		return node.Name + "_" + strconv.Itoa(len(node.Content))
+	}
+
+	uniqueNodesMap := make(map[string]bool)
+	var uniqueNodesSlice []Node
+
 	for _, node := range nodes {
-		uniqueNodes[node.Name] = node
+		key := uniqueKey(node)
+		if _, exists := uniqueNodesMap[key]; !exists {
+			uniqueNodesMap[key] = true
+			uniqueNodesSlice = append(uniqueNodesSlice, node)
+		}
 	}
 
-	// Convert map values to a slice for the topological sort
-	preprocessedNodes := make([]Node, 0, len(uniqueNodes))
-	for _, node := range uniqueNodes {
-		preprocessedNodes = append(preprocessedNodes, node)
-	}
-
-	sortedNames, err := topologicalSort(preprocessedNodes)
+	// Use uniqueNodesSlice for the topological sort
+	sortedNodes, err := topologicalSort(uniqueNodesSlice)
 	if err != nil {
 		return err
 	}
 
 	var sortedSourceUnits []*SourceUnit
-	for _, name := range sortedNames {
-		if sourceUnit := s.GetSourceUnitByName(name); sourceUnit != nil {
+	for _, node := range sortedNodes {
+		if sourceUnit := s.GetSourceUnitByNameAndSize(node.Name, node.Size); sourceUnit != nil {
+			fmt.Println(node.Name)
 			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
 		}
 	}
@@ -524,34 +543,53 @@ func (s *Sources) SortContracts() error {
 	return nil
 }
 
-// topologicalSort sorts the nodes based on their dependencies.
-func topologicalSort(nodes []Node) ([]string, error) {
-	var sorted []string
+// topologicalSort performs a topological sort on the given nodes based on their dependencies.
+// It returns a slice of nodes sorted in a way that for every directed edge U -> V,
+// node U comes before V in the ordering. If a cycle is detected, the function will
+// continue without error, but the result may not be a valid topological order.
+func topologicalSort(nodes []Node) ([]Node, error) {
+	var sorted []Node
 	visited := make(map[string]bool)
+	onStack := make(map[string]bool) // To detect cycles
+	stack := []string{}              // Stack to track nodes being visited
+
+	// Helper function to generate a unique key for each node
+	uniqueKey := func(node Node) string {
+		return node.Name + "_" + strconv.Itoa(node.Size)
+	}
+
 	var visit func(node Node) error
 	visit = func(node Node) error {
-		nodeKey := node.Name + "_" + strconv.Itoa(node.Size)
+		nodeKey := uniqueKey(node)
+		if onStack[nodeKey] {
+			// Detected a cycle, but we'll continue without error
+			return nil
+		}
 		if visited[nodeKey] {
 			return nil
 		}
 		visited[nodeKey] = true
+		onStack[nodeKey] = true
+		stack = append(stack, nodeKey) // Push node to stack
+
 		for _, depName := range node.Dependencies {
 			for _, depNode := range nodes {
 				if depNode.Name == depName {
 					if err := visit(depNode); err != nil {
 						return err
 					}
-					break
 				}
 			}
 		}
-		sorted = append(sorted, node.Name)
+
+		sorted = append(sorted, node)
+		stack = stack[:len(stack)-1] // Pop node from stack
+		onStack[nodeKey] = false
 		return nil
 	}
 
 	for _, node := range nodes {
-		nodeKey := node.Name + "_" + strconv.Itoa(node.Size)
-		if !visited[nodeKey] {
+		if !visited[uniqueKey(node)] {
 			if err := visit(node); err != nil {
 				return nil, err
 			}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 	"errors"
+	"strings"
 
 	"github.com/0x19/solc-switch"
 	"github.com/sergi/go-diff/diffmatchpatch"
@@ -83,7 +84,6 @@ func (v *Verifier) Verify(ctx context.Context, bytecode []byte, config *solc.Com
 			v.sources.GetCombinedSource(),
 		),
 	)
-	utils.WriteToFile("combined.sol", []byte(source))
 
 	results, err := v.solc.Compile(ctx, source, config)
 	if err != nil {
@@ -94,7 +94,7 @@ func (v *Verifier) Verify(ctx context.Context, bytecode []byte, config *solc.Com
 	if encoded != results.Bytecode {
 		dmp := diffmatchpatch.New()
 		diffs := dmp.DiffMain(encoded, results.Bytecode, false)
-
+		//fmt.Println(dmp.DiffPrettyText(diffs))
 		toReturn := &VerifyResult{
 			Verified:         false,
 			CompilerResults:  results,
@@ -114,6 +114,14 @@ func (v *Verifier) Verify(ctx context.Context, bytecode []byte, config *solc.Com
 	}
 
 	return toReturn, nil
+}
+
+func substringBefore(s, substr string) string {
+	index := strings.Index(s, substr)
+	if index == -1 {
+		return s // or return "" if you want an empty string when the substring is not found
+	}
+	return s[:index]
 }
 
 // VerifyResult represents the result of the verification process.
