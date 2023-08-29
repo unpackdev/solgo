@@ -3,11 +3,12 @@ module github.com/txpull/solgo
 go 1.19
 
 require (
-	github.com/0x19/solc-switch v1.0.0
+	github.com/0x19/solc-switch v1.0.2
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
 	github.com/ethereum/go-ethereum v1.12.0
 	github.com/fxamacker/cbor/v2 v2.4.0
+	github.com/goccy/go-graphviz v0.1.1
 	github.com/golang/protobuf v1.5.3
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
@@ -27,7 +28,6 @@ require (
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.10.1 // indirect
 	github.com/fogleman/gg v1.3.0 // indirect
-	github.com/goccy/go-graphviz v0.1.1 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/holiman/uint256 v1.2.3 // indirect
 	github.com/ipfs/boxo v0.10.2 // indirect

@@ -21,9 +21,15 @@ type Argument struct {
 // Constructor represents a contract constructor.
 // It includes the ABI of the constructor, the raw signature, and the arguments.
 type Constructor struct {
-	Abi          string     `json:"abi"`           // ABI of the constructor
-	SignatureRaw string     `json:"signature_raw"` // Raw signature of the constructor
-	Arguments    []Argument // List of arguments in the constructor
+	Abi               string        `json:"abi"`           // ABI of the constructor
+	Parsed            abi.ABI       `json:"-"`             // Parsed ABI of the constructor
+	SignatureRaw      string        `json:"signature_raw"` // Raw signature of the constructor
+	Arguments         []Argument    // List of arguments in the constructor
+	UnpackedArguments []interface{} `json:"unpacked_arguments"` // List of unpacked arguments in the constructor
+}
+
+func (c *Constructor) Pack() ([]byte, error) {
+	return c.Parsed.Constructor.Inputs.PackValues(c.UnpackedArguments)
 }
 
 // DecodeConstructorFromAbi decodes the constructor from the provided ABI and bytecode.
@@ -83,8 +89,10 @@ func DecodeConstructorFromAbi(bytecode []byte, constructorAbi string) (*Construc
 	}
 
 	return &Constructor{
-		Abi:          constructorAbi,
-		SignatureRaw: parsed.Constructor.String(),
-		Arguments:    arguments,
+		Abi:               constructorAbi,
+		Parsed:            parsed,
+		SignatureRaw:      parsed.Constructor.String(),
+		Arguments:         arguments,
+		UnpackedArguments: unpacked,
 	}, nil
 }

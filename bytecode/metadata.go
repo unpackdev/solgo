@@ -72,6 +72,11 @@ func (m *Metadata) GetBzzr1() string {
 	return fmt.Sprintf("bzz://%s", base58.Encode(m.Bzzr1))
 }
 
+// GetExecutionBytecode returns the execution bytecode of the contract.
+func (m *Metadata) GetExecutionBytecode() []byte {
+	return m.executionBytecode
+}
+
 // GetRawMetadata returns the raw CBOR metadata of the contract.
 func (m *Metadata) GetRawMetadata() []byte {
 	return m.raw

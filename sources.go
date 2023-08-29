@@ -103,15 +103,12 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	// Getting name looks surreal and easy, probably won't work in all cases and is
 	// too good to be true.
 	for name, source := range md.Sources {
-		fmt.Println(name)
 		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
 			Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
 			Path:    name,
 			Content: source.Content,
 		})
 	}
-
-	fmt.Println("-------------")
 
 	return sources
 }
@@ -534,7 +531,6 @@ func (s *Sources) SortContracts() error {
 	var sortedSourceUnits []*SourceUnit
 	for _, node := range sortedNodes {
 		if sourceUnit := s.GetSourceUnitByNameAndSize(node.Name, node.Size); sourceUnit != nil {
-			fmt.Println(node.Name)
 			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
 		}
 	}
