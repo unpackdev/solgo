@@ -24,18 +24,22 @@ type SourceUnit struct {
 	Content string `yaml:"content" json:"content"`
 }
 
+// String returns a string representation of the SourceUnit.
 func (s *SourceUnit) String() string {
 	return fmt.Sprintf("SourceUnit{Name: %s, Path: %s, Content: %s}", s.Name, s.Path, s.Content)
 }
 
+// GetName returns the name of the SourceUnit.
 func (s *SourceUnit) GetName() string {
 	return s.Name
 }
 
+// GetPath returns the path of the SourceUnit.
 func (s *SourceUnit) GetPath() string {
 	return s.Path
 }
 
+// GetContent returns the content of the SourceUnit.
 func (s *SourceUnit) GetContent() string {
 	return s.Content
 }

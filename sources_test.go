@@ -7,6 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/txpull/solgo/tests"
+	"github.com/txpull/solgo/utils"
 )
 
 func TestSources(t *testing.T) {
@@ -35,7 +36,7 @@ func TestSources(t *testing.T) {
 					},
 				},
 				EntrySourceUnitName: "Source",
-				LocalSourcesPath:    buildFullPath("./sources/"),
+				LocalSourcesPath:    utils.GetLocalSourcesPath(),
 			},
 			expected:          "Content of Source 1\n\nContent of Source 2",
 			expectedUnits:     2,
@@ -113,18 +114,18 @@ func TestSources(t *testing.T) {
 			assert.NoError(t, err)
 
 			assert.NoError(t, testCase.sources.SortContracts())
-			//combinedSource := testCase.sources.GetCombinedSource()
-			//assert.Equal(t, testCase.expected, combinedSource)
-			//os.WriteFile(fmt.Sprintf("combined_%d.sol", i), []byte(combinedSource), 0755)
+			combinedSource := testCase.sources.GetCombinedSource()
+			assert.Equal(t, testCase.expected, combinedSource)
 			assert.Equal(t, testCase.expectedUnits, len(testCase.sources.SourceUnits))
 			assert.NotNil(t, testCase.sources.ToProto())
 			assert.NoError(t, testCase.sources.WriteToDir("./data/tests/sources/"))
 			assert.NoError(t, testCase.sources.TruncateDir("./data/tests/sources/"))
 			assert.True(t, testCase.sources.ArePrepared())
-			assert.True(t, testCase.sources.SourceUnitExistsIn(testCase.sources.SourceUnits[0].Name, testCase.sources.SourceUnits))
-			assert.True(t, testCase.sources.SourceUnitExists(testCase.sources.SourceUnits[0].Name))
-			assert.NotNil(t, testCase.sources.GetSourceUnitByName(testCase.sources.SourceUnits[0].Name))
-			assert.NotNil(t, testCase.sources.GetSourceUnitByPath(testCase.sources.SourceUnits[0].Path))
+			assert.True(t, testCase.sources.SourceUnitExistsIn(testCase.sources.SourceUnits[0].GetName(), testCase.sources.SourceUnits))
+			assert.True(t, testCase.sources.SourceUnitExists(testCase.sources.SourceUnits[0].GetName()))
+			assert.NotNil(t, testCase.sources.GetSourceUnitByName(testCase.sources.SourceUnits[0].GetName()))
+			assert.NotNil(t, testCase.sources.GetSourceUnitByPath(testCase.sources.SourceUnits[0].GetPath()))
+			assert.NotEmpty(t, testCase.sources.SourceUnits[0].GetContent())
 
 			if !testCase.noSourceUnit {
 				version, err := testCase.sources.GetSolidityVersion()
