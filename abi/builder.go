@@ -25,7 +25,7 @@ type Builder struct {
 // NewBuilderFromSources initializes a new ABI builder using the provided sources.
 // It sets up the necessary IR builder based on the given sources.
 func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builder, error) {
-	parser, err := ir.NewBuilderFromSources(context.TODO(), sources)
+	parser, err := ir.NewBuilderFromSources(ctx, sources)
 	if err != nil {
 		return nil, err
 	}

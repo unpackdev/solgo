@@ -27,6 +27,12 @@ func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builde
 		return nil, errors.New("sources needed to initialize ir builder")
 	}
 
+	if !standards.StandardsLoaded() {
+		if err := standards.LoadStandards(); err != nil {
+			return nil, err
+		}
+	}
+
 	parser, err := solgo.NewParserFromSources(ctx, sources)
 	if err != nil {
 		return nil, err
@@ -36,12 +42,6 @@ func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builde
 
 	if err := parser.RegisterListener(solgo.ListenerAst, astBuilder); err != nil {
 		return nil, err
-	}
-
-	if !standards.StandardsLoaded() {
-		if err := standards.LoadStandards(); err != nil {
-			return nil, err
-		}
 	}
 
 	return &Builder{

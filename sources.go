@@ -24,6 +24,26 @@ type SourceUnit struct {
 	Content string `yaml:"content" json:"content"`
 }
 
+// String returns a string representation of the SourceUnit.
+func (s *SourceUnit) String() string {
+	return fmt.Sprintf("SourceUnit{Name: %s, Path: %s, Content: %s}", s.Name, s.Path, s.Content)
+}
+
+// GetName returns the name of the SourceUnit.
+func (s *SourceUnit) GetName() string {
+	return s.Name
+}
+
+// GetPath returns the path of the SourceUnit.
+func (s *SourceUnit) GetPath() string {
+	return s.Path
+}
+
+// GetContent returns the content of the SourceUnit.
+func (s *SourceUnit) GetContent() string {
+	return s.Content
+}
+
 // ToProto converts a SourceUnit to a protocol buffer SourceUnit.
 func (s *SourceUnit) ToProto() *sources_pb.SourceUnit {
 	return &sources_pb.SourceUnit{
@@ -45,6 +65,11 @@ type Sources struct {
 // ArePrepared returns true if the Sources has been prepared.
 func (s *Sources) ArePrepared() bool {
 	return s.prepared
+}
+
+// GetUnits returns the SourceUnits in the Sources.
+func (s *Sources) GetUnits() []*SourceUnit {
+	return s.SourceUnits
 }
 
 // ToProto converts a Sources to a protocol buffer Sources.
@@ -202,6 +227,16 @@ func (s *Sources) GetSourceUnitByName(name string) *SourceUnit {
 	return nil
 }
 
+// GetSourceUnitByNameAndSize returns the SourceUnit with the given name and size from the Sources. If no such SourceUnit exists, it returns nil.
+func (s *Sources) GetSourceUnitByNameAndSize(name string, size int) *SourceUnit {
+	for _, sourceUnit := range s.SourceUnits {
+		if sourceUnit.Name == name && len(sourceUnit.Content) == size {
+			return sourceUnit
+		}
+	}
+	return nil
+}
+
 // GetSourceUnitByPath returns the SourceUnit with the given path from the Sources. If no such SourceUnit exists, it returns nil.
 func (s *Sources) GetSourceUnitByPath(path string) *SourceUnit {
 	for _, sourceUnit := range s.SourceUnits {
@@ -318,7 +353,7 @@ func (s *Sources) WriteToDir(path string) error {
 
 	// Write each SourceUnit's content to a file in the specified directory
 	for _, sourceUnit := range s.SourceUnits {
-		content := simplifyImportPaths(sourceUnit.Content)
+		content := utils.SimplifyImportPaths(sourceUnit.Content)
 
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
@@ -436,9 +471,9 @@ func extractImports(content string) []string {
 	re := regexp.MustCompile(`import "(.*?)";`)
 	matches := re.FindAllStringSubmatch(content, -1)
 
-	imports := make([]string, len(matches))
-	for i, match := range matches {
-		imports[i] = match[1]
+	imports := make([]string, 0)
+	for _, match := range matches {
+		imports = append(imports, match[1])
 	}
 
 	return imports
@@ -449,16 +484,11 @@ func replaceOpenZeppelin(path string) string {
 	return strings.Replace(path, "@openzeppelin", filepath.Join("./sources/", "openzeppelin"), 1)
 }
 
-// simplifyImportPaths simplifies the paths in import statements as file will already be present in the
-// directory for future consumption and is rather corrupted for import paths to stay the same.
-func simplifyImportPaths(content string) string {
-	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
-	return re.ReplaceAllString(content, `import "./$1";`)
-}
-
 // Node represents a unit of source code in Solidity with its dependencies.
 type Node struct {
 	Name         string
+	Size         int
+	Content      string
 	Dependencies []string
 }
 
@@ -472,17 +502,39 @@ func (s *Sources) SortContracts() error {
 			baseName := filepath.Base(imp)
 			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
 		}
-		nodes = append(nodes, Node{Name: sourceUnit.Name, Dependencies: dependencies})
+		nodes = append(nodes, Node{
+			Name:         sourceUnit.Name,
+			Size:         len(sourceUnit.Content),
+			Content:      sourceUnit.Content,
+			Dependencies: dependencies,
+		})
 	}
 
-	sortedNames, err := topologicalSort(nodes)
+	// Use a combination of Name and Content for uniqueness
+	uniqueKey := func(node Node) string {
+		return node.Name + "_" + strconv.Itoa(len(node.Content))
+	}
+
+	uniqueNodesMap := make(map[string]bool)
+	var uniqueNodesSlice []Node
+
+	for _, node := range nodes {
+		key := uniqueKey(node)
+		if _, exists := uniqueNodesMap[key]; !exists {
+			uniqueNodesMap[key] = true
+			uniqueNodesSlice = append(uniqueNodesSlice, node)
+		}
+	}
+
+	// Use uniqueNodesSlice for the topological sort
+	sortedNodes, err := topologicalSort(uniqueNodesSlice)
 	if err != nil {
 		return err
 	}
 
 	var sortedSourceUnits []*SourceUnit
-	for _, name := range sortedNames {
-		if sourceUnit := s.GetSourceUnitByName(name); sourceUnit != nil {
+	for _, node := range sortedNodes {
+		if sourceUnit := s.GetSourceUnitByNameAndSize(node.Name, node.Size); sourceUnit != nil {
 			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
 		}
 	}
@@ -491,33 +543,54 @@ func (s *Sources) SortContracts() error {
 	return nil
 }
 
-// topologicalSort sorts the nodes based on their dependencies.
-func topologicalSort(nodes []Node) ([]string, error) {
-	var sorted []string
+// topologicalSort performs a topological sort on the given nodes based on their dependencies.
+// It returns a slice of nodes sorted in a way that for every directed edge U -> V,
+// node U comes before V in the ordering. If a cycle is detected, the function will
+// continue without error, but the result may not be a valid topological order.
+func topologicalSort(nodes []Node) ([]Node, error) {
+	var sorted []Node
 	visited := make(map[string]bool)
-	var visit func(nodeName string) error
-	visit = func(nodeName string) error {
-		if visited[nodeName] {
+	onStack := make(map[string]bool) // To detect cycles
+	stack := []string{}              // Stack to track nodes being visited
+
+	// Helper function to generate a unique key for each node
+	uniqueKey := func(node Node) string {
+		return node.Name + "_" + strconv.Itoa(node.Size)
+	}
+
+	var visit func(node Node) error
+	visit = func(node Node) error {
+		nodeKey := uniqueKey(node)
+		if onStack[nodeKey] {
+			// Detected a cycle, but we'll continue without error
 			return nil
 		}
-		visited[nodeName] = true
-		for _, node := range nodes {
-			if node.Name == nodeName {
-				for _, dep := range node.Dependencies {
-					if err := visit(dep); err != nil {
+		if visited[nodeKey] {
+			return nil
+		}
+		visited[nodeKey] = true
+		onStack[nodeKey] = true
+		stack = append(stack, nodeKey) // Push node to stack
+
+		for _, depName := range node.Dependencies {
+			for _, depNode := range nodes {
+				if depNode.Name == depName {
+					if err := visit(depNode); err != nil {
 						return err
 					}
 				}
-				break
 			}
 		}
-		sorted = append(sorted, nodeName)
+
+		sorted = append(sorted, node)
+		stack = stack[:len(stack)-1] // Pop node from stack
+		onStack[nodeKey] = false
 		return nil
 	}
 
 	for _, node := range nodes {
-		if !visited[node.Name] {
-			if err := visit(node.Name); err != nil {
+		if !visited[uniqueKey(node)] {
+			if err := visit(node); err != nil {
 				return nil, err
 			}
 		}

@@ -4,10 +4,12 @@ import (
 	"context"
 	"encoding/hex"
 	"errors"
+	"fmt"
 
 	"github.com/0x19/solc-switch"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/txpull/solgo"
+	"github.com/txpull/solgo/utils"
 )
 
 // Verifier is a utility that facilitates the verification of Ethereum smart contracts.
@@ -45,8 +47,10 @@ func NewVerifier(ctx context.Context, config *solc.Config, sources *solgo.Source
 	}
 
 	// Do the releases synchronization in the background...
-	if err := solc.Sync(); err != nil {
-		return nil, err
+	if !solc.IsSynced() {
+		if err := solc.Sync(); err != nil {
+			return nil, err
+		}
 	}
 
 	return &Verifier{
@@ -72,27 +76,42 @@ func (v *Verifier) GetCompiler() *solc.Solc {
 	return v.solc
 }
 
-// Verify compiles the sources using the solc compiler and then verifies the bytecode.
-// If the bytecode does not match the compiled result, it returns a diff of the two.
-// Returns true if the bytecode matches, otherwise returns false.
-// Also returns an error if there's any issue in the compilation or verification process.
-func (v *Verifier) Verify(ctx context.Context, bytecode []byte, compilerConfig *solc.CompilerConfig) (*VerifyResult, error) {
-	results, err := v.solc.Compile(ctx, v.sources.GetCombinedSource(), compilerConfig)
+func (v *Verifier) Compile(ctx context.Context, config *solc.CompilerConfig) (*solc.CompilerResults, error) {
+	source, err := config.GetJsonConfig().ToJSON()
 	if err != nil {
 		return nil, err
 	}
 
-	encoded := hex.EncodeToString(bytecode)
-	if encoded != results.Bytecode {
-		dmp := diffmatchpatch.New()
-		diffs := dmp.DiffMain(encoded, results.Bytecode, false)
+	results, err := v.solc.Compile(ctx, string(source), config)
+	if err != nil {
+		return nil, err
+	}
 
+	return results, nil
+}
+
+// VerifyFromResults compiles the sources using the solc compiler and then verifies the bytecode.
+// If the bytecode does not match the compiled result, it returns a diff of the two.
+// Returns true if the bytecode matches, otherwise returns false.
+// Also returns an error if there's any issue in the compilation or verification process.
+func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResults) (*VerifyResult, error) {
+	result := results.GetEntryContract()
+
+	if result == nil {
+		return nil, errors.New("no entry contract found in the compilation results")
+	}
+
+	encoded := hex.EncodeToString(bytecode)
+	if encoded != result.GetDeployedBytecode() {
+		dmp := diffmatchpatch.New()
+		diffs := dmp.DiffMain(encoded, result.GetDeployedBytecode(), false)
 		toReturn := &VerifyResult{
-			Verified:         false,
-			CompilerResults:  results,
-			ExpectedBytecode: encoded,
-			Diffs:            diffs,
-			DiffPretty:       dmp.DiffPrettyText(diffs),
+			Verified:            false,
+			CompilerResult:      result,
+			ExpectedBytecode:    encoded,
+			Diffs:               diffs,
+			DiffPretty:          dmp.DiffPrettyText(diffs),
+			LevenshteinDistance: dmp.DiffLevenshtein(diffs),
 		}
 
 		return toReturn, errors.New("bytecode missmatch, failed to verify")
@@ -101,20 +120,90 @@ func (v *Verifier) Verify(ctx context.Context, bytecode []byte, compilerConfig *
 	toReturn := &VerifyResult{
 		Verified:         true,
 		ExpectedBytecode: encoded,
-		CompilerResults:  results,
+		CompilerResult:   result,
 		Diffs:            make([]diffmatchpatch.Diff, 0),
 	}
 
 	return toReturn, nil
 }
 
+// Verify compiles the sources using the solc compiler and then verifies the bytecode.
+// If the bytecode does not match the compiled result, it returns a diff of the two.
+// Returns true if the bytecode matches, otherwise returns false.
+// Also returns an error if there's any issue in the compilation or verification process.
+func (v *Verifier) Verify(ctx context.Context, bytecode []byte, config *solc.CompilerConfig) (*VerifyResult, error) {
+	var source string
+
+	if config.GetJsonConfig() != nil {
+		sourceBytes, err := config.GetJsonConfig().ToJSON()
+		if err != nil {
+			return nil, err
+		}
+		source = string(sourceBytes)
+	} else {
+		source = utils.StripExtraSPDXLines(utils.SimplifyImportPaths(
+			v.GetSources().GetCombinedSource(),
+		))
+	}
+
+	results, err := v.solc.Compile(ctx, source, config)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, result := range results.GetResults() {
+		if result.IsEntry() {
+			encoded := hex.EncodeToString(bytecode)
+			var retBytecode string
+			if result.GetDeployedBytecode() == "" {
+				retBytecode = result.GetBytecode()
+			} else {
+				retBytecode = result.GetDeployedBytecode()
+			}
+
+			if encoded != retBytecode {
+				dmp := diffmatchpatch.New()
+				diffs := dmp.DiffMain(encoded, retBytecode, false)
+				toReturn := &VerifyResult{
+					Verified:            false,
+					CompilerResult:      result,
+					ExpectedBytecode:    encoded,
+					Diffs:               diffs,
+					DiffPretty:          dmp.DiffPrettyText(diffs),
+					LevenshteinDistance: dmp.DiffLevenshtein(diffs),
+				}
+
+				return toReturn, errors.New("bytecode missmatch, failed to verify")
+			}
+
+			toReturn := &VerifyResult{
+				Verified:         true,
+				ExpectedBytecode: encoded,
+				CompilerResult:   result,
+				Diffs:            make([]diffmatchpatch.Diff, 0),
+			}
+
+			return toReturn, nil
+		}
+	}
+
+	for _, result := range results.GetResults() {
+		if result.HasErrors() {
+			return nil, fmt.Errorf("compilation failed with errors: %v", result.GetErrors())
+		}
+	}
+
+	return nil, fmt.Errorf("compilation did not contain entry contract results")
+}
+
 // VerifyResult represents the result of the verification process.
 type VerifyResult struct {
-	Verified         bool                  // Whether the verification was successful or not.
-	CompilerResults  *solc.CompilerResults // The results from the solc compiler.
-	ExpectedBytecode string                // The expected bytecode.
-	Diffs            []diffmatchpatch.Diff // The diffs between the provided bytecode and the compiled bytecode.
-	DiffPretty       string                // The pretty printed diff between the provided bytecode and the compiled bytecode.
+	Verified            bool                  // Whether the verification was successful or not.
+	CompilerResult      *solc.CompilerResult  // The results from the solc compiler.
+	ExpectedBytecode    string                // The expected bytecode.
+	Diffs               []diffmatchpatch.Diff // The diffs between the provided bytecode and the compiled bytecode.
+	DiffPretty          string                // The pretty printed diff between the provided bytecode and the compiled bytecode.
+	LevenshteinDistance int                   // The levenshtein distance between the provided bytecode and the compiled bytecode.
 }
 
 // IsVerified returns whether the verification was successful or not.
@@ -123,8 +212,8 @@ func (vr *VerifyResult) IsVerified() bool {
 }
 
 // GetCompilerResults returns the results from the solc compiler.
-func (vr *VerifyResult) GetCompilerResults() *solc.CompilerResults {
-	return vr.CompilerResults
+func (vr *VerifyResult) GetCompilerResult() *solc.CompilerResult {
+	return vr.CompilerResult
 }
 
 // GetExpectedBytecode returns the expected bytecode.
@@ -140,4 +229,9 @@ func (vr *VerifyResult) GetDiffs() []diffmatchpatch.Diff {
 // GetDiffPretty returns the pretty printed diff between the provided bytecode and the compiled bytecode.
 func (vr *VerifyResult) GetDiffPretty() string {
 	return vr.DiffPretty
+}
+
+// GetLevenshteinDistance returns the levenshtein distance between the provided bytecode and the compiled bytecode.
+func (vr *VerifyResult) GetLevenshteinDistance() int {
+	return vr.LevenshteinDistance
 }
