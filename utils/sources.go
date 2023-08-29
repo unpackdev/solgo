@@ -18,6 +18,8 @@ func StripImportPaths(content string) string {
 	return re.ReplaceAllString(content, "")
 }
 
+// StripExtraSPDXLines removes the extra SPDX lines from the content.
+// This is used when passing combined source to the solc compiler as it will complain about the extra SPDX lines.
 func StripExtraSPDXLines(content string) string {
 	lines := strings.Split(content, "\n")
 	foundSPDX := false

@@ -28,6 +28,7 @@ type Constructor struct {
 	UnpackedArguments []interface{} `json:"unpacked_arguments"` // List of unpacked arguments in the constructor
 }
 
+// Pack packs the arguments in the constructor into a byte slice for future use and verification.
 func (c *Constructor) Pack() ([]byte, error) {
 	return c.Parsed.Constructor.Inputs.PackValues(c.UnpackedArguments)
 }

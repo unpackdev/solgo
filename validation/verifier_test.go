@@ -220,6 +220,7 @@ func TestVerifier(t *testing.T) {
 			assert.True(t, results.IsVerified())
 			assert.NotNil(t, results.GetCompilerResult())
 			assert.Empty(t, results.GetDiffPretty())
+			assert.Zero(t, results.GetLevenshteinDistance())
 		})
 	}
 }
