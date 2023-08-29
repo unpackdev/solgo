@@ -90,6 +90,11 @@ func TestDecodeConstructorFromAbi(t *testing.T) {
 				assert.Equal(t, tt.want.Abi, got.Abi)
 				assert.Equal(t, tt.want.SignatureRaw, got.SignatureRaw)
 				assert.Equal(t, tt.want.Arguments, got.Arguments)
+				assert.NotNil(t, got.Parsed)
+				assert.NotNil(t, got.UnpackedArguments)
+				packed, err := got.Pack()
+				assert.NoError(t, err)
+				assert.NotNil(t, packed)
 			}
 		})
 	}
