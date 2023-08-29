@@ -102,9 +102,9 @@ func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResu
 	}
 
 	encoded := hex.EncodeToString(bytecode)
-	if encoded != result.Bytecode {
+	if encoded != result.GetDeployedBytecode() {
 		dmp := diffmatchpatch.New()
-		diffs := dmp.DiffMain(encoded, result.Bytecode, false)
+		diffs := dmp.DiffMain(encoded, result.GetDeployedBytecode(), false)
 		toReturn := &VerifyResult{
 			Verified:            false,
 			CompilerResult:      result,
