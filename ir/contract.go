@@ -1,6 +1,8 @@
 package ir
 
 import (
+	"fmt"
+
 	ast_pb "github.com/txpull/protos/dist/go/ast"
 	ir_pb "github.com/txpull/protos/dist/go/ir"
 	"github.com/txpull/solgo/ast"
@@ -264,6 +266,8 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Errors:         make([]*Error, 0),
 		Functions:      make([]*Function, 0),
 	}
+
+	fmt.Println(unit.GetName(), "---->", unit.GetLicense())
 
 	for _, pragma := range unit.GetPragmas() {
 		contractNode.Pragmas = append(
