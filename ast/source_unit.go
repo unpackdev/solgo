@@ -172,13 +172,13 @@ func (s *SourceUnit[T]) ToProto() NodeType {
 // EnterSourceUnit is called when the ASTBuilder enters a source unit context.
 // It initializes a new root node and source units based on the context.
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
-	license := getLicense(b.comments)
 
 	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments)
 	b.tree.SetRoot(rootNode)
 
 	for _, child := range ctx.GetChildren() {
 		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
+			license := getLicenseFromSources(b.sources, b.comments, interfaceCtx.Identifier().GetText())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, interfaceCtx.Identifier().GetText(), license)
 			interfaceNode := NewInterfaceDefinition(b)
 			interfaceNode.Parse(ctx, interfaceCtx, rootNode, sourceUnit)
@@ -186,6 +186,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 		}
 
 		if libraryCtx, ok := child.(*parser.LibraryDefinitionContext); ok {
+			license := getLicenseFromSources(b.sources, b.comments, libraryCtx.Identifier().GetText())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, libraryCtx.Identifier().GetText(), license)
 			libraryNode := NewLibraryDefinition(b)
 			libraryNode.Parse(ctx, libraryCtx, rootNode, sourceUnit)
@@ -193,6 +194,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 		}
 
 		if contractCtx, ok := child.(*parser.ContractDefinitionContext); ok {
+			license := getLicenseFromSources(b.sources, b.comments, contractCtx.Identifier().GetText())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, contractCtx.Identifier().GetText(), license)
 			contractNode := NewContractDefinition(b)
 			contractNode.Parse(ctx, contractCtx, rootNode, sourceUnit)
