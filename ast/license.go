@@ -4,6 +4,7 @@ import (
 	"regexp"
 
 	ast_pb "github.com/txpull/protos/dist/go/ast"
+	"github.com/txpull/solgo"
 )
 
 // getLicense extracts the license from the provided comments.
@@ -38,4 +39,29 @@ func getLicense(comments []*Comment) string {
 
 	// If the SPDX-License-Identifier is not found in any of the comments, return the string "unknown".
 	return "unknown"
+}
+
+// getLicenseFromSources extracts the license from the provided sources.
+// It uses a regular expression to match the SPDX-License-Identifier pattern in the provided source code.
+// If a license is found, it is returned as a string.
+// If no license is found, it returns the string "unknown".
+func getLicenseFromSources(sources *solgo.Sources, comments []*Comment, unitName string) string {
+	// Define the regular expression for the SPDX-License-Identifier.
+	licenseRegex := regexp.MustCompile(`SPDX-License-Identifier:\s*(.+)`)
+
+	// Iterate over the provided comments.
+	for _, unit := range sources.SourceUnits {
+		if unit.Name == unitName {
+			// Find the SPDX-License-Identifier in the comment text.
+			matches := licenseRegex.FindStringSubmatch(unit.GetContent())
+
+			// If the SPDX-License-Identifier is found, return the license as a string.
+			if len(matches) > 1 {
+				return matches[1]
+			}
+		}
+	}
+
+	// If the SPDX-License-Identifier is not found in any of the comments, return the string "unknown".
+	return getLicense(comments)
 }
