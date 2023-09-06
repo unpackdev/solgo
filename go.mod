@@ -6,7 +6,7 @@ require (
 	github.com/0x19/solc-switch v1.0.2
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
-	github.com/ethereum/go-ethereum v1.12.0
+	github.com/ethereum/go-ethereum v1.12.1
 	github.com/fxamacker/cbor/v2 v2.4.0
 	github.com/goccy/go-graphviz v0.1.1
 	github.com/golang/protobuf v1.5.3
