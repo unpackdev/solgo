@@ -1,6 +1,7 @@
 package bytecode
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"strconv"
@@ -17,7 +18,7 @@ import (
 type Metadata struct {
 	executionBytecode []byte // The execution bytecode of the contract
 	cborLength        int16  // The length of the CBOR metadata
-	raw               []byte // The raw CBOR metadata
+	auxbytes          []byte // The raw CBOR metadata
 	Ipfs              []byte `cbor:"ipfs"`         // The IPFS hash of the metadata, if present
 	Bzzr1             []byte `cbor:"bzzr1"`        // The Swarm hash of the metadata, if present (version 1)
 	Bzzr0             []byte `cbor:"bzzr0"`        // The Swarm hash of the metadata, if present (version 0)
@@ -29,7 +30,7 @@ func (m *Metadata) ToProto() *metadata_pb.BytecodeMetadata {
 	return &metadata_pb.BytecodeMetadata{
 		ExecutionBytecode: m.executionBytecode,
 		CborLength:        uint32(m.cborLength),
-		Raw:               m.raw,
+		Raw:               m.auxbytes,
 		Ipfs:              m.GetIPFS(),
 		Bzzr1:             m.GetBzzr1(),
 		Bzzr0:             m.GetBzzr0(),
@@ -77,14 +78,20 @@ func (m *Metadata) GetExecutionBytecode() []byte {
 	return m.executionBytecode
 }
 
-// GetRawMetadata returns the raw CBOR metadata of the contract.
-func (m *Metadata) GetRawMetadata() []byte {
-	return m.raw
+// GetAuxBytecode returns the raw CBOR metadata of the contract.
+func (m *Metadata) GetAuxBytecode() []byte {
+	return m.auxbytes
 }
 
 // GetCborLength returns the length of the CBOR metadata.
 func (m *Metadata) GetCborLength() int16 {
 	return m.cborLength
+}
+
+// AuxFound returns whether the CBOR metadata bytes are contained in the provided byte slice.
+// This is used to verify if contract extracted cbor metadata can be found in the deployed/execution contract bytecode.
+func (m *Metadata) AuxFound(b []byte) bool {
+	return bytes.Contains(b, m.auxbytes)
 }
 
 // GetUrls returns the URLs of the contract's metadata.
@@ -129,9 +136,9 @@ func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {
 
 	// Split the bytecode into execution bytecode and auxdata
 	toReturn.executionBytecode = bytecode[:len(bytecode)-bytesLength-cborLength]
-	toReturn.raw = bytecode[len(bytecode)-bytesLength-cborLength : len(bytecode)-bytesLength]
+	toReturn.auxbytes = bytecode[len(bytecode)-bytesLength-cborLength : len(bytecode)-bytesLength]
 
-	if err := cbor.Unmarshal(toReturn.raw, &toReturn); err != nil {
+	if err := cbor.Unmarshal(toReturn.auxbytes, &toReturn); err != nil {
 		return nil, err
 	}
 
