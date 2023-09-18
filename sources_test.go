@@ -128,6 +128,7 @@ func TestSources(t *testing.T) {
 			assert.NotEmpty(t, testCase.sources.SourceUnits[0].GetContent())
 			assert.Nil(t, testCase.sources.GetSourceUnitByNameAndSize("non-existent", 0))
 			assert.NotNil(t, testCase.sources.GetSourceUnitByNameAndSize(testCase.sources.SourceUnits[0].GetName(), len(testCase.sources.SourceUnits[0].GetContent())))
+			assert.NotNil(t, testCase.sources.HasUnits())
 
 			if !testCase.noSourceUnit {
 				version, err := testCase.sources.GetSolidityVersion()

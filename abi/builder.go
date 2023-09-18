@@ -66,6 +66,11 @@ func (b *Builder) GetRoot() *Root {
 	return b.root
 }
 
+// GetEntryContract retrieves the entry contract of the ABI.
+func (b *Builder) GetEntryContract() *Contract {
+	return b.root.GetEntryContract()
+}
+
 // ToJSON returns the JSON representation of the ABI.
 // If the provided data is not nil, it marshals the data; otherwise, it marshals the root.
 func (b *Builder) ToJSON(d any) ([]byte, error) {

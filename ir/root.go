@@ -16,7 +16,7 @@ type RootSourceUnit struct {
 	EntryContractName string          `json:"entry_contract_name"`
 	ContractsCount    int32           `json:"contracts_count"`
 	ContractTypes     []string        `json:"contract_types"`
-	Eips              []*EIP          `json:"eips"`
+	Standards         []*Standard     `json:"standards"`
 	Contracts         []*Contract     `json:"contracts"`
 }
 
@@ -84,14 +84,14 @@ func (r *RootSourceUnit) GetContractsCount() int32 {
 	return r.ContractsCount
 }
 
-// GetEips returns the EIPs discovered for any contract in the source units.
-func (r *RootSourceUnit) GetEips() []*EIP {
-	return r.Eips
+// GetStandards returns the EIPs discovered for any contract in the source units.
+func (r *RootSourceUnit) GetStandards() []*Standard {
+	return r.Standards
 }
 
 // HasEips returns true if standard is already registered false otherwise.
-func (r *RootSourceUnit) HasEIP(standard standards.Standard) bool {
-	for _, e := range r.Eips {
+func (r *RootSourceUnit) HasStandard(standard standards.Standard) bool {
+	for _, e := range r.Standards {
 		if e.Standard.Type == standard {
 			return true
 		}
@@ -165,7 +165,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 		ContractsCount: int32(root.GetSourceUnitCount()),
 		Contracts:      make([]*Contract, 0),
 		ContractTypes:  make([]string, 0),
-		Eips:           make([]*EIP, 0),
+		Standards:      make([]*Standard, 0),
 	}
 
 	// No source units to process, so we're going to stop processing the root from here...

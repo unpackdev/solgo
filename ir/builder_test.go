@@ -310,7 +310,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 			assert.NoError(t, err)
 			assert.Equal(t, testCase.expectedProto, string(protoPretty))
 
-			for _, eip := range root.GetEips() {
+			for _, eip := range root.GetStandards() {
 				assert.NotNil(t, eip)
 				assert.NotNil(t, eip.GetConfidence())
 				assert.NotNil(t, eip.GetContractId())
@@ -319,7 +319,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 				assert.NotNil(t, eip.ToProto())
 			}
 
-			assert.NotNil(t, root.HasEIP(standards.EIP1014))
+			assert.NotNil(t, root.HasStandard(standards.EIP1014))
 			assert.NotNil(t, root.GetAST())
 
 			for _, contract := range root.GetContracts() {

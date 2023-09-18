@@ -11,6 +11,21 @@ type Report struct {
 	Results *Results `json:"results"` // Contains the results of the audit.
 }
 
+// IsSuccess returns true if the vulnerability report was generated successfully.
+func (r *Report) IsSuccess() bool {
+	return r.Success
+}
+
+// GetError returns the error message associated with the vulnerability report.
+func (r *Report) GetError() string {
+	return r.Error
+}
+
+// GetResults returns the Results struct associated with the vulnerability report.
+func (r *Report) GetResults() *Results {
+	return r.Results
+}
+
 // ToProto converts the Report struct to its protobuf representation.
 func (r *Report) ToProto() *audit_pb.Report {
 	return &audit_pb.Report{
@@ -23,6 +38,11 @@ func (r *Report) ToProto() *audit_pb.Report {
 // Results encapsulates the list of detected vulnerabilities or issues.
 type Results struct {
 	Detectors []Detector `json:"detectors"` // List of detected vulnerabilities or issues.
+}
+
+// GetDetectors returns the list of detected vulnerabilities or issues.
+func (r *Results) GetDetectors() []Detector {
+	return r.Detectors
 }
 
 // ToProto converts the Results struct to its protobuf representation.

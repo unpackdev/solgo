@@ -5,8 +5,8 @@ import (
 	"github.com/txpull/solgo/standards"
 )
 
-// EIP represents a specific Ethereum Improvement Proposal standard that a contract may adhere to.
-type EIP struct {
+// Standard represents a specific Ethereum Improvement Proposal standard that a contract may adhere to.
+type Standard struct {
 	// ContractId is the unique identifier for the contract.
 	ContractId int64 `json:"contract_id"`
 
@@ -21,27 +21,27 @@ type EIP struct {
 }
 
 // GetContractId returns the unique identifier for the contract.
-func (e *EIP) GetContractId() int64 {
+func (e *Standard) GetContractId() int64 {
 	return e.ContractId
 }
 
 // GetContractName returns the name of the contract.
-func (e *EIP) GetContractName() string {
+func (e *Standard) GetContractName() string {
 	return e.ContractName
 }
 
 // GetConfidence returns the confidence level of the contract adhering to a specific EIP standard.
-func (e *EIP) GetConfidence() standards.Discovery {
+func (e *Standard) GetConfidence() standards.Discovery {
 	return e.Confidence
 }
 
 // GetStandard returns the EIP standard.
-func (e *EIP) GetStandard() standards.ContractStandard {
+func (e *Standard) GetStandard() standards.ContractStandard {
 	return e.Standard
 }
 
 // ToProto converts the EIP to its protobuf representation.
-func (e *EIP) ToProto() *ir_pb.EIP {
+func (e *Standard) ToProto() *ir_pb.EIP {
 	return &ir_pb.EIP{
 		ContractId:   e.ContractId,
 		ContractName: e.ContractName,
@@ -109,9 +109,9 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 	// Now when we have full contract functions and events we can send it to the
 	// EIP discovery package to find out if it matches any of the EIPs.
 	for _, standard := range standards.GetSortedRegisteredStandards() {
-		if !root.HasEIP(standard.GetType()) {
+		if !root.HasStandard(standard.GetType()) {
 			if confidence, found := standards.ConfidenceCheck(standard, contract); found {
-				root.Eips = append(root.Eips, &EIP{
+				root.Standards = append(root.Standards, &Standard{
 					ContractName: contract.Name,
 					ContractId:   root.GetEntryId(),
 					Confidence:   confidence,
