@@ -10,9 +10,9 @@ import (
 	"strconv"
 	"strings"
 
-	sources_pb "github.com/txpull/protos/dist/go/sources"
-	"github.com/txpull/solgo/metadata"
-	"github.com/txpull/solgo/utils"
+	sources_pb "github.com/unpackdev/protos/dist/go/sources"
+	"github.com/unpackdev/solgo/metadata"
+	"github.com/unpackdev/solgo/utils"
 )
 
 var ErrPathFound = errors.New("path found")

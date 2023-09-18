@@ -8,8 +8,8 @@ import (
 
 	"github.com/0x19/solc-switch"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/utils"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // Verifier is a utility that facilitates the verification of Ethereum smart contracts.

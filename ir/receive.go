@@ -1,9 +1,9 @@
 package ir
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/ast"
 )
 
 // Receive represents a receive function in the Intermediate Representation (IR) of Solidity contracts' Abstract Syntax Tree (AST).

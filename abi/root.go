@@ -1,8 +1,8 @@
 package abi
 
 import (
-	abi_pb "github.com/txpull/protos/dist/go/abi"
-	"github.com/txpull/solgo/ir"
+	abi_pb "github.com/unpackdev/protos/dist/go/abi"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // Root represents the root of a Solidity contract's ABI structure.

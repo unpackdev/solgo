@@ -3,9 +3,9 @@ package ast
 import (
 	"encoding/json"
 
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/parser"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // ASTBuilder is a structure that helps in building and manipulating an Abstract Syntax Tree (AST).

@@ -1,8 +1,8 @@
 package ir
 
 import (
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/standards"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/standards"
 )
 
 // Standard represents a specific Ethereum Improvement Proposal standard that a contract may adhere to.

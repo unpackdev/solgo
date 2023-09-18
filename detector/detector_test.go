@@ -9,12 +9,12 @@ import (
 
 	"github.com/0x19/solc-switch"
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/abi"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/audit"
-	"github.com/txpull/solgo/ir"
-	"github.com/txpull/solgo/tests"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/abi"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/audit"
+	"github.com/unpackdev/solgo/ir"
+	"github.com/unpackdev/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

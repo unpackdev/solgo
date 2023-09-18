@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	eip_pb "github.com/txpull/protos/dist/go/eip"
+	eip_pb "github.com/unpackdev/protos/dist/go/eip"
 )
 
 func TestEIPStorage(t *testing.T) {

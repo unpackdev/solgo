@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/antlr4-go/antlr/v4"
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/parser"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // Comment represents a comment in an abstract syntax tree.

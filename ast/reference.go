@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
 
 // Resolver is a structure that helps in resolving the nodes of an Abstract Syntax Tree (AST).

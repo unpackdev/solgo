@@ -1,6 +1,6 @@
 package ast
 
-import ast_pb "github.com/txpull/protos/dist/go/ast"
+import ast_pb "github.com/unpackdev/protos/dist/go/ast"
 
 // Node is an interface that defines methods common to all AST nodes.
 type Node[T NodeType] interface {

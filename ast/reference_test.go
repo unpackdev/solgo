@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/tests"
-	"github.com/txpull/solgo/utils"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/tests"
+	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

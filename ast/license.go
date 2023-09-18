@@ -3,8 +3,8 @@ package ast
 import (
 	"regexp"
 
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo"
 )
 
 // getLicense extracts the license from the provided comments.

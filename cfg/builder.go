@@ -8,7 +8,7 @@ import (
 
 	"github.com/goccy/go-graphviz"
 	"github.com/goccy/go-graphviz/cgraph"
-	"github.com/txpull/solgo/ir"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // Builder is responsible for constructing the control flow graph.

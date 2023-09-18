@@ -2,7 +2,7 @@ package syntaxerrors
 
 import (
 	"github.com/antlr4-go/antlr/v4"
-	"github.com/txpull/solgo/parser"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // ContextualParser is a wrapper around the SolidityParser that maintains a stack of contexts.

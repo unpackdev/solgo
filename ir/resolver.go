@@ -1,8 +1,8 @@
 package ir
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/ast"
 )
 
 // byFunction searches for a function by its name in the contract's AST and returns a function if found.

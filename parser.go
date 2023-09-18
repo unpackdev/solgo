@@ -6,8 +6,8 @@ import (
 	"io"
 
 	"github.com/antlr4-go/antlr/v4"
-	"github.com/txpull/solgo/parser"
-	"github.com/txpull/solgo/syntaxerrors"
+	"github.com/unpackdev/solgo/parser"
+	"github.com/unpackdev/solgo/syntaxerrors"
 )
 
 // Parser is a struct that encapsulates the functionality for parsing and analyzing Solidity contracts.

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/ir"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/ir"
 )
 
 func TestProcessError(t *testing.T) {

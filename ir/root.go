@@ -1,10 +1,10 @@
 package ir
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/standards"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/standards"
 	"go.uber.org/zap"
 )
 

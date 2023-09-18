@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
 
 // normalizeStateMutability converts the provided Mutability value to its corresponding string representation.

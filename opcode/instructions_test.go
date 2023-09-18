@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	opcode_pb "github.com/txpull/protos/dist/go/opcode"
+	opcode_pb "github.com/unpackdev/protos/dist/go/opcode"
 )
 
 func TestInstructionMethods(t *testing.T) {

@@ -2,8 +2,8 @@ package ast
 
 import (
 	v3 "github.com/cncf/xds/go/xds/type/v3"
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/parser"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // UnarySuffix represents a unary operation applied as a suffix to an expression.

@@ -3,7 +3,7 @@ package opcode
 import (
 	"fmt"
 
-	opcode_pb "github.com/txpull/protos/dist/go/opcode"
+	opcode_pb "github.com/unpackdev/protos/dist/go/opcode"
 )
 
 // OpCode represents an Ethereum operation code (opcode).

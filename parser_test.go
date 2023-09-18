@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo/syntaxerrors"
-	"github.com/txpull/solgo/tests"
+	"github.com/unpackdev/solgo/syntaxerrors"
+	"github.com/unpackdev/solgo/tests"
 )
 
 func TestNew(t *testing.T) {

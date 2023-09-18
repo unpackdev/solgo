@@ -1,7 +1,7 @@
 package audit
 
 import (
-	audit_pb "github.com/txpull/protos/dist/go/audit"
+	audit_pb "github.com/unpackdev/protos/dist/go/audit"
 )
 
 // Report represents the top-level structure of the Slither JSON output.

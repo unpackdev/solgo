@@ -1,7 +1,7 @@
 package standards
 
 import (
-	eip_pb "github.com/txpull/protos/dist/go/eip"
+	eip_pb "github.com/unpackdev/protos/dist/go/eip"
 )
 
 // ConfidenceLevel represents the confidence level of a discovery.

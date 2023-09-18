@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
 
 func TestPragmaMethods(t *testing.T) {

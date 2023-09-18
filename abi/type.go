@@ -3,8 +3,8 @@ package abi
 import (
 	"strings"
 
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/ir"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // Type represents a type within the Ethereum ABI.

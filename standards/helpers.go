@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	eip_pb "github.com/txpull/protos/dist/go/eip"
+	eip_pb "github.com/unpackdev/protos/dist/go/eip"
 )
 
 // newFunction creates and returns a new Function struct with the provided name, inputs, and outputs.

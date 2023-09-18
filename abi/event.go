@@ -1,7 +1,7 @@
 package abi
 
 import (
-	"github.com/txpull/solgo/ir"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // processEvent processes an IR event and returns a Method representation of it.

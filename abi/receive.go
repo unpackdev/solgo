@@ -1,6 +1,6 @@
 package abi
 
-import "github.com/txpull/solgo/ir"
+import "github.com/unpackdev/solgo/ir"
 
 // processReceive processes the provided Receive unit from the IR and returns a Method representation.
 // The returned Method will always have its Type set to "receive" and StateMutability set to "payable".

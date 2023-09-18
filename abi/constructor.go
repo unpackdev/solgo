@@ -1,6 +1,6 @@
 package abi
 
-import "github.com/txpull/solgo/ir"
+import "github.com/unpackdev/solgo/ir"
 
 // processConstructor processes an IR constructor and returns a Method representation of it.
 // It extracts the input and output parameters of the constructor and normalizes its state mutability.
