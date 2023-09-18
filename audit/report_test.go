@@ -8,8 +8,8 @@ import (
 
 	"github.com/0x19/solc-switch"
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/tests"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/tests"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

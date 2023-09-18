@@ -1,9 +1,9 @@
 package ir
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/ast"
 )
 
 // Struct represents a Solidity struct definition as an IR node.

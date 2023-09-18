@@ -3,7 +3,7 @@ package standards
 import (
 	"strings"
 
-	eip_pb "github.com/txpull/protos/dist/go/eip"
+	eip_pb "github.com/unpackdev/protos/dist/go/eip"
 )
 
 // Standard represents the type for Ethereum standards and EIPs.

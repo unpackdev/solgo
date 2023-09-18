@@ -28,7 +28,7 @@ func NewTypedStruct(m protoreflect.ProtoMessage, protoType string) *v3.TypedStru
 
 	// Create and return a v3.TypedStruct.
 	return &v3.TypedStruct{
-		TypeUrl: fmt.Sprintf("github.com/txpull/protos/txpull.v1.ir.%s", protoType),
+		TypeUrl: fmt.Sprintf("github.com/unpackdev/protos/unpack.v1.ir.%s", protoType),
 		Value:   s,
 	}
 }

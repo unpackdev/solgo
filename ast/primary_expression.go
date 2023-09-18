@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/parser"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // PrimaryExpression represents a primary expression node in the AST.

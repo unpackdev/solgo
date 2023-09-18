@@ -1,6 +1,6 @@
 package standards
 
-import eip_pb "github.com/txpull/protos/dist/go/eip"
+import eip_pb "github.com/unpackdev/protos/dist/go/eip"
 
 // Contract represents the contract standard.
 type Contract struct {

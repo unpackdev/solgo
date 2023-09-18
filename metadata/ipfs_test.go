@@ -10,7 +10,7 @@ import (
 
 	ipfs "github.com/ipfs/go-ipfs-api"
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo/tests"
+	"github.com/unpackdev/solgo/tests"
 )
 
 func TestIpfsProvider(t *testing.T) {

@@ -1,6 +1,6 @@
 package opcode
 
-import opcode_pb "github.com/txpull/protos/dist/go/opcode"
+import opcode_pb "github.com/unpackdev/protos/dist/go/opcode"
 
 // Instruction represents an optcode instruction.
 type Instruction struct {

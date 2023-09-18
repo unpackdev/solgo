@@ -1,9 +1,9 @@
 package abi
 
 import (
-	abi_pb "github.com/txpull/protos/dist/go/abi"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/ir"
+	abi_pb "github.com/unpackdev/protos/dist/go/abi"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // Contract represents a collection of Ethereum contract methods.

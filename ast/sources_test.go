@@ -3,8 +3,8 @@ package ast
 import (
 	"testing"
 
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/tests"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/tests"
 )
 
 // getSourceTestCases returns the test cases (bunch of contracts) for the ast builder.

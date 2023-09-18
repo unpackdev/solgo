@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/0x19/solc-switch"
-	"github.com/txpull/solgo"
+	"github.com/unpackdev/solgo"
 )
 
 // Auditor represents a structure that manages the auditing process

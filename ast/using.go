@@ -1,8 +1,8 @@
 package ast
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/parser"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // UsingDirective represents a Solidity using directive, which is used to import and use symbols from external libraries.

@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/ir"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/ir"
 )
 
 func TestProcessFallback(t *testing.T) {

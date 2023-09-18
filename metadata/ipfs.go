@@ -62,7 +62,7 @@ func (p *IpfsProvider) GetMetadataByCID(cid string) (*ContractMetadata, error) {
 		return nil, err
 	}
 
-	done := time.After(30 * time.Second)
+	done := time.After(10 * time.Second)
 	result := make(chan *ContractMetadata)
 	errs := make(chan error)
 

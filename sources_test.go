@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo/tests"
-	"github.com/txpull/solgo/utils"
+	"github.com/unpackdev/solgo/tests"
+	"github.com/unpackdev/solgo/utils"
 )
 
 func TestSources(t *testing.T) {
@@ -128,6 +128,7 @@ func TestSources(t *testing.T) {
 			assert.NotEmpty(t, testCase.sources.SourceUnits[0].GetContent())
 			assert.Nil(t, testCase.sources.GetSourceUnitByNameAndSize("non-existent", 0))
 			assert.NotNil(t, testCase.sources.GetSourceUnitByNameAndSize(testCase.sources.SourceUnits[0].GetName(), len(testCase.sources.SourceUnits[0].GetContent())))
+			assert.NotNil(t, testCase.sources.HasUnits())
 
 			if !testCase.noSourceUnit {
 				version, err := testCase.sources.GetSolidityVersion()

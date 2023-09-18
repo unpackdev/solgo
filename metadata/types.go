@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/golang/protobuf/ptypes/wrappers"
-	metadata_pb "github.com/txpull/protos/dist/go/metadata"
+	metadata_pb "github.com/unpackdev/protos/dist/go/metadata"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 )

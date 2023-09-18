@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
-	"github.com/txpull/solgo/parser"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // SyntaxError represents a syntax error in a Solidity contract.

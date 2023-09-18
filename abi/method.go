@@ -1,7 +1,7 @@
 package abi
 
 import (
-	abi_pb "github.com/txpull/protos/dist/go/abi"
+	abi_pb "github.com/unpackdev/protos/dist/go/abi"
 )
 
 // MethodIO represents an input or output parameter of a contract method or event.

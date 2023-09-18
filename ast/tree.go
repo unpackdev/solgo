@@ -1,7 +1,7 @@
 package ast
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"go.uber.org/zap"
 )
 

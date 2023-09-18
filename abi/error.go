@@ -1,7 +1,7 @@
 package abi
 
 import (
-	"github.com/txpull/solgo/ir"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // processError processes an IR error and returns a Method representation of it.

@@ -9,7 +9,7 @@ import (
 
 	"github.com/fxamacker/cbor/v2"
 	"github.com/mr-tron/base58"
-	metadata_pb "github.com/txpull/protos/dist/go/metadata"
+	metadata_pb "github.com/unpackdev/protos/dist/go/metadata"
 )
 
 // Metadata represents the metadata contained in Ethereum contract creation bytecode.

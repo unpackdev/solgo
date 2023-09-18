@@ -1,6 +1,6 @@
 package standards
 
-import eip_pb "github.com/txpull/protos/dist/go/eip"
+import eip_pb "github.com/unpackdev/protos/dist/go/eip"
 
 // EIP is an interface that defines the standard methods required for
 // representing Ethereum Improvement Proposals and Ethereum standards.

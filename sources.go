@@ -10,9 +10,9 @@ import (
 	"strconv"
 	"strings"
 
-	sources_pb "github.com/txpull/protos/dist/go/sources"
-	"github.com/txpull/solgo/metadata"
-	"github.com/txpull/solgo/utils"
+	sources_pb "github.com/unpackdev/protos/dist/go/sources"
+	"github.com/unpackdev/solgo/metadata"
+	"github.com/unpackdev/solgo/utils"
 )
 
 var ErrPathFound = errors.New("path found")
@@ -117,6 +117,28 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	return sources
 }
 
+// NewSourcesFromEtherScan creates a Sources from an EtherScan response.
+// This is a helper function that ensures easier integration when working with the EtherScan provider.
+// This includes BscScan, and other equivalent from the same family.
+func NewSourcesFromEtherScan(entryContractName, sourceCode string) *Sources {
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		EntrySourceUnitName:  entryContractName,
+	}
+
+	sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+		Name:    entryContractName,
+		Path:    fmt.Sprintf("%s.sol", entryContractName),
+		Content: sourceCode,
+	})
+
+	return sources
+}
+
 // Validate checks the integrity of the Sources object.
 // It ensures that:
 // - There is at least one SourceUnit.
@@ -143,7 +165,19 @@ func (s *Sources) Validate() error {
 	if s.EntrySourceUnitName != "" {
 		entrySourceUnit := s.GetSourceUnitByName(s.EntrySourceUnitName)
 		if entrySourceUnit == nil {
-			return fmt.Errorf("entry source unit %s not found", s.EntrySourceUnitName)
+			// It may be that the entry source unit is not found because it's not
+			// in one file provided back to us. In that case, we should check if
+			// specific file contains `contract {entrySourceUnitName}`.
+			found := false
+			for _, sourceUnit := range s.SourceUnits {
+				if strings.Contains(sourceUnit.Content, fmt.Sprintf("contract %s", s.EntrySourceUnitName)) {
+					found = true
+				}
+			}
+
+			if !found {
+				return fmt.Errorf("entry source unit %s not found", s.EntrySourceUnitName)
+			}
 		}
 	}
 
@@ -245,6 +279,11 @@ func (s *Sources) GetSourceUnitByPath(path string) *SourceUnit {
 		}
 	}
 	return nil
+}
+
+// HasUnits returns true if the Sources has at least one SourceUnit.
+func (s *Sources) HasUnits() bool {
+	return len(s.SourceUnits) > 0
 }
 
 // GetLocalSource attempts to find a local source file that matches the given partial path.

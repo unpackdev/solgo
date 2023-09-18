@@ -1,6 +1,6 @@
 package abi
 
-import "github.com/txpull/solgo/ir"
+import "github.com/unpackdev/solgo/ir"
 
 // processStateVariable processes the provided StateVariable from the IR and constructs a Method representation.
 // The returned Method will have its Type set to "function" and its StateMutability determined by the state variable's mutability.

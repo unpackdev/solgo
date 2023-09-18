@@ -1,13 +1,12 @@
 package ir
 
 import (
-	"fmt"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/ast"
 )
 
 // FunctionCall represents a function call statement in the IR.
@@ -90,7 +89,6 @@ func (e *FunctionCall) GetReferenceStatementId() int64 {
 
 // GetReferenceStatement returns the reference statement of the function call statement.
 func (e *FunctionCall) GetReferenceStatement() *Function {
-	fmt.Println("Here...", e.GetName())
 	return e.referencedUnit
 }
 

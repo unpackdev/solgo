@@ -5,8 +5,8 @@ import (
 
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/stretchr/testify/assert"
-	"github.com/txpull/solgo/parser"
-	"github.com/txpull/solgo/tests"
+	"github.com/unpackdev/solgo/parser"
+	"github.com/unpackdev/solgo/tests"
 )
 
 func TestSyntaxErrorListener(t *testing.T) {

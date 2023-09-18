@@ -3,8 +3,8 @@
 package ast
 
 import (
-	ast_pb "github.com/txpull/protos/dist/go/ast" // Import for AST protocol buffer definitions.
-	"github.com/txpull/solgo/parser"              // Import for the solgo parser.
+	ast_pb "github.com/unpackdev/protos/dist/go/ast" // Import for AST protocol buffer definitions.
+	"github.com/unpackdev/solgo/parser"              // Import for the solgo parser.
 )
 
 // Fallback represents a fallback function definition node in the abstract syntax tree (AST).

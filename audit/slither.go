@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/0x19/solc-switch"
-	"github.com/txpull/solgo"
+	"github.com/unpackdev/solgo"
 )
 
 // Slither represents a wrapper around the Slither static analysis tool.

@@ -1,7 +1,7 @@
 package standards
 
 import (
-	eip_pb "github.com/txpull/protos/dist/go/eip"
+	eip_pb "github.com/unpackdev/protos/dist/go/eip"
 )
 
 // ConfidenceLevel represents the confidence level of a discovery.
@@ -23,13 +23,13 @@ func (c ConfidenceLevel) String() string {
 	}
 }
 
-// ConfidenceThreshold represents the threshold value for a confidence level.
-type ConfidenceThreshold float64
-
 // ToProto converts a ConfidenceLevel to its protobuf representation.
 func (c ConfidenceLevel) ToProto() eip_pb.ConfidenceLevel {
 	return eip_pb.ConfidenceLevel(c)
 }
+
+// ConfidenceThreshold represents the threshold value for a confidence level.
+type ConfidenceThreshold float64
 
 // ToProto converts a ConfidenceThreshold to its protobuf representation.
 func (c ConfidenceThreshold) ToProto() eip_pb.ConfidenceThreshold {

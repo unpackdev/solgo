@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
-	abi_pb "github.com/txpull/protos/dist/go/abi"
-	"github.com/txpull/solgo"
-	"github.com/txpull/solgo/ast"
-	"github.com/txpull/solgo/ir"
+	abi_pb "github.com/unpackdev/protos/dist/go/abi"
+	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/ir"
 )
 
 // Builder facilitates the construction of Ethereum ABIs.
@@ -64,6 +64,11 @@ func (b *Builder) GetParser() *ir.Builder {
 // GetRoot retrieves the root of the ABI.
 func (b *Builder) GetRoot() *Root {
 	return b.root
+}
+
+// GetEntryContract retrieves the entry contract of the ABI.
+func (b *Builder) GetEntryContract() *Contract {
+	return b.root.GetEntryContract()
 }
 
 // ToJSON returns the JSON representation of the ABI.

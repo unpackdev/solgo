@@ -2,9 +2,9 @@ package ir
 
 import (
 	v3 "github.com/cncf/xds/go/xds/type/v3"
-	ast_pb "github.com/txpull/protos/dist/go/ast"
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/ast"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/ast"
 )
 
 // Statement is an interface that defines common methods for all statement-like

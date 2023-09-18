@@ -1,7 +1,7 @@
 package audit
 
 import (
-	audit_pb "github.com/txpull/protos/dist/go/audit"
+	audit_pb "github.com/unpackdev/protos/dist/go/audit"
 )
 
 // Report represents the top-level structure of the Slither JSON output.
@@ -9,6 +9,21 @@ type Report struct {
 	Success bool     `json:"success"` // Indicates the success status of the audit.
 	Error   string   `json:"error"`   // Contains any error messages, if present.
 	Results *Results `json:"results"` // Contains the results of the audit.
+}
+
+// IsSuccess returns true if the vulnerability report was generated successfully.
+func (r *Report) IsSuccess() bool {
+	return r.Success
+}
+
+// GetError returns the error message associated with the vulnerability report.
+func (r *Report) GetError() string {
+	return r.Error
+}
+
+// GetResults returns the Results struct associated with the vulnerability report.
+func (r *Report) GetResults() *Results {
+	return r.Results
 }
 
 // ToProto converts the Report struct to its protobuf representation.
@@ -23,6 +38,11 @@ func (r *Report) ToProto() *audit_pb.Report {
 // Results encapsulates the list of detected vulnerabilities or issues.
 type Results struct {
 	Detectors []Detector `json:"detectors"` // List of detected vulnerabilities or issues.
+}
+
+// GetDetectors returns the list of detected vulnerabilities or issues.
+func (r *Results) GetDetectors() []Detector {
+	return r.Detectors
 }
 
 // ToProto converts the Results struct to its protobuf representation.

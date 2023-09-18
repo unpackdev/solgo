@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
-	opcode_pb "github.com/txpull/protos/dist/go/opcode"
+	opcode_pb "github.com/unpackdev/protos/dist/go/opcode"
 )
 
 // Decompiler is responsible for decompiling Ethereum bytecode into a set of instructions.

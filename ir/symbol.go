@@ -1,8 +1,8 @@
 package ir
 
 import (
-	ir_pb "github.com/txpull/protos/dist/go/ir"
-	"github.com/txpull/solgo/ast"
+	ir_pb "github.com/unpackdev/protos/dist/go/ir"
+	"github.com/unpackdev/solgo/ast"
 )
 
 // Symbol represents a symbol in the Intermediate Representation (IR) of Solidity contracts' Abstract Syntax Tree (AST).
