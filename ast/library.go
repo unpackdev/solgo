@@ -19,6 +19,7 @@ type Library struct {
 	Name                    string           `json:"name"`                      // Name is the name of the library.
 	NodeType                ast_pb.NodeType  `json:"node_type"`                 // NodeType is the type of the node.
 	Src                     SrcNode          `json:"src"`                       // Src is the source node associated with the library node.
+	NameLocation            SrcNode          `json:"name_location"`             // NameLocation is the source node associated with the name of the library node.
 	Abstract                bool             `json:"abstract"`                  // Abstract indicates if the library is abstract.
 	Kind                    ast_pb.NodeType  `json:"kind"`                      // Kind is the kind of the node.
 	FullyImplemented        bool             `json:"fully_implemented"`         // FullyImplemented indicates if the library is fully implemented.
@@ -55,6 +56,11 @@ func (l *Library) GetType() ast_pb.NodeType {
 // GetSrc returns the source node associated with the library node.
 func (l *Library) GetSrc() SrcNode {
 	return l.Src
+}
+
+// GetNameLocation returns the source node associated with the name of the library node.
+func (l *Library) GetNameLocation() SrcNode {
+	return l.NameLocation
 }
 
 // GetTypeDescription returns the type description of the library node.
@@ -230,6 +236,7 @@ func (l *Library) ToProto() NodeType {
 		NodeType:                l.GetType(),
 		Kind:                    l.GetKind(),
 		Src:                     l.GetSrc().ToProto(),
+		NameLocation:            l.GetNameLocation().ToProto(),
 		Name:                    l.GetName(),
 		Abstract:                l.IsAbstract(),
 		FullyImplemented:        l.IsFullyImplemented(),
@@ -297,6 +304,14 @@ func (l *Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDe
 			End:         int64(ctx.GetStop().GetStop()),
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: unit.Id,
+		},
+		NameLocation: SrcNode{
+			Line:        int64(ctx.Identifier().GetStart().GetLine()),
+			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+			Start:       int64(ctx.Identifier().GetStart().GetStart()),
+			End:         int64(ctx.Identifier().GetStop().GetStop()),
+			Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+			ParentIndex: libraryId,
 		},
 		Abstract:                false,
 		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,
