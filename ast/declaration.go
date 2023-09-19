@@ -16,6 +16,7 @@ type Declaration struct {
 	NodeType        ast_pb.NodeType        `json:"node_type"`
 	Scope           int64                  `json:"scope"`
 	Src             SrcNode                `json:"src"`
+	NameLocation    SrcNode                `json:"name_location"`
 	IsStateVariable bool                   `json:"is_state_variable"`
 	StorageLocation ast_pb.StorageLocation `json:"storage_location"`
 	TypeName        *TypeName              `json:"type_name"`
@@ -44,6 +45,11 @@ func (v *Declaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescripti
 // GetId returns the ID of the Declaration.
 func (d *Declaration) GetId() int64 {
 	return d.Id
+}
+
+// GetNameLocation returns the name location of the Declaration.
+func (d *Declaration) GetNameLocation() SrcNode {
+	return d.NameLocation
 }
 
 // GetType returns the NodeType of the Declaration.
@@ -121,6 +127,7 @@ func (d *Declaration) ToProto() NodeType {
 		NodeType:        d.GetType(),
 		Scope:           d.GetScope(),
 		Src:             d.GetSrc().ToProto(),
+		NameLocation:    d.GetNameLocation().ToProto(),
 		Mutability:      d.GetStateMutability(),
 		StorageLocation: d.GetStorageLocation(),
 		Visibility:      d.GetVisibility(),
@@ -162,6 +169,14 @@ func (d *Declaration) ParseVariableDeclaration(
 
 	if ctx.Identifier() != nil {
 		d.Name = ctx.Identifier().GetText()
+		d.NameLocation = SrcNode{
+			Line:        int64(ctx.Identifier().GetStart().GetLine()),
+			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+			Start:       int64(ctx.Identifier().GetStart().GetStart()),
+			End:         int64(ctx.Identifier().GetStop().GetStop()),
+			Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+			ParentIndex: d.Id,
+		}
 	}
 
 	d.Scope = bodyNode.GetId()
