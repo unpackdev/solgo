@@ -200,6 +200,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 					Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
 					ParentIndex: t.GetId(),
 				},
+
 				NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 			}
 
@@ -250,6 +251,14 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			Name: identifierCtx.GetText(),
 			Src: SrcNode{
 				Id:          t.GetNextID(),
+				Line:        int64(ctx.GetStart().GetLine()),
+				Column:      int64(ctx.GetStart().GetColumn()),
+				Start:       int64(ctx.GetStart().GetStart()),
+				End:         int64(ctx.GetStop().GetStop()),
+				Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+				ParentIndex: t.Id,
+			},
+			NameLocation: &SrcNode{
 				Line:        int64(identifierCtx.GetStart().GetLine()),
 				Column:      int64(identifierCtx.GetStart().GetColumn()),
 				Start:       int64(identifierCtx.GetStart().GetStart()),
@@ -497,17 +506,22 @@ type PathNode struct {
 	NodeType              ast_pb.NodeType `json:"node_type"`
 	ReferencedDeclaration int64           `json:"referenced_declaration"`
 	Src                   SrcNode         `json:"src"`
+	NameLocation          *SrcNode        `json:"name_location,omitempty"`
 }
 
 // ToProto converts the PathNode instance to its corresponding protocol buffer representation.
 func (pn *PathNode) ToProto() *ast_pb.PathNode {
-	return &ast_pb.PathNode{
+	toReturn := &ast_pb.PathNode{
 		Id:                    pn.Id,
 		Name:                  pn.Name,
 		NodeType:              pn.NodeType,
 		ReferencedDeclaration: pn.ReferencedDeclaration,
 		Src:                   pn.Src.ToProto(),
 	}
+	if pn.NameLocation != nil {
+		toReturn.NameLocation = pn.NameLocation.ToProto()
+	}
+	return toReturn
 }
 
 // TypeDescription represents a description of a type.
