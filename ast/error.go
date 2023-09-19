@@ -15,6 +15,7 @@ type ErrorDefinition struct {
 	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node.
 	Src             SrcNode          `json:"src"`              // Source location information.
 	Name            string           `json:"name"`             // Name of the error definition.
+	NameLocation    SrcNode          `json:"name_location"`    // Source location information of the name.
 	Parameters      *ParameterList   `json:"parameters"`       // List of error parameters.
 	TypeDescription *TypeDescription `json:"type_description"` // Type description of the error definition.
 }
@@ -46,6 +47,11 @@ func (e *ErrorDefinition) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the error definition node.
 func (e *ErrorDefinition) GetSrc() SrcNode {
 	return e.Src
+}
+
+// GetNameLocation returns the source location information of the name of the error definition.
+func (e *ErrorDefinition) GetNameLocation() SrcNode {
+	return e.NameLocation
 }
 
 // GetName returns the name of the error definition.
@@ -80,6 +86,7 @@ func (e *ErrorDefinition) ToProto() NodeType {
 		Name:            e.GetName(),
 		NodeType:        e.GetType(),
 		Src:             e.GetSrc().ToProto(),
+		NameLocation:    e.GetNameLocation().ToProto(),
 		Parameters:      e.GetParameters().ToProto(),
 		TypeDescription: e.GetTypeDescription().ToProto(),
 	}
@@ -105,6 +112,14 @@ func (e *ErrorDefinition) Parse(
 	}
 	e.SourceUnitName = unit.GetName()
 	e.Name = ctx.GetName().GetText()
+	e.NameLocation = SrcNode{
+		Line:        int64(ctx.GetName().GetStart().GetLine()),
+		Column:      int64(ctx.GetName().GetStart().GetColumn()),
+		Start:       int64(ctx.GetName().GetStart().GetStart()),
+		End:         int64(ctx.GetName().GetStop().GetStop()),
+		Length:      int64(ctx.GetName().GetStop().GetStop() - ctx.GetName().GetStart().GetStart() + 1),
+		ParentIndex: e.Id,
+	}
 
 	e.TypeDescription = &TypeDescription{
 		TypeIdentifier: fmt.Sprintf(
