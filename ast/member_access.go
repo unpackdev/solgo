@@ -18,6 +18,7 @@ type MemberAccessExpression struct {
 	LValueRequested       bool               `json:"l_value_requested"`
 	NodeType              ast_pb.NodeType    `json:"node_type"`
 	Src                   SrcNode            `json:"src"`
+	MemberLocation        SrcNode            `json:"member_location"`
 	Expression            Node[NodeType]     `json:"expression"`
 	MemberName            string             `json:"member_name"`
 	ArgumentTypes         []*TypeDescription `json:"argument_types"`
@@ -55,6 +56,11 @@ func (m *MemberAccessExpression) GetType() ast_pb.NodeType {
 // GetSrc returns the source information of the MemberAccessExpression node.
 func (m *MemberAccessExpression) GetSrc() SrcNode {
 	return m.Src
+}
+
+// GetMemberLocation returns the source information of the accessed member.
+func (m *MemberAccessExpression) GetMemberLocation() SrcNode {
+	return m.MemberLocation
 }
 
 // GetExpression returns the expression being accessed in the member access.
@@ -114,6 +120,7 @@ func (m *MemberAccessExpression) ToProto() NodeType {
 		MemberName:            m.GetMemberName(),
 		NodeType:              m.GetType(),
 		Src:                   m.GetSrc().ToProto(),
+		MemberLocation:        m.GetMemberLocation().ToProto(),
 		ReferencedDeclaration: m.GetReferencedDeclaration(),
 		IsConstant:            m.IsConstant(),
 		IsLValue:              m.IsLValue(),
@@ -162,6 +169,14 @@ func (m *MemberAccessExpression) Parse(
 	}
 	m.NodeType = ast_pb.NodeType_MEMBER_ACCESS
 	m.MemberName = ctx.Identifier().GetText()
+	m.MemberLocation = SrcNode{
+		Line:        int64(ctx.Identifier().GetStart().GetLine()),
+		Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+		Start:       int64(ctx.Identifier().GetStart().GetStart()),
+		End:         int64(ctx.Identifier().GetStop().GetStop()),
+		Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+		ParentIndex: m.Id,
+	}
 
 	// Parsing the expression in the member access.
 	if ctx.Expression() != nil {

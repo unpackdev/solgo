@@ -16,6 +16,7 @@ type Contract struct {
 	Name                    string           `json:"name"`
 	NodeType                ast_pb.NodeType  `json:"node_type"`
 	Src                     SrcNode          `json:"src"`
+	NameLocation            SrcNode          `json:"name_location"`
 	Abstract                bool             `json:"abstract"`
 	Kind                    ast_pb.NodeType  `json:"kind"`
 	FullyImplemented        bool             `json:"fully_implemented"`
@@ -51,6 +52,11 @@ func (c *Contract) GetType() ast_pb.NodeType {
 // GetSrc returns the source information of the Contract.
 func (c *Contract) GetSrc() SrcNode {
 	return c.Src
+}
+
+// GetNameLocation returns the source information of the name of the Contract.
+func (c *Contract) GetNameLocation() SrcNode {
+	return c.NameLocation
 }
 
 // GetName returns the name of the Contract.
@@ -219,6 +225,7 @@ func (c *Contract) ToProto() NodeType {
 		NodeType:                c.GetType(),
 		Kind:                    c.GetKind(),
 		Src:                     c.GetSrc().ToProto(),
+		NameLocation:            c.GetNameLocation().ToProto(),
 		Name:                    c.GetName(),
 		Abstract:                c.IsAbstract(),
 		FullyImplemented:        c.IsFullyImplemented(),
@@ -274,8 +281,9 @@ func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contract
 		nodeImports...,
 	)
 
+	contractId := c.GetNextID()
 	contractNode := &Contract{
-		Id:   c.GetNextID(),
+		Id:   contractId,
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{
 			Line:        int64(ctx.GetStart().GetLine()),
@@ -284,6 +292,14 @@ func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contract
 			End:         int64(ctx.GetStop().GetStop()),
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: unit.Id,
+		},
+		NameLocation: SrcNode{
+			Line:        int64(ctx.Identifier().GetStart().GetLine()),
+			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+			Start:       int64(ctx.Identifier().GetStart().GetStart()),
+			End:         int64(ctx.Identifier().GetStop().GetStop()),
+			Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+			ParentIndex: contractId,
 		},
 		Abstract:                false,
 		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,

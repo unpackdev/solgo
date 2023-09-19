@@ -16,12 +16,14 @@ type TypeName struct {
 	NodeType              ast_pb.NodeType   `json:"node_type"`
 	Src                   SrcNode           `json:"src"`
 	Name                  string            `json:"name,omitempty"`
-	TypeDescription       *TypeDescription  `json:"type_description,omitempty"`
 	KeyType               *TypeName         `json:"key_type,omitempty"`
+	KeyNameLocation       *SrcNode          `json:"key_name_location,omitempty"`
 	ValueType             *TypeName         `json:"value_type,omitempty"`
+	ValueNameLocation     *SrcNode          `json:"value_name_location,omitempty"`
 	PathNode              *PathNode         `json:"path_node,omitempty"`
 	StateMutability       ast_pb.Mutability `json:"state_mutability,omitempty"`
 	ReferencedDeclaration int64             `json:"referenced_declaration"`
+	TypeDescription       *TypeDescription  `json:"type_description,omitempty"`
 }
 
 // NewTypeName creates a new TypeName instance with the given ASTBuilder.
@@ -51,6 +53,16 @@ func (t *TypeName) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the TypeName.
 func (t *TypeName) GetSrc() SrcNode {
 	return t.Src
+}
+
+// GetKeyNameLocation returns the key name location of the KeyTypeName.
+func (t *TypeName) GetKeyNameLocation() *SrcNode {
+	return t.KeyNameLocation
+}
+
+// GetValueNameLocation returns the value name location of the ValueTypeName.
+func (t *TypeName) GetValueNameLocation() *SrcNode {
+	return t.ValueNameLocation
 }
 
 // GetName returns the name of the type.
@@ -128,10 +140,16 @@ func (t *TypeName) ToProto() NodeType {
 
 	if t.GetKeyType() != nil {
 		toReturn.KeyType = t.GetKeyType().ToProto().(*ast_pb.TypeName)
+		if t.GetKeyNameLocation() != nil && t.GetKeyNameLocation().GetId() > 0 {
+			toReturn.KeyTypeLocation = t.GetKeyNameLocation().ToProto()
+		}
 	}
 
 	if t.GetValueType() != nil {
 		toReturn.ValueType = t.GetValueType().ToProto().(*ast_pb.TypeName)
+		if t.GetValueNameLocation() != nil && t.GetValueNameLocation().GetId() > 0 {
+			toReturn.ValueTypeLocation = t.GetValueNameLocation().ToProto()
+		}
 	}
 
 	return toReturn
@@ -182,6 +200,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 					Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
 					ParentIndex: t.GetId(),
 				},
+
 				NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 			}
 
@@ -232,6 +251,14 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			Name: identifierCtx.GetText(),
 			Src: SrcNode{
 				Id:          t.GetNextID(),
+				Line:        int64(ctx.GetStart().GetLine()),
+				Column:      int64(ctx.GetStart().GetColumn()),
+				Start:       int64(ctx.GetStart().GetStart()),
+				End:         int64(ctx.GetStop().GetStop()),
+				Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+				ParentIndex: t.Id,
+			},
+			NameLocation: &SrcNode{
 				Line:        int64(identifierCtx.GetStart().GetLine()),
 				Column:      int64(identifierCtx.GetStart().GetColumn()),
 				Start:       int64(identifierCtx.GetStart().GetStart()),
@@ -256,8 +283,28 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	valueCtx := ctx.GetValue()
 
 	t.KeyType = t.generateTypeName(unit, keyCtx, t, t)
-	t.ValueType = t.generateTypeName(unit, valueCtx, t, t)
 
+	if keyCtx.GetStart().GetLine() > 0 {
+		t.KeyNameLocation = &SrcNode{
+			Line:        int64(keyCtx.GetStart().GetLine()),
+			Column:      int64(keyCtx.GetStart().GetColumn()),
+			Start:       int64(keyCtx.GetStart().GetStart()),
+			End:         int64(keyCtx.GetStop().GetStop()),
+			Length:      int64(keyCtx.GetStop().GetStop() - keyCtx.GetStart().GetStart() + 1),
+			ParentIndex: t.GetId(),
+		}
+	}
+	t.ValueType = t.generateTypeName(unit, valueCtx, t, t)
+	if valueCtx.GetStart().GetLine() > 0 {
+		t.ValueNameLocation = &SrcNode{
+			Line:        int64(valueCtx.GetStart().GetLine()),
+			Column:      int64(valueCtx.GetStart().GetColumn()),
+			Start:       int64(valueCtx.GetStart().GetStart()),
+			End:         int64(valueCtx.GetStop().GetStop()),
+			Length:      int64(valueCtx.GetStop().GetStop() - valueCtx.GetStart().GetStart() + 1),
+			ParentIndex: t.GetId(),
+		}
+	}
 	t.TypeDescription = &TypeDescription{
 		TypeString: fmt.Sprintf("mapping(%s=>%s)", t.KeyType.Name, t.ValueType.Name),
 		TypeIdentifier: fmt.Sprintf(
@@ -306,6 +353,29 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		valueCtx := specificCtx.GetValue()
 		typeNameNode.KeyType = t.generateTypeName(sourceUnit, keyCtx, parentNode, typeNameNode)
 		typeNameNode.ValueType = t.generateTypeName(sourceUnit, valueCtx, parentNode, typeNameNode)
+
+		if keyCtx.GetStart().GetLine() > 0 {
+			typeNameNode.KeyNameLocation = &SrcNode{
+				Line:        int64(keyCtx.GetStart().GetLine()),
+				Column:      int64(keyCtx.GetStart().GetColumn()),
+				Start:       int64(keyCtx.GetStart().GetStart()),
+				End:         int64(keyCtx.GetStop().GetStop()),
+				Length:      int64(keyCtx.GetStop().GetStop() - keyCtx.GetStart().GetStart() + 1),
+				ParentIndex: typeNameNode.GetId(),
+			}
+		}
+
+		if valueCtx.GetStart().GetLine() > 0 {
+			typeNameNode.ValueNameLocation = &SrcNode{
+				Line:        int64(valueCtx.GetStart().GetLine()),
+				Column:      int64(valueCtx.GetStart().GetColumn()),
+				Start:       int64(valueCtx.GetStart().GetStart()),
+				End:         int64(valueCtx.GetStop().GetStop()),
+				Length:      int64(valueCtx.GetStop().GetStop() - valueCtx.GetStart().GetStart() + 1),
+				ParentIndex: typeNameNode.GetId(),
+			}
+		}
+
 		typeNameNode.TypeDescription = &TypeDescription{
 			TypeString: fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
 			TypeIdentifier: fmt.Sprintf(
@@ -436,17 +506,22 @@ type PathNode struct {
 	NodeType              ast_pb.NodeType `json:"node_type"`
 	ReferencedDeclaration int64           `json:"referenced_declaration"`
 	Src                   SrcNode         `json:"src"`
+	NameLocation          *SrcNode        `json:"name_location,omitempty"`
 }
 
 // ToProto converts the PathNode instance to its corresponding protocol buffer representation.
 func (pn *PathNode) ToProto() *ast_pb.PathNode {
-	return &ast_pb.PathNode{
+	toReturn := &ast_pb.PathNode{
 		Id:                    pn.Id,
 		Name:                  pn.Name,
 		NodeType:              pn.NodeType,
 		ReferencedDeclaration: pn.ReferencedDeclaration,
 		Src:                   pn.Src.ToProto(),
 	}
+	if pn.NameLocation != nil {
+		toReturn.NameLocation = pn.NameLocation.ToProto()
+	}
+	return toReturn
 }
 
 // TypeDescription represents a description of a type.

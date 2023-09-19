@@ -18,6 +18,7 @@ type Interface struct {
 	Name                    string           `json:"name"`                      // Name of the interface.
 	NodeType                ast_pb.NodeType  `json:"node_type"`                 // Type of the AST node.
 	Src                     SrcNode          `json:"src"`                       // Source location information.
+	NameLocation            SrcNode          `json:"name_location"`             // Location of the interface name.
 	Abstract                bool             `json:"abstract"`                  // Indicates whether the interface is abstract.
 	Kind                    ast_pb.NodeType  `json:"kind"`                      // Kind of the interface.
 	FullyImplemented        bool             `json:"fully_implemented"`         // Indicates whether the interface is fully implemented.
@@ -56,6 +57,11 @@ func (l *Interface) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the Interface node.
 func (l *Interface) GetSrc() SrcNode {
 	return l.Src
+}
+
+// GetNameLocation returns the location of the interface name.
+func (l *Interface) GetNameLocation() SrcNode {
+	return l.NameLocation
 }
 
 // GetTypeDescription returns the type description associated with the Interface node.
@@ -224,6 +230,7 @@ func (l *Interface) ToProto() NodeType {
 		NodeType:                l.GetType(),
 		Kind:                    l.GetKind(),
 		Src:                     l.GetSrc().ToProto(),
+		NameLocation:            l.GetNameLocation().ToProto(),
 		Name:                    l.GetName(),
 		Abstract:                l.IsAbstract(),
 		FullyImplemented:        l.IsFullyImplemented(),
@@ -273,9 +280,9 @@ func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfa
 	nodeImports := parseImportPathsForSourceUnit(l.ASTBuilder, unitCtx, unit, nil, nil, ctx)
 	unit.Nodes = append(unit.Nodes, nodeImports...)
 
-	// Create a new Interface node.
+	interfaceId := l.GetNextID()
 	interfaceNode := &Interface{
-		Id:   l.GetNextID(),
+		Id:   interfaceId,
 		Name: ctx.Identifier().GetText(),
 		Src: SrcNode{
 			Line:        int64(ctx.GetStart().GetLine()),
@@ -284,6 +291,14 @@ func (l *Interface) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Interfa
 			End:         int64(ctx.GetStop().GetStop()),
 			Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 			ParentIndex: unit.Id,
+		},
+		NameLocation: SrcNode{
+			Line:        int64(ctx.Identifier().GetStart().GetLine()),
+			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+			Start:       int64(ctx.Identifier().GetStart().GetStart()),
+			End:         int64(ctx.Identifier().GetStop().GetStop()),
+			Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+			ParentIndex: interfaceId,
 		},
 		Abstract:                false,
 		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,

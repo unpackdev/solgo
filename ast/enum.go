@@ -14,6 +14,7 @@ type EnumDefinition struct {
 	Id              int64            `json:"id"`               // Unique identifier for the enumeration definition
 	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node (ENUM_DEFINITION for enumeration definition)
 	Src             SrcNode          `json:"src"`              // Source information about the enumeration definition
+	NameLocation    SrcNode          `json:"name_location"`    // Source information about the name of the enumeration
 	Name            string           `json:"name"`             // Name of the enumeration
 	CanonicalName   string           `json:"canonical_name"`   // Canonical name of the enumeration
 	TypeDescription *TypeDescription `json:"type_description"` // Type description of the enumeration
@@ -48,6 +49,11 @@ func (e *EnumDefinition) GetType() ast_pb.NodeType {
 // GetSrc returns the source information about the enumeration definition.
 func (e *EnumDefinition) GetSrc() SrcNode {
 	return e.Src
+}
+
+// GetNameLocation returns the source information about the name of the enumeration.
+func (e *EnumDefinition) GetNameLocation() SrcNode {
+	return e.NameLocation
 }
 
 // GetName returns the name of the enumeration.
@@ -89,6 +95,7 @@ func (e *EnumDefinition) ToProto() NodeType {
 		CanonicalName:   e.GetCanonicalName(),
 		NodeType:        e.GetType(),
 		Src:             e.GetSrc().ToProto(),
+		NameLocation:    e.GetNameLocation().ToProto(),
 		Members:         make([]*ast_pb.Parameter, 0),
 		TypeDescription: e.GetTypeDescription().ToProto(),
 	}
@@ -126,6 +133,14 @@ func (e *EnumDefinition) Parse(
 	}
 	e.SourceUnitName = unit.GetName()
 	e.Name = ctx.GetName().GetText()
+	e.NameLocation = SrcNode{
+		Line:        int64(ctx.GetName().GetStart().GetLine()),
+		Column:      int64(ctx.GetName().GetStart().GetColumn()),
+		Start:       int64(ctx.GetName().GetStart().GetStart()),
+		End:         int64(ctx.GetName().GetStop().GetStop()),
+		Length:      int64(ctx.GetName().GetStop().GetStop() - ctx.GetName().GetStart().GetStart() + 1),
+		ParentIndex: e.Id,
+	}
 	e.CanonicalName = fmt.Sprintf("%s.%s", unit.GetName(), e.Name)
 	e.TypeDescription = &TypeDescription{
 		TypeIdentifier: fmt.Sprintf("t_enum_$_%s_$%d", e.Name, e.Id),
@@ -146,7 +161,15 @@ func (e *EnumDefinition) Parse(
 					Length:      int64(enumCtx.GetStop().GetStop() - enumCtx.GetStart().GetStart()),
 					ParentIndex: e.Id,
 				},
-				Name:     enumCtx.GetText(),
+				Name: enumCtx.GetText(),
+				NameLocation: &SrcNode{
+					Line:        int64(enumCtx.Identifier().GetSymbol().GetLine()),
+					Column:      int64(enumCtx.Identifier().GetSymbol().GetColumn()),
+					Start:       int64(enumCtx.Identifier().GetSymbol().GetStart()),
+					End:         int64(enumCtx.Identifier().GetSymbol().GetStop()),
+					Length:      int64(enumCtx.Identifier().GetSymbol().GetStop() - enumCtx.Identifier().GetSymbol().GetStart() + 1),
+					ParentIndex: e.Id,
+				},
 				NodeType: ast_pb.NodeType_ENUM_VALUE,
 				TypeDescription: &TypeDescription{
 					TypeIdentifier: fmt.Sprintf("t_enum_$_%s$_%s_$%d", e.Name, enumCtx.GetText(), id),

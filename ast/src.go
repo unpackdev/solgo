@@ -6,13 +6,13 @@ import (
 
 // SrcNode represents a node in the source code.
 type SrcNode struct {
-	Id          int64 `json:"id"`           // Unique identifier of the source node.
-	Line        int64 `json:"line"`         // Line number of the source node in the source code.
-	Column      int64 `json:"column"`       // Column number of the source node in the source code.
-	Start       int64 `json:"start"`        // Start position of the source node in the source code.
-	End         int64 `json:"end"`          // End position of the source node in the source code.
-	Length      int64 `json:"length"`       // Length of the source node in the source code.
-	ParentIndex int64 `json:"parent_index"` // Index of the parent node in the source code.
+	Id          int64 `json:"id,omitempty"`           // Unique identifier of the source node.
+	Line        int64 `json:"line"`                   // Line number of the source node in the source code.
+	Column      int64 `json:"column"`                 // Column number of the source node in the source code.
+	Start       int64 `json:"start"`                  // Start position of the source node in the source code.
+	End         int64 `json:"end"`                    // End position of the source node in the source code.
+	Length      int64 `json:"length"`                 // Length of the source node in the source code.
+	ParentIndex int64 `json:"parent_index,omitempty"` // Index of the parent node in the source code.
 }
 
 // GetId returns the unique identifier of the source node.

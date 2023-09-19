@@ -15,11 +15,12 @@ require (
 	github.com/mr-tron/base58 v1.2.0
 	github.com/sergi/go-diff v1.3.1
 	github.com/stretchr/testify v1.8.4
-	github.com/txpull/solgo v0.2.3
-	github.com/unpackdev/protos v0.1.7
+	github.com/unpackdev/protos v0.1.8
 	go.uber.org/zap v1.25.0
 	google.golang.org/protobuf v1.31.0
 )
+
+//replace github.com/unpackdev/protos => ../protos
 
 require (
 	github.com/benbjohnson/clock v1.3.5 // indirect
@@ -49,7 +50,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
-	github.com/txpull/protos v0.1.6 // indirect
 	github.com/whyrusleeping/tar-utils v0.0.0-20201201191210-20a61371de5b // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
@@ -63,6 +63,7 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20230731193218-e0aa005b6bdf // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230731190214-cbb8c96f2d6d // indirect
 	google.golang.org/grpc v1.57.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	lukechampine.com/blake3 v1.2.1 // indirect
 )

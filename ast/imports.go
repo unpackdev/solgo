@@ -11,14 +11,15 @@ import (
 
 // Import represents an import node in the abstract syntax tree.
 type Import struct {
-	Id           int64           `json:"id"`            // Unique identifier of the import node.
-	NodeType     ast_pb.NodeType `json:"node_type"`     // Type of the node.
-	Src          SrcNode         `json:"src"`           // Source location information.
-	AbsolutePath string          `json:"absolute_path"` // Absolute path of the imported file.
-	File         string          `json:"file"`          // Filepath of the import statement.
-	Scope        int64           `json:"scope"`         // Scope of the import.
-	UnitAlias    string          `json:"unit_alias"`    // Alias of the imported unit.
-	SourceUnit   int64           `json:"source_unit"`   // Source unit identifier.
+	Id           int64           `json:"id"`                      // Unique identifier of the import node.
+	NodeType     ast_pb.NodeType `json:"node_type"`               // Type of the node.
+	Src          SrcNode         `json:"src"`                     // Source location information.
+	NameLocation *SrcNode        `json:"name_location,omitempty"` // Source location information of the name.
+	AbsolutePath string          `json:"absolute_path"`           // Absolute path of the imported file.
+	File         string          `json:"file"`                    // Filepath of the import statement.
+	Scope        int64           `json:"scope"`                   // Scope of the import.
+	UnitAlias    string          `json:"unit_alias"`              // Alias of the imported unit.
+	SourceUnit   int64           `json:"source_unit"`             // Source unit identifier.
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the Import node.
@@ -44,6 +45,11 @@ func (i *Import) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the import node.
 func (i *Import) GetSrc() SrcNode {
 	return i.Src
+}
+
+// GetNameLocation returns the source location information of the name of the import node.
+func (i *Import) GetNameLocation() *SrcNode {
+	return i.NameLocation
 }
 
 // GetTypeDescription returns the type description of the import node.
@@ -104,6 +110,10 @@ func (i *Import) ToProto() NodeType {
 		SourceUnit:   i.GetSourceUnit(),
 	}
 
+	if i.GetNameLocation() != nil {
+		proto.NameLocation = i.GetNameLocation().ToProto()
+	}
+
 	return NewTypedStruct(&proto, "Import")
 }
 
@@ -143,9 +153,9 @@ func parseImportPathsForSourceUnit(
 		}
 
 		if importCtx, ok := child.(*parser.ImportDirectiveContext); ok {
-			// First pragma encountered, add it to the result
+			importNodeId := b.GetNextID()
 			importNode := &Import{
-				Id:       b.GetNextID(),
+				Id:       importNodeId,
 				NodeType: ast_pb.NodeType_IMPORT_DIRECTIVE,
 				Src: SrcNode{
 					Line:        int64(importCtx.GetStart().GetLine()),
@@ -166,6 +176,17 @@ func parseImportPathsForSourceUnit(
 					return toReturn
 				}(),
 				Scope: unit.Id,
+			}
+
+			if importCtx.Identifier() != nil {
+				importNode.NameLocation = &SrcNode{
+					Line:        int64(importCtx.Identifier().GetStart().GetLine()),
+					Column:      int64(importCtx.Identifier().GetStart().GetColumn()),
+					Start:       int64(importCtx.Identifier().GetStart().GetStart()),
+					End:         int64(importCtx.Identifier().GetStop().GetStop()),
+					Length:      int64(importCtx.Identifier().GetStop().GetStop() - importCtx.Identifier().GetStart().GetStart() + 1),
+					ParentIndex: importNodeId,
+				}
 			}
 
 			if importCtx.GetUnitAlias() != nil {

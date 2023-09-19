@@ -16,6 +16,7 @@ type StructDefinition struct {
 	Src                   SrcNode                `json:"src"`                              // Source information about the struct definition
 	Kind                  ast_pb.NodeType        `json:"kind,omitempty"`                   // Kind of the struct definition (e.g., "contract")
 	Name                  string                 `json:"name"`                             // Name of the struct
+	NameLocation          SrcNode                `json:"name_location"`                    // Source information about the name of the struct
 	CanonicalName         string                 `json:"canonical_name"`                   // Canonical name of the struct
 	ReferencedDeclaration int64                  `json:"referenced_declaration,omitempty"` // Referenced declaration of the struct definition
 	TypeDescription       *TypeDescription       `json:"type_description"`                 // Type description of the struct definition
@@ -55,6 +56,11 @@ func (s *StructDefinition) GetType() ast_pb.NodeType {
 // GetSrc returns the source information about the struct definition.
 func (s *StructDefinition) GetSrc() SrcNode {
 	return s.Src
+}
+
+// GetNameLocation returns the source information about the name of the struct definition.
+func (s *StructDefinition) GetNameLocation() SrcNode {
+	return s.NameLocation
 }
 
 // GetName returns the name of the struct definition.
@@ -126,6 +132,7 @@ func (s *StructDefinition) ToProto() NodeType {
 		StorageLocation:       s.GetStorageLocation(),
 		ReferencedDeclaration: s.GetReferencedDeclaration(),
 		Src:                   s.GetSrc().ToProto(),
+		NameLocation:          s.GetNameLocation().ToProto(),
 		Members:               make([]*ast_pb.Parameter, 0, len(s.GetMembers())),
 		TypeDescription:       s.GetTypeDescription().ToProto(),
 	}
@@ -157,6 +164,14 @@ func (s *StructDefinition) Parse(
 
 	s.Name = ctx.GetName().GetText()
 	s.CanonicalName = fmt.Sprintf("%s.%s", s.SourceUnitName, s.Name)
+	s.NameLocation = SrcNode{
+		Line:        int64(ctx.GetName().GetStart().GetLine()),
+		Column:      int64(ctx.GetName().GetStart().GetColumn()),
+		Start:       int64(ctx.GetName().GetStart().GetStart()),
+		End:         int64(ctx.GetName().GetStop().GetStop()),
+		Length:      int64(ctx.GetName().GetStop().GetStop() - ctx.GetName().GetStart().GetStart() + 1),
+		ParentIndex: s.GetId(),
+	}
 
 	s.TypeDescription = &TypeDescription{
 		TypeIdentifier: fmt.Sprintf(

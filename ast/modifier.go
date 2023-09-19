@@ -9,14 +9,15 @@ import (
 type ModifierDefinition struct {
 	*ASTBuilder
 
-	Id         int64             `json:"id"`         // Unique identifier of the modifier definition node.
-	Name       string            `json:"name"`       // Name of the modifier.
-	NodeType   ast_pb.NodeType   `json:"node_type"`  // Type of the node.
-	Src        SrcNode           `json:"src"`        // Source location information.
-	Visibility ast_pb.Visibility `json:"visibility"` // Visibility of the modifier.
-	Virtual    bool              `json:"virtual"`    // Indicates if the modifier is virtual.
-	Parameters *ParameterList    `json:"parameters"` // List of parameters for the modifier.
-	Body       *BodyNode         `json:"body"`       // Body node of the modifier.
+	Id           int64             `json:"id"`            // Unique identifier of the modifier definition node.
+	Name         string            `json:"name"`          // Name of the modifier.
+	NodeType     ast_pb.NodeType   `json:"node_type"`     // Type of the node.
+	Src          SrcNode           `json:"src"`           // Source location information.
+	NameLocation SrcNode           `json:"name_location"` // Source location information of the name.
+	Visibility   ast_pb.Visibility `json:"visibility"`    // Visibility of the modifier.
+	Virtual      bool              `json:"virtual"`       // Indicates if the modifier is virtual.
+	Parameters   *ParameterList    `json:"parameters"`    // List of parameters for the modifier.
+	Body         *BodyNode         `json:"body"`          // Body node of the modifier.
 }
 
 // NewModifierDefinition creates a new instance of ModifierDefinition with the provided ASTBuilder.
@@ -47,6 +48,11 @@ func (m *ModifierDefinition) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the modifier definition node.
 func (m *ModifierDefinition) GetSrc() SrcNode {
 	return m.Src
+}
+
+// GetNameLocation returns the source location information of the name of the modifier definition.
+func (m *ModifierDefinition) GetNameLocation() SrcNode {
+	return m.NameLocation
 }
 
 // GetName returns the name of the modifier.
@@ -90,14 +96,15 @@ func (m *ModifierDefinition) GetBody() *BodyNode {
 // ToProto converts the ModifierDefinition node to its corresponding protobuf representation.
 func (m *ModifierDefinition) ToProto() NodeType {
 	proto := ast_pb.Modifier{
-		Id:         m.GetId(),
-		Name:       m.GetName(),
-		NodeType:   m.GetType(),
-		Src:        m.GetSrc().ToProto(),
-		Virtual:    m.IsVirtual(),
-		Visibility: m.GetVisibility(),
-		Parameters: m.GetParameters().ToProto(),
-		Body:       m.GetBody().ToProto().(*ast_pb.Body),
+		Id:           m.GetId(),
+		Name:         m.GetName(),
+		NodeType:     m.GetType(),
+		Src:          m.GetSrc().ToProto(),
+		NameLocation: m.GetNameLocation().ToProto(),
+		Virtual:      m.IsVirtual(),
+		Visibility:   m.GetVisibility(),
+		Parameters:   m.GetParameters().ToProto(),
+		Body:         m.GetBody().ToProto().(*ast_pb.Body),
 	}
 
 	return NewTypedStruct(&proto, "Modifier")
@@ -120,6 +127,14 @@ func (m *ModifierDefinition) ParseDefinition(
 		ParentIndex: contractNode.GetId(),
 	}
 	m.Name = ctx.Identifier().GetText()
+	m.NameLocation = SrcNode{
+		Line:        int64(ctx.Identifier().GetStart().GetLine()),
+		Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+		Start:       int64(ctx.Identifier().GetStart().GetStart()),
+		End:         int64(ctx.Identifier().GetStop().GetStop()),
+		Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+		ParentIndex: m.GetId(),
+	}
 
 	if ctx.AllVirtual() != nil {
 		for _, virtualCtx := range ctx.AllVirtual() {
