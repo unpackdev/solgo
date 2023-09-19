@@ -12,6 +12,7 @@ type Parameter struct {
 	Id              int64                  `json:"id"`                         // Unique identifier of the parameter node.
 	NodeType        ast_pb.NodeType        `json:"node_type"`                  // Type of the node.
 	Src             SrcNode                `json:"src"`                        // Source location information.
+	NameLocation    *SrcNode               `json:"name_location,omitempty"`    // Source location information of the name.
 	Scope           int64                  `json:"scope,omitempty"`            // Scope of the parameter.
 	Name            string                 `json:"name"`                       // Name of the parameter.
 	TypeName        *TypeName              `json:"type_name,omitempty"`        // Type name of the parameter.
@@ -52,6 +53,11 @@ func (p *Parameter) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the parameter node.
 func (p *Parameter) GetSrc() SrcNode {
 	return p.Src
+}
+
+// GetNameLocation returns the source location information of the name of the parameter.
+func (p *Parameter) GetNameLocation() *SrcNode {
+	return p.NameLocation
 }
 
 // GetName returns the name of the parameter.
@@ -138,6 +144,10 @@ func (p *Parameter) ToProto() NodeType {
 
 	if p.GetTypeDescription() != nil {
 		toReturn.TypeDescription = p.GetTypeDescription().ToProto()
+	}
+
+	if p.GetNameLocation() != nil {
+		toReturn.NameLocation = p.GetNameLocation().ToProto()
 	}
 
 	return toReturn
