@@ -19,6 +19,7 @@ type Function struct {
 	NodeType              ast_pb.NodeType       `json:"node_type"`
 	Kind                  ast_pb.NodeType       `json:"kind"`
 	Src                   SrcNode               `json:"src"`
+	NameLocation          SrcNode               `json:"name_location"`
 	Body                  *BodyNode             `json:"body"`
 	Implemented           bool                  `json:"implemented"`
 	Visibility            ast_pb.Visibility     `json:"visibility"`
@@ -65,6 +66,11 @@ func (f *Function) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the Function node.
 func (f *Function) GetSrc() SrcNode {
 	return f.Src
+}
+
+// GetNameLocation returns the source location information of the name of the Function node.
+func (f *Function) GetNameLocation() SrcNode {
+	return f.NameLocation
 }
 
 // GetParameters returns the list of parameters of the Function node.
@@ -163,6 +169,7 @@ func (f *Function) ToProto() NodeType {
 		NodeType:              f.GetType(),
 		Kind:                  f.GetKind(),
 		Src:                   f.GetSrc().ToProto(),
+		NameLocation:          f.GetNameLocation().ToProto(),
 		ReferencedDeclaration: f.GetReferencedDeclaration(),
 		Implemented:           f.IsImplemented(),
 		Virtual:               f.IsVirtual(),
@@ -203,6 +210,14 @@ func (f *Function) Parse(
 	f.Scope = contractNode.GetId()
 	if ctx.Identifier() != nil {
 		f.Name = ctx.Identifier().GetText()
+		f.NameLocation = SrcNode{
+			Line:        int64(ctx.Identifier().GetStart().GetLine()),
+			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
+			Start:       int64(ctx.Identifier().GetStart().GetStart()),
+			End:         int64(ctx.Identifier().GetStop().GetStop()),
+			Length:      int64(ctx.Identifier().GetStop().GetStop() - ctx.Identifier().GetStart().GetStart() + 1),
+			ParentIndex: f.Id,
+		}
 	}
 	f.Implemented = ctx.Block() != nil && !ctx.Block().IsEmpty()
 	f.Src = SrcNode{
