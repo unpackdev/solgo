@@ -99,7 +99,7 @@ func (b *BlockSubscriber) SubscribeHeader(opts *BlockSubscriberOptions, blockCh 
 	return nil
 }
 
-// SubscribeHeader subscribes to block based on the provided options.
+// Subscribe subscribes to block based on the provided options.
 // It can either subscribe to the latest blocks or a range of blocks.
 func (b *BlockSubscriber) Subscribe(opts *BlockSubscriberOptions, blockCh chan *types.Block) error {
 	if b.active.Load() {
