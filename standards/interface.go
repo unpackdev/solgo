@@ -35,6 +35,9 @@ type EIP interface {
 	// TokenCount returns the number of tokens associated with the Ethereum standard.
 	TokenCount() int
 
+	// GetABI returns the ABI of the Ethereum standard.
+	GetABI() string
+
 	// ToProto converts the Ethereum standard to its protobuf representation.
 	ToProto() *eip_pb.ContractStandard
 

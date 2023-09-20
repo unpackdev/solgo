@@ -57,6 +57,11 @@ func (e *Contract) ToProto() *eip_pb.ContractStandard {
 	return e.Standard.ToProto()
 }
 
+// GetABI returns the ABI of the standard.
+func (e *Contract) GetABI() string {
+	return e.Standard.ABI
+}
+
 // String returns the name of the standard.
 func (e *Contract) String() string {
 	return e.GetName()
