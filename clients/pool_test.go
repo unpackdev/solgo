@@ -42,6 +42,8 @@ func TestClientPool(t *testing.T) {
 					{
 						Group:                   "bsc",
 						Type:                    "mainnet",
+						FailoverGroup:           "bsc",
+						FailoverType:            "archive",
 						Endpoint:                "https://bsc-dataseed.binance.org/",
 						ConcurrentClientsNumber: 1,
 						NetworkId:               56,
@@ -49,6 +51,8 @@ func TestClientPool(t *testing.T) {
 					{
 						Group:                   "bsc",
 						Type:                    "archive",
+						FailoverGroup:           "bsc",
+						FailoverType:            "mainnet",
 						Endpoint:                "https://bsc-dataseed.binance.org/",
 						ConcurrentClientsNumber: 1,
 						NetworkId:               56,
@@ -129,6 +133,11 @@ func TestClientPool(t *testing.T) {
 				assert.Nil(t, clientByGroupAndType)
 			} else {
 				assert.NotNil(t, clientByGroupAndType)
+			}
+
+			if len(tt.opts.GetNodes()) > 1 {
+				assert.NotEmpty(t, clientByGroup.GetFailoverGroup())
+				assert.NotEmpty(t, clientByGroup.GetFailoverType())
 			}
 
 			assert.Equal(t, tt.group, clientByGroupAndType.GetGroup())

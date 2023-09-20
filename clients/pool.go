@@ -13,6 +13,7 @@ import (
 )
 
 // ClientPool manages a pool of Ethereum clients for different networks and types.
+// It provides methods to retrieve clients based on various criteria and to close all clients in the pool.
 type ClientPool struct {
 	ctx           context.Context
 	opts          *Options
@@ -35,14 +36,13 @@ func (c *ClientPool) GetClient(group, typ string) *Client {
 }
 
 // GetClientByGroupAndType retrieves a client based on the group and type in a round-robin fashion.
+// This method is functionally equivalent to GetClient and is provided for clarity.
 func (c *ClientPool) GetClientByGroupAndType(group, typ string) *Client {
-	key := group + "_" + typ
-	current := c.groupTypeNext[key]
-	n := atomic.AddUint32(&current, 1)
-	return c.clients[key][(int(n)-1)%len(c.clients[key])]
+	return c.GetClient(group, typ)
 }
 
 // GetClientByGroup retrieves a client based on the group in a round-robin fashion.
+// It aggregates all clients within the specified group and returns one of them.
 func (c *ClientPool) GetClientByGroup(group string) *Client {
 	var allClientsInGroup []*Client
 
@@ -70,6 +70,7 @@ func (c *ClientPool) GetClientByGroup(group string) *Client {
 }
 
 // GetClientDescriptionByNetworkId retrieves the group and type of a client based on the network ID.
+// It returns an empty string for both group and type if no match is found.
 func (c *ClientPool) GetClientDescriptionByNetworkId(networkId *big.Int) (string, string) {
 	for _, node := range c.opts.GetNodes() {
 		if big.NewInt(node.GetNetworkID()).Int64() == networkId.Int64() {
@@ -79,7 +80,7 @@ func (c *ClientPool) GetClientDescriptionByNetworkId(networkId *big.Int) (string
 	return "", ""
 }
 
-// Close closes all the clients in the pool.
+// Close gracefully closes all the clients in the pool.
 func (c *ClientPool) Close() {
 	for _, clients := range c.clients {
 		for _, client := range clients {
@@ -89,6 +90,8 @@ func (c *ClientPool) Close() {
 }
 
 // NewClientPool initializes a new ClientPool with the given options.
+// It returns an error if the options are not set, if there are no nodes specified in the options,
+// or if there's an issue with any of the nodes' configurations.
 func NewClientPool(ctx context.Context, opts *Options) (*ClientPool, error) {
 	clients := make(map[string][]*Client)
 	mutex := sync.Mutex{}
