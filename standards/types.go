@@ -158,6 +158,9 @@ type ContractStandard struct {
 	// Stagnant indicates whether the contract standard is stagnant in terms of development.
 	Stagnant bool `json:"stagnant"`
 
+	// ABI specifies the ABI of the contract standard.
+	ABI string `json:"abi"`
+
 	// Functions is a slice of Function structs, representing the functions defined in the contract standard.
 	Functions []Function `json:"functions"`
 

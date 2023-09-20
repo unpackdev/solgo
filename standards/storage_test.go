@@ -126,6 +126,9 @@ func TestEIPStorage(t *testing.T) {
 			// Test IsStagnant
 			assert.Equal(t, tt.isStagnant, tt.standard.IsStagnant())
 
+			// Test GetABI
+			assert.NotEmpty(t, tt.standard.GetABI(), "ABI is empty")
+
 			// Test ToProto
 			assert.NotNil(t, tt.standard.ToProto())
 
