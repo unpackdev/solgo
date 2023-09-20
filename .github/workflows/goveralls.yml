@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SOLC_SWITCH_GITHUB_TOKEN: ${{ secrets.SOLC_SWITCH_GITHUB_TOKEN }}
+      FULL_NODE_TEST_URL: ${{ secrets.FULL_NODE_TEST_URL }}
+      ARCHIVE_NODE_TEST_URL: ${{ secrets.ARCHIVE_NODE_TEST_URL }}
     strategy:
       fail-fast: false
       matrix:
