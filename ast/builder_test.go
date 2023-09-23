@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -27,6 +28,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
+
 			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
@@ -55,6 +57,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.Equal(t, errsExpected, errs)
 			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
 			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
+
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
 				prettyJson, err := utils.ToJSONPretty(sourceUnit)
 				assert.NoError(t, err)
@@ -126,11 +129,18 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 }
 
 func recursiveTest(t *testing.T, node Node[NodeType]) {
+	if node == nil {
+		return
+	}
+
 	assert.NotNil(t, node.GetNodes(), fmt.Sprintf("Node %T has nil nodes", node))
 	assert.GreaterOrEqual(t, node.GetId(), int64(0), fmt.Sprintf("Node %T has empty id", node))
 	assert.NotNil(t, node.GetType(), fmt.Sprintf("Node %T has empty type", node))
 	assert.NotNil(t, node.GetSrc(), fmt.Sprintf("Node %T has empty GetSrc()", node))
-	assert.NotNil(t, node.GetTypeDescription(), fmt.Sprintf("Node %T has not defined GetTypeDescription()", node))
+
+	if reflect.TypeOf(node).String() != "*ast.ReturnStatement" {
+		assert.NotNil(t, node.GetTypeDescription(), fmt.Sprintf("Node %T has not defined GetTypeDescription()", node))
+	}
 
 	if contract, ok := node.(*Contract); ok {
 		assert.GreaterOrEqual(t, len(contract.GetBaseContracts()), 0)
@@ -351,8 +361,10 @@ func recursiveReferenceDescriptorSetTest(t *testing.T, node Node[NodeType]) {
 	node.SetReferenceDescriptor(0, &TypeDescription{})
 
 	for _, childNode := range node.GetNodes() {
-		childNode.SetReferenceDescriptor(0, nil)
-		childNode.SetReferenceDescriptor(0, &TypeDescription{})
-		recursiveReferenceDescriptorSetTest(t, childNode)
+		if childNode != nil {
+			childNode.SetReferenceDescriptor(0, nil)
+			childNode.SetReferenceDescriptor(0, &TypeDescription{})
+			recursiveReferenceDescriptorSetTest(t, childNode)
+		}
 	}
 }

@@ -136,6 +136,15 @@ func (v *VariableDeclaration) Parse(
 		v.Assignments = append(v.Assignments, declaration.GetId())
 	}
 
+	if ctx.VariableDeclarationTuple() != nil {
+		for _, declarationCtx := range ctx.VariableDeclarationTuple().AllVariableDeclaration() {
+			declaration := NewDeclaration(v.ASTBuilder)
+			declaration.ParseVariableDeclaration(unit, contractNode, fnNode, bodyNode, v, declarationCtx)
+			v.Declarations = append(v.Declarations, declaration)
+			v.Assignments = append(v.Assignments, declaration.GetId())
+		}
+	}
+
 	if ctx.Expression() != nil {
 		expression := NewExpression(v.ASTBuilder)
 		v.InitialValue = expression.Parse(unit, contractNode, fnNode, bodyNode, v, nil, ctx.Expression())

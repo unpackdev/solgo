@@ -58,10 +58,14 @@ func (r *ReturnStatement) GetFunctionReturnParameters() int64 {
 
 // GetTypeDescription returns the type description of the ReturnStatement's expression.
 func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
-	if r.Expression != nil {
-		return r.Expression.GetTypeDescription()
+	if r.Expression == nil {
+		return &TypeDescription{
+			TypeString:     "void",
+			TypeIdentifier: "$_t_return_void",
+		}
 	}
-	return nil
+
+	return r.Expression.GetTypeDescription()
 }
 
 // GetNodes returns a list of child nodes contained in the ReturnStatement.
@@ -76,8 +80,14 @@ func (r *ReturnStatement) ToProto() NodeType {
 		NodeType:                 r.GetType(),
 		Src:                      r.Src.ToProto(),
 		FunctionReturnParameters: r.GetFunctionReturnParameters(),
-		Expression:               r.GetExpression().ToProto().(*v3.TypedStruct),
-		TypeDescription:          r.GetTypeDescription().ToProto(),
+	}
+
+	if r.GetExpression() != nil {
+		proto.Expression = r.GetExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	if r.GetTypeDescription() != nil {
+		proto.TypeDescription = r.GetTypeDescription().ToProto()
 	}
 
 	return NewTypedStruct(&proto, "Return")
@@ -106,7 +116,10 @@ func (r *ReturnStatement) Parse(
 		r.FunctionReturnParameters = fnCtx.GetId()
 	}
 
-	expression := NewExpression(r.ASTBuilder)
-	r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	if ctx.Expression() != nil {
+		expression := NewExpression(r.ASTBuilder)
+		r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	}
+
 	return r
 }

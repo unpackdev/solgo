@@ -149,6 +149,14 @@ func (r *Resolver) Resolve() []error {
 						),
 					)
 				}
+			} else {
+				errors = append(
+					errors,
+					fmt.Errorf(
+						"unable to find node by id %d - name: %s - type: %v",
+						nodeId, node.Name, reflect.TypeOf(node.Node),
+					),
+				)
 			}
 		}
 
@@ -482,6 +490,14 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 	case *IndexAccess:
 		if nodeCtx.GetName() == name {
 			return nodeCtx, nodeCtx.GetTypeDescription()
+		}
+	case *Assignment:
+		if nodeCtx.GetRightExpression() != nil {
+			if expr, ok := nodeCtx.GetRightExpression().(*PrimaryExpression); ok {
+				if expr.GetName() == name {
+					return expr, expr.GetTypeDescription()
+				}
+			}
 		}
 	}
 
