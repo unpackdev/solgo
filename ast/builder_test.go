@@ -28,6 +28,7 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
+
 			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, parser)
@@ -56,10 +57,15 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.Equal(t, errsExpected, errs)
 			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
 			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
+
 			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
 				prettyJson, err := utils.ToJSONPretty(sourceUnit)
 				assert.NoError(t, err)
 				assert.NotEmpty(t, prettyJson)
+
+				if testCase.name == "PAPA Contract" {
+					fmt.Println(testCase.outputPath + sourceUnit.GetName())
+				}
 
 				err = utils.WriteToFile(
 					"../data/tests/"+testCase.outputPath+sourceUnit.GetName()+".solgo.ast.json",

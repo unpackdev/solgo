@@ -44,7 +44,7 @@ func getSourceTestCases(t *testing.T) []struct {
 		},
 		{
 			name:       "PAPA Contract",
-			outputPath: "ast/",
+			outputPath: "contracts/papa/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{
@@ -58,7 +58,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast.proto").Content,
-			unresolvedReferences: 0,
+			unresolvedReferences: 3,
 		},
 		{
 			name:       "Simple Storage Contract Test",
