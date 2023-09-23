@@ -76,8 +76,14 @@ func (r *ReturnStatement) ToProto() NodeType {
 		NodeType:                 r.GetType(),
 		Src:                      r.Src.ToProto(),
 		FunctionReturnParameters: r.GetFunctionReturnParameters(),
-		Expression:               r.GetExpression().ToProto().(*v3.TypedStruct),
-		TypeDescription:          r.GetTypeDescription().ToProto(),
+	}
+
+	if r.GetExpression() != nil {
+		proto.Expression = r.GetExpression().ToProto().(*v3.TypedStruct)
+	}
+
+	if r.GetTypeDescription() != nil {
+		proto.TypeDescription = r.GetTypeDescription().ToProto()
 	}
 
 	return NewTypedStruct(&proto, "Return")
@@ -106,7 +112,10 @@ func (r *ReturnStatement) Parse(
 		r.FunctionReturnParameters = fnCtx.GetId()
 	}
 
-	expression := NewExpression(r.ASTBuilder)
-	r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	if ctx.Expression() != nil {
+		expression := NewExpression(r.ASTBuilder)
+		r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	}
+
 	return r
 }

@@ -43,6 +43,24 @@ func getSourceTestCases(t *testing.T) []struct {
 			unresolvedReferences: 0,
 		},
 		{
+			name:       "PAPA Contract",
+			outputPath: "ast/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "ERC20",
+						Path:    tests.ReadContractFileForTest(t, "contracts/papa/Token").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/papa/Token").Content,
+					},
+				},
+				EntrySourceUnitName: "Token",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{

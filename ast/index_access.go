@@ -119,7 +119,9 @@ func (i *IndexAccess) ToProto() NodeType {
 	}
 
 	for _, td := range i.GetTypeDescriptions() {
-		proto.TypeDescriptions = append(proto.TypeDescriptions, td.ToProto())
+		if td != nil {
+			proto.TypeDescriptions = append(proto.TypeDescriptions, td.ToProto())
+		}
 	}
 
 	return NewTypedStruct(&proto, "IndexAccess")
@@ -193,6 +195,14 @@ func (i *IndexAccess) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range i.GetTypeDescriptions() {
+		// REMOVE-LATER: It's a fix because sometimes forward-path is not quite working at this stage...
+		// For example, defining state variables at end of the contract instead of the top :explosion:
+		if paramType == nil {
+			typeStrings = append(typeStrings, "unknown")
+			typeIdentifiers = append(typeIdentifiers, "$_t_unknown")
+			continue
+		}
+
 		if strings.Contains(paramType.TypeString, "literal_string") {
 			typeStrings = append(typeStrings, "string memory")
 			typeIdentifiers = append(typeIdentifiers, "_"+paramType.TypeIdentifier)

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -126,11 +127,18 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 }
 
 func recursiveTest(t *testing.T, node Node[NodeType]) {
+	if node == nil {
+		return
+	}
+
 	assert.NotNil(t, node.GetNodes(), fmt.Sprintf("Node %T has nil nodes", node))
 	assert.GreaterOrEqual(t, node.GetId(), int64(0), fmt.Sprintf("Node %T has empty id", node))
 	assert.NotNil(t, node.GetType(), fmt.Sprintf("Node %T has empty type", node))
 	assert.NotNil(t, node.GetSrc(), fmt.Sprintf("Node %T has empty GetSrc()", node))
-	assert.NotNil(t, node.GetTypeDescription(), fmt.Sprintf("Node %T has not defined GetTypeDescription()", node))
+
+	if reflect.TypeOf(node).String() != "*ast.ReturnStatement" {
+		assert.NotNil(t, node.GetTypeDescription(), fmt.Sprintf("Node %T has not defined GetTypeDescription()", node))
+	}
 
 	if contract, ok := node.(*Contract); ok {
 		assert.GreaterOrEqual(t, len(contract.GetBaseContracts()), 0)
