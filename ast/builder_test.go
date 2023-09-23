@@ -63,10 +63,6 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				assert.NoError(t, err)
 				assert.NotEmpty(t, prettyJson)
 
-				if testCase.name == "PAPA Contract" {
-					fmt.Println(testCase.outputPath + sourceUnit.GetName())
-				}
-
 				err = utils.WriteToFile(
 					"../data/tests/"+testCase.outputPath+sourceUnit.GetName()+".solgo.ast.json",
 					prettyJson,

@@ -58,7 +58,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast.proto").Content,
-			unresolvedReferences: 3,
+			unresolvedReferences: 0,
 		},
 		{
 			name:       "Simple Storage Contract Test",
