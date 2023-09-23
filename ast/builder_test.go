@@ -361,8 +361,10 @@ func recursiveReferenceDescriptorSetTest(t *testing.T, node Node[NodeType]) {
 	node.SetReferenceDescriptor(0, &TypeDescription{})
 
 	for _, childNode := range node.GetNodes() {
-		childNode.SetReferenceDescriptor(0, nil)
-		childNode.SetReferenceDescriptor(0, &TypeDescription{})
-		recursiveReferenceDescriptorSetTest(t, childNode)
+		if childNode != nil {
+			childNode.SetReferenceDescriptor(0, nil)
+			childNode.SetReferenceDescriptor(0, &TypeDescription{})
+			recursiveReferenceDescriptorSetTest(t, childNode)
+		}
 	}
 }
