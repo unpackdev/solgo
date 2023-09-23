@@ -58,10 +58,14 @@ func (r *ReturnStatement) GetFunctionReturnParameters() int64 {
 
 // GetTypeDescription returns the type description of the ReturnStatement's expression.
 func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
-	if r.Expression != nil {
-		return r.Expression.GetTypeDescription()
+	if r.Expression == nil {
+		return &TypeDescription{
+			TypeString:     "void",
+			TypeIdentifier: "$_t_return_void",
+		}
 	}
-	return nil
+
+	return r.Expression.GetTypeDescription()
 }
 
 // GetNodes returns a list of child nodes contained in the ReturnStatement.
