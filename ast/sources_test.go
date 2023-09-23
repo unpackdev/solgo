@@ -61,6 +61,24 @@ func getSourceTestCases(t *testing.T) []struct {
 			unresolvedReferences: 0,
 		},
 		{
+			name:       "BabyToken Contract - 0xadd33a83549e115e3171c645b15a16ec6d1b5352",
+			outputPath: "contracts/papa/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "ERC20",
+						Path:    tests.ReadContractFileForTest(t, "contracts/babytoken/Token").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/babytoken/Token").Content,
+					},
+				},
+				EntrySourceUnitName: "BABYTOKEN",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/babytoken/Token.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/babytoken/Token.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{
