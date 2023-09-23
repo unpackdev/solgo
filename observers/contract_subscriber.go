@@ -16,10 +16,13 @@ import (
 
 // Contract represents a blockchain contract with its associated details.
 type Contract struct {
-	ContractAddress common.Address     // Ethereum address of the contract.
-	Block           *types.Block       // Block in which the contract transaction was included.
-	Transaction     *types.Transaction // Transaction that created the contract.
-	Receipt         *types.Receipt     // Receipt of the contract creation transaction.
+	NetworkID       int64              `json:"network_id"`    // The network ID of the Ethereum blockchain.
+	NetworkGroup    string             `json:"network_group"` // The group identifier for the blockchain client.
+	NetworkType     string             `json:"network_type"`  // The type of the blockchain client.
+	ContractAddress common.Address     `json:"contract_addr"` // Ethereum address of the contract.
+	Block           *types.Block       `json:"block"`         // Block in which the contract transaction was included.
+	Transaction     *types.Transaction `json:"transaction"`   // Transaction that created the contract.
+	Receipt         *types.Receipt     `json:"receipt"`       // Receipt of the contract creation transaction.
 }
 
 // ContractSubscriberOptions defines the options for configuring a contract subscriber.
@@ -81,7 +84,12 @@ func (b *ContractSubscriber) Subscribe(opts *ContractSubscriberOptions, contract
 			case header := <-headerCh:
 				block, err := client.BlockByHash(b.ctx, header.Hash())
 				if err != nil {
-					return err
+					zap.L().Error(
+						"failure while searching for block",
+						zap.Error(err),
+						zap.Int64("block_number", block.Number().Int64()),
+					)
+					continue
 				}
 
 				contracts, err := b.discoverContracts(block, opts)
@@ -93,6 +101,12 @@ func (b *ContractSubscriber) Subscribe(opts *ContractSubscriberOptions, contract
 					)
 					continue
 				}
+
+				zap.L().Debug(
+					"Determined contracts in block",
+					zap.Int64("block_number", block.Number().Int64()),
+					zap.Int("contracts", len(contracts)),
+				)
 
 				if len(contracts) > 0 {
 					for _, contract := range contracts {
@@ -110,6 +124,14 @@ func (b *ContractSubscriber) Subscribe(opts *ContractSubscriberOptions, contract
 			return errors.New("start and end block numbers are not set")
 		}
 
+		if opts.EndBlockNumber == nil {
+			header, err := client.HeaderByNumber(b.ctx, nil)
+			if err != nil {
+				return err
+			}
+			opts.EndBlockNumber = header.Number
+		}
+
 		if opts.EndBlockNumber.Int64() < opts.StartBlockNumber.Int64() {
 			return errors.New("end block number is less than start block number")
 		}
@@ -119,7 +141,12 @@ func (b *ContractSubscriber) Subscribe(opts *ContractSubscriberOptions, contract
 		for i := opts.StartBlockNumber.Int64(); i <= opts.EndBlockNumber.Int64(); i++ {
 			block, err := client.BlockByNumber(b.ctx, big.NewInt(i))
 			if err != nil {
-				return err
+				zap.L().Error(
+					"failure while searching for block",
+					zap.Error(err),
+					zap.Int64("block_number", i),
+				)
+				continue
 			}
 
 			contracts, err := b.discoverContracts(block, opts)
@@ -168,6 +195,9 @@ func (b *ContractSubscriber) discoverContracts(block *types.Block, opts *Contrac
 
 			if receipt.Status == types.ReceiptStatusSuccessful && receipt.ContractAddress != (common.Address{}) {
 				contracts = append(contracts, &Contract{
+					NetworkID:       opts.NetworkID,
+					NetworkGroup:    opts.Group,
+					NetworkType:     opts.Type,
 					ContractAddress: receipt.ContractAddress,
 					Block:           block,
 					Transaction:     tx,
