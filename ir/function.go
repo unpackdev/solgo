@@ -173,24 +173,17 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 	}
 
 	for _, oride := range unit.GetOverrides() {
-		override := &Override{
-			unit:                    oride,
-			Id:                      oride.GetId(),
-			NodeType:                oride.GetType(),
-			Name:                    oride.GetName(),
-			ReferencedDeclarationId: oride.GetReferencedDeclaration(),
-			TypeDescription:         oride.GetTypeDescription(),
-			Overrides:               make([]*Parameter, 0),
-		}
-
-		/*
-			@TODO: Fix this
-			for _, overrideParameter := range oride.GetOverrides() {
-			   	override.Overrides = append(override.Overrides, overrideParameter)
+		for _, overrideParameter := range oride.GetOverrides() {
+			override := &Override{
+				unit:                    oride,
+				Id:                      overrideParameter.GetId(),
+				NodeType:                overrideParameter.GetType(),
+				Name:                    overrideParameter.GetName(),
+				ReferencedDeclarationId: overrideParameter.GetReferencedDeclaration(),
+				TypeDescription:         overrideParameter.GetTypeDescription(),
 			}
-		*/
-
-		toReturn.Overrides = append(toReturn.Overrides, override)
+			toReturn.Overrides = append(toReturn.Overrides, override)
+		}
 	}
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
