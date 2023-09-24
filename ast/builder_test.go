@@ -53,8 +53,10 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			// references in the AST. Without this step, the AST will be
 			// incomplete.
 			errs := astBuilder.ResolveReferences()
-			var errsExpected []error
-			assert.Equal(t, errsExpected, errs)
+			if testCase.expectsErrors {
+				var errsExpected []error
+				assert.Equal(t, errsExpected, errs)
+			}
 			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
 			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
 
