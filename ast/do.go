@@ -74,7 +74,7 @@ func (d *DoWhileStatement) GetTypeDescription() *TypeDescription {
 
 // ToProto converts the DoWhileStatement node to its corresponding protocol buffer representation.
 func (d *DoWhileStatement) ToProto() NodeType {
-	protos := ast_pb.Do{
+	proto := ast_pb.Do{
 		Id:        d.GetId(),
 		NodeType:  d.GetType(),
 		Src:       d.GetSrc().ToProto(),
@@ -82,7 +82,7 @@ func (d *DoWhileStatement) ToProto() NodeType {
 		Body:      d.GetBody().ToProto().(*ast_pb.Body),
 	}
 
-	return NewTypedStruct(&protos, "Do")
+	return NewTypedStruct(&proto, "Do")
 }
 
 // Parse is responsible for parsing the do-while loop statement from the context and populating the DoWhileStatement node.

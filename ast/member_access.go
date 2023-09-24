@@ -128,11 +128,14 @@ func (m *MemberAccessExpression) ToProto() NodeType {
 		LValueRequested:       m.IsLValueRequested(),
 		Expression:            m.GetExpression().ToProto().(*v3.TypedStruct),
 		ArgumentTypes:         make([]*ast_pb.TypeDescription, 0),
-		TypeDescription:       m.GetTypeDescription().ToProto(),
 	}
 
 	for _, arg := range m.GetArgumentTypes() {
 		proto.ArgumentTypes = append(proto.ArgumentTypes, arg.ToProto())
+	}
+
+	if m.GetTypeDescription() != nil {
+		proto.TypeDescription = m.GetTypeDescription().ToProto()
 	}
 
 	return NewTypedStruct(&proto, "MemberAccess")

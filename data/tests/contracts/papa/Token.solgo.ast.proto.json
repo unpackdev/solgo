@@ -14629,14 +14629,10 @@
 																			"start": "6634"
 																		},
 																		"typeDescription": {
-																			"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
-																			"typeString": "index[mapping(address=\u003ebool):function(int_const 0)]"
+																			"typeIdentifier": "t_[_[$_t_unknown]$_t_function_$_t_rational_0_by_1$",
+																			"typeString": "index[unknown:function(int_const 0)]"
 																		},
 																		"typeDescriptions": [
-																			{
-																				"typeIdentifier": "t_mapping_$t_address_$t_bool$",
-																				"typeString": "mapping(address=\u003ebool)"
-																			},
 																			{
 																				"typeIdentifier": "t_function_$_t_rational_0_by_1$",
 																				"typeString": "function(int_const 0)"
@@ -22721,7 +22717,221 @@
 														},
 														"condition": {
 															"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-															"value": {}
+															"value": {
+																"expressions": [
+																	{
+																		"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																		"value": {
+																			"expression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																				"value": {
+																					"baseExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "1980",
+																							"name": "from",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "1980",
+																							"src": {
+																								"column": "27",
+																								"end": "8757",
+																								"id": "1981",
+																								"length": "4",
+																								"line": "290",
+																								"parentIndex": "1976",
+																								"start": "8754"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
+																					"id": "1976",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "1978",
+																							"name": "_feeWhiteList",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "700",
+																							"src": {
+																								"column": "13",
+																								"end": "8752",
+																								"id": "1979",
+																								"length": "13",
+																								"line": "290",
+																								"parentIndex": "1976",
+																								"start": "8740"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																								"typeString": "mapping(address=\u003ebool)"
+																							}
+																						}
+																					},
+																					"nodeType": "INDEX_ACCESS",
+																					"src": {
+																						"column": "13",
+																						"end": "8758",
+																						"id": "1977",
+																						"length": "19",
+																						"line": "290",
+																						"parentIndex": "1974",
+																						"start": "8740"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																						"typeString": "index[mapping(address=\u003ebool):address]"
+																					},
+																					"typeDescriptions": [
+																						{
+																							"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																							"typeString": "mapping(address=\u003ebool)"
+																						},
+																						{
+																							"typeIdentifier": "t_address",
+																							"typeString": "address"
+																						}
+																					]
+																				}
+																			},
+																			"id": "1974",
+																			"nodeType": "UNARY_OPERATION",
+																			"operator": "NOT",
+																			"src": {
+																				"column": "12",
+																				"end": "8758",
+																				"id": "1975",
+																				"length": "20",
+																				"line": "290",
+																				"parentIndex": "1920",
+																				"start": "8739"
+																			},
+																			"typeDescription": {
+																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																				"typeString": "index[mapping(address=\u003ebool):address]"
+																			}
+																		}
+																	},
+																	{
+																		"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																		"value": {
+																			"expression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																				"value": {
+																					"baseExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "1988",
+																							"name": "to",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "1988",
+																							"src": {
+																								"column": "51",
+																								"end": "8779",
+																								"id": "1989",
+																								"length": "2",
+																								"line": "290",
+																								"parentIndex": "1984",
+																								"start": "8778"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
+																					"id": "1984",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "1986",
+																							"name": "_feeWhiteList",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "700",
+																							"src": {
+																								"column": "37",
+																								"end": "8776",
+																								"id": "1987",
+																								"length": "13",
+																								"line": "290",
+																								"parentIndex": "1984",
+																								"start": "8764"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																								"typeString": "mapping(address=\u003ebool)"
+																							}
+																						}
+																					},
+																					"nodeType": "INDEX_ACCESS",
+																					"src": {
+																						"column": "37",
+																						"end": "8780",
+																						"id": "1985",
+																						"length": "17",
+																						"line": "290",
+																						"parentIndex": "1982",
+																						"start": "8764"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																						"typeString": "index[mapping(address=\u003ebool):address]"
+																					},
+																					"typeDescriptions": [
+																						{
+																							"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																							"typeString": "mapping(address=\u003ebool)"
+																						},
+																						{
+																							"typeIdentifier": "t_address",
+																							"typeString": "address"
+																						}
+																					]
+																				}
+																			},
+																			"id": "1982",
+																			"nodeType": "UNARY_OPERATION",
+																			"operator": "NOT",
+																			"src": {
+																				"column": "36",
+																				"end": "8780",
+																				"id": "1983",
+																				"length": "18",
+																				"line": "290",
+																				"parentIndex": "1920",
+																				"start": "8763"
+																			},
+																			"typeDescription": {
+																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																				"typeString": "index[mapping(address=\u003ebool):address]"
+																			}
+																		}
+																	}
+																],
+																"id": "1972",
+																"nodeType": "AND_OPERATION",
+																"src": {
+																	"column": "12",
+																	"end": "8780",
+																	"id": "1973",
+																	"length": "42",
+																	"line": "290",
+																	"parentIndex": "1969",
+																	"start": "8739"
+																},
+																"typeDescriptions": [
+																	{
+																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																		"typeString": "index[mapping(address=\u003ebool):address]"
+																	},
+																	{
+																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																		"typeString": "index[mapping(address=\u003ebool):address]"
+																	}
+																]
+															}
 														},
 														"id": "1969",
 														"nodeType": "IF_STATEMENT",
@@ -23041,7 +23251,170 @@
 																						},
 																						"condition": {
 																							"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-																							"value": {}
+																							"value": {
+																								"expressions": [
+																									{
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																										"value": {
+																											"baseExpression": {
+																												"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																												"value": {
+																													"id": "2219",
+																													"name": "from",
+																													"nodeType": "IDENTIFIER",
+																													"referencedDeclaration": "2219",
+																													"src": {
+																														"column": "34",
+																														"end": "9693",
+																														"id": "2220",
+																														"length": "4",
+																														"line": "316",
+																														"parentIndex": "2215",
+																														"start": "9690"
+																													},
+																													"typeDescription": {
+																														"typeIdentifier": "t_address",
+																														"typeString": "address"
+																													}
+																												}
+																											},
+																											"id": "2215",
+																											"indexExpression": {
+																												"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																												"value": {
+																													"id": "2217",
+																													"name": "_feeWhiteList",
+																													"nodeType": "IDENTIFIER",
+																													"referencedDeclaration": "700",
+																													"src": {
+																														"column": "20",
+																														"end": "9688",
+																														"id": "2218",
+																														"length": "13",
+																														"line": "316",
+																														"parentIndex": "2215",
+																														"start": "9676"
+																													},
+																													"typeDescription": {
+																														"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																														"typeString": "mapping(address=\u003ebool)"
+																													}
+																												}
+																											},
+																											"nodeType": "INDEX_ACCESS",
+																											"src": {
+																												"column": "20",
+																												"end": "9694",
+																												"id": "2216",
+																												"length": "19",
+																												"line": "316",
+																												"parentIndex": "2213",
+																												"start": "9676"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																												"typeString": "index[mapping(address=\u003ebool):address]"
+																											},
+																											"typeDescriptions": [
+																												{
+																													"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																													"typeString": "mapping(address=\u003ebool)"
+																												},
+																												{
+																													"typeIdentifier": "t_address",
+																													"typeString": "address"
+																												}
+																											]
+																										}
+																									},
+																									{
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.BinaryOperation",
+																										"value": {
+																											"id": "2221",
+																											"leftExpression": {
+																												"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																												"value": {
+																													"id": "2223",
+																													"name": "to",
+																													"nodeType": "IDENTIFIER",
+																													"referencedDeclaration": "2223",
+																													"src": {
+																														"column": "43",
+																														"end": "9700",
+																														"id": "2224",
+																														"length": "2",
+																														"line": "316",
+																														"parentIndex": "2221",
+																														"start": "9699"
+																													},
+																													"typeDescription": {
+																														"typeIdentifier": "t_address",
+																														"typeString": "address"
+																													}
+																												}
+																											},
+																											"nodeType": "BINARY_OPERATION",
+																											"operator": "EQUAL",
+																											"rightExpression": {
+																												"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																												"value": {
+																													"id": "2225",
+																													"name": "_mainPair",
+																													"nodeType": "IDENTIFIER",
+																													"referencedDeclaration": "841",
+																													"src": {
+																														"column": "49",
+																														"end": "9713",
+																														"id": "2226",
+																														"length": "9",
+																														"line": "316",
+																														"parentIndex": "2221",
+																														"start": "9705"
+																													},
+																													"typeDescription": {
+																														"typeIdentifier": "t_address",
+																														"typeString": "address"
+																													}
+																												}
+																											},
+																											"src": {
+																												"column": "43",
+																												"end": "9713",
+																												"id": "2222",
+																												"length": "15",
+																												"line": "316",
+																												"parentIndex": "2213",
+																												"start": "9699"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_bool",
+																												"typeString": "bool"
+																											}
+																										}
+																									}
+																								],
+																								"id": "2213",
+																								"nodeType": "AND_OPERATION",
+																								"src": {
+																									"column": "20",
+																									"end": "9713",
+																									"id": "2214",
+																									"length": "38",
+																									"line": "316",
+																									"parentIndex": "2210",
+																									"start": "9676"
+																								},
+																								"typeDescriptions": [
+																									{
+																										"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																										"typeString": "index[mapping(address=\u003ebool):address]"
+																									},
+																									{
+																										"typeIdentifier": "t_bool",
+																										"typeString": "bool"
+																									}
+																								]
+																							}
 																						},
 																						"id": "2210",
 																						"nodeType": "IF_STATEMENT",
@@ -23420,7 +23793,194 @@
 																										},
 																										"condition": {
 																											"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-																											"value": {}
+																											"value": {
+																												"expressions": [
+																													{
+																														"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.BinaryOperation",
+																														"value": {
+																															"id": "2299",
+																															"leftExpression": {
+																																"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																																"value": {
+																																	"id": "2301",
+																																	"name": "startALBlock",
+																																	"nodeType": "IDENTIFIER",
+																																	"referencedDeclaration": "836",
+																																	"src": {
+																																		"column": "24",
+																																		"end": "10140",
+																																		"id": "2302",
+																																		"length": "12",
+																																		"line": "329",
+																																		"parentIndex": "2299",
+																																		"start": "10129"
+																																	},
+																																	"typeDescription": {
+																																		"typeIdentifier": "t_uint256",
+																																		"typeString": "uint256"
+																																	}
+																																}
+																															},
+																															"nodeType": "BINARY_OPERATION",
+																															"operator": "GREATER_THAN",
+																															"rightExpression": {
+																																"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																																"value": {
+																																	"hexValue": "30",
+																																	"id": "2303",
+																																	"isPure": true,
+																																	"kind": "NUMBER",
+																																	"nodeType": "LITERAL",
+																																	"src": {
+																																		"column": "39",
+																																		"end": "10144",
+																																		"id": "2304",
+																																		"length": "1",
+																																		"line": "329",
+																																		"parentIndex": "2299",
+																																		"start": "10144"
+																																	},
+																																	"typeDescription": {
+																																		"typeIdentifier": "t_rational_0_by_1",
+																																		"typeString": "int_const 0"
+																																	},
+																																	"value": "0"
+																																}
+																															},
+																															"src": {
+																																"column": "24",
+																																"end": "10144",
+																																"id": "2300",
+																																"length": "16",
+																																"line": "329",
+																																"parentIndex": "2297",
+																																"start": "10129"
+																															},
+																															"typeDescription": {
+																																"typeIdentifier": "t_bool",
+																																"typeString": "bool"
+																															}
+																														}
+																													},
+																													{
+																														"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.Tuple",
+																														"value": {
+																															"components": [
+																																{
+																																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																																	"value": {
+																																		"baseExpression": {
+																																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																																			"value": {
+																																				"id": "2311",
+																																				"name": "to",
+																																				"nodeType": "IDENTIFIER",
+																																				"referencedDeclaration": "2311",
+																																				"src": {
+																																					"column": "53",
+																																					"end": "10159",
+																																					"id": "2312",
+																																					"length": "2",
+																																					"line": "329",
+																																					"parentIndex": "2307",
+																																					"start": "10158"
+																																				},
+																																				"typeDescription": {
+																																					"typeIdentifier": "t_address",
+																																					"typeString": "address"
+																																				}
+																																			}
+																																		},
+																																		"id": "2307",
+																																		"indexExpression": {
+																																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																																			"value": {
+																																				"id": "2309",
+																																				"name": "_ALList",
+																																				"nodeType": "IDENTIFIER",
+																																				"referencedDeclaration": "709",
+																																				"src": {
+																																					"column": "45",
+																																					"end": "10156",
+																																					"id": "2310",
+																																					"length": "7",
+																																					"line": "329",
+																																					"parentIndex": "2307",
+																																					"start": "10150"
+																																				},
+																																				"typeDescription": {
+																																					"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																																					"typeString": "mapping(address=\u003ebool)"
+																																				}
+																																			}
+																																		},
+																																		"nodeType": "INDEX_ACCESS",
+																																		"src": {
+																																			"column": "45",
+																																			"end": "10160",
+																																			"id": "2308",
+																																			"length": "11",
+																																			"line": "329",
+																																			"parentIndex": "2305",
+																																			"start": "10150"
+																																		},
+																																		"typeDescription": {
+																																			"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																																			"typeString": "index[mapping(address=\u003ebool):address]"
+																																		},
+																																		"typeDescriptions": [
+																																			{
+																																				"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																																				"typeString": "mapping(address=\u003ebool)"
+																																			},
+																																			{
+																																				"typeIdentifier": "t_address",
+																																				"typeString": "address"
+																																			}
+																																		]
+																																	}
+																																}
+																															],
+																															"id": "2305",
+																															"nodeType": "TUPLE_EXPRESSION",
+																															"src": {
+																																"column": "44",
+																																"end": "10161",
+																																"id": "2306",
+																																"length": "13",
+																																"line": "329",
+																																"parentIndex": "2297",
+																																"start": "10149"
+																															},
+																															"typeDescription": {
+																																"typeIdentifier": "t_tuple_$_t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$$",
+																																"typeString": "tuple(index[mapping(address=\u003ebool):address])"
+																															}
+																														}
+																													}
+																												],
+																												"id": "2297",
+																												"nodeType": "AND_OPERATION",
+																												"src": {
+																													"column": "24",
+																													"end": "10161",
+																													"id": "2298",
+																													"length": "33",
+																													"line": "329",
+																													"parentIndex": "2294",
+																													"start": "10129"
+																												},
+																												"typeDescriptions": [
+																													{
+																														"typeIdentifier": "t_bool",
+																														"typeString": "bool"
+																													},
+																													{
+																														"typeIdentifier": "t_tuple_$_t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$$",
+																														"typeString": "tuple(index[mapping(address=\u003ebool):address])"
+																													}
+																												]
+																											}
 																										},
 																										"id": "2294",
 																										"nodeType": "IF_STATEMENT",
@@ -23519,7 +24079,221 @@
 																		},
 																		"condition": {
 																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-																			"value": {}
+																			"value": {
+																				"expressions": [
+																					{
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																						"value": {
+																							"expression": {
+																								"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																								"value": {
+																									"baseExpression": {
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																										"value": {
+																											"id": "2272",
+																											"name": "from",
+																											"nodeType": "IDENTIFIER",
+																											"referencedDeclaration": "2272",
+																											"src": {
+																												"column": "31",
+																												"end": "10033",
+																												"id": "2273",
+																												"length": "4",
+																												"line": "327",
+																												"parentIndex": "2268",
+																												"start": "10030"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_address",
+																												"typeString": "address"
+																											}
+																										}
+																									},
+																									"id": "2268",
+																									"indexExpression": {
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																										"value": {
+																											"id": "2270",
+																											"name": "_feeWhiteList",
+																											"nodeType": "IDENTIFIER",
+																											"referencedDeclaration": "700",
+																											"src": {
+																												"column": "17",
+																												"end": "10028",
+																												"id": "2271",
+																												"length": "13",
+																												"line": "327",
+																												"parentIndex": "2268",
+																												"start": "10016"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																												"typeString": "mapping(address=\u003ebool)"
+																											}
+																										}
+																									},
+																									"nodeType": "INDEX_ACCESS",
+																									"src": {
+																										"column": "17",
+																										"end": "10034",
+																										"id": "2269",
+																										"length": "19",
+																										"line": "327",
+																										"parentIndex": "2266",
+																										"start": "10016"
+																									},
+																									"typeDescription": {
+																										"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																										"typeString": "index[mapping(address=\u003ebool):address]"
+																									},
+																									"typeDescriptions": [
+																										{
+																											"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																											"typeString": "mapping(address=\u003ebool)"
+																										},
+																										{
+																											"typeIdentifier": "t_address",
+																											"typeString": "address"
+																										}
+																									]
+																								}
+																							},
+																							"id": "2266",
+																							"nodeType": "UNARY_OPERATION",
+																							"operator": "NOT",
+																							"src": {
+																								"column": "16",
+																								"end": "10034",
+																								"id": "2267",
+																								"length": "20",
+																								"line": "327",
+																								"parentIndex": "1920",
+																								"start": "10015"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																								"typeString": "index[mapping(address=\u003ebool):address]"
+																							}
+																						}
+																					},
+																					{
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																						"value": {
+																							"expression": {
+																								"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																								"value": {
+																									"baseExpression": {
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																										"value": {
+																											"id": "2280",
+																											"name": "to",
+																											"nodeType": "IDENTIFIER",
+																											"referencedDeclaration": "2280",
+																											"src": {
+																												"column": "55",
+																												"end": "10055",
+																												"id": "2281",
+																												"length": "2",
+																												"line": "327",
+																												"parentIndex": "2276",
+																												"start": "10054"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_address",
+																												"typeString": "address"
+																											}
+																										}
+																									},
+																									"id": "2276",
+																									"indexExpression": {
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																										"value": {
+																											"id": "2278",
+																											"name": "_feeWhiteList",
+																											"nodeType": "IDENTIFIER",
+																											"referencedDeclaration": "700",
+																											"src": {
+																												"column": "41",
+																												"end": "10052",
+																												"id": "2279",
+																												"length": "13",
+																												"line": "327",
+																												"parentIndex": "2276",
+																												"start": "10040"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																												"typeString": "mapping(address=\u003ebool)"
+																											}
+																										}
+																									},
+																									"nodeType": "INDEX_ACCESS",
+																									"src": {
+																										"column": "41",
+																										"end": "10056",
+																										"id": "2277",
+																										"length": "17",
+																										"line": "327",
+																										"parentIndex": "2274",
+																										"start": "10040"
+																									},
+																									"typeDescription": {
+																										"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																										"typeString": "index[mapping(address=\u003ebool):address]"
+																									},
+																									"typeDescriptions": [
+																										{
+																											"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																											"typeString": "mapping(address=\u003ebool)"
+																										},
+																										{
+																											"typeIdentifier": "t_address",
+																											"typeString": "address"
+																										}
+																									]
+																								}
+																							},
+																							"id": "2274",
+																							"nodeType": "UNARY_OPERATION",
+																							"operator": "NOT",
+																							"src": {
+																								"column": "40",
+																								"end": "10056",
+																								"id": "2275",
+																								"length": "18",
+																								"line": "327",
+																								"parentIndex": "1920",
+																								"start": "10039"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																								"typeString": "index[mapping(address=\u003ebool):address]"
+																							}
+																						}
+																					}
+																				],
+																				"id": "2264",
+																				"nodeType": "AND_OPERATION",
+																				"src": {
+																					"column": "16",
+																					"end": "10056",
+																					"id": "2265",
+																					"length": "42",
+																					"line": "327",
+																					"parentIndex": "2261",
+																					"start": "10015"
+																				},
+																				"typeDescriptions": [
+																					{
+																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																						"typeString": "index[mapping(address=\u003ebool):address]"
+																					},
+																					{
+																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																						"typeString": "index[mapping(address=\u003ebool):address]"
+																					}
+																				]
+																			}
 																		},
 																		"id": "2261",
 																		"nodeType": "IF_STATEMENT",
@@ -24208,7 +24982,316 @@
 														},
 														"condition": {
 															"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-															"value": {}
+															"value": {
+																"expressions": [
+																	{
+																		"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
+																		"value": {
+																			"expressions": [
+																				{
+																					"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.BinaryOperation",
+																					"value": {
+																						"id": "2339",
+																						"leftExpression": {
+																							"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																							"value": {
+																								"id": "2341",
+																								"name": "_limitAmount",
+																								"nodeType": "IDENTIFIER",
+																								"referencedDeclaration": "846",
+																								"src": {
+																									"column": "12",
+																									"end": "10669",
+																									"id": "2342",
+																									"length": "12",
+																									"line": "345",
+																									"parentIndex": "2339",
+																									"start": "10658"
+																								},
+																								"typeDescription": {
+																									"typeIdentifier": "t_uint256",
+																									"typeString": "uint256"
+																								}
+																							}
+																						},
+																						"nodeType": "BINARY_OPERATION",
+																						"operator": "GREATER_THAN",
+																						"rightExpression": {
+																							"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																							"value": {
+																								"hexValue": "30",
+																								"id": "2343",
+																								"isPure": true,
+																								"kind": "NUMBER",
+																								"nodeType": "LITERAL",
+																								"src": {
+																									"column": "27",
+																									"end": "10673",
+																									"id": "2344",
+																									"length": "1",
+																									"line": "345",
+																									"parentIndex": "2339",
+																									"start": "10673"
+																								},
+																								"typeDescription": {
+																									"typeIdentifier": "t_rational_0_by_1",
+																									"typeString": "int_const 0"
+																								},
+																								"value": "0"
+																							}
+																						},
+																						"src": {
+																							"column": "12",
+																							"end": "10673",
+																							"id": "2340",
+																							"length": "16",
+																							"line": "345",
+																							"parentIndex": "2337",
+																							"start": "10658"
+																						},
+																						"typeDescription": {
+																							"typeIdentifier": "t_bool",
+																							"typeString": "bool"
+																						}
+																					}
+																				},
+																				{
+																					"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																					"value": {
+																						"expression": {
+																							"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																							"value": {
+																								"baseExpression": {
+																									"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																									"value": {
+																										"id": "2351",
+																										"name": "to",
+																										"nodeType": "IDENTIFIER",
+																										"referencedDeclaration": "2351",
+																										"src": {
+																											"column": "47",
+																											"end": "10694",
+																											"id": "2352",
+																											"length": "2",
+																											"line": "345",
+																											"parentIndex": "2347",
+																											"start": "10693"
+																										},
+																										"typeDescription": {
+																											"typeIdentifier": "t_address",
+																											"typeString": "address"
+																										}
+																									}
+																								},
+																								"id": "2347",
+																								"indexExpression": {
+																									"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																									"value": {
+																										"id": "2349",
+																										"name": "_swapPairList",
+																										"nodeType": "IDENTIFIER",
+																										"referencedDeclaration": "735",
+																										"src": {
+																											"column": "33",
+																											"end": "10691",
+																											"id": "2350",
+																											"length": "13",
+																											"line": "345",
+																											"parentIndex": "2347",
+																											"start": "10679"
+																										},
+																										"typeDescription": {
+																											"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																											"typeString": "mapping(address=\u003ebool)"
+																										}
+																									}
+																								},
+																								"nodeType": "INDEX_ACCESS",
+																								"src": {
+																									"column": "33",
+																									"end": "10695",
+																									"id": "2348",
+																									"length": "17",
+																									"line": "345",
+																									"parentIndex": "2345",
+																									"start": "10679"
+																								},
+																								"typeDescription": {
+																									"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																									"typeString": "index[mapping(address=\u003ebool):address]"
+																								},
+																								"typeDescriptions": [
+																									{
+																										"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																										"typeString": "mapping(address=\u003ebool)"
+																									},
+																									{
+																										"typeIdentifier": "t_address",
+																										"typeString": "address"
+																									}
+																								]
+																							}
+																						},
+																						"id": "2345",
+																						"nodeType": "UNARY_OPERATION",
+																						"operator": "NOT",
+																						"src": {
+																							"column": "32",
+																							"end": "10695",
+																							"id": "2346",
+																							"length": "18",
+																							"line": "345",
+																							"parentIndex": "1920",
+																							"start": "10678"
+																						},
+																						"typeDescription": {
+																							"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																							"typeString": "index[mapping(address=\u003ebool):address]"
+																						}
+																					}
+																				}
+																			],
+																			"id": "2337",
+																			"nodeType": "AND_OPERATION",
+																			"src": {
+																				"column": "12",
+																				"end": "10695",
+																				"id": "2338",
+																				"length": "38",
+																				"line": "345",
+																				"parentIndex": "2334",
+																				"start": "10658"
+																			},
+																			"typeDescriptions": [
+																				{
+																					"typeIdentifier": "t_bool",
+																					"typeString": "bool"
+																				},
+																				{
+																					"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																					"typeString": "index[mapping(address=\u003ebool):address]"
+																				}
+																			]
+																		}
+																	},
+																	{
+																		"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																		"value": {
+																			"expression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																				"value": {
+																					"baseExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "2359",
+																							"name": "to",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "2359",
+																							"src": {
+																								"column": "69",
+																								"end": "10716",
+																								"id": "2360",
+																								"length": "2",
+																								"line": "345",
+																								"parentIndex": "2355",
+																								"start": "10715"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
+																					"id": "2355",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "2357",
+																							"name": "_feeWhiteList",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "700",
+																							"src": {
+																								"column": "55",
+																								"end": "10713",
+																								"id": "2358",
+																								"length": "13",
+																								"line": "345",
+																								"parentIndex": "2355",
+																								"start": "10701"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																								"typeString": "mapping(address=\u003ebool)"
+																							}
+																						}
+																					},
+																					"nodeType": "INDEX_ACCESS",
+																					"src": {
+																						"column": "55",
+																						"end": "10717",
+																						"id": "2356",
+																						"length": "17",
+																						"line": "345",
+																						"parentIndex": "2353",
+																						"start": "10701"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																						"typeString": "index[mapping(address=\u003ebool):address]"
+																					},
+																					"typeDescriptions": [
+																						{
+																							"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																							"typeString": "mapping(address=\u003ebool)"
+																						},
+																						{
+																							"typeIdentifier": "t_address",
+																							"typeString": "address"
+																						}
+																					]
+																				}
+																			},
+																			"id": "2353",
+																			"nodeType": "UNARY_OPERATION",
+																			"operator": "NOT",
+																			"src": {
+																				"column": "54",
+																				"end": "10717",
+																				"id": "2354",
+																				"length": "18",
+																				"line": "345",
+																				"parentIndex": "1920",
+																				"start": "10700"
+																			},
+																			"typeDescription": {
+																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																				"typeString": "index[mapping(address=\u003ebool):address]"
+																			}
+																		}
+																	}
+																],
+																"id": "2334",
+																"nodeType": "AND_OPERATION",
+																"src": {
+																	"column": "12",
+																	"end": "10717",
+																	"id": "2335",
+																	"length": "60",
+																	"line": "345",
+																	"parentIndex": "2331",
+																	"start": "10658"
+																},
+																"typeDescriptions": [
+																	{
+																		"typeIdentifier": "t_bool",
+																		"typeString": "bool"
+																	},
+																	{
+																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																		"typeString": "index[mapping(address=\u003ebool):address]"
+																	}
+																]
+															}
 														},
 														"id": "2331",
 														"nodeType": "IF_STATEMENT",
@@ -48044,7 +49127,190 @@
 																		},
 																		"condition": {
 																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-																			"value": {}
+																			"value": {
+																				"expressions": [
+																					{
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.BinaryOperation",
+																						"value": {
+																							"id": "4528",
+																							"leftExpression": {
+																								"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																								"value": {
+																									"id": "4530",
+																									"name": "tokenBalance",
+																									"nodeType": "IDENTIFIER",
+																									"referencedDeclaration": "4405",
+																									"src": {
+																										"column": "16",
+																										"end": "24182",
+																										"id": "4531",
+																										"length": "12",
+																										"line": "738",
+																										"parentIndex": "4528",
+																										"start": "24171"
+																									},
+																									"typeDescription": {
+																										"typeIdentifier": "t_uint256",
+																										"typeString": "uint256"
+																									}
+																								}
+																							},
+																							"nodeType": "BINARY_OPERATION",
+																							"operator": "GREATER_THAN_OR_EQUAL",
+																							"rightExpression": {
+																								"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																								"value": {
+																									"id": "4532",
+																									"name": "holdCondition",
+																									"nodeType": "IDENTIFIER",
+																									"referencedDeclaration": "4453",
+																									"src": {
+																										"column": "32",
+																										"end": "24199",
+																										"id": "4533",
+																										"length": "13",
+																										"line": "738",
+																										"parentIndex": "4528",
+																										"start": "24187"
+																									},
+																									"typeDescription": {
+																										"typeIdentifier": "t_uint256",
+																										"typeString": "uint256"
+																									}
+																								}
+																							},
+																							"src": {
+																								"column": "16",
+																								"end": "24199",
+																								"id": "4529",
+																								"length": "29",
+																								"line": "738",
+																								"parentIndex": "4526",
+																								"start": "24171"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_bool",
+																								"typeString": "bool"
+																							}
+																						}
+																					},
+																					{
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.UnaryPrefix",
+																						"value": {
+																							"expression": {
+																								"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
+																								"value": {
+																									"baseExpression": {
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																										"value": {
+																											"id": "4540",
+																											"name": "shareHolder",
+																											"nodeType": "IDENTIFIER",
+																											"referencedDeclaration": "4399",
+																											"src": {
+																												"column": "64",
+																												"end": "24229",
+																												"id": "4541",
+																												"length": "11",
+																												"line": "738",
+																												"parentIndex": "4536",
+																												"start": "24219"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_address",
+																												"typeString": "address"
+																											}
+																										}
+																									},
+																									"id": "4536",
+																									"indexExpression": {
+																										"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																										"value": {
+																											"id": "4538",
+																											"name": "excludeHolder",
+																											"nodeType": "IDENTIFIER",
+																											"referencedDeclaration": "4118",
+																											"src": {
+																												"column": "50",
+																												"end": "24217",
+																												"id": "4539",
+																												"length": "13",
+																												"line": "738",
+																												"parentIndex": "4536",
+																												"start": "24205"
+																											},
+																											"typeDescription": {
+																												"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																												"typeString": "mapping(address=\u003ebool)"
+																											}
+																										}
+																									},
+																									"nodeType": "INDEX_ACCESS",
+																									"src": {
+																										"column": "50",
+																										"end": "24230",
+																										"id": "4537",
+																										"length": "26",
+																										"line": "738",
+																										"parentIndex": "4534",
+																										"start": "24205"
+																									},
+																									"typeDescription": {
+																										"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																										"typeString": "index[mapping(address=\u003ebool):address]"
+																									},
+																									"typeDescriptions": [
+																										{
+																											"typeIdentifier": "t_mapping_$t_address_$t_bool$",
+																											"typeString": "mapping(address=\u003ebool)"
+																										},
+																										{
+																											"typeIdentifier": "t_address",
+																											"typeString": "address"
+																										}
+																									]
+																								}
+																							},
+																							"id": "4534",
+																							"nodeType": "UNARY_OPERATION",
+																							"operator": "NOT",
+																							"src": {
+																								"column": "49",
+																								"end": "24230",
+																								"id": "4535",
+																								"length": "27",
+																								"line": "738",
+																								"start": "24204"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																								"typeString": "index[mapping(address=\u003ebool):address]"
+																							}
+																						}
+																					}
+																				],
+																				"id": "4526",
+																				"nodeType": "AND_OPERATION",
+																				"src": {
+																					"column": "16",
+																					"end": "24230",
+																					"id": "4527",
+																					"length": "60",
+																					"line": "738",
+																					"parentIndex": "4523",
+																					"start": "24171"
+																				},
+																				"typeDescriptions": [
+																					{
+																						"typeIdentifier": "t_bool",
+																						"typeString": "bool"
+																					},
+																					{
+																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+																						"typeString": "index[mapping(address=\u003ebool):address]"
+																					}
+																				]
+																			}
 																		},
 																		"id": "4523",
 																		"nodeType": "IF_STATEMENT",
@@ -48464,7 +49730,160 @@
 														},
 														"condition": {
 															"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.AndOperation",
-															"value": {}
+															"value": {
+																"expressions": [
+																	{
+																		"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.BinaryOperation",
+																		"value": {
+																			"id": "4465",
+																			"leftExpression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																				"value": {
+																					"id": "4467",
+																					"name": "gasUsed",
+																					"nodeType": "IDENTIFIER",
+																					"referencedDeclaration": "4427",
+																					"src": {
+																						"column": "15",
+																						"end": "23901",
+																						"id": "4468",
+																						"length": "7",
+																						"line": "732",
+																						"parentIndex": "4465",
+																						"start": "23895"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_uint256",
+																						"typeString": "uint256"
+																					}
+																				}
+																			},
+																			"nodeType": "BINARY_OPERATION",
+																			"operator": "LESS_THAN",
+																			"rightExpression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																				"value": {
+																					"id": "4469",
+																					"name": "gas",
+																					"nodeType": "IDENTIFIER",
+																					"referencedDeclaration": "4469",
+																					"src": {
+																						"column": "25",
+																						"end": "23907",
+																						"id": "4470",
+																						"length": "3",
+																						"line": "732",
+																						"parentIndex": "4465",
+																						"start": "23905"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_uint256",
+																						"typeString": "uint256"
+																					}
+																				}
+																			},
+																			"src": {
+																				"column": "15",
+																				"end": "23907",
+																				"id": "4466",
+																				"length": "13",
+																				"line": "732",
+																				"parentIndex": "4463",
+																				"start": "23895"
+																			},
+																			"typeDescription": {
+																				"typeIdentifier": "t_bool",
+																				"typeString": "bool"
+																			}
+																		}
+																	},
+																	{
+																		"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.BinaryOperation",
+																		"value": {
+																			"id": "4471",
+																			"leftExpression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																				"value": {
+																					"id": "4473",
+																					"name": "iterations",
+																					"nodeType": "IDENTIFIER",
+																					"referencedDeclaration": "4435",
+																					"src": {
+																						"column": "32",
+																						"end": "23921",
+																						"id": "4474",
+																						"length": "10",
+																						"line": "732",
+																						"parentIndex": "4471",
+																						"start": "23912"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_uint256",
+																						"typeString": "uint256"
+																					}
+																				}
+																			},
+																			"nodeType": "BINARY_OPERATION",
+																			"operator": "LESS_THAN",
+																			"rightExpression": {
+																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																				"value": {
+																					"id": "4475",
+																					"name": "shareholderCount",
+																					"nodeType": "IDENTIFIER",
+																					"referencedDeclaration": "4417",
+																					"src": {
+																						"column": "45",
+																						"end": "23940",
+																						"id": "4476",
+																						"length": "16",
+																						"line": "732",
+																						"parentIndex": "4471",
+																						"start": "23925"
+																					},
+																					"typeDescription": {
+																						"typeIdentifier": "t_uint256",
+																						"typeString": "uint256"
+																					}
+																				}
+																			},
+																			"src": {
+																				"column": "32",
+																				"end": "23940",
+																				"id": "4472",
+																				"length": "29",
+																				"line": "732",
+																				"parentIndex": "4463",
+																				"start": "23912"
+																			},
+																			"typeDescription": {
+																				"typeIdentifier": "t_bool",
+																				"typeString": "bool"
+																			}
+																		}
+																	}
+																],
+																"id": "4463",
+																"nodeType": "AND_OPERATION",
+																"src": {
+																	"column": "15",
+																	"end": "23940",
+																	"id": "4464",
+																	"length": "46",
+																	"line": "732",
+																	"start": "23895"
+																},
+																"typeDescriptions": [
+																	{
+																		"typeIdentifier": "t_bool",
+																		"typeString": "bool"
+																	},
+																	{
+																		"typeIdentifier": "t_bool",
+																		"typeString": "bool"
+																	}
+																]
+															}
 														},
 														"kind": "WHILE",
 														"nodeType": "WHILE_STATEMENT",

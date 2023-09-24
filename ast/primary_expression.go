@@ -241,6 +241,20 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
+	if ctx.GetText() == "tx" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_magic_transaction",
+			TypeString:     "tx",
+		}
+	}
+
+	if ctx.GetText() == "origin" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_address",
+			TypeString:     "address",
+		}
+	}
+
 	// There is a case where we get PlaceholderStatement as a PrimaryExpression and this one does nothing really...
 	// So we are going to do some hack here to make it work properly...
 	if p.Name == "_" {

@@ -72,6 +72,10 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 		return node, nodeType
 	}
 
+	if node, nodeType := r.byGlobals(name); nodeType != nil {
+		return node, nodeType
+	}
+
 	if node, nodeType := r.byStateVariables(name); nodeType != nil {
 		return node, nodeType
 	}
@@ -357,6 +361,23 @@ func (r *Resolver) byEvents(name string) (int64, *TypeDescription) {
 		for _, parameter := range eventNode.GetParameters().GetParameters() {
 			if parameter.GetName() == name {
 				return node.GetId(), parameter.GetTypeDescription()
+			}
+		}
+	}
+
+	return 0, nil
+}
+
+func (r *Resolver) byGlobals(name string) (int64, *TypeDescription) {
+	for _, node := range r.globalDefinitions {
+		enumNode := node.(*EnumDefinition)
+		if enumNode.GetName() == name {
+			return node.GetId(), node.GetTypeDescription()
+		}
+
+		for _, member := range enumNode.GetMembers() {
+			if member.GetName() == name {
+				return node.GetId(), node.GetTypeDescription()
 			}
 		}
 	}

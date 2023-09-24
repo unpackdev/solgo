@@ -84,7 +84,7 @@ func (f *Conditional) ToProto() NodeType {
 		proto.TypeDescriptions = append(proto.TypeDescriptions, typeDesc.ToProto())
 	}
 
-	return NewTypedStruct(nil, "Conditional")
+	return NewTypedStruct(&proto, "Conditional")
 }
 
 // Parse parses the Conditional node from the parsing context and associates it with other nodes.

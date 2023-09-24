@@ -83,7 +83,7 @@ func (f *AndOperation) ToProto() NodeType {
 		proto.TypeDescriptions = append(proto.TypeDescriptions, typeDesc.ToProto())
 	}
 
-	return NewTypedStruct(nil, "AndOperation")
+	return NewTypedStruct(&proto, "AndOperation")
 }
 
 // Parse parses the AndOperation node from the parsing context and associates it with other nodes.

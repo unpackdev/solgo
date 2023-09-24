@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
 
@@ -14,6 +15,9 @@ type RootNode struct {
 
 	// EntrySourceUnit is the entry source unit of the root node.
 	EntrySourceUnit int64 `json:"entry_source_unit"`
+
+	// Globals is the list of global nodes.
+	Globals []Node[NodeType] `json:"globals"`
 
 	// SourceUnits is the list of source units.
 	SourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]] `json:"root"`
@@ -30,6 +34,7 @@ func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*Sour
 		NodeType:        ast_pb.NodeType_ROOT_SOURCE_UNIT,
 		Comments:        comments,
 		SourceUnits:     sourceUnits,
+		Globals:         make([]Node[NodeType], 0),
 	}
 }
 
@@ -123,6 +128,11 @@ func (r *RootNode) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// GetGlobalNodes returns the global nodes of the root node.
+func (r *RootNode) GetGlobalNodes() []Node[NodeType] {
+	return r.Globals
+}
+
 // ToProto returns the protobuf representation of the root node.
 func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
 	sourceUnits := []*ast_pb.SourceUnit{}
@@ -135,10 +145,16 @@ func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
 		comments = append(comments, comment.ToProto())
 	}
 
+	globals := []*v3.TypedStruct{}
+	for _, global := range r.Globals {
+		globals = append(globals, global.ToProto().(*v3.TypedStruct))
+	}
+
 	return &ast_pb.RootSourceUnit{
 		Id:              r.GetId(),
 		NodeType:        r.GetType(),
 		EntrySourceUnit: r.GetEntrySourceUnit(),
+		GlobalNodes:     globals,
 		SourceUnits:     sourceUnits,
 		Comments:        comments,
 	}

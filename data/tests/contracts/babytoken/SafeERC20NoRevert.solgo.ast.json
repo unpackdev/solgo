@@ -1,0 +1,1405 @@
+{
+	"id": 3498,
+	"base_contracts": [],
+	"license": "MIT",
+	"exported_symbols": [
+		{
+			"id": 3498,
+			"name": "SafeERC20NoRevert",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "SafeERC20NoRevert",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 3500,
+			"name": "SafeERC20NoRevert",
+			"node_type": 35,
+			"src": {
+				"line": 1225,
+				"column": 0,
+				"start": 41044,
+				"end": 41510,
+				"length": 467,
+				"parent_index": 3498
+			},
+			"name_location": {
+				"line": 1225,
+				"column": 8,
+				"start": 41052,
+				"end": 41068,
+				"length": 17,
+				"parent_index": 3500
+			},
+			"abstract": false,
+			"kind": 37,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 3502,
+					"name": "safeTransfer",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3503,
+						"line": 1226,
+						"column": 4,
+						"start": 41076,
+						"end": 41508,
+						"length": 433,
+						"parent_index": 3500
+					},
+					"name_location": {
+						"line": 1226,
+						"column": 13,
+						"start": 41085,
+						"end": 41096,
+						"length": 12,
+						"parent_index": 3502
+					},
+					"body": {
+						"id": 3526,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3527,
+							"line": 1230,
+							"column": 30,
+							"start": 41193,
+							"end": 41508,
+							"length": 316,
+							"parent_index": 3502
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3528,
+								"node_type": 44,
+								"src": {
+									"id": 3529,
+									"line": 1231,
+									"column": 8,
+									"start": 41203,
+									"end": 41346,
+									"length": 144,
+									"parent_index": 3526
+								},
+								"assignments": [
+									3530,
+									3534
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 3530,
+										"state_mutability": 1,
+										"name": "success",
+										"node_type": 44,
+										"scope": 3526,
+										"src": {
+											"id": 3531,
+											"line": 1231,
+											"column": 9,
+											"start": 41204,
+											"end": 41215,
+											"length": 12,
+											"parent_index": 3528
+										},
+										"name_location": {
+											"line": 1231,
+											"column": 14,
+											"start": 41209,
+											"end": 41215,
+											"length": 7,
+											"parent_index": 3530
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 3532,
+											"node_type": 30,
+											"src": {
+												"id": 3533,
+												"line": 1231,
+												"column": 9,
+												"start": 41204,
+												"end": 41207,
+												"length": 4,
+												"parent_index": 3530
+											},
+											"name": "bool",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"is_constant": false,
+										"id": 3534,
+										"state_mutability": 1,
+										"name": "returndata",
+										"node_type": 44,
+										"scope": 3526,
+										"src": {
+											"id": 3535,
+											"line": 1231,
+											"column": 23,
+											"start": 41218,
+											"end": 41240,
+											"length": 23,
+											"parent_index": 3528
+										},
+										"name_location": {
+											"line": 1231,
+											"column": 36,
+											"start": 41231,
+											"end": 41240,
+											"length": 10,
+											"parent_index": 3534
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 3536,
+											"node_type": 30,
+											"src": {
+												"id": 3537,
+												"line": 1231,
+												"column": 23,
+												"start": 41218,
+												"end": 41222,
+												"length": 5,
+												"parent_index": 3534
+											},
+											"name": "bytes",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 3538,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 3539,
+										"line": 1231,
+										"column": 50,
+										"start": 41245,
+										"end": 41345,
+										"length": 101,
+										"parent_index": 3528
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
+											"type_string": "function(address,address,uint256)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 3550,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 3551,
+												"line": 1232,
+												"column": 12,
+												"start": 41278,
+												"end": 41335,
+												"length": 58,
+												"parent_index": 3538
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_IERC20_$347",
+													"type_string": "contract IERC20"
+												},
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												},
+												{
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											],
+											"arguments": [
+												{
+													"id": 3556,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 3557,
+														"line": 1232,
+														"column": 35,
+														"start": 41301,
+														"end": 41323,
+														"length": 23,
+														"parent_index": 3550
+													},
+													"member_location": {
+														"line": 1232,
+														"column": 50,
+														"start": 41316,
+														"end": 41323,
+														"length": 8,
+														"parent_index": 3556
+													},
+													"expression": {
+														"id": 3558,
+														"is_constant": false,
+														"is_l_value": false,
+														"is_pure": false,
+														"l_value_requested": false,
+														"node_type": 23,
+														"src": {
+															"id": 3559,
+															"line": 1232,
+															"column": 35,
+															"start": 41301,
+															"end": 41314,
+															"length": 14,
+															"parent_index": 3556
+														},
+														"member_location": {
+															"line": 1232,
+															"column": 41,
+															"start": 41307,
+															"end": 41314,
+															"length": 8,
+															"parent_index": 3558
+														},
+														"expression": {
+															"id": 3560,
+															"node_type": 16,
+															"src": {
+																"id": 3561,
+																"line": 1232,
+																"column": 35,
+																"start": 41301,
+																"end": 41305,
+																"length": 5,
+																"parent_index": 3558
+															},
+															"name": "token",
+															"type_description": {
+																"type_identifier": "t_contract$_IERC20_$347",
+																"type_string": "contract IERC20"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 3560,
+															"is_pure": false
+														},
+														"member_name": "transfer",
+														"argument_types": [],
+														"type_description": {
+															"type_identifier": "t_contract$_IERC20_$347",
+															"type_string": "contract IERC20"
+														}
+													},
+													"member_name": "selector",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_contract$_IERC20_$347",
+														"type_string": "contract IERC20"
+													}
+												},
+												{
+													"id": 3562,
+													"node_type": 16,
+													"src": {
+														"id": 3563,
+														"line": 1232,
+														"column": 60,
+														"start": 41326,
+														"end": 41327,
+														"length": 2,
+														"parent_index": 3550
+													},
+													"name": "to",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3562,
+													"is_pure": false,
+													"argument_types": [
+														{
+															"type_identifier": "t_contract$_IERC20_$347",
+															"type_string": "contract IERC20"
+														}
+													]
+												},
+												{
+													"id": 3564,
+													"node_type": 16,
+													"src": {
+														"id": 3565,
+														"line": 1232,
+														"column": 64,
+														"start": 41330,
+														"end": 41334,
+														"length": 5,
+														"parent_index": 3550
+													},
+													"name": "value",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3564,
+													"is_pure": false,
+													"argument_types": [
+														{
+															"type_identifier": "t_contract$_IERC20_$347",
+															"type_string": "contract IERC20"
+														},
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													]
+												}
+											],
+											"expression": {
+												"id": 3552,
+												"is_constant": false,
+												"is_l_value": false,
+												"is_pure": false,
+												"l_value_requested": false,
+												"node_type": 23,
+												"src": {
+													"id": 3553,
+													"line": 1232,
+													"column": 12,
+													"start": 41278,
+													"end": 41299,
+													"length": 22,
+													"parent_index": 3550
+												},
+												"member_location": {
+													"line": 1232,
+													"column": 16,
+													"start": 41282,
+													"end": 41299,
+													"length": 18,
+													"parent_index": 3552
+												},
+												"expression": {
+													"id": 3554,
+													"node_type": 16,
+													"src": {
+														"id": 3555,
+														"line": 1232,
+														"column": 12,
+														"start": 41278,
+														"end": 41280,
+														"length": 3,
+														"parent_index": 3552
+													},
+													"name": "abi",
+													"type_description": {
+														"type_identifier": "t_magic_abi",
+														"type_string": "abi"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												},
+												"member_name": "encodeWithSelector",
+												"argument_types": [],
+												"type_description": {
+													"type_identifier": "t_magic_abi",
+													"type_string": "abi"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
+												"type_string": "function(address,address,uint256)"
+											}
+										}
+									],
+									"expression": {
+										"id": 3540,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 3541,
+											"line": 1231,
+											"column": 50,
+											"start": 41245,
+											"end": 41263,
+											"length": 19,
+											"parent_index": 3538
+										},
+										"member_location": {
+											"line": 1231,
+											"column": 65,
+											"start": 41260,
+											"end": 41263,
+											"length": 4,
+											"parent_index": 3540
+										},
+										"expression": {
+											"id": 3542,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 3543,
+												"line": 1231,
+												"column": 50,
+												"start": 41245,
+												"end": 41258,
+												"length": 14,
+												"parent_index": 3540
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_IERC20_$347",
+													"type_string": "contract IERC20"
+												}
+											],
+											"arguments": [
+												{
+													"id": 3548,
+													"node_type": 16,
+													"src": {
+														"id": 3549,
+														"line": 1231,
+														"column": 58,
+														"start": 41253,
+														"end": 41257,
+														"length": 5,
+														"parent_index": 3542
+													},
+													"name": "token",
+													"type_description": {
+														"type_identifier": "t_contract$_IERC20_$347",
+														"type_string": "contract IERC20"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3548,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 3544,
+												"node_type": 16,
+												"src": {
+													"id": 3545,
+													"line": 1231,
+													"column": 50,
+													"start": 41245,
+													"end": 41251,
+													"length": 7,
+													"parent_index": 3542
+												},
+												"name": "address",
+												"type_name": {
+													"id": 3546,
+													"node_type": 30,
+													"src": {
+														"id": 3547,
+														"line": 1231,
+														"column": 50,
+														"start": 41245,
+														"end": 41251,
+														"length": 7,
+														"parent_index": 3544
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										},
+										"member_name": "call",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_address$_t_address$_t_uint256$",
+										"type_string": "function(function(address,address,uint256))"
+									}
+								}
+							},
+							{
+								"id": 3566,
+								"node_type": 47,
+								"src": {
+									"id": 3567,
+									"line": 1234,
+									"column": 8,
+									"start": 41356,
+									"end": 41502,
+									"length": 147,
+									"parent_index": 3502
+								},
+								"function_return_parameters": 3502,
+								"expression": {
+									"id": 3569,
+									"node_type": 96,
+									"src": {
+										"id": 3570,
+										"line": 1235,
+										"column": 12,
+										"start": 41375,
+										"end": 41501,
+										"length": 127,
+										"parent_index": 3526
+									},
+									"expressions": [
+										{
+											"id": 3572,
+											"node_type": 96,
+											"src": {
+												"id": 3573,
+												"line": 1235,
+												"column": 12,
+												"start": 41375,
+												"end": 41455,
+												"length": 81,
+												"parent_index": 3569
+											},
+											"expressions": [
+												{
+													"id": 3574,
+													"node_type": 16,
+													"src": {
+														"id": 3575,
+														"line": 1235,
+														"column": 12,
+														"start": 41375,
+														"end": 41381,
+														"length": 7,
+														"parent_index": 3572
+													},
+													"name": "success",
+													"type_description": {
+														"type_identifier": "t_bool",
+														"type_string": "bool"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3528,
+													"is_pure": false
+												},
+												{
+													"id": 3576,
+													"node_type": 60,
+													"src": {
+														"id": 3577,
+														"line": 1236,
+														"column": 12,
+														"start": 41398,
+														"end": 41455,
+														"length": 58,
+														"parent_index": 3572
+													},
+													"is_constant": false,
+													"is_pure": false,
+													"components": [
+														{
+															"id": 3578,
+															"is_constant": false,
+															"is_pure": false,
+															"node_type": 19,
+															"src": {
+																"id": 3579,
+																"line": 1236,
+																"column": 13,
+																"start": 41399,
+																"end": 41454,
+																"length": 56,
+																"parent_index": 3576
+															},
+															"operator": 33,
+															"left_expression": {
+																"id": 3580,
+																"is_constant": false,
+																"is_pure": false,
+																"node_type": 19,
+																"src": {
+																	"id": 3581,
+																	"line": 1236,
+																	"column": 13,
+																	"start": 41399,
+																	"end": 41420,
+																	"length": 22,
+																	"parent_index": 3578
+																},
+																"operator": 11,
+																"left_expression": {
+																	"id": 3582,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 3583,
+																		"line": 1236,
+																		"column": 13,
+																		"start": 41399,
+																		"end": 41415,
+																		"length": 17,
+																		"parent_index": 3580
+																	},
+																	"member_location": {
+																		"line": 1236,
+																		"column": 24,
+																		"start": 41410,
+																		"end": 41415,
+																		"length": 6,
+																		"parent_index": 3582
+																	},
+																	"expression": {
+																		"id": 3584,
+																		"node_type": 16,
+																		"src": {
+																			"id": 3585,
+																			"line": 1236,
+																			"column": 13,
+																			"start": 41399,
+																			"end": 41408,
+																			"length": 10,
+																			"parent_index": 3582
+																		},
+																		"name": "returndata",
+																		"type_description": {
+																			"type_identifier": "t_bytes",
+																			"type_string": "bytes"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 3528,
+																		"is_pure": false
+																	},
+																	"member_name": "length",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_bytes",
+																		"type_string": "bytes"
+																	}
+																},
+																"right_expression": {
+																	"id": 3586,
+																	"node_type": 17,
+																	"kind": 49,
+																	"value": "0",
+																	"hex_value": "30",
+																	"src": {
+																		"id": 3587,
+																		"line": 1236,
+																		"column": 34,
+																		"start": 41420,
+																		"end": 41420,
+																		"length": 1,
+																		"parent_index": 3580
+																	},
+																	"type_description": {
+																		"type_identifier": "t_rational_0_by_1",
+																		"type_string": "int_const 0"
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 0,
+																	"is_pure": true
+																},
+																"type_description": {
+																	"type_identifier": "t_bool",
+																	"type_string": "bool"
+																}
+															},
+															"right_expression": {
+																"id": 3588,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 3589,
+																	"line": 1236,
+																	"column": 39,
+																	"start": 41425,
+																	"end": 41454,
+																	"length": 30,
+																	"parent_index": 3578
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_bytes",
+																		"type_string": "bytes"
+																	},
+																	{
+																		"type_identifier": "t_tuple_$_t_bool$",
+																		"type_string": "tuple(bool)"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 3594,
+																		"node_type": 16,
+																		"src": {
+																			"id": 3595,
+																			"line": 1236,
+																			"column": 50,
+																			"start": 41436,
+																			"end": 41445,
+																			"length": 10,
+																			"parent_index": 3588
+																		},
+																		"name": "returndata",
+																		"type_description": {
+																			"type_identifier": "t_bytes",
+																			"type_string": "bytes"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 3528,
+																		"is_pure": false
+																	},
+																	{
+																		"id": 3596,
+																		"node_type": 60,
+																		"src": {
+																			"id": 3597,
+																			"line": 1236,
+																			"column": 62,
+																			"start": 41448,
+																			"end": 41453,
+																			"length": 6,
+																			"parent_index": 3588
+																		},
+																		"is_constant": false,
+																		"is_pure": false,
+																		"components": [
+																			{
+																				"id": 3598,
+																				"node_type": 16,
+																				"src": {
+																					"id": 3599,
+																					"line": 1236,
+																					"column": 63,
+																					"start": 41449,
+																					"end": 41452,
+																					"length": 4,
+																					"parent_index": 3596
+																				},
+																				"name": "bool",
+																				"type_name": {
+																					"id": 3600,
+																					"node_type": 30,
+																					"src": {
+																						"id": 3601,
+																						"line": 1236,
+																						"column": 63,
+																						"start": 41449,
+																						"end": 41452,
+																						"length": 4,
+																						"parent_index": 3598
+																					},
+																					"name": "bool",
+																					"referenced_declaration": 0,
+																					"type_description": {
+																						"type_identifier": "t_bool",
+																						"type_string": "bool"
+																					}
+																				},
+																				"type_description": {
+																					"type_identifier": "t_bool",
+																					"type_string": "bool"
+																				},
+																				"overloaded_declarations": [],
+																				"referenced_declaration": 0,
+																				"is_pure": false
+																			}
+																		],
+																		"type_description": {
+																			"type_identifier": "t_tuple_$_t_bool$",
+																			"type_string": "tuple(bool)"
+																		}
+																	}
+																],
+																"expression": {
+																	"id": 3590,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 3591,
+																		"line": 1236,
+																		"column": 39,
+																		"start": 41425,
+																		"end": 41434,
+																		"length": 10,
+																		"parent_index": 3588
+																	},
+																	"member_location": {
+																		"line": 1236,
+																		"column": 43,
+																		"start": 41429,
+																		"end": 41434,
+																		"length": 6,
+																		"parent_index": 3590
+																	},
+																	"expression": {
+																		"id": 3592,
+																		"node_type": 16,
+																		"src": {
+																			"id": 3593,
+																			"line": 1236,
+																			"column": 39,
+																			"start": 41425,
+																			"end": 41427,
+																			"length": 3,
+																			"parent_index": 3590
+																		},
+																		"name": "abi",
+																		"type_description": {
+																			"type_identifier": "t_magic_abi",
+																			"type_string": "abi"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 0,
+																		"is_pure": false
+																	},
+																	"member_name": "decode",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_magic_abi",
+																		"type_string": "abi"
+																	}
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_bytes$_t_tuple_$_t_bool$",
+																	"type_string": "function(bytes,tuple(bool))"
+																}
+															},
+															"type_description": {
+																"type_identifier": "t_bool",
+																"type_string": "bool"
+															}
+														}
+													],
+													"type_description": {
+														"type_identifier": "t_tuple_$_t_bool$",
+														"type_string": "tuple(bool)"
+													}
+												}
+											],
+											"type_descriptions": [
+												{
+													"type_identifier": "t_bool",
+													"type_string": "bool"
+												},
+												{
+													"type_identifier": "t_tuple_$_t_bool$",
+													"type_string": "tuple(bool)"
+												}
+											]
+										},
+										{
+											"id": 3602,
+											"is_constant": false,
+											"is_pure": false,
+											"node_type": 19,
+											"src": {
+												"id": 3603,
+												"line": 1237,
+												"column": 12,
+												"start": 41472,
+												"end": 41501,
+												"length": 30,
+												"parent_index": 3569
+											},
+											"operator": 7,
+											"left_expression": {
+												"id": 3604,
+												"is_constant": false,
+												"is_l_value": false,
+												"is_pure": false,
+												"l_value_requested": false,
+												"node_type": 23,
+												"src": {
+													"id": 3605,
+													"line": 1237,
+													"column": 12,
+													"start": 41472,
+													"end": 41497,
+													"length": 26,
+													"parent_index": 3602
+												},
+												"member_location": {
+													"line": 1237,
+													"column": 32,
+													"start": 41492,
+													"end": 41497,
+													"length": 6,
+													"parent_index": 3604
+												},
+												"expression": {
+													"id": 3606,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 3607,
+														"line": 1237,
+														"column": 12,
+														"start": 41472,
+														"end": 41490,
+														"length": 19,
+														"parent_index": 3604
+													},
+													"member_location": {
+														"line": 1237,
+														"column": 27,
+														"start": 41487,
+														"end": 41490,
+														"length": 4,
+														"parent_index": 3606
+													},
+													"expression": {
+														"id": 3608,
+														"node_type": 24,
+														"kind": 24,
+														"src": {
+															"id": 3609,
+															"line": 1237,
+															"column": 12,
+															"start": 41472,
+															"end": 41485,
+															"length": 14,
+															"parent_index": 3606
+														},
+														"argument_types": [
+															{
+																"type_identifier": "t_contract$_IERC20_$347",
+																"type_string": "contract IERC20"
+															}
+														],
+														"arguments": [
+															{
+																"id": 3614,
+																"node_type": 16,
+																"src": {
+																	"id": 3615,
+																	"line": 1237,
+																	"column": 20,
+																	"start": 41480,
+																	"end": 41484,
+																	"length": 5,
+																	"parent_index": 3608
+																},
+																"name": "token",
+																"type_description": {
+																	"type_identifier": "t_contract$_IERC20_$347",
+																	"type_string": "contract IERC20"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 3614,
+																"is_pure": false
+															}
+														],
+														"expression": {
+															"id": 3610,
+															"node_type": 16,
+															"src": {
+																"id": 3611,
+																"line": 1237,
+																"column": 12,
+																"start": 41472,
+																"end": 41478,
+																"length": 7,
+																"parent_index": 3608
+															},
+															"name": "address",
+															"type_name": {
+																"id": 3612,
+																"node_type": 30,
+																"src": {
+																	"id": 3613,
+																	"line": 1237,
+																	"column": 12,
+																	"start": 41472,
+																	"end": 41478,
+																	"length": 7,
+																	"parent_index": 3610
+																},
+																"name": "address",
+																"state_mutability": 4,
+																"referenced_declaration": 0,
+																"type_description": {
+																	"type_identifier": "t_address",
+																	"type_string": "address"
+																}
+															},
+															"type_description": {
+																"type_identifier": "t_function_$_t_address$",
+																"type_string": "function(address)"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 0,
+															"is_pure": false,
+															"argument_types": [
+																{
+																	"type_identifier": "t_address",
+																	"type_string": "address"
+																}
+															]
+														},
+														"type_description": {
+															"type_identifier": "t_function_$_t_address$",
+															"type_string": "function(address)"
+														}
+													},
+													"member_name": "code",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_function_$_t_address$",
+														"type_string": "function(address)"
+													}
+												},
+												"member_name": "length",
+												"argument_types": [],
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												}
+											},
+											"right_expression": {
+												"id": 3616,
+												"node_type": 17,
+												"kind": 49,
+												"value": "0",
+												"hex_value": "30",
+												"src": {
+													"id": 3617,
+													"line": 1237,
+													"column": 41,
+													"start": 41501,
+													"end": 41501,
+													"length": 1,
+													"parent_index": 3602
+												},
+												"type_description": {
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": true
+											},
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										}
+									],
+									"type_descriptions": [
+										{
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										{
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 3504,
+						"node_type": 43,
+						"src": {
+							"id": 3505,
+							"line": 1227,
+							"column": 8,
+							"start": 41107,
+							"end": 41161,
+							"length": 55,
+							"parent_index": 3502
+						},
+						"parameters": [
+							{
+								"id": 3506,
+								"node_type": 44,
+								"src": {
+									"id": 3507,
+									"line": 1227,
+									"column": 8,
+									"start": 41107,
+									"end": 41118,
+									"length": 12,
+									"parent_index": 3504
+								},
+								"scope": 3502,
+								"name": "token",
+								"type_name": {
+									"id": 3508,
+									"node_type": 69,
+									"src": {
+										"id": 3509,
+										"line": 1227,
+										"column": 8,
+										"start": 41107,
+										"end": 41112,
+										"length": 6,
+										"parent_index": 3506
+									},
+									"path_node": {
+										"id": 3510,
+										"name": "IERC20",
+										"node_type": 52,
+										"referenced_declaration": 347,
+										"src": {
+											"id": 3511,
+											"line": 1227,
+											"column": 8,
+											"start": 41107,
+											"end": 41112,
+											"length": 6,
+											"parent_index": 3508
+										},
+										"name_location": {
+											"line": 1227,
+											"column": 8,
+											"start": 41107,
+											"end": 41112,
+											"length": 6,
+											"parent_index": 3508
+										}
+									},
+									"referenced_declaration": 347,
+									"type_description": {
+										"type_identifier": "t_contract$_IERC20_$347",
+										"type_string": "contract IERC20"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3512,
+								"node_type": 44,
+								"src": {
+									"id": 3513,
+									"line": 1228,
+									"column": 8,
+									"start": 41129,
+									"end": 41138,
+									"length": 10,
+									"parent_index": 3504
+								},
+								"scope": 3502,
+								"name": "to",
+								"type_name": {
+									"id": 3514,
+									"node_type": 30,
+									"src": {
+										"id": 3515,
+										"line": 1228,
+										"column": 8,
+										"start": 41129,
+										"end": 41135,
+										"length": 7,
+										"parent_index": 3512
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 3516,
+								"node_type": 44,
+								"src": {
+									"id": 3517,
+									"line": 1229,
+									"column": 8,
+									"start": 41149,
+									"end": 41161,
+									"length": 13,
+									"parent_index": 3504
+								},
+								"scope": 3502,
+								"name": "value",
+								"type_name": {
+									"id": 3518,
+									"node_type": 30,
+									"src": {
+										"id": 3519,
+										"line": 1229,
+										"column": 8,
+										"start": 41149,
+										"end": 41155,
+										"length": 7,
+										"parent_index": 3516
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_IERC20_$347",
+								"type_string": "contract IERC20"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3520,
+						"node_type": 43,
+						"src": {
+							"id": 3521,
+							"line": 1230,
+							"column": 24,
+							"start": 41187,
+							"end": 41190,
+							"length": 4,
+							"parent_index": 3502
+						},
+						"parameters": [
+							{
+								"id": 3522,
+								"node_type": 44,
+								"src": {
+									"id": 3523,
+									"line": 1230,
+									"column": 24,
+									"start": 41187,
+									"end": 41190,
+									"length": 4,
+									"parent_index": 3520
+								},
+								"scope": 3502,
+								"name": "",
+								"type_name": {
+									"id": 3524,
+									"node_type": 30,
+									"src": {
+										"id": 3525,
+										"line": 1230,
+										"column": 24,
+										"start": 41187,
+										"end": 41190,
+										"length": 4,
+										"parent_index": 3522
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"scope": 3500,
+					"type_description": {
+						"type_identifier": "t_function_$_t_contract$_IERC20_$347$_t_address$_t_uint256$",
+						"type_string": "function(contract IERC20,address,uint256)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				3500
+			],
+			"base_contracts": [],
+			"contract_dependencies": [],
+			"scope": 3498
+		}
+	],
+	"src": {
+		"id": 3499,
+		"line": 1225,
+		"column": 0,
+		"start": 41044,
+		"end": 41510,
+		"length": 467,
+		"parent_index": 346
+	}
+}

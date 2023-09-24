@@ -182,3 +182,73 @@ func (e *EnumDefinition) Parse(
 
 	return e
 }
+
+// ParseGlobal parses an global enumeration definition from the provided parser.EnumDefinitionContext and updates the current instance.
+func (e *EnumDefinition) ParseGlobal(
+	ctx *parser.EnumDefinitionContext,
+) Node[NodeType] {
+	e.Src = SrcNode{
+		Id:     e.GetNextID(),
+		Line:   int64(ctx.GetStart().GetLine()),
+		Column: int64(ctx.GetStart().GetColumn()),
+		Start:  int64(ctx.GetStart().GetStart()),
+		End:    int64(ctx.GetStop().GetStop()),
+		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart()),
+	}
+	e.SourceUnitName = "Global"
+	e.Name = ctx.GetName().GetText()
+	e.NameLocation = SrcNode{
+		Line:        int64(ctx.GetName().GetStart().GetLine()),
+		Column:      int64(ctx.GetName().GetStart().GetColumn()),
+		Start:       int64(ctx.GetName().GetStart().GetStart()),
+		End:         int64(ctx.GetName().GetStop().GetStop()),
+		Length:      int64(ctx.GetName().GetStop().GetStop() - ctx.GetName().GetStart().GetStart() + 1),
+		ParentIndex: e.Id,
+	}
+	e.CanonicalName = fmt.Sprintf("%s.%s", "Global", e.Name)
+	e.TypeDescription = &TypeDescription{
+		TypeIdentifier: fmt.Sprintf("t_enum_$_%s_$%d", e.Name, e.Id),
+		TypeString:     fmt.Sprintf("enum %s", e.CanonicalName),
+	}
+
+	for _, enumCtx := range ctx.GetEnumValues() {
+		id := e.GetNextID()
+		e.Members = append(
+			e.Members,
+			&Parameter{
+				Id: id,
+				Src: SrcNode{
+					Line:        int64(enumCtx.GetStart().GetLine()),
+					Column:      int64(enumCtx.GetStart().GetColumn()),
+					Start:       int64(enumCtx.GetStart().GetStart()),
+					End:         int64(enumCtx.GetStop().GetStop()),
+					Length:      int64(enumCtx.GetStop().GetStop() - enumCtx.GetStart().GetStart()),
+					ParentIndex: e.Id,
+				},
+				Name: enumCtx.GetText(),
+				NameLocation: &SrcNode{
+					Line:        int64(enumCtx.Identifier().GetSymbol().GetLine()),
+					Column:      int64(enumCtx.Identifier().GetSymbol().GetColumn()),
+					Start:       int64(enumCtx.Identifier().GetSymbol().GetStart()),
+					End:         int64(enumCtx.Identifier().GetSymbol().GetStop()),
+					Length:      int64(enumCtx.Identifier().GetSymbol().GetStop() - enumCtx.Identifier().GetSymbol().GetStart() + 1),
+					ParentIndex: e.Id,
+				},
+				NodeType: ast_pb.NodeType_ENUM_VALUE,
+				TypeDescription: &TypeDescription{
+					TypeIdentifier: fmt.Sprintf("t_enum_$_%s$_%s_$%d", e.Name, enumCtx.GetText(), id),
+					TypeString:     fmt.Sprintf("enum %s.%s", e.CanonicalName, enumCtx.GetText()),
+				},
+			},
+		)
+	}
+	e.globalDefinitions = append(e.currentEnums, e)
+
+	return e
+}
+
+// There can be global enums that are outside of the contract body, so we need to handle them here.
+func (b *ASTBuilder) EnterEnumDefinition(ctx *parser.EnumDefinitionContext) {
+	enumDef := NewEnumDefinition(b)
+	enumDef.ParseGlobal(ctx)
+}
