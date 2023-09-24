@@ -15,6 +15,7 @@ func getSourceTestCases(t *testing.T) []struct {
 	expectedAst          string
 	expectedProto        string
 	unresolvedReferences int64
+	expectsErrors        bool
 } {
 	return []struct {
 		name                 string
@@ -23,6 +24,7 @@ func getSourceTestCases(t *testing.T) []struct {
 		expectedAst          string
 		expectedProto        string
 		unresolvedReferences int64
+		expectsErrors        bool
 	}{
 		{
 			name:       "Empty Contract Test",
@@ -113,6 +115,44 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/blottery/Lottery.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/blottery/Lottery.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+		},
+		{
+			name:       "SeaGod Contract - 0xb334015E66d7203d8891Ce5E78eAeEFB6B3aE392",
+			outputPath: "contracts/seagod/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Seagod",
+						Path:    tests.ReadContractFileForTest(t, "contracts/seagod/Seagod").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/seagod/Seagod").Content,
+					},
+				},
+				EntrySourceUnitName: "SeaGod",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/seagod/Seagod.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/seagod/Seagod.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        true,
+		},
+		{
+			name:       "RickRolledToken Contract - 0xe81473ff76c60dafb526ca037d0a1bc282d42a4d",
+			outputPath: "contracts/rick/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Token",
+						Path:    tests.ReadContractFileForTest(t, "contracts/rick/Token").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/rick/Token").Content,
+					},
+				},
+				EntrySourceUnitName: "RickRolledToken",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/rick/Token.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/rick/Token.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
 		},
 		{
 			name:       "Simple Storage Contract Test",

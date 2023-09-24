@@ -438,6 +438,26 @@ func (p *PrimaryExpression) Parse(
 					literalCtx.HexStringLiteral().GetText(),
 				),
 			}
+		} else if ctx.Literal().UnicodeStringLiteral() != nil {
+			p.Kind = ast_pb.NodeType_UNICODE_STRING_LITERAL
+
+			p.Value = strings.TrimSpace(
+				// There can be hex 22 at beginning and end of literal.
+				// We should drop it as that's ASCII for double quote.
+				strings.ReplaceAll(
+					strings.ReplaceAll(literalCtx.UnicodeStringLiteral().GetText(), "\"", ""),
+					"unicode",
+					"",
+				),
+			)
+
+			p.TypeDescription = &TypeDescription{
+				TypeIdentifier: "t_string_unicode_literal",
+				TypeString: fmt.Sprintf(
+					"literal_unicode_string \"%s\"",
+					literalCtx.UnicodeStringLiteral().GetText(),
+				),
+			}
 		} else {
 			if ctx.GetText() == "msg" {
 				p.TypeDescription = &TypeDescription{
