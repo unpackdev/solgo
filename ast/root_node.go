@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
 
@@ -144,10 +145,16 @@ func (r *RootNode) ToProto() *ast_pb.RootSourceUnit {
 		comments = append(comments, comment.ToProto())
 	}
 
+	globals := []*v3.TypedStruct{}
+	for _, global := range r.Globals {
+		globals = append(globals, global.ToProto().(*v3.TypedStruct))
+	}
+
 	return &ast_pb.RootSourceUnit{
 		Id:              r.GetId(),
 		NodeType:        r.GetType(),
 		EntrySourceUnit: r.GetEntrySourceUnit(),
+		GlobalNodes:     globals,
 		SourceUnits:     sourceUnits,
 		Comments:        comments,
 	}
