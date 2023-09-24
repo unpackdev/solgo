@@ -1,0 +1,1359 @@
+{
+	"id": 4148,
+	"base_contracts": [],
+	"license": "AGPL-3.0-only",
+	"exported_symbols": [
+		{
+			"id": 4148,
+			"name": "DexBaseUSDT",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "DexBaseUSDT",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 4150,
+			"node_type": 10,
+			"src": {
+				"id": 4151,
+				"line": 6,
+				"column": 0,
+				"start": 108,
+				"end": 132,
+				"length": 25,
+				"parent_index": 4148
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"\u003e=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity \u003e=0.8.16;"
+		},
+		{
+			"id": 4152,
+			"name": "DexBaseUSDT",
+			"node_type": 35,
+			"src": {
+				"line": 959,
+				"column": 0,
+				"start": 29392,
+				"end": 30158,
+				"length": 767,
+				"parent_index": 4148
+			},
+			"name_location": {
+				"line": 959,
+				"column": 18,
+				"start": 29410,
+				"end": 29420,
+				"length": 11,
+				"parent_index": 4152
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 4154,
+					"name": "inisSwap",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4155,
+						"line": 960,
+						"column": 4,
+						"start": 29428,
+						"end": 29448,
+						"length": 21,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_bool",
+						"type_string": "bool"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 4156,
+						"node_type": 30,
+						"src": {
+							"id": 4157,
+							"line": 960,
+							"column": 4,
+							"start": 29428,
+							"end": 29431,
+							"length": 4,
+							"parent_index": 4154
+						},
+						"name": "bool",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						}
+					}
+				},
+				{
+					"id": 4159,
+					"name": "uniswapV2Router",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4160,
+						"line": 961,
+						"column": 4,
+						"start": 29454,
+						"end": 29522,
+						"length": 69,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+						"type_string": "contract IUniswapV2Router"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 4161,
+						"node_type": 69,
+						"src": {
+							"id": 4162,
+							"line": 961,
+							"column": 4,
+							"start": 29454,
+							"end": 29469,
+							"length": 16,
+							"parent_index": 4159
+						},
+						"path_node": {
+							"id": 4163,
+							"name": "IUniswapV2Router",
+							"node_type": 52,
+							"referenced_declaration": 1085,
+							"src": {
+								"id": 4164,
+								"line": 961,
+								"column": 4,
+								"start": 29454,
+								"end": 29469,
+								"length": 16,
+								"parent_index": 4161
+							},
+							"name_location": {
+								"line": 961,
+								"column": 4,
+								"start": 29454,
+								"end": 29469,
+								"length": 16,
+								"parent_index": 4161
+							}
+						},
+						"referenced_declaration": 1085,
+						"type_description": {
+							"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+							"type_string": "contract IUniswapV2Router"
+						}
+					}
+				},
+				{
+					"id": 4166,
+					"name": "uniswapV2Pair",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4167,
+						"line": 962,
+						"column": 4,
+						"start": 29528,
+						"end": 29566,
+						"length": 39,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 4168,
+						"node_type": 30,
+						"src": {
+							"id": 4169,
+							"line": 962,
+							"column": 4,
+							"start": 29528,
+							"end": 29534,
+							"length": 7,
+							"parent_index": 4166
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					}
+				},
+				{
+					"id": 4171,
+					"name": "distributor",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4172,
+						"line": 963,
+						"column": 4,
+						"start": 29572,
+						"end": 29620,
+						"length": 49,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_contract$_DividendDistributor_$2632",
+						"type_string": "contract DividendDistributor"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 4173,
+						"node_type": 69,
+						"src": {
+							"id": 4174,
+							"line": 963,
+							"column": 4,
+							"start": 29572,
+							"end": 29590,
+							"length": 19,
+							"parent_index": 4171
+						},
+						"path_node": {
+							"id": 4175,
+							"name": "DividendDistributor",
+							"node_type": 52,
+							"referenced_declaration": 2632,
+							"src": {
+								"id": 4176,
+								"line": 963,
+								"column": 4,
+								"start": 29572,
+								"end": 29590,
+								"length": 19,
+								"parent_index": 4173
+							},
+							"name_location": {
+								"line": 963,
+								"column": 4,
+								"start": 29572,
+								"end": 29590,
+								"length": 19,
+								"parent_index": 4173
+							}
+						},
+						"referenced_declaration": 2632,
+						"type_description": {
+							"type_identifier": "t_contract$_DividendDistributor_$2632",
+							"type_string": "contract DividendDistributor"
+						}
+					}
+				},
+				{
+					"id": 4178,
+					"name": "distributefee",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4179,
+						"line": 965,
+						"column": 4,
+						"start": 29627,
+						"end": 29671,
+						"length": 45,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 4180,
+						"node_type": 30,
+						"src": {
+							"id": 4181,
+							"line": 965,
+							"column": 4,
+							"start": 29627,
+							"end": 29633,
+							"length": 7,
+							"parent_index": 4178
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 4183,
+					"name": "liquidityFee",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4184,
+						"line": 966,
+						"column": 4,
+						"start": 29678,
+						"end": 29720,
+						"length": 43,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 4185,
+						"node_type": 30,
+						"src": {
+							"id": 4186,
+							"line": 966,
+							"column": 4,
+							"start": 29678,
+							"end": 29684,
+							"length": 7,
+							"parent_index": 4183
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 4188,
+					"name": "burnFee",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4189,
+						"line": 967,
+						"column": 4,
+						"start": 29726,
+						"end": 29764,
+						"length": 39,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 4190,
+						"node_type": 30,
+						"src": {
+							"id": 4191,
+							"line": 967,
+							"column": 4,
+							"start": 29726,
+							"end": 29732,
+							"length": 7,
+							"parent_index": 4188
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 4193,
+					"name": "minHoldtoDividend",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 4194,
+						"line": 969,
+						"column": 4,
+						"start": 29772,
+						"end": 29823,
+						"length": 52,
+						"parent_index": 4152
+					},
+					"scope": 4152,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 4195,
+						"node_type": 30,
+						"src": {
+							"id": 4196,
+							"line": 969,
+							"column": 4,
+							"start": 29772,
+							"end": 29778,
+							"length": 7,
+							"parent_index": 4193
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 4198,
+					"name": "isSwap",
+					"node_type": 68,
+					"src": {
+						"id": 4199,
+						"line": 970,
+						"column": 4,
+						"start": 29830,
+						"end": 29916,
+						"length": 87,
+						"parent_index": 4152
+					},
+					"name_location": {
+						"line": 970,
+						"column": 13,
+						"start": 29839,
+						"end": 29844,
+						"length": 6,
+						"parent_index": 4198
+					},
+					"visibility": 1,
+					"virtual": false,
+					"parameters": {
+						"id": 4200,
+						"node_type": 43,
+						"src": {
+							"id": 4199,
+							"line": 970,
+							"column": 4,
+							"start": 29830,
+							"end": 29916,
+							"length": 87,
+							"parent_index": 4152
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"body": {
+						"id": 4201,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 4202,
+							"line": 970,
+							"column": 22,
+							"start": 29848,
+							"end": 29916,
+							"length": 69,
+							"parent_index": 4198
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 4203,
+								"node_type": 27,
+								"src": {
+									"id": 4204,
+									"line": 971,
+									"column": 8,
+									"start": 29858,
+									"end": 29873,
+									"length": 16,
+									"parent_index": 4201
+								},
+								"expression": {
+									"id": 4205,
+									"node_type": 27,
+									"src": {
+										"id": 4206,
+										"line": 971,
+										"column": 8,
+										"start": 29858,
+										"end": 29872,
+										"length": 15,
+										"parent_index": 4201
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 4207,
+										"node_type": 16,
+										"src": {
+											"id": 4208,
+											"line": 971,
+											"column": 8,
+											"start": 29858,
+											"end": 29865,
+											"length": 8,
+											"parent_index": 4205
+										},
+										"name": "inisSwap",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4154,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 4209,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 4210,
+											"line": 971,
+											"column": 19,
+											"start": 29869,
+											"end": 29872,
+											"length": 4,
+											"parent_index": 4205
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							},
+							{
+								"id": 4211,
+								"node_type": 82,
+								"src": {
+									"id": 4212,
+									"line": 972,
+									"column": 8,
+									"start": 29883,
+									"end": 29883,
+									"length": 1,
+									"parent_index": 4201
+								},
+								"name": "_",
+								"type_description": {
+									"type_identifier": "t_placeholder_literal",
+									"type_string": "t_placeholder"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": false
+							},
+							{
+								"id": 4213,
+								"node_type": 27,
+								"src": {
+									"id": 4214,
+									"line": 973,
+									"column": 8,
+									"start": 29894,
+									"end": 29910,
+									"length": 17,
+									"parent_index": 4201
+								},
+								"expression": {
+									"id": 4215,
+									"node_type": 27,
+									"src": {
+										"id": 4216,
+										"line": 973,
+										"column": 8,
+										"start": 29894,
+										"end": 29909,
+										"length": 16,
+										"parent_index": 4201
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 4217,
+										"node_type": 16,
+										"src": {
+											"id": 4218,
+											"line": 973,
+											"column": 8,
+											"start": 29894,
+											"end": 29901,
+											"length": 8,
+											"parent_index": 4215
+										},
+										"name": "inisSwap",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4154,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 4219,
+										"node_type": 17,
+										"kind": 61,
+										"value": "false",
+										"hex_value": "66616c7365",
+										"src": {
+											"id": 4220,
+											"line": 973,
+											"column": 19,
+											"start": 29905,
+											"end": 29909,
+											"length": 5,
+											"parent_index": 4215
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 4222,
+					"node_type": 42,
+					"src": {
+						"id": 4223,
+						"line": 976,
+						"column": 4,
+						"start": 29923,
+						"end": 30156,
+						"length": 234,
+						"parent_index": 4152
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 4224,
+						"node_type": 43,
+						"src": {
+							"id": 4223,
+							"line": 976,
+							"column": 4,
+							"start": 29923,
+							"end": 30156,
+							"length": 234,
+							"parent_index": 4222
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 4225,
+						"node_type": 43,
+						"src": {
+							"id": 4223,
+							"line": 976,
+							"column": 4,
+							"start": 29923,
+							"end": 30156,
+							"length": 234,
+							"parent_index": 4222
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 4152,
+					"body": {
+						"id": 4226,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 4227,
+							"line": 976,
+							"column": 18,
+							"start": 29937,
+							"end": 30156,
+							"length": 220,
+							"parent_index": 4222
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 4228,
+								"node_type": 27,
+								"src": {
+									"id": 4229,
+									"line": 977,
+									"column": 8,
+									"start": 29947,
+									"end": 30073,
+									"length": 127,
+									"parent_index": 4226
+								},
+								"expression": {
+									"id": 4230,
+									"node_type": 27,
+									"src": {
+										"id": 4231,
+										"line": 977,
+										"column": 8,
+										"start": 29947,
+										"end": 30072,
+										"length": 126,
+										"parent_index": 4226
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 4232,
+										"node_type": 16,
+										"src": {
+											"id": 4233,
+											"line": 977,
+											"column": 8,
+											"start": 29947,
+											"end": 29959,
+											"length": 13,
+											"parent_index": 4230
+										},
+										"name": "uniswapV2Pair",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4166,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 4234,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 4235,
+											"line": 977,
+											"column": 24,
+											"start": 29963,
+											"end": 30072,
+											"length": 110,
+											"parent_index": 4230
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$_t_address$$",
+												"type_string": "function(function(address))"
+											}
+										],
+										"arguments": [
+											{
+												"id": 4248,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 4249,
+													"line": 978,
+													"column": 12,
+													"start": 30032,
+													"end": 30044,
+													"length": 13,
+													"parent_index": 4234
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_contract$_DexBaseUSDT_$4148",
+														"type_string": "contract DexBaseUSDT"
+													}
+												],
+												"arguments": [
+													{
+														"id": 4254,
+														"node_type": 16,
+														"src": {
+															"id": 4255,
+															"line": 978,
+															"column": 20,
+															"start": 30040,
+															"end": 30043,
+															"length": 4,
+															"parent_index": 4248
+														},
+														"name": "this",
+														"type_description": {
+															"type_identifier": "t_contract$_DexBaseUSDT_$4148",
+															"type_string": "contract DexBaseUSDT"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													}
+												],
+												"expression": {
+													"id": 4250,
+													"node_type": 16,
+													"src": {
+														"id": 4251,
+														"line": 978,
+														"column": 12,
+														"start": 30032,
+														"end": 30038,
+														"length": 7,
+														"parent_index": 4248
+													},
+													"name": "address",
+													"type_name": {
+														"id": 4252,
+														"node_type": 30,
+														"src": {
+															"id": 4253,
+															"line": 978,
+															"column": 12,
+															"start": 30032,
+															"end": 30038,
+															"length": 7,
+															"parent_index": 4250
+														},
+														"name": "address",
+														"state_mutability": 4,
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_address$",
+														"type_string": "function(address)"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false,
+													"argument_types": [
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													]
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												}
+											},
+											{
+												"id": 4256,
+												"node_type": 16,
+												"src": {
+													"id": 4257,
+													"line": 979,
+													"column": 12,
+													"start": 30059,
+													"end": 30062,
+													"length": 4,
+													"parent_index": 4234
+												},
+												"name": "USDT",
+												"type_description": {
+													"type_identifier": "t_function_$_t_function_$_t_address$$",
+													"type_string": "function(function(address))"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$_t_address$",
+														"type_string": "function(address)"
+													}
+												]
+											}
+										],
+										"expression": {
+											"id": 4236,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 4237,
+												"line": 977,
+												"column": 24,
+												"start": 29963,
+												"end": 30017,
+												"length": 55,
+												"parent_index": 4234
+											},
+											"member_location": {
+												"line": 977,
+												"column": 69,
+												"start": 30008,
+												"end": 30017,
+												"length": 10,
+												"parent_index": 4236
+											},
+											"expression": {
+												"id": 4238,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 4239,
+													"line": 977,
+													"column": 24,
+													"start": 29963,
+													"end": 30006,
+													"length": 44,
+													"parent_index": 4236
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												],
+												"arguments": [
+													{
+														"id": 4242,
+														"node_type": 24,
+														"kind": 24,
+														"src": {
+															"id": 4243,
+															"line": 977,
+															"column": 42,
+															"start": 29981,
+															"end": 30005,
+															"length": 25,
+															"parent_index": 4238
+														},
+														"argument_types": [],
+														"arguments": [],
+														"expression": {
+															"id": 4244,
+															"is_constant": false,
+															"is_l_value": false,
+															"is_pure": false,
+															"l_value_requested": false,
+															"node_type": 23,
+															"src": {
+																"id": 4245,
+																"line": 977,
+																"column": 42,
+																"start": 29981,
+																"end": 30003,
+																"length": 23,
+																"parent_index": 4242
+															},
+															"member_location": {
+																"line": 977,
+																"column": 58,
+																"start": 29997,
+																"end": 30003,
+																"length": 7,
+																"parent_index": 4244
+															},
+															"expression": {
+																"id": 4246,
+																"node_type": 16,
+																"src": {
+																	"id": 4247,
+																	"line": 977,
+																	"column": 42,
+																	"start": 29981,
+																	"end": 29995,
+																	"length": 15,
+																	"parent_index": 4244
+																},
+																"name": "uniswapV2Router",
+																"type_description": {
+																	"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+																	"type_string": "contract IUniswapV2Router"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 4159,
+																"is_pure": false
+															},
+															"member_name": "factory",
+															"argument_types": [],
+															"type_description": {
+																"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+																"type_string": "contract IUniswapV2Router"
+															}
+														},
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														}
+													}
+												],
+												"expression": {
+													"id": 4240,
+													"node_type": 16,
+													"src": {
+														"id": 4241,
+														"line": 977,
+														"column": 24,
+														"start": 29963,
+														"end": 29979,
+														"length": 17,
+														"parent_index": 4238
+													},
+													"name": "IUniswapV2Factory",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_function_$",
+													"type_string": "function(function())"
+												}
+											},
+											"member_name": "createPair",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_address$_t_function_$_t_function_$_t_address$",
+											"type_string": "function(function(address),function(function(address)))"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							{
+								"id": 4258,
+								"node_type": 27,
+								"src": {
+									"id": 4259,
+									"line": 981,
+									"column": 8,
+									"start": 30083,
+									"end": 30150,
+									"length": 68,
+									"parent_index": 4226
+								},
+								"expression": {
+									"id": 4260,
+									"node_type": 27,
+									"src": {
+										"id": 4261,
+										"line": 981,
+										"column": 8,
+										"start": 30083,
+										"end": 30149,
+										"length": 67,
+										"parent_index": 4226
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 4262,
+										"node_type": 16,
+										"src": {
+											"id": 4263,
+											"line": 981,
+											"column": 8,
+											"start": 30083,
+											"end": 30093,
+											"length": 11,
+											"parent_index": 4260
+										},
+										"name": "distributor",
+										"type_description": {
+											"type_identifier": "t_contract$_DividendDistributor_$2632",
+											"type_string": "contract DividendDistributor"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4171,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 4264,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 4265,
+											"line": 981,
+											"column": 22,
+											"start": 30097,
+											"end": 30149,
+											"length": 53,
+											"parent_index": 4260
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											{
+												"type_identifier": "t_rational_300_by_1",
+												"type_string": "int_const 300"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$$$_t_rational_300_by_1$",
+												"type_string": "function(function(),int_const 300)"
+											}
+										],
+										"arguments": [
+											{
+												"id": 4272,
+												"node_type": 16,
+												"src": {
+													"id": 4273,
+													"line": 981,
+													"column": 46,
+													"start": 30121,
+													"end": 30124,
+													"length": 4,
+													"parent_index": 4264
+												},
+												"name": "BTCB",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											{
+												"id": 4274,
+												"node_type": 17,
+												"kind": 49,
+												"value": "300",
+												"hex_value": "333030",
+												"src": {
+													"id": 4275,
+													"line": 981,
+													"column": 52,
+													"start": 30127,
+													"end": 30129,
+													"length": 3,
+													"parent_index": 4264
+												},
+												"type_description": {
+													"type_identifier": "t_rational_300_by_1",
+													"type_string": "int_const 300"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": true,
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												]
+											},
+											{
+												"id": 4276,
+												"node_type": 16,
+												"src": {
+													"id": 4277,
+													"line": 981,
+													"column": 57,
+													"start": 30132,
+													"end": 30148,
+													"length": 17,
+													"parent_index": 4264
+												},
+												"name": "minHoldtoDividend",
+												"type_description": {
+													"type_identifier": "t_function_$_t_function_$$$_t_rational_300_by_1$",
+													"type_string": "function(function(),int_const 300)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													{
+														"type_identifier": "t_rational_300_by_1",
+														"type_string": "int_const 300"
+													}
+												]
+											}
+										],
+										"expression": {
+											"id": 4266,
+											"node_type": 25,
+											"src": {
+												"id": 4267,
+												"line": 981,
+												"column": 22,
+												"start": 30097,
+												"end": 30119,
+												"length": 23,
+												"parent_index": 4264
+											},
+											"argument_types": [],
+											"type_name": {
+												"id": 4268,
+												"node_type": 69,
+												"src": {
+													"id": 4269,
+													"line": 981,
+													"column": 26,
+													"start": 30101,
+													"end": 30119,
+													"length": 19,
+													"parent_index": 4266
+												},
+												"path_node": {
+													"id": 4270,
+													"name": "DividendDistributor",
+													"node_type": 52,
+													"referenced_declaration": 2632,
+													"src": {
+														"id": 4271,
+														"line": 981,
+														"column": 26,
+														"start": 30101,
+														"end": 30119,
+														"length": 19,
+														"parent_index": 4268
+													},
+													"name_location": {
+														"line": 981,
+														"column": 26,
+														"start": 30101,
+														"end": 30119,
+														"length": 19,
+														"parent_index": 4268
+													}
+												},
+												"referenced_declaration": 2632,
+												"type_description": {
+													"type_identifier": "t_contract$_DividendDistributor_$2632",
+													"type_string": "contract DividendDistributor"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_contract$_DividendDistributor_$2632",
+												"type_string": "contract DividendDistributor"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_rational_300_by_1$_t_function_$_t_function_$_t_rational_300_by_1$",
+											"type_string": "function(function(),int_const 300,function(function(),int_const 300))"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_contract$_DividendDistributor_$2632",
+										"type_string": "contract DividendDistributor"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_contract$_DividendDistributor_$2632",
+									"type_string": "contract DividendDistributor"
+								}
+							}
+						]
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				4152
+			],
+			"base_contracts": [],
+			"contract_dependencies": []
+		}
+	],
+	"src": {
+		"id": 4149,
+		"line": 959,
+		"column": 0,
+		"start": 29392,
+		"end": 30158,
+		"length": 767,
+		"parent_index": 87
+	}
+}

@@ -1,0 +1,6872 @@
+{
+	"id": 5260,
+	"base_contracts": [
+		{
+			"id": 5265,
+			"node_type": 62,
+			"src": {
+				"id": 5266,
+				"line": 1151,
+				"column": 38,
+				"start": 35123,
+				"end": 35129,
+				"length": 7,
+				"parent_index": 5264
+			},
+			"base_name": {
+				"id": 5267,
+				"node_type": 52,
+				"src": {
+					"id": 5268,
+					"line": 1151,
+					"column": 38,
+					"start": 35123,
+					"end": 35129,
+					"length": 7,
+					"parent_index": 5264
+				},
+				"name": "Ownable",
+				"referenced_declaration": 88
+			}
+		},
+		{
+			"id": 5269,
+			"node_type": 62,
+			"src": {
+				"id": 5270,
+				"line": 1151,
+				"column": 47,
+				"start": 35132,
+				"end": 35142,
+				"length": 11,
+				"parent_index": 5264
+			},
+			"base_name": {
+				"id": 5271,
+				"node_type": 52,
+				"src": {
+					"id": 5272,
+					"line": 1151,
+					"column": 47,
+					"start": 35132,
+					"end": 35142,
+					"length": 11,
+					"parent_index": 5264
+				},
+				"name": "DexBaseUSDT",
+				"referenced_declaration": 4148
+			}
+		},
+		{
+			"id": 5273,
+			"node_type": 62,
+			"src": {
+				"id": 5274,
+				"line": 1151,
+				"column": 60,
+				"start": 35145,
+				"end": 35149,
+				"length": 5,
+				"parent_index": 5264
+			},
+			"base_name": {
+				"id": 5275,
+				"node_type": 52,
+				"src": {
+					"id": 5276,
+					"line": 1151,
+					"column": 60,
+					"start": 35145,
+					"end": 35149,
+					"length": 5,
+					"parent_index": 5264
+				},
+				"name": "ERC20",
+				"referenced_declaration": 678
+			}
+		}
+	],
+	"license": "AGPL-3.0-only",
+	"exported_symbols": [
+		{
+			"id": 5260,
+			"name": "LiquidityFeeUSDT",
+			"absolute_path": ""
+		},
+		{
+			"id": 5265,
+			"name": "Ownable",
+			"absolute_path": ""
+		},
+		{
+			"id": 5269,
+			"name": "DexBaseUSDT",
+			"absolute_path": ""
+		},
+		{
+			"id": 5273,
+			"name": "ERC20",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "LiquidityFeeUSDT",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 5262,
+			"node_type": 10,
+			"src": {
+				"id": 5263,
+				"line": 6,
+				"column": 0,
+				"start": 108,
+				"end": 132,
+				"length": 25,
+				"parent_index": 5260
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"\u003e=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity \u003e=0.8.16;"
+		},
+		{
+			"id": 5264,
+			"name": "LiquidityFeeUSDT",
+			"node_type": 35,
+			"src": {
+				"line": 1151,
+				"column": 0,
+				"start": 35085,
+				"end": 38977,
+				"length": 3893,
+				"parent_index": 5260
+			},
+			"name_location": {
+				"line": 1151,
+				"column": 18,
+				"start": 35103,
+				"end": 35118,
+				"length": 16,
+				"parent_index": 5264
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 5278,
+					"name": "swapAndLiquifyEnabled",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 5279,
+						"line": 1152,
+						"column": 4,
+						"start": 35157,
+						"end": 35197,
+						"length": 41,
+						"parent_index": 5264
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_bool",
+						"type_string": "bool"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 5280,
+						"node_type": 30,
+						"src": {
+							"id": 5281,
+							"line": 1152,
+							"column": 4,
+							"start": 35157,
+							"end": 35160,
+							"length": 4,
+							"parent_index": 5278
+						},
+						"name": "bool",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						}
+					}
+				},
+				{
+					"id": 5283,
+					"name": "numTokensSellToAddToLiquidity",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 5284,
+						"line": 1153,
+						"column": 4,
+						"start": 35203,
+						"end": 35258,
+						"length": 56,
+						"parent_index": 5264
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 5285,
+						"node_type": 30,
+						"src": {
+							"id": 5286,
+							"line": 1153,
+							"column": 4,
+							"start": 35203,
+							"end": 35209,
+							"length": 7,
+							"parent_index": 5283
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 5288,
+					"name": "lpRec",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 5289,
+						"line": 1154,
+						"column": 4,
+						"start": 35264,
+						"end": 35329,
+						"length": 66,
+						"parent_index": 5264
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 5290,
+						"node_type": 30,
+						"src": {
+							"id": 5291,
+							"line": 1154,
+							"column": 4,
+							"start": 35264,
+							"end": 35270,
+							"length": 7,
+							"parent_index": 5288
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					}
+				},
+				{
+					"id": 5293,
+					"node_type": 57,
+					"src": {
+						"id": 5294,
+						"line": 1156,
+						"column": 4,
+						"start": 35336,
+						"end": 35397,
+						"length": 62,
+						"parent_index": 5264
+					},
+					"parameters": {
+						"id": 5295,
+						"node_type": 43,
+						"src": {
+							"id": 5294,
+							"line": 1156,
+							"column": 4,
+							"start": 35336,
+							"end": 35397,
+							"length": 62,
+							"parent_index": 5293
+						},
+						"parameters": [
+							{
+								"id": 5296,
+								"node_type": 44,
+								"src": {
+									"id": 5297,
+									"line": 1156,
+									"column": 37,
+									"start": 35369,
+									"end": 35395,
+									"length": 27,
+									"parent_index": 5295
+								},
+								"scope": 5293,
+								"name": "minTokensBeforeSwap",
+								"type_name": {
+									"id": 5298,
+									"node_type": 30,
+									"src": {
+										"id": 5299,
+										"line": 1156,
+										"column": 37,
+										"start": 35369,
+										"end": 35375,
+										"length": 7,
+										"parent_index": 5296
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"name": "MinTokensBeforeSwapUpdated",
+					"anonymous": false
+				},
+				{
+					"id": 5301,
+					"node_type": 57,
+					"src": {
+						"id": 5302,
+						"line": 1157,
+						"column": 4,
+						"start": 35403,
+						"end": 35451,
+						"length": 49,
+						"parent_index": 5264
+					},
+					"parameters": {
+						"id": 5303,
+						"node_type": 43,
+						"src": {
+							"id": 5302,
+							"line": 1157,
+							"column": 4,
+							"start": 35403,
+							"end": 35451,
+							"length": 49,
+							"parent_index": 5301
+						},
+						"parameters": [
+							{
+								"id": 5304,
+								"node_type": 44,
+								"src": {
+									"id": 5305,
+									"line": 1157,
+									"column": 39,
+									"start": 35438,
+									"end": 35449,
+									"length": 12,
+									"parent_index": 5303
+								},
+								"scope": 5301,
+								"name": "enabled",
+								"type_name": {
+									"id": 5306,
+									"node_type": 30,
+									"src": {
+										"id": 5307,
+										"line": 1157,
+										"column": 39,
+										"start": 35438,
+										"end": 35441,
+										"length": 4,
+										"parent_index": 5304
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"name": "SwapAndLiquifyEnabledUpdated",
+					"anonymous": false
+				},
+				{
+					"id": 5309,
+					"node_type": 57,
+					"src": {
+						"id": 5310,
+						"line": 1158,
+						"column": 4,
+						"start": 35457,
+						"end": 35579,
+						"length": 123,
+						"parent_index": 5264
+					},
+					"parameters": {
+						"id": 5311,
+						"node_type": 43,
+						"src": {
+							"id": 5310,
+							"line": 1158,
+							"column": 4,
+							"start": 35457,
+							"end": 35579,
+							"length": 123,
+							"parent_index": 5309
+						},
+						"parameters": [
+							{
+								"id": 5312,
+								"node_type": 44,
+								"src": {
+									"id": 5313,
+									"line": 1159,
+									"column": 8,
+									"start": 35487,
+									"end": 35507,
+									"length": 21,
+									"parent_index": 5311
+								},
+								"scope": 5309,
+								"name": "tokensSwapped",
+								"type_name": {
+									"id": 5314,
+									"node_type": 30,
+									"src": {
+										"id": 5315,
+										"line": 1159,
+										"column": 8,
+										"start": 35487,
+										"end": 35493,
+										"length": 7,
+										"parent_index": 5312
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 5316,
+								"node_type": 44,
+								"src": {
+									"id": 5317,
+									"line": 1160,
+									"column": 8,
+									"start": 35518,
+									"end": 35536,
+									"length": 19,
+									"parent_index": 5311
+								},
+								"scope": 5309,
+								"name": "ethReceived",
+								"type_name": {
+									"id": 5318,
+									"node_type": 30,
+									"src": {
+										"id": 5319,
+										"line": 1160,
+										"column": 8,
+										"start": 35518,
+										"end": 35524,
+										"length": 7,
+										"parent_index": 5316
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 5320,
+								"node_type": 44,
+								"src": {
+									"id": 5321,
+									"line": 1161,
+									"column": 8,
+									"start": 35547,
+									"end": 35572,
+									"length": 26,
+									"parent_index": 5311
+								},
+								"scope": 5309,
+								"name": "tokensIntoLiqudity",
+								"type_name": {
+									"id": 5322,
+									"node_type": 30,
+									"src": {
+										"id": 5323,
+										"line": 1161,
+										"column": 8,
+										"start": 35547,
+										"end": 35553,
+										"length": 7,
+										"parent_index": 5320
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"name": "SwapAndLiquify",
+					"anonymous": false
+				},
+				{
+					"id": 5325,
+					"node_type": 42,
+					"src": {
+						"id": 5326,
+						"line": 1164,
+						"column": 4,
+						"start": 35586,
+						"end": 35898,
+						"length": 313,
+						"parent_index": 5264
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 5327,
+						"node_type": 43,
+						"src": {
+							"id": 5328,
+							"line": 1165,
+							"column": 8,
+							"start": 35607,
+							"end": 35681,
+							"length": 75,
+							"parent_index": 5325
+						},
+						"parameters": [
+							{
+								"id": 5329,
+								"node_type": 44,
+								"src": {
+									"id": 5330,
+									"line": 1165,
+									"column": 8,
+									"start": 35607,
+									"end": 35644,
+									"length": 38,
+									"parent_index": 5327
+								},
+								"scope": 5325,
+								"name": "_numTokensSellToAddToLiquidity",
+								"type_name": {
+									"id": 5331,
+									"node_type": 30,
+									"src": {
+										"id": 5332,
+										"line": 1165,
+										"column": 8,
+										"start": 35607,
+										"end": 35613,
+										"length": 7,
+										"parent_index": 5329
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 5333,
+								"node_type": 44,
+								"src": {
+									"id": 5334,
+									"line": 1166,
+									"column": 8,
+									"start": 35655,
+									"end": 35681,
+									"length": 27,
+									"parent_index": 5327
+								},
+								"scope": 5325,
+								"name": "_swapAndLiquifyEnabled",
+								"type_name": {
+									"id": 5335,
+									"node_type": 30,
+									"src": {
+										"id": 5336,
+										"line": 1166,
+										"column": 8,
+										"start": 35655,
+										"end": 35658,
+										"length": 4,
+										"parent_index": 5333
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5337,
+						"node_type": 43,
+						"src": {
+							"id": 5326,
+							"line": 1164,
+							"column": 4,
+							"start": 35586,
+							"end": 35898,
+							"length": 313,
+							"parent_index": 5325
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"body": {
+						"id": 5338,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5339,
+							"line": 1167,
+							"column": 6,
+							"start": 35689,
+							"end": 35898,
+							"length": 210,
+							"parent_index": 5325
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5340,
+								"node_type": 27,
+								"src": {
+									"id": 5341,
+									"line": 1168,
+									"column": 8,
+									"start": 35699,
+									"end": 35761,
+									"length": 63,
+									"parent_index": 5338
+								},
+								"expression": {
+									"id": 5342,
+									"node_type": 27,
+									"src": {
+										"id": 5343,
+										"line": 1168,
+										"column": 8,
+										"start": 35699,
+										"end": 35760,
+										"length": 62,
+										"parent_index": 5338
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5344,
+										"node_type": 16,
+										"src": {
+											"id": 5345,
+											"line": 1168,
+											"column": 8,
+											"start": 35699,
+											"end": 35727,
+											"length": 29,
+											"parent_index": 5342
+										},
+										"name": "numTokensSellToAddToLiquidity",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5283,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5346,
+										"node_type": 16,
+										"src": {
+											"id": 5347,
+											"line": 1168,
+											"column": 40,
+											"start": 35731,
+											"end": 35760,
+											"length": 30,
+											"parent_index": 5342
+										},
+										"name": "_numTokensSellToAddToLiquidity",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5346,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 5348,
+								"node_type": 27,
+								"src": {
+									"id": 5349,
+									"line": 1169,
+									"column": 8,
+									"start": 35771,
+									"end": 35817,
+									"length": 47,
+									"parent_index": 5338
+								},
+								"expression": {
+									"id": 5350,
+									"node_type": 27,
+									"src": {
+										"id": 5351,
+										"line": 1169,
+										"column": 8,
+										"start": 35771,
+										"end": 35816,
+										"length": 46,
+										"parent_index": 5338
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5352,
+										"node_type": 16,
+										"src": {
+											"id": 5353,
+											"line": 1169,
+											"column": 8,
+											"start": 35771,
+											"end": 35791,
+											"length": 21,
+											"parent_index": 5350
+										},
+										"name": "swapAndLiquifyEnabled",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5278,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5354,
+										"node_type": 16,
+										"src": {
+											"id": 5355,
+											"line": 1169,
+											"column": 32,
+											"start": 35795,
+											"end": 35816,
+											"length": 22,
+											"parent_index": 5350
+										},
+										"name": "_swapAndLiquifyEnabled",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5354,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							},
+							{
+								"id": 5356,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5357,
+									"line": 1170,
+									"column": 8,
+									"start": 35827,
+									"end": 35891,
+									"length": 65,
+									"parent_index": 5338
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									},
+									{
+										"type_identifier": "",
+										"type_string": "type"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5366,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5367,
+											"line": 1170,
+											"column": 29,
+											"start": 35848,
+											"end": 35871,
+											"length": 24,
+											"parent_index": 5356
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5372,
+												"node_type": 16,
+												"src": {
+													"id": 5373,
+													"line": 1170,
+													"column": 37,
+													"start": 35856,
+													"end": 35870,
+													"length": 15,
+													"parent_index": 5366
+												},
+												"name": "uniswapV2Router",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5368,
+											"node_type": 16,
+											"src": {
+												"id": 5369,
+												"line": 1170,
+												"column": 29,
+												"start": 35848,
+												"end": 35854,
+												"length": 7,
+												"parent_index": 5366
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5370,
+												"node_type": 30,
+												"src": {
+													"id": 5371,
+													"line": 1170,
+													"column": 29,
+													"start": 35848,
+													"end": 35854,
+													"length": 7,
+													"parent_index": 5368
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									{
+										"id": 5374,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 5375,
+											"line": 1170,
+											"column": 55,
+											"start": 35874,
+											"end": 35890,
+											"length": 17,
+											"parent_index": 5356
+										},
+										"member_location": {
+											"line": 1170,
+											"column": 69,
+											"start": 35888,
+											"end": 35890,
+											"length": 3,
+											"parent_index": 5374
+										},
+										"expression": {
+											"id": 5376,
+											"node_type": 16,
+											"name": "type",
+											"src": {
+												"id": 5377,
+												"line": 1170,
+												"column": 55,
+												"start": 35874,
+												"end": 35886,
+												"length": 13,
+												"parent_index": 5374
+											},
+											"type_description": {
+												"type_identifier": "",
+												"type_string": "type"
+											}
+										},
+										"member_name": "max",
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										],
+										"type_description": {
+											"type_identifier": "",
+											"type_string": "type"
+										}
+									}
+								],
+								"expression": {
+									"id": 5358,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 5359,
+										"line": 1170,
+										"column": 8,
+										"start": 35827,
+										"end": 35846,
+										"length": 20,
+										"parent_index": 5356
+									},
+									"member_location": {
+										"line": 1170,
+										"column": 21,
+										"start": 35840,
+										"end": 35846,
+										"length": 7,
+										"parent_index": 5358
+									},
+									"expression": {
+										"id": 5360,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5361,
+											"line": 1170,
+											"column": 8,
+											"start": 35827,
+											"end": 35838,
+											"length": 12,
+											"parent_index": 5358
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5364,
+												"node_type": 16,
+												"src": {
+													"id": 5365,
+													"line": 1170,
+													"column": 15,
+													"start": 35834,
+													"end": 35837,
+													"length": 4,
+													"parent_index": 5360
+												},
+												"name": "USDT",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5362,
+											"node_type": 16,
+											"src": {
+												"id": 5363,
+												"line": 1170,
+												"column": 8,
+												"start": 35827,
+												"end": 35832,
+												"length": 6,
+												"parent_index": 5360
+											},
+											"name": "IERC20",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"member_name": "approve",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_function_$_$",
+									"type_string": "function(function(function()),type)"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 5379,
+					"name": "_takeliquidityFee",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5380,
+						"line": 1173,
+						"column": 4,
+						"start": 35905,
+						"end": 36182,
+						"length": 278,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1173,
+						"column": 13,
+						"start": 35914,
+						"end": 35930,
+						"length": 17,
+						"parent_index": 5379
+					},
+					"body": {
+						"id": 5397,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5398,
+							"line": 1176,
+							"column": 33,
+							"start": 36013,
+							"end": 36182,
+							"length": 170,
+							"parent_index": 5379
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5399,
+								"node_type": 44,
+								"src": {
+									"id": 5400,
+									"line": 1177,
+									"column": 8,
+									"start": 36023,
+									"end": 36079,
+									"length": 57,
+									"parent_index": 5397
+								},
+								"assignments": [
+									5401
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5401,
+										"state_mutability": 1,
+										"name": "liquidityAmount",
+										"node_type": 44,
+										"scope": 5397,
+										"src": {
+											"id": 5402,
+											"line": 1177,
+											"column": 8,
+											"start": 36023,
+											"end": 36045,
+											"length": 23,
+											"parent_index": 5399
+										},
+										"name_location": {
+											"line": 1177,
+											"column": 16,
+											"start": 36031,
+											"end": 36045,
+											"length": 15,
+											"parent_index": 5401
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5403,
+											"node_type": 30,
+											"src": {
+												"id": 5404,
+												"line": 1177,
+												"column": 8,
+												"start": 36023,
+												"end": 36029,
+												"length": 7,
+												"parent_index": 5401
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5405,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 5406,
+										"line": 1177,
+										"column": 34,
+										"start": 36049,
+										"end": 36078,
+										"length": 30,
+										"parent_index": 5399
+									},
+									"operator": 4,
+									"left_expression": {
+										"id": 5407,
+										"node_type": 60,
+										"src": {
+											"id": 5408,
+											"line": 1177,
+											"column": 34,
+											"start": 36049,
+											"end": 36071,
+											"length": 23,
+											"parent_index": 5405
+										},
+										"is_constant": false,
+										"is_pure": false,
+										"components": [
+											{
+												"id": 5409,
+												"is_constant": false,
+												"is_pure": false,
+												"node_type": 19,
+												"src": {
+													"id": 5410,
+													"line": 1177,
+													"column": 35,
+													"start": 36050,
+													"end": 36070,
+													"length": 21,
+													"parent_index": 5399
+												},
+												"operator": 3,
+												"left_expression": {
+													"id": 5411,
+													"node_type": 16,
+													"src": {
+														"id": 5412,
+														"line": 1177,
+														"column": 35,
+														"start": 36050,
+														"end": 36055,
+														"length": 6,
+														"parent_index": 5409
+													},
+													"name": "amount",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 5411,
+													"is_pure": false
+												},
+												"right_expression": {
+													"id": 5413,
+													"node_type": 16,
+													"src": {
+														"id": 5414,
+														"line": 1177,
+														"column": 44,
+														"start": 36059,
+														"end": 36070,
+														"length": 12,
+														"parent_index": 5409
+													},
+													"name": "liquidityFee",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 4183,
+													"is_pure": false
+												},
+												"type_description": {
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_tuple_$_t_uint256$",
+											"type_string": "tuple(uint256)"
+										}
+									},
+									"right_expression": {
+										"id": 5415,
+										"node_type": 17,
+										"kind": 49,
+										"value": "1000",
+										"hex_value": "31303030",
+										"src": {
+											"id": 5416,
+											"line": 1177,
+											"column": 60,
+											"start": 36075,
+											"end": 36078,
+											"length": 4,
+											"parent_index": 5405
+										},
+										"type_description": {
+											"type_identifier": "t_rational_1000_by_1",
+											"type_string": "int_const 1000"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_tuple_$_t_uint256$",
+										"type_string": "tuple(uint256)"
+									}
+								}
+							},
+							{
+								"id": 5417,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5418,
+									"line": 1178,
+									"column": 8,
+									"start": 36089,
+									"end": 36143,
+									"length": 55,
+									"parent_index": 5397
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_function_$_t_address$",
+										"type_string": "function(address)"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5423,
+										"node_type": 16,
+										"src": {
+											"id": 5424,
+											"line": 1178,
+											"column": 24,
+											"start": 36105,
+											"end": 36110,
+											"length": 6,
+											"parent_index": 5417
+										},
+										"name": "sender",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5423,
+										"is_pure": false
+									},
+									{
+										"id": 5425,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5426,
+											"line": 1178,
+											"column": 32,
+											"start": 36113,
+											"end": 36125,
+											"length": 13,
+											"parent_index": 5417
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+												"type_string": "contract LiquidityFeeUSDT"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5431,
+												"node_type": 16,
+												"src": {
+													"id": 5432,
+													"line": 1178,
+													"column": 40,
+													"start": 36121,
+													"end": 36124,
+													"length": 4,
+													"parent_index": 5425
+												},
+												"name": "this",
+												"type_description": {
+													"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+													"type_string": "contract LiquidityFeeUSDT"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5427,
+											"node_type": 16,
+											"src": {
+												"id": 5428,
+												"line": 1178,
+												"column": 32,
+												"start": 36113,
+												"end": 36119,
+												"length": 7,
+												"parent_index": 5425
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5429,
+												"node_type": 30,
+												"src": {
+													"id": 5430,
+													"line": 1178,
+													"column": 32,
+													"start": 36113,
+													"end": 36119,
+													"length": 7,
+													"parent_index": 5427
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									{
+										"id": 5433,
+										"node_type": 16,
+										"src": {
+											"id": 5434,
+											"line": 1178,
+											"column": 47,
+											"start": 36128,
+											"end": 36142,
+											"length": 15,
+											"parent_index": 5417
+										},
+										"name": "liquidityAmount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5399,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 5419,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 5420,
+										"line": 1178,
+										"column": 8,
+										"start": 36089,
+										"end": 36103,
+										"length": 15,
+										"parent_index": 5417
+									},
+									"member_location": {
+										"line": 1178,
+										"column": 14,
+										"start": 36095,
+										"end": 36103,
+										"length": 9,
+										"parent_index": 5419
+									},
+									"expression": {
+										"id": 5421,
+										"node_type": 16,
+										"src": {
+											"id": 5422,
+											"line": 1178,
+											"column": 8,
+											"start": 36089,
+											"end": 36093,
+											"length": 5,
+											"parent_index": 5419
+										},
+										"name": "super",
+										"type_description": {
+											"type_identifier": "t_magic_super",
+											"type_string": "super"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"member_name": "_transfer",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_magic_super",
+										"type_string": "super"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_uint256$",
+									"type_string": "function(address,function(address),uint256)"
+								}
+							},
+							{
+								"id": 5435,
+								"node_type": 47,
+								"src": {
+									"id": 5436,
+									"line": 1179,
+									"column": 8,
+									"start": 36154,
+									"end": 36176,
+									"length": 23,
+									"parent_index": 5379
+								},
+								"function_return_parameters": 5379,
+								"expression": {
+									"id": 5437,
+									"node_type": 16,
+									"src": {
+										"id": 5438,
+										"line": 1179,
+										"column": 15,
+										"start": 36161,
+										"end": 36175,
+										"length": 15,
+										"parent_index": 5397
+									},
+									"name": "liquidityAmount",
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 5399,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5381,
+						"node_type": 43,
+						"src": {
+							"id": 5382,
+							"line": 1174,
+							"column": 8,
+							"start": 35941,
+							"end": 35978,
+							"length": 38,
+							"parent_index": 5379
+						},
+						"parameters": [
+							{
+								"id": 5383,
+								"node_type": 44,
+								"src": {
+									"id": 5384,
+									"line": 1174,
+									"column": 8,
+									"start": 35941,
+									"end": 35954,
+									"length": 14,
+									"parent_index": 5381
+								},
+								"scope": 5379,
+								"name": "sender",
+								"type_name": {
+									"id": 5385,
+									"node_type": 30,
+									"src": {
+										"id": 5386,
+										"line": 1174,
+										"column": 8,
+										"start": 35941,
+										"end": 35947,
+										"length": 7,
+										"parent_index": 5383
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 5387,
+								"node_type": 44,
+								"src": {
+									"id": 5388,
+									"line": 1175,
+									"column": 8,
+									"start": 35965,
+									"end": 35978,
+									"length": 14,
+									"parent_index": 5381
+								},
+								"scope": 5379,
+								"name": "amount",
+								"type_name": {
+									"id": 5389,
+									"node_type": 30,
+									"src": {
+										"id": 5390,
+										"line": 1175,
+										"column": 8,
+										"start": 35965,
+										"end": 35971,
+										"length": 7,
+										"parent_index": 5387
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5391,
+						"node_type": 43,
+						"src": {
+							"id": 5392,
+							"line": 1176,
+							"column": 24,
+							"start": 36004,
+							"end": 36010,
+							"length": 7,
+							"parent_index": 5379
+						},
+						"parameters": [
+							{
+								"id": 5393,
+								"node_type": 44,
+								"src": {
+									"id": 5394,
+									"line": 1176,
+									"column": 24,
+									"start": 36004,
+									"end": 36010,
+									"length": 7,
+									"parent_index": 5391
+								},
+								"scope": 5379,
+								"name": "",
+								"type_name": {
+									"id": 5395,
+									"node_type": 30,
+									"src": {
+										"id": 5396,
+										"line": 1176,
+										"column": 24,
+										"start": 36004,
+										"end": 36010,
+										"length": 7,
+										"parent_index": 5393
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				},
+				{
+					"id": 5440,
+					"name": "shouldSwapAndLiquify",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5441,
+						"line": 1182,
+						"column": 4,
+						"start": 36189,
+						"end": 36673,
+						"length": 485,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1182,
+						"column": 13,
+						"start": 36198,
+						"end": 36217,
+						"length": 20,
+						"parent_index": 5440
+					},
+					"body": {
+						"id": 5454,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5455,
+							"line": 1182,
+							"column": 79,
+							"start": 36264,
+							"end": 36673,
+							"length": 410,
+							"parent_index": 5440
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5456,
+								"node_type": 44,
+								"src": {
+									"id": 5457,
+									"line": 1183,
+									"column": 8,
+									"start": 36274,
+									"end": 36329,
+									"length": 56,
+									"parent_index": 5454
+								},
+								"assignments": [
+									5458
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5458,
+										"state_mutability": 1,
+										"name": "contractTokenBalance",
+										"node_type": 44,
+										"scope": 5454,
+										"src": {
+											"id": 5459,
+											"line": 1183,
+											"column": 8,
+											"start": 36274,
+											"end": 36301,
+											"length": 28,
+											"parent_index": 5456
+										},
+										"name_location": {
+											"line": 1183,
+											"column": 16,
+											"start": 36282,
+											"end": 36301,
+											"length": 20,
+											"parent_index": 5458
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5460,
+											"node_type": 30,
+											"src": {
+												"id": 5461,
+												"line": 1183,
+												"column": 8,
+												"start": 36274,
+												"end": 36280,
+												"length": 7,
+												"parent_index": 5458
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5462,
+									"node_type": 22,
+									"src": {
+										"id": 5463,
+										"line": 1183,
+										"column": 39,
+										"start": 36305,
+										"end": 36328,
+										"length": 24,
+										"parent_index": 5456
+									},
+									"index_expression": {
+										"id": 5464,
+										"node_type": 16,
+										"src": {
+											"id": 5465,
+											"line": 1183,
+											"column": 39,
+											"start": 36305,
+											"end": 36313,
+											"length": 9,
+											"parent_index": 5462
+										},
+										"name": "balanceOf",
+										"type_description": {
+											"type_identifier": "t_mapping_$t_address_$t_uint256$",
+											"type_string": "mapping(address=\u003euint256)"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 736,
+										"is_pure": false
+									},
+									"base_expression": {
+										"id": 5466,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5467,
+											"line": 1183,
+											"column": 49,
+											"start": 36315,
+											"end": 36327,
+											"length": 13,
+											"parent_index": 5456
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+												"type_string": "contract LiquidityFeeUSDT"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5472,
+												"node_type": 16,
+												"src": {
+													"id": 5473,
+													"line": 1183,
+													"column": 57,
+													"start": 36323,
+													"end": 36326,
+													"length": 4,
+													"parent_index": 5466
+												},
+												"name": "this",
+												"type_description": {
+													"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+													"type_string": "contract LiquidityFeeUSDT"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5468,
+											"node_type": 16,
+											"src": {
+												"id": 5469,
+												"line": 1183,
+												"column": 49,
+												"start": 36315,
+												"end": 36321,
+												"length": 7,
+												"parent_index": 5466
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5470,
+												"node_type": 30,
+												"src": {
+													"id": 5471,
+													"line": 1183,
+													"column": 49,
+													"start": 36315,
+													"end": 36321,
+													"length": 7,
+													"parent_index": 5468
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									"type_descriptions": [
+										{
+											"type_identifier": "t_mapping_$t_address_$t_uint256$",
+											"type_string": "mapping(address=\u003euint256)"
+										},
+										{
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									],
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_function_$_t_address$",
+										"type_string": "index[mapping(address=\u003euint256):function(address)]"
+									}
+								}
+							},
+							{
+								"id": 5474,
+								"node_type": 44,
+								"src": {
+									"id": 5475,
+									"line": 1184,
+									"column": 8,
+									"start": 36339,
+									"end": 36431,
+									"length": 93,
+									"parent_index": 5454
+								},
+								"assignments": [
+									5476
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5476,
+										"state_mutability": 1,
+										"name": "overMinTokenBalance",
+										"node_type": 44,
+										"scope": 5454,
+										"src": {
+											"id": 5477,
+											"line": 1184,
+											"column": 8,
+											"start": 36339,
+											"end": 36362,
+											"length": 24,
+											"parent_index": 5474
+										},
+										"name_location": {
+											"line": 1184,
+											"column": 13,
+											"start": 36344,
+											"end": 36362,
+											"length": 19,
+											"parent_index": 5476
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5478,
+											"node_type": 30,
+											"src": {
+												"id": 5479,
+												"line": 1184,
+												"column": 8,
+												"start": 36339,
+												"end": 36342,
+												"length": 4,
+												"parent_index": 5476
+											},
+											"name": "bool",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5480,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 5481,
+										"line": 1184,
+										"column": 35,
+										"start": 36366,
+										"end": 36430,
+										"length": 65,
+										"parent_index": 5474
+									},
+									"operator": 8,
+									"left_expression": {
+										"id": 5482,
+										"node_type": 16,
+										"src": {
+											"id": 5483,
+											"line": 1184,
+											"column": 35,
+											"start": 36366,
+											"end": 36385,
+											"length": 20,
+											"parent_index": 5480
+										},
+										"name": "contractTokenBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5456,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5484,
+										"node_type": 16,
+										"src": {
+											"id": 5485,
+											"line": 1185,
+											"column": 12,
+											"start": 36402,
+											"end": 36430,
+											"length": 29,
+											"parent_index": 5480
+										},
+										"name": "numTokensSellToAddToLiquidity",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5283,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								}
+							},
+							{
+								"id": 5486,
+								"node_type": 48,
+								"src": {
+									"id": 5487,
+									"line": 1186,
+									"column": 0,
+									"start": 36441,
+									"end": 36667,
+									"length": 227,
+									"parent_index": 5454
+								},
+								"condition": {
+									"id": 5489,
+									"node_type": 96,
+									"src": {
+										"id": 5490,
+										"line": 1187,
+										"column": 12,
+										"start": 36458,
+										"end": 36577,
+										"length": 120,
+										"parent_index": 5486
+									},
+									"expressions": [
+										{
+											"id": 5492,
+											"node_type": 96,
+											"src": {
+												"id": 5493,
+												"line": 1187,
+												"column": 12,
+												"start": 36458,
+												"end": 36540,
+												"length": 83,
+												"parent_index": 5489
+											},
+											"expressions": [
+												{
+													"id": 5495,
+													"node_type": 96,
+													"src": {
+														"id": 5496,
+														"line": 1187,
+														"column": 12,
+														"start": 36458,
+														"end": 36501,
+														"length": 44,
+														"parent_index": 5492
+													},
+													"expressions": [
+														{
+															"id": 5497,
+															"node_type": 16,
+															"src": {
+																"id": 5498,
+																"line": 1187,
+																"column": 12,
+																"start": 36458,
+																"end": 36476,
+																"length": 19,
+																"parent_index": 5495
+															},
+															"name": "overMinTokenBalance",
+															"type_description": {
+																"type_identifier": "t_bool",
+																"type_string": "bool"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 5474,
+															"is_pure": false
+														},
+														{
+															"id": 5499,
+															"node_type": 18,
+															"src": {
+																"id": 5500,
+																"line": 1188,
+																"column": 12,
+																"start": 36493,
+																"end": 36501,
+																"length": 9,
+																"parent_index": 5440
+															},
+															"operator": 31,
+															"prefix": false,
+															"is_constant": false,
+															"is_l_value": false,
+															"is_pure": false,
+															"l_value_requested": false,
+															"expression": {
+																"id": 5501,
+																"node_type": 16,
+																"src": {
+																	"id": 5502,
+																	"line": 1188,
+																	"column": 13,
+																	"start": 36494,
+																	"end": 36501,
+																	"length": 8,
+																	"parent_index": 5499
+																},
+																"name": "inisSwap",
+																"type_description": {
+																	"type_identifier": "t_bool",
+																	"type_string": "bool"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 4154,
+																"is_pure": false
+															},
+															"type_description": {
+																"type_identifier": "t_bool",
+																"type_string": "bool"
+															}
+														}
+													],
+													"type_descriptions": [
+														{
+															"type_identifier": "t_bool",
+															"type_string": "bool"
+														},
+														{
+															"type_identifier": "t_bool",
+															"type_string": "bool"
+														}
+													]
+												},
+												{
+													"id": 5503,
+													"is_constant": false,
+													"is_pure": false,
+													"node_type": 19,
+													"src": {
+														"id": 5504,
+														"line": 1189,
+														"column": 12,
+														"start": 36518,
+														"end": 36540,
+														"length": 23,
+														"parent_index": 5492
+													},
+													"operator": 12,
+													"left_expression": {
+														"id": 5505,
+														"node_type": 16,
+														"src": {
+															"id": 5506,
+															"line": 1189,
+															"column": 12,
+															"start": 36518,
+															"end": 36523,
+															"length": 6,
+															"parent_index": 5503
+														},
+														"name": "sender",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 5505,
+														"is_pure": false
+													},
+													"right_expression": {
+														"id": 5507,
+														"node_type": 16,
+														"src": {
+															"id": 5508,
+															"line": 1189,
+															"column": 22,
+															"start": 36528,
+															"end": 36540,
+															"length": 13,
+															"parent_index": 5503
+														},
+														"name": "uniswapV2Pair",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 4166,
+														"is_pure": false
+													},
+													"type_description": {
+														"type_identifier": "t_bool",
+														"type_string": "bool"
+													}
+												}
+											],
+											"type_descriptions": [
+												{
+													"type_identifier": "t_bool",
+													"type_string": "bool"
+												},
+												{
+													"type_identifier": "t_bool",
+													"type_string": "bool"
+												}
+											]
+										},
+										{
+											"id": 5509,
+											"node_type": 16,
+											"src": {
+												"id": 5510,
+												"line": 1190,
+												"column": 12,
+												"start": 36557,
+												"end": 36577,
+												"length": 21,
+												"parent_index": 5489
+											},
+											"name": "swapAndLiquifyEnabled",
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5278,
+											"is_pure": false
+										}
+									],
+									"type_descriptions": [
+										{
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										{
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									]
+								},
+								"body": {
+									"id": 5511,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 5512,
+										"line": 1191,
+										"column": 10,
+										"start": 36589,
+										"end": 36624,
+										"length": 36,
+										"parent_index": 5440
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 5513,
+											"node_type": 47,
+											"src": {
+												"id": 5514,
+												"line": 1192,
+												"column": 12,
+												"start": 36603,
+												"end": 36614,
+												"length": 12,
+												"parent_index": 5440
+											},
+											"function_return_parameters": 5440,
+											"expression": {
+												"id": 5515,
+												"node_type": 17,
+												"kind": 61,
+												"value": "true",
+												"hex_value": "74727565",
+												"src": {
+													"id": 5516,
+													"line": 1192,
+													"column": 19,
+													"start": 36610,
+													"end": 36613,
+													"length": 4,
+													"parent_index": 5511
+												},
+												"type_description": {
+													"type_identifier": "t_bool",
+													"type_string": "bool"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": true
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5442,
+						"node_type": 43,
+						"src": {
+							"id": 5443,
+							"line": 1182,
+							"column": 34,
+							"start": 36219,
+							"end": 36232,
+							"length": 14,
+							"parent_index": 5440
+						},
+						"parameters": [
+							{
+								"id": 5444,
+								"node_type": 44,
+								"src": {
+									"id": 5445,
+									"line": 1182,
+									"column": 34,
+									"start": 36219,
+									"end": 36232,
+									"length": 14,
+									"parent_index": 5442
+								},
+								"scope": 5440,
+								"name": "sender",
+								"type_name": {
+									"id": 5446,
+									"node_type": 30,
+									"src": {
+										"id": 5447,
+										"line": 1182,
+										"column": 34,
+										"start": 36219,
+										"end": 36225,
+										"length": 7,
+										"parent_index": 5444
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5448,
+						"node_type": 43,
+						"src": {
+							"id": 5449,
+							"line": 1182,
+							"column": 73,
+							"start": 36258,
+							"end": 36261,
+							"length": 4,
+							"parent_index": 5440
+						},
+						"parameters": [
+							{
+								"id": 5450,
+								"node_type": 44,
+								"src": {
+									"id": 5451,
+									"line": 1182,
+									"column": 73,
+									"start": 36258,
+									"end": 36261,
+									"length": 4,
+									"parent_index": 5448
+								},
+								"scope": 5440,
+								"name": "",
+								"type_name": {
+									"id": 5452,
+									"node_type": 30,
+									"src": {
+										"id": 5453,
+										"line": 1182,
+										"column": 73,
+										"start": 36258,
+										"end": 36261,
+										"length": 4,
+										"parent_index": 5450
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 5518,
+					"name": "swapAndLiquify",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5519,
+						"line": 1198,
+						"column": 4,
+						"start": 36680,
+						"end": 37610,
+						"length": 931,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1198,
+						"column": 13,
+						"start": 36689,
+						"end": 36702,
+						"length": 14,
+						"parent_index": 5518
+					},
+					"body": {
+						"id": 5531,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5532,
+							"line": 1198,
+							"column": 74,
+							"start": 36750,
+							"end": 37610,
+							"length": 861,
+							"parent_index": 5518
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5533,
+								"node_type": 44,
+								"src": {
+									"id": 5534,
+									"line": 1200,
+									"column": 8,
+									"start": 36810,
+									"end": 36849,
+									"length": 40,
+									"parent_index": 5531
+								},
+								"assignments": [
+									5535
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5535,
+										"state_mutability": 1,
+										"name": "half",
+										"node_type": 44,
+										"scope": 5531,
+										"src": {
+											"id": 5536,
+											"line": 1200,
+											"column": 8,
+											"start": 36810,
+											"end": 36821,
+											"length": 12,
+											"parent_index": 5533
+										},
+										"name_location": {
+											"line": 1200,
+											"column": 16,
+											"start": 36818,
+											"end": 36821,
+											"length": 4,
+											"parent_index": 5535
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5537,
+											"node_type": 30,
+											"src": {
+												"id": 5538,
+												"line": 1200,
+												"column": 8,
+												"start": 36810,
+												"end": 36816,
+												"length": 7,
+												"parent_index": 5535
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5539,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 5540,
+										"line": 1200,
+										"column": 23,
+										"start": 36825,
+										"end": 36848,
+										"length": 24,
+										"parent_index": 5533
+									},
+									"operator": 4,
+									"left_expression": {
+										"id": 5541,
+										"node_type": 16,
+										"src": {
+											"id": 5542,
+											"line": 1200,
+											"column": 23,
+											"start": 36825,
+											"end": 36844,
+											"length": 20,
+											"parent_index": 5539
+										},
+										"name": "contractTokenBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5541,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5543,
+										"node_type": 17,
+										"kind": 49,
+										"value": "2",
+										"hex_value": "32",
+										"src": {
+											"id": 5544,
+											"line": 1200,
+											"column": 46,
+											"start": 36848,
+											"end": 36848,
+											"length": 1,
+											"parent_index": 5539
+										},
+										"type_description": {
+											"type_identifier": "t_rational_2_by_1",
+											"type_string": "int_const 2"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								}
+							},
+							{
+								"id": 5545,
+								"node_type": 44,
+								"src": {
+									"id": 5546,
+									"line": 1201,
+									"column": 8,
+									"start": 36859,
+									"end": 36906,
+									"length": 48,
+									"parent_index": 5531
+								},
+								"assignments": [
+									5547
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5547,
+										"state_mutability": 1,
+										"name": "otherHalf",
+										"node_type": 44,
+										"scope": 5531,
+										"src": {
+											"id": 5548,
+											"line": 1201,
+											"column": 8,
+											"start": 36859,
+											"end": 36875,
+											"length": 17,
+											"parent_index": 5545
+										},
+										"name_location": {
+											"line": 1201,
+											"column": 16,
+											"start": 36867,
+											"end": 36875,
+											"length": 9,
+											"parent_index": 5547
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5549,
+											"node_type": 30,
+											"src": {
+												"id": 5550,
+												"line": 1201,
+												"column": 8,
+												"start": 36859,
+												"end": 36865,
+												"length": 7,
+												"parent_index": 5547
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5551,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 5552,
+										"line": 1201,
+										"column": 28,
+										"start": 36879,
+										"end": 36905,
+										"length": 27,
+										"parent_index": 5545
+									},
+									"operator": 2,
+									"left_expression": {
+										"id": 5553,
+										"node_type": 16,
+										"src": {
+											"id": 5554,
+											"line": 1201,
+											"column": 28,
+											"start": 36879,
+											"end": 36898,
+											"length": 20,
+											"parent_index": 5551
+										},
+										"name": "contractTokenBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5553,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5555,
+										"node_type": 16,
+										"src": {
+											"id": 5556,
+											"line": 1201,
+											"column": 51,
+											"start": 36902,
+											"end": 36905,
+											"length": 4,
+											"parent_index": 5551
+										},
+										"name": "half",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5533,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								}
+							},
+							{
+								"id": 5557,
+								"node_type": 44,
+								"src": {
+									"id": 5558,
+									"line": 1207,
+									"column": 8,
+									"start": 37178,
+									"end": 37240,
+									"length": 63,
+									"parent_index": 5531
+								},
+								"assignments": [
+									5559
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5559,
+										"state_mutability": 1,
+										"name": "initialBalance",
+										"node_type": 44,
+										"scope": 5531,
+										"src": {
+											"id": 5560,
+											"line": 1207,
+											"column": 8,
+											"start": 37178,
+											"end": 37199,
+											"length": 22,
+											"parent_index": 5557
+										},
+										"name_location": {
+											"line": 1207,
+											"column": 16,
+											"start": 37186,
+											"end": 37199,
+											"length": 14,
+											"parent_index": 5559
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5561,
+											"node_type": 30,
+											"src": {
+												"id": 5562,
+												"line": 1207,
+												"column": 8,
+												"start": 37178,
+												"end": 37184,
+												"length": 7,
+												"parent_index": 5559
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5563,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 5564,
+										"line": 1207,
+										"column": 33,
+										"start": 37203,
+										"end": 37239,
+										"length": 37,
+										"parent_index": 5557
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 5573,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 5574,
+												"line": 1207,
+												"column": 56,
+												"start": 37226,
+												"end": 37238,
+												"length": 13,
+												"parent_index": 5563
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+													"type_string": "contract LiquidityFeeUSDT"
+												}
+											],
+											"arguments": [
+												{
+													"id": 5579,
+													"node_type": 16,
+													"src": {
+														"id": 5580,
+														"line": 1207,
+														"column": 64,
+														"start": 37234,
+														"end": 37237,
+														"length": 4,
+														"parent_index": 5573
+													},
+													"name": "this",
+													"type_description": {
+														"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+														"type_string": "contract LiquidityFeeUSDT"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 5575,
+												"node_type": 16,
+												"src": {
+													"id": 5576,
+													"line": 1207,
+													"column": 56,
+													"start": 37226,
+													"end": 37232,
+													"length": 7,
+													"parent_index": 5573
+												},
+												"name": "address",
+												"type_name": {
+													"id": 5577,
+													"node_type": 30,
+													"src": {
+														"id": 5578,
+														"line": 1207,
+														"column": 56,
+														"start": 37226,
+														"end": 37232,
+														"length": 7,
+														"parent_index": 5575
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										}
+									],
+									"expression": {
+										"id": 5565,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 5566,
+											"line": 1207,
+											"column": 33,
+											"start": 37203,
+											"end": 37224,
+											"length": 22,
+											"parent_index": 5563
+										},
+										"member_location": {
+											"line": 1207,
+											"column": 46,
+											"start": 37216,
+											"end": 37224,
+											"length": 9,
+											"parent_index": 5565
+										},
+										"expression": {
+											"id": 5567,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 5568,
+												"line": 1207,
+												"column": 33,
+												"start": 37203,
+												"end": 37214,
+												"length": 12,
+												"parent_index": 5565
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											],
+											"arguments": [
+												{
+													"id": 5571,
+													"node_type": 16,
+													"src": {
+														"id": 5572,
+														"line": 1207,
+														"column": 40,
+														"start": 37210,
+														"end": 37213,
+														"length": 4,
+														"parent_index": 5567
+													},
+													"name": "USDT",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 5569,
+												"node_type": 16,
+												"src": {
+													"id": 5570,
+													"line": 1207,
+													"column": 33,
+													"start": 37203,
+													"end": 37208,
+													"length": 6,
+													"parent_index": 5567
+												},
+												"name": "IERC20",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"member_name": "balanceOf",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_address$",
+										"type_string": "function(function(address))"
+									}
+								}
+							},
+							{
+								"id": 5581,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5582,
+									"line": 1210,
+									"column": 8,
+									"start": 37282,
+									"end": 37306,
+									"length": 25,
+									"parent_index": 5531
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5585,
+										"node_type": 16,
+										"src": {
+											"id": 5586,
+											"line": 1210,
+											"column": 28,
+											"start": 37302,
+											"end": 37305,
+											"length": 4,
+											"parent_index": 5581
+										},
+										"name": "half",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5533,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 5583,
+									"node_type": 16,
+									"src": {
+										"id": 5584,
+										"line": 1210,
+										"column": 8,
+										"start": 37282,
+										"end": 37300,
+										"length": 19,
+										"parent_index": 5581
+									},
+									"name": "swapTokensForTokens",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$",
+									"type_string": "function(uint256)"
+								}
+							},
+							{
+								"id": 5587,
+								"node_type": 44,
+								"src": {
+									"id": 5588,
+									"line": 1213,
+									"column": 8,
+									"start": 37435,
+									"end": 37522,
+									"length": 88,
+									"parent_index": 5531
+								},
+								"assignments": [
+									5589
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5589,
+										"state_mutability": 1,
+										"name": "newBalance",
+										"node_type": 44,
+										"scope": 5531,
+										"src": {
+											"id": 5590,
+											"line": 1213,
+											"column": 8,
+											"start": 37435,
+											"end": 37452,
+											"length": 18,
+											"parent_index": 5587
+										},
+										"name_location": {
+											"line": 1213,
+											"column": 16,
+											"start": 37443,
+											"end": 37452,
+											"length": 10,
+											"parent_index": 5589
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5591,
+											"node_type": 30,
+											"src": {
+												"id": 5592,
+												"line": 1213,
+												"column": 8,
+												"start": 37435,
+												"end": 37441,
+												"length": 7,
+												"parent_index": 5589
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5593,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 5594,
+										"line": 1213,
+										"column": 29,
+										"start": 37456,
+										"end": 37521,
+										"length": 66,
+										"parent_index": 5587
+									},
+									"operator": 2,
+									"left_expression": {
+										"id": 5595,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5596,
+											"line": 1213,
+											"column": 29,
+											"start": 37456,
+											"end": 37492,
+											"length": 37,
+											"parent_index": 5587
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5605,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 5606,
+													"line": 1213,
+													"column": 52,
+													"start": 37479,
+													"end": 37491,
+													"length": 13,
+													"parent_index": 5595
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+														"type_string": "contract LiquidityFeeUSDT"
+													}
+												],
+												"arguments": [
+													{
+														"id": 5611,
+														"node_type": 16,
+														"src": {
+															"id": 5612,
+															"line": 1213,
+															"column": 60,
+															"start": 37487,
+															"end": 37490,
+															"length": 4,
+															"parent_index": 5605
+														},
+														"name": "this",
+														"type_description": {
+															"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+															"type_string": "contract LiquidityFeeUSDT"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													}
+												],
+												"expression": {
+													"id": 5607,
+													"node_type": 16,
+													"src": {
+														"id": 5608,
+														"line": 1213,
+														"column": 52,
+														"start": 37479,
+														"end": 37485,
+														"length": 7,
+														"parent_index": 5605
+													},
+													"name": "address",
+													"type_name": {
+														"id": 5609,
+														"node_type": 30,
+														"src": {
+															"id": 5610,
+															"line": 1213,
+															"column": 52,
+															"start": 37479,
+															"end": 37485,
+															"length": 7,
+															"parent_index": 5607
+														},
+														"name": "address",
+														"state_mutability": 4,
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_address$",
+														"type_string": "function(address)"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false,
+													"argument_types": [
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													]
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												}
+											}
+										],
+										"expression": {
+											"id": 5597,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 5598,
+												"line": 1213,
+												"column": 29,
+												"start": 37456,
+												"end": 37477,
+												"length": 22,
+												"parent_index": 5595
+											},
+											"member_location": {
+												"line": 1213,
+												"column": 42,
+												"start": 37469,
+												"end": 37477,
+												"length": 9,
+												"parent_index": 5597
+											},
+											"expression": {
+												"id": 5599,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 5600,
+													"line": 1213,
+													"column": 29,
+													"start": 37456,
+													"end": 37467,
+													"length": 12,
+													"parent_index": 5597
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												],
+												"arguments": [
+													{
+														"id": 5603,
+														"node_type": 16,
+														"src": {
+															"id": 5604,
+															"line": 1213,
+															"column": 36,
+															"start": 37463,
+															"end": 37466,
+															"length": 4,
+															"parent_index": 5599
+														},
+														"name": "USDT",
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													}
+												],
+												"expression": {
+													"id": 5601,
+													"node_type": 16,
+													"src": {
+														"id": 5602,
+														"line": 1213,
+														"column": 29,
+														"start": 37456,
+														"end": 37461,
+														"length": 6,
+														"parent_index": 5599
+													},
+													"name": "IERC20",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_function_$",
+													"type_string": "function(function())"
+												}
+											},
+											"member_name": "balanceOf",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_address$",
+											"type_string": "function(function(address))"
+										}
+									},
+									"right_expression": {
+										"id": 5613,
+										"node_type": 16,
+										"src": {
+											"id": 5614,
+											"line": 1214,
+											"column": 12,
+											"start": 37508,
+											"end": 37521,
+											"length": 14,
+											"parent_index": 5593
+										},
+										"name": "initialBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5557,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_address$",
+										"type_string": "function(function(address))"
+									}
+								}
+							},
+							{
+								"id": 5615,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5616,
+									"line": 1217,
+									"column": 8,
+									"start": 37569,
+									"end": 37603,
+									"length": 35,
+									"parent_index": 5531
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5619,
+										"node_type": 16,
+										"src": {
+											"id": 5620,
+											"line": 1217,
+											"column": 21,
+											"start": 37582,
+											"end": 37590,
+											"length": 9,
+											"parent_index": 5615
+										},
+										"name": "otherHalf",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5545,
+										"is_pure": false
+									},
+									{
+										"id": 5621,
+										"node_type": 16,
+										"src": {
+											"id": 5622,
+											"line": 1217,
+											"column": 32,
+											"start": 37593,
+											"end": 37602,
+											"length": 10,
+											"parent_index": 5615
+										},
+										"name": "newBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5587,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 5617,
+									"node_type": 16,
+									"src": {
+										"id": 5618,
+										"line": 1217,
+										"column": 8,
+										"start": 37569,
+										"end": 37580,
+										"length": 12,
+										"parent_index": 5615
+									},
+									"name": "addLiquidity",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$_t_uint256$",
+									"type_string": "function(uint256,uint256)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 5520,
+							"name": "isSwap",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 5521,
+								"line": 1198,
+								"column": 67,
+								"start": 36743,
+								"end": 36748,
+								"length": 6,
+								"parent_index": 5518
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 5522,
+								"name": "isSwap",
+								"node_type": 0,
+								"src": {
+									"id": 5523,
+									"line": 1198,
+									"column": 67,
+									"start": 36743,
+									"end": 36748,
+									"length": 6,
+									"parent_index": 5520
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 5524,
+						"node_type": 43,
+						"src": {
+							"id": 5525,
+							"line": 1198,
+							"column": 28,
+							"start": 36704,
+							"end": 36731,
+							"length": 28,
+							"parent_index": 5518
+						},
+						"parameters": [
+							{
+								"id": 5526,
+								"node_type": 44,
+								"src": {
+									"id": 5527,
+									"line": 1198,
+									"column": 28,
+									"start": 36704,
+									"end": 36731,
+									"length": 28,
+									"parent_index": 5524
+								},
+								"scope": 5518,
+								"name": "contractTokenBalance",
+								"type_name": {
+									"id": 5528,
+									"node_type": 30,
+									"src": {
+										"id": 5529,
+										"line": 1198,
+										"column": 28,
+										"start": 36704,
+										"end": 36710,
+										"length": 7,
+										"parent_index": 5526
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5530,
+						"node_type": 43,
+						"src": {
+							"id": 5519,
+							"line": 1198,
+							"column": 4,
+							"start": 36680,
+							"end": 37610,
+							"length": 931,
+							"parent_index": 5518
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$",
+						"type_string": "function(uint256)"
+					}
+				},
+				{
+					"id": 5624,
+					"name": "swapTokensForTokens",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5625,
+						"line": 1220,
+						"column": 4,
+						"start": 37617,
+						"end": 38248,
+						"length": 632,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1220,
+						"column": 13,
+						"start": 37626,
+						"end": 37644,
+						"length": 19,
+						"parent_index": 5624
+					},
+					"body": {
+						"id": 5633,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5634,
+							"line": 1220,
+							"column": 63,
+							"start": 37676,
+							"end": 38248,
+							"length": 573,
+							"parent_index": 5624
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5635,
+								"node_type": 44,
+								"src": {
+									"id": 5636,
+									"line": 1222,
+									"column": 8,
+									"start": 37745,
+									"end": 37785,
+									"length": 41,
+									"parent_index": 5633
+								},
+								"assignments": [
+									5637
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5637,
+										"state_mutability": 1,
+										"name": "path",
+										"node_type": 44,
+										"scope": 5633,
+										"src": {
+											"id": 5638,
+											"line": 1222,
+											"column": 8,
+											"start": 37745,
+											"end": 37765,
+											"length": 21,
+											"parent_index": 5635
+										},
+										"name_location": {
+											"line": 1222,
+											"column": 25,
+											"start": 37762,
+											"end": 37765,
+											"length": 4,
+											"parent_index": 5637
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 5639,
+											"node_type": 16,
+											"src": {
+												"id": 5641,
+												"line": 1222,
+												"column": 8,
+												"start": 37745,
+												"end": 37751,
+												"length": 7,
+												"parent_index": 5637
+											},
+											"name": "address",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5642,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 5643,
+										"line": 1222,
+										"column": 32,
+										"start": 37769,
+										"end": 37784,
+										"length": 16,
+										"parent_index": 5635
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_rational_2_by_1",
+											"type_string": "int_const 2"
+										}
+									],
+									"arguments": [
+										{
+											"id": 5649,
+											"node_type": 17,
+											"kind": 49,
+											"value": "2",
+											"hex_value": "32",
+											"src": {
+												"id": 5650,
+												"line": 1222,
+												"column": 46,
+												"start": 37783,
+												"end": 37783,
+												"length": 1,
+												"parent_index": 5642
+											},
+											"type_description": {
+												"type_identifier": "t_rational_2_by_1",
+												"type_string": "int_const 2"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": true
+										}
+									],
+									"expression": {
+										"id": 5644,
+										"node_type": 25,
+										"src": {
+											"id": 5645,
+											"line": 1222,
+											"column": 32,
+											"start": 37769,
+											"end": 37781,
+											"length": 13,
+											"parent_index": 5642
+										},
+										"argument_types": [],
+										"type_name": {
+											"id": 5646,
+											"node_type": 16,
+											"src": {
+												"id": 5648,
+												"line": 1222,
+												"column": 36,
+												"start": 37773,
+												"end": 37779,
+												"length": 7,
+												"parent_index": 5644
+											},
+											"name": "address",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_rational_2_by_1$",
+										"type_string": "function(int_const 2)"
+									}
+								}
+							},
+							{
+								"id": 5651,
+								"node_type": 27,
+								"src": {
+									"id": 5652,
+									"line": 1223,
+									"column": 8,
+									"start": 37795,
+									"end": 37818,
+									"length": 24,
+									"parent_index": 5633
+								},
+								"expression": {
+									"id": 5653,
+									"node_type": 27,
+									"src": {
+										"id": 5654,
+										"line": 1223,
+										"column": 8,
+										"start": 37795,
+										"end": 37817,
+										"length": 23,
+										"parent_index": 5633
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5655,
+										"node_type": 22,
+										"src": {
+											"id": 5656,
+											"line": 1223,
+											"column": 8,
+											"start": 37795,
+											"end": 37801,
+											"length": 7,
+											"parent_index": 5653
+										},
+										"index_expression": {
+											"id": 5657,
+											"node_type": 16,
+											"src": {
+												"id": 5658,
+												"line": 1223,
+												"column": 8,
+												"start": 37795,
+												"end": 37798,
+												"length": 4,
+												"parent_index": 5655
+											},
+											"name": "path",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5635,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 5659,
+											"node_type": 17,
+											"kind": 49,
+											"value": "0",
+											"hex_value": "30",
+											"src": {
+												"id": 5660,
+												"line": 1223,
+												"column": 13,
+												"start": 37800,
+												"end": 37800,
+												"length": 1,
+												"parent_index": 5655
+											},
+											"type_description": {
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": true
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_address]$_t_rational_0_by_1]$",
+											"type_string": "index[address:int_const 0]"
+										}
+									},
+									"right_expression": {
+										"id": 5661,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5662,
+											"line": 1223,
+											"column": 18,
+											"start": 37805,
+											"end": 37817,
+											"length": 13,
+											"parent_index": 5653
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+												"type_string": "contract LiquidityFeeUSDT"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5667,
+												"node_type": 16,
+												"src": {
+													"id": 5668,
+													"line": 1223,
+													"column": 26,
+													"start": 37813,
+													"end": 37816,
+													"length": 4,
+													"parent_index": 5661
+												},
+												"name": "this",
+												"type_description": {
+													"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+													"type_string": "contract LiquidityFeeUSDT"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5663,
+											"node_type": 16,
+											"src": {
+												"id": 5664,
+												"line": 1223,
+												"column": 18,
+												"start": 37805,
+												"end": 37811,
+												"length": 7,
+												"parent_index": 5661
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5665,
+												"node_type": 30,
+												"src": {
+													"id": 5666,
+													"line": 1223,
+													"column": 18,
+													"start": 37805,
+													"end": 37811,
+													"length": 7,
+													"parent_index": 5663
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_address]$_t_rational_0_by_1]$",
+										"type_string": "index[address:int_const 0]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_address]$_t_rational_0_by_1]$",
+									"type_string": "index[address:int_const 0]"
+								}
+							},
+							{
+								"id": 5669,
+								"node_type": 27,
+								"src": {
+									"id": 5670,
+									"line": 1224,
+									"column": 8,
+									"start": 37828,
+									"end": 37851,
+									"length": 24,
+									"parent_index": 5633
+								},
+								"expression": {
+									"id": 5671,
+									"node_type": 27,
+									"src": {
+										"id": 5672,
+										"line": 1224,
+										"column": 8,
+										"start": 37828,
+										"end": 37850,
+										"length": 23,
+										"parent_index": 5633
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5673,
+										"node_type": 22,
+										"src": {
+											"id": 5674,
+											"line": 1224,
+											"column": 8,
+											"start": 37828,
+											"end": 37834,
+											"length": 7,
+											"parent_index": 5671
+										},
+										"index_expression": {
+											"id": 5675,
+											"node_type": 16,
+											"src": {
+												"id": 5676,
+												"line": 1224,
+												"column": 8,
+												"start": 37828,
+												"end": 37831,
+												"length": 4,
+												"parent_index": 5673
+											},
+											"name": "path",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5635,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 5677,
+											"node_type": 17,
+											"kind": 49,
+											"value": "1",
+											"hex_value": "31",
+											"src": {
+												"id": 5678,
+												"line": 1224,
+												"column": 13,
+												"start": 37833,
+												"end": 37833,
+												"length": 1,
+												"parent_index": 5673
+											},
+											"type_description": {
+												"type_identifier": "t_rational_1_by_1",
+												"type_string": "int_const 1"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": true
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											{
+												"type_identifier": "t_rational_1_by_1",
+												"type_string": "int_const 1"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_address]$_t_rational_1_by_1]$",
+											"type_string": "index[address:int_const 1]"
+										}
+									},
+									"right_expression": {
+										"id": 5679,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5680,
+											"line": 1224,
+											"column": 18,
+											"start": 37838,
+											"end": 37850,
+											"length": 13,
+											"parent_index": 5671
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5685,
+												"node_type": 16,
+												"src": {
+													"id": 5686,
+													"line": 1224,
+													"column": 26,
+													"start": 37846,
+													"end": 37849,
+													"length": 4,
+													"parent_index": 5679
+												},
+												"name": "USDT",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5681,
+											"node_type": 16,
+											"src": {
+												"id": 5682,
+												"line": 1224,
+												"column": 18,
+												"start": 37838,
+												"end": 37844,
+												"length": 7,
+												"parent_index": 5679
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5683,
+												"node_type": 30,
+												"src": {
+													"id": 5684,
+													"line": 1224,
+													"column": 18,
+													"start": 37838,
+													"end": 37844,
+													"length": 7,
+													"parent_index": 5681
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_address]$_t_rational_1_by_1]$",
+										"type_string": "index[address:int_const 1]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_address]$_t_rational_1_by_1]$",
+									"type_string": "index[address:int_const 1]"
+								}
+							},
+							{
+								"id": 5687,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5688,
+									"line": 1226,
+									"column": 8,
+									"start": 37886,
+									"end": 38113,
+									"length": 228,
+									"parent_index": 5633
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_rational_0_by_1",
+										"type_string": "int_const 0"
+									},
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5693,
+										"node_type": 16,
+										"src": {
+											"id": 5694,
+											"line": 1227,
+											"column": 12,
+											"start": 37969,
+											"end": 37979,
+											"length": 11,
+											"parent_index": 5687
+										},
+										"name": "tokenAmount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5693,
+										"is_pure": false
+									},
+									{
+										"id": 5695,
+										"node_type": 17,
+										"kind": 49,
+										"value": "0",
+										"hex_value": "30",
+										"src": {
+											"id": 5696,
+											"line": 1228,
+											"column": 12,
+											"start": 37994,
+											"end": 37994,
+											"length": 1,
+											"parent_index": 5687
+										},
+										"type_description": {
+											"type_identifier": "t_rational_0_by_1",
+											"type_string": "int_const 0"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									},
+									{
+										"id": 5697,
+										"node_type": 16,
+										"src": {
+											"id": 5698,
+											"line": 1229,
+											"column": 12,
+											"start": 38037,
+											"end": 38040,
+											"length": 4,
+											"parent_index": 5687
+										},
+										"name": "path",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5635,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										]
+									},
+									{
+										"id": 5699,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5700,
+											"line": 1230,
+											"column": 12,
+											"start": 38055,
+											"end": 38074,
+											"length": 20,
+											"parent_index": 5687
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5705,
+												"node_type": 16,
+												"src": {
+													"id": 5706,
+													"line": 1230,
+													"column": 20,
+													"start": 38063,
+													"end": 38073,
+													"length": 11,
+													"parent_index": 5699
+												},
+												"name": "distributor",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5701,
+											"node_type": 16,
+											"src": {
+												"id": 5702,
+												"line": 1230,
+												"column": 12,
+												"start": 38055,
+												"end": 38061,
+												"length": 7,
+												"parent_index": 5699
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5703,
+												"node_type": 30,
+												"src": {
+													"id": 5704,
+													"line": 1230,
+													"column": 12,
+													"start": 38055,
+													"end": 38061,
+													"length": 7,
+													"parent_index": 5701
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									{
+										"id": 5707,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 5708,
+											"line": 1231,
+											"column": 12,
+											"start": 38089,
+											"end": 38103,
+											"length": 15,
+											"parent_index": 5687
+										},
+										"member_location": {
+											"line": 1231,
+											"column": 18,
+											"start": 38095,
+											"end": 38103,
+											"length": 9,
+											"parent_index": 5707
+										},
+										"expression": {
+											"id": 5709,
+											"node_type": 16,
+											"src": {
+												"id": 5710,
+												"line": 1231,
+												"column": 12,
+												"start": 38089,
+												"end": 38093,
+												"length": 5,
+												"parent_index": 5707
+											},
+											"name": "block",
+											"type_description": {
+												"type_identifier": "t_magic_block",
+												"type_string": "block"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "timestamp",
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										}
+									}
+								],
+								"expression": {
+									"id": 5689,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 5690,
+										"line": 1226,
+										"column": 8,
+										"start": 37886,
+										"end": 37954,
+										"length": 69,
+										"parent_index": 5687
+									},
+									"member_location": {
+										"line": 1226,
+										"column": 24,
+										"start": 37902,
+										"end": 37954,
+										"length": 53,
+										"parent_index": 5689
+									},
+									"expression": {
+										"id": 5691,
+										"node_type": 16,
+										"src": {
+											"id": 5692,
+											"line": 1226,
+											"column": 8,
+											"start": 37886,
+											"end": 37900,
+											"length": 15,
+											"parent_index": 5689
+										},
+										"name": "uniswapV2Router",
+										"type_description": {
+											"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+											"type_string": "contract IUniswapV2Router"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4159,
+										"is_pure": false
+									},
+									"member_name": "swapExactTokensForTokensSupportingFeeOnTransferTokens",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+										"type_string": "contract IUniswapV2Router"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$_t_rational_0_by_1$_t_address$_t_function_$_t_function_$_t_uint256$",
+									"type_string": "function(uint256,int_const 0,address,function(function()),uint256)"
+								}
+							},
+							{
+								"id": 5711,
+								"node_type": 44,
+								"src": {
+									"id": 5712,
+									"line": 1233,
+									"column": 8,
+									"start": 38124,
+									"end": 38185,
+									"length": 62,
+									"parent_index": 5633
+								},
+								"assignments": [
+									5713
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 5713,
+										"state_mutability": 1,
+										"name": "amount",
+										"node_type": 44,
+										"scope": 5633,
+										"src": {
+											"id": 5714,
+											"line": 1233,
+											"column": 8,
+											"start": 38124,
+											"end": 38137,
+											"length": 14,
+											"parent_index": 5711
+										},
+										"name_location": {
+											"line": 1233,
+											"column": 16,
+											"start": 38132,
+											"end": 38137,
+											"length": 6,
+											"parent_index": 5713
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 5715,
+											"node_type": 30,
+											"src": {
+												"id": 5716,
+												"line": 1233,
+												"column": 8,
+												"start": 38124,
+												"end": 38130,
+												"length": 7,
+												"parent_index": 5713
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 5717,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 5718,
+										"line": 1233,
+										"column": 25,
+										"start": 38141,
+										"end": 38184,
+										"length": 44,
+										"parent_index": 5711
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									],
+									"arguments": [
+										{
+											"id": 5727,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 5728,
+												"line": 1233,
+												"column": 48,
+												"start": 38164,
+												"end": 38183,
+												"length": 20,
+												"parent_index": 5717
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											],
+											"arguments": [
+												{
+													"id": 5733,
+													"node_type": 16,
+													"src": {
+														"id": 5734,
+														"line": 1233,
+														"column": 56,
+														"start": 38172,
+														"end": 38182,
+														"length": 11,
+														"parent_index": 5727
+													},
+													"name": "distributor",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 5729,
+												"node_type": 16,
+												"src": {
+													"id": 5730,
+													"line": 1233,
+													"column": 48,
+													"start": 38164,
+													"end": 38170,
+													"length": 7,
+													"parent_index": 5727
+												},
+												"name": "address",
+												"type_name": {
+													"id": 5731,
+													"node_type": 30,
+													"src": {
+														"id": 5732,
+														"line": 1233,
+														"column": 48,
+														"start": 38164,
+														"end": 38170,
+														"length": 7,
+														"parent_index": 5729
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										}
+									],
+									"expression": {
+										"id": 5719,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 5720,
+											"line": 1233,
+											"column": 25,
+											"start": 38141,
+											"end": 38162,
+											"length": 22,
+											"parent_index": 5717
+										},
+										"member_location": {
+											"line": 1233,
+											"column": 38,
+											"start": 38154,
+											"end": 38162,
+											"length": 9,
+											"parent_index": 5719
+										},
+										"expression": {
+											"id": 5721,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 5722,
+												"line": 1233,
+												"column": 25,
+												"start": 38141,
+												"end": 38152,
+												"length": 12,
+												"parent_index": 5719
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											],
+											"arguments": [
+												{
+													"id": 5725,
+													"node_type": 16,
+													"src": {
+														"id": 5726,
+														"line": 1233,
+														"column": 32,
+														"start": 38148,
+														"end": 38151,
+														"length": 4,
+														"parent_index": 5721
+													},
+													"name": "USDT",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 5723,
+												"node_type": 16,
+												"src": {
+													"id": 5724,
+													"line": 1233,
+													"column": 25,
+													"start": 38141,
+													"end": 38146,
+													"length": 6,
+													"parent_index": 5721
+												},
+												"name": "IERC20",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"member_name": "balanceOf",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_function_$",
+										"type_string": "function(function(function()))"
+									}
+								}
+							},
+							{
+								"id": 5735,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5736,
+									"line": 1234,
+									"column": 8,
+									"start": 38195,
+									"end": 38241,
+									"length": 47,
+									"parent_index": 5633
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$_t_address$",
+										"type_string": "function(address)"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5741,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5742,
+											"line": 1234,
+											"column": 33,
+											"start": 38220,
+											"end": 38232,
+											"length": 13,
+											"parent_index": 5735
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+												"type_string": "contract LiquidityFeeUSDT"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5747,
+												"node_type": 16,
+												"src": {
+													"id": 5748,
+													"line": 1234,
+													"column": 41,
+													"start": 38228,
+													"end": 38231,
+													"length": 4,
+													"parent_index": 5741
+												},
+												"name": "this",
+												"type_description": {
+													"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+													"type_string": "contract LiquidityFeeUSDT"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5743,
+											"node_type": 16,
+											"src": {
+												"id": 5744,
+												"line": 1234,
+												"column": 33,
+												"start": 38220,
+												"end": 38226,
+												"length": 7,
+												"parent_index": 5741
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5745,
+												"node_type": 30,
+												"src": {
+													"id": 5746,
+													"line": 1234,
+													"column": 33,
+													"start": 38220,
+													"end": 38226,
+													"length": 7,
+													"parent_index": 5743
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									{
+										"id": 5749,
+										"node_type": 16,
+										"src": {
+											"id": 5750,
+											"line": 1234,
+											"column": 48,
+											"start": 38235,
+											"end": 38240,
+											"length": 6,
+											"parent_index": 5735
+										},
+										"name": "amount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5711,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 5737,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 5738,
+										"line": 1234,
+										"column": 8,
+										"start": 38195,
+										"end": 38218,
+										"length": 24,
+										"parent_index": 5735
+									},
+									"member_location": {
+										"line": 1234,
+										"column": 20,
+										"start": 38207,
+										"end": 38218,
+										"length": 12,
+										"parent_index": 5737
+									},
+									"expression": {
+										"id": 5739,
+										"node_type": 16,
+										"src": {
+											"id": 5740,
+											"line": 1234,
+											"column": 8,
+											"start": 38195,
+											"end": 38205,
+											"length": 11,
+											"parent_index": 5737
+										},
+										"name": "distributor",
+										"type_description": {
+											"type_identifier": "t_contract$_DividendDistributor_$2632",
+											"type_string": "contract DividendDistributor"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4171,
+										"is_pure": false
+									},
+									"member_name": "transferUSDT",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_contract$_DividendDistributor_$2632",
+										"type_string": "contract DividendDistributor"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_address$_t_uint256$",
+									"type_string": "function(function(address),uint256)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5626,
+						"node_type": 43,
+						"src": {
+							"id": 5627,
+							"line": 1220,
+							"column": 33,
+							"start": 37646,
+							"end": 37664,
+							"length": 19,
+							"parent_index": 5624
+						},
+						"parameters": [
+							{
+								"id": 5628,
+								"node_type": 44,
+								"src": {
+									"id": 5629,
+									"line": 1220,
+									"column": 33,
+									"start": 37646,
+									"end": 37664,
+									"length": 19,
+									"parent_index": 5626
+								},
+								"scope": 5624,
+								"name": "tokenAmount",
+								"type_name": {
+									"id": 5630,
+									"node_type": 30,
+									"src": {
+										"id": 5631,
+										"line": 1220,
+										"column": 33,
+										"start": 37646,
+										"end": 37652,
+										"length": 7,
+										"parent_index": 5628
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5632,
+						"node_type": 43,
+						"src": {
+							"id": 5625,
+							"line": 1220,
+							"column": 4,
+							"start": 37617,
+							"end": 38248,
+							"length": 632,
+							"parent_index": 5624
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$",
+						"type_string": "function(uint256)"
+					}
+				},
+				{
+					"id": 5752,
+					"name": "addLiquidity",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5753,
+						"line": 1237,
+						"column": 4,
+						"start": 38255,
+						"end": 38644,
+						"length": 390,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1237,
+						"column": 13,
+						"start": 38264,
+						"end": 38275,
+						"length": 12,
+						"parent_index": 5752
+					},
+					"body": {
+						"id": 5765,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5766,
+							"line": 1237,
+							"column": 74,
+							"start": 38325,
+							"end": 38644,
+							"length": 320,
+							"parent_index": 5752
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5767,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 5768,
+									"line": 1240,
+									"column": 8,
+									"start": 38365,
+									"end": 38637,
+									"length": 273,
+									"parent_index": 5765
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$_t_address$",
+										"type_string": "function(address)"
+									},
+									{
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_rational_0_by_1",
+										"type_string": "int_const 0"
+									},
+									{
+										"type_identifier": "t_rational_0_by_1",
+										"type_string": "int_const 0"
+									},
+									{
+										"type_identifier": "t_function_$_t_function_$_t_address$$$_t_function_$_t_function_$$$_t_uint256$$_t_uint256$$_t_rational_0_by_1$$_t_rational_0_by_1$",
+										"type_string": "function(function(address),function(function()),uint256,uint256,int_const 0,int_const 0)"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 5773,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5774,
+											"line": 1241,
+											"column": 12,
+											"start": 38407,
+											"end": 38419,
+											"length": 13,
+											"parent_index": 5767
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+												"type_string": "contract LiquidityFeeUSDT"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5779,
+												"node_type": 16,
+												"src": {
+													"id": 5780,
+													"line": 1241,
+													"column": 20,
+													"start": 38415,
+													"end": 38418,
+													"length": 4,
+													"parent_index": 5773
+												},
+												"name": "this",
+												"type_description": {
+													"type_identifier": "t_contract$_LiquidityFeeUSDT_$5260",
+													"type_string": "contract LiquidityFeeUSDT"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5775,
+											"node_type": 16,
+											"src": {
+												"id": 5776,
+												"line": 1241,
+												"column": 12,
+												"start": 38407,
+												"end": 38413,
+												"length": 7,
+												"parent_index": 5773
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5777,
+												"node_type": 30,
+												"src": {
+													"id": 5778,
+													"line": 1241,
+													"column": 12,
+													"start": 38407,
+													"end": 38413,
+													"length": 7,
+													"parent_index": 5775
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									{
+										"id": 5781,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 5782,
+											"line": 1242,
+											"column": 12,
+											"start": 38434,
+											"end": 38446,
+											"length": 13,
+											"parent_index": 5767
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 5787,
+												"node_type": 16,
+												"src": {
+													"id": 5788,
+													"line": 1242,
+													"column": 20,
+													"start": 38442,
+													"end": 38445,
+													"length": 4,
+													"parent_index": 5781
+												},
+												"name": "USDT",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 5783,
+											"node_type": 16,
+											"src": {
+												"id": 5784,
+												"line": 1242,
+												"column": 12,
+												"start": 38434,
+												"end": 38440,
+												"length": 7,
+												"parent_index": 5781
+											},
+											"name": "address",
+											"type_name": {
+												"id": 5785,
+												"node_type": 30,
+												"src": {
+													"id": 5786,
+													"line": 1242,
+													"column": 12,
+													"start": 38434,
+													"end": 38440,
+													"length": 7,
+													"parent_index": 5783
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									{
+										"id": 5789,
+										"node_type": 16,
+										"src": {
+											"id": 5790,
+											"line": 1243,
+											"column": 12,
+											"start": 38461,
+											"end": 38471,
+											"length": 11,
+											"parent_index": 5767
+										},
+										"name": "tokenAmount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5789,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										]
+									},
+									{
+										"id": 5791,
+										"node_type": 16,
+										"src": {
+											"id": 5792,
+											"line": 1244,
+											"column": 12,
+											"start": 38486,
+											"end": 38495,
+											"length": 10,
+											"parent_index": 5767
+										},
+										"name": "usdtAmount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5791,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									},
+									{
+										"id": 5793,
+										"node_type": 17,
+										"kind": 49,
+										"value": "0",
+										"hex_value": "30",
+										"src": {
+											"id": 5794,
+											"line": 1245,
+											"column": 12,
+											"start": 38510,
+											"end": 38510,
+											"length": 1,
+											"parent_index": 5767
+										},
+										"type_description": {
+											"type_identifier": "t_rational_0_by_1",
+											"type_string": "int_const 0"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									},
+									{
+										"id": 5795,
+										"node_type": 17,
+										"kind": 49,
+										"value": "0",
+										"hex_value": "30",
+										"src": {
+											"id": 5796,
+											"line": 1246,
+											"column": 12,
+											"start": 38552,
+											"end": 38552,
+											"length": 1,
+											"parent_index": 5767
+										},
+										"type_description": {
+											"type_identifier": "t_rational_0_by_1",
+											"type_string": "int_const 0"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										]
+									},
+									{
+										"id": 5797,
+										"node_type": 16,
+										"src": {
+											"id": 5798,
+											"line": 1247,
+											"column": 12,
+											"start": 38594,
+											"end": 38598,
+											"length": 5,
+											"parent_index": 5767
+										},
+										"name": "lpRec",
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_address$$$_t_function_$_t_function_$$$_t_uint256$$_t_uint256$$_t_rational_0_by_1$$_t_rational_0_by_1$",
+											"type_string": "function(function(address),function(function()),uint256,uint256,int_const 0,int_const 0)"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										]
+									},
+									{
+										"id": 5799,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 5800,
+											"line": 1248,
+											"column": 12,
+											"start": 38613,
+											"end": 38627,
+											"length": 15,
+											"parent_index": 5767
+										},
+										"member_location": {
+											"line": 1248,
+											"column": 18,
+											"start": 38619,
+											"end": 38627,
+											"length": 9,
+											"parent_index": 5799
+										},
+										"expression": {
+											"id": 5801,
+											"node_type": 16,
+											"src": {
+												"id": 5802,
+												"line": 1248,
+												"column": 12,
+												"start": 38613,
+												"end": 38617,
+												"length": 5,
+												"parent_index": 5799
+											},
+											"name": "block",
+											"type_description": {
+												"type_identifier": "t_magic_block",
+												"type_string": "block"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "timestamp",
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											},
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											},
+											{
+												"type_identifier": "t_function_$_t_function_$_t_address$$$_t_function_$_t_function_$$$_t_uint256$$_t_uint256$$_t_rational_0_by_1$$_t_rational_0_by_1$",
+												"type_string": "function(function(address),function(function()),uint256,uint256,int_const 0,int_const 0)"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										}
+									}
+								],
+								"expression": {
+									"id": 5769,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 5770,
+										"line": 1240,
+										"column": 8,
+										"start": 38365,
+										"end": 38392,
+										"length": 28,
+										"parent_index": 5767
+									},
+									"member_location": {
+										"line": 1240,
+										"column": 24,
+										"start": 38381,
+										"end": 38392,
+										"length": 12,
+										"parent_index": 5769
+									},
+									"expression": {
+										"id": 5771,
+										"node_type": 16,
+										"src": {
+											"id": 5772,
+											"line": 1240,
+											"column": 8,
+											"start": 38365,
+											"end": 38379,
+											"length": 15,
+											"parent_index": 5769
+										},
+										"name": "uniswapV2Router",
+										"type_description": {
+											"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+											"type_string": "contract IUniswapV2Router"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4159,
+										"is_pure": false
+									},
+									"member_name": "addLiquidity",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_contract$_IUniswapV2Router_$1085",
+										"type_string": "contract IUniswapV2Router"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_address$_t_function_$_t_function_$_t_uint256$_t_uint256$_t_rational_0_by_1$_t_rational_0_by_1$_t_function_$_t_function_$_t_address$_t_function_$_t_function_$_t_uint256$_t_uint256$_t_rational_0_by_1$_t_rational_0_by_1$_t_uint256$",
+									"type_string": "function(function(address),function(function()),uint256,uint256,int_const 0,int_const 0,function(function(address),function(function()),uint256,uint256,int_const 0,int_const 0),uint256)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5754,
+						"node_type": 43,
+						"src": {
+							"id": 5755,
+							"line": 1237,
+							"column": 26,
+							"start": 38277,
+							"end": 38315,
+							"length": 39,
+							"parent_index": 5752
+						},
+						"parameters": [
+							{
+								"id": 5756,
+								"node_type": 44,
+								"src": {
+									"id": 5757,
+									"line": 1237,
+									"column": 26,
+									"start": 38277,
+									"end": 38295,
+									"length": 19,
+									"parent_index": 5754
+								},
+								"scope": 5752,
+								"name": "tokenAmount",
+								"type_name": {
+									"id": 5758,
+									"node_type": 30,
+									"src": {
+										"id": 5759,
+										"line": 1237,
+										"column": 26,
+										"start": 38277,
+										"end": 38283,
+										"length": 7,
+										"parent_index": 5756
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 5760,
+								"node_type": 44,
+								"src": {
+									"id": 5761,
+									"line": 1237,
+									"column": 47,
+									"start": 38298,
+									"end": 38315,
+									"length": 18,
+									"parent_index": 5754
+								},
+								"scope": 5752,
+								"name": "usdtAmount",
+								"type_name": {
+									"id": 5762,
+									"node_type": 30,
+									"src": {
+										"id": 5763,
+										"line": 1237,
+										"column": 47,
+										"start": 38298,
+										"end": 38304,
+										"length": 7,
+										"parent_index": 5760
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5764,
+						"node_type": 43,
+						"src": {
+							"id": 5753,
+							"line": 1237,
+							"column": 4,
+							"start": 38255,
+							"end": 38644,
+							"length": 390,
+							"parent_index": 5752
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_uint256$",
+						"type_string": "function(uint256,uint256)"
+					}
+				},
+				{
+					"id": 5804,
+					"name": "setNumTokensToAddToLiquidity",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5805,
+						"line": 1252,
+						"column": 4,
+						"start": 38651,
+						"end": 38774,
+						"length": 124,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1252,
+						"column": 13,
+						"start": 38660,
+						"end": 38687,
+						"length": 28,
+						"parent_index": 5804
+					},
+					"body": {
+						"id": 5817,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5818,
+							"line": 1252,
+							"column": 75,
+							"start": 38722,
+							"end": 38774,
+							"length": 53,
+							"parent_index": 5804
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5819,
+								"node_type": 27,
+								"src": {
+									"id": 5820,
+									"line": 1253,
+									"column": 8,
+									"start": 38732,
+									"end": 38768,
+									"length": 37,
+									"parent_index": 5817
+								},
+								"expression": {
+									"id": 5821,
+									"node_type": 27,
+									"src": {
+										"id": 5822,
+										"line": 1253,
+										"column": 8,
+										"start": 38732,
+										"end": 38767,
+										"length": 36,
+										"parent_index": 5817
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5823,
+										"node_type": 16,
+										"src": {
+											"id": 5824,
+											"line": 1253,
+											"column": 8,
+											"start": 38732,
+											"end": 38760,
+											"length": 29,
+											"parent_index": 5821
+										},
+										"name": "numTokensSellToAddToLiquidity",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5283,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5825,
+										"node_type": 16,
+										"src": {
+											"id": 5826,
+											"line": 1253,
+											"column": 40,
+											"start": 38764,
+											"end": 38767,
+											"length": 4,
+											"parent_index": 5821
+										},
+										"name": "_num",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5825,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 5806,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 5807,
+								"line": 1252,
+								"column": 65,
+								"start": 38712,
+								"end": 38720,
+								"length": 9,
+								"parent_index": 5804
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 5808,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 5809,
+									"line": 1252,
+									"column": 65,
+									"start": 38712,
+									"end": 38720,
+									"length": 9,
+									"parent_index": 5806
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 5810,
+						"node_type": 43,
+						"src": {
+							"id": 5811,
+							"line": 1252,
+							"column": 42,
+							"start": 38689,
+							"end": 38700,
+							"length": 12,
+							"parent_index": 5804
+						},
+						"parameters": [
+							{
+								"id": 5812,
+								"node_type": 44,
+								"src": {
+									"id": 5813,
+									"line": 1252,
+									"column": 42,
+									"start": 38689,
+									"end": 38700,
+									"length": 12,
+									"parent_index": 5810
+								},
+								"scope": 5804,
+								"name": "_num",
+								"type_name": {
+									"id": 5814,
+									"node_type": 30,
+									"src": {
+										"id": 5815,
+										"line": 1252,
+										"column": 42,
+										"start": 38689,
+										"end": 38695,
+										"length": 7,
+										"parent_index": 5812
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5816,
+						"node_type": 43,
+						"src": {
+							"id": 5805,
+							"line": 1252,
+							"column": 4,
+							"start": 38651,
+							"end": 38774,
+							"length": 124,
+							"parent_index": 5804
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$",
+						"type_string": "function(uint256)"
+					}
+				},
+				{
+					"id": 5828,
+					"name": "setSwapAndLiquifyEnabled",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5829,
+						"line": 1256,
+						"column": 4,
+						"start": 38781,
+						"end": 38885,
+						"length": 105,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1256,
+						"column": 13,
+						"start": 38790,
+						"end": 38813,
+						"length": 24,
+						"parent_index": 5828
+					},
+					"body": {
+						"id": 5841,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5842,
+							"line": 1256,
+							"column": 66,
+							"start": 38843,
+							"end": 38885,
+							"length": 43,
+							"parent_index": 5828
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5843,
+								"node_type": 27,
+								"src": {
+									"id": 5844,
+									"line": 1257,
+									"column": 8,
+									"start": 38853,
+									"end": 38879,
+									"length": 27,
+									"parent_index": 5841
+								},
+								"expression": {
+									"id": 5845,
+									"node_type": 27,
+									"src": {
+										"id": 5846,
+										"line": 1257,
+										"column": 8,
+										"start": 38853,
+										"end": 38878,
+										"length": 26,
+										"parent_index": 5841
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5847,
+										"node_type": 16,
+										"src": {
+											"id": 5848,
+											"line": 1257,
+											"column": 8,
+											"start": 38853,
+											"end": 38873,
+											"length": 21,
+											"parent_index": 5845
+										},
+										"name": "swapAndLiquifyEnabled",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5278,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5849,
+										"node_type": 16,
+										"src": {
+											"id": 5850,
+											"line": 1257,
+											"column": 32,
+											"start": 38877,
+											"end": 38878,
+											"length": 2,
+											"parent_index": 5845
+										},
+										"name": "_n",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5849,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 5830,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 5831,
+								"line": 1256,
+								"column": 56,
+								"start": 38833,
+								"end": 38841,
+								"length": 9,
+								"parent_index": 5828
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 5832,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 5833,
+									"line": 1256,
+									"column": 56,
+									"start": 38833,
+									"end": 38841,
+									"length": 9,
+									"parent_index": 5830
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 5834,
+						"node_type": 43,
+						"src": {
+							"id": 5835,
+							"line": 1256,
+							"column": 38,
+							"start": 38815,
+							"end": 38821,
+							"length": 7,
+							"parent_index": 5828
+						},
+						"parameters": [
+							{
+								"id": 5836,
+								"node_type": 44,
+								"src": {
+									"id": 5837,
+									"line": 1256,
+									"column": 38,
+									"start": 38815,
+									"end": 38821,
+									"length": 7,
+									"parent_index": 5834
+								},
+								"scope": 5828,
+								"name": "_n",
+								"type_name": {
+									"id": 5838,
+									"node_type": 30,
+									"src": {
+										"id": 5839,
+										"line": 1256,
+										"column": 38,
+										"start": 38815,
+										"end": 38818,
+										"length": 4,
+										"parent_index": 5836
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5840,
+						"node_type": 43,
+						"src": {
+							"id": 5829,
+							"line": 1256,
+							"column": 4,
+							"start": 38781,
+							"end": 38885,
+							"length": 105,
+							"parent_index": 5828
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bool$",
+						"type_string": "function(bool)"
+					}
+				},
+				{
+					"id": 5852,
+					"name": "setLpRec",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5853,
+						"line": 1260,
+						"column": 4,
+						"start": 38892,
+						"end": 38975,
+						"length": 84,
+						"parent_index": 5264
+					},
+					"name_location": {
+						"line": 1260,
+						"column": 13,
+						"start": 38901,
+						"end": 38908,
+						"length": 8,
+						"parent_index": 5852
+					},
+					"body": {
+						"id": 5865,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5866,
+							"line": 1260,
+							"column": 57,
+							"start": 38945,
+							"end": 38975,
+							"length": 31,
+							"parent_index": 5852
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5867,
+								"node_type": 27,
+								"src": {
+									"id": 5868,
+									"line": 1261,
+									"column": 8,
+									"start": 38955,
+									"end": 38969,
+									"length": 15,
+									"parent_index": 5865
+								},
+								"expression": {
+									"id": 5869,
+									"node_type": 27,
+									"src": {
+										"id": 5870,
+										"line": 1261,
+										"column": 8,
+										"start": 38955,
+										"end": 38968,
+										"length": 14,
+										"parent_index": 5865
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5871,
+										"node_type": 16,
+										"src": {
+											"id": 5872,
+											"line": 1261,
+											"column": 8,
+											"start": 38955,
+											"end": 38959,
+											"length": 5,
+											"parent_index": 5869
+										},
+										"name": "lpRec",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5288,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 5873,
+										"node_type": 16,
+										"src": {
+											"id": 5874,
+											"line": 1261,
+											"column": 16,
+											"start": 38963,
+											"end": 38968,
+											"length": 6,
+											"parent_index": 5869
+										},
+										"name": "_lpRec",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5873,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 5854,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 5855,
+								"line": 1260,
+								"column": 47,
+								"start": 38935,
+								"end": 38943,
+								"length": 9,
+								"parent_index": 5852
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 5856,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 5857,
+									"line": 1260,
+									"column": 47,
+									"start": 38935,
+									"end": 38943,
+									"length": 9,
+									"parent_index": 5854
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 5858,
+						"node_type": 43,
+						"src": {
+							"id": 5859,
+							"line": 1260,
+							"column": 22,
+							"start": 38910,
+							"end": 38923,
+							"length": 14,
+							"parent_index": 5852
+						},
+						"parameters": [
+							{
+								"id": 5860,
+								"node_type": 44,
+								"src": {
+									"id": 5861,
+									"line": 1260,
+									"column": 22,
+									"start": 38910,
+									"end": 38923,
+									"length": 14,
+									"parent_index": 5858
+								},
+								"scope": 5852,
+								"name": "_lpRec",
+								"type_name": {
+									"id": 5862,
+									"node_type": 30,
+									"src": {
+										"id": 5863,
+										"line": 1260,
+										"column": 22,
+										"start": 38910,
+										"end": 38916,
+										"length": 7,
+										"parent_index": 5860
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5864,
+						"node_type": 43,
+						"src": {
+							"id": 5853,
+							"line": 1260,
+							"column": 4,
+							"start": 38892,
+							"end": 38975,
+							"length": 84,
+							"parent_index": 5852
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5264,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				88,
+				4148,
+				678,
+				5264
+			],
+			"base_contracts": [
+				{
+					"id": 5265,
+					"node_type": 62,
+					"src": {
+						"id": 5266,
+						"line": 1151,
+						"column": 38,
+						"start": 35123,
+						"end": 35129,
+						"length": 7,
+						"parent_index": 5264
+					},
+					"base_name": {
+						"id": 5267,
+						"node_type": 52,
+						"src": {
+							"id": 5268,
+							"line": 1151,
+							"column": 38,
+							"start": 35123,
+							"end": 35129,
+							"length": 7,
+							"parent_index": 5264
+						},
+						"name": "Ownable",
+						"referenced_declaration": 88
+					}
+				},
+				{
+					"id": 5269,
+					"node_type": 62,
+					"src": {
+						"id": 5270,
+						"line": 1151,
+						"column": 47,
+						"start": 35132,
+						"end": 35142,
+						"length": 11,
+						"parent_index": 5264
+					},
+					"base_name": {
+						"id": 5271,
+						"node_type": 52,
+						"src": {
+							"id": 5272,
+							"line": 1151,
+							"column": 47,
+							"start": 35132,
+							"end": 35142,
+							"length": 11,
+							"parent_index": 5264
+						},
+						"name": "DexBaseUSDT",
+						"referenced_declaration": 4148
+					}
+				},
+				{
+					"id": 5273,
+					"node_type": 62,
+					"src": {
+						"id": 5274,
+						"line": 1151,
+						"column": 60,
+						"start": 35145,
+						"end": 35149,
+						"length": 5,
+						"parent_index": 5264
+					},
+					"base_name": {
+						"id": 5275,
+						"node_type": 52,
+						"src": {
+							"id": 5276,
+							"line": 1151,
+							"column": 60,
+							"start": 35145,
+							"end": 35149,
+							"length": 5,
+							"parent_index": 5264
+						},
+						"name": "ERC20",
+						"referenced_declaration": 678
+					}
+				}
+			],
+			"contract_dependencies": [
+				88,
+				4148,
+				678
+			]
+		}
+	],
+	"src": {
+		"id": 5261,
+		"line": 1151,
+		"column": 0,
+		"start": 35085,
+		"end": 38977,
+		"length": 3893,
+		"parent_index": 87
+	}
+}

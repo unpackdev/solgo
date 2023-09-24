@@ -1,0 +1,2180 @@
+{
+	"id": 5985,
+	"base_contracts": [
+		{
+			"id": 5990,
+			"node_type": 62,
+			"src": {
+				"id": 5991,
+				"line": 1283,
+				"column": 29,
+				"start": 39541,
+				"end": 39547,
+				"length": 7,
+				"parent_index": 5989
+			},
+			"base_name": {
+				"id": 5992,
+				"node_type": 52,
+				"src": {
+					"id": 5993,
+					"line": 1283,
+					"column": 29,
+					"start": 39541,
+					"end": 39547,
+					"length": 7,
+					"parent_index": 5989
+				},
+				"name": "Ownable",
+				"referenced_declaration": 88
+			}
+		}
+	],
+	"license": "AGPL-3.0-only",
+	"exported_symbols": [
+		{
+			"id": 5985,
+			"name": "MaxHave",
+			"absolute_path": ""
+		},
+		{
+			"id": 5990,
+			"name": "Ownable",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "MaxHave",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 5987,
+			"node_type": 10,
+			"src": {
+				"id": 5988,
+				"line": 6,
+				"column": 0,
+				"start": 108,
+				"end": 132,
+				"length": 25,
+				"parent_index": 5985
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"\u003e=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity \u003e=0.8.16;"
+		},
+		{
+			"id": 5989,
+			"name": "MaxHave",
+			"node_type": 35,
+			"src": {
+				"line": 1283,
+				"column": 0,
+				"start": 39512,
+				"end": 40331,
+				"length": 820,
+				"parent_index": 5985
+			},
+			"name_location": {
+				"line": 1283,
+				"column": 18,
+				"start": 39530,
+				"end": 39536,
+				"length": 7,
+				"parent_index": 5989
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 5995,
+					"name": "_maxHavAmount",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 5996,
+						"line": 1284,
+						"column": 4,
+						"start": 39555,
+						"end": 39583,
+						"length": 29,
+						"parent_index": 5989
+					},
+					"scope": 5989,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 5997,
+						"node_type": 30,
+						"src": {
+							"id": 5998,
+							"line": 1284,
+							"column": 4,
+							"start": 39555,
+							"end": 39561,
+							"length": 7,
+							"parent_index": 5995
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 6000,
+					"name": "isHavLimitExempt",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 6001,
+						"line": 1285,
+						"column": 4,
+						"start": 39589,
+						"end": 39630,
+						"length": 42,
+						"parent_index": 5989
+					},
+					"scope": 5989,
+					"type_description": {
+						"type_identifier": "t_mapping_$t_address_$t_bool$",
+						"type_string": "mapping(address=\u003ebool)"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 6002,
+						"node_type": 0,
+						"src": {
+							"id": 6003,
+							"line": 1285,
+							"column": 4,
+							"start": 39589,
+							"end": 39612,
+							"length": 24,
+							"parent_index": 6000
+						},
+						"key_type": {
+							"id": 6004,
+							"node_type": 30,
+							"src": {
+								"id": 6005,
+								"line": 1285,
+								"column": 12,
+								"start": 39597,
+								"end": 39603,
+								"length": 7,
+								"parent_index": 6002
+							},
+							"name": "address",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"key_name_location": {
+							"line": 1285,
+							"column": 12,
+							"start": 39597,
+							"end": 39603,
+							"length": 7,
+							"parent_index": 6002
+						},
+						"value_type": {
+							"id": 6006,
+							"node_type": 30,
+							"src": {
+								"id": 6007,
+								"line": 1285,
+								"column": 23,
+								"start": 39608,
+								"end": 39611,
+								"length": 4,
+								"parent_index": 6002
+							},
+							"name": "bool",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						"value_name_location": {
+							"line": 1285,
+							"column": 23,
+							"start": 39608,
+							"end": 39611,
+							"length": 4,
+							"parent_index": 6002
+						},
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_bool$",
+							"type_string": "mapping(address=\u003ebool)"
+						}
+					}
+				},
+				{
+					"id": 6009,
+					"node_type": 42,
+					"src": {
+						"id": 6010,
+						"line": 1287,
+						"column": 4,
+						"start": 39637,
+						"end": 40066,
+						"length": 430,
+						"parent_index": 5989
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 6011,
+						"node_type": 43,
+						"src": {
+							"id": 6012,
+							"line": 1287,
+							"column": 16,
+							"start": 39649,
+							"end": 39663,
+							"length": 15,
+							"parent_index": 6009
+						},
+						"parameters": [
+							{
+								"id": 6013,
+								"node_type": 44,
+								"src": {
+									"id": 6014,
+									"line": 1287,
+									"column": 16,
+									"start": 39649,
+									"end": 39663,
+									"length": 15,
+									"parent_index": 6011
+								},
+								"scope": 6009,
+								"name": "_maxHav",
+								"type_name": {
+									"id": 6015,
+									"node_type": 30,
+									"src": {
+										"id": 6016,
+										"line": 1287,
+										"column": 16,
+										"start": 39649,
+										"end": 39655,
+										"length": 7,
+										"parent_index": 6013
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6017,
+						"node_type": 43,
+						"src": {
+							"id": 6010,
+							"line": 1287,
+							"column": 4,
+							"start": 39637,
+							"end": 40066,
+							"length": 430,
+							"parent_index": 6009
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5989,
+					"body": {
+						"id": 6018,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 6019,
+							"line": 1287,
+							"column": 33,
+							"start": 39666,
+							"end": 40066,
+							"length": 401,
+							"parent_index": 6009
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6020,
+								"node_type": 27,
+								"src": {
+									"id": 6021,
+									"line": 1288,
+									"column": 8,
+									"start": 39676,
+									"end": 39699,
+									"length": 24,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6022,
+									"node_type": 27,
+									"src": {
+										"id": 6023,
+										"line": 1288,
+										"column": 8,
+										"start": 39676,
+										"end": 39698,
+										"length": 23,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6024,
+										"node_type": 16,
+										"src": {
+											"id": 6025,
+											"line": 1288,
+											"column": 8,
+											"start": 39676,
+											"end": 39688,
+											"length": 13,
+											"parent_index": 6022
+										},
+										"name": "_maxHavAmount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5995,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 6026,
+										"node_type": 16,
+										"src": {
+											"id": 6027,
+											"line": 1288,
+											"column": 24,
+											"start": 39692,
+											"end": 39698,
+											"length": 7,
+											"parent_index": 6022
+										},
+										"name": "_maxHav",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6026,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 6028,
+								"node_type": 27,
+								"src": {
+									"id": 6029,
+									"line": 1289,
+									"column": 8,
+									"start": 39709,
+									"end": 39744,
+									"length": 36,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6030,
+									"node_type": 27,
+									"src": {
+										"id": 6031,
+										"line": 1289,
+										"column": 8,
+										"start": 39709,
+										"end": 39743,
+										"length": 35,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6032,
+										"node_type": 22,
+										"src": {
+											"id": 6033,
+											"line": 1289,
+											"column": 8,
+											"start": 39709,
+											"end": 39736,
+											"length": 28,
+											"parent_index": 6030
+										},
+										"index_expression": {
+											"id": 6034,
+											"node_type": 16,
+											"src": {
+												"id": 6035,
+												"line": 1289,
+												"column": 8,
+												"start": 39709,
+												"end": 39724,
+												"length": 16,
+												"parent_index": 6032
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6036,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 6037,
+												"line": 1289,
+												"column": 25,
+												"start": 39726,
+												"end": 39735,
+												"length": 10,
+												"parent_index": 6032
+											},
+											"member_location": {
+												"line": 1289,
+												"column": 29,
+												"start": 39730,
+												"end": 39735,
+												"length": 6,
+												"parent_index": 6036
+											},
+											"expression": {
+												"id": 6038,
+												"node_type": 16,
+												"src": {
+													"id": 6039,
+													"line": 1289,
+													"column": 25,
+													"start": 39726,
+													"end": 39728,
+													"length": 3,
+													"parent_index": 6036
+												},
+												"name": "msg",
+												"type_description": {
+													"type_identifier": "t_magic_message",
+													"type_string": "msg"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "sender",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003ebool):address]"
+										}
+									},
+									"right_expression": {
+										"id": 6040,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 6041,
+											"line": 1289,
+											"column": 39,
+											"start": 39740,
+											"end": 39743,
+											"length": 4,
+											"parent_index": 6030
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003ebool):address]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+									"type_string": "index[mapping(address=\u003ebool):address]"
+								}
+							},
+							{
+								"id": 6042,
+								"node_type": 27,
+								"src": {
+									"id": 6043,
+									"line": 1290,
+									"column": 8,
+									"start": 39754,
+									"end": 39792,
+									"length": 39,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6044,
+									"node_type": 27,
+									"src": {
+										"id": 6045,
+										"line": 1290,
+										"column": 8,
+										"start": 39754,
+										"end": 39791,
+										"length": 38,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6046,
+										"node_type": 22,
+										"src": {
+											"id": 6047,
+											"line": 1290,
+											"column": 8,
+											"start": 39754,
+											"end": 39784,
+											"length": 31,
+											"parent_index": 6044
+										},
+										"index_expression": {
+											"id": 6048,
+											"node_type": 16,
+											"src": {
+												"id": 6049,
+												"line": 1290,
+												"column": 8,
+												"start": 39754,
+												"end": 39769,
+												"length": 16,
+												"parent_index": 6046
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6050,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 6051,
+												"line": 1290,
+												"column": 25,
+												"start": 39771,
+												"end": 39783,
+												"length": 13,
+												"parent_index": 6046
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_MaxHave_$5985",
+													"type_string": "contract MaxHave"
+												}
+											],
+											"arguments": [
+												{
+													"id": 6056,
+													"node_type": 16,
+													"src": {
+														"id": 6057,
+														"line": 1290,
+														"column": 33,
+														"start": 39779,
+														"end": 39782,
+														"length": 4,
+														"parent_index": 6050
+													},
+													"name": "this",
+													"type_description": {
+														"type_identifier": "t_contract$_MaxHave_$5985",
+														"type_string": "contract MaxHave"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 6052,
+												"node_type": 16,
+												"src": {
+													"id": 6053,
+													"line": 1290,
+													"column": 25,
+													"start": 39771,
+													"end": 39777,
+													"length": 7,
+													"parent_index": 6050
+												},
+												"name": "address",
+												"type_name": {
+													"id": 6054,
+													"node_type": 30,
+													"src": {
+														"id": 6055,
+														"line": 1290,
+														"column": 25,
+														"start": 39771,
+														"end": 39777,
+														"length": 7,
+														"parent_index": 6052
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_address$",
+											"type_string": "index[mapping(address=\u003ebool):function(address)]"
+										}
+									},
+									"right_expression": {
+										"id": 6058,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 6059,
+											"line": 1290,
+											"column": 42,
+											"start": 39788,
+											"end": 39791,
+											"length": 4,
+											"parent_index": 6044
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_address$",
+										"type_string": "index[mapping(address=\u003ebool):function(address)]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_address$",
+									"type_string": "index[mapping(address=\u003ebool):function(address)]"
+								}
+							},
+							{
+								"id": 6060,
+								"node_type": 27,
+								"src": {
+									"id": 6061,
+									"line": 1291,
+									"column": 8,
+									"start": 39802,
+									"end": 39837,
+									"length": 36,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6062,
+									"node_type": 27,
+									"src": {
+										"id": 6063,
+										"line": 1291,
+										"column": 8,
+										"start": 39802,
+										"end": 39836,
+										"length": 35,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6064,
+										"node_type": 22,
+										"src": {
+											"id": 6065,
+											"line": 1291,
+											"column": 8,
+											"start": 39802,
+											"end": 39829,
+											"length": 28,
+											"parent_index": 6062
+										},
+										"index_expression": {
+											"id": 6066,
+											"node_type": 16,
+											"src": {
+												"id": 6067,
+												"line": 1291,
+												"column": 8,
+												"start": 39802,
+												"end": 39817,
+												"length": 16,
+												"parent_index": 6064
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6068,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 6069,
+												"line": 1291,
+												"column": 25,
+												"start": 39819,
+												"end": 39828,
+												"length": 10,
+												"parent_index": 6064
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0"
+												}
+											],
+											"arguments": [
+												{
+													"id": 6074,
+													"node_type": 17,
+													"kind": 49,
+													"value": "0",
+													"hex_value": "30",
+													"src": {
+														"id": 6075,
+														"line": 1291,
+														"column": 33,
+														"start": 39827,
+														"end": 39827,
+														"length": 1,
+														"parent_index": 6068
+													},
+													"type_description": {
+														"type_identifier": "t_rational_0_by_1",
+														"type_string": "int_const 0"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												}
+											],
+											"expression": {
+												"id": 6070,
+												"node_type": 16,
+												"src": {
+													"id": 6071,
+													"line": 1291,
+													"column": 25,
+													"start": 39819,
+													"end": 39825,
+													"length": 7,
+													"parent_index": 6068
+												},
+												"name": "address",
+												"type_name": {
+													"id": 6072,
+													"node_type": 30,
+													"src": {
+														"id": 6073,
+														"line": 1291,
+														"column": 25,
+														"start": 39819,
+														"end": 39825,
+														"length": 7,
+														"parent_index": 6070
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0)"
+											}
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0)"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+											"type_string": "index[mapping(address=\u003ebool):function(int_const 0)]"
+										}
+									},
+									"right_expression": {
+										"id": 6076,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 6077,
+											"line": 1291,
+											"column": 39,
+											"start": 39833,
+											"end": 39836,
+											"length": 4,
+											"parent_index": 6062
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+										"type_string": "index[mapping(address=\u003ebool):function(int_const 0)]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+									"type_string": "index[mapping(address=\u003ebool):function(int_const 0)]"
+								}
+							},
+							{
+								"id": 6078,
+								"node_type": 27,
+								"src": {
+									"id": 6079,
+									"line": 1292,
+									"column": 8,
+									"start": 39847,
+									"end": 39887,
+									"length": 41,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6080,
+									"node_type": 27,
+									"src": {
+										"id": 6081,
+										"line": 1292,
+										"column": 8,
+										"start": 39847,
+										"end": 39886,
+										"length": 40,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6082,
+										"node_type": 22,
+										"src": {
+											"id": 6083,
+											"line": 1292,
+											"column": 8,
+											"start": 39847,
+											"end": 39879,
+											"length": 33,
+											"parent_index": 6080
+										},
+										"index_expression": {
+											"id": 6084,
+											"node_type": 16,
+											"src": {
+												"id": 6085,
+												"line": 1292,
+												"column": 8,
+												"start": 39847,
+												"end": 39862,
+												"length": 16,
+												"parent_index": 6082
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6086,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 6087,
+												"line": 1292,
+												"column": 25,
+												"start": 39864,
+												"end": 39878,
+												"length": 15,
+												"parent_index": 6082
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0xdead"
+												}
+											],
+											"arguments": [
+												{
+													"id": 6092,
+													"node_type": 17,
+													"kind": 49,
+													"value": "0xdead",
+													"hex_value": "307864656164",
+													"src": {
+														"id": 6093,
+														"line": 1292,
+														"column": 33,
+														"start": 39872,
+														"end": 39877,
+														"length": 6,
+														"parent_index": 6086
+													},
+													"type_description": {
+														"type_identifier": "t_rational_0_by_1",
+														"type_string": "int_const 0xdead"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												}
+											],
+											"expression": {
+												"id": 6088,
+												"node_type": 16,
+												"src": {
+													"id": 6089,
+													"line": 1292,
+													"column": 25,
+													"start": 39864,
+													"end": 39870,
+													"length": 7,
+													"parent_index": 6086
+												},
+												"name": "address",
+												"type_name": {
+													"id": 6090,
+													"node_type": 30,
+													"src": {
+														"id": 6091,
+														"line": 1292,
+														"column": 25,
+														"start": 39864,
+														"end": 39870,
+														"length": 7,
+														"parent_index": 6088
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0xdead)"
+											}
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0xdead)"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+											"type_string": "index[mapping(address=\u003ebool):function(int_const 0xdead)]"
+										}
+									},
+									"right_expression": {
+										"id": 6094,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 6095,
+											"line": 1292,
+											"column": 44,
+											"start": 39883,
+											"end": 39886,
+											"length": 4,
+											"parent_index": 6080
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+										"type_string": "index[mapping(address=\u003ebool):function(int_const 0xdead)]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+									"type_string": "index[mapping(address=\u003ebool):function(int_const 0xdead)]"
+								}
+							},
+							{
+								"id": 6096,
+								"node_type": 27,
+								"src": {
+									"id": 6097,
+									"line": 1293,
+									"column": 8,
+									"start": 39897,
+									"end": 39973,
+									"length": 77,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6098,
+									"node_type": 27,
+									"src": {
+										"id": 6099,
+										"line": 1293,
+										"column": 8,
+										"start": 39897,
+										"end": 39972,
+										"length": 76,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6100,
+										"node_type": 22,
+										"src": {
+											"id": 6101,
+											"line": 1293,
+											"column": 8,
+											"start": 39897,
+											"end": 39965,
+											"length": 69,
+											"parent_index": 6098
+										},
+										"index_expression": {
+											"id": 6102,
+											"node_type": 16,
+											"src": {
+												"id": 6103,
+												"line": 1293,
+												"column": 8,
+												"start": 39897,
+												"end": 39912,
+												"length": 16,
+												"parent_index": 6100
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6104,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 6105,
+												"line": 1293,
+												"column": 25,
+												"start": 39914,
+												"end": 39964,
+												"length": 51,
+												"parent_index": 6100
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8"
+												}
+											],
+											"arguments": [
+												{
+													"id": 6110,
+													"node_type": 17,
+													"kind": 49,
+													"value": "0x714675834Fc80Ff85f892840d7940496C52b1BA8",
+													"hex_value": "307837313436373538333446633830466638356638393238343064373934303439364335326231424138",
+													"src": {
+														"id": 6111,
+														"line": 1293,
+														"column": 33,
+														"start": 39922,
+														"end": 39963,
+														"length": 42,
+														"parent_index": 6104
+													},
+													"type_description": {
+														"type_identifier": "t_rational_0_by_1",
+														"type_string": "int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												}
+											],
+											"expression": {
+												"id": 6106,
+												"node_type": 16,
+												"src": {
+													"id": 6107,
+													"line": 1293,
+													"column": 25,
+													"start": 39914,
+													"end": 39920,
+													"length": 7,
+													"parent_index": 6104
+												},
+												"name": "address",
+												"type_name": {
+													"id": 6108,
+													"node_type": 30,
+													"src": {
+														"id": 6109,
+														"line": 1293,
+														"column": 25,
+														"start": 39914,
+														"end": 39920,
+														"length": 7,
+														"parent_index": 6106
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8)"
+											}
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8)"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+											"type_string": "index[mapping(address=\u003ebool):function(int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8)]"
+										}
+									},
+									"right_expression": {
+										"id": 6112,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 6113,
+											"line": 1293,
+											"column": 80,
+											"start": 39969,
+											"end": 39972,
+											"length": 4,
+											"parent_index": 6098
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+										"type_string": "index[mapping(address=\u003ebool):function(int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8)]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+									"type_string": "index[mapping(address=\u003ebool):function(int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8)]"
+								}
+							},
+							{
+								"id": 6114,
+								"node_type": 27,
+								"src": {
+									"id": 6115,
+									"line": 1294,
+									"column": 8,
+									"start": 39983,
+									"end": 40059,
+									"length": 77,
+									"parent_index": 6018
+								},
+								"expression": {
+									"id": 6116,
+									"node_type": 27,
+									"src": {
+										"id": 6117,
+										"line": 1294,
+										"column": 8,
+										"start": 39983,
+										"end": 40058,
+										"length": 76,
+										"parent_index": 6018
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6118,
+										"node_type": 22,
+										"src": {
+											"id": 6119,
+											"line": 1294,
+											"column": 8,
+											"start": 39983,
+											"end": 40051,
+											"length": 69,
+											"parent_index": 6116
+										},
+										"index_expression": {
+											"id": 6120,
+											"node_type": 16,
+											"src": {
+												"id": 6121,
+												"line": 1294,
+												"column": 8,
+												"start": 39983,
+												"end": 39998,
+												"length": 16,
+												"parent_index": 6118
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6122,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 6123,
+												"line": 1294,
+												"column": 25,
+												"start": 40000,
+												"end": 40050,
+												"length": 51,
+												"parent_index": 6118
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C"
+												}
+											],
+											"arguments": [
+												{
+													"id": 6128,
+													"node_type": 17,
+													"kind": 49,
+													"value": "0x242B3f82697846f4d0fd979EE2fA960aAd41d31C",
+													"hex_value": "307832343242336638323639373834366634643066643937394545326641393630614164343164333143",
+													"src": {
+														"id": 6129,
+														"line": 1294,
+														"column": 33,
+														"start": 40008,
+														"end": 40049,
+														"length": 42,
+														"parent_index": 6122
+													},
+													"type_description": {
+														"type_identifier": "t_rational_0_by_1",
+														"type_string": "int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												}
+											],
+											"expression": {
+												"id": 6124,
+												"node_type": 16,
+												"src": {
+													"id": 6125,
+													"line": 1294,
+													"column": 25,
+													"start": 40000,
+													"end": 40006,
+													"length": 7,
+													"parent_index": 6122
+												},
+												"name": "address",
+												"type_name": {
+													"id": 6126,
+													"node_type": 30,
+													"src": {
+														"id": 6127,
+														"line": 1294,
+														"column": 25,
+														"start": 40000,
+														"end": 40006,
+														"length": 7,
+														"parent_index": 6124
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)"
+											}
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+											"type_string": "index[mapping(address=\u003ebool):function(int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)]"
+										}
+									},
+									"right_expression": {
+										"id": 6130,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 6131,
+											"line": 1294,
+											"column": 80,
+											"start": 40055,
+											"end": 40058,
+											"length": 4,
+											"parent_index": 6116
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+										"type_string": "index[mapping(address=\u003ebool):function(int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
+									"type_string": "index[mapping(address=\u003ebool):function(int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)]"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 6133,
+					"name": "setMaxHavAmount",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 6134,
+						"line": 1297,
+						"column": 4,
+						"start": 40073,
+						"end": 40168,
+						"length": 96,
+						"parent_index": 5989
+					},
+					"name_location": {
+						"line": 1297,
+						"column": 13,
+						"start": 40082,
+						"end": 40096,
+						"length": 15,
+						"parent_index": 6133
+					},
+					"body": {
+						"id": 6141,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 6142,
+							"line": 1297,
+							"column": 50,
+							"start": 40119,
+							"end": 40168,
+							"length": 50,
+							"parent_index": 6133
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6143,
+								"node_type": 27,
+								"src": {
+									"id": 6144,
+									"line": 1298,
+									"column": 8,
+									"start": 40129,
+									"end": 40162,
+									"length": 34,
+									"parent_index": 6141
+								},
+								"expression": {
+									"id": 6145,
+									"node_type": 27,
+									"src": {
+										"id": 6146,
+										"line": 1298,
+										"column": 8,
+										"start": 40129,
+										"end": 40161,
+										"length": 33,
+										"parent_index": 6141
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6147,
+										"node_type": 16,
+										"src": {
+											"id": 6148,
+											"line": 1298,
+											"column": 8,
+											"start": 40129,
+											"end": 40141,
+											"length": 13,
+											"parent_index": 6145
+										},
+										"name": "_maxHavAmount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5995,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 6149,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 6150,
+											"line": 1298,
+											"column": 24,
+											"start": 40145,
+											"end": 40161,
+											"length": 17,
+											"parent_index": 6145
+										},
+										"member_location": {
+											"line": 1298,
+											"column": 38,
+											"start": 40159,
+											"end": 40161,
+											"length": 3,
+											"parent_index": 6149
+										},
+										"expression": {
+											"id": 6151,
+											"node_type": 16,
+											"name": "type",
+											"src": {
+												"id": 6152,
+												"line": 1298,
+												"column": 24,
+												"start": 40145,
+												"end": 40157,
+												"length": 13,
+												"parent_index": 6149
+											},
+											"type_description": {
+												"type_identifier": "",
+												"type_string": "type"
+											}
+										},
+										"member_name": "max",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "",
+											"type_string": "type"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 6135,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 6136,
+								"line": 1297,
+								"column": 40,
+								"start": 40109,
+								"end": 40117,
+								"length": 9,
+								"parent_index": 6133
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 6137,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 6138,
+									"line": 1297,
+									"column": 40,
+									"start": 40109,
+									"end": 40117,
+									"length": 9,
+									"parent_index": 6135
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 6139,
+						"node_type": 43,
+						"src": {
+							"id": 6134,
+							"line": 1297,
+							"column": 4,
+							"start": 40073,
+							"end": 40168,
+							"length": 96,
+							"parent_index": 6133
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 6140,
+						"node_type": 43,
+						"src": {
+							"id": 6134,
+							"line": 1297,
+							"column": 4,
+							"start": 40073,
+							"end": 40168,
+							"length": 96,
+							"parent_index": 6133
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5989,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				},
+				{
+					"id": 6154,
+					"name": "setIsHavLimitExempt",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 6155,
+						"line": 1301,
+						"column": 4,
+						"start": 40175,
+						"end": 40329,
+						"length": 155,
+						"parent_index": 5989
+					},
+					"name_location": {
+						"line": 1301,
+						"column": 13,
+						"start": 40184,
+						"end": 40202,
+						"length": 19,
+						"parent_index": 6154
+					},
+					"body": {
+						"id": 6171,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 6172,
+							"line": 1304,
+							"column": 25,
+							"start": 40277,
+							"end": 40329,
+							"length": 53,
+							"parent_index": 6154
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6173,
+								"node_type": 27,
+								"src": {
+									"id": 6174,
+									"line": 1305,
+									"column": 8,
+									"start": 40287,
+									"end": 40323,
+									"length": 37,
+									"parent_index": 6171
+								},
+								"expression": {
+									"id": 6175,
+									"node_type": 27,
+									"src": {
+										"id": 6176,
+										"line": 1305,
+										"column": 8,
+										"start": 40287,
+										"end": 40322,
+										"length": 36,
+										"parent_index": 6171
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6177,
+										"node_type": 22,
+										"src": {
+											"id": 6178,
+											"line": 1305,
+											"column": 8,
+											"start": 40287,
+											"end": 40310,
+											"length": 24,
+											"parent_index": 6175
+										},
+										"index_expression": {
+											"id": 6179,
+											"node_type": 16,
+											"src": {
+												"id": 6180,
+												"line": 1305,
+												"column": 8,
+												"start": 40287,
+												"end": 40302,
+												"length": 16,
+												"parent_index": 6177
+											},
+											"name": "isHavLimitExempt",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6000,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 6181,
+											"node_type": 16,
+											"src": {
+												"id": 6182,
+												"line": 1305,
+												"column": 25,
+												"start": 40304,
+												"end": 40309,
+												"length": 6,
+												"parent_index": 6177
+											},
+											"name": "holder",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 6181,
+											"is_pure": false
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003ebool):address]"
+										}
+									},
+									"right_expression": {
+										"id": 6183,
+										"node_type": 16,
+										"src": {
+											"id": 6184,
+											"line": 1305,
+											"column": 35,
+											"start": 40314,
+											"end": 40322,
+											"length": 9,
+											"parent_index": 6175
+										},
+										"name": "havExempt",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6183,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003ebool):address]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+									"type_string": "index[mapping(address=\u003ebool):address]"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 6156,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 6157,
+								"line": 1304,
+								"column": 15,
+								"start": 40267,
+								"end": 40275,
+								"length": 9,
+								"parent_index": 6154
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 6158,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 6159,
+									"line": 1304,
+									"column": 15,
+									"start": 40267,
+									"end": 40275,
+									"length": 9,
+									"parent_index": 6156
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 6160,
+						"node_type": 43,
+						"src": {
+							"id": 6161,
+							"line": 1302,
+							"column": 8,
+							"start": 40213,
+							"end": 40250,
+							"length": 38,
+							"parent_index": 6154
+						},
+						"parameters": [
+							{
+								"id": 6162,
+								"node_type": 44,
+								"src": {
+									"id": 6163,
+									"line": 1302,
+									"column": 8,
+									"start": 40213,
+									"end": 40226,
+									"length": 14,
+									"parent_index": 6160
+								},
+								"scope": 6154,
+								"name": "holder",
+								"type_name": {
+									"id": 6164,
+									"node_type": 30,
+									"src": {
+										"id": 6165,
+										"line": 1302,
+										"column": 8,
+										"start": 40213,
+										"end": 40219,
+										"length": 7,
+										"parent_index": 6162
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 6166,
+								"node_type": 44,
+								"src": {
+									"id": 6167,
+									"line": 1303,
+									"column": 8,
+									"start": 40237,
+									"end": 40250,
+									"length": 14,
+									"parent_index": 6160
+								},
+								"scope": 6154,
+								"name": "havExempt",
+								"type_name": {
+									"id": 6168,
+									"node_type": 30,
+									"src": {
+										"id": 6169,
+										"line": 1303,
+										"column": 8,
+										"start": 40237,
+										"end": 40240,
+										"length": 4,
+										"parent_index": 6166
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6170,
+						"node_type": 43,
+						"src": {
+							"id": 6155,
+							"line": 1301,
+							"column": 4,
+							"start": 40175,
+							"end": 40329,
+							"length": 155,
+							"parent_index": 6154
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5989,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_bool$",
+						"type_string": "function(address,bool)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				88,
+				5989
+			],
+			"base_contracts": [
+				{
+					"id": 5990,
+					"node_type": 62,
+					"src": {
+						"id": 5991,
+						"line": 1283,
+						"column": 29,
+						"start": 39541,
+						"end": 39547,
+						"length": 7,
+						"parent_index": 5989
+					},
+					"base_name": {
+						"id": 5992,
+						"node_type": 52,
+						"src": {
+							"id": 5993,
+							"line": 1283,
+							"column": 29,
+							"start": 39541,
+							"end": 39547,
+							"length": 7,
+							"parent_index": 5989
+						},
+						"name": "Ownable",
+						"referenced_declaration": 88
+					}
+				}
+			],
+			"contract_dependencies": [
+				88
+			]
+		}
+	],
+	"src": {
+		"id": 5986,
+		"line": 1283,
+		"column": 0,
+		"start": 39512,
+		"end": 40331,
+		"length": 820,
+		"parent_index": 87
+	}
+}

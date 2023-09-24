@@ -155,6 +155,25 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectsErrors:        false,
 		},
 		{
+			name:       "PTM Contract - 0x9A4e2AB29f9edE0c362f82F873F9d727810480F2",
+			outputPath: "contracts/ptm/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Ptm",
+						Path:    tests.ReadContractFileForTest(t, "contracts/ptm/Ptm").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/ptm/Ptm").Content,
+					},
+				},
+				EntrySourceUnitName: "PTM",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/ptm/Ptm.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/ptm/Ptm.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{
