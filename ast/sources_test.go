@@ -97,6 +97,24 @@ func getSourceTestCases(t *testing.T) []struct {
 			unresolvedReferences: 0,
 		},
 		{
+			name:       "BlockchainLottery Contract - 0xb334015E66d7203d8891Ce5E78eAeEFB6B3aE392",
+			outputPath: "contracts/blottery/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Lottery",
+						Path:    tests.ReadContractFileForTest(t, "contracts/blottery/Lottery").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/blottery/Lottery").Content,
+					},
+				},
+				EntrySourceUnitName: "BlockchainLottery",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/blottery/Lottery.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/blottery/Lottery.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{

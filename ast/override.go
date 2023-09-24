@@ -167,10 +167,6 @@ func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnN
 	}
 	o.NodeType = ast_pb.NodeType_OVERRIDE_SPECIFIER
 
-	// Not yet able to figure this part out entirely...
-	// @TODO: Figure out how to parse this, as override can be specified, without any paths which
-	// is what the hell to figure out what actual function name is...
-	// Findings afer this note is that these are derived contracts.
 	if ctx.GetOverrides() != nil {
 		for _, override := range ctx.GetOverrides() {
 			oId := o.GetNextID()

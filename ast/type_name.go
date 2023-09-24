@@ -413,7 +413,14 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		} else if specificCtx.FunctionTypeName() != nil {
 			panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", specificCtx))
 		} else {
-			t.parseTypeName(sourceUnit, parentNode.GetId(), specificCtx.(*parser.TypeNameContext))
+			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+				typeName.Name,
+			)
+
+			typeName.TypeDescription = &TypeDescription{
+				TypeString:     normalizedTypeName,
+				TypeIdentifier: normalizedTypeIdentifier,
+			}
 		}
 	}
 
