@@ -31,6 +31,10 @@ func (t *Tree) AppendRootNodes(roots ...*SourceUnit[Node[ast_pb.SourceUnit]]) {
 	t.astRoot.SourceUnits = append(t.astRoot.SourceUnits, roots...)
 }
 
+func (t *Tree) AppendGlobalNodes(nodes ...Node[NodeType]) {
+	t.astRoot.Globals = append(t.astRoot.Globals, nodes...)
+}
+
 // GetRoot returns the root node of the Abstract Syntax Tree (AST).
 func (t *Tree) GetRoot() *RootNode {
 	return t.astRoot
@@ -78,8 +82,10 @@ func (t *Tree) UpdateNodeReferenceById(nodeId int64, nodeRefId int64, typeRef *T
 // byRecursiveReferenceUpdate is a helper function that attempts to update the reference descriptor of a node by its ID by recursively searching the node's children.
 // Returns true if the node was found and updated, false otherwise.
 func (t *Tree) byRecursiveReferenceUpdate(child Node[NodeType], nodeId int64, nodeRefId int64, typeRef *TypeDescription) bool {
-	// Sometimes, child can be nil so we need to make sure we check for that.
-	// For example in Assignment, not all of the expressions are always set.
+	if child == nil {
+		return false
+	}
+
 	if child.GetId() == nodeId {
 		child.SetReferenceDescriptor(nodeRefId, typeRef)
 		t.updateParentReference(child, nodeRefId, typeRef)

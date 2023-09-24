@@ -207,4 +207,5 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 // It appends the source units to the root node.
 func (b *ASTBuilder) ExitSourceUnit(ctx *parser.SourceUnitContext) {
 	b.tree.AppendRootNodes(b.sourceUnits...)
+	b.tree.AppendGlobalNodes(b.globalDefinitions...)
 }

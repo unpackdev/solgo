@@ -15,6 +15,9 @@ type RootNode struct {
 	// EntrySourceUnit is the entry source unit of the root node.
 	EntrySourceUnit int64 `json:"entry_source_unit"`
 
+	// Globals is the list of global nodes.
+	Globals []Node[NodeType] `json:"globals"`
+
 	// SourceUnits is the list of source units.
 	SourceUnits []*SourceUnit[Node[ast_pb.SourceUnit]] `json:"root"`
 
@@ -30,6 +33,7 @@ func NewRootNode(builder *ASTBuilder, entrySourceUnit int64, sourceUnits []*Sour
 		NodeType:        ast_pb.NodeType_ROOT_SOURCE_UNIT,
 		Comments:        comments,
 		SourceUnits:     sourceUnits,
+		Globals:         make([]Node[NodeType], 0),
 	}
 }
 
@@ -121,6 +125,11 @@ func (r *RootNode) GetNodes() []Node[NodeType] {
 		toReturn = append(toReturn, sourceUnit)
 	}
 	return toReturn
+}
+
+// GetGlobalNodes returns the global nodes of the root node.
+func (r *RootNode) GetGlobalNodes() []Node[NodeType] {
+	return r.Globals
 }
 
 // ToProto returns the protobuf representation of the root node.

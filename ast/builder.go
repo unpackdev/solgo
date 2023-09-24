@@ -28,6 +28,7 @@ type ASTBuilder struct {
 	currentModifiers      []Node[NodeType]
 	currentFunctions      []Node[NodeType]
 	currentVariables      []Node[NodeType]
+	globalDefinitions     []Node[NodeType]
 }
 
 // NewAstBuilder creates a new ASTBuilder with the provided Solidity parser and source code.
@@ -105,4 +106,5 @@ func (b *ASTBuilder) GarbageCollect() {
 	b.currentStateVariables = nil
 	b.currentStructs = nil
 	b.currentVariables = nil
+	b.globalDefinitions = nil
 }
