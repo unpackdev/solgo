@@ -6,8 +6,8 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
-// AndOperation represents an 'and' operation in an abstract syntax tree.
-type AndOperation struct {
+// BitAndOperation represents an 'bit and' operation in an abstract syntax tree.
+type BitAndOperation struct {
 	*ASTBuilder
 
 	Id               int64              `json:"id"`
@@ -17,57 +17,57 @@ type AndOperation struct {
 	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
 }
 
-// NewAndOperationExpression creates a new AndOperation instance.
-func NewAndOperationExpression(b *ASTBuilder) *AndOperation {
-	return &AndOperation{
+// NewBitAndOperationExpression creates a new BitAndOperation instance.
+func NewBitAndOperationExpression(b *ASTBuilder) *BitAndOperation {
+	return &BitAndOperation{
 		ASTBuilder:       b,
 		Id:               b.GetNextID(),
-		NodeType:         ast_pb.NodeType_AND_OPERATION,
+		NodeType:         ast_pb.NodeType_BIT_AND_OPERATION,
 		TypeDescriptions: make([]*TypeDescription, 0),
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the AndOperation node.
+// SetReferenceDescriptor sets the reference descriptions of the BitAndOperation node.
 // This function always returns false for now.
-func (b *AndOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (b *BitAndOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-// GetId returns the ID of the AndOperation.
-func (f *AndOperation) GetId() int64 {
+// GetId returns the ID of the BitAndOperation.
+func (f *BitAndOperation) GetId() int64 {
 	return f.Id
 }
 
-// GetType returns the NodeType of the AndOperation.
-func (f *AndOperation) GetType() ast_pb.NodeType {
+// GetType returns the NodeType of the BitAndOperation.
+func (f *BitAndOperation) GetType() ast_pb.NodeType {
 	return f.NodeType
 }
 
-// GetSrc returns the source information of the AndOperation.
-func (f *AndOperation) GetSrc() SrcNode {
+// GetSrc returns the source information of the BitAndOperation.
+func (f *BitAndOperation) GetSrc() SrcNode {
 	return f.Src
 }
 
-// GetTypeDescription returns the type description associated with the AndOperation.
-func (f *AndOperation) GetTypeDescription() *TypeDescription {
+// GetTypeDescription returns the type description associated with the BitAndOperation.
+func (f *BitAndOperation) GetTypeDescription() *TypeDescription {
 	return f.TypeDescriptions[0]
 }
 
-// GetNodes returns the child nodes of the AndOperation.
-func (f *AndOperation) GetNodes() []Node[NodeType] {
+// GetNodes returns the child nodes of the BitAndOperation.
+func (f *BitAndOperation) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{}
 	toReturn = append(toReturn, f.Expressions...)
 	return toReturn
 }
 
-// GetExpressions returns the expressions within the AndOperation.
-func (f *AndOperation) GetExpressions() []Node[NodeType] {
+// GetExpressions returns the expressions within the BitAndOperation.
+func (f *BitAndOperation) GetExpressions() []Node[NodeType] {
 	return f.Expressions
 }
 
-// ToProto converts the AndOperation to its corresponding protocol buffer representation.
-func (f *AndOperation) ToProto() NodeType {
-	proto := ast_pb.AndOperation{
+// ToProto converts the BitAndOperation to its corresponding protocol buffer representation.
+func (f *BitAndOperation) ToProto() NodeType {
+	proto := ast_pb.BitAndOperation{
 		Id:               f.GetId(),
 		NodeType:         f.GetType(),
 		Src:              f.GetSrc().ToProto(),
@@ -83,18 +83,18 @@ func (f *AndOperation) ToProto() NodeType {
 		proto.TypeDescriptions = append(proto.TypeDescriptions, typeDesc.ToProto())
 	}
 
-	return NewTypedStruct(&proto, "AndOperation")
+	return NewTypedStruct(&proto, "BitAndOperation")
 }
 
-// Parse parses the AndOperation node from the parsing context and associates it with other nodes.
-func (f *AndOperation) Parse(
+// Parse parses the BitAndOperation node from the parsing context and associates it with other nodes.
+func (f *BitAndOperation) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
-	ctx *parser.AndOperationContext,
+	ctx *parser.BitAndOperationContext,
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{

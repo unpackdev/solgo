@@ -62,7 +62,7 @@ func getSourceTestCases(t *testing.T) []struct {
 		},
 		{
 			name:       "BabyToken Contract - 0xadd33a83549e115e3171c645b15a16ec6d1b5352",
-			outputPath: "contracts/papa/",
+			outputPath: "contracts/babytoken/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
 					{

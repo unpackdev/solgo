@@ -111,6 +111,9 @@ func (e *Expression) Parse(
 	case *parser.AndOperationContext:
 		andOperation := NewAndOperationExpression(e.ASTBuilder)
 		return andOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.BitAndOperationContext:
+		bitAndOperation := NewBitAndOperationExpression(e.ASTBuilder)
+		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	default:
 		zap.L().Warn(
 			"Expression type not supported @ Expression.Parse",
