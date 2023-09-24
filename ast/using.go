@@ -132,11 +132,19 @@ func (u *UsingDirective) Parse(
 		ParentIndex: contractNode.GetId(),
 	}
 
-	typeName := NewTypeName(u.ASTBuilder)
-	typeName.Parse(unit, contractNode, u.GetId(), ctx.TypeName())
-	u.TypeName = typeName
-	u.TypeDescription = typeName.TypeDescription
 	u.LibraryName = u.getLibraryName(ctx.IdentifierPath(0))
+
+	if ctx.TypeName() != nil {
+		typeName := NewTypeName(u.ASTBuilder)
+		typeName.Parse(unit, contractNode, u.GetId(), ctx.TypeName())
+		u.TypeName = typeName
+		u.TypeDescription = typeName.TypeDescription
+	} else if ctx.Mul() != nil {
+		typeName := NewTypeName(u.ASTBuilder)
+		typeName.ParseMul(unit, contractNode, u.GetId(), ctx.Mul())
+		u.TypeName = typeName
+		u.TypeDescription = typeName.TypeDescription
+	}
 }
 
 // getLibraryName extracts and returns the LibraryName instance from the provided identifier context.

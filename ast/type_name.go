@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 
+	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 	"go.uber.org/zap"
@@ -438,6 +439,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 // Parse parses the TypeName from the given TypeNameContext.
 func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.ITypeNameContext) {
 	t.Id = t.GetNextID()
+
 	t.Src = SrcNode{
 		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -466,6 +468,28 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			"Expression type is not supported yet @ TypeName.Parse",
 			zap.String("expression", ctx.Expression().GetText()),
 		)
+	}
+}
+
+// ParseMul parses the TypeName from the given TermalNode.
+func (t *TypeName) ParseMul(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx antlr.TerminalNode) {
+	t.Id = t.GetNextID()
+	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
+	t.Name = ctx.GetText()
+
+	t.Src = SrcNode{
+		Id:          t.GetNextID(),
+		Line:        int64(ctx.GetSymbol().GetLine()),
+		Column:      int64(ctx.GetSymbol().GetColumn()),
+		Start:       int64(ctx.GetSymbol().GetStart()),
+		End:         int64(ctx.GetSymbol().GetStop()),
+		Length:      int64(ctx.GetSymbol().GetStop() - ctx.GetSymbol().GetStart() + 1),
+		ParentIndex: parentNodeId,
+	}
+
+	t.TypeDescription = &TypeDescription{
+		TypeString:     "string",
+		TypeIdentifier: "t_string_literal",
 	}
 }
 

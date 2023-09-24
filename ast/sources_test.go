@@ -174,6 +174,25 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectsErrors:        false,
 		},
 		{
+			name:       "KnoxLpLocker Contract - 0x09D10fbcEbd414DE4683856fF72a3587761A1587",
+			outputPath: "contracts/knox/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "KnoxLpLocker",
+						Path:    tests.ReadContractFileForTest(t, "contracts/knox/Knox").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/knox/Knox").Content,
+					},
+				},
+				EntrySourceUnitName: "KnoxLpLocker",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/knox/Knox.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/knox/Knox.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{
