@@ -12,7 +12,6 @@ type Override struct {
 	Id                      int64                  `json:"id"`
 	NodeType                ast_pb.NodeType        `json:"node_type"`
 	Name                    string                 `json:"name"`
-	Overrides               []*Parameter           `json:"overrides"`
 	ReferencedDeclarationId int64                  `json:"referenced_declaration_id"`
 	TypeDescription         *ast.TypeDescription   `json:"type_description"`
 }
@@ -35,11 +34,6 @@ func (m *Override) GetName() string {
 // GetNodeType returns the AST node type of the Override.
 func (m *Override) GetNodeType() ast_pb.NodeType {
 	return m.NodeType
-}
-
-// GetOverrides returns the list of Parameters representing the overrides.
-func (m *Override) GetOverrides() []*Parameter {
-	return m.Overrides
 }
 
 // GetReferencedDeclarationId returns the ID of the referenced declaration for the Override.
@@ -66,10 +60,5 @@ func (m *Override) ToProto() *ir_pb.Override {
 		ReferencedDeclarationId: m.GetReferencedDeclarationId(),
 		TypeDescription:         m.GetTypeDescription().ToProto(),
 	}
-
-	for _, override := range m.GetOverrides() {
-		proto.Overrides = append(proto.Overrides, override.ToProto())
-	}
-
 	return proto
 }
