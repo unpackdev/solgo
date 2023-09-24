@@ -16,6 +16,7 @@ func getSourceTestCases(t *testing.T) []struct {
 	expectedProto        string
 	unresolvedReferences int64
 	expectsErrors        bool
+	disabled             bool
 } {
 	return []struct {
 		name                 string
@@ -25,6 +26,7 @@ func getSourceTestCases(t *testing.T) []struct {
 		expectedProto        string
 		unresolvedReferences int64
 		expectsErrors        bool
+		disabled             bool
 	}{
 		{
 			name:       "Empty Contract Test",
@@ -191,6 +193,26 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/knox/Knox.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
+		},
+		{
+			name:       "AdminUpgradeabilityProxy Contract - 0xA567D9B111b570cc5b68eDef188056FFfD1e2813",
+			outputPath: "contracts/adminproxy/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "AdminUpgradeabilityProxy",
+						Path:    tests.ReadContractFileForTest(t, "contracts/adminproxy/Admin").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/adminproxy/Admin").Content,
+					},
+				},
+				EntrySourceUnitName: "AdminUpgradeabilityProxy",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             true, // 0.5.10 contract, has some issues with the parser
 		},
 		{
 			name:       "Simple Storage Contract Test",

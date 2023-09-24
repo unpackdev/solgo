@@ -27,6 +27,10 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 	testCases := getSourceTestCases(t)
 
 	for _, testCase := range testCases {
+		if testCase.disabled {
+			continue
+		}
+
 		t.Run(testCase.name, func(t *testing.T) {
 
 			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
@@ -312,6 +316,10 @@ func TestAstReferenceSetDescriptor(t *testing.T) {
 	testCases := getSourceTestCases(t)
 
 	for _, testCase := range testCases {
+		if testCase.disabled {
+			continue
+		}
+
 		t.Run(testCase.name, func(t *testing.T) {
 			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
 			assert.NoError(t, err)
