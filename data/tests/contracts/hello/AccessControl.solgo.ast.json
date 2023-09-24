@@ -1,0 +1,6613 @@
+{
+	"id": 3313,
+	"base_contracts": [
+		{
+			"id": 3338,
+			"node_type": 62,
+			"src": {
+				"id": 3339,
+				"line": 1068,
+				"column": 35,
+				"start": 34986,
+				"end": 34992,
+				"length": 7,
+				"parent_index": 3337
+			},
+			"base_name": {
+				"id": 3340,
+				"node_type": 52,
+				"src": {
+					"id": 3341,
+					"line": 1068,
+					"column": 35,
+					"start": 34986,
+					"end": 34992,
+					"length": 7,
+					"parent_index": 3337
+				},
+				"name": "Context",
+				"referenced_declaration": 1014
+			}
+		},
+		{
+			"id": 3342,
+			"node_type": 62,
+			"src": {
+				"id": 3343,
+				"line": 1068,
+				"column": 44,
+				"start": 34995,
+				"end": 35008,
+				"length": 14,
+				"parent_index": 3337
+			},
+			"base_name": {
+				"id": 3344,
+				"node_type": 52,
+				"src": {
+					"id": 3345,
+					"line": 1068,
+					"column": 44,
+					"start": 34995,
+					"end": 35008,
+					"length": 14,
+					"parent_index": 3337
+				},
+				"name": "IAccessControl",
+				"referenced_declaration": 3207
+			}
+		},
+		{
+			"id": 3346,
+			"node_type": 62,
+			"src": {
+				"id": 3347,
+				"line": 1068,
+				"column": 60,
+				"start": 35011,
+				"end": 35016,
+				"length": 6,
+				"parent_index": 3337
+			},
+			"base_name": {
+				"id": 3348,
+				"node_type": 52,
+				"src": {
+					"id": 3349,
+					"line": 1068,
+					"column": 60,
+					"start": 35011,
+					"end": 35016,
+					"length": 6,
+					"parent_index": 3337
+				},
+				"name": "ERC165",
+				"referenced_declaration": 1476
+			}
+		}
+	],
+	"license": "MIT",
+	"exported_symbols": [
+		{
+			"id": 3313,
+			"name": "AccessControl",
+			"absolute_path": ""
+		},
+		{
+			"id": 3338,
+			"name": "Context",
+			"absolute_path": ""
+		},
+		{
+			"id": 3342,
+			"name": "IAccessControl",
+			"absolute_path": ""
+		},
+		{
+			"id": 3346,
+			"name": "ERC165",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "AccessControl",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 3335,
+			"node_type": 10,
+			"src": {
+				"id": 3336,
+				"line": 1007,
+				"column": 0,
+				"start": 32798,
+				"end": 32820,
+				"length": 23,
+				"parent_index": 3313
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"^",
+				"0",
+				".",
+				"8",
+				".",
+				"0",
+				";"
+			],
+			"text": "pragma solidity ^0.8.0;"
+		},
+		{
+			"id": 3337,
+			"name": "AccessControl",
+			"node_type": 35,
+			"src": {
+				"line": 1068,
+				"column": 0,
+				"start": 34951,
+				"end": 41279,
+				"length": 6329,
+				"parent_index": 3313
+			},
+			"name_location": {
+				"line": 1068,
+				"column": 18,
+				"start": 34969,
+				"end": 34981,
+				"length": 13,
+				"parent_index": 3337
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 3351,
+					"node_type": 67,
+					"src": {
+						"id": 3352,
+						"line": 1069,
+						"column": 4,
+						"start": 35024,
+						"end": 35115,
+						"length": 92,
+						"parent_index": 3313
+					},
+					"name": "RoleData",
+					"name_location": {
+						"line": 1069,
+						"column": 11,
+						"start": 35031,
+						"end": 35038,
+						"length": 8,
+						"parent_index": 3351
+					},
+					"canonical_name": "AccessControl.RoleData",
+					"type_description": {
+						"type_identifier": "t_struct$_AccessControl_RoleData_$3351",
+						"type_string": "struct AccessControl.RoleData"
+					},
+					"members": [
+						{
+							"id": 3353,
+							"node_type": 44,
+							"src": {
+								"id": 3354,
+								"line": 1070,
+								"column": 8,
+								"start": 35050,
+								"end": 35082,
+								"length": 33,
+								"parent_index": 3351
+							},
+							"scope": 3337,
+							"name": "members",
+							"type_name": {
+								"id": 3355,
+								"node_type": 0,
+								"src": {
+									"id": 3356,
+									"line": 1070,
+									"column": 8,
+									"start": 35050,
+									"end": 35073,
+									"length": 24,
+									"parent_index": 3353
+								},
+								"key_type": {
+									"id": 3357,
+									"node_type": 30,
+									"src": {
+										"id": 3358,
+										"line": 1070,
+										"column": 16,
+										"start": 35058,
+										"end": 35064,
+										"length": 7,
+										"parent_index": 3355
+									},
+									"name": "address",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"key_name_location": {
+									"line": 1070,
+									"column": 16,
+									"start": 35058,
+									"end": 35064,
+									"length": 7,
+									"parent_index": 3355
+								},
+								"value_type": {
+									"id": 3359,
+									"node_type": 30,
+									"src": {
+										"id": 3360,
+										"line": 1070,
+										"column": 27,
+										"start": 35069,
+										"end": 35072,
+										"length": 4,
+										"parent_index": 3355
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"value_name_location": {
+									"line": 1070,
+									"column": 27,
+									"start": 35069,
+									"end": 35072,
+									"length": 4,
+									"parent_index": 3355
+								},
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_mapping_$t_address_$t_bool$",
+									"type_string": "mapping(address=\u003ebool)"
+								}
+							},
+							"visibility": 1,
+							"state_mutability": 1
+						},
+						{
+							"id": 3361,
+							"node_type": 44,
+							"src": {
+								"id": 3362,
+								"line": 1071,
+								"column": 8,
+								"start": 35092,
+								"end": 35109,
+								"length": 18,
+								"parent_index": 3351
+							},
+							"scope": 3337,
+							"name": "adminRole",
+							"type_name": {
+								"id": 3363,
+								"node_type": 30,
+								"src": {
+									"id": 3364,
+									"line": 1071,
+									"column": 8,
+									"start": 35092,
+									"end": 35098,
+									"length": 7,
+									"parent_index": 3361
+								},
+								"name": "bytes32",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_bytes32",
+									"type_string": "bytes32"
+								}
+							},
+							"visibility": 1,
+							"state_mutability": 1
+						}
+					],
+					"visibility": 3,
+					"storage_location": 1
+				},
+				{
+					"id": 3366,
+					"name": "_roles",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 3367,
+						"line": 1074,
+						"column": 4,
+						"start": 35122,
+						"end": 35165,
+						"length": 44,
+						"parent_index": 3337
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+						"type_string": "mapping(bytes32=\u003eRoleData)"
+					},
+					"visibility": 2,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 3368,
+						"node_type": 69,
+						"src": {
+							"id": 3374,
+							"line": 1074,
+							"column": 23,
+							"start": 35141,
+							"end": 35148,
+							"length": 8,
+							"parent_index": 3368
+						},
+						"name": "RoleData",
+						"key_type": {
+							"id": 3370,
+							"node_type": 30,
+							"src": {
+								"id": 3371,
+								"line": 1074,
+								"column": 12,
+								"start": 35130,
+								"end": 35136,
+								"length": 7,
+								"parent_index": 3368
+							},
+							"name": "bytes32",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						},
+						"key_name_location": {
+							"line": 1074,
+							"column": 12,
+							"start": 35130,
+							"end": 35136,
+							"length": 7,
+							"parent_index": 3368
+						},
+						"value_type": {
+							"id": 3372,
+							"node_type": 30,
+							"src": {
+								"id": 3373,
+								"line": 1074,
+								"column": 23,
+								"start": 35141,
+								"end": 35148,
+								"length": 8,
+								"parent_index": 3368
+							},
+							"name": "RoleData",
+							"referenced_declaration": 3351,
+							"type_description": {
+								"type_identifier": "t_struct$_AccessControl_RoleData_$3351",
+								"type_string": "struct AccessControl.RoleData"
+							}
+						},
+						"value_name_location": {
+							"line": 1074,
+							"column": 23,
+							"start": 35141,
+							"end": 35148,
+							"length": 8,
+							"parent_index": 3368
+						},
+						"path_node": {
+							"id": 3375,
+							"name": "RoleData",
+							"node_type": 52,
+							"referenced_declaration": 3351,
+							"src": {
+								"id": 3376,
+								"line": 1074,
+								"column": 23,
+								"start": 35141,
+								"end": 35148,
+								"length": 8,
+								"parent_index": 3368
+							}
+						},
+						"referenced_declaration": 3351,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+							"type_string": "mapping(bytes32=\u003eRoleData)"
+						}
+					}
+				},
+				{
+					"id": 3378,
+					"name": "DEFAULT_ADMIN_ROLE",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 3379,
+						"line": 1076,
+						"column": 4,
+						"start": 35172,
+						"end": 35221,
+						"length": 50,
+						"parent_index": 3337
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_bytes32",
+						"type_string": "bytes32"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 3380,
+						"node_type": 30,
+						"src": {
+							"id": 3381,
+							"line": 1076,
+							"column": 4,
+							"start": 35172,
+							"end": 35178,
+							"length": 7,
+							"parent_index": 3378
+						},
+						"name": "bytes32",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_bytes32",
+							"type_string": "bytes32"
+						}
+					}
+				},
+				{
+					"id": 3383,
+					"node_type": 57,
+					"src": {
+						"id": 3384,
+						"line": 1086,
+						"column": 4,
+						"start": 35525,
+						"end": 35634,
+						"length": 110,
+						"parent_index": 3337
+					},
+					"parameters": {
+						"id": 3385,
+						"node_type": 43,
+						"src": {
+							"id": 3384,
+							"line": 1086,
+							"column": 4,
+							"start": 35525,
+							"end": 35634,
+							"length": 110,
+							"parent_index": 3383
+						},
+						"parameters": [
+							{
+								"id": 3386,
+								"node_type": 44,
+								"src": {
+									"id": 3387,
+									"line": 1086,
+									"column": 27,
+									"start": 35548,
+									"end": 35567,
+									"length": 20,
+									"parent_index": 3385
+								},
+								"scope": 3383,
+								"name": "role",
+								"type_name": {
+									"id": 3388,
+									"node_type": 30,
+									"src": {
+										"id": 3389,
+										"line": 1086,
+										"column": 27,
+										"start": 35548,
+										"end": 35554,
+										"length": 7,
+										"parent_index": 3386
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							},
+							{
+								"id": 3390,
+								"node_type": 44,
+								"src": {
+									"id": 3391,
+									"line": 1086,
+									"column": 49,
+									"start": 35570,
+									"end": 35602,
+									"length": 33,
+									"parent_index": 3385
+								},
+								"scope": 3383,
+								"name": "previousAdminRole",
+								"type_name": {
+									"id": 3392,
+									"node_type": 30,
+									"src": {
+										"id": 3393,
+										"line": 1086,
+										"column": 49,
+										"start": 35570,
+										"end": 35576,
+										"length": 7,
+										"parent_index": 3390
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							},
+							{
+								"id": 3394,
+								"node_type": 44,
+								"src": {
+									"id": 3395,
+									"line": 1086,
+									"column": 84,
+									"start": 35605,
+									"end": 35632,
+									"length": 28,
+									"parent_index": 3385
+								},
+								"scope": 3383,
+								"name": "newAdminRole",
+								"type_name": {
+									"id": 3396,
+									"node_type": 30,
+									"src": {
+										"id": 3397,
+										"line": 1086,
+										"column": 84,
+										"start": 35605,
+										"end": 35611,
+										"length": 7,
+										"parent_index": 3394
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"name": "RoleAdminChanged",
+					"anonymous": false
+				},
+				{
+					"id": 3399,
+					"node_type": 57,
+					"src": {
+						"id": 3400,
+						"line": 1094,
+						"column": 4,
+						"start": 35844,
+						"end": 35932,
+						"length": 89,
+						"parent_index": 3337
+					},
+					"parameters": {
+						"id": 3401,
+						"node_type": 43,
+						"src": {
+							"id": 3400,
+							"line": 1094,
+							"column": 4,
+							"start": 35844,
+							"end": 35932,
+							"length": 89,
+							"parent_index": 3399
+						},
+						"parameters": [
+							{
+								"id": 3402,
+								"node_type": 44,
+								"src": {
+									"id": 3403,
+									"line": 1094,
+									"column": 22,
+									"start": 35862,
+									"end": 35881,
+									"length": 20,
+									"parent_index": 3401
+								},
+								"scope": 3399,
+								"name": "role",
+								"type_name": {
+									"id": 3404,
+									"node_type": 30,
+									"src": {
+										"id": 3405,
+										"line": 1094,
+										"column": 22,
+										"start": 35862,
+										"end": 35868,
+										"length": 7,
+										"parent_index": 3402
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							},
+							{
+								"id": 3406,
+								"node_type": 44,
+								"src": {
+									"id": 3407,
+									"line": 1094,
+									"column": 44,
+									"start": 35884,
+									"end": 35906,
+									"length": 23,
+									"parent_index": 3401
+								},
+								"scope": 3399,
+								"name": "account",
+								"type_name": {
+									"id": 3408,
+									"node_type": 30,
+									"src": {
+										"id": 3409,
+										"line": 1094,
+										"column": 44,
+										"start": 35884,
+										"end": 35890,
+										"length": 7,
+										"parent_index": 3406
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 3410,
+								"node_type": 44,
+								"src": {
+									"id": 3411,
+									"line": 1094,
+									"column": 69,
+									"start": 35909,
+									"end": 35930,
+									"length": 22,
+									"parent_index": 3401
+								},
+								"scope": 3399,
+								"name": "sender",
+								"type_name": {
+									"id": 3412,
+									"node_type": 30,
+									"src": {
+										"id": 3413,
+										"line": 1094,
+										"column": 69,
+										"start": 35909,
+										"end": 35915,
+										"length": 7,
+										"parent_index": 3410
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "RoleGranted",
+					"anonymous": false
+				},
+				{
+					"id": 3415,
+					"node_type": 57,
+					"src": {
+						"id": 3416,
+						"line": 1103,
+						"column": 4,
+						"start": 36219,
+						"end": 36307,
+						"length": 89,
+						"parent_index": 3337
+					},
+					"parameters": {
+						"id": 3417,
+						"node_type": 43,
+						"src": {
+							"id": 3416,
+							"line": 1103,
+							"column": 4,
+							"start": 36219,
+							"end": 36307,
+							"length": 89,
+							"parent_index": 3415
+						},
+						"parameters": [
+							{
+								"id": 3418,
+								"node_type": 44,
+								"src": {
+									"id": 3419,
+									"line": 1103,
+									"column": 22,
+									"start": 36237,
+									"end": 36256,
+									"length": 20,
+									"parent_index": 3417
+								},
+								"scope": 3415,
+								"name": "role",
+								"type_name": {
+									"id": 3420,
+									"node_type": 30,
+									"src": {
+										"id": 3421,
+										"line": 1103,
+										"column": 22,
+										"start": 36237,
+										"end": 36243,
+										"length": 7,
+										"parent_index": 3418
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							},
+							{
+								"id": 3422,
+								"node_type": 44,
+								"src": {
+									"id": 3423,
+									"line": 1103,
+									"column": 44,
+									"start": 36259,
+									"end": 36281,
+									"length": 23,
+									"parent_index": 3417
+								},
+								"scope": 3415,
+								"name": "account",
+								"type_name": {
+									"id": 3424,
+									"node_type": 30,
+									"src": {
+										"id": 3425,
+										"line": 1103,
+										"column": 44,
+										"start": 36259,
+										"end": 36265,
+										"length": 7,
+										"parent_index": 3422
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 3426,
+								"node_type": 44,
+								"src": {
+									"id": 3427,
+									"line": 1103,
+									"column": 69,
+									"start": 36284,
+									"end": 36305,
+									"length": 22,
+									"parent_index": 3417
+								},
+								"scope": 3415,
+								"name": "sender",
+								"type_name": {
+									"id": 3428,
+									"node_type": 30,
+									"src": {
+										"id": 3429,
+										"line": 1103,
+										"column": 69,
+										"start": 36284,
+										"end": 36290,
+										"length": 7,
+										"parent_index": 3426
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "RoleRevoked",
+					"anonymous": false
+				},
+				{
+					"id": 3431,
+					"name": "onlyRole",
+					"node_type": 68,
+					"src": {
+						"id": 3432,
+						"line": 1115,
+						"column": 4,
+						"start": 36694,
+						"end": 36783,
+						"length": 90,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1115,
+						"column": 13,
+						"start": 36703,
+						"end": 36710,
+						"length": 8,
+						"parent_index": 3431
+					},
+					"visibility": 1,
+					"virtual": false,
+					"parameters": {
+						"id": 3433,
+						"node_type": 43,
+						"src": {
+							"id": 3434,
+							"line": 1115,
+							"column": 22,
+							"start": 36712,
+							"end": 36723,
+							"length": 12,
+							"parent_index": 3337
+						},
+						"parameters": [
+							{
+								"id": 3435,
+								"node_type": 44,
+								"src": {
+									"id": 3436,
+									"line": 1115,
+									"column": 22,
+									"start": 36712,
+									"end": 36723,
+									"length": 12,
+									"parent_index": 3433
+								},
+								"scope": 3337,
+								"name": "role",
+								"type_name": {
+									"id": 3437,
+									"node_type": 30,
+									"src": {
+										"id": 3438,
+										"line": 1115,
+										"column": 22,
+										"start": 36712,
+										"end": 36718,
+										"length": 7,
+										"parent_index": 3435
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"body": {
+						"id": 3439,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3440,
+							"line": 1115,
+							"column": 36,
+							"start": 36726,
+							"end": 36783,
+							"length": 58,
+							"parent_index": 3431
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3441,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 3442,
+									"line": 1116,
+									"column": 8,
+									"start": 36736,
+									"end": 36765,
+									"length": 30,
+									"parent_index": 3439
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									{
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									}
+								],
+								"arguments": [
+									{
+										"id": 3445,
+										"node_type": 16,
+										"src": {
+											"id": 3446,
+											"line": 1116,
+											"column": 19,
+											"start": 36747,
+											"end": 36750,
+											"length": 4,
+											"parent_index": 3441
+										},
+										"name": "role",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									{
+										"id": 3447,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 3448,
+											"line": 1116,
+											"column": 25,
+											"start": 36753,
+											"end": 36764,
+											"length": 12,
+											"parent_index": 3441
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 3449,
+											"node_type": 16,
+											"src": {
+												"id": 3450,
+												"line": 1116,
+												"column": 25,
+												"start": 36753,
+												"end": 36762,
+												"length": 10,
+												"parent_index": 3447
+											},
+											"name": "_msgSender",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									}
+								],
+								"expression": {
+									"id": 3443,
+									"node_type": 16,
+									"src": {
+										"id": 3444,
+										"line": 1116,
+										"column": 8,
+										"start": 36736,
+										"end": 36745,
+										"length": 10,
+										"parent_index": 3441
+									},
+									"name": "_checkRole",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_function_$",
+									"type_string": "function(function(),function())"
+								}
+							},
+							{
+								"id": 3451,
+								"node_type": 82,
+								"src": {
+									"id": 3452,
+									"line": 1117,
+									"column": 8,
+									"start": 36776,
+									"end": 36776,
+									"length": 1,
+									"parent_index": 3439
+								},
+								"name": "_",
+								"type_description": {
+									"type_identifier": "t_placeholder_literal",
+									"type_string": "t_placeholder"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": false
+							}
+						]
+					}
+				},
+				{
+					"id": 3454,
+					"name": "supportsInterface",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3455,
+						"line": 1123,
+						"column": 4,
+						"start": 36851,
+						"end": 37052,
+						"length": 202,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1123,
+						"column": 13,
+						"start": 36860,
+						"end": 36876,
+						"length": 17,
+						"parent_index": 3454
+					},
+					"body": {
+						"id": 3470,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3471,
+							"line": 1123,
+							"column": 95,
+							"start": 36942,
+							"end": 37052,
+							"length": 111,
+							"parent_index": 3454
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3472,
+								"node_type": 47,
+								"src": {
+									"id": 3473,
+									"line": 1124,
+									"column": 8,
+									"start": 36952,
+									"end": 37046,
+									"length": 95,
+									"parent_index": 3454
+								},
+								"function_return_parameters": 3454,
+								"expression": {
+									"id": 3474,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 3475,
+										"line": 1124,
+										"column": 15,
+										"start": 36959,
+										"end": 37045,
+										"length": 87,
+										"parent_index": 3470
+									},
+									"operator": 33,
+									"left_expression": {
+										"id": 3476,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 3477,
+											"line": 1124,
+											"column": 15,
+											"start": 36959,
+											"end": 37005,
+											"length": 47,
+											"parent_index": 3474
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 3478,
+											"node_type": 16,
+											"src": {
+												"id": 3479,
+												"line": 1124,
+												"column": 15,
+												"start": 36959,
+												"end": 36969,
+												"length": 11,
+												"parent_index": 3476
+											},
+											"name": "interfaceId",
+											"type_description": {
+												"type_identifier": "t_bytes4",
+												"type_string": "bytes4"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 3478,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 3480,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 3481,
+												"line": 1124,
+												"column": 30,
+												"start": 36974,
+												"end": 37005,
+												"length": 32,
+												"parent_index": 3476
+											},
+											"member_location": {
+												"line": 1124,
+												"column": 51,
+												"start": 36995,
+												"end": 37005,
+												"length": 11,
+												"parent_index": 3480
+											},
+											"expression": {
+												"id": 3482,
+												"node_type": 16,
+												"name": "type",
+												"src": {
+													"id": 3483,
+													"line": 1124,
+													"column": 30,
+													"start": 36974,
+													"end": 36993,
+													"length": 20,
+													"parent_index": 3480
+												},
+												"type_description": {
+													"type_identifier": "",
+													"type_string": "type"
+												}
+											},
+											"member_name": "interfaceId",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "",
+												"type_string": "type"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									"right_expression": {
+										"id": 3484,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 3485,
+											"line": 1124,
+											"column": 66,
+											"start": 37010,
+											"end": 37045,
+											"length": 36,
+											"parent_index": 3474
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes4",
+												"type_string": "bytes4"
+											}
+										],
+										"arguments": [
+											{
+												"id": 3490,
+												"node_type": 16,
+												"src": {
+													"id": 3491,
+													"line": 1124,
+													"column": 90,
+													"start": 37034,
+													"end": 37044,
+													"length": 11,
+													"parent_index": 3484
+												},
+												"name": "interfaceId",
+												"type_description": {
+													"type_identifier": "t_bytes4",
+													"type_string": "bytes4"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3490,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 3486,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 3487,
+												"line": 1124,
+												"column": 66,
+												"start": 37010,
+												"end": 37032,
+												"length": 23,
+												"parent_index": 3484
+											},
+											"member_location": {
+												"line": 1124,
+												"column": 72,
+												"start": 37016,
+												"end": 37032,
+												"length": 17,
+												"parent_index": 3486
+											},
+											"expression": {
+												"id": 3488,
+												"node_type": 16,
+												"src": {
+													"id": 3489,
+													"line": 1124,
+													"column": 66,
+													"start": 37010,
+													"end": 37014,
+													"length": 5,
+													"parent_index": 3486
+												},
+												"name": "super",
+												"type_description": {
+													"type_identifier": "t_magic_super",
+													"type_string": "super"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "supportsInterface",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_magic_super",
+												"type_string": "super"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes4$",
+											"type_string": "function(bytes4)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 3456,
+							"node_type": 63,
+							"name": "supportsInterface",
+							"src": {
+								"id": 3457,
+								"line": 1123,
+								"column": 71,
+								"start": 36918,
+								"end": 36925,
+								"length": 8,
+								"parent_index": 3454
+							},
+							"referenced_declaration": 133,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_bytes4$",
+								"type_string": "function(bytes4)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 3458,
+						"node_type": 43,
+						"src": {
+							"id": 3459,
+							"line": 1123,
+							"column": 31,
+							"start": 36878,
+							"end": 36895,
+							"length": 18,
+							"parent_index": 3454
+						},
+						"parameters": [
+							{
+								"id": 3460,
+								"node_type": 44,
+								"src": {
+									"id": 3461,
+									"line": 1123,
+									"column": 31,
+									"start": 36878,
+									"end": 36895,
+									"length": 18,
+									"parent_index": 3458
+								},
+								"scope": 3454,
+								"name": "interfaceId",
+								"type_name": {
+									"id": 3462,
+									"node_type": 30,
+									"src": {
+										"id": 3463,
+										"line": 1123,
+										"column": 31,
+										"start": 36878,
+										"end": 36883,
+										"length": 6,
+										"parent_index": 3460
+									},
+									"name": "bytes4",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes4",
+										"type_string": "bytes4"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes4",
+								"type_string": "bytes4"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3464,
+						"node_type": 43,
+						"src": {
+							"id": 3465,
+							"line": 1123,
+							"column": 89,
+							"start": 36936,
+							"end": 36939,
+							"length": 4,
+							"parent_index": 3454
+						},
+						"parameters": [
+							{
+								"id": 3466,
+								"node_type": 44,
+								"src": {
+									"id": 3467,
+									"line": 1123,
+									"column": 89,
+									"start": 36936,
+									"end": 36939,
+									"length": 4,
+									"parent_index": 3464
+								},
+								"scope": 3454,
+								"name": "",
+								"type_name": {
+									"id": 3468,
+									"node_type": 30,
+									"src": {
+										"id": 3469,
+										"line": 1123,
+										"column": 89,
+										"start": 36936,
+										"end": 36939,
+										"length": 4,
+										"parent_index": 3466
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes4$",
+						"type_string": "function(bytes4)"
+					}
+				},
+				{
+					"id": 3493,
+					"name": "hasRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3494,
+						"line": 1130,
+						"column": 4,
+						"start": 37140,
+						"end": 37276,
+						"length": 137,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1130,
+						"column": 13,
+						"start": 37149,
+						"end": 37155,
+						"length": 7,
+						"parent_index": 3493
+					},
+					"body": {
+						"id": 3513,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3514,
+							"line": 1130,
+							"column": 88,
+							"start": 37224,
+							"end": 37276,
+							"length": 53,
+							"parent_index": 3493
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3515,
+								"node_type": 47,
+								"src": {
+									"id": 3516,
+									"line": 1131,
+									"column": 8,
+									"start": 37234,
+									"end": 37270,
+									"length": 37,
+									"parent_index": 3493
+								},
+								"function_return_parameters": 3493,
+								"expression": {
+									"id": 3517,
+									"node_type": 22,
+									"src": {
+										"id": 3518,
+										"line": 1131,
+										"column": 15,
+										"start": 37241,
+										"end": 37269,
+										"length": 29,
+										"parent_index": 3513
+									},
+									"index_expression": {
+										"id": 3519,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 3520,
+											"line": 1131,
+											"column": 15,
+											"start": 37241,
+											"end": 37260,
+											"length": 20,
+											"parent_index": 3517
+										},
+										"member_location": {
+											"line": 1131,
+											"column": 28,
+											"start": 37254,
+											"end": 37260,
+											"length": 7,
+											"parent_index": 3519
+										},
+										"expression": {
+											"id": 3521,
+											"node_type": 22,
+											"src": {
+												"id": 3522,
+												"line": 1131,
+												"column": 15,
+												"start": 37241,
+												"end": 37252,
+												"length": 12,
+												"parent_index": 3519
+											},
+											"index_expression": {
+												"id": 3523,
+												"node_type": 16,
+												"src": {
+													"id": 3524,
+													"line": 1131,
+													"column": 15,
+													"start": 37241,
+													"end": 37246,
+													"length": 6,
+													"parent_index": 3521
+												},
+												"name": "_roles",
+												"type_description": {
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+													"type_string": "mapping(bytes32=\u003eRoleData)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3366,
+												"is_pure": false
+											},
+											"base_expression": {
+												"id": 3525,
+												"node_type": 16,
+												"src": {
+													"id": 3526,
+													"line": 1131,
+													"column": 22,
+													"start": 37248,
+													"end": 37251,
+													"length": 4,
+													"parent_index": 3521
+												},
+												"name": "role",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3525,
+												"is_pure": false
+											},
+											"type_descriptions": [
+												{
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+													"type_string": "mapping(bytes32=\u003eRoleData)"
+												},
+												{
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												}
+											],
+											"type_description": {
+												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+												"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+											}
+										},
+										"member_name": "members",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+										}
+									},
+									"base_expression": {
+										"id": 3527,
+										"node_type": 16,
+										"src": {
+											"id": 3528,
+											"line": 1131,
+											"column": 36,
+											"start": 37262,
+											"end": 37268,
+											"length": 7,
+											"parent_index": 3517
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3527,
+										"is_pure": false
+									},
+									"type_descriptions": [
+										{
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+										},
+										{
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									],
+									"type_description": {
+										"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+										"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 3495,
+							"node_type": 63,
+							"name": "hasRole",
+							"src": {
+								"id": 3496,
+								"line": 1130,
+								"column": 64,
+								"start": 37200,
+								"end": 37207,
+								"length": 8,
+								"parent_index": 3493
+							},
+							"referenced_declaration": 3233,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_bytes32$_t_address$",
+								"type_string": "function(bytes32,address)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 3497,
+						"node_type": 43,
+						"src": {
+							"id": 3498,
+							"line": 1130,
+							"column": 21,
+							"start": 37157,
+							"end": 37185,
+							"length": 29,
+							"parent_index": 3493
+						},
+						"parameters": [
+							{
+								"id": 3499,
+								"node_type": 44,
+								"src": {
+									"id": 3500,
+									"line": 1130,
+									"column": 21,
+									"start": 37157,
+									"end": 37168,
+									"length": 12,
+									"parent_index": 3497
+								},
+								"scope": 3493,
+								"name": "role",
+								"type_name": {
+									"id": 3501,
+									"node_type": 30,
+									"src": {
+										"id": 3502,
+										"line": 1130,
+										"column": 21,
+										"start": 37157,
+										"end": 37163,
+										"length": 7,
+										"parent_index": 3499
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3503,
+								"node_type": 44,
+								"src": {
+									"id": 3504,
+									"line": 1130,
+									"column": 35,
+									"start": 37171,
+									"end": 37185,
+									"length": 15,
+									"parent_index": 3497
+								},
+								"scope": 3493,
+								"name": "account",
+								"type_name": {
+									"id": 3505,
+									"node_type": 30,
+									"src": {
+										"id": 3506,
+										"line": 1130,
+										"column": 35,
+										"start": 37171,
+										"end": 37177,
+										"length": 7,
+										"parent_index": 3503
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3507,
+						"node_type": 43,
+						"src": {
+							"id": 3508,
+							"line": 1130,
+							"column": 82,
+							"start": 37218,
+							"end": 37221,
+							"length": 4,
+							"parent_index": 3493
+						},
+						"parameters": [
+							{
+								"id": 3509,
+								"node_type": 44,
+								"src": {
+									"id": 3510,
+									"line": 1130,
+									"column": 82,
+									"start": 37218,
+									"end": 37221,
+									"length": 4,
+									"parent_index": 3507
+								},
+								"scope": 3493,
+								"name": "",
+								"type_name": {
+									"id": 3511,
+									"node_type": 30,
+									"src": {
+										"id": 3512,
+										"line": 1130,
+										"column": 82,
+										"start": 37218,
+										"end": 37221,
+										"length": 4,
+										"parent_index": 3509
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3530,
+					"name": "_checkRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3531,
+						"line": 1141,
+						"column": 4,
+						"start": 37558,
+						"end": 38041,
+						"length": 484,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1141,
+						"column": 13,
+						"start": 37567,
+						"end": 37576,
+						"length": 10,
+						"parent_index": 3530
+					},
+					"body": {
+						"id": 3543,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3544,
+							"line": 1141,
+							"column": 69,
+							"start": 37623,
+							"end": 38041,
+							"length": 419,
+							"parent_index": 3530
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3545,
+								"node_type": 48,
+								"src": {
+									"id": 3546,
+									"line": 1142,
+									"column": 0,
+									"start": 37633,
+									"end": 38035,
+									"length": 403,
+									"parent_index": 3543
+								},
+								"condition": {
+									"id": 3547,
+									"node_type": 18,
+									"src": {
+										"id": 3548,
+										"line": 1142,
+										"column": 12,
+										"start": 37637,
+										"end": 37659,
+										"length": 23,
+										"parent_index": 3530
+									},
+									"operator": 31,
+									"prefix": false,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"expression": {
+										"id": 3549,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 3550,
+											"line": 1142,
+											"column": 13,
+											"start": 37638,
+											"end": 37659,
+											"length": 22,
+											"parent_index": 3547
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"arguments": [
+											{
+												"id": 3553,
+												"node_type": 16,
+												"src": {
+													"id": 3554,
+													"line": 1142,
+													"column": 21,
+													"start": 37646,
+													"end": 37649,
+													"length": 4,
+													"parent_index": 3549
+												},
+												"name": "role",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3553,
+												"is_pure": false
+											},
+											{
+												"id": 3555,
+												"node_type": 16,
+												"src": {
+													"id": 3556,
+													"line": 1142,
+													"column": 27,
+													"start": 37652,
+													"end": 37658,
+													"length": 7,
+													"parent_index": 3549
+												},
+												"name": "account",
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3555,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													}
+												]
+											}
+										],
+										"expression": {
+											"id": 3551,
+											"node_type": 16,
+											"src": {
+												"id": 3552,
+												"line": 1142,
+												"column": 13,
+												"start": 37638,
+												"end": 37644,
+												"length": 7,
+												"parent_index": 3549
+											},
+											"name": "hasRole",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes32$_t_address$",
+											"type_string": "function(bytes32,address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes32$_t_address$",
+										"type_string": "function(bytes32,address)"
+									}
+								},
+								"body": {
+									"id": 3557,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 3558,
+										"line": 1142,
+										"column": 37,
+										"start": 37662,
+										"end": 38035,
+										"length": 374,
+										"parent_index": 3530
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 3559,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 3560,
+												"line": 1143,
+												"column": 12,
+												"start": 37676,
+												"end": 38024,
+												"length": 349,
+												"parent_index": 3557
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+													"type_string": "function(function(string memory,function(function(address),int_const 20),string memory,function(function(bytes32),int_const 32)))"
+												}
+											],
+											"arguments": [
+												{
+													"id": 3563,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 3564,
+														"line": 1144,
+														"column": 16,
+														"start": 37700,
+														"end": 38010,
+														"length": 311,
+														"parent_index": 3559
+													},
+													"argument_types": [
+														{
+															"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+															"type_string": "function(string memory,function(function(address),int_const 20),string memory,function(function(bytes32),int_const 32))"
+														}
+													],
+													"arguments": [
+														{
+															"id": 3569,
+															"node_type": 24,
+															"kind": 24,
+															"src": {
+																"id": 3570,
+																"line": 1145,
+																"column": 20,
+																"start": 37728,
+																"end": 37992,
+																"length": 265,
+																"parent_index": 3563
+															},
+															"argument_types": [
+																{
+																	"type_identifier": "t_string_literal",
+																	"type_string": "literal_string \"AccessControl: account \""
+																},
+																{
+																	"type_identifier": "t_function_$_t_function_$_t_address$_t_rational_20_by_1$",
+																	"type_string": "function(function(address),int_const 20)"
+																},
+																{
+																	"type_identifier": "t_string_literal",
+																	"type_string": "literal_string \" is missing role \""
+																},
+																{
+																	"type_identifier": "t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+																	"type_string": "function(function(bytes32),int_const 32)"
+																}
+															],
+															"arguments": [
+																{
+																	"id": 3575,
+																	"node_type": 17,
+																	"kind": 50,
+																	"value": "AccessControl: account",
+																	"hex_value": "416363657373436f6e74726f6c3a206163636f756e74",
+																	"src": {
+																		"id": 3576,
+																		"line": 1146,
+																		"column": 24,
+																		"start": 37770,
+																		"end": 37794,
+																		"length": 25,
+																		"parent_index": 3569
+																	},
+																	"type_description": {
+																		"type_identifier": "t_string_literal",
+																		"type_string": "literal_string \"AccessControl: account \""
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 0,
+																	"is_pure": true
+																},
+																{
+																	"id": 3577,
+																	"node_type": 24,
+																	"kind": 24,
+																	"src": {
+																		"id": 3578,
+																		"line": 1147,
+																		"column": 24,
+																		"start": 37821,
+																		"end": 37861,
+																		"length": 41,
+																		"parent_index": 3569
+																	},
+																	"argument_types": [
+																		{
+																			"type_identifier": "t_function_$_t_address$",
+																			"type_string": "function(address)"
+																		},
+																		{
+																			"type_identifier": "t_rational_20_by_1",
+																			"type_string": "int_const 20"
+																		}
+																	],
+																	"arguments": [
+																		{
+																			"id": 3583,
+																			"node_type": 24,
+																			"kind": 24,
+																			"src": {
+																				"id": 3584,
+																				"line": 1147,
+																				"column": 44,
+																				"start": 37841,
+																				"end": 37856,
+																				"length": 16,
+																				"parent_index": 3577
+																			},
+																			"argument_types": [
+																				{
+																					"type_identifier": "t_address",
+																					"type_string": "address"
+																				}
+																			],
+																			"arguments": [
+																				{
+																					"id": 3589,
+																					"node_type": 16,
+																					"src": {
+																						"id": 3590,
+																						"line": 1147,
+																						"column": 52,
+																						"start": 37849,
+																						"end": 37855,
+																						"length": 7,
+																						"parent_index": 3583
+																					},
+																					"name": "account",
+																					"type_description": {
+																						"type_identifier": "t_address",
+																						"type_string": "address"
+																					},
+																					"overloaded_declarations": [],
+																					"referenced_declaration": 3589,
+																					"is_pure": false
+																				}
+																			],
+																			"expression": {
+																				"id": 3585,
+																				"node_type": 16,
+																				"src": {
+																					"id": 3586,
+																					"line": 1147,
+																					"column": 44,
+																					"start": 37841,
+																					"end": 37847,
+																					"length": 7,
+																					"parent_index": 3583
+																				},
+																				"name": "uint160",
+																				"type_name": {
+																					"id": 3587,
+																					"node_type": 30,
+																					"src": {
+																						"id": 3588,
+																						"line": 1147,
+																						"column": 44,
+																						"start": 37841,
+																						"end": 37847,
+																						"length": 7,
+																						"parent_index": 3585
+																					},
+																					"name": "uint160",
+																					"referenced_declaration": 0,
+																					"type_description": {
+																						"type_identifier": "t_uint160",
+																						"type_string": "uint160"
+																					}
+																				},
+																				"type_description": {
+																					"type_identifier": "t_function_$_t_uint160$",
+																					"type_string": "function(uint160)"
+																				},
+																				"overloaded_declarations": [],
+																				"referenced_declaration": 0,
+																				"is_pure": false,
+																				"argument_types": [
+																					{
+																						"type_identifier": "t_uint160",
+																						"type_string": "uint160"
+																					}
+																				]
+																			},
+																			"type_description": {
+																				"type_identifier": "t_function_$_t_address$",
+																				"type_string": "function(address)"
+																			}
+																		},
+																		{
+																			"id": 3591,
+																			"node_type": 17,
+																			"kind": 49,
+																			"value": "20",
+																			"hex_value": "3230",
+																			"src": {
+																				"id": 3592,
+																				"line": 1147,
+																				"column": 62,
+																				"start": 37859,
+																				"end": 37860,
+																				"length": 2,
+																				"parent_index": 3577
+																			},
+																			"type_description": {
+																				"type_identifier": "t_rational_20_by_1",
+																				"type_string": "int_const 20"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 0,
+																			"is_pure": true,
+																			"argument_types": [
+																				{
+																					"type_identifier": "t_function_$_t_address$",
+																					"type_string": "function(address)"
+																				}
+																			]
+																		}
+																	],
+																	"expression": {
+																		"id": 3579,
+																		"is_constant": false,
+																		"is_l_value": false,
+																		"is_pure": false,
+																		"l_value_requested": false,
+																		"node_type": 23,
+																		"src": {
+																			"id": 3580,
+																			"line": 1147,
+																			"column": 24,
+																			"start": 37821,
+																			"end": 37839,
+																			"length": 19,
+																			"parent_index": 3577
+																		},
+																		"member_location": {
+																			"line": 1147,
+																			"column": 32,
+																			"start": 37829,
+																			"end": 37839,
+																			"length": 11,
+																			"parent_index": 3579
+																		},
+																		"expression": {
+																			"id": 3581,
+																			"node_type": 16,
+																			"src": {
+																				"id": 3582,
+																				"line": 1147,
+																				"column": 24,
+																				"start": 37821,
+																				"end": 37827,
+																				"length": 7,
+																				"parent_index": 3579
+																			},
+																			"name": "Strings",
+																			"type_description": {
+																				"type_identifier": "t_contract$_Strings_$1075",
+																				"type_string": "contract Strings"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 1075,
+																			"is_pure": false
+																		},
+																		"member_name": "toHexString",
+																		"argument_types": [],
+																		"type_description": {
+																			"type_identifier": "t_contract$_Strings_$1075",
+																			"type_string": "contract Strings"
+																		}
+																	},
+																	"type_description": {
+																		"type_identifier": "t_function_$_t_function_$_t_address$_t_rational_20_by_1$",
+																		"type_string": "function(function(address),int_const 20)"
+																	}
+																},
+																{
+																	"id": 3593,
+																	"node_type": 17,
+																	"kind": 50,
+																	"value": "is missing role",
+																	"hex_value": "6973206d697373696e6720726f6c65",
+																	"src": {
+																		"id": 3594,
+																		"line": 1148,
+																		"column": 24,
+																		"start": 37888,
+																		"end": 37906,
+																		"length": 19,
+																		"parent_index": 3569
+																	},
+																	"type_description": {
+																		"type_identifier": "t_string_literal",
+																		"type_string": "literal_string \" is missing role \""
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 0,
+																	"is_pure": true,
+																	"argument_types": [
+																		{
+																			"type_identifier": "t_string_literal",
+																			"type_string": "literal_string \"AccessControl: account \""
+																		},
+																		{
+																			"type_identifier": "t_function_$_t_function_$_t_address$_t_rational_20_by_1$",
+																			"type_string": "function(function(address),int_const 20)"
+																		}
+																	]
+																},
+																{
+																	"id": 3595,
+																	"node_type": 24,
+																	"kind": 24,
+																	"src": {
+																		"id": 3596,
+																		"line": 1149,
+																		"column": 24,
+																		"start": 37933,
+																		"end": 37970,
+																		"length": 38,
+																		"parent_index": 3569
+																	},
+																	"argument_types": [
+																		{
+																			"type_identifier": "t_function_$_t_bytes32$",
+																			"type_string": "function(bytes32)"
+																		},
+																		{
+																			"type_identifier": "t_rational_32_by_1",
+																			"type_string": "int_const 32"
+																		}
+																	],
+																	"arguments": [
+																		{
+																			"id": 3601,
+																			"node_type": 24,
+																			"kind": 24,
+																			"src": {
+																				"id": 3602,
+																				"line": 1149,
+																				"column": 44,
+																				"start": 37953,
+																				"end": 37965,
+																				"length": 13,
+																				"parent_index": 3595
+																			},
+																			"argument_types": [
+																				{
+																					"type_identifier": "t_bytes32",
+																					"type_string": "bytes32"
+																				}
+																			],
+																			"arguments": [
+																				{
+																					"id": 3607,
+																					"node_type": 16,
+																					"src": {
+																						"id": 3608,
+																						"line": 1149,
+																						"column": 52,
+																						"start": 37961,
+																						"end": 37964,
+																						"length": 4,
+																						"parent_index": 3601
+																					},
+																					"name": "role",
+																					"type_description": {
+																						"type_identifier": "t_bytes32",
+																						"type_string": "bytes32"
+																					},
+																					"overloaded_declarations": [],
+																					"referenced_declaration": 3607,
+																					"is_pure": false
+																				}
+																			],
+																			"expression": {
+																				"id": 3603,
+																				"node_type": 16,
+																				"src": {
+																					"id": 3604,
+																					"line": 1149,
+																					"column": 44,
+																					"start": 37953,
+																					"end": 37959,
+																					"length": 7,
+																					"parent_index": 3601
+																				},
+																				"name": "uint256",
+																				"type_name": {
+																					"id": 3605,
+																					"node_type": 30,
+																					"src": {
+																						"id": 3606,
+																						"line": 1149,
+																						"column": 44,
+																						"start": 37953,
+																						"end": 37959,
+																						"length": 7,
+																						"parent_index": 3603
+																					},
+																					"name": "uint256",
+																					"referenced_declaration": 0,
+																					"type_description": {
+																						"type_identifier": "t_uint256",
+																						"type_string": "uint256"
+																					}
+																				},
+																				"type_description": {
+																					"type_identifier": "t_function_$_t_uint256$",
+																					"type_string": "function(uint256)"
+																				},
+																				"overloaded_declarations": [],
+																				"referenced_declaration": 0,
+																				"is_pure": false,
+																				"argument_types": [
+																					{
+																						"type_identifier": "t_uint256",
+																						"type_string": "uint256"
+																					}
+																				]
+																			},
+																			"type_description": {
+																				"type_identifier": "t_function_$_t_bytes32$",
+																				"type_string": "function(bytes32)"
+																			}
+																		},
+																		{
+																			"id": 3609,
+																			"node_type": 17,
+																			"kind": 49,
+																			"value": "32",
+																			"hex_value": "3332",
+																			"src": {
+																				"id": 3610,
+																				"line": 1149,
+																				"column": 59,
+																				"start": 37968,
+																				"end": 37969,
+																				"length": 2,
+																				"parent_index": 3595
+																			},
+																			"type_description": {
+																				"type_identifier": "t_rational_32_by_1",
+																				"type_string": "int_const 32"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 0,
+																			"is_pure": true,
+																			"argument_types": [
+																				{
+																					"type_identifier": "t_function_$_t_bytes32$",
+																					"type_string": "function(bytes32)"
+																				}
+																			]
+																		}
+																	],
+																	"expression": {
+																		"id": 3597,
+																		"is_constant": false,
+																		"is_l_value": false,
+																		"is_pure": false,
+																		"l_value_requested": false,
+																		"node_type": 23,
+																		"src": {
+																			"id": 3598,
+																			"line": 1149,
+																			"column": 24,
+																			"start": 37933,
+																			"end": 37951,
+																			"length": 19,
+																			"parent_index": 3595
+																		},
+																		"member_location": {
+																			"line": 1149,
+																			"column": 32,
+																			"start": 37941,
+																			"end": 37951,
+																			"length": 11,
+																			"parent_index": 3597
+																		},
+																		"expression": {
+																			"id": 3599,
+																			"node_type": 16,
+																			"src": {
+																				"id": 3600,
+																				"line": 1149,
+																				"column": 24,
+																				"start": 37933,
+																				"end": 37939,
+																				"length": 7,
+																				"parent_index": 3597
+																			},
+																			"name": "Strings",
+																			"type_description": {
+																				"type_identifier": "t_contract$_Strings_$1075",
+																				"type_string": "contract Strings"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 1075,
+																			"is_pure": false
+																		},
+																		"member_name": "toHexString",
+																		"argument_types": [],
+																		"type_description": {
+																			"type_identifier": "t_contract$_Strings_$1075",
+																			"type_string": "contract Strings"
+																		}
+																	},
+																	"type_description": {
+																		"type_identifier": "t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+																		"type_string": "function(function(bytes32),int_const 32)"
+																	}
+																}
+															],
+															"expression": {
+																"id": 3571,
+																"is_constant": false,
+																"is_l_value": false,
+																"is_pure": false,
+																"l_value_requested": false,
+																"node_type": 23,
+																"src": {
+																	"id": 3572,
+																	"line": 1145,
+																	"column": 20,
+																	"start": 37728,
+																	"end": 37743,
+																	"length": 16,
+																	"parent_index": 3569
+																},
+																"member_location": {
+																	"line": 1145,
+																	"column": 24,
+																	"start": 37732,
+																	"end": 37743,
+																	"length": 12,
+																	"parent_index": 3571
+																},
+																"expression": {
+																	"id": 3573,
+																	"node_type": 16,
+																	"src": {
+																		"id": 3574,
+																		"line": 1145,
+																		"column": 20,
+																		"start": 37728,
+																		"end": 37730,
+																		"length": 3,
+																		"parent_index": 3571
+																	},
+																	"name": "abi",
+																	"type_description": {
+																		"type_identifier": "t_magic_abi",
+																		"type_string": "abi"
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 0,
+																	"is_pure": false
+																},
+																"member_name": "encodePacked",
+																"argument_types": [],
+																"type_description": {
+																	"type_identifier": "t_magic_abi",
+																	"type_string": "abi"
+																}
+															},
+															"type_description": {
+																"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+																"type_string": "function(string memory,function(function(address),int_const 20),string memory,function(function(bytes32),int_const 32))"
+															}
+														}
+													],
+													"expression": {
+														"id": 3565,
+														"node_type": 16,
+														"src": {
+															"id": 3566,
+															"line": 1144,
+															"column": 16,
+															"start": 37700,
+															"end": 37705,
+															"length": 6,
+															"parent_index": 3563
+														},
+														"name": "string",
+														"type_name": {
+															"id": 3567,
+															"node_type": 30,
+															"src": {
+																"id": 3568,
+																"line": 1144,
+																"column": 16,
+																"start": 37700,
+																"end": 37705,
+																"length": 6,
+																"parent_index": 3565
+															},
+															"name": "string",
+															"referenced_declaration": 0,
+															"type_description": {
+																"type_identifier": "t_string",
+																"type_string": "string"
+															}
+														},
+														"type_description": {
+															"type_identifier": "t_function_$_t_string$",
+															"type_string": "function(string)"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false,
+														"argument_types": [
+															{
+																"type_identifier": "t_string",
+																"type_string": "string"
+															}
+														]
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+														"type_string": "function(function(string memory,function(function(address),int_const 20),string memory,function(function(bytes32),int_const 32)))"
+													}
+												}
+											],
+											"expression": {
+												"id": 3561,
+												"node_type": 16,
+												"src": {
+													"id": 3562,
+													"line": 1143,
+													"column": 12,
+													"start": 37676,
+													"end": 37681,
+													"length": 6,
+													"parent_index": 3559
+												},
+												"name": "revert",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
+												"type_string": "function(function(function(string memory,function(function(address),int_const 20),string memory,function(function(bytes32),int_const 32))))"
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 3532,
+						"node_type": 43,
+						"src": {
+							"id": 3533,
+							"line": 1141,
+							"column": 24,
+							"start": 37578,
+							"end": 37606,
+							"length": 29,
+							"parent_index": 3530
+						},
+						"parameters": [
+							{
+								"id": 3534,
+								"node_type": 44,
+								"src": {
+									"id": 3535,
+									"line": 1141,
+									"column": 24,
+									"start": 37578,
+									"end": 37589,
+									"length": 12,
+									"parent_index": 3532
+								},
+								"scope": 3530,
+								"name": "role",
+								"type_name": {
+									"id": 3536,
+									"node_type": 30,
+									"src": {
+										"id": 3537,
+										"line": 1141,
+										"column": 24,
+										"start": 37578,
+										"end": 37584,
+										"length": 7,
+										"parent_index": 3534
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3538,
+								"node_type": 44,
+								"src": {
+									"id": 3539,
+									"line": 1141,
+									"column": 38,
+									"start": 37592,
+									"end": 37606,
+									"length": 15,
+									"parent_index": 3532
+								},
+								"scope": 3530,
+								"name": "account",
+								"type_name": {
+									"id": 3540,
+									"node_type": 30,
+									"src": {
+										"id": 3541,
+										"line": 1141,
+										"column": 38,
+										"start": 37592,
+										"end": 37598,
+										"length": 7,
+										"parent_index": 3538
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3542,
+						"node_type": 43,
+						"src": {
+							"id": 3531,
+							"line": 1141,
+							"column": 4,
+							"start": 37558,
+							"end": 38041,
+							"length": 484,
+							"parent_index": 3530
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3612,
+					"name": "getRoleAdmin",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3613,
+						"line": 1162,
+						"column": 4,
+						"start": 38223,
+						"end": 38343,
+						"length": 121,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1162,
+						"column": 13,
+						"start": 38232,
+						"end": 38243,
+						"length": 12,
+						"parent_index": 3612
+					},
+					"body": {
+						"id": 3628,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3629,
+							"line": 1162,
+							"column": 79,
+							"start": 38298,
+							"end": 38343,
+							"length": 46,
+							"parent_index": 3612
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3630,
+								"node_type": 47,
+								"src": {
+									"id": 3631,
+									"line": 1163,
+									"column": 8,
+									"start": 38308,
+									"end": 38337,
+									"length": 30,
+									"parent_index": 3612
+								},
+								"function_return_parameters": 3612,
+								"expression": {
+									"id": 3632,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 3633,
+										"line": 1163,
+										"column": 15,
+										"start": 38315,
+										"end": 38336,
+										"length": 22,
+										"parent_index": 3628
+									},
+									"member_location": {
+										"line": 1163,
+										"column": 28,
+										"start": 38328,
+										"end": 38336,
+										"length": 9,
+										"parent_index": 3632
+									},
+									"expression": {
+										"id": 3634,
+										"node_type": 22,
+										"src": {
+											"id": 3635,
+											"line": 1163,
+											"column": 15,
+											"start": 38315,
+											"end": 38326,
+											"length": 12,
+											"parent_index": 3632
+										},
+										"index_expression": {
+											"id": 3636,
+											"node_type": 16,
+											"src": {
+												"id": 3637,
+												"line": 1163,
+												"column": 15,
+												"start": 38315,
+												"end": 38320,
+												"length": 6,
+												"parent_index": 3634
+											},
+											"name": "_roles",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+												"type_string": "mapping(bytes32=\u003eRoleData)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 3366,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 3638,
+											"node_type": 16,
+											"src": {
+												"id": 3639,
+												"line": 1163,
+												"column": 22,
+												"start": 38322,
+												"end": 38325,
+												"length": 4,
+												"parent_index": 3634
+											},
+											"name": "role",
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 3638,
+											"is_pure": false
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+												"type_string": "mapping(bytes32=\u003eRoleData)"
+											},
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+										}
+									},
+									"member_name": "adminRole",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+										"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 3614,
+							"node_type": 63,
+							"name": "getRoleAdmin",
+							"src": {
+								"id": 3615,
+								"line": 1162,
+								"column": 52,
+								"start": 38271,
+								"end": 38278,
+								"length": 8,
+								"parent_index": 3612
+							},
+							"referenced_declaration": 3253,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_bytes32$",
+								"type_string": "function(bytes32)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 3616,
+						"node_type": 43,
+						"src": {
+							"id": 3617,
+							"line": 1162,
+							"column": 26,
+							"start": 38245,
+							"end": 38256,
+							"length": 12,
+							"parent_index": 3612
+						},
+						"parameters": [
+							{
+								"id": 3618,
+								"node_type": 44,
+								"src": {
+									"id": 3619,
+									"line": 1162,
+									"column": 26,
+									"start": 38245,
+									"end": 38256,
+									"length": 12,
+									"parent_index": 3616
+								},
+								"scope": 3612,
+								"name": "role",
+								"type_name": {
+									"id": 3620,
+									"node_type": 30,
+									"src": {
+										"id": 3621,
+										"line": 1162,
+										"column": 26,
+										"start": 38245,
+										"end": 38251,
+										"length": 7,
+										"parent_index": 3618
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3622,
+						"node_type": 43,
+						"src": {
+							"id": 3623,
+							"line": 1162,
+							"column": 70,
+							"start": 38289,
+							"end": 38295,
+							"length": 7,
+							"parent_index": 3612
+						},
+						"parameters": [
+							{
+								"id": 3624,
+								"node_type": 44,
+								"src": {
+									"id": 3625,
+									"line": 1162,
+									"column": 70,
+									"start": 38289,
+									"end": 38295,
+									"length": 7,
+									"parent_index": 3622
+								},
+								"scope": 3612,
+								"name": "",
+								"type_name": {
+									"id": 3626,
+									"node_type": 30,
+									"src": {
+										"id": 3627,
+										"line": 1162,
+										"column": 70,
+										"start": 38289,
+										"end": 38295,
+										"length": 7,
+										"parent_index": 3624
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$",
+						"type_string": "function(bytes32)"
+					}
+				},
+				{
+					"id": 3641,
+					"name": "grantRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3642,
+						"line": 1176,
+						"column": 4,
+						"start": 38594,
+						"end": 38738,
+						"length": 145,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1176,
+						"column": 13,
+						"start": 38603,
+						"end": 38611,
+						"length": 9,
+						"parent_index": 3641
+					},
+					"body": {
+						"id": 3666,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3667,
+							"line": 1176,
+							"column": 107,
+							"start": 38697,
+							"end": 38738,
+							"length": 42,
+							"parent_index": 3641
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3668,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 3669,
+									"line": 1177,
+									"column": 8,
+									"start": 38707,
+									"end": 38731,
+									"length": 25,
+									"parent_index": 3666
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									},
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								],
+								"arguments": [
+									{
+										"id": 3672,
+										"node_type": 16,
+										"src": {
+											"id": 3673,
+											"line": 1177,
+											"column": 19,
+											"start": 38718,
+											"end": 38721,
+											"length": 4,
+											"parent_index": 3668
+										},
+										"name": "role",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3672,
+										"is_pure": false
+									},
+									{
+										"id": 3674,
+										"node_type": 16,
+										"src": {
+											"id": 3675,
+											"line": 1177,
+											"column": 25,
+											"start": 38724,
+											"end": 38730,
+											"length": 7,
+											"parent_index": 3668
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3674,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 3670,
+									"node_type": 16,
+									"src": {
+										"id": 3671,
+										"line": 1177,
+										"column": 8,
+										"start": 38707,
+										"end": 38716,
+										"length": 10,
+										"parent_index": 3668
+									},
+									"name": "_grantRole",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bytes32$_t_address$",
+									"type_string": "function(bytes32,address)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [
+						{
+							"id": 3643,
+							"name": "onlyRole",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 3644,
+								"line": 1176,
+								"column": 78,
+								"start": 38668,
+								"end": 38695,
+								"length": 28,
+								"parent_index": 3641
+							},
+							"argument_types": [
+								{
+									"type_identifier": "t_function_$_t_function_$",
+									"type_string": "function(function())"
+								}
+							],
+							"arguments": [
+								{
+									"id": 3647,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 3648,
+										"line": 1176,
+										"column": 87,
+										"start": 38677,
+										"end": 38694,
+										"length": 18,
+										"parent_index": 3643
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									],
+									"arguments": [
+										{
+											"id": 3651,
+											"node_type": 16,
+											"src": {
+												"id": 3652,
+												"line": 1176,
+												"column": 100,
+												"start": 38690,
+												"end": 38693,
+												"length": 4,
+												"parent_index": 3647
+											},
+											"name": "role",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 3649,
+										"node_type": 16,
+										"src": {
+											"id": 3650,
+											"line": 1176,
+											"column": 87,
+											"start": 38677,
+											"end": 38688,
+											"length": 12,
+											"parent_index": 3647
+										},
+										"name": "getRoleAdmin",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									}
+								}
+							],
+							"modifier_name": {
+								"id": 3645,
+								"name": "onlyRole",
+								"node_type": 0,
+								"src": {
+									"id": 3646,
+									"line": 1176,
+									"column": 78,
+									"start": 38668,
+									"end": 38675,
+									"length": 8,
+									"parent_index": 3643
+								}
+							}
+						}
+					],
+					"overrides": [
+						{
+							"id": 3653,
+							"node_type": 63,
+							"name": "grantRole",
+							"src": {
+								"id": 3654,
+								"line": 1176,
+								"column": 69,
+								"start": 38659,
+								"end": 38666,
+								"length": 8,
+								"parent_index": 3641
+							},
+							"referenced_declaration": 3269,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_bytes32$_t_address$",
+								"type_string": "function(bytes32,address)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 3655,
+						"node_type": 43,
+						"src": {
+							"id": 3656,
+							"line": 1176,
+							"column": 23,
+							"start": 38613,
+							"end": 38641,
+							"length": 29,
+							"parent_index": 3641
+						},
+						"parameters": [
+							{
+								"id": 3657,
+								"node_type": 44,
+								"src": {
+									"id": 3658,
+									"line": 1176,
+									"column": 23,
+									"start": 38613,
+									"end": 38624,
+									"length": 12,
+									"parent_index": 3655
+								},
+								"scope": 3641,
+								"name": "role",
+								"type_name": {
+									"id": 3659,
+									"node_type": 30,
+									"src": {
+										"id": 3660,
+										"line": 1176,
+										"column": 23,
+										"start": 38613,
+										"end": 38619,
+										"length": 7,
+										"parent_index": 3657
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3661,
+								"node_type": 44,
+								"src": {
+									"id": 3662,
+									"line": 1176,
+									"column": 37,
+									"start": 38627,
+									"end": 38641,
+									"length": 15,
+									"parent_index": 3655
+								},
+								"scope": 3641,
+								"name": "account",
+								"type_name": {
+									"id": 3663,
+									"node_type": 30,
+									"src": {
+										"id": 3664,
+										"line": 1176,
+										"column": 37,
+										"start": 38627,
+										"end": 38633,
+										"length": 7,
+										"parent_index": 3661
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3665,
+						"node_type": 43,
+						"src": {
+							"id": 3642,
+							"line": 1176,
+							"column": 4,
+							"start": 38594,
+							"end": 38738,
+							"length": 145,
+							"parent_index": 3641
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3677,
+					"name": "revokeRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3678,
+						"line": 1189,
+						"column": 4,
+						"start": 38973,
+						"end": 39119,
+						"length": 147,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1189,
+						"column": 13,
+						"start": 38982,
+						"end": 38991,
+						"length": 10,
+						"parent_index": 3677
+					},
+					"body": {
+						"id": 3702,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3703,
+							"line": 1189,
+							"column": 108,
+							"start": 39077,
+							"end": 39119,
+							"length": 43,
+							"parent_index": 3677
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3704,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 3705,
+									"line": 1190,
+									"column": 8,
+									"start": 39087,
+									"end": 39112,
+									"length": 26,
+									"parent_index": 3702
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									},
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								],
+								"arguments": [
+									{
+										"id": 3708,
+										"node_type": 16,
+										"src": {
+											"id": 3709,
+											"line": 1190,
+											"column": 20,
+											"start": 39099,
+											"end": 39102,
+											"length": 4,
+											"parent_index": 3704
+										},
+										"name": "role",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3708,
+										"is_pure": false
+									},
+									{
+										"id": 3710,
+										"node_type": 16,
+										"src": {
+											"id": 3711,
+											"line": 1190,
+											"column": 26,
+											"start": 39105,
+											"end": 39111,
+											"length": 7,
+											"parent_index": 3704
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3710,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 3706,
+									"node_type": 16,
+									"src": {
+										"id": 3707,
+										"line": 1190,
+										"column": 8,
+										"start": 39087,
+										"end": 39097,
+										"length": 11,
+										"parent_index": 3704
+									},
+									"name": "_revokeRole",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bytes32$_t_address$",
+									"type_string": "function(bytes32,address)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [
+						{
+							"id": 3679,
+							"name": "onlyRole",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 3680,
+								"line": 1189,
+								"column": 79,
+								"start": 39048,
+								"end": 39075,
+								"length": 28,
+								"parent_index": 3677
+							},
+							"argument_types": [
+								{
+									"type_identifier": "t_function_$_t_function_$",
+									"type_string": "function(function())"
+								}
+							],
+							"arguments": [
+								{
+									"id": 3683,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 3684,
+										"line": 1189,
+										"column": 88,
+										"start": 39057,
+										"end": 39074,
+										"length": 18,
+										"parent_index": 3679
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									],
+									"arguments": [
+										{
+											"id": 3687,
+											"node_type": 16,
+											"src": {
+												"id": 3688,
+												"line": 1189,
+												"column": 101,
+												"start": 39070,
+												"end": 39073,
+												"length": 4,
+												"parent_index": 3683
+											},
+											"name": "role",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 3685,
+										"node_type": 16,
+										"src": {
+											"id": 3686,
+											"line": 1189,
+											"column": 88,
+											"start": 39057,
+											"end": 39068,
+											"length": 12,
+											"parent_index": 3683
+										},
+										"name": "getRoleAdmin",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									}
+								}
+							],
+							"modifier_name": {
+								"id": 3681,
+								"name": "onlyRole",
+								"node_type": 0,
+								"src": {
+									"id": 3682,
+									"line": 1189,
+									"column": 79,
+									"start": 39048,
+									"end": 39055,
+									"length": 8,
+									"parent_index": 3679
+								}
+							}
+						}
+					],
+					"overrides": [
+						{
+							"id": 3689,
+							"node_type": 63,
+							"name": "revokeRole",
+							"src": {
+								"id": 3690,
+								"line": 1189,
+								"column": 70,
+								"start": 39039,
+								"end": 39046,
+								"length": 8,
+								"parent_index": 3677
+							},
+							"referenced_declaration": 3284,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_bytes32$_t_address$",
+								"type_string": "function(bytes32,address)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 3691,
+						"node_type": 43,
+						"src": {
+							"id": 3692,
+							"line": 1189,
+							"column": 24,
+							"start": 38993,
+							"end": 39021,
+							"length": 29,
+							"parent_index": 3677
+						},
+						"parameters": [
+							{
+								"id": 3693,
+								"node_type": 44,
+								"src": {
+									"id": 3694,
+									"line": 1189,
+									"column": 24,
+									"start": 38993,
+									"end": 39004,
+									"length": 12,
+									"parent_index": 3691
+								},
+								"scope": 3677,
+								"name": "role",
+								"type_name": {
+									"id": 3695,
+									"node_type": 30,
+									"src": {
+										"id": 3696,
+										"line": 1189,
+										"column": 24,
+										"start": 38993,
+										"end": 38999,
+										"length": 7,
+										"parent_index": 3693
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3697,
+								"node_type": 44,
+								"src": {
+									"id": 3698,
+									"line": 1189,
+									"column": 38,
+									"start": 39007,
+									"end": 39021,
+									"length": 15,
+									"parent_index": 3691
+								},
+								"scope": 3677,
+								"name": "account",
+								"type_name": {
+									"id": 3699,
+									"node_type": 30,
+									"src": {
+										"id": 3700,
+										"line": 1189,
+										"column": 38,
+										"start": 39007,
+										"end": 39013,
+										"length": 7,
+										"parent_index": 3697
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3701,
+						"node_type": 43,
+						"src": {
+							"id": 3678,
+							"line": 1189,
+							"column": 4,
+							"start": 38973,
+							"end": 39119,
+							"length": 147,
+							"parent_index": 3677
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3713,
+					"name": "renounceRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3714,
+						"line": 1207,
+						"column": 4,
+						"start": 39611,
+						"end": 39824,
+						"length": 214,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1207,
+						"column": 13,
+						"start": 39620,
+						"end": 39631,
+						"length": 12,
+						"parent_index": 3713
+					},
+					"body": {
+						"id": 3728,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3729,
+							"line": 1207,
+							"column": 81,
+							"start": 39688,
+							"end": 39824,
+							"length": 137,
+							"parent_index": 3713
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3730,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 3731,
+									"line": 1208,
+									"column": 8,
+									"start": 39698,
+									"end": 39780,
+									"length": 83,
+									"parent_index": 3728
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"AccessControl: can only renounce roles for self\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 3734,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 3735,
+											"line": 1208,
+											"column": 16,
+											"start": 39706,
+											"end": 39728,
+											"length": 23,
+											"parent_index": 3730
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 3736,
+											"node_type": 16,
+											"src": {
+												"id": 3737,
+												"line": 1208,
+												"column": 16,
+												"start": 39706,
+												"end": 39712,
+												"length": 7,
+												"parent_index": 3734
+											},
+											"name": "account",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 3736,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 3738,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 3739,
+												"line": 1208,
+												"column": 27,
+												"start": 39717,
+												"end": 39728,
+												"length": 12,
+												"parent_index": 3734
+											},
+											"argument_types": [],
+											"arguments": [],
+											"expression": {
+												"id": 3740,
+												"node_type": 16,
+												"src": {
+													"id": 3741,
+													"line": 1208,
+													"column": 27,
+													"start": 39717,
+													"end": 39726,
+													"length": 10,
+													"parent_index": 3738
+												},
+												"name": "_msgSender",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 3742,
+										"node_type": 17,
+										"kind": 50,
+										"value": "AccessControl: can only renounce roles for self",
+										"hex_value": "416363657373436f6e74726f6c3a2063616e206f6e6c792072656e6f756e636520726f6c657320666f722073656c66",
+										"src": {
+											"id": 3743,
+											"line": 1208,
+											"column": 41,
+											"start": 39731,
+											"end": 39779,
+											"length": 49,
+											"parent_index": 3730
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"AccessControl: can only renounce roles for self\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 3732,
+									"node_type": 16,
+									"src": {
+										"id": 3733,
+										"line": 1208,
+										"column": 8,
+										"start": 39698,
+										"end": 39704,
+										"length": 7,
+										"parent_index": 3730
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 3744,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 3745,
+									"line": 1210,
+									"column": 8,
+									"start": 39792,
+									"end": 39817,
+									"length": 26,
+									"parent_index": 3728
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									},
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								],
+								"arguments": [
+									{
+										"id": 3748,
+										"node_type": 16,
+										"src": {
+											"id": 3749,
+											"line": 1210,
+											"column": 20,
+											"start": 39804,
+											"end": 39807,
+											"length": 4,
+											"parent_index": 3744
+										},
+										"name": "role",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3748,
+										"is_pure": false
+									},
+									{
+										"id": 3750,
+										"node_type": 16,
+										"src": {
+											"id": 3751,
+											"line": 1210,
+											"column": 26,
+											"start": 39810,
+											"end": 39816,
+											"length": 7,
+											"parent_index": 3744
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3750,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 3746,
+									"node_type": 16,
+									"src": {
+										"id": 3747,
+										"line": 1210,
+										"column": 8,
+										"start": 39792,
+										"end": 39802,
+										"length": 11,
+										"parent_index": 3744
+									},
+									"name": "_revokeRole",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bytes32$_t_address$",
+									"type_string": "function(bytes32,address)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 3715,
+							"node_type": 63,
+							"name": "renounceRole",
+							"src": {
+								"id": 3716,
+								"line": 1207,
+								"column": 72,
+								"start": 39679,
+								"end": 39686,
+								"length": 8,
+								"parent_index": 3713
+							},
+							"referenced_declaration": 3299,
+							"type_descriptions": {
+								"type_identifier": "t_function_$_t_bytes32$_t_address$",
+								"type_string": "function(bytes32,address)"
+							}
+						}
+					],
+					"parameters": {
+						"id": 3717,
+						"node_type": 43,
+						"src": {
+							"id": 3718,
+							"line": 1207,
+							"column": 26,
+							"start": 39633,
+							"end": 39661,
+							"length": 29,
+							"parent_index": 3713
+						},
+						"parameters": [
+							{
+								"id": 3719,
+								"node_type": 44,
+								"src": {
+									"id": 3720,
+									"line": 1207,
+									"column": 26,
+									"start": 39633,
+									"end": 39644,
+									"length": 12,
+									"parent_index": 3717
+								},
+								"scope": 3713,
+								"name": "role",
+								"type_name": {
+									"id": 3721,
+									"node_type": 30,
+									"src": {
+										"id": 3722,
+										"line": 1207,
+										"column": 26,
+										"start": 39633,
+										"end": 39639,
+										"length": 7,
+										"parent_index": 3719
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3723,
+								"node_type": 44,
+								"src": {
+									"id": 3724,
+									"line": 1207,
+									"column": 40,
+									"start": 39647,
+									"end": 39661,
+									"length": 15,
+									"parent_index": 3717
+								},
+								"scope": 3713,
+								"name": "account",
+								"type_name": {
+									"id": 3725,
+									"node_type": 30,
+									"src": {
+										"id": 3726,
+										"line": 1207,
+										"column": 40,
+										"start": 39647,
+										"end": 39653,
+										"length": 7,
+										"parent_index": 3723
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3727,
+						"node_type": 43,
+						"src": {
+							"id": 3714,
+							"line": 1207,
+							"column": 4,
+							"start": 39611,
+							"end": 39824,
+							"length": 214,
+							"parent_index": 3713
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3753,
+					"name": "_setupRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3754,
+						"line": 1229,
+						"column": 4,
+						"start": 40390,
+						"end": 40499,
+						"length": 110,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1229,
+						"column": 13,
+						"start": 40399,
+						"end": 40408,
+						"length": 10,
+						"parent_index": 3753
+					},
+					"body": {
+						"id": 3766,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3767,
+							"line": 1229,
+							"column": 72,
+							"start": 40458,
+							"end": 40499,
+							"length": 42,
+							"parent_index": 3753
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3768,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 3769,
+									"line": 1230,
+									"column": 8,
+									"start": 40468,
+									"end": 40492,
+									"length": 25,
+									"parent_index": 3766
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									},
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								],
+								"arguments": [
+									{
+										"id": 3772,
+										"node_type": 16,
+										"src": {
+											"id": 3773,
+											"line": 1230,
+											"column": 19,
+											"start": 40479,
+											"end": 40482,
+											"length": 4,
+											"parent_index": 3768
+										},
+										"name": "role",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3772,
+										"is_pure": false
+									},
+									{
+										"id": 3774,
+										"node_type": 16,
+										"src": {
+											"id": 3775,
+											"line": 1230,
+											"column": 25,
+											"start": 40485,
+											"end": 40491,
+											"length": 7,
+											"parent_index": 3768
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3774,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 3770,
+									"node_type": 16,
+									"src": {
+										"id": 3771,
+										"line": 1230,
+										"column": 8,
+										"start": 40468,
+										"end": 40477,
+										"length": 10,
+										"parent_index": 3768
+									},
+									"name": "_grantRole",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bytes32$_t_address$",
+									"type_string": "function(bytes32,address)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 3755,
+						"node_type": 43,
+						"src": {
+							"id": 3756,
+							"line": 1229,
+							"column": 24,
+							"start": 40410,
+							"end": 40438,
+							"length": 29,
+							"parent_index": 3753
+						},
+						"parameters": [
+							{
+								"id": 3757,
+								"node_type": 44,
+								"src": {
+									"id": 3758,
+									"line": 1229,
+									"column": 24,
+									"start": 40410,
+									"end": 40421,
+									"length": 12,
+									"parent_index": 3755
+								},
+								"scope": 3753,
+								"name": "role",
+								"type_name": {
+									"id": 3759,
+									"node_type": 30,
+									"src": {
+										"id": 3760,
+										"line": 1229,
+										"column": 24,
+										"start": 40410,
+										"end": 40416,
+										"length": 7,
+										"parent_index": 3757
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3761,
+								"node_type": 44,
+								"src": {
+									"id": 3762,
+									"line": 1229,
+									"column": 38,
+									"start": 40424,
+									"end": 40438,
+									"length": 15,
+									"parent_index": 3755
+								},
+								"scope": 3753,
+								"name": "account",
+								"type_name": {
+									"id": 3763,
+									"node_type": 30,
+									"src": {
+										"id": 3764,
+										"line": 1229,
+										"column": 38,
+										"start": 40424,
+										"end": 40430,
+										"length": 7,
+										"parent_index": 3761
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3765,
+						"node_type": 43,
+						"src": {
+							"id": 3754,
+							"line": 1229,
+							"column": 4,
+							"start": 40390,
+							"end": 40499,
+							"length": 110,
+							"parent_index": 3753
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3777,
+					"name": "_setRoleAdmin",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3778,
+						"line": 1238,
+						"column": 4,
+						"start": 40625,
+						"end": 40816,
+						"length": 192,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1238,
+						"column": 13,
+						"start": 40634,
+						"end": 40646,
+						"length": 13,
+						"parent_index": 3777
+					},
+					"body": {
+						"id": 3790,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3791,
+							"line": 1238,
+							"column": 77,
+							"start": 40698,
+							"end": 40816,
+							"length": 119,
+							"parent_index": 3777
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3792,
+								"node_type": 64,
+								"src": {
+									"id": 3793,
+									"line": 1239,
+									"column": 8,
+									"start": 40708,
+									"end": 40766,
+									"length": 59,
+									"parent_index": 3777
+								},
+								"arguments": [
+									{
+										"id": 3794,
+										"node_type": 16,
+										"src": {
+											"id": 3795,
+											"line": 1239,
+											"column": 30,
+											"start": 40730,
+											"end": 40733,
+											"length": 4,
+											"parent_index": 3790
+										},
+										"name": "role",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3794,
+										"is_pure": false
+									},
+									{
+										"id": 3796,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 3797,
+											"line": 1239,
+											"column": 36,
+											"start": 40736,
+											"end": 40753,
+											"length": 18,
+											"parent_index": 3790
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										],
+										"arguments": [
+											{
+												"id": 3800,
+												"node_type": 16,
+												"src": {
+													"id": 3801,
+													"line": 1239,
+													"column": 49,
+													"start": 40749,
+													"end": 40752,
+													"length": 4,
+													"parent_index": 3796
+												},
+												"name": "role",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3800,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 3798,
+											"node_type": 16,
+											"src": {
+												"id": 3799,
+												"line": 1239,
+												"column": 36,
+												"start": 40736,
+												"end": 40747,
+												"length": 12,
+												"parent_index": 3796
+											},
+											"name": "getRoleAdmin",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes32$",
+											"type_string": "function(bytes32)"
+										}
+									},
+									{
+										"id": 3802,
+										"node_type": 16,
+										"src": {
+											"id": 3803,
+											"line": 1239,
+											"column": 56,
+											"start": 40756,
+											"end": 40764,
+											"length": 9,
+											"parent_index": 3790
+										},
+										"name": "adminRole",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3802,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 3804,
+									"node_type": 16,
+									"src": {
+										"id": 3805,
+										"line": 1239,
+										"column": 13,
+										"start": 40713,
+										"end": 40728,
+										"length": 16,
+										"parent_index": 3790
+									},
+									"name": "RoleAdminChanged",
+									"type_description": {
+										"type_identifier": "t_event\u0026_AccessControl_RoleAdminChanged_\u00263383",
+										"type_string": "event AccessControl.RoleAdminChanged"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 3383,
+									"is_pure": false
+								}
+							},
+							{
+								"id": 3806,
+								"node_type": 27,
+								"src": {
+									"id": 3807,
+									"line": 1240,
+									"column": 8,
+									"start": 40776,
+									"end": 40810,
+									"length": 35,
+									"parent_index": 3790
+								},
+								"expression": {
+									"id": 3808,
+									"node_type": 27,
+									"src": {
+										"id": 3809,
+										"line": 1240,
+										"column": 8,
+										"start": 40776,
+										"end": 40809,
+										"length": 34,
+										"parent_index": 3790
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 3810,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 3811,
+											"line": 1240,
+											"column": 8,
+											"start": 40776,
+											"end": 40797,
+											"length": 22,
+											"parent_index": 3808
+										},
+										"member_location": {
+											"line": 1240,
+											"column": 21,
+											"start": 40789,
+											"end": 40797,
+											"length": 9,
+											"parent_index": 3810
+										},
+										"expression": {
+											"id": 3812,
+											"node_type": 22,
+											"src": {
+												"id": 3813,
+												"line": 1240,
+												"column": 8,
+												"start": 40776,
+												"end": 40787,
+												"length": 12,
+												"parent_index": 3810
+											},
+											"index_expression": {
+												"id": 3814,
+												"node_type": 16,
+												"src": {
+													"id": 3815,
+													"line": 1240,
+													"column": 8,
+													"start": 40776,
+													"end": 40781,
+													"length": 6,
+													"parent_index": 3812
+												},
+												"name": "_roles",
+												"type_description": {
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+													"type_string": "mapping(bytes32=\u003eRoleData)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3366,
+												"is_pure": false
+											},
+											"base_expression": {
+												"id": 3816,
+												"node_type": 16,
+												"src": {
+													"id": 3817,
+													"line": 1240,
+													"column": 15,
+													"start": 40783,
+													"end": 40786,
+													"length": 4,
+													"parent_index": 3812
+												},
+												"name": "role",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3816,
+												"is_pure": false
+											},
+											"type_descriptions": [
+												{
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+													"type_string": "mapping(bytes32=\u003eRoleData)"
+												},
+												{
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												}
+											],
+											"type_description": {
+												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+												"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+											}
+										},
+										"member_name": "adminRole",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+										}
+									},
+									"right_expression": {
+										"id": 3818,
+										"node_type": 16,
+										"src": {
+											"id": 3819,
+											"line": 1240,
+											"column": 33,
+											"start": 40801,
+											"end": 40809,
+											"length": 9,
+											"parent_index": 3808
+										},
+										"name": "adminRole",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 3818,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+										"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+									"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 3779,
+						"node_type": 43,
+						"src": {
+							"id": 3780,
+							"line": 1238,
+							"column": 27,
+							"start": 40648,
+							"end": 40678,
+							"length": 31,
+							"parent_index": 3777
+						},
+						"parameters": [
+							{
+								"id": 3781,
+								"node_type": 44,
+								"src": {
+									"id": 3782,
+									"line": 1238,
+									"column": 27,
+									"start": 40648,
+									"end": 40659,
+									"length": 12,
+									"parent_index": 3779
+								},
+								"scope": 3777,
+								"name": "role",
+								"type_name": {
+									"id": 3783,
+									"node_type": 30,
+									"src": {
+										"id": 3784,
+										"line": 1238,
+										"column": 27,
+										"start": 40648,
+										"end": 40654,
+										"length": 7,
+										"parent_index": 3781
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3785,
+								"node_type": 44,
+								"src": {
+									"id": 3786,
+									"line": 1238,
+									"column": 41,
+									"start": 40662,
+									"end": 40678,
+									"length": 17,
+									"parent_index": 3779
+								},
+								"scope": 3777,
+								"name": "adminRole",
+								"type_name": {
+									"id": 3787,
+									"node_type": 30,
+									"src": {
+										"id": 3788,
+										"line": 1238,
+										"column": 41,
+										"start": 40662,
+										"end": 40668,
+										"length": 7,
+										"parent_index": 3785
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3789,
+						"node_type": 43,
+						"src": {
+							"id": 3778,
+							"line": 1238,
+							"column": 4,
+							"start": 40625,
+							"end": 40816,
+							"length": 192,
+							"parent_index": 3777
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
+						"type_string": "function(bytes32,bytes32)"
+					}
+				},
+				{
+					"id": 3821,
+					"name": "_grantRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3822,
+						"line": 1243,
+						"column": 4,
+						"start": 40823,
+						"end": 41046,
+						"length": 224,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1243,
+						"column": 13,
+						"start": 40832,
+						"end": 40841,
+						"length": 10,
+						"parent_index": 3821
+					},
+					"body": {
+						"id": 3834,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3835,
+							"line": 1243,
+							"column": 63,
+							"start": 40882,
+							"end": 41046,
+							"length": 165,
+							"parent_index": 3821
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3836,
+								"node_type": 48,
+								"src": {
+									"id": 3837,
+									"line": 1244,
+									"column": 0,
+									"start": 40892,
+									"end": 41040,
+									"length": 149,
+									"parent_index": 3834
+								},
+								"condition": {
+									"id": 3838,
+									"node_type": 18,
+									"src": {
+										"id": 3839,
+										"line": 1244,
+										"column": 12,
+										"start": 40896,
+										"end": 40918,
+										"length": 23,
+										"parent_index": 3821
+									},
+									"operator": 31,
+									"prefix": false,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"expression": {
+										"id": 3840,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 3841,
+											"line": 1244,
+											"column": 13,
+											"start": 40897,
+											"end": 40918,
+											"length": 22,
+											"parent_index": 3838
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"arguments": [
+											{
+												"id": 3844,
+												"node_type": 16,
+												"src": {
+													"id": 3845,
+													"line": 1244,
+													"column": 21,
+													"start": 40905,
+													"end": 40908,
+													"length": 4,
+													"parent_index": 3840
+												},
+												"name": "role",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3844,
+												"is_pure": false
+											},
+											{
+												"id": 3846,
+												"node_type": 16,
+												"src": {
+													"id": 3847,
+													"line": 1244,
+													"column": 27,
+													"start": 40911,
+													"end": 40917,
+													"length": 7,
+													"parent_index": 3840
+												},
+												"name": "account",
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3846,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													}
+												]
+											}
+										],
+										"expression": {
+											"id": 3842,
+											"node_type": 16,
+											"src": {
+												"id": 3843,
+												"line": 1244,
+												"column": 13,
+												"start": 40897,
+												"end": 40903,
+												"length": 7,
+												"parent_index": 3840
+											},
+											"name": "hasRole",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes32$_t_address$",
+											"type_string": "function(bytes32,address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes32$_t_address$",
+										"type_string": "function(bytes32,address)"
+									}
+								},
+								"body": {
+									"id": 3848,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 3849,
+										"line": 1244,
+										"column": 37,
+										"start": 40921,
+										"end": 41040,
+										"length": 120,
+										"parent_index": 3821
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 3850,
+											"node_type": 27,
+											"src": {
+												"id": 3851,
+												"line": 1245,
+												"column": 12,
+												"start": 40935,
+												"end": 40971,
+												"length": 37,
+												"parent_index": 3848
+											},
+											"expression": {
+												"id": 3852,
+												"node_type": 27,
+												"src": {
+													"id": 3853,
+													"line": 1245,
+													"column": 12,
+													"start": 40935,
+													"end": 40970,
+													"length": 36,
+													"parent_index": 3848
+												},
+												"operator": 11,
+												"left_expression": {
+													"id": 3854,
+													"node_type": 22,
+													"src": {
+														"id": 3855,
+														"line": 1245,
+														"column": 12,
+														"start": 40935,
+														"end": 40963,
+														"length": 29,
+														"parent_index": 3852
+													},
+													"index_expression": {
+														"id": 3856,
+														"is_constant": false,
+														"is_l_value": false,
+														"is_pure": false,
+														"l_value_requested": false,
+														"node_type": 23,
+														"src": {
+															"id": 3857,
+															"line": 1245,
+															"column": 12,
+															"start": 40935,
+															"end": 40954,
+															"length": 20,
+															"parent_index": 3854
+														},
+														"member_location": {
+															"line": 1245,
+															"column": 25,
+															"start": 40948,
+															"end": 40954,
+															"length": 7,
+															"parent_index": 3856
+														},
+														"expression": {
+															"id": 3858,
+															"node_type": 22,
+															"src": {
+																"id": 3859,
+																"line": 1245,
+																"column": 12,
+																"start": 40935,
+																"end": 40946,
+																"length": 12,
+																"parent_index": 3856
+															},
+															"index_expression": {
+																"id": 3860,
+																"node_type": 16,
+																"src": {
+																	"id": 3861,
+																	"line": 1245,
+																	"column": 12,
+																	"start": 40935,
+																	"end": 40940,
+																	"length": 6,
+																	"parent_index": 3858
+																},
+																"name": "_roles",
+																"type_description": {
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+																	"type_string": "mapping(bytes32=\u003eRoleData)"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 3366,
+																"is_pure": false
+															},
+															"base_expression": {
+																"id": 3862,
+																"node_type": 16,
+																"src": {
+																	"id": 3863,
+																	"line": 1245,
+																	"column": 19,
+																	"start": 40942,
+																	"end": 40945,
+																	"length": 4,
+																	"parent_index": 3858
+																},
+																"name": "role",
+																"type_description": {
+																	"type_identifier": "t_bytes32",
+																	"type_string": "bytes32"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 3862,
+																"is_pure": false
+															},
+															"type_descriptions": [
+																{
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+																	"type_string": "mapping(bytes32=\u003eRoleData)"
+																},
+																{
+																	"type_identifier": "t_bytes32",
+																	"type_string": "bytes32"
+																}
+															],
+															"type_description": {
+																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+																"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+															}
+														},
+														"member_name": "members",
+														"argument_types": [],
+														"type_description": {
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+														}
+													},
+													"base_expression": {
+														"id": 3864,
+														"node_type": 16,
+														"src": {
+															"id": 3865,
+															"line": 1245,
+															"column": 33,
+															"start": 40956,
+															"end": 40962,
+															"length": 7,
+															"parent_index": 3854
+														},
+														"name": "account",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 3864,
+														"is_pure": false
+													},
+													"type_descriptions": [
+														{
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+														},
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													],
+													"type_description": {
+														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+														"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+													}
+												},
+												"right_expression": {
+													"id": 3866,
+													"node_type": 17,
+													"kind": 61,
+													"value": "true",
+													"hex_value": "74727565",
+													"src": {
+														"id": 3867,
+														"line": 1245,
+														"column": 44,
+														"start": 40967,
+														"end": 40970,
+														"length": 4,
+														"parent_index": 3852
+													},
+													"type_description": {
+														"type_identifier": "t_bool",
+														"type_string": "bool"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												},
+												"type_description": {
+													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+													"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+												"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+											}
+										},
+										{
+											"id": 3868,
+											"node_type": 64,
+											"src": {
+												"id": 3869,
+												"line": 1246,
+												"column": 12,
+												"start": 40985,
+												"end": 41030,
+												"length": 46,
+												"parent_index": 3821
+											},
+											"arguments": [
+												{
+													"id": 3870,
+													"node_type": 16,
+													"src": {
+														"id": 3871,
+														"line": 1246,
+														"column": 29,
+														"start": 41002,
+														"end": 41005,
+														"length": 4,
+														"parent_index": 3848
+													},
+													"name": "role",
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3870,
+													"is_pure": false
+												},
+												{
+													"id": 3872,
+													"node_type": 16,
+													"src": {
+														"id": 3873,
+														"line": 1246,
+														"column": 35,
+														"start": 41008,
+														"end": 41014,
+														"length": 7,
+														"parent_index": 3848
+													},
+													"name": "account",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3872,
+													"is_pure": false
+												},
+												{
+													"id": 3874,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 3875,
+														"line": 1246,
+														"column": 44,
+														"start": 41017,
+														"end": 41028,
+														"length": 12,
+														"parent_index": 3848
+													},
+													"argument_types": [],
+													"arguments": [],
+													"expression": {
+														"id": 3876,
+														"node_type": 16,
+														"src": {
+															"id": 3877,
+															"line": 1246,
+															"column": 44,
+															"start": 41017,
+															"end": 41026,
+															"length": 10,
+															"parent_index": 3874
+														},
+														"name": "_msgSender",
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													},
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												}
+											],
+											"expression": {
+												"id": 3878,
+												"node_type": 16,
+												"src": {
+													"id": 3879,
+													"line": 1246,
+													"column": 17,
+													"start": 40990,
+													"end": 41000,
+													"length": 11,
+													"parent_index": 3848
+												},
+												"name": "RoleGranted",
+												"type_description": {
+													"type_identifier": "t_event\u0026_AccessControl_RoleGranted_\u00263399",
+													"type_string": "event AccessControl.RoleGranted"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3399,
+												"is_pure": false
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 3823,
+						"node_type": 43,
+						"src": {
+							"id": 3824,
+							"line": 1243,
+							"column": 24,
+							"start": 40843,
+							"end": 40871,
+							"length": 29,
+							"parent_index": 3821
+						},
+						"parameters": [
+							{
+								"id": 3825,
+								"node_type": 44,
+								"src": {
+									"id": 3826,
+									"line": 1243,
+									"column": 24,
+									"start": 40843,
+									"end": 40854,
+									"length": 12,
+									"parent_index": 3823
+								},
+								"scope": 3821,
+								"name": "role",
+								"type_name": {
+									"id": 3827,
+									"node_type": 30,
+									"src": {
+										"id": 3828,
+										"line": 1243,
+										"column": 24,
+										"start": 40843,
+										"end": 40849,
+										"length": 7,
+										"parent_index": 3825
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3829,
+								"node_type": 44,
+								"src": {
+									"id": 3830,
+									"line": 1243,
+									"column": 38,
+									"start": 40857,
+									"end": 40871,
+									"length": 15,
+									"parent_index": 3823
+								},
+								"scope": 3821,
+								"name": "account",
+								"type_name": {
+									"id": 3831,
+									"node_type": 30,
+									"src": {
+										"id": 3832,
+										"line": 1243,
+										"column": 38,
+										"start": 40857,
+										"end": 40863,
+										"length": 7,
+										"parent_index": 3829
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3833,
+						"node_type": 43,
+						"src": {
+							"id": 3822,
+							"line": 1243,
+							"column": 4,
+							"start": 40823,
+							"end": 41046,
+							"length": 224,
+							"parent_index": 3821
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				},
+				{
+					"id": 3881,
+					"name": "_revokeRole",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 3882,
+						"line": 1250,
+						"column": 4,
+						"start": 41053,
+						"end": 41277,
+						"length": 225,
+						"parent_index": 3337
+					},
+					"name_location": {
+						"line": 1250,
+						"column": 13,
+						"start": 41062,
+						"end": 41072,
+						"length": 11,
+						"parent_index": 3881
+					},
+					"body": {
+						"id": 3894,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 3895,
+							"line": 1250,
+							"column": 64,
+							"start": 41113,
+							"end": 41277,
+							"length": 165,
+							"parent_index": 3881
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 3896,
+								"node_type": 48,
+								"src": {
+									"id": 3897,
+									"line": 1251,
+									"column": 0,
+									"start": 41123,
+									"end": 41271,
+									"length": 149,
+									"parent_index": 3894
+								},
+								"condition": {
+									"id": 3898,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 3899,
+										"line": 1251,
+										"column": 12,
+										"start": 41127,
+										"end": 41148,
+										"length": 22,
+										"parent_index": 3896
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										{
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									],
+									"arguments": [
+										{
+											"id": 3902,
+											"node_type": 16,
+											"src": {
+												"id": 3903,
+												"line": 1251,
+												"column": 20,
+												"start": 41135,
+												"end": 41138,
+												"length": 4,
+												"parent_index": 3898
+											},
+											"name": "role",
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 3902,
+											"is_pure": false
+										},
+										{
+											"id": 3904,
+											"node_type": 16,
+											"src": {
+												"id": 3905,
+												"line": 1251,
+												"column": 26,
+												"start": 41141,
+												"end": 41147,
+												"length": 7,
+												"parent_index": 3898
+											},
+											"name": "account",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 3904,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												}
+											]
+										}
+									],
+									"expression": {
+										"id": 3900,
+										"node_type": 16,
+										"src": {
+											"id": 3901,
+											"line": 1251,
+											"column": 12,
+											"start": 41127,
+											"end": 41133,
+											"length": 7,
+											"parent_index": 3898
+										},
+										"name": "hasRole",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes32$_t_address$",
+										"type_string": "function(bytes32,address)"
+									}
+								},
+								"body": {
+									"id": 3906,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 3907,
+										"line": 1251,
+										"column": 36,
+										"start": 41151,
+										"end": 41271,
+										"length": 121,
+										"parent_index": 3881
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 3908,
+											"node_type": 27,
+											"src": {
+												"id": 3909,
+												"line": 1252,
+												"column": 12,
+												"start": 41165,
+												"end": 41202,
+												"length": 38,
+												"parent_index": 3906
+											},
+											"expression": {
+												"id": 3910,
+												"node_type": 27,
+												"src": {
+													"id": 3911,
+													"line": 1252,
+													"column": 12,
+													"start": 41165,
+													"end": 41201,
+													"length": 37,
+													"parent_index": 3906
+												},
+												"operator": 11,
+												"left_expression": {
+													"id": 3912,
+													"node_type": 22,
+													"src": {
+														"id": 3913,
+														"line": 1252,
+														"column": 12,
+														"start": 41165,
+														"end": 41193,
+														"length": 29,
+														"parent_index": 3910
+													},
+													"index_expression": {
+														"id": 3914,
+														"is_constant": false,
+														"is_l_value": false,
+														"is_pure": false,
+														"l_value_requested": false,
+														"node_type": 23,
+														"src": {
+															"id": 3915,
+															"line": 1252,
+															"column": 12,
+															"start": 41165,
+															"end": 41184,
+															"length": 20,
+															"parent_index": 3912
+														},
+														"member_location": {
+															"line": 1252,
+															"column": 25,
+															"start": 41178,
+															"end": 41184,
+															"length": 7,
+															"parent_index": 3914
+														},
+														"expression": {
+															"id": 3916,
+															"node_type": 22,
+															"src": {
+																"id": 3917,
+																"line": 1252,
+																"column": 12,
+																"start": 41165,
+																"end": 41176,
+																"length": 12,
+																"parent_index": 3914
+															},
+															"index_expression": {
+																"id": 3918,
+																"node_type": 16,
+																"src": {
+																	"id": 3919,
+																	"line": 1252,
+																	"column": 12,
+																	"start": 41165,
+																	"end": 41170,
+																	"length": 6,
+																	"parent_index": 3916
+																},
+																"name": "_roles",
+																"type_description": {
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+																	"type_string": "mapping(bytes32=\u003eRoleData)"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 3366,
+																"is_pure": false
+															},
+															"base_expression": {
+																"id": 3920,
+																"node_type": 16,
+																"src": {
+																	"id": 3921,
+																	"line": 1252,
+																	"column": 19,
+																	"start": 41172,
+																	"end": 41175,
+																	"length": 4,
+																	"parent_index": 3916
+																},
+																"name": "role",
+																"type_description": {
+																	"type_identifier": "t_bytes32",
+																	"type_string": "bytes32"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 3920,
+																"is_pure": false
+															},
+															"type_descriptions": [
+																{
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$",
+																	"type_string": "mapping(bytes32=\u003eRoleData)"
+																},
+																{
+																	"type_identifier": "t_bytes32",
+																	"type_string": "bytes32"
+																}
+															],
+															"type_description": {
+																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+																"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+															}
+														},
+														"member_name": "members",
+														"argument_types": [],
+														"type_description": {
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+														}
+													},
+													"base_expression": {
+														"id": 3922,
+														"node_type": 16,
+														"src": {
+															"id": 3923,
+															"line": 1252,
+															"column": 33,
+															"start": 41186,
+															"end": 41192,
+															"length": 7,
+															"parent_index": 3912
+														},
+														"name": "account",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 3922,
+														"is_pure": false
+													},
+													"type_descriptions": [
+														{
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$",
+															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+														},
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													],
+													"type_description": {
+														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+														"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+													}
+												},
+												"right_expression": {
+													"id": 3924,
+													"node_type": 17,
+													"kind": 61,
+													"value": "false",
+													"hex_value": "66616c7365",
+													"src": {
+														"id": 3925,
+														"line": 1252,
+														"column": 44,
+														"start": 41197,
+														"end": 41201,
+														"length": 5,
+														"parent_index": 3910
+													},
+													"type_description": {
+														"type_identifier": "t_bool",
+														"type_string": "bool"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												},
+												"type_description": {
+													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+													"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$3351$]$_t_bytes32]$]$_t_address]$",
+												"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+											}
+										},
+										{
+											"id": 3926,
+											"node_type": 64,
+											"src": {
+												"id": 3927,
+												"line": 1253,
+												"column": 12,
+												"start": 41216,
+												"end": 41261,
+												"length": 46,
+												"parent_index": 3881
+											},
+											"arguments": [
+												{
+													"id": 3928,
+													"node_type": 16,
+													"src": {
+														"id": 3929,
+														"line": 1253,
+														"column": 29,
+														"start": 41233,
+														"end": 41236,
+														"length": 4,
+														"parent_index": 3906
+													},
+													"name": "role",
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3928,
+													"is_pure": false
+												},
+												{
+													"id": 3930,
+													"node_type": 16,
+													"src": {
+														"id": 3931,
+														"line": 1253,
+														"column": 35,
+														"start": 41239,
+														"end": 41245,
+														"length": 7,
+														"parent_index": 3906
+													},
+													"name": "account",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 3930,
+													"is_pure": false
+												},
+												{
+													"id": 3932,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 3933,
+														"line": 1253,
+														"column": 44,
+														"start": 41248,
+														"end": 41259,
+														"length": 12,
+														"parent_index": 3906
+													},
+													"argument_types": [],
+													"arguments": [],
+													"expression": {
+														"id": 3934,
+														"node_type": 16,
+														"src": {
+															"id": 3935,
+															"line": 1253,
+															"column": 44,
+															"start": 41248,
+															"end": 41257,
+															"length": 10,
+															"parent_index": 3932
+														},
+														"name": "_msgSender",
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													},
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												}
+											],
+											"expression": {
+												"id": 3936,
+												"node_type": 16,
+												"src": {
+													"id": 3937,
+													"line": 1253,
+													"column": 17,
+													"start": 41221,
+													"end": 41231,
+													"length": 11,
+													"parent_index": 3906
+												},
+												"name": "RoleRevoked",
+												"type_description": {
+													"type_identifier": "t_event\u0026_AccessControl_RoleRevoked_\u00263415",
+													"type_string": "event AccessControl.RoleRevoked"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 3415,
+												"is_pure": false
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 3883,
+						"node_type": 43,
+						"src": {
+							"id": 3884,
+							"line": 1250,
+							"column": 25,
+							"start": 41074,
+							"end": 41102,
+							"length": 29,
+							"parent_index": 3881
+						},
+						"parameters": [
+							{
+								"id": 3885,
+								"node_type": 44,
+								"src": {
+									"id": 3886,
+									"line": 1250,
+									"column": 25,
+									"start": 41074,
+									"end": 41085,
+									"length": 12,
+									"parent_index": 3883
+								},
+								"scope": 3881,
+								"name": "role",
+								"type_name": {
+									"id": 3887,
+									"node_type": 30,
+									"src": {
+										"id": 3888,
+										"line": 1250,
+										"column": 25,
+										"start": 41074,
+										"end": 41080,
+										"length": 7,
+										"parent_index": 3885
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 3889,
+								"node_type": 44,
+								"src": {
+									"id": 3890,
+									"line": 1250,
+									"column": 39,
+									"start": 41088,
+									"end": 41102,
+									"length": 15,
+									"parent_index": 3883
+								},
+								"scope": 3881,
+								"name": "account",
+								"type_name": {
+									"id": 3891,
+									"node_type": 30,
+									"src": {
+										"id": 3892,
+										"line": 1250,
+										"column": 39,
+										"start": 41088,
+										"end": 41094,
+										"length": 7,
+										"parent_index": 3889
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 3893,
+						"node_type": 43,
+						"src": {
+							"id": 3882,
+							"line": 1250,
+							"column": 4,
+							"start": 41053,
+							"end": 41277,
+							"length": 225,
+							"parent_index": 3881
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 3337,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_address$",
+						"type_string": "function(bytes32,address)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				1014,
+				3207,
+				1476,
+				3337
+			],
+			"base_contracts": [
+				{
+					"id": 3338,
+					"node_type": 62,
+					"src": {
+						"id": 3339,
+						"line": 1068,
+						"column": 35,
+						"start": 34986,
+						"end": 34992,
+						"length": 7,
+						"parent_index": 3337
+					},
+					"base_name": {
+						"id": 3340,
+						"node_type": 52,
+						"src": {
+							"id": 3341,
+							"line": 1068,
+							"column": 35,
+							"start": 34986,
+							"end": 34992,
+							"length": 7,
+							"parent_index": 3337
+						},
+						"name": "Context",
+						"referenced_declaration": 1014
+					}
+				},
+				{
+					"id": 3342,
+					"node_type": 62,
+					"src": {
+						"id": 3343,
+						"line": 1068,
+						"column": 44,
+						"start": 34995,
+						"end": 35008,
+						"length": 14,
+						"parent_index": 3337
+					},
+					"base_name": {
+						"id": 3344,
+						"node_type": 52,
+						"src": {
+							"id": 3345,
+							"line": 1068,
+							"column": 44,
+							"start": 34995,
+							"end": 35008,
+							"length": 14,
+							"parent_index": 3337
+						},
+						"name": "IAccessControl",
+						"referenced_declaration": 3207
+					}
+				},
+				{
+					"id": 3346,
+					"node_type": 62,
+					"src": {
+						"id": 3347,
+						"line": 1068,
+						"column": 60,
+						"start": 35011,
+						"end": 35016,
+						"length": 6,
+						"parent_index": 3337
+					},
+					"base_name": {
+						"id": 3348,
+						"node_type": 52,
+						"src": {
+							"id": 3349,
+							"line": 1068,
+							"column": 60,
+							"start": 35011,
+							"end": 35016,
+							"length": 6,
+							"parent_index": 3337
+						},
+						"name": "ERC165",
+						"referenced_declaration": 1476
+					}
+				}
+			],
+			"contract_dependencies": [
+				1014,
+				3207,
+				1476
+			]
+		}
+	],
+	"src": {
+		"id": 3314,
+		"line": 1068,
+		"column": 0,
+		"start": 34951,
+		"end": 41279,
+		"length": 6329,
+		"parent_index": 126
+	}
+}

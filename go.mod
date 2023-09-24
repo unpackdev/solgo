@@ -21,7 +21,7 @@ require (
 	google.golang.org/protobuf v1.31.0
 )
 
-//replace github.com/unpackdev/protos => ../protos
+replace github.com/unpackdev/protos => ../protos
 
 require (
 	github.com/Microsoft/go-winio v0.6.1 // indirect

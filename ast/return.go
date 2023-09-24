@@ -111,8 +111,11 @@ func (r *ReturnStatement) Parse(
 		ParentIndex: fnNode.GetId(),
 	}
 
-	fnCtx := fnNode.(*Function)
-	if fnCtx.GetReturnParameters() != nil {
+	if fnCtx, ok := fnNode.(*Function); ok {
+		if fnCtx.GetReturnParameters() != nil {
+			r.FunctionReturnParameters = fnCtx.GetId()
+		}
+	} else if fnCtx, ok := fnNode.(*TryStatement); ok {
 		r.FunctionReturnParameters = fnCtx.GetId()
 	}
 

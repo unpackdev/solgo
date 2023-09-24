@@ -10,13 +10,15 @@ import (
 type TryStatement struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`         // Unique identifier for the TryStatement node.
-	NodeType   ast_pb.NodeType  `json:"node_type"`  // Type of the AST node.
-	Src        SrcNode          `json:"src"`        // Source location information.
-	Body       *BodyNode        `json:"body"`       // Body of the try block.
-	Kind       ast_pb.NodeType  `json:"kind"`       // Kind of try statement.
-	Expression Node[NodeType]   `json:"expression"` // Expression within the try block.
-	Clauses    []Node[NodeType] `json:"clauses"`    // List of catch clauses.
+	Id               int64            `json:"id"`                // Unique identifier for the TryStatement node.
+	NodeType         ast_pb.NodeType  `json:"node_type"`         // Type of the AST node.
+	Src              SrcNode          `json:"src"`               // Source location information.
+	Body             *BodyNode        `json:"body"`              // Body of the try block.
+	Kind             ast_pb.NodeType  `json:"kind"`              // Kind of try statement.
+	Returns          bool             `json:"returns"`           // True if the try statement returns.
+	ReturnParameters *ParameterList   `json:"return_parameters"` // Return parameters of the try statement.
+	Expression       Node[NodeType]   `json:"expression"`        // Expression within the try block.
+	Clauses          []Node[NodeType] `json:"clauses"`           // List of catch clauses.
 }
 
 // NewTryStatement creates a new TryStatement node with a given ASTBuilder.
@@ -78,6 +80,7 @@ func (t *TryStatement) GetNodes() []Node[NodeType] {
 	toReturn = append(toReturn, t.Body)
 	toReturn = append(toReturn, t.Expression)
 	toReturn = append(toReturn, t.Clauses...)
+	toReturn = append(toReturn, t.ReturnParameters.GetNodes()...)
 	return toReturn
 }
 
@@ -91,6 +94,16 @@ func (t *TryStatement) GetClauses() []Node[NodeType] {
 	return t.Clauses
 }
 
+// GetReturns returns true if the try statement returns.
+func (t *TryStatement) GetReturns() bool {
+	return t.Returns
+}
+
+// GetReturnParameters returns the return parameters of the try statement.
+func (t *TryStatement) GetReturnParameters() *ParameterList {
+	return t.ReturnParameters
+}
+
 // ToProto returns a protobuf representation of the TryStatement node.
 func (t *TryStatement) ToProto() NodeType {
 	proto := ast_pb.Try{
@@ -98,6 +111,7 @@ func (t *TryStatement) ToProto() NodeType {
 		NodeType: t.GetType(),
 		Kind:     t.GetKind(),
 		Src:      t.GetSrc().ToProto(),
+		Returns:  t.GetReturns(),
 	}
 
 	if t.GetExpression() != nil {
@@ -112,6 +126,10 @@ func (t *TryStatement) ToProto() NodeType {
 
 	if t.GetBody() != nil {
 		proto.Body = t.GetBody().ToProto().(*ast_pb.Body)
+	}
+
+	if t.GetReturnParameters() != nil {
+		proto.ReturnParameters = t.GetReturnParameters().ToProto()
 	}
 
 	return NewTypedStruct(&proto, "Try")
@@ -158,5 +176,17 @@ func (t *TryStatement) Parse(
 		))
 	}
 
+	if ctx.Returns() != nil {
+		t.Returns = true
+	}
+
+	returnParams := NewParameterList(t.ASTBuilder)
+	if ctx.GetReturnParameters() != nil {
+		returnParams.Parse(unit, t, ctx.GetReturnParameters())
+	} else {
+		returnParams.Src = t.Src
+		returnParams.Src.ParentIndex = t.Id
+	}
+	t.ReturnParameters = returnParams
 	return t
 }
