@@ -5,7 +5,6 @@ import (
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
-	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
 )
 
@@ -375,10 +374,6 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 				Length:      int64(valueCtx.GetStop().GetStop() - valueCtx.GetStart().GetStart() + 1),
 				ParentIndex: typeNameNode.GetId(),
 			}
-		}
-
-		if typeNameNode.ValueType.TypeDescription == nil {
-			utils.DumpNodeWithExit(typeNameNode)
 		}
 
 		typeNameNode.TypeDescription = &TypeDescription{
