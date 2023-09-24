@@ -5,6 +5,7 @@ import (
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
 )
 
@@ -376,6 +377,10 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			}
 		}
 
+		if typeNameNode.ValueType.TypeDescription == nil {
+			utils.DumpNodeWithExit(typeNameNode)
+		}
+
 		typeNameNode.TypeDescription = &TypeDescription{
 			TypeString: fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
 			TypeIdentifier: fmt.Sprintf(
@@ -413,7 +418,14 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		} else if specificCtx.FunctionTypeName() != nil {
 			panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", specificCtx))
 		} else {
-			t.parseTypeName(sourceUnit, parentNode.GetId(), specificCtx.(*parser.TypeNameContext))
+			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+				typeName.Name,
+			)
+
+			typeName.TypeDescription = &TypeDescription{
+				TypeString:     normalizedTypeName,
+				TypeIdentifier: normalizedTypeIdentifier,
+			}
 		}
 	}
 
