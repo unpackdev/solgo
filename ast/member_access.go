@@ -4,6 +4,7 @@ import (
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // MemberAccessExpression represents a member access expression node in the AST.
@@ -252,6 +253,10 @@ func (m *MemberAccessExpression) Parse(
 				)
 			}
 		}
+	}
+
+	if m.Id == 10439 {
+		utils.DumpNodeWithExit(m)
 	}
 
 	return m
