@@ -330,7 +330,7 @@ func (l *Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDe
 			continue
 		}
 
-		bodyNode := NewBodyNode(l.ASTBuilder)
+		bodyNode := NewBodyNode(l.ASTBuilder, false)
 		childNode := bodyNode.ParseDefinitions(unit, libraryNode, bodyElement)
 		if childNode != nil {
 			libraryNode.Nodes = append(libraryNode.Nodes, childNode)

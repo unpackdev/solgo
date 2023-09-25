@@ -215,6 +215,26 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             true, // 0.5.10 contract, has some issues with the parser
 		},
 		{
+			name:       " RouterV2  Contract - 0x8A99Ad90E77e376AD4Cec21231AF855a87771fD0",
+			outputPath: "contracts/router/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "RouterV2",
+						Path:    tests.ReadContractFileForTest(t, "contracts/router/RouterV2").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/router/RouterV2").Content,
+					},
+				},
+				EntrySourceUnitName: "RouterV2",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/router/RouterV2.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/router/RouterV2.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{

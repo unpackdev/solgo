@@ -200,13 +200,13 @@ func (f *Receive) Parse(
 	}
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(f.ASTBuilder)
+		bodyNode := NewBodyNode(f.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
 		f.Body = bodyNode
 
 		if ctx.Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(f.ASTBuilder)
+				bodyNode := NewBodyNode(f.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, f, uncheckedCtx)
 				f.Body.Statements = append(f.Body.Statements, bodyNode)
 			}

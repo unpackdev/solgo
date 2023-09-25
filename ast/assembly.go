@@ -98,7 +98,7 @@ func (a *AssemblyStatement) Parse(
 
 	yulStatement := NewYulStatement(a.ASTBuilder)
 
-	a.Body = NewBodyNode(a.ASTBuilder)
+	a.Body = NewBodyNode(a.ASTBuilder, false)
 	a.Body.Src = a.Src
 	a.Body.Src.ParentIndex = a.Id
 	a.Body.NodeType = ast_pb.NodeType_AST

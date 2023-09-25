@@ -276,7 +276,7 @@ func (f *Function) Parse(
 	f.ReturnParameters = returnParams
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(f.ASTBuilder)
+		bodyNode := NewBodyNode(f.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
 		f.Body = bodyNode
 
@@ -288,7 +288,7 @@ func (f *Function) Parse(
 
 		if ctx.Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(f.ASTBuilder)
+				bodyNode := NewBodyNode(f.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, f, uncheckedCtx)
 				f.Body.Statements = append(f.Body.Statements, bodyNode)
 
@@ -300,7 +300,7 @@ func (f *Function) Parse(
 			}
 		}
 	} else {
-		bodyNode := NewBodyNode(f.ASTBuilder)
+		bodyNode := NewBodyNode(f.ASTBuilder, false)
 		bodyNode.Src = f.Src
 		bodyNode.Src.ParentIndex = f.Id
 		f.Body = bodyNode

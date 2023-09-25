@@ -141,13 +141,13 @@ func (t *CatchStatement) Parse(
 	t.Parameters = pList
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(t.ASTBuilder)
+		bodyNode := NewBodyNode(t.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, t, ctx.Block())
 		t.Body = bodyNode
 
 		if ctx.Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(t.ASTBuilder)
+				bodyNode := NewBodyNode(t.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, t, uncheckedCtx)
 				t.Body.Statements = append(t.Body.Statements, bodyNode)
 			}
