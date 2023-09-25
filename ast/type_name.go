@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 	"go.uber.org/zap"
@@ -24,6 +25,7 @@ type TypeName struct {
 	PathNode              *PathNode         `json:"path_node,omitempty"`
 	StateMutability       ast_pb.Mutability `json:"state_mutability,omitempty"`
 	ReferencedDeclaration int64             `json:"referenced_declaration"`
+	Expression            Node[NodeType]    `json:"expression,omitempty"`
 	TypeDescription       *TypeDescription  `json:"type_description,omitempty"`
 }
 
@@ -96,6 +98,11 @@ func (t *TypeName) GetValueType() *TypeName {
 	return t.ValueType
 }
 
+// GetExpression returns the expression associated with the TypeName.
+func (t *TypeName) GetExpression() Node[NodeType] {
+	return t.Expression
+}
+
 // GetStateMutability returns the state mutability of the TypeName.
 func (t *TypeName) GetStateMutability() ast_pb.Mutability {
 	return t.StateMutability
@@ -153,6 +160,10 @@ func (t *TypeName) ToProto() NodeType {
 		}
 	}
 
+	if t.GetExpression() != nil {
+		toReturn.Expression = t.GetExpression().ToProto().(*v3.TypedStruct)
+	}
+
 	return toReturn
 }
 
@@ -182,7 +193,11 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 		t.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 		t.generateTypeName(unit, ctx.MappingType(), t, t)
 	} else if ctx.FunctionTypeName() != nil {
-		panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", ctx))
+		zap.L().Warn(
+			"Function type name is not supported yet @ TypeName.parseTypeName",
+			zap.String("function_type_name", ctx.FunctionTypeName().GetText()),
+			zap.String("type", fmt.Sprintf("%T", ctx.FunctionTypeName())),
+		)
 	} else {
 		// It seems to be a user-defined type but that does not exist as a type in the parser...
 		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
@@ -464,10 +479,8 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 	}
 
 	if ctx.Expression() != nil {
-		zap.L().Warn(
-			"Expression type is not supported yet @ TypeName.Parse",
-			zap.String("expression", ctx.Expression().GetText()),
-		)
+		expression := NewExpression(t.ASTBuilder)
+		t.Expression = expression.Parse(unit, nil, fnNode, nil, nil, nil, ctx.Expression())
 	}
 }
 

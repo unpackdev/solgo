@@ -183,7 +183,15 @@ func (p *PrimaryExpression) Parse(
 				return vDeclar.GetId()
 			}
 
-			return bodyNode.GetId()
+			if bodyNode != nil {
+				return bodyNode.GetId()
+			}
+
+			if fnNode != nil {
+				return fnNode.GetId()
+			}
+
+			return 0 // This happens in very rare cases, in fact in type name expression.
 		}(),
 	}
 
