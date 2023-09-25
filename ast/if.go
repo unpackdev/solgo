@@ -106,7 +106,7 @@ func (i *IfStatement) Parse(
 
 	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, ctx.Expression())
 
-	body := NewBodyNode(i.ASTBuilder)
+	body := NewBodyNode(i.ASTBuilder, false)
 	if len(ctx.AllStatement()) > 0 {
 		for _, statementCtx := range ctx.AllStatement() {
 			if statementCtx.IsEmpty() {

@@ -1,0 +1,6986 @@
+{
+	"id": 1986,
+	"base_contracts": [
+		{
+			"id": 1991,
+			"node_type": 62,
+			"src": {
+				"id": 1992,
+				"line": 495,
+				"column": 32,
+				"start": 14127,
+				"end": 14133,
+				"length": 7,
+				"parent_index": 1990
+			},
+			"base_name": {
+				"id": 1993,
+				"node_type": 52,
+				"src": {
+					"id": 1994,
+					"line": 495,
+					"column": 32,
+					"start": 14127,
+					"end": 14133,
+					"length": 7,
+					"parent_index": 1990
+				},
+				"name": "N_ERC20",
+				"referenced_declaration": 1832
+			}
+		},
+		{
+			"id": 1995,
+			"node_type": 62,
+			"src": {
+				"id": 1996,
+				"line": 495,
+				"column": 41,
+				"start": 14136,
+				"end": 14142,
+				"length": 7,
+				"parent_index": 1990
+			},
+			"base_name": {
+				"id": 1997,
+				"node_type": 52,
+				"src": {
+					"id": 1998,
+					"line": 495,
+					"column": 41,
+					"start": 14136,
+					"end": 14142,
+					"length": 7,
+					"parent_index": 1990
+				},
+				"name": "Ownable",
+				"referenced_declaration": 88
+			}
+		}
+	],
+	"license": "AGPL-3.0-only",
+	"exported_symbols": [
+		{
+			"id": 1986,
+			"name": "DividendPayingToken",
+			"absolute_path": ""
+		},
+		{
+			"id": 1991,
+			"name": "N_ERC20",
+			"absolute_path": ""
+		},
+		{
+			"id": 1995,
+			"name": "Ownable",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "DividendPayingToken",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 1988,
+			"node_type": 10,
+			"src": {
+				"id": 1989,
+				"line": 6,
+				"column": 0,
+				"start": 108,
+				"end": 132,
+				"length": 25,
+				"parent_index": 1986
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"\u003e=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity \u003e=0.8.16;"
+		},
+		{
+			"id": 1990,
+			"name": "DividendPayingToken",
+			"node_type": 35,
+			"src": {
+				"line": 495,
+				"column": 0,
+				"start": 14095,
+				"end": 20633,
+				"length": 6539,
+				"parent_index": 1986
+			},
+			"name_location": {
+				"line": 495,
+				"column": 9,
+				"start": 14104,
+				"end": 14122,
+				"length": 19,
+				"parent_index": 1990
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 2000,
+					"node_type": 51,
+					"src": {
+						"id": 2001,
+						"line": 496,
+						"column": 0,
+						"start": 14150,
+						"end": 14176,
+						"length": 27,
+						"parent_index": 1990
+					},
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"type_name": {
+						"id": 2004,
+						"node_type": 30,
+						"src": {
+							"id": 2005,
+							"line": 496,
+							"column": 23,
+							"start": 14169,
+							"end": 14175,
+							"length": 7,
+							"parent_index": 2000
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					},
+					"library_name": {
+						"id": 2002,
+						"node_type": 52,
+						"src": {
+							"id": 2003,
+							"line": 496,
+							"column": 0,
+							"start": 14156,
+							"end": 14163,
+							"length": 8,
+							"parent_index": 2000
+						},
+						"name": "SafeMath",
+						"referenced_declaration": 1494
+					}
+				},
+				{
+					"id": 2007,
+					"node_type": 51,
+					"src": {
+						"id": 2008,
+						"line": 497,
+						"column": 0,
+						"start": 14182,
+						"end": 14212,
+						"length": 31,
+						"parent_index": 1990
+					},
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"type_name": {
+						"id": 2011,
+						"node_type": 30,
+						"src": {
+							"id": 2012,
+							"line": 497,
+							"column": 27,
+							"start": 14205,
+							"end": 14211,
+							"length": 7,
+							"parent_index": 2007
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					},
+					"library_name": {
+						"id": 2009,
+						"node_type": 52,
+						"src": {
+							"id": 2010,
+							"line": 497,
+							"column": 0,
+							"start": 14188,
+							"end": 14199,
+							"length": 12,
+							"parent_index": 2007
+						},
+						"name": "SafeMathUint",
+						"referenced_declaration": 1586
+					}
+				},
+				{
+					"id": 2014,
+					"node_type": 51,
+					"src": {
+						"id": 2015,
+						"line": 498,
+						"column": 0,
+						"start": 14218,
+						"end": 14246,
+						"length": 29,
+						"parent_index": 1990
+					},
+					"type_description": {
+						"type_identifier": "t_int256",
+						"type_string": "int256"
+					},
+					"type_name": {
+						"id": 2018,
+						"node_type": 30,
+						"src": {
+							"id": 2019,
+							"line": 498,
+							"column": 26,
+							"start": 14240,
+							"end": 14245,
+							"length": 6,
+							"parent_index": 2014
+						},
+						"name": "int256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_int256",
+							"type_string": "int256"
+						}
+					},
+					"library_name": {
+						"id": 2016,
+						"node_type": 52,
+						"src": {
+							"id": 2017,
+							"line": 498,
+							"column": 0,
+							"start": 14224,
+							"end": 14234,
+							"length": 11,
+							"parent_index": 2014
+						},
+						"name": "SafeMathInt",
+						"referenced_declaration": 1636
+					}
+				},
+				{
+					"id": 2021,
+					"name": "dToken",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 2022,
+						"line": 500,
+						"column": 4,
+						"start": 14253,
+						"end": 14284,
+						"length": 32,
+						"parent_index": 1990
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 2023,
+						"node_type": 30,
+						"src": {
+							"id": 2024,
+							"line": 500,
+							"column": 4,
+							"start": 14253,
+							"end": 14259,
+							"length": 7,
+							"parent_index": 2021
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					}
+				},
+				{
+					"id": 2026,
+					"name": "magnitude",
+					"is_constant": true,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 2027,
+						"line": 505,
+						"column": 4,
+						"start": 14548,
+						"end": 14594,
+						"length": 47,
+						"parent_index": 1990
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 2028,
+						"node_type": 30,
+						"src": {
+							"id": 2029,
+							"line": 505,
+							"column": 4,
+							"start": 14548,
+							"end": 14554,
+							"length": 7,
+							"parent_index": 2026
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 2031,
+					"name": "magnifiedDividendPerShare",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 2032,
+						"line": 507,
+						"column": 4,
+						"start": 14601,
+						"end": 14643,
+						"length": 43,
+						"parent_index": 1990
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 2033,
+						"node_type": 30,
+						"src": {
+							"id": 2034,
+							"line": 507,
+							"column": 4,
+							"start": 14601,
+							"end": 14607,
+							"length": 7,
+							"parent_index": 2031
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 2036,
+					"name": "magnifiedDividendCorrections",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 2037,
+						"line": 520,
+						"column": 4,
+						"start": 15562,
+						"end": 15626,
+						"length": 65,
+						"parent_index": 1990
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_mapping_$t_address_$t_int256$",
+						"type_string": "mapping(address=\u003eint256)"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 2038,
+						"node_type": 0,
+						"src": {
+							"id": 2039,
+							"line": 520,
+							"column": 4,
+							"start": 15562,
+							"end": 15587,
+							"length": 26,
+							"parent_index": 2036
+						},
+						"key_type": {
+							"id": 2040,
+							"node_type": 30,
+							"src": {
+								"id": 2041,
+								"line": 520,
+								"column": 12,
+								"start": 15570,
+								"end": 15576,
+								"length": 7,
+								"parent_index": 2038
+							},
+							"name": "address",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"key_name_location": {
+							"line": 520,
+							"column": 12,
+							"start": 15570,
+							"end": 15576,
+							"length": 7,
+							"parent_index": 2038
+						},
+						"value_type": {
+							"id": 2042,
+							"node_type": 30,
+							"src": {
+								"id": 2043,
+								"line": 520,
+								"column": 23,
+								"start": 15581,
+								"end": 15586,
+								"length": 6,
+								"parent_index": 2038
+							},
+							"name": "int256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_int256",
+								"type_string": "int256"
+							}
+						},
+						"value_name_location": {
+							"line": 520,
+							"column": 23,
+							"start": 15581,
+							"end": 15586,
+							"length": 6,
+							"parent_index": 2038
+						},
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_int256$",
+							"type_string": "mapping(address=\u003eint256)"
+						}
+					}
+				},
+				{
+					"id": 2045,
+					"name": "withdrawnDividends",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 2046,
+						"line": 521,
+						"column": 4,
+						"start": 15632,
+						"end": 15687,
+						"length": 56,
+						"parent_index": 1990
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_mapping_$t_address_$t_uint256$",
+						"type_string": "mapping(address=\u003euint256)"
+					},
+					"visibility": 1,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 2047,
+						"node_type": 0,
+						"src": {
+							"id": 2048,
+							"line": 521,
+							"column": 4,
+							"start": 15632,
+							"end": 15658,
+							"length": 27,
+							"parent_index": 2045
+						},
+						"key_type": {
+							"id": 2049,
+							"node_type": 30,
+							"src": {
+								"id": 2050,
+								"line": 521,
+								"column": 12,
+								"start": 15640,
+								"end": 15646,
+								"length": 7,
+								"parent_index": 2047
+							},
+							"name": "address",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"key_name_location": {
+							"line": 521,
+							"column": 12,
+							"start": 15640,
+							"end": 15646,
+							"length": 7,
+							"parent_index": 2047
+						},
+						"value_type": {
+							"id": 2051,
+							"node_type": 30,
+							"src": {
+								"id": 2052,
+								"line": 521,
+								"column": 23,
+								"start": 15651,
+								"end": 15657,
+								"length": 7,
+								"parent_index": 2047
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"value_name_location": {
+							"line": 521,
+							"column": 23,
+							"start": 15651,
+							"end": 15657,
+							"length": 7,
+							"parent_index": 2047
+						},
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_uint256$",
+							"type_string": "mapping(address=\u003euint256)"
+						}
+					}
+				},
+				{
+					"id": 2054,
+					"name": "totalDividendsDistributed",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 2055,
+						"line": 523,
+						"column": 4,
+						"start": 15694,
+						"end": 15734,
+						"length": 41,
+						"parent_index": 1990
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 2056,
+						"node_type": 30,
+						"src": {
+							"id": 2057,
+							"line": 523,
+							"column": 4,
+							"start": 15694,
+							"end": 15700,
+							"length": 7,
+							"parent_index": 2054
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					}
+				},
+				{
+					"id": 2059,
+					"node_type": 42,
+					"src": {
+						"id": 2060,
+						"line": 525,
+						"column": 4,
+						"start": 15741,
+						"end": 15904,
+						"length": 164,
+						"parent_index": 1990
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [
+						{
+							"id": 2076,
+							"name": "N_ERC20",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 2077,
+								"line": 529,
+								"column": 6,
+								"start": 15844,
+								"end": 15870,
+								"length": 27,
+								"parent_index": 2059
+							},
+							"argument_types": [
+								{
+									"type_identifier": "t_string",
+									"type_string": "string"
+								},
+								{
+									"type_identifier": "t_string",
+									"type_string": "string"
+								},
+								{
+									"type_identifier": "t_rational_18_by_1",
+									"type_string": "int_const 18"
+								}
+							],
+							"arguments": [
+								{
+									"id": 2080,
+									"node_type": 16,
+									"src": {
+										"id": 2081,
+										"line": 529,
+										"column": 14,
+										"start": 15852,
+										"end": 15856,
+										"length": 5,
+										"parent_index": 2076
+									},
+									"name": "_name",
+									"type_description": {
+										"type_identifier": "t_string",
+										"type_string": "string"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 2080,
+									"is_pure": false
+								},
+								{
+									"id": 2082,
+									"node_type": 16,
+									"src": {
+										"id": 2083,
+										"line": 529,
+										"column": 21,
+										"start": 15859,
+										"end": 15865,
+										"length": 7,
+										"parent_index": 2076
+									},
+									"name": "_symbol",
+									"type_description": {
+										"type_identifier": "t_string",
+										"type_string": "string"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 2082,
+									"is_pure": false
+								},
+								{
+									"id": 2084,
+									"node_type": 17,
+									"kind": 49,
+									"value": "18",
+									"hex_value": "3138",
+									"src": {
+										"id": 2085,
+										"line": 529,
+										"column": 30,
+										"start": 15868,
+										"end": 15869,
+										"length": 2,
+										"parent_index": 2076
+									},
+									"type_description": {
+										"type_identifier": "t_rational_18_by_1",
+										"type_string": "int_const 18"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								}
+							],
+							"modifier_name": {
+								"id": 2078,
+								"name": "N_ERC20",
+								"node_type": 0,
+								"src": {
+									"id": 2079,
+									"line": 529,
+									"column": 6,
+									"start": 15844,
+									"end": 15850,
+									"length": 7,
+									"parent_index": 2076
+								}
+							}
+						}
+					],
+					"parameters": {
+						"id": 2061,
+						"node_type": 43,
+						"src": {
+							"id": 2062,
+							"line": 526,
+							"column": 8,
+							"start": 15762,
+							"end": 15836,
+							"length": 75,
+							"parent_index": 2059
+						},
+						"parameters": [
+							{
+								"id": 2063,
+								"node_type": 44,
+								"src": {
+									"id": 2064,
+									"line": 526,
+									"column": 8,
+									"start": 15762,
+									"end": 15780,
+									"length": 19,
+									"parent_index": 2061
+								},
+								"scope": 2059,
+								"name": "_name",
+								"type_name": {
+									"id": 2065,
+									"node_type": 30,
+									"src": {
+										"id": 2066,
+										"line": 526,
+										"column": 8,
+										"start": 15762,
+										"end": 15767,
+										"length": 6,
+										"parent_index": 2063
+									},
+									"name": "string",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_string",
+										"type_string": "string"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2067,
+								"node_type": 44,
+								"src": {
+									"id": 2068,
+									"line": 527,
+									"column": 8,
+									"start": 15791,
+									"end": 15811,
+									"length": 21,
+									"parent_index": 2061
+								},
+								"scope": 2059,
+								"name": "_symbol",
+								"type_name": {
+									"id": 2069,
+									"node_type": 30,
+									"src": {
+										"id": 2070,
+										"line": 527,
+										"column": 8,
+										"start": 15791,
+										"end": 15796,
+										"length": 6,
+										"parent_index": 2067
+									},
+									"name": "string",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_string",
+										"type_string": "string"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2071,
+								"node_type": 44,
+								"src": {
+									"id": 2072,
+									"line": 528,
+									"column": 8,
+									"start": 15822,
+									"end": 15836,
+									"length": 15,
+									"parent_index": 2061
+								},
+								"scope": 2059,
+								"name": "_dToken",
+								"type_name": {
+									"id": 2073,
+									"node_type": 30,
+									"src": {
+										"id": 2074,
+										"line": 528,
+										"column": 8,
+										"start": 15822,
+										"end": 15828,
+										"length": 7,
+										"parent_index": 2071
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_string",
+								"type_string": "string"
+							},
+							{
+								"type_identifier": "t_string",
+								"type_string": "string"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2075,
+						"node_type": 43,
+						"src": {
+							"id": 2060,
+							"line": 525,
+							"column": 4,
+							"start": 15741,
+							"end": 15904,
+							"length": 164,
+							"parent_index": 2059
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1990,
+					"body": {
+						"id": 2086,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2087,
+							"line": 529,
+							"column": 34,
+							"start": 15872,
+							"end": 15904,
+							"length": 33,
+							"parent_index": 2059
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2088,
+								"node_type": 27,
+								"src": {
+									"id": 2089,
+									"line": 530,
+									"column": 8,
+									"start": 15882,
+									"end": 15898,
+									"length": 17,
+									"parent_index": 2086
+								},
+								"expression": {
+									"id": 2090,
+									"node_type": 27,
+									"src": {
+										"id": 2091,
+										"line": 530,
+										"column": 8,
+										"start": 15882,
+										"end": 15897,
+										"length": 16,
+										"parent_index": 2086
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 2092,
+										"node_type": 16,
+										"src": {
+											"id": 2093,
+											"line": 530,
+											"column": 8,
+											"start": 15882,
+											"end": 15887,
+											"length": 6,
+											"parent_index": 2090
+										},
+										"name": "dToken",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2021,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 2094,
+										"node_type": 16,
+										"src": {
+											"id": 2095,
+											"line": 530,
+											"column": 17,
+											"start": 15891,
+											"end": 15897,
+											"length": 7,
+											"parent_index": 2090
+										},
+										"name": "_dToken",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2094,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 2097,
+					"name": "distributeDividends",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2098,
+						"line": 533,
+						"column": 4,
+						"start": 15911,
+						"end": 16269,
+						"length": 359,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 533,
+						"column": 13,
+						"start": 15920,
+						"end": 15938,
+						"length": 19,
+						"parent_index": 2097
+					},
+					"body": {
+						"id": 2110,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2111,
+							"line": 533,
+							"column": 66,
+							"start": 15973,
+							"end": 16269,
+							"length": 297,
+							"parent_index": 2097
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2112,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 2113,
+									"line": 534,
+									"column": 8,
+									"start": 15983,
+									"end": 16006,
+									"length": 24,
+									"parent_index": 2110
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								],
+								"arguments": [
+									{
+										"id": 2116,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 2117,
+											"line": 534,
+											"column": 16,
+											"start": 15991,
+											"end": 16005,
+											"length": 15,
+											"parent_index": 2112
+										},
+										"operator": 7,
+										"left_expression": {
+											"id": 2118,
+											"node_type": 16,
+											"src": {
+												"id": 2119,
+												"line": 534,
+												"column": 16,
+												"start": 15991,
+												"end": 16001,
+												"length": 11,
+												"parent_index": 2116
+											},
+											"name": "totalSupply",
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 731,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 2120,
+											"node_type": 17,
+											"kind": 49,
+											"value": "0",
+											"hex_value": "30",
+											"src": {
+												"id": 2121,
+												"line": 534,
+												"column": 30,
+												"start": 16005,
+												"end": 16005,
+												"length": 1,
+												"parent_index": 2116
+											},
+											"type_description": {
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": true
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									}
+								],
+								"expression": {
+									"id": 2114,
+									"node_type": 16,
+									"src": {
+										"id": 2115,
+										"line": 534,
+										"column": 8,
+										"start": 15983,
+										"end": 15989,
+										"length": 7,
+										"parent_index": 2112
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$",
+									"type_string": "function(bool)"
+								}
+							},
+							{
+								"id": 2122,
+								"node_type": 48,
+								"src": {
+									"id": 2123,
+									"line": 536,
+									"column": 0,
+									"start": 16018,
+									"end": 16263,
+									"length": 246,
+									"parent_index": 2110
+								},
+								"condition": {
+									"id": 2124,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 2125,
+										"line": 536,
+										"column": 12,
+										"start": 16022,
+										"end": 16031,
+										"length": 10,
+										"parent_index": 2122
+									},
+									"operator": 7,
+									"left_expression": {
+										"id": 2126,
+										"node_type": 16,
+										"src": {
+											"id": 2127,
+											"line": 536,
+											"column": 12,
+											"start": 16022,
+											"end": 16027,
+											"length": 6,
+											"parent_index": 2124
+										},
+										"name": "amount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2126,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 2128,
+										"node_type": 17,
+										"kind": 49,
+										"value": "0",
+										"hex_value": "30",
+										"src": {
+											"id": 2129,
+											"line": 536,
+											"column": 21,
+											"start": 16031,
+											"end": 16031,
+											"length": 1,
+											"parent_index": 2124
+										},
+										"type_description": {
+											"type_identifier": "t_rational_0_by_1",
+											"type_string": "int_const 0"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"body": {
+									"id": 2130,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 2131,
+										"line": 536,
+										"column": 24,
+										"start": 16034,
+										"end": 16263,
+										"length": 230,
+										"parent_index": 2097
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 2132,
+											"node_type": 27,
+											"src": {
+												"id": 2133,
+												"line": 537,
+												"column": 12,
+												"start": 16048,
+												"end": 16174,
+												"length": 127,
+												"parent_index": 2130
+											},
+											"expression": {
+												"id": 2134,
+												"node_type": 27,
+												"src": {
+													"id": 2135,
+													"line": 537,
+													"column": 12,
+													"start": 16048,
+													"end": 16173,
+													"length": 126,
+													"parent_index": 2130
+												},
+												"operator": 11,
+												"left_expression": {
+													"id": 2136,
+													"node_type": 16,
+													"src": {
+														"id": 2137,
+														"line": 537,
+														"column": 12,
+														"start": 16048,
+														"end": 16072,
+														"length": 25,
+														"parent_index": 2134
+													},
+													"name": "magnifiedDividendPerShare",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2031,
+													"is_pure": false
+												},
+												"right_expression": {
+													"id": 2138,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 2139,
+														"line": 537,
+														"column": 40,
+														"start": 16076,
+														"end": 16173,
+														"length": 98,
+														"parent_index": 2134
+													},
+													"argument_types": [
+														{
+															"type_identifier": "t_function_$_t_function_$",
+															"type_string": "function(function())"
+														}
+													],
+													"arguments": [
+														{
+															"id": 2144,
+															"is_constant": false,
+															"is_pure": false,
+															"node_type": 19,
+															"src": {
+																"id": 2145,
+																"line": 538,
+																"column": 16,
+																"start": 16123,
+																"end": 16159,
+																"length": 37,
+																"parent_index": 2138
+															},
+															"operator": 4,
+															"left_expression": {
+																"id": 2146,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 2147,
+																	"line": 538,
+																	"column": 16,
+																	"start": 16123,
+																	"end": 16145,
+																	"length": 23,
+																	"parent_index": 2144
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_function_$",
+																		"type_string": "function()"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 2154,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2155,
+																			"line": 538,
+																			"column": 29,
+																			"start": 16136,
+																			"end": 16144,
+																			"length": 9,
+																			"parent_index": 2146
+																		},
+																		"name": "magnitude",
+																		"type_description": {
+																			"type_identifier": "t_function_$",
+																			"type_string": "function()"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 0,
+																		"is_pure": false
+																	}
+																],
+																"expression": {
+																	"id": 2148,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 2149,
+																		"line": 538,
+																		"column": 16,
+																		"start": 16123,
+																		"end": 16134,
+																		"length": 12,
+																		"parent_index": 2146
+																	},
+																	"member_location": {
+																		"line": 538,
+																		"column": 25,
+																		"start": 16132,
+																		"end": 16134,
+																		"length": 3,
+																		"parent_index": 2148
+																	},
+																	"expression": {
+																		"id": 2150,
+																		"node_type": 60,
+																		"src": {
+																			"id": 2151,
+																			"line": 538,
+																			"column": 16,
+																			"start": 16123,
+																			"end": 16130,
+																			"length": 8,
+																			"parent_index": 2148
+																		},
+																		"is_constant": false,
+																		"is_pure": false,
+																		"components": [
+																			{
+																				"id": 2152,
+																				"node_type": 16,
+																				"src": {
+																					"id": 2153,
+																					"line": 538,
+																					"column": 17,
+																					"start": 16124,
+																					"end": 16129,
+																					"length": 6,
+																					"parent_index": 2150
+																				},
+																				"name": "amount",
+																				"type_description": {
+																					"type_identifier": "t_uint256",
+																					"type_string": "uint256"
+																				},
+																				"overloaded_declarations": [],
+																				"referenced_declaration": 2152,
+																				"is_pure": false
+																			}
+																		],
+																		"type_description": {
+																			"type_identifier": "t_tuple_$_t_uint256$",
+																			"type_string": "tuple(uint256)"
+																		}
+																	},
+																	"member_name": "mul",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_tuple_$_t_uint256$",
+																		"type_string": "tuple(uint256)"
+																	}
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_function_$",
+																	"type_string": "function(function())"
+																}
+															},
+															"right_expression": {
+																"id": 2156,
+																"node_type": 16,
+																"src": {
+																	"id": 2157,
+																	"line": 538,
+																	"column": 42,
+																	"start": 16149,
+																	"end": 16159,
+																	"length": 11,
+																	"parent_index": 2144
+																},
+																"name": "totalSupply",
+																"type_description": {
+																	"type_identifier": "t_uint256",
+																	"type_string": "uint256"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 731,
+																"is_pure": false
+															},
+															"type_description": {
+																"type_identifier": "t_function_$_t_function_$",
+																"type_string": "function(function())"
+															}
+														}
+													],
+													"expression": {
+														"id": 2140,
+														"is_constant": false,
+														"is_l_value": false,
+														"is_pure": false,
+														"l_value_requested": false,
+														"node_type": 23,
+														"src": {
+															"id": 2141,
+															"line": 537,
+															"column": 40,
+															"start": 16076,
+															"end": 16104,
+															"length": 29,
+															"parent_index": 2138
+														},
+														"member_location": {
+															"line": 537,
+															"column": 66,
+															"start": 16102,
+															"end": 16104,
+															"length": 3,
+															"parent_index": 2140
+														},
+														"expression": {
+															"id": 2142,
+															"node_type": 16,
+															"src": {
+																"id": 2143,
+																"line": 537,
+																"column": 40,
+																"start": 16076,
+																"end": 16100,
+																"length": 25,
+																"parent_index": 2140
+															},
+															"name": "magnifiedDividendPerShare",
+															"type_description": {
+																"type_identifier": "t_uint256",
+																"type_string": "uint256"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 2031,
+															"is_pure": false
+														},
+														"member_name": "add",
+														"argument_types": [],
+														"type_description": {
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_function_$_t_function_$",
+														"type_string": "function(function(function()))"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										{
+											"id": 2158,
+											"node_type": 27,
+											"src": {
+												"id": 2159,
+												"line": 540,
+												"column": 12,
+												"start": 16188,
+												"end": 16253,
+												"length": 66,
+												"parent_index": 2130
+											},
+											"expression": {
+												"id": 2160,
+												"node_type": 27,
+												"src": {
+													"id": 2161,
+													"line": 540,
+													"column": 12,
+													"start": 16188,
+													"end": 16252,
+													"length": 65,
+													"parent_index": 2130
+												},
+												"operator": 11,
+												"left_expression": {
+													"id": 2162,
+													"node_type": 16,
+													"src": {
+														"id": 2163,
+														"line": 540,
+														"column": 12,
+														"start": 16188,
+														"end": 16212,
+														"length": 25,
+														"parent_index": 2160
+													},
+													"name": "totalDividendsDistributed",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2054,
+													"is_pure": false
+												},
+												"right_expression": {
+													"id": 2164,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 2165,
+														"line": 540,
+														"column": 40,
+														"start": 16216,
+														"end": 16252,
+														"length": 37,
+														"parent_index": 2160
+													},
+													"argument_types": [
+														{
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														}
+													],
+													"arguments": [
+														{
+															"id": 2170,
+															"node_type": 16,
+															"src": {
+																"id": 2171,
+																"line": 540,
+																"column": 70,
+																"start": 16246,
+																"end": 16251,
+																"length": 6,
+																"parent_index": 2164
+															},
+															"name": "amount",
+															"type_description": {
+																"type_identifier": "t_uint256",
+																"type_string": "uint256"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 2170,
+															"is_pure": false
+														}
+													],
+													"expression": {
+														"id": 2166,
+														"is_constant": false,
+														"is_l_value": false,
+														"is_pure": false,
+														"l_value_requested": false,
+														"node_type": 23,
+														"src": {
+															"id": 2167,
+															"line": 540,
+															"column": 40,
+															"start": 16216,
+															"end": 16244,
+															"length": 29,
+															"parent_index": 2164
+														},
+														"member_location": {
+															"line": 540,
+															"column": 66,
+															"start": 16242,
+															"end": 16244,
+															"length": 3,
+															"parent_index": 2166
+														},
+														"expression": {
+															"id": 2168,
+															"node_type": 16,
+															"src": {
+																"id": 2169,
+																"line": 540,
+																"column": 40,
+																"start": 16216,
+																"end": 16240,
+																"length": 25,
+																"parent_index": 2166
+															},
+															"name": "totalDividendsDistributed",
+															"type_description": {
+																"type_identifier": "t_uint256",
+																"type_string": "uint256"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 2054,
+															"is_pure": false
+														},
+														"member_name": "add",
+														"argument_types": [],
+														"type_description": {
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_uint256$",
+														"type_string": "function(uint256)"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 2099,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 2100,
+								"line": 533,
+								"column": 56,
+								"start": 15963,
+								"end": 15971,
+								"length": 9,
+								"parent_index": 2097
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 2101,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 2102,
+									"line": 533,
+									"column": 56,
+									"start": 15963,
+									"end": 15971,
+									"length": 9,
+									"parent_index": 2099
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 2103,
+						"node_type": 43,
+						"src": {
+							"id": 2104,
+							"line": 533,
+							"column": 33,
+							"start": 15940,
+							"end": 15953,
+							"length": 14,
+							"parent_index": 2097
+						},
+						"parameters": [
+							{
+								"id": 2105,
+								"node_type": 44,
+								"src": {
+									"id": 2106,
+									"line": 533,
+									"column": 33,
+									"start": 15940,
+									"end": 15953,
+									"length": 14,
+									"parent_index": 2103
+								},
+								"scope": 2097,
+								"name": "amount",
+								"type_name": {
+									"id": 2107,
+									"node_type": 30,
+									"src": {
+										"id": 2108,
+										"line": 533,
+										"column": 33,
+										"start": 15940,
+										"end": 15946,
+										"length": 7,
+										"parent_index": 2105
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2109,
+						"node_type": 43,
+						"src": {
+							"id": 2098,
+							"line": 533,
+							"column": 4,
+							"start": 15911,
+							"end": 16269,
+							"length": 359,
+							"parent_index": 2097
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$",
+						"type_string": "function(uint256)"
+					}
+				},
+				{
+					"id": 2173,
+					"name": "withdrawDividend",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2174,
+						"line": 546,
+						"column": 4,
+						"start": 16441,
+						"end": 16535,
+						"length": 95,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 546,
+						"column": 13,
+						"start": 16450,
+						"end": 16465,
+						"length": 16,
+						"parent_index": 2173
+					},
+					"body": {
+						"id": 2177,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2178,
+							"line": 546,
+							"column": 47,
+							"start": 16484,
+							"end": 16535,
+							"length": 52,
+							"parent_index": 2173
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2179,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 2180,
+									"line": 547,
+									"column": 8,
+									"start": 16494,
+									"end": 16528,
+									"length": 35,
+									"parent_index": 2177
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								],
+								"arguments": [
+									{
+										"id": 2183,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 2184,
+											"line": 547,
+											"column": 32,
+											"start": 16518,
+											"end": 16527,
+											"length": 10,
+											"parent_index": 2179
+										},
+										"member_location": {
+											"line": 547,
+											"column": 36,
+											"start": 16522,
+											"end": 16527,
+											"length": 6,
+											"parent_index": 2183
+										},
+										"expression": {
+											"id": 2185,
+											"node_type": 16,
+											"src": {
+												"id": 2186,
+												"line": 547,
+												"column": 32,
+												"start": 16518,
+												"end": 16520,
+												"length": 3,
+												"parent_index": 2183
+											},
+											"name": "msg",
+											"type_description": {
+												"type_identifier": "t_magic_message",
+												"type_string": "msg"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "sender",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									}
+								],
+								"expression": {
+									"id": 2181,
+									"node_type": 16,
+									"src": {
+										"id": 2182,
+										"line": 547,
+										"column": 8,
+										"start": 16494,
+										"end": 16516,
+										"length": 23,
+										"parent_index": 2179
+									},
+									"name": "_withdrawDividendOfUser",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$",
+									"type_string": "function(address)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2175,
+						"node_type": 43,
+						"src": {
+							"id": 2174,
+							"line": 546,
+							"column": 4,
+							"start": 16441,
+							"end": 16535,
+							"length": 95,
+							"parent_index": 2173
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 2176,
+						"node_type": 43,
+						"src": {
+							"id": 2174,
+							"line": 546,
+							"column": 4,
+							"start": 16441,
+							"end": 16535,
+							"length": 95,
+							"parent_index": 2173
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				},
+				{
+					"id": 2188,
+					"name": "_withdrawDividendOfUser",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2189,
+						"line": 552,
+						"column": 4,
+						"start": 16707,
+						"end": 17376,
+						"length": 670,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 552,
+						"column": 13,
+						"start": 16716,
+						"end": 16738,
+						"length": 23,
+						"parent_index": 2188
+					},
+					"body": {
+						"id": 2202,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2203,
+							"line": 552,
+							"column": 78,
+							"start": 16781,
+							"end": 17376,
+							"length": 596,
+							"parent_index": 2188
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2204,
+								"node_type": 44,
+								"src": {
+									"id": 2205,
+									"line": 553,
+									"column": 8,
+									"start": 16791,
+									"end": 16851,
+									"length": 61,
+									"parent_index": 2202
+								},
+								"assignments": [
+									2206
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 2206,
+										"state_mutability": 1,
+										"name": "_withdrawableDividend",
+										"node_type": 44,
+										"scope": 2202,
+										"src": {
+											"id": 2207,
+											"line": 553,
+											"column": 8,
+											"start": 16791,
+											"end": 16819,
+											"length": 29,
+											"parent_index": 2204
+										},
+										"name_location": {
+											"line": 553,
+											"column": 16,
+											"start": 16799,
+											"end": 16819,
+											"length": 21,
+											"parent_index": 2206
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 2208,
+											"node_type": 30,
+											"src": {
+												"id": 2209,
+												"line": 553,
+												"column": 8,
+												"start": 16791,
+												"end": 16797,
+												"length": 7,
+												"parent_index": 2206
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 2210,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 2211,
+										"line": 553,
+										"column": 40,
+										"start": 16823,
+										"end": 16850,
+										"length": 28,
+										"parent_index": 2204
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									],
+									"arguments": [
+										{
+											"id": 2214,
+											"node_type": 16,
+											"src": {
+												"id": 2215,
+												"line": 553,
+												"column": 63,
+												"start": 16846,
+												"end": 16849,
+												"length": 4,
+												"parent_index": 2210
+											},
+											"name": "user",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 2214,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 2212,
+										"node_type": 16,
+										"src": {
+											"id": 2213,
+											"line": 553,
+											"column": 40,
+											"start": 16823,
+											"end": 16844,
+											"length": 22,
+											"parent_index": 2210
+										},
+										"name": "withdrawableDividendOf",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_address$",
+										"type_string": "function(address)"
+									}
+								}
+							},
+							{
+								"id": 2216,
+								"node_type": 48,
+								"src": {
+									"id": 2217,
+									"line": 554,
+									"column": 0,
+									"start": 16861,
+									"end": 17351,
+									"length": 491,
+									"parent_index": 2202
+								},
+								"condition": {
+									"id": 2218,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 2219,
+										"line": 554,
+										"column": 12,
+										"start": 16865,
+										"end": 16889,
+										"length": 25,
+										"parent_index": 2216
+									},
+									"operator": 7,
+									"left_expression": {
+										"id": 2220,
+										"node_type": 16,
+										"src": {
+											"id": 2221,
+											"line": 554,
+											"column": 12,
+											"start": 16865,
+											"end": 16885,
+											"length": 21,
+											"parent_index": 2218
+										},
+										"name": "_withdrawableDividend",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2204,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 2222,
+										"node_type": 17,
+										"kind": 49,
+										"value": "0",
+										"hex_value": "30",
+										"src": {
+											"id": 2223,
+											"line": 554,
+											"column": 36,
+											"start": 16889,
+											"end": 16889,
+											"length": 1,
+											"parent_index": 2218
+										},
+										"type_description": {
+											"type_identifier": "t_rational_0_by_1",
+											"type_string": "int_const 0"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"body": {
+									"id": 2224,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 2225,
+										"line": 554,
+										"column": 39,
+										"start": 16892,
+										"end": 17351,
+										"length": 460,
+										"parent_index": 2188
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 2226,
+											"node_type": 27,
+											"src": {
+												"id": 2227,
+												"line": 555,
+												"column": 12,
+												"start": 16906,
+												"end": 17014,
+												"length": 109,
+												"parent_index": 2224
+											},
+											"expression": {
+												"id": 2228,
+												"node_type": 27,
+												"src": {
+													"id": 2229,
+													"line": 555,
+													"column": 12,
+													"start": 16906,
+													"end": 17013,
+													"length": 108,
+													"parent_index": 2224
+												},
+												"operator": 11,
+												"left_expression": {
+													"id": 2230,
+													"node_type": 22,
+													"src": {
+														"id": 2231,
+														"line": 555,
+														"column": 12,
+														"start": 16906,
+														"end": 16929,
+														"length": 24,
+														"parent_index": 2228
+													},
+													"index_expression": {
+														"id": 2232,
+														"node_type": 16,
+														"src": {
+															"id": 2233,
+															"line": 555,
+															"column": 12,
+															"start": 16906,
+															"end": 16923,
+															"length": 18,
+															"parent_index": 2230
+														},
+														"name": "withdrawnDividends",
+														"type_description": {
+															"type_identifier": "t_mapping_$t_address_$t_uint256$",
+															"type_string": "mapping(address=\u003euint256)"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 2045,
+														"is_pure": false
+													},
+													"base_expression": {
+														"id": 2234,
+														"node_type": 16,
+														"src": {
+															"id": 2235,
+															"line": 555,
+															"column": 31,
+															"start": 16925,
+															"end": 16928,
+															"length": 4,
+															"parent_index": 2230
+														},
+														"name": "user",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 2234,
+														"is_pure": false
+													},
+													"type_descriptions": [
+														{
+															"type_identifier": "t_mapping_$t_address_$t_uint256$",
+															"type_string": "mapping(address=\u003euint256)"
+														},
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													],
+													"type_description": {
+														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+														"type_string": "index[mapping(address=\u003euint256):address]"
+													}
+												},
+												"right_expression": {
+													"id": 2236,
+													"node_type": 24,
+													"kind": 24,
+													"src": {
+														"id": 2237,
+														"line": 555,
+														"column": 39,
+														"start": 16933,
+														"end": 17013,
+														"length": 81,
+														"parent_index": 2228
+													},
+													"argument_types": [
+														{
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														}
+													],
+													"arguments": [
+														{
+															"id": 2246,
+															"node_type": 16,
+															"src": {
+																"id": 2247,
+																"line": 556,
+																"column": 16,
+																"start": 16979,
+																"end": 16999,
+																"length": 21,
+																"parent_index": 2236
+															},
+															"name": "_withdrawableDividend",
+															"type_description": {
+																"type_identifier": "t_function_$",
+																"type_string": "function()"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 0,
+															"is_pure": false
+														}
+													],
+													"expression": {
+														"id": 2238,
+														"is_constant": false,
+														"is_l_value": false,
+														"is_pure": false,
+														"l_value_requested": false,
+														"node_type": 23,
+														"src": {
+															"id": 2239,
+															"line": 555,
+															"column": 39,
+															"start": 16933,
+															"end": 16960,
+															"length": 28,
+															"parent_index": 2236
+														},
+														"member_location": {
+															"line": 555,
+															"column": 64,
+															"start": 16958,
+															"end": 16960,
+															"length": 3,
+															"parent_index": 2238
+														},
+														"expression": {
+															"id": 2240,
+															"node_type": 22,
+															"src": {
+																"id": 2241,
+																"line": 555,
+																"column": 39,
+																"start": 16933,
+																"end": 16956,
+																"length": 24,
+																"parent_index": 2238
+															},
+															"index_expression": {
+																"id": 2242,
+																"node_type": 16,
+																"src": {
+																	"id": 2243,
+																	"line": 555,
+																	"column": 39,
+																	"start": 16933,
+																	"end": 16950,
+																	"length": 18,
+																	"parent_index": 2240
+																},
+																"name": "withdrawnDividends",
+																"type_description": {
+																	"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																	"type_string": "mapping(address=\u003euint256)"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 2045,
+																"is_pure": false
+															},
+															"base_expression": {
+																"id": 2244,
+																"node_type": 16,
+																"src": {
+																	"id": 2245,
+																	"line": 555,
+																	"column": 58,
+																	"start": 16952,
+																	"end": 16955,
+																	"length": 4,
+																	"parent_index": 2240
+																},
+																"name": "user",
+																"type_description": {
+																	"type_identifier": "t_address",
+																	"type_string": "address"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 2244,
+																"is_pure": false
+															},
+															"type_descriptions": [
+																{
+																	"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																	"type_string": "mapping(address=\u003euint256)"
+																},
+																{
+																	"type_identifier": "t_address",
+																	"type_string": "address"
+																}
+															],
+															"type_description": {
+																"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																"type_string": "index[mapping(address=\u003euint256):address]"
+															}
+														},
+														"member_name": "add",
+														"argument_types": [],
+														"type_description": {
+															"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+															"type_string": "index[mapping(address=\u003euint256):address]"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_function_$",
+														"type_string": "function(function())"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+													"type_string": "index[mapping(address=\u003euint256):address]"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+												"type_string": "index[mapping(address=\u003euint256):address]"
+											}
+										},
+										{
+											"id": 2248,
+											"node_type": 44,
+											"src": {
+												"id": 2249,
+												"line": 558,
+												"column": 12,
+												"start": 17028,
+												"end": 17095,
+												"length": 68,
+												"parent_index": 2224
+											},
+											"assignments": [
+												2250
+											],
+											"declarations": [
+												{
+													"is_constant": false,
+													"id": 2250,
+													"state_mutability": 1,
+													"name": "success",
+													"node_type": 44,
+													"scope": 2224,
+													"src": {
+														"id": 2251,
+														"line": 558,
+														"column": 12,
+														"start": 17028,
+														"end": 17039,
+														"length": 12,
+														"parent_index": 2248
+													},
+													"name_location": {
+														"line": 558,
+														"column": 17,
+														"start": 17033,
+														"end": 17039,
+														"length": 7,
+														"parent_index": 2250
+													},
+													"is_state_variable": false,
+													"storage_location": 1,
+													"type_name": {
+														"id": 2252,
+														"node_type": 30,
+														"src": {
+															"id": 2253,
+															"line": 558,
+															"column": 12,
+															"start": 17028,
+															"end": 17031,
+															"length": 4,
+															"parent_index": 2250
+														},
+														"name": "bool",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_bool",
+															"type_string": "bool"
+														}
+													},
+													"visibility": 1
+												}
+											],
+											"initial_value": {
+												"id": 2254,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 2255,
+													"line": 558,
+													"column": 27,
+													"start": 17043,
+													"end": 17094,
+													"length": 52,
+													"parent_index": 2248
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													{
+														"type_identifier": "t_function_$_t_address$",
+														"type_string": "function(address)"
+													}
+												],
+												"arguments": [
+													{
+														"id": 2264,
+														"node_type": 16,
+														"src": {
+															"id": 2265,
+															"line": 558,
+															"column": 51,
+															"start": 17067,
+															"end": 17070,
+															"length": 4,
+															"parent_index": 2254
+														},
+														"name": "user",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 2264,
+														"is_pure": false
+													},
+													{
+														"id": 2266,
+														"node_type": 16,
+														"src": {
+															"id": 2267,
+															"line": 558,
+															"column": 57,
+															"start": 17073,
+															"end": 17093,
+															"length": 21,
+															"parent_index": 2254
+														},
+														"name": "_withdrawableDividend",
+														"type_description": {
+															"type_identifier": "t_function_$_t_address$",
+															"type_string": "function(address)"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false,
+														"argument_types": [
+															{
+																"type_identifier": "t_address",
+																"type_string": "address"
+															}
+														]
+													}
+												],
+												"expression": {
+													"id": 2256,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 2257,
+														"line": 558,
+														"column": 27,
+														"start": 17043,
+														"end": 17065,
+														"length": 23,
+														"parent_index": 2254
+													},
+													"member_location": {
+														"line": 558,
+														"column": 42,
+														"start": 17058,
+														"end": 17065,
+														"length": 8,
+														"parent_index": 2256
+													},
+													"expression": {
+														"id": 2258,
+														"node_type": 24,
+														"kind": 24,
+														"src": {
+															"id": 2259,
+															"line": 558,
+															"column": 27,
+															"start": 17043,
+															"end": 17056,
+															"length": 14,
+															"parent_index": 2256
+														},
+														"argument_types": [
+															{
+																"type_identifier": "t_function_$",
+																"type_string": "function()"
+															}
+														],
+														"arguments": [
+															{
+																"id": 2262,
+																"node_type": 16,
+																"src": {
+																	"id": 2263,
+																	"line": 558,
+																	"column": 34,
+																	"start": 17050,
+																	"end": 17055,
+																	"length": 6,
+																	"parent_index": 2258
+																},
+																"name": "dToken",
+																"type_description": {
+																	"type_identifier": "t_function_$",
+																	"type_string": "function()"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 0,
+																"is_pure": false
+															}
+														],
+														"expression": {
+															"id": 2260,
+															"node_type": 16,
+															"src": {
+																"id": 2261,
+																"line": 558,
+																"column": 27,
+																"start": 17043,
+																"end": 17048,
+																"length": 6,
+																"parent_index": 2258
+															},
+															"name": "IERC20",
+															"type_description": {
+																"type_identifier": "t_function_$",
+																"type_string": "function()"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 0,
+															"is_pure": false
+														},
+														"type_description": {
+															"type_identifier": "t_function_$_t_function_$",
+															"type_string": "function(function())"
+														}
+													},
+													"member_name": "transfer",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_function_$_t_function_$",
+														"type_string": "function(function())"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$_t_function_$_t_address$",
+													"type_string": "function(address,function(address))"
+												}
+											}
+										},
+										{
+											"id": 2268,
+											"node_type": 48,
+											"src": {
+												"id": 2269,
+												"line": 560,
+												"column": 0,
+												"start": 17110,
+												"end": 17298,
+												"length": 189,
+												"parent_index": 2224
+											},
+											"condition": {
+												"id": 2270,
+												"node_type": 18,
+												"src": {
+													"id": 2271,
+													"line": 560,
+													"column": 16,
+													"start": 17114,
+													"end": 17121,
+													"length": 8,
+													"parent_index": 2188
+												},
+												"operator": 31,
+												"prefix": false,
+												"is_constant": false,
+												"is_l_value": false,
+												"is_pure": false,
+												"l_value_requested": false,
+												"expression": {
+													"id": 2272,
+													"node_type": 16,
+													"src": {
+														"id": 2273,
+														"line": 560,
+														"column": 17,
+														"start": 17115,
+														"end": 17121,
+														"length": 7,
+														"parent_index": 2270
+													},
+													"name": "success",
+													"type_description": {
+														"type_identifier": "t_bool",
+														"type_string": "bool"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2248,
+													"is_pure": false
+												},
+												"type_description": {
+													"type_identifier": "t_bool",
+													"type_string": "bool"
+												}
+											},
+											"body": {
+												"id": 2274,
+												"node_type": 46,
+												"kind": 0,
+												"src": {
+													"id": 2275,
+													"line": 560,
+													"column": 26,
+													"start": 17124,
+													"end": 17298,
+													"length": 175,
+													"parent_index": 2188
+												},
+												"implemented": true,
+												"statements": [
+													{
+														"id": 2276,
+														"node_type": 27,
+														"src": {
+															"id": 2277,
+															"line": 561,
+															"column": 16,
+															"start": 17142,
+															"end": 17258,
+															"length": 117,
+															"parent_index": 2274
+														},
+														"expression": {
+															"id": 2278,
+															"node_type": 27,
+															"src": {
+																"id": 2279,
+																"line": 561,
+																"column": 16,
+																"start": 17142,
+																"end": 17257,
+																"length": 116,
+																"parent_index": 2274
+															},
+															"operator": 11,
+															"left_expression": {
+																"id": 2280,
+																"node_type": 22,
+																"src": {
+																	"id": 2281,
+																	"line": 561,
+																	"column": 16,
+																	"start": 17142,
+																	"end": 17165,
+																	"length": 24,
+																	"parent_index": 2278
+																},
+																"index_expression": {
+																	"id": 2282,
+																	"node_type": 16,
+																	"src": {
+																		"id": 2283,
+																		"line": 561,
+																		"column": 16,
+																		"start": 17142,
+																		"end": 17159,
+																		"length": 18,
+																		"parent_index": 2280
+																	},
+																	"name": "withdrawnDividends",
+																	"type_description": {
+																		"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																		"type_string": "mapping(address=\u003euint256)"
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 2045,
+																	"is_pure": false
+																},
+																"base_expression": {
+																	"id": 2284,
+																	"node_type": 16,
+																	"src": {
+																		"id": 2285,
+																		"line": 561,
+																		"column": 35,
+																		"start": 17161,
+																		"end": 17164,
+																		"length": 4,
+																		"parent_index": 2280
+																	},
+																	"name": "user",
+																	"type_description": {
+																		"type_identifier": "t_address",
+																		"type_string": "address"
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 2284,
+																	"is_pure": false
+																},
+																"type_descriptions": [
+																	{
+																		"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																		"type_string": "mapping(address=\u003euint256)"
+																	},
+																	{
+																		"type_identifier": "t_address",
+																		"type_string": "address"
+																	}
+																],
+																"type_description": {
+																	"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																	"type_string": "index[mapping(address=\u003euint256):address]"
+																}
+															},
+															"right_expression": {
+																"id": 2286,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 2287,
+																	"line": 561,
+																	"column": 43,
+																	"start": 17169,
+																	"end": 17257,
+																	"length": 89,
+																	"parent_index": 2278
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_function_$",
+																		"type_string": "function()"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 2296,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2297,
+																			"line": 562,
+																			"column": 20,
+																			"start": 17219,
+																			"end": 17239,
+																			"length": 21,
+																			"parent_index": 2286
+																		},
+																		"name": "_withdrawableDividend",
+																		"type_description": {
+																			"type_identifier": "t_function_$",
+																			"type_string": "function()"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 0,
+																		"is_pure": false
+																	}
+																],
+																"expression": {
+																	"id": 2288,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 2289,
+																		"line": 561,
+																		"column": 43,
+																		"start": 17169,
+																		"end": 17196,
+																		"length": 28,
+																		"parent_index": 2286
+																	},
+																	"member_location": {
+																		"line": 561,
+																		"column": 68,
+																		"start": 17194,
+																		"end": 17196,
+																		"length": 3,
+																		"parent_index": 2288
+																	},
+																	"expression": {
+																		"id": 2290,
+																		"node_type": 22,
+																		"src": {
+																			"id": 2291,
+																			"line": 561,
+																			"column": 43,
+																			"start": 17169,
+																			"end": 17192,
+																			"length": 24,
+																			"parent_index": 2288
+																		},
+																		"index_expression": {
+																			"id": 2292,
+																			"node_type": 16,
+																			"src": {
+																				"id": 2293,
+																				"line": 561,
+																				"column": 43,
+																				"start": 17169,
+																				"end": 17186,
+																				"length": 18,
+																				"parent_index": 2290
+																			},
+																			"name": "withdrawnDividends",
+																			"type_description": {
+																				"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																				"type_string": "mapping(address=\u003euint256)"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 2045,
+																			"is_pure": false
+																		},
+																		"base_expression": {
+																			"id": 2294,
+																			"node_type": 16,
+																			"src": {
+																				"id": 2295,
+																				"line": 561,
+																				"column": 62,
+																				"start": 17188,
+																				"end": 17191,
+																				"length": 4,
+																				"parent_index": 2290
+																			},
+																			"name": "user",
+																			"type_description": {
+																				"type_identifier": "t_address",
+																				"type_string": "address"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 2294,
+																			"is_pure": false
+																		},
+																		"type_descriptions": [
+																			{
+																				"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																				"type_string": "mapping(address=\u003euint256)"
+																			},
+																			{
+																				"type_identifier": "t_address",
+																				"type_string": "address"
+																			}
+																		],
+																		"type_description": {
+																			"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																			"type_string": "index[mapping(address=\u003euint256):address]"
+																		}
+																	},
+																	"member_name": "sub",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																		"type_string": "index[mapping(address=\u003euint256):address]"
+																	}
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_function_$",
+																	"type_string": "function(function())"
+																}
+															},
+															"type_description": {
+																"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																"type_string": "index[mapping(address=\u003euint256):address]"
+															}
+														},
+														"type_description": {
+															"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+															"type_string": "index[mapping(address=\u003euint256):address]"
+														}
+													},
+													{
+														"id": 2298,
+														"node_type": 47,
+														"src": {
+															"id": 2299,
+															"line": 564,
+															"column": 16,
+															"start": 17276,
+															"end": 17284,
+															"length": 9,
+															"parent_index": 2188
+														},
+														"function_return_parameters": 2188,
+														"expression": {
+															"id": 2300,
+															"node_type": 17,
+															"kind": 49,
+															"value": "0",
+															"hex_value": "30",
+															"src": {
+																"id": 2301,
+																"line": 564,
+																"column": 23,
+																"start": 17283,
+																"end": 17283,
+																"length": 1,
+																"parent_index": 2274
+															},
+															"type_description": {
+																"type_identifier": "t_rational_0_by_1",
+																"type_string": "int_const 0"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 0,
+															"is_pure": true
+														}
+													}
+												]
+											}
+										},
+										{
+											"id": 2302,
+											"node_type": 47,
+											"src": {
+												"id": 2303,
+												"line": 567,
+												"column": 12,
+												"start": 17313,
+												"end": 17341,
+												"length": 29,
+												"parent_index": 2188
+											},
+											"function_return_parameters": 2188,
+											"expression": {
+												"id": 2304,
+												"node_type": 16,
+												"src": {
+													"id": 2305,
+													"line": 567,
+													"column": 19,
+													"start": 17320,
+													"end": 17340,
+													"length": 21,
+													"parent_index": 2224
+												},
+												"name": "_withdrawableDividend",
+												"type_description": {
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 2204,
+												"is_pure": false
+											}
+										}
+									]
+								}
+							},
+							{
+								"id": 2306,
+								"node_type": 47,
+								"src": {
+									"id": 2307,
+									"line": 570,
+									"column": 8,
+									"start": 17362,
+									"end": 17370,
+									"length": 9,
+									"parent_index": 2188
+								},
+								"function_return_parameters": 2188,
+								"expression": {
+									"id": 2308,
+									"node_type": 17,
+									"kind": 49,
+									"value": "0",
+									"hex_value": "30",
+									"src": {
+										"id": 2309,
+										"line": 570,
+										"column": 15,
+										"start": 17369,
+										"end": 17369,
+										"length": 1,
+										"parent_index": 2202
+									},
+									"type_description": {
+										"type_identifier": "t_rational_0_by_1",
+										"type_string": "int_const 0"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2190,
+						"node_type": 43,
+						"src": {
+							"id": 2191,
+							"line": 552,
+							"column": 37,
+							"start": 16740,
+							"end": 16751,
+							"length": 12,
+							"parent_index": 2188
+						},
+						"parameters": [
+							{
+								"id": 2192,
+								"node_type": 44,
+								"src": {
+									"id": 2193,
+									"line": 552,
+									"column": 37,
+									"start": 16740,
+									"end": 16751,
+									"length": 12,
+									"parent_index": 2190
+								},
+								"scope": 2188,
+								"name": "user",
+								"type_name": {
+									"id": 2194,
+									"node_type": 30,
+									"src": {
+										"id": 2195,
+										"line": 552,
+										"column": 37,
+										"start": 16740,
+										"end": 16746,
+										"length": 7,
+										"parent_index": 2192
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2196,
+						"node_type": 43,
+						"src": {
+							"id": 2197,
+							"line": 552,
+							"column": 69,
+							"start": 16772,
+							"end": 16778,
+							"length": 7,
+							"parent_index": 2188
+						},
+						"parameters": [
+							{
+								"id": 2198,
+								"node_type": 44,
+								"src": {
+									"id": 2199,
+									"line": 552,
+									"column": 69,
+									"start": 16772,
+									"end": 16778,
+									"length": 7,
+									"parent_index": 2196
+								},
+								"scope": 2188,
+								"name": "",
+								"type_name": {
+									"id": 2200,
+									"node_type": 30,
+									"src": {
+										"id": 2201,
+										"line": 552,
+										"column": 69,
+										"start": 16772,
+										"end": 16778,
+										"length": 7,
+										"parent_index": 2198
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2311,
+					"name": "dividendOf",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2312,
+						"line": 576,
+						"column": 4,
+						"start": 17591,
+						"end": 17710,
+						"length": 120,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 576,
+						"column": 13,
+						"start": 17600,
+						"end": 17609,
+						"length": 10,
+						"parent_index": 2311
+					},
+					"body": {
+						"id": 2325,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2326,
+							"line": 576,
+							"column": 70,
+							"start": 17657,
+							"end": 17710,
+							"length": 54,
+							"parent_index": 2311
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2327,
+								"node_type": 47,
+								"src": {
+									"id": 2328,
+									"line": 577,
+									"column": 8,
+									"start": 17667,
+									"end": 17704,
+									"length": 38,
+									"parent_index": 2311
+								},
+								"function_return_parameters": 2311,
+								"expression": {
+									"id": 2329,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 2330,
+										"line": 577,
+										"column": 15,
+										"start": 17674,
+										"end": 17703,
+										"length": 30,
+										"parent_index": 2325
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									],
+									"arguments": [
+										{
+											"id": 2333,
+											"node_type": 16,
+											"src": {
+												"id": 2334,
+												"line": 577,
+												"column": 38,
+												"start": 17697,
+												"end": 17702,
+												"length": 6,
+												"parent_index": 2329
+											},
+											"name": "_owner",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 2333,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 2331,
+										"node_type": 16,
+										"src": {
+											"id": 2332,
+											"line": 577,
+											"column": 15,
+											"start": 17674,
+											"end": 17695,
+											"length": 22,
+											"parent_index": 2329
+										},
+										"name": "withdrawableDividendOf",
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_address$",
+										"type_string": "function(address)"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2313,
+						"node_type": 43,
+						"src": {
+							"id": 2314,
+							"line": 576,
+							"column": 24,
+							"start": 17611,
+							"end": 17624,
+							"length": 14,
+							"parent_index": 2311
+						},
+						"parameters": [
+							{
+								"id": 2315,
+								"node_type": 44,
+								"src": {
+									"id": 2316,
+									"line": 576,
+									"column": 24,
+									"start": 17611,
+									"end": 17624,
+									"length": 14,
+									"parent_index": 2313
+								},
+								"scope": 2311,
+								"name": "_owner",
+								"type_name": {
+									"id": 2317,
+									"node_type": 30,
+									"src": {
+										"id": 2318,
+										"line": 576,
+										"column": 24,
+										"start": 17611,
+										"end": 17617,
+										"length": 7,
+										"parent_index": 2315
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2319,
+						"node_type": 43,
+						"src": {
+							"id": 2320,
+							"line": 576,
+							"column": 61,
+							"start": 17648,
+							"end": 17654,
+							"length": 7,
+							"parent_index": 2311
+						},
+						"parameters": [
+							{
+								"id": 2321,
+								"node_type": 44,
+								"src": {
+									"id": 2322,
+									"line": 576,
+									"column": 61,
+									"start": 17648,
+									"end": 17654,
+									"length": 7,
+									"parent_index": 2319
+								},
+								"scope": 2311,
+								"name": "",
+								"type_name": {
+									"id": 2323,
+									"node_type": 30,
+									"src": {
+										"id": 2324,
+										"line": 576,
+										"column": 61,
+										"start": 17648,
+										"end": 17654,
+										"length": 7,
+										"parent_index": 2321
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2336,
+					"name": "withdrawableDividendOf",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2337,
+						"line": 583,
+						"column": 4,
+						"start": 17925,
+						"end": 18102,
+						"length": 178,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 583,
+						"column": 13,
+						"start": 17934,
+						"end": 17955,
+						"length": 22,
+						"parent_index": 2336
+					},
+					"body": {
+						"id": 2350,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2351,
+							"line": 585,
+							"column": 36,
+							"start": 18017,
+							"end": 18102,
+							"length": 86,
+							"parent_index": 2336
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2352,
+								"node_type": 47,
+								"src": {
+									"id": 2353,
+									"line": 586,
+									"column": 8,
+									"start": 18027,
+									"end": 18096,
+									"length": 70,
+									"parent_index": 2336
+								},
+								"function_return_parameters": 2336,
+								"expression": {
+									"id": 2354,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 2355,
+										"line": 586,
+										"column": 15,
+										"start": 18034,
+										"end": 18095,
+										"length": 62,
+										"parent_index": 2350
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003euint256):address]"
+										}
+									],
+									"arguments": [
+										{
+											"id": 2364,
+											"node_type": 22,
+											"src": {
+												"id": 2365,
+												"line": 586,
+												"column": 50,
+												"start": 18069,
+												"end": 18094,
+												"length": 26,
+												"parent_index": 2354
+											},
+											"index_expression": {
+												"id": 2366,
+												"node_type": 16,
+												"src": {
+													"id": 2367,
+													"line": 586,
+													"column": 50,
+													"start": 18069,
+													"end": 18086,
+													"length": 18,
+													"parent_index": 2364
+												},
+												"name": "withdrawnDividends",
+												"type_description": {
+													"type_identifier": "t_mapping_$t_address_$t_uint256$",
+													"type_string": "mapping(address=\u003euint256)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 2045,
+												"is_pure": false
+											},
+											"base_expression": {
+												"id": 2368,
+												"node_type": 16,
+												"src": {
+													"id": 2369,
+													"line": 586,
+													"column": 69,
+													"start": 18088,
+													"end": 18093,
+													"length": 6,
+													"parent_index": 2364
+												},
+												"name": "_owner",
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 2368,
+												"is_pure": false
+											},
+											"type_descriptions": [
+												{
+													"type_identifier": "t_mapping_$t_address_$t_uint256$",
+													"type_string": "mapping(address=\u003euint256)"
+												},
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											],
+											"type_description": {
+												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+												"type_string": "index[mapping(address=\u003euint256):address]"
+											}
+										}
+									],
+									"expression": {
+										"id": 2356,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 2357,
+											"line": 586,
+											"column": 15,
+											"start": 18034,
+											"end": 18067,
+											"length": 34,
+											"parent_index": 2354
+										},
+										"member_location": {
+											"line": 586,
+											"column": 46,
+											"start": 18065,
+											"end": 18067,
+											"length": 3,
+											"parent_index": 2356
+										},
+										"expression": {
+											"id": 2358,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 2359,
+												"line": 586,
+												"column": 15,
+												"start": 18034,
+												"end": 18063,
+												"length": 30,
+												"parent_index": 2356
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											],
+											"arguments": [
+												{
+													"id": 2362,
+													"node_type": 16,
+													"src": {
+														"id": 2363,
+														"line": 586,
+														"column": 38,
+														"start": 18057,
+														"end": 18062,
+														"length": 6,
+														"parent_index": 2358
+													},
+													"name": "_owner",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2362,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 2360,
+												"node_type": 16,
+												"src": {
+													"id": 2361,
+													"line": 586,
+													"column": 15,
+													"start": 18034,
+													"end": 18055,
+													"length": 22,
+													"parent_index": 2358
+												},
+												"name": "accumulativeDividendOf",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										},
+										"member_name": "sub",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+										"type_string": "function(index[mapping(address=\u003euint256):address])"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2338,
+						"node_type": 43,
+						"src": {
+							"id": 2339,
+							"line": 584,
+							"column": 8,
+							"start": 17966,
+							"end": 17979,
+							"length": 14,
+							"parent_index": 2336
+						},
+						"parameters": [
+							{
+								"id": 2340,
+								"node_type": 44,
+								"src": {
+									"id": 2341,
+									"line": 584,
+									"column": 8,
+									"start": 17966,
+									"end": 17979,
+									"length": 14,
+									"parent_index": 2338
+								},
+								"scope": 2336,
+								"name": "_owner",
+								"type_name": {
+									"id": 2342,
+									"node_type": 30,
+									"src": {
+										"id": 2343,
+										"line": 584,
+										"column": 8,
+										"start": 17966,
+										"end": 17972,
+										"length": 7,
+										"parent_index": 2340
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2344,
+						"node_type": 43,
+						"src": {
+							"id": 2345,
+							"line": 585,
+							"column": 27,
+							"start": 18008,
+							"end": 18014,
+							"length": 7,
+							"parent_index": 2336
+						},
+						"parameters": [
+							{
+								"id": 2346,
+								"node_type": 44,
+								"src": {
+									"id": 2347,
+									"line": 585,
+									"column": 27,
+									"start": 18008,
+									"end": 18014,
+									"length": 7,
+									"parent_index": 2344
+								},
+								"scope": 2336,
+								"name": "",
+								"type_name": {
+									"id": 2348,
+									"node_type": 30,
+									"src": {
+										"id": 2349,
+										"line": 585,
+										"column": 27,
+										"start": 18008,
+										"end": 18014,
+										"length": 7,
+										"parent_index": 2346
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2371,
+					"name": "withdrawnDividendOf",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2372,
+						"line": 592,
+						"column": 4,
+						"start": 18319,
+						"end": 18443,
+						"length": 125,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 592,
+						"column": 13,
+						"start": 18328,
+						"end": 18346,
+						"length": 19,
+						"parent_index": 2371
+					},
+					"body": {
+						"id": 2385,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2386,
+							"line": 592,
+							"column": 79,
+							"start": 18394,
+							"end": 18443,
+							"length": 50,
+							"parent_index": 2371
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2387,
+								"node_type": 47,
+								"src": {
+									"id": 2388,
+									"line": 593,
+									"column": 8,
+									"start": 18404,
+									"end": 18437,
+									"length": 34,
+									"parent_index": 2371
+								},
+								"function_return_parameters": 2371,
+								"expression": {
+									"id": 2389,
+									"node_type": 22,
+									"src": {
+										"id": 2390,
+										"line": 593,
+										"column": 15,
+										"start": 18411,
+										"end": 18436,
+										"length": 26,
+										"parent_index": 2385
+									},
+									"index_expression": {
+										"id": 2391,
+										"node_type": 16,
+										"src": {
+											"id": 2392,
+											"line": 593,
+											"column": 15,
+											"start": 18411,
+											"end": 18428,
+											"length": 18,
+											"parent_index": 2389
+										},
+										"name": "withdrawnDividends",
+										"type_description": {
+											"type_identifier": "t_mapping_$t_address_$t_uint256$",
+											"type_string": "mapping(address=\u003euint256)"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2045,
+										"is_pure": false
+									},
+									"base_expression": {
+										"id": 2393,
+										"node_type": 16,
+										"src": {
+											"id": 2394,
+											"line": 593,
+											"column": 34,
+											"start": 18430,
+											"end": 18435,
+											"length": 6,
+											"parent_index": 2389
+										},
+										"name": "_owner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2393,
+										"is_pure": false
+									},
+									"type_descriptions": [
+										{
+											"type_identifier": "t_mapping_$t_address_$t_uint256$",
+											"type_string": "mapping(address=\u003euint256)"
+										},
+										{
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									],
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003euint256):address]"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2373,
+						"node_type": 43,
+						"src": {
+							"id": 2374,
+							"line": 592,
+							"column": 33,
+							"start": 18348,
+							"end": 18361,
+							"length": 14,
+							"parent_index": 2371
+						},
+						"parameters": [
+							{
+								"id": 2375,
+								"node_type": 44,
+								"src": {
+									"id": 2376,
+									"line": 592,
+									"column": 33,
+									"start": 18348,
+									"end": 18361,
+									"length": 14,
+									"parent_index": 2373
+								},
+								"scope": 2371,
+								"name": "_owner",
+								"type_name": {
+									"id": 2377,
+									"node_type": 30,
+									"src": {
+										"id": 2378,
+										"line": 592,
+										"column": 33,
+										"start": 18348,
+										"end": 18354,
+										"length": 7,
+										"parent_index": 2375
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2379,
+						"node_type": 43,
+						"src": {
+							"id": 2380,
+							"line": 592,
+							"column": 70,
+							"start": 18385,
+							"end": 18391,
+							"length": 7,
+							"parent_index": 2371
+						},
+						"parameters": [
+							{
+								"id": 2381,
+								"node_type": 44,
+								"src": {
+									"id": 2382,
+									"line": 592,
+									"column": 70,
+									"start": 18385,
+									"end": 18391,
+									"length": 7,
+									"parent_index": 2379
+								},
+								"scope": 2371,
+								"name": "",
+								"type_name": {
+									"id": 2383,
+									"node_type": 30,
+									"src": {
+										"id": 2384,
+										"line": 592,
+										"column": 70,
+										"start": 18385,
+										"end": 18391,
+										"length": 7,
+										"parent_index": 2381
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2396,
+					"name": "accumulativeDividendOf",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2397,
+						"line": 601,
+						"column": 4,
+						"start": 18888,
+						"end": 19216,
+						"length": 329,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 601,
+						"column": 13,
+						"start": 18897,
+						"end": 18918,
+						"length": 22,
+						"parent_index": 2396
+					},
+					"body": {
+						"id": 2410,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2411,
+							"line": 603,
+							"column": 36,
+							"start": 18980,
+							"end": 19216,
+							"length": 237,
+							"parent_index": 2396
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2412,
+								"node_type": 47,
+								"src": {
+									"id": 2413,
+									"line": 604,
+									"column": 8,
+									"start": 18990,
+									"end": 19210,
+									"length": 221,
+									"parent_index": 2396
+								},
+								"function_return_parameters": 2396,
+								"expression": {
+									"id": 2414,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 2415,
+										"line": 605,
+										"column": 12,
+										"start": 19009,
+										"end": 19209,
+										"length": 201,
+										"parent_index": 2410
+									},
+									"operator": 4,
+									"left_expression": {
+										"id": 2416,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 2417,
+											"line": 605,
+											"column": 12,
+											"start": 19009,
+											"end": 19197,
+											"length": 189,
+											"parent_index": 2414
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 2418,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 2419,
+												"line": 605,
+												"column": 12,
+												"start": 19009,
+												"end": 19195,
+												"length": 187,
+												"parent_index": 2416
+											},
+											"member_location": {
+												"line": 609,
+												"column": 17,
+												"start": 19183,
+												"end": 19195,
+												"length": 13,
+												"parent_index": 2418
+											},
+											"expression": {
+												"id": 2420,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 2421,
+													"line": 605,
+													"column": 12,
+													"start": 19009,
+													"end": 19164,
+													"length": 156,
+													"parent_index": 2418
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+														"type_string": "index[mapping(address=\u003eint256):address]"
+													}
+												],
+												"arguments": [
+													{
+														"id": 2440,
+														"node_type": 22,
+														"src": {
+															"id": 2441,
+															"line": 608,
+															"column": 21,
+															"start": 19128,
+															"end": 19163,
+															"length": 36,
+															"parent_index": 2420
+														},
+														"index_expression": {
+															"id": 2442,
+															"node_type": 16,
+															"src": {
+																"id": 2443,
+																"line": 608,
+																"column": 21,
+																"start": 19128,
+																"end": 19155,
+																"length": 28,
+																"parent_index": 2440
+															},
+															"name": "magnifiedDividendCorrections",
+															"type_description": {
+																"type_identifier": "t_mapping_$t_address_$t_int256$",
+																"type_string": "mapping(address=\u003eint256)"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 2036,
+															"is_pure": false
+														},
+														"base_expression": {
+															"id": 2444,
+															"node_type": 16,
+															"src": {
+																"id": 2445,
+																"line": 608,
+																"column": 50,
+																"start": 19157,
+																"end": 19162,
+																"length": 6,
+																"parent_index": 2440
+															},
+															"name": "_owner",
+															"type_description": {
+																"type_identifier": "t_address",
+																"type_string": "address"
+															},
+															"overloaded_declarations": [],
+															"referenced_declaration": 2444,
+															"is_pure": false
+														},
+														"type_descriptions": [
+															{
+																"type_identifier": "t_mapping_$t_address_$t_int256$",
+																"type_string": "mapping(address=\u003eint256)"
+															},
+															{
+																"type_identifier": "t_address",
+																"type_string": "address"
+															}
+														],
+														"type_description": {
+															"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+															"type_string": "index[mapping(address=\u003eint256):address]"
+														}
+													}
+												],
+												"expression": {
+													"id": 2422,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 2423,
+														"line": 605,
+														"column": 12,
+														"start": 19009,
+														"end": 19126,
+														"length": 118,
+														"parent_index": 2420
+													},
+													"member_location": {
+														"line": 608,
+														"column": 17,
+														"start": 19124,
+														"end": 19126,
+														"length": 3,
+														"parent_index": 2422
+													},
+													"expression": {
+														"id": 2424,
+														"node_type": 24,
+														"kind": 24,
+														"src": {
+															"id": 2425,
+															"line": 605,
+															"column": 12,
+															"start": 19009,
+															"end": 19105,
+															"length": 97,
+															"parent_index": 2422
+														},
+														"argument_types": [],
+														"arguments": [],
+														"expression": {
+															"id": 2426,
+															"is_constant": false,
+															"is_l_value": false,
+															"is_pure": false,
+															"l_value_requested": false,
+															"node_type": 23,
+															"src": {
+																"id": 2427,
+																"line": 605,
+																"column": 12,
+																"start": 19009,
+																"end": 19103,
+																"length": 95,
+																"parent_index": 2424
+															},
+															"member_location": {
+																"line": 607,
+																"column": 17,
+																"start": 19092,
+																"end": 19103,
+																"length": 12,
+																"parent_index": 2426
+															},
+															"expression": {
+																"id": 2428,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 2429,
+																	"line": 605,
+																	"column": 12,
+																	"start": 19009,
+																	"end": 19073,
+																	"length": 65,
+																	"parent_index": 2426
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																		"type_string": "index[mapping(address=\u003euint256):address]"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 2434,
+																		"node_type": 22,
+																		"src": {
+																			"id": 2435,
+																			"line": 606,
+																			"column": 21,
+																			"start": 19056,
+																			"end": 19072,
+																			"length": 17,
+																			"parent_index": 2428
+																		},
+																		"index_expression": {
+																			"id": 2436,
+																			"node_type": 16,
+																			"src": {
+																				"id": 2437,
+																				"line": 606,
+																				"column": 21,
+																				"start": 19056,
+																				"end": 19064,
+																				"length": 9,
+																				"parent_index": 2434
+																			},
+																			"name": "balanceOf",
+																			"type_description": {
+																				"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																				"type_string": "mapping(address=\u003euint256)"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 736,
+																			"is_pure": false
+																		},
+																		"base_expression": {
+																			"id": 2438,
+																			"node_type": 16,
+																			"src": {
+																				"id": 2439,
+																				"line": 606,
+																				"column": 31,
+																				"start": 19066,
+																				"end": 19071,
+																				"length": 6,
+																				"parent_index": 2434
+																			},
+																			"name": "_owner",
+																			"type_description": {
+																				"type_identifier": "t_address",
+																				"type_string": "address"
+																			},
+																			"overloaded_declarations": [],
+																			"referenced_declaration": 2438,
+																			"is_pure": false
+																		},
+																		"type_descriptions": [
+																			{
+																				"type_identifier": "t_mapping_$t_address_$t_uint256$",
+																				"type_string": "mapping(address=\u003euint256)"
+																			},
+																			{
+																				"type_identifier": "t_address",
+																				"type_string": "address"
+																			}
+																		],
+																		"type_description": {
+																			"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																			"type_string": "index[mapping(address=\u003euint256):address]"
+																		}
+																	}
+																],
+																"expression": {
+																	"id": 2430,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 2431,
+																		"line": 605,
+																		"column": 12,
+																		"start": 19009,
+																		"end": 19054,
+																		"length": 46,
+																		"parent_index": 2428
+																	},
+																	"member_location": {
+																		"line": 606,
+																		"column": 17,
+																		"start": 19052,
+																		"end": 19054,
+																		"length": 3,
+																		"parent_index": 2430
+																	},
+																	"expression": {
+																		"id": 2432,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2433,
+																			"line": 605,
+																			"column": 12,
+																			"start": 19009,
+																			"end": 19033,
+																			"length": 25,
+																			"parent_index": 2430
+																		},
+																		"name": "magnifiedDividendPerShare",
+																		"type_description": {
+																			"type_identifier": "t_uint256",
+																			"type_string": "uint256"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 2031,
+																		"is_pure": false
+																	},
+																	"member_name": "mul",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_uint256",
+																		"type_string": "uint256"
+																	}
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																	"type_string": "function(index[mapping(address=\u003euint256):address])"
+																}
+															},
+															"member_name": "toInt256Safe",
+															"argument_types": [],
+															"type_description": {
+																"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+																"type_string": "function(index[mapping(address=\u003euint256):address])"
+															}
+														},
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														}
+													},
+													"member_name": "add",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+													"type_string": "function(index[mapping(address=\u003eint256):address])"
+												}
+											},
+											"member_name": "toUint256Safe",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+												"type_string": "function(index[mapping(address=\u003eint256):address])"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									},
+									"right_expression": {
+										"id": 2446,
+										"node_type": 16,
+										"src": {
+											"id": 2447,
+											"line": 609,
+											"column": 35,
+											"start": 19201,
+											"end": 19209,
+											"length": 9,
+											"parent_index": 2414
+										},
+										"name": "magnitude",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2026,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2398,
+						"node_type": 43,
+						"src": {
+							"id": 2399,
+							"line": 602,
+							"column": 8,
+							"start": 18929,
+							"end": 18942,
+							"length": 14,
+							"parent_index": 2396
+						},
+						"parameters": [
+							{
+								"id": 2400,
+								"node_type": 44,
+								"src": {
+									"id": 2401,
+									"line": 602,
+									"column": 8,
+									"start": 18929,
+									"end": 18942,
+									"length": 14,
+									"parent_index": 2398
+								},
+								"scope": 2396,
+								"name": "_owner",
+								"type_name": {
+									"id": 2402,
+									"node_type": 30,
+									"src": {
+										"id": 2403,
+										"line": 602,
+										"column": 8,
+										"start": 18929,
+										"end": 18935,
+										"length": 7,
+										"parent_index": 2400
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2404,
+						"node_type": 43,
+						"src": {
+							"id": 2405,
+							"line": 603,
+							"column": 27,
+							"start": 18971,
+							"end": 18977,
+							"length": 7,
+							"parent_index": 2396
+						},
+						"parameters": [
+							{
+								"id": 2406,
+								"node_type": 44,
+								"src": {
+									"id": 2407,
+									"line": 603,
+									"column": 27,
+									"start": 18971,
+									"end": 18977,
+									"length": 7,
+									"parent_index": 2404
+								},
+								"scope": 2396,
+								"name": "",
+								"type_name": {
+									"id": 2408,
+									"node_type": 30,
+									"src": {
+										"id": 2409,
+										"line": 603,
+										"column": 27,
+										"start": 18971,
+										"end": 18977,
+										"length": 7,
+										"parent_index": 2406
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2449,
+					"name": "_mint",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2450,
+						"line": 614,
+						"column": 4,
+						"start": 19350,
+						"end": 19627,
+						"length": 278,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 614,
+						"column": 13,
+						"start": 19359,
+						"end": 19363,
+						"length": 5,
+						"parent_index": 2449
+					},
+					"body": {
+						"id": 2464,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2465,
+							"line": 614,
+							"column": 69,
+							"start": 19415,
+							"end": 19627,
+							"length": 213,
+							"parent_index": 2449
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2466,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 2467,
+									"line": 615,
+									"column": 8,
+									"start": 19425,
+									"end": 19451,
+									"length": 27,
+									"parent_index": 2464
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 2472,
+										"node_type": 16,
+										"src": {
+											"id": 2473,
+											"line": 615,
+											"column": 20,
+											"start": 19437,
+											"end": 19443,
+											"length": 7,
+											"parent_index": 2466
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2472,
+										"is_pure": false
+									},
+									{
+										"id": 2474,
+										"node_type": 16,
+										"src": {
+											"id": 2475,
+											"line": 615,
+											"column": 29,
+											"start": 19446,
+											"end": 19450,
+											"length": 5,
+											"parent_index": 2466
+										},
+										"name": "value",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2474,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 2468,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 2469,
+										"line": 615,
+										"column": 8,
+										"start": 19425,
+										"end": 19435,
+										"length": 11,
+										"parent_index": 2466
+									},
+									"member_location": {
+										"line": 615,
+										"column": 14,
+										"start": 19431,
+										"end": 19435,
+										"length": 5,
+										"parent_index": 2468
+									},
+									"expression": {
+										"id": 2470,
+										"node_type": 16,
+										"src": {
+											"id": 2471,
+											"line": 615,
+											"column": 8,
+											"start": 19425,
+											"end": 19429,
+											"length": 5,
+											"parent_index": 2468
+										},
+										"name": "super",
+										"type_description": {
+											"type_identifier": "t_magic_super",
+											"type_string": "super"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"member_name": "_mint",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_magic_super",
+										"type_string": "super"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$_t_uint256$",
+									"type_string": "function(address,uint256)"
+								}
+							},
+							{
+								"id": 2476,
+								"node_type": 27,
+								"src": {
+									"id": 2477,
+									"line": 617,
+									"column": 8,
+									"start": 19463,
+									"end": 19621,
+									"length": 159,
+									"parent_index": 2464
+								},
+								"expression": {
+									"id": 2478,
+									"node_type": 27,
+									"src": {
+										"id": 2479,
+										"line": 617,
+										"column": 8,
+										"start": 19463,
+										"end": 19620,
+										"length": 158,
+										"parent_index": 2464
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 2480,
+										"node_type": 22,
+										"src": {
+											"id": 2481,
+											"line": 617,
+											"column": 8,
+											"start": 19463,
+											"end": 19499,
+											"length": 37,
+											"parent_index": 2478
+										},
+										"index_expression": {
+											"id": 2482,
+											"node_type": 16,
+											"src": {
+												"id": 2483,
+												"line": 617,
+												"column": 8,
+												"start": 19463,
+												"end": 19490,
+												"length": 28,
+												"parent_index": 2480
+											},
+											"name": "magnifiedDividendCorrections",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_int256$",
+												"type_string": "mapping(address=\u003eint256)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 2036,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 2484,
+											"node_type": 16,
+											"src": {
+												"id": 2485,
+												"line": 617,
+												"column": 37,
+												"start": 19492,
+												"end": 19498,
+												"length": 7,
+												"parent_index": 2480
+											},
+											"name": "account",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 2484,
+											"is_pure": false
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_int256$",
+												"type_string": "mapping(address=\u003eint256)"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003eint256):address]"
+										}
+									},
+									"right_expression": {
+										"id": 2486,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 2487,
+											"line": 617,
+											"column": 48,
+											"start": 19503,
+											"end": 19620,
+											"length": 118,
+											"parent_index": 2478
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 2496,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 2497,
+													"line": 619,
+													"column": 14,
+													"start": 19567,
+													"end": 19619,
+													"length": 53,
+													"parent_index": 2486
+												},
+												"argument_types": [],
+												"arguments": [],
+												"expression": {
+													"id": 2498,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 2499,
+														"line": 619,
+														"column": 14,
+														"start": 19567,
+														"end": 19617,
+														"length": 51,
+														"parent_index": 2496
+													},
+													"member_location": {
+														"line": 619,
+														"column": 53,
+														"start": 19606,
+														"end": 19617,
+														"length": 12,
+														"parent_index": 2498
+													},
+													"expression": {
+														"id": 2500,
+														"node_type": 60,
+														"src": {
+															"id": 2501,
+															"line": 619,
+															"column": 14,
+															"start": 19567,
+															"end": 19604,
+															"length": 38,
+															"parent_index": 2498
+														},
+														"is_constant": false,
+														"is_pure": false,
+														"components": [
+															{
+																"id": 2502,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 2503,
+																	"line": 619,
+																	"column": 15,
+																	"start": 19568,
+																	"end": 19603,
+																	"length": 36,
+																	"parent_index": 2500
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_uint256",
+																		"type_string": "uint256"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 2508,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2509,
+																			"line": 619,
+																			"column": 45,
+																			"start": 19598,
+																			"end": 19602,
+																			"length": 5,
+																			"parent_index": 2502
+																		},
+																		"name": "value",
+																		"type_description": {
+																			"type_identifier": "t_uint256",
+																			"type_string": "uint256"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 2508,
+																		"is_pure": false
+																	}
+																],
+																"expression": {
+																	"id": 2504,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 2505,
+																		"line": 619,
+																		"column": 15,
+																		"start": 19568,
+																		"end": 19596,
+																		"length": 29,
+																		"parent_index": 2502
+																	},
+																	"member_location": {
+																		"line": 619,
+																		"column": 41,
+																		"start": 19594,
+																		"end": 19596,
+																		"length": 3,
+																		"parent_index": 2504
+																	},
+																	"expression": {
+																		"id": 2506,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2507,
+																			"line": 619,
+																			"column": 15,
+																			"start": 19568,
+																			"end": 19592,
+																			"length": 25,
+																			"parent_index": 2504
+																		},
+																		"name": "magnifiedDividendPerShare",
+																		"type_description": {
+																			"type_identifier": "t_uint256",
+																			"type_string": "uint256"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 2031,
+																		"is_pure": false
+																	},
+																	"member_name": "mul",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_uint256",
+																		"type_string": "uint256"
+																	}
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_uint256$",
+																	"type_string": "function(uint256)"
+																}
+															}
+														],
+														"type_description": {
+															"type_identifier": "t_tuple_$_t_function_$_t_uint256$$",
+															"type_string": "tuple(function(uint256))"
+														}
+													},
+													"member_name": "toInt256Safe",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_tuple_$_t_function_$_t_uint256$$",
+														"type_string": "tuple(function(uint256))"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											}
+										],
+										"expression": {
+											"id": 2488,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 2489,
+												"line": 617,
+												"column": 48,
+												"start": 19503,
+												"end": 19565,
+												"length": 63,
+												"parent_index": 2486
+											},
+											"member_location": {
+												"line": 619,
+												"column": 10,
+												"start": 19563,
+												"end": 19565,
+												"length": 3,
+												"parent_index": 2488
+											},
+											"expression": {
+												"id": 2490,
+												"node_type": 22,
+												"src": {
+													"id": 2491,
+													"line": 617,
+													"column": 48,
+													"start": 19503,
+													"end": 19561,
+													"length": 59,
+													"parent_index": 2488
+												},
+												"index_expression": {
+													"id": 2492,
+													"node_type": 16,
+													"src": {
+														"id": 2493,
+														"line": 617,
+														"column": 48,
+														"start": 19503,
+														"end": 19530,
+														"length": 28,
+														"parent_index": 2490
+													},
+													"name": "magnifiedDividendCorrections",
+													"type_description": {
+														"type_identifier": "t_mapping_$t_address_$t_int256$",
+														"type_string": "mapping(address=\u003eint256)"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2036,
+													"is_pure": false
+												},
+												"base_expression": {
+													"id": 2494,
+													"node_type": 16,
+													"src": {
+														"id": 2495,
+														"line": 618,
+														"column": 12,
+														"start": 19545,
+														"end": 19551,
+														"length": 7,
+														"parent_index": 2490
+													},
+													"name": "account",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2494,
+													"is_pure": false
+												},
+												"type_descriptions": [
+													{
+														"type_identifier": "t_mapping_$t_address_$t_int256$",
+														"type_string": "mapping(address=\u003eint256)"
+													},
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												],
+												"type_description": {
+													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+													"type_string": "index[mapping(address=\u003eint256):address]"
+												}
+											},
+											"member_name": "sub",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+												"type_string": "index[mapping(address=\u003eint256):address]"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003eint256):address]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+									"type_string": "index[mapping(address=\u003eint256):address]"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 2451,
+							"node_type": 63,
+							"src": {
+								"id": 2452,
+								"line": 614,
+								"column": 60,
+								"start": 19406,
+								"end": 19413,
+								"length": 8,
+								"parent_index": 2449
+							},
+							"overrides": [],
+							"referenced_declaration": 0,
+							"type_descriptions": {
+								"type_identifier": "$_t_override",
+								"type_string": "override"
+							}
+						}
+					],
+					"parameters": {
+						"id": 2453,
+						"node_type": 43,
+						"src": {
+							"id": 2454,
+							"line": 614,
+							"column": 19,
+							"start": 19365,
+							"end": 19394,
+							"length": 30,
+							"parent_index": 2449
+						},
+						"parameters": [
+							{
+								"id": 2455,
+								"node_type": 44,
+								"src": {
+									"id": 2456,
+									"line": 614,
+									"column": 19,
+									"start": 19365,
+									"end": 19379,
+									"length": 15,
+									"parent_index": 2453
+								},
+								"scope": 2449,
+								"name": "account",
+								"type_name": {
+									"id": 2457,
+									"node_type": 30,
+									"src": {
+										"id": 2458,
+										"line": 614,
+										"column": 19,
+										"start": 19365,
+										"end": 19371,
+										"length": 7,
+										"parent_index": 2455
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2459,
+								"node_type": 44,
+								"src": {
+									"id": 2460,
+									"line": 614,
+									"column": 36,
+									"start": 19382,
+									"end": 19394,
+									"length": 13,
+									"parent_index": 2453
+								},
+								"scope": 2449,
+								"name": "value",
+								"type_name": {
+									"id": 2461,
+									"node_type": 30,
+									"src": {
+										"id": 2462,
+										"line": 614,
+										"column": 36,
+										"start": 19382,
+										"end": 19388,
+										"length": 7,
+										"parent_index": 2459
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2463,
+						"node_type": 43,
+						"src": {
+							"id": 2450,
+							"line": 614,
+							"column": 4,
+							"start": 19350,
+							"end": 19627,
+							"length": 278,
+							"parent_index": 2449
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				},
+				{
+					"id": 2511,
+					"name": "_burn",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2512,
+						"line": 626,
+						"column": 4,
+						"start": 19907,
+						"end": 20184,
+						"length": 278,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 626,
+						"column": 13,
+						"start": 19916,
+						"end": 19920,
+						"length": 5,
+						"parent_index": 2511
+					},
+					"body": {
+						"id": 2526,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2527,
+							"line": 626,
+							"column": 69,
+							"start": 19972,
+							"end": 20184,
+							"length": 213,
+							"parent_index": 2511
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2528,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 2529,
+									"line": 627,
+									"column": 8,
+									"start": 19982,
+									"end": 20008,
+									"length": 27,
+									"parent_index": 2526
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 2534,
+										"node_type": 16,
+										"src": {
+											"id": 2535,
+											"line": 627,
+											"column": 20,
+											"start": 19994,
+											"end": 20000,
+											"length": 7,
+											"parent_index": 2528
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2534,
+										"is_pure": false
+									},
+									{
+										"id": 2536,
+										"node_type": 16,
+										"src": {
+											"id": 2537,
+											"line": 627,
+											"column": 29,
+											"start": 20003,
+											"end": 20007,
+											"length": 5,
+											"parent_index": 2528
+										},
+										"name": "value",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2536,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 2530,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 2531,
+										"line": 627,
+										"column": 8,
+										"start": 19982,
+										"end": 19992,
+										"length": 11,
+										"parent_index": 2528
+									},
+									"member_location": {
+										"line": 627,
+										"column": 14,
+										"start": 19988,
+										"end": 19992,
+										"length": 5,
+										"parent_index": 2530
+									},
+									"expression": {
+										"id": 2532,
+										"node_type": 16,
+										"src": {
+											"id": 2533,
+											"line": 627,
+											"column": 8,
+											"start": 19982,
+											"end": 19986,
+											"length": 5,
+											"parent_index": 2530
+										},
+										"name": "super",
+										"type_description": {
+											"type_identifier": "t_magic_super",
+											"type_string": "super"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"member_name": "_burn",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_magic_super",
+										"type_string": "super"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$_t_uint256$",
+									"type_string": "function(address,uint256)"
+								}
+							},
+							{
+								"id": 2538,
+								"node_type": 27,
+								"src": {
+									"id": 2539,
+									"line": 629,
+									"column": 8,
+									"start": 20020,
+									"end": 20178,
+									"length": 159,
+									"parent_index": 2526
+								},
+								"expression": {
+									"id": 2540,
+									"node_type": 27,
+									"src": {
+										"id": 2541,
+										"line": 629,
+										"column": 8,
+										"start": 20020,
+										"end": 20177,
+										"length": 158,
+										"parent_index": 2526
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 2542,
+										"node_type": 22,
+										"src": {
+											"id": 2543,
+											"line": 629,
+											"column": 8,
+											"start": 20020,
+											"end": 20056,
+											"length": 37,
+											"parent_index": 2540
+										},
+										"index_expression": {
+											"id": 2544,
+											"node_type": 16,
+											"src": {
+												"id": 2545,
+												"line": 629,
+												"column": 8,
+												"start": 20020,
+												"end": 20047,
+												"length": 28,
+												"parent_index": 2542
+											},
+											"name": "magnifiedDividendCorrections",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_int256$",
+												"type_string": "mapping(address=\u003eint256)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 2036,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 2546,
+											"node_type": 16,
+											"src": {
+												"id": 2547,
+												"line": 629,
+												"column": 37,
+												"start": 20049,
+												"end": 20055,
+												"length": 7,
+												"parent_index": 2542
+											},
+											"name": "account",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 2546,
+											"is_pure": false
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_int256$",
+												"type_string": "mapping(address=\u003eint256)"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003eint256):address]"
+										}
+									},
+									"right_expression": {
+										"id": 2548,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 2549,
+											"line": 629,
+											"column": 48,
+											"start": 20060,
+											"end": 20177,
+											"length": 118,
+											"parent_index": 2540
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 2558,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 2559,
+													"line": 631,
+													"column": 14,
+													"start": 20124,
+													"end": 20176,
+													"length": 53,
+													"parent_index": 2548
+												},
+												"argument_types": [],
+												"arguments": [],
+												"expression": {
+													"id": 2560,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 2561,
+														"line": 631,
+														"column": 14,
+														"start": 20124,
+														"end": 20174,
+														"length": 51,
+														"parent_index": 2558
+													},
+													"member_location": {
+														"line": 631,
+														"column": 53,
+														"start": 20163,
+														"end": 20174,
+														"length": 12,
+														"parent_index": 2560
+													},
+													"expression": {
+														"id": 2562,
+														"node_type": 60,
+														"src": {
+															"id": 2563,
+															"line": 631,
+															"column": 14,
+															"start": 20124,
+															"end": 20161,
+															"length": 38,
+															"parent_index": 2560
+														},
+														"is_constant": false,
+														"is_pure": false,
+														"components": [
+															{
+																"id": 2564,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 2565,
+																	"line": 631,
+																	"column": 15,
+																	"start": 20125,
+																	"end": 20160,
+																	"length": 36,
+																	"parent_index": 2562
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_uint256",
+																		"type_string": "uint256"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 2570,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2571,
+																			"line": 631,
+																			"column": 45,
+																			"start": 20155,
+																			"end": 20159,
+																			"length": 5,
+																			"parent_index": 2564
+																		},
+																		"name": "value",
+																		"type_description": {
+																			"type_identifier": "t_uint256",
+																			"type_string": "uint256"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 2570,
+																		"is_pure": false
+																	}
+																],
+																"expression": {
+																	"id": 2566,
+																	"is_constant": false,
+																	"is_l_value": false,
+																	"is_pure": false,
+																	"l_value_requested": false,
+																	"node_type": 23,
+																	"src": {
+																		"id": 2567,
+																		"line": 631,
+																		"column": 15,
+																		"start": 20125,
+																		"end": 20153,
+																		"length": 29,
+																		"parent_index": 2564
+																	},
+																	"member_location": {
+																		"line": 631,
+																		"column": 41,
+																		"start": 20151,
+																		"end": 20153,
+																		"length": 3,
+																		"parent_index": 2566
+																	},
+																	"expression": {
+																		"id": 2568,
+																		"node_type": 16,
+																		"src": {
+																			"id": 2569,
+																			"line": 631,
+																			"column": 15,
+																			"start": 20125,
+																			"end": 20149,
+																			"length": 25,
+																			"parent_index": 2566
+																		},
+																		"name": "magnifiedDividendPerShare",
+																		"type_description": {
+																			"type_identifier": "t_uint256",
+																			"type_string": "uint256"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 2031,
+																		"is_pure": false
+																	},
+																	"member_name": "mul",
+																	"argument_types": [],
+																	"type_description": {
+																		"type_identifier": "t_uint256",
+																		"type_string": "uint256"
+																	}
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_uint256$",
+																	"type_string": "function(uint256)"
+																}
+															}
+														],
+														"type_description": {
+															"type_identifier": "t_tuple_$_t_function_$_t_uint256$$",
+															"type_string": "tuple(function(uint256))"
+														}
+													},
+													"member_name": "toInt256Safe",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_tuple_$_t_function_$_t_uint256$$",
+														"type_string": "tuple(function(uint256))"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											}
+										],
+										"expression": {
+											"id": 2550,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 2551,
+												"line": 629,
+												"column": 48,
+												"start": 20060,
+												"end": 20122,
+												"length": 63,
+												"parent_index": 2548
+											},
+											"member_location": {
+												"line": 631,
+												"column": 10,
+												"start": 20120,
+												"end": 20122,
+												"length": 3,
+												"parent_index": 2550
+											},
+											"expression": {
+												"id": 2552,
+												"node_type": 22,
+												"src": {
+													"id": 2553,
+													"line": 629,
+													"column": 48,
+													"start": 20060,
+													"end": 20118,
+													"length": 59,
+													"parent_index": 2550
+												},
+												"index_expression": {
+													"id": 2554,
+													"node_type": 16,
+													"src": {
+														"id": 2555,
+														"line": 629,
+														"column": 48,
+														"start": 20060,
+														"end": 20087,
+														"length": 28,
+														"parent_index": 2552
+													},
+													"name": "magnifiedDividendCorrections",
+													"type_description": {
+														"type_identifier": "t_mapping_$t_address_$t_int256$",
+														"type_string": "mapping(address=\u003eint256)"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2036,
+													"is_pure": false
+												},
+												"base_expression": {
+													"id": 2556,
+													"node_type": 16,
+													"src": {
+														"id": 2557,
+														"line": 630,
+														"column": 12,
+														"start": 20102,
+														"end": 20108,
+														"length": 7,
+														"parent_index": 2552
+													},
+													"name": "account",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2556,
+													"is_pure": false
+												},
+												"type_descriptions": [
+													{
+														"type_identifier": "t_mapping_$t_address_$t_int256$",
+														"type_string": "mapping(address=\u003eint256)"
+													},
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												],
+												"type_description": {
+													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+													"type_string": "index[mapping(address=\u003eint256):address]"
+												}
+											},
+											"member_name": "add",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+												"type_string": "index[mapping(address=\u003eint256):address]"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003eint256):address]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_int256$]$_t_address]$",
+									"type_string": "index[mapping(address=\u003eint256):address]"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 2513,
+							"node_type": 63,
+							"src": {
+								"id": 2514,
+								"line": 626,
+								"column": 60,
+								"start": 19963,
+								"end": 19970,
+								"length": 8,
+								"parent_index": 2511
+							},
+							"overrides": [],
+							"referenced_declaration": 0,
+							"type_descriptions": {
+								"type_identifier": "$_t_override",
+								"type_string": "override"
+							}
+						}
+					],
+					"parameters": {
+						"id": 2515,
+						"node_type": 43,
+						"src": {
+							"id": 2516,
+							"line": 626,
+							"column": 19,
+							"start": 19922,
+							"end": 19951,
+							"length": 30,
+							"parent_index": 2511
+						},
+						"parameters": [
+							{
+								"id": 2517,
+								"node_type": 44,
+								"src": {
+									"id": 2518,
+									"line": 626,
+									"column": 19,
+									"start": 19922,
+									"end": 19936,
+									"length": 15,
+									"parent_index": 2515
+								},
+								"scope": 2511,
+								"name": "account",
+								"type_name": {
+									"id": 2519,
+									"node_type": 30,
+									"src": {
+										"id": 2520,
+										"line": 626,
+										"column": 19,
+										"start": 19922,
+										"end": 19928,
+										"length": 7,
+										"parent_index": 2517
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2521,
+								"node_type": 44,
+								"src": {
+									"id": 2522,
+									"line": 626,
+									"column": 36,
+									"start": 19939,
+									"end": 19951,
+									"length": 13,
+									"parent_index": 2515
+								},
+								"scope": 2511,
+								"name": "value",
+								"type_name": {
+									"id": 2523,
+									"node_type": 30,
+									"src": {
+										"id": 2524,
+										"line": 626,
+										"column": 36,
+										"start": 19939,
+										"end": 19945,
+										"length": 7,
+										"parent_index": 2521
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2525,
+						"node_type": 43,
+						"src": {
+							"id": 2512,
+							"line": 626,
+							"column": 4,
+							"start": 19907,
+							"end": 20184,
+							"length": 278,
+							"parent_index": 2511
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				},
+				{
+					"id": 2573,
+					"name": "_setBalance",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2574,
+						"line": 634,
+						"column": 4,
+						"start": 20191,
+						"end": 20631,
+						"length": 441,
+						"parent_index": 1990
+					},
+					"name_location": {
+						"line": 634,
+						"column": 13,
+						"start": 20200,
+						"end": 20210,
+						"length": 11,
+						"parent_index": 2573
+					},
+					"body": {
+						"id": 2586,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2587,
+							"line": 634,
+							"column": 71,
+							"start": 20258,
+							"end": 20631,
+							"length": 374,
+							"parent_index": 2573
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 2588,
+								"node_type": 44,
+								"src": {
+									"id": 2589,
+									"line": 635,
+									"column": 8,
+									"start": 20268,
+									"end": 20311,
+									"length": 44,
+									"parent_index": 2586
+								},
+								"assignments": [
+									2590
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 2590,
+										"state_mutability": 1,
+										"name": "currentBalance",
+										"node_type": 44,
+										"scope": 2586,
+										"src": {
+											"id": 2591,
+											"line": 635,
+											"column": 8,
+											"start": 20268,
+											"end": 20289,
+											"length": 22,
+											"parent_index": 2588
+										},
+										"name_location": {
+											"line": 635,
+											"column": 16,
+											"start": 20276,
+											"end": 20289,
+											"length": 14,
+											"parent_index": 2590
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 2592,
+											"node_type": 30,
+											"src": {
+												"id": 2593,
+												"line": 635,
+												"column": 8,
+												"start": 20268,
+												"end": 20274,
+												"length": 7,
+												"parent_index": 2590
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 2594,
+									"node_type": 22,
+									"src": {
+										"id": 2595,
+										"line": 635,
+										"column": 33,
+										"start": 20293,
+										"end": 20310,
+										"length": 18,
+										"parent_index": 2588
+									},
+									"index_expression": {
+										"id": 2596,
+										"node_type": 16,
+										"src": {
+											"id": 2597,
+											"line": 635,
+											"column": 33,
+											"start": 20293,
+											"end": 20301,
+											"length": 9,
+											"parent_index": 2594
+										},
+										"name": "balanceOf",
+										"type_description": {
+											"type_identifier": "t_mapping_$t_address_$t_uint256$",
+											"type_string": "mapping(address=\u003euint256)"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 736,
+										"is_pure": false
+									},
+									"base_expression": {
+										"id": 2598,
+										"node_type": 16,
+										"src": {
+											"id": 2599,
+											"line": 635,
+											"column": 43,
+											"start": 20303,
+											"end": 20309,
+											"length": 7,
+											"parent_index": 2594
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2598,
+										"is_pure": false
+									},
+									"type_descriptions": [
+										{
+											"type_identifier": "t_mapping_$t_address_$t_uint256$",
+											"type_string": "mapping(address=\u003euint256)"
+										},
+										{
+											"type_identifier": "t_address",
+											"type_string": "address"
+										}
+									],
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003euint256):address]"
+									}
+								}
+							},
+							{
+								"id": 2600,
+								"node_type": 48,
+								"src": {
+									"id": 2601,
+									"line": 637,
+									"column": 0,
+									"start": 20322,
+									"end": 20625,
+									"length": 304,
+									"parent_index": 2586
+								},
+								"condition": {
+									"id": 2602,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 2603,
+										"line": 637,
+										"column": 12,
+										"start": 20326,
+										"end": 20352,
+										"length": 27,
+										"parent_index": 2600
+									},
+									"operator": 7,
+									"left_expression": {
+										"id": 2604,
+										"node_type": 16,
+										"src": {
+											"id": 2605,
+											"line": 637,
+											"column": 12,
+											"start": 20326,
+											"end": 20335,
+											"length": 10,
+											"parent_index": 2602
+										},
+										"name": "newBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2604,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 2606,
+										"node_type": 16,
+										"src": {
+											"id": 2607,
+											"line": 637,
+											"column": 25,
+											"start": 20339,
+											"end": 20352,
+											"length": 14,
+											"parent_index": 2602
+										},
+										"name": "currentBalance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 2588,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"body": {
+									"id": 2608,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 2609,
+										"line": 637,
+										"column": 41,
+										"start": 20355,
+										"end": 20470,
+										"length": 116,
+										"parent_index": 2573
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 2610,
+											"node_type": 44,
+											"src": {
+												"id": 2611,
+												"line": 638,
+												"column": 12,
+												"start": 20369,
+												"end": 20420,
+												"length": 52,
+												"parent_index": 2608
+											},
+											"assignments": [
+												2612
+											],
+											"declarations": [
+												{
+													"is_constant": false,
+													"id": 2612,
+													"state_mutability": 1,
+													"name": "mintAmount",
+													"node_type": 44,
+													"scope": 2608,
+													"src": {
+														"id": 2613,
+														"line": 638,
+														"column": 12,
+														"start": 20369,
+														"end": 20386,
+														"length": 18,
+														"parent_index": 2610
+													},
+													"name_location": {
+														"line": 638,
+														"column": 20,
+														"start": 20377,
+														"end": 20386,
+														"length": 10,
+														"parent_index": 2612
+													},
+													"is_state_variable": false,
+													"storage_location": 1,
+													"type_name": {
+														"id": 2614,
+														"node_type": 30,
+														"src": {
+															"id": 2615,
+															"line": 638,
+															"column": 12,
+															"start": 20369,
+															"end": 20375,
+															"length": 7,
+															"parent_index": 2612
+														},
+														"name": "uint256",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														}
+													},
+													"visibility": 1
+												}
+											],
+											"initial_value": {
+												"id": 2616,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"id": 2617,
+													"line": 638,
+													"column": 33,
+													"start": 20390,
+													"end": 20419,
+													"length": 30,
+													"parent_index": 2610
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												],
+												"arguments": [
+													{
+														"id": 2622,
+														"node_type": 16,
+														"src": {
+															"id": 2623,
+															"line": 638,
+															"column": 48,
+															"start": 20405,
+															"end": 20418,
+															"length": 14,
+															"parent_index": 2616
+														},
+														"name": "currentBalance",
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													}
+												],
+												"expression": {
+													"id": 2618,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"id": 2619,
+														"line": 638,
+														"column": 33,
+														"start": 20390,
+														"end": 20403,
+														"length": 14,
+														"parent_index": 2616
+													},
+													"member_location": {
+														"line": 638,
+														"column": 44,
+														"start": 20401,
+														"end": 20403,
+														"length": 3,
+														"parent_index": 2618
+													},
+													"expression": {
+														"id": 2620,
+														"node_type": 16,
+														"src": {
+															"id": 2621,
+															"line": 638,
+															"column": 33,
+															"start": 20390,
+															"end": 20399,
+															"length": 10,
+															"parent_index": 2618
+														},
+														"name": "newBalance",
+														"type_description": {
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 2620,
+														"is_pure": false
+													},
+													"member_name": "sub",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_function_$",
+													"type_string": "function(function())"
+												}
+											}
+										},
+										{
+											"id": 2624,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 2625,
+												"line": 639,
+												"column": 12,
+												"start": 20434,
+												"end": 20459,
+												"length": 26,
+												"parent_index": 2608
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												},
+												{
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											],
+											"arguments": [
+												{
+													"id": 2628,
+													"node_type": 16,
+													"src": {
+														"id": 2629,
+														"line": 639,
+														"column": 18,
+														"start": 20440,
+														"end": 20446,
+														"length": 7,
+														"parent_index": 2624
+													},
+													"name": "account",
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2628,
+													"is_pure": false
+												},
+												{
+													"id": 2630,
+													"node_type": 16,
+													"src": {
+														"id": 2631,
+														"line": 639,
+														"column": 27,
+														"start": 20449,
+														"end": 20458,
+														"length": 10,
+														"parent_index": 2624
+													},
+													"name": "mintAmount",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 2610,
+													"is_pure": false,
+													"argument_types": [
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													]
+												}
+											],
+											"expression": {
+												"id": 2626,
+												"node_type": 16,
+												"src": {
+													"id": 2627,
+													"line": 639,
+													"column": 12,
+													"start": 20434,
+													"end": 20438,
+													"length": 5,
+													"parent_index": 2624
+												},
+												"name": "_mint",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$_t_uint256$",
+												"type_string": "function(address,uint256)"
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2575,
+						"node_type": 43,
+						"src": {
+							"id": 2576,
+							"line": 634,
+							"column": 25,
+							"start": 20212,
+							"end": 20246,
+							"length": 35,
+							"parent_index": 2573
+						},
+						"parameters": [
+							{
+								"id": 2577,
+								"node_type": 44,
+								"src": {
+									"id": 2578,
+									"line": 634,
+									"column": 25,
+									"start": 20212,
+									"end": 20226,
+									"length": 15,
+									"parent_index": 2575
+								},
+								"scope": 2573,
+								"name": "account",
+								"type_name": {
+									"id": 2579,
+									"node_type": 30,
+									"src": {
+										"id": 2580,
+										"line": 634,
+										"column": 25,
+										"start": 20212,
+										"end": 20218,
+										"length": 7,
+										"parent_index": 2577
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2581,
+								"node_type": 44,
+								"src": {
+									"id": 2582,
+									"line": 634,
+									"column": 42,
+									"start": 20229,
+									"end": 20246,
+									"length": 18,
+									"parent_index": 2575
+								},
+								"scope": 2573,
+								"name": "newBalance",
+								"type_name": {
+									"id": 2583,
+									"node_type": 30,
+									"src": {
+										"id": 2584,
+										"line": 634,
+										"column": 42,
+										"start": 20229,
+										"end": 20235,
+										"length": 7,
+										"parent_index": 2581
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2585,
+						"node_type": 43,
+						"src": {
+							"id": 2574,
+							"line": 634,
+							"column": 4,
+							"start": 20191,
+							"end": 20631,
+							"length": 441,
+							"parent_index": 2573
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 1990,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				1832,
+				88,
+				1990
+			],
+			"base_contracts": [
+				{
+					"id": 1991,
+					"node_type": 62,
+					"src": {
+						"id": 1992,
+						"line": 495,
+						"column": 32,
+						"start": 14127,
+						"end": 14133,
+						"length": 7,
+						"parent_index": 1990
+					},
+					"base_name": {
+						"id": 1993,
+						"node_type": 52,
+						"src": {
+							"id": 1994,
+							"line": 495,
+							"column": 32,
+							"start": 14127,
+							"end": 14133,
+							"length": 7,
+							"parent_index": 1990
+						},
+						"name": "N_ERC20",
+						"referenced_declaration": 1832
+					}
+				},
+				{
+					"id": 1995,
+					"node_type": 62,
+					"src": {
+						"id": 1996,
+						"line": 495,
+						"column": 41,
+						"start": 14136,
+						"end": 14142,
+						"length": 7,
+						"parent_index": 1990
+					},
+					"base_name": {
+						"id": 1997,
+						"node_type": 52,
+						"src": {
+							"id": 1998,
+							"line": 495,
+							"column": 41,
+							"start": 14136,
+							"end": 14142,
+							"length": 7,
+							"parent_index": 1990
+						},
+						"name": "Ownable",
+						"referenced_declaration": 88
+					}
+				}
+			],
+			"contract_dependencies": [
+				1832,
+				88
+			]
+		}
+	],
+	"src": {
+		"id": 1987,
+		"line": 495,
+		"column": 0,
+		"start": 14095,
+		"end": 20633,
+		"length": 6539,
+		"parent_index": 87
+	}
+}

@@ -1,0 +1,1159 @@
+{
+	"id": 5875,
+	"base_contracts": [
+		{
+			"id": 5880,
+			"node_type": 62,
+			"src": {
+				"id": 5881,
+				"line": 1265,
+				"column": 22,
+				"start": 39002,
+				"end": 39008,
+				"length": 7,
+				"parent_index": 5879
+			},
+			"base_name": {
+				"id": 5882,
+				"node_type": 52,
+				"src": {
+					"id": 5883,
+					"line": 1265,
+					"column": 22,
+					"start": 39002,
+					"end": 39008,
+					"length": 7,
+					"parent_index": 5879
+				},
+				"name": "Ownable",
+				"referenced_declaration": 88
+			}
+		}
+	],
+	"license": "AGPL-3.0-only",
+	"exported_symbols": [
+		{
+			"id": 5875,
+			"name": "BlackList",
+			"absolute_path": ""
+		},
+		{
+			"id": 5880,
+			"name": "Ownable",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "BlackList",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 5877,
+			"node_type": 10,
+			"src": {
+				"id": 5878,
+				"line": 6,
+				"column": 0,
+				"start": 108,
+				"end": 132,
+				"length": 25,
+				"parent_index": 5875
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"\u003e=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity \u003e=0.8.16;"
+		},
+		{
+			"id": 5879,
+			"name": "BlackList",
+			"node_type": 35,
+			"src": {
+				"line": 1265,
+				"column": 0,
+				"start": 38980,
+				"end": 39509,
+				"length": 530,
+				"parent_index": 5875
+			},
+			"name_location": {
+				"line": 1265,
+				"column": 9,
+				"start": 38989,
+				"end": 38997,
+				"length": 9,
+				"parent_index": 5879
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 5885,
+					"name": "isBlackListed",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 5886,
+						"line": 1266,
+						"column": 4,
+						"start": 39016,
+						"end": 39061,
+						"length": 46,
+						"parent_index": 5879
+					},
+					"scope": 5879,
+					"type_description": {
+						"type_identifier": "t_mapping_$t_address_$t_bool$",
+						"type_string": "mapping(address=\u003ebool)"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 5887,
+						"node_type": 0,
+						"src": {
+							"id": 5888,
+							"line": 1266,
+							"column": 4,
+							"start": 39016,
+							"end": 39039,
+							"length": 24,
+							"parent_index": 5885
+						},
+						"key_type": {
+							"id": 5889,
+							"node_type": 30,
+							"src": {
+								"id": 5890,
+								"line": 1266,
+								"column": 12,
+								"start": 39024,
+								"end": 39030,
+								"length": 7,
+								"parent_index": 5887
+							},
+							"name": "address",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"key_name_location": {
+							"line": 1266,
+							"column": 12,
+							"start": 39024,
+							"end": 39030,
+							"length": 7,
+							"parent_index": 5887
+						},
+						"value_type": {
+							"id": 5891,
+							"node_type": 30,
+							"src": {
+								"id": 5892,
+								"line": 1266,
+								"column": 23,
+								"start": 39035,
+								"end": 39038,
+								"length": 4,
+								"parent_index": 5887
+							},
+							"name": "bool",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						"value_name_location": {
+							"line": 1266,
+							"column": 23,
+							"start": 39035,
+							"end": 39038,
+							"length": 4,
+							"parent_index": 5887
+						},
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_bool$",
+							"type_string": "mapping(address=\u003ebool)"
+						}
+					}
+				},
+				{
+					"id": 5894,
+					"name": "addBlackList",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5895,
+						"line": 1268,
+						"column": 4,
+						"start": 39068,
+						"end": 39213,
+						"length": 146,
+						"parent_index": 5879
+					},
+					"name_location": {
+						"line": 1268,
+						"column": 13,
+						"start": 39077,
+						"end": 39088,
+						"length": 12,
+						"parent_index": 5894
+					},
+					"body": {
+						"id": 5907,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5908,
+							"line": 1268,
+							"column": 62,
+							"start": 39126,
+							"end": 39213,
+							"length": 88,
+							"parent_index": 5894
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5909,
+								"node_type": 27,
+								"src": {
+									"id": 5910,
+									"line": 1269,
+									"column": 8,
+									"start": 39136,
+									"end": 39167,
+									"length": 32,
+									"parent_index": 5907
+								},
+								"expression": {
+									"id": 5911,
+									"node_type": 27,
+									"src": {
+										"id": 5912,
+										"line": 1269,
+										"column": 8,
+										"start": 39136,
+										"end": 39166,
+										"length": 31,
+										"parent_index": 5907
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5913,
+										"node_type": 22,
+										"src": {
+											"id": 5914,
+											"line": 1269,
+											"column": 8,
+											"start": 39136,
+											"end": 39159,
+											"length": 24,
+											"parent_index": 5911
+										},
+										"index_expression": {
+											"id": 5915,
+											"node_type": 16,
+											"src": {
+												"id": 5916,
+												"line": 1269,
+												"column": 8,
+												"start": 39136,
+												"end": 39148,
+												"length": 13,
+												"parent_index": 5913
+											},
+											"name": "isBlackListed",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5885,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 5917,
+											"node_type": 16,
+											"src": {
+												"id": 5918,
+												"line": 1269,
+												"column": 22,
+												"start": 39150,
+												"end": 39158,
+												"length": 9,
+												"parent_index": 5913
+											},
+											"name": "_evilUser",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5917,
+											"is_pure": false
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003ebool):address]"
+										}
+									},
+									"right_expression": {
+										"id": 5919,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"id": 5920,
+											"line": 1269,
+											"column": 35,
+											"start": 39163,
+											"end": 39166,
+											"length": 4,
+											"parent_index": 5911
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003ebool):address]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+									"type_string": "index[mapping(address=\u003ebool):address]"
+								}
+							},
+							{
+								"id": 5921,
+								"node_type": 64,
+								"src": {
+									"id": 5922,
+									"line": 1270,
+									"column": 8,
+									"start": 39177,
+									"end": 39207,
+									"length": 31,
+									"parent_index": 5894
+								},
+								"arguments": [
+									{
+										"id": 5923,
+										"node_type": 16,
+										"src": {
+											"id": 5924,
+											"line": 1270,
+											"column": 28,
+											"start": 39197,
+											"end": 39205,
+											"length": 9,
+											"parent_index": 5907
+										},
+										"name": "_evilUser",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5923,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 5925,
+									"node_type": 16,
+									"src": {
+										"id": 5926,
+										"line": 1270,
+										"column": 13,
+										"start": 39182,
+										"end": 39195,
+										"length": 14,
+										"parent_index": 5907
+									},
+									"name": "AddedBlackList",
+									"type_description": {
+										"type_identifier": "t_event\u0026_BlackList_AddedBlackList_\u00265962",
+										"type_string": "event BlackList.AddedBlackList"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 5962,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 5896,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 5897,
+								"line": 1268,
+								"column": 52,
+								"start": 39116,
+								"end": 39124,
+								"length": 9,
+								"parent_index": 5894
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 5898,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 5899,
+									"line": 1268,
+									"column": 52,
+									"start": 39116,
+									"end": 39124,
+									"length": 9,
+									"parent_index": 5896
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 5900,
+						"node_type": 43,
+						"src": {
+							"id": 5901,
+							"line": 1268,
+							"column": 26,
+							"start": 39090,
+							"end": 39106,
+							"length": 17,
+							"parent_index": 5894
+						},
+						"parameters": [
+							{
+								"id": 5902,
+								"node_type": 44,
+								"src": {
+									"id": 5903,
+									"line": 1268,
+									"column": 26,
+									"start": 39090,
+									"end": 39106,
+									"length": 17,
+									"parent_index": 5900
+								},
+								"scope": 5894,
+								"name": "_evilUser",
+								"type_name": {
+									"id": 5904,
+									"node_type": 30,
+									"src": {
+										"id": 5905,
+										"line": 1268,
+										"column": 26,
+										"start": 39090,
+										"end": 39096,
+										"length": 7,
+										"parent_index": 5902
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5906,
+						"node_type": 43,
+						"src": {
+							"id": 5895,
+							"line": 1268,
+							"column": 4,
+							"start": 39068,
+							"end": 39213,
+							"length": 146,
+							"parent_index": 5894
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5879,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 5928,
+					"name": "removeBlackList",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 5929,
+						"line": 1273,
+						"column": 4,
+						"start": 39220,
+						"end": 39380,
+						"length": 161,
+						"parent_index": 5879
+					},
+					"name_location": {
+						"line": 1273,
+						"column": 13,
+						"start": 39229,
+						"end": 39243,
+						"length": 15,
+						"parent_index": 5928
+					},
+					"body": {
+						"id": 5941,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 5942,
+							"line": 1273,
+							"column": 68,
+							"start": 39284,
+							"end": 39380,
+							"length": 97,
+							"parent_index": 5928
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 5943,
+								"node_type": 27,
+								"src": {
+									"id": 5944,
+									"line": 1274,
+									"column": 8,
+									"start": 39294,
+									"end": 39329,
+									"length": 36,
+									"parent_index": 5941
+								},
+								"expression": {
+									"id": 5945,
+									"node_type": 27,
+									"src": {
+										"id": 5946,
+										"line": 1274,
+										"column": 8,
+										"start": 39294,
+										"end": 39328,
+										"length": 35,
+										"parent_index": 5941
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 5947,
+										"node_type": 22,
+										"src": {
+											"id": 5948,
+											"line": 1274,
+											"column": 8,
+											"start": 39294,
+											"end": 39320,
+											"length": 27,
+											"parent_index": 5945
+										},
+										"index_expression": {
+											"id": 5949,
+											"node_type": 16,
+											"src": {
+												"id": 5950,
+												"line": 1274,
+												"column": 8,
+												"start": 39294,
+												"end": 39306,
+												"length": 13,
+												"parent_index": 5947
+											},
+											"name": "isBlackListed",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5885,
+											"is_pure": false
+										},
+										"base_expression": {
+											"id": 5951,
+											"node_type": 16,
+											"src": {
+												"id": 5952,
+												"line": 1274,
+												"column": 22,
+												"start": 39308,
+												"end": 39319,
+												"length": 12,
+												"parent_index": 5947
+											},
+											"name": "_clearedUser",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5951,
+											"is_pure": false
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_mapping_$t_address_$t_bool$",
+												"type_string": "mapping(address=\u003ebool)"
+											},
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+											"type_string": "index[mapping(address=\u003ebool):address]"
+										}
+									},
+									"right_expression": {
+										"id": 5953,
+										"node_type": 17,
+										"kind": 61,
+										"value": "false",
+										"hex_value": "66616c7365",
+										"src": {
+											"id": 5954,
+											"line": 1274,
+											"column": 38,
+											"start": 39324,
+											"end": 39328,
+											"length": 5,
+											"parent_index": 5945
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+										"type_string": "index[mapping(address=\u003ebool):address]"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
+									"type_string": "index[mapping(address=\u003ebool):address]"
+								}
+							},
+							{
+								"id": 5955,
+								"node_type": 64,
+								"src": {
+									"id": 5956,
+									"line": 1275,
+									"column": 8,
+									"start": 39339,
+									"end": 39374,
+									"length": 36,
+									"parent_index": 5928
+								},
+								"arguments": [
+									{
+										"id": 5957,
+										"node_type": 16,
+										"src": {
+											"id": 5958,
+											"line": 1275,
+											"column": 30,
+											"start": 39361,
+											"end": 39372,
+											"length": 12,
+											"parent_index": 5941
+										},
+										"name": "_clearedUser",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5957,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 5959,
+									"node_type": 16,
+									"src": {
+										"id": 5960,
+										"line": 1275,
+										"column": 13,
+										"start": 39344,
+										"end": 39359,
+										"length": 16,
+										"parent_index": 5941
+									},
+									"name": "RemovedBlackList",
+									"type_description": {
+										"type_identifier": "t_event\u0026_BlackList_RemovedBlackList_\u00265970",
+										"type_string": "event BlackList.RemovedBlackList"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 5970,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [
+						{
+							"id": 5930,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 5931,
+								"line": 1273,
+								"column": 58,
+								"start": 39274,
+								"end": 39282,
+								"length": 9,
+								"parent_index": 5928
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 5932,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 5933,
+									"line": 1273,
+									"column": 58,
+									"start": 39274,
+									"end": 39282,
+									"length": 9,
+									"parent_index": 5930
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 5934,
+						"node_type": 43,
+						"src": {
+							"id": 5935,
+							"line": 1273,
+							"column": 29,
+							"start": 39245,
+							"end": 39264,
+							"length": 20,
+							"parent_index": 5928
+						},
+						"parameters": [
+							{
+								"id": 5936,
+								"node_type": 44,
+								"src": {
+									"id": 5937,
+									"line": 1273,
+									"column": 29,
+									"start": 39245,
+									"end": 39264,
+									"length": 20,
+									"parent_index": 5934
+								},
+								"scope": 5928,
+								"name": "_clearedUser",
+								"type_name": {
+									"id": 5938,
+									"node_type": 30,
+									"src": {
+										"id": 5939,
+										"line": 1273,
+										"column": 29,
+										"start": 39245,
+										"end": 39251,
+										"length": 7,
+										"parent_index": 5936
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5940,
+						"node_type": 43,
+						"src": {
+							"id": 5929,
+							"line": 1273,
+							"column": 4,
+							"start": 39220,
+							"end": 39380,
+							"length": 161,
+							"parent_index": 5928
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 5879,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 5962,
+					"node_type": 57,
+					"src": {
+						"id": 5963,
+						"line": 1278,
+						"column": 4,
+						"start": 39387,
+						"end": 39422,
+						"length": 36,
+						"parent_index": 5879
+					},
+					"parameters": {
+						"id": 5964,
+						"node_type": 43,
+						"src": {
+							"id": 5963,
+							"line": 1278,
+							"column": 4,
+							"start": 39387,
+							"end": 39422,
+							"length": 36,
+							"parent_index": 5962
+						},
+						"parameters": [
+							{
+								"id": 5965,
+								"node_type": 44,
+								"src": {
+									"id": 5966,
+									"line": 1278,
+									"column": 25,
+									"start": 39408,
+									"end": 39420,
+									"length": 13,
+									"parent_index": 5964
+								},
+								"scope": 5962,
+								"name": "_user",
+								"type_name": {
+									"id": 5967,
+									"node_type": 30,
+									"src": {
+										"id": 5968,
+										"line": 1278,
+										"column": 25,
+										"start": 39408,
+										"end": 39414,
+										"length": 7,
+										"parent_index": 5965
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "AddedBlackList",
+					"anonymous": false
+				},
+				{
+					"id": 5970,
+					"node_type": 57,
+					"src": {
+						"id": 5971,
+						"line": 1279,
+						"column": 4,
+						"start": 39428,
+						"end": 39465,
+						"length": 38,
+						"parent_index": 5879
+					},
+					"parameters": {
+						"id": 5972,
+						"node_type": 43,
+						"src": {
+							"id": 5971,
+							"line": 1279,
+							"column": 4,
+							"start": 39428,
+							"end": 39465,
+							"length": 38,
+							"parent_index": 5970
+						},
+						"parameters": [
+							{
+								"id": 5973,
+								"node_type": 44,
+								"src": {
+									"id": 5974,
+									"line": 1279,
+									"column": 27,
+									"start": 39451,
+									"end": 39463,
+									"length": 13,
+									"parent_index": 5972
+								},
+								"scope": 5970,
+								"name": "_user",
+								"type_name": {
+									"id": 5975,
+									"node_type": 30,
+									"src": {
+										"id": 5976,
+										"line": 1279,
+										"column": 27,
+										"start": 39451,
+										"end": 39457,
+										"length": 7,
+										"parent_index": 5973
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "RemovedBlackList",
+					"anonymous": false
+				},
+				{
+					"id": 5978,
+					"node_type": 77,
+					"src": {
+						"id": 5979,
+						"line": 1280,
+						"column": 4,
+						"start": 39471,
+						"end": 39507,
+						"length": 37,
+						"parent_index": 5879
+					},
+					"name": "InBlackListError",
+					"name_location": {
+						"line": 1280,
+						"column": 10,
+						"start": 39477,
+						"end": 39492,
+						"length": 16,
+						"parent_index": 5978
+					},
+					"parameters": {
+						"id": 5980,
+						"node_type": 43,
+						"src": {
+							"id": 5979,
+							"line": 1280,
+							"column": 4,
+							"start": 39471,
+							"end": 39507,
+							"length": 37,
+							"parent_index": 5978
+						},
+						"parameters": [
+							{
+								"id": 5981,
+								"node_type": 44,
+								"src": {
+									"id": 5982,
+									"line": 1280,
+									"column": 27,
+									"start": 39494,
+									"end": 39505,
+									"length": 12,
+									"parent_index": 5980
+								},
+								"scope": 5978,
+								"name": "user",
+								"type_name": {
+									"id": 5983,
+									"node_type": 30,
+									"src": {
+										"id": 5984,
+										"line": 1280,
+										"column": 27,
+										"start": 39494,
+										"end": 39500,
+										"length": 7,
+										"parent_index": 5981
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"type_description": {
+						"type_identifier": "t_error$_BlackList_InBlackListError_$5978",
+						"type_string": "error BlackList.InBlackListError"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				88,
+				5879
+			],
+			"base_contracts": [
+				{
+					"id": 5880,
+					"node_type": 62,
+					"src": {
+						"id": 5881,
+						"line": 1265,
+						"column": 22,
+						"start": 39002,
+						"end": 39008,
+						"length": 7,
+						"parent_index": 5879
+					},
+					"base_name": {
+						"id": 5882,
+						"node_type": 52,
+						"src": {
+							"id": 5883,
+							"line": 1265,
+							"column": 22,
+							"start": 39002,
+							"end": 39008,
+							"length": 7,
+							"parent_index": 5879
+						},
+						"name": "Ownable",
+						"referenced_declaration": 88
+					}
+				}
+			],
+			"contract_dependencies": [
+				88
+			]
+		}
+	],
+	"src": {
+		"id": 5876,
+		"line": 1265,
+		"column": 0,
+		"start": 38980,
+		"end": 39509,
+		"length": 530,
+		"parent_index": 87
+	}
+}

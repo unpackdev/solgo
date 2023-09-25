@@ -16,6 +16,7 @@ func getSourceTestCases(t *testing.T) []struct {
 	expectedProto        string
 	unresolvedReferences int64
 	expectsErrors        bool
+	disabled             bool
 } {
 	return []struct {
 		name                 string
@@ -25,6 +26,7 @@ func getSourceTestCases(t *testing.T) []struct {
 		expectedProto        string
 		unresolvedReferences int64
 		expectsErrors        bool
+		disabled             bool
 	}{
 		{
 			name:       "Empty Contract Test",
@@ -153,6 +155,84 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/rick/Token.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
+		},
+		{
+			name:       "PTM Contract - 0x9A4e2AB29f9edE0c362f82F873F9d727810480F2",
+			outputPath: "contracts/ptm/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Ptm",
+						Path:    tests.ReadContractFileForTest(t, "contracts/ptm/Ptm").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/ptm/Ptm").Content,
+					},
+				},
+				EntrySourceUnitName: "PTM",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/ptm/Ptm.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/ptm/Ptm.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+		},
+		{
+			name:       "KnoxLpLocker Contract - 0x09D10fbcEbd414DE4683856fF72a3587761A1587",
+			outputPath: "contracts/knox/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "KnoxLpLocker",
+						Path:    tests.ReadContractFileForTest(t, "contracts/knox/Knox").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/knox/Knox").Content,
+					},
+				},
+				EntrySourceUnitName: "KnoxLpLocker",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/knox/Knox.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/knox/Knox.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+		},
+		{
+			name:       "AdminUpgradeabilityProxy Contract - 0xA567D9B111b570cc5b68eDef188056FFfD1e2813",
+			outputPath: "contracts/adminproxy/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "AdminUpgradeabilityProxy",
+						Path:    tests.ReadContractFileForTest(t, "contracts/adminproxy/Admin").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/adminproxy/Admin").Content,
+					},
+				},
+				EntrySourceUnitName: "AdminUpgradeabilityProxy",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             true, // 0.5.10 contract, has some issues with the parser
+		},
+		{
+			name:       " RouterV2  Contract - 0x8A99Ad90E77e376AD4Cec21231AF855a87771fD0",
+			outputPath: "contracts/router/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "RouterV2",
+						Path:    tests.ReadContractFileForTest(t, "contracts/router/RouterV2").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/router/RouterV2").Content,
+					},
+				},
+				EntrySourceUnitName: "RouterV2",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/router/RouterV2.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/router/RouterV2.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
 		},
 		{
 			name:       "Simple Storage Contract Test",

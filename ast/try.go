@@ -156,13 +156,13 @@ func (t *TryStatement) Parse(
 	t.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, t, ctx.Expression())
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(t.ASTBuilder)
+		bodyNode := NewBodyNode(t.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, t, ctx.Block())
 		t.Body = bodyNode
 
 		if ctx.Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(t.ASTBuilder)
+				bodyNode := NewBodyNode(t.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, t, uncheckedCtx)
 				t.Body.Statements = append(t.Body.Statements, bodyNode)
 			}

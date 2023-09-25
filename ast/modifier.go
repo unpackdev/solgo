@@ -153,13 +153,13 @@ func (m *ModifierDefinition) ParseDefinition(
 	m.Parameters = parameters
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(m.ASTBuilder)
+		bodyNode := NewBodyNode(m.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, m, ctx.Block())
 		m.Body = bodyNode
 
 		if ctx.Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(m.ASTBuilder)
+				bodyNode := NewBodyNode(m.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, m, uncheckedCtx)
 				m.Body.Statements = append(m.Body.Statements, bodyNode)
 			}

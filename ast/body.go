@@ -1,13 +1,13 @@
 package ast
 
 import (
-	"fmt"
 	"reflect"
 
 	"github.com/antlr4-go/antlr/v4"
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"go.uber.org/zap"
 )
 
 // BodyNode represents a body node in the abstract syntax tree.
@@ -21,16 +21,18 @@ type BodyNode struct {
 	Src         SrcNode          `json:"src"`         // Src is the source code location.
 	Implemented bool             `json:"implemented"` // Implemented indicates whether the function is implemented.
 	Statements  []Node[NodeType] `json:"statements"`  // Statements is the list of AST nodes in the body.
+	TypedProto  bool             `json:"-"`           // TypedProto indicates whether the node should use TypedStruct as proto descriptor.
 }
 
 // NewBodyNode creates a new BodyNode with the provided ASTBuilder.
 // It returns a pointer to the created BodyNode.
-func NewBodyNode(b *ASTBuilder) *BodyNode {
+func NewBodyNode(b *ASTBuilder, tp bool) *BodyNode {
 	return &BodyNode{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_BLOCK,
 		Statements: make([]Node[NodeType], 0),
+		TypedProto: tp,
 	}
 }
 
@@ -98,6 +100,10 @@ func (b *BodyNode) ToProto() NodeType {
 		proto.Statements = append(proto.Statements, statement.ToProto().(*v3.TypedStruct))
 	}
 
+	if b.TypedProto {
+		return NewTypedStruct(&proto, "Block")
+	}
+
 	switch b.NodeType {
 	case ast_pb.NodeType_UNCHECKED_BLOCK:
 		return NewTypedStruct(&proto, "Block")
@@ -160,7 +166,10 @@ func (b *BodyNode) ParseDefinitions(
 			statement := NewReceiveDefinition(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
 		default:
-			panic(fmt.Sprintf("Unknown body child type @ BodyNode.Parse: %s", reflect.TypeOf(childCtx)))
+			zap.L().Warn(
+				"Unknown body child type @ BodyNode.ParseDefinitions",
+				zap.String("type", reflect.TypeOf(childCtx).String()),
+			)
 		}
 	}
 
@@ -318,7 +327,13 @@ func (b *BodyNode) parseStatements(
 		b.Statements = append(b.Statements, statement.Parse(
 			unit, contractNode, fnNode, b, childCtx,
 		))
+	case *parser.BlockContext:
+		bodyNode := NewBodyNode(b.ASTBuilder, true)
+		b.Statements = append(b.Statements, bodyNode.ParseBlock(unit, contractNode, b, childCtx))
 	default:
-		panic(fmt.Sprintf("Unknown body statement type @ BodyNode.ParseUncheckedBlock: %s", reflect.TypeOf(childCtx)))
+		zap.L().Warn(
+			"Unknown body statement type @ BodyNode.parseStatements",
+			zap.String("type", reflect.TypeOf(childCtx).String()),
+		)
 	}
 }

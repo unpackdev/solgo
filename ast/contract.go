@@ -342,9 +342,8 @@ func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contract
 			continue
 		}
 
-		bodyNode := NewBodyNode(c.ASTBuilder)
-		childNode := bodyNode.ParseDefinitions(unit, contractNode, bodyElement)
-		if childNode != nil {
+		bodyNode := NewBodyNode(c.ASTBuilder, false)
+		if childNode := bodyNode.ParseDefinitions(unit, contractNode, bodyElement); childNode != nil {
 			contractNode.Nodes = append(
 				contractNode.Nodes,
 				childNode,

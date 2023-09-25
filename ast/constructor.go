@@ -223,13 +223,13 @@ func (c *Constructor) Parse(
 	}
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(c.ASTBuilder)
+		bodyNode := NewBodyNode(c.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, c, ctx.Block())
 		c.Body = bodyNode
 
 		if ctx.Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(c.ASTBuilder)
+				bodyNode := NewBodyNode(c.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, c, uncheckedCtx)
 				c.Body.Statements = append(c.Body.Statements, bodyNode)
 			}

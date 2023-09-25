@@ -1,0 +1,2059 @@
+{
+	"id": 88,
+	"base_contracts": [],
+	"license": "AGPL-3.0-only",
+	"exported_symbols": [
+		{
+			"id": 88,
+			"name": "Ownable",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "Ownable",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 90,
+			"node_type": 10,
+			"src": {
+				"id": 91,
+				"line": 6,
+				"column": 0,
+				"start": 108,
+				"end": 132,
+				"length": 25,
+				"parent_index": 88
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"\u003e=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity \u003e=0.8.16;"
+		},
+		{
+			"id": 92,
+			"name": "Ownable",
+			"node_type": 35,
+			"src": {
+				"line": 8,
+				"column": 0,
+				"start": 135,
+				"end": 1808,
+				"length": 1674,
+				"parent_index": 88
+			},
+			"name_location": {
+				"line": 8,
+				"column": 9,
+				"start": 144,
+				"end": 150,
+				"length": 7,
+				"parent_index": 92
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 94,
+					"name": "_owner",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 95,
+						"line": 9,
+						"column": 4,
+						"start": 158,
+						"end": 180,
+						"length": 23,
+						"parent_index": 92
+					},
+					"scope": 92,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					"visibility": 2,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 96,
+						"node_type": 30,
+						"src": {
+							"id": 97,
+							"line": 9,
+							"column": 4,
+							"start": 158,
+							"end": 164,
+							"length": 7,
+							"parent_index": 94
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					}
+				},
+				{
+					"id": 99,
+					"node_type": 57,
+					"src": {
+						"id": 100,
+						"line": 11,
+						"column": 4,
+						"start": 187,
+						"end": 292,
+						"length": 106,
+						"parent_index": 92
+					},
+					"parameters": {
+						"id": 101,
+						"node_type": 43,
+						"src": {
+							"id": 100,
+							"line": 11,
+							"column": 4,
+							"start": 187,
+							"end": 292,
+							"length": 106,
+							"parent_index": 99
+						},
+						"parameters": [
+							{
+								"id": 102,
+								"node_type": 44,
+								"src": {
+									"id": 103,
+									"line": 12,
+									"column": 8,
+									"start": 223,
+									"end": 251,
+									"length": 29,
+									"parent_index": 101
+								},
+								"scope": 99,
+								"name": "previousOwner",
+								"type_name": {
+									"id": 104,
+									"node_type": 30,
+									"src": {
+										"id": 105,
+										"line": 12,
+										"column": 8,
+										"start": 223,
+										"end": 229,
+										"length": 7,
+										"parent_index": 102
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 106,
+								"node_type": 44,
+								"src": {
+									"id": 107,
+									"line": 13,
+									"column": 8,
+									"start": 262,
+									"end": 285,
+									"length": 24,
+									"parent_index": 101
+								},
+								"scope": 99,
+								"name": "newOwner",
+								"type_name": {
+									"id": 108,
+									"node_type": 30,
+									"src": {
+										"id": 109,
+										"line": 13,
+										"column": 8,
+										"start": 262,
+										"end": 268,
+										"length": 7,
+										"parent_index": 106
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "OwnershipTransferred",
+					"anonymous": false
+				},
+				{
+					"id": 111,
+					"node_type": 42,
+					"src": {
+						"id": 112,
+						"line": 19,
+						"column": 4,
+						"start": 395,
+						"end": 541,
+						"length": 147,
+						"parent_index": 92
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 113,
+						"node_type": 43,
+						"src": {
+							"id": 112,
+							"line": 19,
+							"column": 4,
+							"start": 395,
+							"end": 541,
+							"length": 147,
+							"parent_index": 111
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 114,
+						"node_type": 43,
+						"src": {
+							"id": 112,
+							"line": 19,
+							"column": 4,
+							"start": 395,
+							"end": 541,
+							"length": 147,
+							"parent_index": 111
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 92,
+					"body": {
+						"id": 115,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 116,
+							"line": 19,
+							"column": 18,
+							"start": 409,
+							"end": 541,
+							"length": 133,
+							"parent_index": 111
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 117,
+								"node_type": 44,
+								"src": {
+									"id": 118,
+									"line": 20,
+									"column": 8,
+									"start": 419,
+									"end": 449,
+									"length": 31,
+									"parent_index": 115
+								},
+								"assignments": [
+									119
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 119,
+										"state_mutability": 1,
+										"name": "msgSender",
+										"node_type": 44,
+										"scope": 115,
+										"src": {
+											"id": 120,
+											"line": 20,
+											"column": 8,
+											"start": 419,
+											"end": 435,
+											"length": 17,
+											"parent_index": 117
+										},
+										"name_location": {
+											"line": 20,
+											"column": 16,
+											"start": 427,
+											"end": 435,
+											"length": 9,
+											"parent_index": 119
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 121,
+											"node_type": 30,
+											"src": {
+												"id": 122,
+												"line": 20,
+												"column": 8,
+												"start": 419,
+												"end": 425,
+												"length": 7,
+												"parent_index": 119
+											},
+											"name": "address",
+											"state_mutability": 4,
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 123,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 124,
+										"line": 20,
+										"column": 28,
+										"start": 439,
+										"end": 448,
+										"length": 10,
+										"parent_index": 117
+									},
+									"member_location": {
+										"line": 20,
+										"column": 32,
+										"start": 443,
+										"end": 448,
+										"length": 6,
+										"parent_index": 123
+									},
+									"expression": {
+										"id": 125,
+										"node_type": 16,
+										"src": {
+											"id": 126,
+											"line": 20,
+											"column": 28,
+											"start": 439,
+											"end": 441,
+											"length": 3,
+											"parent_index": 123
+										},
+										"name": "msg",
+										"type_description": {
+											"type_identifier": "t_magic_message",
+											"type_string": "msg"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false
+									},
+									"member_name": "sender",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								}
+							},
+							{
+								"id": 127,
+								"node_type": 27,
+								"src": {
+									"id": 128,
+									"line": 21,
+									"column": 8,
+									"start": 459,
+									"end": 477,
+									"length": 19,
+									"parent_index": 115
+								},
+								"expression": {
+									"id": 129,
+									"node_type": 27,
+									"src": {
+										"id": 130,
+										"line": 21,
+										"column": 8,
+										"start": 459,
+										"end": 476,
+										"length": 18,
+										"parent_index": 115
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 131,
+										"node_type": 16,
+										"src": {
+											"id": 132,
+											"line": 21,
+											"column": 8,
+											"start": 459,
+											"end": 464,
+											"length": 6,
+											"parent_index": 129
+										},
+										"name": "_owner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 94,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 133,
+										"node_type": 16,
+										"src": {
+											"id": 134,
+											"line": 21,
+											"column": 17,
+											"start": 468,
+											"end": 476,
+											"length": 9,
+											"parent_index": 129
+										},
+										"name": "msgSender",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 117,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							{
+								"id": 135,
+								"node_type": 64,
+								"src": {
+									"id": 136,
+									"line": 22,
+									"column": 8,
+									"start": 487,
+									"end": 535,
+									"length": 49,
+									"parent_index": 111
+								},
+								"arguments": [
+									{
+										"id": 137,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 138,
+											"line": 22,
+											"column": 34,
+											"start": 513,
+											"end": 522,
+											"length": 10,
+											"parent_index": 115
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										],
+										"arguments": [
+											{
+												"id": 143,
+												"node_type": 17,
+												"kind": 49,
+												"value": "0",
+												"hex_value": "30",
+												"src": {
+													"id": 144,
+													"line": 22,
+													"column": 42,
+													"start": 521,
+													"end": 521,
+													"length": 1,
+													"parent_index": 137
+												},
+												"type_description": {
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": true
+											}
+										],
+										"expression": {
+											"id": 139,
+											"node_type": 16,
+											"src": {
+												"id": 140,
+												"line": 22,
+												"column": 34,
+												"start": 513,
+												"end": 519,
+												"length": 7,
+												"parent_index": 137
+											},
+											"name": "address",
+											"type_name": {
+												"id": 141,
+												"node_type": 30,
+												"src": {
+													"id": 142,
+													"line": 22,
+													"column": 34,
+													"start": 513,
+													"end": 519,
+													"length": 7,
+													"parent_index": 139
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_rational_0_by_1$",
+											"type_string": "function(int_const 0)"
+										}
+									},
+									{
+										"id": 145,
+										"node_type": 16,
+										"src": {
+											"id": 146,
+											"line": 22,
+											"column": 46,
+											"start": 525,
+											"end": 533,
+											"length": 9,
+											"parent_index": 115
+										},
+										"name": "msgSender",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 117,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 147,
+									"node_type": 16,
+									"src": {
+										"id": 148,
+										"line": 22,
+										"column": 13,
+										"start": 492,
+										"end": 511,
+										"length": 20,
+										"parent_index": 115
+									},
+									"name": "OwnershipTransferred",
+									"type_description": {
+										"type_identifier": "t_event\u0026_Ownable_OwnershipTransferred_\u002699",
+										"type_string": "event Ownable.OwnershipTransferred"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 99,
+									"is_pure": false
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 150,
+					"name": "owner",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 151,
+						"line": 28,
+						"column": 4,
+						"start": 618,
+						"end": 694,
+						"length": 77,
+						"parent_index": 92
+					},
+					"name_location": {
+						"line": 28,
+						"column": 13,
+						"start": 627,
+						"end": 631,
+						"length": 5,
+						"parent_index": 150
+					},
+					"body": {
+						"id": 164,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 165,
+							"line": 28,
+							"column": 51,
+							"start": 665,
+							"end": 694,
+							"length": 30,
+							"parent_index": 150
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 166,
+								"node_type": 47,
+								"src": {
+									"id": 167,
+									"line": 29,
+									"column": 8,
+									"start": 675,
+									"end": 688,
+									"length": 14,
+									"parent_index": 150
+								},
+								"function_return_parameters": 150,
+								"expression": {
+									"id": 168,
+									"node_type": 16,
+									"src": {
+										"id": 169,
+										"line": 29,
+										"column": 15,
+										"start": 682,
+										"end": 687,
+										"length": 6,
+										"parent_index": 164
+									},
+									"name": "_owner",
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 94,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 152,
+						"node_type": 43,
+						"src": {
+							"id": 153,
+							"line": 28,
+							"column": 42,
+							"start": 656,
+							"end": 662,
+							"length": 7,
+							"parent_index": 150
+						},
+						"parameters": [
+							{
+								"id": 154,
+								"node_type": 44,
+								"src": {
+									"id": 155,
+									"line": 28,
+									"column": 42,
+									"start": 656,
+									"end": 662,
+									"length": 7,
+									"parent_index": 152
+								},
+								"scope": 150,
+								"name": "",
+								"type_name": {
+									"id": 156,
+									"node_type": 30,
+									"src": {
+										"id": 157,
+										"line": 28,
+										"column": 42,
+										"start": 656,
+										"end": 662,
+										"length": 7,
+										"parent_index": 154
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 158,
+						"node_type": 43,
+						"src": {
+							"id": 159,
+							"line": 28,
+							"column": 42,
+							"start": 656,
+							"end": 662,
+							"length": 7,
+							"parent_index": 150
+						},
+						"parameters": [
+							{
+								"id": 160,
+								"node_type": 44,
+								"src": {
+									"id": 161,
+									"line": 28,
+									"column": 42,
+									"start": 656,
+									"end": 662,
+									"length": 7,
+									"parent_index": 158
+								},
+								"scope": 150,
+								"name": "",
+								"type_name": {
+									"id": 162,
+									"node_type": 30,
+									"src": {
+										"id": 163,
+										"line": 28,
+										"column": 42,
+										"start": 656,
+										"end": 662,
+										"length": 7,
+										"parent_index": 160
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"scope": 92,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 171,
+					"name": "onlyOwner",
+					"node_type": 68,
+					"src": {
+						"id": 172,
+						"line": 35,
+						"column": 4,
+						"start": 783,
+						"end": 896,
+						"length": 114,
+						"parent_index": 92
+					},
+					"name_location": {
+						"line": 35,
+						"column": 13,
+						"start": 792,
+						"end": 800,
+						"length": 9,
+						"parent_index": 171
+					},
+					"visibility": 1,
+					"virtual": false,
+					"parameters": {
+						"id": 173,
+						"node_type": 43,
+						"src": {
+							"id": 172,
+							"line": 35,
+							"column": 4,
+							"start": 783,
+							"end": 896,
+							"length": 114,
+							"parent_index": 92
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"body": {
+						"id": 174,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 175,
+							"line": 35,
+							"column": 25,
+							"start": 804,
+							"end": 896,
+							"length": 93,
+							"parent_index": 171
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 176,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 177,
+									"line": 36,
+									"column": 8,
+									"start": 814,
+									"end": 878,
+									"length": 65,
+									"parent_index": 174
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Ownable: caller is not the owner\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 180,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 181,
+											"line": 36,
+											"column": 16,
+											"start": 822,
+											"end": 841,
+											"length": 20,
+											"parent_index": 176
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 182,
+											"node_type": 16,
+											"src": {
+												"id": 183,
+												"line": 36,
+												"column": 16,
+												"start": 822,
+												"end": 827,
+												"length": 6,
+												"parent_index": 180
+											},
+											"name": "_owner",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 94,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 184,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"id": 185,
+												"line": 36,
+												"column": 26,
+												"start": 832,
+												"end": 841,
+												"length": 10,
+												"parent_index": 180
+											},
+											"member_location": {
+												"line": 36,
+												"column": 30,
+												"start": 836,
+												"end": 841,
+												"length": 6,
+												"parent_index": 184
+											},
+											"expression": {
+												"id": 186,
+												"node_type": 16,
+												"src": {
+													"id": 187,
+													"line": 36,
+													"column": 26,
+													"start": 832,
+													"end": 834,
+													"length": 3,
+													"parent_index": 184
+												},
+												"name": "msg",
+												"type_description": {
+													"type_identifier": "t_magic_message",
+													"type_string": "msg"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "sender",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 188,
+										"node_type": 17,
+										"kind": 50,
+										"value": "Ownable: caller is not the owner",
+										"hex_value": "4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572",
+										"src": {
+											"id": 189,
+											"line": 36,
+											"column": 38,
+											"start": 844,
+											"end": 877,
+											"length": 34,
+											"parent_index": 176
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"Ownable: caller is not the owner\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 178,
+									"node_type": 16,
+									"src": {
+										"id": 179,
+										"line": 36,
+										"column": 8,
+										"start": 814,
+										"end": 820,
+										"length": 7,
+										"parent_index": 176
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 190,
+								"node_type": 82,
+								"src": {
+									"id": 191,
+									"line": 37,
+									"column": 8,
+									"start": 889,
+									"end": 889,
+									"length": 1,
+									"parent_index": 174
+								},
+								"name": "_",
+								"type_description": {
+									"type_identifier": "t_placeholder_literal",
+									"type_string": "t_placeholder"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": false
+							}
+						]
+					}
+				},
+				{
+					"id": 193,
+					"name": "renounceOwnership",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 194,
+						"line": 47,
+						"column": 4,
+						"start": 1239,
+						"end": 1383,
+						"length": 145,
+						"parent_index": 92
+					},
+					"name_location": {
+						"line": 47,
+						"column": 13,
+						"start": 1248,
+						"end": 1264,
+						"length": 17,
+						"parent_index": 193
+					},
+					"body": {
+						"id": 201,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 202,
+							"line": 47,
+							"column": 58,
+							"start": 1293,
+							"end": 1383,
+							"length": 91,
+							"parent_index": 193
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 203,
+								"node_type": 64,
+								"src": {
+									"id": 204,
+									"line": 48,
+									"column": 8,
+									"start": 1303,
+									"end": 1348,
+									"length": 46,
+									"parent_index": 193
+								},
+								"arguments": [
+									{
+										"id": 205,
+										"node_type": 16,
+										"src": {
+											"id": 206,
+											"line": 48,
+											"column": 34,
+											"start": 1329,
+											"end": 1334,
+											"length": 6,
+											"parent_index": 201
+										},
+										"name": "_owner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 94,
+										"is_pure": false
+									},
+									{
+										"id": 207,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 208,
+											"line": 48,
+											"column": 42,
+											"start": 1337,
+											"end": 1346,
+											"length": 10,
+											"parent_index": 201
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										],
+										"arguments": [
+											{
+												"id": 213,
+												"node_type": 17,
+												"kind": 49,
+												"value": "0",
+												"hex_value": "30",
+												"src": {
+													"id": 214,
+													"line": 48,
+													"column": 50,
+													"start": 1345,
+													"end": 1345,
+													"length": 1,
+													"parent_index": 207
+												},
+												"type_description": {
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": true
+											}
+										],
+										"expression": {
+											"id": 209,
+											"node_type": 16,
+											"src": {
+												"id": 210,
+												"line": 48,
+												"column": 42,
+												"start": 1337,
+												"end": 1343,
+												"length": 7,
+												"parent_index": 207
+											},
+											"name": "address",
+											"type_name": {
+												"id": 211,
+												"node_type": 30,
+												"src": {
+													"id": 212,
+													"line": 48,
+													"column": 42,
+													"start": 1337,
+													"end": 1343,
+													"length": 7,
+													"parent_index": 209
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_rational_0_by_1$",
+											"type_string": "function(int_const 0)"
+										}
+									}
+								],
+								"expression": {
+									"id": 215,
+									"node_type": 16,
+									"src": {
+										"id": 216,
+										"line": 48,
+										"column": 13,
+										"start": 1308,
+										"end": 1327,
+										"length": 20,
+										"parent_index": 201
+									},
+									"name": "OwnershipTransferred",
+									"type_description": {
+										"type_identifier": "t_event\u0026_Ownable_OwnershipTransferred_\u002699",
+										"type_string": "event Ownable.OwnershipTransferred"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 99,
+									"is_pure": false
+								}
+							},
+							{
+								"id": 217,
+								"node_type": 27,
+								"src": {
+									"id": 218,
+									"line": 49,
+									"column": 8,
+									"start": 1358,
+									"end": 1377,
+									"length": 20,
+									"parent_index": 201
+								},
+								"expression": {
+									"id": 219,
+									"node_type": 27,
+									"src": {
+										"id": 220,
+										"line": 49,
+										"column": 8,
+										"start": 1358,
+										"end": 1376,
+										"length": 19,
+										"parent_index": 201
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 221,
+										"node_type": 16,
+										"src": {
+											"id": 222,
+											"line": 49,
+											"column": 8,
+											"start": 1358,
+											"end": 1363,
+											"length": 6,
+											"parent_index": 219
+										},
+										"name": "_owner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 94,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 223,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 224,
+											"line": 49,
+											"column": 17,
+											"start": 1367,
+											"end": 1376,
+											"length": 10,
+											"parent_index": 219
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_rational_0_by_1",
+												"type_string": "int_const 0"
+											}
+										],
+										"arguments": [
+											{
+												"id": 229,
+												"node_type": 17,
+												"kind": 49,
+												"value": "0",
+												"hex_value": "30",
+												"src": {
+													"id": 230,
+													"line": 49,
+													"column": 25,
+													"start": 1375,
+													"end": 1375,
+													"length": 1,
+													"parent_index": 223
+												},
+												"type_description": {
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": true
+											}
+										],
+										"expression": {
+											"id": 225,
+											"node_type": 16,
+											"src": {
+												"id": 226,
+												"line": 49,
+												"column": 17,
+												"start": 1367,
+												"end": 1373,
+												"length": 7,
+												"parent_index": 223
+											},
+											"name": "address",
+											"type_name": {
+												"id": 227,
+												"node_type": 30,
+												"src": {
+													"id": 228,
+													"line": 49,
+													"column": 17,
+													"start": 1367,
+													"end": 1373,
+													"length": 7,
+													"parent_index": 225
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_rational_0_by_1$",
+											"type_string": "function(int_const 0)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [
+						{
+							"id": 195,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 196,
+								"line": 47,
+								"column": 48,
+								"start": 1283,
+								"end": 1291,
+								"length": 9,
+								"parent_index": 193
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 197,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 198,
+									"line": 47,
+									"column": 48,
+									"start": 1283,
+									"end": 1291,
+									"length": 9,
+									"parent_index": 195
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 199,
+						"node_type": 43,
+						"src": {
+							"id": 194,
+							"line": 47,
+							"column": 4,
+							"start": 1239,
+							"end": 1383,
+							"length": 145,
+							"parent_index": 193
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 200,
+						"node_type": 43,
+						"src": {
+							"id": 194,
+							"line": 47,
+							"column": 4,
+							"start": 1239,
+							"end": 1383,
+							"length": 145,
+							"parent_index": 193
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 92,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				},
+				{
+					"id": 232,
+					"name": "transferOwnership",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 233,
+						"line": 56,
+						"column": 4,
+						"start": 1533,
+						"end": 1806,
+						"length": 274,
+						"parent_index": 92
+					},
+					"name_location": {
+						"line": 56,
+						"column": 13,
+						"start": 1542,
+						"end": 1558,
+						"length": 17,
+						"parent_index": 232
+					},
+					"body": {
+						"id": 245,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 246,
+							"line": 56,
+							"column": 74,
+							"start": 1603,
+							"end": 1806,
+							"length": 204,
+							"parent_index": 232
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 247,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 248,
+									"line": 57,
+									"column": 8,
+									"start": 1613,
+									"end": 1719,
+									"length": 107,
+									"parent_index": 245
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Ownable: new owner is the zero address\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 251,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 252,
+											"line": 58,
+											"column": 12,
+											"start": 1634,
+											"end": 1655,
+											"length": 22,
+											"parent_index": 247
+										},
+										"operator": 12,
+										"left_expression": {
+											"id": 253,
+											"node_type": 16,
+											"src": {
+												"id": 254,
+												"line": 58,
+												"column": 12,
+												"start": 1634,
+												"end": 1641,
+												"length": 8,
+												"parent_index": 251
+											},
+											"name": "newOwner",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 253,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 255,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 256,
+												"line": 58,
+												"column": 24,
+												"start": 1646,
+												"end": 1655,
+												"length": 10,
+												"parent_index": 251
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_rational_0_by_1",
+													"type_string": "int_const 0"
+												}
+											],
+											"arguments": [
+												{
+													"id": 261,
+													"node_type": 17,
+													"kind": 49,
+													"value": "0",
+													"hex_value": "30",
+													"src": {
+														"id": 262,
+														"line": 58,
+														"column": 32,
+														"start": 1654,
+														"end": 1654,
+														"length": 1,
+														"parent_index": 255
+													},
+													"type_description": {
+														"type_identifier": "t_rational_0_by_1",
+														"type_string": "int_const 0"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": true
+												}
+											],
+											"expression": {
+												"id": 257,
+												"node_type": 16,
+												"src": {
+													"id": 258,
+													"line": 58,
+													"column": 24,
+													"start": 1646,
+													"end": 1652,
+													"length": 7,
+													"parent_index": 255
+												},
+												"name": "address",
+												"type_name": {
+													"id": 259,
+													"node_type": 30,
+													"src": {
+														"id": 260,
+														"line": 58,
+														"column": 24,
+														"start": 1646,
+														"end": 1652,
+														"length": 7,
+														"parent_index": 257
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_rational_0_by_1$",
+												"type_string": "function(int_const 0)"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 263,
+										"node_type": 17,
+										"kind": 50,
+										"value": "Ownable: new owner is the zero address",
+										"hex_value": "4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373",
+										"src": {
+											"id": 264,
+											"line": 59,
+											"column": 12,
+											"start": 1670,
+											"end": 1709,
+											"length": 40,
+											"parent_index": 247
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"Ownable: new owner is the zero address\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 249,
+									"node_type": 16,
+									"src": {
+										"id": 250,
+										"line": 57,
+										"column": 8,
+										"start": 1613,
+										"end": 1619,
+										"length": 7,
+										"parent_index": 247
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 265,
+								"node_type": 64,
+								"src": {
+									"id": 266,
+									"line": 61,
+									"column": 8,
+									"start": 1730,
+									"end": 1773,
+									"length": 44,
+									"parent_index": 232
+								},
+								"arguments": [
+									{
+										"id": 267,
+										"node_type": 16,
+										"src": {
+											"id": 268,
+											"line": 61,
+											"column": 34,
+											"start": 1756,
+											"end": 1761,
+											"length": 6,
+											"parent_index": 245
+										},
+										"name": "_owner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 94,
+										"is_pure": false
+									},
+									{
+										"id": 269,
+										"node_type": 16,
+										"src": {
+											"id": 270,
+											"line": 61,
+											"column": 42,
+											"start": 1764,
+											"end": 1771,
+											"length": 8,
+											"parent_index": 245
+										},
+										"name": "newOwner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 269,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 271,
+									"node_type": 16,
+									"src": {
+										"id": 272,
+										"line": 61,
+										"column": 13,
+										"start": 1735,
+										"end": 1754,
+										"length": 20,
+										"parent_index": 245
+									},
+									"name": "OwnershipTransferred",
+									"type_description": {
+										"type_identifier": "t_event\u0026_Ownable_OwnershipTransferred_\u002699",
+										"type_string": "event Ownable.OwnershipTransferred"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 99,
+									"is_pure": false
+								}
+							},
+							{
+								"id": 273,
+								"node_type": 27,
+								"src": {
+									"id": 274,
+									"line": 62,
+									"column": 8,
+									"start": 1783,
+									"end": 1800,
+									"length": 18,
+									"parent_index": 245
+								},
+								"expression": {
+									"id": 275,
+									"node_type": 27,
+									"src": {
+										"id": 276,
+										"line": 62,
+										"column": 8,
+										"start": 1783,
+										"end": 1799,
+										"length": 17,
+										"parent_index": 245
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 277,
+										"node_type": 16,
+										"src": {
+											"id": 278,
+											"line": 62,
+											"column": 8,
+											"start": 1783,
+											"end": 1788,
+											"length": 6,
+											"parent_index": 275
+										},
+										"name": "_owner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 94,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 279,
+										"node_type": 16,
+										"src": {
+											"id": 280,
+											"line": 62,
+											"column": 17,
+											"start": 1792,
+											"end": 1799,
+											"length": 8,
+											"parent_index": 275
+										},
+										"name": "newOwner",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 279,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [
+						{
+							"id": 234,
+							"name": "onlyOwner",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 235,
+								"line": 56,
+								"column": 64,
+								"start": 1593,
+								"end": 1601,
+								"length": 9,
+								"parent_index": 232
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 236,
+								"name": "onlyOwner",
+								"node_type": 0,
+								"src": {
+									"id": 237,
+									"line": 56,
+									"column": 64,
+									"start": 1593,
+									"end": 1601,
+									"length": 9,
+									"parent_index": 234
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 238,
+						"node_type": 43,
+						"src": {
+							"id": 239,
+							"line": 56,
+							"column": 31,
+							"start": 1560,
+							"end": 1575,
+							"length": 16,
+							"parent_index": 232
+						},
+						"parameters": [
+							{
+								"id": 240,
+								"node_type": 44,
+								"src": {
+									"id": 241,
+									"line": 56,
+									"column": 31,
+									"start": 1560,
+									"end": 1575,
+									"length": 16,
+									"parent_index": 238
+								},
+								"scope": 232,
+								"name": "newOwner",
+								"type_name": {
+									"id": 242,
+									"node_type": 30,
+									"src": {
+										"id": 243,
+										"line": 56,
+										"column": 31,
+										"start": 1560,
+										"end": 1566,
+										"length": 7,
+										"parent_index": 240
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 244,
+						"node_type": 43,
+						"src": {
+							"id": 233,
+							"line": 56,
+							"column": 4,
+							"start": 1533,
+							"end": 1806,
+							"length": 274,
+							"parent_index": 232
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 92,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				92
+			],
+			"base_contracts": [],
+			"contract_dependencies": []
+		}
+	],
+	"src": {
+		"id": 89,
+		"line": 8,
+		"column": 0,
+		"start": 135,
+		"end": 1808,
+		"length": 1674,
+		"parent_index": 87
+	}
+}

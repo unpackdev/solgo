@@ -106,13 +106,13 @@ func (d *DoWhileStatement) Parse(
 	d.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
 
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {
-		bodyNode := NewBodyNode(d.ASTBuilder)
+		bodyNode := NewBodyNode(d.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, d, ctx.Statement().Block())
 		d.Body = bodyNode
 
 		if ctx.Statement().Block() != nil && ctx.Statement().Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Statement().Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(d.ASTBuilder)
+				bodyNode := NewBodyNode(d.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, d, uncheckedCtx)
 				d.Body.Statements = append(d.Body.Statements, bodyNode)
 			}

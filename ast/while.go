@@ -116,14 +116,14 @@ func (w *WhileStatement) Parse(
 
 	// Parsing the body of the while loop.
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {
-		bodyNode := NewBodyNode(w.ASTBuilder)
+		bodyNode := NewBodyNode(w.ASTBuilder, false)
 		bodyNode.ParseBlock(unit, contractNode, w, ctx.Statement().Block())
 		w.Body = bodyNode
 
 		// Parsing unchecked blocks within the body.
 		if ctx.Statement().Block() != nil && ctx.Statement().Block().AllUncheckedBlock() != nil {
 			for _, uncheckedCtx := range ctx.Statement().Block().AllUncheckedBlock() {
-				bodyNode := NewBodyNode(w.ASTBuilder)
+				bodyNode := NewBodyNode(w.ASTBuilder, false)
 				bodyNode.ParseUncheckedBlock(unit, contractNode, w, uncheckedCtx)
 				w.Body.Statements = append(w.Body.Statements, bodyNode)
 			}
