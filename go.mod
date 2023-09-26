@@ -15,14 +15,14 @@ require (
 	github.com/mr-tron/base58 v1.2.0
 	github.com/sergi/go-diff v1.3.1
 	github.com/stretchr/testify v1.8.4
-	github.com/unpackdev/protos v0.2.3
+	github.com/unpackdev/protos v0.2.4
 	go.uber.org/zap v1.26.0
 	golang.org/x/sync v0.3.0
 	google.golang.org/protobuf v1.31.0
 )
 
 //replace github.com/antlr4-go/antlr/v4 => github.com/unpackdev/antlr4-go/v4 v4.13.0
-replace github.com/unpackdev/protos => ../protos
+//replace github.com/unpackdev/protos => ../protos
 
 require (
 	github.com/Microsoft/go-winio v0.6.1 // indirect
