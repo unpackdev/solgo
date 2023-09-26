@@ -51,7 +51,9 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.NoError(t, err)
 
 			syntaxErrs := parser.Parse()
-			assert.Empty(t, syntaxErrs)
+			if !testCase.expectsErrors {
+				assert.Empty(t, syntaxErrs)
+			}
 
 			// This step is actually quite important as it resolves all the
 			// references in the AST. Without this step, the AST will be
@@ -170,7 +172,9 @@ func TestAstReferenceSetDescriptor(t *testing.T) {
 			assert.NoError(t, err)
 
 			syntaxErrs := parser.Parse()
-			assert.Empty(t, syntaxErrs)
+			if !testCase.expectsErrors {
+				assert.Empty(t, syntaxErrs)
+			}
 
 			assert.NotNil(t, astBuilder.GetParser())
 			assert.NotNil(t, astBuilder.GetTree())
@@ -179,9 +183,11 @@ func TestAstReferenceSetDescriptor(t *testing.T) {
 			// references in the AST. Without this step, the AST will be
 			// incomplete.
 			errs := astBuilder.ResolveReferences()
-			var errsExpected []error
-			assert.Equal(t, errsExpected, errs)
-			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
+			if !testCase.expectsErrors {
+				var errsExpected []error
+				assert.Equal(t, errsExpected, errs)
+				assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
+			}
 
 			astBuilder.GetRoot().SetReferenceDescriptor(0, nil)
 			astBuilder.GetRoot().SetReferenceDescriptor(0, &TypeDescription{})

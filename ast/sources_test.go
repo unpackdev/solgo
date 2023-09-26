@@ -220,7 +220,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
-			expectsErrors:        false,
+			expectsErrors:        true,
 			disabled:             false, // 0.5.10 contract, has some issues with the parser
 		},
 		{

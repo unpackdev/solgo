@@ -183,6 +183,7 @@ func (v *StateVariableDeclaration) Parse(
 	// NOTICE: This is a temporary fix and should be removed as soon as possible.
 	if strings.Contains(ctx.GetText(), "function") {
 		v.NodeType = ast_pb.NodeType_FALLBACK
+		v.StateVariable = false
 		v.TypeName.TypeDescription = &TypeDescription{
 			TypeString:     "fallback",
 			TypeIdentifier: "$_t_fallback",
