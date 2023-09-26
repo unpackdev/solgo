@@ -135,11 +135,15 @@ func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {
 	}
 
 	// Split the bytecode into execution bytecode and auxdata
-	toReturn.executionBytecode = bytecode[:len(bytecode)-bytesLength-cborLength]
-	toReturn.auxbytes = bytecode[len(bytecode)-bytesLength-cborLength : len(bytecode)-bytesLength]
+	if len(bytecode) >= bytesLength+cborLength {
+		toReturn.executionBytecode = bytecode[:len(bytecode)-bytesLength-cborLength]
+		toReturn.auxbytes = bytecode[len(bytecode)-bytesLength-cborLength : len(bytecode)-bytesLength]
 
-	if err := cbor.Unmarshal(toReturn.auxbytes, &toReturn); err != nil {
-		return nil, err
+		if err := cbor.Unmarshal(toReturn.auxbytes, &toReturn); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, errors.New("provided bytecode slice is smaller than the length of the cbor object")
 	}
 
 	return &toReturn, nil
