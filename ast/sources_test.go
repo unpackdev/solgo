@@ -264,6 +264,46 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "CRAB  Contract - 0x9ba77c0489c0a2D16F0C8314189acDA4d3af8Aa2",
+			outputPath: "contracts/0x9ba77c0489c0a2D16F0C8314189acDA4d3af8Aa2/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "CRAB",
+						Path:    tests.ReadContractFileForTest(t, "contracts/0x9ba77c0489c0a2D16F0C8314189acDA4d3af8Aa2/Contract").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/0x9ba77c0489c0a2D16F0C8314189acDA4d3af8Aa2/Contract").Content,
+					},
+				},
+				EntrySourceUnitName: "CRAB",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/0x9ba77c0489c0a2D16F0C8314189acDA4d3af8Aa2/CRAB.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/0x9ba77c0489c0a2D16F0C8314189acDA4d3af8Aa2/CRAB.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
+			name:       "Pledge  Contract - 0x16Ca8d09D693201d54a2882c05B8421102fc00B2",
+			outputPath: "contracts/0x16Ca8d09D693201d54a2882c05B8421102fc00B2/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Pledge",
+						Path:    tests.ReadContractFileForTest(t, "contracts/0x16Ca8d09D693201d54a2882c05B8421102fc00B2/Contract").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/0x16Ca8d09D693201d54a2882c05B8421102fc00B2/Contract").Content,
+					},
+				},
+				EntrySourceUnitName: "Pledge",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/0x16Ca8d09D693201d54a2882c05B8421102fc00B2/Pledge.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/0x16Ca8d09D693201d54a2882c05B8421102fc00B2/Pledge.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{

@@ -114,6 +114,9 @@ func (e *Expression) Parse(
 	case *parser.BitAndOperationContext:
 		bitAndOperation := NewBitAndOperationExpression(e.ASTBuilder)
 		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
+	case *parser.BitOrOperationContext:
+		bitAndOperation := NewBitOrOperationExpression(e.ASTBuilder)
+		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)
 	case *parser.BitXorOperationContext:
 		bitXorOperation := NewBitXorOperationExpression(e.ASTBuilder)
 		return bitXorOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, exprNode, ctxType)

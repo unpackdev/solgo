@@ -1,0 +1,1731 @@
+{
+	"id": 676,
+	"base_contracts": [],
+	"license": "MIT",
+	"exported_symbols": [
+		{
+			"id": 676,
+			"name": "MerkleProof",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "MerkleProof",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 680,
+			"node_type": 10,
+			"src": {
+				"id": 681,
+				"line": 84,
+				"column": 0,
+				"start": 2343,
+				"end": 2365,
+				"length": 23,
+				"parent_index": 676
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"^",
+				"0",
+				".",
+				"8",
+				".",
+				"4",
+				";"
+			],
+			"text": "pragma solidity ^0.8.4;"
+		},
+		{
+			"id": 682,
+			"name": "MerkleProof",
+			"node_type": 35,
+			"src": {
+				"line": 100,
+				"column": 0,
+				"start": 3025,
+				"end": 4801,
+				"length": 1777,
+				"parent_index": 676
+			},
+			"name_location": {
+				"line": 100,
+				"column": 8,
+				"start": 3033,
+				"end": 3043,
+				"length": 11,
+				"parent_index": 682
+			},
+			"abstract": false,
+			"kind": 37,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 684,
+					"name": "verify",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 685,
+						"line": 107,
+						"column": 4,
+						"start": 3379,
+						"end": 3562,
+						"length": 184,
+						"parent_index": 682
+					},
+					"name_location": {
+						"line": 107,
+						"column": 13,
+						"start": 3388,
+						"end": 3393,
+						"length": 6,
+						"parent_index": 684
+					},
+					"body": {
+						"id": 707,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 708,
+							"line": 111,
+							"column": 35,
+							"start": 3506,
+							"end": 3562,
+							"length": 57,
+							"parent_index": 684
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 709,
+								"node_type": 47,
+								"src": {
+									"id": 710,
+									"line": 112,
+									"column": 8,
+									"start": 3516,
+									"end": 3556,
+									"length": 41,
+									"parent_index": 684
+								},
+								"function_return_parameters": 684,
+								"expression": {
+									"id": 711,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 712,
+										"line": 112,
+										"column": 15,
+										"start": 3523,
+										"end": 3555,
+										"length": 33,
+										"parent_index": 707
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 713,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 714,
+											"line": 112,
+											"column": 15,
+											"start": 3523,
+											"end": 3547,
+											"length": 25,
+											"parent_index": 711
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											{
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										],
+										"arguments": [
+											{
+												"id": 717,
+												"node_type": 16,
+												"src": {
+													"id": 718,
+													"line": 112,
+													"column": 28,
+													"start": 3536,
+													"end": 3540,
+													"length": 5,
+													"parent_index": 713
+												},
+												"name": "proof",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 717,
+												"is_pure": false
+											},
+											{
+												"id": 719,
+												"node_type": 16,
+												"src": {
+													"id": 720,
+													"line": 112,
+													"column": 35,
+													"start": 3543,
+													"end": 3546,
+													"length": 4,
+													"parent_index": 713
+												},
+												"name": "leaf",
+												"type_description": {
+													"type_identifier": "t_bytes32",
+													"type_string": "bytes32"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 719,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													}
+												]
+											}
+										],
+										"expression": {
+											"id": 715,
+											"node_type": 16,
+											"src": {
+												"id": 716,
+												"line": 112,
+												"column": 15,
+												"start": 3523,
+												"end": 3534,
+												"length": 12,
+												"parent_index": 713
+											},
+											"name": "processProof",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
+											"type_string": "function(bytes32,bytes32)"
+										}
+									},
+									"right_expression": {
+										"id": 721,
+										"node_type": 16,
+										"src": {
+											"id": 722,
+											"line": 112,
+											"column": 44,
+											"start": 3552,
+											"end": 3555,
+											"length": 4,
+											"parent_index": 711
+										},
+										"name": "root",
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 721,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 686,
+						"node_type": 43,
+						"src": {
+							"id": 687,
+							"line": 108,
+							"column": 8,
+							"start": 3404,
+							"end": 3469,
+							"length": 66,
+							"parent_index": 684
+						},
+						"parameters": [
+							{
+								"id": 688,
+								"node_type": 44,
+								"src": {
+									"id": 689,
+									"line": 108,
+									"column": 8,
+									"start": 3404,
+									"end": 3425,
+									"length": 22,
+									"parent_index": 686
+								},
+								"scope": 684,
+								"name": "proof",
+								"type_name": {
+									"id": 690,
+									"node_type": 16,
+									"src": {
+										"id": 692,
+										"line": 108,
+										"column": 8,
+										"start": 3404,
+										"end": 3410,
+										"length": 7,
+										"parent_index": 688
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 693,
+								"node_type": 44,
+								"src": {
+									"id": 694,
+									"line": 109,
+									"column": 8,
+									"start": 3436,
+									"end": 3447,
+									"length": 12,
+									"parent_index": 686
+								},
+								"scope": 684,
+								"name": "root",
+								"type_name": {
+									"id": 695,
+									"node_type": 30,
+									"src": {
+										"id": 696,
+										"line": 109,
+										"column": 8,
+										"start": 3436,
+										"end": 3442,
+										"length": 7,
+										"parent_index": 693
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 697,
+								"node_type": 44,
+								"src": {
+									"id": 698,
+									"line": 110,
+									"column": 8,
+									"start": 3458,
+									"end": 3469,
+									"length": 12,
+									"parent_index": 686
+								},
+								"scope": 684,
+								"name": "leaf",
+								"type_name": {
+									"id": 699,
+									"node_type": 30,
+									"src": {
+										"id": 700,
+										"line": 110,
+										"column": 8,
+										"start": 3458,
+										"end": 3464,
+										"length": 7,
+										"parent_index": 697
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 701,
+						"node_type": 43,
+						"src": {
+							"id": 702,
+							"line": 111,
+							"column": 29,
+							"start": 3500,
+							"end": 3503,
+							"length": 4,
+							"parent_index": 684
+						},
+						"parameters": [
+							{
+								"id": 703,
+								"node_type": 44,
+								"src": {
+									"id": 704,
+									"line": 111,
+									"column": 29,
+									"start": 3500,
+									"end": 3503,
+									"length": 4,
+									"parent_index": 701
+								},
+								"scope": 684,
+								"name": "",
+								"type_name": {
+									"id": 705,
+									"node_type": 30,
+									"src": {
+										"id": 706,
+										"line": 111,
+										"column": 29,
+										"start": 3500,
+										"end": 3503,
+										"length": 4,
+										"parent_index": 703
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"scope": 682,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$_t_bytes32$",
+						"type_string": "function(bytes32,bytes32,bytes32)"
+					}
+				},
+				{
+					"id": 724,
+					"name": "processProof",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 725,
+						"line": 123,
+						"column": 4,
+						"start": 3914,
+						"end": 4575,
+						"length": 662,
+						"parent_index": 682
+					},
+					"name_location": {
+						"line": 123,
+						"column": 13,
+						"start": 3923,
+						"end": 3934,
+						"length": 12,
+						"parent_index": 724
+					},
+					"body": {
+						"id": 743,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 744,
+							"line": 123,
+							"column": 96,
+							"start": 4006,
+							"end": 4575,
+							"length": 570,
+							"parent_index": 724
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 745,
+								"node_type": 44,
+								"src": {
+									"id": 746,
+									"line": 124,
+									"column": 8,
+									"start": 4016,
+									"end": 4043,
+									"length": 28,
+									"parent_index": 743
+								},
+								"assignments": [
+									747
+								],
+								"declarations": [
+									{
+										"is_constant": false,
+										"id": 747,
+										"state_mutability": 1,
+										"name": "computedHash",
+										"node_type": 44,
+										"scope": 743,
+										"src": {
+											"id": 748,
+											"line": 124,
+											"column": 8,
+											"start": 4016,
+											"end": 4035,
+											"length": 20,
+											"parent_index": 745
+										},
+										"name_location": {
+											"line": 124,
+											"column": 16,
+											"start": 4024,
+											"end": 4035,
+											"length": 12,
+											"parent_index": 747
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 749,
+											"node_type": 30,
+											"src": {
+												"id": 750,
+												"line": 124,
+												"column": 8,
+												"start": 4016,
+												"end": 4022,
+												"length": 7,
+												"parent_index": 747
+											},
+											"name": "bytes32",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 751,
+									"node_type": 16,
+									"src": {
+										"id": 752,
+										"line": 124,
+										"column": 31,
+										"start": 4039,
+										"end": 4042,
+										"length": 4,
+										"parent_index": 745
+									},
+									"name": "leaf",
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 751,
+									"is_pure": false
+								}
+							},
+							{
+								"id": 753,
+								"node_type": 79,
+								"src": {
+									"id": 754,
+									"line": 125,
+									"column": 0,
+									"start": 4053,
+									"end": 4540,
+									"length": 488,
+									"parent_index": 743
+								},
+								"initialiser": {
+									"id": 755,
+									"node_type": 44,
+									"src": {
+										"id": 756,
+										"line": 125,
+										"column": 13,
+										"start": 4058,
+										"end": 4071,
+										"length": 14,
+										"parent_index": 743
+									},
+									"assignments": [
+										757
+									],
+									"declarations": [
+										{
+											"is_constant": false,
+											"id": 757,
+											"state_mutability": 1,
+											"name": "i",
+											"node_type": 44,
+											"scope": 743,
+											"src": {
+												"id": 758,
+												"line": 125,
+												"column": 13,
+												"start": 4058,
+												"end": 4066,
+												"length": 9,
+												"parent_index": 755
+											},
+											"name_location": {
+												"line": 125,
+												"column": 21,
+												"start": 4066,
+												"end": 4066,
+												"length": 1,
+												"parent_index": 757
+											},
+											"is_state_variable": false,
+											"storage_location": 1,
+											"type_name": {
+												"id": 759,
+												"node_type": 30,
+												"src": {
+													"id": 760,
+													"line": 125,
+													"column": 13,
+													"start": 4058,
+													"end": 4064,
+													"length": 7,
+													"parent_index": 757
+												},
+												"name": "uint256",
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											},
+											"visibility": 1
+										}
+									],
+									"initial_value": {
+										"id": 761,
+										"node_type": 17,
+										"kind": 49,
+										"value": "0",
+										"hex_value": "30",
+										"src": {
+											"id": 762,
+											"line": 125,
+											"column": 25,
+											"start": 4070,
+											"end": 4070,
+											"length": 1,
+											"parent_index": 755
+										},
+										"type_description": {
+											"type_identifier": "t_rational_0_by_1",
+											"type_string": "int_const 0"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									}
+								},
+								"condition": {
+									"id": 763,
+									"is_constant": false,
+									"is_pure": false,
+									"node_type": 19,
+									"src": {
+										"id": 764,
+										"line": 125,
+										"column": 28,
+										"start": 4073,
+										"end": 4088,
+										"length": 16,
+										"parent_index": 753
+									},
+									"operator": 9,
+									"left_expression": {
+										"id": 765,
+										"node_type": 16,
+										"src": {
+											"id": 766,
+											"line": 125,
+											"column": 28,
+											"start": 4073,
+											"end": 4073,
+											"length": 1,
+											"parent_index": 763
+										},
+										"name": "i",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 597,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 767,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 768,
+											"line": 125,
+											"column": 32,
+											"start": 4077,
+											"end": 4088,
+											"length": 12,
+											"parent_index": 763
+										},
+										"member_location": {
+											"line": 125,
+											"column": 38,
+											"start": 4083,
+											"end": 4088,
+											"length": 6,
+											"parent_index": 767
+										},
+										"expression": {
+											"id": 769,
+											"node_type": 16,
+											"src": {
+												"id": 770,
+												"line": 125,
+												"column": 32,
+												"start": 4077,
+												"end": 4081,
+												"length": 5,
+												"parent_index": 767
+											},
+											"name": "proof",
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 769,
+											"is_pure": false
+										},
+										"member_name": "length",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_bytes32",
+											"type_string": "bytes32"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"closure": {
+									"id": 771,
+									"node_type": 18,
+									"src": {
+										"id": 772,
+										"line": 125,
+										"column": 46,
+										"start": 4091,
+										"end": 4093,
+										"length": 3,
+										"parent_index": 724
+									},
+									"operator": 27,
+									"expression": {
+										"id": 773,
+										"node_type": 16,
+										"src": {
+											"id": 774,
+											"line": 125,
+											"column": 46,
+											"start": 4091,
+											"end": 4091,
+											"length": 1,
+											"parent_index": 771
+										},
+										"name": "i",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 597,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									"prefix": false,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false
+								},
+								"body": {
+									"id": 775,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 776,
+										"line": 125,
+										"column": 51,
+										"start": 4096,
+										"end": 4540,
+										"length": 445,
+										"parent_index": 753
+									},
+									"implemented": true,
+									"statements": [
+										{
+											"id": 777,
+											"node_type": 44,
+											"src": {
+												"id": 778,
+												"line": 126,
+												"column": 12,
+												"start": 4110,
+												"end": 4141,
+												"length": 32,
+												"parent_index": 775
+											},
+											"assignments": [
+												779
+											],
+											"declarations": [
+												{
+													"is_constant": false,
+													"id": 779,
+													"state_mutability": 1,
+													"name": "proofElement",
+													"node_type": 44,
+													"scope": 775,
+													"src": {
+														"id": 780,
+														"line": 126,
+														"column": 12,
+														"start": 4110,
+														"end": 4129,
+														"length": 20,
+														"parent_index": 777
+													},
+													"name_location": {
+														"line": 126,
+														"column": 20,
+														"start": 4118,
+														"end": 4129,
+														"length": 12,
+														"parent_index": 779
+													},
+													"is_state_variable": false,
+													"storage_location": 1,
+													"type_name": {
+														"id": 781,
+														"node_type": 30,
+														"src": {
+															"id": 782,
+															"line": 126,
+															"column": 12,
+															"start": 4110,
+															"end": 4116,
+															"length": 7,
+															"parent_index": 779
+														},
+														"name": "bytes32",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_bytes32",
+															"type_string": "bytes32"
+														}
+													},
+													"visibility": 1
+												}
+											],
+											"initial_value": {
+												"id": 783,
+												"node_type": 22,
+												"src": {
+													"id": 784,
+													"line": 126,
+													"column": 35,
+													"start": 4133,
+													"end": 4140,
+													"length": 8,
+													"parent_index": 777
+												},
+												"index_expression": {
+													"id": 785,
+													"node_type": 16,
+													"src": {
+														"id": 786,
+														"line": 126,
+														"column": 35,
+														"start": 4133,
+														"end": 4137,
+														"length": 5,
+														"parent_index": 783
+													},
+													"name": "proof",
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 688,
+													"is_pure": false
+												},
+												"base_expression": {
+													"id": 787,
+													"node_type": 16,
+													"src": {
+														"id": 788,
+														"line": 126,
+														"column": 41,
+														"start": 4139,
+														"end": 4139,
+														"length": 1,
+														"parent_index": 783
+													},
+													"name": "i",
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 597,
+													"is_pure": false
+												},
+												"type_descriptions": [
+													{
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													{
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													}
+												],
+												"type_description": {
+													"type_identifier": "t_[_[$_t_bytes32]$_t_uint256]$",
+													"type_string": "index[bytes32:uint256]"
+												}
+											}
+										},
+										{
+											"id": 789,
+											"node_type": 48,
+											"src": {
+												"id": 790,
+												"line": 127,
+												"column": 0,
+												"start": 4155,
+												"end": 4530,
+												"length": 376,
+												"parent_index": 775
+											},
+											"condition": {
+												"id": 791,
+												"is_constant": false,
+												"is_pure": false,
+												"node_type": 19,
+												"src": {
+													"id": 792,
+													"line": 127,
+													"column": 16,
+													"start": 4159,
+													"end": 4186,
+													"length": 28,
+													"parent_index": 789
+												},
+												"operator": 10,
+												"left_expression": {
+													"id": 793,
+													"node_type": 16,
+													"src": {
+														"id": 794,
+														"line": 127,
+														"column": 16,
+														"start": 4159,
+														"end": 4170,
+														"length": 12,
+														"parent_index": 791
+													},
+													"name": "computedHash",
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 745,
+													"is_pure": false
+												},
+												"right_expression": {
+													"id": 795,
+													"node_type": 16,
+													"src": {
+														"id": 796,
+														"line": 127,
+														"column": 32,
+														"start": 4175,
+														"end": 4186,
+														"length": 12,
+														"parent_index": 791
+													},
+													"name": "proofElement",
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 777,
+													"is_pure": false
+												},
+												"type_description": {
+													"type_identifier": "t_bool",
+													"type_string": "bool"
+												}
+											},
+											"body": {
+												"id": 797,
+												"node_type": 46,
+												"kind": 0,
+												"src": {
+													"id": 798,
+													"line": 127,
+													"column": 46,
+													"start": 4189,
+													"end": 4356,
+													"length": 168,
+													"parent_index": 753
+												},
+												"implemented": true,
+												"statements": [
+													{
+														"id": 799,
+														"node_type": 27,
+														"src": {
+															"id": 800,
+															"line": 129,
+															"column": 16,
+															"start": 4285,
+															"end": 4342,
+															"length": 58,
+															"parent_index": 797
+														},
+														"expression": {
+															"id": 801,
+															"node_type": 27,
+															"src": {
+																"id": 802,
+																"line": 129,
+																"column": 16,
+																"start": 4285,
+																"end": 4341,
+																"length": 57,
+																"parent_index": 797
+															},
+															"operator": 11,
+															"left_expression": {
+																"id": 803,
+																"node_type": 16,
+																"src": {
+																	"id": 804,
+																	"line": 129,
+																	"column": 16,
+																	"start": 4285,
+																	"end": 4296,
+																	"length": 12,
+																	"parent_index": 801
+																},
+																"name": "computedHash",
+																"type_description": {
+																	"type_identifier": "t_bytes32",
+																	"type_string": "bytes32"
+																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 745,
+																"is_pure": false
+															},
+															"right_expression": {
+																"id": 805,
+																"node_type": 24,
+																"kind": 24,
+																"src": {
+																	"id": 806,
+																	"line": 129,
+																	"column": 31,
+																	"start": 4300,
+																	"end": 4341,
+																	"length": 42,
+																	"parent_index": 801
+																},
+																"argument_types": [
+																	{
+																		"type_identifier": "t_function_$",
+																		"type_string": "function()"
+																	},
+																	{
+																		"type_identifier": "t_function_$_t_function_$$",
+																		"type_string": "function(function())"
+																	}
+																],
+																"arguments": [
+																	{
+																		"id": 809,
+																		"node_type": 16,
+																		"src": {
+																			"id": 810,
+																			"line": 129,
+																			"column": 46,
+																			"start": 4315,
+																			"end": 4326,
+																			"length": 12,
+																			"parent_index": 805
+																		},
+																		"name": "computedHash",
+																		"type_description": {
+																			"type_identifier": "t_function_$",
+																			"type_string": "function()"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 0,
+																		"is_pure": false
+																	},
+																	{
+																		"id": 811,
+																		"node_type": 16,
+																		"src": {
+																			"id": 812,
+																			"line": 129,
+																			"column": 60,
+																			"start": 4329,
+																			"end": 4340,
+																			"length": 12,
+																			"parent_index": 805
+																		},
+																		"name": "proofElement",
+																		"type_description": {
+																			"type_identifier": "t_function_$_t_function_$$",
+																			"type_string": "function(function())"
+																		},
+																		"overloaded_declarations": [],
+																		"referenced_declaration": 0,
+																		"is_pure": false,
+																		"argument_types": [
+																			{
+																				"type_identifier": "t_function_$",
+																				"type_string": "function()"
+																			}
+																		]
+																	}
+																],
+																"expression": {
+																	"id": 807,
+																	"node_type": 16,
+																	"src": {
+																		"id": 808,
+																		"line": 129,
+																		"column": 31,
+																		"start": 4300,
+																		"end": 4313,
+																		"length": 14,
+																		"parent_index": 805
+																	},
+																	"name": "_efficientHash",
+																	"type_description": {
+																		"type_identifier": "t_function_$",
+																		"type_string": "function()"
+																	},
+																	"overloaded_declarations": [],
+																	"referenced_declaration": 0,
+																	"is_pure": false
+																},
+																"type_description": {
+																	"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$",
+																	"type_string": "function(function(),function(function()))"
+																}
+															},
+															"type_description": {
+																"type_identifier": "t_bytes32",
+																"type_string": "bytes32"
+															}
+														},
+														"type_description": {
+															"type_identifier": "t_bytes32",
+															"type_string": "bytes32"
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"id": 813,
+								"node_type": 47,
+								"src": {
+									"id": 814,
+									"line": 135,
+									"column": 8,
+									"start": 4550,
+									"end": 4569,
+									"length": 20,
+									"parent_index": 724
+								},
+								"function_return_parameters": 724,
+								"expression": {
+									"id": 815,
+									"node_type": 16,
+									"src": {
+										"id": 816,
+										"line": 135,
+										"column": 15,
+										"start": 4557,
+										"end": 4568,
+										"length": 12,
+										"parent_index": 743
+									},
+									"name": "computedHash",
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 745,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 726,
+						"node_type": 43,
+						"src": {
+							"id": 727,
+							"line": 123,
+							"column": 26,
+							"start": 3936,
+							"end": 3971,
+							"length": 36,
+							"parent_index": 724
+						},
+						"parameters": [
+							{
+								"id": 728,
+								"node_type": 44,
+								"src": {
+									"id": 729,
+									"line": 123,
+									"column": 26,
+									"start": 3936,
+									"end": 3957,
+									"length": 22,
+									"parent_index": 726
+								},
+								"scope": 724,
+								"name": "proof",
+								"type_name": {
+									"id": 730,
+									"node_type": 16,
+									"src": {
+										"id": 732,
+										"line": 123,
+										"column": 26,
+										"start": 3936,
+										"end": 3942,
+										"length": 7,
+										"parent_index": 728
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 733,
+								"node_type": 44,
+								"src": {
+									"id": 734,
+									"line": 123,
+									"column": 50,
+									"start": 3960,
+									"end": 3971,
+									"length": 12,
+									"parent_index": 726
+								},
+								"scope": 724,
+								"name": "leaf",
+								"type_name": {
+									"id": 735,
+									"node_type": 30,
+									"src": {
+										"id": 736,
+										"line": 123,
+										"column": 50,
+										"start": 3960,
+										"end": 3966,
+										"length": 7,
+										"parent_index": 733
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 737,
+						"node_type": 43,
+						"src": {
+							"id": 738,
+							"line": 123,
+							"column": 87,
+							"start": 3997,
+							"end": 4003,
+							"length": 7,
+							"parent_index": 724
+						},
+						"parameters": [
+							{
+								"id": 739,
+								"node_type": 44,
+								"src": {
+									"id": 740,
+									"line": 123,
+									"column": 87,
+									"start": 3997,
+									"end": 4003,
+									"length": 7,
+									"parent_index": 737
+								},
+								"scope": 724,
+								"name": "",
+								"type_name": {
+									"id": 741,
+									"node_type": 30,
+									"src": {
+										"id": 742,
+										"line": 123,
+										"column": 87,
+										"start": 3997,
+										"end": 4003,
+										"length": 7,
+										"parent_index": 739
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"scope": 682,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
+						"type_string": "function(bytes32,bytes32)"
+					}
+				},
+				{
+					"id": 818,
+					"name": "_efficientHash",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 819,
+						"line": 138,
+						"column": 4,
+						"start": 4582,
+						"end": 4799,
+						"length": 218,
+						"parent_index": 682
+					},
+					"name_location": {
+						"line": 138,
+						"column": 13,
+						"start": 4591,
+						"end": 4604,
+						"length": 14,
+						"parent_index": 818
+					},
+					"body": {
+						"id": 836,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 837,
+							"line": 138,
+							"column": 87,
+							"start": 4665,
+							"end": 4799,
+							"length": 135,
+							"parent_index": 818
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 838,
+								"node_type": 89,
+								"src": {
+									"id": 839,
+									"line": 139,
+									"column": 8,
+									"start": 4675,
+									"end": 4793,
+									"length": 119,
+									"parent_index": 836
+								},
+								"body": {
+									"id": 841,
+									"node_type": 90,
+									"kind": 0,
+									"src": {
+										"id": 839,
+										"line": 139,
+										"column": 8,
+										"start": 4675,
+										"end": 4793,
+										"length": 119,
+										"parent_index": 838
+									},
+									"implemented": false,
+									"statements": [
+										{
+											"id": 840,
+											"node_type": 91,
+											"src": {
+												"id": 844,
+												"line": 142,
+												"column": 12,
+												"start": 4754,
+												"end": 4783,
+												"length": 30,
+												"parent_index": 838
+											},
+											"body": []
+										},
+										{
+											"id": 840,
+											"node_type": 91,
+											"src": {
+												"id": 844,
+												"line": 142,
+												"column": 12,
+												"start": 4754,
+												"end": 4783,
+												"length": 30,
+												"parent_index": 838
+											},
+											"body": []
+										},
+										{
+											"id": 840,
+											"node_type": 91,
+											"src": {
+												"id": 844,
+												"line": 142,
+												"column": 12,
+												"start": 4754,
+												"end": 4783,
+												"length": 30,
+												"parent_index": 838
+											},
+											"body": []
+										}
+									]
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 2,
+					"state_mutability": 6,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 820,
+						"node_type": 43,
+						"src": {
+							"id": 821,
+							"line": 138,
+							"column": 28,
+							"start": 4606,
+							"end": 4625,
+							"length": 20,
+							"parent_index": 818
+						},
+						"parameters": [
+							{
+								"id": 822,
+								"node_type": 44,
+								"src": {
+									"id": 823,
+									"line": 138,
+									"column": 28,
+									"start": 4606,
+									"end": 4614,
+									"length": 9,
+									"parent_index": 820
+								},
+								"scope": 818,
+								"name": "a",
+								"type_name": {
+									"id": 824,
+									"node_type": 30,
+									"src": {
+										"id": 825,
+										"line": 138,
+										"column": 28,
+										"start": 4606,
+										"end": 4612,
+										"length": 7,
+										"parent_index": 822
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 826,
+								"node_type": 44,
+								"src": {
+									"id": 827,
+									"line": 138,
+									"column": 39,
+									"start": 4617,
+									"end": 4625,
+									"length": 9,
+									"parent_index": 820
+								},
+								"scope": 818,
+								"name": "b",
+								"type_name": {
+									"id": 828,
+									"node_type": 30,
+									"src": {
+										"id": 829,
+										"line": 138,
+										"column": 39,
+										"start": 4617,
+										"end": 4623,
+										"length": 7,
+										"parent_index": 826
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							},
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 830,
+						"node_type": 43,
+						"src": {
+							"id": 831,
+							"line": 138,
+							"column": 72,
+							"start": 4650,
+							"end": 4662,
+							"length": 13,
+							"parent_index": 818
+						},
+						"parameters": [
+							{
+								"id": 832,
+								"node_type": 44,
+								"src": {
+									"id": 833,
+									"line": 138,
+									"column": 72,
+									"start": 4650,
+									"end": 4662,
+									"length": 13,
+									"parent_index": 830
+								},
+								"scope": 818,
+								"name": "value",
+								"type_name": {
+									"id": 834,
+									"node_type": 30,
+									"src": {
+										"id": 835,
+										"line": 138,
+										"column": 72,
+										"start": 4650,
+										"end": 4656,
+										"length": 7,
+										"parent_index": 832
+									},
+									"name": "bytes32",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes32",
+										"type_string": "bytes32"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes32",
+								"type_string": "bytes32"
+							}
+						]
+					},
+					"scope": 682,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
+						"type_string": "function(bytes32,bytes32)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				682
+			],
+			"base_contracts": [],
+			"contract_dependencies": [],
+			"scope": 676
+		}
+	],
+	"src": {
+		"id": 677,
+		"line": 100,
+		"column": 0,
+		"start": 3025,
+		"end": 4801,
+		"length": 1777,
+		"parent_index": 286
+	}
+}
