@@ -129,6 +129,9 @@ func (n *NewExpr) Parse(
 
 	// Parsing the type name associated with the new expression.
 	typeName := NewTypeName(n.ASTBuilder)
+	typeName.WithParentNode(contractNode)
+	typeName.WithBodyNode(bodyNode)
+	typeName.WithParentNode(exprNode)
 	typeName.Parse(unit, fnNode, n.GetId(), ctx.TypeName())
 	n.TypeName = typeName
 	n.TypeDescription = typeName.GetTypeDescription()

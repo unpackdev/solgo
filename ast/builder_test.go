@@ -51,7 +51,9 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 			assert.NoError(t, err)
 
 			syntaxErrs := parser.Parse()
-			assert.Empty(t, syntaxErrs)
+			if !testCase.expectsErrors {
+				assert.Empty(t, syntaxErrs)
+			}
 
 			// This step is actually quite important as it resolves all the
 			// references in the AST. Without this step, the AST will be
@@ -128,6 +130,71 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 				// Recursive test against all nodes. A common place where we can add tests to check
 				// if the AST is correct.
 				recursiveTest(t, sourceUnit)
+			}
+
+		})
+	}
+}
+
+func TestAstReferenceSetDescriptor(t *testing.T) {
+	config := zap.NewDevelopmentConfig()
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, err := config.Build()
+	assert.NoError(t, err)
+
+	// Replace the global logger.
+	zap.ReplaceGlobals(logger)
+
+	// All of the defined test cases can be discovered in sources_test.go file
+	testCases := getSourceTestCases(t)
+
+	for _, testCase := range testCases {
+		if testCase.disabled {
+			continue
+		}
+
+		t.Run(testCase.name, func(t *testing.T) {
+			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
+			assert.NoError(t, err)
+			assert.NotNil(t, parser)
+
+			astBuilder := NewAstBuilder(
+				// We need to provide parser to the ast builder so that it can
+				// access comments and other information from the parser.
+				parser.GetParser(),
+
+				// We need to provide sources to the ast builder so that it can
+				// access the source code of the contracts.
+				parser.GetSources(),
+			)
+
+			err = parser.RegisterListener(solgo.ListenerAst, astBuilder)
+			assert.NoError(t, err)
+
+			syntaxErrs := parser.Parse()
+			if !testCase.expectsErrors {
+				assert.Empty(t, syntaxErrs)
+			}
+
+			assert.NotNil(t, astBuilder.GetParser())
+			assert.NotNil(t, astBuilder.GetTree())
+
+			// This step is actually quite important as it resolves all the
+			// references in the AST. Without this step, the AST will be
+			// incomplete.
+			errs := astBuilder.ResolveReferences()
+			if !testCase.expectsErrors {
+				var errsExpected []error
+				assert.Equal(t, errsExpected, errs)
+				assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
+			}
+
+			astBuilder.GetRoot().SetReferenceDescriptor(0, nil)
+			astBuilder.GetRoot().SetReferenceDescriptor(0, &TypeDescription{})
+
+			// We need to check that the entry source unit name is correct.
+			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
+				recursiveReferenceDescriptorSetTest(t, sourceUnit)
 			}
 
 		})
@@ -301,67 +368,6 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 func buildFullPath(relativePath string) string {
 	absPath, _ := filepath.Abs(relativePath)
 	return absPath
-}
-
-func TestAstReferenceSetDescriptor(t *testing.T) {
-	config := zap.NewDevelopmentConfig()
-	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
-	logger, err := config.Build()
-	assert.NoError(t, err)
-
-	// Replace the global logger.
-	zap.ReplaceGlobals(logger)
-
-	// All of the defined test cases can be discovered in sources_test.go file
-	testCases := getSourceTestCases(t)
-
-	for _, testCase := range testCases {
-		if testCase.disabled {
-			continue
-		}
-
-		t.Run(testCase.name, func(t *testing.T) {
-			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
-			assert.NoError(t, err)
-			assert.NotNil(t, parser)
-
-			astBuilder := NewAstBuilder(
-				// We need to provide parser to the ast builder so that it can
-				// access comments and other information from the parser.
-				parser.GetParser(),
-
-				// We need to provide sources to the ast builder so that it can
-				// access the source code of the contracts.
-				parser.GetSources(),
-			)
-
-			err = parser.RegisterListener(solgo.ListenerAst, astBuilder)
-			assert.NoError(t, err)
-
-			syntaxErrs := parser.Parse()
-			assert.Empty(t, syntaxErrs)
-
-			assert.NotNil(t, astBuilder.GetParser())
-			assert.NotNil(t, astBuilder.GetTree())
-
-			// This step is actually quite important as it resolves all the
-			// references in the AST. Without this step, the AST will be
-			// incomplete.
-			errs := astBuilder.ResolveReferences()
-			var errsExpected []error
-			assert.Equal(t, errsExpected, errs)
-			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
-
-			astBuilder.GetRoot().SetReferenceDescriptor(0, nil)
-			astBuilder.GetRoot().SetReferenceDescriptor(0, &TypeDescription{})
-
-			// We need to check that the entry source unit name is correct.
-			for _, sourceUnit := range astBuilder.GetRoot().GetSourceUnits() {
-				recursiveReferenceDescriptorSetTest(t, sourceUnit)
-			}
-
-		})
-	}
 }
 
 // recursiveReferenceDescriptorSetTest is a recursive test that checks if all the reference descriptors

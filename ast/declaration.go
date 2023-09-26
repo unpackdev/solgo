@@ -28,6 +28,7 @@ func NewDeclaration(b *ASTBuilder) *Declaration {
 	return &Declaration{
 		ASTBuilder:      b,
 		Id:              b.GetNextID(),
+		NodeType:        ast_pb.NodeType_VARIABLE_DECLARATION,
 		IsStateVariable: false,
 		IsConstant:      false,
 	}
@@ -152,7 +153,6 @@ func (d *Declaration) ParseVariableDeclaration(
 	vDeclar *VariableDeclaration,
 	ctx parser.IVariableDeclarationContext,
 ) {
-	d.NodeType = ast_pb.NodeType_VARIABLE_DECLARATION
 	d.Src = SrcNode{
 		Id:          d.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -182,8 +182,9 @@ func (d *Declaration) ParseVariableDeclaration(
 	d.Scope = bodyNode.GetId()
 
 	typeName := NewTypeName(d.ASTBuilder)
+	typeName.WithBodyNode(bodyNode)
+	typeName.WithParentNode(contractNode)
 	typeName.Parse(unit, fnNode, d.GetId(), ctx.TypeName())
 	d.TypeName = typeName
-
 	d.currentVariables = append(d.currentVariables, d)
 }

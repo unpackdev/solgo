@@ -27,6 +27,12 @@ type TypeName struct {
 	ReferencedDeclaration int64             `json:"referenced_declaration"`
 	Expression            Node[NodeType]    `json:"expression,omitempty"`
 	TypeDescription       *TypeDescription  `json:"type_description,omitempty"`
+
+	// Helper parents so we can efficiently extract references if needed without
+	// having to traverse whole AST.
+	ParentNode          []Node[NodeType]            `json:"-"`
+	ParentBody          *BodyNode                   `json:"-"`
+	ParentParameterList Node[*ast_pb.ParameterList] `json:"-"`
 }
 
 // NewTypeName creates a new TypeName instance with the given ASTBuilder.
@@ -34,6 +40,21 @@ func NewTypeName(b *ASTBuilder) *TypeName {
 	return &TypeName{
 		ASTBuilder: b,
 	}
+}
+
+// WithBodyNode sets the body node associated with TypeName.
+func (t *TypeName) WithBodyNode(b *BodyNode) {
+	t.ParentBody = b
+}
+
+// WithParameterList sets the parameter list associated with TypeName.
+func (t *TypeName) WithParameterList(p Node[*ast_pb.ParameterList]) {
+	t.ParentParameterList = p
+}
+
+// WithParentNode sets the parent node associated with TypeName.
+func (t *TypeName) WithParentNode(p Node[NodeType]) {
+	t.ParentNode = append(t.ParentNode, p)
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the TypeName node.
@@ -427,7 +448,11 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			typeName.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 			t.generateTypeName(sourceUnit, specificCtx.MappingType(), parentNode, typeName)
 		} else if specificCtx.FunctionTypeName() != nil {
-			panic(fmt.Sprintf("Function type name is not supported yet @ TypeName.generateTypeName: %T", specificCtx))
+			zap.L().Warn(
+				"Function type name is not supported yet @ TypeName.generateTypeName",
+				zap.String("function_type_name", specificCtx.FunctionTypeName().GetText()),
+				zap.String("type", fmt.Sprintf("%T", specificCtx.FunctionTypeName())),
+			)
 		} else {
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeName.Name,

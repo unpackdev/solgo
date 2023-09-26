@@ -193,7 +193,7 @@ func (b *BodyNode) ParseDefinitions(
 func (b *BodyNode) ParseBlock(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
-	fnNode Node[NodeType],
+	parentNode Node[NodeType],
 	bodyCtx parser.IBlockContext,
 ) Node[NodeType] {
 	b.Src = SrcNode{
@@ -203,7 +203,7 @@ func (b *BodyNode) ParseBlock(
 		Start:       int64(bodyCtx.GetStart().GetStart()),
 		End:         int64(bodyCtx.GetStop().GetStop()),
 		Length:      int64(bodyCtx.GetStop().GetStop() - bodyCtx.GetStart().GetStart() + 1),
-		ParentIndex: fnNode.GetId(),
+		ParentIndex: parentNode.GetId(),
 	}
 
 	// We are considering function implemented in case that there's really anything defined in the body.
@@ -212,7 +212,7 @@ func (b *BodyNode) ParseBlock(
 
 	for _, statementCtx := range bodyCtx.AllStatement() {
 		for _, child := range statementCtx.GetChildren() {
-			b.parseStatements(unit, contractNode, fnNode, child)
+			b.parseStatements(unit, contractNode, parentNode, child)
 		}
 	}
 
@@ -329,7 +329,9 @@ func (b *BodyNode) parseStatements(
 		))
 	case *parser.BlockContext:
 		bodyNode := NewBodyNode(b.ASTBuilder, true)
-		b.Statements = append(b.Statements, bodyNode.ParseBlock(unit, contractNode, b, childCtx))
+		b.Statements = append(b.Statements, bodyNode.ParseBlock(
+			unit, contractNode, b, childCtx,
+		))
 	default:
 		zap.L().Warn(
 			"Unknown body statement type @ BodyNode.parseStatements",
