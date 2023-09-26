@@ -174,6 +174,7 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 	p.StorageLocation = p.getStorageLocationFromCtx(ctx)
 
 	typeName := NewTypeName(p.ASTBuilder)
+	typeName.WithParameterList(plNode)
 	typeName.Parse(unit, fnNode, p.GetId(), ctx.TypeName())
 
 	if typeName.TypeDescription != nil {
@@ -211,6 +212,7 @@ func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	p.StorageLocation = ast_pb.StorageLocation_MEMORY
 
 	typeName := NewTypeName(p.ASTBuilder)
+	typeName.WithParameterList(plNode)
 	typeName.Parse(unit, fnNode, p.GetId(), ctx.TypeName())
 
 	if typeName.TypeDescription != nil {
@@ -245,6 +247,7 @@ func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit
 	}
 
 	typeName := NewTypeName(p.ASTBuilder)
+	typeName.WithParentNode(structNode)
 	typeName.Parse(unit, contractNode, p.GetId(), ctx.TypeName())
 
 	if typeName.TypeDescription != nil {
@@ -281,6 +284,7 @@ func (p *Parameter) ParseErrorParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	p.StorageLocation = ast_pb.StorageLocation_MEMORY
 
 	typeName := NewTypeName(p.ASTBuilder)
+	typeName.WithParameterList(plNode)
 	typeName.Parse(unit, fnNode, p.GetId(), ctx.TypeName())
 
 	if typeName.TypeDescription != nil {

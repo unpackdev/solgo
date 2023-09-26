@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 	"reflect"
+	"strings"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
@@ -139,7 +140,7 @@ func (r *Resolver) Resolve() []error {
 	// Reference update can come in any direction really. For example B that uses A can come first
 	// and because of it, it B will never discover A. In order to ensure that is not the case here,
 	// we are going to iterate few times through unprocessed references...
-	for i := 0; i <= 1; i++ {
+	for i := 0; i <= 2; i++ {
 		for nodeId, node := range r.UnprocessedNodes {
 			if rNodeId, rNodeType := r.resolveByNode(node.Name, node.Node); rNodeType != nil {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
@@ -153,14 +154,6 @@ func (r *Resolver) Resolve() []error {
 						),
 					)
 				}
-			} else {
-				errors = append(
-					errors,
-					fmt.Errorf(
-						"unable to find node by id %d - name: %s - type: %v",
-						nodeId, node.Name, reflect.TypeOf(node.Node),
-					),
-				)
 			}
 		}
 
@@ -301,9 +294,32 @@ func (r *Resolver) resolveEntrySourceUnit() {
 
 func (r *Resolver) bySourceUnit(name string) (int64, *TypeDescription) {
 	for _, node := range r.sourceUnits {
-		//fmt.Println(node.GetName())
-
-		if node.GetName() == name {
+		if strings.Contains(name, ".") { // NewExpression is going to need this...
+			parts := strings.Split(name, ".")
+			if len(parts) == 2 {
+				if node.GetName() == parts[0] {
+					if rNode, rType := r.byStructs(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byStateVariables(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byVariables(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byEnums(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byEvents(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byErrors(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byGlobals(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byFunction(parts[1]); rType != nil {
+						return rNode, rType
+					} else if rNode, rType := r.byModifiers(parts[1]); rType != nil {
+						return rNode, rType
+					}
+				}
+			}
+		} else if node.GetName() == name {
 			return node.GetId(), node.GetTypeDescription()
 		}
 	}
@@ -520,9 +536,27 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 				}
 			}
 		}
+	case *MemberAccessExpression:
+		if nodeCtx.GetMemberName() == name {
+			return nodeCtx, nodeCtx.GetTypeDescription()
+		}
+
+		if nodeCtx.GetExpression() != nil {
+			if expr, ok := nodeCtx.GetExpression().(*PrimaryExpression); ok {
+				if expr.GetName() == name {
+					return expr, expr.GetTypeDescription()
+				}
+			}
+		}
+	case *PrimaryExpression:
+		if nodeCtx.GetName() == name {
+			return nodeCtx, nodeCtx.GetTypeDescription()
+		}
 	}
 
 	for _, n := range node.GetNodes() {
+		// There are special cases where nil will be provided as a node.
+		// We need to ensure that we are not going to panic here.
 		if n == nil {
 			continue
 		}

@@ -163,10 +163,9 @@ func (t *TupleExpression) buildTypeDescription() *TypeDescription {
 		td := component.GetTypeDescription()
 		if td == nil {
 			typeStrings = append(typeStrings, "unknown")
-			typeIdentifiers = append(typeIdentifiers, "t_unknown")
+			typeIdentifiers = append(typeIdentifiers, "$_t_unknown")
 			continue
 		}
-
 		typeStrings = append(typeStrings, td.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+td.TypeIdentifier)
 	}

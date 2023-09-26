@@ -45,6 +45,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Empty.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "PAPA Contract",
@@ -63,6 +64,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/papa/Token.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "BabyToken Contract - 0xadd33a83549e115e3171c645b15a16ec6d1b5352",
@@ -81,6 +83,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/babytoken/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/babytoken/Token.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Hello Contract - 0xCAaa580D02751e02Eb79b6f5b24B2417B118868f",
@@ -99,6 +102,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/hello/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/hello/Token.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "BlockchainLottery Contract - 0xb334015E66d7203d8891Ce5E78eAeEFB6B3aE392",
@@ -117,6 +121,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/blottery/Lottery.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/blottery/Lottery.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "SeaGod Contract - 0xb334015E66d7203d8891Ce5E78eAeEFB6B3aE392",
@@ -136,6 +141,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/seagod/Seagod.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        true,
+			disabled:             false,
 		},
 		{
 			name:       "RickRolledToken Contract - 0xe81473ff76c60dafb526ca037d0a1bc282d42a4d",
@@ -155,6 +161,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/rick/Token.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
+			disabled:             false,
 		},
 		{
 			name:       "PTM Contract - 0x9A4e2AB29f9edE0c362f82F873F9d727810480F2",
@@ -174,6 +181,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/ptm/Ptm.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
+			disabled:             false,
 		},
 		{
 			name:       "KnoxLpLocker Contract - 0x09D10fbcEbd414DE4683856fF72a3587761A1587",
@@ -193,6 +201,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/knox/Knox.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
+			disabled:             false,
 		},
 		{
 			name:       "AdminUpgradeabilityProxy Contract - 0xA567D9B111b570cc5b68eDef188056FFfD1e2813",
@@ -212,10 +221,10 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
-			disabled:             true, // 0.5.10 contract, has some issues with the parser
+			disabled:             false, // 0.5.10 contract, has some issues with the parser
 		},
 		{
-			name:       " RouterV2  Contract - 0x8A99Ad90E77e376AD4Cec21231AF855a87771fD0",
+			name:       "RouterV2 Contract - 0x8A99Ad90E77e376AD4Cec21231AF855a87771fD0",
 			outputPath: "contracts/router/",
 			sources: &solgo.Sources{
 				SourceUnits: []*solgo.SourceUnit{
@@ -230,6 +239,26 @@ func getSourceTestCases(t *testing.T) []struct {
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/router/RouterV2.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/router/RouterV2.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
+			name:       "ItemsMarketplace Contract - 0x7C3a812bBfC759bf85097211253e63f9e5F49439",
+			outputPath: "contracts/0x7C3a812bBfC759bf85097211253e63f9e5F49439/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Contract",
+						Path:    tests.ReadContractFileForTest(t, "contracts/0x7C3a812bBfC759bf85097211253e63f9e5F49439/Contract").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/0x7C3a812bBfC759bf85097211253e63f9e5F49439/Contract").Content,
+					},
+				},
+				EntrySourceUnitName: "ItemsMarketplace",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/0x7C3a812bBfC759bf85097211253e63f9e5F49439/Contract.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/0x7C3a812bBfC759bf85097211253e63f9e5F49439/Contract.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        false,
 			disabled:             false,
@@ -256,6 +285,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/SimpleStorage.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "OpenZeppelin ERC20 Test",
@@ -294,6 +324,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/ERC20.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Token With Reference Resolution",
@@ -340,6 +371,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/TokenSale.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Lottery Test",
@@ -358,6 +390,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Lottery.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
@@ -436,6 +469,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/cheelee/TransparentUpgradeableProxy.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "SushiXSwap Nightmare Test",
@@ -569,6 +603,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/sushixswap/SushiXSwap.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/sushixswap/SushiXSwap.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 	}
 }

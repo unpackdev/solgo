@@ -21,6 +21,7 @@ require (
 	google.golang.org/protobuf v1.31.0
 )
 
+//replace github.com/antlr4-go/antlr/v4 => github.com/unpackdev/antlr4-go/v4 v4.13.0
 //replace github.com/unpackdev/protos => ../protos
 
 require (

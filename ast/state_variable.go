@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"strings"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -173,6 +175,21 @@ func (v *StateVariableDeclaration) Parse(
 	typeName.Parse(unit, nil, v.Id, ctx.GetType_())
 	v.TypeName = typeName
 	v.TypeDescription = typeName.TypeDescription
+
+	// This is going to be a fallback...
+	// Now this is a severe hack designed to provide fallback functionality to a level, however, it is not a proper
+	// fallback implementation. This is because the parser itself does not handle properly function () payable {} that are supported
+	// by older versions of the solidity. So instead of doing proper solution for which I'll need time, I'm "fixing it" by doing this.
+	// NOTICE: This is a temporary fix and should be removed as soon as possible.
+	if strings.Contains(ctx.GetText(), "function") {
+		v.NodeType = ast_pb.NodeType_FALLBACK
+		v.TypeName.TypeDescription = &TypeDescription{
+			TypeString:     "fallback",
+			TypeIdentifier: "$_t_fallback",
+		}
+		v.TypeDescription = typeName.TypeDescription
+		return
+	}
 
 	v.currentStateVariables = append(v.currentStateVariables, v)
 }

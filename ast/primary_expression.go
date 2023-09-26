@@ -276,6 +276,9 @@ func (p *PrimaryExpression) Parse(
 
 	if ctx.ElementaryTypeName() != nil {
 		typeName := NewTypeName(p.ASTBuilder)
+		typeName.WithParentNode(contractNode)
+		typeName.WithBodyNode(bodyNode)
+		typeName.WithParentNode(expNode)
 		typeName.ParseElementaryType(unit, fnNode, p.GetId(), ctx.ElementaryTypeName())
 		p.TypeName = typeName
 		p.TypeDescription = typeName.GetTypeDescription()
@@ -293,7 +296,7 @@ func (p *PrimaryExpression) Parse(
 				p.ArgumentTypes = append(p.ArgumentTypes, p.TypeName.GetTypeDescription())
 			}
 
-			p.TypeDescription = p.buildArgumentTypeDescription()
+			p.TypeDescription = p.buildFunctionArgumentTypeDescription()
 		}
 	}
 
@@ -577,6 +580,24 @@ func (p *PrimaryExpression) Parse(
 						}
 					}
 				}
+			} else if expr, ok := statement.(*VariableDeclaration); ok {
+				for _, declar := range expr.GetDeclarations() {
+					if declar.GetName() == p.Name {
+						p.TypeDescription = declar.GetTypeName().GetTypeDescription()
+						p.ReferencedDeclaration = expr.GetId()
+						break
+					}
+				}
+
+				for _, node := range expr.GetNodes() {
+					if pExpr, ok := node.(*PrimaryExpression); ok {
+						if pExpr.GetName() == p.Name {
+							p.TypeDescription = pExpr.GetTypeDescription()
+							p.ReferencedDeclaration = pExpr.GetId()
+							break
+						}
+					}
+				}
 			}
 		}
 	}
@@ -591,8 +612,8 @@ func (p *PrimaryExpression) Parse(
 	return p
 }
 
-// buildArgumentTypeDescription constructs and returns a TypeDescription for the PrimaryExpression's argument types.
-func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
+// buildFunctionArgumentTypeDescription constructs and returns a TypeDescription for the PrimaryExpression's function argument types.
+func (p *PrimaryExpression) buildFunctionArgumentTypeDescription() *TypeDescription {
 	typeString := "function("
 	typeIdentifier := "t_function_"
 	typeStrings := make([]string, 0)
@@ -607,7 +628,7 @@ func (p *PrimaryExpression) buildArgumentTypeDescription() *TypeDescription {
 	for _, paramType := range p.GetArgumentTypes() {
 		if paramType == nil {
 			typeStrings = append(typeStrings, "unknown")
-			typeIdentifiers = append(typeIdentifiers, "$_unknown")
+			typeIdentifiers = append(typeIdentifiers, "$_t_unknown")
 			continue
 		}
 
