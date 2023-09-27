@@ -360,6 +360,10 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 		assert.NotEmpty(t, errNode.GetSourceUnitName())
 	}
 
+	if fn, ok := node.(*Function); ok {
+		assert.NotNil(t, fn.GetSignatureBytes())
+	}
+
 	for _, childNode := range node.GetNodes() {
 		recursiveTest(t, childNode)
 	}

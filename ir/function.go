@@ -18,6 +18,7 @@ type Function struct {
 	StateMutability         ast_pb.Mutability `json:"state_mutability"`
 	Virtual                 bool              `json:"virtual"`
 	ReferencedDeclarationId int64             `json:"referenced_declaration_id"`
+	Signature               string            `json:"signature"`
 	Modifiers               []*Modifier       `json:"modifiers"`
 	Overrides               []*Override       `json:"overrides"`
 	Parameters              []*Parameter      `json:"parameters"`
@@ -70,6 +71,11 @@ func (f *Function) IsVirtual() bool {
 	return f.Virtual
 }
 
+// GetSignature returns the keccak signature of the function.
+func (f *Function) GetSignature() string {
+	return f.Signature
+}
+
 // GetModifiers returns the modifiers of the function.
 func (f *Function) GetModifiers() []*Modifier {
 	return f.Modifiers
@@ -117,6 +123,7 @@ func (f *Function) ToProto() *ir_pb.Function {
 		StateMutability:         f.GetStateMutability(),
 		Virtual:                 f.IsVirtual(),
 		ReferencedDeclarationId: f.GetReferencedDeclarationId(),
+		Signature:               f.GetSignature(),
 		Modifiers:               make([]*ir_pb.Modifier, 0),
 		Overrides:               make([]*ir_pb.Override, 0),
 		Parameters:              make([]*ir_pb.Parameter, 0),
@@ -156,6 +163,7 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 		StateMutability:         unit.GetStateMutability(),
 		Virtual:                 unit.IsVirtual(),
 		ReferencedDeclarationId: unit.GetReferencedDeclaration(),
+		Signature:               unit.GetSignature(),
 		Modifiers:               make([]*Modifier, 0),
 		Overrides:               make([]*Override, 0),
 		Parameters:              make([]*Parameter, 0),
