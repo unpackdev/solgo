@@ -375,6 +375,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 					assert.NotNil(t, function.GetBody().GetAST())
 					assert.NotNil(t, function.GetBody().GetSrc())
 					assert.NotNil(t, function.ToProto())
+					assert.NotEmpty(t, function.GetSignature())
 
 					for _, param := range function.GetParameters() {
 						assert.NotNil(t, param)

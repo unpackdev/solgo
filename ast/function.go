@@ -5,8 +5,10 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // Function represents a Solidity function definition within an abstract syntax tree.
@@ -29,6 +31,8 @@ type Function struct {
 	Overrides             []*OverrideSpecifier  `json:"overrides"`
 	Parameters            *ParameterList        `json:"parameters"`
 	ReturnParameters      *ParameterList        `json:"return_parameters"`
+	SignatureBytes        []byte                `json:"-"`
+	Signature             string                `json:"signature"`
 	Scope                 int64                 `json:"scope"`
 	ReferencedDeclaration int64                 `json:"referenced_declaration,omitempty"`
 	TypeDescription       *TypeDescription      `json:"type_description"`
@@ -138,6 +142,37 @@ func (f *Function) GetTypeDescription() *TypeDescription {
 	return f.TypeDescription
 }
 
+// ComputeSignature computes the signature of the Function node.
+func (f *Function) ComputeSignature() {
+	params := make([]string, 0)
+
+	if f.GetParameters() != nil {
+		for _, param := range f.GetParameters().GetParameters() {
+			params = append(params, param.TypeName.Name)
+		}
+	}
+
+	f.SignatureBytes = utils.Keccak256([]byte(strings.Join(
+		[]string{
+			f.GetName(),
+			"(",
+			strings.Join(params, ", "),
+			")",
+		}, "",
+	)))
+	f.Signature = common.Bytes2Hex(f.SignatureBytes[:4])
+}
+
+// GetSignatureBytes returns the keccak signature full bytes of the Function node.
+func (f *Function) GetSignatureBytes() []byte {
+	return f.SignatureBytes
+}
+
+// GetSignature computes the keccak signature of the Function node.
+func (f *Function) GetSignature() string {
+	return f.Signature
+}
+
 // GetNodes returns a list of child nodes within the Function node.
 func (f *Function) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{}
@@ -181,6 +216,7 @@ func (f *Function) ToProto() NodeType {
 		Parameters:            f.GetParameters().ToProto(),
 		ReturnParameters:      f.GetReturnParameters().ToProto(),
 		Body:                  f.GetBody().ToProto().(*ast_pb.Body),
+		Signature:             f.GetSignature(),
 	}
 
 	if f.GetTypeDescription() != nil {
@@ -307,6 +343,9 @@ func (f *Function) Parse(
 	}
 
 	f.TypeDescription = f.buildTypeDescription()
+
+	f.ComputeSignature()
+
 	f.currentFunctions = append(f.currentFunctions, f)
 	return f
 }

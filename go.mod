@@ -15,8 +15,9 @@ require (
 	github.com/mr-tron/base58 v1.2.0
 	github.com/sergi/go-diff v1.3.1
 	github.com/stretchr/testify v1.8.4
-	github.com/unpackdev/protos v0.2.4
+	github.com/unpackdev/protos v0.2.6
 	go.uber.org/zap v1.26.0
+	golang.org/x/crypto v0.13.0
 	golang.org/x/sync v0.3.0
 	google.golang.org/protobuf v1.31.0
 )
@@ -75,7 +76,6 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
 	go.uber.org/goleak v1.2.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.13.0 // indirect
 	golang.org/x/exp v0.0.0-20230810033253-352e893a4cad // indirect
 	golang.org/x/image v0.12.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
