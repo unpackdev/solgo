@@ -362,6 +362,7 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 
 	if fn, ok := node.(*Function); ok {
 		assert.NotNil(t, fn.GetSignatureBytes())
+		assert.NotNil(t, fn.GetSignatureRaw())
 	}
 
 	for _, childNode := range node.GetNodes() {
