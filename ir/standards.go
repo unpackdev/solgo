@@ -120,7 +120,10 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 
 				// Fuck finally, lets check if this contract is proxy, upgradeable,
 				// nft or token or any other really that we support...
-				root.SetContractType(standard.GetType())
+				// We will apply to the overall contract standards only EIPs that are matched with highest confidence
+				if confidence.Confidence == standards.HighConfidence {
+					root.SetContractType(standard.GetType())
+				}
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/0x19/solc-switch"
 	"github.com/sergi/go-diff/diffmatchpatch"
@@ -102,7 +103,7 @@ func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResu
 	}
 
 	encoded := hex.EncodeToString(bytecode)
-	if encoded != result.GetDeployedBytecode() {
+	if !strings.Contains(result.GetDeployedBytecode(), encoded) {
 		dmp := diffmatchpatch.New()
 		diffs := dmp.DiffMain(encoded, result.GetDeployedBytecode(), false)
 		toReturn := &VerifyResult{
@@ -198,12 +199,12 @@ func (v *Verifier) Verify(ctx context.Context, bytecode []byte, config *solc.Com
 
 // VerifyResult represents the result of the verification process.
 type VerifyResult struct {
-	Verified            bool                  // Whether the verification was successful or not.
-	CompilerResult      *solc.CompilerResult  // The results from the solc compiler.
-	ExpectedBytecode    string                // The expected bytecode.
-	Diffs               []diffmatchpatch.Diff // The diffs between the provided bytecode and the compiled bytecode.
-	DiffPretty          string                // The pretty printed diff between the provided bytecode and the compiled bytecode.
-	LevenshteinDistance int                   // The levenshtein distance between the provided bytecode and the compiled bytecode.
+	Verified            bool                  `json:"verified"`             // Whether the verification was successful or not.
+	CompilerResult      *solc.CompilerResult  `json:"compiler_results"`     // The results from the solc compiler.
+	ExpectedBytecode    string                `json:"expected_bytecode"`    // The expected bytecode.
+	Diffs               []diffmatchpatch.Diff `json:"diffs"`                // The diffs between the provided bytecode and the compiled bytecode.
+	DiffPretty          string                `json:"diffs_pretty"`         // The pretty printed diff between the provided bytecode and the compiled bytecode.
+	LevenshteinDistance int                   `json:"levenshtein_distance"` // The levenshtein distance between the provided bytecode and the compiled bytecode.
 }
 
 // IsVerified returns whether the verification was successful or not.
