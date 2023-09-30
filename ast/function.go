@@ -31,6 +31,7 @@ type Function struct {
 	Overrides             []*OverrideSpecifier  `json:"overrides"`
 	Parameters            *ParameterList        `json:"parameters"`
 	ReturnParameters      *ParameterList        `json:"return_parameters"`
+	SignatureRaw          string                `json:"signature_raw"`
 	SignatureBytes        []byte                `json:"-"`
 	Signature             string                `json:"signature"`
 	Scope                 int64                 `json:"scope"`
@@ -151,16 +152,21 @@ func (f *Function) ComputeSignature() {
 			params = append(params, param.TypeName.Name)
 		}
 	}
-
-	f.SignatureBytes = utils.Keccak256([]byte(strings.Join(
+	f.SignatureRaw = strings.Join(
 		[]string{
 			f.GetName(),
 			"(",
 			strings.Join(params, ", "),
 			")",
 		}, "",
-	)))
+	)
+	f.SignatureBytes = utils.Keccak256([]byte(f.SignatureRaw))
 	f.Signature = common.Bytes2Hex(f.SignatureBytes[:4])
+}
+
+// GetSignatureRaw returns the raw signature of the Function node.
+func (f *Function) GetSignatureRaw() string {
+	return f.SignatureRaw
 }
 
 // GetSignatureBytes returns the keccak signature full bytes of the Function node.

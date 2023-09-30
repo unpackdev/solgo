@@ -4,6 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/unpackdev/solgo)](https://goreportcard.com/report/github.com/unpackdev/solgo)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/unpackdev/solgo)](https://pkg.go.dev/github.com/unpackdev/solgo)
+[![Discord](https://img.shields.io/discord/1109929011896909875.svg)](https://discord.gg/PdHVbuTQRX)
 
 # Solidity Parser and Analyzer in Go
 
