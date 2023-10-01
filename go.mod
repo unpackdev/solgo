@@ -10,6 +10,7 @@ require (
 	github.com/fxamacker/cbor/v2 v2.5.0
 	github.com/goccy/go-graphviz v0.1.1
 	github.com/golang/protobuf v1.5.3
+	github.com/google/uuid v1.3.0
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
 	github.com/mr-tron/base58 v1.2.0

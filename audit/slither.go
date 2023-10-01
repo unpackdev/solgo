@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/0x19/solc-switch"
+	"github.com/google/uuid"
 	"github.com/unpackdev/solgo"
 )
 
@@ -88,7 +89,8 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Report, []byte, error) {
 
 	// Write sources to a temporary directory for Slither to analyze.
 	dirName := strings.ToLower(filepath.Base(sources.EntrySourceUnitName))
-	dir := filepath.Clean(filepath.Join(s.config.GetTempDir(), dirName))
+	randomUuid, _ := uuid.NewRandom()
+	dir := filepath.Clean(filepath.Join(s.config.GetTempDir(), randomUuid.String(), dirName))
 	if err := sources.WriteToDir(dir); err != nil {
 		return nil, nil, err
 	}
