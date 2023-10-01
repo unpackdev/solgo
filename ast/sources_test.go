@@ -304,6 +304,26 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "VirtualX - 0xe301C9525Ade8c368329a055212Fd56b202c1E3C",
+			outputPath: "contracts/56:0xe301C9525Ade8c368329a055212Fd56b202c1E3C/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "VirtualX",
+						Path:    tests.ReadContractFileForTest(t, "contracts/56:0xe301C9525Ade8c368329a055212Fd56b202c1E3C/VirtualX").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/56:0xe301C9525Ade8c368329a055212Fd56b202c1E3C/VirtualX").Content,
+					},
+				},
+				EntrySourceUnitName: "VirtualX",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/56:0xe301C9525Ade8c368329a055212Fd56b202c1E3C/VirtualX.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/56:0xe301C9525Ade8c368329a055212Fd56b202c1E3C/VirtualX.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "Simple Storage Contract Test",
 			outputPath: "ast/",
 			sources: &solgo.Sources{
