@@ -226,71 +226,95 @@ func (s *Contract) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if err := json.Unmarshal(tempMap["id"], &s.Id); err != nil {
-		return err
+	if id := tempMap["id"]; id == nil {
+		if err := json.Unmarshal(tempMap["id"], &s.Id); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["name"], &s.Name); err != nil {
-		return err
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &s.Name); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["node_type"], &s.NodeType); err != nil {
-		return err
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["src"], &s.Src); err != nil {
-		return err
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &s.Src); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["name_location"], &s.NameLocation); err != nil {
-		return err
+	if nameLocation, ok := tempMap["name_location"]; ok {
+		if err := json.Unmarshal(nameLocation, &s.NameLocation); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["abstract"], &s.Abstract); err != nil {
-		return err
+	if abstract, ok := tempMap["abstract"]; ok {
+		if err := json.Unmarshal(abstract, &s.Abstract); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["kind"], &s.Kind); err != nil {
-		return err
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &s.Kind); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["fully_implemented"], &s.FullyImplemented); err != nil {
-		return err
+	if fullyImplemented, ok := tempMap["fully_implemented"]; ok {
+		if err := json.Unmarshal(fullyImplemented, &s.FullyImplemented); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["base_contracts"], &s.BaseContracts); err != nil {
-		return err
+	if baseContracts, ok := tempMap["base_contracts"]; ok {
+		if err := json.Unmarshal(baseContracts, &s.BaseContracts); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["linearized_base_contracts"], &s.LinearizedBaseContracts); err != nil {
-		return err
+	if lbc, ok := tempMap["linearized_base_contracts"]; ok {
+		if err := json.Unmarshal(lbc, &s.LinearizedBaseContracts); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["contract_dependencies"], &s.ContractDependencies); err != nil {
-		return err
+	if cd, ok := tempMap["contract_dependencies"]; ok {
+		if err := json.Unmarshal(cd, &s.ContractDependencies); err != nil {
+			return err
+		}
 	}
 
-	var nodes []json.RawMessage
-	if err := json.Unmarshal(tempMap["nodes"], &nodes); err != nil {
-		return err
-	}
-
-	for _, tempNode := range nodes {
-		var tempNodeMap map[string]json.RawMessage
-		if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+	if n, ok := tempMap["nodes"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(n, &nodes); err != nil {
 			return err
 		}
 
-		var tempNodeType ast_pb.NodeType
-		if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
-			return err
-		}
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
 
-		node, err := unmarshalNode(tempNode, tempNodeType)
-		if err != nil {
-			return err
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			s.Nodes = append(s.Nodes, node)
 		}
-		s.Nodes = append(s.Nodes, node)
 	}
 
 	return nil
