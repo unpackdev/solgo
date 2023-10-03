@@ -219,6 +219,7 @@ func (s *Contract) GetReceive() *Receive {
 	return nil
 }
 
+// UnmarshalJSON parses the JSON-encoded data and stores the result in the Contract.
 func (s *Contract) UnmarshalJSON(data []byte) error {
 	var tempMap map[string]json.RawMessage
 	if err := json.Unmarshal(data, &tempMap); err != nil {
