@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"errors"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -143,6 +145,10 @@ func (c *Constructor) GetStateMutability() ast_pb.Mutability {
 // GetScope returns the scope of the constructor, which is the id of the contract that the constructor belongs to.
 func (c *Constructor) GetScope() int64 {
 	return c.Scope
+}
+
+func (c *Constructor) UnmarshalJSON(data []byte) error {
+	return errors.New("test")
 }
 
 // ToProto returns the protobuf representation of the constructor.

@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
@@ -131,6 +133,57 @@ func (r *RootNode) GetNodes() []Node[NodeType] {
 // GetGlobalNodes returns the global nodes of the root node.
 func (r *RootNode) GetGlobalNodes() []Node[NodeType] {
 	return r.Globals
+}
+
+func (r *RootNode) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["id"], &r.Id); err != nil {
+		return err
+	}
+	if err := json.Unmarshal(tempMap["node_type"], &r.NodeType); err != nil {
+		return err
+	}
+	if err := json.Unmarshal(tempMap["entry_source_unit"], &r.EntrySourceUnit); err != nil {
+		return err
+	}
+
+	var globals []json.RawMessage
+	if err := json.Unmarshal(tempMap["globals"], &globals); err != nil {
+		return err
+	}
+
+	for _, tempGlobal := range globals {
+		var global map[string]json.RawMessage
+		if err := json.Unmarshal(tempGlobal, &global); err != nil {
+			return err
+		}
+
+		var tempGlobalType ast_pb.NodeType
+		if err := json.Unmarshal(global["node_type"], &tempGlobalType); err != nil {
+			return err
+		}
+
+		node, err := unmarshalNode(tempGlobal, tempGlobalType)
+		if err != nil {
+			return err
+		}
+		r.Globals = append(r.Globals, node)
+
+	}
+
+	if err := json.Unmarshal(tempMap["root"], &r.SourceUnits); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["comments"], &r.Comments); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // ToProto returns the protobuf representation of the root node.

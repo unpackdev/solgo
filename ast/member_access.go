@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -111,6 +113,107 @@ func (m *MemberAccessExpression) IsPure() bool {
 // IsLValueRequested returns whether an l-value is requested in the context of member access.
 func (m *MemberAccessExpression) IsLValueRequested() bool {
 	return m.LValueRequested
+}
+
+func (m *MemberAccessExpression) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &m.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &m.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &m.Src); err != nil {
+			return err
+		}
+	}
+
+	if memberLocation, ok := tempMap["member_location"]; ok {
+		if err := json.Unmarshal(memberLocation, &m.MemberLocation); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &m.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &m.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if memberName, ok := tempMap["member_name"]; ok {
+		if err := json.Unmarshal(memberName, &m.MemberName); err != nil {
+			return err
+		}
+	}
+
+	if argumentTypes, ok := tempMap["argument_types"]; ok {
+		if err := json.Unmarshal(argumentTypes, &m.ArgumentTypes); err != nil {
+			return err
+		}
+	}
+
+	if constant, ok := tempMap["is_constant"]; ok {
+		if err := json.Unmarshal(constant, &m.Constant); err != nil {
+			return err
+		}
+	}
+
+	if lValue, ok := tempMap["is_l_value"]; ok {
+		if err := json.Unmarshal(lValue, &m.LValue); err != nil {
+			return err
+		}
+	}
+
+	if pure, ok := tempMap["is_pure"]; ok {
+		if err := json.Unmarshal(pure, &m.Pure); err != nil {
+			return err
+		}
+	}
+
+	if lValueRequested, ok := tempMap["l_value_requested"]; ok {
+		if err := json.Unmarshal(lValueRequested, &m.LValueRequested); err != nil {
+			return err
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &m.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			m.Expression = node
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the MemberAccessExpression node to its corresponding protobuf representation.

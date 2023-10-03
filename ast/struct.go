@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -118,6 +119,106 @@ func (s *StructDefinition) GetNodes() []Node[NodeType] {
 // GetReferencedDeclaration returns the referenced declaration of the struct definition.
 func (s *StructDefinition) GetReferencedDeclaration() int64 {
 	return s.ReferencedDeclaration
+}
+
+func (s *StructDefinition) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &s.Id); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &s.Name); err != nil {
+			return err
+		}
+	}
+
+	if canonicalName, ok := tempMap["canonical_name"]; ok {
+		if err := json.Unmarshal(canonicalName, &s.CanonicalName); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &s.Kind); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &s.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &s.Src); err != nil {
+			return err
+		}
+	}
+
+	if nameLocation, ok := tempMap["name_location"]; ok {
+		if err := json.Unmarshal(nameLocation, &s.NameLocation); err != nil {
+			return err
+		}
+	}
+
+	if storageLocation, ok := tempMap["storage_location"]; ok {
+		if err := json.Unmarshal(storageLocation, &s.StorageLocation); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &s.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &s.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if members, ok := tempMap["members"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(members, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			s.Members = append(s.Members, node)
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns the protobuf representation of the struct definition.

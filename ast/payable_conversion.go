@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -84,6 +85,83 @@ func (p *PayableConversion) GetNodes() []Node[NodeType] {
 // GetReferencedDeclaration returns the ID of the referenced declaration.
 func (p *PayableConversion) GetReferencedDeclaration() int64 {
 	return p.ReferencedDeclaration
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a PayableConversion node.
+func (p *PayableConversion) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &p.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &p.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &p.Src); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &p.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &p.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if payable, ok := tempMap["payable"]; ok {
+		if err := json.Unmarshal(payable, &p.Payable); err != nil {
+			return err
+		}
+	}
+
+	if argumentTypes, ok := tempMap["argument_types"]; ok {
+		if err := json.Unmarshal(argumentTypes, &p.ArgumentTypes); err != nil {
+			return err
+		}
+	}
+
+	if arguments, ok := tempMap["arguments"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(arguments, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			p.Arguments = append(p.Arguments, node)
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the PayableConversion into its corresponding Protocol Buffers representation.

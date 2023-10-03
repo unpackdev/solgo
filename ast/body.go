@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"reflect"
 
 	"github.com/antlr4-go/antlr/v4"
@@ -83,6 +84,71 @@ func (b *BodyNode) GetTypeDescription() *TypeDescription {
 // GetNodes returns the nodes associated with the body node.
 func (b *BodyNode) GetNodes() []Node[NodeType] {
 	return b.Statements
+}
+
+// UnmarshalJSON is a method of the BodyNode struct that implements the json.Unmarshaler interface.
+func (b *BodyNode) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &b.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &b.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &b.Kind); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &b.Src); err != nil {
+			return err
+		}
+	}
+
+	if implemented, ok := tempMap["implemented"]; ok {
+		if err := json.Unmarshal(implemented, &b.Implemented); err != nil {
+			return err
+		}
+	}
+
+	if statements, ok := tempMap["statements"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(statements, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			b.Statements = append(b.Statements, node)
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the BodyNode to a protocol buffer representation.

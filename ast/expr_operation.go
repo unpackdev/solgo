@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -66,6 +68,80 @@ func (f *ExprOperation) GetLeftExpression() Node[NodeType] {
 // GetRightExpression returns the right expression in the operation.
 func (f *ExprOperation) GetRightExpression() Node[NodeType] {
 	return f.RightExpression
+}
+
+func (f *ExprOperation) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if leftExpression, ok := tempMap["left_expression"]; ok {
+		if err := json.Unmarshal(leftExpression, &f.LeftExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(leftExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(leftExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.LeftExpression = node
+		}
+	}
+
+	if rightExpression, ok := tempMap["right_expression"]; ok {
+		if err := json.Unmarshal(rightExpression, &f.RightExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(rightExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(rightExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.RightExpression = node
+		}
+	}
+
+	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+		if err := json.Unmarshal(typeDescriptions, &f.TypeDescriptions); err != nil {
+			return err
+		}
+	}
+
+	return nil
+
 }
 
 // ToProto returns the protobuf representation of the expression operation.

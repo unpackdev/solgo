@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -98,6 +100,82 @@ func (m *ModifierInvocation) GetArguments() []Node[NodeType] {
 // GetArgumentTypes returns a slice of argument types of the modifier invocation.
 func (m *ModifierInvocation) GetArgumentTypes() []*TypeDescription {
 	return m.ArgumentTypes
+}
+
+func (m *ModifierInvocation) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &m.Id); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &m.Name); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &m.Kind); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &m.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &m.Src); err != nil {
+			return err
+		}
+	}
+
+	if modifierName, ok := tempMap["modifier_name"]; ok {
+		if err := json.Unmarshal(modifierName, &m.ModifierName); err != nil {
+			return err
+		}
+	}
+
+	if arguments, ok := tempMap["arguments"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(arguments, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			m.Arguments = append(m.Arguments, node)
+		}
+	}
+
+	if argumentTypes, ok := tempMap["argument_types"]; ok {
+		if err := json.Unmarshal(argumentTypes, &m.ArgumentTypes); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the ModifierInvocation node to its corresponding protobuf representation.

@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -71,6 +73,60 @@ func (r *ReturnStatement) GetTypeDescription() *TypeDescription {
 // GetNodes returns a list of child nodes contained in the ReturnStatement.
 func (r *ReturnStatement) GetNodes() []Node[NodeType] {
 	return []Node[NodeType]{r.Expression}
+}
+
+func (r *ReturnStatement) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &r.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &r.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &r.Src); err != nil {
+			return err
+		}
+	}
+
+	if functionReturnParameters, ok := tempMap["function_return_parameters"]; ok {
+		if err := json.Unmarshal(functionReturnParameters, &r.FunctionReturnParameters); err != nil {
+			return err
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &r.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			r.Expression = node
+		}
+	}
+
+	return nil
+
 }
 
 // ToProto converts the ReturnStatement into its corresponding Protocol Buffers representation.

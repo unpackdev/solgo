@@ -12,6 +12,7 @@ type UnarySuffix struct {
 
 	Id                    int64            `json:"id"`
 	NodeType              ast_pb.NodeType  `json:"node_type"`
+	Kind                  ast_pb.NodeType  `json:"kind"`
 	Src                   SrcNode          `json:"src"`
 	Operator              ast_pb.Operator  `json:"operator"`
 	Expression            Node[NodeType]   `json:"expression"`
@@ -30,6 +31,7 @@ func NewUnarySuffixExpression(b *ASTBuilder) *UnarySuffix {
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_UNARY_OPERATION,
+		Kind:       ast_pb.NodeType_KIND_UNARY_SUFFIX,
 	}
 }
 
@@ -53,6 +55,11 @@ func (u *UnarySuffix) GetType() ast_pb.NodeType {
 // GetSrc returns the source location information of the UnarySuffix.
 func (u *UnarySuffix) GetSrc() SrcNode {
 	return u.Src
+}
+
+// GetKind returns the kind of the UnarySuffix.
+func (u *UnarySuffix) GetKind() ast_pb.NodeType {
+	return u.Kind
 }
 
 // GetOperator returns the unary operator applied to the expression.

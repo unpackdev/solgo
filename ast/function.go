@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -200,6 +201,142 @@ func (f *Function) GetNodes() []Node[NodeType] {
 // GetReferencedDeclaration returns the referenced declaration identifier associated with the Function node.
 func (f *Function) GetReferencedDeclaration() int64 {
 	return f.ReferencedDeclaration
+}
+
+func (f *Function) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &f.Name); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &f.Kind); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if nameLocation, ok := tempMap["name_location"]; ok {
+		if err := json.Unmarshal(nameLocation, &f.NameLocation); err != nil {
+			return err
+		}
+	}
+
+	if implemented, ok := tempMap["implemented"]; ok {
+		if err := json.Unmarshal(implemented, &f.Implemented); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &f.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if sm, ok := tempMap["state_mutability"]; ok {
+		if err := json.Unmarshal(sm, &f.StateMutability); err != nil {
+			return err
+		}
+	}
+
+	if virtual, ok := tempMap["virtual"]; ok {
+		if err := json.Unmarshal(virtual, &f.Virtual); err != nil {
+			return err
+		}
+	}
+
+	if modifiers, ok := tempMap["modifiers"]; ok {
+		if err := json.Unmarshal(modifiers, &f.Modifiers); err != nil {
+			return err
+		}
+	}
+
+	if overrides, ok := tempMap["overrides"]; ok {
+		if err := json.Unmarshal(overrides, &f.Overrides); err != nil {
+			return err
+		}
+	}
+
+	if params, ok := tempMap["parameters"]; ok {
+		if err := json.Unmarshal(params, &f.Parameters); err != nil {
+			panic("here is broken...")
+			return err
+		}
+	}
+
+	if retParams, ok := tempMap["return_parameters"]; ok {
+		if err := json.Unmarshal(retParams, &f.ReturnParameters); err != nil {
+			return err
+		}
+	}
+
+	if scope, ok := tempMap["scope"]; ok {
+		if err := json.Unmarshal(scope, &f.Scope); err != nil {
+			return err
+		}
+	}
+
+	if refD, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(refD, &f.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if td, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(td, &f.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if sigRaw, ok := tempMap["signature_raw"]; ok {
+		if err := json.Unmarshal(sigRaw, &f.SignatureRaw); err != nil {
+			return err
+		}
+	}
+
+	if sigBytes, ok := tempMap["signature_bytes"]; ok {
+		if err := json.Unmarshal(sigBytes, &f.SignatureBytes); err != nil {
+			return err
+		}
+	}
+
+	if sig, ok := tempMap["signature"]; ok {
+		if err := json.Unmarshal(sig, &f.Signature); err != nil {
+			return err
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &f.Body); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the Function node to its corresponding protobuf representation.

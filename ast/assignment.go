@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"reflect"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -95,6 +96,112 @@ func (a *Assignment) GetRightExpression() Node[NodeType] {
 // GetReferencedDeclaration returns the referenced declaration of the Assignment node.
 func (a *Assignment) GetReferencedDeclaration() int64 {
 	return a.ReferencedDeclaration
+}
+
+// UnmarshalJSON sets the Assignment node data from the JSON byte array.
+func (a *Assignment) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &a.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &a.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &a.Src); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &a.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &a.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if operator, ok := tempMap["operator"]; ok {
+		if err := json.Unmarshal(operator, &a.Operator); err != nil {
+			return err
+		}
+	}
+
+	if leftExpression, ok := tempMap["left_expression"]; ok {
+		if err := json.Unmarshal(leftExpression, &a.LeftExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(leftExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(leftExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			a.LeftExpression = node
+		}
+	}
+
+	if rightExpression, ok := tempMap["right_expression"]; ok {
+		if err := json.Unmarshal(rightExpression, &a.RightExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(rightExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(rightExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			a.RightExpression = node
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &a.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			a.Expression = node
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the Assignment node.

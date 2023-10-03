@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
@@ -142,6 +143,107 @@ func (t *TypeName) GetNodes() []Node[NodeType] {
 	}
 
 	return toReturn
+}
+
+func (t *TypeName) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &t.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &t.Src); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &t.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &t.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &t.Name); err != nil {
+			return err
+		}
+	}
+
+	if keyType, ok := tempMap["key_type"]; ok {
+		if err := json.Unmarshal(keyType, &t.KeyType); err != nil {
+			return err
+		}
+	}
+
+	if keyNameLocation, ok := tempMap["key_name_location"]; ok {
+		if err := json.Unmarshal(keyNameLocation, &t.KeyNameLocation); err != nil {
+			return err
+		}
+	}
+
+	if valueType, ok := tempMap["value_type"]; ok {
+		if err := json.Unmarshal(valueType, &t.ValueType); err != nil {
+			return err
+		}
+	}
+
+	if valueNameLocation, ok := tempMap["value_name_location"]; ok {
+		if err := json.Unmarshal(valueNameLocation, &t.ValueNameLocation); err != nil {
+			return err
+		}
+	}
+
+	if pathNode, ok := tempMap["path_node"]; ok {
+		if err := json.Unmarshal(pathNode, &t.PathNode); err != nil {
+			return err
+		}
+	}
+
+	if stateMutability, ok := tempMap["state_mutability"]; ok {
+		if err := json.Unmarshal(stateMutability, &t.StateMutability); err != nil {
+			return err
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &t.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			t.Expression = node
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the TypeName instance to its corresponding protocol buffer representation.

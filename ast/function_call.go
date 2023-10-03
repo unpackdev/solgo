@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -95,6 +96,103 @@ func (f *FunctionCall) GetNodes() []Node[NodeType] {
 // GetReferenceDeclaration returns the referenced declaration of the FunctionCall node.
 func (f *FunctionCall) GetReferenceDeclaration() int64 {
 	return f.ReferencedDeclaration
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a FunctionCall node.
+func (f *FunctionCall) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &f.Kind); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &f.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &f.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if argTypes, ok := tempMap["argument_types"]; ok {
+		if err := json.Unmarshal(argTypes, &f.ArgumentTypes); err != nil {
+			return err
+		}
+	}
+
+	if arguments, ok := tempMap["arguments"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(arguments, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Arguments = append(f.Arguments, node)
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &f.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Expression = node
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the FunctionCall node.
@@ -308,6 +406,72 @@ func (f *FunctionCallOption) GetNodes() []Node[NodeType] {
 // GetReferenceDeclaration returns the referenced declaration of the FunctionCallOption node.
 func (f *FunctionCallOption) GetReferenceDeclaration() int64 {
 	return f.ReferencedDeclaration
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a FunctionCallOption node.
+func (f *FunctionCallOption) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &f.Kind); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &f.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &f.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &f.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Expression = node
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the FunctionCallOption node.

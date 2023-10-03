@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -120,6 +122,99 @@ func (p *Parameter) GetNodes() []Node[NodeType] {
 	}
 
 	return []Node[NodeType]{}
+}
+
+func (p *Parameter) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &p.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &p.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &p.Src); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &p.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if nameLocation, ok := tempMap["name_location"]; ok {
+		if err := json.Unmarshal(nameLocation, &p.NameLocation); err != nil {
+			return err
+		}
+	}
+
+	if scope, ok := tempMap["scope"]; ok {
+		if err := json.Unmarshal(scope, &p.Scope); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &p.Name); err != nil {
+			return err
+		}
+	}
+
+	if typeName, ok := tempMap["type_name"]; ok {
+		if err := json.Unmarshal(typeName, &p.TypeName); err != nil {
+			return err
+		}
+	}
+
+	if storageLocation, ok := tempMap["storage_location"]; ok {
+		if err := json.Unmarshal(storageLocation, &p.StorageLocation); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &p.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if stateMutability, ok := tempMap["state_mutability"]; ok {
+		if err := json.Unmarshal(stateMutability, &p.StateMutability); err != nil {
+			return err
+		}
+	}
+
+	if constant, ok := tempMap["constant"]; ok {
+		if err := json.Unmarshal(constant, &p.Constant); err != nil {
+			return err
+		}
+	}
+
+	if stateVariable, ok := tempMap["state_variable"]; ok {
+		if err := json.Unmarshal(stateVariable, &p.StateVariable); err != nil {
+			return err
+		}
+	}
+
+	if indexed, ok := tempMap["indexed"]; ok {
+		if err := json.Unmarshal(indexed, &p.Indexed); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the Parameter node to its corresponding protobuf representation.

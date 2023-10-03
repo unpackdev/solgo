@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -91,6 +93,69 @@ func (m *ModifierDefinition) GetParameters() *ParameterList {
 // GetBody returns the body node of the modifier.
 func (m *ModifierDefinition) GetBody() *BodyNode {
 	return m.Body
+}
+
+func (m *ModifierDefinition) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &m.Id); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &m.Name); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &m.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &m.Src); err != nil {
+			return err
+		}
+	}
+
+	if nameLocation, ok := tempMap["name_location"]; ok {
+		if err := json.Unmarshal(nameLocation, &m.NameLocation); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &m.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if virtual, ok := tempMap["virtual"]; ok {
+		if err := json.Unmarshal(virtual, &m.Virtual); err != nil {
+			return err
+		}
+	}
+
+	/* 	if parameters, ok := tempMap["parameters"]; ok {
+	   		if err := json.Unmarshal(parameters, &m.Parameters); err != nil {
+	   			return err
+	   		}
+	   	}
+	*/
+	/* 	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &m.Body); err != nil {
+			return err
+		}
+	} */
+
+	return nil
 }
 
 // ToProto converts the ModifierDefinition node to its corresponding protobuf representation.

@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -92,6 +94,58 @@ func (t *CatchStatement) GetNodes() []Node[NodeType] {
 // GetName returns the name of the exception variable in the 'catch' clause, if any.
 func (t *CatchStatement) GetName() string {
 	return t.Name
+}
+
+// MarshalJSON marshals the CatchStatement node into a JSON byte slice.
+func (t *CatchStatement) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &t.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &t.Src); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &t.Kind); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &t.Name); err != nil {
+			return err
+		}
+	}
+
+	if parameters, ok := tempMap["parameters"]; ok {
+		if err := json.Unmarshal(parameters, &t.Parameters); err != nil {
+			return err
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &t.Body); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns the protobuf representation of the 'catch' clause.

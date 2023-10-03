@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -76,6 +78,59 @@ func (w *WhileStatement) GetNodes() []Node[NodeType] {
 	toReturn = append(toReturn, w.Condition)
 	toReturn = append(toReturn, w.Body.GetNodes()...)
 	return toReturn
+}
+
+func (w *WhileStatement) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &w.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &w.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &w.Src); err != nil {
+			return err
+		}
+	}
+
+	if condition, ok := tempMap["condition"]; ok {
+		if err := json.Unmarshal(condition, &w.Condition); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(condition, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(condition, tempNodeType)
+			if err != nil {
+				return err
+			}
+			w.Condition = node
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &w.Body); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the WhileStatement node.

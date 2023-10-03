@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -73,7 +75,48 @@ func (p *ParameterList) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+func (p *ParameterList) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &p.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &p.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &p.Src); err != nil {
+			return err
+		}
+	}
+
+	if parameters, ok := tempMap["parameters"]; ok {
+		if err := json.Unmarshal(parameters, &p.Parameters); err != nil {
+			panic(err)
+			return err
+		}
+	}
+
+	if parameterTypes, ok := tempMap["parameter_types"]; ok {
+		if err := json.Unmarshal(parameterTypes, &p.ParameterTypes); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ToProto converts the ParameterList into its corresponding Protocol Buffers representation.
+// TODO: Proto ParameterTypes...
 func (p *ParameterList) ToProto() *ast_pb.ParameterList {
 	toReturn := &ast_pb.ParameterList{
 		Id:       p.GetId(),

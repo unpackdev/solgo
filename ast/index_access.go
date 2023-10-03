@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -97,6 +98,92 @@ func (i *IndexAccess) GetNodes() []Node[NodeType] {
 // GetReferencedDeclaration returns the referenced declaration.
 func (i *IndexAccess) GetReferencedDeclaration() int64 {
 	return i.ReferencedDeclaration
+}
+
+// UnmarshalJSON sets the IndexAccess node data from its JSON representation.
+func (i *IndexAccess) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &i.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &i.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &i.Src); err != nil {
+			return err
+		}
+	}
+
+	if indexExpression, ok := tempMap["index_expression"]; ok {
+		if err := json.Unmarshal(indexExpression, &i.IndexExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(indexExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(indexExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			i.IndexExpression = node
+		}
+	}
+
+	if baseExpression, ok := tempMap["base_expression"]; ok {
+		if err := json.Unmarshal(baseExpression, &i.BaseExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(baseExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(baseExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			i.BaseExpression = node
+		}
+	}
+
+	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+		if err := json.Unmarshal(typeDescriptions, &i.TypeDescriptions); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &i.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &i.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the IndexAccess node.

@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -115,6 +116,67 @@ func (e *EnumDefinition) GetNodes() []Node[NodeType] {
 	return e.Members
 }
 
+func (e *EnumDefinition) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["id"], &e.Id); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["node_type"], &e.NodeType); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["name"], &e.Name); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["canonical_name"], &e.CanonicalName); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["type_description"], &e.TypeDescription); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["src"], &e.Src); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["name_location"], &e.NameLocation); err != nil {
+		return err
+	}
+
+	var tempMembers []json.RawMessage
+	if err := json.Unmarshal(tempMap["members"], &tempMembers); err != nil {
+		return err
+	}
+
+	for _, tempMember := range tempMembers {
+		var tempMemberMap map[string]json.RawMessage
+		if err := json.Unmarshal(tempMember, &tempMemberMap); err != nil {
+			return err
+		}
+
+		var tempMemberType ast_pb.NodeType
+		if err := json.Unmarshal(tempMemberMap["node_type"], &tempMemberType); err != nil {
+			return err
+		}
+
+		node, err := unmarshalNode(tempMember, tempMemberType)
+		if err != nil {
+			return err
+		}
+
+		e.Members = append(e.Members, node)
+	}
+
+	return nil
+}
+
 // Parse parses an enumeration definition from the provided parser.EnumDefinitionContext and updates the current instance.
 func (e *EnumDefinition) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
@@ -154,6 +216,7 @@ func (e *EnumDefinition) Parse(
 			&Parameter{
 				Id: id,
 				Src: SrcNode{
+					Id:          e.GetNextID(),
 					Line:        int64(enumCtx.GetStart().GetLine()),
 					Column:      int64(enumCtx.GetStart().GetColumn()),
 					Start:       int64(enumCtx.GetStart().GetStart()),
@@ -163,6 +226,7 @@ func (e *EnumDefinition) Parse(
 				},
 				Name: enumCtx.GetText(),
 				NameLocation: &SrcNode{
+					Id:          e.GetNextID(),
 					Line:        int64(enumCtx.Identifier().GetSymbol().GetLine()),
 					Column:      int64(enumCtx.Identifier().GetSymbol().GetColumn()),
 					Start:       int64(enumCtx.Identifier().GetSymbol().GetStart()),

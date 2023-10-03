@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -19,6 +21,7 @@ type TryStatement struct {
 	ReturnParameters *ParameterList   `json:"return_parameters"` // Return parameters of the try statement.
 	Expression       Node[NodeType]   `json:"expression"`        // Expression within the try block.
 	Clauses          []Node[NodeType] `json:"clauses"`           // List of catch clauses.
+	Implemented      bool             `json:"implemented"`       // True if the try statement is implemented.
 }
 
 // NewTryStatement creates a new TryStatement node with a given ASTBuilder.
@@ -62,8 +65,8 @@ func (t *TryStatement) GetKind() ast_pb.NodeType {
 }
 
 // GetImplemented returns true if the try statement is implemented.
-func (t *TryStatement) GetImplemented() bool {
-	return true
+func (t *TryStatement) IsImplemented() bool {
+	return t.Implemented
 }
 
 // GetTypeDescription returns the TypeDescription of the TryStatement node.
@@ -102,6 +105,109 @@ func (t *TryStatement) GetReturns() bool {
 // GetReturnParameters returns the return parameters of the try statement.
 func (t *TryStatement) GetReturnParameters() *ParameterList {
 	return t.ReturnParameters
+}
+
+// MarshalJSON marshals the TryStatement node into a JSON byte slice.
+func (t *TryStatement) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &t.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &t.Src); err != nil {
+			return err
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &t.Body); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &t.Kind); err != nil {
+			return err
+		}
+	}
+
+	if returns, ok := tempMap["returns"]; ok {
+		if err := json.Unmarshal(returns, &t.Returns); err != nil {
+			return err
+		}
+	}
+
+	if implemented, ok := tempMap["implemented"]; ok {
+		if err := json.Unmarshal(implemented, &t.Implemented); err != nil {
+			return err
+		}
+	}
+
+	if returnParameters, ok := tempMap["return_parameters"]; ok {
+		if err := json.Unmarshal(returnParameters, &t.ReturnParameters); err != nil {
+			return err
+		}
+	}
+
+	if expression, ok := tempMap["expression"]; ok {
+		if err := json.Unmarshal(expression, &t.Expression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			t.Expression = node
+		}
+	}
+
+	if clauses, ok := tempMap["clauses"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(clauses, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			t.Clauses = append(t.Clauses, node)
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the TryStatement node.
@@ -166,6 +272,11 @@ func (t *TryStatement) Parse(
 				bodyNode.ParseUncheckedBlock(unit, contractNode, t, uncheckedCtx)
 				t.Body.Statements = append(t.Body.Statements, bodyNode)
 			}
+		}
+
+		// Very naive implementation check but it works for now until someone starts to complain.
+		if len(bodyNode.GetNodes()) > 0 {
+			t.Implemented = true
 		}
 	}
 

@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -86,6 +88,100 @@ func (f *ForStatement) GetTypeDescription() *TypeDescription {
 		TypeString:     "for",
 		TypeIdentifier: "$_t_for",
 	}
+}
+
+// MarshalJSON marshals the ForStatement node into a JSON byte slice.
+func (f *ForStatement) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if initialiser, ok := tempMap["initialiser"]; ok {
+		if err := json.Unmarshal(initialiser, &f.Initialiser); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(initialiser, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(initialiser, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Initialiser = node
+		}
+	}
+
+	if closure, ok := tempMap["closure"]; ok {
+		if err := json.Unmarshal(closure, &f.Closure); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(closure, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(closure, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Closure = node
+		}
+	}
+
+	if condition, ok := tempMap["condition"]; ok {
+		if err := json.Unmarshal(condition, &f.Condition); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(condition, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(condition, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Condition = node
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &f.Body); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns a protobuf representation of the ForStatement node.

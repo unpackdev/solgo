@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -218,6 +219,82 @@ func (s *Contract) GetReceive() *Receive {
 	return nil
 }
 
+func (s *Contract) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["id"], &s.Id); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["name"], &s.Name); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["node_type"], &s.NodeType); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["src"], &s.Src); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["name_location"], &s.NameLocation); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["abstract"], &s.Abstract); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["kind"], &s.Kind); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["fully_implemented"], &s.FullyImplemented); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["base_contracts"], &s.BaseContracts); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["linearized_base_contracts"], &s.LinearizedBaseContracts); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(tempMap["contract_dependencies"], &s.ContractDependencies); err != nil {
+		return err
+	}
+
+	var nodes []json.RawMessage
+	if err := json.Unmarshal(tempMap["nodes"], &nodes); err != nil {
+		return err
+	}
+
+	for _, tempNode := range nodes {
+		var tempNodeMap map[string]json.RawMessage
+		if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+			return err
+		}
+
+		var tempNodeType ast_pb.NodeType
+		if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			return err
+		}
+
+		node, err := unmarshalNode(tempNode, tempNodeType)
+		if err != nil {
+			return err
+		}
+		s.Nodes = append(s.Nodes, node)
+	}
+
+	return nil
+}
+
 // ToProto converts the Contract to its corresponding protocol buffer representation.
 func (c *Contract) ToProto() NodeType {
 	proto := ast_pb.Contract{
@@ -294,6 +371,7 @@ func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contract
 			ParentIndex: unit.Id,
 		},
 		NameLocation: SrcNode{
+			Id:          c.GetNextID(),
 			Line:        int64(ctx.Identifier().GetStart().GetLine()),
 			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
 			Start:       int64(ctx.Identifier().GetStart().GetStart()),

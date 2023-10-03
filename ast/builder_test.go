@@ -136,6 +136,69 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 	}
 }
 
+func TestAstImportFromJSON(t *testing.T) {
+	config := zap.NewDevelopmentConfig()
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, err := config.Build()
+	assert.NoError(t, err)
+
+	// Replace the global logger.
+	zap.ReplaceGlobals(logger)
+
+	// All of the defined test cases can be discovered in sources_test.go file
+	testCases := getSourceTestCases(t)
+
+	for _, testCase := range testCases {
+		if testCase.disabled {
+			continue
+		}
+
+		t.Run(testCase.name, func(t *testing.T) {
+			parser, err := solgo.NewParserFromSources(context.TODO(), testCase.sources)
+			assert.NoError(t, err)
+			assert.NotNil(t, parser)
+
+			astBuilder := NewAstBuilder(
+				// We need to provide parser to the ast builder so that it can
+				// access comments and other information from the parser.
+				parser.GetParser(),
+
+				// We need to provide sources to the ast builder so that it can
+				// access the source code of the contracts.
+				parser.GetSources(),
+			)
+
+			err = parser.RegisterListener(solgo.ListenerAst, astBuilder)
+			assert.NoError(t, err)
+
+			syntaxErrs := parser.Parse()
+			if !testCase.expectsErrors {
+				assert.Empty(t, syntaxErrs)
+			}
+
+			// This step is actually quite important as it resolves all the
+			// references in the AST. Without this step, the AST will be
+			// incomplete.
+			errs := astBuilder.ResolveReferences()
+			if testCase.expectsErrors {
+				var errsExpected []error
+				assert.Equal(t, errsExpected, errs)
+			}
+			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
+			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
+
+			jsonBytes, err := astBuilder.ToJSON()
+			assert.NoError(t, err)
+			assert.NotEmpty(t, jsonBytes)
+
+			imported, err := astBuilder.ImportFromJSON(context.Background(), jsonBytes)
+			assert.NoError(t, err)
+			assert.NotNil(t, imported)
+
+		})
+	}
+}
+
 func TestAstReferenceSetDescriptor(t *testing.T) {
 	config := zap.NewDevelopmentConfig()
 	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
@@ -338,7 +401,7 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 	}
 
 	if try, ok := node.(*TryStatement); ok {
-		assert.NotNil(t, try.GetImplemented())
+		assert.NotNil(t, try.IsImplemented())
 	}
 
 	if strct, ok := node.(*StructDefinition); ok {

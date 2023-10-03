@@ -24,6 +24,7 @@ type Function struct {
 	Parameters              []*Parameter      `json:"parameters"`
 	Body                    *Body             `json:"body"`
 	ReturnStatements        []*Parameter      `json:"return"`
+	Src                     ast.SrcNode       `json:"src"`
 }
 
 // GetAST returns the AST (Abstract Syntax Tree) for the function declaration.
@@ -108,7 +109,7 @@ func (f *Function) GetBody() *Body {
 
 // GetSrc returns the source code of the function.
 func (f *Function) GetSrc() ast.SrcNode {
-	return f.unit.GetSrc()
+	return f.Src
 }
 
 // ToProto returns the protocol buffer version of the function.
@@ -129,6 +130,7 @@ func (f *Function) ToProto() *ir_pb.Function {
 		Parameters:              make([]*ir_pb.Parameter, 0),
 		Body:                    f.GetBody().ToProto(),
 		Return:                  make([]*ir_pb.Parameter, 0),
+		//SrcNode:                 f.unit.GetSrc().ToProto(),
 	}
 
 	for _, modifier := range f.GetModifiers() {
@@ -168,6 +170,7 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 		Overrides:               make([]*Override, 0),
 		Parameters:              make([]*Parameter, 0),
 		ReturnStatements:        make([]*Parameter, 0),
+		Src:                     unit.GetSrc(),
 	}
 
 	for _, modifier := range unit.GetModifiers() {

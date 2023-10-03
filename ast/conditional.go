@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -50,8 +52,12 @@ func (f *Conditional) GetSrc() SrcNode {
 }
 
 // GetTypeDescription returns the type description associated with the Conditional.
+// TODO: Perhaps attaching at the end type descriptions to the conditional?
 func (f *Conditional) GetTypeDescription() *TypeDescription {
-	return f.TypeDescriptions[0]
+	return &TypeDescription{
+		TypeString:     "conditional",
+		TypeIdentifier: "$_t_conditional",
+	}
 }
 
 // GetNodes returns the child nodes of the Conditional.
@@ -64,6 +70,65 @@ func (f *Conditional) GetNodes() []Node[NodeType] {
 // GetExpressions returns the right expressions within the Conditional.
 func (f *Conditional) GetExpressions() []Node[NodeType] {
 	return f.Expressions
+}
+
+// MarshalJSON marshals the Conditional node into a JSON byte slice.
+func (f *Conditional) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if expressions, ok := tempMap["expressions"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(expressions, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Expressions = append(f.Expressions, node)
+		}
+	}
+
+	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+		if err := json.Unmarshal(typeDescriptions, &f.TypeDescriptions); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the Conditional to its corresponding protocol buffer representation.

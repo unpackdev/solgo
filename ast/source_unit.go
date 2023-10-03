@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -167,6 +168,96 @@ func (s *SourceUnit[T]) ToProto() NodeType {
 			Nodes: nodes,
 		},
 	}
+}
+
+func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &s.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if license, ok := tempMap["license"]; ok {
+		if err := json.Unmarshal(license, &s.License); err != nil {
+			return err
+		}
+	}
+
+	if absPath, ok := tempMap["absolute_path"]; ok {
+		if err := json.Unmarshal(absPath, &s.AbsolutePath); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &s.Name); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &s.Src); err != nil {
+			return err
+		}
+	}
+
+	if expSym, ok := tempMap["exported_symbols"]; ok {
+		if err := json.Unmarshal(expSym, &s.ExportedSymbols); err != nil {
+			return err
+		}
+	}
+
+	if base, ok := tempMap["base_contracts"]; ok {
+		if err := json.Unmarshal(base, &s.BaseContracts); err != nil {
+			return err
+		}
+	}
+
+	if members, ok := tempMap["nodes"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(members, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			s.Nodes = append(s.Nodes, node)
+		}
+	}
+
+	if contract, ok := tempMap["contract"]; ok {
+		var contractNode *Contract
+		if err := json.Unmarshal(contract, &contractNode); err != nil {
+			return err
+		}
+		s.Contract = contractNode
+	}
+
+	return nil
 }
 
 // EnterSourceUnit is called when the ASTBuilder enters a source unit context.

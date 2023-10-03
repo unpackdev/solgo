@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -80,6 +81,83 @@ func (t *TupleExpression) IsPure() bool {
 // GetReferencedDeclaration returns the referenced declaration of the tuple expression.
 func (t *TupleExpression) GetReferencedDeclaration() int64 {
 	return t.ReferencedDeclaration
+}
+
+// MarshalJSON marshals the TupleExpression node into a JSON byte slice.
+func (t *TupleExpression) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &t.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &t.Src); err != nil {
+			return err
+		}
+	}
+
+	if constant, ok := tempMap["is_constant"]; ok {
+		if err := json.Unmarshal(constant, &t.Constant); err != nil {
+			return err
+		}
+	}
+
+	if pure, ok := tempMap["is_pure"]; ok {
+		if err := json.Unmarshal(pure, &t.Pure); err != nil {
+			return err
+		}
+	}
+
+	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+		if err := json.Unmarshal(referencedDeclaration, &t.ReferencedDeclaration); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &t.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if components, ok := tempMap["components"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(components, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			t.Components = append(t.Components, node)
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns the protobuf representation of the tuple expression.

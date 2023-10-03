@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -98,6 +100,98 @@ func (a *BinaryOperation) IsConstant() bool {
 // IsPure is a getter method that returns whether the binary operation is pure.
 func (a *BinaryOperation) IsPure() bool {
 	return a.Pure
+}
+
+// UnmarshalJSON sets the BinaryOperation node data from the JSON byte array.
+func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &a.Id); err != nil {
+			return err
+		}
+	}
+
+	if isConstant, ok := tempMap["is_constant"]; ok {
+		if err := json.Unmarshal(isConstant, &a.Constant); err != nil {
+			return err
+		}
+	}
+
+	if isPure, ok := tempMap["is_pure"]; ok {
+		if err := json.Unmarshal(isPure, &a.Pure); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &a.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &a.Src); err != nil {
+			return err
+		}
+	}
+
+	if typeDescription, ok := tempMap["type_description"]; ok {
+		if err := json.Unmarshal(typeDescription, &a.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	if operator, ok := tempMap["operator"]; ok {
+		if err := json.Unmarshal(operator, &a.Operator); err != nil {
+			return err
+		}
+	}
+
+	if leftExpression, ok := tempMap["left_expression"]; ok {
+		if err := json.Unmarshal(leftExpression, &a.LeftExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(leftExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(leftExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			a.LeftExpression = node
+		}
+	}
+
+	if rightExpression, ok := tempMap["right_expression"]; ok {
+		if err := json.Unmarshal(rightExpression, &a.RightExpression); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(rightExpression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(rightExpression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			a.RightExpression = node
+		}
+	}
+
+	return nil
 }
 
 // ToProto is a method that returns the protobuf representation of the binary operation.

@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"bytes"
+	"context"
 	"encoding/json"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -94,6 +96,17 @@ func (b *ASTBuilder) ResolveReferences() []error {
 	b.GarbageCollect()
 
 	return nil
+}
+
+// ImportFromJSON imports the AST from a JSON byte array.
+// Note that parser content won't be imported. Only the results for future manipulation.
+func (b *ASTBuilder) ImportFromJSON(ctx context.Context, jsonBytes []byte) (*RootNode, error) {
+	var toReturn *RootNode
+	decoder := json.NewDecoder(bytes.NewReader(jsonBytes))
+	if err := decoder.Decode(&toReturn); err != nil {
+		return nil, err
+	}
+	return toReturn, nil
 }
 
 // GarbageCollect cleans up the ASTBuilder after resolving references.
