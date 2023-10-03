@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"errors"
+	"encoding/json"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -148,7 +148,84 @@ func (c *Constructor) GetScope() int64 {
 }
 
 func (c *Constructor) UnmarshalJSON(data []byte) error {
-	return errors.New("test")
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &c.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &c.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &c.Kind); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &c.Src); err != nil {
+			return err
+		}
+	}
+
+	if implemented, ok := tempMap["implemented"]; ok {
+		if err := json.Unmarshal(implemented, &c.Implemented); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &c.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if sm, ok := tempMap["state_mutability"]; ok {
+		if err := json.Unmarshal(sm, &c.StateMutability); err != nil {
+			return err
+		}
+	}
+
+	if modifiers, ok := tempMap["modifiers"]; ok {
+		if err := json.Unmarshal(modifiers, &c.Modifiers); err != nil {
+			return err
+		}
+	}
+
+	if params, ok := tempMap["parameters"]; ok {
+		if err := json.Unmarshal(params, &c.Parameters); err != nil {
+			return err
+		}
+	}
+
+	if retParams, ok := tempMap["return_parameters"]; ok {
+		if err := json.Unmarshal(retParams, &c.ReturnParameters); err != nil {
+			return err
+		}
+	}
+
+	if scope, ok := tempMap["scope"]; ok {
+		if err := json.Unmarshal(scope, &c.Scope); err != nil {
+			return err
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &c.Body); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns the protobuf representation of the constructor.

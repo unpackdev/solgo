@@ -2,8 +2,10 @@ package ast
 
 import (
 	"encoding/json"
+	"errors"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"go.uber.org/zap"
 )
 
 func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error) {
@@ -71,7 +73,7 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	case ast_pb.NodeType_FOR_STATEMENT:
 		var toReturn *ForStatement
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("for declaration")
+			//panic("for declaration")
 			return nil, err
 		}
 	case ast_pb.NodeType_TRY_STATEMENT:
@@ -95,7 +97,7 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	case ast_pb.NodeType_BIT_XOR_OPERATION:
 		var toReturn *BitXorOperation
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("bit xor operation")
+			//panic("bit xor operation")
 			return nil, err
 		}
 	case ast_pb.NodeType_BIT_AND_OPERATION:
@@ -154,16 +156,51 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 		}
 		return toReturn, nil
 	case ast_pb.NodeType_FUNCTION_DEFINITION:
-		var toReturn *Function
-		if err := json.Unmarshal(data, &toReturn); err != nil {
-			//panic("function definition")
+		var tempMap map[string]json.RawMessage
+		if err := json.Unmarshal(data, &tempMap); err != nil {
 			return nil, err
 		}
-		return toReturn, nil
+
+		if kind, ok := tempMap["kind"]; ok {
+			var fKind ast_pb.NodeType
+			if err := json.Unmarshal(kind, &fKind); err != nil {
+				return nil, err
+			}
+
+			switch fKind {
+			case ast_pb.NodeType_CONSTRUCTOR:
+				var toReturn *Constructor
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					return nil, err
+				}
+			case ast_pb.NodeType_KIND_FUNCTION:
+				var toReturn *Function
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					return nil, err
+				}
+				return toReturn, nil
+			case ast_pb.NodeType_FALLBACK:
+				var toReturn *Fallback
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					return nil, err
+				}
+			case ast_pb.NodeType_RECEIVE:
+				var toReturn *Receive
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					return nil, err
+				}
+			default:
+				zap.L().Error(
+					"unknown function kind while importing JSON",
+					zap.String("kind", fKind.String()),
+				)
+			}
+		}
+
+		return nil, errors.New("unknown function kind while importing JSON")
 	case ast_pb.NodeType_MODIFIER_DEFINITION:
 		var toReturn *ModifierDefinition
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			//panic("modifier definition")
 			return nil, err
 		}
 		return toReturn, nil
@@ -171,7 +208,6 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	case ast_pb.NodeType_FALLBACK:
 		var toReturn *Fallback
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("fallback")
 			return nil, err
 		}
 		return toReturn, nil
@@ -179,28 +215,26 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	case ast_pb.NodeType_STRUCT_DEFINITION:
 		var toReturn *StructDefinition
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			//panic("struct definition")
 			return nil, err
 		}
 		return toReturn, nil
 	case ast_pb.NodeType_FUNCTION_CALL:
 		var toReturn *FunctionCall
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			//panic("function call")
 			return nil, err
 		}
 		return toReturn, nil
 	case ast_pb.NodeType_FUNCTION_CALL_OPTION:
 		var toReturn *FunctionCallOption
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("function call option")
+			//panic("function call option")
 			return nil, err
 		}
 		return toReturn, nil
 	case ast_pb.NodeType_PAYABLE_CONVERSION:
 		var toReturn *PayableConversion
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("payable conversion")
+			//panic("payable conversion")
 			return nil, err
 		}
 		return toReturn, nil
@@ -214,7 +248,7 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	case ast_pb.NodeType_IDENTIFIER:
 		var toReturn *PrimaryExpression
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("identifier")
+			//panic("identifier")
 			return nil, err
 		}
 		return toReturn, nil
@@ -256,14 +290,14 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	case ast_pb.NodeType_REVERT_STATEMENT:
 		var toReturn *RevertStatement
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("revert statement")
+			//panic("revert statement")
 			return nil, err
 		}
 		return toReturn, nil
 	case ast_pb.NodeType_BLOCK:
 		var toReturn *BodyNode
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("block")
+			//panic("block")
 			return nil, err
 		}
 		return toReturn, nil
