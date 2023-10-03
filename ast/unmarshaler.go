@@ -149,9 +149,45 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 		return toReturn, nil
 
 	case ast_pb.NodeType_CONTRACT_DEFINITION:
+
+		var tempMap map[string]json.RawMessage
+		if err := json.Unmarshal(data, &tempMap); err != nil {
+			return nil, err
+		}
+
+		if kind, ok := tempMap["kind"]; ok {
+			var fKind ast_pb.NodeType
+			if err := json.Unmarshal(kind, &fKind); err != nil {
+				return nil, err
+			}
+
+			switch fKind {
+			case ast_pb.NodeType_KIND_CONTRACT:
+				var toReturn *Contract
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					panic("contract definition")
+					return nil, err
+				}
+				return toReturn, nil
+			case ast_pb.NodeType_KIND_LIBRARY:
+				var toReturn *Library
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					panic("library definition")
+					return nil, err
+				}
+				return toReturn, nil
+			case ast_pb.NodeType_KIND_INTERFACE:
+				var toReturn *Interface
+				if err := json.Unmarshal(data, &toReturn); err != nil {
+					panic("interface definition")
+					return nil, err
+				}
+				return toReturn, nil
+			}
+		}
+
 		var toReturn *Contract
 		if err := json.Unmarshal(data, &toReturn); err != nil {
-			panic("contract definition")
 			return nil, err
 		}
 		return toReturn, nil

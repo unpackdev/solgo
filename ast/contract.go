@@ -30,7 +30,13 @@ type Contract struct {
 // NewContractDefinition creates a new instance of Contract.
 func NewContractDefinition(b *ASTBuilder) *Contract {
 	return &Contract{
-		ASTBuilder: b,
+		ASTBuilder:              b,
+		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,
+		Kind:                    ast_pb.NodeType_KIND_CONTRACT,
+		LinearizedBaseContracts: make([]int64, 0),
+		ContractDependencies:    make([]int64, 0),
+		BaseContracts:           make([]*BaseContract, 0),
+		Nodes:                   make([]Node[NodeType], 0),
 	}
 }
 
