@@ -124,6 +124,8 @@ func (b *BodyNode) UnmarshalJSON(data []byte) error {
 	}
 
 	if statements, ok := tempMap["statements"]; ok {
+		b.Statements = make([]Node[NodeType], 0)
+
 		var nodes []json.RawMessage
 		if err := json.Unmarshal(statements, &nodes); err != nil {
 			return err
@@ -146,6 +148,8 @@ func (b *BodyNode) UnmarshalJSON(data []byte) error {
 			}
 			b.Statements = append(b.Statements, node)
 		}
+	} else {
+		b.Statements = make([]Node[NodeType], 0)
 	}
 
 	return nil

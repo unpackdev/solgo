@@ -246,15 +246,11 @@ func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
 				return err
 			}
 			s.Nodes = append(s.Nodes, node)
-		}
-	}
 
-	if contract, ok := tempMap["contract"]; ok {
-		var contractNode *Contract
-		if err := json.Unmarshal(contract, &contractNode); err != nil {
-			return err
+			if node.GetType() == ast_pb.NodeType_CONTRACT_DEFINITION {
+				s.Contract = node
+			}
 		}
-		s.Contract = contractNode
 	}
 
 	return nil

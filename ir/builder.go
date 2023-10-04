@@ -52,6 +52,26 @@ func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builde
 	}, nil
 }
 
+// NewBuilderFromJSON creates a new IR builder from a JSON representation of the AST.
+func NewBuilderFromJSON(ctx context.Context, data []byte) (*Builder, error) {
+	if !standards.StandardsLoaded() {
+		if err := standards.LoadStandards(); err != nil {
+			return nil, err
+		}
+	}
+
+	astBuilder := ast.NewAstBuilder(nil, nil)
+
+	if _, err := astBuilder.ImportFromJSON(ctx, data); err != nil {
+		return nil, err
+	}
+
+	return &Builder{
+		ctx:        ctx,
+		astBuilder: astBuilder,
+	}, nil
+}
+
 // GetParser returns the underlying solgo parser.
 func (b *Builder) GetParser() *solgo.Parser {
 	return b.parser

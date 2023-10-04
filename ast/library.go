@@ -28,7 +28,6 @@ type Library struct {
 	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"` // LinearizedBaseContracts are the linearized base contracts of the library.
 	BaseContracts           []*BaseContract  `json:"base_contracts"`            // BaseContracts are the base contracts of the library.
 	ContractDependencies    []int64          `json:"contract_dependencies"`     // ContractDependencies are the contract dependencies of the library.
-	Scope                   int64            `json:"scope"`                     // Scope is the scope of the library.
 }
 
 // NewLibraryDefinition creates a new Library with the provided ASTBuilder.
@@ -102,11 +101,6 @@ func (l *Library) IsFullyImplemented() bool {
 // GetNodes returns the nodes associated with the library.
 func (l *Library) GetNodes() []Node[NodeType] {
 	return l.Nodes
-}
-
-// GetScope returns the scope of the library.
-func (l *Library) GetScope() int64 {
-	return l.Scope
 }
 
 // GetLinearizedBaseContracts returns the linearized base contracts of the library.
@@ -241,8 +235,8 @@ func (l *Library) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if id := tempMap["id"]; id == nil {
-		if err := json.Unmarshal(tempMap["id"], &l.Id); err != nil {
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &l.Id); err != nil {
 			return err
 		}
 	}
@@ -428,7 +422,6 @@ func (l *Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDe
 		LinearizedBaseContracts: []int64{libraryId},
 		ContractDependencies:    make([]int64, 0),
 		BaseContracts:           make([]*BaseContract, 0),
-		Scope:                   unit.Id,
 	}
 
 	for _, bodyElement := range ctx.AllContractBodyElement() {

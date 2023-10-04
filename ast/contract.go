@@ -232,10 +232,11 @@ func (s *Contract) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if id := tempMap["id"]; id == nil {
-		if err := json.Unmarshal(tempMap["id"], &s.Id); err != nil {
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &s.Id); err != nil {
 			return err
 		}
+
 	}
 
 	if name, ok := tempMap["name"]; ok {

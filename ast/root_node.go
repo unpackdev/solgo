@@ -160,6 +160,8 @@ func (r *RootNode) UnmarshalJSON(data []byte) error {
 	}
 
 	if glob, ok := tempMap["globals"]; ok {
+		r.Globals = make([]Node[NodeType], 0)
+
 		var globals []json.RawMessage
 		if err := json.Unmarshal(glob, &globals); err != nil {
 			return err

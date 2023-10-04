@@ -275,6 +275,12 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 			return nil, err
 		}
 		return toReturn, nil
+	case ast_pb.NodeType_PLACEHOLDER_STATEMENT:
+		var toReturn *PrimaryExpression
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
 	case ast_pb.NodeType_BINARY_OPERATION:
 		var toReturn *BinaryOperation
 		if err := json.Unmarshal(data, &toReturn); err != nil {
@@ -383,15 +389,15 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 
 	case ast_pb.NodeType_ASSEMBLY_STATEMENT:
 		var toReturn *AssemblyStatement
-		/* 		if err := json.Unmarshal(data, &toReturn); err != nil {
+		if err := json.Unmarshal(data, &toReturn); err != nil {
 			return nil, err
-		} */
+		}
 		return toReturn, nil
 	case ast_pb.NodeType_YUL_STATEMENT:
 		var toReturn *YulStatement
-		/* 		if err := json.Unmarshal(data, &toReturn); err != nil {
+		if err := json.Unmarshal(data, &toReturn); err != nil {
 			return nil, err
-		} */
+		}
 		return toReturn, nil
 	default:
 		zap.L().Error(

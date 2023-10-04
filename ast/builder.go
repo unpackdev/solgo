@@ -106,6 +106,13 @@ func (b *ASTBuilder) ImportFromJSON(ctx context.Context, jsonBytes []byte) (*Roo
 	if err := decoder.Decode(&toReturn); err != nil {
 		return nil, err
 	}
+
+	if b.tree == nil {
+		b.tree = NewTree(b)
+	}
+
+	b.tree.SetRoot(toReturn)
+
 	return toReturn, nil
 }
 

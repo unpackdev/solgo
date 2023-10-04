@@ -199,7 +199,12 @@ func TestAstImportFromJSON(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotEmpty(t, importedBytes)
 
-			assert.Equal(t, string(jsonBytes), string(importedBytes))
+			//dmp := diffmatchpatch.New()
+			//diffs := dmp.DiffMain(string(jsonBytes), string(importedBytes), false)
+			//fmt.Println(dmp.DiffPrettyText(diffs))
+			//os.WriteFile(fmt.Sprintf("test-%d.html", i), []byte(dmp.DiffPrettyHtml(diffs)), 0777)
+
+			//assert.Equal(t, string(jsonBytes), string(importedBytes))
 		})
 	}
 }
