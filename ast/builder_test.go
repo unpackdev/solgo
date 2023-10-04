@@ -195,6 +195,11 @@ func TestAstImportFromJSON(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotNil(t, imported)
 
+			importedBytes, err := astBuilder.ToJSON()
+			assert.NoError(t, err)
+			assert.NotEmpty(t, importedBytes)
+
+			assert.Equal(t, string(jsonBytes), string(importedBytes))
 		})
 	}
 }

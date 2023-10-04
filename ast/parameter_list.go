@@ -101,7 +101,6 @@ func (p *ParameterList) UnmarshalJSON(data []byte) error {
 
 	if parameters, ok := tempMap["parameters"]; ok {
 		if err := json.Unmarshal(parameters, &p.Parameters); err != nil {
-			panic(err)
 			return err
 		}
 	}

@@ -141,46 +141,60 @@ func (r *RootNode) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if err := json.Unmarshal(tempMap["id"], &r.Id); err != nil {
-		return err
-	}
-	if err := json.Unmarshal(tempMap["node_type"], &r.NodeType); err != nil {
-		return err
-	}
-	if err := json.Unmarshal(tempMap["entry_source_unit"], &r.EntrySourceUnit); err != nil {
-		return err
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &r.Id); err != nil {
+			return err
+		}
 	}
 
-	var globals []json.RawMessage
-	if err := json.Unmarshal(tempMap["globals"], &globals); err != nil {
-		return err
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &r.NodeType); err != nil {
+			return err
+		}
 	}
 
-	for _, tempGlobal := range globals {
-		var global map[string]json.RawMessage
-		if err := json.Unmarshal(tempGlobal, &global); err != nil {
+	if esu, ok := tempMap["entry_source_unit"]; ok {
+		if err := json.Unmarshal(esu, &r.EntrySourceUnit); err != nil {
+			return err
+		}
+	}
+
+	if glob, ok := tempMap["globals"]; ok {
+		var globals []json.RawMessage
+		if err := json.Unmarshal(glob, &globals); err != nil {
 			return err
 		}
 
-		var tempGlobalType ast_pb.NodeType
-		if err := json.Unmarshal(global["node_type"], &tempGlobalType); err != nil {
-			return err
-		}
+		for _, tempGlobal := range globals {
+			var global map[string]json.RawMessage
+			if err := json.Unmarshal(tempGlobal, &global); err != nil {
+				return err
+			}
 
-		node, err := unmarshalNode(tempGlobal, tempGlobalType)
-		if err != nil {
-			return err
-		}
-		r.Globals = append(r.Globals, node)
+			var tempGlobalType ast_pb.NodeType
+			if err := json.Unmarshal(global["node_type"], &tempGlobalType); err != nil {
+				return err
+			}
 
+			node, err := unmarshalNode(tempGlobal, tempGlobalType)
+			if err != nil {
+				return err
+			}
+			r.Globals = append(r.Globals, node)
+
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["root"], &r.SourceUnits); err != nil {
-		return err
+	if root, ok := tempMap["root"]; ok {
+		if err := json.Unmarshal(root, &r.SourceUnits); err != nil {
+			return err
+		}
 	}
 
-	if err := json.Unmarshal(tempMap["comments"], &r.Comments); err != nil {
-		return err
+	if comments, ok := tempMap["comments"]; ok {
+		if err := json.Unmarshal(comments, &r.Comments); err != nil {
+			return err
+		}
 	}
 
 	return nil
