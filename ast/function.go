@@ -283,7 +283,6 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 
 	if params, ok := tempMap["parameters"]; ok {
 		if err := json.Unmarshal(params, &f.Parameters); err != nil {
-			panic("here is broken...")
 			return err
 		}
 	}

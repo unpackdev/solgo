@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -63,6 +65,65 @@ func (f *ShiftOperation) GetNodes() []Node[NodeType] {
 // GetExpressions returns the expressions within the ShiftOperation.
 func (f *ShiftOperation) GetExpressions() []Node[NodeType] {
 	return f.Expressions
+}
+
+func (f *ShiftOperation) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if expressions, ok := tempMap["expressions"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(expressions, &nodes); err != nil {
+			return err
+		}
+
+		for _, node := range nodes {
+			var tempNode map[string]json.RawMessage
+			if err := json.Unmarshal(node, &tempNode); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNode["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			parsedNode, err := unmarshalNode(node, tempNodeType)
+			if err != nil {
+				return err
+			}
+
+			f.Expressions = append(f.Expressions, parsedNode)
+		}
+	}
+
+	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+		if err := json.Unmarshal(typeDescriptions, &f.TypeDescriptions); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the ShiftOperation to its corresponding protocol buffer representation.

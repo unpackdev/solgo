@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 	"reflect"
 
@@ -27,14 +28,19 @@ type Library struct {
 	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"` // LinearizedBaseContracts are the linearized base contracts of the library.
 	BaseContracts           []*BaseContract  `json:"base_contracts"`            // BaseContracts are the base contracts of the library.
 	ContractDependencies    []int64          `json:"contract_dependencies"`     // ContractDependencies are the contract dependencies of the library.
-	Scope                   int64            `json:"scope"`                     // Scope is the scope of the library.
 }
 
 // NewLibraryDefinition creates a new Library with the provided ASTBuilder.
 // It returns a pointer to the created Library.
 func NewLibraryDefinition(b *ASTBuilder) *Library {
 	return &Library{
-		ASTBuilder: b,
+		ASTBuilder:              b,
+		NodeType:                ast_pb.NodeType_CONTRACT_DEFINITION,
+		Kind:                    ast_pb.NodeType_KIND_LIBRARY,
+		LinearizedBaseContracts: make([]int64, 0),
+		ContractDependencies:    make([]int64, 0),
+		BaseContracts:           make([]*BaseContract, 0),
+		Nodes:                   make([]Node[NodeType], 0),
 	}
 }
 
@@ -95,11 +101,6 @@ func (l *Library) IsFullyImplemented() bool {
 // GetNodes returns the nodes associated with the library.
 func (l *Library) GetNodes() []Node[NodeType] {
 	return l.Nodes
-}
-
-// GetScope returns the scope of the library.
-func (l *Library) GetScope() int64 {
-	return l.Scope
 }
 
 // GetLinearizedBaseContracts returns the linearized base contracts of the library.
@@ -228,6 +229,106 @@ func (l *Library) GetReceive() *Receive {
 	return nil
 }
 
+func (l *Library) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &l.Id); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &l.Name); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &l.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &l.Src); err != nil {
+			return err
+		}
+	}
+
+	if nameLocation, ok := tempMap["name_location"]; ok {
+		if err := json.Unmarshal(nameLocation, &l.NameLocation); err != nil {
+			return err
+		}
+	}
+
+	if abstract, ok := tempMap["abstract"]; ok {
+		if err := json.Unmarshal(abstract, &l.Abstract); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &l.Kind); err != nil {
+			return err
+		}
+	}
+
+	if fullyImplemented, ok := tempMap["fully_implemented"]; ok {
+		if err := json.Unmarshal(fullyImplemented, &l.FullyImplemented); err != nil {
+			return err
+		}
+	}
+
+	if baseContracts, ok := tempMap["base_contracts"]; ok {
+		if err := json.Unmarshal(baseContracts, &l.BaseContracts); err != nil {
+			return err
+		}
+	}
+
+	if lbc, ok := tempMap["linearized_base_contracts"]; ok {
+		if err := json.Unmarshal(lbc, &l.LinearizedBaseContracts); err != nil {
+			return err
+		}
+	}
+
+	if cd, ok := tempMap["contract_dependencies"]; ok {
+		if err := json.Unmarshal(cd, &l.ContractDependencies); err != nil {
+			return err
+		}
+	}
+
+	if n, ok := tempMap["nodes"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(n, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			l.Nodes = append(l.Nodes, node)
+		}
+	}
+
+	return nil
+}
+
 // ToProto converts the Library to a protocol buffer representation.
 // Currently, it returns an empty Contract and needs to be implemented.
 func (l *Library) ToProto() NodeType {
@@ -321,7 +422,6 @@ func (l *Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDe
 		LinearizedBaseContracts: []int64{libraryId},
 		ContractDependencies:    make([]int64, 0),
 		BaseContracts:           make([]*BaseContract, 0),
-		Scope:                   unit.Id,
 	}
 
 	for _, bodyElement := range ctx.AllContractBodyElement() {

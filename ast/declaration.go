@@ -9,7 +9,6 @@ import (
 type Declaration struct {
 	*ASTBuilder
 
-	IsConstant      bool                   `json:"is_constant"`
 	Id              int64                  `json:"id"`
 	StateMutability ast_pb.Mutability      `json:"state_mutability"`
 	Name            string                 `json:"name"`
@@ -30,7 +29,6 @@ func NewDeclaration(b *ASTBuilder) *Declaration {
 		Id:              b.GetNextID(),
 		NodeType:        ast_pb.NodeType_VARIABLE_DECLARATION,
 		IsStateVariable: false,
-		IsConstant:      false,
 	}
 }
 
@@ -93,11 +91,6 @@ func (d *Declaration) GetStorageLocation() ast_pb.StorageLocation {
 	return d.StorageLocation
 }
 
-// GetIsConstant returns whether or not the Declaration is constant.
-func (d *Declaration) GetIsConstant() bool {
-	return d.IsConstant
-}
-
 // GetIsStateVariable returns whether or not the Declaration is a state variable.
 func (d *Declaration) GetIsStateVariable() bool {
 	return d.IsStateVariable
@@ -132,7 +125,6 @@ func (d *Declaration) ToProto() NodeType {
 		Mutability:      d.GetStateMutability(),
 		StorageLocation: d.GetStorageLocation(),
 		Visibility:      d.GetVisibility(),
-		IsConstant:      d.GetIsConstant(),
 		IsStateVariable: d.GetIsStateVariable(),
 		TypeDescription: d.GetTypeDescription().ToProto(),
 	}
@@ -170,6 +162,7 @@ func (d *Declaration) ParseVariableDeclaration(
 	if ctx.Identifier() != nil {
 		d.Name = ctx.Identifier().GetText()
 		d.NameLocation = SrcNode{
+			Id:          d.GetNextID(),
 			Line:        int64(ctx.Identifier().GetStart().GetLine()),
 			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
 			Start:       int64(ctx.Identifier().GetStart().GetStart()),

@@ -1,6 +1,8 @@
 package ir
 
 import (
+	"fmt"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/ast"
@@ -177,15 +179,23 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	if entrySourceUnit == nil {
 		zap.L().Warn("Entry source unit not found. Make sure it's correctly set.", zap.Int64("id", root.GetEntrySourceUnit()))
 	} else {
-		rootNode.EntryContractId = entrySourceUnit.GetContract().GetId()
-		rootNode.EntryContractName = entrySourceUnit.GetName()
+		if entrySourceUnit.GetContract() != nil {
+			rootNode.EntryContractId = entrySourceUnit.GetContract().GetId()
+			rootNode.EntryContractName = entrySourceUnit.GetName()
+		}
 	}
 
-	for _, su := range root.GetSourceUnits() {
-		rootNode.Contracts = append(
-			rootNode.Contracts,
-			b.processContract(su),
-		)
+	if len(root.GetSourceUnits()) > 0 {
+		for _, su := range root.GetSourceUnits() {
+			if su.GetContract() != nil {
+				rootNode.Contracts = append(
+					rootNode.Contracts,
+					b.processContract(su),
+				)
+			} else {
+				fmt.Println("Empty...")
+			}
+		}
 	}
 
 	// Now is the time to process the EIPs

@@ -148,6 +148,7 @@ func (f *FunctionCall) UnmarshalJSON(data []byte) error {
 	}
 
 	if arguments, ok := tempMap["arguments"]; ok {
+		f.Arguments = make([]Node[NodeType], 0)
 		var nodes []json.RawMessage
 		if err := json.Unmarshal(arguments, &nodes); err != nil {
 			return err

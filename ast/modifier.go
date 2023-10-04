@@ -143,17 +143,17 @@ func (m *ModifierDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	/* 	if parameters, ok := tempMap["parameters"]; ok {
-	   		if err := json.Unmarshal(parameters, &m.Parameters); err != nil {
-	   			return err
-	   		}
-	   	}
-	*/
-	/* 	if body, ok := tempMap["body"]; ok {
+	if parameters, ok := tempMap["parameters"]; ok {
+		if err := json.Unmarshal(parameters, &m.Parameters); err != nil {
+			return err
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
 		if err := json.Unmarshal(body, &m.Body); err != nil {
 			return err
 		}
-	} */
+	}
 
 	return nil
 }

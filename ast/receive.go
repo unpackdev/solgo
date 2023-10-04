@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast" // Import for AST protocol buffer definitions.
 	"github.com/unpackdev/solgo/parser"              // Import for the solgo parser.
 )
@@ -120,6 +122,93 @@ func (f *Receive) GetVisibility() ast_pb.Visibility {
 // GetStateMutability returns the state mutability of the Receive function.
 func (f *Receive) GetStateMutability() ast_pb.Mutability {
 	return f.StateMutability
+}
+
+func (f *Receive) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &f.Kind); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if implemented, ok := tempMap["implemented"]; ok {
+		if err := json.Unmarshal(implemented, &f.Implemented); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &f.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if sm, ok := tempMap["state_mutability"]; ok {
+		if err := json.Unmarshal(sm, &f.StateMutability); err != nil {
+			return err
+		}
+	}
+
+	if virtual, ok := tempMap["virtual"]; ok {
+		if err := json.Unmarshal(virtual, &f.Virtual); err != nil {
+			return err
+		}
+	}
+
+	if modifiers, ok := tempMap["modifiers"]; ok {
+		if err := json.Unmarshal(modifiers, &f.Modifiers); err != nil {
+			return err
+		}
+	}
+
+	if overrides, ok := tempMap["overrides"]; ok {
+		if err := json.Unmarshal(overrides, &f.Overrides); err != nil {
+			return err
+		}
+	}
+
+	if params, ok := tempMap["parameters"]; ok {
+		if err := json.Unmarshal(params, &f.Parameters); err != nil {
+			return err
+		}
+	}
+
+	if retParams, ok := tempMap["return_parameters"]; ok {
+		if err := json.Unmarshal(retParams, &f.ReturnParameters); err != nil {
+			return err
+		}
+	}
+
+	if body, ok := tempMap["body"]; ok {
+		if err := json.Unmarshal(body, &f.Body); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto converts the Receive node to its corresponding protocol buffer representation.
