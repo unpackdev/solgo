@@ -1,10 +1,8 @@
-// Package ast defines data structures and methods for abstract syntax tree nodes used in a specific programming language.
-// The package contains definitions for various AST nodes that represent different elements of the programming language's syntax.
 package ast
 
 import (
-	ast_pb "github.com/unpackdev/protos/dist/go/ast" // Import for AST protocol buffer definitions.
-	"github.com/unpackdev/solgo/parser"              // Import for the solgo parser.
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/parser"
 )
 
 // Fallback represents a fallback function definition node in the abstract syntax tree (AST).

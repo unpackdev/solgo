@@ -11,7 +11,7 @@ import (
 func TestConstructorMethods(t *testing.T) {
 	// Create a new Constructor instance
 	constructorInstance := &Constructor{
-		unit: &ast.Constructor{},
+		Unit: &ast.Constructor{},
 
 		Id:              1,
 		NodeType:        ast_pb.NodeType(1),

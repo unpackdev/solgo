@@ -44,6 +44,9 @@ func parseExpressionStatement(
 		case *parser.EqualityComparisonContext:
 			binaryExp := NewBinaryOperationExpression(b)
 			return binaryExp.ParseEqualityComparison(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+		case *parser.TupleContext:
+			tupleExpr := NewTupleExpression(b)
+			return tupleExpr.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *antlr.TerminalNodeImpl:
 			// @TODO: Not sure what to do with this... It's usually just a semicolon (;). Perhaps to
 			// add to each expression statement semicolon_found?

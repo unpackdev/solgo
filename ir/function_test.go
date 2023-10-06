@@ -11,7 +11,7 @@ import (
 func TestFunctionMethods(t *testing.T) {
 	// Create a new Function instance
 	functionInstance := &Function{
-		unit:                    &ast.Function{},
+		Unit:                    &ast.Function{},
 		Id:                      1,
 		NodeType:                ast_pb.NodeType(1),
 		Name:                    "functionName",

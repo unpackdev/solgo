@@ -382,10 +382,16 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 		}
 
 		return nil, errors.New("unknown unary operation kind while importing JSON")
+	case ast_pb.NodeType_INLINE_ARRAY:
+		var toReturn *InlineArray
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
 
-		//
-		// FUTURE IMPLEMENTATIONS....
-		//
+	//
+	// FUTURE IMPLEMENTATIONS....
+	//
 
 	case ast_pb.NodeType_ASSEMBLY_STATEMENT:
 		var toReturn *AssemblyStatement

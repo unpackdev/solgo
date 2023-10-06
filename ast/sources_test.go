@@ -67,6 +67,46 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "FRAX3CRVLevSwap - 0xd747740FfAC8A6397bA80676299c4e3105999a9A",
+			outputPath: "contracts/1:0xd747740FfAC8A6397bA80676299c4e3105999a9A/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "FRAX3CRVLevSwap",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0xd747740FfAC8A6397bA80676299c4e3105999a9A/FRAX3CRVLevSwap").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0xd747740FfAC8A6397bA80676299c4e3105999a9A/FRAX3CRVLevSwap").Content,
+					},
+				},
+				EntrySourceUnitName: "FRAX3CRVLevSwap",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0xd747740FfAC8A6397bA80676299c4e3105999a9A/FRAX3CRVLevSwap.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0xd747740FfAC8A6397bA80676299c4e3105999a9A/FRAX3CRVLevSwap.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
+			name:       "Qatar_Ecuador - 0x275659c6e77f9c5f6d3fc93adb388017d00500a7",
+			outputPath: "contracts/1:0x275659c6e77f9c5f6d3fc93adb388017d00500a7/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Qatar_Ecuador",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x275659c6e77f9c5f6d3fc93adb388017d00500a7/Qatar_Ecuador").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x275659c6e77f9c5f6d3fc93adb388017d00500a7/Qatar_Ecuador").Content,
+					},
+				},
+				EntrySourceUnitName: "Qatar_Ecuador",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0x275659c6e77f9c5f6d3fc93adb388017d00500a7/Qatar_Ecuador.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0x275659c6e77f9c5f6d3fc93adb388017d00500a7/Qatar_Ecuador.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "BabyToken Contract - 0xadd33a83549e115e3171c645b15a16ec6d1b5352",
 			outputPath: "contracts/babytoken/",
 			sources: &solgo.Sources{

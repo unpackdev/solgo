@@ -118,6 +118,17 @@ func (r *RootSourceUnit) HasContractType(ctype string) bool {
 	return false
 }
 
+// GetContractsCountByKind returns the count of contracts in the AST by the given kind.
+func (r *RootSourceUnit) GetContractsCountByKind(kind ast_pb.NodeType) int64 {
+	var count int64
+	for _, c := range r.Contracts {
+		if c.Kind == kind {
+			count++
+		}
+	}
+	return count
+}
+
 // SetContractType sets the contract type for the given standard.
 func (r *RootSourceUnit) SetContractType(standard standards.Standard) {
 	switch standard {

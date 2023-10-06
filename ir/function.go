@@ -8,7 +8,7 @@ import (
 
 // Function represents a function declaration in the IR.
 type Function struct {
-	unit                    *ast.Function
+	Unit                    *ast.Function     `json:"ast"`
 	Id                      int64             `json:"id"`
 	NodeType                ast_pb.NodeType   `json:"node_type"`
 	Kind                    ast_pb.NodeType   `json:"kind"`
@@ -29,7 +29,7 @@ type Function struct {
 
 // GetAST returns the AST (Abstract Syntax Tree) for the function declaration.
 func (f *Function) GetAST() *ast.Function {
-	return f.unit
+	return f.Unit
 }
 
 // GetId returns the ID of the function declaration.
@@ -155,7 +155,7 @@ func (f *Function) ToProto() *ir_pb.Function {
 // processFunction processes the function declaration and returns the Function.
 func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function {
 	toReturn := &Function{
-		unit:                    unit,
+		Unit:                    unit,
 		Id:                      unit.GetId(),
 		NodeType:                unit.GetType(),
 		Kind:                    unit.GetKind(),
