@@ -292,3 +292,53 @@ func (s *StructDefinition) Parse(
 	s.currentStructs = append(s.currentStructs, s)
 	return s
 }
+
+// ParseGlobal parses a struct definition from the provided parser.StructDefinitionContext and returns the corresponding StructDefinition.
+func (s *StructDefinition) ParseGlobal(
+	ctx *parser.StructDefinitionContext,
+) Node[NodeType] {
+	s.Src = SrcNode{
+		Id:          s.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+	s.SourceUnitName = "Global"
+
+	s.Name = ctx.GetName().GetText()
+	s.CanonicalName = fmt.Sprintf("%s.%s", s.SourceUnitName, s.Name)
+	s.NameLocation = SrcNode{
+		Line:        int64(ctx.GetName().GetStart().GetLine()),
+		Column:      int64(ctx.GetName().GetStart().GetColumn()),
+		Start:       int64(ctx.GetName().GetStart().GetStart()),
+		End:         int64(ctx.GetName().GetStop().GetStop()),
+		Length:      int64(ctx.GetName().GetStop().GetStop() - ctx.GetName().GetStart().GetStart() + 1),
+		ParentIndex: s.GetId(),
+	}
+
+	s.TypeDescription = &TypeDescription{
+		TypeIdentifier: fmt.Sprintf(
+			"t_struct$_%s_%s_$%d", s.SourceUnitName, s.GetName(), s.GetId(),
+		),
+		TypeString: fmt.Sprintf(
+			"struct %s.%s", s.SourceUnitName, s.GetName(),
+		),
+	}
+
+	for _, memberCtx := range ctx.AllStructMember() {
+		parameter := NewParameter(s.ASTBuilder)
+		parameter.ParseStructParameter(nil, nil, s, memberCtx)
+		s.Members = append(s.Members, parameter)
+	}
+
+	s.globalDefinitions = append(s.globalDefinitions, s)
+	return s
+}
+
+func (b *ASTBuilder) EnterStructDefinition(ctx *parser.StructDefinitionContext) {
+	s := NewStructDefinition(b)
+	s.ParseGlobal(ctx)
+}

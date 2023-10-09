@@ -26,3 +26,22 @@ func ParseSemanticVersion(version string) SemanticVersion {
 		Patch: patch,
 	}
 }
+
+// IsSemanticVersionGreaterThan checks if the version represented by the string is greater than the provided SemanticVersion.
+func IsSemanticVersionGreaterThan(versionStr string, version SemanticVersion) bool {
+	parsedVersion := ParseSemanticVersion(versionStr)
+
+	if parsedVersion.Major == version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch >= version.Patch {
+		return true
+	}
+
+	if parsedVersion.Major == version.Major && parsedVersion.Minor >= version.Minor {
+		return true
+	}
+
+	if parsedVersion.Major >= version.Major {
+		return true
+	}
+
+	return false
+}

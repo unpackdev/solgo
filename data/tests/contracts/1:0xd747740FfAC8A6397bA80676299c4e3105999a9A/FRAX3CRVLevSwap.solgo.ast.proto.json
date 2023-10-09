@@ -4,93 +4,799 @@
 	"node_type": 80,
 	"global_nodes": [
 		{
-			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
 			"value": {
-				"canonicalName": "DataTypes.InterestRateMode",
-				"id": "1532",
+				"canonicalName": "Global.ReserveData",
+				"id": "10166",
 				"members": [
 					{
-						"id": "1534",
+						"id": "10168",
+						"name": "configuration",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10168",
+						"src": {
+							"column": "4",
+							"end": "9450",
+							"id": "10169",
+							"length": "38",
+							"line": "270",
+							"parentIndex": "10166",
+							"start": "9413"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_struct$_DataTypes_ReserveConfigurationMap_$1518",
+							"typeString": "struct DataTypes.ReserveConfigurationMap"
+						},
+						"typeName": {
+							"id": "10170",
+							"nodeType": "USER_DEFINED_PATH_NAME",
+							"pathNode": {
+								"id": "10172",
+								"name": "ReserveConfigurationMap",
+								"nameLocation": {
+									"column": "4",
+									"end": "9435",
+									"length": "23",
+									"line": "270",
+									"parentIndex": "10170",
+									"start": "9413"
+								},
+								"nodeType": "IDENTIFIER_PATH",
+								"referencedDeclaration": "1518",
+								"src": {
+									"column": "4",
+									"end": "9435",
+									"id": "10173",
+									"length": "23",
+									"line": "270",
+									"parentIndex": "10170",
+									"start": "9413"
+								}
+							},
+							"referencedDeclaration": "1518",
+							"src": {
+								"column": "4",
+								"end": "9435",
+								"id": "10171",
+								"length": "23",
+								"line": "270",
+								"parentIndex": "10168",
+								"start": "9413"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_struct$_DataTypes_ReserveConfigurationMap_$1518",
+								"typeString": "struct DataTypes.ReserveConfigurationMap"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10174",
+						"name": "liquidityIndex",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10174",
+						"src": {
+							"column": "4",
+							"end": "9522",
+							"id": "10175",
+							"length": "23",
+							"line": "272",
+							"parentIndex": "10166",
+							"start": "9500"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint128",
+							"typeString": "uint128"
+						},
+						"typeName": {
+							"id": "10176",
+							"name": "uint128",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9506",
+								"id": "10177",
+								"length": "7",
+								"line": "272",
+								"parentIndex": "10174",
+								"start": "9500"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint128",
+								"typeString": "uint128"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10178",
+						"name": "variableBorrowIndex",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10178",
+						"src": {
+							"column": "4",
+							"end": "9601",
+							"id": "10179",
+							"length": "28",
+							"line": "274",
+							"parentIndex": "10166",
+							"start": "9574"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint128",
+							"typeString": "uint128"
+						},
+						"typeName": {
+							"id": "10180",
+							"name": "uint128",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9580",
+								"id": "10181",
+								"length": "7",
+								"line": "274",
+								"parentIndex": "10178",
+								"start": "9574"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint128",
+								"typeString": "uint128"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10182",
+						"name": "currentLiquidityRate",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10182",
+						"src": {
+							"column": "4",
+							"end": "9683",
+							"id": "10183",
+							"length": "29",
+							"line": "276",
+							"parentIndex": "10166",
+							"start": "9655"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint128",
+							"typeString": "uint128"
+						},
+						"typeName": {
+							"id": "10184",
+							"name": "uint128",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9661",
+								"id": "10185",
+								"length": "7",
+								"line": "276",
+								"parentIndex": "10182",
+								"start": "9655"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint128",
+								"typeString": "uint128"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10186",
+						"name": "currentVariableBorrowRate",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10186",
+						"src": {
+							"column": "4",
+							"end": "9779",
+							"id": "10187",
+							"length": "34",
+							"line": "278",
+							"parentIndex": "10166",
+							"start": "9746"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint128",
+							"typeString": "uint128"
+						},
+						"typeName": {
+							"id": "10188",
+							"name": "uint128",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9752",
+								"id": "10189",
+								"length": "7",
+								"line": "278",
+								"parentIndex": "10186",
+								"start": "9746"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint128",
+								"typeString": "uint128"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10190",
+						"name": "currentStableBorrowRate",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10190",
+						"src": {
+							"column": "4",
+							"end": "9871",
+							"id": "10191",
+							"length": "32",
+							"line": "280",
+							"parentIndex": "10166",
+							"start": "9840"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint128",
+							"typeString": "uint128"
+						},
+						"typeName": {
+							"id": "10192",
+							"name": "uint128",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9846",
+								"id": "10193",
+								"length": "7",
+								"line": "280",
+								"parentIndex": "10190",
+								"start": "9840"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint128",
+								"typeString": "uint128"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10194",
+						"name": "lastUpdateTimestamp",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10194",
+						"src": {
+							"column": "4",
+							"end": "9903",
+							"id": "10195",
+							"length": "27",
+							"line": "281",
+							"parentIndex": "10166",
+							"start": "9877"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint40",
+							"typeString": "uint40"
+						},
+						"typeName": {
+							"id": "10196",
+							"name": "uint40",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9882",
+								"id": "10197",
+								"length": "6",
+								"line": "281",
+								"parentIndex": "10194",
+								"start": "9877"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint40",
+								"typeString": "uint40"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10198",
+						"name": "aTokenAddress",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10198",
+						"src": {
+							"column": "4",
+							"end": "9953",
+							"id": "10199",
+							"length": "22",
+							"line": "283",
+							"parentIndex": "10166",
+							"start": "9932"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10200",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9938",
+								"id": "10201",
+								"length": "7",
+								"line": "283",
+								"parentIndex": "10198",
+								"start": "9932"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10202",
+						"name": "stableDebtTokenAddress",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10202",
+						"src": {
+							"column": "4",
+							"end": "9989",
+							"id": "10203",
+							"length": "31",
+							"line": "284",
+							"parentIndex": "10166",
+							"start": "9959"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10204",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "9965",
+								"id": "10205",
+								"length": "7",
+								"line": "284",
+								"parentIndex": "10202",
+								"start": "9959"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10206",
+						"name": "variableDebtTokenAddress",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10206",
+						"src": {
+							"column": "4",
+							"end": "10027",
+							"id": "10207",
+							"length": "33",
+							"line": "285",
+							"parentIndex": "10166",
+							"start": "9995"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10208",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "10001",
+								"id": "10209",
+								"length": "7",
+								"line": "285",
+								"parentIndex": "10206",
+								"start": "9995"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10210",
+						"name": "interestRateStrategyAddress",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10210",
+						"src": {
+							"column": "4",
+							"end": "10112",
+							"id": "10211",
+							"length": "36",
+							"line": "287",
+							"parentIndex": "10166",
+							"start": "10077"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10212",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "10083",
+								"id": "10213",
+								"length": "7",
+								"line": "287",
+								"parentIndex": "10210",
+								"start": "10077"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10214",
+						"name": "yieldAddress",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10214",
+						"src": {
+							"column": "4",
+							"end": "10174",
+							"id": "10215",
+							"length": "21",
+							"line": "289",
+							"parentIndex": "10166",
+							"start": "10154"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10216",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "10160",
+								"id": "10217",
+								"length": "7",
+								"line": "289",
+								"parentIndex": "10214",
+								"start": "10154"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10218",
+						"name": "id",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10218",
+						"src": {
+							"column": "4",
+							"end": "10276",
+							"id": "10219",
+							"length": "9",
+							"line": "291",
+							"parentIndex": "10166",
+							"start": "10268"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint8",
+							"typeString": "uint8"
+						},
+						"typeName": {
+							"id": "10220",
+							"name": "uint8",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "10272",
+								"id": "10221",
+								"length": "5",
+								"line": "291",
+								"parentIndex": "10218",
+								"start": "10268"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint8",
+								"typeString": "uint8"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "ReserveData",
+				"nameLocation": {
+					"column": "9",
+					"end": "9366",
+					"length": "11",
+					"line": "268",
+					"parentIndex": "10166",
+					"start": "9356"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "2",
+					"end": "10280",
+					"id": "10167",
+					"length": "932",
+					"line": "268",
+					"start": "9349"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_ReserveData_$10166",
+					"typeString": "struct Global.ReserveData"
+				},
+				"visibility": "PUBLIC"
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
+			"value": {
+				"canonicalName": "Global.ReserveConfigurationMap",
+				"id": "10222",
+				"members": [
+					{
+						"id": "10224",
+						"name": "data",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10224",
+						"src": {
+							"column": "4",
+							"end": "10641",
+							"id": "10225",
+							"length": "13",
+							"line": "305",
+							"parentIndex": "10222",
+							"start": "10629"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10226",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "10635",
+								"id": "10227",
+								"length": "7",
+								"line": "305",
+								"parentIndex": "10224",
+								"start": "10629"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "ReserveConfigurationMap",
+				"nameLocation": {
+					"column": "9",
+					"end": "10314",
+					"length": "23",
+					"line": "294",
+					"parentIndex": "10222",
+					"start": "10292"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "2",
+					"end": "10645",
+					"id": "10223",
+					"length": "361",
+					"line": "294",
+					"start": "10285"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_ReserveConfigurationMap_$10222",
+					"typeString": "struct Global.ReserveConfigurationMap"
+				},
+				"visibility": "PUBLIC"
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
+			"value": {
+				"canonicalName": "Global.UserConfigurationMap",
+				"id": "10228",
+				"members": [
+					{
+						"id": "10230",
+						"name": "data",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10230",
+						"src": {
+							"column": "4",
+							"end": "10696",
+							"id": "10231",
+							"length": "13",
+							"line": "309",
+							"parentIndex": "10228",
+							"start": "10684"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10232",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "10690",
+								"id": "10233",
+								"length": "7",
+								"line": "309",
+								"parentIndex": "10230",
+								"start": "10684"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "UserConfigurationMap",
+				"nameLocation": {
+					"column": "9",
+					"end": "10676",
+					"length": "20",
+					"line": "308",
+					"parentIndex": "10228",
+					"start": "10657"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "2",
+					"end": "10700",
+					"id": "10229",
+					"length": "51",
+					"line": "308",
+					"start": "10650"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_UserConfigurationMap_$10228",
+					"typeString": "struct Global.UserConfigurationMap"
+				},
+				"visibility": "PUBLIC"
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
+			"value": {
+				"canonicalName": "Global.InterestRateMode",
+				"id": "10234",
+				"members": [
+					{
+						"id": "10236",
 						"name": "NONE",
 						"nameLocation": {
 							"column": "4",
 							"end": "10736",
-							"id": "1536",
 							"length": "4",
 							"line": "313",
-							"parentIndex": "1532",
+							"parentIndex": "10234",
 							"start": "10733"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "1534",
+						"scope": "10236",
 						"src": {
 							"column": "4",
 							"end": "10736",
-							"id": "1535",
 							"length": "3",
 							"line": "313",
-							"parentIndex": "1532",
+							"parentIndex": "10234",
 							"start": "10733"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_InterestRateMode$_NONE_$1534",
-							"typeString": "enum DataTypes.InterestRateMode.NONE"
+							"typeIdentifier": "t_enum_$_InterestRateMode$_NONE_$10236",
+							"typeString": "enum Global.InterestRateMode.NONE"
 						}
 					},
 					{
-						"id": "1537",
+						"id": "10237",
 						"name": "STABLE",
 						"nameLocation": {
 							"column": "4",
 							"end": "10748",
-							"id": "1539",
 							"length": "6",
 							"line": "314",
-							"parentIndex": "1532",
+							"parentIndex": "10234",
 							"start": "10743"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "1537",
+						"scope": "10237",
 						"src": {
 							"column": "4",
 							"end": "10748",
-							"id": "1538",
 							"length": "5",
 							"line": "314",
-							"parentIndex": "1532",
+							"parentIndex": "10234",
 							"start": "10743"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_InterestRateMode$_STABLE_$1537",
-							"typeString": "enum DataTypes.InterestRateMode.STABLE"
+							"typeIdentifier": "t_enum_$_InterestRateMode$_STABLE_$10237",
+							"typeString": "enum Global.InterestRateMode.STABLE"
 						}
 					},
 					{
-						"id": "1540",
+						"id": "10238",
 						"name": "VARIABLE",
 						"nameLocation": {
 							"column": "4",
 							"end": "10762",
-							"id": "1542",
 							"length": "8",
 							"line": "315",
-							"parentIndex": "1532",
+							"parentIndex": "10234",
 							"start": "10755"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "1540",
+						"scope": "10238",
 						"src": {
 							"column": "4",
 							"end": "10762",
-							"id": "1541",
 							"length": "7",
 							"line": "315",
-							"parentIndex": "1532",
+							"parentIndex": "10234",
 							"start": "10755"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_InterestRateMode$_VARIABLE_$1540",
-							"typeString": "enum DataTypes.InterestRateMode.VARIABLE"
+							"typeIdentifier": "t_enum_$_InterestRateMode$_VARIABLE_$10238",
+							"typeString": "enum Global.InterestRateMode.VARIABLE"
 						}
 					}
 				],
@@ -100,309 +806,288 @@
 					"end": "10725",
 					"length": "16",
 					"line": "312",
-					"parentIndex": "1532",
+					"parentIndex": "10234",
 					"start": "10710"
 				},
 				"nodeType": "ENUM_DEFINITION",
 				"src": {
 					"column": "2",
 					"end": "10766",
-					"id": "1533",
+					"id": "10235",
 					"length": "61",
 					"line": "312",
-					"parentIndex": "1459",
 					"start": "10705"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_enum_$_InterestRateMode_$1532",
-					"typeString": "enum DataTypes.InterestRateMode"
+					"typeIdentifier": "t_enum_$_InterestRateMode_$10234",
+					"typeString": "enum Global.InterestRateMode"
 				}
 			}
 		},
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
 			"value": {
-				"canonicalName": "Errors.CollateralManagerErrors",
-				"id": "2961",
+				"canonicalName": "Global.CollateralManagerErrors",
+				"id": "10239",
 				"members": [
 					{
-						"id": "2963",
+						"id": "10241",
 						"name": "NO_ERROR",
 						"nameLocation": {
 							"column": "4",
 							"end": "41955",
-							"id": "2965",
 							"length": "8",
 							"line": "921",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "41948"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2963",
+						"scope": "10241",
 						"src": {
 							"column": "4",
 							"end": "41955",
-							"id": "2964",
 							"length": "7",
 							"line": "921",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "41948"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NO_ERROR_$2963",
-							"typeString": "enum Errors.CollateralManagerErrors.NO_ERROR"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NO_ERROR_$10241",
+							"typeString": "enum Global.CollateralManagerErrors.NO_ERROR"
 						}
 					},
 					{
-						"id": "2966",
+						"id": "10242",
 						"name": "NO_COLLATERAL_AVAILABLE",
 						"nameLocation": {
 							"column": "4",
 							"end": "41984",
-							"id": "2968",
 							"length": "23",
 							"line": "922",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "41962"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2966",
+						"scope": "10242",
 						"src": {
 							"column": "4",
 							"end": "41984",
-							"id": "2967",
 							"length": "22",
 							"line": "922",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "41962"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NO_COLLATERAL_AVAILABLE_$2966",
-							"typeString": "enum Errors.CollateralManagerErrors.NO_COLLATERAL_AVAILABLE"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NO_COLLATERAL_AVAILABLE_$10242",
+							"typeString": "enum Global.CollateralManagerErrors.NO_COLLATERAL_AVAILABLE"
 						}
 					},
 					{
-						"id": "2969",
+						"id": "10243",
 						"name": "COLLATERAL_CANNOT_BE_LIQUIDATED",
 						"nameLocation": {
 							"column": "4",
 							"end": "42021",
-							"id": "2971",
 							"length": "31",
 							"line": "923",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "41991"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2969",
+						"scope": "10243",
 						"src": {
 							"column": "4",
 							"end": "42021",
-							"id": "2970",
 							"length": "30",
 							"line": "923",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "41991"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_COLLATERAL_CANNOT_BE_LIQUIDATED_$2969",
-							"typeString": "enum Errors.CollateralManagerErrors.COLLATERAL_CANNOT_BE_LIQUIDATED"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_COLLATERAL_CANNOT_BE_LIQUIDATED_$10243",
+							"typeString": "enum Global.CollateralManagerErrors.COLLATERAL_CANNOT_BE_LIQUIDATED"
 						}
 					},
 					{
-						"id": "2972",
+						"id": "10244",
 						"name": "CURRRENCY_NOT_BORROWED",
 						"nameLocation": {
 							"column": "4",
 							"end": "42049",
-							"id": "2974",
 							"length": "22",
 							"line": "924",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42028"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2972",
+						"scope": "10244",
 						"src": {
 							"column": "4",
 							"end": "42049",
-							"id": "2973",
 							"length": "21",
 							"line": "924",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42028"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_CURRRENCY_NOT_BORROWED_$2972",
-							"typeString": "enum Errors.CollateralManagerErrors.CURRRENCY_NOT_BORROWED"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_CURRRENCY_NOT_BORROWED_$10244",
+							"typeString": "enum Global.CollateralManagerErrors.CURRRENCY_NOT_BORROWED"
 						}
 					},
 					{
-						"id": "2975",
+						"id": "10245",
 						"name": "HEALTH_FACTOR_ABOVE_THRESHOLD",
 						"nameLocation": {
 							"column": "4",
 							"end": "42084",
-							"id": "2977",
 							"length": "29",
 							"line": "925",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42056"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2975",
+						"scope": "10245",
 						"src": {
 							"column": "4",
 							"end": "42084",
-							"id": "2976",
 							"length": "28",
 							"line": "925",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42056"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_HEALTH_FACTOR_ABOVE_THRESHOLD_$2975",
-							"typeString": "enum Errors.CollateralManagerErrors.HEALTH_FACTOR_ABOVE_THRESHOLD"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_HEALTH_FACTOR_ABOVE_THRESHOLD_$10245",
+							"typeString": "enum Global.CollateralManagerErrors.HEALTH_FACTOR_ABOVE_THRESHOLD"
 						}
 					},
 					{
-						"id": "2978",
+						"id": "10246",
 						"name": "NOT_ENOUGH_LIQUIDITY",
 						"nameLocation": {
 							"column": "4",
 							"end": "42110",
-							"id": "2980",
 							"length": "20",
 							"line": "926",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42091"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2978",
+						"scope": "10246",
 						"src": {
 							"column": "4",
 							"end": "42110",
-							"id": "2979",
 							"length": "19",
 							"line": "926",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42091"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NOT_ENOUGH_LIQUIDITY_$2978",
-							"typeString": "enum Errors.CollateralManagerErrors.NOT_ENOUGH_LIQUIDITY"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NOT_ENOUGH_LIQUIDITY_$10246",
+							"typeString": "enum Global.CollateralManagerErrors.NOT_ENOUGH_LIQUIDITY"
 						}
 					},
 					{
-						"id": "2981",
+						"id": "10247",
 						"name": "NO_ACTIVE_RESERVE",
 						"nameLocation": {
 							"column": "4",
 							"end": "42133",
-							"id": "2983",
 							"length": "17",
 							"line": "927",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42117"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2981",
+						"scope": "10247",
 						"src": {
 							"column": "4",
 							"end": "42133",
-							"id": "2982",
 							"length": "16",
 							"line": "927",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42117"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NO_ACTIVE_RESERVE_$2981",
-							"typeString": "enum Errors.CollateralManagerErrors.NO_ACTIVE_RESERVE"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_NO_ACTIVE_RESERVE_$10247",
+							"typeString": "enum Global.CollateralManagerErrors.NO_ACTIVE_RESERVE"
 						}
 					},
 					{
-						"id": "2984",
+						"id": "10248",
 						"name": "HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD",
 						"nameLocation": {
 							"column": "4",
 							"end": "42185",
-							"id": "2986",
 							"length": "46",
 							"line": "928",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42140"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2984",
+						"scope": "10248",
 						"src": {
 							"column": "4",
 							"end": "42185",
-							"id": "2985",
 							"length": "45",
 							"line": "928",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42140"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD_$2984",
-							"typeString": "enum Errors.CollateralManagerErrors.HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD_$10248",
+							"typeString": "enum Global.CollateralManagerErrors.HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD"
 						}
 					},
 					{
-						"id": "2987",
+						"id": "10249",
 						"name": "INVALID_EQUAL_ASSETS_TO_SWAP",
 						"nameLocation": {
 							"column": "4",
 							"end": "42219",
-							"id": "2989",
 							"length": "28",
 							"line": "929",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42192"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2987",
+						"scope": "10249",
 						"src": {
 							"column": "4",
 							"end": "42219",
-							"id": "2988",
 							"length": "27",
 							"line": "929",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42192"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_INVALID_EQUAL_ASSETS_TO_SWAP_$2987",
-							"typeString": "enum Errors.CollateralManagerErrors.INVALID_EQUAL_ASSETS_TO_SWAP"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_INVALID_EQUAL_ASSETS_TO_SWAP_$10249",
+							"typeString": "enum Global.CollateralManagerErrors.INVALID_EQUAL_ASSETS_TO_SWAP"
 						}
 					},
 					{
-						"id": "2990",
+						"id": "10250",
 						"name": "FROZEN_RESERVE",
 						"nameLocation": {
 							"column": "4",
 							"end": "42239",
-							"id": "2992",
 							"length": "14",
 							"line": "930",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42226"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "2990",
+						"scope": "10250",
 						"src": {
 							"column": "4",
 							"end": "42239",
-							"id": "2991",
 							"length": "13",
 							"line": "930",
-							"parentIndex": "2961",
+							"parentIndex": "10239",
 							"start": "42226"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_FROZEN_RESERVE_$2990",
-							"typeString": "enum Errors.CollateralManagerErrors.FROZEN_RESERVE"
+							"typeIdentifier": "t_enum_$_CollateralManagerErrors$_FROZEN_RESERVE_$10250",
+							"typeString": "enum Global.CollateralManagerErrors.FROZEN_RESERVE"
 						}
 					}
 				],
@@ -412,113 +1097,106 @@
 					"end": "41940",
 					"length": "23",
 					"line": "920",
-					"parentIndex": "2961",
+					"parentIndex": "10239",
 					"start": "41918"
 				},
 				"nodeType": "ENUM_DEFINITION",
 				"src": {
 					"column": "2",
 					"end": "42243",
-					"id": "2962",
+					"id": "10240",
 					"length": "330",
 					"line": "920",
-					"parentIndex": "2339",
 					"start": "41913"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_enum_$_CollateralManagerErrors_$2961",
-					"typeString": "enum Errors.CollateralManagerErrors"
+					"typeIdentifier": "t_enum_$_CollateralManagerErrors_$10239",
+					"typeString": "enum Global.CollateralManagerErrors"
 				}
 			}
 		},
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
 			"value": {
-				"canonicalName": "IBalancerVault.PoolSpecialization",
-				"id": "4173",
+				"canonicalName": "Global.PoolSpecialization",
+				"id": "10251",
 				"members": [
 					{
-						"id": "4175",
+						"id": "10253",
 						"name": "GENERAL",
 						"nameLocation": {
 							"column": "4",
 							"end": "58514",
-							"id": "4177",
 							"length": "7",
 							"line": "1380",
-							"parentIndex": "4173",
+							"parentIndex": "10251",
 							"start": "58508"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "4175",
+						"scope": "10253",
 						"src": {
 							"column": "4",
 							"end": "58514",
-							"id": "4176",
 							"length": "6",
 							"line": "1380",
-							"parentIndex": "4173",
+							"parentIndex": "10251",
 							"start": "58508"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_PoolSpecialization$_GENERAL_$4175",
-							"typeString": "enum IBalancerVault.PoolSpecialization.GENERAL"
+							"typeIdentifier": "t_enum_$_PoolSpecialization$_GENERAL_$10253",
+							"typeString": "enum Global.PoolSpecialization.GENERAL"
 						}
 					},
 					{
-						"id": "4178",
+						"id": "10254",
 						"name": "MINIMAL_SWAP_INFO",
 						"nameLocation": {
 							"column": "4",
 							"end": "58537",
-							"id": "4180",
 							"length": "17",
 							"line": "1381",
-							"parentIndex": "4173",
+							"parentIndex": "10251",
 							"start": "58521"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "4178",
+						"scope": "10254",
 						"src": {
 							"column": "4",
 							"end": "58537",
-							"id": "4179",
 							"length": "16",
 							"line": "1381",
-							"parentIndex": "4173",
+							"parentIndex": "10251",
 							"start": "58521"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_PoolSpecialization$_MINIMAL_SWAP_INFO_$4178",
-							"typeString": "enum IBalancerVault.PoolSpecialization.MINIMAL_SWAP_INFO"
+							"typeIdentifier": "t_enum_$_PoolSpecialization$_MINIMAL_SWAP_INFO_$10254",
+							"typeString": "enum Global.PoolSpecialization.MINIMAL_SWAP_INFO"
 						}
 					},
 					{
-						"id": "4181",
+						"id": "10255",
 						"name": "TWO_TOKEN",
 						"nameLocation": {
 							"column": "4",
 							"end": "58552",
-							"id": "4183",
 							"length": "9",
 							"line": "1382",
-							"parentIndex": "4173",
+							"parentIndex": "10251",
 							"start": "58544"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "4181",
+						"scope": "10255",
 						"src": {
 							"column": "4",
 							"end": "58552",
-							"id": "4182",
 							"length": "8",
 							"line": "1382",
-							"parentIndex": "4173",
+							"parentIndex": "10251",
 							"start": "58544"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_PoolSpecialization$_TWO_TOKEN_$4181",
-							"typeString": "enum IBalancerVault.PoolSpecialization.TWO_TOKEN"
+							"typeIdentifier": "t_enum_$_PoolSpecialization$_TWO_TOKEN_$10255",
+							"typeString": "enum Global.PoolSpecialization.TWO_TOKEN"
 						}
 					}
 				],
@@ -528,85 +1206,80 @@
 					"end": "58500",
 					"length": "18",
 					"line": "1379",
-					"parentIndex": "4173",
+					"parentIndex": "10251",
 					"start": "58483"
 				},
 				"nodeType": "ENUM_DEFINITION",
 				"src": {
 					"column": "2",
 					"end": "58556",
-					"id": "4174",
+					"id": "10252",
 					"length": "78",
 					"line": "1379",
-					"parentIndex": "4171",
 					"start": "58478"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_enum_$_PoolSpecialization_$4173",
-					"typeString": "enum IBalancerVault.PoolSpecialization"
+					"typeIdentifier": "t_enum_$_PoolSpecialization_$10251",
+					"typeString": "enum Global.PoolSpecialization"
 				}
 			}
 		},
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
 			"value": {
-				"canonicalName": "IBalancerVault.SwapKind",
-				"id": "4207",
+				"canonicalName": "Global.SwapKind",
+				"id": "10256",
 				"members": [
 					{
-						"id": "4209",
+						"id": "10258",
 						"name": "GIVEN_IN",
 						"nameLocation": {
 							"column": "4",
 							"end": "62248",
-							"id": "4211",
 							"length": "8",
 							"line": "1438",
-							"parentIndex": "4207",
+							"parentIndex": "10256",
 							"start": "62241"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "4209",
+						"scope": "10258",
 						"src": {
 							"column": "4",
 							"end": "62248",
-							"id": "4210",
 							"length": "7",
 							"line": "1438",
-							"parentIndex": "4207",
+							"parentIndex": "10256",
 							"start": "62241"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_SwapKind$_GIVEN_IN_$4209",
-							"typeString": "enum IBalancerVault.SwapKind.GIVEN_IN"
+							"typeIdentifier": "t_enum_$_SwapKind$_GIVEN_IN_$10258",
+							"typeString": "enum Global.SwapKind.GIVEN_IN"
 						}
 					},
 					{
-						"id": "4212",
+						"id": "10259",
 						"name": "GIVEN_OUT",
 						"nameLocation": {
 							"column": "4",
 							"end": "62263",
-							"id": "4214",
 							"length": "9",
 							"line": "1439",
-							"parentIndex": "4207",
+							"parentIndex": "10256",
 							"start": "62255"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "4212",
+						"scope": "10259",
 						"src": {
 							"column": "4",
 							"end": "62263",
-							"id": "4213",
 							"length": "8",
 							"line": "1439",
-							"parentIndex": "4207",
+							"parentIndex": "10256",
 							"start": "62255"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_SwapKind$_GIVEN_OUT_$4212",
-							"typeString": "enum IBalancerVault.SwapKind.GIVEN_OUT"
+							"typeIdentifier": "t_enum_$_SwapKind$_GIVEN_OUT_$10259",
+							"typeString": "enum Global.SwapKind.GIVEN_OUT"
 						}
 					}
 				],
@@ -616,168 +1289,979 @@
 					"end": "62233",
 					"length": "8",
 					"line": "1437",
-					"parentIndex": "4207",
+					"parentIndex": "10256",
 					"start": "62226"
 				},
 				"nodeType": "ENUM_DEFINITION",
 				"src": {
 					"column": "2",
 					"end": "62267",
-					"id": "4208",
+					"id": "10257",
 					"length": "46",
 					"line": "1437",
-					"parentIndex": "4171",
 					"start": "62221"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_enum_$_SwapKind_$4207",
-					"typeString": "enum IBalancerVault.SwapKind"
+					"typeIdentifier": "t_enum_$_SwapKind_$10256",
+					"typeString": "enum Global.SwapKind"
 				}
 			}
 		},
 		{
-			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
 			"value": {
-				"canonicalName": "GeneralLevSwap.FlashLoanType",
-				"id": "6766",
+				"canonicalName": "Global.SingleSwap",
+				"id": "10260",
 				"members": [
 					{
-						"id": "6768",
-						"name": "AAVE",
-						"nameLocation": {
-							"column": "4",
-							"end": "84903",
-							"id": "6770",
-							"length": "4",
-							"line": "2144",
-							"parentIndex": "6766",
-							"start": "84900"
-						},
-						"nodeType": "ENUM_VALUE",
-						"scope": "6768",
+						"id": "10262",
+						"name": "poolId",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10262",
 						"src": {
 							"column": "4",
-							"end": "84903",
-							"id": "6769",
-							"length": "3",
-							"line": "2144",
-							"parentIndex": "6766",
-							"start": "84900"
+							"end": "63571",
+							"id": "10263",
+							"length": "15",
+							"line": "1473",
+							"parentIndex": "10260",
+							"start": "63557"
 						},
+						"stateMutability": "MUTABLE",
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_FlashLoanType$_AAVE_$6768",
-							"typeString": "enum GeneralLevSwap.FlashLoanType.AAVE"
-						}
+							"typeIdentifier": "t_bytes32",
+							"typeString": "bytes32"
+						},
+						"typeName": {
+							"id": "10264",
+							"name": "bytes32",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "63563",
+								"id": "10265",
+								"length": "7",
+								"line": "1473",
+								"parentIndex": "10262",
+								"start": "63557"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bytes32",
+								"typeString": "bytes32"
+							}
+						},
+						"visibility": "INTERNAL"
 					},
 					{
-						"id": "6771",
-						"name": "BALANCER",
-						"nameLocation": {
-							"column": "4",
-							"end": "84917",
-							"id": "6773",
-							"length": "8",
-							"line": "2145",
-							"parentIndex": "6766",
-							"start": "84910"
-						},
-						"nodeType": "ENUM_VALUE",
-						"scope": "6771",
+						"id": "10266",
+						"name": "kind",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10266",
 						"src": {
 							"column": "4",
-							"end": "84917",
-							"id": "6772",
-							"length": "7",
-							"line": "2145",
-							"parentIndex": "6766",
-							"start": "84910"
+							"end": "63590",
+							"id": "10267",
+							"length": "14",
+							"line": "1474",
+							"parentIndex": "10260",
+							"start": "63577"
 						},
+						"stateMutability": "MUTABLE",
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_FlashLoanType$_BALANCER_$6771",
-							"typeString": "enum GeneralLevSwap.FlashLoanType.BALANCER"
-						}
+							"typeIdentifier": "t_enum_$_SwapKind_$10256",
+							"typeString": "enum Global.SwapKind"
+						},
+						"typeName": {
+							"id": "10268",
+							"nodeType": "USER_DEFINED_PATH_NAME",
+							"pathNode": {
+								"id": "10270",
+								"name": "SwapKind",
+								"nameLocation": {
+									"column": "4",
+									"end": "63584",
+									"length": "8",
+									"line": "1474",
+									"parentIndex": "10268",
+									"start": "63577"
+								},
+								"nodeType": "IDENTIFIER_PATH",
+								"referencedDeclaration": "10256",
+								"src": {
+									"column": "4",
+									"end": "63584",
+									"id": "10271",
+									"length": "8",
+									"line": "1474",
+									"parentIndex": "10268",
+									"start": "63577"
+								}
+							},
+							"referencedDeclaration": "10256",
+							"src": {
+								"column": "4",
+								"end": "63584",
+								"id": "10269",
+								"length": "8",
+								"line": "1474",
+								"parentIndex": "10266",
+								"start": "63577"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_enum_$_SwapKind_$10256",
+								"typeString": "enum Global.SwapKind"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10272",
+						"name": "assetIn",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10272",
+						"src": {
+							"column": "4",
+							"end": "63611",
+							"id": "10273",
+							"length": "16",
+							"line": "1475",
+							"parentIndex": "10260",
+							"start": "63596"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10274",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "63602",
+								"id": "10275",
+								"length": "7",
+								"line": "1475",
+								"parentIndex": "10272",
+								"start": "63596"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10276",
+						"name": "assetOut",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10276",
+						"src": {
+							"column": "4",
+							"end": "63633",
+							"id": "10277",
+							"length": "17",
+							"line": "1476",
+							"parentIndex": "10260",
+							"start": "63617"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10278",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "63623",
+								"id": "10279",
+								"length": "7",
+								"line": "1476",
+								"parentIndex": "10276",
+								"start": "63617"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10280",
+						"name": "amount",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10280",
+						"src": {
+							"column": "4",
+							"end": "63653",
+							"id": "10281",
+							"length": "15",
+							"line": "1477",
+							"parentIndex": "10260",
+							"start": "63639"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10282",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "63645",
+								"id": "10283",
+								"length": "7",
+								"line": "1477",
+								"parentIndex": "10280",
+								"start": "63639"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10284",
+						"name": "userData",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10284",
+						"src": {
+							"column": "4",
+							"end": "63673",
+							"id": "10285",
+							"length": "15",
+							"line": "1478",
+							"parentIndex": "10260",
+							"start": "63659"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bytes",
+							"typeString": "bytes"
+						},
+						"typeName": {
+							"id": "10286",
+							"name": "bytes",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "63663",
+								"id": "10287",
+								"length": "5",
+								"line": "1478",
+								"parentIndex": "10284",
+								"start": "63659"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bytes",
+								"typeString": "bytes"
+							}
+						},
+						"visibility": "INTERNAL"
 					}
 				],
-				"name": "FlashLoanType",
+				"name": "SingleSwap",
 				"nameLocation": {
-					"column": "7",
-					"end": "84892",
-					"length": "13",
-					"line": "2143",
-					"parentIndex": "6766",
-					"start": "84880"
+					"column": "9",
+					"end": "63549",
+					"length": "10",
+					"line": "1472",
+					"parentIndex": "10260",
+					"start": "63540"
 				},
-				"nodeType": "ENUM_DEFINITION",
+				"nodeType": "STRUCT_DEFINITION",
 				"src": {
 					"column": "2",
-					"end": "84921",
-					"id": "6767",
-					"length": "46",
-					"line": "2143",
-					"parentIndex": "6723",
-					"start": "84875"
+					"end": "63677",
+					"id": "10261",
+					"length": "145",
+					"line": "1472",
+					"start": "63533"
 				},
+				"storageLocation": "DEFAULT",
 				"typeDescription": {
-					"typeIdentifier": "t_enum_$_FlashLoanType_$6766",
-					"typeString": "enum GeneralLevSwap.FlashLoanType"
-				}
+					"typeIdentifier": "t_struct$_Global_SingleSwap_$10260",
+					"typeString": "struct Global.SingleSwap"
+				},
+				"visibility": "PUBLIC"
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
+			"value": {
+				"canonicalName": "Global.FundManagement",
+				"id": "10288",
+				"members": [
+					{
+						"id": "10290",
+						"name": "sender",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10290",
+						"src": {
+							"column": "4",
+							"end": "64615",
+							"id": "10291",
+							"length": "15",
+							"line": "1499",
+							"parentIndex": "10288",
+							"start": "64601"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10292",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "64607",
+								"id": "10293",
+								"length": "7",
+								"line": "1499",
+								"parentIndex": "10290",
+								"start": "64601"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10294",
+						"name": "fromInternalBalance",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10294",
+						"src": {
+							"column": "4",
+							"end": "64645",
+							"id": "10295",
+							"length": "25",
+							"line": "1500",
+							"parentIndex": "10288",
+							"start": "64621"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bool",
+							"typeString": "bool"
+						},
+						"typeName": {
+							"id": "10296",
+							"name": "bool",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "64624",
+								"id": "10297",
+								"length": "4",
+								"line": "1500",
+								"parentIndex": "10294",
+								"start": "64621"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bool",
+								"typeString": "bool"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10298",
+						"name": "recipient",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10298",
+						"src": {
+							"column": "4",
+							"end": "64676",
+							"id": "10299",
+							"length": "26",
+							"line": "1501",
+							"parentIndex": "10288",
+							"start": "64651"
+						},
+						"stateMutability": "PAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address_payable",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10300",
+							"name": "addresspayable",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "64665",
+								"id": "10301",
+								"length": "15",
+								"line": "1501",
+								"parentIndex": "10298",
+								"start": "64651"
+							},
+							"stateMutability": "PAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address_payable",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10302",
+						"name": "toInternalBalance",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10302",
+						"src": {
+							"column": "4",
+							"end": "64704",
+							"id": "10303",
+							"length": "23",
+							"line": "1502",
+							"parentIndex": "10288",
+							"start": "64682"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bool",
+							"typeString": "bool"
+						},
+						"typeName": {
+							"id": "10304",
+							"name": "bool",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "64685",
+								"id": "10305",
+								"length": "4",
+								"line": "1502",
+								"parentIndex": "10302",
+								"start": "64682"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bool",
+								"typeString": "bool"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "FundManagement",
+				"nameLocation": {
+					"column": "9",
+					"end": "64593",
+					"length": "14",
+					"line": "1498",
+					"parentIndex": "10288",
+					"start": "64580"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "2",
+					"end": "64708",
+					"id": "10289",
+					"length": "136",
+					"line": "1498",
+					"start": "64573"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_FundManagement_$10288",
+					"typeString": "struct Global.FundManagement"
+				},
+				"visibility": "PUBLIC"
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
+			"value": {
+				"canonicalName": "Global.ExitPoolRequest",
+				"id": "10306",
+				"members": [
+					{
+						"id": "10308",
+						"name": "assets",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10308",
+						"src": {
+							"column": "4",
+							"end": "67324",
+							"id": "10309",
+							"length": "17",
+							"line": "1548",
+							"parentIndex": "10306",
+							"start": "67308"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "10310",
+							"name": "address",
+							"nodeType": "IDENTIFIER",
+							"src": {
+								"column": "4",
+								"end": "67314",
+								"id": "10312",
+								"length": "7",
+								"line": "1548",
+								"parentIndex": "10308",
+								"start": "67308"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10313",
+						"name": "minAmountsOut",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10313",
+						"src": {
+							"column": "4",
+							"end": "67353",
+							"id": "10314",
+							"length": "24",
+							"line": "1549",
+							"parentIndex": "10306",
+							"start": "67330"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10315",
+							"name": "uint256",
+							"nodeType": "IDENTIFIER",
+							"src": {
+								"column": "4",
+								"end": "67336",
+								"id": "10317",
+								"length": "7",
+								"line": "1549",
+								"parentIndex": "10313",
+								"start": "67330"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10318",
+						"name": "userData",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10318",
+						"src": {
+							"column": "4",
+							"end": "67373",
+							"id": "10319",
+							"length": "15",
+							"line": "1550",
+							"parentIndex": "10306",
+							"start": "67359"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bytes",
+							"typeString": "bytes"
+						},
+						"typeName": {
+							"id": "10320",
+							"name": "bytes",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67363",
+								"id": "10321",
+								"length": "5",
+								"line": "1550",
+								"parentIndex": "10318",
+								"start": "67359"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bytes",
+								"typeString": "bytes"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10322",
+						"name": "toInternalBalance",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10322",
+						"src": {
+							"column": "4",
+							"end": "67401",
+							"id": "10323",
+							"length": "23",
+							"line": "1551",
+							"parentIndex": "10306",
+							"start": "67379"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bool",
+							"typeString": "bool"
+						},
+						"typeName": {
+							"id": "10324",
+							"name": "bool",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67382",
+								"id": "10325",
+								"length": "4",
+								"line": "1551",
+								"parentIndex": "10322",
+								"start": "67379"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bool",
+								"typeString": "bool"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "ExitPoolRequest",
+				"nameLocation": {
+					"column": "9",
+					"end": "67300",
+					"length": "15",
+					"line": "1547",
+					"parentIndex": "10306",
+					"start": "67286"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "2",
+					"end": "67405",
+					"id": "10307",
+					"length": "127",
+					"line": "1547",
+					"start": "67279"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_ExitPoolRequest_$10306",
+					"typeString": "struct Global.ExitPoolRequest"
+				},
+				"visibility": "PUBLIC"
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
+			"value": {
+				"canonicalName": "Global.BatchSwapStep",
+				"id": "10326",
+				"members": [
+					{
+						"id": "10328",
+						"name": "poolId",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10328",
+						"src": {
+							"column": "4",
+							"end": "67833",
+							"id": "10329",
+							"length": "15",
+							"line": "1574",
+							"parentIndex": "10326",
+							"start": "67819"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bytes32",
+							"typeString": "bytes32"
+						},
+						"typeName": {
+							"id": "10330",
+							"name": "bytes32",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67825",
+								"id": "10331",
+								"length": "7",
+								"line": "1574",
+								"parentIndex": "10328",
+								"start": "67819"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bytes32",
+								"typeString": "bytes32"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10332",
+						"name": "assetInIndex",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10332",
+						"src": {
+							"column": "4",
+							"end": "67859",
+							"id": "10333",
+							"length": "21",
+							"line": "1575",
+							"parentIndex": "10326",
+							"start": "67839"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10334",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67845",
+								"id": "10335",
+								"length": "7",
+								"line": "1575",
+								"parentIndex": "10332",
+								"start": "67839"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10336",
+						"name": "assetOutIndex",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10336",
+						"src": {
+							"column": "4",
+							"end": "67886",
+							"id": "10337",
+							"length": "22",
+							"line": "1576",
+							"parentIndex": "10326",
+							"start": "67865"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10338",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67871",
+								"id": "10339",
+								"length": "7",
+								"line": "1576",
+								"parentIndex": "10336",
+								"start": "67865"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10340",
+						"name": "amount",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10340",
+						"src": {
+							"column": "4",
+							"end": "67906",
+							"id": "10341",
+							"length": "15",
+							"line": "1577",
+							"parentIndex": "10326",
+							"start": "67892"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "10342",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67898",
+								"id": "10343",
+								"length": "7",
+								"line": "1577",
+								"parentIndex": "10340",
+								"start": "67892"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "10344",
+						"name": "userData",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "10344",
+						"src": {
+							"column": "4",
+							"end": "67926",
+							"id": "10345",
+							"length": "15",
+							"line": "1578",
+							"parentIndex": "10326",
+							"start": "67912"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_bytes",
+							"typeString": "bytes"
+						},
+						"typeName": {
+							"id": "10346",
+							"name": "bytes",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "4",
+								"end": "67916",
+								"id": "10347",
+								"length": "5",
+								"line": "1578",
+								"parentIndex": "10344",
+								"start": "67912"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_bytes",
+								"typeString": "bytes"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "BatchSwapStep",
+				"nameLocation": {
+					"column": "9",
+					"end": "67811",
+					"length": "13",
+					"line": "1573",
+					"parentIndex": "10326",
+					"start": "67799"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "2",
+					"end": "67930",
+					"id": "10327",
+					"length": "139",
+					"line": "1573",
+					"start": "67792"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_BatchSwapStep_$10326",
+					"typeString": "struct Global.BatchSwapStep"
+				},
+				"visibility": "PUBLIC"
 			}
 		},
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
 			"value": {
 				"canonicalName": "Global.FlashLoanType",
-				"id": "10192",
+				"id": "10348",
 				"members": [
 					{
-						"id": "10194",
+						"id": "10350",
 						"name": "AAVE",
 						"nameLocation": {
 							"column": "4",
 							"end": "84903",
 							"length": "4",
 							"line": "2144",
-							"parentIndex": "10192",
+							"parentIndex": "10348",
 							"start": "84900"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "10194",
+						"scope": "10350",
 						"src": {
 							"column": "4",
 							"end": "84903",
 							"length": "3",
 							"line": "2144",
-							"parentIndex": "10192",
+							"parentIndex": "10348",
 							"start": "84900"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_FlashLoanType$_AAVE_$10194",
+							"typeIdentifier": "t_enum_$_FlashLoanType$_AAVE_$10350",
 							"typeString": "enum Global.FlashLoanType.AAVE"
 						}
 					},
 					{
-						"id": "10195",
+						"id": "10351",
 						"name": "BALANCER",
 						"nameLocation": {
 							"column": "4",
 							"end": "84917",
 							"length": "8",
 							"line": "2145",
-							"parentIndex": "10192",
+							"parentIndex": "10348",
 							"start": "84910"
 						},
 						"nodeType": "ENUM_VALUE",
-						"scope": "10195",
+						"scope": "10351",
 						"src": {
 							"column": "4",
 							"end": "84917",
 							"length": "7",
 							"line": "2145",
-							"parentIndex": "10192",
+							"parentIndex": "10348",
 							"start": "84910"
 						},
 						"typeDescription": {
-							"typeIdentifier": "t_enum_$_FlashLoanType$_BALANCER_$10195",
+							"typeIdentifier": "t_enum_$_FlashLoanType$_BALANCER_$10351",
 							"typeString": "enum Global.FlashLoanType.BALANCER"
 						}
 					}
@@ -788,20 +2272,20 @@
 					"end": "84892",
 					"length": "13",
 					"line": "2143",
-					"parentIndex": "10192",
+					"parentIndex": "10348",
 					"start": "84880"
 				},
 				"nodeType": "ENUM_DEFINITION",
 				"src": {
 					"column": "2",
 					"end": "84921",
-					"id": "10193",
+					"id": "10349",
 					"length": "46",
 					"line": "2143",
 					"start": "84875"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_enum_$_FlashLoanType_$10192",
+					"typeIdentifier": "t_enum_$_FlashLoanType_$10348",
 					"typeString": "enum Global.FlashLoanType"
 				}
 			}
@@ -12366,8 +13850,8 @@
 												},
 												"stateMutability": "MUTABLE",
 												"typeDescription": {
-													"typeIdentifier": "t_struct$_DataTypes_ReserveConfigurationMap_$1518",
-													"typeString": "struct DataTypes.ReserveConfigurationMap"
+													"typeIdentifier": "t_struct$_Global_ReserveConfigurationMap_$10222",
+													"typeString": "struct Global.ReserveConfigurationMap"
 												},
 												"typeName": {
 													"id": "1465",
@@ -12394,7 +13878,7 @@
 															"start": "9413"
 														}
 													},
-													"referencedDeclaration": "1518",
+													"referencedDeclaration": "10222",
 													"src": {
 														"column": "4",
 														"end": "9435",
@@ -12405,8 +13889,8 @@
 														"start": "9413"
 													},
 													"typeDescription": {
-														"typeIdentifier": "t_struct$_DataTypes_ReserveConfigurationMap_$1518",
-														"typeString": "struct DataTypes.ReserveConfigurationMap"
+														"typeIdentifier": "t_struct$_Global_ReserveConfigurationMap_$10222",
+														"typeString": "struct Global.ReserveConfigurationMap"
 													}
 												},
 												"visibility": "INTERNAL"
@@ -39257,8 +40741,8 @@
 													"stateMutability": "MUTABLE",
 													"storageLocation": "MEMORY",
 													"typeDescription": {
-														"typeIdentifier": "t_struct$_IBalancerVault_SingleSwap_$4248",
-														"typeString": "struct IBalancerVault.SingleSwap"
+														"typeIdentifier": "t_struct$_Global_SingleSwap_$10260",
+														"typeString": "struct Global.SingleSwap"
 													},
 													"typeName": {
 														"id": "4222",
@@ -39285,7 +40769,7 @@
 																"start": "62857"
 															}
 														},
-														"referencedDeclaration": "4248",
+														"referencedDeclaration": "10260",
 														"src": {
 															"column": "4",
 															"end": "62866",
@@ -39296,8 +40780,8 @@
 															"start": "62857"
 														},
 														"typeDescription": {
-															"typeIdentifier": "t_struct$_IBalancerVault_SingleSwap_$4248",
-															"typeString": "struct IBalancerVault.SingleSwap"
+															"typeIdentifier": "t_struct$_Global_SingleSwap_$10260",
+															"typeString": "struct Global.SingleSwap"
 														}
 													},
 													"visibility": "INTERNAL"
@@ -39319,8 +40803,8 @@
 													"stateMutability": "MUTABLE",
 													"storageLocation": "MEMORY",
 													"typeDescription": {
-														"typeIdentifier": "t_struct$_IBalancerVault_FundManagement_$4277",
-														"typeString": "struct IBalancerVault.FundManagement"
+														"typeIdentifier": "t_struct$_Global_FundManagement_$10288",
+														"typeString": "struct Global.FundManagement"
 													},
 													"typeName": {
 														"id": "4228",
@@ -39347,7 +40831,7 @@
 																"start": "62891"
 															}
 														},
-														"referencedDeclaration": "4277",
+														"referencedDeclaration": "10288",
 														"src": {
 															"column": "4",
 															"end": "62904",
@@ -39358,8 +40842,8 @@
 															"start": "62891"
 														},
 														"typeDescription": {
-															"typeIdentifier": "t_struct$_IBalancerVault_FundManagement_$4277",
-															"typeString": "struct IBalancerVault.FundManagement"
+															"typeIdentifier": "t_struct$_Global_FundManagement_$10288",
+															"typeString": "struct Global.FundManagement"
 														}
 													},
 													"visibility": "INTERNAL"
@@ -40184,8 +41668,8 @@
 													"stateMutability": "MUTABLE",
 													"storageLocation": "MEMORY",
 													"typeDescription": {
-														"typeIdentifier": "t_struct$_IBalancerVault_ExitPoolRequest_$4321",
-														"typeString": "struct IBalancerVault.ExitPoolRequest"
+														"typeIdentifier": "t_struct$_Global_ExitPoolRequest_$10306",
+														"typeString": "struct Global.ExitPoolRequest"
 													},
 													"typeName": {
 														"id": "4314",
@@ -40212,7 +41696,7 @@
 																"start": "67231"
 															}
 														},
-														"referencedDeclaration": "4321",
+														"referencedDeclaration": "10306",
 														"src": {
 															"column": "4",
 															"end": "67245",
@@ -40223,8 +41707,8 @@
 															"start": "67231"
 														},
 														"typeDescription": {
-															"typeIdentifier": "t_struct$_IBalancerVault_ExitPoolRequest_$4321",
-															"typeString": "struct IBalancerVault.ExitPoolRequest"
+															"typeIdentifier": "t_struct$_Global_ExitPoolRequest_$10306",
+															"typeString": "struct Global.ExitPoolRequest"
 														}
 													},
 													"visibility": "INTERNAL"

@@ -48,6 +48,26 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "MintPassExtension - 0x7637a7E82e6af52ABeb27667489E110193D60b42",
+			outputPath: "contracts/1:0x7637a7E82e6af52ABeb27667489E110193D60b42/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "MintPassExtension",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x7637a7E82e6af52ABeb27667489E110193D60b42/MintPassExtension").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x7637a7E82e6af52ABeb27667489E110193D60b42/MintPassExtension").Content,
+					},
+				},
+				EntrySourceUnitName: "MintPassExtension",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0x7637a7E82e6af52ABeb27667489E110193D60b42/MintPassExtension.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0x7637a7E82e6af52ABeb27667489E110193D60b42/MintPassExtension.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "PAPA Contract",
 			outputPath: "contracts/papa/",
 			sources: &solgo.Sources{

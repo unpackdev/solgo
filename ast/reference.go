@@ -386,14 +386,26 @@ func (r *Resolver) byEvents(name string) (int64, *TypeDescription) {
 
 func (r *Resolver) byGlobals(name string) (int64, *TypeDescription) {
 	for _, node := range r.globalDefinitions {
-		enumNode := node.(*EnumDefinition)
-		if enumNode.GetName() == name {
-			return node.GetId(), node.GetTypeDescription()
-		}
-
-		for _, member := range enumNode.GetMembers() {
-			if member.GetName() == name {
+		switch nodeCtx := node.(type) {
+		case *EnumDefinition:
+			if nodeCtx.GetName() == name {
 				return node.GetId(), node.GetTypeDescription()
+			}
+
+			for _, member := range nodeCtx.GetMembers() {
+				if member.GetName() == name {
+					return node.GetId(), node.GetTypeDescription()
+				}
+			}
+		case *StructDefinition:
+			if nodeCtx.GetName() == name {
+				return node.GetId(), node.GetTypeDescription()
+			}
+
+			for _, member := range nodeCtx.GetMembers() {
+				if member.GetName() == name {
+					return node.GetId(), node.GetTypeDescription()
+				}
 			}
 		}
 	}
