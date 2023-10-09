@@ -67,6 +67,66 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "MultiSigWallet - 0x01b72e781732D92717DCEbE35a4243A10b9BaB44",
+			outputPath: "contracts/1:0x01b72e781732D92717DCEbE35a4243A10b9BaB44/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "MultiSigWallet",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x01b72e781732D92717DCEbE35a4243A10b9BaB44/MultiSigWallet").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x01b72e781732D92717DCEbE35a4243A10b9BaB44/MultiSigWallet").Content,
+					},
+				},
+				EntrySourceUnitName: "MultiSigWallet",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0x01b72e781732D92717DCEbE35a4243A10b9BaB44/MultiSigWallet.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0x01b72e781732D92717DCEbE35a4243A10b9BaB44/MultiSigWallet.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             true, // v0.4.26+commit.4563c3fc
+		},
+		{
+			name:       "LockProxy - 0xf6378141BC900020a438F3914e4C3ceA29907b27",
+			outputPath: "contracts/1:0xf6378141BC900020a438F3914e4C3ceA29907b27/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "LockProxy",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0xf6378141BC900020a438F3914e4C3ceA29907b27/LockProxy").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0xf6378141BC900020a438F3914e4C3ceA29907b27/LockProxy").Content,
+					},
+				},
+				EntrySourceUnitName: "LockProxy",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0xf6378141BC900020a438F3914e4C3ceA29907b27/LockProxy.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0xf6378141BC900020a438F3914e4C3ceA29907b27/LockProxy.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             true, // v0.5.17+commit.d19bba13
+		},
+		{
+			name:       "Payment - 0x4892e397641530E7CCF1d07e94a5eAc68A2760Ed",
+			outputPath: "contracts/1:0x4892e397641530E7CCF1d07e94a5eAc68A2760Ed/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "Payment",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x4892e397641530E7CCF1d07e94a5eAc68A2760Ed/Payment").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x4892e397641530E7CCF1d07e94a5eAc68A2760Ed/Payment").Content,
+					},
+				},
+				EntrySourceUnitName: "Payment",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0x4892e397641530E7CCF1d07e94a5eAc68A2760Ed/Payment.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0x4892e397641530E7CCF1d07e94a5eAc68A2760Ed/Payment.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "FRAX3CRVLevSwap - 0xd747740FfAC8A6397bA80676299c4e3105999a9A",
 			outputPath: "contracts/1:0xd747740FfAC8A6397bA80676299c4e3105999a9A/",
 			sources: &solgo.Sources{

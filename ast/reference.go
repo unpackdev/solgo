@@ -508,19 +508,23 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 
 	switch nodeCtx := node.(type) {
 	case *DoWhileStatement:
-		for _, condition := range nodeCtx.GetCondition().GetNodes() {
-			if primary, ok := condition.(*PrimaryExpression); ok {
-				if primary.GetName() == name {
-					return primary, primary.GetTypeDescription()
+		if nodeCtx.GetCondition() != nil {
+			for _, condition := range nodeCtx.GetCondition().GetNodes() {
+				if primary, ok := condition.(*PrimaryExpression); ok {
+					if primary.GetName() == name {
+						return primary, primary.GetTypeDescription()
+					}
 				}
 			}
 		}
 
 	case *ForStatement:
-		for _, condition := range nodeCtx.GetCondition().GetNodes() {
-			if primary, ok := condition.(*PrimaryExpression); ok {
-				if primary.GetName() == name {
-					return primary, primary.GetTypeDescription()
+		if nodeCtx.GetCondition() != nil {
+			for _, condition := range nodeCtx.GetCondition().GetNodes() {
+				if primary, ok := condition.(*PrimaryExpression); ok {
+					if primary.GetName() == name {
+						return primary, primary.GetTypeDescription()
+					}
 				}
 			}
 		}

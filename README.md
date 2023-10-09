@@ -14,6 +14,12 @@ The parser is generated from a Solidity grammar file using **Antlr**, producing 
 
 This project is ideal for those diving into data analysis, construction of robust APIs, developing advanced analysis tools, enhancing smart contract security, and anyone keen on harnessing Go for their Solidity endeavors.
 
+## Solidity Version Support
+
+**Currently Solidity versions equal or higher to 0.6.0 are supported.**
+
+Older versions may or may not work due to changes in syntax that is not currently supported by the grammar file. In the future, we have plans to support all versions of Solidity.
+
 ## Disclaimer
 
 Please be aware that this project is still under active development. While it is approaching a state suitable for production use, there may still be undiscovered issues or limitations. Over the next few months, extensive testing will be conducted to evaluate its performance and stability. Additional tests and documentation will also be added during this phase.

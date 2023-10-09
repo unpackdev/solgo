@@ -47,6 +47,9 @@ func parseExpressionStatement(
 		case *parser.TupleContext:
 			tupleExpr := NewTupleExpression(b)
 			return tupleExpr.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+		case *parser.AndOperationContext:
+			andOperation := NewAndOperationExpression(b)
+			return andOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *antlr.TerminalNodeImpl:
 			// @TODO: Not sure what to do with this... It's usually just a semicolon (;). Perhaps to
 			// add to each expression statement semicolon_found?
