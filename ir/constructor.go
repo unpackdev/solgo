@@ -137,7 +137,7 @@ func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 
 	for _, modifier := range unit.GetModifiers() {
 		toReturn.Modifiers = append(toReturn.Modifiers, &Modifier{
-			unit:          modifier,
+			Unit:          modifier,
 			Id:            modifier.GetId(),
 			NodeType:      modifier.GetType(),
 			Name:          modifier.GetName(),
@@ -147,7 +147,7 @@ func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		toReturn.Parameters = append(toReturn.Parameters, &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),
@@ -158,7 +158,7 @@ func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 
 	for _, returnStatement := range unit.GetReturnParameters().GetParameters() {
 		toReturn.ReturnStatements = append(toReturn.ReturnStatements, &Parameter{
-			unit:            returnStatement,
+			Unit:            returnStatement,
 			Id:              returnStatement.GetId(),
 			NodeType:        returnStatement.GetType(),
 			Name:            returnStatement.GetName(),

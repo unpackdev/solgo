@@ -11,14 +11,14 @@ import (
 func TestEnumMethods(t *testing.T) {
 	// Create a new Enum instance
 	enumInstance := &Enum{
-		unit:          &ast.EnumDefinition{},
+		Unit:          &ast.EnumDefinition{},
 		Id:            1,
 		NodeType:      ast_pb.NodeType(1),
 		Name:          "enumName",
 		CanonicalName: "canonicalName",
 		Members: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "parameter",

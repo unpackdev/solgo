@@ -11,14 +11,14 @@ import (
 func TestEventMethods(t *testing.T) {
 	// Create a new Event instance
 	eventInstance := &Event{
-		unit:      &ast.EventDefinition{},
+		Unit:      &ast.EventDefinition{},
 		Id:        1,
 		NodeType:  ast_pb.NodeType(1),
 		Name:      "eventName",
 		Anonymous: true,
 		Parameters: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "parameter",

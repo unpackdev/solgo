@@ -8,7 +8,7 @@ import (
 
 // Fallback represents a fallback function definition in the IR.
 type Fallback struct {
-	unit             *ast.Fallback
+	Unit             *ast.Fallback     `json:"ast"`
 	Id               int64             `json:"id"`
 	NodeType         ast_pb.NodeType   `json:"node_type"`
 	Name             string            `json:"name"`
@@ -25,7 +25,7 @@ type Fallback struct {
 
 // GetAST returns the AST (Abstract Syntax Tree) for the fallback function definition.
 func (f *Fallback) GetAST() *ast.Fallback {
-	return f.unit
+	return f.Unit
 }
 
 // GetId returns the ID of the fallback function definition.
@@ -90,7 +90,7 @@ func (f *Fallback) GetReturnStatements() []*Parameter {
 
 // GetSrc returns the source code location of the fallback function.
 func (f *Fallback) GetSrc() ast.SrcNode {
-	return f.unit.GetSrc()
+	return f.Unit.GetSrc()
 }
 
 // ToProto converts the Fallback to its protobuf representation.
@@ -132,7 +132,7 @@ func (f *Fallback) ToProto() *ir_pb.Fallback {
 // processFallback processes the fallback function definition unit and returns the Fallback.
 func (b *Builder) processFallback(unit *ast.Fallback) *Fallback {
 	toReturn := &Fallback{
-		unit:             unit,
+		Unit:             unit,
 		Id:               unit.GetId(),
 		NodeType:         unit.GetType(),
 		Kind:             unit.GetKind(),
@@ -149,7 +149,7 @@ func (b *Builder) processFallback(unit *ast.Fallback) *Fallback {
 
 	for _, modifier := range unit.GetModifiers() {
 		toReturn.Modifiers = append(toReturn.Modifiers, &Modifier{
-			unit:          modifier,
+			Unit:          modifier,
 			Id:            modifier.GetId(),
 			NodeType:      modifier.GetType(),
 			Name:          modifier.GetName(),
@@ -160,7 +160,7 @@ func (b *Builder) processFallback(unit *ast.Fallback) *Fallback {
 	for _, oride := range unit.GetOverrides() {
 		for _, overrideParameter := range oride.GetOverrides() {
 			override := &Override{
-				unit:                    oride,
+				Unit:                    oride,
 				Id:                      overrideParameter.GetId(),
 				NodeType:                overrideParameter.GetType(),
 				Name:                    overrideParameter.GetName(),
@@ -173,7 +173,7 @@ func (b *Builder) processFallback(unit *ast.Fallback) *Fallback {
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		param := &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),
@@ -190,7 +190,7 @@ func (b *Builder) processFallback(unit *ast.Fallback) *Fallback {
 
 	for _, returnStatement := range unit.GetReturnParameters().GetParameters() {
 		param := &Parameter{
-			unit:            returnStatement,
+			Unit:            returnStatement,
 			Id:              returnStatement.GetId(),
 			NodeType:        returnStatement.GetType(),
 			Name:            returnStatement.GetName(),

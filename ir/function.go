@@ -130,7 +130,6 @@ func (f *Function) ToProto() *ir_pb.Function {
 		Parameters:              make([]*ir_pb.Parameter, 0),
 		Body:                    f.GetBody().ToProto(),
 		Return:                  make([]*ir_pb.Parameter, 0),
-		//SrcNode:                 f.unit.GetSrc().ToProto(),
 	}
 
 	for _, modifier := range f.GetModifiers() {
@@ -175,7 +174,7 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 
 	for _, modifier := range unit.GetModifiers() {
 		toReturn.Modifiers = append(toReturn.Modifiers, &Modifier{
-			unit:          modifier,
+			Unit:          modifier,
 			Id:            modifier.GetId(),
 			NodeType:      modifier.GetType(),
 			Name:          modifier.GetName(),
@@ -186,7 +185,7 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 	for _, oride := range unit.GetOverrides() {
 		for _, overrideParameter := range oride.GetOverrides() {
 			override := &Override{
-				unit:                    oride,
+				Unit:                    oride,
 				Id:                      overrideParameter.GetId(),
 				NodeType:                overrideParameter.GetType(),
 				Name:                    overrideParameter.GetName(),
@@ -199,7 +198,7 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		param := &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),
@@ -220,7 +219,7 @@ func (b *Builder) processFunction(unit *ast.Function, parseBody bool) *Function 
 
 	for _, returnStatement := range unit.GetReturnParameters().GetParameters() {
 		param := &Parameter{
-			unit:            returnStatement,
+			Unit:            returnStatement,
 			Id:              returnStatement.GetId(),
 			NodeType:        returnStatement.GetType(),
 			Name:            returnStatement.GetName(),

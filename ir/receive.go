@@ -8,7 +8,7 @@ import (
 
 // Receive represents a receive function in the Intermediate Representation (IR) of Solidity contracts' Abstract Syntax Tree (AST).
 type Receive struct {
-	unit            *ast.Receive      `json:"-"`
+	Unit            *ast.Receive      `json:"ast"`
 	Id              int64             `json:"id"`               // Id is the unique identifier of the receive function.
 	NodeType        ast_pb.NodeType   `json:"node_type"`        // NodeType is the type of the receive function node in the AST.
 	Name            string            `json:"name"`             // Name is the name of the receive function (always "receive" for Solidity receive functions).
@@ -24,7 +24,7 @@ type Receive struct {
 
 // GetAST returns the underlying AST node of the receive function.
 func (f *Receive) GetAST() *ast.Receive {
-	return f.unit
+	return f.Unit
 }
 
 // GetId returns the unique identifier of the receive function.
@@ -84,7 +84,7 @@ func (f *Receive) GetParameters() []*Parameter {
 
 // GetSrc returns the source code location of the receive function.
 func (f *Receive) GetSrc() ast.SrcNode {
-	return f.unit.GetSrc()
+	return f.Unit.GetSrc()
 }
 
 // ToProto is a function that converts the Receive to a protobuf message.
@@ -121,7 +121,7 @@ func (f *Receive) ToProto() *ir_pb.Receive {
 // processReceive is a function that processes the given receive function node and returns a Receive.
 func (b *Builder) processReceive(unit *ast.Receive) *Receive {
 	toReturn := &Receive{
-		unit:            unit,
+		Unit:            unit,
 		Id:              unit.GetId(),
 		NodeType:        unit.GetType(),
 		Kind:            unit.GetKind(),
@@ -137,7 +137,7 @@ func (b *Builder) processReceive(unit *ast.Receive) *Receive {
 
 	for _, modifier := range unit.GetModifiers() {
 		toReturn.Modifiers = append(toReturn.Modifiers, &Modifier{
-			unit:          modifier,
+			Unit:          modifier,
 			Id:            modifier.GetId(),
 			NodeType:      modifier.GetType(),
 			Name:          modifier.GetName(),
@@ -148,7 +148,7 @@ func (b *Builder) processReceive(unit *ast.Receive) *Receive {
 	for _, oride := range unit.GetOverrides() {
 		for _, overrideParameter := range oride.GetOverrides() {
 			override := &Override{
-				unit:                    oride,
+				Unit:                    oride,
 				Id:                      overrideParameter.GetId(),
 				NodeType:                overrideParameter.GetType(),
 				Name:                    overrideParameter.GetName(),
@@ -161,7 +161,7 @@ func (b *Builder) processReceive(unit *ast.Receive) *Receive {
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		param := &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),

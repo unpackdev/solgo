@@ -8,7 +8,7 @@ import (
 
 // Modifier represents a Modifier in the Abstract Syntax Tree.
 type Modifier struct {
-	unit          *ast.ModifierInvocation `json:"-"`
+	Unit          *ast.ModifierInvocation `json:"ast"`
 	Id            int64                   `json:"id"`
 	NodeType      ast_pb.NodeType         `json:"node_type"`
 	Name          string                  `json:"name"`
@@ -17,7 +17,7 @@ type Modifier struct {
 
 // GetAST returns the underlying AST node for the Modifier.
 func (m *Modifier) GetAST() *ast.ModifierInvocation {
-	return m.unit
+	return m.Unit
 }
 
 // GetId returns the ID of the Modifier.
@@ -42,7 +42,7 @@ func (m *Modifier) GetArgumentTypes() []*ast.TypeDescription {
 
 // GetSrc returns the source code location for the Modifier.
 func (m *Modifier) GetSrc() ast.SrcNode {
-	return m.unit.GetSrc()
+	return m.Unit.GetSrc()
 }
 
 // ToProto converts the Modifier to its corresponding protobuf representation.

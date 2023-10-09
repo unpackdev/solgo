@@ -11,13 +11,13 @@ import (
 func TestErrorMethods(t *testing.T) {
 	// Create a new Error instance
 	errorInstance := &Error{
-		unit:     &ast.ErrorDefinition{},
+		Unit:     &ast.ErrorDefinition{},
 		Id:       1,
 		NodeType: ast_pb.NodeType(1),
 		Name:     "errorName",
 		Parameters: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "parameter",

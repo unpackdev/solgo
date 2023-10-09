@@ -23,7 +23,7 @@ func TestConstructorMethods(t *testing.T) {
 		Virtual:         true,
 		Modifiers: []*Modifier{
 			{
-				unit:          &ast.ModifierInvocation{},
+				Unit:          &ast.ModifierInvocation{},
 				Id:            1,
 				NodeType:      ast_pb.NodeType(1),
 				Name:          "modifier",
@@ -32,7 +32,7 @@ func TestConstructorMethods(t *testing.T) {
 		},
 		Parameters: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "parameter",
@@ -42,7 +42,7 @@ func TestConstructorMethods(t *testing.T) {
 		},
 		ReturnStatements: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "return",

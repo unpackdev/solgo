@@ -12,7 +12,7 @@ import (
 
 // RootSourceUnit represents the root of a Solidity contract's AST as an IR node.
 type RootSourceUnit struct {
-	unit              *ast.RootNode   `json:"-"`
+	Unit              *ast.RootNode   `json:"ast"`
 	NodeType          ast_pb.NodeType `json:"node_type"`
 	EntryContractId   int64           `json:"entry_contract_id"`
 	EntryContractName string          `json:"entry_contract_name"`
@@ -24,7 +24,7 @@ type RootSourceUnit struct {
 
 // GetAST returns the underlying AST node of the RootSourceUnit.
 func (r *RootSourceUnit) GetAST() *ast.RootNode {
-	return r.unit
+	return r.Unit
 }
 
 // GetNodeType returns the type of the node in the AST.
@@ -173,7 +173,7 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 // It populates the RootSourceUnit with the contracts from the AST.
 func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	rootNode := &RootSourceUnit{
-		unit:           root,
+		Unit:           root,
 		NodeType:       root.GetType(),
 		ContractsCount: int32(root.GetSourceUnitCount()),
 		Contracts:      make([]*Contract, 0),

@@ -11,7 +11,7 @@ import (
 func TestFallbackMethods(t *testing.T) {
 	// Create a new Fallback instance
 	fallbackInstance := &Fallback{
-		unit:            &ast.Fallback{},
+		Unit:            &ast.Fallback{},
 		Id:              1,
 		NodeType:        ast_pb.NodeType(1),
 		Name:            "fallback",
@@ -22,7 +22,7 @@ func TestFallbackMethods(t *testing.T) {
 		Virtual:         true,
 		Modifiers: []*Modifier{
 			{
-				unit:          &ast.ModifierInvocation{},
+				Unit:          &ast.ModifierInvocation{},
 				Id:            1,
 				NodeType:      ast_pb.NodeType(1),
 				Name:          "modifier",
@@ -31,7 +31,7 @@ func TestFallbackMethods(t *testing.T) {
 		},
 		Parameters: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "parameter",
@@ -41,7 +41,7 @@ func TestFallbackMethods(t *testing.T) {
 		},
 		ReturnStatements: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "return",
