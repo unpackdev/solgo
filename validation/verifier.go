@@ -103,6 +103,13 @@ func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResu
 	}
 
 	encoded := hex.EncodeToString(bytecode)
+	/* 	spew.Dump(encoded[20:70])
+	   	spew.Dump(result.GetDeployedBytecode()[20:70])
+	   	fmt.Println(len(encoded), len(result.GetDeployedBytecode()))
+
+	   	os.WriteFile("from.txt", []byte(encoded), 0777)
+	   	os.WriteFile("to.txt", []byte(result.GetDeployedBytecode()), 0777) */
+
 	if !strings.Contains(result.GetDeployedBytecode(), encoded) {
 		dmp := diffmatchpatch.New()
 		diffs := dmp.DiffMain(encoded, result.GetDeployedBytecode(), false)

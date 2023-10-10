@@ -17,6 +17,11 @@ type SemanticVersion struct {
 func ParseSemanticVersion(version string) SemanticVersion {
 	version = strings.Replace(version, "v", "", 1)
 	parts := strings.Split(version, ".")
+
+	if len(parts) != 3 {
+		return SemanticVersion{}
+	}
+
 	major, _ := strconv.Atoi(parts[0])
 	minor, _ := strconv.Atoi(parts[1])
 	patch, _ := strconv.Atoi(parts[2])
@@ -27,8 +32,8 @@ func ParseSemanticVersion(version string) SemanticVersion {
 	}
 }
 
-// IsSemanticVersionGreaterThan checks if the version represented by the string is greater than the provided SemanticVersion.
-func IsSemanticVersionGreaterThan(versionStr string, version SemanticVersion) bool {
+// IsSemanticVersionGreaterOrEqualTo checks if the version represented by the string is greater than or equal to the provided SemanticVersion.
+func IsSemanticVersionGreaterOrEqualTo(versionStr string, version SemanticVersion) bool {
 	parsedVersion := ParseSemanticVersion(versionStr)
 
 	if parsedVersion.Major == version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch >= version.Patch {
@@ -39,7 +44,26 @@ func IsSemanticVersionGreaterThan(versionStr string, version SemanticVersion) bo
 		return true
 	}
 
-	if parsedVersion.Major >= version.Major {
+	if parsedVersion.Major >= version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch == version.Patch {
+		return true
+	}
+
+	return false
+}
+
+// IsSemanticVersionLowerOrEqualTo checks if the version represented by the string is lower than or equal to the provided SemanticVersion.
+func IsSemanticVersionLowerOrEqualTo(versionStr string, version SemanticVersion) bool {
+	parsedVersion := ParseSemanticVersion(versionStr)
+
+	if parsedVersion.Major == version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch >= version.Patch {
+		return true
+	}
+
+	if parsedVersion.Major == version.Major && parsedVersion.Minor <= version.Minor {
+		return true
+	}
+
+	if parsedVersion.Major <= version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch == version.Patch {
 		return true
 	}
 

@@ -58,6 +58,7 @@ type Sources struct {
 	prepared             bool          `yaml:"-" json:"-"`
 	SourceUnits          []*SourceUnit `yaml:"source_units" json:"source_units"`
 	EntrySourceUnitName  string        `yaml:"entry_source_unit" json:"base_source_unit"`
+	LocalSources         bool          `yaml:"local_sources" json:"local_sources"`
 	MaskLocalSourcesPath bool          `yaml:"mask_local_sources_path" json:"mask_local_sources_path"`
 	LocalSourcesPath     string        `yaml:"local_sources_path" json:"local_sources_path"`
 }
@@ -469,6 +470,10 @@ func (s *Sources) GetSolidityVersion() (string, error) {
 func (s *Sources) handleImports(sourceUnit *SourceUnit) ([]*SourceUnit, error) {
 	imports := extractImports(sourceUnit.Content)
 	var sourceUnits []*SourceUnit
+
+	if !s.LocalSources {
+		return sourceUnits, nil
+	}
 
 	for _, imp := range imports {
 		baseName := filepath.Base(imp)
