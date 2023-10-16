@@ -13165,7 +13165,6 @@ func NewPrimaryExpressionContext(parser antlr.Parser, ctx antlr.ParserRuleContex
 	InitEmptyExpressionContext(&p.ExpressionContext)
 	p.parser = parser
 	p.CopyAll(ctx.(*ExpressionContext))
-
 	return p
 }
 

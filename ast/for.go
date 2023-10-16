@@ -6,7 +6,6 @@ import (
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
-	"github.com/unpackdev/solgo/utils"
 )
 
 // ForStatement represents a for loop statement in the AST.
@@ -75,9 +74,6 @@ func (f *ForStatement) GetBody() *BodyNode {
 // GetNodes returns the child nodes of the ForStatement node.
 func (f *ForStatement) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{f.Initialiser, f.Condition, f.Closure}
-	if f.Body == nil {
-		utils.DumpNodeWithExit(f)
-	}
 	toReturn = append(toReturn, f.Body.GetNodes()...)
 	return toReturn
 }

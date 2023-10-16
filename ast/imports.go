@@ -19,6 +19,8 @@ type Import struct {
 	File         string          `json:"file"`                    // Filepath of the import statement.
 	Scope        int64           `json:"scope"`                   // Scope of the import.
 	UnitAlias    string          `json:"unit_alias"`              // Alias of the imported unit.
+	As           string          `json:"as"`                      // Alias of the imported unit.
+	UnitAliases  []string        `json:"unit_aliases"`            // Alias of the imported unit.
 	SourceUnit   int64           `json:"source_unit"`             // Source unit identifier.
 }
 
@@ -95,6 +97,16 @@ func (i *Import) GetName() string {
 	base := filepath.Base(i.AbsolutePath)
 	ext := filepath.Ext(base)
 	return strings.TrimSuffix(base, ext)
+}
+
+// GetUnitAliases returns the aliases of the imported unit.
+func (i *Import) GetUnitAliases() []string {
+	return i.UnitAliases
+}
+
+// GetAs returns the alias of the imported unit.
+func (i *Import) GetAs() string {
+	return i.As
 }
 
 // ToProto converts the Import node to its corresponding protobuf representation.
@@ -175,7 +187,8 @@ func parseImportPathsForSourceUnit(
 					toReturn = strings.ReplaceAll(toReturn, "\"", "")
 					return toReturn
 				}(),
-				Scope: unit.Id,
+				Scope:       unit.Id,
+				UnitAliases: make([]string, 0),
 			}
 
 			if importCtx.Identifier() != nil {
@@ -191,6 +204,18 @@ func parseImportPathsForSourceUnit(
 
 			if importCtx.GetUnitAlias() != nil {
 				importNode.UnitAlias = importCtx.GetUnitAlias().GetText()
+			}
+
+			if importCtx.As() != nil {
+				importNode.UnitAlias = importCtx.As().GetText()
+			}
+
+			if importCtx.SymbolAliases() != nil {
+				for _, aliasCtx := range importCtx.SymbolAliases().AllImportAliases() {
+					if aliasCtx.GetAlias() != nil {
+						importNode.UnitAliases = append(importNode.UnitAliases, aliasCtx.GetAlias().GetText())
+					}
+				}
 			}
 
 			// Find the source unit that corresponds to the import path
@@ -229,6 +254,8 @@ func parseImportPathsForSourceUnit(
 			filteredImports = append([]Node[NodeType]{importNode}, filteredImports...)
 		}
 	}
+
+	b.currentImports = append(b.currentImports, filteredImports...)
 
 	return filteredImports
 }

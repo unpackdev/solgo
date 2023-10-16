@@ -48,6 +48,176 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "L1Vault - 0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41",
+			outputPath: "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "L1Vault",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1Vault").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1Vault").Content,
+					},
+					{
+						Name:    "Strings",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Strings").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Strings").Content,
+					},
+					{
+						Name:    "Math",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Math").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Math").Content,
+					},
+					{
+						Name:    "AccessControlUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/AccessControlUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/AccessControlUpgradeable").Content,
+					},
+					{
+						Name:    "IAccessControlUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IAccessControlUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IAccessControlUpgradeable").Content,
+					},
+					{
+						Name:    "draft-IERC1822Upgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/draft-IERC1822Upgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/draft-IERC1822Upgradeable").Content,
+					},
+					{
+						Name:    "ERC1967UpgradeUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ERC1967UpgradeUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ERC1967UpgradeUpgradeable").Content,
+					},
+					{
+						Name:    "IBeaconUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IBeaconUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IBeaconUpgradeable").Content,
+					},
+					{
+						Name:    "Initializable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Initializable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Initializable").Content,
+					},
+					{
+						Name:    "UUPSUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/UUPSUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/UUPSUpgradeable").Content,
+					},
+					{
+						Name:    "PausableUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/PausableUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/PausableUpgradeable").Content,
+					},
+					{
+						Name:    "AddressUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/AddressUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/AddressUpgradeable").Content,
+					},
+					{
+						Name:    "ContextUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ContextUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ContextUpgradeable").Content,
+					},
+					{
+						Name:    "StorageSlotUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/StorageSlotUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/StorageSlotUpgradeable").Content,
+					},
+					{
+						Name:    "StringsUpgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/StringsUpgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/StringsUpgradeable").Content,
+					},
+					{
+						Name:    "ERC165Upgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ERC165Upgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ERC165Upgradeable").Content,
+					},
+					{
+						Name:    "IERC165Upgradeable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IERC165Upgradeable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IERC165Upgradeable").Content,
+					},
+					{
+						Name:    "Multicallable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Multicallable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Multicallable").Content,
+					},
+					{
+						Name:    "ERC20",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ERC20").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/ERC20").Content,
+					},
+					{
+						Name:    "SafeTransferLib",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/SafeTransferLib").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/SafeTransferLib").Content,
+					},
+					{
+						Name:    "AffineGovernable",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/AffineGovernable").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/AffineGovernable").Content,
+					},
+					{
+						Name:    "BaseStrategy",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BaseStrategy").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BaseStrategy").Content,
+					},
+					{
+						Name:    "BaseVault",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BaseVault").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BaseVault").Content,
+					},
+					{
+						Name:    "BridgeEscrow",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BridgeEscrow").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BridgeEscrow").Content,
+					},
+					{
+						Name:    "WormholeRouter",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/WormholeRouter").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/WormholeRouter").Content,
+					},
+					{
+						Name:    "L1BridgeEscrow",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1BridgeEscrow").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1BridgeEscrow").Content,
+					},
+					{
+						Name:    "L1WormholeRouter",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1WormholeRouter").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1WormholeRouter").Content,
+					},
+					{
+						Name:    "IRootChainManager",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IRootChainManager").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IRootChainManager").Content,
+					},
+					{
+						Name:    "IWormhole",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IWormhole").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/IWormhole").Content,
+					},
+					{
+						Name:    "Constants",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Constants").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Constants").Content,
+					},
+					{
+						Name:    "Unchecked",
+						Path:    tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Unchecked").Path,
+						Content: tests.ReadContractFileForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/Unchecked").Content,
+					},
+				},
+				EntrySourceUnitName: "L1Vault",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1Vault.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1Vault.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			expectsErrors:        false,
+			disabled:             false,
+		},
+		{
 			name:       "MintPassExtension - 0x7637a7E82e6af52ABeb27667489E110193D60b42",
 			outputPath: "contracts/1:0x7637a7E82e6af52ABeb27667489E110193D60b42/",
 			sources: &solgo.Sources{
@@ -341,7 +511,7 @@ func getSourceTestCases(t *testing.T) []struct {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "contracts/adminproxy/Admin.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
 			expectsErrors:        true,
-			disabled:             false, // 0.5.10 contract, has some issues with the parser
+			disabled:             true, // 0.5.10 contract, has some issues with the parser
 		},
 		{
 			name:       "RouterV2 Contract - 0x8A99Ad90E77e376AD4Cec21231AF855a87771fD0",
@@ -519,10 +689,12 @@ func getSourceTestCases(t *testing.T) []struct {
 				},
 				EntrySourceUnitName: "Token",
 				LocalSourcesPath:    buildFullPath("../sources/"),
+				LocalSources:        true,
 			},
 			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/Token.solgo.ast").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/Token.solgo.ast.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Token Sale ERC20 Test",

@@ -324,8 +324,24 @@ func (a *Assignment) Parse(
 	// Setting the type description based on the left expression.
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()
 
+	if a.LeftExpression != nil && a.LeftExpression.GetTypeDescription() == nil {
+		if le, ok := a.LeftExpression.(*PrimaryExpression); ok {
+			if refId, refTypeDescription := a.GetResolver().ResolveByNode(a.LeftExpression, le.Name); refTypeDescription != nil {
+				a.LeftExpression.SetReferenceDescriptor(refId, refTypeDescription)
+			}
+		}
+	}
+
+	if a.RightExpression != nil && a.RightExpression.GetTypeDescription() == nil {
+		if re, ok := a.RightExpression.(*PrimaryExpression); ok {
+			if refId, refTypeDescription := a.GetResolver().ResolveByNode(a.LeftExpression, re.Name); refTypeDescription != nil {
+				a.RightExpression.SetReferenceDescriptor(refId, refTypeDescription)
+			}
+		}
+	}
+
 	// If the left expression is nil, set the reference descriptor for the right expression.
-	if a.TypeDescription == nil {
+	if a.TypeDescription == nil && a.RightExpression != nil && a.RightExpression.GetTypeDescription() != nil {
 		a.LeftExpression.SetReferenceDescriptor(a.RightExpression.GetId(), a.RightExpression.GetTypeDescription())
 		a.TypeDescription = a.RightExpression.GetTypeDescription()
 	}
