@@ -1,8 +1,6 @@
 package ast
 
 import (
-	"fmt"
-
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -101,12 +99,12 @@ func (y *YulVariable) Parse(
 		})
 	}
 
-	for _, identifier := range ctx.AllYulIdentifier() {
-		fmt.Println(identifier.GetText())
-	}
-
 	if ctx.YulFunctionCall() != nil {
-		panic("OK -> VARIABLE DECLARATION -> FUNCTION CALL")
+		fcStatement := NewYulFunctionCallStatement(y.ASTBuilder)
+		y.Expression = fcStatement.Parse(
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, y,
+			ctx.YulFunctionCall().(*parser.YulFunctionCallContext),
+		)
 	}
 
 	if ctx.YulExpression() != nil {

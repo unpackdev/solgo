@@ -1,8 +1,6 @@
 package ir
 
 import (
-	"fmt"
-
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/ast"
@@ -203,8 +201,6 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 					rootNode.Contracts,
 					b.processContract(su),
 				)
-			} else {
-				fmt.Println("Empty...")
 			}
 		}
 	}

@@ -1,6 +1,10 @@
 package ast
 
 import (
+	"encoding/hex"
+	"fmt"
+	"strings"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -8,11 +12,13 @@ import (
 type YulLiteralStatement struct {
 	*ASTBuilder
 
-	Id          int64            `json:"id"`
-	NodeType    ast_pb.NodeType  `json:"node_type"`
-	Src         SrcNode          `json:"src"`
-	Identifiers []*YulIdentifier `json:"identifiers"`
-	Expression  Node[NodeType]   `json:"expression"`
+	Id           int64            `json:"id"`
+	NodeType     ast_pb.NodeType  `json:"node_type"`
+	Src          SrcNode          `json:"src"`
+	NameLocation SrcNode          `json:"name_location"`
+	Identifiers  []*YulIdentifier `json:"identifiers"`
+	Value        string           `json:"value"`
+	HexValue     string           `json:"hex_value"`
 }
 
 func NewYulLiteralStatement(b *ASTBuilder) *YulLiteralStatement {
@@ -42,7 +48,6 @@ func (y *YulLiteralStatement) GetSrc() SrcNode {
 
 func (y *YulLiteralStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.Expression)
 	return toReturn
 }
 
@@ -78,38 +83,90 @@ func (y *YulLiteralStatement) Parse(
 		ParentIndex: assemblyNode.GetId(),
 	}
 
-	/* 	if ctx.YulExpression() != nil {
-	   		y.Expression = ParseYulExpression(
-	   			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,
-	   			ctx.YulExpression(),
-	   		)
-	   	}
+	if ctx.YulBoolean() != nil {
+		literal := ctx.YulBoolean()
+		y.Value = literal.GetText()
+		y.NodeType = ast_pb.NodeType_BOOLEAN
+		y.NameLocation = SrcNode{
+			Id:          y.GetNextID(),
+			Line:        int64(literal.GetStart().GetLine()),
+			Column:      int64(literal.GetStart().GetColumn()),
+			Start:       int64(literal.GetStart().GetStart()),
+			End:         int64(literal.GetStart().GetStop()),
+			Length:      int64(literal.GetStart().GetStop() - literal.GetStart().GetStart() + 1),
+			ParentIndex: y.GetId(),
+		}
 
-	   	for _, identifier := range ctx.AllYulIdentifier() {
-	   		y.Identifiers = append(y.Identifiers, &YulIdentifier{
-	   			Id:       y.GetNextID(),
-	   			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
-	   			Src: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetStart()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   			Name: identifier.GetText(),
-	   			NameLocation: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetStart()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   		})
-	   	} */
+	}
+
+	if ctx.YulDecimalNumber() != nil {
+		literal := ctx.YulDecimalNumber()
+		y.Value = literal.GetText()
+		y.NodeType = ast_pb.NodeType_DECIMAL_NUMBER
+		y.NameLocation = SrcNode{
+			Id:          y.GetNextID(),
+			Line:        int64(literal.GetSymbol().GetLine()),
+			Column:      int64(literal.GetSymbol().GetColumn()),
+			Start:       int64(literal.GetSymbol().GetStart()),
+			End:         int64(literal.GetSymbol().GetStop()),
+			Length:      int64(literal.GetSymbol().GetStop() - literal.GetSymbol().GetStart() + 1),
+			ParentIndex: y.GetId(),
+		}
+	}
+
+	if ctx.YulStringLiteral() != nil {
+		literal := ctx.YulStringLiteral()
+		y.Value = literal.GetText()
+		y.NodeType = ast_pb.NodeType_STRING
+		y.NameLocation = SrcNode{
+			Id:          y.GetNextID(),
+			Line:        int64(literal.GetSymbol().GetLine()),
+			Column:      int64(literal.GetSymbol().GetColumn()),
+			Start:       int64(literal.GetSymbol().GetStart()),
+			End:         int64(literal.GetSymbol().GetStop()),
+			Length:      int64(literal.GetSymbol().GetStop() - literal.GetSymbol().GetStart() + 1),
+			ParentIndex: y.GetId(),
+		}
+	}
+
+	if ctx.YulHexNumber() != nil {
+		literal := ctx.YulHexNumber()
+		y.NodeType = ast_pb.NodeType_NUMBER
+		y.HexValue = literal.GetText()
+		y.NameLocation = SrcNode{
+			Id:          y.GetNextID(),
+			Line:        int64(literal.GetSymbol().GetLine()),
+			Column:      int64(literal.GetSymbol().GetColumn()),
+			Start:       int64(literal.GetSymbol().GetStart()),
+			End:         int64(literal.GetSymbol().GetStop()),
+			Length:      int64(literal.GetSymbol().GetStop() - literal.GetSymbol().GetStart() + 1),
+			ParentIndex: y.GetId(),
+		}
+
+		bytes, _ := hex.DecodeString(strings.Replace(y.HexValue, "0x", "", -1))
+		value := int64(0)
+		for _, b := range bytes {
+			value = (value << 8) | int64(b)
+		}
+		y.Value = fmt.Sprintf("%d", value)
+	}
+
+	if ctx.YulHexStringLiteral() != nil {
+		literal := ctx.YulHexStringLiteral()
+		y.NodeType = ast_pb.NodeType_HEX_STRING
+		y.HexValue = literal.GetText()
+		y.Value = strings.Replace(y.HexValue, "0x", "", -1)
+		y.NameLocation = SrcNode{
+			Id:          y.GetNextID(),
+			Line:        int64(literal.GetSymbol().GetLine()),
+			Column:      int64(literal.GetSymbol().GetColumn()),
+			Start:       int64(literal.GetSymbol().GetStart()),
+			End:         int64(literal.GetSymbol().GetStop()),
+			Length:      int64(literal.GetSymbol().GetStop() - literal.GetSymbol().GetStart() + 1),
+			ParentIndex: y.GetId(),
+		}
+
+	}
 
 	return y
 }
