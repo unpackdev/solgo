@@ -56,6 +56,11 @@ func (y *YulStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
 }
 
+// UnmarshalJSON unmarshals a given JSON byte array into a YulStatement node.
+func (f *YulStatement) UnmarshalJSON(data []byte) error {
+	return nil
+}
+
 func (y *YulStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

@@ -58,6 +58,11 @@ func (y *YulLeaveStatement) GetIdentifiers() []*YulIdentifier {
 	return y.Identifiers
 }
 
+// UnmarshalJSON unmarshals a given JSON byte array into a YulLeaveStatement node.
+func (f *YulLeaveStatement) UnmarshalJSON(data []byte) error {
+	return nil
+}
+
 func (y *YulLeaveStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

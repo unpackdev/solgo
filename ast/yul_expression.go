@@ -18,7 +18,6 @@ func ParseYulExpression(
 	parentNode Node[NodeType],
 	ctx parser.IYulExpressionContext,
 ) Node[NodeType] {
-
 	if ctx.YulLiteral() != nil {
 		literalStatement := NewYulLiteralStatement(b)
 		return literalStatement.Parse(
@@ -35,7 +34,10 @@ func ParseYulExpression(
 		)
 	}
 
-	//ctx.YulPath()
+	/* 	zap.L().Warn(
+		"ParseYulExpression: unimplemented child type",
+		zap.Any("child_type", reflect.TypeOf(ctx).String()),
+	) */
 
 	return nil
 }

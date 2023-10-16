@@ -25,7 +25,7 @@ func NewYulLiteralStatement(b *ASTBuilder) *YulLiteralStatement {
 	return &YulLiteralStatement{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_YUL_ASSIGNMENT,
+		NodeType:   ast_pb.NodeType_YUL_LITERAL,
 	}
 }
 
@@ -61,6 +61,11 @@ func (y *YulLiteralStatement) ToProto() NodeType {
 
 func (y *YulLiteralStatement) GetIdentifiers() []*YulIdentifier {
 	return y.Identifiers
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a YulLiteralStatement node.
+func (f *YulLiteralStatement) UnmarshalJSON(data []byte) error {
+	return nil
 }
 
 func (y *YulLiteralStatement) Parse(

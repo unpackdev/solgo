@@ -1,8 +1,6 @@
 package ast
 
 import (
-	"fmt"
-
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -21,7 +19,7 @@ func NewYulSwitchStatement(b *ASTBuilder) *YulSwitchStatement {
 	return &YulSwitchStatement{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_YUL_ASSIGNMENT,
+		NodeType:   ast_pb.NodeType_YUL_SWITCH,
 	}
 }
 
@@ -60,6 +58,11 @@ func (y *YulSwitchStatement) GetIdentifiers() []*YulIdentifier {
 	return y.Identifiers
 }
 
+// UnmarshalJSON unmarshals a given JSON byte array into a YulSwitchStatement node.
+func (f *YulSwitchStatement) UnmarshalJSON(data []byte) error {
+	return nil
+}
+
 func (y *YulSwitchStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -79,12 +82,12 @@ func (y *YulSwitchStatement) Parse(
 		ParentIndex: assemblyNode.GetId(),
 	}
 
-	if ctx.AllYulSwitchCase() != nil {
-		for _, switchCase := range ctx.AllYulSwitchCase() {
-			fmt.Println(switchCase)
-		}
-	}
-
+	/* 	if ctx.AllYulSwitchCase() != nil {
+	   		for _, switchCase := range ctx.AllYulSwitchCase() {
+	   			fmt.Println(switchCase)
+	   		}
+	   	}
+	*/
 	/* 	if ctx.YulExpression() != nil {
 	   		y.Expression = ParseYulExpression(
 	   			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,

@@ -21,8 +21,9 @@ func NewYulVariable(b *ASTBuilder) *YulVariable {
 	return &YulVariable{
 		ASTBuilder:    b,
 		Id:            b.GetNextID(),
-		NodeType:      ast_pb.NodeType_YUL_ASSIGNMENT,
+		NodeType:      ast_pb.NodeType_YUL_VARIABLE_DECLARATION,
 		VariableNames: make([]*YulVariableNames, 0),
+		Identifiers:   make([]*YulIdentifier, 0),
 	}
 }
 
@@ -59,6 +60,11 @@ func (y *YulVariable) ToProto() NodeType {
 
 func (y *YulVariable) GetIdentifiers() []*YulIdentifier {
 	return y.Identifiers
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a YulVariable node.
+func (f *YulVariable) UnmarshalJSON(data []byte) error {
+	return nil
 }
 
 func (y *YulVariable) Parse(

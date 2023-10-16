@@ -390,7 +390,7 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 		return toReturn, nil
 
 	//
-	// FUTURE IMPLEMENTATIONS....
+	// ASSEMBLY / YUL NODES
 	//
 
 	case ast_pb.NodeType_ASSEMBLY_STATEMENT:
@@ -401,6 +401,78 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 		return toReturn, nil
 	case ast_pb.NodeType_YUL_STATEMENT:
 		var toReturn *YulStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_VARIABLE_DECLARATION:
+		var toReturn *YulAssignment
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_ASSIGNMENT:
+		var toReturn *YulAssignment
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_BLOCK:
+		var toReturn *YulBlockStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_FOR:
+		var toReturn *YulForStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_IF:
+		var toReturn *YulIfStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_SWITCH:
+		var toReturn *YulSwitchStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_LITERAL:
+		var toReturn *YulLiteralStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_FUNCTION_CALL:
+		var toReturn *YulFunctionCallStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_FUNCTION_DEFINITION:
+		var toReturn *YulFunctionDefinition
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_BREAK:
+		var toReturn *YulBreakStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_CONTINUE:
+		var toReturn *YulContinueStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_LEAVE:
+		var toReturn *YulLeaveStatement
 		if err := json.Unmarshal(data, &toReturn); err != nil {
 			return nil, err
 		}
