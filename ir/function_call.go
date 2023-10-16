@@ -11,7 +11,7 @@ import (
 
 // FunctionCall represents a function call statement in the IR.
 type FunctionCall struct {
-	unit                    *ast.FunctionCall         `json:"-"`
+	Unit                    *ast.FunctionCall         `json:"-"`
 	referencedUnit          *Function                 `json:"-"`
 	referencedContract      ContractNode              `json:"-"`
 	Id                      int64                     `json:"id"`
@@ -29,7 +29,7 @@ type FunctionCall struct {
 
 // GetAST returns the AST (Abstract Syntax Tree) for the function call statement.
 func (e *FunctionCall) GetAST() *ast.FunctionCall {
-	return e.unit
+	return e.Unit
 }
 
 // GetId returns the ID of the function call statement.
@@ -49,7 +49,7 @@ func (e *FunctionCall) GetKind() ast_pb.NodeType {
 
 // GetSrc returns the source location of the function call statement.
 func (e *FunctionCall) GetSrc() ast.SrcNode {
-	return e.unit.GetSrc()
+	return e.Unit.GetSrc()
 }
 
 // GetNodes returns the nodes of the statement.
@@ -129,7 +129,7 @@ func (e *FunctionCall) ToProto() *v3.TypedStruct {
 // processFunctionCall processes the function call statement and returns the FunctionCall.
 func (b *Builder) processFunctionCall(fn *Function, unit *ast.FunctionCall) *FunctionCall {
 	toReturn := &FunctionCall{
-		unit:                    unit,
+		Unit:                    unit,
 		Id:                      unit.GetId(),
 		NodeType:                unit.GetType(),
 		Kind:                    unit.GetKind(),

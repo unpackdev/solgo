@@ -31,16 +31,27 @@ type ASTBuilder struct {
 	currentFunctions      []Node[NodeType]
 	currentVariables      []Node[NodeType]
 	globalDefinitions     []Node[NodeType]
+	currentImports        []Node[NodeType]
 }
 
 // NewAstBuilder creates a new ASTBuilder with the provided Solidity parser and source code.
 func NewAstBuilder(parser *parser.SolidityParser, sources *solgo.Sources) *ASTBuilder {
 	builder := &ASTBuilder{
-		parser:      parser,
-		sources:     sources,
-		comments:    make([]*Comment, 0),
-		sourceUnits: make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
-		nextID:      1,
+		parser:                parser,
+		sources:               sources,
+		comments:              make([]*Comment, 0),
+		sourceUnits:           make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
+		currentImports:        make([]Node[NodeType], 0),
+		currentStateVariables: make([]*StateVariableDeclaration, 0),
+		currentEvents:         make([]Node[NodeType], 0),
+		currentEnums:          make([]Node[NodeType], 0),
+		currentStructs:        make([]Node[NodeType], 0),
+		currentErrors:         make([]Node[NodeType], 0),
+		currentModifiers:      make([]Node[NodeType], 0),
+		currentFunctions:      make([]Node[NodeType], 0),
+		currentVariables:      make([]Node[NodeType], 0),
+		globalDefinitions:     make([]Node[NodeType], 0),
+		nextID:                1,
 	}
 
 	// Used for resolving references.
@@ -127,4 +138,5 @@ func (b *ASTBuilder) GarbageCollect() {
 	b.currentStructs = nil
 	b.currentVariables = nil
 	b.globalDefinitions = nil
+	b.currentImports = nil
 }

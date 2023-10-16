@@ -10,7 +10,7 @@ import (
 
 // Pragma represents a Pragma in the Abstract Syntax Tree.
 type Pragma struct {
-	unit     *ast.Pragma
+	Unit     *ast.Pragma     `json:"ast"`
 	Id       int64           `json:"id"`
 	NodeType ast_pb.NodeType `json:"node_type"`
 	Literals []string        `json:"literals"`
@@ -19,7 +19,7 @@ type Pragma struct {
 
 // GetAST returns the underlying AST node for the Pragma.
 func (p *Pragma) GetAST() *ast.Pragma {
-	return p.unit
+	return p.Unit
 }
 
 // GetId returns the ID of the Pragma.
@@ -50,7 +50,7 @@ func (p *Pragma) GetVersion() string {
 
 // GetSrc returns the source code location associated with the Pragma.
 func (p *Pragma) GetSrc() ast.SrcNode {
-	return p.unit.GetSrc()
+	return p.Unit.GetSrc()
 }
 
 // ToProto converts the Pragma to its corresponding protobuf representation.
@@ -68,7 +68,7 @@ func (p *Pragma) ToProto() *ir_pb.Pragma {
 // processPragma processes the given pragma and returns the corresponding Pragma object.
 func (b *Builder) processPragma(unit *ast.Pragma) *Pragma {
 	return &Pragma{
-		unit:     unit,
+		Unit:     unit,
 		Id:       unit.GetId(),
 		NodeType: unit.GetType(),
 		Literals: unit.GetLiterals(),

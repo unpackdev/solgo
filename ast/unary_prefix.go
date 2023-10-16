@@ -269,5 +269,6 @@ func (u *UnaryPrefix) Parse(
 	expression := NewExpression(u.ASTBuilder)
 	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, ctx.Expression())
 	u.TypeDescription = u.Expression.GetTypeDescription()
+
 	return u
 }

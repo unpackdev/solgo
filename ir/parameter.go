@@ -8,7 +8,7 @@ import (
 
 // Parameter represents a Parameter in the Abstract Syntax Tree.
 type Parameter struct {
-	unit            *ast.Parameter       `json:"-"`
+	Unit            *ast.Parameter       `json:"ast"`
 	Id              int64                `json:"id"`
 	NodeType        ast_pb.NodeType      `json:"node_type"`
 	Name            string               `json:"name"`
@@ -19,7 +19,7 @@ type Parameter struct {
 
 // GetAST returns the underlying AST node for the Parameter.
 func (p *Parameter) GetAST() *ast.Parameter {
-	return p.unit
+	return p.Unit
 }
 
 // GetId returns the ID of the Parameter.
@@ -54,7 +54,7 @@ func (p *Parameter) GetTypeDescription() *ast.TypeDescription {
 
 // GetSrc returns the source code location for the Parameter.
 func (p *Parameter) GetSrc() ast.SrcNode {
-	return p.unit.GetSrc()
+	return p.Unit.GetSrc()
 }
 
 // ToProto converts the Parameter to its corresponding protobuf representation.

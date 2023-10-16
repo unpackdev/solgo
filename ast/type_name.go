@@ -444,6 +444,31 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 			ParentIndex: t.GetId(),
 		}
 	}
+
+	if t.KeyType.TypeDescription == nil {
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t.KeyType, t.KeyType.Name); refTypeDescription != nil {
+			t.KeyType.ReferencedDeclaration = refId
+			t.KeyType.TypeDescription = refTypeDescription
+		} else {
+			t.KeyType.TypeDescription = &TypeDescription{
+				TypeString:     fmt.Sprintf("unknown_%d", t.KeyType.GetId()),
+				TypeIdentifier: fmt.Sprintf("t_unknown_%d", t.KeyType.GetId()),
+			}
+		}
+	}
+
+	if t.ValueType.TypeDescription == nil {
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t.ValueType, t.ValueType.Name); refTypeDescription != nil {
+			t.ValueType.ReferencedDeclaration = refId
+			t.ValueType.TypeDescription = refTypeDescription
+		} else {
+			t.ValueType.TypeDescription = &TypeDescription{
+				TypeString:     fmt.Sprintf("unknown_%d", t.ValueType.GetId()),
+				TypeIdentifier: fmt.Sprintf("t_unknown_%d", t.ValueType.GetId()),
+			}
+		}
+	}
+
 	t.TypeDescription = &TypeDescription{
 		TypeString: fmt.Sprintf("mapping(%s=>%s)", t.KeyType.Name, t.ValueType.Name),
 		TypeIdentifier: fmt.Sprintf(
@@ -452,6 +477,7 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 			t.ValueType.TypeDescription.TypeIdentifier,
 		),
 	}
+
 }
 
 // generateTypeName generates the TypeName based on the given context.

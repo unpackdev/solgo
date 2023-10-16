@@ -8,7 +8,7 @@ import (
 
 // Override represents an Override in the Abstract Syntax Tree.
 type Override struct {
-	unit                    *ast.OverrideSpecifier `json:"-"`
+	Unit                    *ast.OverrideSpecifier `json:"ast"`
 	Id                      int64                  `json:"id"`
 	NodeType                ast_pb.NodeType        `json:"node_type"`
 	Name                    string                 `json:"name"`
@@ -18,7 +18,7 @@ type Override struct {
 
 // GetAST returns the underlying AST node for the Override.
 func (m *Override) GetAST() *ast.OverrideSpecifier {
-	return m.unit
+	return m.Unit
 }
 
 // GetId returns the ID of the Override.
@@ -48,7 +48,7 @@ func (m *Override) GetTypeDescription() *ast.TypeDescription {
 
 // GetSrc returns the source node of the Override.
 func (m *Override) GetSrc() ast.SrcNode {
-	return m.unit.GetSrc()
+	return m.Unit.GetSrc()
 }
 
 // ToProto converts the Override to its corresponding protobuf representation.

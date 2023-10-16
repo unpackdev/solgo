@@ -156,6 +156,7 @@ func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode N
 		p.Parameters = append(p.Parameters, param)
 		p.ParameterTypes = append(p.ParameterTypes, param.TypeName.TypeDescription)
 	}
+
 }
 
 // ParseEventParameters parses event parameters from the provided context.
