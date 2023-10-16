@@ -120,6 +120,8 @@ func (i *Import) ToProto() NodeType {
 		Scope:        i.GetScope(),
 		UnitAlias:    i.GetUnitAlias(),
 		SourceUnit:   i.GetSourceUnit(),
+		As:           i.GetAs(),
+		UnitAliases:  i.GetUnitAliases(),
 	}
 
 	if i.GetNameLocation() != nil {
