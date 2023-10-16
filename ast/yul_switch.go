@@ -13,6 +13,7 @@ type YulSwitchStatement struct {
 	Src         SrcNode          `json:"src"`
 	Identifiers []*YulIdentifier `json:"identifiers"`
 	Expression  Node[NodeType]   `json:"expression"`
+	Cases       []Node[NodeType] `json:"cases"`
 }
 
 func NewYulSwitchStatement(b *ASTBuilder) *YulSwitchStatement {
@@ -20,6 +21,7 @@ func NewYulSwitchStatement(b *ASTBuilder) *YulSwitchStatement {
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_YUL_SWITCH,
+		Cases:      make([]Node[NodeType], 0),
 	}
 }
 
@@ -82,12 +84,18 @@ func (y *YulSwitchStatement) Parse(
 		ParentIndex: assemblyNode.GetId(),
 	}
 
-	/* 	if ctx.AllYulSwitchCase() != nil {
-	   		for _, switchCase := range ctx.AllYulSwitchCase() {
-	   			fmt.Println(switchCase)
-	   		}
-	   	}
-	*/
+	if ctx.AllYulSwitchCase() != nil {
+		for _, switchCase := range ctx.AllYulSwitchCase() {
+			caseStatement := NewYulSwitchCaseStatement(y.ASTBuilder)
+			y.Cases = append(y.Cases, caseStatement.Parse(
+				unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, y,
+				switchCase.(*parser.YulSwitchCaseContext),
+			))
+		}
+	}
+
+	//utils.DumpNodeWithExit(y)
+
 	/* 	if ctx.YulExpression() != nil {
 	   		y.Expression = ParseYulExpression(
 	   			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,

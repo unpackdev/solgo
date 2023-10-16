@@ -441,6 +441,12 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 			return nil, err
 		}
 		return toReturn, nil
+	case ast_pb.NodeType_YUL_SWITCH_CASE:
+		var toReturn *YulSwitchCaseStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
 	case ast_pb.NodeType_YUL_LITERAL:
 		var toReturn *YulLiteralStatement
 		if err := json.Unmarshal(data, &toReturn); err != nil {
