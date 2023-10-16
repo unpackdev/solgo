@@ -30,8 +30,7 @@ type Expression interface {
 
 // Body represents a generic body of a construct, which can contain multiple statements.
 type Body struct {
-	unit *ast.BodyNode // Original AST node reference
-
+	Unit       *ast.BodyNode   `json:"ast"` // Original AST node reference
 	Id         int64           `json:"id"`
 	NodeType   ast_pb.NodeType `json:"node_type"`
 	Kind       ast_pb.NodeType `json:"kind"`
@@ -40,7 +39,7 @@ type Body struct {
 
 // GetAST returns the original AST node reference for the body.
 func (e *Body) GetAST() *ast.BodyNode {
-	return e.unit
+	return e.Unit
 }
 
 // GetId returns the unique identifier of the body node.
@@ -60,7 +59,7 @@ func (e *Body) GetKind() ast_pb.NodeType {
 
 // GetSrc returns the source location of the body node.
 func (e *Body) GetSrc() ast.SrcNode {
-	return e.unit.GetSrc()
+	return e.Unit.GetSrc()
 }
 
 // GetNodes returns a list of statements contained within the body.
@@ -93,7 +92,7 @@ func (e *Body) ToProto() *ir_pb.Body {
 // its intermediate representation. Currently, it only processes function call statements.
 func (b *Builder) processFunctionBody(fn *Function, unit *ast.BodyNode) *Body {
 	body := &Body{
-		unit:       unit,
+		Unit:       unit,
 		Id:         unit.GetId(),
 		NodeType:   unit.GetType(),
 		Kind:       unit.GetKind(),

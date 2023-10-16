@@ -9,8 +9,7 @@ import (
 
 // Constructor represents a contract constructor.
 type Constructor struct {
-	unit *ast.Constructor
-
+	Unit             *ast.Constructor  `json:"ast"`
 	Id               int64             `json:"id"`
 	NodeType         ast_pb.NodeType   `json:"node_type"`
 	Kind             ast_pb.NodeType   `json:"kind"`
@@ -26,7 +25,7 @@ type Constructor struct {
 
 // GetAST returns the underlying ast.Constructor.
 func (f *Constructor) GetAST() *ast.Constructor {
-	return f.unit
+	return f.Unit
 }
 
 // GetId returns the ID of the constructor.
@@ -86,7 +85,7 @@ func (f *Constructor) GetReturnStatements() []*Parameter {
 
 // GetSrc returns the source code location of the constructor.
 func (f *Constructor) GetSrc() ast.SrcNode {
-	return f.unit.GetSrc()
+	return f.Unit.GetSrc()
 }
 
 // ToProto converts the constructor to its protobuf representation.
@@ -123,7 +122,7 @@ func (f *Constructor) ToProto() *ir_pb.Constructor {
 // processConstructor processes the given ast.Constructor and returns its IR representation.
 func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 	toReturn := &Constructor{
-		unit:             unit,
+		Unit:             unit,
 		Id:               unit.GetId(),
 		NodeType:         unit.GetType(),
 		Kind:             unit.GetKind(),
@@ -138,7 +137,7 @@ func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 
 	for _, modifier := range unit.GetModifiers() {
 		toReturn.Modifiers = append(toReturn.Modifiers, &Modifier{
-			unit:          modifier,
+			Unit:          modifier,
 			Id:            modifier.GetId(),
 			NodeType:      modifier.GetType(),
 			Name:          modifier.GetName(),
@@ -148,7 +147,7 @@ func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		toReturn.Parameters = append(toReturn.Parameters, &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),
@@ -159,7 +158,7 @@ func (b *Builder) processConstructor(unit *ast.Constructor) *Constructor {
 
 	for _, returnStatement := range unit.GetReturnParameters().GetParameters() {
 		toReturn.ReturnStatements = append(toReturn.ReturnStatements, &Parameter{
-			unit:            returnStatement,
+			Unit:            returnStatement,
 			Id:              returnStatement.GetId(),
 			NodeType:        returnStatement.GetType(),
 			Name:            returnStatement.GetName(),

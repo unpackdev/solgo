@@ -1,0 +1,1973 @@
+{
+	"id": 10900,
+	"base_contracts": [
+		{
+			"id": 11010,
+			"node_type": 62,
+			"src": {
+				"id": 11011,
+				"line": 3046,
+				"column": 27,
+				"start": 113465,
+				"end": 113476,
+				"length": 12,
+				"parent_index": 11008
+			},
+			"base_name": {
+				"id": 11012,
+				"node_type": 52,
+				"src": {
+					"id": 11013,
+					"line": 3046,
+					"column": 27,
+					"start": 113465,
+					"end": 113476,
+					"length": 12,
+					"parent_index": 11008
+				},
+				"name": "BridgeEscrow",
+				"referenced_declaration": 10321
+			}
+		}
+	],
+	"license": "BUSL-1.1",
+	"exported_symbols": [
+		{
+			"id": 10900,
+			"name": "L1BridgeEscrow",
+			"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1BridgeEscrow.sol"
+		},
+		{
+			"id": 10598,
+			"name": "ERC20",
+			"absolute_path": "ERC20.sol"
+		},
+		{
+			"id": 10598,
+			"name": "SafeTransferLib",
+			"absolute_path": "SafeTransferLib.sol"
+		},
+		{
+			"id": 10598,
+			"name": "IRootChainManager",
+			"absolute_path": "IRootChainManager.sol"
+		},
+		{
+			"id": 10598,
+			"name": "BridgeEscrow",
+			"absolute_path": "BridgeEscrow.sol"
+		},
+		{
+			"id": 10598,
+			"name": "L1Vault",
+			"absolute_path": "L1Vault.sol"
+		}
+	],
+	"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/1:0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1BridgeEscrow.sol",
+	"name": "L1BridgeEscrow",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 10952,
+			"node_type": 10,
+			"src": {
+				"id": 10953,
+				"line": 3037,
+				"column": 0,
+				"start": 113127,
+				"end": 113150,
+				"length": 24,
+				"parent_index": 10900
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity =0.8.16;"
+		},
+		{
+			"id": 11003,
+			"node_type": 29,
+			"src": {
+				"line": 3039,
+				"column": 0,
+				"start": 113153,
+				"end": 113203,
+				"length": 51,
+				"parent_index": 10900
+			},
+			"absolute_path": "ERC20.sol",
+			"file": "solmate/src/tokens/ERC20.sol",
+			"scope": 10900,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 10598
+		},
+		{
+			"id": 11004,
+			"node_type": 29,
+			"src": {
+				"line": 3040,
+				"column": 0,
+				"start": 113205,
+				"end": 113274,
+				"length": 70,
+				"parent_index": 10900
+			},
+			"absolute_path": "SafeTransferLib.sol",
+			"file": "solmate/src/utils/SafeTransferLib.sol",
+			"scope": 10900,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 10598
+		},
+		{
+			"id": 11005,
+			"node_type": 29,
+			"src": {
+				"line": 3042,
+				"column": 0,
+				"start": 113277,
+				"end": 113346,
+				"length": 70,
+				"parent_index": 10900
+			},
+			"absolute_path": "IRootChainManager.sol",
+			"file": "../interfaces/IRootChainManager.sol",
+			"scope": 10900,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 10598
+		},
+		{
+			"id": 11006,
+			"node_type": 29,
+			"src": {
+				"line": 3043,
+				"column": 0,
+				"start": 113348,
+				"end": 113396,
+				"length": 49,
+				"parent_index": 10900
+			},
+			"absolute_path": "BridgeEscrow.sol",
+			"file": "../BridgeEscrow.sol",
+			"scope": 10900,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 10598
+		},
+		{
+			"id": 11007,
+			"node_type": 29,
+			"src": {
+				"line": 3044,
+				"column": 0,
+				"start": 113398,
+				"end": 113435,
+				"length": 38,
+				"parent_index": 10900
+			},
+			"absolute_path": "L1Vault.sol",
+			"file": "./L1Vault.sol",
+			"scope": 10900,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 10598
+		},
+		{
+			"id": 11008,
+			"name": "L1BridgeEscrow",
+			"node_type": 35,
+			"src": {
+				"line": 3046,
+				"column": 0,
+				"start": 113438,
+				"end": 114746,
+				"length": 1309,
+				"parent_index": 10900
+			},
+			"name_location": {
+				"id": 11009,
+				"line": 3046,
+				"column": 9,
+				"start": 113447,
+				"end": 113460,
+				"length": 14,
+				"parent_index": 11008
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 11015,
+					"node_type": 51,
+					"src": {
+						"id": 11016,
+						"line": 3047,
+						"column": 0,
+						"start": 113484,
+						"end": 113515,
+						"length": 32,
+						"parent_index": 11008
+					},
+					"type_description": {
+						"type_identifier": "t_contract$_ERC20_$6410",
+						"type_string": "contract ERC20"
+					},
+					"type_name": {
+						"id": 11019,
+						"node_type": 69,
+						"src": {
+							"id": 11020,
+							"line": 3047,
+							"column": 30,
+							"start": 113510,
+							"end": 113514,
+							"length": 5,
+							"parent_index": 11015
+						},
+						"path_node": {
+							"id": 11021,
+							"name": "ERC20",
+							"node_type": 52,
+							"referenced_declaration": 6410,
+							"src": {
+								"id": 11022,
+								"line": 3047,
+								"column": 30,
+								"start": 113510,
+								"end": 113514,
+								"length": 5,
+								"parent_index": 11019
+							},
+							"name_location": {
+								"line": 3047,
+								"column": 30,
+								"start": 113510,
+								"end": 113514,
+								"length": 5,
+								"parent_index": 11019
+							}
+						},
+						"referenced_declaration": 6410,
+						"type_description": {
+							"type_identifier": "t_contract$_ERC20_$6410",
+							"type_string": "contract ERC20"
+						}
+					},
+					"library_name": {
+						"id": 11017,
+						"node_type": 52,
+						"src": {
+							"id": 11018,
+							"line": 3047,
+							"column": 0,
+							"start": 113490,
+							"end": 113504,
+							"length": 15,
+							"parent_index": 11015
+						},
+						"name": "SafeTransferLib",
+						"referenced_declaration": 7232
+					}
+				},
+				{
+					"id": 11024,
+					"name": "vault",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 11025,
+						"line": 3050,
+						"column": 4,
+						"start": 113551,
+						"end": 113581,
+						"length": 31,
+						"parent_index": 11008
+					},
+					"scope": 11008,
+					"type_description": {
+						"type_identifier": "t_contract$_L1Vault_$441",
+						"type_string": "contract L1Vault"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 11026,
+						"node_type": 69,
+						"src": {
+							"id": 11027,
+							"line": 3050,
+							"column": 4,
+							"start": 113551,
+							"end": 113557,
+							"length": 7,
+							"parent_index": 11024
+						},
+						"path_node": {
+							"id": 11028,
+							"name": "L1Vault",
+							"node_type": 52,
+							"referenced_declaration": 441,
+							"src": {
+								"id": 11029,
+								"line": 3050,
+								"column": 4,
+								"start": 113551,
+								"end": 113557,
+								"length": 7,
+								"parent_index": 11026
+							},
+							"name_location": {
+								"line": 3050,
+								"column": 4,
+								"start": 113551,
+								"end": 113557,
+								"length": 7,
+								"parent_index": 11026
+							}
+						},
+						"referenced_declaration": 441,
+						"type_description": {
+							"type_identifier": "t_contract$_L1Vault_$441",
+							"type_string": "contract L1Vault"
+						}
+					}
+				},
+				{
+					"id": 11031,
+					"name": "rootChainManager",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"id": 11032,
+						"line": 3052,
+						"column": 4,
+						"start": 113777,
+						"end": 113828,
+						"length": 52,
+						"parent_index": 11008
+					},
+					"scope": 11008,
+					"type_description": {
+						"type_identifier": "$_t_import_IRootChainManager.sol_451",
+						"type_string": "import"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 11033,
+						"node_type": 69,
+						"src": {
+							"id": 11034,
+							"line": 3052,
+							"column": 4,
+							"start": 113777,
+							"end": 113793,
+							"length": 17,
+							"parent_index": 11031
+						},
+						"path_node": {
+							"id": 11035,
+							"name": "IRootChainManager",
+							"node_type": 52,
+							"referenced_declaration": 451,
+							"src": {
+								"id": 11036,
+								"line": 3052,
+								"column": 4,
+								"start": 113777,
+								"end": 113793,
+								"length": 17,
+								"parent_index": 11033
+							},
+							"name_location": {
+								"line": 3052,
+								"column": 4,
+								"start": 113777,
+								"end": 113793,
+								"length": 17,
+								"parent_index": 11033
+							}
+						},
+						"referenced_declaration": 451,
+						"type_description": {
+							"type_identifier": "$_t_import_IRootChainManager.sol_451",
+							"type_string": "import"
+						}
+					}
+				},
+				{
+					"id": 11038,
+					"node_type": 42,
+					"src": {
+						"id": 11039,
+						"line": 3054,
+						"column": 4,
+						"start": 113835,
+						"end": 113979,
+						"length": 145,
+						"parent_index": 11008
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [
+						{
+							"id": 11055,
+							"name": "BridgeEscrow",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"id": 11056,
+								"line": 3054,
+								"column": 60,
+								"start": 113891,
+								"end": 113910,
+								"length": 20,
+								"parent_index": 11038
+							},
+							"argument_types": [
+								{
+									"type_identifier": "t_contract$_L1Vault_$441",
+									"type_string": "contract L1Vault"
+								}
+							],
+							"arguments": [
+								{
+									"id": 11059,
+									"node_type": 16,
+									"src": {
+										"id": 11060,
+										"line": 3054,
+										"column": 73,
+										"start": 113904,
+										"end": 113909,
+										"length": 6,
+										"parent_index": 11055
+									},
+									"name": "_vault",
+									"type_description": {
+										"type_identifier": "t_contract$_L1Vault_$441",
+										"type_string": "contract L1Vault"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 11059,
+									"is_pure": false
+								}
+							],
+							"modifier_name": {
+								"id": 11057,
+								"name": "BridgeEscrow",
+								"node_type": 0,
+								"src": {
+									"id": 11058,
+									"line": 3054,
+									"column": 60,
+									"start": 113891,
+									"end": 113902,
+									"length": 12,
+									"parent_index": 11055
+								}
+							}
+						}
+					],
+					"parameters": {
+						"id": 11040,
+						"node_type": 43,
+						"src": {
+							"id": 11041,
+							"line": 3054,
+							"column": 16,
+							"start": 113847,
+							"end": 113888,
+							"length": 42,
+							"parent_index": 11038
+						},
+						"parameters": [
+							{
+								"id": 11042,
+								"node_type": 44,
+								"src": {
+									"id": 11043,
+									"line": 3054,
+									"column": 16,
+									"start": 113847,
+									"end": 113860,
+									"length": 14,
+									"parent_index": 11040
+								},
+								"scope": 11038,
+								"name": "_vault",
+								"type_name": {
+									"id": 11044,
+									"node_type": 69,
+									"src": {
+										"id": 11045,
+										"line": 3054,
+										"column": 16,
+										"start": 113847,
+										"end": 113853,
+										"length": 7,
+										"parent_index": 11042
+									},
+									"path_node": {
+										"id": 11046,
+										"name": "L1Vault",
+										"node_type": 52,
+										"referenced_declaration": 441,
+										"src": {
+											"id": 11047,
+											"line": 3054,
+											"column": 16,
+											"start": 113847,
+											"end": 113853,
+											"length": 7,
+											"parent_index": 11044
+										},
+										"name_location": {
+											"line": 3054,
+											"column": 16,
+											"start": 113847,
+											"end": 113853,
+											"length": 7,
+											"parent_index": 11044
+										}
+									},
+									"referenced_declaration": 441,
+									"type_description": {
+										"type_identifier": "t_contract$_L1Vault_$441",
+										"type_string": "contract L1Vault"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 11048,
+								"node_type": 44,
+								"src": {
+									"id": 11049,
+									"line": 3054,
+									"column": 32,
+									"start": 113863,
+									"end": 113888,
+									"length": 26,
+									"parent_index": 11040
+								},
+								"scope": 11038,
+								"name": "_manager",
+								"type_name": {
+									"id": 11050,
+									"node_type": 69,
+									"src": {
+										"id": 11051,
+										"line": 3054,
+										"column": 32,
+										"start": 113863,
+										"end": 113879,
+										"length": 17,
+										"parent_index": 11048
+									},
+									"path_node": {
+										"id": 11052,
+										"name": "IRootChainManager",
+										"node_type": 52,
+										"referenced_declaration": 451,
+										"src": {
+											"id": 11053,
+											"line": 3054,
+											"column": 32,
+											"start": 113863,
+											"end": 113879,
+											"length": 17,
+											"parent_index": 11050
+										},
+										"name_location": {
+											"line": 3054,
+											"column": 32,
+											"start": 113863,
+											"end": 113879,
+											"length": 17,
+											"parent_index": 11050
+										}
+									},
+									"referenced_declaration": 451,
+									"type_description": {
+										"type_identifier": "$_t_import_IRootChainManager.sol_451",
+										"type_string": "import"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_L1Vault_$441",
+								"type_string": "contract L1Vault"
+							},
+							{
+								"type_identifier": "$_t_import_IRootChainManager.sol_451",
+								"type_string": "import"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 11054,
+						"node_type": 43,
+						"src": {
+							"id": 11039,
+							"line": 3054,
+							"column": 4,
+							"start": 113835,
+							"end": 113979,
+							"length": 145,
+							"parent_index": 11038
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 11008,
+					"body": {
+						"id": 11061,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 11062,
+							"line": 3054,
+							"column": 81,
+							"start": 113912,
+							"end": 113979,
+							"length": 68,
+							"parent_index": 11038
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 11063,
+								"node_type": 27,
+								"src": {
+									"id": 11064,
+									"line": 3055,
+									"column": 8,
+									"start": 113922,
+									"end": 113936,
+									"length": 15,
+									"parent_index": 11061
+								},
+								"expression": {
+									"id": 11065,
+									"node_type": 27,
+									"src": {
+										"id": 11066,
+										"line": 3055,
+										"column": 8,
+										"start": 113922,
+										"end": 113935,
+										"length": 14,
+										"parent_index": 11061
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 11067,
+										"node_type": 16,
+										"src": {
+											"id": 11068,
+											"line": 3055,
+											"column": 8,
+											"start": 113922,
+											"end": 113926,
+											"length": 5,
+											"parent_index": 11065
+										},
+										"name": "vault",
+										"type_description": {
+											"type_identifier": "$_t_import_BaseVault.sol_450",
+											"type_string": "import"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7725,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 11069,
+										"node_type": 16,
+										"src": {
+											"id": 11070,
+											"line": 3055,
+											"column": 16,
+											"start": 113930,
+											"end": 113935,
+											"length": 6,
+											"parent_index": 11065
+										},
+										"name": "_vault",
+										"type_description": {
+											"type_identifier": "t_contract$_L1Vault_$441",
+											"type_string": "contract L1Vault"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 11069,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "$_t_import_BaseVault.sol_450",
+										"type_string": "import"
+									}
+								},
+								"type_description": {
+									"type_identifier": "$_t_import_BaseVault.sol_450",
+									"type_string": "import"
+								}
+							},
+							{
+								"id": 11071,
+								"node_type": 27,
+								"src": {
+									"id": 11072,
+									"line": 3056,
+									"column": 8,
+									"start": 113946,
+									"end": 113973,
+									"length": 28,
+									"parent_index": 11061
+								},
+								"expression": {
+									"id": 11073,
+									"node_type": 27,
+									"src": {
+										"id": 11074,
+										"line": 3056,
+										"column": 8,
+										"start": 113946,
+										"end": 113972,
+										"length": 27,
+										"parent_index": 11061
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 11075,
+										"node_type": 16,
+										"src": {
+											"id": 11076,
+											"line": 3056,
+											"column": 8,
+											"start": 113946,
+											"end": 113961,
+											"length": 16,
+											"parent_index": 11073
+										},
+										"name": "rootChainManager",
+										"type_description": {
+											"type_identifier": "$_t_import_IRootChainManager.sol_451",
+											"type_string": "import"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 11031,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 11077,
+										"node_type": 16,
+										"src": {
+											"id": 11078,
+											"line": 3056,
+											"column": 27,
+											"start": 113965,
+											"end": 113972,
+											"length": 8,
+											"parent_index": 11073
+										},
+										"name": "_manager",
+										"type_description": {
+											"type_identifier": "$_t_import_IRootChainManager.sol_451",
+											"type_string": "import"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 11077,
+										"is_pure": false
+									},
+									"type_description": {
+										"type_identifier": "$_t_import_IRootChainManager.sol_451",
+										"type_string": "import"
+									}
+								},
+								"type_description": {
+									"type_identifier": "$_t_import_IRootChainManager.sol_451",
+									"type_string": "import"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 11080,
+					"name": "_clear",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 11081,
+						"line": 3059,
+						"column": 4,
+						"start": 113986,
+						"end": 114744,
+						"length": 759,
+						"parent_index": 11008
+					},
+					"name_location": {
+						"line": 3059,
+						"column": 13,
+						"start": 113995,
+						"end": 114000,
+						"length": 6,
+						"parent_index": 11080
+					},
+					"body": {
+						"id": 11095,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 11096,
+							"line": 3059,
+							"column": 80,
+							"start": 114062,
+							"end": 114744,
+							"length": 683,
+							"parent_index": 11080
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 11097,
+								"node_type": 85,
+								"src": {
+									"id": 11098,
+									"line": 3063,
+									"column": 0,
+									"start": 114400,
+									"end": 114447,
+									"length": 48,
+									"parent_index": 11095
+								},
+								"body": {
+									"id": 11107,
+									"node_type": 46,
+									"kind": 0,
+									"src": {
+										"id": 11108,
+										"line": 3063,
+										"column": 45,
+										"start": 114437,
+										"end": 114438,
+										"length": 2,
+										"parent_index": 11097
+									},
+									"implemented": true,
+									"statements": []
+								},
+								"kind": 86,
+								"returns": false,
+								"return_parameters": {
+									"id": 11113,
+									"node_type": 43,
+									"src": {
+										"id": 11098,
+										"line": 3063,
+										"column": 0,
+										"start": 114400,
+										"end": 114447,
+										"length": 48,
+										"parent_index": 11097
+									},
+									"parameters": [],
+									"parameter_types": []
+								},
+								"expression": {
+									"id": 11099,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 11100,
+										"line": 3063,
+										"column": 12,
+										"start": 114404,
+										"end": 114435,
+										"length": 32,
+										"parent_index": 11097
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										}
+									],
+									"arguments": [
+										{
+											"id": 11105,
+											"node_type": 16,
+											"src": {
+												"id": 11106,
+												"line": 3063,
+												"column": 34,
+												"start": 114426,
+												"end": 114434,
+												"length": 9,
+												"parent_index": 11099
+											},
+											"name": "exitProof",
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 11105,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 11101,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 11102,
+											"line": 3063,
+											"column": 12,
+											"start": 114404,
+											"end": 114424,
+											"length": 21,
+											"parent_index": 11099
+										},
+										"member_location": {
+											"line": 3063,
+											"column": 29,
+											"start": 114421,
+											"end": 114424,
+											"length": 4,
+											"parent_index": 11101
+										},
+										"expression": {
+											"id": 11103,
+											"node_type": 16,
+											"src": {
+												"id": 11104,
+												"line": 3063,
+												"column": 12,
+												"start": 114404,
+												"end": 114419,
+												"length": 16,
+												"parent_index": 11101
+											},
+											"name": "rootChainManager",
+											"type_description": {
+												"type_identifier": "$_t_import_IRootChainManager.sol_451",
+												"type_string": "import"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 11031,
+											"is_pure": false
+										},
+										"member_name": "exit",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "$_t_import_IRootChainManager.sol_451",
+											"type_string": "import"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes$",
+										"type_string": "function(bytes)"
+									}
+								},
+								"clauses": [
+									{
+										"id": 0,
+										"node_type": 87,
+										"kind": 88,
+										"src": {
+											"id": 11109,
+											"line": 3063,
+											"column": 0,
+											"start": 114440,
+											"end": 114447,
+											"length": 8,
+											"parent_index": 11097
+										},
+										"body": {
+											"id": 11111,
+											"node_type": 46,
+											"kind": 0,
+											"src": {
+												"id": 11112,
+												"line": 3063,
+												"column": 54,
+												"start": 114446,
+												"end": 114447,
+												"length": 2
+											},
+											"implemented": true,
+											"statements": []
+										},
+										"parameters": {
+											"id": 11110,
+											"node_type": 43,
+											"src": {
+												"id": 11109,
+												"line": 3063,
+												"column": 0,
+												"start": 114440,
+												"end": 114447,
+												"length": 8
+											},
+											"parameters": [],
+											"parameter_types": []
+										}
+									}
+								],
+								"implemented": false
+							},
+							{
+								"id": 11114,
+								"node_type": 44,
+								"src": {
+									"id": 11115,
+									"line": 3066,
+									"column": 8,
+									"start": 114505,
+									"end": 114553,
+									"length": 49,
+									"parent_index": 11095
+								},
+								"assignments": [
+									11116
+								],
+								"declarations": [
+									{
+										"id": 11116,
+										"state_mutability": 1,
+										"name": "balance",
+										"node_type": 44,
+										"scope": 11095,
+										"src": {
+											"id": 11117,
+											"line": 3066,
+											"column": 8,
+											"start": 114505,
+											"end": 114519,
+											"length": 15,
+											"parent_index": 11114
+										},
+										"name_location": {
+											"id": 11118,
+											"line": 3066,
+											"column": 16,
+											"start": 114513,
+											"end": 114519,
+											"length": 7,
+											"parent_index": 11116
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 11119,
+											"node_type": 30,
+											"src": {
+												"id": 11120,
+												"line": 3066,
+												"column": 8,
+												"start": 114505,
+												"end": 114511,
+												"length": 7,
+												"parent_index": 11116
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 11121,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"id": 11122,
+										"line": 3066,
+										"column": 26,
+										"start": 114523,
+										"end": 114552,
+										"length": 30,
+										"parent_index": 11114
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 11127,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"id": 11128,
+												"line": 3066,
+												"column": 42,
+												"start": 114539,
+												"end": 114551,
+												"length": 13,
+												"parent_index": 11121
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_L1BridgeEscrow_$10900",
+													"type_string": "contract L1BridgeEscrow"
+												}
+											],
+											"arguments": [
+												{
+													"id": 11133,
+													"node_type": 16,
+													"src": {
+														"id": 11134,
+														"line": 3066,
+														"column": 50,
+														"start": 114547,
+														"end": 114550,
+														"length": 4,
+														"parent_index": 11127
+													},
+													"name": "this",
+													"type_description": {
+														"type_identifier": "t_contract$_L1BridgeEscrow_$10900",
+														"type_string": "contract L1BridgeEscrow"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 11129,
+												"node_type": 16,
+												"src": {
+													"id": 11130,
+													"line": 3066,
+													"column": 42,
+													"start": 114539,
+													"end": 114545,
+													"length": 7,
+													"parent_index": 11127
+												},
+												"name": "address",
+												"type_name": {
+													"id": 11131,
+													"node_type": 30,
+													"src": {
+														"id": 11132,
+														"line": 3066,
+														"column": 42,
+														"start": 114539,
+														"end": 114545,
+														"length": 7,
+														"parent_index": 11129
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										}
+									],
+									"expression": {
+										"id": 11123,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"id": 11124,
+											"line": 3066,
+											"column": 26,
+											"start": 114523,
+											"end": 114537,
+											"length": 15,
+											"parent_index": 11121
+										},
+										"member_location": {
+											"line": 3066,
+											"column": 32,
+											"start": 114529,
+											"end": 114537,
+											"length": 9,
+											"parent_index": 11123
+										},
+										"expression": {
+											"id": 11125,
+											"node_type": 16,
+											"src": {
+												"id": 11126,
+												"line": 3066,
+												"column": 26,
+												"start": 114523,
+												"end": 114527,
+												"length": 5,
+												"parent_index": 11123
+											},
+											"name": "asset",
+											"type_description": {
+												"type_identifier": "t_contract$_ERC20_$6410",
+												"type_string": "contract ERC20"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7786,
+											"is_pure": false
+										},
+										"member_name": "balanceOf",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_contract$_ERC20_$6410",
+											"type_string": "contract ERC20"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_address$",
+										"type_string": "function(function(address))"
+									}
+								}
+							},
+							{
+								"id": 11135,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 11136,
+									"line": 3067,
+									"column": 8,
+									"start": 114563,
+									"end": 114614,
+									"length": 52,
+									"parent_index": 11095
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"BE: Funds not received\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 11139,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"id": 11140,
+											"line": 3067,
+											"column": 16,
+											"start": 114571,
+											"end": 114587,
+											"length": 17,
+											"parent_index": 11135
+										},
+										"operator": 8,
+										"left_expression": {
+											"id": 11141,
+											"node_type": 16,
+											"src": {
+												"id": 11142,
+												"line": 3067,
+												"column": 16,
+												"start": 114571,
+												"end": 114577,
+												"length": 7,
+												"parent_index": 11139
+											},
+											"name": "balance",
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 11114,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 11143,
+											"node_type": 16,
+											"src": {
+												"id": 11144,
+												"line": 3067,
+												"column": 27,
+												"start": 114582,
+												"end": 114587,
+												"length": 6,
+												"parent_index": 11139
+											},
+											"name": "assets",
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 11143,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 11145,
+										"node_type": 17,
+										"kind": 50,
+										"value": "BE: Funds not received",
+										"hex_value": "42453a2046756e6473206e6f74207265636569766564",
+										"src": {
+											"id": 11146,
+											"line": 3067,
+											"column": 35,
+											"start": 114590,
+											"end": 114613,
+											"length": 24,
+											"parent_index": 11135
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"BE: Funds not received\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 11137,
+									"node_type": 16,
+									"src": {
+										"id": 11138,
+										"line": 3067,
+										"column": 8,
+										"start": 114563,
+										"end": 114569,
+										"length": 7,
+										"parent_index": 11135
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 11147,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 11148,
+									"line": 3068,
+									"column": 8,
+									"start": 114625,
+									"end": 114667,
+									"length": 43,
+									"parent_index": 11095
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$_t_function_$",
+										"type_string": "function(function())"
+									},
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 11153,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"id": 11154,
+											"line": 3068,
+											"column": 27,
+											"start": 114644,
+											"end": 114657,
+											"length": 14,
+											"parent_index": 11147
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 11159,
+												"node_type": 16,
+												"src": {
+													"id": 11160,
+													"line": 3068,
+													"column": 35,
+													"start": 114652,
+													"end": 114656,
+													"length": 5,
+													"parent_index": 11153
+												},
+												"name": "vault",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 11155,
+											"node_type": 16,
+											"src": {
+												"id": 11156,
+												"line": 3068,
+												"column": 27,
+												"start": 114644,
+												"end": 114650,
+												"length": 7,
+												"parent_index": 11153
+											},
+											"name": "address",
+											"type_name": {
+												"id": 11157,
+												"node_type": 30,
+												"src": {
+													"id": 11158,
+													"line": 3068,
+													"column": 27,
+													"start": 114644,
+													"end": 114650,
+													"length": 7,
+													"parent_index": 11155
+												},
+												"name": "address",
+												"state_mutability": 4,
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_address",
+													"type_string": "address"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									{
+										"id": 11161,
+										"node_type": 16,
+										"src": {
+											"id": 11162,
+											"line": 3068,
+											"column": 43,
+											"start": 114660,
+											"end": 114666,
+											"length": 7,
+											"parent_index": 11147
+										},
+										"name": "balance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 11114,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 11149,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 11150,
+										"line": 3068,
+										"column": 8,
+										"start": 114625,
+										"end": 114642,
+										"length": 18,
+										"parent_index": 11147
+									},
+									"member_location": {
+										"line": 3068,
+										"column": 14,
+										"start": 114631,
+										"end": 114642,
+										"length": 12,
+										"parent_index": 11149
+									},
+									"expression": {
+										"id": 11151,
+										"node_type": 16,
+										"src": {
+											"id": 11152,
+											"line": 3068,
+											"column": 8,
+											"start": 114625,
+											"end": 114629,
+											"length": 5,
+											"parent_index": 11149
+										},
+										"name": "asset",
+										"type_description": {
+											"type_identifier": "t_contract$_ERC20_$6410",
+											"type_string": "contract ERC20"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7786,
+										"is_pure": false
+									},
+									"member_name": "safeTransfer",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_contract$_ERC20_$6410",
+										"type_string": "contract ERC20"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_function_$_t_uint256$",
+									"type_string": "function(function(function()),uint256)"
+								}
+							},
+							{
+								"id": 11163,
+								"node_type": 64,
+								"src": {
+									"id": 11164,
+									"line": 3070,
+									"column": 8,
+									"start": 114679,
+									"end": 114708,
+									"length": 30,
+									"parent_index": 11080
+								},
+								"arguments": [
+									{
+										"id": 11165,
+										"node_type": 16,
+										"src": {
+											"id": 11166,
+											"line": 3070,
+											"column": 29,
+											"start": 114700,
+											"end": 114706,
+											"length": 7,
+											"parent_index": 11095
+										},
+										"name": "balance",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 11114,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 11167,
+									"node_type": 16,
+									"src": {
+										"id": 11168,
+										"line": 3070,
+										"column": 13,
+										"start": 114684,
+										"end": 114698,
+										"length": 15,
+										"parent_index": 11095
+									},
+									"name": "TransferToVault",
+									"type_description": {
+										"type_identifier": "t_event\u0026_BridgeEscrow_TransferToVault_\u002610446",
+										"type_string": "event BridgeEscrow.TransferToVault"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 10446,
+									"is_pure": false
+								}
+							},
+							{
+								"id": 11169,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"id": 11170,
+									"line": 3071,
+									"column": 8,
+									"start": 114718,
+									"end": 114737,
+									"length": 20,
+									"parent_index": 11095
+								},
+								"argument_types": [],
+								"arguments": [],
+								"expression": {
+									"id": 11171,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"id": 11172,
+										"line": 3071,
+										"column": 8,
+										"start": 114718,
+										"end": 114735,
+										"length": 18,
+										"parent_index": 11169
+									},
+									"member_location": {
+										"line": 3071,
+										"column": 14,
+										"start": 114724,
+										"end": 114735,
+										"length": 12,
+										"parent_index": 11171
+									},
+									"expression": {
+										"id": 11173,
+										"node_type": 16,
+										"src": {
+											"id": 11174,
+											"line": 3071,
+											"column": 8,
+											"start": 114718,
+											"end": 114722,
+											"length": 5,
+											"parent_index": 11171
+										},
+										"name": "vault",
+										"type_description": {
+											"type_identifier": "$_t_import_BaseVault.sol_450",
+											"type_string": "import"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7725,
+										"is_pure": false
+									},
+									"member_name": "afterReceive",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "$_t_import_BaseVault.sol_450",
+										"type_string": "import"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$",
+									"type_string": "function()"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 11092,
+							"node_type": 63,
+							"src": {
+								"id": 11093,
+								"line": 3059,
+								"column": 71,
+								"start": 114053,
+								"end": 114060,
+								"length": 8,
+								"parent_index": 11080
+							},
+							"overrides": [],
+							"referenced_declaration": 0,
+							"type_descriptions": {
+								"type_identifier": "$_t_override",
+								"type_string": "override"
+							}
+						}
+					],
+					"parameters": {
+						"id": 11082,
+						"node_type": 43,
+						"src": {
+							"id": 11083,
+							"line": 3059,
+							"column": 20,
+							"start": 114002,
+							"end": 114041,
+							"length": 40,
+							"parent_index": 11080
+						},
+						"parameters": [
+							{
+								"id": 11084,
+								"node_type": 44,
+								"src": {
+									"id": 11085,
+									"line": 3059,
+									"column": 20,
+									"start": 114002,
+									"end": 114015,
+									"length": 14,
+									"parent_index": 11082
+								},
+								"scope": 11080,
+								"name": "assets",
+								"type_name": {
+									"id": 11086,
+									"node_type": 30,
+									"src": {
+										"id": 11087,
+										"line": 3059,
+										"column": 20,
+										"start": 114002,
+										"end": 114008,
+										"length": 7,
+										"parent_index": 11084
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 11088,
+								"node_type": 44,
+								"src": {
+									"id": 11089,
+									"line": 3059,
+									"column": 36,
+									"start": 114018,
+									"end": 114041,
+									"length": 24,
+									"parent_index": 11082
+								},
+								"scope": 11080,
+								"name": "exitProof",
+								"type_name": {
+									"id": 11090,
+									"node_type": 30,
+									"src": {
+										"id": 11091,
+										"line": 3059,
+										"column": 36,
+										"start": 114018,
+										"end": 114022,
+										"length": 5,
+										"parent_index": 11088
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 11094,
+						"node_type": 43,
+						"src": {
+							"id": 11081,
+							"line": 3059,
+							"column": 4,
+							"start": 113986,
+							"end": 114744,
+							"length": 759,
+							"parent_index": 11080
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "_clear(uint256, bytes)",
+					"signature": "1894c922",
+					"scope": 11008,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+						"type_string": "function(uint256,bytes)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				10321,
+				11008,
+				11003,
+				11004,
+				11005,
+				11006,
+				11007
+			],
+			"base_contracts": [
+				{
+					"id": 11010,
+					"node_type": 62,
+					"src": {
+						"id": 11011,
+						"line": 3046,
+						"column": 27,
+						"start": 113465,
+						"end": 113476,
+						"length": 12,
+						"parent_index": 11008
+					},
+					"base_name": {
+						"id": 11012,
+						"node_type": 52,
+						"src": {
+							"id": 11013,
+							"line": 3046,
+							"column": 27,
+							"start": 113465,
+							"end": 113476,
+							"length": 12,
+							"parent_index": 11008
+						},
+						"name": "BridgeEscrow",
+						"referenced_declaration": 10321
+					}
+				}
+			],
+			"contract_dependencies": [
+				10321,
+				11003,
+				11004,
+				11005,
+				11006,
+				11007
+			]
+		}
+	],
+	"src": {
+		"id": 10901,
+		"line": 3046,
+		"column": 0,
+		"start": 113438,
+		"end": 114746,
+		"length": 1309,
+		"parent_index": 440
+	}
+}

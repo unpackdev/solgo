@@ -6,94 +6,6 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
 			"value": {
-				"canonicalName": "Lottery.LotteryState",
-				"id": "43",
-				"members": [
-					{
-						"id": "45",
-						"name": "Accepting",
-						"nameLocation": {
-							"column": "24",
-							"end": "245",
-							"id": "47",
-							"length": "9",
-							"line": "11",
-							"parentIndex": "43",
-							"start": "237"
-						},
-						"nodeType": "ENUM_VALUE",
-						"scope": "45",
-						"src": {
-							"column": "24",
-							"end": "245",
-							"id": "46",
-							"length": "8",
-							"line": "11",
-							"parentIndex": "43",
-							"start": "237"
-						},
-						"typeDescription": {
-							"typeIdentifier": "t_enum_$_LotteryState$_Accepting_$45",
-							"typeString": "enum Lottery.LotteryState.Accepting"
-						}
-					},
-					{
-						"id": "48",
-						"name": "Finished",
-						"nameLocation": {
-							"column": "35",
-							"end": "255",
-							"id": "50",
-							"length": "8",
-							"line": "11",
-							"parentIndex": "43",
-							"start": "248"
-						},
-						"nodeType": "ENUM_VALUE",
-						"scope": "48",
-						"src": {
-							"column": "35",
-							"end": "255",
-							"id": "49",
-							"length": "7",
-							"line": "11",
-							"parentIndex": "43",
-							"start": "248"
-						},
-						"typeDescription": {
-							"typeIdentifier": "t_enum_$_LotteryState$_Finished_$48",
-							"typeString": "enum Lottery.LotteryState.Finished"
-						}
-					}
-				],
-				"name": "LotteryState",
-				"nameLocation": {
-					"column": "9",
-					"end": "233",
-					"length": "12",
-					"line": "11",
-					"parentIndex": "43",
-					"start": "222"
-				},
-				"nodeType": "ENUM_DEFINITION",
-				"src": {
-					"column": "4",
-					"end": "257",
-					"id": "44",
-					"length": "40",
-					"line": "11",
-					"parentIndex": "35",
-					"start": "217"
-				},
-				"typeDescription": {
-					"typeIdentifier": "t_enum_$_LotteryState_$43",
-					"typeString": "enum Lottery.LotteryState"
-				}
-			}
-		},
-		{
-			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Enum",
-			"value": {
 				"canonicalName": "Global.LotteryState",
 				"id": "909",
 				"members": [
@@ -173,6 +85,118 @@
 					"typeString": "enum Global.LotteryState"
 				}
 			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Struct",
+			"value": {
+				"canonicalName": "Global.Player",
+				"id": "913",
+				"members": [
+					{
+						"id": "915",
+						"name": "addr",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "915",
+						"src": {
+							"column": "8",
+							"end": "299",
+							"id": "916",
+							"length": "13",
+							"line": "13",
+							"parentIndex": "913",
+							"start": "287"
+						},
+						"stateMutability": "NONPAYABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_address",
+							"typeString": "address"
+						},
+						"typeName": {
+							"id": "917",
+							"name": "address",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "8",
+								"end": "293",
+								"id": "918",
+								"length": "7",
+								"line": "13",
+								"parentIndex": "915",
+								"start": "287"
+							},
+							"stateMutability": "NONPAYABLE",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							}
+						},
+						"visibility": "INTERNAL"
+					},
+					{
+						"id": "919",
+						"name": "ticketCount",
+						"nodeType": "VARIABLE_DECLARATION",
+						"scope": "919",
+						"src": {
+							"column": "8",
+							"end": "328",
+							"id": "920",
+							"length": "20",
+							"line": "14",
+							"parentIndex": "913",
+							"start": "309"
+						},
+						"stateMutability": "MUTABLE",
+						"typeDescription": {
+							"typeIdentifier": "t_uint256",
+							"typeString": "uint256"
+						},
+						"typeName": {
+							"id": "921",
+							"name": "uint256",
+							"nodeType": "ELEMENTARY_TYPE_NAME",
+							"src": {
+								"column": "8",
+								"end": "315",
+								"id": "922",
+								"length": "7",
+								"line": "14",
+								"parentIndex": "919",
+								"start": "309"
+							},
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							}
+						},
+						"visibility": "INTERNAL"
+					}
+				],
+				"name": "Player",
+				"nameLocation": {
+					"column": "11",
+					"end": "275",
+					"length": "6",
+					"line": "12",
+					"parentIndex": "913",
+					"start": "270"
+				},
+				"nodeType": "STRUCT_DEFINITION",
+				"src": {
+					"column": "4",
+					"end": "334",
+					"id": "914",
+					"length": "72",
+					"line": "12",
+					"start": "263"
+				},
+				"storageLocation": "DEFAULT",
+				"typeDescription": {
+					"typeIdentifier": "t_struct$_Global_Player_$913",
+					"typeString": "struct Global.Player"
+				},
+				"visibility": "PUBLIC"
+			}
 		}
 	],
 	"source_units": [
@@ -221,7 +245,7 @@
 						"value": {
 							"fullyImplemented": true,
 							"id": "14",
-							"kind": "KIND_LIBRARY",
+							"kind": "KIND_INTERFACE",
 							"linearizedBaseContracts": [
 								"14"
 							],
@@ -3407,17 +3431,17 @@
 															"expression": {
 																"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																"value": {
-																	"id": "231",
+																	"id": "232",
 																	"name": "LotteryState",
 																	"nodeType": "IDENTIFIER",
 																	"referencedDeclaration": "43",
 																	"src": {
 																		"column": "43",
 																		"end": "1295",
-																		"id": "232",
+																		"id": "233",
 																		"length": "12",
 																		"line": "55",
-																		"parentIndex": "229",
+																		"parentIndex": "230",
 																		"start": "1284"
 																	},
 																	"typeDescription": {
@@ -3426,13 +3450,13 @@
 																	}
 																}
 															},
-															"id": "229",
+															"id": "230",
 															"memberLocation": {
 																"column": "56",
 																"end": "1305",
 																"length": "9",
 																"line": "55",
-																"parentIndex": "229",
+																"parentIndex": "230",
 																"start": "1297"
 															},
 															"memberName": "Accepting",
@@ -3440,10 +3464,10 @@
 															"src": {
 																"column": "43",
 																"end": "1305",
-																"id": "230",
+																"id": "231",
 																"length": "22",
 																"line": "55",
-																"parentIndex": "225",
+																"parentIndex": "226",
 																"start": "1284"
 															},
 															"typeDescription": {
@@ -3453,18 +3477,18 @@
 														}
 													}
 												],
-												"id": "225",
+												"id": "226",
 												"kind": "MODIFIER_INVOCATION",
 												"modifierName": {
-													"id": "227",
+													"id": "228",
 													"name": "inState",
 													"src": {
 														"column": "35",
 														"end": "1282",
-														"id": "228",
+														"id": "229",
 														"length": "7",
 														"line": "55",
-														"parentIndex": "225",
+														"parentIndex": "226",
 														"start": "1276"
 													}
 												},
@@ -3473,7 +3497,7 @@
 												"src": {
 													"column": "35",
 													"end": "1306",
-													"id": "226",
+													"id": "227",
 													"length": "31",
 													"line": "55",
 													"parentIndex": "223",
@@ -3481,18 +3505,18 @@
 												}
 											},
 											{
-												"id": "233",
+												"id": "234",
 												"kind": "MODIFIER_INVOCATION",
 												"modifierName": {
-													"id": "235",
+													"id": "236",
 													"name": "notOwner",
 													"src": {
 														"column": "67",
 														"end": "1315",
-														"id": "236",
+														"id": "237",
 														"length": "8",
 														"line": "55",
-														"parentIndex": "233",
+														"parentIndex": "234",
 														"start": "1308"
 													}
 												},
@@ -3501,7 +3525,7 @@
 												"src": {
 													"column": "67",
 													"end": "1315",
-													"id": "234",
+													"id": "235",
 													"length": "8",
 													"line": "55",
 													"parentIndex": "223",
@@ -3520,7 +3544,7 @@
 										},
 										"nodeType": "FUNCTION_DEFINITION",
 										"parameters": {
-											"id": "237",
+											"id": "225",
 											"nodeType": "PARAMETER_LIST",
 											"src": {
 												"column": "4",
@@ -5409,17 +5433,17 @@
 															"expression": {
 																"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																"value": {
-																	"id": "344",
+																	"id": "345",
 																	"name": "LotteryState",
 																	"nodeType": "IDENTIFIER",
 																	"referencedDeclaration": "43",
 																	"src": {
 																		"column": "44",
 																		"end": "1716",
-																		"id": "345",
+																		"id": "346",
 																		"length": "12",
 																		"line": "70",
-																		"parentIndex": "342",
+																		"parentIndex": "343",
 																		"start": "1705"
 																	},
 																	"typeDescription": {
@@ -5428,13 +5452,13 @@
 																	}
 																}
 															},
-															"id": "342",
+															"id": "343",
 															"memberLocation": {
 																"column": "57",
 																"end": "1726",
 																"length": "9",
 																"line": "70",
-																"parentIndex": "342",
+																"parentIndex": "343",
 																"start": "1718"
 															},
 															"memberName": "Accepting",
@@ -5442,10 +5466,10 @@
 															"src": {
 																"column": "44",
 																"end": "1726",
-																"id": "343",
+																"id": "344",
 																"length": "22",
 																"line": "70",
-																"parentIndex": "338",
+																"parentIndex": "339",
 																"start": "1705"
 															},
 															"typeDescription": {
@@ -5455,18 +5479,18 @@
 														}
 													}
 												],
-												"id": "338",
+												"id": "339",
 												"kind": "MODIFIER_INVOCATION",
 												"modifierName": {
-													"id": "340",
+													"id": "341",
 													"name": "inState",
 													"src": {
 														"column": "36",
 														"end": "1703",
-														"id": "341",
+														"id": "342",
 														"length": "7",
 														"line": "70",
-														"parentIndex": "338",
+														"parentIndex": "339",
 														"start": "1697"
 													}
 												},
@@ -5475,7 +5499,7 @@
 												"src": {
 													"column": "36",
 													"end": "1727",
-													"id": "339",
+													"id": "340",
 													"length": "31",
 													"line": "70",
 													"parentIndex": "336",
@@ -5494,7 +5518,7 @@
 										},
 										"nodeType": "FUNCTION_DEFINITION",
 										"parameters": {
-											"id": "346",
+											"id": "338",
 											"nodeType": "PARAMETER_LIST",
 											"src": {
 												"column": "4",

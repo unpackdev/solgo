@@ -417,6 +417,16 @@ func (f *Function) Parse(
 	// Set if function is virtual.
 	f.Virtual = f.getVirtualState(ctx)
 
+	// Set function parameters if they exist.
+	params := NewParameterList(f.ASTBuilder)
+	if len(ctx.AllParameterList()) > 0 {
+		params.Parse(unit, f, ctx.AllParameterList()[0])
+	} else {
+		params.Src = f.Src
+		params.Src.ParentIndex = f.Id
+	}
+	f.Parameters = params
+
 	// Set function modifiers.
 	for _, modifierCtx := range ctx.AllModifierInvocation() {
 		modifier := NewModifierInvocation(f.ASTBuilder)
@@ -430,16 +440,6 @@ func (f *Function) Parse(
 		overrideSpecifier.Parse(unit, f, overrideCtx)
 		f.Overrides = append(f.Overrides, overrideSpecifier)
 	}
-
-	// Set function parameters if they exist.
-	params := NewParameterList(f.ASTBuilder)
-	if len(ctx.AllParameterList()) > 0 {
-		params.Parse(unit, f, ctx.AllParameterList()[0])
-	} else {
-		params.Src = f.Src
-		params.Src.ParentIndex = f.Id
-	}
-	f.Parameters = params
 
 	// Set function return parameters if they exist.
 	// @TODO: Consider traversing through body to discover name of the return parameters even
@@ -489,6 +489,7 @@ func (f *Function) Parse(
 	f.ComputeSignature()
 
 	f.currentFunctions = append(f.currentFunctions, f)
+
 	return f
 }
 

@@ -8,17 +8,17 @@ import (
 
 // Enum represents an enumeration in the IR.
 type Enum struct {
-	unit          *ast.EnumDefinition
-	Id            int64           `json:"id"`
-	NodeType      ast_pb.NodeType `json:"node_type"`
-	Name          string          `json:"name"`
-	CanonicalName string          `json:"canonical_name"`
-	Members       []*Parameter    `json:"members"`
+	Unit          *ast.EnumDefinition `json:"ast"`
+	Id            int64               `json:"id"`
+	NodeType      ast_pb.NodeType     `json:"node_type"`
+	Name          string              `json:"name"`
+	CanonicalName string              `json:"canonical_name"`
+	Members       []*Parameter        `json:"members"`
 }
 
 // GetAST returns the AST (Abstract Syntax Tree) for the enum.
 func (e *Enum) GetAST() *ast.EnumDefinition {
-	return e.unit
+	return e.Unit
 }
 
 // GetNodeType returns the NodeType of the enum.
@@ -48,7 +48,7 @@ func (e *Enum) GetMembers() []*Parameter {
 
 // GetSrc returns the source location of the enum.
 func (e *Enum) GetSrc() ast.SrcNode {
-	return e.unit.GetSrc()
+	return e.Unit.GetSrc()
 }
 
 // ToProto converts the Enum to its protobuf representation.
@@ -71,7 +71,7 @@ func (e *Enum) ToProto() *ir_pb.Enum {
 // processEnum processes the enum unit and returns the Enum.
 func (b *Builder) processEnum(unit *ast.EnumDefinition) *Enum {
 	toReturn := &Enum{
-		unit:          unit,
+		Unit:          unit,
 		Id:            unit.GetId(),
 		NodeType:      unit.GetType(),
 		Name:          unit.GetName(),
@@ -81,7 +81,7 @@ func (b *Builder) processEnum(unit *ast.EnumDefinition) *Enum {
 
 	for _, parameter := range unit.GetMembers() {
 		param := &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),

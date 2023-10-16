@@ -46,6 +46,21 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 func (p *PrimaryExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	p.ReferencedDeclaration = refId
 	p.TypeDescription = refDesc
+
+	// In case it's a function call, we need to rebuild the type descriptions from the parent node.
+	// It is a hack, but working one. One day we'll figure out better solution for all of this referencing mess...
+	parentNode := p.ASTBuilder.GetTree().GetById(p.Src.ParentIndex)
+	if parentNode != nil {
+		switch node := parentNode.(type) {
+		case *FunctionCall:
+			node.RebuildDescriptions()
+		case *Assignment:
+			if node.GetTypeDescription() == nil {
+				node.SetReferenceDescriptor(refId, refDesc)
+			}
+		}
+	}
+
 	return true
 }
 
@@ -263,6 +278,14 @@ func (p *PrimaryExpression) Parse(
 		}
 	}
 
+	if ctx.GetText() == "require" {
+		p.TypeDescription = &TypeDescription{
+			TypeIdentifier: "t_function_require_pure",
+			TypeString:     "function () pure",
+		}
+		p.Pure = true
+	}
+
 	// There is a case where we get PlaceholderStatement as a PrimaryExpression and this one does nothing really...
 	// So we are going to do some hack here to make it work properly...
 	if p.Name == "_" {
@@ -289,7 +312,9 @@ func (p *PrimaryExpression) Parse(
 		switch expNodeCtx := expNode.(type) {
 		case *FunctionCall:
 			for _, argument := range expNodeCtx.GetArguments() {
-				p.ArgumentTypes = append(p.ArgumentTypes, argument.GetTypeDescription())
+				if argument.GetTypeDescription() != nil {
+					p.ArgumentTypes = append(p.ArgumentTypes, argument.GetTypeDescription())
+				}
 			}
 
 			if p.TypeName != nil {

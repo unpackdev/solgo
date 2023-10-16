@@ -8,17 +8,17 @@ import (
 
 // Event represents an event definition in the IR.
 type Event struct {
-	unit       *ast.EventDefinition
-	Id         int64           `json:"id"`
-	NodeType   ast_pb.NodeType `json:"node_type"`
-	Name       string          `json:"name"`
-	Anonymous  bool            `json:"anonymous"`
-	Parameters []*Parameter    `json:"parameters"`
+	Unit       *ast.EventDefinition `json:"ast"`
+	Id         int64                `json:"id"`
+	NodeType   ast_pb.NodeType      `json:"node_type"`
+	Name       string               `json:"name"`
+	Anonymous  bool                 `json:"anonymous"`
+	Parameters []*Parameter         `json:"parameters"`
 }
 
 // GetAST returns the AST (Abstract Syntax Tree) for the event definition.
 func (e *Event) GetAST() *ast.EventDefinition {
-	return e.unit
+	return e.Unit
 }
 
 // GetId returns the ID of the event definition.
@@ -48,7 +48,7 @@ func (e *Event) IsAnonymous() bool {
 
 // GetSrc returns the source location of the event definition.
 func (e *Event) GetSrc() ast.SrcNode {
-	return e.unit.GetSrc()
+	return e.Unit.GetSrc()
 }
 
 // ToProto converts the Event to its protobuf representation.
@@ -71,7 +71,7 @@ func (e *Event) ToProto() *ir_pb.Event {
 // processEvent processes the event definition unit and returns the Event.
 func (b *Builder) processEvent(unit *ast.EventDefinition) *Event {
 	toReturn := &Event{
-		unit:       unit,
+		Unit:       unit,
 		Id:         unit.GetId(),
 		NodeType:   unit.GetType(),
 		Name:       unit.GetName(),
@@ -81,7 +81,7 @@ func (b *Builder) processEvent(unit *ast.EventDefinition) *Event {
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		toReturn.Parameters = append(toReturn.Parameters, &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),

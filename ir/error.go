@@ -8,7 +8,7 @@ import (
 
 // Error represents an error definition in the IR.
 type Error struct {
-	unit            *ast.ErrorDefinition
+	Unit            *ast.ErrorDefinition `json:"ast"`
 	Id              int64                `json:"id"`
 	NodeType        ast_pb.NodeType      `json:"node_type"`
 	Name            string               `json:"name"`
@@ -18,7 +18,7 @@ type Error struct {
 
 // GetAST returns the AST (Abstract Syntax Tree) for the error definition.
 func (e *Error) GetAST() *ast.ErrorDefinition {
-	return e.unit
+	return e.Unit
 }
 
 // GetId returns the ID of the error definition.
@@ -48,7 +48,7 @@ func (e *Error) GetTypeDescription() *ast.TypeDescription {
 
 // GetSrc returns the source location of the error definition.
 func (e *Error) GetSrc() ast.SrcNode {
-	return e.unit.GetSrc()
+	return e.Unit.GetSrc()
 }
 
 // ToProto converts the Error to its protobuf representation.
@@ -71,7 +71,7 @@ func (e *Error) ToProto() *ir_pb.Error {
 // processError processes the error definition unit and returns the Error.
 func (b *Builder) processError(unit *ast.ErrorDefinition) *Error {
 	toReturn := &Error{
-		unit:            unit,
+		Unit:            unit,
 		Id:              unit.GetId(),
 		NodeType:        unit.GetType(),
 		Name:            unit.GetName(),
@@ -81,7 +81,7 @@ func (b *Builder) processError(unit *ast.ErrorDefinition) *Error {
 
 	for _, parameter := range unit.GetParameters().GetParameters() {
 		toReturn.Parameters = append(toReturn.Parameters, &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),

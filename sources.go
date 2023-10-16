@@ -58,6 +58,7 @@ type Sources struct {
 	prepared             bool          `yaml:"-" json:"-"`
 	SourceUnits          []*SourceUnit `yaml:"source_units" json:"source_units"`
 	EntrySourceUnitName  string        `yaml:"entry_source_unit" json:"base_source_unit"`
+	LocalSources         bool          `yaml:"local_sources" json:"local_sources"`
 	MaskLocalSourcesPath bool          `yaml:"mask_local_sources_path" json:"mask_local_sources_path"`
 	LocalSourcesPath     string        `yaml:"local_sources_path" json:"local_sources_path"`
 }
@@ -120,7 +121,7 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 // NewSourcesFromEtherScan creates a Sources from an EtherScan response.
 // This is a helper function that ensures easier integration when working with the EtherScan provider.
 // This includes BscScan, and other equivalent from the same family.
-func NewSourcesFromEtherScan(entryContractName, sourceCode string) *Sources {
+func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources {
 	_, filename, _, _ := runtime.Caller(0)
 	dir := filepath.Dir(filename)
 	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
@@ -128,13 +129,27 @@ func NewSourcesFromEtherScan(entryContractName, sourceCode string) *Sources {
 		MaskLocalSourcesPath: true,
 		LocalSourcesPath:     sourcesDir,
 		EntrySourceUnitName:  entryContractName,
+		LocalSources:         false,
 	}
 
-	sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
-		Name:    entryContractName,
-		Path:    fmt.Sprintf("%s.sol", entryContractName),
-		Content: sourceCode,
-	})
+	switch sourceCode := sc.(type) {
+	case string:
+		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+			Name:    entryContractName,
+			Path:    fmt.Sprintf("%s.sol", entryContractName),
+			Content: sourceCode,
+		})
+	case metadata.ContractMetadata:
+		for name, source := range sourceCode.Sources {
+			sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+				Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
+				Path:    name,
+				Content: source.Content,
+			})
+		}
+	default:
+		panic(fmt.Sprintf("invalid source code type %T", sc))
+	}
 
 	return sources
 }
@@ -469,6 +484,10 @@ func (s *Sources) GetSolidityVersion() (string, error) {
 func (s *Sources) handleImports(sourceUnit *SourceUnit) ([]*SourceUnit, error) {
 	imports := extractImports(sourceUnit.Content)
 	var sourceUnits []*SourceUnit
+
+	if !s.LocalSources {
+		return sourceUnits, nil
+	}
 
 	for _, imp := range imports {
 		baseName := filepath.Base(imp)

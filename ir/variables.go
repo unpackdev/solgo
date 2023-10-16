@@ -8,7 +8,7 @@ import (
 
 // StateVariable represents a state variable in the Intermediate Representation (IR) of Solidity contracts' Abstract Syntax Tree (AST).
 type StateVariable struct {
-	unit            *ast.StateVariableDeclaration `json:"-"`
+	Unit            *ast.StateVariableDeclaration `json:"ast"`
 	Id              int64                         `json:"id"`               // Id is the unique identifier of the state variable.
 	ContractId      int64                         `json:"contract_id"`      // ContractId is the unique identifier of the contract containing the state variable.
 	Name            string                        `json:"name"`             // Name is the name of the state variable.
@@ -23,7 +23,7 @@ type StateVariable struct {
 
 // GetAST returns the underlying AST node of the state variable.
 func (v *StateVariable) GetAST() *ast.StateVariableDeclaration {
-	return v.unit
+	return v.Unit
 }
 
 // GetId returns the unique identifier of the state variable.
@@ -78,7 +78,7 @@ func (v *StateVariable) GetTypeDescription() *ast.TypeDescription {
 
 // GetSrc returns the source node of the state variable.
 func (v *StateVariable) GetSrc() ast.SrcNode {
-	return v.unit.GetSrc()
+	return v.Unit.GetSrc()
 }
 
 // ToProto is a function that converts the StateVariable to a protobuf message.
@@ -102,7 +102,7 @@ func (v *StateVariable) ToProto() *ir_pb.StateVariable {
 // processStateVariables is a function that processes the given state variable declaration node and returns a StateVariable.
 func (b *Builder) processStateVariables(unit *ast.StateVariableDeclaration) *StateVariable {
 	variableNode := &StateVariable{
-		unit:            unit,
+		Unit:            unit,
 		Id:              unit.GetId(),
 		ContractId:      unit.GetScope(),
 		Name:            unit.GetName(),

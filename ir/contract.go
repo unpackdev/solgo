@@ -30,7 +30,7 @@ type ContractNode interface {
 
 // Contract represents a contract in the Intermediate Representation (IR).
 type Contract struct {
-	unit           *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] `json:"-"`
+	Unit           *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] `json:"ast"`
 	Id             int64                                        `json:"id"`
 	SourceUnitId   int64                                        `json:"source_unit_id"`
 	NodeType       ast_pb.NodeType                              `json:"node_type"`
@@ -55,7 +55,7 @@ type Contract struct {
 
 // GetAST returns the AST (Abstract Syntax Tree) for the contract.
 func (c *Contract) GetAST() *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] {
-	return c.unit
+	return c.Unit
 }
 
 // GetId returns the ID of the contract.
@@ -95,12 +95,12 @@ func (c *Contract) GetSourceUnitId() int64 {
 
 // GetUnitSrc returns the source node of the contract unit.
 func (c *Contract) GetUnitSrc() ast.SrcNode {
-	return c.unit.GetSrc()
+	return c.Unit.GetSrc()
 }
 
 // GetSrc returns the source node of the contract.
 func (c *Contract) GetSrc() ast.SrcNode {
-	return c.unit.GetContract().GetSrc()
+	return c.Unit.GetContract().GetSrc()
 }
 
 // GetKind returns the kind of the contract.
@@ -244,7 +244,7 @@ func (c *Contract) ToProto() *ir_pb.Contract {
 func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]]) *Contract {
 	contract := getContractByNodeType(unit.GetContract())
 	contractNode := &Contract{
-		unit: unit,
+		Unit: unit,
 
 		Id:             contract.GetId(),
 		NodeType:       contract.GetType(),

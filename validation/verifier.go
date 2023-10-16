@@ -103,6 +103,7 @@ func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResu
 	}
 
 	encoded := hex.EncodeToString(bytecode)
+
 	if !strings.Contains(result.GetDeployedBytecode(), encoded) {
 		dmp := diffmatchpatch.New()
 		diffs := dmp.DiffMain(encoded, result.GetDeployedBytecode(), false)

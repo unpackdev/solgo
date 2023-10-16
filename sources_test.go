@@ -18,6 +18,7 @@ func TestSources(t *testing.T) {
 		expected          string
 		expectedUnits     int
 		noSourceUnit      bool
+		localSources      bool
 		wantValidationErr bool
 	}{
 		{
@@ -53,6 +54,7 @@ func TestSources(t *testing.T) {
 						Content: tests.ReadContractFileForTestFromRootPath(t, "contracts/cheelee/Import").Content,
 					},
 				},
+				LocalSources:        true,
 				EntrySourceUnitName: "TransparentUpgradeableProxy",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},
@@ -91,6 +93,7 @@ func TestSources(t *testing.T) {
 						Content: tests.ReadContractFileForTestFromRootPath(t, "ast/Context").Content,
 					},
 				},
+				LocalSources:        false,
 				EntrySourceUnitName: "ERC20",
 				LocalSourcesPath:    buildFullPath("./sources/"),
 			},

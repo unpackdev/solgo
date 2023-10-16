@@ -3,7 +3,6 @@ package metadata
 import (
 	"context"
 	"errors"
-	"fmt"
 	"io"
 	"strings"
 	"testing"
@@ -50,7 +49,7 @@ func TestIpfsProvider(t *testing.T) {
 				jsonResponse, err := response.ToJSON()
 				tAssert.NoError(err)
 				tAssert.NotNil(jsonResponse)
-				fmt.Println(string(jsonResponse))
+				//fmt.Println(string(jsonResponse))
 				//tAssert.Equal(tt.want, jsonResponse)
 			}
 		})

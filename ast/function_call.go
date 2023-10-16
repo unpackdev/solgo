@@ -98,6 +98,16 @@ func (f *FunctionCall) GetReferenceDeclaration() int64 {
 	return f.ReferencedDeclaration
 }
 
+// RebuildDescriptions rebuilds the type descriptions of the FunctionCall node. It is called after the AST is built.
+func (f *FunctionCall) RebuildDescriptions() {
+	var newArgs []*TypeDescription
+	for _, arg := range f.GetArguments() {
+		newArgs = append(newArgs, arg.GetTypeDescription())
+	}
+	f.ArgumentTypes = newArgs
+	f.TypeDescription = f.buildTypeDescription()
+}
+
 // UnmarshalJSON unmarshals a given JSON byte array into a FunctionCall node.
 func (f *FunctionCall) UnmarshalJSON(data []byte) error {
 	var tempMap map[string]json.RawMessage

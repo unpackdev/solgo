@@ -4,89 +4,6 @@
 	"entry_source_unit": 31,
 	"globals": [
 		{
-			"id": 43,
-			"node_type": 66,
-			"src": {
-				"id": 44,
-				"line": 11,
-				"column": 4,
-				"start": 217,
-				"end": 257,
-				"length": 40,
-				"parent_index": 35
-			},
-			"name_location": {
-				"line": 11,
-				"column": 9,
-				"start": 222,
-				"end": 233,
-				"length": 12,
-				"parent_index": 43
-			},
-			"name": "LotteryState",
-			"canonical_name": "Lottery.LotteryState",
-			"type_description": {
-				"type_identifier": "t_enum_$_LotteryState_$43",
-				"type_string": "enum Lottery.LotteryState"
-			},
-			"members": [
-				{
-					"id": 45,
-					"node_type": 15,
-					"src": {
-						"id": 46,
-						"line": 11,
-						"column": 24,
-						"start": 237,
-						"end": 245,
-						"length": 8,
-						"parent_index": 43
-					},
-					"name_location": {
-						"id": 47,
-						"line": 11,
-						"column": 24,
-						"start": 237,
-						"end": 245,
-						"length": 9,
-						"parent_index": 43
-					},
-					"name": "Accepting",
-					"type_description": {
-						"type_identifier": "t_enum_$_LotteryState$_Accepting_$45",
-						"type_string": "enum Lottery.LotteryState.Accepting"
-					}
-				},
-				{
-					"id": 48,
-					"node_type": 15,
-					"src": {
-						"id": 49,
-						"line": 11,
-						"column": 35,
-						"start": 248,
-						"end": 255,
-						"length": 7,
-						"parent_index": 43
-					},
-					"name_location": {
-						"id": 50,
-						"line": 11,
-						"column": 35,
-						"start": 248,
-						"end": 255,
-						"length": 8,
-						"parent_index": 43
-					},
-					"name": "Finished",
-					"type_description": {
-						"type_identifier": "t_enum_$_LotteryState$_Finished_$48",
-						"type_string": "enum Lottery.LotteryState.Finished"
-					}
-				}
-			]
-		},
-		{
 			"id": 909,
 			"node_type": 66,
 			"src": {
@@ -163,6 +80,107 @@
 					}
 				}
 			]
+		},
+		{
+			"id": 913,
+			"node_type": 67,
+			"src": {
+				"id": 914,
+				"line": 12,
+				"column": 4,
+				"start": 263,
+				"end": 334,
+				"length": 72
+			},
+			"name": "Player",
+			"name_location": {
+				"line": 12,
+				"column": 11,
+				"start": 270,
+				"end": 275,
+				"length": 6,
+				"parent_index": 913
+			},
+			"canonical_name": "Global.Player",
+			"type_description": {
+				"type_identifier": "t_struct$_Global_Player_$913",
+				"type_string": "struct Global.Player"
+			},
+			"members": [
+				{
+					"id": 915,
+					"node_type": 44,
+					"src": {
+						"id": 916,
+						"line": 13,
+						"column": 8,
+						"start": 287,
+						"end": 299,
+						"length": 13,
+						"parent_index": 913
+					},
+					"name": "addr",
+					"type_name": {
+						"id": 917,
+						"node_type": 30,
+						"src": {
+							"id": 918,
+							"line": 13,
+							"column": 8,
+							"start": 287,
+							"end": 293,
+							"length": 7,
+							"parent_index": 915
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					"visibility": 1,
+					"state_mutability": 4
+				},
+				{
+					"id": 919,
+					"node_type": 44,
+					"src": {
+						"id": 920,
+						"line": 14,
+						"column": 8,
+						"start": 309,
+						"end": 328,
+						"length": 20,
+						"parent_index": 913
+					},
+					"name": "ticketCount",
+					"type_name": {
+						"id": 921,
+						"node_type": 30,
+						"src": {
+							"id": 922,
+							"line": 14,
+							"column": 8,
+							"start": 309,
+							"end": 315,
+							"length": 7,
+							"parent_index": 919
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					},
+					"visibility": 1,
+					"state_mutability": 1
+				}
+			],
+			"visibility": 3,
+			"storage_location": 1
 		}
 	],
 	"root": [
@@ -227,7 +245,7 @@
 						"parent_index": 14
 					},
 					"abstract": false,
-					"kind": 37,
+					"kind": 38,
 					"fully_implemented": true,
 					"nodes": [
 						{
@@ -3379,12 +3397,12 @@
 							"virtual": false,
 							"modifiers": [
 								{
-									"id": 225,
+									"id": 226,
 									"name": "inState",
 									"node_type": 72,
 									"kind": 72,
 									"src": {
-										"id": 226,
+										"id": 227,
 										"line": 55,
 										"column": 35,
 										"start": 1276,
@@ -3400,20 +3418,20 @@
 									],
 									"arguments": [
 										{
-											"id": 229,
+											"id": 230,
 											"is_constant": false,
 											"is_l_value": false,
 											"is_pure": false,
 											"l_value_requested": false,
 											"node_type": 23,
 											"src": {
-												"id": 230,
+												"id": 231,
 												"line": 55,
 												"column": 43,
 												"start": 1284,
 												"end": 1305,
 												"length": 22,
-												"parent_index": 225
+												"parent_index": 226
 											},
 											"member_location": {
 												"line": 55,
@@ -3421,19 +3439,19 @@
 												"start": 1297,
 												"end": 1305,
 												"length": 9,
-												"parent_index": 229
+												"parent_index": 230
 											},
 											"expression": {
-												"id": 231,
+												"id": 232,
 												"node_type": 16,
 												"src": {
-													"id": 232,
+													"id": 233,
 													"line": 55,
 													"column": 43,
 													"start": 1284,
 													"end": 1295,
 													"length": 12,
-													"parent_index": 229
+													"parent_index": 230
 												},
 												"name": "LotteryState",
 												"type_description": {
@@ -3453,27 +3471,27 @@
 										}
 									],
 									"modifier_name": {
-										"id": 227,
+										"id": 228,
 										"name": "inState",
 										"node_type": 0,
 										"src": {
-											"id": 228,
+											"id": 229,
 											"line": 55,
 											"column": 35,
 											"start": 1276,
 											"end": 1282,
 											"length": 7,
-											"parent_index": 225
+											"parent_index": 226
 										}
 									}
 								},
 								{
-									"id": 233,
+									"id": 234,
 									"name": "notOwner",
 									"node_type": 72,
 									"kind": 72,
 									"src": {
-										"id": 234,
+										"id": 235,
 										"line": 55,
 										"column": 67,
 										"start": 1308,
@@ -3484,24 +3502,24 @@
 									"argument_types": [],
 									"arguments": [],
 									"modifier_name": {
-										"id": 235,
+										"id": 236,
 										"name": "notOwner",
 										"node_type": 0,
 										"src": {
-											"id": 236,
+											"id": 237,
 											"line": 55,
 											"column": 67,
 											"start": 1308,
 											"end": 1315,
 											"length": 8,
-											"parent_index": 233
+											"parent_index": 234
 										}
 									}
 								}
 							],
 							"overrides": [],
 							"parameters": {
-								"id": 237,
+								"id": 225,
 								"node_type": 43,
 								"src": {
 									"id": 224,
@@ -5320,12 +5338,12 @@
 							"virtual": false,
 							"modifiers": [
 								{
-									"id": 338,
+									"id": 339,
 									"name": "inState",
 									"node_type": 72,
 									"kind": 72,
 									"src": {
-										"id": 339,
+										"id": 340,
 										"line": 70,
 										"column": 36,
 										"start": 1697,
@@ -5341,20 +5359,20 @@
 									],
 									"arguments": [
 										{
-											"id": 342,
+											"id": 343,
 											"is_constant": false,
 											"is_l_value": false,
 											"is_pure": false,
 											"l_value_requested": false,
 											"node_type": 23,
 											"src": {
-												"id": 343,
+												"id": 344,
 												"line": 70,
 												"column": 44,
 												"start": 1705,
 												"end": 1726,
 												"length": 22,
-												"parent_index": 338
+												"parent_index": 339
 											},
 											"member_location": {
 												"line": 70,
@@ -5362,19 +5380,19 @@
 												"start": 1718,
 												"end": 1726,
 												"length": 9,
-												"parent_index": 342
+												"parent_index": 343
 											},
 											"expression": {
-												"id": 344,
+												"id": 345,
 												"node_type": 16,
 												"src": {
-													"id": 345,
+													"id": 346,
 													"line": 70,
 													"column": 44,
 													"start": 1705,
 													"end": 1716,
 													"length": 12,
-													"parent_index": 342
+													"parent_index": 343
 												},
 												"name": "LotteryState",
 												"type_description": {
@@ -5394,24 +5412,24 @@
 										}
 									],
 									"modifier_name": {
-										"id": 340,
+										"id": 341,
 										"name": "inState",
 										"node_type": 0,
 										"src": {
-											"id": 341,
+											"id": 342,
 											"line": 70,
 											"column": 36,
 											"start": 1697,
 											"end": 1703,
 											"length": 7,
-											"parent_index": 338
+											"parent_index": 339
 										}
 									}
 								}
 							],
 							"overrides": [],
 							"parameters": {
-								"id": 346,
+								"id": 338,
 								"node_type": 43,
 								"src": {
 									"id": 337,

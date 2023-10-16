@@ -406,6 +406,7 @@ func recursiveTest(t *testing.T, node Node[NodeType]) {
 	if typeName, ok := node.(*TypeName); ok {
 		assert.GreaterOrEqual(t, typeName.GetReferencedDeclaration(), int64(0))
 		assert.NotNil(t, typeName.GetStateMutability())
+		assert.NotNil(t, typeName.GetTypeDescription())
 		assert.NotNil(t, typeName.GetTypeDescription().GetIdentifier())
 		assert.NotNil(t, typeName.GetTypeDescription().GetString())
 	}

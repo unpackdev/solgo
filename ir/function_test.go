@@ -11,7 +11,7 @@ import (
 func TestFunctionMethods(t *testing.T) {
 	// Create a new Function instance
 	functionInstance := &Function{
-		unit:                    &ast.Function{},
+		Unit:                    &ast.Function{},
 		Id:                      1,
 		NodeType:                ast_pb.NodeType(1),
 		Name:                    "functionName",
@@ -23,7 +23,7 @@ func TestFunctionMethods(t *testing.T) {
 		ReferencedDeclarationId: 1,
 		Modifiers: []*Modifier{
 			{
-				unit:          &ast.ModifierInvocation{},
+				Unit:          &ast.ModifierInvocation{},
 				Id:            1,
 				NodeType:      ast_pb.NodeType(1),
 				Name:          "modifier",
@@ -32,7 +32,7 @@ func TestFunctionMethods(t *testing.T) {
 		},
 		Parameters: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "parameter",
@@ -42,7 +42,7 @@ func TestFunctionMethods(t *testing.T) {
 		},
 		ReturnStatements: []*Parameter{
 			{
-				unit:            &ast.Parameter{},
+				Unit:            &ast.Parameter{},
 				Id:              1,
 				NodeType:        ast_pb.NodeType(1),
 				Name:            "return",

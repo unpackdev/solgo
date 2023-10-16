@@ -8,7 +8,7 @@ import (
 
 // Import represents an import statement in the IR.
 type Import struct {
-	Unit         *ast.Import     `json:"-"`
+	Unit         *ast.Import     `json:"ast"`
 	Id           int64           `json:"id"`
 	NodeType     ast_pb.NodeType `json:"node_type"`
 	AbsolutePath string          `json:"absolute_path"`

@@ -335,7 +335,10 @@ func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 		ParentIndex: structNode.GetId(),
 	}
-	p.Scope = contractNode.GetId()
+
+	if contractNode != nil {
+		p.Scope = contractNode.GetId()
+	}
 
 	if ctx.Identifier() != nil {
 		p.Name = ctx.Identifier().GetText()

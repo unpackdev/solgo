@@ -109,6 +109,10 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 		return node, nodeType
 	}
 
+	if node, nodeType := r.byImport(name); nodeType != nil {
+		return node, nodeType
+	}
+
 	return 0, nil
 }
 
@@ -140,7 +144,7 @@ func (r *Resolver) Resolve() []error {
 	// Reference update can come in any direction really. For example B that uses A can come first
 	// and because of it, it B will never discover A. In order to ensure that is not the case here,
 	// we are going to iterate few times through unprocessed references...
-	for i := 0; i <= 2; i++ {
+	for i := 0; i <= 3; i++ {
 		for nodeId, node := range r.UnprocessedNodes {
 			if rNodeId, rNodeType := r.resolveByNode(node.Name, node.Node); rNodeType != nil {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
@@ -292,6 +296,40 @@ func (r *Resolver) resolveEntrySourceUnit() {
 	r.tree.astRoot.SetEntrySourceUnit(entrySourceUnit)
 }
 
+// resolveImportDirectives resolves import directives in the AST.
+func (r *Resolver) byImport(name string) (int64, *TypeDescription) {
+
+	// In case any imports are available and they are not exported
+	// we are going to append them to the exported symbols.
+	for _, node := range r.ASTBuilder.currentImports {
+		if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
+			importNode := node.(*Import)
+
+			if importNode.GetName() == name {
+				return importNode.GetId(), importNode.GetTypeDescription()
+			}
+
+			if importNode.GetUnitAlias() == name {
+				return importNode.GetId(), importNode.GetTypeDescription()
+			}
+
+			if importNode.GetAs() == name {
+				return importNode.GetId(), importNode.GetTypeDescription()
+			}
+
+			if len(importNode.GetUnitAliases()) > 0 {
+				for _, alias := range importNode.GetUnitAliases() {
+					if alias == name {
+						return importNode.GetId(), importNode.GetTypeDescription()
+					}
+				}
+			}
+		}
+	}
+
+	return 0, nil
+}
+
 func (r *Resolver) bySourceUnit(name string) (int64, *TypeDescription) {
 	for _, node := range r.sourceUnits {
 		if strings.Contains(name, ".") { // NewExpression is going to need this...
@@ -386,14 +424,26 @@ func (r *Resolver) byEvents(name string) (int64, *TypeDescription) {
 
 func (r *Resolver) byGlobals(name string) (int64, *TypeDescription) {
 	for _, node := range r.globalDefinitions {
-		enumNode := node.(*EnumDefinition)
-		if enumNode.GetName() == name {
-			return node.GetId(), node.GetTypeDescription()
-		}
-
-		for _, member := range enumNode.GetMembers() {
-			if member.GetName() == name {
+		switch nodeCtx := node.(type) {
+		case *EnumDefinition:
+			if nodeCtx.GetName() == name {
 				return node.GetId(), node.GetTypeDescription()
+			}
+
+			for _, member := range nodeCtx.GetMembers() {
+				if member.GetName() == name {
+					return node.GetId(), node.GetTypeDescription()
+				}
+			}
+		case *StructDefinition:
+			if nodeCtx.GetName() == name {
+				return node.GetId(), node.GetTypeDescription()
+			}
+
+			for _, member := range nodeCtx.GetMembers() {
+				if member.GetName() == name {
+					return node.GetId(), node.GetTypeDescription()
+				}
 			}
 		}
 	}
@@ -508,19 +558,23 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 
 	switch nodeCtx := node.(type) {
 	case *DoWhileStatement:
-		for _, condition := range nodeCtx.GetCondition().GetNodes() {
-			if primary, ok := condition.(*PrimaryExpression); ok {
-				if primary.GetName() == name {
-					return primary, primary.GetTypeDescription()
+		if nodeCtx.GetCondition() != nil {
+			for _, condition := range nodeCtx.GetCondition().GetNodes() {
+				if primary, ok := condition.(*PrimaryExpression); ok {
+					if primary.GetName() == name {
+						return primary, primary.GetTypeDescription()
+					}
 				}
 			}
 		}
 
 	case *ForStatement:
-		for _, condition := range nodeCtx.GetCondition().GetNodes() {
-			if primary, ok := condition.(*PrimaryExpression); ok {
-				if primary.GetName() == name {
-					return primary, primary.GetTypeDescription()
+		if nodeCtx.GetCondition() != nil {
+			for _, condition := range nodeCtx.GetCondition().GetNodes() {
+				if primary, ok := condition.(*PrimaryExpression); ok {
+					if primary.GetName() == name {
+						return primary, primary.GetTypeDescription()
+					}
 				}
 			}
 		}

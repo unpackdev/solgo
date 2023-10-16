@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 
+	"github.com/antlr4-go/antlr/v4"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 	"go.uber.org/zap"
@@ -45,6 +46,14 @@ func (s *SimpleStatement) Parse(
 				s.ASTBuilder,
 				unit, contractNode, fnNode, bodyNode, parentNode, childCtx,
 			)
+		case *antlr.ErrorNodeImpl:
+			zap.L().Warn(
+				"Older contract parsing error @ SimpleStatement.Parse",
+				zap.String("child", fmt.Sprintf("%T", childCtx)),
+				zap.String("statement_text", childCtx.GetText()),
+			)
+
+			return nil
 		default:
 			zap.L().Warn(
 				"Unknown simple statement child type @ SimpleStatement.Parse",

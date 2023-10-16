@@ -1,0 +1,8246 @@
+{
+	"id": 1543,
+	"base_contracts": [],
+	"license": "agpl-3.0",
+	"exported_symbols": [
+		{
+			"id": 1543,
+			"name": "ILendingPool",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "ILendingPool",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 1547,
+			"node_type": 10,
+			"src": {
+				"id": 1548,
+				"line": 7,
+				"column": 0,
+				"start": 128,
+				"end": 146,
+				"length": 19,
+				"parent_index": 1543
+			},
+			"literals": [
+				"pragma",
+				"abicoder",
+				"v2",
+				";"
+			],
+			"text": "pragma abicoder v2;"
+		},
+		{
+			"id": 1549,
+			"name": "ILendingPool",
+			"node_type": 35,
+			"src": {
+				"line": 319,
+				"column": 0,
+				"start": 10771,
+				"end": 29813,
+				"length": 19043,
+				"parent_index": 1543
+			},
+			"name_location": {
+				"line": 319,
+				"column": 10,
+				"start": 10781,
+				"end": 10792,
+				"length": 12,
+				"parent_index": 1549
+			},
+			"abstract": false,
+			"kind": 38,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 1551,
+					"node_type": 57,
+					"src": {
+						"id": 1552,
+						"line": 328,
+						"column": 2,
+						"start": 11126,
+						"end": 11271,
+						"length": 146,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1553,
+						"node_type": 43,
+						"src": {
+							"id": 1552,
+							"line": 328,
+							"column": 2,
+							"start": 11126,
+							"end": 11271,
+							"length": 146,
+							"parent_index": 1551
+						},
+						"parameters": [
+							{
+								"id": 1554,
+								"node_type": 44,
+								"src": {
+									"id": 1555,
+									"line": 329,
+									"column": 4,
+									"start": 11145,
+									"end": 11167,
+									"length": 23,
+									"parent_index": 1553
+								},
+								"scope": 1551,
+								"name": "reserve",
+								"type_name": {
+									"id": 1556,
+									"node_type": 30,
+									"src": {
+										"id": 1557,
+										"line": 329,
+										"column": 4,
+										"start": 11145,
+										"end": 11151,
+										"length": 7,
+										"parent_index": 1554
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1558,
+								"node_type": 44,
+								"src": {
+									"id": 1559,
+									"line": 330,
+									"column": 4,
+									"start": 11174,
+									"end": 11185,
+									"length": 12,
+									"parent_index": 1553
+								},
+								"scope": 1551,
+								"name": "user",
+								"type_name": {
+									"id": 1560,
+									"node_type": 30,
+									"src": {
+										"id": 1561,
+										"line": 330,
+										"column": 4,
+										"start": 11174,
+										"end": 11180,
+										"length": 7,
+										"parent_index": 1558
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1562,
+								"node_type": 44,
+								"src": {
+									"id": 1563,
+									"line": 331,
+									"column": 4,
+									"start": 11192,
+									"end": 11217,
+									"length": 26,
+									"parent_index": 1553
+								},
+								"scope": 1551,
+								"name": "onBehalfOf",
+								"type_name": {
+									"id": 1564,
+									"node_type": 30,
+									"src": {
+										"id": 1565,
+										"line": 331,
+										"column": 4,
+										"start": 11192,
+										"end": 11198,
+										"length": 7,
+										"parent_index": 1562
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1566,
+								"node_type": 44,
+								"src": {
+									"id": 1567,
+									"line": 332,
+									"column": 4,
+									"start": 11224,
+									"end": 11237,
+									"length": 14,
+									"parent_index": 1553
+								},
+								"scope": 1551,
+								"name": "amount",
+								"type_name": {
+									"id": 1568,
+									"node_type": 30,
+									"src": {
+										"id": 1569,
+										"line": 332,
+										"column": 4,
+										"start": 11224,
+										"end": 11230,
+										"length": 7,
+										"parent_index": 1566
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1570,
+								"node_type": 44,
+								"src": {
+									"id": 1571,
+									"line": 333,
+									"column": 4,
+									"start": 11244,
+									"end": 11266,
+									"length": 23,
+									"parent_index": 1553
+								},
+								"scope": 1551,
+								"name": "referral",
+								"type_name": {
+									"id": 1572,
+									"node_type": 30,
+									"src": {
+										"id": 1573,
+										"line": 333,
+										"column": 4,
+										"start": 11244,
+										"end": 11249,
+										"length": 6,
+										"parent_index": 1570
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							}
+						]
+					},
+					"name": "Deposit",
+					"anonymous": false
+				},
+				{
+					"id": 1575,
+					"node_type": 57,
+					"src": {
+						"id": 1576,
+						"line": 343,
+						"column": 2,
+						"start": 11567,
+						"end": 11664,
+						"length": 98,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1577,
+						"node_type": 43,
+						"src": {
+							"id": 1576,
+							"line": 343,
+							"column": 2,
+							"start": 11567,
+							"end": 11664,
+							"length": 98,
+							"parent_index": 1575
+						},
+						"parameters": [
+							{
+								"id": 1578,
+								"node_type": 44,
+								"src": {
+									"id": 1579,
+									"line": 343,
+									"column": 17,
+									"start": 11582,
+									"end": 11604,
+									"length": 23,
+									"parent_index": 1577
+								},
+								"scope": 1575,
+								"name": "reserve",
+								"type_name": {
+									"id": 1580,
+									"node_type": 30,
+									"src": {
+										"id": 1581,
+										"line": 343,
+										"column": 17,
+										"start": 11582,
+										"end": 11588,
+										"length": 7,
+										"parent_index": 1578
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1582,
+								"node_type": 44,
+								"src": {
+									"id": 1583,
+									"line": 343,
+									"column": 42,
+									"start": 11607,
+									"end": 11626,
+									"length": 20,
+									"parent_index": 1577
+								},
+								"scope": 1575,
+								"name": "user",
+								"type_name": {
+									"id": 1584,
+									"node_type": 30,
+									"src": {
+										"id": 1585,
+										"line": 343,
+										"column": 42,
+										"start": 11607,
+										"end": 11613,
+										"length": 7,
+										"parent_index": 1582
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1586,
+								"node_type": 44,
+								"src": {
+									"id": 1587,
+									"line": 343,
+									"column": 64,
+									"start": 11629,
+									"end": 11646,
+									"length": 18,
+									"parent_index": 1577
+								},
+								"scope": 1575,
+								"name": "to",
+								"type_name": {
+									"id": 1588,
+									"node_type": 30,
+									"src": {
+										"id": 1589,
+										"line": 343,
+										"column": 64,
+										"start": 11629,
+										"end": 11635,
+										"length": 7,
+										"parent_index": 1586
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1590,
+								"node_type": 44,
+								"src": {
+									"id": 1591,
+									"line": 343,
+									"column": 84,
+									"start": 11649,
+									"end": 11662,
+									"length": 14,
+									"parent_index": 1577
+								},
+								"scope": 1575,
+								"name": "amount",
+								"type_name": {
+									"id": 1592,
+									"node_type": 30,
+									"src": {
+										"id": 1593,
+										"line": 343,
+										"column": 84,
+										"start": 11649,
+										"end": 11655,
+										"length": 7,
+										"parent_index": 1590
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"name": "Withdraw",
+					"anonymous": false
+				},
+				{
+					"id": 1595,
+					"node_type": 57,
+					"src": {
+						"id": 1596,
+						"line": 356,
+						"column": 2,
+						"start": 12277,
+						"end": 12473,
+						"length": 197,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1597,
+						"node_type": 43,
+						"src": {
+							"id": 1596,
+							"line": 356,
+							"column": 2,
+							"start": 12277,
+							"end": 12473,
+							"length": 197,
+							"parent_index": 1595
+						},
+						"parameters": [
+							{
+								"id": 1598,
+								"node_type": 44,
+								"src": {
+									"id": 1599,
+									"line": 357,
+									"column": 4,
+									"start": 12295,
+									"end": 12317,
+									"length": 23,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "reserve",
+								"type_name": {
+									"id": 1600,
+									"node_type": 30,
+									"src": {
+										"id": 1601,
+										"line": 357,
+										"column": 4,
+										"start": 12295,
+										"end": 12301,
+										"length": 7,
+										"parent_index": 1598
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1602,
+								"node_type": 44,
+								"src": {
+									"id": 1603,
+									"line": 358,
+									"column": 4,
+									"start": 12324,
+									"end": 12335,
+									"length": 12,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "user",
+								"type_name": {
+									"id": 1604,
+									"node_type": 30,
+									"src": {
+										"id": 1605,
+										"line": 358,
+										"column": 4,
+										"start": 12324,
+										"end": 12330,
+										"length": 7,
+										"parent_index": 1602
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1606,
+								"node_type": 44,
+								"src": {
+									"id": 1607,
+									"line": 359,
+									"column": 4,
+									"start": 12342,
+									"end": 12367,
+									"length": 26,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "onBehalfOf",
+								"type_name": {
+									"id": 1608,
+									"node_type": 30,
+									"src": {
+										"id": 1609,
+										"line": 359,
+										"column": 4,
+										"start": 12342,
+										"end": 12348,
+										"length": 7,
+										"parent_index": 1606
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1610,
+								"node_type": 44,
+								"src": {
+									"id": 1611,
+									"line": 360,
+									"column": 4,
+									"start": 12374,
+									"end": 12387,
+									"length": 14,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "amount",
+								"type_name": {
+									"id": 1612,
+									"node_type": 30,
+									"src": {
+										"id": 1613,
+										"line": 360,
+										"column": 4,
+										"start": 12374,
+										"end": 12380,
+										"length": 7,
+										"parent_index": 1610
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1614,
+								"node_type": 44,
+								"src": {
+									"id": 1615,
+									"line": 361,
+									"column": 4,
+									"start": 12394,
+									"end": 12415,
+									"length": 22,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "borrowRateMode",
+								"type_name": {
+									"id": 1616,
+									"node_type": 30,
+									"src": {
+										"id": 1617,
+										"line": 361,
+										"column": 4,
+										"start": 12394,
+										"end": 12400,
+										"length": 7,
+										"parent_index": 1614
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1618,
+								"node_type": 44,
+								"src": {
+									"id": 1619,
+									"line": 362,
+									"column": 4,
+									"start": 12422,
+									"end": 12439,
+									"length": 18,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "borrowRate",
+								"type_name": {
+									"id": 1620,
+									"node_type": 30,
+									"src": {
+										"id": 1621,
+										"line": 362,
+										"column": 4,
+										"start": 12422,
+										"end": 12428,
+										"length": 7,
+										"parent_index": 1618
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1622,
+								"node_type": 44,
+								"src": {
+									"id": 1623,
+									"line": 363,
+									"column": 4,
+									"start": 12446,
+									"end": 12468,
+									"length": 23,
+									"parent_index": 1597
+								},
+								"scope": 1595,
+								"name": "referral",
+								"type_name": {
+									"id": 1624,
+									"node_type": 30,
+									"src": {
+										"id": 1625,
+										"line": 363,
+										"column": 4,
+										"start": 12446,
+										"end": 12451,
+										"length": 6,
+										"parent_index": 1622
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							}
+						]
+					},
+					"name": "Borrow",
+					"anonymous": false
+				},
+				{
+					"id": 1627,
+					"node_type": 57,
+					"src": {
+						"id": 1628,
+						"line": 373,
+						"column": 2,
+						"start": 12792,
+						"end": 12911,
+						"length": 120,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1629,
+						"node_type": 43,
+						"src": {
+							"id": 1628,
+							"line": 373,
+							"column": 2,
+							"start": 12792,
+							"end": 12911,
+							"length": 120,
+							"parent_index": 1627
+						},
+						"parameters": [
+							{
+								"id": 1630,
+								"node_type": 44,
+								"src": {
+									"id": 1631,
+									"line": 374,
+									"column": 4,
+									"start": 12809,
+									"end": 12831,
+									"length": 23,
+									"parent_index": 1629
+								},
+								"scope": 1627,
+								"name": "reserve",
+								"type_name": {
+									"id": 1632,
+									"node_type": 30,
+									"src": {
+										"id": 1633,
+										"line": 374,
+										"column": 4,
+										"start": 12809,
+										"end": 12815,
+										"length": 7,
+										"parent_index": 1630
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1634,
+								"node_type": 44,
+								"src": {
+									"id": 1635,
+									"line": 375,
+									"column": 4,
+									"start": 12838,
+									"end": 12857,
+									"length": 20,
+									"parent_index": 1629
+								},
+								"scope": 1627,
+								"name": "user",
+								"type_name": {
+									"id": 1636,
+									"node_type": 30,
+									"src": {
+										"id": 1637,
+										"line": 375,
+										"column": 4,
+										"start": 12838,
+										"end": 12844,
+										"length": 7,
+										"parent_index": 1634
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1638,
+								"node_type": 44,
+								"src": {
+									"id": 1639,
+									"line": 376,
+									"column": 4,
+									"start": 12864,
+									"end": 12886,
+									"length": 23,
+									"parent_index": 1629
+								},
+								"scope": 1627,
+								"name": "repayer",
+								"type_name": {
+									"id": 1640,
+									"node_type": 30,
+									"src": {
+										"id": 1641,
+										"line": 376,
+										"column": 4,
+										"start": 12864,
+										"end": 12870,
+										"length": 7,
+										"parent_index": 1638
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1642,
+								"node_type": 44,
+								"src": {
+									"id": 1643,
+									"line": 377,
+									"column": 4,
+									"start": 12893,
+									"end": 12906,
+									"length": 14,
+									"parent_index": 1629
+								},
+								"scope": 1627,
+								"name": "amount",
+								"type_name": {
+									"id": 1644,
+									"node_type": 30,
+									"src": {
+										"id": 1645,
+										"line": 377,
+										"column": 4,
+										"start": 12893,
+										"end": 12899,
+										"length": 7,
+										"parent_index": 1642
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"name": "Repay",
+					"anonymous": false
+				},
+				{
+					"id": 1647,
+					"node_type": 57,
+					"src": {
+						"id": 1648,
+						"line": 385,
+						"column": 2,
+						"start": 13127,
+						"end": 13210,
+						"length": 84,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1649,
+						"node_type": 43,
+						"src": {
+							"id": 1648,
+							"line": 385,
+							"column": 2,
+							"start": 13127,
+							"end": 13210,
+							"length": 84,
+							"parent_index": 1647
+						},
+						"parameters": [
+							{
+								"id": 1650,
+								"node_type": 44,
+								"src": {
+									"id": 1651,
+									"line": 385,
+									"column": 39,
+									"start": 13164,
+									"end": 13186,
+									"length": 23,
+									"parent_index": 1649
+								},
+								"scope": 1647,
+								"name": "reserve",
+								"type_name": {
+									"id": 1652,
+									"node_type": 30,
+									"src": {
+										"id": 1653,
+										"line": 385,
+										"column": 39,
+										"start": 13164,
+										"end": 13170,
+										"length": 7,
+										"parent_index": 1650
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1654,
+								"node_type": 44,
+								"src": {
+									"id": 1655,
+									"line": 385,
+									"column": 64,
+									"start": 13189,
+									"end": 13208,
+									"length": 20,
+									"parent_index": 1649
+								},
+								"scope": 1647,
+								"name": "user",
+								"type_name": {
+									"id": 1656,
+									"node_type": 30,
+									"src": {
+										"id": 1657,
+										"line": 385,
+										"column": 64,
+										"start": 13189,
+										"end": 13195,
+										"length": 7,
+										"parent_index": 1654
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "ReserveUsedAsCollateralEnabled",
+					"anonymous": false
+				},
+				{
+					"id": 1659,
+					"node_type": 57,
+					"src": {
+						"id": 1660,
+						"line": 392,
+						"column": 2,
+						"start": 13426,
+						"end": 13510,
+						"length": 85,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1661,
+						"node_type": 43,
+						"src": {
+							"id": 1660,
+							"line": 392,
+							"column": 2,
+							"start": 13426,
+							"end": 13510,
+							"length": 85,
+							"parent_index": 1659
+						},
+						"parameters": [
+							{
+								"id": 1662,
+								"node_type": 44,
+								"src": {
+									"id": 1663,
+									"line": 392,
+									"column": 40,
+									"start": 13464,
+									"end": 13486,
+									"length": 23,
+									"parent_index": 1661
+								},
+								"scope": 1659,
+								"name": "reserve",
+								"type_name": {
+									"id": 1664,
+									"node_type": 30,
+									"src": {
+										"id": 1665,
+										"line": 392,
+										"column": 40,
+										"start": 13464,
+										"end": 13470,
+										"length": 7,
+										"parent_index": 1662
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1666,
+								"node_type": 44,
+								"src": {
+									"id": 1667,
+									"line": 392,
+									"column": 65,
+									"start": 13489,
+									"end": 13508,
+									"length": 20,
+									"parent_index": 1661
+								},
+								"scope": 1659,
+								"name": "user",
+								"type_name": {
+									"id": 1668,
+									"node_type": 30,
+									"src": {
+										"id": 1669,
+										"line": 392,
+										"column": 65,
+										"start": 13489,
+										"end": 13495,
+										"length": 7,
+										"parent_index": 1666
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "ReserveUsedAsCollateralDisabled",
+					"anonymous": false
+				},
+				{
+					"id": 1671,
+					"node_type": 57,
+					"src": {
+						"id": 1672,
+						"line": 403,
+						"column": 2,
+						"start": 13888,
+						"end": 14059,
+						"length": 172,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1673,
+						"node_type": 43,
+						"src": {
+							"id": 1672,
+							"line": 403,
+							"column": 2,
+							"start": 13888,
+							"end": 14059,
+							"length": 172,
+							"parent_index": 1671
+						},
+						"parameters": [
+							{
+								"id": 1674,
+								"node_type": 44,
+								"src": {
+									"id": 1675,
+									"line": 404,
+									"column": 4,
+									"start": 13909,
+									"end": 13930,
+									"length": 22,
+									"parent_index": 1673
+								},
+								"scope": 1671,
+								"name": "target",
+								"type_name": {
+									"id": 1676,
+									"node_type": 30,
+									"src": {
+										"id": 1677,
+										"line": 404,
+										"column": 4,
+										"start": 13909,
+										"end": 13915,
+										"length": 7,
+										"parent_index": 1674
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1678,
+								"node_type": 44,
+								"src": {
+									"id": 1679,
+									"line": 405,
+									"column": 4,
+									"start": 13937,
+									"end": 13961,
+									"length": 25,
+									"parent_index": 1673
+								},
+								"scope": 1671,
+								"name": "initiator",
+								"type_name": {
+									"id": 1680,
+									"node_type": 30,
+									"src": {
+										"id": 1681,
+										"line": 405,
+										"column": 4,
+										"start": 13937,
+										"end": 13943,
+										"length": 7,
+										"parent_index": 1678
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1682,
+								"node_type": 44,
+								"src": {
+									"id": 1683,
+									"line": 406,
+									"column": 4,
+									"start": 13968,
+									"end": 13988,
+									"length": 21,
+									"parent_index": 1673
+								},
+								"scope": 1671,
+								"name": "asset",
+								"type_name": {
+									"id": 1684,
+									"node_type": 30,
+									"src": {
+										"id": 1685,
+										"line": 406,
+										"column": 4,
+										"start": 13968,
+										"end": 13974,
+										"length": 7,
+										"parent_index": 1682
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1686,
+								"node_type": 44,
+								"src": {
+									"id": 1687,
+									"line": 407,
+									"column": 4,
+									"start": 13995,
+									"end": 14008,
+									"length": 14,
+									"parent_index": 1673
+								},
+								"scope": 1671,
+								"name": "amount",
+								"type_name": {
+									"id": 1688,
+									"node_type": 30,
+									"src": {
+										"id": 1689,
+										"line": 407,
+										"column": 4,
+										"start": 13995,
+										"end": 14001,
+										"length": 7,
+										"parent_index": 1686
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1690,
+								"node_type": 44,
+								"src": {
+									"id": 1691,
+									"line": 408,
+									"column": 4,
+									"start": 14015,
+									"end": 14029,
+									"length": 15,
+									"parent_index": 1673
+								},
+								"scope": 1671,
+								"name": "premium",
+								"type_name": {
+									"id": 1692,
+									"node_type": 30,
+									"src": {
+										"id": 1693,
+										"line": 408,
+										"column": 4,
+										"start": 14015,
+										"end": 14021,
+										"length": 7,
+										"parent_index": 1690
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1694,
+								"node_type": 44,
+								"src": {
+									"id": 1695,
+									"line": 409,
+									"column": 4,
+									"start": 14036,
+									"end": 14054,
+									"length": 19,
+									"parent_index": 1673
+								},
+								"scope": 1671,
+								"name": "referralCode",
+								"type_name": {
+									"id": 1696,
+									"node_type": 30,
+									"src": {
+										"id": 1697,
+										"line": 409,
+										"column": 4,
+										"start": 14036,
+										"end": 14041,
+										"length": 6,
+										"parent_index": 1694
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							}
+						]
+					},
+					"name": "FlashLoan",
+					"anonymous": false
+				},
+				{
+					"id": 1699,
+					"node_type": 57,
+					"src": {
+						"id": 1700,
+						"line": 415,
+						"column": 2,
+						"start": 14123,
+						"end": 14137,
+						"length": 15,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1701,
+						"node_type": 43,
+						"src": {
+							"id": 1700,
+							"line": 415,
+							"column": 2,
+							"start": 14123,
+							"end": 14137,
+							"length": 15,
+							"parent_index": 1699
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"name": "Paused",
+					"anonymous": false
+				},
+				{
+					"id": 1703,
+					"node_type": 57,
+					"src": {
+						"id": 1704,
+						"line": 420,
+						"column": 2,
+						"start": 14198,
+						"end": 14214,
+						"length": 17,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1705,
+						"node_type": 43,
+						"src": {
+							"id": 1704,
+							"line": 420,
+							"column": 2,
+							"start": 14198,
+							"end": 14214,
+							"length": 17,
+							"parent_index": 1703
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"name": "Unpaused",
+					"anonymous": false
+				},
+				{
+					"id": 1707,
+					"node_type": 57,
+					"src": {
+						"id": 1708,
+						"line": 435,
+						"column": 2,
+						"start": 15150,
+						"end": 15382,
+						"length": 233,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1709,
+						"node_type": 43,
+						"src": {
+							"id": 1708,
+							"line": 435,
+							"column": 2,
+							"start": 15150,
+							"end": 15382,
+							"length": 233,
+							"parent_index": 1707
+						},
+						"parameters": [
+							{
+								"id": 1710,
+								"node_type": 44,
+								"src": {
+									"id": 1711,
+									"line": 436,
+									"column": 4,
+									"start": 15177,
+									"end": 15207,
+									"length": 31,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "collateralAsset",
+								"type_name": {
+									"id": 1712,
+									"node_type": 30,
+									"src": {
+										"id": 1713,
+										"line": 436,
+										"column": 4,
+										"start": 15177,
+										"end": 15183,
+										"length": 7,
+										"parent_index": 1710
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1714,
+								"node_type": 44,
+								"src": {
+									"id": 1715,
+									"line": 437,
+									"column": 4,
+									"start": 15214,
+									"end": 15238,
+									"length": 25,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "debtAsset",
+								"type_name": {
+									"id": 1716,
+									"node_type": 30,
+									"src": {
+										"id": 1717,
+										"line": 437,
+										"column": 4,
+										"start": 15214,
+										"end": 15220,
+										"length": 7,
+										"parent_index": 1714
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1718,
+								"node_type": 44,
+								"src": {
+									"id": 1719,
+									"line": 438,
+									"column": 4,
+									"start": 15245,
+									"end": 15264,
+									"length": 20,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "user",
+								"type_name": {
+									"id": 1720,
+									"node_type": 30,
+									"src": {
+										"id": 1721,
+										"line": 438,
+										"column": 4,
+										"start": 15245,
+										"end": 15251,
+										"length": 7,
+										"parent_index": 1718
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1722,
+								"node_type": 44,
+								"src": {
+									"id": 1723,
+									"line": 439,
+									"column": 4,
+									"start": 15271,
+									"end": 15289,
+									"length": 19,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "debtToCover",
+								"type_name": {
+									"id": 1724,
+									"node_type": 30,
+									"src": {
+										"id": 1725,
+										"line": 439,
+										"column": 4,
+										"start": 15271,
+										"end": 15277,
+										"length": 7,
+										"parent_index": 1722
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1726,
+								"node_type": 44,
+								"src": {
+									"id": 1727,
+									"line": 440,
+									"column": 4,
+									"start": 15296,
+									"end": 15329,
+									"length": 34,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "liquidatedCollateralAmount",
+								"type_name": {
+									"id": 1728,
+									"node_type": 30,
+									"src": {
+										"id": 1729,
+										"line": 440,
+										"column": 4,
+										"start": 15296,
+										"end": 15302,
+										"length": 7,
+										"parent_index": 1726
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1730,
+								"node_type": 44,
+								"src": {
+									"id": 1731,
+									"line": 441,
+									"column": 4,
+									"start": 15336,
+									"end": 15353,
+									"length": 18,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "liquidator",
+								"type_name": {
+									"id": 1732,
+									"node_type": 30,
+									"src": {
+										"id": 1733,
+										"line": 441,
+										"column": 4,
+										"start": 15336,
+										"end": 15342,
+										"length": 7,
+										"parent_index": 1730
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1734,
+								"node_type": 44,
+								"src": {
+									"id": 1735,
+									"line": 442,
+									"column": 4,
+									"start": 15360,
+									"end": 15377,
+									"length": 18,
+									"parent_index": 1709
+								},
+								"scope": 1707,
+								"name": "receiveAToken",
+								"type_name": {
+									"id": 1736,
+									"node_type": 30,
+									"src": {
+										"id": 1737,
+										"line": 442,
+										"column": 4,
+										"start": 15360,
+										"end": 15363,
+										"length": 4,
+										"parent_index": 1734
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"name": "LiquidationCall",
+					"anonymous": false
+				},
+				{
+					"id": 1739,
+					"node_type": 57,
+					"src": {
+						"id": 1740,
+						"line": 457,
+						"column": 2,
+						"start": 16112,
+						"end": 16319,
+						"length": 208,
+						"parent_index": 1549
+					},
+					"parameters": {
+						"id": 1741,
+						"node_type": 43,
+						"src": {
+							"id": 1740,
+							"line": 457,
+							"column": 2,
+							"start": 16112,
+							"end": 16319,
+							"length": 208,
+							"parent_index": 1739
+						},
+						"parameters": [
+							{
+								"id": 1742,
+								"node_type": 44,
+								"src": {
+									"id": 1743,
+									"line": 458,
+									"column": 4,
+									"start": 16142,
+									"end": 16164,
+									"length": 23,
+									"parent_index": 1741
+								},
+								"scope": 1739,
+								"name": "reserve",
+								"type_name": {
+									"id": 1744,
+									"node_type": 30,
+									"src": {
+										"id": 1745,
+										"line": 458,
+										"column": 4,
+										"start": 16142,
+										"end": 16148,
+										"length": 7,
+										"parent_index": 1742
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"indexed": true
+							},
+							{
+								"id": 1746,
+								"node_type": 44,
+								"src": {
+									"id": 1747,
+									"line": 459,
+									"column": 4,
+									"start": 16171,
+									"end": 16191,
+									"length": 21,
+									"parent_index": 1741
+								},
+								"scope": 1739,
+								"name": "liquidityRate",
+								"type_name": {
+									"id": 1748,
+									"node_type": 30,
+									"src": {
+										"id": 1749,
+										"line": 459,
+										"column": 4,
+										"start": 16171,
+										"end": 16177,
+										"length": 7,
+										"parent_index": 1746
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1750,
+								"node_type": 44,
+								"src": {
+									"id": 1751,
+									"line": 460,
+									"column": 4,
+									"start": 16198,
+									"end": 16221,
+									"length": 24,
+									"parent_index": 1741
+								},
+								"scope": 1739,
+								"name": "stableBorrowRate",
+								"type_name": {
+									"id": 1752,
+									"node_type": 30,
+									"src": {
+										"id": 1753,
+										"line": 460,
+										"column": 4,
+										"start": 16198,
+										"end": 16204,
+										"length": 7,
+										"parent_index": 1750
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1754,
+								"node_type": 44,
+								"src": {
+									"id": 1755,
+									"line": 461,
+									"column": 4,
+									"start": 16228,
+									"end": 16253,
+									"length": 26,
+									"parent_index": 1741
+								},
+								"scope": 1739,
+								"name": "variableBorrowRate",
+								"type_name": {
+									"id": 1756,
+									"node_type": 30,
+									"src": {
+										"id": 1757,
+										"line": 461,
+										"column": 4,
+										"start": 16228,
+										"end": 16234,
+										"length": 7,
+										"parent_index": 1754
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1758,
+								"node_type": 44,
+								"src": {
+									"id": 1759,
+									"line": 462,
+									"column": 4,
+									"start": 16260,
+									"end": 16281,
+									"length": 22,
+									"parent_index": 1741
+								},
+								"scope": 1739,
+								"name": "liquidityIndex",
+								"type_name": {
+									"id": 1760,
+									"node_type": 30,
+									"src": {
+										"id": 1761,
+										"line": 462,
+										"column": 4,
+										"start": 16260,
+										"end": 16266,
+										"length": 7,
+										"parent_index": 1758
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1762,
+								"node_type": 44,
+								"src": {
+									"id": 1763,
+									"line": 463,
+									"column": 4,
+									"start": 16288,
+									"end": 16314,
+									"length": 27,
+									"parent_index": 1741
+								},
+								"scope": 1739,
+								"name": "variableBorrowIndex",
+								"type_name": {
+									"id": 1764,
+									"node_type": 30,
+									"src": {
+										"id": 1765,
+										"line": 463,
+										"column": 4,
+										"start": 16288,
+										"end": 16294,
+										"length": 7,
+										"parent_index": 1762
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"name": "ReserveDataUpdated",
+					"anonymous": false
+				},
+				{
+					"id": 1767,
+					"name": "deposit",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1768,
+						"line": 478,
+						"column": 2,
+						"start": 17064,
+						"end": 17181,
+						"length": 118,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 478,
+						"column": 11,
+						"start": 17073,
+						"end": 17079,
+						"length": 7,
+						"parent_index": 1767
+					},
+					"body": {
+						"id": 1788,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1768,
+							"line": 478,
+							"column": 2,
+							"start": 17064,
+							"end": 17181,
+							"length": 118,
+							"parent_index": 1767
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1769,
+						"node_type": 43,
+						"src": {
+							"id": 1770,
+							"line": 479,
+							"column": 4,
+							"start": 17086,
+							"end": 17167,
+							"length": 82,
+							"parent_index": 1767
+						},
+						"parameters": [
+							{
+								"id": 1771,
+								"node_type": 44,
+								"src": {
+									"id": 1772,
+									"line": 479,
+									"column": 4,
+									"start": 17086,
+									"end": 17098,
+									"length": 13,
+									"parent_index": 1769
+								},
+								"scope": 1767,
+								"name": "asset",
+								"type_name": {
+									"id": 1773,
+									"node_type": 30,
+									"src": {
+										"id": 1774,
+										"line": 479,
+										"column": 4,
+										"start": 17086,
+										"end": 17092,
+										"length": 7,
+										"parent_index": 1771
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1775,
+								"node_type": 44,
+								"src": {
+									"id": 1776,
+									"line": 480,
+									"column": 4,
+									"start": 17105,
+									"end": 17118,
+									"length": 14,
+									"parent_index": 1769
+								},
+								"scope": 1767,
+								"name": "amount",
+								"type_name": {
+									"id": 1777,
+									"node_type": 30,
+									"src": {
+										"id": 1778,
+										"line": 480,
+										"column": 4,
+										"start": 17105,
+										"end": 17111,
+										"length": 7,
+										"parent_index": 1775
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1779,
+								"node_type": 44,
+								"src": {
+									"id": 1780,
+									"line": 481,
+									"column": 4,
+									"start": 17125,
+									"end": 17142,
+									"length": 18,
+									"parent_index": 1769
+								},
+								"scope": 1767,
+								"name": "onBehalfOf",
+								"type_name": {
+									"id": 1781,
+									"node_type": 30,
+									"src": {
+										"id": 1782,
+										"line": 481,
+										"column": 4,
+										"start": 17125,
+										"end": 17131,
+										"length": 7,
+										"parent_index": 1779
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1783,
+								"node_type": 44,
+								"src": {
+									"id": 1784,
+									"line": 482,
+									"column": 4,
+									"start": 17149,
+									"end": 17167,
+									"length": 19,
+									"parent_index": 1769
+								},
+								"scope": 1767,
+								"name": "referralCode",
+								"type_name": {
+									"id": 1785,
+									"node_type": 30,
+									"src": {
+										"id": 1786,
+										"line": 482,
+										"column": 4,
+										"start": 17149,
+										"end": 17154,
+										"length": 6,
+										"parent_index": 1783
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1787,
+						"node_type": 43,
+						"src": {
+							"id": 1768,
+							"line": 478,
+							"column": 2,
+							"start": 17064,
+							"end": 17181,
+							"length": 118,
+							"parent_index": 1767
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "deposit(address, uint256, address, uint16)",
+					"signature": "b04b2a91",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$_t_address$_t_uint16$",
+						"type_string": "function(address,uint256,address,uint16)"
+					}
+				},
+				{
+					"id": 1790,
+					"name": "depositYield",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1791,
+						"line": 491,
+						"column": 2,
+						"start": 17467,
+						"end": 17528,
+						"length": 62,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 491,
+						"column": 11,
+						"start": 17476,
+						"end": 17487,
+						"length": 12,
+						"parent_index": 1790
+					},
+					"body": {
+						"id": 1803,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1791,
+							"line": 491,
+							"column": 2,
+							"start": 17467,
+							"end": 17528,
+							"length": 62,
+							"parent_index": 1790
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1792,
+						"node_type": 43,
+						"src": {
+							"id": 1793,
+							"line": 491,
+							"column": 24,
+							"start": 17489,
+							"end": 17517,
+							"length": 29,
+							"parent_index": 1790
+						},
+						"parameters": [
+							{
+								"id": 1794,
+								"node_type": 44,
+								"src": {
+									"id": 1795,
+									"line": 491,
+									"column": 24,
+									"start": 17489,
+									"end": 17501,
+									"length": 13,
+									"parent_index": 1792
+								},
+								"scope": 1790,
+								"name": "asset",
+								"type_name": {
+									"id": 1796,
+									"node_type": 30,
+									"src": {
+										"id": 1797,
+										"line": 491,
+										"column": 24,
+										"start": 17489,
+										"end": 17495,
+										"length": 7,
+										"parent_index": 1794
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1798,
+								"node_type": 44,
+								"src": {
+									"id": 1799,
+									"line": 491,
+									"column": 39,
+									"start": 17504,
+									"end": 17517,
+									"length": 14,
+									"parent_index": 1792
+								},
+								"scope": 1790,
+								"name": "amount",
+								"type_name": {
+									"id": 1800,
+									"node_type": 30,
+									"src": {
+										"id": 1801,
+										"line": 491,
+										"column": 39,
+										"start": 17504,
+										"end": 17510,
+										"length": 7,
+										"parent_index": 1798
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1802,
+						"node_type": 43,
+						"src": {
+							"id": 1791,
+							"line": 491,
+							"column": 2,
+							"start": 17467,
+							"end": 17528,
+							"length": 62,
+							"parent_index": 1790
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "depositYield(address, uint256)",
+					"signature": "02e0d5c2",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				},
+				{
+					"id": 1805,
+					"name": "getYield",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1806,
+						"line": 499,
+						"column": 2,
+						"start": 17782,
+						"end": 17839,
+						"length": 58,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 499,
+						"column": 11,
+						"start": 17791,
+						"end": 17798,
+						"length": 8,
+						"parent_index": 1805
+					},
+					"body": {
+						"id": 1818,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1806,
+							"line": 499,
+							"column": 2,
+							"start": 17782,
+							"end": 17839,
+							"length": 58,
+							"parent_index": 1805
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1807,
+						"node_type": 43,
+						"src": {
+							"id": 1808,
+							"line": 499,
+							"column": 20,
+							"start": 17800,
+							"end": 17828,
+							"length": 29,
+							"parent_index": 1805
+						},
+						"parameters": [
+							{
+								"id": 1809,
+								"node_type": 44,
+								"src": {
+									"id": 1810,
+									"line": 499,
+									"column": 20,
+									"start": 17800,
+									"end": 17812,
+									"length": 13,
+									"parent_index": 1807
+								},
+								"scope": 1805,
+								"name": "asset",
+								"type_name": {
+									"id": 1811,
+									"node_type": 30,
+									"src": {
+										"id": 1812,
+										"line": 499,
+										"column": 20,
+										"start": 17800,
+										"end": 17806,
+										"length": 7,
+										"parent_index": 1809
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1813,
+								"node_type": 44,
+								"src": {
+									"id": 1814,
+									"line": 499,
+									"column": 35,
+									"start": 17815,
+									"end": 17828,
+									"length": 14,
+									"parent_index": 1807
+								},
+								"scope": 1805,
+								"name": "amount",
+								"type_name": {
+									"id": 1815,
+									"node_type": 30,
+									"src": {
+										"id": 1816,
+										"line": 499,
+										"column": 35,
+										"start": 17815,
+										"end": 17821,
+										"length": 7,
+										"parent_index": 1813
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1817,
+						"node_type": 43,
+						"src": {
+							"id": 1806,
+							"line": 499,
+							"column": 2,
+							"start": 17782,
+							"end": 17839,
+							"length": 58,
+							"parent_index": 1805
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "getYield(address, uint256)",
+					"signature": "c438bd6f",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				},
+				{
+					"id": 1820,
+					"name": "getTotalBalanceOfAssetPair",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1821,
+						"line": 505,
+						"column": 2,
+						"start": 17969,
+						"end": 18060,
+						"length": 92,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 505,
+						"column": 11,
+						"start": 17978,
+						"end": 18003,
+						"length": 26,
+						"parent_index": 1820
+					},
+					"body": {
+						"id": 1838,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1821,
+							"line": 505,
+							"column": 2,
+							"start": 17969,
+							"end": 18060,
+							"length": 92,
+							"parent_index": 1820
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1822,
+						"node_type": 43,
+						"src": {
+							"id": 1823,
+							"line": 505,
+							"column": 38,
+							"start": 18005,
+							"end": 18017,
+							"length": 13,
+							"parent_index": 1820
+						},
+						"parameters": [
+							{
+								"id": 1824,
+								"node_type": 44,
+								"src": {
+									"id": 1825,
+									"line": 505,
+									"column": 38,
+									"start": 18005,
+									"end": 18017,
+									"length": 13,
+									"parent_index": 1822
+								},
+								"scope": 1820,
+								"name": "asset",
+								"type_name": {
+									"id": 1826,
+									"node_type": 30,
+									"src": {
+										"id": 1827,
+										"line": 505,
+										"column": 38,
+										"start": 18005,
+										"end": 18011,
+										"length": 7,
+										"parent_index": 1824
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1828,
+						"node_type": 43,
+						"src": {
+							"id": 1829,
+							"line": 505,
+							"column": 76,
+							"start": 18043,
+							"end": 18058,
+							"length": 16,
+							"parent_index": 1820
+						},
+						"parameters": [
+							{
+								"id": 1830,
+								"node_type": 44,
+								"src": {
+									"id": 1831,
+									"line": 505,
+									"column": 76,
+									"start": 18043,
+									"end": 18049,
+									"length": 7,
+									"parent_index": 1828
+								},
+								"scope": 1820,
+								"name": "",
+								"type_name": {
+									"id": 1832,
+									"node_type": 30,
+									"src": {
+										"id": 1833,
+										"line": 505,
+										"column": 76,
+										"start": 18043,
+										"end": 18049,
+										"length": 7,
+										"parent_index": 1830
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1834,
+								"node_type": 44,
+								"src": {
+									"id": 1835,
+									"line": 505,
+									"column": 85,
+									"start": 18052,
+									"end": 18058,
+									"length": 7,
+									"parent_index": 1828
+								},
+								"scope": 1820,
+								"name": "",
+								"type_name": {
+									"id": 1836,
+									"node_type": 30,
+									"src": {
+										"id": 1837,
+										"line": 505,
+										"column": 85,
+										"start": 18052,
+										"end": 18058,
+										"length": 7,
+										"parent_index": 1834
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "getTotalBalanceOfAssetPair(address)",
+					"signature": "aaf2aa24",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 1840,
+					"name": "getBorrowingAssetAndVolumes",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1841,
+						"line": 511,
+						"column": 2,
+						"start": 18175,
+						"end": 18332,
+						"length": 158,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 511,
+						"column": 11,
+						"start": 18184,
+						"end": 18210,
+						"length": 27,
+						"parent_index": 1840
+					},
+					"body": {
+						"id": 1882,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1841,
+							"line": 511,
+							"column": 2,
+							"start": 18175,
+							"end": 18332,
+							"length": 158,
+							"parent_index": 1840
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1842,
+						"node_type": 43,
+						"src": {
+							"id": 1843,
+							"line": 515,
+							"column": 6,
+							"start": 18256,
+							"end": 18325,
+							"length": 70,
+							"parent_index": 1840
+						},
+						"parameters": [
+							{
+								"id": 1844,
+								"node_type": 44,
+								"src": {
+									"id": 1845,
+									"line": 515,
+									"column": 6,
+									"start": 18256,
+									"end": 18262,
+									"length": 7,
+									"parent_index": 1842
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1846,
+									"node_type": 30,
+									"src": {
+										"id": 1847,
+										"line": 515,
+										"column": 6,
+										"start": 18256,
+										"end": 18262,
+										"length": 7,
+										"parent_index": 1844
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1848,
+								"node_type": 44,
+								"src": {
+									"id": 1849,
+									"line": 516,
+									"column": 6,
+									"start": 18271,
+									"end": 18286,
+									"length": 16,
+									"parent_index": 1842
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1850,
+									"node_type": 16,
+									"src": {
+										"id": 1852,
+										"line": 516,
+										"column": 6,
+										"start": 18271,
+										"end": 18277,
+										"length": 7,
+										"parent_index": 1848
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1853,
+								"node_type": 44,
+								"src": {
+									"id": 1854,
+									"line": 517,
+									"column": 6,
+									"start": 18295,
+									"end": 18310,
+									"length": 16,
+									"parent_index": 1842
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1855,
+									"node_type": 16,
+									"src": {
+										"id": 1857,
+										"line": 517,
+										"column": 6,
+										"start": 18295,
+										"end": 18301,
+										"length": 7,
+										"parent_index": 1853
+									},
+									"name": "address",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1858,
+								"node_type": 44,
+								"src": {
+									"id": 1859,
+									"line": 518,
+									"column": 6,
+									"start": 18319,
+									"end": 18325,
+									"length": 7,
+									"parent_index": 1842
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1860,
+									"node_type": 30,
+									"src": {
+										"id": 1861,
+										"line": 518,
+										"column": 6,
+										"start": 18319,
+										"end": 18325,
+										"length": 7,
+										"parent_index": 1858
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1862,
+						"node_type": 43,
+						"src": {
+							"id": 1863,
+							"line": 515,
+							"column": 6,
+							"start": 18256,
+							"end": 18325,
+							"length": 70,
+							"parent_index": 1840
+						},
+						"parameters": [
+							{
+								"id": 1864,
+								"node_type": 44,
+								"src": {
+									"id": 1865,
+									"line": 515,
+									"column": 6,
+									"start": 18256,
+									"end": 18262,
+									"length": 7,
+									"parent_index": 1862
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1866,
+									"node_type": 30,
+									"src": {
+										"id": 1867,
+										"line": 515,
+										"column": 6,
+										"start": 18256,
+										"end": 18262,
+										"length": 7,
+										"parent_index": 1864
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1868,
+								"node_type": 44,
+								"src": {
+									"id": 1869,
+									"line": 516,
+									"column": 6,
+									"start": 18271,
+									"end": 18286,
+									"length": 16,
+									"parent_index": 1862
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1870,
+									"node_type": 16,
+									"src": {
+										"id": 1872,
+										"line": 516,
+										"column": 6,
+										"start": 18271,
+										"end": 18277,
+										"length": 7,
+										"parent_index": 1868
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1873,
+								"node_type": 44,
+								"src": {
+									"id": 1874,
+									"line": 517,
+									"column": 6,
+									"start": 18295,
+									"end": 18310,
+									"length": 16,
+									"parent_index": 1862
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1875,
+									"node_type": 16,
+									"src": {
+										"id": 1877,
+										"line": 517,
+										"column": 6,
+										"start": 18295,
+										"end": 18301,
+										"length": 7,
+										"parent_index": 1873
+									},
+									"name": "address",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1878,
+								"node_type": 44,
+								"src": {
+									"id": 1879,
+									"line": 518,
+									"column": 6,
+									"start": 18319,
+									"end": 18325,
+									"length": 7,
+									"parent_index": 1862
+								},
+								"scope": 1840,
+								"name": "",
+								"type_name": {
+									"id": 1880,
+									"node_type": 30,
+									"src": {
+										"id": 1881,
+										"line": 518,
+										"column": 6,
+										"start": 18319,
+										"end": 18325,
+										"length": 7,
+										"parent_index": 1878
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "getBorrowingAssetAndVolumes(uint256, uint256, address, uint256)",
+					"signature": "5809cadf",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_uint256$_t_address$_t_uint256$",
+						"type_string": "function(uint256,uint256,address,uint256)"
+					}
+				},
+				{
+					"id": 1884,
+					"name": "registerVault",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1885,
+						"line": 527,
+						"column": 2,
+						"start": 18542,
+						"end": 18604,
+						"length": 63,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 527,
+						"column": 11,
+						"start": 18551,
+						"end": 18563,
+						"length": 13,
+						"parent_index": 1884
+					},
+					"body": {
+						"id": 1893,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1885,
+							"line": 527,
+							"column": 2,
+							"start": 18542,
+							"end": 18604,
+							"length": 63,
+							"parent_index": 1884
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1886,
+						"node_type": 43,
+						"src": {
+							"id": 1887,
+							"line": 527,
+							"column": 25,
+							"start": 18565,
+							"end": 18585,
+							"length": 21,
+							"parent_index": 1884
+						},
+						"parameters": [
+							{
+								"id": 1888,
+								"node_type": 44,
+								"src": {
+									"id": 1889,
+									"line": 527,
+									"column": 25,
+									"start": 18565,
+									"end": 18585,
+									"length": 21,
+									"parent_index": 1886
+								},
+								"scope": 1884,
+								"name": "_vaultAddress",
+								"type_name": {
+									"id": 1890,
+									"node_type": 30,
+									"src": {
+										"id": 1891,
+										"line": 527,
+										"column": 25,
+										"start": 18565,
+										"end": 18571,
+										"length": 7,
+										"parent_index": 1888
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1892,
+						"node_type": 43,
+						"src": {
+							"id": 1885,
+							"line": 527,
+							"column": 2,
+							"start": 18542,
+							"end": 18604,
+							"length": 63,
+							"parent_index": 1884
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "registerVault(address)",
+					"signature": "67ccd1cb",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 1895,
+					"name": "unregisterVault",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1896,
+						"line": 535,
+						"column": 2,
+						"start": 18816,
+						"end": 18880,
+						"length": 65,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 535,
+						"column": 11,
+						"start": 18825,
+						"end": 18839,
+						"length": 15,
+						"parent_index": 1895
+					},
+					"body": {
+						"id": 1904,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1896,
+							"line": 535,
+							"column": 2,
+							"start": 18816,
+							"end": 18880,
+							"length": 65,
+							"parent_index": 1895
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1897,
+						"node_type": 43,
+						"src": {
+							"id": 1898,
+							"line": 535,
+							"column": 27,
+							"start": 18841,
+							"end": 18861,
+							"length": 21,
+							"parent_index": 1895
+						},
+						"parameters": [
+							{
+								"id": 1899,
+								"node_type": 44,
+								"src": {
+									"id": 1900,
+									"line": 535,
+									"column": 27,
+									"start": 18841,
+									"end": 18861,
+									"length": 21,
+									"parent_index": 1897
+								},
+								"scope": 1895,
+								"name": "_vaultAddress",
+								"type_name": {
+									"id": 1901,
+									"node_type": 30,
+									"src": {
+										"id": 1902,
+										"line": 535,
+										"column": 27,
+										"start": 18841,
+										"end": 18847,
+										"length": 7,
+										"parent_index": 1899
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1903,
+						"node_type": 43,
+						"src": {
+							"id": 1896,
+							"line": 535,
+							"column": 2,
+							"start": 18816,
+							"end": 18880,
+							"length": 65,
+							"parent_index": 1895
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "unregisterVault(address)",
+					"signature": "2633b70f",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 1906,
+					"name": "withdraw",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1907,
+						"line": 549,
+						"column": 2,
+						"start": 19579,
+						"end": 19682,
+						"length": 104,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 549,
+						"column": 11,
+						"start": 19588,
+						"end": 19595,
+						"length": 8,
+						"parent_index": 1906
+					},
+					"body": {
+						"id": 1928,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1907,
+							"line": 549,
+							"column": 2,
+							"start": 19579,
+							"end": 19682,
+							"length": 104,
+							"parent_index": 1906
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1908,
+						"node_type": 43,
+						"src": {
+							"id": 1909,
+							"line": 550,
+							"column": 4,
+							"start": 19602,
+							"end": 19650,
+							"length": 49,
+							"parent_index": 1906
+						},
+						"parameters": [
+							{
+								"id": 1910,
+								"node_type": 44,
+								"src": {
+									"id": 1911,
+									"line": 550,
+									"column": 4,
+									"start": 19602,
+									"end": 19614,
+									"length": 13,
+									"parent_index": 1908
+								},
+								"scope": 1906,
+								"name": "asset",
+								"type_name": {
+									"id": 1912,
+									"node_type": 30,
+									"src": {
+										"id": 1913,
+										"line": 550,
+										"column": 4,
+										"start": 19602,
+										"end": 19608,
+										"length": 7,
+										"parent_index": 1910
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1914,
+								"node_type": 44,
+								"src": {
+									"id": 1915,
+									"line": 551,
+									"column": 4,
+									"start": 19621,
+									"end": 19634,
+									"length": 14,
+									"parent_index": 1908
+								},
+								"scope": 1906,
+								"name": "amount",
+								"type_name": {
+									"id": 1916,
+									"node_type": 30,
+									"src": {
+										"id": 1917,
+										"line": 551,
+										"column": 4,
+										"start": 19621,
+										"end": 19627,
+										"length": 7,
+										"parent_index": 1914
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1918,
+								"node_type": 44,
+								"src": {
+									"id": 1919,
+									"line": 552,
+									"column": 4,
+									"start": 19641,
+									"end": 19650,
+									"length": 10,
+									"parent_index": 1908
+								},
+								"scope": 1906,
+								"name": "to",
+								"type_name": {
+									"id": 1920,
+									"node_type": 30,
+									"src": {
+										"id": 1921,
+										"line": 552,
+										"column": 4,
+										"start": 19641,
+										"end": 19647,
+										"length": 7,
+										"parent_index": 1918
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1922,
+						"node_type": 43,
+						"src": {
+							"id": 1923,
+							"line": 553,
+							"column": 22,
+							"start": 19674,
+							"end": 19680,
+							"length": 7,
+							"parent_index": 1906
+						},
+						"parameters": [
+							{
+								"id": 1924,
+								"node_type": 44,
+								"src": {
+									"id": 1925,
+									"line": 553,
+									"column": 22,
+									"start": 19674,
+									"end": 19680,
+									"length": 7,
+									"parent_index": 1922
+								},
+								"scope": 1906,
+								"name": "",
+								"type_name": {
+									"id": 1926,
+									"node_type": 30,
+									"src": {
+										"id": 1927,
+										"line": 553,
+										"column": 22,
+										"start": 19674,
+										"end": 19680,
+										"length": 7,
+										"parent_index": 1924
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "withdraw(address, uint256, address)",
+					"signature": "b11b5f87",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$_t_address$",
+						"type_string": "function(address,uint256,address)"
+					}
+				},
+				{
+					"id": 1930,
+					"name": "withdrawFrom",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1931,
+						"line": 568,
+						"column": 2,
+						"start": 20455,
+						"end": 20580,
+						"length": 126,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 568,
+						"column": 11,
+						"start": 20464,
+						"end": 20475,
+						"length": 12,
+						"parent_index": 1930
+					},
+					"body": {
+						"id": 1956,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1931,
+							"line": 568,
+							"column": 2,
+							"start": 20455,
+							"end": 20580,
+							"length": 126,
+							"parent_index": 1930
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1932,
+						"node_type": 43,
+						"src": {
+							"id": 1933,
+							"line": 569,
+							"column": 4,
+							"start": 20482,
+							"end": 20548,
+							"length": 67,
+							"parent_index": 1930
+						},
+						"parameters": [
+							{
+								"id": 1934,
+								"node_type": 44,
+								"src": {
+									"id": 1935,
+									"line": 569,
+									"column": 4,
+									"start": 20482,
+									"end": 20494,
+									"length": 13,
+									"parent_index": 1932
+								},
+								"scope": 1930,
+								"name": "asset",
+								"type_name": {
+									"id": 1936,
+									"node_type": 30,
+									"src": {
+										"id": 1937,
+										"line": 569,
+										"column": 4,
+										"start": 20482,
+										"end": 20488,
+										"length": 7,
+										"parent_index": 1934
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1938,
+								"node_type": 44,
+								"src": {
+									"id": 1939,
+									"line": 570,
+									"column": 4,
+									"start": 20501,
+									"end": 20514,
+									"length": 14,
+									"parent_index": 1932
+								},
+								"scope": 1930,
+								"name": "amount",
+								"type_name": {
+									"id": 1940,
+									"node_type": 30,
+									"src": {
+										"id": 1941,
+										"line": 570,
+										"column": 4,
+										"start": 20501,
+										"end": 20507,
+										"length": 7,
+										"parent_index": 1938
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1942,
+								"node_type": 44,
+								"src": {
+									"id": 1943,
+									"line": 571,
+									"column": 4,
+									"start": 20521,
+									"end": 20532,
+									"length": 12,
+									"parent_index": 1932
+								},
+								"scope": 1930,
+								"name": "from",
+								"type_name": {
+									"id": 1944,
+									"node_type": 30,
+									"src": {
+										"id": 1945,
+										"line": 571,
+										"column": 4,
+										"start": 20521,
+										"end": 20527,
+										"length": 7,
+										"parent_index": 1942
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1946,
+								"node_type": 44,
+								"src": {
+									"id": 1947,
+									"line": 572,
+									"column": 4,
+									"start": 20539,
+									"end": 20548,
+									"length": 10,
+									"parent_index": 1932
+								},
+								"scope": 1930,
+								"name": "to",
+								"type_name": {
+									"id": 1948,
+									"node_type": 30,
+									"src": {
+										"id": 1949,
+										"line": 572,
+										"column": 4,
+										"start": 20539,
+										"end": 20545,
+										"length": 7,
+										"parent_index": 1946
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1950,
+						"node_type": 43,
+						"src": {
+							"id": 1951,
+							"line": 573,
+							"column": 22,
+							"start": 20572,
+							"end": 20578,
+							"length": 7,
+							"parent_index": 1930
+						},
+						"parameters": [
+							{
+								"id": 1952,
+								"node_type": 44,
+								"src": {
+									"id": 1953,
+									"line": 573,
+									"column": 22,
+									"start": 20572,
+									"end": 20578,
+									"length": 7,
+									"parent_index": 1950
+								},
+								"scope": 1930,
+								"name": "",
+								"type_name": {
+									"id": 1954,
+									"node_type": 30,
+									"src": {
+										"id": 1955,
+										"line": 573,
+										"column": 22,
+										"start": 20572,
+										"end": 20578,
+										"length": 7,
+										"parent_index": 1952
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "withdrawFrom(address, uint256, address, address)",
+					"signature": "ee0c2ec0",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$_t_address$_t_address$",
+						"type_string": "function(address,uint256,address,address)"
+					}
+				},
+				{
+					"id": 1958,
+					"name": "borrow",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1959,
+						"line": 591,
+						"column": 2,
+						"start": 21801,
+						"end": 21947,
+						"length": 147,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 591,
+						"column": 11,
+						"start": 21810,
+						"end": 21815,
+						"length": 6,
+						"parent_index": 1958
+					},
+					"body": {
+						"id": 1983,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1959,
+							"line": 591,
+							"column": 2,
+							"start": 21801,
+							"end": 21947,
+							"length": 147,
+							"parent_index": 1958
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1960,
+						"node_type": 43,
+						"src": {
+							"id": 1961,
+							"line": 592,
+							"column": 4,
+							"start": 21822,
+							"end": 21933,
+							"length": 112,
+							"parent_index": 1958
+						},
+						"parameters": [
+							{
+								"id": 1962,
+								"node_type": 44,
+								"src": {
+									"id": 1963,
+									"line": 592,
+									"column": 4,
+									"start": 21822,
+									"end": 21834,
+									"length": 13,
+									"parent_index": 1960
+								},
+								"scope": 1958,
+								"name": "asset",
+								"type_name": {
+									"id": 1964,
+									"node_type": 30,
+									"src": {
+										"id": 1965,
+										"line": 592,
+										"column": 4,
+										"start": 21822,
+										"end": 21828,
+										"length": 7,
+										"parent_index": 1962
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1966,
+								"node_type": 44,
+								"src": {
+									"id": 1967,
+									"line": 593,
+									"column": 4,
+									"start": 21841,
+									"end": 21854,
+									"length": 14,
+									"parent_index": 1960
+								},
+								"scope": 1958,
+								"name": "amount",
+								"type_name": {
+									"id": 1968,
+									"node_type": 30,
+									"src": {
+										"id": 1969,
+										"line": 593,
+										"column": 4,
+										"start": 21841,
+										"end": 21847,
+										"length": 7,
+										"parent_index": 1966
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1970,
+								"node_type": 44,
+								"src": {
+									"id": 1971,
+									"line": 594,
+									"column": 4,
+									"start": 21861,
+									"end": 21884,
+									"length": 24,
+									"parent_index": 1960
+								},
+								"scope": 1958,
+								"name": "interestRateMode",
+								"type_name": {
+									"id": 1972,
+									"node_type": 30,
+									"src": {
+										"id": 1973,
+										"line": 594,
+										"column": 4,
+										"start": 21861,
+										"end": 21867,
+										"length": 7,
+										"parent_index": 1970
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1974,
+								"node_type": 44,
+								"src": {
+									"id": 1975,
+									"line": 595,
+									"column": 4,
+									"start": 21891,
+									"end": 21909,
+									"length": 19,
+									"parent_index": 1960
+								},
+								"scope": 1958,
+								"name": "referralCode",
+								"type_name": {
+									"id": 1976,
+									"node_type": 30,
+									"src": {
+										"id": 1977,
+										"line": 595,
+										"column": 4,
+										"start": 21891,
+										"end": 21896,
+										"length": 6,
+										"parent_index": 1974
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1978,
+								"node_type": 44,
+								"src": {
+									"id": 1979,
+									"line": 596,
+									"column": 4,
+									"start": 21916,
+									"end": 21933,
+									"length": 18,
+									"parent_index": 1960
+								},
+								"scope": 1958,
+								"name": "onBehalfOf",
+								"type_name": {
+									"id": 1980,
+									"node_type": 30,
+									"src": {
+										"id": 1981,
+										"line": 596,
+										"column": 4,
+										"start": 21916,
+										"end": 21922,
+										"length": 7,
+										"parent_index": 1978
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 1982,
+						"node_type": 43,
+						"src": {
+							"id": 1959,
+							"line": 591,
+							"column": 2,
+							"start": 21801,
+							"end": 21947,
+							"length": 147,
+							"parent_index": 1958
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "borrow(address, uint256, uint256, uint16, address)",
+					"signature": "cc780dc0",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$_t_uint256$_t_uint16$_t_address$",
+						"type_string": "function(address,uint256,uint256,uint16,address)"
+					}
+				},
+				{
+					"id": 1985,
+					"name": "repay",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 1986,
+						"line": 612,
+						"column": 2,
+						"start": 22841,
+						"end": 22971,
+						"length": 131,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 612,
+						"column": 11,
+						"start": 22850,
+						"end": 22854,
+						"length": 5,
+						"parent_index": 1985
+					},
+					"body": {
+						"id": 2011,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 1986,
+							"line": 612,
+							"column": 2,
+							"start": 22841,
+							"end": 22971,
+							"length": 131,
+							"parent_index": 1985
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 1987,
+						"node_type": 43,
+						"src": {
+							"id": 1988,
+							"line": 613,
+							"column": 4,
+							"start": 22861,
+							"end": 22939,
+							"length": 79,
+							"parent_index": 1985
+						},
+						"parameters": [
+							{
+								"id": 1989,
+								"node_type": 44,
+								"src": {
+									"id": 1990,
+									"line": 613,
+									"column": 4,
+									"start": 22861,
+									"end": 22873,
+									"length": 13,
+									"parent_index": 1987
+								},
+								"scope": 1985,
+								"name": "asset",
+								"type_name": {
+									"id": 1991,
+									"node_type": 30,
+									"src": {
+										"id": 1992,
+										"line": 613,
+										"column": 4,
+										"start": 22861,
+										"end": 22867,
+										"length": 7,
+										"parent_index": 1989
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 1993,
+								"node_type": 44,
+								"src": {
+									"id": 1994,
+									"line": 614,
+									"column": 4,
+									"start": 22880,
+									"end": 22893,
+									"length": 14,
+									"parent_index": 1987
+								},
+								"scope": 1985,
+								"name": "amount",
+								"type_name": {
+									"id": 1995,
+									"node_type": 30,
+									"src": {
+										"id": 1996,
+										"line": 614,
+										"column": 4,
+										"start": 22880,
+										"end": 22886,
+										"length": 7,
+										"parent_index": 1993
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 1997,
+								"node_type": 44,
+								"src": {
+									"id": 1998,
+									"line": 615,
+									"column": 4,
+									"start": 22900,
+									"end": 22915,
+									"length": 16,
+									"parent_index": 1987
+								},
+								"scope": 1985,
+								"name": "rateMode",
+								"type_name": {
+									"id": 1999,
+									"node_type": 30,
+									"src": {
+										"id": 2000,
+										"line": 615,
+										"column": 4,
+										"start": 22900,
+										"end": 22906,
+										"length": 7,
+										"parent_index": 1997
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2001,
+								"node_type": 44,
+								"src": {
+									"id": 2002,
+									"line": 616,
+									"column": 4,
+									"start": 22922,
+									"end": 22939,
+									"length": 18,
+									"parent_index": 1987
+								},
+								"scope": 1985,
+								"name": "onBehalfOf",
+								"type_name": {
+									"id": 2003,
+									"node_type": 30,
+									"src": {
+										"id": 2004,
+										"line": 616,
+										"column": 4,
+										"start": 22922,
+										"end": 22928,
+										"length": 7,
+										"parent_index": 2001
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2005,
+						"node_type": 43,
+						"src": {
+							"id": 2006,
+							"line": 617,
+							"column": 22,
+							"start": 22963,
+							"end": 22969,
+							"length": 7,
+							"parent_index": 1985
+						},
+						"parameters": [
+							{
+								"id": 2007,
+								"node_type": 44,
+								"src": {
+									"id": 2008,
+									"line": 617,
+									"column": 22,
+									"start": 22963,
+									"end": 22969,
+									"length": 7,
+									"parent_index": 2005
+								},
+								"scope": 1985,
+								"name": "",
+								"type_name": {
+									"id": 2009,
+									"node_type": 30,
+									"src": {
+										"id": 2010,
+										"line": 617,
+										"column": 22,
+										"start": 22963,
+										"end": 22969,
+										"length": 7,
+										"parent_index": 2007
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "repay(address, uint256, uint256, address)",
+					"signature": "0fc68187",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$_t_uint256$_t_address$",
+						"type_string": "function(address,uint256,uint256,address)"
+					}
+				},
+				{
+					"id": 2013,
+					"name": "setUserUseReserveAsCollateral",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2014,
+						"line": 624,
+						"column": 2,
+						"start": 23245,
+						"end": 23329,
+						"length": 85,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 624,
+						"column": 11,
+						"start": 23254,
+						"end": 23282,
+						"length": 29,
+						"parent_index": 2013
+					},
+					"body": {
+						"id": 2026,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2014,
+							"line": 624,
+							"column": 2,
+							"start": 23245,
+							"end": 23329,
+							"length": 85,
+							"parent_index": 2013
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2015,
+						"node_type": 43,
+						"src": {
+							"id": 2016,
+							"line": 624,
+							"column": 41,
+							"start": 23284,
+							"end": 23318,
+							"length": 35,
+							"parent_index": 2013
+						},
+						"parameters": [
+							{
+								"id": 2017,
+								"node_type": 44,
+								"src": {
+									"id": 2018,
+									"line": 624,
+									"column": 41,
+									"start": 23284,
+									"end": 23296,
+									"length": 13,
+									"parent_index": 2015
+								},
+								"scope": 2013,
+								"name": "asset",
+								"type_name": {
+									"id": 2019,
+									"node_type": 30,
+									"src": {
+										"id": 2020,
+										"line": 624,
+										"column": 41,
+										"start": 23284,
+										"end": 23290,
+										"length": 7,
+										"parent_index": 2017
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2021,
+								"node_type": 44,
+								"src": {
+									"id": 2022,
+									"line": 624,
+									"column": 56,
+									"start": 23299,
+									"end": 23318,
+									"length": 20,
+									"parent_index": 2015
+								},
+								"scope": 2013,
+								"name": "useAsCollateral",
+								"type_name": {
+									"id": 2023,
+									"node_type": 30,
+									"src": {
+										"id": 2024,
+										"line": 624,
+										"column": 56,
+										"start": 23299,
+										"end": 23302,
+										"length": 4,
+										"parent_index": 2021
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2025,
+						"node_type": 43,
+						"src": {
+							"id": 2014,
+							"line": 624,
+							"column": 2,
+							"start": 23245,
+							"end": 23329,
+							"length": 85,
+							"parent_index": 2013
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "setUserUseReserveAsCollateral(address, bool)",
+					"signature": "38ab99d6",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_bool$",
+						"type_string": "function(address,bool)"
+					}
+				},
+				{
+					"id": 2028,
+					"name": "liquidationCall",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2029,
+						"line": 638,
+						"column": 2,
+						"start": 24221,
+						"end": 24377,
+						"length": 157,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 638,
+						"column": 11,
+						"start": 24230,
+						"end": 24244,
+						"length": 15,
+						"parent_index": 2028
+					},
+					"body": {
+						"id": 2053,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2029,
+							"line": 638,
+							"column": 2,
+							"start": 24221,
+							"end": 24377,
+							"length": 157,
+							"parent_index": 2028
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2030,
+						"node_type": 43,
+						"src": {
+							"id": 2031,
+							"line": 639,
+							"column": 4,
+							"start": 24251,
+							"end": 24363,
+							"length": 113,
+							"parent_index": 2028
+						},
+						"parameters": [
+							{
+								"id": 2032,
+								"node_type": 44,
+								"src": {
+									"id": 2033,
+									"line": 639,
+									"column": 4,
+									"start": 24251,
+									"end": 24273,
+									"length": 23,
+									"parent_index": 2030
+								},
+								"scope": 2028,
+								"name": "collateralAsset",
+								"type_name": {
+									"id": 2034,
+									"node_type": 30,
+									"src": {
+										"id": 2035,
+										"line": 639,
+										"column": 4,
+										"start": 24251,
+										"end": 24257,
+										"length": 7,
+										"parent_index": 2032
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2036,
+								"node_type": 44,
+								"src": {
+									"id": 2037,
+									"line": 640,
+									"column": 4,
+									"start": 24280,
+									"end": 24296,
+									"length": 17,
+									"parent_index": 2030
+								},
+								"scope": 2028,
+								"name": "debtAsset",
+								"type_name": {
+									"id": 2038,
+									"node_type": 30,
+									"src": {
+										"id": 2039,
+										"line": 640,
+										"column": 4,
+										"start": 24280,
+										"end": 24286,
+										"length": 7,
+										"parent_index": 2036
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2040,
+								"node_type": 44,
+								"src": {
+									"id": 2041,
+									"line": 641,
+									"column": 4,
+									"start": 24303,
+									"end": 24314,
+									"length": 12,
+									"parent_index": 2030
+								},
+								"scope": 2028,
+								"name": "user",
+								"type_name": {
+									"id": 2042,
+									"node_type": 30,
+									"src": {
+										"id": 2043,
+										"line": 641,
+										"column": 4,
+										"start": 24303,
+										"end": 24309,
+										"length": 7,
+										"parent_index": 2040
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2044,
+								"node_type": 44,
+								"src": {
+									"id": 2045,
+									"line": 642,
+									"column": 4,
+									"start": 24321,
+									"end": 24339,
+									"length": 19,
+									"parent_index": 2030
+								},
+								"scope": 2028,
+								"name": "debtToCover",
+								"type_name": {
+									"id": 2046,
+									"node_type": 30,
+									"src": {
+										"id": 2047,
+										"line": 642,
+										"column": 4,
+										"start": 24321,
+										"end": 24327,
+										"length": 7,
+										"parent_index": 2044
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2048,
+								"node_type": 44,
+								"src": {
+									"id": 2049,
+									"line": 643,
+									"column": 4,
+									"start": 24346,
+									"end": 24363,
+									"length": 18,
+									"parent_index": 2030
+								},
+								"scope": 2028,
+								"name": "receiveAToken",
+								"type_name": {
+									"id": 2050,
+									"node_type": 30,
+									"src": {
+										"id": 2051,
+										"line": 643,
+										"column": 4,
+										"start": 24346,
+										"end": 24349,
+										"length": 4,
+										"parent_index": 2048
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2052,
+						"node_type": 43,
+						"src": {
+							"id": 2029,
+							"line": 638,
+							"column": 2,
+							"start": 24221,
+							"end": 24377,
+							"length": 157,
+							"parent_index": 2028
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "liquidationCall(address, address, address, uint256, bool)",
+					"signature": "9da8de78",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_uint256$_t_bool$",
+						"type_string": "function(address,address,address,uint256,bool)"
+					}
+				},
+				{
+					"id": 2055,
+					"name": "getUserAccountData",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2056,
+						"line": 656,
+						"column": 2,
+						"start": 24892,
+						"end": 25161,
+						"length": 270,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 656,
+						"column": 11,
+						"start": 24901,
+						"end": 24918,
+						"length": 18,
+						"parent_index": 2055
+					},
+					"body": {
+						"id": 2089,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2056,
+							"line": 656,
+							"column": 2,
+							"start": 24892,
+							"end": 25161,
+							"length": 270,
+							"parent_index": 2055
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2057,
+						"node_type": 43,
+						"src": {
+							"id": 2058,
+							"line": 656,
+							"column": 30,
+							"start": 24920,
+							"end": 24931,
+							"length": 12,
+							"parent_index": 2055
+						},
+						"parameters": [
+							{
+								"id": 2059,
+								"node_type": 44,
+								"src": {
+									"id": 2060,
+									"line": 656,
+									"column": 30,
+									"start": 24920,
+									"end": 24931,
+									"length": 12,
+									"parent_index": 2057
+								},
+								"scope": 2055,
+								"name": "user",
+								"type_name": {
+									"id": 2061,
+									"node_type": 30,
+									"src": {
+										"id": 2062,
+										"line": 656,
+										"column": 30,
+										"start": 24920,
+										"end": 24926,
+										"length": 7,
+										"parent_index": 2059
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2063,
+						"node_type": 43,
+						"src": {
+							"id": 2064,
+							"line": 660,
+							"column": 6,
+							"start": 24976,
+							"end": 25154,
+							"length": 179,
+							"parent_index": 2055
+						},
+						"parameters": [
+							{
+								"id": 2065,
+								"node_type": 44,
+								"src": {
+									"id": 2066,
+									"line": 660,
+									"column": 6,
+									"start": 24976,
+									"end": 25001,
+									"length": 26,
+									"parent_index": 2063
+								},
+								"scope": 2055,
+								"name": "totalCollateralETH",
+								"type_name": {
+									"id": 2067,
+									"node_type": 30,
+									"src": {
+										"id": 2068,
+										"line": 660,
+										"column": 6,
+										"start": 24976,
+										"end": 24982,
+										"length": 7,
+										"parent_index": 2065
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2069,
+								"node_type": 44,
+								"src": {
+									"id": 2070,
+									"line": 661,
+									"column": 6,
+									"start": 25010,
+									"end": 25029,
+									"length": 20,
+									"parent_index": 2063
+								},
+								"scope": 2055,
+								"name": "totalDebtETH",
+								"type_name": {
+									"id": 2071,
+									"node_type": 30,
+									"src": {
+										"id": 2072,
+										"line": 661,
+										"column": 6,
+										"start": 25010,
+										"end": 25016,
+										"length": 7,
+										"parent_index": 2069
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2073,
+								"node_type": 44,
+								"src": {
+									"id": 2074,
+									"line": 662,
+									"column": 6,
+									"start": 25038,
+									"end": 25064,
+									"length": 27,
+									"parent_index": 2063
+								},
+								"scope": 2055,
+								"name": "availableBorrowsETH",
+								"type_name": {
+									"id": 2075,
+									"node_type": 30,
+									"src": {
+										"id": 2076,
+										"line": 662,
+										"column": 6,
+										"start": 25038,
+										"end": 25044,
+										"length": 7,
+										"parent_index": 2073
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2077,
+								"node_type": 44,
+								"src": {
+									"id": 2078,
+									"line": 663,
+									"column": 6,
+									"start": 25073,
+									"end": 25107,
+									"length": 35,
+									"parent_index": 2063
+								},
+								"scope": 2055,
+								"name": "currentLiquidationThreshold",
+								"type_name": {
+									"id": 2079,
+									"node_type": 30,
+									"src": {
+										"id": 2080,
+										"line": 663,
+										"column": 6,
+										"start": 25073,
+										"end": 25079,
+										"length": 7,
+										"parent_index": 2077
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2081,
+								"node_type": 44,
+								"src": {
+									"id": 2082,
+									"line": 664,
+									"column": 6,
+									"start": 25116,
+									"end": 25126,
+									"length": 11,
+									"parent_index": 2063
+								},
+								"scope": 2055,
+								"name": "ltv",
+								"type_name": {
+									"id": 2083,
+									"node_type": 30,
+									"src": {
+										"id": 2084,
+										"line": 664,
+										"column": 6,
+										"start": 25116,
+										"end": 25122,
+										"length": 7,
+										"parent_index": 2081
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2085,
+								"node_type": 44,
+								"src": {
+									"id": 2086,
+									"line": 665,
+									"column": 6,
+									"start": 25135,
+									"end": 25154,
+									"length": 20,
+									"parent_index": 2063
+								},
+								"scope": 2055,
+								"name": "healthFactor",
+								"type_name": {
+									"id": 2087,
+									"node_type": 30,
+									"src": {
+										"id": 2088,
+										"line": 665,
+										"column": 6,
+										"start": 25135,
+										"end": 25141,
+										"length": 7,
+										"parent_index": 2085
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "getUserAccountData(address)",
+					"signature": "bf92857c",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2091,
+					"name": "initReserve",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2092,
+						"line": 680,
+						"column": 2,
+						"start": 25957,
+						"end": 26177,
+						"length": 221,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 680,
+						"column": 11,
+						"start": 25966,
+						"end": 25976,
+						"length": 11,
+						"parent_index": 2091
+					},
+					"body": {
+						"id": 2120,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2092,
+							"line": 680,
+							"column": 2,
+							"start": 25957,
+							"end": 26177,
+							"length": 221,
+							"parent_index": 2091
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2093,
+						"node_type": 43,
+						"src": {
+							"id": 2094,
+							"line": 681,
+							"column": 4,
+							"start": 25983,
+							"end": 26155,
+							"length": 173,
+							"parent_index": 2091
+						},
+						"parameters": [
+							{
+								"id": 2095,
+								"node_type": 44,
+								"src": {
+									"id": 2096,
+									"line": 681,
+									"column": 4,
+									"start": 25983,
+									"end": 25997,
+									"length": 15,
+									"parent_index": 2093
+								},
+								"scope": 2091,
+								"name": "reserve",
+								"type_name": {
+									"id": 2097,
+									"node_type": 30,
+									"src": {
+										"id": 2098,
+										"line": 681,
+										"column": 4,
+										"start": 25983,
+										"end": 25989,
+										"length": 7,
+										"parent_index": 2095
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2099,
+								"node_type": 44,
+								"src": {
+									"id": 2100,
+									"line": 682,
+									"column": 4,
+									"start": 26004,
+									"end": 26023,
+									"length": 20,
+									"parent_index": 2093
+								},
+								"scope": 2091,
+								"name": "yieldAddress",
+								"type_name": {
+									"id": 2101,
+									"node_type": 30,
+									"src": {
+										"id": 2102,
+										"line": 682,
+										"column": 4,
+										"start": 26004,
+										"end": 26010,
+										"length": 7,
+										"parent_index": 2099
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2103,
+								"node_type": 44,
+								"src": {
+									"id": 2104,
+									"line": 683,
+									"column": 4,
+									"start": 26030,
+									"end": 26050,
+									"length": 21,
+									"parent_index": 2093
+								},
+								"scope": 2091,
+								"name": "aTokenAddress",
+								"type_name": {
+									"id": 2105,
+									"node_type": 30,
+									"src": {
+										"id": 2106,
+										"line": 683,
+										"column": 4,
+										"start": 26030,
+										"end": 26036,
+										"length": 7,
+										"parent_index": 2103
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2107,
+								"node_type": 44,
+								"src": {
+									"id": 2108,
+									"line": 684,
+									"column": 4,
+									"start": 26057,
+									"end": 26081,
+									"length": 25,
+									"parent_index": 2093
+								},
+								"scope": 2091,
+								"name": "stableDebtAddress",
+								"type_name": {
+									"id": 2109,
+									"node_type": 30,
+									"src": {
+										"id": 2110,
+										"line": 684,
+										"column": 4,
+										"start": 26057,
+										"end": 26063,
+										"length": 7,
+										"parent_index": 2107
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2111,
+								"node_type": 44,
+								"src": {
+									"id": 2112,
+									"line": 685,
+									"column": 4,
+									"start": 26088,
+									"end": 26114,
+									"length": 27,
+									"parent_index": 2093
+								},
+								"scope": 2091,
+								"name": "variableDebtAddress",
+								"type_name": {
+									"id": 2113,
+									"node_type": 30,
+									"src": {
+										"id": 2114,
+										"line": 685,
+										"column": 4,
+										"start": 26088,
+										"end": 26094,
+										"length": 7,
+										"parent_index": 2111
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2115,
+								"node_type": 44,
+								"src": {
+									"id": 2116,
+									"line": 686,
+									"column": 4,
+									"start": 26121,
+									"end": 26155,
+									"length": 35,
+									"parent_index": 2093
+								},
+								"scope": 2091,
+								"name": "interestRateStrategyAddress",
+								"type_name": {
+									"id": 2117,
+									"node_type": 30,
+									"src": {
+										"id": 2118,
+										"line": 686,
+										"column": 4,
+										"start": 26121,
+										"end": 26127,
+										"length": 7,
+										"parent_index": 2115
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2119,
+						"node_type": 43,
+						"src": {
+							"id": 2092,
+							"line": 680,
+							"column": 2,
+							"start": 25957,
+							"end": 26177,
+							"length": 221,
+							"parent_index": 2091
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "initReserve(address, address, address, address, address, address)",
+					"signature": "09874b12",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_address$_t_address$_t_address$",
+						"type_string": "function(address,address,address,address,address,address)"
+					}
+				},
+				{
+					"id": 2122,
+					"name": "setReserveInterestRateStrategyAddress",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2123,
+						"line": 695,
+						"column": 2,
+						"start": 26464,
+						"end": 26581,
+						"length": 118,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 695,
+						"column": 11,
+						"start": 26473,
+						"end": 26509,
+						"length": 37,
+						"parent_index": 2122
+					},
+					"body": {
+						"id": 2135,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2123,
+							"line": 695,
+							"column": 2,
+							"start": 26464,
+							"end": 26581,
+							"length": 118,
+							"parent_index": 2122
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2124,
+						"node_type": 43,
+						"src": {
+							"id": 2125,
+							"line": 695,
+							"column": 49,
+							"start": 26511,
+							"end": 26554,
+							"length": 44,
+							"parent_index": 2122
+						},
+						"parameters": [
+							{
+								"id": 2126,
+								"node_type": 44,
+								"src": {
+									"id": 2127,
+									"line": 695,
+									"column": 49,
+									"start": 26511,
+									"end": 26525,
+									"length": 15,
+									"parent_index": 2124
+								},
+								"scope": 2122,
+								"name": "reserve",
+								"type_name": {
+									"id": 2128,
+									"node_type": 30,
+									"src": {
+										"id": 2129,
+										"line": 695,
+										"column": 49,
+										"start": 26511,
+										"end": 26517,
+										"length": 7,
+										"parent_index": 2126
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2130,
+								"node_type": 44,
+								"src": {
+									"id": 2131,
+									"line": 695,
+									"column": 66,
+									"start": 26528,
+									"end": 26554,
+									"length": 27,
+									"parent_index": 2124
+								},
+								"scope": 2122,
+								"name": "rateStrategyAddress",
+								"type_name": {
+									"id": 2132,
+									"node_type": 30,
+									"src": {
+										"id": 2133,
+										"line": 695,
+										"column": 66,
+										"start": 26528,
+										"end": 26534,
+										"length": 7,
+										"parent_index": 2130
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2134,
+						"node_type": 43,
+						"src": {
+							"id": 2123,
+							"line": 695,
+							"column": 2,
+							"start": 26464,
+							"end": 26581,
+							"length": 118,
+							"parent_index": 2122
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "setReserveInterestRateStrategyAddress(address, address)",
+					"signature": "4a52041b",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_address$",
+						"type_string": "function(address,address)"
+					}
+				},
+				{
+					"id": 2137,
+					"name": "setConfiguration",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2138,
+						"line": 705,
+						"column": 2,
+						"start": 26837,
+						"end": 26919,
+						"length": 83,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 705,
+						"column": 11,
+						"start": 26846,
+						"end": 26861,
+						"length": 16,
+						"parent_index": 2137
+					},
+					"body": {
+						"id": 2150,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2138,
+							"line": 705,
+							"column": 2,
+							"start": 26837,
+							"end": 26919,
+							"length": 83,
+							"parent_index": 2137
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2139,
+						"node_type": 43,
+						"src": {
+							"id": 2140,
+							"line": 705,
+							"column": 28,
+							"start": 26863,
+							"end": 26900,
+							"length": 38,
+							"parent_index": 2137
+						},
+						"parameters": [
+							{
+								"id": 2141,
+								"node_type": 44,
+								"src": {
+									"id": 2142,
+									"line": 705,
+									"column": 28,
+									"start": 26863,
+									"end": 26877,
+									"length": 15,
+									"parent_index": 2139
+								},
+								"scope": 2137,
+								"name": "reserve",
+								"type_name": {
+									"id": 2143,
+									"node_type": 30,
+									"src": {
+										"id": 2144,
+										"line": 705,
+										"column": 28,
+										"start": 26863,
+										"end": 26869,
+										"length": 7,
+										"parent_index": 2141
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2145,
+								"node_type": 44,
+								"src": {
+									"id": 2146,
+									"line": 705,
+									"column": 45,
+									"start": 26880,
+									"end": 26900,
+									"length": 21,
+									"parent_index": 2139
+								},
+								"scope": 2137,
+								"name": "configuration",
+								"type_name": {
+									"id": 2147,
+									"node_type": 30,
+									"src": {
+										"id": 2148,
+										"line": 705,
+										"column": 45,
+										"start": 26880,
+										"end": 26886,
+										"length": 7,
+										"parent_index": 2145
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2149,
+						"node_type": 43,
+						"src": {
+							"id": 2138,
+							"line": 705,
+							"column": 2,
+							"start": 26837,
+							"end": 26919,
+							"length": 83,
+							"parent_index": 2137
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "setConfiguration(address, uint256)",
+					"signature": "6e2e1324",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_uint256$",
+						"type_string": "function(address,uint256)"
+					}
+				},
+				{
+					"id": 2152,
+					"name": "getConfiguration",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2153,
+						"line": 712,
+						"column": 2,
+						"start": 27103,
+						"end": 27220,
+						"length": 118,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 712,
+						"column": 11,
+						"start": 27112,
+						"end": 27127,
+						"length": 16,
+						"parent_index": 2152
+					},
+					"body": {
+						"id": 2168,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2153,
+							"line": 712,
+							"column": 2,
+							"start": 27103,
+							"end": 27220,
+							"length": 118,
+							"parent_index": 2152
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2154,
+						"node_type": 43,
+						"src": {
+							"id": 2155,
+							"line": 712,
+							"column": 28,
+							"start": 27129,
+							"end": 27141,
+							"length": 13,
+							"parent_index": 2152
+						},
+						"parameters": [
+							{
+								"id": 2156,
+								"node_type": 44,
+								"src": {
+									"id": 2157,
+									"line": 712,
+									"column": 28,
+									"start": 27129,
+									"end": 27141,
+									"length": 13,
+									"parent_index": 2154
+								},
+								"scope": 2152,
+								"name": "asset",
+								"type_name": {
+									"id": 2158,
+									"node_type": 30,
+									"src": {
+										"id": 2159,
+										"line": 712,
+										"column": 28,
+										"start": 27129,
+										"end": 27135,
+										"length": 7,
+										"parent_index": 2156
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2160,
+						"node_type": 43,
+						"src": {
+							"id": 2161,
+							"line": 715,
+							"column": 13,
+							"start": 27179,
+							"end": 27218,
+							"length": 40,
+							"parent_index": 2152
+						},
+						"parameters": [
+							{
+								"id": 2162,
+								"node_type": 44,
+								"src": {
+									"id": 2163,
+									"line": 715,
+									"column": 13,
+									"start": 27179,
+									"end": 27218,
+									"length": 40,
+									"parent_index": 2160
+								},
+								"scope": 2152,
+								"name": "",
+								"type_name": {
+									"id": 2164,
+									"node_type": 69,
+									"src": {
+										"id": 2165,
+										"line": 715,
+										"column": 13,
+										"start": 27179,
+										"end": 27211,
+										"length": 33,
+										"parent_index": 2162
+									},
+									"path_node": {
+										"id": 2166,
+										"name": "DataTypes",
+										"node_type": 52,
+										"referenced_declaration": 1453,
+										"src": {
+											"id": 2167,
+											"line": 715,
+											"column": 13,
+											"start": 27179,
+											"end": 27211,
+											"length": 33,
+											"parent_index": 2164
+										},
+										"name_location": {
+											"line": 715,
+											"column": 13,
+											"start": 27179,
+											"end": 27187,
+											"length": 9,
+											"parent_index": 2164
+										}
+									},
+									"referenced_declaration": 1453,
+									"type_description": {
+										"type_identifier": "t_contract$_DataTypes_$1453",
+										"type_string": "contract DataTypes"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_DataTypes_$1453",
+								"type_string": "contract DataTypes"
+							}
+						]
+					},
+					"signature_raw": "getConfiguration(address)",
+					"signature": "c44b11f7",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2170,
+					"name": "getUserConfiguration",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2171,
+						"line": 722,
+						"column": 2,
+						"start": 27387,
+						"end": 27504,
+						"length": 118,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 722,
+						"column": 11,
+						"start": 27396,
+						"end": 27415,
+						"length": 20,
+						"parent_index": 2170
+					},
+					"body": {
+						"id": 2186,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2171,
+							"line": 722,
+							"column": 2,
+							"start": 27387,
+							"end": 27504,
+							"length": 118,
+							"parent_index": 2170
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2172,
+						"node_type": 43,
+						"src": {
+							"id": 2173,
+							"line": 722,
+							"column": 32,
+							"start": 27417,
+							"end": 27428,
+							"length": 12,
+							"parent_index": 2170
+						},
+						"parameters": [
+							{
+								"id": 2174,
+								"node_type": 44,
+								"src": {
+									"id": 2175,
+									"line": 722,
+									"column": 32,
+									"start": 27417,
+									"end": 27428,
+									"length": 12,
+									"parent_index": 2172
+								},
+								"scope": 2170,
+								"name": "user",
+								"type_name": {
+									"id": 2176,
+									"node_type": 30,
+									"src": {
+										"id": 2177,
+										"line": 722,
+										"column": 32,
+										"start": 27417,
+										"end": 27423,
+										"length": 7,
+										"parent_index": 2174
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2178,
+						"node_type": 43,
+						"src": {
+							"id": 2179,
+							"line": 725,
+							"column": 13,
+							"start": 27466,
+							"end": 27502,
+							"length": 37,
+							"parent_index": 2170
+						},
+						"parameters": [
+							{
+								"id": 2180,
+								"node_type": 44,
+								"src": {
+									"id": 2181,
+									"line": 725,
+									"column": 13,
+									"start": 27466,
+									"end": 27502,
+									"length": 37,
+									"parent_index": 2178
+								},
+								"scope": 2170,
+								"name": "",
+								"type_name": {
+									"id": 2182,
+									"node_type": 69,
+									"src": {
+										"id": 2183,
+										"line": 725,
+										"column": 13,
+										"start": 27466,
+										"end": 27495,
+										"length": 30,
+										"parent_index": 2180
+									},
+									"path_node": {
+										"id": 2184,
+										"name": "DataTypes",
+										"node_type": 52,
+										"referenced_declaration": 1453,
+										"src": {
+											"id": 2185,
+											"line": 725,
+											"column": 13,
+											"start": 27466,
+											"end": 27495,
+											"length": 30,
+											"parent_index": 2182
+										},
+										"name_location": {
+											"line": 725,
+											"column": 13,
+											"start": 27466,
+											"end": 27474,
+											"length": 9,
+											"parent_index": 2182
+										}
+									},
+									"referenced_declaration": 1453,
+									"type_description": {
+										"type_identifier": "t_contract$_DataTypes_$1453",
+										"type_string": "contract DataTypes"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_DataTypes_$1453",
+								"type_string": "contract DataTypes"
+							}
+						]
+					},
+					"signature_raw": "getUserConfiguration(address)",
+					"signature": "4417a583",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2188,
+					"name": "getReserveNormalizedIncome",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2189,
+						"line": 732,
+						"column": 2,
+						"start": 27708,
+						"end": 27790,
+						"length": 83,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 732,
+						"column": 11,
+						"start": 27717,
+						"end": 27742,
+						"length": 26,
+						"parent_index": 2188
+					},
+					"body": {
+						"id": 2202,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2189,
+							"line": 732,
+							"column": 2,
+							"start": 27708,
+							"end": 27790,
+							"length": 83,
+							"parent_index": 2188
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2190,
+						"node_type": 43,
+						"src": {
+							"id": 2191,
+							"line": 732,
+							"column": 38,
+							"start": 27744,
+							"end": 27756,
+							"length": 13,
+							"parent_index": 2188
+						},
+						"parameters": [
+							{
+								"id": 2192,
+								"node_type": 44,
+								"src": {
+									"id": 2193,
+									"line": 732,
+									"column": 38,
+									"start": 27744,
+									"end": 27756,
+									"length": 13,
+									"parent_index": 2190
+								},
+								"scope": 2188,
+								"name": "asset",
+								"type_name": {
+									"id": 2194,
+									"node_type": 30,
+									"src": {
+										"id": 2195,
+										"line": 732,
+										"column": 38,
+										"start": 27744,
+										"end": 27750,
+										"length": 7,
+										"parent_index": 2192
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2196,
+						"node_type": 43,
+						"src": {
+							"id": 2197,
+							"line": 732,
+							"column": 76,
+							"start": 27782,
+							"end": 27788,
+							"length": 7,
+							"parent_index": 2188
+						},
+						"parameters": [
+							{
+								"id": 2198,
+								"node_type": 44,
+								"src": {
+									"id": 2199,
+									"line": 732,
+									"column": 76,
+									"start": 27782,
+									"end": 27788,
+									"length": 7,
+									"parent_index": 2196
+								},
+								"scope": 2188,
+								"name": "",
+								"type_name": {
+									"id": 2200,
+									"node_type": 30,
+									"src": {
+										"id": 2201,
+										"line": 732,
+										"column": 76,
+										"start": 27782,
+										"end": 27788,
+										"length": 7,
+										"parent_index": 2198
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "getReserveNormalizedIncome(address)",
+					"signature": "d15e0053",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2204,
+					"name": "getReserveNormalizedVariableDebt",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2205,
+						"line": 739,
+						"column": 2,
+						"start": 27991,
+						"end": 28079,
+						"length": 89,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 739,
+						"column": 11,
+						"start": 28000,
+						"end": 28031,
+						"length": 32,
+						"parent_index": 2204
+					},
+					"body": {
+						"id": 2218,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2205,
+							"line": 739,
+							"column": 2,
+							"start": 27991,
+							"end": 28079,
+							"length": 89,
+							"parent_index": 2204
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2206,
+						"node_type": 43,
+						"src": {
+							"id": 2207,
+							"line": 739,
+							"column": 44,
+							"start": 28033,
+							"end": 28045,
+							"length": 13,
+							"parent_index": 2204
+						},
+						"parameters": [
+							{
+								"id": 2208,
+								"node_type": 44,
+								"src": {
+									"id": 2209,
+									"line": 739,
+									"column": 44,
+									"start": 28033,
+									"end": 28045,
+									"length": 13,
+									"parent_index": 2206
+								},
+								"scope": 2204,
+								"name": "asset",
+								"type_name": {
+									"id": 2210,
+									"node_type": 30,
+									"src": {
+										"id": 2211,
+										"line": 739,
+										"column": 44,
+										"start": 28033,
+										"end": 28039,
+										"length": 7,
+										"parent_index": 2208
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2212,
+						"node_type": 43,
+						"src": {
+							"id": 2213,
+							"line": 739,
+							"column": 82,
+							"start": 28071,
+							"end": 28077,
+							"length": 7,
+							"parent_index": 2204
+						},
+						"parameters": [
+							{
+								"id": 2214,
+								"node_type": 44,
+								"src": {
+									"id": 2215,
+									"line": 739,
+									"column": 82,
+									"start": 28071,
+									"end": 28077,
+									"length": 7,
+									"parent_index": 2212
+								},
+								"scope": 2204,
+								"name": "",
+								"type_name": {
+									"id": 2216,
+									"node_type": 30,
+									"src": {
+										"id": 2217,
+										"line": 739,
+										"column": 82,
+										"start": 28071,
+										"end": 28077,
+										"length": 7,
+										"parent_index": 2214
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "getReserveNormalizedVariableDebt(address)",
+					"signature": "386497fd",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2220,
+					"name": "getReserveData",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2221,
+						"line": 746,
+						"column": 2,
+						"start": 28265,
+						"end": 28356,
+						"length": 92,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 746,
+						"column": 11,
+						"start": 28274,
+						"end": 28287,
+						"length": 14,
+						"parent_index": 2220
+					},
+					"body": {
+						"id": 2236,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2221,
+							"line": 746,
+							"column": 2,
+							"start": 28265,
+							"end": 28356,
+							"length": 92,
+							"parent_index": 2220
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2222,
+						"node_type": 43,
+						"src": {
+							"id": 2223,
+							"line": 746,
+							"column": 26,
+							"start": 28289,
+							"end": 28301,
+							"length": 13,
+							"parent_index": 2220
+						},
+						"parameters": [
+							{
+								"id": 2224,
+								"node_type": 44,
+								"src": {
+									"id": 2225,
+									"line": 746,
+									"column": 26,
+									"start": 28289,
+									"end": 28301,
+									"length": 13,
+									"parent_index": 2222
+								},
+								"scope": 2220,
+								"name": "asset",
+								"type_name": {
+									"id": 2226,
+									"node_type": 30,
+									"src": {
+										"id": 2227,
+										"line": 746,
+										"column": 26,
+										"start": 28289,
+										"end": 28295,
+										"length": 7,
+										"parent_index": 2224
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2228,
+						"node_type": 43,
+						"src": {
+							"id": 2229,
+							"line": 746,
+							"column": 64,
+							"start": 28327,
+							"end": 28354,
+							"length": 28,
+							"parent_index": 2220
+						},
+						"parameters": [
+							{
+								"id": 2230,
+								"node_type": 44,
+								"src": {
+									"id": 2231,
+									"line": 746,
+									"column": 64,
+									"start": 28327,
+									"end": 28354,
+									"length": 28,
+									"parent_index": 2228
+								},
+								"scope": 2220,
+								"name": "",
+								"type_name": {
+									"id": 2232,
+									"node_type": 69,
+									"src": {
+										"id": 2233,
+										"line": 746,
+										"column": 64,
+										"start": 28327,
+										"end": 28347,
+										"length": 21,
+										"parent_index": 2230
+									},
+									"path_node": {
+										"id": 2234,
+										"name": "DataTypes",
+										"node_type": 52,
+										"referenced_declaration": 1453,
+										"src": {
+											"id": 2235,
+											"line": 746,
+											"column": 64,
+											"start": 28327,
+											"end": 28347,
+											"length": 21,
+											"parent_index": 2232
+										},
+										"name_location": {
+											"line": 746,
+											"column": 64,
+											"start": 28327,
+											"end": 28335,
+											"length": 9,
+											"parent_index": 2232
+										}
+									},
+									"referenced_declaration": 1453,
+									"type_description": {
+										"type_identifier": "t_contract$_DataTypes_$1453",
+										"type_string": "contract DataTypes"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_DataTypes_$1453",
+								"type_string": "contract DataTypes"
+							}
+						]
+					},
+					"signature_raw": "getReserveData(address)",
+					"signature": "35ea6a75",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2238,
+					"name": "finalizeTransfer",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2239,
+						"line": 759,
+						"column": 2,
+						"start": 28984,
+						"end": 29154,
+						"length": 171,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 759,
+						"column": 11,
+						"start": 28993,
+						"end": 29008,
+						"length": 16,
+						"parent_index": 2238
+					},
+					"body": {
+						"id": 2267,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2239,
+							"line": 759,
+							"column": 2,
+							"start": 28984,
+							"end": 29154,
+							"length": 171,
+							"parent_index": 2238
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2240,
+						"node_type": 43,
+						"src": {
+							"id": 2241,
+							"line": 760,
+							"column": 4,
+							"start": 29015,
+							"end": 29140,
+							"length": 126,
+							"parent_index": 2238
+						},
+						"parameters": [
+							{
+								"id": 2242,
+								"node_type": 44,
+								"src": {
+									"id": 2243,
+									"line": 760,
+									"column": 4,
+									"start": 29015,
+									"end": 29027,
+									"length": 13,
+									"parent_index": 2240
+								},
+								"scope": 2238,
+								"name": "asset",
+								"type_name": {
+									"id": 2244,
+									"node_type": 30,
+									"src": {
+										"id": 2245,
+										"line": 760,
+										"column": 4,
+										"start": 29015,
+										"end": 29021,
+										"length": 7,
+										"parent_index": 2242
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2246,
+								"node_type": 44,
+								"src": {
+									"id": 2247,
+									"line": 761,
+									"column": 4,
+									"start": 29034,
+									"end": 29045,
+									"length": 12,
+									"parent_index": 2240
+								},
+								"scope": 2238,
+								"name": "from",
+								"type_name": {
+									"id": 2248,
+									"node_type": 30,
+									"src": {
+										"id": 2249,
+										"line": 761,
+										"column": 4,
+										"start": 29034,
+										"end": 29040,
+										"length": 7,
+										"parent_index": 2246
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2250,
+								"node_type": 44,
+								"src": {
+									"id": 2251,
+									"line": 762,
+									"column": 4,
+									"start": 29052,
+									"end": 29061,
+									"length": 10,
+									"parent_index": 2240
+								},
+								"scope": 2238,
+								"name": "to",
+								"type_name": {
+									"id": 2252,
+									"node_type": 30,
+									"src": {
+										"id": 2253,
+										"line": 762,
+										"column": 4,
+										"start": 29052,
+										"end": 29058,
+										"length": 7,
+										"parent_index": 2250
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							},
+							{
+								"id": 2254,
+								"node_type": 44,
+								"src": {
+									"id": 2255,
+									"line": 763,
+									"column": 4,
+									"start": 29068,
+									"end": 29081,
+									"length": 14,
+									"parent_index": 2240
+								},
+								"scope": 2238,
+								"name": "amount",
+								"type_name": {
+									"id": 2256,
+									"node_type": 30,
+									"src": {
+										"id": 2257,
+										"line": 763,
+										"column": 4,
+										"start": 29068,
+										"end": 29074,
+										"length": 7,
+										"parent_index": 2254
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2258,
+								"node_type": 44,
+								"src": {
+									"id": 2259,
+									"line": 764,
+									"column": 4,
+									"start": 29088,
+									"end": 29111,
+									"length": 24,
+									"parent_index": 2240
+								},
+								"scope": 2238,
+								"name": "balanceFromAfter",
+								"type_name": {
+									"id": 2260,
+									"node_type": 30,
+									"src": {
+										"id": 2261,
+										"line": 764,
+										"column": 4,
+										"start": 29088,
+										"end": 29094,
+										"length": 7,
+										"parent_index": 2258
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							},
+							{
+								"id": 2262,
+								"node_type": 44,
+								"src": {
+									"id": 2263,
+									"line": 765,
+									"column": 4,
+									"start": 29118,
+									"end": 29140,
+									"length": 23,
+									"parent_index": 2240
+								},
+								"scope": 2238,
+								"name": "balanceToBefore",
+								"type_name": {
+									"id": 2264,
+									"node_type": 30,
+									"src": {
+										"id": 2265,
+										"line": 765,
+										"column": 4,
+										"start": 29118,
+										"end": 29124,
+										"length": 7,
+										"parent_index": 2262
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2266,
+						"node_type": 43,
+						"src": {
+							"id": 2239,
+							"line": 759,
+							"column": 2,
+							"start": 28984,
+							"end": 29154,
+							"length": 171,
+							"parent_index": 2238
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "finalizeTransfer(address, address, address, uint256, uint256, uint256)",
+					"signature": "4bbf544c",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_uint256$_t_uint256$_t_uint256$",
+						"type_string": "function(address,address,address,uint256,uint256,uint256)"
+					}
+				},
+				{
+					"id": 2269,
+					"name": "getReservesList",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2270,
+						"line": 771,
+						"column": 2,
+						"start": 29227,
+						"end": 29294,
+						"length": 68,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 771,
+						"column": 11,
+						"start": 29236,
+						"end": 29250,
+						"length": 15,
+						"parent_index": 2269
+					},
+					"body": {
+						"id": 2285,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2270,
+							"line": 771,
+							"column": 2,
+							"start": 29227,
+							"end": 29294,
+							"length": 68,
+							"parent_index": 2269
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2271,
+						"node_type": 43,
+						"src": {
+							"id": 2272,
+							"line": 771,
+							"column": 52,
+							"start": 29277,
+							"end": 29292,
+							"length": 16,
+							"parent_index": 2269
+						},
+						"parameters": [
+							{
+								"id": 2273,
+								"node_type": 44,
+								"src": {
+									"id": 2274,
+									"line": 771,
+									"column": 52,
+									"start": 29277,
+									"end": 29292,
+									"length": 16,
+									"parent_index": 2271
+								},
+								"scope": 2269,
+								"name": "",
+								"type_name": {
+									"id": 2275,
+									"node_type": 16,
+									"src": {
+										"id": 2277,
+										"line": 771,
+										"column": 52,
+										"start": 29277,
+										"end": 29283,
+										"length": 7,
+										"parent_index": 2273
+									},
+									"name": "address",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2278,
+						"node_type": 43,
+						"src": {
+							"id": 2279,
+							"line": 771,
+							"column": 52,
+							"start": 29277,
+							"end": 29292,
+							"length": 16,
+							"parent_index": 2269
+						},
+						"parameters": [
+							{
+								"id": 2280,
+								"node_type": 44,
+								"src": {
+									"id": 2281,
+									"line": 771,
+									"column": 52,
+									"start": 29277,
+									"end": 29292,
+									"length": 16,
+									"parent_index": 2278
+								},
+								"scope": 2269,
+								"name": "",
+								"type_name": {
+									"id": 2282,
+									"node_type": 16,
+									"src": {
+										"id": 2284,
+										"line": 771,
+										"column": 52,
+										"start": 29277,
+										"end": 29283,
+										"length": 7,
+										"parent_index": 2280
+									},
+									"name": "address",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"signature_raw": "getReservesList(address)",
+					"signature": "586c1442",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_address$",
+						"type_string": "function(address)"
+					}
+				},
+				{
+					"id": 2287,
+					"name": "getAddressesProvider",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2288,
+						"line": 776,
+						"column": 2,
+						"start": 29397,
+						"end": 29482,
+						"length": 86,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 776,
+						"column": 11,
+						"start": 29406,
+						"end": 29425,
+						"length": 20,
+						"parent_index": 2287
+					},
+					"body": {
+						"id": 2305,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2288,
+							"line": 776,
+							"column": 2,
+							"start": 29397,
+							"end": 29482,
+							"length": 86,
+							"parent_index": 2287
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2289,
+						"node_type": 43,
+						"src": {
+							"id": 2290,
+							"line": 776,
+							"column": 57,
+							"start": 29452,
+							"end": 29480,
+							"length": 29,
+							"parent_index": 2287
+						},
+						"parameters": [
+							{
+								"id": 2291,
+								"node_type": 44,
+								"src": {
+									"id": 2292,
+									"line": 776,
+									"column": 57,
+									"start": 29452,
+									"end": 29480,
+									"length": 29,
+									"parent_index": 2289
+								},
+								"scope": 2287,
+								"name": "",
+								"type_name": {
+									"id": 2293,
+									"node_type": 69,
+									"src": {
+										"id": 2294,
+										"line": 776,
+										"column": 57,
+										"start": 29452,
+										"end": 29480,
+										"length": 29,
+										"parent_index": 2291
+									},
+									"path_node": {
+										"id": 2295,
+										"name": "ILendingPoolAddressesProvider",
+										"node_type": 52,
+										"referenced_declaration": 1022,
+										"src": {
+											"id": 2296,
+											"line": 776,
+											"column": 57,
+											"start": 29452,
+											"end": 29480,
+											"length": 29,
+											"parent_index": 2293
+										},
+										"name_location": {
+											"line": 776,
+											"column": 57,
+											"start": 29452,
+											"end": 29480,
+											"length": 29,
+											"parent_index": 2293
+										}
+									},
+									"referenced_declaration": 1022,
+									"type_description": {
+										"type_identifier": "t_contract$_ILendingPoolAddressesProvider_$1022",
+										"type_string": "contract ILendingPoolAddressesProvider"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_ILendingPoolAddressesProvider_$1022",
+								"type_string": "contract ILendingPoolAddressesProvider"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2297,
+						"node_type": 43,
+						"src": {
+							"id": 2298,
+							"line": 776,
+							"column": 57,
+							"start": 29452,
+							"end": 29480,
+							"length": 29,
+							"parent_index": 2287
+						},
+						"parameters": [
+							{
+								"id": 2299,
+								"node_type": 44,
+								"src": {
+									"id": 2300,
+									"line": 776,
+									"column": 57,
+									"start": 29452,
+									"end": 29480,
+									"length": 29,
+									"parent_index": 2297
+								},
+								"scope": 2287,
+								"name": "",
+								"type_name": {
+									"id": 2301,
+									"node_type": 69,
+									"src": {
+										"id": 2302,
+										"line": 776,
+										"column": 57,
+										"start": 29452,
+										"end": 29480,
+										"length": 29,
+										"parent_index": 2299
+									},
+									"path_node": {
+										"id": 2303,
+										"name": "ILendingPoolAddressesProvider",
+										"node_type": 52,
+										"referenced_declaration": 1022,
+										"src": {
+											"id": 2304,
+											"line": 776,
+											"column": 57,
+											"start": 29452,
+											"end": 29480,
+											"length": 29,
+											"parent_index": 2301
+										},
+										"name_location": {
+											"line": 776,
+											"column": 57,
+											"start": 29452,
+											"end": 29480,
+											"length": 29,
+											"parent_index": 2301
+										}
+									},
+									"referenced_declaration": 1022,
+									"type_description": {
+										"type_identifier": "t_contract$_ILendingPoolAddressesProvider_$1022",
+										"type_string": "contract ILendingPoolAddressesProvider"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_ILendingPoolAddressesProvider_$1022",
+								"type_string": "contract ILendingPoolAddressesProvider"
+							}
+						]
+					},
+					"signature_raw": "getAddressesProvider()",
+					"signature": "fe65acfe",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_contract$_ILendingPoolAddressesProvider_$1022$",
+						"type_string": "function(contract ILendingPoolAddressesProvider)"
+					}
+				},
+				{
+					"id": 2307,
+					"name": "setPause",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2308,
+						"line": 783,
+						"column": 2,
+						"start": 29657,
+						"end": 29701,
+						"length": 45,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 783,
+						"column": 11,
+						"start": 29666,
+						"end": 29673,
+						"length": 8,
+						"parent_index": 2307
+					},
+					"body": {
+						"id": 2316,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2308,
+							"line": 783,
+							"column": 2,
+							"start": 29657,
+							"end": 29701,
+							"length": 45,
+							"parent_index": 2307
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2309,
+						"node_type": 43,
+						"src": {
+							"id": 2310,
+							"line": 783,
+							"column": 20,
+							"start": 29675,
+							"end": 29682,
+							"length": 8,
+							"parent_index": 2307
+						},
+						"parameters": [
+							{
+								"id": 2311,
+								"node_type": 44,
+								"src": {
+									"id": 2312,
+									"line": 783,
+									"column": 20,
+									"start": 29675,
+									"end": 29682,
+									"length": 8,
+									"parent_index": 2309
+								},
+								"scope": 2307,
+								"name": "val",
+								"type_name": {
+									"id": 2313,
+									"node_type": 30,
+									"src": {
+										"id": 2314,
+										"line": 783,
+										"column": 20,
+										"start": 29675,
+										"end": 29678,
+										"length": 4,
+										"parent_index": 2311
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2315,
+						"node_type": 43,
+						"src": {
+							"id": 2308,
+							"line": 783,
+							"column": 2,
+							"start": 29657,
+							"end": 29701,
+							"length": 45,
+							"parent_index": 2307
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "setPause(bool)",
+					"signature": "bedb86fb",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bool$",
+						"type_string": "function(bool)"
+					}
+				},
+				{
+					"id": 2318,
+					"name": "paused",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"id": 2319,
+						"line": 788,
+						"column": 2,
+						"start": 29765,
+						"end": 29811,
+						"length": 47,
+						"parent_index": 1549
+					},
+					"name_location": {
+						"line": 788,
+						"column": 11,
+						"start": 29774,
+						"end": 29779,
+						"length": 6,
+						"parent_index": 2318
+					},
+					"body": {
+						"id": 2332,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"id": 2319,
+							"line": 788,
+							"column": 2,
+							"start": 29765,
+							"end": 29811,
+							"length": 47,
+							"parent_index": 2318
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 2320,
+						"node_type": 43,
+						"src": {
+							"id": 2321,
+							"line": 788,
+							"column": 43,
+							"start": 29806,
+							"end": 29809,
+							"length": 4,
+							"parent_index": 2318
+						},
+						"parameters": [
+							{
+								"id": 2322,
+								"node_type": 44,
+								"src": {
+									"id": 2323,
+									"line": 788,
+									"column": 43,
+									"start": 29806,
+									"end": 29809,
+									"length": 4,
+									"parent_index": 2320
+								},
+								"scope": 2318,
+								"name": "",
+								"type_name": {
+									"id": 2324,
+									"node_type": 30,
+									"src": {
+										"id": 2325,
+										"line": 788,
+										"column": 43,
+										"start": 29806,
+										"end": 29809,
+										"length": 4,
+										"parent_index": 2322
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 2326,
+						"node_type": 43,
+						"src": {
+							"id": 2327,
+							"line": 788,
+							"column": 43,
+							"start": 29806,
+							"end": 29809,
+							"length": 4,
+							"parent_index": 2318
+						},
+						"parameters": [
+							{
+								"id": 2328,
+								"node_type": 44,
+								"src": {
+									"id": 2329,
+									"line": 788,
+									"column": 43,
+									"start": 29806,
+									"end": 29809,
+									"length": 4,
+									"parent_index": 2326
+								},
+								"scope": 2318,
+								"name": "",
+								"type_name": {
+									"id": 2330,
+									"node_type": 30,
+									"src": {
+										"id": 2331,
+										"line": 788,
+										"column": 43,
+										"start": 29806,
+										"end": 29809,
+										"length": 4,
+										"parent_index": 2328
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"signature_raw": "paused(bool)",
+					"signature": "837150cf",
+					"scope": 1549,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bool$",
+						"type_string": "function(bool)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				1549
+			],
+			"base_contracts": [],
+			"contract_dependencies": []
+		}
+	],
+	"src": {
+		"id": 1544,
+		"line": 319,
+		"column": 0,
+		"start": 10771,
+		"end": 29813,
+		"length": 19043,
+		"parent_index": 367
+	}
+}

@@ -306,7 +306,7 @@ func (e *EnumDefinition) ParseGlobal(
 			},
 		)
 	}
-	e.globalDefinitions = append(e.currentEnums, e)
+	e.globalDefinitions = append(e.globalDefinitions, e)
 
 	return e
 }

@@ -8,7 +8,7 @@ import (
 
 // Struct represents a Solidity struct definition as an IR node.
 type Struct struct {
-	unit                    *ast.StructDefinition  `json:"-"`
+	Unit                    *ast.StructDefinition  `json:"ast"`
 	Id                      int64                  `json:"id"`
 	NodeType                ast_pb.NodeType        `json:"node_type"`
 	Kind                    ast_pb.NodeType        `json:"kind"`
@@ -24,7 +24,7 @@ type Struct struct {
 
 // GetAST returns the underlying AST node of the Struct.
 func (f *Struct) GetAST() *ast.StructDefinition {
-	return f.unit
+	return f.Unit
 }
 
 // GetId returns the unique identifier of the struct.
@@ -84,7 +84,7 @@ func (f *Struct) GetTypeDescription() *ast.TypeDescription {
 
 // GetSrc returns the source node of the struct.
 func (f *Struct) GetSrc() ast.SrcNode {
-	return f.unit.GetSrc()
+	return f.Unit.GetSrc()
 }
 
 // ToProto is a placeholder function for converting the Struct to a protobuf message.
@@ -114,7 +114,7 @@ func (f *Struct) ToProto() *ir_pb.Struct {
 // It populates the Struct with the members (parameters) from the AST.
 func (b *Builder) processStruct(unit *ast.StructDefinition) *Struct {
 	toReturn := &Struct{
-		unit:                    unit,
+		Unit:                    unit,
 		Id:                      unit.GetId(),
 		NodeType:                unit.GetType(),
 		Kind:                    unit.GetKind(),
@@ -130,7 +130,7 @@ func (b *Builder) processStruct(unit *ast.StructDefinition) *Struct {
 
 	for _, parameter := range unit.GetMembers() {
 		param := &Parameter{
-			unit:            parameter,
+			Unit:            parameter,
 			Id:              parameter.GetId(),
 			NodeType:        parameter.GetType(),
 			Name:            parameter.GetName(),

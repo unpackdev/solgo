@@ -259,7 +259,6 @@ func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
 // EnterSourceUnit is called when the ASTBuilder enters a source unit context.
 // It initializes a new root node and source units based on the context.
 func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
-
 	rootNode := NewRootNode(b, 0, b.sourceUnits, b.comments)
 	b.tree.SetRoot(rootNode)
 
