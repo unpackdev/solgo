@@ -394,7 +394,7 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 	//
 
 	case ast_pb.NodeType_ASSEMBLY_STATEMENT:
-		var toReturn *AssemblyStatement
+		var toReturn *Yul
 		if err := json.Unmarshal(data, &toReturn); err != nil {
 			return nil, err
 		}

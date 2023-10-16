@@ -393,7 +393,7 @@ func (b *BodyNode) parseStatements(
 			unit, contractNode, fnNode, b, childCtx,
 		))
 	case *parser.AssemblyStatementContext:
-		statement := NewAssemblyStatement(b.ASTBuilder)
+		statement := NewYul(b.ASTBuilder)
 		b.Statements = append(b.Statements, statement.Parse(
 			unit, contractNode, fnNode, b, childCtx,
 		))
