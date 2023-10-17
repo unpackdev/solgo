@@ -14,6 +14,7 @@ type YulLiteralStatement struct {
 
 	Id       int64           `json:"id"`
 	NodeType ast_pb.NodeType `json:"node_type"`
+	Kind     ast_pb.NodeType `json:"kind"`
 	Src      SrcNode         `json:"src"`
 	Value    string          `json:"value"`
 	HexValue string          `json:"hex_value"`
@@ -70,7 +71,7 @@ func (y *YulLiteralStatement) Parse(
 	if ctx.YulBoolean() != nil {
 		literal := ctx.YulBoolean()
 		y.Value = literal.GetText()
-		y.NodeType = ast_pb.NodeType_BOOLEAN
+		y.Kind = ast_pb.NodeType_BOOLEAN
 		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetStart().GetLine()),
@@ -86,7 +87,7 @@ func (y *YulLiteralStatement) Parse(
 	if ctx.YulDecimalNumber() != nil {
 		literal := ctx.YulDecimalNumber()
 		y.Value = literal.GetText()
-		y.NodeType = ast_pb.NodeType_DECIMAL_NUMBER
+		y.Kind = ast_pb.NodeType_DECIMAL_NUMBER
 		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
@@ -101,7 +102,7 @@ func (y *YulLiteralStatement) Parse(
 	if ctx.YulStringLiteral() != nil {
 		literal := ctx.YulStringLiteral()
 		y.Value = literal.GetText()
-		y.NodeType = ast_pb.NodeType_STRING
+		y.Kind = ast_pb.NodeType_STRING
 		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
@@ -115,7 +116,7 @@ func (y *YulLiteralStatement) Parse(
 
 	if ctx.YulHexNumber() != nil {
 		literal := ctx.YulHexNumber()
-		y.NodeType = ast_pb.NodeType_NUMBER
+		y.Kind = ast_pb.NodeType_HEX_NUMBER
 		y.HexValue = literal.GetText()
 		y.Src = SrcNode{
 			Id:          y.GetNextID(),
@@ -137,7 +138,7 @@ func (y *YulLiteralStatement) Parse(
 
 	if ctx.YulHexStringLiteral() != nil {
 		literal := ctx.YulHexStringLiteral()
-		y.NodeType = ast_pb.NodeType_HEX_STRING
+		y.Kind = ast_pb.NodeType_HEX_STRING
 		y.HexValue = literal.GetText()
 		y.Value = strings.Replace(y.HexValue, "0x", "", -1)
 		y.Src = SrcNode{
