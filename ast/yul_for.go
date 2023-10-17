@@ -68,6 +68,8 @@ func (y *YulForStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Condition)
 	toReturn = append(toReturn, y.Body)
+	toReturn = append(toReturn, y.Pre)
+	toReturn = append(toReturn, y.Post)
 	return toReturn
 }
 

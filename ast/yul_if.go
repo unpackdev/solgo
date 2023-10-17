@@ -8,16 +8,27 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulIfStatement represents an if statement in the abstract syntax tree.
 type YulIfStatement struct {
 	*ASTBuilder
 
-	Id        int64           `json:"id"`
-	NodeType  ast_pb.NodeType `json:"node_type"`
-	Src       SrcNode         `json:"src"`
-	Condition Node[NodeType]  `json:"condition"`
-	Body      Node[NodeType]  `json:"body"`
+	// Id is the unique identifier of the YUL if statement.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL if statement node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Src is the source location information of the YUL if statement.
+	Src SrcNode `json:"src"`
+
+	// Condition is the condition expression of the if statement.
+	Condition Node[NodeType] `json:"condition"`
+
+	// Body is the body of the if statement.
+	Body Node[NodeType] `json:"body"`
 }
 
+// NewYulIfStatement creates a new YulIfStatement with the provided AST builder.
 func NewYulIfStatement(b *ASTBuilder) *YulIfStatement {
 	return &YulIfStatement{
 		ASTBuilder: b,
@@ -31,18 +42,22 @@ func (y *YulIfStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescri
 	return false
 }
 
+// GetId returns the ID of the YulIfStatement.
 func (y *YulIfStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulIfStatement.
 func (y *YulIfStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulIfStatement.
 func (y *YulIfStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list containing the Condition and Body nodes.
 func (y *YulIfStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Condition)
@@ -50,18 +65,22 @@ func (y *YulIfStatement) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulIfStatement.
 func (y *YulIfStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetCondition returns the condition expression of the if statement.
 func (y *YulIfStatement) GetCondition() Node[NodeType] {
 	return y.Condition
 }
 
+// GetBody returns the body of the if statement.
 func (y *YulIfStatement) GetBody() Node[NodeType] {
 	return y.Body
 }
 
+// ToProto converts the YulIfStatement to its protocol buffer representation.
 func (y *YulIfStatement) ToProto() NodeType {
 	toReturn := ast_pb.YulIfStatement{
 		Id:       y.GetId(),
@@ -148,6 +167,7 @@ func (f *YulIfStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse converts a YulIfStatementContext to a YulIfStatement node.
 func (y *YulIfStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

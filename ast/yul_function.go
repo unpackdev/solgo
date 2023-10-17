@@ -8,17 +8,30 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulFunctionDefinition represents a YUL function definition in the abstract syntax tree.
 type YulFunctionDefinition struct {
 	*ASTBuilder
 
-	Id               int64            `json:"id"`
-	NodeType         ast_pb.NodeType  `json:"node_type"`
-	Src              SrcNode          `json:"src"`
-	Arguments        []*YulIdentifier `json:"arguments"`
-	Body             Node[NodeType]   `json:"body"`
+	// Id is the unique identifier of the YUL function definition.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL function definition node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Src is the source location information of the YUL function definition.
+	Src SrcNode `json:"src"`
+
+	// Arguments is a list of YUL identifiers representing function arguments.
+	Arguments []*YulIdentifier `json:"arguments"`
+
+	// Body is the body of the YUL function definition.
+	Body Node[NodeType] `json:"body"`
+
+	// ReturnParameters is a list of YUL identifiers representing return parameters.
 	ReturnParameters []*YulIdentifier `json:"return_parameters"`
 }
 
+// NewYulFunctionDefinition creates a new YulFunctionDefinition instance.
 func NewYulFunctionDefinition(b *ASTBuilder) *YulFunctionDefinition {
 	return &YulFunctionDefinition{
 		ASTBuilder: b,
@@ -32,40 +45,49 @@ func (y *YulFunctionDefinition) SetReferenceDescriptor(refId int64, refDesc *Typ
 	return false
 }
 
+// GetId returns the ID of the YulFunctionDefinition.
 func (y *YulFunctionDefinition) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulFunctionDefinition.
 func (y *YulFunctionDefinition) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulFunctionDefinition.
 func (y *YulFunctionDefinition) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list containing the body node.
 func (y *YulFunctionDefinition) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Body)
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulFunctionDefinition.
 func (y *YulFunctionDefinition) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetArguments returns the list of YUL identifiers representing function arguments.
 func (y *YulFunctionDefinition) GetArguments() []*YulIdentifier {
 	return y.Arguments
 }
 
+// GetBody returns the body of the YUL function definition.
 func (y *YulFunctionDefinition) GetBody() Node[NodeType] {
 	return y.Body
 }
 
+// GetReturnParameters returns the list of YUL identifiers representing return parameters.
 func (y *YulFunctionDefinition) GetReturnParameters() []*YulIdentifier {
 	return y.ReturnParameters
 }
 
+// ToProto converts the YulFunctionDefinition to its protocol buffer representation.
 func (y *YulFunctionDefinition) ToProto() NodeType {
 	toReturn := ast_pb.YulFunctionDefinition{
 		Id:               y.GetId(),
@@ -167,6 +189,7 @@ func (f *YulFunctionDefinition) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse parses a YUL function definition.
 func (y *YulFunctionDefinition) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

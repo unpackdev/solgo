@@ -8,16 +8,27 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulFunctionCallStatement represents a YUL function call statement in the abstract syntax tree.
 type YulFunctionCallStatement struct {
 	*ASTBuilder
 
-	Id           int64            `json:"id"`
-	NodeType     ast_pb.NodeType  `json:"node_type"`
-	Src          SrcNode          `json:"src"`
-	FunctionName *YulIdentifier   `json:"function_name"`
-	Arguments    []Node[NodeType] `json:"arguments"`
+	// Id is the unique identifier of the YUL function call statement.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL function call statement node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Src is the source location information of the YUL function call statement.
+	Src SrcNode `json:"src"`
+
+	// FunctionName is the name of the function being called.
+	FunctionName *YulIdentifier `json:"function_name"`
+
+	// Arguments is a list of argument nodes for the function call.
+	Arguments []Node[NodeType] `json:"arguments"`
 }
 
+// NewYulFunctionCallStatement creates a new YulFunctionCallStatement instance.
 func NewYulFunctionCallStatement(b *ASTBuilder) *YulFunctionCallStatement {
 	return &YulFunctionCallStatement{
 		ASTBuilder: b,
@@ -32,36 +43,45 @@ func (y *YulFunctionCallStatement) SetReferenceDescriptor(refId int64, refDesc *
 	return false
 }
 
+// GetId returns the ID of the YulFunctionCallStatement.
 func (y *YulFunctionCallStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulFunctionCallStatement.
 func (y *YulFunctionCallStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulFunctionCallStatement.
 func (y *YulFunctionCallStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list containing the argument nodes.
 func (y *YulFunctionCallStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
+	toReturn = append(toReturn, y.FunctionName)
 	toReturn = append(toReturn, y.Arguments...)
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulFunctionCallStatement.
 func (y *YulFunctionCallStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetFunctionName returns the name of the function being called.
 func (y *YulFunctionCallStatement) GetFunctionName() *YulIdentifier {
 	return y.FunctionName
 }
 
+// GetArguments returns the list of argument nodes for the function call.
 func (y *YulFunctionCallStatement) GetArguments() []Node[NodeType] {
 	return y.Arguments
 }
 
+// UnmarshalJSON unmarshals a given JSON byte array into a YulFunctionCallStatement node.
 func (y *YulFunctionCallStatement) UnmarshalJSON(data []byte) error {
 	var tempMap map[string]json.RawMessage
 	if err := json.Unmarshal(data, &tempMap); err != nil {
@@ -120,6 +140,7 @@ func (y *YulFunctionCallStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ToProto converts the YulFunctionCallStatement to its protocol buffer representation.
 func (y *YulFunctionCallStatement) ToProto() NodeType {
 	toReturn := ast_pb.YulFunctionCallStatement{
 		Id:           y.GetId(),
@@ -136,6 +157,7 @@ func (y *YulFunctionCallStatement) ToProto() NodeType {
 	return NewTypedStruct(&toReturn, "YulFunctionCallStatement")
 }
 
+// Parse parses a YUL function call statement.
 func (y *YulFunctionCallStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

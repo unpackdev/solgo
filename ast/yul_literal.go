@@ -67,10 +67,12 @@ func (y *YulLiteralStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetValue returns back value of the literal
 func (y *YulLiteralStatement) GetValue() string {
 	return y.Value
 }
 
+// GetHexValue returns back hexadecimal value of the literal
 func (y *YulLiteralStatement) GetHexValue() string {
 	return y.HexValue
 }
