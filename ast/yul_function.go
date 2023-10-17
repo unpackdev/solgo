@@ -19,7 +19,7 @@ func NewYulFunctionDefinition(b *ASTBuilder) *YulFunctionDefinition {
 	return &YulFunctionDefinition{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_YUL_ASSIGNMENT,
+		NodeType:   ast_pb.NodeType_YUL_FUNCTION_DEFINITION,
 	}
 }
 

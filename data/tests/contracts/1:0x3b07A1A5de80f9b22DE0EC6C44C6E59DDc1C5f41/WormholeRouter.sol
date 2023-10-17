@@ -1,7 +1,7 @@
 // SPDX-License-Identifier:MIT
 pragma solidity =0.8.16;
 
-import {IWormhole} from "./interfaces/IWormhole.sol";
+import {IWormhole} from "./IWormhole.sol";
 import {BaseVault} from "./BaseVault.sol";
 import {AffineGovernable} from "./AffineGovernable.sol";
 

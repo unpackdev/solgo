@@ -1,11 +1,11 @@
 //SPDX-License-Identifier: BUSL-1.1
 pragma solidity =0.8.16;
 
-import {ERC20} from "solmate/src/tokens/ERC20.sol";
-import {SafeTransferLib} from "solmate/src/utils/SafeTransferLib.sol";
+import {ERC20} from "./ERC20.sol";
+import {SafeTransferLib} from "./SafeTransferLib.sol";
 
-import {IRootChainManager} from "../interfaces/IRootChainManager.sol";
-import {BridgeEscrow} from "../BridgeEscrow.sol";
+import {IRootChainManager} from "./IRootChainManager.sol";
+import {BridgeEscrow} from "./BridgeEscrow.sol";
 import {L1Vault} from "./L1Vault.sol";
 
 contract L1BridgeEscrow is BridgeEscrow {

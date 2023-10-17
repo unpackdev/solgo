@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity =0.8.16;
 
-import {ERC20} from "solmate/src/tokens/ERC20.sol";
+import {ERC20} from "./ERC20.sol";
 import {BaseVault} from "./BaseVault.sol";
-import {SafeTransferLib} from "solmate/src/utils/SafeTransferLib.sol";
-import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {SafeTransferLib} from "./SafeTransferLib.sol";
+import {Strings} from "./Strings.sol";
 
 /// @notice Base strategy contract
 abstract contract BaseStrategy {

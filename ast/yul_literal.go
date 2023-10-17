@@ -12,13 +12,12 @@ import (
 type YulLiteralStatement struct {
 	*ASTBuilder
 
-	Id           int64            `json:"id"`
-	NodeType     ast_pb.NodeType  `json:"node_type"`
-	Src          SrcNode          `json:"src"`
-	NameLocation SrcNode          `json:"name_location"`
-	Identifiers  []*YulIdentifier `json:"identifiers"`
-	Value        string           `json:"value"`
-	HexValue     string           `json:"hex_value"`
+	Id           int64           `json:"id"`
+	NodeType     ast_pb.NodeType `json:"node_type"`
+	Src          SrcNode         `json:"src"`
+	NameLocation SrcNode         `json:"name_location"`
+	Value        string          `json:"value"`
+	HexValue     string          `json:"hex_value"`
 }
 
 func NewYulLiteralStatement(b *ASTBuilder) *YulLiteralStatement {
@@ -57,15 +56,6 @@ func (y *YulLiteralStatement) GetTypeDescription() *TypeDescription {
 
 func (y *YulLiteralStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
-}
-
-func (y *YulLiteralStatement) GetIdentifiers() []*YulIdentifier {
-	return y.Identifiers
-}
-
-// UnmarshalJSON unmarshals a given JSON byte array into a YulLiteralStatement node.
-func (f *YulLiteralStatement) UnmarshalJSON(data []byte) error {
-	return nil
 }
 
 func (y *YulLiteralStatement) Parse(
