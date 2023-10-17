@@ -8,18 +8,16 @@ import (
 type YulContinueStatement struct {
 	*ASTBuilder
 
-	Id          int64            `json:"id"`
-	NodeType    ast_pb.NodeType  `json:"node_type"`
-	Src         SrcNode          `json:"src"`
-	Identifiers []*YulIdentifier `json:"identifiers"`
-	Expression  Node[NodeType]   `json:"expression"`
+	Id       int64           `json:"id"`
+	NodeType ast_pb.NodeType `json:"node_type"`
+	Src      SrcNode         `json:"src"`
 }
 
 func NewYulContinueStatement(b *ASTBuilder) *YulContinueStatement {
 	return &YulContinueStatement{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_YUL_ASSIGNMENT,
+		NodeType:   ast_pb.NodeType_YUL_CONTINUE,
 	}
 }
 
@@ -42,7 +40,6 @@ func (y *YulContinueStatement) GetSrc() SrcNode {
 
 func (y *YulContinueStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.Expression)
 	return toReturn
 }
 
@@ -52,15 +49,6 @@ func (y *YulContinueStatement) GetTypeDescription() *TypeDescription {
 
 func (y *YulContinueStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
-}
-
-func (y *YulContinueStatement) GetIdentifiers() []*YulIdentifier {
-	return y.Identifiers
-}
-
-// UnmarshalJSON unmarshals a given JSON byte array into a YulContinueStatement node.
-func (f *YulContinueStatement) UnmarshalJSON(data []byte) error {
-	return nil
 }
 
 func (y *YulContinueStatement) Parse(
@@ -81,39 +69,6 @@ func (y *YulContinueStatement) Parse(
 		Length:      int64(ctx.GetSymbol().GetStop() - ctx.GetSymbol().GetStart() + 1),
 		ParentIndex: statementNode.GetId(),
 	}
-
-	/* 	if ctx.YulExpression() != nil {
-	   		y.Expression = ParseYulExpression(
-	   			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,
-	   			ctx.YulExpression(),
-	   		)
-	   	}
-
-	   	for _, identifier := range ctx.AllYulIdentifier() {
-	   		y.Identifiers = append(y.Identifiers, &YulIdentifier{
-	   			Id:       y.GetNextID(),
-	   			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
-	   			Src: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetSymbol()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   			Name: identifier.GetText(),
-	   			NameLocation: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetStart()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   		})
-	   	} */
 
 	return y
 }
