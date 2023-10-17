@@ -126,10 +126,5 @@ func ParseYulExpression(
 		)
 	}
 
-	/* 	zap.L().Warn(
-		"ParseYulExpression: unimplemented child type",
-		zap.Any("child_type", reflect.TypeOf(ctx).String()),
-	) */
-
 	return nil
 }

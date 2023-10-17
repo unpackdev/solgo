@@ -8,12 +8,11 @@ import (
 type YulSwitchCaseStatement struct {
 	*ASTBuilder
 
-	Id          int64            `json:"id"`
-	NodeType    ast_pb.NodeType  `json:"node_type"`
-	Src         SrcNode          `json:"src"`
-	Identifiers []*YulIdentifier `json:"identifiers"`
-	Literal     Node[NodeType]   `json:"literal"`
-	Block       Node[NodeType]   `json:"block"`
+	Id       int64           `json:"id"`
+	NodeType ast_pb.NodeType `json:"node_type"`
+	Src      SrcNode         `json:"src"`
+	Case     Node[NodeType]  `json:"case"`
+	Block    Node[NodeType]  `json:"block"`
 }
 
 func NewYulSwitchCaseStatement(b *ASTBuilder) *YulSwitchCaseStatement {
@@ -43,7 +42,8 @@ func (y *YulSwitchCaseStatement) GetSrc() SrcNode {
 
 func (y *YulSwitchCaseStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.Literal)
+	toReturn = append(toReturn, y.Case)
+	toReturn = append(toReturn, y.Block)
 	return toReturn
 }
 
@@ -53,10 +53,6 @@ func (y *YulSwitchCaseStatement) GetTypeDescription() *TypeDescription {
 
 func (y *YulSwitchCaseStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
-}
-
-func (y *YulSwitchCaseStatement) GetIdentifiers() []*YulIdentifier {
-	return y.Identifiers
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulSwitchCaseStatement node.
@@ -86,7 +82,7 @@ func (y *YulSwitchCaseStatement) Parse(
 
 	if ctx.YulLiteral() != nil {
 		literalStatement := NewYulLiteralStatement(y.ASTBuilder)
-		y.Literal = literalStatement.Parse(
+		y.Case = literalStatement.Parse(
 			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, y,
 			ctx.YulLiteral().(*parser.YulLiteralContext),
 		)
