@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -50,8 +51,25 @@ func (y *YulBlockStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+func (y *YulBlockStatement) GetStatements() []Node[NodeType] {
+	return y.Statements
+}
+
 func (y *YulBlockStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulBlockStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+	}
+
+	for _, statement := range y.GetStatements() {
+		toReturn.Statements = append(
+			toReturn.Statements,
+			statement.ToProto().(*v3.TypedStruct),
+		)
+	}
+
+	return NewTypedStruct(&toReturn, "YulBlockStatement")
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulBlockStatement node.

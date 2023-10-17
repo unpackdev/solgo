@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -51,8 +52,37 @@ func (y *YulFunctionDefinition) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+func (y *YulFunctionDefinition) GetArguments() []*YulIdentifier {
+	return y.Arguments
+}
+
+func (y *YulFunctionDefinition) GetBody() Node[NodeType] {
+	return y.Body
+}
+
+func (y *YulFunctionDefinition) GetReturnParameters() []*YulIdentifier {
+	return y.ReturnParameters
+}
+
 func (y *YulFunctionDefinition) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulFunctionDefinition{
+		Id:               y.GetId(),
+		NodeType:         y.GetType(),
+		Src:              y.GetSrc().ToProto(),
+		Arguments:        make([]*v3.TypedStruct, 0),
+		Body:             y.GetBody().ToProto().(*v3.TypedStruct),
+		ReturnParameters: make([]*v3.TypedStruct, 0),
+	}
+
+	for _, ycase := range y.GetArguments() {
+		toReturn.Arguments = append(toReturn.Arguments, ycase.ToProto().(*v3.TypedStruct))
+	}
+
+	for _, ycase := range y.GetReturnParameters() {
+		toReturn.ReturnParameters = append(toReturn.ReturnParameters, ycase.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&toReturn, "YulFunctionDefinition")
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulFunctionDefinition node.

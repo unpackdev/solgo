@@ -1,21 +1,24 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulVariable represents a variable declaration in Yul assembly.
 type YulVariable struct {
-	*ASTBuilder
+	*ASTBuilder // Embedded ASTBuilder for utility functions.
 
-	Id        int64            `json:"id"`
-	NodeType  ast_pb.NodeType  `json:"node_type"`
-	Src       SrcNode          `json:"src"`
-	Let       bool             `json:"let"`
-	Value     Node[NodeType]   `json:"value"`
-	Variables []*YulIdentifier `json:"variables"`
+	Id        int64            `json:"id"`        // Id is a unique identifier for the variable.
+	NodeType  ast_pb.NodeType  `json:"node_type"` // NodeType specifies the type of the node.
+	Src       SrcNode          `json:"src"`       // Src contains the source location details of the variable.
+	Let       bool             `json:"let"`       // Let indicates if the variable is declared with a "let" keyword.
+	Value     Node[NodeType]   `json:"value"`     // Value holds the initialized value of the variable.
+	Variables []*YulIdentifier `json:"variables"` // Variables contains a list of Yul identifiers.
 }
 
+// NewYulVariable initializes a new YulVariable with default values.
 func NewYulVariable(b *ASTBuilder) *YulVariable {
 	return &YulVariable{
 		ASTBuilder: b,
@@ -25,42 +28,83 @@ func NewYulVariable(b *ASTBuilder) *YulVariable {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the YulVariable node.
+// SetReferenceDescriptor is a placeholder method for setting reference descriptors.
+// Currently always returns false.
 func (y *YulVariable) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId retrieves the unique identifier of the YulVariable.
 func (y *YulVariable) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulVariable.
 func (y *YulVariable) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc provides the source location details of the YulVariable.
 func (y *YulVariable) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list of nodes associated with the YulVariable, including its initialized value.
 func (y *YulVariable) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Value)
 	return toReturn
 }
 
+// GetTypeDescription provides a description of the YulVariable's type.
+// Always returns an empty TypeDescription.
 func (y *YulVariable) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
-func (y *YulVariable) ToProto() NodeType {
-	return ast_pb.Statement{}
+// IsLet returns whenever variable is using let
+func (y *YulVariable) IsLet() bool {
+	return y.Let
 }
 
-// UnmarshalJSON unmarshals a given JSON byte array into a YulVariable node.
+// GetValue returns variable value declaration
+func (y *YulVariable) GetValue() Node[NodeType] {
+	return y.Value
+}
+
+// GetVariables returns variable discovered variables
+func (y *YulVariable) GetVariables() []*YulIdentifier {
+	return y.Variables
+}
+
+// ToProto converts the YulVariable into its protobuf representation.
+// Note: This method currently returns an empty Statement.
+func (y *YulVariable) ToProto() NodeType {
+	toReturn := ast_pb.YulVariableStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+		Let:      y.IsLet(),
+		Value:    y.GetValue().ToProto().(*v3.TypedStruct),
+	}
+
+	for _, variable := range y.GetVariables() {
+		toReturn.Variables = append(
+			toReturn.Variables,
+			variable.ToProto().(*v3.TypedStruct),
+		)
+	}
+
+	return NewTypedStruct(&toReturn, "YulVariableStatement")
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a YulVariable.
+// Currently, this is a placeholder and does nothing.
 func (f *YulVariable) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse populates the YulVariable fields by parsing the provided YulVariableDeclarationContext.
 func (y *YulVariable) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -70,6 +114,7 @@ func (y *YulVariable) Parse(
 	statementNode *YulStatement,
 	ctx *parser.YulVariableDeclarationContext,
 ) Node[NodeType] {
+	// Set source location details from context.
 	y.Src = SrcNode{
 		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -77,11 +122,13 @@ func (y *YulVariable) Parse(
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: assemblyNode.GetId(),
+		ParentIndex: statementNode.GetId(),
 	}
 
+	// Determine if "let" keyword is present.
 	y.Let = ctx.YulLet() != nil
 
+	// Parse declared variables.
 	for _, variable := range ctx.GetVariables() {
 		y.Variables = append(y.Variables, &YulIdentifier{
 			Id:       y.GetNextID(),
@@ -99,6 +146,7 @@ func (y *YulVariable) Parse(
 		})
 	}
 
+	// Parse expression if present.
 	if ctx.YulExpression() != nil {
 		expression := ctx.YulExpression()
 		yExpression := NewYulExpressionStatement(y.ASTBuilder)

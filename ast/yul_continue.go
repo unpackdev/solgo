@@ -48,7 +48,13 @@ func (y *YulContinueStatement) GetTypeDescription() *TypeDescription {
 }
 
 func (y *YulContinueStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulContinueStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+	}
+
+	return NewTypedStruct(&toReturn, "YulContinueStatement")
 }
 
 func (y *YulContinueStatement) Parse(

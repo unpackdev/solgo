@@ -5,15 +5,17 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulSwitchStatement represents a switch statement in Yul assembly.
 type YulSwitchStatement struct {
-	*ASTBuilder
+	*ASTBuilder // Embedded ASTBuilder for utility functions.
 
-	Id       int64            `json:"id"`
-	NodeType ast_pb.NodeType  `json:"node_type"`
-	Src      SrcNode          `json:"src"`
-	Cases    []Node[NodeType] `json:"cases"`
+	Id       int64            `json:"id"`        // Id is the unique identifier for the switch statement.
+	NodeType ast_pb.NodeType  `json:"node_type"` // NodeType specifies the type of the node.
+	Src      SrcNode          `json:"src"`       // Src provides source location details of the switch statement.
+	Cases    []Node[NodeType] `json:"cases"`     // Cases holds the different cases of the switch statement.
 }
 
+// NewYulSwitchStatement creates and initializes a new YulSwitchStatement.
 func NewYulSwitchStatement(b *ASTBuilder) *YulSwitchStatement {
 	return &YulSwitchStatement{
 		ASTBuilder: b,
@@ -23,42 +25,68 @@ func NewYulSwitchStatement(b *ASTBuilder) *YulSwitchStatement {
 	}
 }
 
-// SetReferenceDescriptor sets the reference descriptions of the YulSwitchStatement node.
+// SetReferenceDescriptor is a placeholder method for setting reference descriptors.
+// Currently always returns false.
 func (y *YulSwitchStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId retrieves the unique identifier of the YulSwitchStatement.
 func (y *YulSwitchStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulSwitchStatement.
 func (y *YulSwitchStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc provides the source location details of the YulSwitchStatement.
 func (y *YulSwitchStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list of nodes associated with the YulSwitchStatement.
 func (y *YulSwitchStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Cases...)
 	return toReturn
 }
 
+// GetTypeDescription provides a description of the YulSwitchStatement's type.
+// Always returns an empty TypeDescription.
 func (y *YulSwitchStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
-func (y *YulSwitchStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+func (y *YulSwitchStatement) GetCases() []Node[NodeType] {
+	return y.Cases
 }
 
-// UnmarshalJSON unmarshals a given JSON byte array into a YulSwitchStatement node.
+// ToProto converts the YulSwitchStatement into its protobuf representation.
+// Note: This method currently returns an empty Statement.
+func (y *YulSwitchStatement) ToProto() NodeType {
+	toReturn := ast_pb.YulSwitchStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+		Cases:    make([]*ast_pb.YulSwitchCaseStatement, 0),
+	}
+
+	for _, ycase := range y.GetCases() {
+		toReturn.Cases = append(toReturn.Cases, ycase.ToProto().(*ast_pb.YulSwitchCaseStatement))
+	}
+
+	return NewTypedStruct(&toReturn, "YulSwitchStatement")
+}
+
+// UnmarshalJSON unmarshals a given JSON byte array into a YulSwitchStatement.
+// Currently, this is a placeholder and does nothing.
 func (f *YulSwitchStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse populates the YulSwitchStatement fields based on the provided YulSwitchStatementContext.
 func (y *YulSwitchStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -68,6 +96,7 @@ func (y *YulSwitchStatement) Parse(
 	statementNode *YulStatement,
 	ctx *parser.YulSwitchStatementContext,
 ) Node[NodeType] {
+	// Set the source location details from context.
 	y.Src = SrcNode{
 		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -78,6 +107,7 @@ func (y *YulSwitchStatement) Parse(
 		ParentIndex: statementNode.GetId(),
 	}
 
+	// Parse all switch cases if present.
 	if ctx.AllYulSwitchCase() != nil {
 		for _, switchCase := range ctx.AllYulSwitchCase() {
 			caseStatement := NewYulSwitchCaseStatement(y.ASTBuilder)

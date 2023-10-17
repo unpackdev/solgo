@@ -37,6 +37,17 @@ func (y *YulIdentifier) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+func (y *YulIdentifier) GetName() string {
+	return y.Name
+}
+
 func (y *YulIdentifier) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulIdentifier{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+		Name:     y.GetName(),
+	}
+
+	return NewTypedStruct(&toReturn, "YulIdentifier")
 }

@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -51,8 +52,30 @@ func (y *YulIfStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+func (y *YulIfStatement) GetCondition() Node[NodeType] {
+	return y.Condition
+}
+
+func (y *YulIfStatement) GetBody() Node[NodeType] {
+	return y.Body
+}
+
 func (y *YulIfStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulIfStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+	}
+
+	if y.GetCondition() != nil {
+		toReturn.Condition = y.GetCondition().ToProto().(*v3.TypedStruct)
+	}
+
+	if y.GetBody() != nil {
+		toReturn.Condition = y.GetBody().ToProto().(*v3.TypedStruct)
+	}
+
+	return NewTypedStruct(&toReturn, "YulIfStatement")
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulIfStatement node.

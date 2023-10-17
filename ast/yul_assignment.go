@@ -1,16 +1,10 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
-
-type YulVariableNames struct {
-	Id       int64           `json:"id"`
-	Name     string          `json:"name"`
-	NodeType ast_pb.NodeType `json:"node_type"`
-	Src      SrcNode         `json:"src"`
-}
 
 type YulAssignment struct {
 	*ASTBuilder
@@ -58,12 +52,28 @@ func (y *YulAssignment) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
-func (y *YulAssignment) ToProto() NodeType {
-	return ast_pb.Statement{}
-}
-
 func (y *YulAssignment) GetVariableNames() []*YulIdentifier {
 	return y.VariableNames
+}
+
+func (y *YulAssignment) GetValue() Node[NodeType] {
+	return y.Value
+}
+
+func (y *YulAssignment) ToProto() NodeType {
+	toReturn := ast_pb.YulAssignmentStatement{
+		Id:            y.GetId(),
+		NodeType:      y.GetType(),
+		Src:           y.GetSrc().ToProto(),
+		VariableNames: make([]*v3.TypedStruct, 0),
+		Value:         y.GetValue().ToProto().(*v3.TypedStruct),
+	}
+
+	for _, ycase := range y.GetVariableNames() {
+		toReturn.VariableNames = append(toReturn.VariableNames, ycase.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&toReturn, "YulAssignmentStatement")
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulAssignment node.

@@ -1,6 +1,7 @@
 package ast
 
 import (
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -51,8 +52,28 @@ func (y *YulFunctionCallStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+func (y *YulFunctionCallStatement) GetFunctionName() *YulIdentifier {
+	return y.FunctionName
+}
+
+func (y *YulFunctionCallStatement) GetArguments() []Node[NodeType] {
+	return y.Arguments
+}
+
 func (y *YulFunctionCallStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulFunctionCallStatement{
+		Id:           y.GetId(),
+		NodeType:     y.GetType(),
+		Src:          y.GetSrc().ToProto(),
+		FunctionName: y.GetFunctionName().ToProto().(*v3.TypedStruct),
+		Arguments:    make([]*v3.TypedStruct, 0),
+	}
+
+	for _, ycase := range y.GetArguments() {
+		toReturn.Arguments = append(toReturn.Arguments, ycase.ToProto().(*v3.TypedStruct))
+	}
+
+	return NewTypedStruct(&toReturn, "YulFunctionCallStatement")
 }
 
 func (y *YulFunctionCallStatement) Parse(

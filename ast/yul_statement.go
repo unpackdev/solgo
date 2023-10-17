@@ -4,20 +4,23 @@ import (
 	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 	"go.uber.org/zap"
 )
 
+// YulStatement represents a statement in the Yul language.
 type YulStatement struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`
-	NodeType   ast_pb.NodeType  `json:"node_type"`
-	Src        SrcNode          `json:"src"`
-	Statements []Node[NodeType] `json:"body"`
+	Id         int64            `json:"id"`        // Unique identifier for the statement node.
+	NodeType   ast_pb.NodeType  `json:"node_type"` // The type of the node.
+	Src        SrcNode          `json:"src"`       // Source information about the node.
+	Statements []Node[NodeType] `json:"body"`      // Statements within this Yul statement.
 }
 
+// NewYulStatement creates a new YulStatement node and initializes its fields.
 func NewYulStatement(b *ASTBuilder) *YulStatement {
 	return &YulStatement{
 		ASTBuilder: b,
@@ -28,39 +31,65 @@ func NewYulStatement(b *ASTBuilder) *YulStatement {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the YulStatement node.
+// It always returns false for this node type.
 func (y *YulStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId returns the unique identifier of the YulStatement node.
 func (y *YulStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the type of the YulStatement node.
 func (y *YulStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulStatement node.
 func (y *YulStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns the statements within the YulStatement node.
 func (y *YulStatement) GetNodes() []Node[NodeType] {
 	return y.Statements
 }
 
+// GetTypeDescription returns an empty TypeDescription for the YulStatement node.
 func (y *YulStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+func (y *YulStatement) GetStatements() []Node[NodeType] {
+	return y.Statements
+}
+
+// ToProto converts the YulStatement node into its protocol buffer representation.
 func (y *YulStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	proto := ast_pb.YulStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+	}
+
+	for _, statement := range y.GetStatements() {
+		proto.Statements = append(
+			proto.Statements,
+			statement.ToProto().(*v3.TypedStruct),
+		)
+	}
+
+	return NewTypedStruct(&proto, "YulStatement")
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulStatement node.
+// Currently, this function does not perform any unmarshalling and always returns nil.
 func (f *YulStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse processes the provided YulStatementContext and populates the YulStatement node's fields based on its content.
 func (y *YulStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

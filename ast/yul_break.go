@@ -48,7 +48,13 @@ func (y *YulBreakStatement) GetTypeDescription() *TypeDescription {
 }
 
 func (y *YulBreakStatement) ToProto() NodeType {
-	return ast_pb.Statement{}
+	toReturn := ast_pb.YulBreakStatement{
+		Id:       y.GetId(),
+		NodeType: y.GetType(),
+		Src:      y.GetSrc().ToProto(),
+	}
+
+	return NewTypedStruct(&toReturn, "YulBreakStatement")
 }
 
 func (y *YulBreakStatement) Parse(
