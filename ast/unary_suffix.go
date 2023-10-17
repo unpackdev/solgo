@@ -132,6 +132,12 @@ func (u *UnarySuffix) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &u.Kind); err != nil {
+			return err
+		}
+	}
+
 	if src, ok := tempMap["src"]; ok {
 		if err := json.Unmarshal(src, &u.Src); err != nil {
 			return err
@@ -214,6 +220,7 @@ func (u *UnarySuffix) ToProto() NodeType {
 	proto := ast_pb.UnarySuffix{
 		Id:                    u.GetId(),
 		NodeType:              u.GetType(),
+		Kind:                  u.GetKind(),
 		Src:                   u.GetSrc().ToProto(),
 		Operator:              u.GetOperator(),
 		Prefix:                u.GetPrefix(),

@@ -118,6 +118,8 @@ func TestAstBuilderFromSourceAsString(t *testing.T) {
 					assert.Equal(t, sourceUnit.GetName(), testCase.sources.EntrySourceUnitName)
 				}
 
+				assert.NotNil(t, astRoot.GetGlobalNodes())
+
 				assert.True(t, astRoot.HasSourceUnits())
 				assert.NotNil(t, astRoot.GetSourceUnitByName(sourceUnit.GetName()))
 				assert.NotNil(t, astRoot.GetSourceUnitById(sourceUnit.GetId()))

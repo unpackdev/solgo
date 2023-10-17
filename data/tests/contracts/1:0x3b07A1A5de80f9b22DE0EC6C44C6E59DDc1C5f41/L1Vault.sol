@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity =0.8.16;
 
-import {ERC20} from "solmate/src/tokens/ERC20.sol";
-import {SafeTransferLib} from "solmate/src/utils/SafeTransferLib.sol";
-import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
-import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {ERC20} from "./ERC20.sol";
+import {SafeTransferLib} from "./SafeTransferLib.sol";
+import {UUPSUpgradeable} from "./UUPSUpgradeable.sol";
+import {PausableUpgradeable} from "./PausableUpgradeable.sol";
+import {Math} from "./Math.sol";
 
-import {BaseVault} from "../BaseVault.sol";
-import {IRootChainManager} from "../interfaces/IRootChainManager.sol";
+import {BaseVault} from "./BaseVault.sol";
+import {IRootChainManager} from "./IRootChainManager.sol";
 import {L1BridgeEscrow} from "./L1BridgeEscrow.sol";
 import {L1WormholeRouter} from "./L1WormholeRouter.sol";
 
