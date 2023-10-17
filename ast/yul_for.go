@@ -8,18 +8,33 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulForStatement represents a YUL for statement in the abstract syntax tree.
 type YulForStatement struct {
 	*ASTBuilder
 
-	Id        int64           `json:"id"`
-	NodeType  ast_pb.NodeType `json:"node_type"`
-	Src       SrcNode         `json:"src"`
-	Pre       Node[NodeType]  `json:"pre"`
-	Post      Node[NodeType]  `json:"post"`
-	Condition Node[NodeType]  `json:"condition"`
-	Body      Node[NodeType]  `json:"body"`
+	// Id is the unique identifier of the YUL for statement.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL for statement node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Src is the source location information of the YUL for statement.
+	Src SrcNode `json:"src"`
+
+	// Pre is the initialization node before the loop.
+	Pre Node[NodeType] `json:"pre"`
+
+	// Post is the post-execution node after each iteration of the loop.
+	Post Node[NodeType] `json:"post"`
+
+	// Condition is the condition node of the loop.
+	Condition Node[NodeType] `json:"condition"`
+
+	// Body is the body of the loop.
+	Body Node[NodeType] `json:"body"`
 }
 
+// NewYulForStatement creates a new YulForStatement instance.
 func NewYulForStatement(b *ASTBuilder) *YulForStatement {
 	return &YulForStatement{
 		ASTBuilder: b,
@@ -33,18 +48,22 @@ func (y *YulForStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDescr
 	return false
 }
 
+// GetId returns the ID of the YulForStatement.
 func (y *YulForStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulForStatement.
 func (y *YulForStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulForStatement.
 func (y *YulForStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list containing the condition and body nodes.
 func (y *YulForStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Condition)
@@ -52,26 +71,32 @@ func (y *YulForStatement) GetNodes() []Node[NodeType] {
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulForStatement.
 func (y *YulForStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetPre returns the initialization node before the loop.
 func (y *YulForStatement) GetPre() Node[NodeType] {
 	return y.Pre
 }
 
+// GetPost returns the post-execution node after each iteration of the loop.
 func (y *YulForStatement) GetPost() Node[NodeType] {
 	return y.Post
 }
 
+// GetCondition returns the condition node of the loop.
 func (y *YulForStatement) GetCondition() Node[NodeType] {
 	return y.Condition
 }
 
+// GetBody returns the body of the loop.
 func (y *YulForStatement) GetBody() Node[NodeType] {
 	return y.Body
 }
 
+// ToProto converts the YulForStatement to its protocol buffer representation.
 func (y *YulForStatement) ToProto() NodeType {
 	toReturn := ast_pb.YulForStatement{
 		Id:       y.GetId(),
@@ -206,6 +231,7 @@ func (f *YulForStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse parses a YUL for statement.
 func (y *YulForStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

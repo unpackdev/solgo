@@ -8,15 +8,24 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulExpressionStatement represents a YUL expression statement in the abstract syntax tree.
 type YulExpressionStatement struct {
 	*ASTBuilder
 
-	Id         int64           `json:"id"`
-	NodeType   ast_pb.NodeType `json:"node_type"`
-	Src        SrcNode         `json:"src"`
-	Expression Node[NodeType]  `json:"expression"`
+	// Id is the unique identifier of the YUL expression statement.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL expression statement node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Src is the source location information of the YUL expression statement.
+	Src SrcNode `json:"src"`
+
+	// Expression is the expression node within the statement.
+	Expression Node[NodeType] `json:"expression"`
 }
 
+// NewYulExpressionStatement creates a new YulExpressionStatement instance.
 func NewYulExpressionStatement(b *ASTBuilder) *YulExpressionStatement {
 	return &YulExpressionStatement{
 		ASTBuilder: b,
@@ -30,32 +39,39 @@ func (y *YulExpressionStatement) SetReferenceDescriptor(refId int64, refDesc *Ty
 	return false
 }
 
+// GetId returns the ID of the YulExpressionStatement.
 func (y *YulExpressionStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulExpressionStatement.
 func (y *YulExpressionStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulExpressionStatement.
 func (y *YulExpressionStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns a list containing the expression node.
 func (y *YulExpressionStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Expression)
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulExpressionStatement.
 func (y *YulExpressionStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetExpression returns the expression node within the statement.
 func (y *YulExpressionStatement) GetExpression() Node[NodeType] {
 	return y.Expression
 }
 
+// ToProto converts the YulExpressionStatement to its protocol buffer representation.
 func (y *YulExpressionStatement) ToProto() NodeType {
 	toReturn := ast_pb.YulExpressionStatement{
 		Id:       y.GetId(),
@@ -118,6 +134,7 @@ func (f *YulExpressionStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse parses a YulExpressionStatement node.
 func (y *YulExpressionStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -157,6 +174,7 @@ func (y *YulExpressionStatement) Parse(
 	return y
 }
 
+// ParseYulExpression parses a YUL expression statement.
 func ParseYulExpression(
 	b *ASTBuilder,
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],

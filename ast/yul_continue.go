@@ -5,14 +5,21 @@ import (
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 )
 
+// YulContinueStatement represents a YUL continue statement in the abstract syntax tree.
 type YulContinueStatement struct {
 	*ASTBuilder
 
-	Id       int64           `json:"id"`
+	// Id is the unique identifier of the YUL continue statement.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL continue statement node.
 	NodeType ast_pb.NodeType `json:"node_type"`
-	Src      SrcNode         `json:"src"`
+
+	// Src is the source location information of the YUL continue statement.
+	Src SrcNode `json:"src"`
 }
 
+// NewYulContinueStatement creates a new YulContinueStatement instance.
 func NewYulContinueStatement(b *ASTBuilder) *YulContinueStatement {
 	return &YulContinueStatement{
 		ASTBuilder: b,
@@ -26,27 +33,33 @@ func (y *YulContinueStatement) SetReferenceDescriptor(refId int64, refDesc *Type
 	return false
 }
 
+// GetId returns the ID of the YulContinueStatement.
 func (y *YulContinueStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulContinueStatement.
 func (y *YulContinueStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulContinueStatement.
 func (y *YulContinueStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns an empty list of child nodes for the YulContinueStatement.
 func (y *YulContinueStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulContinueStatement.
 func (y *YulContinueStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// ToProto converts the YulContinueStatement to its protocol buffer representation.
 func (y *YulContinueStatement) ToProto() NodeType {
 	toReturn := ast_pb.YulContinueStatement{
 		Id:       y.GetId(),
@@ -57,6 +70,7 @@ func (y *YulContinueStatement) ToProto() NodeType {
 	return NewTypedStruct(&toReturn, "YulContinueStatement")
 }
 
+// Parse parses a YulContinueStatement node.
 func (y *YulContinueStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
