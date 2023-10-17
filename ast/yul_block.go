@@ -67,6 +67,7 @@ func (y *YulBlockStatement) Parse(
 	assemblyNode *Yul,
 	statementNode *YulStatement,
 	ifStatement *parser.YulIfStatementContext,
+	parentNode Node[NodeType],
 	ctx *parser.YulBlockContext,
 ) Node[NodeType] {
 	y.Src = SrcNode{
@@ -76,7 +77,7 @@ func (y *YulBlockStatement) Parse(
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: assemblyNode.GetId(),
+		ParentIndex: parentNode.GetId(),
 	}
 
 	if ctx.AllYulStatement() != nil {
@@ -84,7 +85,7 @@ func (y *YulBlockStatement) Parse(
 			yStatement := NewYulStatement(y.ASTBuilder)
 
 			y.Statements = append(y.Statements, yStatement.Parse(
-				unit, contractNode, fnNode, bodyNode, assemblyNode, statement.(*parser.YulStatementContext),
+				unit, contractNode, fnNode, bodyNode, assemblyNode, y, statement.(*parser.YulStatementContext),
 			))
 		}
 	}

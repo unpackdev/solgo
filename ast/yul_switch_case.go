@@ -95,7 +95,7 @@ func (y *YulSwitchCaseStatement) Parse(
 	if ctx.YulBlock() != nil {
 		block := NewYulBlockStatement(y.ASTBuilder)
 		y.Block = block.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, y,
 			ctx.YulBlock().(*parser.YulBlockContext),
 		)
 	}

@@ -8,11 +8,12 @@ import (
 type YulFunctionDefinition struct {
 	*ASTBuilder
 
-	Id          int64            `json:"id"`
-	NodeType    ast_pb.NodeType  `json:"node_type"`
-	Src         SrcNode          `json:"src"`
-	Identifiers []*YulIdentifier `json:"identifiers"`
-	Expression  Node[NodeType]   `json:"expression"`
+	Id               int64            `json:"id"`
+	NodeType         ast_pb.NodeType  `json:"node_type"`
+	Src              SrcNode          `json:"src"`
+	Arguments        []*YulIdentifier `json:"arguments"`
+	Body             Node[NodeType]   `json:"body"`
+	ReturnParameters []*YulIdentifier `json:"return_parameters"`
 }
 
 func NewYulFunctionDefinition(b *ASTBuilder) *YulFunctionDefinition {
@@ -42,7 +43,7 @@ func (y *YulFunctionDefinition) GetSrc() SrcNode {
 
 func (y *YulFunctionDefinition) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.Expression)
+	toReturn = append(toReturn, y.Body)
 	return toReturn
 }
 
@@ -52,10 +53,6 @@ func (y *YulFunctionDefinition) GetTypeDescription() *TypeDescription {
 
 func (y *YulFunctionDefinition) ToProto() NodeType {
 	return ast_pb.Statement{}
-}
-
-func (y *YulFunctionDefinition) GetIdentifiers() []*YulIdentifier {
-	return y.Identifiers
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulFunctionDefinition node.
@@ -82,38 +79,47 @@ func (y *YulFunctionDefinition) Parse(
 		ParentIndex: statementNode.GetId(),
 	}
 
-	/* 	if ctx.YulExpression() != nil {
-	   		y.Expression = ParseYulExpression(
-	   			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,
-	   			ctx.YulExpression(),
-	   		)
-	   	}
+	for _, argument := range ctx.GetArguments() {
+		y.Arguments = append(y.Arguments, &YulIdentifier{
+			Id:       y.GetNextID(),
+			Name:     argument.GetText(),
+			NodeType: ast_pb.NodeType_YUL_VARIABLE_NAME,
+			Src: SrcNode{
+				Id:          y.GetNextID(),
+				Line:        int64(argument.GetLine()),
+				Column:      int64(argument.GetColumn()),
+				Start:       int64(argument.GetStart()),
+				End:         int64(argument.GetStop()),
+				Length:      int64(argument.GetStop() - argument.GetStart() + 1),
+				ParentIndex: y.GetId(),
+			},
+		})
+	}
 
-	   	for _, identifier := range ctx.AllYulIdentifier() {
-	   		y.Identifiers = append(y.Identifiers, &YulIdentifier{
-	   			Id:       y.GetNextID(),
-	   			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
-	   			Src: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetSymbol()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   			Name: identifier.GetText(),
-	   			NameLocation: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetStart()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   		})
-	   	} */
+	if ctx.GetBody() != nil {
+		blockStatement := NewYulBlockStatement(y.ASTBuilder)
+		y.Body = blockStatement.Parse(
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, y,
+			ctx.GetBody().(*parser.YulBlockContext),
+		)
+	}
+
+	for _, argument := range ctx.GetReturnParameters() {
+		y.ReturnParameters = append(y.ReturnParameters, &YulIdentifier{
+			Id:       y.GetNextID(),
+			Name:     argument.GetText(),
+			NodeType: ast_pb.NodeType_YUL_VARIABLE_NAME,
+			Src: SrcNode{
+				Id:          y.GetNextID(),
+				Line:        int64(argument.GetLine()),
+				Column:      int64(argument.GetColumn()),
+				Start:       int64(argument.GetStart()),
+				End:         int64(argument.GetStop()),
+				Length:      int64(argument.GetStop() - argument.GetStart() + 1),
+				ParentIndex: y.GetId(),
+			},
+		})
+	}
 
 	return y
 }

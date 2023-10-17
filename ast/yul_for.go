@@ -91,7 +91,7 @@ func (y *YulForStatement) Parse(
 	if ctx.GetInit() != nil {
 		blockStatement := NewYulBlockStatement(y.ASTBuilder)
 		y.Pre = blockStatement.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, y,
 			ctx.GetInit().(*parser.YulBlockContext),
 		)
 	}
@@ -99,7 +99,7 @@ func (y *YulForStatement) Parse(
 	if ctx.GetPost() != nil {
 		blockStatement := NewYulBlockStatement(y.ASTBuilder)
 		y.Post = blockStatement.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, y,
 			ctx.GetPost().(*parser.YulBlockContext),
 		)
 	}
@@ -107,7 +107,7 @@ func (y *YulForStatement) Parse(
 	if ctx.GetBody() != nil {
 		blockStatement := NewYulBlockStatement(y.ASTBuilder)
 		y.Body = blockStatement.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, y,
 			ctx.GetBody().(*parser.YulBlockContext),
 		)
 	}

@@ -89,7 +89,7 @@ func (y *YulIfStatement) Parse(
 	if ctx.GetBody() != nil {
 		blockStatement := NewYulBlockStatement(y.ASTBuilder)
 		y.Body = blockStatement.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, ctx,
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, ctx, y,
 			ctx.GetBody().(*parser.YulBlockContext),
 		)
 	}

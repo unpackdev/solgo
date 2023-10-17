@@ -106,7 +106,7 @@ func (a *Yul) Parse(
 	for _, yulCtx := range ctx.AllYulStatement() {
 		a.Body.Statements = append(a.Body.Statements,
 			yulStatement.Parse(
-				unit, contractNode, fnNode, a.Body, a, yulCtx.(*parser.YulStatementContext),
+				unit, contractNode, fnNode, a.Body, a, a, yulCtx.(*parser.YulStatementContext),
 			),
 		)
 	}
