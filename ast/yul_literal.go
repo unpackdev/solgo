@@ -12,12 +12,11 @@ import (
 type YulLiteralStatement struct {
 	*ASTBuilder
 
-	Id           int64           `json:"id"`
-	NodeType     ast_pb.NodeType `json:"node_type"`
-	Src          SrcNode         `json:"src"`
-	NameLocation SrcNode         `json:"name_location"`
-	Value        string          `json:"value"`
-	HexValue     string          `json:"hex_value"`
+	Id       int64           `json:"id"`
+	NodeType ast_pb.NodeType `json:"node_type"`
+	Src      SrcNode         `json:"src"`
+	Value    string          `json:"value"`
+	HexValue string          `json:"hex_value"`
 }
 
 func NewYulLiteralStatement(b *ASTBuilder) *YulLiteralStatement {
@@ -68,21 +67,11 @@ func (y *YulLiteralStatement) Parse(
 	parentNode Node[NodeType],
 	ctx *parser.YulLiteralContext,
 ) Node[NodeType] {
-	y.Src = SrcNode{
-		Id:          y.GetNextID(),
-		Line:        int64(ctx.GetStart().GetLine()),
-		Column:      int64(ctx.GetStart().GetColumn()),
-		Start:       int64(ctx.GetStart().GetStart()),
-		End:         int64(ctx.GetStop().GetStop()),
-		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: assemblyNode.GetId(),
-	}
-
 	if ctx.YulBoolean() != nil {
 		literal := ctx.YulBoolean()
 		y.Value = literal.GetText()
 		y.NodeType = ast_pb.NodeType_BOOLEAN
-		y.NameLocation = SrcNode{
+		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetStart().GetLine()),
 			Column:      int64(literal.GetStart().GetColumn()),
@@ -98,7 +87,7 @@ func (y *YulLiteralStatement) Parse(
 		literal := ctx.YulDecimalNumber()
 		y.Value = literal.GetText()
 		y.NodeType = ast_pb.NodeType_DECIMAL_NUMBER
-		y.NameLocation = SrcNode{
+		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
@@ -113,7 +102,7 @@ func (y *YulLiteralStatement) Parse(
 		literal := ctx.YulStringLiteral()
 		y.Value = literal.GetText()
 		y.NodeType = ast_pb.NodeType_STRING
-		y.NameLocation = SrcNode{
+		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
@@ -128,7 +117,7 @@ func (y *YulLiteralStatement) Parse(
 		literal := ctx.YulHexNumber()
 		y.NodeType = ast_pb.NodeType_NUMBER
 		y.HexValue = literal.GetText()
-		y.NameLocation = SrcNode{
+		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
@@ -151,7 +140,7 @@ func (y *YulLiteralStatement) Parse(
 		y.NodeType = ast_pb.NodeType_HEX_STRING
 		y.HexValue = literal.GetText()
 		y.Value = strings.Replace(y.HexValue, "0x", "", -1)
-		y.NameLocation = SrcNode{
+		y.Src = SrcNode{
 			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),

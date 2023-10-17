@@ -90,15 +90,6 @@ func (y *YulFunctionCallStatement) Parse(
 				ParentIndex: y.GetId(),
 			},
 			Name: builtin.GetText(),
-			NameLocation: SrcNode{
-				Id:          y.GetNextID(),
-				Line:        int64(builtin.GetSymbol().GetLine()),
-				Column:      int64(builtin.GetSymbol().GetColumn()),
-				Start:       int64(builtin.GetSymbol().GetStart()),
-				End:         int64(builtin.GetSymbol().GetStop()),
-				Length:      int64(builtin.GetSymbol().GetStop() - builtin.GetSymbol().GetStart() + 1),
-				ParentIndex: y.GetId(),
-			},
 		}
 	}
 
@@ -112,15 +103,6 @@ func (y *YulFunctionCallStatement) Parse(
 						NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 						Name:     identifier.GetText(),
 						Src: SrcNode{
-							Id:          y.GetNextID(),
-							Line:        int64(path.GetStart().GetLine()),
-							Column:      int64(path.GetStart().GetColumn()),
-							Start:       int64(path.GetStart().GetStart()),
-							End:         int64(path.GetStart().GetStop()),
-							Length:      int64(path.GetStart().GetStop() - path.GetStart().GetStart() + 1),
-							ParentIndex: y.GetId(),
-						},
-						NameLocation: SrcNode{
 							Id:          y.GetNextID(),
 							Line:        int64(identifier.GetSymbol().GetLine()),
 							Column:      int64(identifier.GetSymbol().GetColumn()),

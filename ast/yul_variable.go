@@ -8,22 +8,20 @@ import (
 type YulVariable struct {
 	*ASTBuilder
 
-	Id            int64               `json:"id"`
-	NodeType      ast_pb.NodeType     `json:"node_type"`
-	Src           SrcNode             `json:"src"`
-	Identifiers   []*YulIdentifier    `json:"identifiers"`
-	Let           bool                `json:"let"`
-	Expression    Node[NodeType]      `json:"expression"`
-	VariableNames []*YulVariableNames `json:"variable_names"`
+	Id        int64            `json:"id"`
+	NodeType  ast_pb.NodeType  `json:"node_type"`
+	Src       SrcNode          `json:"src"`
+	Let       bool             `json:"let"`
+	Value     Node[NodeType]   `json:"value"`
+	Variables []*YulIdentifier `json:"variables"`
 }
 
 func NewYulVariable(b *ASTBuilder) *YulVariable {
 	return &YulVariable{
-		ASTBuilder:    b,
-		Id:            b.GetNextID(),
-		NodeType:      ast_pb.NodeType_YUL_VARIABLE_DECLARATION,
-		VariableNames: make([]*YulVariableNames, 0),
-		Identifiers:   make([]*YulIdentifier, 0),
+		ASTBuilder: b,
+		Id:         b.GetNextID(),
+		NodeType:   ast_pb.NodeType_YUL_VARIABLE_DECLARATION,
+		Variables:  make([]*YulIdentifier, 0),
 	}
 }
 
@@ -46,7 +44,7 @@ func (y *YulVariable) GetSrc() SrcNode {
 
 func (y *YulVariable) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.Expression)
+	toReturn = append(toReturn, y.Value)
 	return toReturn
 }
 
@@ -56,10 +54,6 @@ func (y *YulVariable) GetTypeDescription() *TypeDescription {
 
 func (y *YulVariable) ToProto() NodeType {
 	return ast_pb.Statement{}
-}
-
-func (y *YulVariable) GetIdentifiers() []*YulIdentifier {
-	return y.Identifiers
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulVariable node.
@@ -89,7 +83,7 @@ func (y *YulVariable) Parse(
 	y.Let = ctx.YulLet() != nil
 
 	for _, variable := range ctx.GetVariables() {
-		y.VariableNames = append(y.VariableNames, &YulVariableNames{
+		y.Variables = append(y.Variables, &YulIdentifier{
 			Id:       y.GetNextID(),
 			Name:     variable.GetText(),
 			NodeType: ast_pb.NodeType_YUL_VARIABLE_NAME,
@@ -105,45 +99,13 @@ func (y *YulVariable) Parse(
 		})
 	}
 
-	if ctx.YulFunctionCall() != nil {
-		fcStatement := NewYulFunctionCallStatement(y.ASTBuilder)
-		y.Expression = fcStatement.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, y,
-			ctx.YulFunctionCall().(*parser.YulFunctionCallContext),
-		)
-	}
-
 	if ctx.YulExpression() != nil {
-		y.Expression = ParseYulExpression(
-			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,
-			y, ctx.YulExpression(),
+		expression := ctx.YulExpression()
+		yExpression := NewYulExpressionStatement(y.ASTBuilder)
+		y.Value = yExpression.Parse(
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, y,
+			expression.(*parser.YulExpressionContext),
 		)
-	}
-
-	for _, identifier := range ctx.AllYulIdentifier() {
-		y.Identifiers = append(y.Identifiers, &YulIdentifier{
-			Id:       y.GetNextID(),
-			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
-			Src: SrcNode{
-				Id:          y.GetNextID(),
-				Line:        int64(identifier.GetSymbol().GetLine()),
-				Column:      int64(identifier.GetSymbol().GetColumn()),
-				Start:       int64(identifier.GetSymbol().GetStart()),
-				End:         int64(identifier.GetSymbol().GetStop()),
-				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-				ParentIndex: y.GetId(),
-			},
-			Name: identifier.GetText(),
-			NameLocation: SrcNode{
-				Id:          y.GetNextID(),
-				Line:        int64(identifier.GetSymbol().GetLine()),
-				Column:      int64(identifier.GetSymbol().GetColumn()),
-				Start:       int64(identifier.GetSymbol().GetStart()),
-				End:         int64(identifier.GetSymbol().GetStop()),
-				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-				ParentIndex: y.GetId(),
-			},
-		})
 	}
 
 	return y

@@ -106,15 +106,6 @@ func (y *YulAssignment) Parse(
 						ParentIndex: y.GetId(),
 					},
 					Name: identifier.GetText(),
-					NameLocation: SrcNode{
-						Id:          y.GetNextID(),
-						Line:        int64(identifier.GetSymbol().GetLine()),
-						Column:      int64(identifier.GetSymbol().GetColumn()),
-						Start:       int64(identifier.GetSymbol().GetStart()),
-						End:         int64(identifier.GetSymbol().GetStop()),
-						Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-						ParentIndex: y.GetId(),
-					},
 				})
 			}
 		}
