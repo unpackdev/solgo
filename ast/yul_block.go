@@ -8,15 +8,24 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulBlockStatement represents a YUL block statement in the abstract syntax tree.
 type YulBlockStatement struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`
-	NodeType   ast_pb.NodeType  `json:"node_type"`
-	Src        SrcNode          `json:"src"`
+	// Id is the unique identifier of the YUL block statement.
+	Id int64 `json:"id"`
+
+	// NodeType is the type of the YUL block statement node.
+	NodeType ast_pb.NodeType `json:"node_type"`
+
+	// Src is the source location information of the YUL block statement.
+	Src SrcNode `json:"src"`
+
+	// Statements is a list of child nodes representing statements within the YUL block.
 	Statements []Node[NodeType] `json:"statements"`
 }
 
+// NewYulBlockStatement creates a new YulBlockStatement instance.
 func NewYulBlockStatement(b *ASTBuilder) *YulBlockStatement {
 	return &YulBlockStatement{
 		ASTBuilder: b,
@@ -31,32 +40,39 @@ func (y *YulBlockStatement) SetReferenceDescriptor(refId int64, refDesc *TypeDes
 	return false
 }
 
+// GetId returns the ID of the YulBlockStatement.
 func (y *YulBlockStatement) GetId() int64 {
 	return y.Id
 }
 
+// GetType returns the NodeType of the YulBlockStatement.
 func (y *YulBlockStatement) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc returns the source information of the YulBlockStatement.
 func (y *YulBlockStatement) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes returns the child nodes of the YulBlockStatement.
 func (y *YulBlockStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Statements...)
 	return toReturn
 }
 
+// GetTypeDescription returns the type description of the YulBlockStatement.
 func (y *YulBlockStatement) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetStatements returns the list of statements within the YulBlockStatement.
 func (y *YulBlockStatement) GetStatements() []Node[NodeType] {
 	return y.Statements
 }
 
+// ToProto converts the YulBlockStatement to its protocol buffer representation.
 func (y *YulBlockStatement) ToProto() NodeType {
 	toReturn := ast_pb.YulBlockStatement{
 		Id:       y.GetId(),
@@ -127,6 +143,7 @@ func (f *YulBlockStatement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse parses a YulBlockStatement node.
 func (y *YulBlockStatement) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],

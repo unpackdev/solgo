@@ -8,6 +8,7 @@ import (
 	"github.com/unpackdev/solgo/parser"
 )
 
+// YulAssignment represents a Yul assignment structure in the AST.
 type YulAssignment struct {
 	*ASTBuilder
 
@@ -18,6 +19,7 @@ type YulAssignment struct {
 	Value         Node[NodeType]   `json:"value"`
 }
 
+// NewYulAssignment initializes a new instance of the YulAssignment structure.
 func NewYulAssignment(b *ASTBuilder) *YulAssignment {
 	return &YulAssignment{
 		ASTBuilder:    b,
@@ -28,40 +30,50 @@ func NewYulAssignment(b *ASTBuilder) *YulAssignment {
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the YulAssignment node.
+// It currently always returns false, and is a placeholder for future extensions.
 func (y *YulAssignment) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
+// GetId retrieves the ID of the YulAssignment node.
 func (y *YulAssignment) GetId() int64 {
 	return y.Id
 }
 
+// GetType retrieves the NodeType of the YulAssignment node.
 func (y *YulAssignment) GetType() ast_pb.NodeType {
 	return y.NodeType
 }
 
+// GetSrc retrieves the source of the YulAssignment node.
 func (y *YulAssignment) GetSrc() SrcNode {
 	return y.Src
 }
 
+// GetNodes retrieves the child nodes of the YulAssignment node.
 func (y *YulAssignment) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Value)
 	return toReturn
 }
 
+// GetTypeDescription retrieves the type description of the YulAssignment node.
+// It currently returns an empty TypeDescription, and is a placeholder for future extensions.
 func (y *YulAssignment) GetTypeDescription() *TypeDescription {
 	return &TypeDescription{}
 }
 
+// GetVariableNames retrieves the variable names associated with the YulAssignment node.
 func (y *YulAssignment) GetVariableNames() []*YulIdentifier {
 	return y.VariableNames
 }
 
+// GetValue retrieves the value assigned in the YulAssignment node.
 func (y *YulAssignment) GetValue() Node[NodeType] {
 	return y.Value
 }
 
+// ToProto converts the YulAssignment node to its corresponding protocol buffer representation.
 func (y *YulAssignment) ToProto() NodeType {
 	toReturn := ast_pb.YulAssignmentStatement{
 		Id:            y.GetId(),
@@ -142,6 +154,7 @@ func (f *YulAssignment) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Parse parses a given YulAssignmentContext into the YulAssignment node.
 func (y *YulAssignment) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
