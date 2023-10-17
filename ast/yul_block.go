@@ -19,6 +19,7 @@ func NewYulBlockStatement(b *ASTBuilder) *YulBlockStatement {
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
 		NodeType:   ast_pb.NodeType_YUL_BLOCK,
+		Statements: make([]Node[NodeType], 0),
 	}
 }
 

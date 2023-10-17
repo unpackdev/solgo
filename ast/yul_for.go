@@ -8,21 +8,20 @@ import (
 type YulForStatement struct {
 	*ASTBuilder
 
-	Id          int64            `json:"id"`
-	NodeType    ast_pb.NodeType  `json:"node_type"`
-	Src         SrcNode          `json:"src"`
-	Identifiers []*YulIdentifier `json:"identifiers"`
-	Expression  Node[NodeType]   `json:"expression"`
-	Init        Node[NodeType]   `json:"init"`
-	Condition   Node[NodeType]   `json:"condition"`
-	Body        Node[NodeType]   `json:"body"`
+	Id        int64           `json:"id"`
+	NodeType  ast_pb.NodeType `json:"node_type"`
+	Src       SrcNode         `json:"src"`
+	Pre       Node[NodeType]  `json:"pre"`
+	Post      Node[NodeType]  `json:"post"`
+	Condition Node[NodeType]  `json:"condition"`
+	Body      Node[NodeType]  `json:"body"`
 }
 
 func NewYulForStatement(b *ASTBuilder) *YulForStatement {
 	return &YulForStatement{
 		ASTBuilder: b,
 		Id:         b.GetNextID(),
-		NodeType:   ast_pb.NodeType_YUL_ASSIGNMENT,
+		NodeType:   ast_pb.NodeType_YUL_FOR,
 	}
 }
 
@@ -45,7 +44,8 @@ func (y *YulForStatement) GetSrc() SrcNode {
 
 func (y *YulForStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.Expression)
+	toReturn = append(toReturn, y.Condition)
+	toReturn = append(toReturn, y.Body)
 	return toReturn
 }
 
@@ -55,10 +55,6 @@ func (y *YulForStatement) GetTypeDescription() *TypeDescription {
 
 func (y *YulForStatement) ToProto() NodeType {
 	return ast_pb.Statement{}
-}
-
-func (y *YulForStatement) GetIdentifiers() []*YulIdentifier {
-	return y.Identifiers
 }
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulForStatement node.
@@ -85,21 +81,6 @@ func (y *YulForStatement) Parse(
 		ParentIndex: assemblyNode.GetId(),
 	}
 
-	/* 	ctx.YulFor()
-	   	ctx.YulExpression()
-	   	ctx.AllYulBlock()
-	   	ctx.GetCond()
-	   	ctx.GetBody()
-	   	ctx.GetInit() */
-
-	if ctx.GetInit() != nil {
-		blockStatement := NewYulBlockStatement(y.ASTBuilder)
-		y.Init = blockStatement.Parse(
-			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
-			ctx.GetInit().(*parser.YulBlockContext),
-		)
-	}
-
 	if ctx.GetCond() != nil {
 		y.Condition = ParseYulExpression(
 			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, nil,
@@ -107,48 +88,29 @@ func (y *YulForStatement) Parse(
 		)
 	}
 
+	if ctx.GetInit() != nil {
+		blockStatement := NewYulBlockStatement(y.ASTBuilder)
+		y.Pre = blockStatement.Parse(
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
+			ctx.GetInit().(*parser.YulBlockContext),
+		)
+	}
+
+	if ctx.GetPost() != nil {
+		blockStatement := NewYulBlockStatement(y.ASTBuilder)
+		y.Post = blockStatement.Parse(
+			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
+			ctx.GetPost().(*parser.YulBlockContext),
+		)
+	}
+
 	if ctx.GetBody() != nil {
 		blockStatement := NewYulBlockStatement(y.ASTBuilder)
-		y.Init = blockStatement.Parse(
+		y.Body = blockStatement.Parse(
 			unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil,
 			ctx.GetBody().(*parser.YulBlockContext),
 		)
 	}
-
-	//utils.DumpNodeWithExit(ctx.GetText())
-
-	/* 	if ctx.YulExpression() != nil {
-	   		y.Expression = ParseYulExpression(
-	   			y.ASTBuilder, unit, contractNode, fnNode, bodyNode, assemblyNode, statementNode, nil, ctx,
-	   			ctx.YulExpression(),
-	   		)
-	   	}
-
-	   	for _, identifier := range ctx.AllYulIdentifier() {
-	   		y.Identifiers = append(y.Identifiers, &YulIdentifier{
-	   			Id:       y.GetNextID(),
-	   			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
-	   			Src: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetStart()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   			Name: identifier.GetText(),
-	   			NameLocation: SrcNode{
-	   				Id:          y.GetNextID(),
-	   				Line:        int64(identifier.GetSymbol().GetLine()),
-	   				Column:      int64(identifier.GetSymbol().GetColumn()),
-	   				Start:       int64(identifier.GetSymbol().GetStart()),
-	   				End:         int64(identifier.GetSymbol().GetStop()),
-	   				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
-	   				ParentIndex: y.GetId(),
-	   			},
-	   		})
-	   	} */
 
 	return y
 }

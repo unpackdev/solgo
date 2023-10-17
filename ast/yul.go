@@ -6,7 +6,6 @@ import (
 )
 
 // Yul represents an assembly statement in a Solidity source file.
-// @WARN: Yul is not yet implemented.
 type Yul struct {
 	*ASTBuilder
 
@@ -71,14 +70,14 @@ func (a *Yul) ToProto() NodeType {
 		Src:      a.GetSrc().ToProto(),
 	}
 
-	return NewTypedStruct(&proto, "Assembly")
+	return NewTypedStruct(&proto, "AssemblyStatement")
 }
 
 func (a *Yul) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	return false
 }
 
-// Parse parses an YulContext to populate the fields of the Yul.
+// Parse parses an AssemblyStatementContext to populate the fields of the Assembly Statement.
 func (a *Yul) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	contractNode Node[NodeType],
@@ -96,13 +95,13 @@ func (a *Yul) Parse(
 		ParentIndex: bodyNode.GetId(),
 	}
 
-	yulStatement := NewYulStatement(a.ASTBuilder)
-
 	a.Body = NewBodyNode(a.ASTBuilder, false)
 	a.Body.Src = a.Src
 	a.Body.Src.ParentIndex = a.Id
-	a.Body.NodeType = ast_pb.NodeType_AST
+	a.Body.NodeType = ast_pb.NodeType_YUL_BLOCK
 	a.Body.Statements = make([]Node[NodeType], 0)
+
+	yulStatement := NewYulStatement(a.ASTBuilder)
 
 	for _, yulCtx := range ctx.AllYulStatement() {
 		a.Body.Statements = append(a.Body.Statements,
