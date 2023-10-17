@@ -18,6 +18,7 @@ type RootSourceUnit struct {
 	ContractTypes     []string        `json:"contract_types"`
 	Standards         []*Standard     `json:"standards"`
 	Contracts         []*Contract     `json:"contracts"`
+	Links             []*Link         `json:"links"`
 }
 
 // GetAST returns the underlying AST node of the RootSourceUnit.
@@ -148,6 +149,11 @@ func (r *RootSourceUnit) appendContractType(contractType string) {
 	}
 }
 
+// GetLinks returns the list of links discovered in the AST comments.
+func (r *RootSourceUnit) GetLinks() []*Link {
+	return r.Links
+}
+
 // ToProto is a placeholder function for converting the RootSourceUnit to a protobuf message.
 func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 	proto := &ir_pb.Root{
@@ -205,8 +211,12 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 		}
 	}
 
-	// Now is the time to process the EIPs
+	// Discovery and processing of the contract standards (EIPs)
 	b.processEips(rootNode)
+
+	// Discovery and processing of links within the AST comments.
+	// This is useful in order to extract social links from the comments in the code.
+	b.processLinks(rootNode)
 
 	return rootNode
 }

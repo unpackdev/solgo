@@ -15,6 +15,7 @@ func TestRootSourceUnitMethods(t *testing.T) {
 		EntryContractName: "TestContract",
 		ContractsCount:    1,
 		Contracts:         []*Contract{{Id: 1, Name: "TestContract"}},
+		Links:             []*Link{{Location: "https://unpack.dev"}},
 	}
 
 	// Test GetNodeType method
@@ -37,4 +38,7 @@ func TestRootSourceUnitMethods(t *testing.T) {
 
 	// Test GetContractsCount method
 	assert.Equal(t, int32(1), rootSourceUnitInstance.GetContractsCount())
+
+	// Test GetLinks method
+	assert.Equal(t, []*Link{{Location: "https://unpack.dev"}}, rootSourceUnitInstance.GetLinks())
 }
