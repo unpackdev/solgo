@@ -1,6 +1,8 @@
 package ast
 
 import (
+	"encoding/json"
+
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -78,6 +80,65 @@ func (y *YulAssignment) ToProto() NodeType {
 
 // UnmarshalJSON unmarshals a given JSON byte array into a YulAssignment node.
 func (f *YulAssignment) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if arguments, ok := tempMap["variable_names"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(arguments, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var node *YulIdentifier
+			if err := json.Unmarshal(tempNode, &node); err != nil {
+				return err
+			}
+
+			f.VariableNames = append(f.VariableNames, node)
+		}
+	}
+
+	if value, ok := tempMap["value"]; ok {
+		if err := json.Unmarshal(value, &f.Value); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(value, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(value, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Value = node
+		}
+	}
+
 	return nil
 }
 

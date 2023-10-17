@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/antlr4-go/antlr/v4"
@@ -14,10 +15,10 @@ import (
 type YulStatement struct {
 	*ASTBuilder
 
-	Id         int64            `json:"id"`        // Unique identifier for the statement node.
-	NodeType   ast_pb.NodeType  `json:"node_type"` // The type of the node.
-	Src        SrcNode          `json:"src"`       // Source information about the node.
-	Statements []Node[NodeType] `json:"body"`      // Statements within this Yul statement.
+	Id         int64            `json:"id"`         // Unique identifier for the statement node.
+	NodeType   ast_pb.NodeType  `json:"node_type"`  // The type of the node.
+	Src        SrcNode          `json:"src"`        // Source information about the node.
+	Statements []Node[NodeType] `json:"statements"` // Statements within this Yul statement.
 }
 
 // NewYulStatement creates a new YulStatement node and initializes its fields.
@@ -86,6 +87,54 @@ func (y *YulStatement) ToProto() NodeType {
 // UnmarshalJSON unmarshals a given JSON byte array into a YulStatement node.
 // Currently, this function does not perform any unmarshalling and always returns nil.
 func (f *YulStatement) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &f.Id); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["node_type"]; ok {
+		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &f.Src); err != nil {
+			return err
+		}
+	}
+
+	if statements, ok := tempMap["statements"]; ok {
+		var nodes []json.RawMessage
+		if err := json.Unmarshal(statements, &nodes); err != nil {
+			return err
+		}
+
+		for _, tempNode := range nodes {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(tempNode, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(tempNode, tempNodeType)
+			if err != nil {
+				return err
+			}
+			f.Statements = append(f.Statements, node)
+		}
+	}
+
 	return nil
 }
 

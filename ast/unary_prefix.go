@@ -14,7 +14,7 @@ type UnaryPrefix struct {
 
 	Id                    int64            `json:"id"`
 	NodeType              ast_pb.NodeType  `json:"node_type"`
-	Kind                  NodeType         `json:"kind"`
+	Kind                  ast_pb.NodeType  `json:"kind"`
 	Src                   SrcNode          `json:"src"`
 	Operator              ast_pb.Operator  `json:"operator"`
 	Prefix                bool             `json:"prefix"`
@@ -55,7 +55,7 @@ func (u *UnaryPrefix) GetType() ast_pb.NodeType {
 }
 
 // GetKind returns the node type of the UnaryPrefix.
-func (u *UnaryPrefix) GetKind() NodeType {
+func (u *UnaryPrefix) GetKind() ast_pb.NodeType {
 	return u.Kind
 }
 
@@ -128,6 +128,12 @@ func (u *UnaryPrefix) UnmarshalJSON(data []byte) error {
 
 	if nodeType, ok := tempMap["node_type"]; ok {
 		if err := json.Unmarshal(nodeType, &u.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if kind, ok := tempMap["kind"]; ok {
+		if err := json.Unmarshal(kind, &u.Kind); err != nil {
 			return err
 		}
 	}
@@ -214,6 +220,7 @@ func (u *UnaryPrefix) ToProto() NodeType {
 	proto := ast_pb.UnaryPrefix{
 		Id:                    u.GetId(),
 		NodeType:              u.GetType(),
+		Kind:                  u.GetKind(),
 		Src:                   u.GetSrc().ToProto(),
 		Operator:              u.GetOperator(),
 		Prefix:                u.GetPrefix(),

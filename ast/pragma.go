@@ -108,16 +108,6 @@ func CreatePragmaFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceUnit]
 	}
 }
 
-// EnterPragmaDirective is called when production pragmaDirective is entered.
-// However, it won't return pragma directives properly. For example, if we have
-// experimental pragma, it won't return it. It will return only the pragma.
-// Because of it, we are parsing pragmas in EnterSourceUnit to be able capture all of the
-// pragmas and assign them based on the contract they belong to. Source file can have multiple
-// contracts and multiple files and therefore we need to be able to assign pragmas to the
-// correct contract.
-// @WARN: DO NOT USE THIS METHOD.
-func (b *ASTBuilder) EnterPragmaDirective(ctx *parser.PragmaDirectiveContext) {}
-
 // FindPragmasForSourceUnit traverses the children of the provided source unit until
 // it finds the library, contract, or interface definition. It collects all pragma
 // directives encountered along the way and returns them as a slice of Node.

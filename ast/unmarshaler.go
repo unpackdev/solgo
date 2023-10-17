@@ -459,6 +459,12 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 			return nil, err
 		}
 		return toReturn, nil
+	case ast_pb.NodeType_YUL_EXPRESSION:
+		var toReturn *YulExpressionStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
 	case ast_pb.NodeType_YUL_FUNCTION_DEFINITION:
 		var toReturn *YulFunctionDefinition
 		if err := json.Unmarshal(data, &toReturn); err != nil {
@@ -479,6 +485,12 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 		return toReturn, nil
 	case ast_pb.NodeType_YUL_LEAVE:
 		var toReturn *YulLeaveStatement
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
+	case ast_pb.NodeType_YUL_IDENTIFIER:
+		var toReturn *YulIdentifier
 		if err := json.Unmarshal(data, &toReturn); err != nil {
 			return nil, err
 		}
