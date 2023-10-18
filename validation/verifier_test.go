@@ -42,6 +42,16 @@ func TestVerifier(t *testing.T) {
 	err = solcConfig.SetReleasesPath(releasesPath)
 	assert.NoError(t, err)
 
+	compiler, err := solc.New(context.Background(), solcConfig)
+	assert.NoError(t, err)
+	assert.NotNil(t, compiler)
+
+	// Do the releases synchronization in the background...
+	if !compiler.IsSynced() {
+		err := compiler.Sync()
+		assert.NoError(t, err)
+	}
+
 	testCases := []struct {
 		name                 string
 		outputPath           string
@@ -57,6 +67,7 @@ func TestVerifier(t *testing.T) {
 		verifyFromResults    bool
 		config               *solc.Config
 		compilerConfig       *solc.CompilerConfig
+		compiler             *solc.Solc
 		bytecode             []byte
 	}{
 		{
@@ -68,6 +79,7 @@ func TestVerifier(t *testing.T) {
 			wantNewVerifierErr: true,
 			config:             solcConfig,
 			compilerConfig:     compilerConfig,
+			compiler:           compiler,
 			bytecode:           []byte{0x01, 0x02, 0x03},
 		},
 		{
@@ -90,6 +102,7 @@ func TestVerifier(t *testing.T) {
 			wantNewVerifierErr: true,
 			config:             nil,
 			compilerConfig:     compilerConfig,
+			compiler:           nil,
 			bytecode:           []byte{0x01, 0x02, 0x03},
 		},
 		{
@@ -112,6 +125,7 @@ func TestVerifier(t *testing.T) {
 			diffCount:      6,
 			config:         solcConfig,
 			compilerConfig: compilerConfig,
+			compiler:       compiler,
 			bytecode:       []byte{0x01, 0x02, 0x03},
 		},
 		{
@@ -138,6 +152,7 @@ func TestVerifier(t *testing.T) {
 			diffCount:      0,
 			config:         solcConfig,
 			compilerConfig: compilerConfig,
+			compiler:       compiler,
 		},
 		{
 			name:       "Reentrancy Contract Test Bytecode Match From Json Config Failure",
@@ -165,6 +180,7 @@ func TestVerifier(t *testing.T) {
 			diffCount:       54,
 			config:          solcConfig,
 			compilerConfig:  compilerConfig,
+			compiler:        compiler,
 		},
 		{
 			name:       "Reentrancy Contract Test Bytecode Match From Json Config",
@@ -192,6 +208,7 @@ func TestVerifier(t *testing.T) {
 			diffCount:       0,
 			config:          solcConfig,
 			compilerConfig:  compilerConfig,
+			compiler:        compiler,
 		},
 		{
 			name:       "Reentrancy Contract Test Bytecode Match From Json Config Verify Results",
@@ -220,6 +237,7 @@ func TestVerifier(t *testing.T) {
 			diffCount:         0,
 			config:            solcConfig,
 			compilerConfig:    compilerConfig,
+			compiler:          compiler,
 		},
 		{
 			name:       "FooBar Contract Test",
@@ -243,12 +261,13 @@ func TestVerifier(t *testing.T) {
 			bytecode:             []byte{0x01, 0x02, 0x03},
 			config:               solcConfig,
 			compilerConfig:       compilerConfig,
+			compiler:             compiler,
 		},
 	}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			verifier, err := NewVerifier(context.Background(), testCase.config, testCase.sources)
+			verifier, err := NewVerifier(context.Background(), testCase.compiler, testCase.sources)
 			if testCase.wantBuildErr {
 				assert.Error(t, err)
 				assert.Nil(t, verifier)
