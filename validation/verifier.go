@@ -18,7 +18,6 @@ import (
 type Verifier struct {
 	ctx     context.Context // The context for the verifier operations.
 	solc    *solc.Solc      // The solc compiler instance.
-	config  *solc.Config    // The configuration for the solc compiler.
 	sources *solgo.Sources  // The sources of the Ethereum smart contracts to be verified.
 }
 
@@ -26,9 +25,9 @@ type Verifier struct {
 // It initializes the solc compiler with the provided configuration and sources.
 // If the sources are not prepared, it prepares them before initializing the compiler.
 // Returns an error if there's any issue in preparing the sources or initializing the compiler.
-func NewVerifier(ctx context.Context, config *solc.Config, sources *solgo.Sources) (*Verifier, error) {
-	if config == nil {
-		return nil, errors.New("config must be set")
+func NewVerifier(ctx context.Context, compiler *solc.Solc, sources *solgo.Sources) (*Verifier, error) {
+	if compiler == nil {
+		return nil, errors.New("compiler must be set")
 	}
 
 	if sources == nil {
@@ -42,23 +41,10 @@ func NewVerifier(ctx context.Context, config *solc.Config, sources *solgo.Source
 		}
 	}
 
-	solc, err := solc.New(ctx, config)
-	if err != nil {
-		return nil, err
-	}
-
-	// Do the releases synchronization in the background...
-	if !solc.IsSynced() {
-		if err := solc.Sync(); err != nil {
-			return nil, err
-		}
-	}
-
 	return &Verifier{
 		ctx:     ctx,
-		solc:    solc,
+		solc:    compiler,
 		sources: sources,
-		config:  config,
 	}, nil
 }
 
