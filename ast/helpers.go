@@ -73,6 +73,7 @@ func normalizeTypeName(typeName string) string {
 func normalizeTypeDescription(typeName string) (string, string) {
 	isArray := strings.Contains(typeName, "[") && strings.Contains(typeName, "]")
 	isSlice := strings.HasSuffix(typeName, "[]")
+	isPrefixSlice := strings.HasPrefix(typeName, "[]")
 
 	switch {
 	case isArray:
@@ -85,6 +86,11 @@ func normalizeTypeDescription(typeName string) (string, string) {
 		typePart := typeName[:len(typeName)-2]
 		normalizedTypePart := normalizeTypeName(typePart)
 		return normalizedTypePart + "[]", fmt.Sprintf("t_%s_slice", normalizedTypePart)
+
+	case isPrefixSlice:
+		typePart := typeName[2:]
+		normalizedTypePart := normalizeTypeName(typePart)
+		return "[]" + normalizedTypePart, fmt.Sprintf("t_%s_slice", normalizedTypePart)
 
 	case strings.HasPrefix(typeName, "uint"):
 		if typeName == "uint" {
