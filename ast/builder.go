@@ -14,44 +14,46 @@ import (
 // It contains a reference to a Solidity parser, the source code of the Solidity files, and various nodes of the AST.
 type ASTBuilder struct {
 	*parser.BaseSolidityParserListener
-	resolver              *Resolver
-	tree                  *Tree
-	sources               *solgo.Sources         // sources is the source code of the Solidity files.
-	parser                *parser.SolidityParser // parser is the Solidity parser instance.
-	nextID                int64                  // nextID is the next ID to assign to a node.
-	comments              []*Comment
-	commentsParsed        bool
-	sourceUnits           []*SourceUnit[Node[ast_pb.SourceUnit]]
-	currentStateVariables []*StateVariableDeclaration
-	currentEvents         []Node[NodeType]
-	currentEnums          []Node[NodeType]
-	currentStructs        []Node[NodeType]
-	currentErrors         []Node[NodeType]
-	currentModifiers      []Node[NodeType]
-	currentFunctions      []Node[NodeType]
-	currentVariables      []Node[NodeType]
-	globalDefinitions     []Node[NodeType]
-	currentImports        []Node[NodeType]
+	resolver                    *Resolver
+	tree                        *Tree
+	sources                     *solgo.Sources         // sources is the source code of the Solidity files.
+	parser                      *parser.SolidityParser // parser is the Solidity parser instance.
+	nextID                      int64                  // nextID is the next ID to assign to a node.
+	comments                    []*Comment
+	commentsParsed              bool
+	sourceUnits                 []*SourceUnit[Node[ast_pb.SourceUnit]]
+	currentStateVariables       []*StateVariableDeclaration
+	currentUserDefinedVariables []*UserDefinedValueTypeDefinition
+	currentEvents               []Node[NodeType]
+	currentEnums                []Node[NodeType]
+	currentStructs              []Node[NodeType]
+	currentErrors               []Node[NodeType]
+	currentModifiers            []Node[NodeType]
+	currentFunctions            []Node[NodeType]
+	currentVariables            []Node[NodeType]
+	globalDefinitions           []Node[NodeType]
+	currentImports              []Node[NodeType]
 }
 
 // NewAstBuilder creates a new ASTBuilder with the provided Solidity parser and source code.
 func NewAstBuilder(parser *parser.SolidityParser, sources *solgo.Sources) *ASTBuilder {
 	builder := &ASTBuilder{
-		parser:                parser,
-		sources:               sources,
-		comments:              make([]*Comment, 0),
-		sourceUnits:           make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
-		currentImports:        make([]Node[NodeType], 0),
-		currentStateVariables: make([]*StateVariableDeclaration, 0),
-		currentEvents:         make([]Node[NodeType], 0),
-		currentEnums:          make([]Node[NodeType], 0),
-		currentStructs:        make([]Node[NodeType], 0),
-		currentErrors:         make([]Node[NodeType], 0),
-		currentModifiers:      make([]Node[NodeType], 0),
-		currentFunctions:      make([]Node[NodeType], 0),
-		currentVariables:      make([]Node[NodeType], 0),
-		globalDefinitions:     make([]Node[NodeType], 0),
-		nextID:                1,
+		parser:                      parser,
+		sources:                     sources,
+		comments:                    make([]*Comment, 0),
+		sourceUnits:                 make([]*SourceUnit[Node[ast_pb.SourceUnit]], 0),
+		currentImports:              make([]Node[NodeType], 0),
+		currentStateVariables:       make([]*StateVariableDeclaration, 0),
+		currentUserDefinedVariables: make([]*UserDefinedValueTypeDefinition, 0),
+		currentEvents:               make([]Node[NodeType], 0),
+		currentEnums:                make([]Node[NodeType], 0),
+		currentStructs:              make([]Node[NodeType], 0),
+		currentErrors:               make([]Node[NodeType], 0),
+		currentModifiers:            make([]Node[NodeType], 0),
+		currentFunctions:            make([]Node[NodeType], 0),
+		currentVariables:            make([]Node[NodeType], 0),
+		globalDefinitions:           make([]Node[NodeType], 0),
+		nextID:                      1,
 	}
 
 	// Used for resolving references.
@@ -139,4 +141,5 @@ func (b *ASTBuilder) GarbageCollect() {
 	b.currentVariables = nil
 	b.globalDefinitions = nil
 	b.currentImports = nil
+	b.currentUserDefinedVariables = nil
 }

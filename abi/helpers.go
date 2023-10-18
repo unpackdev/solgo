@@ -33,6 +33,11 @@ func isContractType(name string) bool {
 	return strings.Contains(name, "contract")
 }
 
+// isStructType checks if the given type name represents a enum type in Solidity.
+func isEnumType(name string) bool {
+	return strings.Contains(name, "enum")
+}
+
 // parseMappingType parses a Solidity ABI mapping type.
 // It returns a boolean indicating success, a slice of key types, and a slice of value types.
 func parseMappingType(typeName string) (bool, []string, []string) {
@@ -59,6 +64,7 @@ func parseMappingType(typeName string) (bool, []string, []string) {
 func normalizeTypeName(typeName string) string {
 	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
 	isSlice := strings.HasPrefix(typeName, "[]")
+	isSliceRight := strings.HasSuffix(typeName, "[]")
 
 	switch {
 	case isArray:
@@ -69,6 +75,12 @@ func normalizeTypeName(typeName string) string {
 	case isSlice:
 		typePart := typeName[2:]
 		return "[]" + normalizeTypeName(typePart)
+	case isSliceRight:
+		typePart := typeName[:len(typeName)-2]
+		return normalizeTypeName(typePart) + "[]"
+
+	case strings.HasPrefix(typeName, "int_const"):
+		return "int256"
 
 	case strings.HasPrefix(typeName, "uint"):
 		if typeName == "uint" {
@@ -80,6 +92,8 @@ func normalizeTypeName(typeName string) string {
 			return "int256"
 		}
 		return typeName
+	case strings.HasPrefix(typeName, "enum"):
+		return "uint8"
 	case strings.HasPrefix(typeName, "bool"):
 		return typeName
 	case strings.HasPrefix(typeName, "bytes"):
@@ -101,6 +115,7 @@ func normalizeTypeName(typeName string) string {
 func normalizeTypeNameWithStatus(typeName string) (string, bool) {
 	isArray, _ := regexp.MatchString(`\[\d+\]`, typeName)
 	isSlice := strings.HasPrefix(typeName, "[]")
+	isSliceRight := strings.HasSuffix(typeName, "[]")
 
 	switch {
 	case isArray:
@@ -113,6 +128,10 @@ func normalizeTypeNameWithStatus(typeName string) (string, bool) {
 		typePart := typeName[2:]
 		return "[]" + normalizeTypeName(typePart), true
 
+	case isSliceRight:
+		typePart := typeName[:len(typeName)-2]
+		return normalizeTypeName(typePart) + "[]", true
+
 	case strings.HasPrefix(typeName, "uint"):
 		if typeName == "uint" {
 			return "uint256", true
@@ -123,6 +142,8 @@ func normalizeTypeNameWithStatus(typeName string) (string, bool) {
 			return "int256", true
 		}
 		return typeName, true
+	case strings.HasPrefix(typeName, "enum"):
+		return "uint8", true
 	case strings.HasPrefix(typeName, "bool"):
 		return typeName, true
 	case strings.HasPrefix(typeName, "bytes"):

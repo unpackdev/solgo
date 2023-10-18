@@ -493,6 +493,67 @@ func (f *Function) Parse(
 	return f
 }
 
+// ParseTypeName parses the source code and constructs the Function node for TypeName.
+func (f *Function) ParseTypeName(
+	unit *SourceUnit[Node[ast_pb.SourceUnit]],
+	parentNodeId int64,
+	ctx *parser.FunctionTypeNameContext,
+) Node[NodeType] {
+	// Initialize basic properties.
+	f.Id = f.GetNextID()
+	f.Scope = unit.GetId()
+	f.Src = SrcNode{
+		Id:          f.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
+	}
+
+	// Set function visibility state.
+	f.Visibility = f.getVisibilityFromTypeNameCtx(ctx)
+
+	// Set function state mutability.
+	f.StateMutability = f.getStateMutabilityFromTypeNameCtx(ctx)
+
+	// Set function parameters if they exist.
+	params := NewParameterList(f.ASTBuilder)
+	if len(ctx.AllParameterList()) > 0 {
+		params.Parse(unit, f, ctx.AllParameterList()[0])
+	} else {
+		params.Src = f.Src
+		params.Src.ParentIndex = f.Id
+	}
+	f.Parameters = params
+
+	// Set function return parameters if they exist.
+	// @TODO: Consider traversing through body to discover name of the return parameters even
+	// if they are not defined in (name uint) format.
+	returnParams := NewParameterList(f.ASTBuilder)
+	if ctx.GetReturnParameters() != nil {
+		returnParams.Parse(unit, f, ctx.GetReturnParameters())
+	} else {
+		returnParams.Src = f.Src
+		returnParams.Src.ParentIndex = f.Id
+	}
+	f.ReturnParameters = returnParams
+
+	bodyNode := NewBodyNode(f.ASTBuilder, false)
+	bodyNode.Src = f.Src
+	bodyNode.Src.ParentIndex = f.Id
+	f.Body = bodyNode
+
+	f.TypeDescription = f.buildTypeDescription()
+
+	f.ComputeSignature()
+
+	f.currentFunctions = append(f.currentFunctions, f)
+
+	return f
+}
+
 // buildTypeDescription constructs the type description of the Function node.
 func (f *Function) buildTypeDescription() *TypeDescription {
 	typeString := "function("
@@ -544,8 +605,43 @@ func (f *Function) getVisibilityFromCtx(ctx *parser.FunctionDefinitionContext) a
 	return ast_pb.Visibility_INTERNAL
 }
 
+// getVisibilityFromTypeNameCtx extracts the visibility of the Function node from the parser context.
+func (f *Function) getVisibilityFromTypeNameCtx(ctx *parser.FunctionTypeNameContext) ast_pb.Visibility {
+	visibilityMap := map[string]ast_pb.Visibility{
+		"public":   ast_pb.Visibility_PUBLIC,
+		"private":  ast_pb.Visibility_PRIVATE,
+		"internal": ast_pb.Visibility_INTERNAL,
+		"external": ast_pb.Visibility_EXTERNAL,
+	}
+
+	for _, visibility := range ctx.AllVisibility() {
+		if v, ok := visibilityMap[visibility.GetText()]; ok {
+			return v
+		}
+	}
+
+	return ast_pb.Visibility_INTERNAL
+}
+
 // getStateMutabilityFromCtx extracts the state mutability of the Function node from the parser context.
 func (f *Function) getStateMutabilityFromCtx(ctx *parser.FunctionDefinitionContext) ast_pb.Mutability {
+	mutabilityMap := map[string]ast_pb.Mutability{
+		"payable": ast_pb.Mutability_PAYABLE,
+		"pure":    ast_pb.Mutability_PURE,
+		"view":    ast_pb.Mutability_VIEW,
+	}
+
+	for _, stateMutability := range ctx.AllStateMutability() {
+		if m, ok := mutabilityMap[stateMutability.GetText()]; ok {
+			return m
+		}
+	}
+
+	return ast_pb.Mutability_NONPAYABLE
+}
+
+// getStateMutabilityFromTypeNameCtx extracts the state mutability of the Function node from the parser context.
+func (f *Function) getStateMutabilityFromTypeNameCtx(ctx *parser.FunctionTypeNameContext) ast_pb.Mutability {
 	mutabilityMap := map[string]ast_pb.Mutability{
 		"payable": ast_pb.Mutability_PAYABLE,
 		"pure":    ast_pb.Mutability_PURE,

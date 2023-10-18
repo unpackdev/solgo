@@ -231,6 +231,12 @@ func (f *InlineArray) buildTypeDescription() *TypeDescription {
 	typeIdentifiers := make([]string, 0)
 
 	for _, paramType := range f.GetTypeDescriptions() {
+		if paramType == nil {
+			typeStrings = append(typeStrings, "unknown")
+			typeIdentifiers = append(typeIdentifiers, "unknown")
+			continue
+		}
+
 		typeStrings = append(typeStrings, paramType.TypeString)
 		typeIdentifiers = append(typeIdentifiers, "$_"+paramType.TypeIdentifier)
 	}

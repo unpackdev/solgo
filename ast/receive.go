@@ -288,8 +288,11 @@ func (f *Receive) Parse(
 		f.Overrides = append(f.Overrides, overrideSpecifier)
 	}
 
+	bodyNode := NewBodyNode(f.ASTBuilder, false)
+	f.Body = bodyNode
+
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
-		bodyNode := NewBodyNode(f.ASTBuilder, false)
+
 		bodyNode.ParseBlock(unit, contractNode, f, ctx.Block())
 		f.Body = bodyNode
 

@@ -353,6 +353,12 @@ func unmarshalNode(data []byte, nodeType ast_pb.NodeType) (Node[NodeType], error
 			return nil, err
 		}
 		return toReturn, nil
+	case ast_pb.NodeType_USER_DEFINED_VALUE_TYPE:
+		var toReturn *UserDefinedValueTypeDefinition
+		if err := json.Unmarshal(data, &toReturn); err != nil {
+			return nil, err
+		}
+		return toReturn, nil
 	case ast_pb.NodeType_UNARY_OPERATION:
 		var tempMap map[string]json.RawMessage
 		if err := json.Unmarshal(data, &tempMap); err != nil {

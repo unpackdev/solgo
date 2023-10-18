@@ -2,7 +2,383 @@
 	"id": 48,
 	"node_type": 80,
 	"entry_source_unit": 1432,
-	"globals": [],
+	"globals": [
+		{
+			"id": 1491,
+			"name": "_balances",
+			"is_constant": false,
+			"is_state_variable": true,
+			"node_type": 44,
+			"src": {
+				"id": 1492,
+				"line": 175,
+				"column": 4,
+				"start": 5858,
+				"end": 5903,
+				"length": 46
+			},
+			"scope": 0,
+			"type_description": {
+				"type_identifier": "t_mapping_$t_address_$t_uint256$",
+				"type_string": "mapping(address=\u003euint256)"
+			},
+			"visibility": 2,
+			"storage_location": 1,
+			"mutability": 1,
+			"type_name": {
+				"id": 1493,
+				"node_type": 0,
+				"src": {
+					"id": 1494,
+					"line": 175,
+					"column": 4,
+					"start": 5858,
+					"end": 5884,
+					"length": 27,
+					"parent_index": 1491
+				},
+				"key_type": {
+					"id": 1495,
+					"node_type": 30,
+					"src": {
+						"id": 1496,
+						"line": 175,
+						"column": 12,
+						"start": 5866,
+						"end": 5872,
+						"length": 7,
+						"parent_index": 1493
+					},
+					"name": "address",
+					"referenced_declaration": 0,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				},
+				"key_name_location": {
+					"line": 175,
+					"column": 12,
+					"start": 5866,
+					"end": 5872,
+					"length": 7,
+					"parent_index": 1493
+				},
+				"value_type": {
+					"id": 1497,
+					"node_type": 30,
+					"src": {
+						"id": 1498,
+						"line": 175,
+						"column": 23,
+						"start": 5877,
+						"end": 5883,
+						"length": 7,
+						"parent_index": 1493
+					},
+					"name": "uint256",
+					"referenced_declaration": 0,
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					}
+				},
+				"value_name_location": {
+					"line": 175,
+					"column": 23,
+					"start": 5877,
+					"end": 5883,
+					"length": 7,
+					"parent_index": 1493
+				},
+				"referenced_declaration": 0,
+				"type_description": {
+					"type_identifier": "t_mapping_$t_address_$t_uint256$",
+					"type_string": "mapping(address=\u003euint256)"
+				}
+			},
+			"initial_value": null
+		},
+		{
+			"id": 1499,
+			"name": "_allowances",
+			"is_constant": false,
+			"is_state_variable": true,
+			"node_type": 44,
+			"src": {
+				"id": 1500,
+				"line": 177,
+				"column": 4,
+				"start": 5910,
+				"end": 5977,
+				"length": 68
+			},
+			"scope": 0,
+			"type_description": {
+				"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+				"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+			},
+			"visibility": 2,
+			"storage_location": 1,
+			"mutability": 1,
+			"type_name": {
+				"id": 1501,
+				"node_type": 0,
+				"src": {
+					"id": 1502,
+					"line": 177,
+					"column": 4,
+					"start": 5910,
+					"end": 5956,
+					"length": 47,
+					"parent_index": 1499
+				},
+				"key_type": {
+					"id": 1503,
+					"node_type": 30,
+					"src": {
+						"id": 1504,
+						"line": 177,
+						"column": 12,
+						"start": 5918,
+						"end": 5924,
+						"length": 7,
+						"parent_index": 1501
+					},
+					"name": "address",
+					"referenced_declaration": 0,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				},
+				"key_name_location": {
+					"line": 177,
+					"column": 12,
+					"start": 5918,
+					"end": 5924,
+					"length": 7,
+					"parent_index": 1501
+				},
+				"value_type": {
+					"id": 1505,
+					"node_type": 53,
+					"src": {
+						"id": 1506,
+						"line": 177,
+						"column": 23,
+						"start": 5929,
+						"end": 5955,
+						"length": 27,
+						"parent_index": 1501
+					},
+					"name": "mapping(address=\u003euint256)",
+					"key_type": {
+						"id": 1508,
+						"node_type": 30,
+						"src": {
+							"id": 1509,
+							"line": 177,
+							"column": 31,
+							"start": 5937,
+							"end": 5943,
+							"length": 7,
+							"parent_index": 1501
+						},
+						"name": "address",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					"key_name_location": {
+						"line": 177,
+						"column": 31,
+						"start": 5937,
+						"end": 5943,
+						"length": 7,
+						"parent_index": 1505
+					},
+					"value_type": {
+						"id": 1510,
+						"node_type": 30,
+						"src": {
+							"id": 1511,
+							"line": 177,
+							"column": 42,
+							"start": 5948,
+							"end": 5954,
+							"length": 7,
+							"parent_index": 1501
+						},
+						"name": "uint256",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						}
+					},
+					"value_name_location": {
+						"line": 177,
+						"column": 42,
+						"start": 5948,
+						"end": 5954,
+						"length": 7,
+						"parent_index": 1505
+					},
+					"referenced_declaration": 0,
+					"type_description": {
+						"type_identifier": "t_mapping_$t_address_$t_uint256",
+						"type_string": "mapping(address=\u003euint256)"
+					}
+				},
+				"value_name_location": {
+					"line": 177,
+					"column": 23,
+					"start": 5929,
+					"end": 5955,
+					"length": 27,
+					"parent_index": 1501
+				},
+				"referenced_declaration": 0,
+				"type_description": {
+					"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+					"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+				}
+			},
+			"initial_value": null
+		},
+		{
+			"id": 1512,
+			"name": "_totalSupply",
+			"is_constant": false,
+			"is_state_variable": true,
+			"node_type": 44,
+			"src": {
+				"id": 1513,
+				"line": 179,
+				"column": 4,
+				"start": 5984,
+				"end": 6012,
+				"length": 29
+			},
+			"scope": 0,
+			"type_description": {
+				"type_identifier": "t_uint256",
+				"type_string": "uint256"
+			},
+			"visibility": 2,
+			"storage_location": 1,
+			"mutability": 1,
+			"type_name": {
+				"id": 1514,
+				"node_type": 30,
+				"src": {
+					"id": 1515,
+					"line": 179,
+					"column": 4,
+					"start": 5984,
+					"end": 5990,
+					"length": 7,
+					"parent_index": 1512
+				},
+				"name": "uint256",
+				"referenced_declaration": 0,
+				"type_description": {
+					"type_identifier": "t_uint256",
+					"type_string": "uint256"
+				}
+			},
+			"initial_value": null
+		},
+		{
+			"id": 1516,
+			"name": "_name",
+			"is_constant": false,
+			"is_state_variable": true,
+			"node_type": 44,
+			"src": {
+				"id": 1517,
+				"line": 181,
+				"column": 4,
+				"start": 6019,
+				"end": 6039,
+				"length": 21
+			},
+			"scope": 0,
+			"type_description": {
+				"type_identifier": "t_string",
+				"type_string": "string"
+			},
+			"visibility": 2,
+			"storage_location": 1,
+			"mutability": 1,
+			"type_name": {
+				"id": 1518,
+				"node_type": 30,
+				"src": {
+					"id": 1519,
+					"line": 181,
+					"column": 4,
+					"start": 6019,
+					"end": 6024,
+					"length": 6,
+					"parent_index": 1516
+				},
+				"name": "string",
+				"referenced_declaration": 0,
+				"type_description": {
+					"type_identifier": "t_string",
+					"type_string": "string"
+				}
+			},
+			"initial_value": null
+		},
+		{
+			"id": 1520,
+			"name": "_symbol",
+			"is_constant": false,
+			"is_state_variable": true,
+			"node_type": 44,
+			"src": {
+				"id": 1521,
+				"line": 182,
+				"column": 4,
+				"start": 6045,
+				"end": 6067,
+				"length": 23
+			},
+			"scope": 0,
+			"type_description": {
+				"type_identifier": "t_string",
+				"type_string": "string"
+			},
+			"visibility": 2,
+			"storage_location": 1,
+			"mutability": 1,
+			"type_name": {
+				"id": 1522,
+				"node_type": 30,
+				"src": {
+					"id": 1523,
+					"line": 182,
+					"column": 4,
+					"start": 6045,
+					"end": 6050,
+					"length": 6,
+					"parent_index": 1520
+				},
+				"name": "string",
+				"referenced_declaration": 0,
+				"type_description": {
+					"type_identifier": "t_string",
+					"type_string": "string"
+				}
+			},
+			"initial_value": null
+		}
+	],
 	"root": [
 		{
 			"id": 49,
@@ -3111,7 +3487,8 @@
 									"type_identifier": "t_mapping_$t_address_$t_uint256$",
 									"type_string": "mapping(address=\u003euint256)"
 								}
-							}
+							},
+							"initial_value": null
 						},
 						{
 							"id": 366,
@@ -3261,7 +3638,8 @@
 									"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
 									"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
 								}
-							}
+							},
+							"initial_value": null
 						},
 						{
 							"id": 380,
@@ -3304,7 +3682,8 @@
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
 								}
-							}
+							},
+							"initial_value": null
 						},
 						{
 							"id": 385,
@@ -3347,7 +3726,8 @@
 									"type_identifier": "t_string",
 									"type_string": "string"
 								}
-							}
+							},
+							"initial_value": null
 						},
 						{
 							"id": 390,
@@ -3390,7 +3770,8 @@
 									"type_identifier": "t_string",
 									"type_string": "string"
 								}
-							}
+							},
+							"initial_value": null
 						},
 						{
 							"id": 395,

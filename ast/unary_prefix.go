@@ -258,7 +258,7 @@ func (u *UnaryPrefix) Parse(
 				return fnNode.GetId()
 			}
 
-			return bodyNode.GetId()
+			return expNode.GetId()
 		}(),
 	}
 

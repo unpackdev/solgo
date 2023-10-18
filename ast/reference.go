@@ -81,6 +81,10 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 		return node, nodeType
 	}
 
+	if node, nodeType := r.byUserDefinedVariables(name); nodeType != nil {
+		return node, nodeType
+	}
+
 	if node, nodeType := r.byVariables(name); nodeType != nil {
 		return node, nodeType
 	}
@@ -109,7 +113,7 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 		return node, nodeType
 	}
 
-	if node, nodeType := r.byImport(name); nodeType != nil {
+	if node, nodeType := r.byImport(name, baseNode); nodeType != nil {
 		return node, nodeType
 	}
 
@@ -297,13 +301,17 @@ func (r *Resolver) resolveEntrySourceUnit() {
 }
 
 // resolveImportDirectives resolves import directives in the AST.
-func (r *Resolver) byImport(name string) (int64, *TypeDescription) {
+func (r *Resolver) byImport(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
 
 	// In case any imports are available and they are not exported
 	// we are going to append them to the exported symbols.
 	for _, node := range r.ASTBuilder.currentImports {
 		if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
 			importNode := node.(*Import)
+
+			if baseNode.GetType() != ast_pb.NodeType_IMPORT_DIRECTIVE {
+				continue
+			}
 
 			if importNode.GetName() == name {
 				return importNode.GetId(), importNode.GetTypeDescription()
@@ -358,6 +366,23 @@ func (r *Resolver) bySourceUnit(name string) (int64, *TypeDescription) {
 				}
 			}
 		} else if node.GetName() == name {
+			return node.GetId(), node.GetTypeDescription()
+		}
+	}
+
+	return 0, nil
+}
+
+func (r *Resolver) byUserDefinedVariables(name string) (int64, *TypeDescription) {
+	for _, node := range r.currentUserDefinedVariables {
+		if node.GetName() == name {
+			// It could be that node got updated in the mean time so we're going to
+			// look up for the node and it's type description...
+			if node.GetTypeDescription() == nil {
+				if target := r.tree.GetById(node.GetId()); target != nil {
+					return target.GetId(), target.GetTypeDescription()
+				}
+			}
 			return node.GetId(), node.GetTypeDescription()
 		}
 	}
@@ -443,6 +468,20 @@ func (r *Resolver) byGlobals(name string) (int64, *TypeDescription) {
 			for _, member := range nodeCtx.GetMembers() {
 				if member.GetName() == name {
 					return node.GetId(), node.GetTypeDescription()
+				}
+			}
+		case *ErrorDefinition:
+			if nodeCtx.GetName() == name {
+				return node.GetId(), node.GetTypeDescription()
+			}
+		case *StateVariableDeclaration:
+			if nodeCtx.GetName() == name {
+				return node.GetId(), node.GetTypeDescription()
+			}
+
+			if nodeCtx.GetInitialValue() != nil {
+				if nodeId, nodeType := r.byRecursiveSearch(nodeCtx.GetInitialValue(), name); nodeId != nil {
+					return nodeId.GetId(), nodeType
 				}
 			}
 		}
@@ -605,6 +644,22 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 	case *PrimaryExpression:
 		if nodeCtx.GetName() == name {
 			return nodeCtx, nodeCtx.GetTypeDescription()
+		}
+	case *BinaryOperation:
+		if nodeCtx.GetLeftExpression() != nil {
+			if expr, ok := nodeCtx.GetLeftExpression().(*PrimaryExpression); ok {
+				if expr.GetName() == name {
+					return expr, expr.GetTypeDescription()
+				}
+			}
+		}
+
+		if nodeCtx.GetRightExpression() != nil {
+			if expr, ok := nodeCtx.GetRightExpression().(*PrimaryExpression); ok {
+				if expr.GetName() == name {
+					return expr, expr.GetTypeDescription()
+				}
+			}
 		}
 	}
 

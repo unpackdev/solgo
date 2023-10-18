@@ -1,7 +1,9 @@
 // Package abi provides tools for building and parsing Ethereum ABI (Application Binary Interface) data.
 package abi
 
-import "github.com/unpackdev/solgo/ir"
+import (
+	"github.com/unpackdev/solgo/ir"
+)
 
 // processFunction processes an IR function and returns a Method representation of it.
 // It extracts the name, input, and output parameters of the function, sets its type to "function",

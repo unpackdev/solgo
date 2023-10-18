@@ -142,6 +142,10 @@ func (t *TypeName) GetNodes() []Node[NodeType] {
 		toReturn = append(toReturn, t.ValueType)
 	}
 
+	if t.PathNode != nil {
+		toReturn = append(toReturn, t.PathNode)
+	}
+
 	return toReturn
 }
 
@@ -266,7 +270,7 @@ func (t *TypeName) ToProto() NodeType {
 	}
 
 	if t.GetPathNode() != nil {
-		toReturn.PathNode = t.GetPathNode().ToProto()
+		toReturn.PathNode = t.GetPathNode().ToProto().(*ast_pb.PathNode)
 	}
 
 	if t.GetKeyType() != nil {
@@ -604,6 +608,15 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 	return typeName
 }
 
+// parseElementaryTypeName parses the ElementaryTypeName from the given ElementaryTypeNameContext.
+func (t *TypeName) parseFunctionTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.FunctionTypeNameContext) {
+	t.Name = "function"
+	t.NodeType = ast_pb.NodeType_FUNCTION_TYPE_NAME
+	statement := NewFunction(t.ASTBuilder)
+	t.Expression = statement.ParseTypeName(unit, parentNodeId, ctx)
+	t.TypeDescription = t.Expression.GetTypeDescription()
+}
+
 // Parse parses the TypeName from the given TypeNameContext.
 func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.ITypeNameContext) {
 	t.Id = t.GetNextID()
@@ -628,12 +641,15 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			t.parseIdentifierPath(unit, parentNodeId, childCtx)
 		case *parser.TypeNameContext:
 			t.parseTypeName(unit, parentNodeId, childCtx)
+		case *parser.FunctionTypeNameContext:
+			t.parseFunctionTypeName(unit, parentNodeId, childCtx)
 		}
 	}
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(t.ASTBuilder)
 		t.Expression = expression.Parse(unit, nil, fnNode, nil, nil, nil, ctx.Expression())
+		t.TypeDescription = t.Expression.GetTypeDescription()
 	}
 }
 
@@ -698,26 +714,82 @@ func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 
 // PathNode represents a path node within a TypeName.
 type PathNode struct {
-	Id                    int64           `json:"id"`
-	Name                  string          `json:"name"`
-	NodeType              ast_pb.NodeType `json:"node_type"`
-	ReferencedDeclaration int64           `json:"referenced_declaration"`
-	Src                   SrcNode         `json:"src"`
-	NameLocation          *SrcNode        `json:"name_location,omitempty"`
+	Id                    int64            `json:"id"`
+	Name                  string           `json:"name"`
+	NodeType              ast_pb.NodeType  `json:"node_type"`
+	ReferencedDeclaration int64            `json:"referenced_declaration"`
+	Src                   SrcNode          `json:"src"`
+	NameLocation          *SrcNode         `json:"name_location,omitempty"`
+	TypeDescription       *TypeDescription `json:"type_description,omitempty"`
+}
+
+// GetId returns the unique identifier of the PathNode.
+func (pn *PathNode) GetId() int64 {
+	return pn.Id
+}
+
+// GetType returns the node type of the PathNode.
+func (pn *PathNode) GetType() ast_pb.NodeType {
+	return pn.NodeType
+}
+
+// GetSrc returns the source location information of the PathNode.
+func (pn *PathNode) GetSrc() SrcNode {
+	return pn.Src
+}
+
+// GetName returns the name of the PathNode.
+func (pn *PathNode) GetName() string {
+	return pn.Name
+}
+
+// GetNameLocation returns the name location of the PathNode.
+func (pn *PathNode) GetNameLocation() *SrcNode {
+	return pn.NameLocation
+}
+
+// GetTypeDescription returns the type description associated with the PathNode.
+func (pn *PathNode) GetTypeDescription() *TypeDescription {
+	if pn.TypeDescription == nil {
+		return &TypeDescription{
+			TypeString:     "not_in_use",
+			TypeIdentifier: "t_not_in_use",
+		}
+	}
+
+	return pn.TypeDescription
+}
+
+// GetReferencedDeclaration returns the referenced declaration of the PathNode.
+func (pn *PathNode) GetReferencedDeclaration() int64 {
+	return pn.ReferencedDeclaration
+}
+
+// GetNodes returns a list of child nodes for traversal within the PathNode.
+func (pn *PathNode) GetNodes() []Node[NodeType] {
+	return []Node[NodeType]{}
+}
+
+// SetReferenceDescriptor sets the reference descriptions of the PathNode node.
+func (pn *PathNode) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	pn.ReferencedDeclaration = refId
+	pn.TypeDescription = refDesc
+	return true
 }
 
 // ToProto converts the PathNode instance to its corresponding protocol buffer representation.
-func (pn *PathNode) ToProto() *ast_pb.PathNode {
+func (pn *PathNode) ToProto() NodeType {
 	toReturn := &ast_pb.PathNode{
-		Id:                    pn.Id,
-		Name:                  pn.Name,
-		NodeType:              pn.NodeType,
-		ReferencedDeclaration: pn.ReferencedDeclaration,
-		Src:                   pn.Src.ToProto(),
+		Id:                    pn.GetId(),
+		Name:                  pn.GetName(),
+		NodeType:              pn.GetType(),
+		ReferencedDeclaration: pn.GetReferencedDeclaration(),
+		Src:                   pn.GetSrc().ToProto(),
 	}
-	if pn.NameLocation != nil {
-		toReturn.NameLocation = pn.NameLocation.ToProto()
+	if pn.GetNameLocation() != nil {
+		toReturn.NameLocation = pn.GetNameLocation().ToProto()
 	}
+
 	return toReturn
 }
 
