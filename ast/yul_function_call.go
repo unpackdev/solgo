@@ -61,7 +61,10 @@ func (y *YulFunctionCallStatement) GetSrc() SrcNode {
 // GetNodes returns a list containing the argument nodes.
 func (y *YulFunctionCallStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
-	toReturn = append(toReturn, y.FunctionName)
+	if y.FunctionName != nil {
+		toReturn = append(toReturn, y.FunctionName)
+	}
+
 	toReturn = append(toReturn, y.Arguments...)
 	return toReturn
 }
@@ -193,6 +196,22 @@ func (y *YulFunctionCallStatement) Parse(
 				ParentIndex: y.GetId(),
 			},
 			Name: builtin.GetText(),
+		}
+	} else if ctx.YulIdentifier() != nil {
+		identifier := ctx.YulIdentifier()
+		y.FunctionName = &YulIdentifier{
+			Id:       y.GetNextID(),
+			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
+			Src: SrcNode{
+				Id:          y.GetNextID(),
+				Line:        int64(identifier.GetSymbol().GetLine()),
+				Column:      int64(identifier.GetSymbol().GetColumn()),
+				Start:       int64(identifier.GetSymbol().GetStart()),
+				End:         int64(identifier.GetSymbol().GetStop()),
+				Length:      int64(identifier.GetSymbol().GetStop() - identifier.GetSymbol().GetStart() + 1),
+				ParentIndex: y.GetId(),
+			},
+			Name: identifier.GetText(),
 		}
 	}
 

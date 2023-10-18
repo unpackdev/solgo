@@ -55,6 +55,11 @@ func (y *YulVariable) GetSrc() SrcNode {
 func (y *YulVariable) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Value)
+
+	for _, variable := range y.Variables {
+		toReturn = append(toReturn, variable)
+	}
+
 	return toReturn
 }
 
@@ -199,7 +204,7 @@ func (y *YulVariable) Parse(
 		y.Variables = append(y.Variables, &YulIdentifier{
 			Id:       y.GetNextID(),
 			Name:     variable.GetText(),
-			NodeType: ast_pb.NodeType_YUL_VARIABLE_NAME,
+			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 			Src: SrcNode{
 				Id:          y.GetNextID(),
 				Line:        int64(variable.GetLine()),

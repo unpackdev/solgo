@@ -47,8 +47,7 @@ func (y *YulLeaveStatement) GetSrc() SrcNode {
 // GetNodes retrieves child nodes of the YulLeaveStatement.
 // For YulLeaveStatement, it always returns an empty slice as it doesn't have child nodes.
 func (y *YulLeaveStatement) GetNodes() []Node[NodeType] {
-	toReturn := make([]Node[NodeType], 0)
-	return toReturn
+	return []Node[NodeType]{}
 }
 
 // GetTypeDescription retrieves the type description of the YulLeaveStatement.
@@ -79,7 +78,6 @@ func (y *YulLeaveStatement) Parse(
 	statementNode *YulStatement,
 	ctx *antlr.TerminalNodeImpl, // Context from the ANTLR parse tree.
 ) Node[NodeType] {
-	// Populate source location information based on the provided context.
 	y.Src = SrcNode{
 		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetSymbol().GetLine()),

@@ -57,8 +57,7 @@ func (y *YulLiteralStatement) GetSrc() SrcNode {
 // GetNodes retrieves child nodes of the YulLiteralStatement.
 // This returns an empty slice as YulLiteralStatement doesn't have child nodes.
 func (y *YulLiteralStatement) GetNodes() []Node[NodeType] {
-	toReturn := make([]Node[NodeType], 0)
-	return toReturn
+	return []Node[NodeType]{}
 }
 
 // GetTypeDescription retrieves the type description of the YulLiteralStatement.
