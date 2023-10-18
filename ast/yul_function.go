@@ -64,6 +64,15 @@ func (y *YulFunctionDefinition) GetSrc() SrcNode {
 func (y *YulFunctionDefinition) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Body)
+
+	for _, argument := range y.Arguments {
+		toReturn = append(toReturn, argument)
+	}
+
+	for _, retParam := range y.ReturnParameters {
+		toReturn = append(toReturn, retParam)
+	}
+
 	return toReturn
 }
 
@@ -213,7 +222,7 @@ func (y *YulFunctionDefinition) Parse(
 		y.Arguments = append(y.Arguments, &YulIdentifier{
 			Id:       y.GetNextID(),
 			Name:     argument.GetText(),
-			NodeType: ast_pb.NodeType_YUL_VARIABLE_NAME,
+			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 			Src: SrcNode{
 				Id:          y.GetNextID(),
 				Line:        int64(argument.GetLine()),
@@ -238,7 +247,7 @@ func (y *YulFunctionDefinition) Parse(
 		y.ReturnParameters = append(y.ReturnParameters, &YulIdentifier{
 			Id:       y.GetNextID(),
 			Name:     argument.GetText(),
-			NodeType: ast_pb.NodeType_YUL_VARIABLE_NAME,
+			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 			Src: SrcNode{
 				Id:          y.GetNextID(),
 				Line:        int64(argument.GetLine()),

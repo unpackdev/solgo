@@ -144,7 +144,7 @@ func (r *Resolver) Resolve() []error {
 	// Reference update can come in any direction really. For example B that uses A can come first
 	// and because of it, it B will never discover A. In order to ensure that is not the case here,
 	// we are going to iterate few times through unprocessed references...
-	for i := 0; i <= 3; i++ {
+	for i := 0; i <= 2; i++ {
 		for nodeId, node := range r.UnprocessedNodes {
 			if rNodeId, rNodeType := r.resolveByNode(node.Name, node.Node); rNodeType != nil {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
@@ -608,25 +608,27 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 		}
 	}
 
-	for _, n := range node.GetNodes() {
-		// There are special cases where nil will be provided as a node.
-		// We need to ensure that we are not going to panic here.
-		if n == nil {
-			continue
-		}
+	if len(node.GetNodes()) > 0 {
+		for _, n := range node.GetNodes() {
+			// There are special cases where nil will be provided as a node.
+			// We need to ensure that we are not going to panic here.
+			if n == nil {
+				continue
+			}
 
-		// Needs to be here as there are no parent nodes available so it wont be captured by the
-		// main function block.
-		if n.GetType() == ast_pb.NodeType_IDENTIFIER {
-			if nodeCtx, ok := n.(*PrimaryExpression); ok {
-				if nodeCtx.GetName() == name {
-					return nodeCtx, nodeCtx.GetTypeDescription()
+			// Needs to be here as there are no parent nodes available so it wont be captured by the
+			// main function block.
+			if n.GetType() == ast_pb.NodeType_IDENTIFIER {
+				if nodeCtx, ok := n.(*PrimaryExpression); ok {
+					if nodeCtx.GetName() == name {
+						return nodeCtx, nodeCtx.GetTypeDescription()
+					}
 				}
 			}
-		}
 
-		if node, nodeType := r.byRecursiveSearch(n, name); node != nil && nodeType != nil {
-			return node, nodeType
+			if node, nodeType := r.byRecursiveSearch(n, name); node != nil && nodeType != nil {
+				return node, nodeType
+			}
 		}
 	}
 

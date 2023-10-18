@@ -43,8 +43,7 @@ func (y *YulIdentifier) GetSrc() SrcNode {
 
 // GetNodes returns an empty list of nodes.
 func (y *YulIdentifier) GetNodes() []Node[NodeType] {
-	toReturn := make([]Node[NodeType], 0)
-	return toReturn
+	return []Node[NodeType]{}
 }
 
 // GetTypeDescription returns the type description of the YulIdentifier.

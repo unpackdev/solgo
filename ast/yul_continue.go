@@ -50,8 +50,7 @@ func (y *YulContinueStatement) GetSrc() SrcNode {
 
 // GetNodes returns an empty list of child nodes for the YulContinueStatement.
 func (y *YulContinueStatement) GetNodes() []Node[NodeType] {
-	toReturn := make([]Node[NodeType], 0)
-	return toReturn
+	return []Node[NodeType]{}
 }
 
 // GetTypeDescription returns the type description of the YulContinueStatement.

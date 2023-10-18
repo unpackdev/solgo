@@ -54,6 +54,11 @@ func (y *YulAssignment) GetSrc() SrcNode {
 func (y *YulAssignment) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, y.Value)
+
+	for _, variable := range y.VariableNames {
+		toReturn = append(toReturn, variable)
+	}
+
 	return toReturn
 }
 
