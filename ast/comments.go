@@ -51,6 +51,7 @@ func (c *Comment) ToProto() *ast_pb.Comment {
 // ANTLR parser, by default, has comments disabled to be parsed as tokens.
 // Therefore, we manually search for them using the CommonTokenStream.
 func (b *ASTBuilder) EnterEveryRule(ctx antlr.ParserRuleContext) {
+
 	if !b.commentsParsed {
 		stream := b.parser.GetTokenStream().(*antlr.CommonTokenStream)
 		tokens := stream.GetAllTokens()

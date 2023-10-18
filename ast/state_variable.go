@@ -3,6 +3,7 @@ package ast
 import (
 	"strings"
 
+	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -22,6 +23,7 @@ type StateVariableDeclaration struct {
 	StorageLocation ast_pb.StorageLocation `json:"storage_location"`  // Storage location of the state variable declaration
 	StateMutability ast_pb.Mutability      `json:"mutability"`        // State mutability of the state variable declaration
 	TypeName        *TypeName              `json:"type_name"`         // Type name of the state variable
+	InitialValue    Node[NodeType]         `json:"initial_value"`     // Initial value of the state variable
 }
 
 // NewStateVariableDeclaration creates a new StateVariableDeclaration instance.
@@ -97,7 +99,13 @@ func (v *StateVariableDeclaration) GetReferencedDeclaration() int64 {
 
 // GetNodes returns the type name node in the state variable declaration.
 func (v *StateVariableDeclaration) GetNodes() []Node[NodeType] {
-	return []Node[NodeType]{v.TypeName}
+	toReturn := []Node[NodeType]{v.TypeName}
+
+	if v.InitialValue != nil {
+		toReturn = append(toReturn, v.InitialValue)
+	}
+
+	return toReturn
 }
 
 // GetScope returns the scope of the state variable declaration.
@@ -113,6 +121,11 @@ func (v *StateVariableDeclaration) IsConstant() bool {
 // IsStateVariable returns whether the declaration is a state variable.
 func (v *StateVariableDeclaration) IsStateVariable() bool {
 	return v.StateVariable
+}
+
+// GetInitialValue returns the initial value of the state variable declaration.
+func (v *StateVariableDeclaration) GetInitialValue() Node[NodeType] {
+	return v.InitialValue
 }
 
 // ToProto returns the protobuf representation of the state variable declaration.
@@ -136,6 +149,10 @@ func (v *StateVariableDeclaration) ToProto() NodeType {
 
 	if v.GetTypeDescription() != nil {
 		proto.TypeDescription = v.GetTypeDescription().ToProto()
+	}
+
+	if v.GetInitialValue() != nil {
+		proto.InitialValue = v.GetInitialValue().ToProto().(*v3.TypedStruct)
 	}
 
 	return NewTypedStruct(&proto, "Variable")
@@ -176,6 +193,12 @@ func (v *StateVariableDeclaration) Parse(
 	v.TypeName = typeName
 	v.TypeDescription = typeName.TypeDescription
 
+	if ctx.GetInitialValue() != nil {
+		expression := NewExpression(v.ASTBuilder)
+		v.InitialValue = expression.Parse(unit, contractNode, nil, nil, nil, v, ctx.GetInitialValue())
+		v.TypeDescription = v.InitialValue.GetTypeDescription()
+	}
+
 	// This is going to be a fallback...
 	// Now this is a severe hack designed to provide fallback functionality to a level, however, it is not a proper
 	// fallback implementation. This is because the parser itself does not handle properly function () payable {} that are supported
@@ -193,6 +216,77 @@ func (v *StateVariableDeclaration) Parse(
 	}
 
 	v.currentStateVariables = append(v.currentStateVariables, v)
+}
+
+// ParseGlobal parses a state variable declaration from the provided parser.StateVariableDeclarationContext and updates the current instance.
+func (v *StateVariableDeclaration) ParseGlobal(
+	ctx *parser.StateVariableDeclarationContext,
+) {
+	v.Name = ctx.Identifier().GetText()
+	v.Src = SrcNode{
+		Id:          v.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+	v.Visibility = v.getVisibilityFromCtx(ctx)
+
+	for _, immutableCtx := range ctx.AllImmutable() {
+		if immutableCtx != nil {
+			v.StateMutability = ast_pb.Mutability_IMMUTABLE
+		}
+	}
+
+	for _, constantCtx := range ctx.AllConstant() {
+		v.Constant = constantCtx != nil
+	}
+
+	typeName := NewTypeName(v.ASTBuilder)
+	typeName.Parse(nil, nil, v.Id, ctx.GetType_())
+	v.TypeName = typeName
+	v.TypeDescription = typeName.TypeDescription
+
+	if ctx.GetInitialValue() != nil {
+		expression := NewExpression(v.ASTBuilder)
+		v.InitialValue = expression.Parse(nil, nil, nil, nil, nil, v, ctx.GetInitialValue())
+		v.TypeDescription = v.InitialValue.GetTypeDescription()
+	}
+
+	v.globalDefinitions = append(v.globalDefinitions, v)
+}
+
+// ParseGlobalConstant parses a global constant state variable declaration from the provided parser.StateVariableDeclarationContext and updates the current instance.
+func (v *StateVariableDeclaration) ParseGlobalConstant(
+	ctx *parser.ConstantVariableDeclarationContext,
+) {
+	v.Name = ctx.Identifier().GetText()
+	v.Src = SrcNode{
+		Id:          v.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+	v.Visibility = ast_pb.Visibility_PUBLIC
+	v.Constant = true
+
+	typeName := NewTypeName(v.ASTBuilder)
+	typeName.Parse(nil, nil, v.Id, ctx.GetType_())
+	v.TypeName = typeName
+	v.TypeDescription = typeName.TypeDescription
+
+	if ctx.GetInitialValue() != nil {
+		expression := NewExpression(v.ASTBuilder)
+		v.InitialValue = expression.Parse(nil, nil, nil, nil, nil, v, ctx.GetInitialValue())
+		v.TypeDescription = v.InitialValue.GetTypeDescription()
+	}
+
+	v.globalDefinitions = append(v.globalDefinitions, v)
 }
 
 // getVisibilityFromCtx extracts visibility information from the parser context.
@@ -221,4 +315,15 @@ func (v *StateVariableDeclaration) getVisibilityFromCtx(ctx *parser.StateVariabl
 
 	// If no visibility context matches, return the default value
 	return ast_pb.Visibility_INTERNAL
+}
+
+// There can be global state variables that are outside of the contract body, so we need to handle them here.
+func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDeclarationContext) {
+	stateVar := NewStateVariableDeclaration(b)
+	stateVar.ParseGlobal(ctx)
+}
+
+func (b *ASTBuilder) EnterConstantVariableDeclaration(ctx *parser.ConstantVariableDeclarationContext) {
+	stateVar := NewStateVariableDeclaration(b)
+	stateVar.ParseGlobalConstant(ctx)
 }

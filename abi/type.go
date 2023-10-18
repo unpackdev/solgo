@@ -90,6 +90,7 @@ func (t *TypeResolver) ResolveMappingType(typeName *ast.TypeDescription) ([]Meth
 func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO {
 	nameCleaned := strings.Replace(typeName.GetString(), "struct ", "", -1)
 	nameCleaned = strings.TrimLeft(nameCleaned, "[]")
+	nameCleaned = strings.TrimRight(nameCleaned, "[]")
 	nameParts := strings.Split(nameCleaned, ".")
 
 	toReturn := MethodIO{
@@ -102,11 +103,27 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 		for _, structVar := range contract.GetStructs() {
 			if structVar.GetName() == toReturn.Name {
 				for _, member := range structVar.GetMembers() {
+
+					// Mapping types are not supported in structs
+					if isMappingType(member.GetTypeDescription().GetString()) {
+						continue
+					}
+
+					if isContractType(member.GetTypeDescription().GetString()) {
+						toReturn.Outputs = append(toReturn.Outputs, MethodIO{
+							Name:         member.GetName(),
+							Type:         "address",
+							InternalType: member.GetTypeDescription().GetString(),
+						})
+
+						continue
+					}
+
 					dType := t.discoverType(member.GetTypeDescription().GetString())
 					if len(dType.Outputs) > 0 {
 						for _, out := range dType.Outputs {
 							toReturn.Components = append(toReturn.Components, MethodIO{
-								Name:         member.GetName(),
+								Name:         out.Name,
 								Type:         out.Type,
 								InternalType: member.GetTypeDescription().GetString(),
 							})
@@ -137,23 +154,121 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 
 	discoveredType, found := normalizeTypeNameWithStatus(typeName)
 	if found {
+		if isEnumType(typeName) {
+			toReturn.Type = "uint8"
+			toReturn.InternalType = typeName
+			return toReturn
+		}
 		toReturn.Type = discoveredType
 		toReturn.InternalType = discoveredType
 		return toReturn
+	} else if isEnumType(typeName) {
+		toReturn.Type = "uint8"
+		toReturn.InternalType = typeName
+		return toReturn
 	} else {
+		typeName = strings.ReplaceAll(typeName, "[]", "")
+
+		typeNameParts := strings.Split(typeName, ".")
+		if len(typeNameParts) > 1 {
+			typeName = typeNameParts[1]
+		}
+
 		for _, contract := range t.parser.GetRoot().GetContracts() {
 			for _, structVar := range contract.GetStructs() {
 				if structVar.GetName() == typeName {
 					for _, member := range structVar.GetMembers() {
+						if isMappingType(member.GetTypeDescription().GetString()) {
+							in, out := t.ResolveMappingType(member.GetTypeDescription())
+
+							for _, in := range in {
+								toReturn.Outputs = append(toReturn.Outputs, Type{
+									Name:         in.Name,
+									Type:         in.Type,
+									InternalType: in.InternalType,
+								})
+							}
+
+							for _, out := range out {
+								toReturn.Outputs = append(toReturn.Outputs, Type{
+									Name:         out.Name,
+									Type:         out.Type,
+									InternalType: out.InternalType,
+								})
+							}
+
+							continue
+						}
+
+						if isContractType(member.GetTypeDescription().GetString()) {
+							toReturn.Outputs = append(toReturn.Outputs, Type{
+								Name:         member.GetName(),
+								Type:         "address",
+								InternalType: member.GetTypeDescription().GetString(),
+							})
+
+							continue
+						}
+
 						toReturn.Outputs = append(toReturn.Outputs, Type{
 							Name:         member.GetName(),
 							Type:         normalizeTypeName(member.GetTypeDescription().GetString()),
 							InternalType: member.GetTypeDescription().GetString(),
 						})
 					}
+					return toReturn
 				}
 			}
 		}
+
+		for _, node := range t.parser.GetRoot().GetAST().GetGlobalNodes() {
+			switch nodeCtx := node.(type) {
+			case *ast.StructDefinition:
+				if nodeCtx.GetName() == typeName {
+					for _, member := range nodeCtx.GetMembers() {
+						if isMappingType(member.GetTypeDescription().GetString()) {
+							in, out := t.ResolveMappingType(member.GetTypeDescription())
+
+							for _, in := range in {
+								toReturn.Outputs = append(toReturn.Outputs, Type{
+									Name:         in.Name,
+									Type:         in.Type,
+									InternalType: in.InternalType,
+								})
+							}
+
+							for _, out := range out {
+								toReturn.Outputs = append(toReturn.Outputs, Type{
+									Name:         out.Name,
+									Type:         out.Type,
+									InternalType: out.InternalType,
+								})
+							}
+
+							continue
+						}
+
+						if isContractType(member.GetTypeDescription().GetString()) {
+							toReturn.Outputs = append(toReturn.Outputs, Type{
+								Name:         member.GetName(),
+								Type:         "address",
+								InternalType: member.GetTypeDescription().GetString(),
+							})
+
+							continue
+						}
+
+						toReturn.Outputs = append(toReturn.Outputs, Type{
+							Name:         member.GetName(),
+							Type:         normalizeTypeName(member.GetTypeDescription().GetString()),
+							InternalType: member.GetTypeDescription().GetString(),
+						})
+					}
+					return toReturn
+				}
+			}
+		}
+
 	}
 
 	return toReturn

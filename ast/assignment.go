@@ -51,6 +51,25 @@ func (a *Assignment) GetSrc() SrcNode {
 
 // GetTypeDescription returns the TypeDescription of the Assignment node.
 func (a *Assignment) GetTypeDescription() *TypeDescription {
+	if a.TypeDescription != nil {
+		return a.TypeDescription
+	}
+
+	if a.LeftExpression != nil && a.LeftExpression.GetTypeDescription() != nil {
+		a.TypeDescription = a.LeftExpression.GetTypeDescription()
+		return a.LeftExpression.GetTypeDescription()
+	}
+
+	if a.RightExpression != nil && a.RightExpression.GetTypeDescription() != nil {
+		a.TypeDescription = a.RightExpression.GetTypeDescription()
+		return a.RightExpression.GetTypeDescription()
+	}
+
+	if a.Expression != nil && a.Expression.GetTypeDescription() != nil {
+		a.TypeDescription = a.Expression.GetTypeDescription()
+		return a.Expression.GetTypeDescription()
+	}
+
 	return a.TypeDescription
 }
 
@@ -237,6 +256,22 @@ func (a *Assignment) ToProto() NodeType {
 func (a *Assignment) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	a.ReferencedDeclaration = refId
 	a.TypeDescription = refDesc
+
+	if a.LeftExpression != nil && a.LeftExpression.GetTypeDescription() == nil &&
+		a.RightExpression != nil && a.RightExpression.GetTypeDescription() != nil {
+		a.LeftExpression.SetReferenceDescriptor(a.RightExpression.GetId(), a.RightExpression.GetTypeDescription())
+	}
+
+	if a.RightExpression != nil && a.RightExpression.GetTypeDescription() == nil &&
+		a.LeftExpression != nil && a.LeftExpression.GetTypeDescription() != nil {
+		a.RightExpression.SetReferenceDescriptor(a.LeftExpression.GetId(), a.LeftExpression.GetTypeDescription())
+	}
+
+	if a.TypeDescription == nil && a.Expression != nil && a.Expression.GetTypeDescription() != nil {
+		a.TypeDescription = a.Expression.GetTypeDescription()
+		a.ReferencedDeclaration = a.Expression.GetId()
+	}
+
 	return true
 }
 
@@ -344,6 +379,28 @@ func (a *Assignment) Parse(
 	if a.TypeDescription == nil && a.RightExpression != nil && a.RightExpression.GetTypeDescription() != nil {
 		a.LeftExpression.SetReferenceDescriptor(a.RightExpression.GetId(), a.RightExpression.GetTypeDescription())
 		a.TypeDescription = a.RightExpression.GetTypeDescription()
+	}
+
+	if a.TypeDescription == nil && a.RightExpression != nil && fnNode != nil {
+		if fn, ok := fnNode.(*Function); ok {
+			for _, param := range fn.GetParameters().GetParameters() {
+				if re, ok := a.RightExpression.(*PrimaryExpression); ok {
+					if param.GetName() == re.GetName() {
+						a.RightExpression.SetReferenceDescriptor(param.GetId(), param.GetTypeDescription())
+						a.TypeDescription = param.GetTypeDescription()
+					}
+				}
+			}
+		} else if fn, ok := fnNode.(*Constructor); ok {
+			for _, param := range fn.GetParameters().GetParameters() {
+				if re, ok := a.RightExpression.(*PrimaryExpression); ok {
+					if param.GetName() == re.GetName() {
+						a.RightExpression.SetReferenceDescriptor(param.GetId(), param.GetTypeDescription())
+						a.TypeDescription = param.GetTypeDescription()
+					}
+				}
+			}
+		}
 	}
 
 	return a

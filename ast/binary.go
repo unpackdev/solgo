@@ -364,6 +364,13 @@ func (a *BinaryOperation) ParseMulDivMod(
 		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
 	)
 
+	if a.RightExpression.GetTypeDescription() == nil {
+		a.RightExpression.SetReferenceDescriptor(
+			a.LeftExpression.GetId(),
+			a.LeftExpression.GetTypeDescription(),
+		)
+	}
+
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()
 
 	return a

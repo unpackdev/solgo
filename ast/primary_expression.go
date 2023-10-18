@@ -247,7 +247,14 @@ func (p *PrimaryExpression) Parse(
 
 	// This is a magic this type and should be treated by setting type description to the contract type
 	if ctx.GetText() == "this" {
-		p.TypeDescription = unit.GetTypeDescription()
+		if unit == nil {
+			p.TypeDescription = &TypeDescription{
+				TypeIdentifier: "t_magic_this",
+				TypeString:     "this",
+			}
+		} else {
+			p.TypeDescription = unit.GetTypeDescription()
+		}
 	}
 
 	if ctx.GetText() == "now" {

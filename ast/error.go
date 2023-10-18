@@ -137,3 +137,48 @@ func (e *ErrorDefinition) Parse(
 	e.currentErrors = append(e.currentErrors, e)
 	return e
 }
+
+// ParseGlobal parses the error definition context and populates the ErrorDefinition fields.
+func (e *ErrorDefinition) ParseGlobal(ctx *parser.ErrorDefinitionContext) Node[NodeType] {
+	e.Src = SrcNode{
+		Id:          e.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+	e.SourceUnitName = "Global"
+	e.Name = ctx.GetName().GetText()
+	e.NameLocation = SrcNode{
+		Line:        int64(ctx.GetName().GetStart().GetLine()),
+		Column:      int64(ctx.GetName().GetStart().GetColumn()),
+		Start:       int64(ctx.GetName().GetStart().GetStart()),
+		End:         int64(ctx.GetName().GetStop().GetStop()),
+		Length:      int64(ctx.GetName().GetStop().GetStop() - ctx.GetName().GetStart().GetStart() + 1),
+		ParentIndex: e.Id,
+	}
+
+	e.TypeDescription = &TypeDescription{
+		TypeIdentifier: fmt.Sprintf(
+			"t_error$_%s_%s_$%d", e.SourceUnitName, e.GetName(), e.GetId(),
+		),
+		TypeString: fmt.Sprintf(
+			"error %s.%s", e.SourceUnitName, e.GetName(),
+		),
+	}
+
+	parameters := NewParameterList(e.ASTBuilder)
+	parameters.ParseErrorParameters(nil, e, ctx.AllErrorParameter())
+	e.Parameters = parameters
+
+	e.globalDefinitions = append(e.globalDefinitions, e)
+	return e
+}
+
+// There can be global enums that are outside of the contract body, so we need to handle them here.
+func (b *ASTBuilder) EnterErrorDefinition(ctx *parser.ErrorDefinitionContext) {
+	enumDef := NewErrorDefinition(b)
+	enumDef.ParseGlobal(ctx)
+}

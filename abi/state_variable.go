@@ -1,6 +1,8 @@
 package abi
 
-import "github.com/unpackdev/solgo/ir"
+import (
+	"github.com/unpackdev/solgo/ir"
+)
 
 // processStateVariable processes the provided StateVariable from the IR and constructs a Method representation.
 // The returned Method will have its Type set to "function" and its StateMutability determined by the state variable's mutability.
@@ -22,6 +24,10 @@ func (b *Builder) processStateVariable(stateVar *ir.StateVariable) *Method {
 		inputList, outputList := b.resolver.ResolveMappingType(stateVar.GetTypeDescription())
 		toReturn.Inputs = append(toReturn.Inputs, inputList...)
 		toReturn.Outputs = append(toReturn.Outputs, outputList...)
+	case "struct":
+		toReturn.Outputs = append(toReturn.Outputs,
+			b.resolver.ResolveStructType(stateVar.GetTypeDescription()),
+		)
 	case "contract":
 		// For contract types, the output is always an address
 		toReturn.Outputs = append(toReturn.Outputs, MethodIO{

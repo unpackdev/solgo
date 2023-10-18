@@ -18,8 +18,8 @@ func (b *Builder) processError(unit *ir.Error) *Method {
 	for _, parameter := range unit.GetParameters() {
 		toReturn.Inputs = append(toReturn.Inputs, MethodIO{
 			Name:         parameter.GetName(),
-			Type:         parameter.GetTypeDescription().TypeString,
-			InternalType: parameter.GetTypeDescription().TypeString,
+			Type:         normalizeTypeName(parameter.GetTypeDescription().GetString()),
+			InternalType: parameter.GetTypeDescription().GetString(),
 			Indexed:      true, // Parameters for errors are indexed by default.
 		})
 	}

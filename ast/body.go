@@ -235,6 +235,9 @@ func (b *BodyNode) ParseDefinitions(
 		case *parser.ReceiveFunctionDefinitionContext:
 			statement := NewReceiveDefinition(b.ASTBuilder)
 			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
+		case *parser.UserDefinedValueTypeDefinitionContext:
+			statement := NewUserDefinedValueTypeDefinition(b.ASTBuilder)
+			return statement.Parse(unit, contractNode, bodyCtx, childCtx)
 		default:
 			zap.L().Warn(
 				"Unknown body child type @ BodyNode.ParseDefinitions",
