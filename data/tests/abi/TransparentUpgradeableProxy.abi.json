@@ -934,9 +934,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "TransparentUpgradeableProxy",
+						"internalType": "contract TransparentUpgradeableProxy",
 						"name": "proxy",
-						"type": "TransparentUpgradeableProxy"
+						"type": "address"
 					}
 				],
 				"outputs": [
@@ -953,9 +953,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "TransparentUpgradeableProxy",
+						"internalType": "contract TransparentUpgradeableProxy",
 						"name": "proxy",
-						"type": "TransparentUpgradeableProxy"
+						"type": "address"
 					}
 				],
 				"outputs": [
@@ -972,9 +972,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "TransparentUpgradeableProxy",
+						"internalType": "contract TransparentUpgradeableProxy",
 						"name": "proxy",
-						"type": "TransparentUpgradeableProxy"
+						"type": "address"
 					},
 					{
 						"internalType": "address",
@@ -990,9 +990,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "TransparentUpgradeableProxy",
+						"internalType": "contract TransparentUpgradeableProxy",
 						"name": "proxy",
-						"type": "TransparentUpgradeableProxy"
+						"type": "address"
 					},
 					{
 						"internalType": "address",
@@ -1008,9 +1008,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "TransparentUpgradeableProxy",
+						"internalType": "contract TransparentUpgradeableProxy",
 						"name": "proxy",
-						"type": "TransparentUpgradeableProxy"
+						"type": "address"
 					},
 					{
 						"internalType": "address",
@@ -1040,9 +1040,15 @@
 				],
 				"outputs": [
 					{
-						"internalType": "AddressSlot",
-						"name": "r",
-						"type": "AddressSlot"
+						"name": "AddressSlot",
+						"type": "tuple",
+						"components": [
+							{
+								"internalType": "address",
+								"name": "value",
+								"type": "address"
+							}
+						]
 					}
 				],
 				"name": "getAddressSlot",
@@ -1059,9 +1065,15 @@
 				],
 				"outputs": [
 					{
-						"internalType": "BooleanSlot",
-						"name": "r",
-						"type": "BooleanSlot"
+						"name": "BooleanSlot",
+						"type": "tuple",
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "value",
+								"type": "bool"
+							}
+						]
 					}
 				],
 				"name": "getBooleanSlot",
@@ -1078,9 +1090,15 @@
 				],
 				"outputs": [
 					{
-						"internalType": "Bytes32Slot",
-						"name": "r",
-						"type": "Bytes32Slot"
+						"name": "Bytes32Slot",
+						"type": "tuple",
+						"components": [
+							{
+								"internalType": "bytes32",
+								"name": "value",
+								"type": "bytes32"
+							}
+						]
 					}
 				],
 				"name": "getBytes32Slot",
@@ -1097,9 +1115,15 @@
 				],
 				"outputs": [
 					{
-						"internalType": "Uint256Slot",
-						"name": "r",
-						"type": "Uint256Slot"
+						"name": "Uint256Slot",
+						"type": "tuple",
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							}
+						]
 					}
 				],
 				"name": "getUint256Slot",

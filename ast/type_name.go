@@ -463,28 +463,10 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
-		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
-			identifierCtx.GetText(),
-		)
-
-		switch normalizedTypeIdentifier {
-		case "t_address":
-			t.StateMutability = ast_pb.Mutability_NONPAYABLE
-		case "t_address_payable":
-			t.StateMutability = ast_pb.Mutability_PAYABLE
-		}
-
-		if len(normalizedTypeName) > 0 {
-			t.TypeDescription = &TypeDescription{
-				TypeIdentifier: normalizedTypeIdentifier,
-				TypeString:     normalizedTypeName,
-			}
-		} else {
-			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
-				t.PathNode.ReferencedDeclaration = refId
-				t.ReferencedDeclaration = refId
-				t.TypeDescription = refTypeDescription
-			}
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
+			t.PathNode.ReferencedDeclaration = refId
+			t.ReferencedDeclaration = refId
+			t.TypeDescription = refTypeDescription
 		}
 	}
 }
