@@ -9,14 +9,15 @@ import (
 
 // EventDefinition represents an event definition in the Solidity abstract syntax tree (AST).
 type EventDefinition struct {
-	*ASTBuilder                    // Embedding the ASTBuilder for common functionality
-	SourceUnitName string          `json:"-"`
-	Id             int64           `json:"id"`         // Unique identifier for the event definition
-	NodeType       ast_pb.NodeType `json:"node_type"`  // Type of the node (EVENT_DEFINITION for event definition)
-	Src            SrcNode         `json:"src"`        // Source information about the event definition
-	Parameters     *ParameterList  `json:"parameters"` // Parameters of the event
-	Name           string          `json:"name"`       // Name of the event
-	Anonymous      bool            `json:"anonymous"`  // Indicates if the event is anonymous
+	*ASTBuilder                      // Embedding the ASTBuilder for common functionality
+	SourceUnitName  string           `json:"-"`
+	Id              int64            `json:"id"`               // Unique identifier for the event definition
+	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node (EVENT_DEFINITION for event definition)
+	Src             SrcNode          `json:"src"`              // Source information about the event definition
+	Parameters      *ParameterList   `json:"parameters"`       // Parameters of the event
+	Name            string           `json:"name"`             // Name of the event
+	Anonymous       bool             `json:"anonymous"`        // Indicates if the event is anonymous
+	TypeDescription *TypeDescription `json:"type_description"` // Type description of the event
 }
 
 // NewEventDefinition creates a new EventDefinition instance.
@@ -61,14 +62,7 @@ func (e *EventDefinition) IsAnonymous() bool {
 
 // GetTypeDescription returns the type description of the event.
 func (e *EventDefinition) GetTypeDescription() *TypeDescription {
-	return &TypeDescription{
-		TypeIdentifier: fmt.Sprintf(
-			"t_event&_%s_%s_&%d", e.SourceUnitName, e.GetName(), e.GetId(),
-		),
-		TypeString: fmt.Sprintf(
-			"event %s.%s", e.SourceUnitName, e.GetName(),
-		),
-	}
+	return e.TypeDescription
 }
 
 // GetParameters returns the parameters of the event.
@@ -121,5 +115,56 @@ func (e *EventDefinition) Parse(
 	e.Parameters = parameters
 
 	e.currentEvents = append(e.currentEvents, e)
+
+	e.TypeDescription = &TypeDescription{
+		TypeIdentifier: fmt.Sprintf(
+			"t_event&_%s_%s_&%d", e.SourceUnitName, e.GetName(), e.GetId(),
+		),
+		TypeString: fmt.Sprintf(
+			"event %s.%s", e.SourceUnitName, e.GetName(),
+		),
+	}
+
 	return e
+}
+
+// ParseGlobal parses an event definition from the provided parser.EventDefinitionContext and updates the current instance.
+func (e *EventDefinition) ParseGlobal(
+	ctx *parser.EventDefinitionContext,
+) Node[NodeType] {
+	e.SourceUnitName = "Global"
+	e.Src = SrcNode{
+		Id:          e.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+	e.Anonymous = ctx.Anonymous() != nil
+	e.Name = ctx.Identifier().GetText()
+
+	parameters := NewParameterList(e.ASTBuilder)
+	parameters.ParseEventParameters(nil, e, ctx.AllEventParameter())
+	e.Parameters = parameters
+
+	e.globalDefinitions = append(e.globalDefinitions, e)
+
+	e.TypeDescription = &TypeDescription{
+		TypeIdentifier: fmt.Sprintf(
+			"t_event&_%s_%s_&%d", e.SourceUnitName, e.GetName(), e.GetId(),
+		),
+		TypeString: fmt.Sprintf(
+			"event %s.%s", e.SourceUnitName, e.GetName(),
+		),
+	}
+
+	return e
+}
+
+// There can be global enums that are outside of the contract body, so we need to handle them here.
+func (b *ASTBuilder) EnterEventDefinition(ctx *parser.EventDefinitionContext) {
+	enumDef := NewEventDefinition(b)
+	enumDef.ParseGlobal(ctx)
 }

@@ -43,6 +43,11 @@ func (c *Constructor) Pack() ([]byte, error) {
 // If they match, it creates an Argument object for each input and adds it to the arguments slice.
 // Finally, it returns a Constructor object containing the ABI, raw signature, and arguments.
 func DecodeConstructorFromAbi(bytecode []byte, constructorAbi string) (*Constructor, error) {
+	/* 	var fh interface{}
+	   	json.Unmarshal([]byte(constructorAbi), &fh)
+	   	f, _ := utils.ToJSONPretty(fh)
+	   	fmt.Println(string(f)) */
+
 	parsed, err := abi.JSON(strings.NewReader(constructorAbi))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse ABI: %w", err)

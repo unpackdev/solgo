@@ -35,6 +35,7 @@ func (b *Builder) processFunction(unit *ir.Function) *Method {
 			toReturn.Outputs,
 			b.buildMethodIO(methodIo, parameter.GetTypeDescription()),
 		)
+
 	}
 
 	return toReturn

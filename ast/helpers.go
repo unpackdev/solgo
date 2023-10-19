@@ -127,6 +127,65 @@ func normalizeTypeDescription(typeName string) (string, string) {
 	}
 }
 
+// normalizeTypeDescriptionWithStatus normalizes type names and generates corresponding type identifiers.
+// Returns true if normalization occured.
+func normalizeTypeDescriptionWithStatus(typeName string) (string, string, bool) {
+	isArray := strings.Contains(typeName, "[") && strings.Contains(typeName, "]")
+	isSlice := strings.HasSuffix(typeName, "[]")
+	isPrefixSlice := strings.HasPrefix(typeName, "[]")
+
+	switch {
+	case isArray:
+		numberPart := typeName[strings.Index(typeName, "[")+1 : strings.Index(typeName, "]")]
+		typePart := typeName[:strings.Index(typeName, "[")]
+		normalizedTypePart := normalizeTypeName(typePart)
+		return normalizedTypePart + "[" + numberPart + "]", fmt.Sprintf("t_%s_array", normalizedTypePart), true
+
+	case isSlice:
+		typePart := typeName[:len(typeName)-2]
+		normalizedTypePart := normalizeTypeName(typePart)
+		return normalizedTypePart + "[]", fmt.Sprintf("t_%s_slice", normalizedTypePart), true
+
+	case isPrefixSlice:
+		typePart := typeName[2:]
+		normalizedTypePart := normalizeTypeName(typePart)
+		return "[]" + normalizedTypePart, fmt.Sprintf("t_%s_slice", normalizedTypePart), true
+
+	case strings.HasPrefix(typeName, "uint"):
+		if typeName == "uint" {
+			return "uint256", "t_uint256", true
+		}
+		return typeName, fmt.Sprintf("t_%s", typeName), true
+
+	case strings.HasPrefix(typeName, "int"):
+		if typeName == "int" {
+			return "int256", "t_int256", true
+		}
+		return typeName, fmt.Sprintf("t_%s", typeName), true
+
+	case strings.HasPrefix(typeName, "bool"):
+		return typeName, fmt.Sprintf("t_%s", typeName), true
+
+	case strings.HasPrefix(typeName, "bytes"):
+		return typeName, fmt.Sprintf("t_%s", typeName), true
+
+	case typeName == "string":
+		return "string", "t_string", true
+
+	case typeName == "address":
+		return "address", "t_address", true
+
+	case typeName == "addresspayable":
+		return "address", "t_address_payable", true
+
+	case typeName == "tuple":
+		return "tuple", "t_tuple", true
+
+	default:
+		return typeName, fmt.Sprintf("t_%s", typeName), false
+	}
+}
+
 // getStorageLocationFromDataLocationCtx extracts the storage location from the given data location context.
 func getStorageLocationFromDataLocationCtx(ctx parser.IDataLocationContext) ast_pb.StorageLocation {
 	if ctx != nil {

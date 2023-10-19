@@ -9,6 +9,26 @@ import (
 // Contract represents a collection of Ethereum contract methods.
 type Contract []*Method
 
+func (c *Contract) GetMethodByType(typeName string) *Method {
+	for _, method := range *c {
+		if method.Type == typeName {
+			return method
+		}
+	}
+
+	return nil
+}
+
+func (c *Contract) GetMethodByName(name string) *Method {
+	for _, method := range *c {
+		if method.Name == name {
+			return method
+		}
+	}
+
+	return nil
+}
+
 // ToProto converts the Contract into its protocol buffer representation.
 func (c *Contract) ToProto() *abi_pb.Contract {
 	toReturn := &abi_pb.Contract{

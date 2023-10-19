@@ -460,14 +460,28 @@ func (r *Resolver) byGlobals(name string) (int64, *TypeDescription) {
 					return node.GetId(), node.GetTypeDescription()
 				}
 			}
+		case *EventDefinition:
+			if nodeCtx.GetName() == name {
+				return node.GetId(), node.GetTypeDescription()
+			}
+
+			if nodeCtx.GetParameters() != nil {
+				for _, member := range nodeCtx.GetParameters().GetParameters() {
+					if member.GetName() == name {
+						return node.GetId(), node.GetTypeDescription()
+					}
+				}
+			}
 		case *StructDefinition:
 			if nodeCtx.GetName() == name {
 				return node.GetId(), node.GetTypeDescription()
 			}
 
-			for _, member := range nodeCtx.GetMembers() {
-				if member.GetName() == name {
-					return node.GetId(), node.GetTypeDescription()
+			if nodeCtx.GetMembers() != nil {
+				for _, member := range nodeCtx.GetMembers() {
+					if member.GetName() == name {
+						return node.GetId(), node.GetTypeDescription()
+					}
 				}
 			}
 		case *ErrorDefinition:
