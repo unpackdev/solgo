@@ -77,9 +77,14 @@ func (s *Slither) Analyze(sources *solgo.Sources) (*Report, []byte, error) {
 	// At this stage we should prepare compiler related settings.
 	// First we are going to start with understanding which compiler version we are going to use.
 	// To do so we'll extract it from parsed source.
-	solVersion, err := sources.GetSolidityVersion()
-	if err != nil {
-		return nil, nil, err
+	solVersion := s.config.GetCompilerVersion()
+
+	if solVersion == "" {
+		var err error
+		solVersion, err = sources.GetSolidityVersion()
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 
 	solcPath, err := s.compiler.GetBinary(solVersion)

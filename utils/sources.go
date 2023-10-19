@@ -8,8 +8,8 @@ import (
 // SimplifyImportPaths simplifies the paths in import statements as file will already be present in the
 // directory for future consumption and is rather corrupted for import paths to stay the same.
 func SimplifyImportPaths(content string) string {
-	re := regexp.MustCompile(`import ".*?([^/]+\.sol)";`)
-	return re.ReplaceAllString(content, `import "./$1";`)
+	re := regexp.MustCompile(`import (?:{[^}]+} from )?[\"\']([^\"\']+/([^/]+\.sol))[\"\'];`)
+	return re.ReplaceAllString(content, `import "./$2";`)
 }
 
 // StripImportPaths removes the import paths entirely from the content.

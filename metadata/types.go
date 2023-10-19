@@ -10,6 +10,13 @@ import (
 	"google.golang.org/protobuf/types/known/anypb"
 )
 
+type ContractSource struct {
+	Content   string   `json:"content"`
+	Keccak256 string   `json:"keccak256"`
+	License   string   `json:"license"`
+	Urls      []string `json:"urls"`
+}
+
 // ContractMetadata represents the metadata of a contract stored in IPFS.
 // The metadata includes information about the compiler, language, settings, output, and sources.
 // The Raw field contains the raw metadata as a string.
@@ -58,12 +65,7 @@ type ContractMetadata struct {
 	Output struct {
 		Abi []interface{} `json:"abi"`
 	}
-	Sources map[string]struct {
-		Content   string   `json:"content"`
-		Keccak256 string   `json:"keccak256"`
-		License   string   `json:"license"`
-		Urls      []string `json:"urls"`
-	} `json:"sources"`
+	Sources map[string]ContractSource `json:"sources"`
 }
 
 func (c *ContractMetadata) ToProto() *metadata_pb.Metadata {

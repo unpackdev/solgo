@@ -449,42 +449,302 @@
 			}
 		},
 		{
-			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Event",
 			"value": {
 				"id": "964",
+				"name": "PlayerJoined",
+				"nodeType": "EVENT_DEFINITION",
+				"parameters": {
+					"id": "966",
+					"nodeType": "PARAMETER_LIST",
+					"parameters": [
+						{
+							"id": "967",
+							"name": "addr",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "967",
+							"src": {
+								"column": "23",
+								"end": "488",
+								"id": "968",
+								"length": "12",
+								"line": "21",
+								"parentIndex": "966",
+								"start": "477"
+							},
+							"stateMutability": "NONPAYABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							},
+							"typeName": {
+								"id": "969",
+								"name": "address",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "23",
+									"end": "483",
+									"id": "970",
+									"length": "7",
+									"line": "21",
+									"parentIndex": "967",
+									"start": "477"
+								},
+								"stateMutability": "NONPAYABLE",
+								"typeDescription": {
+									"typeIdentifier": "t_address",
+									"typeString": "address"
+								}
+							},
+							"visibility": "INTERNAL"
+						}
+					],
+					"src": {
+						"column": "4",
+						"end": "490",
+						"id": "965",
+						"length": "33",
+						"line": "21",
+						"parentIndex": "964",
+						"start": "458"
+					}
+				},
+				"src": {
+					"column": "4",
+					"end": "490",
+					"id": "965",
+					"length": "33",
+					"line": "21",
+					"start": "458"
+				},
+				"typeDescription": {
+					"typeIdentifier": "t_event\u0026_Global_PlayerJoined_\u0026964",
+					"typeString": "event Global.PlayerJoined"
+				}
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Event",
+			"value": {
+				"id": "971",
+				"name": "LotteryFinished",
+				"nodeType": "EVENT_DEFINITION",
+				"parameters": {
+					"id": "973",
+					"nodeType": "PARAMETER_LIST",
+					"parameters": [
+						{
+							"id": "974",
+							"name": "winner",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "974",
+							"src": {
+								"column": "26",
+								"end": "531",
+								"id": "975",
+								"length": "14",
+								"line": "22",
+								"parentIndex": "973",
+								"start": "518"
+							},
+							"stateMutability": "NONPAYABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							},
+							"typeName": {
+								"id": "976",
+								"name": "address",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "26",
+									"end": "524",
+									"id": "977",
+									"length": "7",
+									"line": "22",
+									"parentIndex": "974",
+									"start": "518"
+								},
+								"stateMutability": "NONPAYABLE",
+								"typeDescription": {
+									"typeIdentifier": "t_address",
+									"typeString": "address"
+								}
+							},
+							"visibility": "INTERNAL"
+						}
+					],
+					"src": {
+						"column": "4",
+						"end": "533",
+						"id": "972",
+						"length": "38",
+						"line": "22",
+						"parentIndex": "971",
+						"start": "496"
+					}
+				},
+				"src": {
+					"column": "4",
+					"end": "533",
+					"id": "972",
+					"length": "38",
+					"line": "22",
+					"start": "496"
+				},
+				"typeDescription": {
+					"typeIdentifier": "t_event\u0026_Global_LotteryFinished_\u0026971",
+					"typeString": "event Global.LotteryFinished"
+				}
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Event",
+			"value": {
+				"id": "978",
+				"name": "ExternalCallSuccessful",
+				"nodeType": "EVENT_DEFINITION",
+				"parameters": {
+					"id": "980",
+					"nodeType": "PARAMETER_LIST",
+					"src": {
+						"column": "4",
+						"end": "569",
+						"id": "979",
+						"length": "31",
+						"line": "23",
+						"parentIndex": "978",
+						"start": "539"
+					}
+				},
+				"src": {
+					"column": "4",
+					"end": "569",
+					"id": "979",
+					"length": "31",
+					"line": "23",
+					"start": "539"
+				},
+				"typeDescription": {
+					"typeIdentifier": "t_event\u0026_Global_ExternalCallSuccessful_\u0026978",
+					"typeString": "event Global.ExternalCallSuccessful"
+				}
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Event",
+			"value": {
+				"id": "981",
+				"name": "ExternalCallFailed",
+				"nodeType": "EVENT_DEFINITION",
+				"parameters": {
+					"id": "983",
+					"nodeType": "PARAMETER_LIST",
+					"parameters": [
+						{
+							"id": "984",
+							"name": "reason",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "984",
+							"src": {
+								"column": "29",
+								"end": "612",
+								"id": "985",
+								"length": "13",
+								"line": "24",
+								"parentIndex": "983",
+								"start": "600"
+							},
+							"stateMutability": "MUTABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_string",
+								"typeString": "string"
+							},
+							"typeName": {
+								"id": "986",
+								"name": "string",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "29",
+									"end": "605",
+									"id": "987",
+									"length": "6",
+									"line": "24",
+									"parentIndex": "984",
+									"start": "600"
+								},
+								"typeDescription": {
+									"typeIdentifier": "t_string",
+									"typeString": "string"
+								}
+							},
+							"visibility": "INTERNAL"
+						}
+					],
+					"src": {
+						"column": "4",
+						"end": "614",
+						"id": "982",
+						"length": "40",
+						"line": "24",
+						"parentIndex": "981",
+						"start": "575"
+					}
+				},
+				"src": {
+					"column": "4",
+					"end": "614",
+					"id": "982",
+					"length": "40",
+					"line": "24",
+					"start": "575"
+				},
+				"typeDescription": {
+					"typeIdentifier": "t_event\u0026_Global_ExternalCallFailed_\u0026981",
+					"typeString": "event Global.ExternalCallFailed"
+				}
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
+			"value": {
+				"id": "988",
 				"name": "InvalidState",
 				"nameLocation": {
 					"column": "10",
 					"end": "666",
 					"length": "12",
 					"line": "27",
-					"parentIndex": "964",
+					"parentIndex": "988",
 					"start": "655"
 				},
 				"nodeType": "ERROR_DEFINITION",
 				"parameters": {
-					"id": "966",
+					"id": "990",
 					"nodeType": "PARAMETER_LIST",
 					"src": {
 						"column": "4",
 						"end": "669",
-						"id": "965",
+						"id": "989",
 						"length": "21",
 						"line": "27",
-						"parentIndex": "964",
+						"parentIndex": "988",
 						"start": "649"
 					}
 				},
 				"src": {
 					"column": "4",
 					"end": "669",
-					"id": "965",
+					"id": "989",
 					"length": "21",
 					"line": "27",
 					"start": "649"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_error$_Global_InvalidState_$964",
+					"typeIdentifier": "t_error$_Global_InvalidState_$988",
 					"typeString": "error Global.InvalidState"
 				}
 			}
@@ -492,40 +752,40 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
 			"value": {
-				"id": "967",
+				"id": "991",
 				"name": "OwnerCannotParticipate",
 				"nameLocation": {
 					"column": "10",
 					"end": "702",
 					"length": "22",
 					"line": "28",
-					"parentIndex": "967",
+					"parentIndex": "991",
 					"start": "681"
 				},
 				"nodeType": "ERROR_DEFINITION",
 				"parameters": {
-					"id": "969",
+					"id": "993",
 					"nodeType": "PARAMETER_LIST",
 					"src": {
 						"column": "4",
 						"end": "705",
-						"id": "968",
+						"id": "992",
 						"length": "31",
 						"line": "28",
-						"parentIndex": "967",
+						"parentIndex": "991",
 						"start": "675"
 					}
 				},
 				"src": {
 					"column": "4",
 					"end": "705",
-					"id": "968",
+					"id": "992",
 					"length": "31",
 					"line": "28",
 					"start": "675"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_error$_Global_OwnerCannotParticipate_$967",
+					"typeIdentifier": "t_error$_Global_OwnerCannotParticipate_$991",
 					"typeString": "error Global.OwnerCannotParticipate"
 				}
 			}
@@ -533,40 +793,40 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
 			"value": {
-				"id": "970",
+				"id": "994",
 				"name": "NoValueProvided",
 				"nameLocation": {
 					"column": "10",
 					"end": "731",
 					"length": "15",
 					"line": "29",
-					"parentIndex": "970",
+					"parentIndex": "994",
 					"start": "717"
 				},
 				"nodeType": "ERROR_DEFINITION",
 				"parameters": {
-					"id": "972",
+					"id": "996",
 					"nodeType": "PARAMETER_LIST",
 					"src": {
 						"column": "4",
 						"end": "734",
-						"id": "971",
+						"id": "995",
 						"length": "24",
 						"line": "29",
-						"parentIndex": "970",
+						"parentIndex": "994",
 						"start": "711"
 					}
 				},
 				"src": {
 					"column": "4",
 					"end": "734",
-					"id": "971",
+					"id": "995",
 					"length": "24",
 					"line": "29",
 					"start": "711"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_error$_Global_NoValueProvided_$970",
+					"typeIdentifier": "t_error$_Global_NoValueProvided_$994",
 					"typeString": "error Global.NoValueProvided"
 				}
 			}
@@ -574,40 +834,40 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
 			"value": {
-				"id": "973",
+				"id": "997",
 				"name": "InvalidWinner",
 				"nameLocation": {
 					"column": "10",
 					"end": "758",
 					"length": "13",
 					"line": "30",
-					"parentIndex": "973",
+					"parentIndex": "997",
 					"start": "746"
 				},
 				"nodeType": "ERROR_DEFINITION",
 				"parameters": {
-					"id": "975",
+					"id": "999",
 					"nodeType": "PARAMETER_LIST",
 					"src": {
 						"column": "4",
 						"end": "761",
-						"id": "974",
+						"id": "998",
 						"length": "22",
 						"line": "30",
-						"parentIndex": "973",
+						"parentIndex": "997",
 						"start": "740"
 					}
 				},
 				"src": {
 					"column": "4",
 					"end": "761",
-					"id": "974",
+					"id": "998",
 					"length": "22",
 					"line": "30",
 					"start": "740"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_error$_Global_InvalidWinner_$973",
+					"typeIdentifier": "t_error$_Global_InvalidWinner_$997",
 					"typeString": "error Global.InvalidWinner"
 				}
 			}
@@ -615,40 +875,40 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
 			"value": {
-				"id": "976",
+				"id": "1000",
 				"name": "InvalidPlayerAddress",
 				"nameLocation": {
 					"column": "10",
 					"end": "792",
 					"length": "20",
 					"line": "31",
-					"parentIndex": "976",
+					"parentIndex": "1000",
 					"start": "773"
 				},
 				"nodeType": "ERROR_DEFINITION",
 				"parameters": {
-					"id": "978",
+					"id": "1002",
 					"nodeType": "PARAMETER_LIST",
 					"src": {
 						"column": "4",
 						"end": "795",
-						"id": "977",
+						"id": "1001",
 						"length": "29",
 						"line": "31",
-						"parentIndex": "976",
+						"parentIndex": "1000",
 						"start": "767"
 					}
 				},
 				"src": {
 					"column": "4",
 					"end": "795",
-					"id": "977",
+					"id": "1001",
 					"length": "29",
 					"line": "31",
 					"start": "767"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_error$_Global_InvalidPlayerAddress_$976",
+					"typeIdentifier": "t_error$_Global_InvalidPlayerAddress_$1000",
 					"typeString": "error Global.InvalidPlayerAddress"
 				}
 			}
@@ -656,40 +916,40 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Error",
 			"value": {
-				"id": "979",
+				"id": "1003",
 				"name": "OnlyOwnerCanCall",
 				"nameLocation": {
 					"column": "10",
 					"end": "822",
 					"length": "16",
 					"line": "32",
-					"parentIndex": "979",
+					"parentIndex": "1003",
 					"start": "807"
 				},
 				"nodeType": "ERROR_DEFINITION",
 				"parameters": {
-					"id": "981",
+					"id": "1005",
 					"nodeType": "PARAMETER_LIST",
 					"src": {
 						"column": "4",
 						"end": "825",
-						"id": "980",
+						"id": "1004",
 						"length": "25",
 						"line": "32",
-						"parentIndex": "979",
+						"parentIndex": "1003",
 						"start": "801"
 					}
 				},
 				"src": {
 					"column": "4",
 					"end": "825",
-					"id": "980",
+					"id": "1004",
 					"length": "25",
 					"line": "32",
 					"start": "801"
 				},
 				"typeDescription": {
-					"typeIdentifier": "t_error$_Global_OnlyOwnerCanCall_$979",
+					"typeIdentifier": "t_error$_Global_OnlyOwnerCanCall_$1003",
 					"typeString": "error Global.OnlyOwnerCanCall"
 				}
 			}

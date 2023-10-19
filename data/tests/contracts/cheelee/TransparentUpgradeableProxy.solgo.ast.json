@@ -396,12 +396,90 @@
 		},
 		{
 			"id": 3168,
+			"node_type": 57,
+			"src": {
+				"id": 3169,
+				"line": 406,
+				"column": 4,
+				"start": 14868,
+				"end": 14914,
+				"length": 47
+			},
+			"parameters": {
+				"id": 3170,
+				"node_type": 43,
+				"src": {
+					"id": 3169,
+					"line": 406,
+					"column": 4,
+					"start": 14868,
+					"end": 14914,
+					"length": 47,
+					"parent_index": 3168
+				},
+				"parameters": [
+					{
+						"id": 3171,
+						"node_type": 44,
+						"src": {
+							"id": 3172,
+							"line": 406,
+							"column": 19,
+							"start": 14883,
+							"end": 14912,
+							"length": 30,
+							"parent_index": 3170
+						},
+						"scope": 3168,
+						"name": "implementation",
+						"type_name": {
+							"id": 3173,
+							"node_type": 30,
+							"src": {
+								"id": 3174,
+								"line": 406,
+								"column": 19,
+								"start": 14883,
+								"end": 14889,
+								"length": 7,
+								"parent_index": 3171
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4,
+						"indexed": true
+					}
+				],
+				"parameter_types": [
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				]
+			},
+			"name": "Upgraded",
+			"anonymous": false,
+			"type_description": {
+				"type_identifier": "t_event\u0026_Global_Upgraded_\u00263168",
+				"type_string": "event Global.Upgraded"
+			}
+		},
+		{
+			"id": 3175,
 			"name": "_ADMIN_SLOT",
 			"is_constant": true,
 			"is_state_variable": true,
 			"node_type": 44,
 			"src": {
-				"id": 3169,
+				"id": 3176,
 				"line": 500,
 				"column": 4,
 				"start": 18492,
@@ -417,16 +495,16 @@
 			"storage_location": 1,
 			"mutability": 1,
 			"type_name": {
-				"id": 3170,
+				"id": 3177,
 				"node_type": 30,
 				"src": {
-					"id": 3171,
+					"id": 3178,
 					"line": 500,
 					"column": 4,
 					"start": 18492,
 					"end": 18498,
 					"length": 7,
-					"parent_index": 3168
+					"parent_index": 3175
 				},
 				"name": "bytes32",
 				"referenced_declaration": 0,
@@ -436,19 +514,19 @@
 				}
 			},
 			"initial_value": {
-				"id": 3172,
+				"id": 3179,
 				"node_type": 17,
 				"kind": 49,
 				"value": "0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103",
 				"hex_value": "307862353331323736383461353638623331373361653133623966386136303136653234336536336236653865653131373864366137313738353062356436313033",
 				"src": {
-					"id": 3173,
+					"id": 3180,
 					"line": 500,
 					"column": 44,
 					"start": 18532,
 					"end": 18597,
 					"length": 66,
-					"parent_index": 3168
+					"parent_index": 3175
 				},
 				"type_description": {
 					"type_identifier": "t_rational_0_by_1",
@@ -460,13 +538,132 @@
 			}
 		},
 		{
-			"id": 3174,
+			"id": 3181,
+			"node_type": 57,
+			"src": {
+				"id": 3182,
+				"line": 505,
+				"column": 4,
+				"start": 18677,
+				"end": 18736,
+				"length": 60
+			},
+			"parameters": {
+				"id": 3183,
+				"node_type": 43,
+				"src": {
+					"id": 3182,
+					"line": 505,
+					"column": 4,
+					"start": 18677,
+					"end": 18736,
+					"length": 60,
+					"parent_index": 3181
+				},
+				"parameters": [
+					{
+						"id": 3184,
+						"node_type": 44,
+						"src": {
+							"id": 3185,
+							"line": 505,
+							"column": 23,
+							"start": 18696,
+							"end": 18716,
+							"length": 21,
+							"parent_index": 3183
+						},
+						"scope": 3181,
+						"name": "previousAdmin",
+						"type_name": {
+							"id": 3186,
+							"node_type": 30,
+							"src": {
+								"id": 3187,
+								"line": 505,
+								"column": 23,
+								"start": 18696,
+								"end": 18702,
+								"length": 7,
+								"parent_index": 3184
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4
+					},
+					{
+						"id": 3188,
+						"node_type": 44,
+						"src": {
+							"id": 3189,
+							"line": 505,
+							"column": 46,
+							"start": 18719,
+							"end": 18734,
+							"length": 16,
+							"parent_index": 3183
+						},
+						"scope": 3181,
+						"name": "newAdmin",
+						"type_name": {
+							"id": 3190,
+							"node_type": 30,
+							"src": {
+								"id": 3191,
+								"line": 505,
+								"column": 46,
+								"start": 18719,
+								"end": 18725,
+								"length": 7,
+								"parent_index": 3188
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4
+					}
+				],
+				"parameter_types": [
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				]
+			},
+			"name": "AdminChanged",
+			"anonymous": false,
+			"type_description": {
+				"type_identifier": "t_event\u0026_Global_AdminChanged_\u00263181",
+				"type_string": "event Global.AdminChanged"
+			}
+		},
+		{
+			"id": 3192,
 			"name": "_BEACON_SLOT",
 			"is_constant": true,
 			"is_state_variable": true,
 			"node_type": 44,
 			"src": {
-				"id": 3175,
+				"id": 3193,
 				"line": 536,
 				"column": 4,
 				"start": 19692,
@@ -482,16 +679,16 @@
 			"storage_location": 1,
 			"mutability": 1,
 			"type_name": {
-				"id": 3176,
+				"id": 3194,
 				"node_type": 30,
 				"src": {
-					"id": 3177,
+					"id": 3195,
 					"line": 536,
 					"column": 4,
 					"start": 19692,
 					"end": 19698,
 					"length": 7,
-					"parent_index": 3174
+					"parent_index": 3192
 				},
 				"name": "bytes32",
 				"referenced_declaration": 0,
@@ -501,19 +698,19 @@
 				}
 			},
 			"initial_value": {
-				"id": 3178,
+				"id": 3196,
 				"node_type": 17,
 				"kind": 49,
 				"value": "0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50",
 				"hex_value": "307861336630616437346535343233616562666438306433656634333436353738333335613961373261656165653539666636636233353832623335313333643530",
 				"src": {
-					"id": 3179,
+					"id": 3197,
 					"line": 536,
 					"column": 45,
 					"start": 19733,
 					"end": 19798,
 					"length": 66,
-					"parent_index": 3174
+					"parent_index": 3192
 				},
 				"type_description": {
 					"type_identifier": "t_rational_0_by_1",
@@ -525,13 +722,91 @@
 			}
 		},
 		{
-			"id": 3180,
+			"id": 3198,
+			"node_type": 57,
+			"src": {
+				"id": 3199,
+				"line": 541,
+				"column": 4,
+				"start": 19871,
+				"end": 19915,
+				"length": 45
+			},
+			"parameters": {
+				"id": 3200,
+				"node_type": 43,
+				"src": {
+					"id": 3199,
+					"line": 541,
+					"column": 4,
+					"start": 19871,
+					"end": 19915,
+					"length": 45,
+					"parent_index": 3198
+				},
+				"parameters": [
+					{
+						"id": 3201,
+						"node_type": 44,
+						"src": {
+							"id": 3202,
+							"line": 541,
+							"column": 25,
+							"start": 19892,
+							"end": 19913,
+							"length": 22,
+							"parent_index": 3200
+						},
+						"scope": 3198,
+						"name": "beacon",
+						"type_name": {
+							"id": 3203,
+							"node_type": 30,
+							"src": {
+								"id": 3204,
+								"line": 541,
+								"column": 25,
+								"start": 19892,
+								"end": 19898,
+								"length": 7,
+								"parent_index": 3201
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4,
+						"indexed": true
+					}
+				],
+				"parameter_types": [
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				]
+			},
+			"name": "BeaconUpgraded",
+			"anonymous": false,
+			"type_description": {
+				"type_identifier": "t_event\u0026_Global_BeaconUpgraded_\u00263198",
+				"type_string": "event Global.BeaconUpgraded"
+			}
+		},
+		{
+			"id": 3205,
 			"name": "_owner",
 			"is_constant": false,
 			"is_state_variable": true,
 			"node_type": 44,
 			"src": {
-				"id": 3181,
+				"id": 3206,
 				"line": 671,
 				"column": 4,
 				"start": 24252,
@@ -547,16 +822,16 @@
 			"storage_location": 1,
 			"mutability": 1,
 			"type_name": {
-				"id": 3182,
+				"id": 3207,
 				"node_type": 30,
 				"src": {
-					"id": 3183,
+					"id": 3208,
 					"line": 671,
 					"column": 4,
 					"start": 24252,
 					"end": 24258,
 					"length": 7,
-					"parent_index": 3180
+					"parent_index": 3205
 				},
 				"name": "address",
 				"state_mutability": 4,
@@ -569,13 +844,134 @@
 			"initial_value": null
 		},
 		{
-			"id": 3184,
+			"id": 3209,
+			"node_type": 57,
+			"src": {
+				"id": 3210,
+				"line": 673,
+				"column": 4,
+				"start": 24281,
+				"end": 24364,
+				"length": 84
+			},
+			"parameters": {
+				"id": 3211,
+				"node_type": 43,
+				"src": {
+					"id": 3210,
+					"line": 673,
+					"column": 4,
+					"start": 24281,
+					"end": 24364,
+					"length": 84,
+					"parent_index": 3209
+				},
+				"parameters": [
+					{
+						"id": 3212,
+						"node_type": 44,
+						"src": {
+							"id": 3213,
+							"line": 673,
+							"column": 31,
+							"start": 24308,
+							"end": 24336,
+							"length": 29,
+							"parent_index": 3211
+						},
+						"scope": 3209,
+						"name": "previousOwner",
+						"type_name": {
+							"id": 3214,
+							"node_type": 30,
+							"src": {
+								"id": 3215,
+								"line": 673,
+								"column": 31,
+								"start": 24308,
+								"end": 24314,
+								"length": 7,
+								"parent_index": 3212
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4,
+						"indexed": true
+					},
+					{
+						"id": 3216,
+						"node_type": 44,
+						"src": {
+							"id": 3217,
+							"line": 673,
+							"column": 62,
+							"start": 24339,
+							"end": 24362,
+							"length": 24,
+							"parent_index": 3211
+						},
+						"scope": 3209,
+						"name": "newOwner",
+						"type_name": {
+							"id": 3218,
+							"node_type": 30,
+							"src": {
+								"id": 3219,
+								"line": 673,
+								"column": 62,
+								"start": 24339,
+								"end": 24345,
+								"length": 7,
+								"parent_index": 3216
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4,
+						"indexed": true
+					}
+				],
+				"parameter_types": [
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				]
+			},
+			"name": "OwnershipTransferred",
+			"anonymous": false,
+			"type_description": {
+				"type_identifier": "t_event\u0026_Global_OwnershipTransferred_\u00263209",
+				"type_string": "event Global.OwnershipTransferred"
+			}
+		},
+		{
+			"id": 3220,
 			"name": "_implementation",
 			"is_constant": false,
 			"is_state_variable": true,
 			"node_type": 44,
 			"src": {
-				"id": 3185,
+				"id": 3221,
 				"line": 737,
 				"column": 4,
 				"start": 26389,
@@ -591,16 +987,16 @@
 			"storage_location": 1,
 			"mutability": 1,
 			"type_name": {
-				"id": 3186,
+				"id": 3222,
 				"node_type": 30,
 				"src": {
-					"id": 3187,
+					"id": 3223,
 					"line": 737,
 					"column": 4,
 					"start": 26389,
 					"end": 26395,
 					"length": 7,
-					"parent_index": 3184
+					"parent_index": 3220
 				},
 				"name": "address",
 				"state_mutability": 4,
@@ -611,6 +1007,84 @@
 				}
 			},
 			"initial_value": null
+		},
+		{
+			"id": 3224,
+			"node_type": 57,
+			"src": {
+				"id": 3225,
+				"line": 742,
+				"column": 4,
+				"start": 26522,
+				"end": 26568,
+				"length": 47
+			},
+			"parameters": {
+				"id": 3226,
+				"node_type": 43,
+				"src": {
+					"id": 3225,
+					"line": 742,
+					"column": 4,
+					"start": 26522,
+					"end": 26568,
+					"length": 47,
+					"parent_index": 3224
+				},
+				"parameters": [
+					{
+						"id": 3227,
+						"node_type": 44,
+						"src": {
+							"id": 3228,
+							"line": 742,
+							"column": 19,
+							"start": 26537,
+							"end": 26566,
+							"length": 30,
+							"parent_index": 3226
+						},
+						"scope": 3224,
+						"name": "implementation",
+						"type_name": {
+							"id": 3229,
+							"node_type": 30,
+							"src": {
+								"id": 3230,
+								"line": 742,
+								"column": 19,
+								"start": 26537,
+								"end": 26543,
+								"length": 7,
+								"parent_index": 3227
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"storage_location": 2,
+						"visibility": 1,
+						"state_mutability": 4,
+						"indexed": true
+					}
+				],
+				"parameter_types": [
+					{
+						"type_identifier": "t_address",
+						"type_string": "address"
+					}
+				]
+			},
+			"name": "Upgraded",
+			"anonymous": false,
+			"type_description": {
+				"type_identifier": "t_event\u0026_Global_Upgraded_\u00263224",
+				"type_string": "event Global.Upgraded"
+			}
 		}
 	],
 	"root": [
@@ -11881,7 +12355,11 @@
 								]
 							},
 							"name": "Upgraded",
-							"anonymous": false
+							"anonymous": false,
+							"type_description": {
+								"type_identifier": "t_event\u0026_ERC1967Upgrade_Upgraded_\u00261085",
+								"type_string": "event ERC1967Upgrade.Upgraded"
+							}
 						},
 						{
 							"id": 1093,
@@ -15440,11 +15918,11 @@
 											},
 											"name": "BeaconUpgraded",
 											"type_description": {
-												"type_identifier": "t_event\u0026_ERC1967Upgrade_BeaconUpgraded_\u00261595",
-												"type_string": "event ERC1967Upgrade.BeaconUpgraded"
+												"type_identifier": "t_event\u0026_Global_BeaconUpgraded_\u00263198",
+												"type_string": "event Global.BeaconUpgraded"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 1595,
+											"referenced_declaration": 3198,
 											"is_pure": false
 										}
 									},
@@ -16194,7 +16672,11 @@
 								]
 							},
 							"name": "AdminChanged",
-							"anonymous": false
+							"anonymous": false,
+							"type_description": {
+								"type_identifier": "t_event\u0026_ERC1967Upgrade_AdminChanged_\u00261473",
+								"type_string": "event ERC1967Upgrade.AdminChanged"
+							}
 						},
 						{
 							"id": 1485,
@@ -17473,7 +17955,11 @@
 								]
 							},
 							"name": "BeaconUpgraded",
-							"anonymous": false
+							"anonymous": false,
+							"type_description": {
+								"type_identifier": "t_event\u0026_ERC1967Upgrade_BeaconUpgraded_\u00261595",
+								"type_string": "event ERC1967Upgrade.BeaconUpgraded"
+							}
 						},
 						{
 							"id": 1603,
@@ -21230,7 +21716,11 @@
 								]
 							},
 							"name": "OwnershipTransferred",
-							"anonymous": false
+							"anonymous": false,
+							"type_description": {
+								"type_identifier": "t_event\u0026_Ownable_OwnershipTransferred_\u00261972",
+								"type_string": "event Ownable.OwnershipTransferred"
+							}
 						},
 						{
 							"id": 1984,
@@ -23435,7 +23925,11 @@
 								]
 							},
 							"name": "Upgraded",
-							"anonymous": false
+							"anonymous": false,
+							"type_description": {
+								"type_identifier": "t_event\u0026_UpgradeableBeacon_Upgraded_\u00262203",
+								"type_string": "event UpgradeableBeacon.Upgraded"
+							}
 						},
 						{
 							"id": 2211,

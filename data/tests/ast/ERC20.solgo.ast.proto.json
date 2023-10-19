@@ -4,16 +4,334 @@
 	"node_type": 80,
 	"global_nodes": [
 		{
-			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Variable",
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Event",
 			"value": {
 				"id": "2016",
+				"name": "Transfer",
+				"nodeType": "EVENT_DEFINITION",
+				"parameters": {
+					"id": "2018",
+					"nodeType": "PARAMETER_LIST",
+					"parameters": [
+						{
+							"id": "2019",
+							"indexed": true,
+							"name": "from",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "2019",
+							"src": {
+								"column": "19",
+								"end": "9548",
+								"id": "2020",
+								"length": "20",
+								"line": "306",
+								"parentIndex": "2018",
+								"start": "9529"
+							},
+							"stateMutability": "NONPAYABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							},
+							"typeName": {
+								"id": "2021",
+								"name": "address",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "19",
+									"end": "9535",
+									"id": "2022",
+									"length": "7",
+									"line": "306",
+									"parentIndex": "2019",
+									"start": "9529"
+								},
+								"stateMutability": "NONPAYABLE",
+								"typeDescription": {
+									"typeIdentifier": "t_address",
+									"typeString": "address"
+								}
+							},
+							"visibility": "INTERNAL"
+						},
+						{
+							"id": "2023",
+							"indexed": true,
+							"name": "to",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "2023",
+							"src": {
+								"column": "41",
+								"end": "9568",
+								"id": "2024",
+								"length": "18",
+								"line": "306",
+								"parentIndex": "2018",
+								"start": "9551"
+							},
+							"stateMutability": "NONPAYABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							},
+							"typeName": {
+								"id": "2025",
+								"name": "address",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "41",
+									"end": "9557",
+									"id": "2026",
+									"length": "7",
+									"line": "306",
+									"parentIndex": "2023",
+									"start": "9551"
+								},
+								"stateMutability": "NONPAYABLE",
+								"typeDescription": {
+									"typeIdentifier": "t_address",
+									"typeString": "address"
+								}
+							},
+							"visibility": "INTERNAL"
+						},
+						{
+							"id": "2027",
+							"name": "value",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "2027",
+							"src": {
+								"column": "61",
+								"end": "9583",
+								"id": "2028",
+								"length": "13",
+								"line": "306",
+								"parentIndex": "2018",
+								"start": "9571"
+							},
+							"stateMutability": "MUTABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							},
+							"typeName": {
+								"id": "2029",
+								"name": "uint256",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "61",
+									"end": "9577",
+									"id": "2030",
+									"length": "7",
+									"line": "306",
+									"parentIndex": "2027",
+									"start": "9571"
+								},
+								"typeDescription": {
+									"typeIdentifier": "t_uint256",
+									"typeString": "uint256"
+								}
+							},
+							"visibility": "INTERNAL"
+						}
+					],
+					"src": {
+						"column": "4",
+						"end": "9585",
+						"id": "2017",
+						"length": "72",
+						"line": "306",
+						"parentIndex": "2016",
+						"start": "9514"
+					}
+				},
+				"src": {
+					"column": "4",
+					"end": "9585",
+					"id": "2017",
+					"length": "72",
+					"line": "306",
+					"start": "9514"
+				},
+				"typeDescription": {
+					"typeIdentifier": "t_event\u0026_Global_Transfer_\u00262016",
+					"typeString": "event Global.Transfer"
+				}
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Event",
+			"value": {
+				"id": "2031",
+				"name": "Approval",
+				"nodeType": "EVENT_DEFINITION",
+				"parameters": {
+					"id": "2033",
+					"nodeType": "PARAMETER_LIST",
+					"parameters": [
+						{
+							"id": "2034",
+							"indexed": true,
+							"name": "owner",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "2034",
+							"src": {
+								"column": "19",
+								"end": "9780",
+								"id": "2035",
+								"length": "21",
+								"line": "312",
+								"parentIndex": "2033",
+								"start": "9760"
+							},
+							"stateMutability": "NONPAYABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							},
+							"typeName": {
+								"id": "2036",
+								"name": "address",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "19",
+									"end": "9766",
+									"id": "2037",
+									"length": "7",
+									"line": "312",
+									"parentIndex": "2034",
+									"start": "9760"
+								},
+								"stateMutability": "NONPAYABLE",
+								"typeDescription": {
+									"typeIdentifier": "t_address",
+									"typeString": "address"
+								}
+							},
+							"visibility": "INTERNAL"
+						},
+						{
+							"id": "2038",
+							"indexed": true,
+							"name": "spender",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "2038",
+							"src": {
+								"column": "42",
+								"end": "9805",
+								"id": "2039",
+								"length": "23",
+								"line": "312",
+								"parentIndex": "2033",
+								"start": "9783"
+							},
+							"stateMutability": "NONPAYABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_address",
+								"typeString": "address"
+							},
+							"typeName": {
+								"id": "2040",
+								"name": "address",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "42",
+									"end": "9789",
+									"id": "2041",
+									"length": "7",
+									"line": "312",
+									"parentIndex": "2038",
+									"start": "9783"
+								},
+								"stateMutability": "NONPAYABLE",
+								"typeDescription": {
+									"typeIdentifier": "t_address",
+									"typeString": "address"
+								}
+							},
+							"visibility": "INTERNAL"
+						},
+						{
+							"id": "2042",
+							"name": "value",
+							"nodeType": "VARIABLE_DECLARATION",
+							"scope": "2042",
+							"src": {
+								"column": "67",
+								"end": "9820",
+								"id": "2043",
+								"length": "13",
+								"line": "312",
+								"parentIndex": "2033",
+								"start": "9808"
+							},
+							"stateMutability": "MUTABLE",
+							"storageLocation": "MEMORY",
+							"typeDescription": {
+								"typeIdentifier": "t_uint256",
+								"typeString": "uint256"
+							},
+							"typeName": {
+								"id": "2044",
+								"name": "uint256",
+								"nodeType": "ELEMENTARY_TYPE_NAME",
+								"src": {
+									"column": "67",
+									"end": "9814",
+									"id": "2045",
+									"length": "7",
+									"line": "312",
+									"parentIndex": "2042",
+									"start": "9808"
+								},
+								"typeDescription": {
+									"typeIdentifier": "t_uint256",
+									"typeString": "uint256"
+								}
+							},
+							"visibility": "INTERNAL"
+						}
+					],
+					"src": {
+						"column": "4",
+						"end": "9822",
+						"id": "2032",
+						"length": "78",
+						"line": "312",
+						"parentIndex": "2031",
+						"start": "9745"
+					}
+				},
+				"src": {
+					"column": "4",
+					"end": "9822",
+					"id": "2032",
+					"length": "78",
+					"line": "312",
+					"start": "9745"
+				},
+				"typeDescription": {
+					"typeIdentifier": "t_event\u0026_Global_Approval_\u00262031",
+					"typeString": "event Global.Approval"
+				}
+			}
+		},
+		{
+			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Variable",
+			"value": {
+				"id": "2046",
 				"isStateVariable": true,
 				"name": "_balances",
 				"nodeType": "VARIABLE_DECLARATION",
 				"src": {
 					"column": "4",
 					"end": "12968",
-					"id": "2017",
+					"id": "2047",
 					"length": "46",
 					"line": "407",
 					"start": "12923"
@@ -25,18 +343,18 @@
 					"typeString": "mapping(address=\u003euint256)"
 				},
 				"typeName": {
-					"id": "2018",
+					"id": "2048",
 					"keyType": {
-						"id": "2020",
+						"id": "2050",
 						"name": "address",
 						"nodeType": "ELEMENTARY_TYPE_NAME",
 						"src": {
 							"column": "12",
 							"end": "12937",
-							"id": "2021",
+							"id": "2051",
 							"length": "7",
 							"line": "407",
-							"parentIndex": "2018",
+							"parentIndex": "2048",
 							"start": "12931"
 						},
 						"typeDescription": {
@@ -47,10 +365,10 @@
 					"src": {
 						"column": "4",
 						"end": "12949",
-						"id": "2019",
+						"id": "2049",
 						"length": "27",
 						"line": "407",
-						"parentIndex": "2016",
+						"parentIndex": "2046",
 						"start": "12923"
 					},
 					"typeDescription": {
@@ -58,16 +376,16 @@
 						"typeString": "mapping(address=\u003euint256)"
 					},
 					"valueType": {
-						"id": "2022",
+						"id": "2052",
 						"name": "uint256",
 						"nodeType": "ELEMENTARY_TYPE_NAME",
 						"src": {
 							"column": "23",
 							"end": "12948",
-							"id": "2023",
+							"id": "2053",
 							"length": "7",
 							"line": "407",
-							"parentIndex": "2018",
+							"parentIndex": "2048",
 							"start": "12942"
 						},
 						"typeDescription": {
@@ -82,14 +400,14 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Variable",
 			"value": {
-				"id": "2024",
+				"id": "2054",
 				"isStateVariable": true,
 				"name": "_allowances",
 				"nodeType": "VARIABLE_DECLARATION",
 				"src": {
 					"column": "4",
 					"end": "13042",
-					"id": "2025",
+					"id": "2055",
 					"length": "68",
 					"line": "409",
 					"start": "12975"
@@ -101,18 +419,18 @@
 					"typeString": "mapping(address=\u003emapping(address=\u003euint256))"
 				},
 				"typeName": {
-					"id": "2026",
+					"id": "2056",
 					"keyType": {
-						"id": "2028",
+						"id": "2058",
 						"name": "address",
 						"nodeType": "ELEMENTARY_TYPE_NAME",
 						"src": {
 							"column": "12",
 							"end": "12989",
-							"id": "2029",
+							"id": "2059",
 							"length": "7",
 							"line": "409",
-							"parentIndex": "2026",
+							"parentIndex": "2056",
 							"start": "12983"
 						},
 						"typeDescription": {
@@ -123,10 +441,10 @@
 					"src": {
 						"column": "4",
 						"end": "13021",
-						"id": "2027",
+						"id": "2057",
 						"length": "47",
 						"line": "409",
-						"parentIndex": "2024",
+						"parentIndex": "2054",
 						"start": "12975"
 					},
 					"typeDescription": {
@@ -134,18 +452,18 @@
 						"typeString": "mapping(address=\u003emapping(address=\u003euint256))"
 					},
 					"valueType": {
-						"id": "2030",
+						"id": "2060",
 						"keyType": {
-							"id": "2033",
+							"id": "2063",
 							"name": "address",
 							"nodeType": "ELEMENTARY_TYPE_NAME",
 							"src": {
 								"column": "31",
 								"end": "13008",
-								"id": "2034",
+								"id": "2064",
 								"length": "7",
 								"line": "409",
-								"parentIndex": "2026",
+								"parentIndex": "2056",
 								"start": "13002"
 							},
 							"typeDescription": {
@@ -158,10 +476,10 @@
 						"src": {
 							"column": "23",
 							"end": "13020",
-							"id": "2031",
+							"id": "2061",
 							"length": "27",
 							"line": "409",
-							"parentIndex": "2026",
+							"parentIndex": "2056",
 							"start": "12994"
 						},
 						"typeDescription": {
@@ -169,16 +487,16 @@
 							"typeString": "mapping(address=\u003euint256)"
 						},
 						"valueType": {
-							"id": "2035",
+							"id": "2065",
 							"name": "uint256",
 							"nodeType": "ELEMENTARY_TYPE_NAME",
 							"src": {
 								"column": "42",
 								"end": "13019",
-								"id": "2036",
+								"id": "2066",
 								"length": "7",
 								"line": "409",
-								"parentIndex": "2026",
+								"parentIndex": "2056",
 								"start": "13013"
 							},
 							"typeDescription": {
@@ -194,14 +512,14 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Variable",
 			"value": {
-				"id": "2037",
+				"id": "2067",
 				"isStateVariable": true,
 				"name": "_totalSupply",
 				"nodeType": "VARIABLE_DECLARATION",
 				"src": {
 					"column": "4",
 					"end": "13077",
-					"id": "2038",
+					"id": "2068",
 					"length": "29",
 					"line": "411",
 					"start": "13049"
@@ -213,16 +531,16 @@
 					"typeString": "uint256"
 				},
 				"typeName": {
-					"id": "2039",
+					"id": "2069",
 					"name": "uint256",
 					"nodeType": "ELEMENTARY_TYPE_NAME",
 					"src": {
 						"column": "4",
 						"end": "13055",
-						"id": "2040",
+						"id": "2070",
 						"length": "7",
 						"line": "411",
-						"parentIndex": "2037",
+						"parentIndex": "2067",
 						"start": "13049"
 					},
 					"typeDescription": {
@@ -236,14 +554,14 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Variable",
 			"value": {
-				"id": "2041",
+				"id": "2071",
 				"isStateVariable": true,
 				"name": "_name",
 				"nodeType": "VARIABLE_DECLARATION",
 				"src": {
 					"column": "4",
 					"end": "13104",
-					"id": "2042",
+					"id": "2072",
 					"length": "21",
 					"line": "413",
 					"start": "13084"
@@ -255,16 +573,16 @@
 					"typeString": "string"
 				},
 				"typeName": {
-					"id": "2043",
+					"id": "2073",
 					"name": "string",
 					"nodeType": "ELEMENTARY_TYPE_NAME",
 					"src": {
 						"column": "4",
 						"end": "13089",
-						"id": "2044",
+						"id": "2074",
 						"length": "6",
 						"line": "413",
-						"parentIndex": "2041",
+						"parentIndex": "2071",
 						"start": "13084"
 					},
 					"typeDescription": {
@@ -278,14 +596,14 @@
 		{
 			"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Variable",
 			"value": {
-				"id": "2045",
+				"id": "2075",
 				"isStateVariable": true,
 				"name": "_symbol",
 				"nodeType": "VARIABLE_DECLARATION",
 				"src": {
 					"column": "4",
 					"end": "13132",
-					"id": "2046",
+					"id": "2076",
 					"length": "23",
 					"line": "414",
 					"start": "13110"
@@ -297,16 +615,16 @@
 					"typeString": "string"
 				},
 				"typeName": {
-					"id": "2047",
+					"id": "2077",
 					"name": "string",
 					"nodeType": "ELEMENTARY_TYPE_NAME",
 					"src": {
 						"column": "4",
 						"end": "13115",
-						"id": "2048",
+						"id": "2078",
 						"length": "6",
 						"line": "414",
-						"parentIndex": "2045",
+						"parentIndex": "2075",
 						"start": "13110"
 					},
 					"typeDescription": {

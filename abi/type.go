@@ -5,6 +5,7 @@ import (
 
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/ir"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // Type represents a type within the Ethereum ABI.
@@ -94,9 +95,10 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 	nameParts := strings.Split(nameCleaned, ".")
 
 	toReturn := MethodIO{
-		Name:       nameParts[1],
-		Components: make([]MethodIO, 0),
-		Type:       "tuple",
+		Name:         nameParts[1],
+		Components:   make([]MethodIO, 0),
+		Type:         "tuple",
+		InternalType: typeName.GetString(),
 	}
 
 	for _, contract := range t.parser.GetRoot().GetContracts() {
@@ -152,19 +154,11 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 		Outputs: make([]Type, 0),
 	}
 
-	discoveredType, found := normalizeTypeNameWithStatus(typeName)
-	if found {
-		if isEnumType(typeName) {
-			toReturn.Type = "uint8"
-			toReturn.InternalType = typeName
-			return toReturn
-		}
-		toReturn.Type = discoveredType
-		toReturn.InternalType = discoveredType
-		return toReturn
-	} else if isEnumType(typeName) {
-		toReturn.Type = "uint8"
-		toReturn.InternalType = typeName
+	normalization := utils.NewNormalizeType().Normalize(typeName)
+
+	if normalization.Normalized {
+		toReturn.Type = normalization.TypeName
+		toReturn.InternalType = normalization.TypeName
 		return toReturn
 	} else {
 		typeName = strings.ReplaceAll(typeName, "[]", "")

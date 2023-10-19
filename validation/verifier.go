@@ -11,6 +11,7 @@ import (
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/utils"
+	"go.uber.org/zap"
 )
 
 // Verifier is a utility that facilitates the verification of Ethereum smart contracts.
@@ -85,11 +86,14 @@ func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResu
 	result := results.GetEntryContract()
 
 	if result == nil {
-		return nil, errors.New("no entry contract found in the compilation results")
+		zap.L().Error(
+			"no appropriate compilation results found (compiled but missing entry contract)",
+			zap.Any("results", results),
+		)
+		return nil, errors.New("no appropriate compilation results found (compiled but missing entry contract)")
 	}
 
 	encoded := hex.EncodeToString(bytecode)
-
 	if !strings.Contains(result.GetDeployedBytecode(), encoded) {
 		dmp := diffmatchpatch.New()
 		diffs := dmp.DiffMain(encoded, result.GetDeployedBytecode(), false)

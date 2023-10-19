@@ -39,6 +39,11 @@ func (s *SourceUnit) GetPath() string {
 	return s.Path
 }
 
+// GetBasePath returns the base path of the SourceUnit.
+func (s *SourceUnit) GetBasePath() string {
+	return filepath.Base(s.Path)
+}
+
 // GetContent returns the content of the SourceUnit.
 func (s *SourceUnit) GetContent() string {
 	return s.Content
@@ -97,6 +102,7 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	sources := &Sources{
 		MaskLocalSourcesPath: true,
 		LocalSourcesPath:     sourcesDir,
+		LocalSources:         false,
 	}
 
 	// First target is the target of the entry source unit...
@@ -108,7 +114,7 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	// Getting name looks surreal and easy, probably won't work in all cases and is
 	// too good to be true.
 	for name, source := range md.Sources {
-		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+		sources.AppendSource(&SourceUnit{
 			Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
 			Path:    name,
 			Content: source.Content,
@@ -134,14 +140,14 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources 
 
 	switch sourceCode := sc.(type) {
 	case string:
-		sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+		sources.AppendSource(&SourceUnit{
 			Name:    entryContractName,
 			Path:    fmt.Sprintf("%s.sol", entryContractName),
 			Content: sourceCode,
 		})
 	case metadata.ContractMetadata:
 		for name, source := range sourceCode.Sources {
-			sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+			sources.AppendSource(&SourceUnit{
 				Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
 				Path:    name,
 				Content: source.Content,
@@ -152,6 +158,36 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources 
 	}
 
 	return sources
+}
+
+// AppendSource appends a SourceUnit to the Sources.
+// If a SourceUnit with the same name already exists, it replaces it unless the new SourceUnit has less content.
+func (s *Sources) AppendSource(source *SourceUnit) {
+
+	if s.SourceUnitExists(source.GetName()) {
+		unit := s.GetSourceUnitByName(source.GetName())
+
+		if len(unit.Content) == len(source.Content) {
+			return
+		}
+
+		if len(unit.Content) < len(source.Content) {
+			s.ReplaceSource(unit, source)
+			return
+		}
+	}
+
+	s.SourceUnits = append(s.SourceUnits, source)
+}
+
+// ReplaceSource replaces an old SourceUnit with a new one.
+// If the old SourceUnit is not found, nothing happens.
+func (s *Sources) ReplaceSource(old *SourceUnit, newSource *SourceUnit) {
+	for i, unit := range s.SourceUnits {
+		if unit.GetName() == old.GetName() {
+			s.SourceUnits[i] = newSource
+		}
+	}
 }
 
 // Validate checks the integrity of the Sources object.

@@ -25,8 +25,9 @@ var requiredArgs = map[string]bool{
 
 // Config represents the configuration for the Slither tool.
 type Config struct {
-	tempDir   string   // Directory to store temporary contract files.
-	Arguments []string // Arguments to pass to the Slither tool.
+	tempDir         string   // Directory to store temporary contract files.
+	Arguments       []string // Arguments to pass to the Slither tool.
+	CompilerVersion string   // Compiler version to use.
 }
 
 // NewDefaultConfig creates and returns a default configuration for Slither.
@@ -112,4 +113,14 @@ func (c *Config) AppendArguments(args ...string) {
 // GetArguments returns the arguments to be passed to the Slither tool.
 func (c *Config) GetArguments() []string {
 	return c.Arguments
+}
+
+// SetCompilerVersion sets the compiler version to use.
+func (c *Config) SetCompilerVersion(version string) {
+	c.CompilerVersion = version
+}
+
+// GetCompilerVersion returns the compiler version to use.
+func (c *Config) GetCompilerVersion() string {
+	return c.CompilerVersion
 }

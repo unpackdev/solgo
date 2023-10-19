@@ -357,7 +357,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
-		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
 			pathCtx.GetText(),
 		)
 
@@ -368,7 +368,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			t.StateMutability = ast_pb.Mutability_PAYABLE
 		}
 
-		if len(normalizedTypeName) > 0 {
+		if found {
 			t.TypeDescription = &TypeDescription{
 				TypeIdentifier: normalizedTypeIdentifier,
 				TypeString:     normalizedTypeName,
@@ -463,10 +463,28 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
-		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
-			t.PathNode.ReferencedDeclaration = refId
-			t.ReferencedDeclaration = refId
-			t.TypeDescription = refTypeDescription
+		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
+			identifierCtx.GetText(),
+		)
+
+		switch normalizedTypeIdentifier {
+		case "t_address":
+			t.StateMutability = ast_pb.Mutability_NONPAYABLE
+		case "t_address_payable":
+			t.StateMutability = ast_pb.Mutability_PAYABLE
+		}
+
+		if found {
+			t.TypeDescription = &TypeDescription{
+				TypeIdentifier: normalizedTypeIdentifier,
+				TypeString:     normalizedTypeName,
+			}
+		} else {
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
+				t.PathNode.ReferencedDeclaration = refId
+				t.ReferencedDeclaration = refId
+				t.TypeDescription = refTypeDescription
+			}
 		}
 	}
 }
@@ -723,13 +741,15 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 	}
 
 	if t.GetTypeDescription() == nil {
-		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
 			t.Name,
 		)
 
-		t.TypeDescription = &TypeDescription{
-			TypeString:     normalizedTypeName,
-			TypeIdentifier: normalizedTypeIdentifier,
+		if found {
+			t.TypeDescription = &TypeDescription{
+				TypeString:     normalizedTypeName,
+				TypeIdentifier: normalizedTypeIdentifier,
+			}
 		}
 	}
 }
