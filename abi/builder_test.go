@@ -33,6 +33,7 @@ func TestBuilderFromSources(t *testing.T) {
 		expectedProto        string
 		unresolvedReferences int64
 		isEmpty              bool
+		disabled             bool
 	}{
 		{
 			name:       "Empty Contract Test",
@@ -53,6 +54,7 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/Empty.abi.proto").Content,
 			unresolvedReferences: 0,
 			isEmpty:              true,
+			disabled:             false,
 		},
 		{
 			name:       "Simple Storage Contract Test",
@@ -77,6 +79,7 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/SimpleStorage.abi").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/SimpleStorage.abi.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "OpenZeppelin ERC20 Test",
@@ -116,6 +119,7 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/ERC20.abi").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/ERC20.abi.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Token Sale ERC20 Test",
@@ -144,6 +148,7 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/TokenSale.abi").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/TokenSale.abi.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Lottery Test",
@@ -162,6 +167,7 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/Lottery.abi").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/Lottery.abi.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 		{
 			name:       "Cheelee Test", // Took this one as I could discover ipfs metadata :joy:
@@ -240,11 +246,17 @@ func TestBuilderFromSources(t *testing.T) {
 			expectedAbi:          tests.ReadJsonBytesForTest(t, "abi/TransparentUpgradeableProxy.abi").Content,
 			expectedProto:        tests.ReadJsonBytesForTest(t, "abi/TransparentUpgradeableProxy.abi.proto").Content,
 			unresolvedReferences: 0,
+			disabled:             false,
 		},
 	}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
+
+			if testCase.disabled {
+				return
+			}
+
 			builder, err := NewBuilderFromSources(context.TODO(), testCase.sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, builder)
