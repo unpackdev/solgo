@@ -124,7 +124,6 @@ func (u *UsingDirective) Parse(
 	ctx *parser.UsingDirectiveContext,
 ) {
 	u.Src = SrcNode{
-		Id:          u.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -153,7 +152,6 @@ func (u *UsingDirective) getLibraryName(identifierCtx parser.IIdentifierPathCont
 		Id:       u.GetNextID(),
 		NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		Src: SrcNode{
-			Id:          u.GetNextID(),
 			Line:        int64(identifierCtx.GetStart().GetLine()),
 			Start:       int64(identifierCtx.GetStart().GetStart()),
 			End:         int64(identifierCtx.GetStop().GetStop()),

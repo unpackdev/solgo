@@ -252,7 +252,6 @@ func (f *FunctionCall) Parse(
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -283,13 +282,13 @@ func (f *FunctionCall) Parse(
 
 	if ctx.Expression() != nil {
 		f.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), ctx.Expression(),
 		)
 	}
 
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
-			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, expressionCtx)
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), expressionCtx)
 			f.Arguments = append(
 				f.Arguments,
 				expr,
@@ -518,7 +517,6 @@ func (f *FunctionCallOption) Parse(
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -549,7 +547,7 @@ func (f *FunctionCallOption) Parse(
 
 	if ctx.Expression() != nil {
 		f.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), ctx.Expression(),
 		)
 		f.TypeDescription = f.Expression.GetTypeDescription()
 	}

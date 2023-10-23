@@ -49,17 +49,20 @@ func (p *PrimaryExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDes
 
 	// In case it's a function call, we need to rebuild the type descriptions from the parent node.
 	// It is a hack, but working one. One day we'll figure out better solution for all of this referencing mess...
-	parentNode := p.ASTBuilder.GetTree().GetById(p.Src.ParentIndex)
-	if parentNode != nil {
+	if parentNode := p.ASTBuilder.GetTree().GetById(p.GetSrc().GetParentIndex()); parentNode != nil {
 		switch node := parentNode.(type) {
 		case *FunctionCall:
 			node.RebuildDescriptions()
-		case *Assignment:
-			if node.GetTypeDescription() == nil {
-				node.SetReferenceDescriptor(refId, refDesc)
+		default:
+			if parentNode.GetTypeDescription() == nil {
+				parentNode.SetReferenceDescriptor(refId, refDesc)
 			}
 		}
 	}
+
+	// There are cases where we need to rebuild node from updated descriptions.
+	// For example if it's int_const we need to ensure it's set to pure...
+	p.Rebuild()
 
 	return true
 }
@@ -138,6 +141,15 @@ func (p *PrimaryExpression) GetTypeName() *TypeName {
 	return p.TypeName
 }
 
+// Rebuild rebuilds the PrimaryExpression node after referenced declaration is set.
+func (p *PrimaryExpression) Rebuild() {
+	if p.TypeDescription != nil {
+		if strings.Contains(p.TypeDescription.TypeString, "int_const") {
+			p.Pure = true
+		}
+	}
+}
+
 // ToProto returns a protobuf representation of the PrimaryExpression node.
 // Currently, it returns an empty PrimaryExpression and needs to be implemented.
 func (p *PrimaryExpression) ToProto() NodeType {
@@ -180,34 +192,16 @@ func (p *PrimaryExpression) Parse(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.PrimaryExpressionContext,
 ) Node[NodeType] {
 	p.Src = SrcNode{
-		Id:     p.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			if bodyNode != nil {
-				return bodyNode.GetId()
-			}
-
-			if fnNode != nil {
-				return fnNode.GetId()
-			}
-
-			return 0 // This happens in very rare cases, in fact in type name expression.
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	if ctx.Identifier() != nil {
@@ -379,6 +373,9 @@ func (p *PrimaryExpression) Parse(
 		}
 
 		if p.TypeDescription == nil {
+			/* 			if p.GetId() == 4186 {
+				utils.DumpNodeWithExit(p)
+			} */
 			if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); refTypeDescription != nil {
 				p.ReferencedDeclaration = refId
 				p.TypeDescription = refTypeDescription
@@ -519,11 +516,13 @@ func (p *PrimaryExpression) Parse(
 
 	if fnNode != nil && p.TypeDescription == nil {
 		if fn, ok := fnNode.(*Function); ok {
-			for _, param := range fn.GetParameters().GetParameters() {
-				if param.GetName() == p.Name {
-					p.TypeDescription = param.GetTypeName().GetTypeDescription()
-					p.ReferencedDeclaration = fn.GetId()
-					break
+			if fn.GetParameters() != nil {
+				for _, param := range fn.GetParameters().GetParameters() {
+					if param.GetName() == p.Name {
+						p.TypeDescription = param.GetTypeName().GetTypeDescription()
+						p.ReferencedDeclaration = fn.GetId()
+						break
+					}
 				}
 			}
 		}
@@ -635,7 +634,7 @@ func (p *PrimaryExpression) Parse(
 	}
 
 	if p.TypeDescription == nil {
-		if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); refTypeDescription != nil {
+		if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.GetName()); refTypeDescription != nil {
 			p.ReferencedDeclaration = refId
 			p.TypeDescription = refTypeDescription
 		}

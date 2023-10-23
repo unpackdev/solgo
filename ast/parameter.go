@@ -5,6 +5,7 @@ import (
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // Parameter represents a parameter node in the abstract syntax tree.
@@ -39,6 +40,11 @@ func NewParameter(b *ASTBuilder) *Parameter {
 
 // SetReferenceDescriptor sets the reference descriptors of the Parameter node.
 func (p *Parameter) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+
+	if p.GetName() == "L" {
+		utils.DumpNodeWithExit(p)
+	}
+
 	return false
 }
 
@@ -117,11 +123,13 @@ func (p *Parameter) IsIndexed() bool {
 
 // GetNodes returns a slice of nodes associated with the parameter.
 func (p *Parameter) GetNodes() []Node[NodeType] {
+	toReturn := []Node[NodeType]{}
+
 	if p.TypeName != nil {
-		return []Node[NodeType]{p.TypeName}
+		toReturn = append(toReturn, p.TypeName)
 	}
 
-	return []Node[NodeType]{}
+	return toReturn
 }
 
 func (p *Parameter) UnmarshalJSON(data []byte) error {
@@ -252,7 +260,6 @@ func (p *Parameter) ToProto() NodeType {
 func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[*ast_pb.ParameterList], ctx *parser.ParameterDeclarationContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
-		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -282,6 +289,7 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 	}
 
 	p.TypeName = typeName
+	p.TypeDescription = typeName.GetTypeDescription()
 	p.currentVariables = append(p.currentVariables, p)
 }
 
@@ -289,7 +297,6 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[*ast_pb.ParameterList], ctx parser.IEventParameterContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
-		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -320,6 +327,7 @@ func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	}
 
 	p.TypeName = typeName
+	p.TypeDescription = typeName.GetTypeDescription()
 	p.currentVariables = append(p.currentVariables, p)
 }
 
@@ -327,7 +335,6 @@ func (p *Parameter) ParseEventParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], contractNode Node[NodeType], structNode *StructDefinition, ctx parser.IStructMemberContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
-		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -358,14 +365,15 @@ func (p *Parameter) ParseStructParameter(unit *SourceUnit[Node[ast_pb.SourceUnit
 	}
 
 	p.TypeName = typeName
+	p.TypeDescription = typeName.GetTypeDescription()
 	p.currentVariables = append(p.currentVariables, p)
+
 }
 
 // ParseErrorParameter parses the error parameter context and populates the Parameter fields for error definitions.
 func (p *Parameter) ParseErrorParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], plNode Node[*ast_pb.ParameterList], ctx parser.IErrorParameterContext) {
 	p.Id = p.GetNextID()
 	p.Src = SrcNode{
-		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -395,6 +403,7 @@ func (p *Parameter) ParseErrorParameter(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	}
 
 	p.TypeName = typeName
+	p.TypeDescription = typeName.GetTypeDescription()
 	p.currentVariables = append(p.currentVariables, p)
 }
 

@@ -33,6 +33,7 @@ func (s *SimpleStatement) Parse(
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
 	parentNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.SimpleStatementContext,
 ) Node[NodeType] {
 	for _, child := range ctx.GetChildren() {
@@ -44,7 +45,7 @@ func (s *SimpleStatement) Parse(
 		case *parser.ExpressionStatementContext:
 			return parseExpressionStatement(
 				s.ASTBuilder,
-				unit, contractNode, fnNode, bodyNode, parentNode, childCtx,
+				unit, contractNode, fnNode, bodyNode, parentNode, parentNodeId, childCtx,
 			)
 		case *antlr.ErrorNodeImpl:
 			zap.L().Warn(

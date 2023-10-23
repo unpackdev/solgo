@@ -247,7 +247,6 @@ func (u *UnarySuffix) Parse(
 	ctx *parser.UnarySuffixOperationContext,
 ) Node[NodeType] {
 	u.Src = SrcNode{
-		Id:     u.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -268,7 +267,7 @@ func (u *UnarySuffix) Parse(
 	}
 
 	expression := NewExpression(u.ASTBuilder)
-	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, ctx.Expression())
+	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, u.GetId(), ctx.Expression())
 	u.TypeDescription = u.Expression.GetTypeDescription()
 	return u
 }

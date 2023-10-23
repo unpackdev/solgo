@@ -148,7 +148,6 @@ func (y *YulSwitchStatement) Parse(
 ) Node[NodeType] {
 	// Set the source location details from context.
 	y.Src = SrcNode{
-		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

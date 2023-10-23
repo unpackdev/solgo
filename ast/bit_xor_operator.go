@@ -17,6 +17,7 @@ type BitXorOperation struct {
 	Src              SrcNode            `json:"src"`
 	Expressions      []Node[NodeType]   `json:"expressions"`
 	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
+	TypeDescription  *TypeDescription   `json:"type_description"`
 }
 
 // NewBitXorOperationExpression creates a new BitXorOperation instance.
@@ -31,7 +32,18 @@ func NewBitXorOperationExpression(b *ASTBuilder) *BitXorOperation {
 
 // SetReferenceDescriptor sets the reference descriptions of the BitXorOperation node.
 // This function always returns false for now.
-func (b *BitXorOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (f *BitXorOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	f.TypeDescriptions = []*TypeDescription{}
+	for _, expr := range f.Expressions {
+		f.TypeDescriptions = append(f.TypeDescriptions, expr.GetTypeDescription())
+	}
+
+	if len(f.TypeDescriptions) > 1 {
+		f.TypeDescription = f.TypeDescriptions[1]
+	} else {
+		f.TypeDescription = f.TypeDescriptions[0]
+	}
+
 	return false
 }
 
@@ -52,7 +64,7 @@ func (f *BitXorOperation) GetSrc() SrcNode {
 
 // GetTypeDescription returns the type description associated with the BitXorOperation.
 func (f *BitXorOperation) GetTypeDescription() *TypeDescription {
-	return f.TypeDescriptions[0]
+	return f.TypeDescription
 }
 
 // GetNodes returns the child nodes of the BitXorOperation.
@@ -155,46 +167,34 @@ func (f *BitXorOperation) Parse(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.BitXorOperationContext,
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			if bodyNode != nil {
-				return bodyNode.GetId()
-			}
-
-			if fnNode != nil {
-				return fnNode.GetId()
-			}
-
-			return contractNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	expression := NewExpression(f.ASTBuilder)
 
 	for _, expr := range ctx.AllExpression() {
-		parsedExp := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, expr)
+		parsedExp := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, f.GetId(), expr)
 		f.Expressions = append(
 			f.Expressions,
 			parsedExp,
 		)
 		f.TypeDescriptions = append(f.TypeDescriptions, parsedExp.GetTypeDescription())
+	}
+
+	if len(f.TypeDescriptions) > 1 {
+		f.TypeDescription = f.TypeDescriptions[1]
+	} else {
+		f.TypeDescription = f.TypeDescriptions[0]
 	}
 
 	return f

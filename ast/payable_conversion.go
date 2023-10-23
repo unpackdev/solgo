@@ -198,7 +198,6 @@ func (p *PayableConversion) Parse(
 	ctx *parser.PayableConversionContext,
 ) Node[NodeType] {
 	p.Src = SrcNode{
-		Id:     p.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -225,7 +224,7 @@ func (p *PayableConversion) Parse(
 
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
-			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, p, expressionCtx)
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, p, p.GetId(), expressionCtx)
 			p.Arguments = append(
 				p.Arguments,
 				expr,

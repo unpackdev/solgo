@@ -255,7 +255,6 @@ func (m *MemberAccessExpression) Parse(
 	ctx *parser.MemberAccessContext,
 ) Node[NodeType] {
 	m.Src = SrcNode{
-		Id:     m.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -288,7 +287,7 @@ func (m *MemberAccessExpression) Parse(
 	if ctx.Expression() != nil {
 		expression := NewExpression(m.ASTBuilder)
 		m.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, vDeclar, m, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, vDeclar, m, m.GetId(), ctx.Expression(),
 		)
 
 		m.TypeDescription = m.Expression.GetTypeDescription()

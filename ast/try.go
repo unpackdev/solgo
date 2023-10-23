@@ -250,7 +250,6 @@ func (t *TryStatement) Parse(
 	ctx *parser.TryStatementContext,
 ) Node[NodeType] {
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -259,7 +258,7 @@ func (t *TryStatement) Parse(
 	}
 
 	expression := NewExpression(t.ASTBuilder)
-	t.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, t, ctx.Expression())
+	t.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, t, t.GetId(), ctx.Expression())
 
 	if ctx.Block() != nil && !ctx.Block().IsEmpty() {
 		bodyNode := NewBodyNode(t.ASTBuilder, false)

@@ -13,7 +13,6 @@ func TestStructMethods(t *testing.T) {
 	structInstance := &Struct{
 		Id:                      1,
 		NodeType:                ast_pb.NodeType(1),
-		Kind:                    ast_pb.NodeType(1),
 		Name:                    "TestStruct",
 		CanonicalName:           "TestCanonicalName",
 		ReferencedDeclarationId: 2,
@@ -32,9 +31,6 @@ func TestStructMethods(t *testing.T) {
 
 	// Test GetNodeType method
 	assert.Equal(t, ast_pb.NodeType(1), structInstance.GetNodeType())
-
-	// Test GetKind method
-	assert.Equal(t, ast_pb.NodeType(1), structInstance.GetKind())
 
 	// Test GetCanonicalName method
 	assert.Equal(t, "TestCanonicalName", structInstance.GetCanonicalName())

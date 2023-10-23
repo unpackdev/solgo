@@ -157,7 +157,6 @@ func (o *OverrideSpecifier) ToProto() NodeType {
 func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], ctx parser.IOverrideSpecifierContext) {
 	o.Id = o.GetNextID()
 	o.Src = SrcNode{
-		Id:          o.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -176,7 +175,6 @@ func (o *OverrideSpecifier) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnN
 					Name:     identifier.GetText(),
 					NodeType: ast_pb.NodeType_OVERRIDE_PATH,
 					Src: SrcNode{
-						Id:          o.GetNextID(),
 						Line:        int64(override.GetStart().GetLine()),
 						Column:      int64(override.GetStart().GetColumn()),
 						Start:       int64(override.GetStart().GetStart()),

@@ -170,7 +170,6 @@ func (f *ExprOperation) Parse(
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -199,8 +198,8 @@ func (f *ExprOperation) Parse(
 
 	expression := NewExpression(f.ASTBuilder)
 
-	f.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, ctx.Expression(0))
-	f.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, ctx.Expression(1))
+	f.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, f.GetId(), ctx.Expression(0))
+	f.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, f.GetId(), ctx.Expression(1))
 
 	f.TypeDescriptions = append(f.TypeDescriptions, f.LeftExpression.GetTypeDescription())
 	f.TypeDescriptions = append(f.TypeDescriptions, f.RightExpression.GetTypeDescription())

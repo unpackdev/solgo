@@ -18,7 +18,6 @@ func parseInheritanceFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceU
 		baseContract := &BaseContract{
 			Id: b.GetNextID(),
 			Src: SrcNode{
-				Id:          b.GetNextID(),
 				Line:        int64(specifierCtx.GetStart().GetLine()),
 				Column:      int64(specifierCtx.GetStart().GetColumn()),
 				Start:       int64(specifierCtx.GetStart().GetStart()),
@@ -30,7 +29,6 @@ func parseInheritanceFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceU
 			BaseName: &BaseContractName{
 				Id: b.GetNextID(),
 				Src: SrcNode{
-					Id:          b.GetNextID(),
 					Line:        int64(specifierCtx.GetStart().GetLine()),
 					Column:      int64(specifierCtx.GetStart().GetColumn()),
 					Start:       int64(specifierCtx.GetStart().GetStart()),

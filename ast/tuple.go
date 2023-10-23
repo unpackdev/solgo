@@ -190,7 +190,6 @@ func (t *TupleExpression) Parse(
 	ctx *parser.TupleContext,
 ) Node[NodeType] {
 	t.Src = SrcNode{
-		Id:     t.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -211,7 +210,7 @@ func (t *TupleExpression) Parse(
 
 	expression := NewExpression(t.ASTBuilder)
 	for _, tupleCtx := range ctx.TupleExpression().AllExpression() {
-		expr := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, t, tupleCtx)
+		expr := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, t, t.GetId(), tupleCtx)
 		t.Components = append(
 			t.Components,
 			expr,

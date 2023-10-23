@@ -172,7 +172,6 @@ func (e *Emit) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	ctx *parser.EmitStatementContext,
 ) Node[NodeType] {
 	e.Src = SrcNode{
-		Id:          e.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -184,10 +183,10 @@ func (e *Emit) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	expression := NewExpression(e.ASTBuilder)
 
 	for _, argumentCtx := range ctx.CallArgumentList().AllExpression() {
-		argument := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, argumentCtx)
+		argument := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, e, e.GetId(), argumentCtx)
 		e.Arguments = append(e.Arguments, argument)
 	}
 
-	e.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	e.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, e, e.GetId(), ctx.Expression())
 	return e
 }

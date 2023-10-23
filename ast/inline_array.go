@@ -180,7 +180,6 @@ func (f *InlineArray) Parse(
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -210,7 +209,7 @@ func (f *InlineArray) Parse(
 
 	expression := NewExpression(f.ASTBuilder)
 	for _, expr := range ctx.InlineArrayExpression().AllExpression() {
-		parsedExp := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, expr)
+		parsedExp := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, f.GetId(), expr)
 		f.Expressions = append(
 			f.Expressions,
 			parsedExp,

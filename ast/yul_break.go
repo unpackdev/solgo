@@ -80,7 +80,6 @@ func (y *YulBreakStatement) Parse(
 	ctx *antlr.TerminalNodeImpl,
 ) Node[NodeType] {
 	y.Src = SrcNode{
-		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetSymbol().GetLine()),
 		Column:      int64(ctx.GetSymbol().GetColumn()),
 		Start:       int64(ctx.GetSymbol().GetStart()),

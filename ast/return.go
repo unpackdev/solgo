@@ -158,7 +158,6 @@ func (r *ReturnStatement) Parse(
 	ctx *parser.ReturnStatementContext,
 ) Node[NodeType] {
 	r.Src = SrcNode{
-		Id:          r.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -177,7 +176,7 @@ func (r *ReturnStatement) Parse(
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(r.ASTBuilder)
-		r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+		r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, r, r.GetId(), ctx.Expression())
 	}
 
 	return r

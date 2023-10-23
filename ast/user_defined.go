@@ -131,7 +131,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 	ctx *parser.UserDefinedValueTypeDefinitionContext,
 ) Node[NodeType] {
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -144,7 +143,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 	if ctx.Type() != nil {
 		b.Type = ctx.Type().GetText()
 		b.TypeLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(ctx.Type().GetSymbol().GetLine()),
 			Start:       int64(ctx.Type().GetSymbol().GetStart()),
 			End:         int64(ctx.Type().GetSymbol().GetStop()),
@@ -157,7 +155,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 		identifier := ctx.Identifier()
 		b.Name = identifier.GetText()
 		b.NameLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(identifier.GetStart().GetLine()),
 			Start:       int64(identifier.GetStart().GetStart()),
 			End:         int64(identifier.GetStart().GetStop()),
@@ -168,7 +165,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 		identifier := ctx.GetName()
 		b.Name = identifier.GetText()
 		b.NameLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(identifier.GetStart().GetLine()),
 			Start:       int64(identifier.GetStart().GetStart()),
 			End:         int64(identifier.GetStart().GetStop()),
@@ -188,4 +184,68 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 	b.currentUserDefinedVariables = append(b.currentUserDefinedVariables, b)
 
 	return b
+}
+
+// ParseGlobal populates the UserDefinedValueTypeDefinition fields using the provided parser context.
+func (b *UserDefinedValueTypeDefinition) ParseGlobal(
+	ctx *parser.UserDefinedValueTypeDefinitionContext,
+) Node[NodeType] {
+	b.Src = SrcNode{
+		Line:        int64(ctx.GetStart().GetLine()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+
+	b.Is = ctx.Is() != nil
+
+	if ctx.Type() != nil {
+		b.Type = ctx.Type().GetText()
+		b.TypeLocation = SrcNode{
+			Line:        int64(ctx.Type().GetSymbol().GetLine()),
+			Start:       int64(ctx.Type().GetSymbol().GetStart()),
+			End:         int64(ctx.Type().GetSymbol().GetStop()),
+			Length:      int64(ctx.Type().GetSymbol().GetStop() - ctx.Type().GetSymbol().GetStart() + 1),
+			ParentIndex: b.GetId(),
+		}
+	}
+
+	if ctx.Identifier() != nil {
+		identifier := ctx.Identifier()
+		b.Name = identifier.GetText()
+		b.NameLocation = SrcNode{
+			Line:        int64(identifier.GetStart().GetLine()),
+			Start:       int64(identifier.GetStart().GetStart()),
+			End:         int64(identifier.GetStart().GetStop()),
+			Length:      int64(identifier.GetStart().GetStop() - identifier.GetStart().GetStart() + 1),
+			ParentIndex: b.GetId(),
+		}
+	} else if ctx.GetName() != nil {
+		identifier := ctx.GetName()
+		b.Name = identifier.GetText()
+		b.NameLocation = SrcNode{
+			Line:        int64(identifier.GetStart().GetLine()),
+			Start:       int64(identifier.GetStart().GetStart()),
+			End:         int64(identifier.GetStart().GetStop()),
+			Length:      int64(identifier.GetStart().GetStop() - identifier.GetStart().GetStart() + 1),
+			ParentIndex: b.GetId(),
+		}
+	}
+
+	if ctx.ElementaryTypeName() != nil {
+		typeName := NewTypeName(b.ASTBuilder)
+		typeName.ParseElementaryType(nil, nil, b.GetId(), ctx.ElementaryTypeName())
+		b.TypeName = typeName
+		b.TypeDescription = typeName.GetTypeDescription()
+	}
+
+	b.currentUserDefinedVariables = append(b.currentUserDefinedVariables, b)
+
+	return b
+}
+
+func (b *ASTBuilder) EnterUserDefinedValueTypeDefinition(ctx *parser.UserDefinedValueTypeDefinitionContext) {
+	child := NewUserDefinedValueTypeDefinition(b)
+	child.ParseGlobal(ctx)
 }

@@ -2,7 +2,6 @@ package ast
 
 import (
 	"fmt"
-	"reflect"
 	"strings"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -24,9 +23,11 @@ type Resolver struct {
 
 // UnprocessedNode is a structure that represents a node that could not be processed during the parsing of the AST.
 type UnprocessedNode struct {
-	Id   int64          `json:"id"`
-	Name string         `json:"name"`
-	Node Node[NodeType] `json:"ref"`
+	Id           int64          `json:"id"`
+	Name         string         `json:"name"`
+	Node         Node[NodeType] `json:"ref"`
+	ErrFindRef   bool           `json:"error_find_ref"`
+	ErrUpdateRef bool           `json:"error_update_ref"`
 }
 
 // NewResolver creates a new Resolver with the provided ASTBuilder and initializes the UnprocessedNodes map.
@@ -154,14 +155,20 @@ func (r *Resolver) Resolve() []error {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
 					delete(r.UnprocessedNodes, nodeId)
 				} else {
-					errors = append(
-						errors,
-						fmt.Errorf(
-							"unable to update node reference by id %d - name: %s - type: %v - reflect: %T",
-							nodeId, node.Name, rNodeType, node.Node,
-						),
-					)
+					/* 					if node.Name == "M" {
+						parentNode := r.tree.GetById(node.Node.GetSrc().GetParentIndex())
+						utils.DumpNodeNoExit(parentNode)
+						utils.DumpNodeWithExit(node)
+					} */
+					uNode := r.UnprocessedNodes[nodeId]
+					uNode.ErrUpdateRef = true
+					r.UnprocessedNodes[nodeId] = uNode
+
 				}
+			} else {
+				uNode := r.UnprocessedNodes[nodeId]
+				uNode.ErrFindRef = true
+				r.UnprocessedNodes[nodeId] = uNode
 			}
 		}
 
@@ -172,13 +179,23 @@ func (r *Resolver) Resolve() []error {
 	}
 
 	for nodeId, node := range r.UnprocessedNodes {
-		errors = append(
-			errors,
-			fmt.Errorf(
-				"unable to resolve node by id %d - name: %s - type: %v",
-				nodeId, node.Name, reflect.TypeOf(node.Node),
-			),
-		)
+		if node.ErrFindRef {
+			errors = append(
+				errors,
+				fmt.Errorf(
+					"unable to resolve node by id %d - name: %s - type: %T",
+					nodeId, node.Name, node.Node,
+				),
+			)
+		} else if node.ErrUpdateRef {
+			errors = append(
+				errors,
+				fmt.Errorf(
+					"unable to update node reference by id %d - name: %s - type: %T",
+					nodeId, node.Name, node.Node,
+				),
+			)
+		}
 	}
 
 	return errors
@@ -703,3 +720,42 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 
 	return nil, nil
 }
+
+/**
+t Resolve:  4268 discovered node:  17368
+Cannot Resolve:  5721 discovered node:  17368
+Cannot Resolve:  10921 discovered node:  17374
+Cannot Resolve:  15465 discovered node:  17374
+Cannot Resolve:  2103 discovered node:  17368
+Cannot Resolve:  8286 discovered node:  17368
+Cannot Resolve:  4709 discovered node:  17385
+Cannot Resolve:  13803 discovered node:  17374
+Cannot Resolve:  15984 discovered node:  17374
+Cannot Resolve:  1610 discovered node:  17374
+Cannot Resolve:  3240 discovered node:  17368
+Cannot Resolve:  5732 discovered node:  17374
+Cannot Resolve:  13778 discovered node:  17374
+Cannot Resolve:  4507 discovered node:  17391
+Cannot Resolve:  15474 discovered node:  17374
+Cannot Resolve:  3218 discovered node:  17368
+Cannot Resolve:  3251 discovered node:  17368
+Cannot Resolve:  2059 discovered node:  17368
+Cannot Resolve:  2048 discovered node:  17368
+Cannot Resolve:  13838 discovered node:  17374
+Cannot Resolve:  2037 discovered node:  17368
+Cannot Resolve:  13769 discovered node:  17374
+Cannot Resolve:  10993 discovered node:  17391
+Cannot Resolve:  13829 discovered node:  17374
+Cannot Resolve:  2092 discovered node:  17368
+Cannot Resolve:  15085 discovered node:  17374
+Cannot Resolve:  5787 discovered node:  17391
+Cannot Resolve:  3262 discovered node:  17368
+Cannot Resolve:  4186 discovered node:  17391
+Cannot Resolve:  2070 discovered node:  17368
+Cannot Resolve:  4221 discovered node:  17385
+Cannot Resolve:  11025 discovered node:  17391
+Cannot Resolve:  16729 discovered node:  17374
+Cannot Resolve:  1632 discovered node:  17374
+Cannot Resolve:  2081 discovered node:  17368
+Cannot Resolve:  1689 discovered node:  17368                                                                                                                        Cannot Resolve:  2114 discovered node:  17368
+**/

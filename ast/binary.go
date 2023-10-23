@@ -45,6 +45,16 @@ func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperation {
 
 // SetReferenceDescriptor sets the reference descriptions of the BinaryOperation node.
 func (a *BinaryOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	a.TypeDescription = refDesc
+
+	// In case it's a function call, we need to rebuild the type descriptions from the parent node.
+	// It is a hack, but working one. One day we'll figure out better solution for all of this referencing mess...
+	if parentNode := a.ASTBuilder.GetTree().GetById(a.GetSrc().GetParentIndex()); parentNode != nil {
+		if parentNode.GetTypeDescription() == nil {
+			parentNode.SetReferenceDescriptor(refId, refDesc)
+		}
+	}
+
 	return false
 }
 
@@ -80,10 +90,6 @@ func (a *BinaryOperation) GetRightExpression() Node[NodeType] {
 
 // GetTypeDescription is a getter method that returns the type description of the left operand of the binary operation.
 func (a *BinaryOperation) GetTypeDescription() *TypeDescription {
-	if a.TypeDescription == nil {
-		a.TypeDescription = a.LeftExpression.GetTypeDescription()
-	}
-
 	return a.TypeDescription
 }
 
@@ -219,26 +225,16 @@ func (a *BinaryOperation) ParseAddSub(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.AddSubOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			return bodyNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	a.Operator = ast_pb.Operator_ADDITION
@@ -248,11 +244,11 @@ func (a *BinaryOperation) ParseAddSub(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1),
 	)
 
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()
@@ -268,26 +264,16 @@ func (a *BinaryOperation) ParseOrderComparison(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.OrderComparisonContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			return bodyNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	if ctx.GreaterThanOrEqual() != nil {
@@ -302,11 +288,11 @@ func (a *BinaryOperation) ParseOrderComparison(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1),
 	)
 
 	a.TypeDescription = &TypeDescription{
@@ -325,26 +311,16 @@ func (a *BinaryOperation) ParseMulDivMod(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.MulDivModOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			return bodyNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	if ctx.Mul() != nil {
@@ -357,11 +333,11 @@ func (a *BinaryOperation) ParseMulDivMod(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1),
 	)
 
 	if a.RightExpression.GetTypeDescription() == nil {
@@ -384,26 +360,16 @@ func (a *BinaryOperation) ParseEqualityComparison(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.EqualityComparisonContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			return bodyNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	if ctx.Equal() != nil {
@@ -414,11 +380,11 @@ func (a *BinaryOperation) ParseEqualityComparison(
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1),
 	)
 
 	a.TypeDescription = &TypeDescription{
@@ -437,37 +403,27 @@ func (a *BinaryOperation) ParseOr(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.OrOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			return bodyNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	a.Operator = ast_pb.Operator_OR
 
 	expression := NewExpression(a.ASTBuilder)
 	a.LeftExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0),
 	)
 
 	a.RightExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1),
+		unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1),
 	)
 
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()

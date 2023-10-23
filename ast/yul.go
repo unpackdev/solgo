@@ -84,7 +84,6 @@ func (a *Yul) Parse(
 	ctx *parser.AssemblyStatementContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

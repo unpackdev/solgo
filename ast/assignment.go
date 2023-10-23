@@ -283,36 +283,22 @@ func (a *Assignment) ParseStatement(
 	bodyNode *BodyNode,
 	parentNode Node[NodeType],
 	eCtx *parser.ExpressionStatementContext,
+	parentNodeId int64,
 	ctx *parser.AssignmentContext,
 ) {
 	// Setting the source location information.
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(eCtx.GetStart().GetLine()),
-		Column: int64(eCtx.GetStart().GetColumn()),
-		Start:  int64(eCtx.GetStart().GetStart()),
-		End:    int64(eCtx.GetStop().GetStop()),
-		Length: int64(eCtx.GetStop().GetStop() - eCtx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if parentNode != nil {
-				return parentNode.GetId()
-			}
-
-			if bodyNode != nil {
-				return bodyNode.GetId()
-			}
-
-			if fnNode != nil {
-				return fnNode.GetId()
-			}
-
-			return contractNode.GetId()
-		}(),
+		Line:        int64(eCtx.GetStart().GetLine()),
+		Column:      int64(eCtx.GetStart().GetColumn()),
+		Start:       int64(eCtx.GetStart().GetStart()),
+		End:         int64(eCtx.GetStop().GetStop()),
+		Length:      int64(eCtx.GetStop().GetStop() - eCtx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	// Parsing the expression and setting the type description.
 	expression := NewExpression(a.ASTBuilder)
-	a.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx)
+	a.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, a, a.GetId(), ctx)
 	a.TypeDescription = a.Expression.GetTypeDescription()
 }
 
@@ -324,28 +310,18 @@ func (a *Assignment) Parse(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.AssignmentContext,
 ) Node[NodeType] {
 	// Setting the type and source location information.
 	a.NodeType = ast_pb.NodeType_ASSIGNMENT
 	a.Src = SrcNode{
-		Id:     a.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			return bodyNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	// Parsing the operator.
@@ -353,8 +329,8 @@ func (a *Assignment) Parse(
 
 	// Parsing left and right expressions.
 	expression := NewExpression(a.ASTBuilder)
-	a.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0))
-	a.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1))
+	a.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0))
+	a.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1))
 
 	// Setting the type description based on the left expression.
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()

@@ -225,7 +225,6 @@ func (i *IndexAccess) Parse(
 	ctx *parser.IndexAccessContext,
 ) Node[NodeType] {
 	i.Src = SrcNode{
-		Id:     i.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),
@@ -247,7 +246,7 @@ func (i *IndexAccess) Parse(
 	expression := NewExpression(i.ASTBuilder)
 
 	i.IndexExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, i, i.GetId(), ctx.Expression(0),
 	)
 	i.TypeDescription = i.IndexExpression.GetTypeDescription()
 
@@ -257,7 +256,7 @@ func (i *IndexAccess) Parse(
 
 	if ctx.Expression(1) != nil {
 		i.BaseExpression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(1),
+			unit, contractNode, fnNode, bodyNode, vDeclar, i, i.GetId(), ctx.Expression(1),
 		)
 		i.TypeDescriptions = append(i.TypeDescriptions, i.BaseExpression.GetTypeDescription())
 	}

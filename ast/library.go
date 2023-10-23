@@ -363,7 +363,6 @@ func (l *Library) ToProto() NodeType {
 // It does not return anything.
 func (l *Library) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.LibraryDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
-		Id:          l.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

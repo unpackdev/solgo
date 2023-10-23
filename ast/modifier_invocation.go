@@ -215,7 +215,6 @@ func (m *ModifierInvocation) Parse(
 	ctx parser.IModifierInvocationContext,
 ) {
 	m.Src = SrcNode{
-		Id:          m.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -232,7 +231,6 @@ func (m *ModifierInvocation) Parse(
 			Id:   m.GetNextID(),
 			Name: iCtx.GetText(),
 			Src: SrcNode{
-				Id:          m.GetNextID(),
 				Line:        int64(iCtx.GetStart().GetLine()),
 				Column:      int64(iCtx.GetStart().GetColumn()),
 				Start:       int64(iCtx.GetStart().GetStart()),
@@ -247,7 +245,7 @@ func (m *ModifierInvocation) Parse(
 	expression := NewExpression(m.ASTBuilder)
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
-			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, m, expressionCtx)
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, m, m.GetId(), expressionCtx)
 			m.Arguments = append(
 				m.Arguments,
 				expr,

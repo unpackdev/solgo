@@ -107,7 +107,6 @@ func (y *YulLiteralStatement) Parse(
 		y.Value = literal.GetText()
 		y.Kind = ast_pb.NodeType_BOOLEAN
 		y.Src = SrcNode{
-			Id:          y.GetNextID(),
 			Line:        int64(literal.GetStart().GetLine()),
 			Column:      int64(literal.GetStart().GetColumn()),
 			Start:       int64(literal.GetStart().GetStart()),
@@ -123,7 +122,6 @@ func (y *YulLiteralStatement) Parse(
 		y.Value = literal.GetText()
 		y.Kind = ast_pb.NodeType_DECIMAL_NUMBER
 		y.Src = SrcNode{
-			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
 			Start:       int64(literal.GetSymbol().GetStart()),
@@ -139,7 +137,6 @@ func (y *YulLiteralStatement) Parse(
 		y.Value = literal.GetText()
 		y.Kind = ast_pb.NodeType_STRING
 		y.Src = SrcNode{
-			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
 			Start:       int64(literal.GetSymbol().GetStart()),
@@ -155,7 +152,6 @@ func (y *YulLiteralStatement) Parse(
 		y.Kind = ast_pb.NodeType_HEX_NUMBER
 		y.HexValue = literal.GetText()
 		y.Src = SrcNode{
-			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
 			Start:       int64(literal.GetSymbol().GetStart()),
@@ -179,7 +175,6 @@ func (y *YulLiteralStatement) Parse(
 		y.HexValue = literal.GetText()
 		y.Value = strings.Replace(y.HexValue, "0x", "", -1)
 		y.Src = SrcNode{
-			Id:          y.GetNextID(),
 			Line:        int64(literal.GetSymbol().GetLine()),
 			Column:      int64(literal.GetSymbol().GetColumn()),
 			Start:       int64(literal.GetSymbol().GetStart()),

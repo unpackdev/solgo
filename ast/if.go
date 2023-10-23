@@ -164,7 +164,6 @@ func (i *IfStatement) Parse(
 	ctx *parser.IfStatementContext,
 ) Node[NodeType] {
 	i.Src = SrcNode{
-		Id:          i.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -174,7 +173,7 @@ func (i *IfStatement) Parse(
 
 	expression := NewExpression(i.ASTBuilder)
 
-	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, ctx.Expression())
+	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, i.GetId(), ctx.Expression())
 
 	body := NewBodyNode(i.ASTBuilder, false)
 	if len(ctx.AllStatement()) > 0 {

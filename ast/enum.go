@@ -185,7 +185,6 @@ func (e *EnumDefinition) Parse(
 	ctx *parser.EnumDefinitionContext,
 ) Node[NodeType] {
 	e.Src = SrcNode{
-		Id:          e.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -216,7 +215,6 @@ func (e *EnumDefinition) Parse(
 			&Parameter{
 				Id: id,
 				Src: SrcNode{
-					Id:          e.GetNextID(),
 					Line:        int64(enumCtx.GetStart().GetLine()),
 					Column:      int64(enumCtx.GetStart().GetColumn()),
 					Start:       int64(enumCtx.GetStart().GetStart()),
@@ -226,7 +224,6 @@ func (e *EnumDefinition) Parse(
 				},
 				Name: enumCtx.GetText(),
 				NameLocation: &SrcNode{
-					Id:          e.GetNextID(),
 					Line:        int64(enumCtx.Identifier().GetSymbol().GetLine()),
 					Column:      int64(enumCtx.Identifier().GetSymbol().GetColumn()),
 					Start:       int64(enumCtx.Identifier().GetSymbol().GetStart()),
@@ -252,7 +249,6 @@ func (e *EnumDefinition) ParseGlobal(
 	ctx *parser.EnumDefinitionContext,
 ) Node[NodeType] {
 	e.Src = SrcNode{
-		Id:     e.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),

@@ -78,7 +78,6 @@ func (b *BreakStatement) Parse(
 	ctx *parser.BreakStatementContext,
 ) Node[NodeType] {
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

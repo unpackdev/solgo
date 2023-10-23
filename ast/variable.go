@@ -33,7 +33,17 @@ func NewVariableDeclarationStatement(b *ASTBuilder) *VariableDeclaration {
 
 // SetReferenceDescriptor sets the reference descriptors of the VariableDeclaration node.
 func (v *VariableDeclaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	return false
+	parentNodeId := v.GetSrc().GetParentIndex()
+
+	if parentNodeId > 0 {
+		if parentNode := v.GetTree().GetById(parentNodeId); parentNode != nil {
+			if parentNode.GetTypeDescription() == nil {
+				parentNode.SetReferenceDescriptor(refId, refDesc)
+			}
+		}
+	}
+
+	return true
 }
 
 // GetId returns the unique identifier of the variable declaration node.
@@ -78,6 +88,7 @@ func (v *VariableDeclaration) GetTypeDescription() *TypeDescription {
 // GetNodes returns a list of nodes associated with the variable declaration (initial value and declarations).
 func (v *VariableDeclaration) GetNodes() []Node[NodeType] {
 	toReturn := []Node[NodeType]{}
+
 	if v.GetInitialValue() != nil {
 		toReturn = append(toReturn, v.GetInitialValue())
 	}
@@ -181,7 +192,6 @@ func (v *VariableDeclaration) Parse(
 	ctx *parser.VariableDeclarationStatementContext,
 ) {
 	v.Src = SrcNode{
-		Id:          v.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -208,7 +218,7 @@ func (v *VariableDeclaration) Parse(
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(v.ASTBuilder)
-		v.InitialValue = expression.Parse(unit, contractNode, fnNode, bodyNode, v, nil, ctx.Expression())
+		v.InitialValue = expression.Parse(unit, contractNode, fnNode, bodyNode, v, nil, v.GetId(), ctx.Expression())
 	}
 
 	v.currentVariables = append(v.currentVariables, v)

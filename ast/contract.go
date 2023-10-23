@@ -358,7 +358,6 @@ func (c *Contract) ToProto() NodeType {
 // Parse parses the Contract node from the parsing context and associates it with other nodes.
 func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.ContractDefinitionContext, rootNode *RootNode, unit *SourceUnit[Node[ast_pb.SourceUnit]]) {
 	unit.Src = SrcNode{
-		Id:          c.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -403,7 +402,6 @@ func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contract
 			ParentIndex: unit.Id,
 		},
 		NameLocation: SrcNode{
-			Id:          c.GetNextID(),
 			Line:        int64(ctx.Identifier().GetStart().GetLine()),
 			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
 			Start:       int64(ctx.Identifier().GetStart().GetStart()),

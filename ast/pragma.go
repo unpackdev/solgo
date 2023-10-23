@@ -94,7 +94,6 @@ func CreatePragmaFromCtx(b *ASTBuilder, unit *SourceUnit[Node[ast_pb.SourceUnit]
 	return &Pragma{
 		Id: b.GetNextID(),
 		Src: SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(pragmaCtx.GetStart().GetLine()),
 			Column:      int64(pragmaCtx.GetStart().GetColumn()),
 			Start:       int64(pragmaCtx.GetStart().GetStart()),

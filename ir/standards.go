@@ -76,6 +76,7 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 			}
 
 			for _, ret := range function.GetReturnStatements() {
+
 				outputs = append(outputs, standards.Output{
 					Type: ret.GetTypeDescription().GetString(),
 				})

@@ -217,7 +217,6 @@ func (f *ForStatement) Parse(
 	ctx *parser.ForStatementContext,
 ) Node[NodeType] {
 	f.Src = SrcNode{
-		Id:          f.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -228,7 +227,7 @@ func (f *ForStatement) Parse(
 	if ctx.SimpleStatement() != nil {
 		statement := NewSimpleStatement(f.ASTBuilder)
 		f.Initialiser = statement.Parse(
-			unit, contractNode, fnNode, bodyNode, f, ctx.SimpleStatement().(*parser.SimpleStatementContext),
+			unit, contractNode, fnNode, bodyNode, f, f.GetId(), ctx.SimpleStatement().(*parser.SimpleStatementContext),
 		)
 	}
 
@@ -236,13 +235,13 @@ func (f *ForStatement) Parse(
 		f.Condition = parseExpressionStatement(
 			f.ASTBuilder,
 			unit, contractNode, fnNode,
-			bodyNode, f, ctx.ExpressionStatement().(*parser.ExpressionStatementContext),
+			bodyNode, f, f.GetId(), ctx.ExpressionStatement().(*parser.ExpressionStatementContext),
 		)
 	}
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(f.ASTBuilder)
-		f.Closure = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+		f.Closure = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), ctx.Expression())
 	}
 
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {

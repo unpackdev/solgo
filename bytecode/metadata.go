@@ -116,10 +116,6 @@ func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {
 		return nil, errors.New("provided bytecode slice is empty")
 	}
 
-	if bytecode[0] != 0x60 {
-		return nil, errors.New("provided bytecode slice is not a contract")
-	}
-
 	toReturn := Metadata{}
 
 	// Per solidity docs, last two bytes of the bytecode are the length of the cbor object
