@@ -172,10 +172,6 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 			for _, structVar := range contract.GetStructs() {
 				if structVar.GetName() == typeName {
 					for _, member := range structVar.GetMembers() {
-						if member.GetTypeDescription() == nil {
-							utils.DumpNodeWithExit(structVar)
-						}
-
 						if isMappingType(member.GetTypeDescription().GetString()) {
 							in, out := t.ResolveMappingType(member.GetTypeDescription())
 

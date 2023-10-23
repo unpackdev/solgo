@@ -170,7 +170,6 @@ func (y *YulAssignment) Parse(
 	ctx *parser.YulAssignmentContext,
 ) Node[NodeType] {
 	y.Src = SrcNode{
-		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -186,7 +185,6 @@ func (y *YulAssignment) Parse(
 					Id:       y.GetNextID(),
 					NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 					Src: SrcNode{
-						Id:          y.GetNextID(),
 						Line:        int64(identifier.GetSymbol().GetLine()),
 						Column:      int64(identifier.GetSymbol().GetColumn()),
 						Start:       int64(identifier.GetSymbol().GetStart()),

@@ -183,7 +183,6 @@ func (m *ModifierDefinition) ParseDefinition(
 	ctx *parser.ModifierDefinitionContext,
 ) Node[NodeType] {
 	m.Src = SrcNode{
-		Id:          m.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

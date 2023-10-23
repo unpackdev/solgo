@@ -2,6 +2,7 @@ package abi
 
 import (
 	"github.com/unpackdev/solgo/ir"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // processStateVariable processes the provided StateVariable from the IR and constructs a Method representation.
@@ -14,6 +15,10 @@ func (b *Builder) processStateVariable(stateVar *ir.StateVariable) *Method {
 		Outputs:         make([]MethodIO, 0),
 		Type:            "function", // Type is always set to "function" for state variables
 		StateMutability: b.normalizeStateMutability(stateVar.GetStateMutability()),
+	}
+
+	if stateVar.GetTypeDescription() == nil {
+		utils.DumpNodeWithExit(stateVar)
 	}
 
 	typeName := b.resolver.ResolveType(stateVar.GetTypeDescription())

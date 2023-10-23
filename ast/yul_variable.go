@@ -187,7 +187,6 @@ func (y *YulVariable) Parse(
 ) Node[NodeType] {
 	// Set source location details from context.
 	y.Src = SrcNode{
-		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -206,7 +205,6 @@ func (y *YulVariable) Parse(
 			Name:     variable.GetText(),
 			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 			Src: SrcNode{
-				Id:          y.GetNextID(),
 				Line:        int64(variable.GetLine()),
 				Column:      int64(variable.GetColumn()),
 				Start:       int64(variable.GetStart()),

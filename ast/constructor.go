@@ -268,7 +268,6 @@ func (c *Constructor) Parse(
 	c.Implemented = ctx.Block() != nil && !ctx.Block().IsEmpty()
 
 	c.Src = SrcNode{
-		Id:          c.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

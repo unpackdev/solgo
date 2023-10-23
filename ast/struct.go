@@ -240,7 +240,6 @@ func (s *StructDefinition) Parse(
 	ctx *parser.StructDefinitionContext,
 ) Node[NodeType] {
 	s.Src = SrcNode{
-		Id:          s.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -285,7 +284,6 @@ func (s *StructDefinition) ParseGlobal(
 	ctx *parser.StructDefinitionContext,
 ) Node[NodeType] {
 	s.Src = SrcNode{
-		Id:          s.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

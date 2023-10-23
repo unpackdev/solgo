@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"strings"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -22,9 +23,11 @@ type Resolver struct {
 
 // UnprocessedNode is a structure that represents a node that could not be processed during the parsing of the AST.
 type UnprocessedNode struct {
-	Id   int64          `json:"id"`
-	Name string         `json:"name"`
-	Node Node[NodeType] `json:"ref"`
+	Id           int64          `json:"id"`
+	Name         string         `json:"name"`
+	Node         Node[NodeType] `json:"ref"`
+	ErrFindRef   bool           `json:"error_find_ref"`
+	ErrUpdateRef bool           `json:"error_update_ref"`
 }
 
 // NewResolver creates a new Resolver with the provided ASTBuilder and initializes the UnprocessedNodes map.
@@ -152,20 +155,20 @@ func (r *Resolver) Resolve() []error {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
 					delete(r.UnprocessedNodes, nodeId)
 				} else {
-					//fmt.Println("Cannot Resolve: ", nodeId, "discovered node: ", rNodeId)
 					/* 					if node.Name == "M" {
 						parentNode := r.tree.GetById(node.Node.GetSrc().GetParentIndex())
 						utils.DumpNodeNoExit(parentNode)
 						utils.DumpNodeWithExit(node)
 					} */
-					/* 					errors = append(
-						errors,
-						fmt.Errorf(
-							"unable to update node reference by id %d - name: %s - type: %v - reflect: %T",
-							nodeId, node.Name, rNodeType, node.Node,
-						),
-					) */
+					uNode := r.UnprocessedNodes[nodeId]
+					uNode.ErrUpdateRef = true
+					r.UnprocessedNodes[nodeId] = uNode
+
 				}
+			} else {
+				uNode := r.UnprocessedNodes[nodeId]
+				uNode.ErrFindRef = true
+				r.UnprocessedNodes[nodeId] = uNode
 			}
 		}
 
@@ -175,21 +178,25 @@ func (r *Resolver) Resolve() []error {
 		}
 	}
 
-	/* 	for i := 4186; i >= 4068; i-- {
-		if node := r.tree.GetById(int64(i)); node != nil {
-			utils.DumpNodeWithExit(node)
+	for nodeId, node := range r.UnprocessedNodes {
+		if node.ErrFindRef {
+			errors = append(
+				errors,
+				fmt.Errorf(
+					"unable to resolve node by id %d - name: %s - type: %T",
+					nodeId, node.Name, node.Node,
+				),
+			)
+		} else if node.ErrUpdateRef {
+			errors = append(
+				errors,
+				fmt.Errorf(
+					"unable to update node reference by id %d - name: %s - type: %T",
+					nodeId, node.Name, node.Node,
+				),
+			)
 		}
-	} */
-
-	/* 	for nodeId, node := range r.UnprocessedNodes {
-		errors = append(
-			errors,
-			fmt.Errorf(
-				"unable to resolve node by id %d - name: %s - type: %v",
-				nodeId, node.Name, reflect.TypeOf(node.Node),
-			),
-		)
-	} */
+	}
 
 	return errors
 }

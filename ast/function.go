@@ -399,7 +399,6 @@ func (f *Function) Parse(
 	}
 	f.Implemented = ctx.Block() != nil && !ctx.Block().IsEmpty()
 	f.Src = SrcNode{
-		Id:          f.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -507,7 +506,6 @@ func (f *Function) ParseTypeName(
 	}
 
 	f.Src = SrcNode{
-		Id:          f.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

@@ -131,7 +131,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 	ctx *parser.UserDefinedValueTypeDefinitionContext,
 ) Node[NodeType] {
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -144,7 +143,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 	if ctx.Type() != nil {
 		b.Type = ctx.Type().GetText()
 		b.TypeLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(ctx.Type().GetSymbol().GetLine()),
 			Start:       int64(ctx.Type().GetSymbol().GetStart()),
 			End:         int64(ctx.Type().GetSymbol().GetStop()),
@@ -157,7 +155,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 		identifier := ctx.Identifier()
 		b.Name = identifier.GetText()
 		b.NameLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(identifier.GetStart().GetLine()),
 			Start:       int64(identifier.GetStart().GetStart()),
 			End:         int64(identifier.GetStart().GetStop()),
@@ -168,7 +165,6 @@ func (b *UserDefinedValueTypeDefinition) Parse(
 		identifier := ctx.GetName()
 		b.Name = identifier.GetText()
 		b.NameLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(identifier.GetStart().GetLine()),
 			Start:       int64(identifier.GetStart().GetStart()),
 			End:         int64(identifier.GetStart().GetStop()),
@@ -195,7 +191,6 @@ func (b *UserDefinedValueTypeDefinition) ParseGlobal(
 	ctx *parser.UserDefinedValueTypeDefinitionContext,
 ) Node[NodeType] {
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
@@ -208,7 +203,6 @@ func (b *UserDefinedValueTypeDefinition) ParseGlobal(
 	if ctx.Type() != nil {
 		b.Type = ctx.Type().GetText()
 		b.TypeLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(ctx.Type().GetSymbol().GetLine()),
 			Start:       int64(ctx.Type().GetSymbol().GetStart()),
 			End:         int64(ctx.Type().GetSymbol().GetStop()),
@@ -221,7 +215,6 @@ func (b *UserDefinedValueTypeDefinition) ParseGlobal(
 		identifier := ctx.Identifier()
 		b.Name = identifier.GetText()
 		b.NameLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(identifier.GetStart().GetLine()),
 			Start:       int64(identifier.GetStart().GetStart()),
 			End:         int64(identifier.GetStart().GetStop()),
@@ -232,7 +225,6 @@ func (b *UserDefinedValueTypeDefinition) ParseGlobal(
 		identifier := ctx.GetName()
 		b.Name = identifier.GetText()
 		b.NameLocation = SrcNode{
-			Id:          b.GetNextID(),
 			Line:        int64(identifier.GetStart().GetLine()),
 			Start:       int64(identifier.GetStart().GetStart()),
 			End:         int64(identifier.GetStart().GetStop()),

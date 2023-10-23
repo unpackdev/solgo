@@ -150,7 +150,6 @@ func (d *DoWhileStatement) Parse(
 	ctx *parser.DoWhileStatementContext,
 ) Node[NodeType] {
 	d.Src = SrcNode{
-		Id:          d.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

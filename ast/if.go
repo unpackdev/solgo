@@ -164,7 +164,6 @@ func (i *IfStatement) Parse(
 	ctx *parser.IfStatementContext,
 ) Node[NodeType] {
 	i.Src = SrcNode{
-		Id:          i.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

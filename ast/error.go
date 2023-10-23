@@ -102,7 +102,6 @@ func (e *ErrorDefinition) Parse(
 	ctx *parser.ErrorDefinitionContext,
 ) Node[NodeType] {
 	e.Src = SrcNode{
-		Id:          e.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -141,7 +140,6 @@ func (e *ErrorDefinition) Parse(
 // ParseGlobal parses the error definition context and populates the ErrorDefinition fields.
 func (e *ErrorDefinition) ParseGlobal(ctx *parser.ErrorDefinitionContext) Node[NodeType] {
 	e.Src = SrcNode{
-		Id:          e.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

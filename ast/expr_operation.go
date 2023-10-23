@@ -170,7 +170,6 @@ func (f *ExprOperation) Parse(
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),

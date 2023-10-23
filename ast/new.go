@@ -108,7 +108,6 @@ func (n *NewExpr) Parse(
 	ctx *parser.NewExprContext,
 ) Node[NodeType] {
 	n.Src = SrcNode{
-		Id:     n.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),

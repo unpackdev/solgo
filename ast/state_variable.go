@@ -1,7 +1,6 @@
 package ast
 
 import (
-	"fmt"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -185,7 +184,6 @@ func (v *StateVariableDeclaration) Parse(
 ) {
 	v.Name = ctx.Identifier().GetText()
 	v.Src = SrcNode{
-		Id:          v.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -242,7 +240,6 @@ func (v *StateVariableDeclaration) ParseGlobal(
 ) {
 	v.Name = ctx.Identifier().GetText()
 	v.Src = SrcNode{
-		Id:          v.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -282,7 +279,6 @@ func (v *StateVariableDeclaration) ParseGlobalConstant(
 ) {
 	v.Name = ctx.Identifier().GetText()
 	v.Src = SrcNode{
-		Id:          v.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -313,7 +309,6 @@ func (v *StateVariableDeclaration) ParseGlobalVariable(
 ) {
 	v.Name = ctx.Identifier().GetText()
 	v.Src = SrcNode{
-		Id:          v.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -366,7 +361,6 @@ func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDecl
 }
 
 func (b *ASTBuilder) EnterConstantVariableDeclaration(ctx *parser.ConstantVariableDeclarationContext) {
-	fmt.Println(ctx.GetText())
 	stateVar := NewStateVariableDeclaration(b)
 	stateVar.ParseGlobalConstant(ctx)
 }

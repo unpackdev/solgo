@@ -158,7 +158,6 @@ func (r *ReturnStatement) Parse(
 	ctx *parser.ReturnStatementContext,
 ) Node[NodeType] {
 	r.Src = SrcNode{
-		Id:          r.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

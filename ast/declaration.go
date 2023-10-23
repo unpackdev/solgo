@@ -148,7 +148,6 @@ func (d *Declaration) ParseVariableDeclaration(
 	ctx parser.IVariableDeclarationContext,
 ) {
 	d.Src = SrcNode{
-		Id:          d.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -164,7 +163,6 @@ func (d *Declaration) ParseVariableDeclaration(
 	if ctx.Identifier() != nil {
 		d.Name = ctx.Identifier().GetText()
 		d.NameLocation = SrcNode{
-			Id:          d.GetNextID(),
 			Line:        int64(ctx.Identifier().GetStart().GetLine()),
 			Column:      int64(ctx.Identifier().GetStart().GetColumn()),
 			Start:       int64(ctx.Identifier().GetStart().GetStart()),

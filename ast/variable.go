@@ -192,7 +192,6 @@ func (v *VariableDeclaration) Parse(
 	ctx *parser.VariableDeclarationStatementContext,
 ) {
 	v.Src = SrcNode{
-		Id:          v.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

@@ -190,7 +190,6 @@ func (t *TupleExpression) Parse(
 	ctx *parser.TupleContext,
 ) Node[NodeType] {
 	t.Src = SrcNode{
-		Id:     t.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),

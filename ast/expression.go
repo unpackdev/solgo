@@ -66,7 +66,7 @@ func (e *Expression) Parse(
 		return binaryExp.ParseOr(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	case *parser.AssignmentContext:
 		assignment := NewAssignment(e.ASTBuilder)
-		return assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
+		return assignment.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	case *parser.FunctionCallContext:
 		statementNode := NewFunctionCall(e.ASTBuilder)
 		return statementNode.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
@@ -111,16 +111,16 @@ func (e *Expression) Parse(
 		return conditional.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
 	case *parser.AndOperationContext:
 		andOperation := NewAndOperationExpression(e.ASTBuilder)
-		return andOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
+		return andOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	case *parser.BitAndOperationContext:
 		bitAndOperation := NewBitAndOperationExpression(e.ASTBuilder)
-		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
+		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	case *parser.BitOrOperationContext:
 		bitAndOperation := NewBitOrOperationExpression(e.ASTBuilder)
-		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
+		return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	case *parser.BitXorOperationContext:
 		bitXorOperation := NewBitXorOperationExpression(e.ASTBuilder)
-		return bitXorOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
+		return bitXorOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	case *parser.ShiftOperationContext:
 		shiftOperation := NewShiftOperationExpression(e.ASTBuilder)
 		return shiftOperation.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
@@ -161,7 +161,7 @@ func (e *Expression) ParseInterface(
 		return binaryExp.ParseOr(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)
 	case *parser.AssignmentContext:
 		assignment := NewAssignment(e.ASTBuilder)
-		return assignment.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
+		return assignment.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)
 	case *parser.FunctionCallContext:
 		statementNode := NewFunctionCall(e.ASTBuilder)
 		return statementNode.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
@@ -206,16 +206,16 @@ func (e *Expression) ParseInterface(
 		return conditional.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
 	case *parser.AndOperationContext:
 		andOperation := NewAndOperationExpression(e.ASTBuilder)
-		return andOperation.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
+		return andOperation.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)
 	case *parser.BitAndOperationContext:
 		bitAndOperation := NewBitAndOperationExpression(e.ASTBuilder)
-		return bitAndOperation.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
+		return bitAndOperation.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)
 	case *parser.BitOrOperationContext:
 		bitAndOperation := NewBitOrOperationExpression(e.ASTBuilder)
-		return bitAndOperation.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
+		return bitAndOperation.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)
 	case *parser.BitXorOperationContext:
 		bitXorOperation := NewBitXorOperationExpression(e.ASTBuilder)
-		return bitXorOperation.Parse(unit, nil, fnNode, nil, nil, nil, childCtx)
+		return bitXorOperation.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)
 	case *parser.ShiftOperationContext:
 		shiftOperation := NewShiftOperationExpression(e.ASTBuilder)
 		return shiftOperation.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, childCtx)

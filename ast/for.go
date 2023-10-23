@@ -217,7 +217,6 @@ func (f *ForStatement) Parse(
 	ctx *parser.ForStatementContext,
 ) Node[NodeType] {
 	f.Src = SrcNode{
-		Id:          f.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

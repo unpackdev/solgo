@@ -155,35 +155,17 @@ func (f *BitOrOperation) Parse(
 	bodyNode *BodyNode,
 	vDeclar *VariableDeclaration,
 	expNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.BitOrOperationContext,
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:     f.GetNextID(),
-		Line:   int64(ctx.GetStart().GetLine()),
-		Column: int64(ctx.GetStart().GetColumn()),
-		Start:  int64(ctx.GetStart().GetStart()),
-		End:    int64(ctx.GetStop().GetStop()),
-		Length: int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
-		ParentIndex: func() int64 {
-			if vDeclar != nil {
-				return vDeclar.GetId()
-			}
-
-			if expNode != nil {
-				return expNode.GetId()
-			}
-
-			if bodyNode != nil {
-				return bodyNode.GetId()
-			}
-
-			if fnNode != nil {
-				return fnNode.GetId()
-			}
-
-			return contractNode.GetId()
-		}(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: parentNodeId,
 	}
 
 	expression := NewExpression(f.ASTBuilder)

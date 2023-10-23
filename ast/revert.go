@@ -175,7 +175,6 @@ func (r *RevertStatement) Parse(
 	ctx *parser.RevertStatementContext,
 ) Node[NodeType] {
 	r.Src = SrcNode{
-		Id:          r.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

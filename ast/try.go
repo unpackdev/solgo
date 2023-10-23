@@ -250,7 +250,6 @@ func (t *TryStatement) Parse(
 	ctx *parser.TryStatementContext,
 ) Node[NodeType] {
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

@@ -79,7 +79,6 @@ func (y *YulLeaveStatement) Parse(
 	ctx *antlr.TerminalNodeImpl, // Context from the ANTLR parse tree.
 ) Node[NodeType] {
 	y.Src = SrcNode{
-		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetSymbol().GetLine()),
 		Column:      int64(ctx.GetSymbol().GetColumn()),
 		Start:       int64(ctx.GetSymbol().GetStart()),

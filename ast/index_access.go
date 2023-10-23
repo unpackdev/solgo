@@ -225,7 +225,6 @@ func (i *IndexAccess) Parse(
 	ctx *parser.IndexAccessContext,
 ) Node[NodeType] {
 	i.Src = SrcNode{
-		Id:     i.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),

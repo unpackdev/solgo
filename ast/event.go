@@ -99,7 +99,6 @@ func (e *EventDefinition) Parse(
 ) Node[NodeType] {
 	e.SourceUnitName = unit.GetName()
 	e.Src = SrcNode{
-		Id:          e.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -134,7 +133,6 @@ func (e *EventDefinition) ParseGlobal(
 ) Node[NodeType] {
 	e.SourceUnitName = "Global"
 	e.Src = SrcNode{
-		Id:          e.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

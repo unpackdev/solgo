@@ -15,8 +15,10 @@ type ShiftOperation struct {
 	Id               int64              `json:"id"`
 	NodeType         ast_pb.NodeType    `json:"node_type"`
 	Src              SrcNode            `json:"src"`
+	Operator         ast_pb.NodeType    `json:"operator"`
 	Expressions      []Node[NodeType]   `json:"expressions"`
 	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
+	TypeDescription  *TypeDescription   `json:"type_description"`
 }
 
 // NewShiftOperationExpression creates a new ShiftOperation instance.
@@ -24,14 +26,19 @@ func NewShiftOperationExpression(b *ASTBuilder) *ShiftOperation {
 	return &ShiftOperation{
 		ASTBuilder:       b,
 		Id:               b.GetNextID(),
-		NodeType:         ast_pb.NodeType_BIT_XOR_OPERATION,
+		NodeType:         ast_pb.NodeType_SHIFT_OPERATION,
 		TypeDescriptions: make([]*TypeDescription, 0),
 	}
 }
 
 // SetReferenceDescriptor sets the reference descriptions of the ShiftOperation node.
 // This function always returns false for now.
-func (b *ShiftOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+func (f *ShiftOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	f.TypeDescriptions = []*TypeDescription{}
+	for _, expr := range f.Expressions {
+		f.TypeDescriptions = append(f.TypeDescriptions, expr.GetTypeDescription())
+	}
+	f.TypeDescription = f.TypeDescriptions[1]
 	return false
 }
 
@@ -52,7 +59,7 @@ func (f *ShiftOperation) GetSrc() SrcNode {
 
 // GetTypeDescription returns the type description associated with the ShiftOperation.
 func (f *ShiftOperation) GetTypeDescription() *TypeDescription {
-	return f.TypeDescriptions[0]
+	return f.TypeDescription
 }
 
 // GetNodes returns the child nodes of the ShiftOperation.
@@ -81,6 +88,12 @@ func (f *ShiftOperation) UnmarshalJSON(data []byte) error {
 
 	if nodeType, ok := tempMap["node_type"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if operator, ok := tempMap["operator"]; ok {
+		if err := json.Unmarshal(operator, &f.Operator); err != nil {
 			return err
 		}
 	}
@@ -160,13 +173,18 @@ func (f *ShiftOperation) Parse(
 ) Node[NodeType] {
 	f.Id = f.GetNextID()
 	f.Src = SrcNode{
-		Id:          f.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),
 		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
 		ParentIndex: parentNodeId,
+	}
+
+	if ctx.Shr() != nil {
+		f.Operator = ast_pb.NodeType_SHIFT_RIGHT_OPERATION
+	} else if ctx.Shl() != nil {
+		f.Operator = ast_pb.NodeType_SHIFT_LEFT_OPERATION
 	}
 
 	expression := NewExpression(f.ASTBuilder)
@@ -179,6 +197,8 @@ func (f *ShiftOperation) Parse(
 		)
 		f.TypeDescriptions = append(f.TypeDescriptions, parsedExp.GetTypeDescription())
 	}
+
+	f.TypeDescription = f.TypeDescriptions[1]
 
 	return f
 }

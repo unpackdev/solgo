@@ -28,7 +28,7 @@ func parseExpressionStatement(
 			return statementNode
 		case *parser.AssignmentContext:
 			assignment := NewAssignment(b)
-			assignment.ParseStatement(unit, contractNode, fnNode, bodyNode, parentNode, ctx, childCtx)
+			assignment.ParseStatement(unit, contractNode, fnNode, bodyNode, parentNode, ctx, parentNodeId, childCtx)
 			return assignment
 		case *parser.PrimaryExpressionContext:
 			primaryExpression := NewPrimaryExpression(b)
@@ -50,7 +50,7 @@ func parseExpressionStatement(
 			return tupleExpr.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *parser.AndOperationContext:
 			andOperation := NewAndOperationExpression(b)
-			return andOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return andOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.AddSubOperationContext:
 			binaryExp := NewBinaryOperationExpression(b)
 			return binaryExp.ParseAddSub(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
@@ -89,13 +89,13 @@ func parseExpressionStatement(
 			return conditional.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *parser.BitAndOperationContext:
 			bitAndOperation := NewBitAndOperationExpression(b)
-			return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.BitOrOperationContext:
 			bitAndOperation := NewBitOrOperationExpression(b)
-			return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return bitAndOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.BitXorOperationContext:
 			bitXorOperation := NewBitXorOperationExpression(b)
-			return bitXorOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return bitXorOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.ShiftOperationContext:
 			shiftOperation := NewShiftOperationExpression(b)
 			return shiftOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)

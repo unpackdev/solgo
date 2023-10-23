@@ -9,7 +9,6 @@ import (
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
-	"github.com/unpackdev/solgo/utils"
 )
 
 // PrimaryExpression represents a primary expression node in the AST.
@@ -45,20 +44,18 @@ func NewPrimaryExpression(b *ASTBuilder) *PrimaryExpression {
 
 // SetReferenceDescriptor sets the reference descriptions of the PrimaryExpression node.
 func (p *PrimaryExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	fmt.Println(p.GetName(), p.GetId())
 	p.ReferencedDeclaration = refId
 	p.TypeDescription = refDesc
 
 	// In case it's a function call, we need to rebuild the type descriptions from the parent node.
 	// It is a hack, but working one. One day we'll figure out better solution for all of this referencing mess...
-	parentNode := p.ASTBuilder.GetTree().GetById(p.GetSrc().GetParentIndex())
-	if parentNode != nil {
+	if parentNode := p.ASTBuilder.GetTree().GetById(p.GetSrc().GetParentIndex()); parentNode != nil {
 		switch node := parentNode.(type) {
 		case *FunctionCall:
 			node.RebuildDescriptions()
 		default:
-			if node.GetTypeDescription() == nil {
-				node.SetReferenceDescriptor(refId, refDesc)
+			if parentNode.GetTypeDescription() == nil {
+				parentNode.SetReferenceDescriptor(refId, refDesc)
 			}
 		}
 	}
@@ -199,7 +196,6 @@ func (p *PrimaryExpression) Parse(
 	ctx *parser.PrimaryExpressionContext,
 ) Node[NodeType] {
 	p.Src = SrcNode{
-		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -377,9 +373,9 @@ func (p *PrimaryExpression) Parse(
 		}
 
 		if p.TypeDescription == nil {
-			if p.GetId() == 4186 {
+			/* 			if p.GetId() == 4186 {
 				utils.DumpNodeWithExit(p)
-			}
+			} */
 			if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); refTypeDescription != nil {
 				p.ReferencedDeclaration = refId
 				p.TypeDescription = refTypeDescription
@@ -643,12 +639,7 @@ func (p *PrimaryExpression) Parse(
 			p.TypeDescription = refTypeDescription
 		}
 	}
-	/*
-		if p.GetId() == 4267 {
-			fmt.Println("I AM HERE")
-			utils.DumpNodeWithExit(p)
-		}
-	*/
+
 	return p
 }
 

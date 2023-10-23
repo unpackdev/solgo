@@ -157,7 +157,6 @@ func (w *WhileStatement) Parse(
 ) Node[NodeType] {
 	// Setting the source location information.
 	w.Src = SrcNode{
-		Id:          w.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

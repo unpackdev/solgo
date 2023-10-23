@@ -247,7 +247,6 @@ func (b *BodyNode) ParseDefinitions(
 	}
 
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(bodyCtx.GetStart().GetLine()),
 		Column:      int64(bodyCtx.GetStart().GetColumn()),
 		Start:       int64(bodyCtx.GetStart().GetStart()),
@@ -270,7 +269,6 @@ func (b *BodyNode) ParseBlock(
 	bodyCtx parser.IBlockContext,
 ) Node[NodeType] {
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(bodyCtx.GetStart().GetLine()),
 		Column:      int64(bodyCtx.GetStart().GetColumn()),
 		Start:       int64(bodyCtx.GetStart().GetStart()),
@@ -305,7 +303,6 @@ func (b *BodyNode) ParseUncheckedBlock(
 ) Node[NodeType] {
 	b.NodeType = ast_pb.NodeType_UNCHECKED_BLOCK
 	b.Src = SrcNode{
-		Id:          b.GetNextID(),
 		Line:        int64(bodyCtx.GetStart().GetLine()),
 		Column:      int64(bodyCtx.GetStart().GetColumn()),
 		Start:       int64(bodyCtx.GetStart().GetStart()),

@@ -173,7 +173,6 @@ func (t *CatchStatement) Parse(
 	ctx *parser.CatchClauseContext,
 ) Node[NodeType] {
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Start:       int64(ctx.GetStart().GetStart()),
 		End:         int64(ctx.GetStop().GetStop()),

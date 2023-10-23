@@ -136,7 +136,6 @@ func (p *ParameterList) ToProto() *ast_pb.ParameterList {
 // Parse parses the ParameterList node from the provided context.
 func (p *ParameterList) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fNode Node[NodeType], ctx parser.IParameterListContext) {
 	p.Src = SrcNode{
-		Id:          p.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

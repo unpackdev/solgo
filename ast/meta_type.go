@@ -92,7 +92,6 @@ func (m *MetaType) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]],
 	ctx *parser.MetaTypeContext,
 ) Node[NodeType] {
 	m.Src = SrcNode{
-		Id:     m.GetNextID(),
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
 		Start:  int64(ctx.GetStart().GetStart()),

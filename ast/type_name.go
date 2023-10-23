@@ -8,7 +8,6 @@ import (
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
-	"go.uber.org/zap"
 )
 
 // TypeName represents a type name used in Solidity code.
@@ -64,18 +63,18 @@ func (t *TypeName) WithParentNode(p Node[NodeType]) {
 func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	t.ReferencedDeclaration = refId
 	t.TypeDescription = refDesc
-	/*
-		// Lets update the parent node as well in case that type description is not set...
-		parentNodeId := t.GetSrc().GetParentIndex()
 
-		if parentNodeId > 0 {
-			if parentNode := t.GetTree().GetById(parentNodeId); parentNode != nil {
-				if parentNode.GetTypeDescription() == nil {
-					parentNode.SetReferenceDescriptor(refId, refDesc)
-				}
-			}
-		} */
+	// Lets update the parent node as well in case that type description is not set...
+	/* 	parentNodeId := t.GetSrc().GetParentIndex()
 
+	   	if parentNodeId > 0 {
+	   		if parentNode := t.GetTree().GetById(parentNodeId); parentNode != nil {
+	   			if parentNode.GetTypeDescription() == nil {
+	   				parentNode.SetReferenceDescriptor(refId, refDesc)
+	   			}
+	   		}
+	   	}
+	*/
 	return true
 }
 
@@ -293,14 +292,14 @@ func (t *TypeName) ToProto() NodeType {
 
 	if t.GetKeyType() != nil {
 		toReturn.KeyType = t.GetKeyType().ToProto().(*ast_pb.TypeName)
-		if t.GetKeyNameLocation() != nil && t.GetKeyNameLocation().GetId() > 0 {
+		if t.GetKeyNameLocation() != nil {
 			toReturn.KeyTypeLocation = t.GetKeyNameLocation().ToProto()
 		}
 	}
 
 	if t.GetValueType() != nil {
 		toReturn.ValueType = t.GetValueType().ToProto().(*ast_pb.TypeName)
-		if t.GetValueNameLocation() != nil && t.GetValueNameLocation().GetId() > 0 {
+		if t.GetValueNameLocation() != nil {
 			toReturn.ValueTypeLocation = t.GetValueNameLocation().ToProto()
 		}
 	}
@@ -316,7 +315,6 @@ func (t *TypeName) ToProto() NodeType {
 func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.TypeNameContext) {
 	t.Name = ctx.GetText()
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -357,7 +355,6 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			Id:   t.GetNextID(),
 			Name: pathCtx.GetText(),
 			Src: SrcNode{
-				Id:          t.GetNextID(),
 				Line:        int64(pathCtx.GetStart().GetLine()),
 				Column:      int64(pathCtx.GetStart().GetColumn()),
 				Start:       int64(pathCtx.GetStart().GetStart()),
@@ -394,6 +391,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				t.TypeDescription = refTypeDescription
 			}
 		}
+
 	} else if ctx.TypeName() != nil {
 		t.generateTypeName(unit, ctx.TypeName(), t, t)
 	} else {
@@ -450,13 +448,13 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 // parseIdentifierPath parses the IdentifierPath from the given IdentifierPathContext.
 func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.IdentifierPathContext) {
 	t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+
 	if len(ctx.AllIdentifier()) > 0 {
 		identifierCtx := ctx.Identifier(0)
 		t.PathNode = &PathNode{
 			Id:   t.GetNextID(),
 			Name: identifierCtx.GetText(),
 			Src: SrcNode{
-				Id:          t.GetNextID(),
 				Line:        int64(ctx.GetStart().GetLine()),
 				Column:      int64(ctx.GetStart().GetColumn()),
 				Start:       int64(ctx.GetStart().GetStart()),
@@ -577,7 +575,6 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 	case parser.IMappingKeyTypeContext:
 		typeName.Name = specificCtx.GetText()
 		typeName.Src = SrcNode{
-			Id:          t.GetNextID(),
 			Line:        int64(specificCtx.GetStart().GetLine()),
 			Column:      int64(specificCtx.GetStart().GetColumn()),
 			Start:       int64(specificCtx.GetStart().GetStart()),
@@ -640,7 +637,6 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 	case parser.ITypeNameContext:
 		typeName.Name = specificCtx.GetText()
 		typeName.Src = SrcNode{
-			Id:          t.GetNextID(),
 			Line:        int64(specificCtx.GetStart().GetLine()),
 			Column:      int64(specificCtx.GetStart().GetColumn()),
 			Start:       int64(specificCtx.GetStart().GetStart()),
@@ -707,7 +703,6 @@ func (t *TypeName) parsePrimaryExpression(unit *SourceUnit[Node[ast_pb.SourceUni
 // Parse parses the TypeName from the given TypeNameContext.
 func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.ITypeNameContext) {
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -737,13 +732,7 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			if expr := expression.ParseInterface(unit, fnNode, t.GetId(), ctx.Expression()); expr != nil {
 				t.Expression = expr
 				t.TypeDescription = t.Expression.GetTypeDescription()
-				continue
 			}
-
-			zap.L().Warn(
-				"TypeName child not recognized",
-				zap.String("type", fmt.Sprintf("%T", childCtx)),
-			)
 		}
 	}
 
@@ -765,6 +754,7 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			}
 		}
 	}
+
 }
 
 // ParseMul parses the TypeName from the given TermalNode.
@@ -773,7 +763,6 @@ func (t *TypeName) ParseMul(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode No
 	t.Name = ctx.GetText()
 
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetSymbol().GetLine()),
 		Column:      int64(ctx.GetSymbol().GetColumn()),
 		Start:       int64(ctx.GetSymbol().GetStart()),
@@ -791,7 +780,6 @@ func (t *TypeName) ParseMul(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode No
 // ParseElementaryType parses the ElementaryTypeName from the given ElementaryTypeNameContext.
 func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
 	t.Src = SrcNode{
-		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

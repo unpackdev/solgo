@@ -45,6 +45,16 @@ func NewBinaryOperationExpression(b *ASTBuilder) *BinaryOperation {
 
 // SetReferenceDescriptor sets the reference descriptions of the BinaryOperation node.
 func (a *BinaryOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	a.TypeDescription = refDesc
+
+	// In case it's a function call, we need to rebuild the type descriptions from the parent node.
+	// It is a hack, but working one. One day we'll figure out better solution for all of this referencing mess...
+	if parentNode := a.ASTBuilder.GetTree().GetById(a.GetSrc().GetParentIndex()); parentNode != nil {
+		if parentNode.GetTypeDescription() == nil {
+			parentNode.SetReferenceDescriptor(refId, refDesc)
+		}
+	}
+
 	return false
 }
 
@@ -80,10 +90,6 @@ func (a *BinaryOperation) GetRightExpression() Node[NodeType] {
 
 // GetTypeDescription is a getter method that returns the type description of the left operand of the binary operation.
 func (a *BinaryOperation) GetTypeDescription() *TypeDescription {
-	if a.TypeDescription == nil {
-		a.TypeDescription = a.LeftExpression.GetTypeDescription()
-	}
-
 	return a.TypeDescription
 }
 
@@ -223,7 +229,6 @@ func (a *BinaryOperation) ParseAddSub(
 	ctx *parser.AddSubOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -263,7 +268,6 @@ func (a *BinaryOperation) ParseOrderComparison(
 	ctx *parser.OrderComparisonContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -311,7 +315,6 @@ func (a *BinaryOperation) ParseMulDivMod(
 	ctx *parser.MulDivModOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -361,7 +364,6 @@ func (a *BinaryOperation) ParseEqualityComparison(
 	ctx *parser.EqualityComparisonContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -405,7 +407,6 @@ func (a *BinaryOperation) ParseOr(
 	ctx *parser.OrOperationContext,
 ) Node[NodeType] {
 	a.Src = SrcNode{
-		Id:          a.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),

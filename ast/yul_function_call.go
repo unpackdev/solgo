@@ -172,7 +172,6 @@ func (y *YulFunctionCallStatement) Parse(
 	ctx *parser.YulFunctionCallContext,
 ) Node[NodeType] {
 	y.Src = SrcNode{
-		Id:          y.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
 		Start:       int64(ctx.GetStart().GetStart()),
@@ -187,7 +186,6 @@ func (y *YulFunctionCallStatement) Parse(
 			Id:       y.GetNextID(),
 			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 			Src: SrcNode{
-				Id:          y.GetNextID(),
 				Line:        int64(builtin.GetSymbol().GetLine()),
 				Column:      int64(builtin.GetSymbol().GetColumn()),
 				Start:       int64(builtin.GetSymbol().GetStart()),
@@ -203,7 +201,6 @@ func (y *YulFunctionCallStatement) Parse(
 			Id:       y.GetNextID(),
 			NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 			Src: SrcNode{
-				Id:          y.GetNextID(),
 				Line:        int64(identifier.GetSymbol().GetLine()),
 				Column:      int64(identifier.GetSymbol().GetColumn()),
 				Start:       int64(identifier.GetSymbol().GetStart()),
@@ -225,7 +222,6 @@ func (y *YulFunctionCallStatement) Parse(
 						NodeType: ast_pb.NodeType_YUL_IDENTIFIER,
 						Name:     identifier.GetText(),
 						Src: SrcNode{
-							Id:          y.GetNextID(),
 							Line:        int64(identifier.GetSymbol().GetLine()),
 							Column:      int64(identifier.GetSymbol().GetColumn()),
 							Start:       int64(identifier.GetSymbol().GetStart()),
