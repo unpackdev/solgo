@@ -117,11 +117,13 @@ func (p *Parameter) IsIndexed() bool {
 
 // GetNodes returns a slice of nodes associated with the parameter.
 func (p *Parameter) GetNodes() []Node[NodeType] {
+	toReturn := []Node[NodeType]{}
+
 	if p.TypeName != nil {
-		return []Node[NodeType]{p.TypeName}
+		toReturn = append(toReturn, p.TypeName)
 	}
 
-	return []Node[NodeType]{}
+	return toReturn
 }
 
 func (p *Parameter) UnmarshalJSON(data []byte) error {

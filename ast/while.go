@@ -167,7 +167,7 @@ func (w *WhileStatement) Parse(
 
 	// Parsing the condition expression.
 	expression := NewExpression(w.ASTBuilder)
-	w.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, w, ctx.Expression())
+	w.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, w, w.GetId(), ctx.Expression())
 
 	// Parsing the body of the while loop.
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {

@@ -288,7 +288,7 @@ func (m *MemberAccessExpression) Parse(
 	if ctx.Expression() != nil {
 		expression := NewExpression(m.ASTBuilder)
 		m.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, vDeclar, m, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, vDeclar, m, m.GetId(), ctx.Expression(),
 		)
 
 		m.TypeDescription = m.Expression.GetTypeDescription()

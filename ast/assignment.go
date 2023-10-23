@@ -312,7 +312,7 @@ func (a *Assignment) ParseStatement(
 
 	// Parsing the expression and setting the type description.
 	expression := NewExpression(a.ASTBuilder)
-	a.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx)
+	a.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, a, a.GetId(), ctx)
 	a.TypeDescription = a.Expression.GetTypeDescription()
 }
 
@@ -353,8 +353,8 @@ func (a *Assignment) Parse(
 
 	// Parsing left and right expressions.
 	expression := NewExpression(a.ASTBuilder)
-	a.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(0))
-	a.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, ctx.Expression(1))
+	a.LeftExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(0))
+	a.RightExpression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, a, a.GetId(), ctx.Expression(1))
 
 	// Setting the type description based on the left expression.
 	a.TypeDescription = a.LeftExpression.GetTypeDescription()

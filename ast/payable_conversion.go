@@ -225,7 +225,7 @@ func (p *PayableConversion) Parse(
 
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
-			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, p, expressionCtx)
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, p, p.GetId(), expressionCtx)
 			p.Arguments = append(
 				p.Arguments,
 				expr,

@@ -501,7 +501,11 @@ func (f *Function) ParseTypeName(
 ) Node[NodeType] {
 	// Initialize basic properties.
 	f.Id = f.GetNextID()
-	f.Scope = unit.GetId()
+
+	if unit != nil {
+		f.Scope = unit.GetId()
+	}
+
 	f.Src = SrcNode{
 		Id:          f.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),

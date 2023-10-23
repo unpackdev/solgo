@@ -40,6 +40,8 @@ type TypeName struct {
 func NewTypeName(b *ASTBuilder) *TypeName {
 	return &TypeName{
 		ASTBuilder: b,
+		Id:         b.GetNextID(),
+		ParentNode: make([]Node[NodeType], 0),
 	}
 }
 
@@ -62,6 +64,18 @@ func (t *TypeName) WithParentNode(p Node[NodeType]) {
 func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	t.ReferencedDeclaration = refId
 	t.TypeDescription = refDesc
+	/*
+		// Lets update the parent node as well in case that type description is not set...
+		parentNodeId := t.GetSrc().GetParentIndex()
+
+		if parentNodeId > 0 {
+			if parentNode := t.GetTree().GetById(parentNodeId); parentNode != nil {
+				if parentNode.GetTypeDescription() == nil {
+					parentNode.SetReferenceDescriptor(refId, refDesc)
+				}
+			}
+		} */
+
 	return true
 }
 
@@ -144,6 +158,10 @@ func (t *TypeName) GetNodes() []Node[NodeType] {
 
 	if t.PathNode != nil {
 		toReturn = append(toReturn, t.PathNode)
+	}
+
+	if t.Expression != nil {
+		toReturn = append(toReturn, t.Expression)
 	}
 
 	return toReturn
@@ -324,17 +342,11 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 		t.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 		t.generateTypeName(unit, ctx.MappingType(), t, t)
 	} else if ctx.FunctionTypeName() != nil {
-		zap.L().Warn(
-			"Function type name is not supported yet @ TypeName.parseTypeName",
-			zap.String("function_type_name", ctx.FunctionTypeName().GetText()),
-			zap.String("type", fmt.Sprintf("%T", ctx.FunctionTypeName())),
-		)
+		t.parseFunctionTypeName(unit, parentNodeId, ctx.FunctionTypeName().(*parser.FunctionTypeNameContext))
 	} else if ctx.Expression() != nil {
-		zap.L().Warn(
-			"Expression type name is not supported yet @ TypeName.parseTypeName",
-			zap.String("function_type_name", ctx.FunctionTypeName().GetText()),
-			zap.String("type", fmt.Sprintf("%T", ctx.FunctionTypeName())),
-		)
+		expression := NewExpression(t.ASTBuilder)
+		t.Expression = expression.Parse(unit, nil, nil, nil, nil, nil, parentNodeId, ctx.Expression())
+		t.TypeDescription = t.Expression.GetTypeDescription()
 	} else if ctx.IdentifierPath() != nil {
 		pathCtx := ctx.IdentifierPath()
 
@@ -650,11 +662,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			typeName.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 			t.generateTypeName(sourceUnit, specificCtx.MappingType(), parentNode, typeName)
 		} else if specificCtx.FunctionTypeName() != nil {
-			zap.L().Warn(
-				"Function type name is not supported yet @ TypeName.generateTypeName",
-				zap.String("function_type_name", specificCtx.FunctionTypeName().GetText()),
-				zap.String("type", fmt.Sprintf("%T", specificCtx.FunctionTypeName())),
-			)
+			t.parseFunctionTypeName(sourceUnit, parentNode.GetId(), specificCtx.FunctionTypeName().(*parser.FunctionTypeNameContext))
 		} else {
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeName.Name,
@@ -692,14 +700,12 @@ func (t *TypeName) parsePrimaryExpression(unit *SourceUnit[Node[ast_pb.SourceUni
 	t.Name = "function"
 	t.NodeType = ast_pb.NodeType_IDENTIFIER
 	statement := NewPrimaryExpression(t.ASTBuilder)
-	t.Expression = statement.Parse(unit, nil, fnNode, nil, nil, &PathNode{Id: parentNodeId}, ctx)
+	t.Expression = statement.Parse(unit, nil, fnNode, nil, nil, nil, parentNodeId, ctx)
 	t.TypeDescription = t.Expression.GetTypeDescription()
 }
 
 // Parse parses the TypeName from the given TypeNameContext.
 func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.ITypeNameContext) {
-	t.Id = t.GetNextID()
-
 	t.Src = SrcNode{
 		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),
@@ -727,6 +733,13 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 		case *antlr.TerminalNodeImpl:
 			continue
 		default:
+			expression := NewExpression(t.ASTBuilder)
+			if expr := expression.ParseInterface(unit, fnNode, t.GetId(), ctx.Expression()); expr != nil {
+				t.Expression = expr
+				t.TypeDescription = t.Expression.GetTypeDescription()
+				continue
+			}
+
 			zap.L().Warn(
 				"TypeName child not recognized",
 				zap.String("type", fmt.Sprintf("%T", childCtx)),
@@ -736,7 +749,7 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(t.ASTBuilder)
-		t.Expression = expression.Parse(unit, nil, fnNode, nil, nil, nil, ctx.Expression())
+		t.Expression = expression.Parse(unit, nil, fnNode, nil, nil, nil, t.GetId(), ctx.Expression())
 		t.TypeDescription = t.Expression.GetTypeDescription()
 	}
 
@@ -756,7 +769,6 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 
 // ParseMul parses the TypeName from the given TermalNode.
 func (t *TypeName) ParseMul(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx antlr.TerminalNode) {
-	t.Id = t.GetNextID()
 	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 	t.Name = ctx.GetText()
 
@@ -778,7 +790,6 @@ func (t *TypeName) ParseMul(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode No
 
 // ParseElementaryType parses the ElementaryTypeName from the given ElementaryTypeNameContext.
 func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[NodeType], parentNodeId int64, ctx parser.IElementaryTypeNameContext) {
-	t.Id = t.GetNextID()
 	t.Src = SrcNode{
 		Id:          t.GetNextID(),
 		Line:        int64(ctx.GetStart().GetLine()),

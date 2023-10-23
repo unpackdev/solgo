@@ -174,7 +174,7 @@ func (i *IfStatement) Parse(
 
 	expression := NewExpression(i.ASTBuilder)
 
-	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, ctx.Expression())
+	i.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, i, i.GetId(), ctx.Expression())
 
 	body := NewBodyNode(i.ASTBuilder, false)
 	if len(ctx.AllStatement()) > 0 {

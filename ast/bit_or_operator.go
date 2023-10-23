@@ -189,7 +189,7 @@ func (f *BitOrOperation) Parse(
 	expression := NewExpression(f.ASTBuilder)
 
 	for _, expr := range ctx.AllExpression() {
-		parsedExp := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, expr)
+		parsedExp := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, f, f.GetId(), expr)
 		f.Expressions = append(
 			f.Expressions,
 			parsedExp,

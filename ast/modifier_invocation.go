@@ -247,7 +247,7 @@ func (m *ModifierInvocation) Parse(
 	expression := NewExpression(m.ASTBuilder)
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
-			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, m, expressionCtx)
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, m, m.GetId(), expressionCtx)
 			m.Arguments = append(
 				m.Arguments,
 				expr,

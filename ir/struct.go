@@ -11,7 +11,6 @@ type Struct struct {
 	Unit                    *ast.StructDefinition  `json:"ast"`
 	Id                      int64                  `json:"id"`
 	NodeType                ast_pb.NodeType        `json:"node_type"`
-	Kind                    ast_pb.NodeType        `json:"kind"`
 	Name                    string                 `json:"name"`
 	CanonicalName           string                 `json:"canonical_name"`
 	ReferencedDeclarationId int64                  `json:"referenced_declaration_id"`
@@ -40,11 +39,6 @@ func (f *Struct) GetName() string {
 // GetNodeType returns the type of the node in the AST.
 func (f *Struct) GetNodeType() ast_pb.NodeType {
 	return f.NodeType
-}
-
-// GetKind returns the kind of the struct node in the AST.
-func (f *Struct) GetKind() ast_pb.NodeType {
-	return f.Kind
 }
 
 // GetCanonicalName returns the canonical name of the struct.
@@ -92,7 +86,6 @@ func (f *Struct) ToProto() *ir_pb.Struct {
 	proto := &ir_pb.Struct{
 		Id:                      f.GetId(),
 		NodeType:                f.GetNodeType(),
-		Kind:                    f.GetKind(),
 		Name:                    f.GetName(),
 		CanonicalName:           f.GetCanonicalName(),
 		ReferencedDeclarationId: f.GetReferencedDeclarationId(),
@@ -117,7 +110,6 @@ func (b *Builder) processStruct(unit *ast.StructDefinition) *Struct {
 		Unit:                    unit,
 		Id:                      unit.GetId(),
 		NodeType:                unit.GetType(),
-		Kind:                    unit.GetKind(),
 		Name:                    unit.GetName(),
 		CanonicalName:           unit.GetCanonicalName(),
 		ReferencedDeclarationId: unit.GetReferencedDeclaration(),

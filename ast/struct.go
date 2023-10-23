@@ -15,7 +15,6 @@ type StructDefinition struct {
 	Id                    int64                  `json:"id"`                               // Unique identifier for the struct definition
 	NodeType              ast_pb.NodeType        `json:"node_type"`                        // Type of the node (STRUCT_DEFINITION for struct definition)
 	Src                   SrcNode                `json:"src"`                              // Source information about the struct definition
-	Kind                  ast_pb.NodeType        `json:"kind,omitempty"`                   // Kind of the struct definition (e.g., "contract")
 	Name                  string                 `json:"name"`                             // Name of the struct
 	NameLocation          SrcNode                `json:"name_location"`                    // Source information about the name of the struct
 	CanonicalName         string                 `json:"canonical_name"`                   // Canonical name of the struct
@@ -96,11 +95,6 @@ func (s *StructDefinition) GetSourceUnitName() string {
 	return s.SourceUnitName
 }
 
-// GetKind returns the kind of the struct definition.
-func (s *StructDefinition) GetKind() ast_pb.NodeType {
-	return s.Kind
-}
-
 // GetVisibility returns the visibility of the struct definition.
 func (s *StructDefinition) GetVisibility() ast_pb.Visibility {
 	return s.Visibility
@@ -147,12 +141,6 @@ func (s *StructDefinition) UnmarshalJSON(data []byte) error {
 
 	if nodeType, ok := tempMap["node_type"]; ok {
 		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
-			return err
-		}
-	}
-
-	if kind, ok := tempMap["kind"]; ok {
-		if err := json.Unmarshal(kind, &s.Kind); err != nil {
 			return err
 		}
 	}
@@ -228,7 +216,6 @@ func (s *StructDefinition) ToProto() NodeType {
 		Name:                  s.GetName(),
 		CanonicalName:         s.GetCanonicalName(),
 		NodeType:              s.GetType(),
-		Kind:                  s.GetKind(),
 		Visibility:            s.GetVisibility(),
 		StorageLocation:       s.GetStorageLocation(),
 		ReferencedDeclaration: s.GetReferencedDeclaration(),

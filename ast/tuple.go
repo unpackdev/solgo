@@ -211,7 +211,7 @@ func (t *TupleExpression) Parse(
 
 	expression := NewExpression(t.ASTBuilder)
 	for _, tupleCtx := range ctx.TupleExpression().AllExpression() {
-		expr := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, t, tupleCtx)
+		expr := expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, t, t.GetId(), tupleCtx)
 		t.Components = append(
 			t.Components,
 			expr,

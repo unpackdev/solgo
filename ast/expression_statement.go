@@ -17,6 +17,7 @@ func parseExpressionStatement(
 	fnNode Node[NodeType],
 	bodyNode *BodyNode,
 	parentNode Node[NodeType],
+	parentNodeId int64,
 	ctx *parser.ExpressionStatementContext,
 ) Node[NodeType] {
 	for _, child := range ctx.GetChildren() {
@@ -31,7 +32,7 @@ func parseExpressionStatement(
 			return assignment
 		case *parser.PrimaryExpressionContext:
 			primaryExpression := NewPrimaryExpression(b)
-			return primaryExpression.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return primaryExpression.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.UnarySuffixOperationContext:
 			unarySuffixOperation := NewUnarySuffixExpression(b)
 			return unarySuffixOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
@@ -40,10 +41,10 @@ func parseExpressionStatement(
 			return unaryPrefixOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *parser.OrderComparisonContext:
 			binaryExp := NewBinaryOperationExpression(b)
-			return binaryExp.ParseOrderComparison(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return binaryExp.ParseOrderComparison(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.EqualityComparisonContext:
 			binaryExp := NewBinaryOperationExpression(b)
-			return binaryExp.ParseEqualityComparison(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return binaryExp.ParseEqualityComparison(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.TupleContext:
 			tupleExpr := NewTupleExpression(b)
 			return tupleExpr.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
@@ -52,13 +53,13 @@ func parseExpressionStatement(
 			return andOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *parser.AddSubOperationContext:
 			binaryExp := NewBinaryOperationExpression(b)
-			return binaryExp.ParseAddSub(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return binaryExp.ParseAddSub(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.MulDivModOperationContext:
 			binaryExp := NewBinaryOperationExpression(b)
-			return binaryExp.ParseMulDivMod(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return binaryExp.ParseMulDivMod(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.OrOperationContext:
 			binaryExp := NewBinaryOperationExpression(b)
-			return binaryExp.ParseOr(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return binaryExp.ParseOr(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.MemberAccessContext:
 			memberAccess := NewMemberAccessExpression(b)
 			return memberAccess.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
@@ -97,7 +98,7 @@ func parseExpressionStatement(
 			return bitXorOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
 		case *parser.ShiftOperationContext:
 			shiftOperation := NewShiftOperationExpression(b)
-			return shiftOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)
+			return shiftOperation.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, parentNodeId, childCtx)
 		case *parser.InlineArrayContext:
 			inlineArray := NewInlineArrayExpression(b)
 			return inlineArray.Parse(unit, contractNode, fnNode, bodyNode, nil, parentNode, childCtx)

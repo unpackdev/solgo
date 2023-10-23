@@ -177,7 +177,7 @@ func (r *ReturnStatement) Parse(
 
 	if ctx.Expression() != nil {
 		expression := NewExpression(r.ASTBuilder)
-		r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+		r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, r, r.GetId(), ctx.Expression())
 	}
 
 	return r

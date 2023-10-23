@@ -159,7 +159,7 @@ func (d *DoWhileStatement) Parse(
 	}
 
 	expression := NewExpression(d.ASTBuilder)
-	d.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	d.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, d, d.GetId(), ctx.Expression())
 
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {
 		bodyNode := NewBodyNode(d.ASTBuilder, false)

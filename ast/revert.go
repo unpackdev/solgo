@@ -192,12 +192,12 @@ func (r *RevertStatement) Parse(
 				r.Arguments,
 				expression.Parse(
 					unit, contractNode, fnNode,
-					bodyNode, nil, r, expressionCtx,
+					bodyNode, nil, r, r.GetId(), expressionCtx,
 				),
 			)
 		}
 	}
 
-	r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, nil, ctx.Expression())
+	r.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, r, r.GetId(), ctx.Expression())
 	return r
 }

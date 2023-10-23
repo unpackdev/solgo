@@ -247,7 +247,7 @@ func (i *IndexAccess) Parse(
 	expression := NewExpression(i.ASTBuilder)
 
 	i.IndexExpression = expression.Parse(
-		unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(0),
+		unit, contractNode, fnNode, bodyNode, vDeclar, i, i.GetId(), ctx.Expression(0),
 	)
 	i.TypeDescription = i.IndexExpression.GetTypeDescription()
 
@@ -257,7 +257,7 @@ func (i *IndexAccess) Parse(
 
 	if ctx.Expression(1) != nil {
 		i.BaseExpression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, vDeclar, i, ctx.Expression(1),
+			unit, contractNode, fnNode, bodyNode, vDeclar, i, i.GetId(), ctx.Expression(1),
 		)
 		i.TypeDescriptions = append(i.TypeDescriptions, i.BaseExpression.GetTypeDescription())
 	}

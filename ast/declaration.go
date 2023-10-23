@@ -106,11 +106,13 @@ func (d *Declaration) GetTypeDescription() *TypeDescription {
 
 // GetNodes returns the nodes associated with the Declaration.
 func (d *Declaration) GetNodes() []Node[NodeType] {
+	toReturn := []Node[NodeType]{}
+
 	if d.TypeName != nil {
-		return []Node[NodeType]{d.TypeName}
+		toReturn = append(toReturn, d.TypeName)
 	}
 
-	return nil
+	return toReturn
 }
 
 // ToProto converts the Declaration to its corresponding protocol buffer representation.
@@ -180,4 +182,5 @@ func (d *Declaration) ParseVariableDeclaration(
 	typeName.Parse(unit, fnNode, d.GetId(), ctx.TypeName())
 	d.TypeName = typeName
 	d.currentVariables = append(d.currentVariables, d)
+
 }

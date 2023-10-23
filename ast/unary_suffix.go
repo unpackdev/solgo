@@ -268,7 +268,7 @@ func (u *UnarySuffix) Parse(
 	}
 
 	expression := NewExpression(u.ASTBuilder)
-	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, ctx.Expression())
+	u.Expression = expression.Parse(unit, contractNode, fnNode, bodyNode, vDeclar, u, u.GetId(), ctx.Expression())
 	u.TypeDescription = u.Expression.GetTypeDescription()
 	return u
 }

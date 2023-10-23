@@ -1,6 +1,7 @@
 package ast
 
 import (
+	"fmt"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -40,10 +41,23 @@ func NewStateVariableDeclaration(b *ASTBuilder) *StateVariableDeclaration {
 
 // SetReferenceDescriptor sets the reference descriptions of the StateVariableDeclaration node.
 func (v *StateVariableDeclaration) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	v.TypeDescription = refDesc
+
 	if v.TypeName != nil {
-		v.TypeDescription = refDesc
-		return v.TypeName.SetReferenceDescriptor(refId, refDesc)
+		v.TypeName.SetReferenceDescriptor(refId, refDesc)
 	}
+
+	// Lets update the parent node as well in case that type description is not set...
+	parentNodeId := v.GetSrc().GetParentIndex()
+
+	if parentNodeId > 0 {
+		if parentNode := v.GetTree().GetById(parentNodeId); parentNode != nil {
+			if parentNode.GetTypeDescription() == nil {
+				parentNode.SetReferenceDescriptor(refId, refDesc)
+			}
+		}
+	}
+
 	return false
 }
 
@@ -99,7 +113,11 @@ func (v *StateVariableDeclaration) GetReferencedDeclaration() int64 {
 
 // GetNodes returns the type name node in the state variable declaration.
 func (v *StateVariableDeclaration) GetNodes() []Node[NodeType] {
-	toReturn := []Node[NodeType]{v.TypeName}
+	toReturn := []Node[NodeType]{}
+
+	if v.TypeName != nil {
+		toReturn = append(toReturn, v.TypeName)
+	}
 
 	if v.InitialValue != nil {
 		toReturn = append(toReturn, v.InitialValue)
@@ -195,7 +213,7 @@ func (v *StateVariableDeclaration) Parse(
 
 	if ctx.GetInitialValue() != nil {
 		expression := NewExpression(v.ASTBuilder)
-		v.InitialValue = expression.Parse(unit, contractNode, nil, nil, nil, v, ctx.GetInitialValue())
+		v.InitialValue = expression.Parse(unit, contractNode, nil, nil, nil, v, v.GetId(), ctx.GetInitialValue())
 		v.TypeDescription = v.InitialValue.GetTypeDescription()
 	}
 
@@ -251,14 +269,14 @@ func (v *StateVariableDeclaration) ParseGlobal(
 
 	if ctx.GetInitialValue() != nil {
 		expression := NewExpression(v.ASTBuilder)
-		v.InitialValue = expression.Parse(nil, nil, nil, nil, nil, v, ctx.GetInitialValue())
+		v.InitialValue = expression.Parse(nil, nil, nil, nil, nil, v, v.GetId(), ctx.GetInitialValue())
 		v.TypeDescription = v.InitialValue.GetTypeDescription()
 	}
 
 	v.globalDefinitions = append(v.globalDefinitions, v)
 }
 
-// ParseGlobalConstant parses a global constant state variable declaration from the provided parser.StateVariableDeclarationContext and updates the current instance.
+// ParseGlobalConstant parses a global constant state variable declaration from the provided parser.ConstantVariableDeclarationContext and updates the current instance.
 func (v *StateVariableDeclaration) ParseGlobalConstant(
 	ctx *parser.ConstantVariableDeclarationContext,
 ) {
@@ -282,9 +300,34 @@ func (v *StateVariableDeclaration) ParseGlobalConstant(
 
 	if ctx.GetInitialValue() != nil {
 		expression := NewExpression(v.ASTBuilder)
-		v.InitialValue = expression.Parse(nil, nil, nil, nil, nil, v, ctx.GetInitialValue())
+		v.InitialValue = expression.Parse(nil, nil, nil, nil, nil, v, v.GetId(), ctx.GetInitialValue())
 		v.TypeDescription = v.InitialValue.GetTypeDescription()
 	}
+
+	v.globalDefinitions = append(v.globalDefinitions, v)
+}
+
+// ParseGlobalVariable parses a global variable declaration from the provided parser.VariableDeclarationContext and updates the current instance.
+func (v *StateVariableDeclaration) ParseGlobalVariable(
+	ctx *parser.VariableDeclarationContext,
+) {
+	v.Name = ctx.Identifier().GetText()
+	v.Src = SrcNode{
+		Id:          v.GetNextID(),
+		Line:        int64(ctx.GetStart().GetLine()),
+		Column:      int64(ctx.GetStart().GetColumn()),
+		Start:       int64(ctx.GetStart().GetStart()),
+		End:         int64(ctx.GetStop().GetStop()),
+		Length:      int64(ctx.GetStop().GetStop() - ctx.GetStart().GetStart() + 1),
+		ParentIndex: 0,
+	}
+	v.Visibility = ast_pb.Visibility_PUBLIC
+	v.Constant = true
+
+	typeName := NewTypeName(v.ASTBuilder)
+	typeName.Parse(nil, nil, v.Id, ctx.GetType_())
+	v.TypeName = typeName
+	v.TypeDescription = typeName.TypeDescription
 
 	v.globalDefinitions = append(v.globalDefinitions, v)
 }
@@ -317,13 +360,18 @@ func (v *StateVariableDeclaration) getVisibilityFromCtx(ctx *parser.StateVariabl
 	return ast_pb.Visibility_INTERNAL
 }
 
-// There can be global state variables that are outside of the contract body, so we need to handle them here.
 func (b *ASTBuilder) EnterStateVariableDeclaration(ctx *parser.StateVariableDeclarationContext) {
 	stateVar := NewStateVariableDeclaration(b)
 	stateVar.ParseGlobal(ctx)
 }
 
 func (b *ASTBuilder) EnterConstantVariableDeclaration(ctx *parser.ConstantVariableDeclarationContext) {
+	fmt.Println(ctx.GetText())
 	stateVar := NewStateVariableDeclaration(b)
 	stateVar.ParseGlobalConstant(ctx)
+}
+
+func (b *ASTBuilder) EnterVariableDeclaration(ctx *parser.VariableDeclarationContext) {
+	child := NewStateVariableDeclaration(b)
+	child.ParseGlobalVariable(ctx)
 }

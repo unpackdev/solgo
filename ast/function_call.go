@@ -283,13 +283,13 @@ func (f *FunctionCall) Parse(
 
 	if ctx.Expression() != nil {
 		f.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), ctx.Expression(),
 		)
 	}
 
 	if ctx.CallArgumentList() != nil {
 		for _, expressionCtx := range ctx.CallArgumentList().AllExpression() {
-			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, expressionCtx)
+			expr := expression.Parse(unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), expressionCtx)
 			f.Arguments = append(
 				f.Arguments,
 				expr,
@@ -549,7 +549,7 @@ func (f *FunctionCallOption) Parse(
 
 	if ctx.Expression() != nil {
 		f.Expression = expression.Parse(
-			unit, contractNode, fnNode, bodyNode, nil, f, ctx.Expression(),
+			unit, contractNode, fnNode, bodyNode, nil, f, f.GetId(), ctx.Expression(),
 		)
 		f.TypeDescription = f.Expression.GetTypeDescription()
 	}
