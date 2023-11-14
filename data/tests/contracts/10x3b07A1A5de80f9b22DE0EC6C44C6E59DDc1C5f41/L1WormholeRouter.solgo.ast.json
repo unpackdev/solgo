@@ -1,0 +1,5701 @@
+{
+	"id": 6863,
+	"base_contracts": [
+		{
+			"id": 6950,
+			"node_type": 62,
+			"src": {
+				"line": 3084,
+				"column": 29,
+				"start": 114567,
+				"end": 114580,
+				"length": 14,
+				"parent_index": 6949
+			},
+			"base_name": {
+				"id": 6951,
+				"node_type": 52,
+				"src": {
+					"line": 3084,
+					"column": 29,
+					"start": 114567,
+					"end": 114580,
+					"length": 14,
+					"parent_index": 6949
+				},
+				"name": "WormholeRouter",
+				"referenced_declaration": 6513
+			}
+		}
+	],
+	"license": "BUSL-1.1",
+	"exported_symbols": [
+		{
+			"id": 6863,
+			"name": "L1WormholeRouter",
+			"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/10x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1WormholeRouter.sol"
+		},
+		{
+			"id": 6695,
+			"name": "IWormhole",
+			"absolute_path": "IWormhole.sol"
+		},
+		{
+			"id": 6695,
+			"name": "L1Vault",
+			"absolute_path": "L1Vault.sol"
+		},
+		{
+			"id": 6695,
+			"name": "WormholeRouter",
+			"absolute_path": "WormholeRouter.sol"
+		},
+		{
+			"id": 6695,
+			"name": "Constants",
+			"absolute_path": "Constants.sol"
+		}
+	],
+	"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/10x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/L1WormholeRouter.sol",
+	"name": "L1WormholeRouter",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 6890,
+			"node_type": 10,
+			"src": {
+				"line": 3077,
+				"column": 0,
+				"start": 114333,
+				"end": 114356,
+				"length": 24,
+				"parent_index": 6863
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity =0.8.16;"
+		},
+		{
+			"id": 6945,
+			"node_type": 29,
+			"src": {
+				"line": 3079,
+				"column": 0,
+				"start": 114359,
+				"end": 114400,
+				"length": 42,
+				"parent_index": 6863
+			},
+			"absolute_path": "IWormhole.sol",
+			"file": "./IWormhole.sol",
+			"scope": 6863,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 6695
+		},
+		{
+			"id": 6946,
+			"node_type": 29,
+			"src": {
+				"line": 3080,
+				"column": 0,
+				"start": 114402,
+				"end": 114439,
+				"length": 38,
+				"parent_index": 6863
+			},
+			"absolute_path": "L1Vault.sol",
+			"file": "./L1Vault.sol",
+			"scope": 6863,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 6695
+		},
+		{
+			"id": 6947,
+			"node_type": 29,
+			"src": {
+				"line": 3081,
+				"column": 0,
+				"start": 114441,
+				"end": 114492,
+				"length": 52,
+				"parent_index": 6863
+			},
+			"absolute_path": "WormholeRouter.sol",
+			"file": "./WormholeRouter.sol",
+			"scope": 6863,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 6695
+		},
+		{
+			"id": 6948,
+			"node_type": 29,
+			"src": {
+				"line": 3082,
+				"column": 0,
+				"start": 114494,
+				"end": 114535,
+				"length": 42,
+				"parent_index": 6863
+			},
+			"absolute_path": "Constants.sol",
+			"file": "./Constants.sol",
+			"scope": 6863,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 6695
+		},
+		{
+			"id": 6949,
+			"name": "L1WormholeRouter",
+			"node_type": 35,
+			"src": {
+				"line": 3084,
+				"column": 0,
+				"start": 114538,
+				"end": 117225,
+				"length": 2688,
+				"parent_index": 6863
+			},
+			"name_location": {
+				"line": 3084,
+				"column": 9,
+				"start": 114547,
+				"end": 114562,
+				"length": 16,
+				"parent_index": 6949
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 6953,
+					"name": "otherLayerWormholeId",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 3085,
+						"column": 4,
+						"start": 114588,
+						"end": 114682,
+						"length": 95,
+						"parent_index": 6949
+					},
+					"name_location": {
+						"line": 3085,
+						"column": 13,
+						"start": 114597,
+						"end": 114616,
+						"length": 20,
+						"parent_index": 6953
+					},
+					"body": {
+						"id": 6961,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 3085,
+							"column": 74,
+							"start": 114658,
+							"end": 114682,
+							"length": 25,
+							"parent_index": 6953
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6962,
+								"node_type": 47,
+								"src": {
+									"line": 3086,
+									"column": 8,
+									"start": 114668,
+									"end": 114676,
+									"length": 9,
+									"parent_index": 6953
+								},
+								"function_return_parameters": 6953,
+								"expression": {
+									"id": 6963,
+									"node_type": 17,
+									"kind": 49,
+									"value": "5",
+									"hex_value": "35",
+									"src": {
+										"line": 3086,
+										"column": 15,
+										"start": 114675,
+										"end": 114675,
+										"length": 1,
+										"parent_index": 6962
+									},
+									"type_description": {
+										"type_identifier": "t_rational_5_by_1",
+										"type_string": "int_const 5"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 6,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [
+						{
+							"id": 6957,
+							"node_type": 63,
+							"src": {
+								"line": 3085,
+								"column": 48,
+								"start": 114632,
+								"end": 114639,
+								"length": 8,
+								"parent_index": 6953
+							},
+							"overrides": [],
+							"referenced_declaration": 0,
+							"type_descriptions": {
+								"type_identifier": "$_t_override",
+								"type_string": "override"
+							}
+						}
+					],
+					"parameters": {
+						"id": 6954,
+						"node_type": 43,
+						"src": {
+							"line": 3085,
+							"column": 66,
+							"start": 114650,
+							"end": 114655,
+							"length": 6,
+							"parent_index": 6953
+						},
+						"parameters": [
+							{
+								"id": 6955,
+								"node_type": 44,
+								"src": {
+									"line": 3085,
+									"column": 66,
+									"start": 114650,
+									"end": 114655,
+									"length": 6,
+									"parent_index": 6954
+								},
+								"scope": 6953,
+								"name": "",
+								"type_name": {
+									"id": 6956,
+									"node_type": 30,
+									"src": {
+										"line": 3085,
+										"column": 66,
+										"start": 114650,
+										"end": 114655,
+										"length": 6,
+										"parent_index": 6955
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint16",
+									"type_string": "uint16"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6958,
+						"node_type": 43,
+						"src": {
+							"line": 3085,
+							"column": 66,
+							"start": 114650,
+							"end": 114655,
+							"length": 6,
+							"parent_index": 6953
+						},
+						"parameters": [
+							{
+								"id": 6959,
+								"node_type": 44,
+								"src": {
+									"line": 3085,
+									"column": 66,
+									"start": 114650,
+									"end": 114655,
+									"length": 6,
+									"parent_index": 6958
+								},
+								"scope": 6953,
+								"name": "",
+								"type_name": {
+									"id": 6960,
+									"node_type": 30,
+									"src": {
+										"line": 3085,
+										"column": 66,
+										"start": 114650,
+										"end": 114655,
+										"length": 6,
+										"parent_index": 6959
+									},
+									"name": "uint16",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint16",
+										"type_string": "uint16"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint16",
+									"type_string": "uint16"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint16",
+								"type_string": "uint16"
+							}
+						]
+					},
+					"signature_raw": "otherLayerWormholeId(uint16)",
+					"signature": "ea6e78ce",
+					"scope": 6949,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint16$",
+						"type_string": "function(uint16)"
+					}
+				},
+				{
+					"id": 6965,
+					"node_type": 42,
+					"src": {
+						"line": 3089,
+						"column": 4,
+						"start": 114689,
+						"end": 114773,
+						"length": 85,
+						"parent_index": 6949
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [
+						{
+							"id": 6974,
+							"name": "WormholeRouter",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"line": 3089,
+								"column": 53,
+								"start": 114738,
+								"end": 114770,
+								"length": 33,
+								"parent_index": 6965
+							},
+							"argument_types": [
+								{
+									"type_identifier": "t_contract$_L1Vault_$441",
+									"type_string": "contract L1Vault"
+								},
+								null
+							],
+							"arguments": [
+								{
+									"id": 6976,
+									"node_type": 16,
+									"src": {
+										"line": 3089,
+										"column": 68,
+										"start": 114753,
+										"end": 114758,
+										"length": 6,
+										"parent_index": 6974
+									},
+									"name": "_vault",
+									"type_description": {
+										"type_identifier": "t_contract$_L1Vault_$441",
+										"type_string": "contract L1Vault"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 6976,
+									"is_pure": false
+								},
+								{
+									"id": 6977,
+									"node_type": 16,
+									"src": {
+										"line": 3089,
+										"column": 76,
+										"start": 114761,
+										"end": 114769,
+										"length": 9,
+										"parent_index": 6974
+									},
+									"name": "_wormhole",
+									"type_description": {
+										"type_identifier": "t_contract$_IWormhole_$7308",
+										"type_string": "contract IWormhole"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 6601,
+									"is_pure": false
+								}
+							],
+							"modifier_name": {
+								"id": 6975,
+								"name": "WormholeRouter",
+								"node_type": 0,
+								"src": {
+									"line": 3089,
+									"column": 53,
+									"start": 114738,
+									"end": 114751,
+									"length": 14,
+									"parent_index": 6974
+								}
+							}
+						}
+					],
+					"parameters": {
+						"id": 6966,
+						"node_type": 43,
+						"src": {
+							"line": 3089,
+							"column": 16,
+							"start": 114701,
+							"end": 114735,
+							"length": 35,
+							"parent_index": 6965
+						},
+						"parameters": [
+							{
+								"id": 6967,
+								"node_type": 44,
+								"src": {
+									"line": 3089,
+									"column": 16,
+									"start": 114701,
+									"end": 114714,
+									"length": 14,
+									"parent_index": 6966
+								},
+								"scope": 6965,
+								"name": "_vault",
+								"type_name": {
+									"id": 6968,
+									"node_type": 69,
+									"src": {
+										"line": 3089,
+										"column": 16,
+										"start": 114701,
+										"end": 114707,
+										"length": 7,
+										"parent_index": 6967
+									},
+									"path_node": {
+										"id": 6969,
+										"name": "L1Vault",
+										"node_type": 52,
+										"referenced_declaration": 441,
+										"src": {
+											"line": 3089,
+											"column": 16,
+											"start": 114701,
+											"end": 114707,
+											"length": 7,
+											"parent_index": 6968
+										},
+										"name_location": {
+											"line": 3089,
+											"column": 16,
+											"start": 114701,
+											"end": 114707,
+											"length": 7,
+											"parent_index": 6968
+										}
+									},
+									"referenced_declaration": 441,
+									"type_description": {
+										"type_identifier": "t_contract$_L1Vault_$441",
+										"type_string": "contract L1Vault"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_contract$_L1Vault_$441",
+									"type_string": "contract L1Vault"
+								}
+							},
+							{
+								"id": 6970,
+								"node_type": 44,
+								"src": {
+									"line": 3089,
+									"column": 32,
+									"start": 114717,
+									"end": 114735,
+									"length": 19,
+									"parent_index": 6966
+								},
+								"scope": 6965,
+								"name": "_wormhole",
+								"type_name": {
+									"id": 6971,
+									"node_type": 69,
+									"src": {
+										"line": 3089,
+										"column": 32,
+										"start": 114717,
+										"end": 114725,
+										"length": 9,
+										"parent_index": 6970
+									},
+									"path_node": {
+										"id": 6972,
+										"name": "IWormhole",
+										"node_type": 52,
+										"referenced_declaration": 0,
+										"src": {
+											"line": 3089,
+											"column": 32,
+											"start": 114717,
+											"end": 114725,
+											"length": 9,
+											"parent_index": 6971
+										},
+										"name_location": {
+											"line": 3089,
+											"column": 32,
+											"start": 114717,
+											"end": 114725,
+											"length": 9,
+											"parent_index": 6971
+										}
+									},
+									"referenced_declaration": 7308,
+									"type_description": {
+										"type_identifier": "t_contract$_IWormhole_$7308",
+										"type_string": "contract IWormhole"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_L1Vault_$441",
+								"type_string": "contract L1Vault"
+							},
+							null
+						]
+					},
+					"return_parameters": {
+						"id": 6973,
+						"node_type": 43,
+						"src": {
+							"line": 3089,
+							"column": 4,
+							"start": 114689,
+							"end": 114773,
+							"length": 85,
+							"parent_index": 6965
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 6949,
+					"body": {
+						"id": 6978,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 3089,
+							"column": 87,
+							"start": 114772,
+							"end": 114773,
+							"length": 2,
+							"parent_index": 6965
+						},
+						"implemented": true,
+						"statements": []
+					}
+				},
+				{
+					"id": 6980,
+					"name": "reportTVL",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 3096,
+						"column": 4,
+						"start": 114953,
+						"end": 115441,
+						"length": 489,
+						"parent_index": 6949
+					},
+					"name_location": {
+						"line": 3096,
+						"column": 13,
+						"start": 114962,
+						"end": 114970,
+						"length": 9,
+						"parent_index": 6980
+					},
+					"body": {
+						"id": 6987,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 3096,
+							"column": 68,
+							"start": 115017,
+							"end": 115441,
+							"length": 425,
+							"parent_index": 6980
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6988,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3097,
+									"column": 8,
+									"start": 115027,
+									"end": 115081,
+									"length": 55,
+									"parent_index": 6987
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"WR: only vault\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 6990,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 3097,
+											"column": 16,
+											"start": 115035,
+											"end": 115062,
+											"length": 28,
+											"parent_index": 6988
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 6991,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3097,
+												"column": 16,
+												"start": 115035,
+												"end": 115044,
+												"length": 10,
+												"parent_index": 6990
+											},
+											"member_location": {
+												"line": 3097,
+												"column": 20,
+												"start": 115039,
+												"end": 115044,
+												"length": 6,
+												"parent_index": 6991
+											},
+											"expression": {
+												"id": 6992,
+												"node_type": 16,
+												"src": {
+													"line": 3097,
+													"column": 16,
+													"start": 115035,
+													"end": 115037,
+													"length": 3,
+													"parent_index": 6991
+												},
+												"name": "msg",
+												"type_description": {
+													"type_identifier": "t_magic_message",
+													"type_string": "msg"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "sender",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"right_expression": {
+											"id": 6993,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"line": 3097,
+												"column": 30,
+												"start": 115049,
+												"end": 115062,
+												"length": 14,
+												"parent_index": 6990
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											],
+											"arguments": [
+												{
+													"id": 6996,
+													"node_type": 16,
+													"src": {
+														"line": 3097,
+														"column": 38,
+														"start": 115057,
+														"end": 115061,
+														"length": 5,
+														"parent_index": 6993
+													},
+													"name": "vault",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 6994,
+												"node_type": 16,
+												"src": {
+													"line": 3097,
+													"column": 30,
+													"start": 115049,
+													"end": 115055,
+													"length": 7,
+													"parent_index": 6993
+												},
+												"name": "address",
+												"type_name": {
+													"id": 6995,
+													"node_type": 30,
+													"src": {
+														"line": 3097,
+														"column": 30,
+														"start": 115049,
+														"end": 115055,
+														"length": 7,
+														"parent_index": 6994
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 6997,
+										"node_type": 17,
+										"kind": 50,
+										"value": "WR: only vault",
+										"hex_value": "57523a206f6e6c79207661756c74",
+										"src": {
+											"line": 3097,
+											"column": 46,
+											"start": 115065,
+											"end": 115080,
+											"length": 16,
+											"parent_index": 6988
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"WR: only vault\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 6989,
+									"node_type": 16,
+									"src": {
+										"line": 3097,
+										"column": 8,
+										"start": 115027,
+										"end": 115033,
+										"length": 7,
+										"parent_index": 6988
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 6998,
+								"node_type": 44,
+								"src": {
+									"line": 3098,
+									"column": 8,
+									"start": 115092,
+									"end": 115158,
+									"length": 67,
+									"parent_index": 6987
+								},
+								"assignments": [
+									6999
+								],
+								"declarations": [
+									{
+										"id": 6999,
+										"state_mutability": 1,
+										"name": "payload",
+										"node_type": 44,
+										"scope": 6987,
+										"src": {
+											"line": 3098,
+											"column": 8,
+											"start": 115092,
+											"end": 115111,
+											"length": 20,
+											"parent_index": 6998
+										},
+										"name_location": {
+											"line": 3098,
+											"column": 21,
+											"start": 115105,
+											"end": 115111,
+											"length": 7,
+											"parent_index": 6999
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 7000,
+											"node_type": 30,
+											"src": {
+												"line": 3098,
+												"column": 8,
+												"start": 115092,
+												"end": 115096,
+												"length": 5,
+												"parent_index": 6999
+											},
+											"name": "bytes",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7001,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3098,
+										"column": 31,
+										"start": 115115,
+										"end": 115157,
+										"length": 43,
+										"parent_index": 6998
+									},
+									"argument_types": [
+										null,
+										{
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										{
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7004,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3098,
+												"column": 42,
+												"start": 115126,
+												"end": 115141,
+												"length": 16,
+												"parent_index": 7001
+											},
+											"member_location": {
+												"line": 3098,
+												"column": 52,
+												"start": 115136,
+												"end": 115141,
+												"length": 6,
+												"parent_index": 7004
+											},
+											"expression": {
+												"id": 7005,
+												"node_type": 16,
+												"src": {
+													"line": 3098,
+													"column": 42,
+													"start": 115126,
+													"end": 115134,
+													"length": 9,
+													"parent_index": 7004
+												},
+												"name": "Constants",
+												"type_description": {
+													"type_identifier": "t_contract$_Constants_$7468",
+													"type_string": "contract Constants"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 7468,
+												"is_pure": false
+											},
+											"member_name": "L1_TVL",
+											"argument_types": [],
+											"referenced_declaration": 8164,
+											"type_description": {
+												"type_identifier": "t_function__t_string_literal$",
+												"type_string": "function(string memory)"
+											}
+										},
+										{
+											"id": 7006,
+											"node_type": 16,
+											"src": {
+												"line": 3098,
+												"column": 60,
+												"start": 115144,
+												"end": 115146,
+												"length": 3,
+												"parent_index": 7001
+											},
+											"name": "tvl",
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7006,
+											"is_pure": false
+										},
+										{
+											"id": 7007,
+											"node_type": 16,
+											"src": {
+												"line": 3098,
+												"column": 65,
+												"start": 115149,
+												"end": 115156,
+												"length": 8,
+												"parent_index": 7001
+											},
+											"name": "received",
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7007,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_uint256",
+													"type_string": "uint256"
+												}
+											]
+										}
+									],
+									"expression": {
+										"id": 7002,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3098,
+											"column": 31,
+											"start": 115115,
+											"end": 115124,
+											"length": 10,
+											"parent_index": 7001
+										},
+										"member_location": {
+											"line": 3098,
+											"column": 35,
+											"start": 115119,
+											"end": 115124,
+											"length": 6,
+											"parent_index": 7002
+										},
+										"expression": {
+											"id": 7003,
+											"node_type": 16,
+											"src": {
+												"line": 3098,
+												"column": 31,
+												"start": 115115,
+												"end": 115117,
+												"length": 3,
+												"parent_index": 7002
+											},
+											"name": "abi",
+											"type_description": {
+												"type_identifier": "t_magic_abi",
+												"type_string": "abi"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "encode",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_magic_abi",
+											"type_string": "abi"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_unknown_7001$_t_uint256$_t_bool$",
+										"type_string": "function(unknown_7001,uint256,bool)"
+									}
+								}
+							},
+							{
+								"id": 7008,
+								"node_type": 44,
+								"src": {
+									"line": 3101,
+									"column": 8,
+									"start": 115285,
+									"end": 115339,
+									"length": 55,
+									"parent_index": 6987
+								},
+								"assignments": [
+									7009
+								],
+								"declarations": [
+									{
+										"id": 7009,
+										"state_mutability": 1,
+										"name": "sequence",
+										"node_type": 44,
+										"scope": 6987,
+										"src": {
+											"line": 3101,
+											"column": 8,
+											"start": 115285,
+											"end": 115299,
+											"length": 15,
+											"parent_index": 7008
+										},
+										"name_location": {
+											"line": 3101,
+											"column": 15,
+											"start": 115292,
+											"end": 115299,
+											"length": 8,
+											"parent_index": 7009
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7010,
+											"node_type": 30,
+											"src": {
+												"line": 3101,
+												"column": 8,
+												"start": 115285,
+												"end": 115290,
+												"length": 6,
+												"parent_index": 7009
+											},
+											"name": "uint64",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint64",
+												"type_string": "uint64"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7011,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3101,
+										"column": 26,
+										"start": 115303,
+										"end": 115338,
+										"length": 36,
+										"parent_index": 7008
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7014,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"line": 3101,
+												"column": 48,
+												"start": 115325,
+												"end": 115337,
+												"length": 13,
+												"parent_index": 7011
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_L1WormholeRouter_$6863",
+													"type_string": "contract L1WormholeRouter"
+												}
+											],
+											"arguments": [
+												{
+													"id": 7017,
+													"node_type": 16,
+													"src": {
+														"line": 3101,
+														"column": 56,
+														"start": 115333,
+														"end": 115336,
+														"length": 4,
+														"parent_index": 7014
+													},
+													"name": "this",
+													"type_description": {
+														"type_identifier": "t_contract$_L1WormholeRouter_$6863",
+														"type_string": "contract L1WormholeRouter"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 7015,
+												"node_type": 16,
+												"src": {
+													"line": 3101,
+													"column": 48,
+													"start": 115325,
+													"end": 115331,
+													"length": 7,
+													"parent_index": 7014
+												},
+												"name": "address",
+												"type_name": {
+													"id": 7016,
+													"node_type": 30,
+													"src": {
+														"line": 3101,
+														"column": 48,
+														"start": 115325,
+														"end": 115331,
+														"length": 7,
+														"parent_index": 7015
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										}
+									],
+									"expression": {
+										"id": 7012,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3101,
+											"column": 26,
+											"start": 115303,
+											"end": 115323,
+											"length": 21,
+											"parent_index": 7011
+										},
+										"member_location": {
+											"line": 3101,
+											"column": 35,
+											"start": 115312,
+											"end": 115323,
+											"length": 12,
+											"parent_index": 7012
+										},
+										"expression": {
+											"id": 7013,
+											"node_type": 16,
+											"src": {
+												"line": 3101,
+												"column": 26,
+												"start": 115303,
+												"end": 115310,
+												"length": 8,
+												"parent_index": 7012
+											},
+											"name": "wormhole",
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 8075,
+											"is_pure": false
+										},
+										"member_name": "nextSequence",
+										"argument_types": [],
+										"referenced_declaration": 7460,
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_address$",
+										"type_string": "function(function(address))"
+									}
+								}
+							},
+							{
+								"id": 7018,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3102,
+									"column": 8,
+									"start": 115349,
+									"end": 115434,
+									"length": 86,
+									"parent_index": 6987
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$_t_uint64$",
+										"type_string": "function(uint64)"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									},
+									{
+										"type_identifier": "t_function_$_t_function_$_t_uint64$$$_t_bytes$",
+										"type_string": "function(function(uint64),bytes)"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7022,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 3102,
+											"column": 50,
+											"start": 115391,
+											"end": 115406,
+											"length": 16,
+											"parent_index": 7018
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_uint64",
+												"type_string": "uint64"
+											}
+										],
+										"arguments": [
+											{
+												"id": 7025,
+												"node_type": 16,
+												"src": {
+													"line": 3102,
+													"column": 57,
+													"start": 115398,
+													"end": 115405,
+													"length": 8,
+													"parent_index": 7022
+												},
+												"name": "sequence",
+												"type_description": {
+													"type_identifier": "t_uint64",
+													"type_string": "uint64"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 7008,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 7023,
+											"node_type": 16,
+											"src": {
+												"line": 3102,
+												"column": 50,
+												"start": 115391,
+												"end": 115396,
+												"length": 6,
+												"parent_index": 7022
+											},
+											"name": "uint32",
+											"type_name": {
+												"id": 7024,
+												"node_type": 30,
+												"src": {
+													"line": 3102,
+													"column": 50,
+													"start": 115391,
+													"end": 115396,
+													"length": 6,
+													"parent_index": 7023
+												},
+												"name": "uint32",
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_uint32",
+													"type_string": "uint32"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_uint32$",
+												"type_string": "function(uint32)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_uint32",
+													"type_string": "uint32"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_uint64$",
+											"type_string": "function(uint64)"
+										}
+									},
+									{
+										"id": 7026,
+										"node_type": 16,
+										"src": {
+											"line": 3102,
+											"column": 68,
+											"start": 115409,
+											"end": 115415,
+											"length": 7,
+											"parent_index": 7018
+										},
+										"name": "payload",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6998,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_uint64$",
+												"type_string": "function(uint64)"
+											}
+										]
+									},
+									{
+										"id": 7027,
+										"node_type": 16,
+										"src": {
+											"line": 3102,
+											"column": 77,
+											"start": 115418,
+											"end": 115433,
+											"length": 16,
+											"parent_index": 7018
+										},
+										"name": "consistencyLevel",
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_uint64$$$_t_bytes$",
+											"type_string": "function(function(uint64),bytes)"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_uint64$",
+												"type_string": "function(uint64)"
+											},
+											{
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7019,
+									"node_type": 93,
+									"kind": 93,
+									"src": {
+										"line": 3102,
+										"column": 8,
+										"start": 115349,
+										"end": 115389,
+										"length": 41,
+										"parent_index": 7018
+									},
+									"expression": {
+										"id": 7020,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3102,
+											"column": 8,
+											"start": 115349,
+											"end": 115371,
+											"length": 23,
+											"parent_index": 7019
+										},
+										"member_location": {
+											"line": 3102,
+											"column": 17,
+											"start": 115358,
+											"end": 115371,
+											"length": 14,
+											"parent_index": 7020
+										},
+										"expression": {
+											"id": 7021,
+											"node_type": 16,
+											"src": {
+												"line": 3102,
+												"column": 8,
+												"start": 115349,
+												"end": 115356,
+												"length": 8,
+												"parent_index": 7020
+											},
+											"name": "wormhole",
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 8075,
+											"is_pure": false
+										},
+										"member_name": "publishMessage",
+										"argument_types": [],
+										"referenced_declaration": 7433,
+										"type_description": {
+											"type_identifier": "t_function_$_t_uint32$_t_bytes$_t_uint8$",
+											"type_string": "function(uint32,bytes,uint8)"
+										}
+									},
+									"referenced_declaration": 7433,
+									"type_description": {
+										"type_identifier": "t_function_$_t_uint32$_t_bytes$_t_uint8$",
+										"type_string": "function(uint32,bytes,uint8)"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_uint64$_t_bytes$_t_function_$_t_function_$_t_uint64$_t_bytes$",
+									"type_string": "function(function(uint64),bytes,function(function(uint64),bytes))"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 6981,
+						"node_type": 43,
+						"src": {
+							"line": 3096,
+							"column": 23,
+							"start": 114972,
+							"end": 114997,
+							"length": 26,
+							"parent_index": 6980
+						},
+						"parameters": [
+							{
+								"id": 6982,
+								"node_type": 44,
+								"src": {
+									"line": 3096,
+									"column": 23,
+									"start": 114972,
+									"end": 114982,
+									"length": 11,
+									"parent_index": 6981
+								},
+								"scope": 6980,
+								"name": "tvl",
+								"type_name": {
+									"id": 6983,
+									"node_type": 30,
+									"src": {
+										"line": 3096,
+										"column": 23,
+										"start": 114972,
+										"end": 114978,
+										"length": 7,
+										"parent_index": 6982
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 6984,
+								"node_type": 44,
+								"src": {
+									"line": 3096,
+									"column": 36,
+									"start": 114985,
+									"end": 114997,
+									"length": 13,
+									"parent_index": 6981
+								},
+								"scope": 6980,
+								"name": "received",
+								"type_name": {
+									"id": 6985,
+									"node_type": 30,
+									"src": {
+										"line": 3096,
+										"column": 36,
+										"start": 114985,
+										"end": 114988,
+										"length": 4,
+										"parent_index": 6984
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6986,
+						"node_type": 43,
+						"src": {
+							"line": 3096,
+							"column": 4,
+							"start": 114953,
+							"end": 115441,
+							"length": 489,
+							"parent_index": 6980
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "reportTVL(uint256, bool)",
+					"signature": "9353987b",
+					"scope": 6949,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_bool$",
+						"type_string": "function(uint256,bool)"
+					}
+				},
+				{
+					"id": 7029,
+					"name": "reportFundTransfer",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 3106,
+						"column": 4,
+						"start": 115520,
+						"end": 115898,
+						"length": 379,
+						"parent_index": 6949
+					},
+					"name_location": {
+						"line": 3106,
+						"column": 13,
+						"start": 115529,
+						"end": 115546,
+						"length": 18,
+						"parent_index": 7029
+					},
+					"body": {
+						"id": 7034,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 3106,
+							"column": 65,
+							"start": 115581,
+							"end": 115898,
+							"length": 318,
+							"parent_index": 7029
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 7035,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3107,
+									"column": 8,
+									"start": 115591,
+									"end": 115645,
+									"length": 55,
+									"parent_index": 7034
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"WR: only vault\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 7037,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 3107,
+											"column": 16,
+											"start": 115599,
+											"end": 115626,
+											"length": 28,
+											"parent_index": 7035
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 7038,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3107,
+												"column": 16,
+												"start": 115599,
+												"end": 115608,
+												"length": 10,
+												"parent_index": 7037
+											},
+											"member_location": {
+												"line": 3107,
+												"column": 20,
+												"start": 115603,
+												"end": 115608,
+												"length": 6,
+												"parent_index": 7038
+											},
+											"expression": {
+												"id": 7039,
+												"node_type": 16,
+												"src": {
+													"line": 3107,
+													"column": 16,
+													"start": 115599,
+													"end": 115601,
+													"length": 3,
+													"parent_index": 7038
+												},
+												"name": "msg",
+												"type_description": {
+													"type_identifier": "t_magic_message",
+													"type_string": "msg"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "sender",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"right_expression": {
+											"id": 7040,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"line": 3107,
+												"column": 30,
+												"start": 115613,
+												"end": 115626,
+												"length": 14,
+												"parent_index": 7037
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											],
+											"arguments": [
+												{
+													"id": 7043,
+													"node_type": 16,
+													"src": {
+														"line": 3107,
+														"column": 38,
+														"start": 115621,
+														"end": 115625,
+														"length": 5,
+														"parent_index": 7040
+													},
+													"name": "vault",
+													"type_description": {
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 7041,
+												"node_type": 16,
+												"src": {
+													"line": 3107,
+													"column": 30,
+													"start": 115613,
+													"end": 115619,
+													"length": 7,
+													"parent_index": 7040
+												},
+												"name": "address",
+												"type_name": {
+													"id": 7042,
+													"node_type": 30,
+													"src": {
+														"line": 3107,
+														"column": 30,
+														"start": 115613,
+														"end": 115619,
+														"length": 7,
+														"parent_index": 7041
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 7044,
+										"node_type": 17,
+										"kind": 50,
+										"value": "WR: only vault",
+										"hex_value": "57523a206f6e6c79207661756c74",
+										"src": {
+											"line": 3107,
+											"column": 46,
+											"start": 115629,
+											"end": 115644,
+											"length": 16,
+											"parent_index": 7035
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"WR: only vault\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7036,
+									"node_type": 16,
+									"src": {
+										"line": 3107,
+										"column": 8,
+										"start": 115591,
+										"end": 115597,
+										"length": 7,
+										"parent_index": 7035
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 7045,
+								"node_type": 44,
+								"src": {
+									"line": 3108,
+									"column": 8,
+									"start": 115656,
+									"end": 115732,
+									"length": 77,
+									"parent_index": 7034
+								},
+								"assignments": [
+									7046
+								],
+								"declarations": [
+									{
+										"id": 7046,
+										"state_mutability": 1,
+										"name": "payload",
+										"node_type": 44,
+										"scope": 7034,
+										"src": {
+											"line": 3108,
+											"column": 8,
+											"start": 115656,
+											"end": 115675,
+											"length": 20,
+											"parent_index": 7045
+										},
+										"name_location": {
+											"line": 3108,
+											"column": 21,
+											"start": 115669,
+											"end": 115675,
+											"length": 7,
+											"parent_index": 7046
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 7047,
+											"node_type": 30,
+											"src": {
+												"line": 3108,
+												"column": 8,
+												"start": 115656,
+												"end": 115660,
+												"length": 5,
+												"parent_index": 7046
+											},
+											"name": "bytes",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7048,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3108,
+										"column": 31,
+										"start": 115679,
+										"end": 115731,
+										"length": 53,
+										"parent_index": 7045
+									},
+									"argument_types": [
+										null,
+										{
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7051,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3108,
+												"column": 42,
+												"start": 115690,
+												"end": 115722,
+												"length": 33,
+												"parent_index": 7048
+											},
+											"member_location": {
+												"line": 3108,
+												"column": 52,
+												"start": 115700,
+												"end": 115722,
+												"length": 23,
+												"parent_index": 7051
+											},
+											"expression": {
+												"id": 7052,
+												"node_type": 16,
+												"src": {
+													"line": 3108,
+													"column": 42,
+													"start": 115690,
+													"end": 115698,
+													"length": 9,
+													"parent_index": 7051
+												},
+												"name": "Constants",
+												"type_description": {
+													"type_identifier": "t_contract$_Constants_$7468",
+													"type_string": "contract Constants"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 7468,
+												"is_pure": false
+											},
+											"member_name": "L1_FUND_TRANSFER_REPORT",
+											"argument_types": [],
+											"referenced_declaration": 8169,
+											"type_description": {
+												"type_identifier": "t_function__t_string_literal$",
+												"type_string": "function(string memory)"
+											}
+										},
+										{
+											"id": 7053,
+											"node_type": 16,
+											"src": {
+												"line": 3108,
+												"column": 77,
+												"start": 115725,
+												"end": 115730,
+												"length": 6,
+												"parent_index": 7048
+											},
+											"name": "amount",
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7053,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 7049,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3108,
+											"column": 31,
+											"start": 115679,
+											"end": 115688,
+											"length": 10,
+											"parent_index": 7048
+										},
+										"member_location": {
+											"line": 3108,
+											"column": 35,
+											"start": 115683,
+											"end": 115688,
+											"length": 6,
+											"parent_index": 7049
+										},
+										"expression": {
+											"id": 7050,
+											"node_type": 16,
+											"src": {
+												"line": 3108,
+												"column": 31,
+												"start": 115679,
+												"end": 115681,
+												"length": 3,
+												"parent_index": 7049
+											},
+											"name": "abi",
+											"type_description": {
+												"type_identifier": "t_magic_abi",
+												"type_string": "abi"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "encode",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_magic_abi",
+											"type_string": "abi"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_unknown_7048$_t_uint256$",
+										"type_string": "function(unknown_7048,uint256)"
+									}
+								}
+							},
+							{
+								"id": 7054,
+								"node_type": 44,
+								"src": {
+									"line": 3109,
+									"column": 8,
+									"start": 115742,
+									"end": 115796,
+									"length": 55,
+									"parent_index": 7034
+								},
+								"assignments": [
+									7055
+								],
+								"declarations": [
+									{
+										"id": 7055,
+										"state_mutability": 1,
+										"name": "sequence",
+										"node_type": 44,
+										"scope": 7034,
+										"src": {
+											"line": 3109,
+											"column": 8,
+											"start": 115742,
+											"end": 115756,
+											"length": 15,
+											"parent_index": 7054
+										},
+										"name_location": {
+											"line": 3109,
+											"column": 15,
+											"start": 115749,
+											"end": 115756,
+											"length": 8,
+											"parent_index": 7055
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7056,
+											"node_type": 30,
+											"src": {
+												"line": 3109,
+												"column": 8,
+												"start": 115742,
+												"end": 115747,
+												"length": 6,
+												"parent_index": 7055
+											},
+											"name": "uint64",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint64",
+												"type_string": "uint64"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7057,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3109,
+										"column": 26,
+										"start": 115760,
+										"end": 115795,
+										"length": 36,
+										"parent_index": 7054
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7060,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"line": 3109,
+												"column": 48,
+												"start": 115782,
+												"end": 115794,
+												"length": 13,
+												"parent_index": 7057
+											},
+											"argument_types": [
+												{
+													"type_identifier": "t_contract$_L1WormholeRouter_$6863",
+													"type_string": "contract L1WormholeRouter"
+												}
+											],
+											"arguments": [
+												{
+													"id": 7063,
+													"node_type": 16,
+													"src": {
+														"line": 3109,
+														"column": 56,
+														"start": 115790,
+														"end": 115793,
+														"length": 4,
+														"parent_index": 7060
+													},
+													"name": "this",
+													"type_description": {
+														"type_identifier": "t_contract$_L1WormholeRouter_$6863",
+														"type_string": "contract L1WormholeRouter"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"expression": {
+												"id": 7061,
+												"node_type": 16,
+												"src": {
+													"line": 3109,
+													"column": 48,
+													"start": 115782,
+													"end": 115788,
+													"length": 7,
+													"parent_index": 7060
+												},
+												"name": "address",
+												"type_name": {
+													"id": 7062,
+													"node_type": 30,
+													"src": {
+														"line": 3109,
+														"column": 48,
+														"start": 115782,
+														"end": 115788,
+														"length": 7,
+														"parent_index": 7061
+													},
+													"name": "address",
+													"state_mutability": 4,
+													"referenced_declaration": 0,
+													"type_description": {
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_address$",
+													"type_string": "function(address)"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false,
+												"argument_types": [
+													{
+														"type_identifier": "t_address",
+														"type_string": "address"
+													}
+												]
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_address$",
+												"type_string": "function(address)"
+											}
+										}
+									],
+									"expression": {
+										"id": 7058,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3109,
+											"column": 26,
+											"start": 115760,
+											"end": 115780,
+											"length": 21,
+											"parent_index": 7057
+										},
+										"member_location": {
+											"line": 3109,
+											"column": 35,
+											"start": 115769,
+											"end": 115780,
+											"length": 12,
+											"parent_index": 7058
+										},
+										"expression": {
+											"id": 7059,
+											"node_type": 16,
+											"src": {
+												"line": 3109,
+												"column": 26,
+												"start": 115760,
+												"end": 115767,
+												"length": 8,
+												"parent_index": 7058
+											},
+											"name": "wormhole",
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 8075,
+											"is_pure": false
+										},
+										"member_name": "nextSequence",
+										"argument_types": [],
+										"referenced_declaration": 7012,
+										"type_description": {
+											"type_identifier": "t_function_$_t_address$",
+											"type_string": "function(address)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_address$",
+										"type_string": "function(function(address))"
+									}
+								}
+							},
+							{
+								"id": 7064,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3110,
+									"column": 8,
+									"start": 115806,
+									"end": 115891,
+									"length": 86,
+									"parent_index": 7034
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$_t_uint64$",
+										"type_string": "function(uint64)"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									},
+									{
+										"type_identifier": "t_function_$_t_function_$_t_uint64$$$_t_bytes$",
+										"type_string": "function(function(uint64),bytes)"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7068,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 3110,
+											"column": 50,
+											"start": 115848,
+											"end": 115863,
+											"length": 16,
+											"parent_index": 7064
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_uint64",
+												"type_string": "uint64"
+											}
+										],
+										"arguments": [
+											{
+												"id": 7071,
+												"node_type": 16,
+												"src": {
+													"line": 3110,
+													"column": 57,
+													"start": 115855,
+													"end": 115862,
+													"length": 8,
+													"parent_index": 7068
+												},
+												"name": "sequence",
+												"type_description": {
+													"type_identifier": "t_uint64",
+													"type_string": "uint64"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 7054,
+												"is_pure": false
+											}
+										],
+										"expression": {
+											"id": 7069,
+											"node_type": 16,
+											"src": {
+												"line": 3110,
+												"column": 50,
+												"start": 115848,
+												"end": 115853,
+												"length": 6,
+												"parent_index": 7068
+											},
+											"name": "uint32",
+											"type_name": {
+												"id": 7070,
+												"node_type": 30,
+												"src": {
+													"line": 3110,
+													"column": 50,
+													"start": 115848,
+													"end": 115853,
+													"length": 6,
+													"parent_index": 7069
+												},
+												"name": "uint32",
+												"referenced_declaration": 0,
+												"type_description": {
+													"type_identifier": "t_uint32",
+													"type_string": "uint32"
+												}
+											},
+											"type_description": {
+												"type_identifier": "t_function_$_t_uint32$",
+												"type_string": "function(uint32)"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false,
+											"argument_types": [
+												{
+													"type_identifier": "t_uint32",
+													"type_string": "uint32"
+												}
+											]
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_uint64$",
+											"type_string": "function(uint64)"
+										}
+									},
+									{
+										"id": 7072,
+										"node_type": 16,
+										"src": {
+											"line": 3110,
+											"column": 68,
+											"start": 115866,
+											"end": 115872,
+											"length": 7,
+											"parent_index": 7064
+										},
+										"name": "payload",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7045,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_uint64$",
+												"type_string": "function(uint64)"
+											}
+										]
+									},
+									{
+										"id": 7073,
+										"node_type": 16,
+										"src": {
+											"line": 3110,
+											"column": 77,
+											"start": 115875,
+											"end": 115890,
+											"length": 16,
+											"parent_index": 7064
+										},
+										"name": "consistencyLevel",
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_uint64$$$_t_bytes$",
+											"type_string": "function(function(uint64),bytes)"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_uint64$",
+												"type_string": "function(uint64)"
+											},
+											{
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7065,
+									"node_type": 93,
+									"kind": 93,
+									"src": {
+										"line": 3110,
+										"column": 8,
+										"start": 115806,
+										"end": 115846,
+										"length": 41,
+										"parent_index": 7064
+									},
+									"expression": {
+										"id": 7066,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3110,
+											"column": 8,
+											"start": 115806,
+											"end": 115828,
+											"length": 23,
+											"parent_index": 7065
+										},
+										"member_location": {
+											"line": 3110,
+											"column": 17,
+											"start": 115815,
+											"end": 115828,
+											"length": 14,
+											"parent_index": 7066
+										},
+										"expression": {
+											"id": 7067,
+											"node_type": 16,
+											"src": {
+												"line": 3110,
+												"column": 8,
+												"start": 115806,
+												"end": 115813,
+												"length": 8,
+												"parent_index": 7066
+											},
+											"name": "wormhole",
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 8075,
+											"is_pure": false
+										},
+										"member_name": "publishMessage",
+										"argument_types": [],
+										"referenced_declaration": 7020,
+										"type_description": {
+											"type_identifier": "t_function_$_t_uint32$_t_bytes$_t_uint8$",
+											"type_string": "function(uint32,bytes,uint8)"
+										}
+									},
+									"referenced_declaration": 7020,
+									"type_description": {
+										"type_identifier": "t_function_$_t_uint32$_t_bytes$_t_uint8$",
+										"type_string": "function(uint32,bytes,uint8)"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_uint64$_t_bytes$_t_function_$_t_function_$_t_uint64$_t_bytes$",
+									"type_string": "function(function(uint64),bytes,function(function(uint64),bytes))"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 3,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 7030,
+						"node_type": 43,
+						"src": {
+							"line": 3106,
+							"column": 32,
+							"start": 115548,
+							"end": 115561,
+							"length": 14,
+							"parent_index": 7029
+						},
+						"parameters": [
+							{
+								"id": 7031,
+								"node_type": 44,
+								"src": {
+									"line": 3106,
+									"column": 32,
+									"start": 115548,
+									"end": 115561,
+									"length": 14,
+									"parent_index": 7030
+								},
+								"scope": 7029,
+								"name": "amount",
+								"type_name": {
+									"id": 7032,
+									"node_type": 30,
+									"src": {
+										"line": 3106,
+										"column": 32,
+										"start": 115548,
+										"end": 115554,
+										"length": 7,
+										"parent_index": 7031
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 7033,
+						"node_type": 43,
+						"src": {
+							"line": 3106,
+							"column": 4,
+							"start": 115520,
+							"end": 115898,
+							"length": 379,
+							"parent_index": 7029
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "reportFundTransfer(uint256)",
+					"signature": "6c5af8c7",
+					"scope": 6949,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$",
+						"type_string": "function(uint256)"
+					}
+				},
+				{
+					"id": 7075,
+					"name": "receiveFunds",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 3118,
+						"column": 4,
+						"start": 116104,
+						"end": 116634,
+						"length": 531,
+						"parent_index": 6949
+					},
+					"name_location": {
+						"line": 3118,
+						"column": 13,
+						"start": 116113,
+						"end": 116124,
+						"length": 12,
+						"parent_index": 7075
+					},
+					"body": {
+						"id": 7082,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 3118,
+							"column": 80,
+							"start": 116180,
+							"end": 116634,
+							"length": 455,
+							"parent_index": 7075
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 7083,
+								"node_type": 44,
+								"src": {
+									"line": 3119,
+									"column": 8,
+									"start": 116190,
+									"end": 116285,
+									"length": 96,
+									"parent_index": 7082
+								},
+								"assignments": [
+									7084,
+									7087,
+									7089
+								],
+								"declarations": [
+									{
+										"id": 7084,
+										"state_mutability": 1,
+										"name": "vm",
+										"node_type": 44,
+										"scope": 7082,
+										"src": {
+											"line": 3119,
+											"column": 9,
+											"start": 116191,
+											"end": 116212,
+											"length": 22,
+											"parent_index": 7083
+										},
+										"name_location": {
+											"line": 3119,
+											"column": 29,
+											"start": 116211,
+											"end": 116212,
+											"length": 2,
+											"parent_index": 7084
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 7085,
+											"node_type": 69,
+											"src": {
+												"line": 3119,
+												"column": 9,
+												"start": 116191,
+												"end": 116202,
+												"length": 12,
+												"parent_index": 7084
+											},
+											"path_node": {
+												"id": 7086,
+												"name": "IWormhole",
+												"node_type": 52,
+												"referenced_declaration": 0,
+												"src": {
+													"line": 3119,
+													"column": 9,
+													"start": 116191,
+													"end": 116202,
+													"length": 12,
+													"parent_index": 7085
+												},
+												"name_location": {
+													"line": 3119,
+													"column": 9,
+													"start": 116191,
+													"end": 116199,
+													"length": 9,
+													"parent_index": 7085
+												}
+											},
+											"referenced_declaration": 7308,
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"id": 7087,
+										"state_mutability": 1,
+										"name": "valid",
+										"node_type": 44,
+										"scope": 7082,
+										"src": {
+											"line": 3119,
+											"column": 33,
+											"start": 116215,
+											"end": 116224,
+											"length": 10,
+											"parent_index": 7083
+										},
+										"name_location": {
+											"line": 3119,
+											"column": 38,
+											"start": 116220,
+											"end": 116224,
+											"length": 5,
+											"parent_index": 7087
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7088,
+											"node_type": 30,
+											"src": {
+												"line": 3119,
+												"column": 33,
+												"start": 116215,
+												"end": 116218,
+												"length": 4,
+												"parent_index": 7087
+											},
+											"name": "bool",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"id": 7089,
+										"state_mutability": 1,
+										"name": "reason",
+										"node_type": 44,
+										"scope": 7082,
+										"src": {
+											"line": 3119,
+											"column": 45,
+											"start": 116227,
+											"end": 116246,
+											"length": 20,
+											"parent_index": 7083
+										},
+										"name_location": {
+											"line": 3119,
+											"column": 59,
+											"start": 116241,
+											"end": 116246,
+											"length": 6,
+											"parent_index": 7089
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 7090,
+											"node_type": 30,
+											"src": {
+												"line": 3119,
+												"column": 45,
+												"start": 116227,
+												"end": 116232,
+												"length": 6,
+												"parent_index": 7089
+											},
+											"name": "string",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_string",
+												"type_string": "string"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7091,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3119,
+										"column": 69,
+										"start": 116251,
+										"end": 116284,
+										"length": 34,
+										"parent_index": 7083
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7094,
+											"node_type": 16,
+											"src": {
+												"line": 3119,
+												"column": 95,
+												"start": 116277,
+												"end": 116283,
+												"length": 7,
+												"parent_index": 7091
+											},
+											"name": "message",
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7094,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 7092,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3119,
+											"column": 69,
+											"start": 116251,
+											"end": 116275,
+											"length": 25,
+											"parent_index": 7091
+										},
+										"member_location": {
+											"line": 3119,
+											"column": 78,
+											"start": 116260,
+											"end": 116275,
+											"length": 16,
+											"parent_index": 7092
+										},
+										"expression": {
+											"id": 7093,
+											"node_type": 16,
+											"src": {
+												"line": 3119,
+												"column": 69,
+												"start": 116251,
+												"end": 116258,
+												"length": 8,
+												"parent_index": 7092
+											},
+											"name": "wormhole",
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 8075,
+											"is_pure": false
+										},
+										"member_name": "parseAndVerifyVM",
+										"argument_types": [],
+										"referenced_declaration": 7446,
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes$",
+											"type_string": "function(bytes)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes$",
+										"type_string": "function(bytes)"
+									}
+								}
+							},
+							{
+								"id": 7095,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3120,
+									"column": 8,
+									"start": 116295,
+									"end": 116316,
+									"length": 22,
+									"parent_index": 7082
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string",
+										"type_string": "string"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7097,
+										"node_type": 16,
+										"src": {
+											"line": 3120,
+											"column": 16,
+											"start": 116303,
+											"end": 116307,
+											"length": 5,
+											"parent_index": 7095
+										},
+										"name": "valid",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7083,
+										"is_pure": false
+									},
+									{
+										"id": 7098,
+										"node_type": 16,
+										"src": {
+											"line": 3120,
+											"column": 23,
+											"start": 116310,
+											"end": 116315,
+											"length": 6,
+											"parent_index": 7095
+										},
+										"name": "reason",
+										"type_description": {
+											"type_identifier": "t_string",
+											"type_string": "string"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7083,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7096,
+									"node_type": 16,
+									"src": {
+										"line": 3120,
+										"column": 8,
+										"start": 116295,
+										"end": 116301,
+										"length": 7,
+										"parent_index": 7095
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string$",
+									"type_string": "function(bool,string)"
+								}
+							},
+							{
+								"id": 7099,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3121,
+									"column": 8,
+									"start": 116327,
+									"end": 116361,
+									"length": 35,
+									"parent_index": 7082
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_contract$_IWormhole_$7308",
+										"type_string": "contract IWormhole"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7101,
+										"node_type": 16,
+										"src": {
+											"line": 3121,
+											"column": 40,
+											"start": 116359,
+											"end": 116360,
+											"length": 2,
+											"parent_index": 7099
+										},
+										"name": "vm",
+										"type_description": {
+											"type_identifier": "t_contract$_IWormhole_$7308",
+											"type_string": "contract IWormhole"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 8099,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 7100,
+									"node_type": 16,
+									"src": {
+										"line": 3121,
+										"column": 8,
+										"start": 116327,
+										"end": 116357,
+										"length": 31,
+										"parent_index": 7099
+									},
+									"name": "_validateWormholeMessageEmitter",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$",
+									"type_string": "function(address)"
+								}
+							},
+							{
+								"id": 7102,
+								"node_type": 27,
+								"src": {
+									"line": 3122,
+									"column": 8,
+									"start": 116372,
+									"end": 116401,
+									"length": 30,
+									"parent_index": 7082
+								},
+								"expression": {
+									"id": 7103,
+									"node_type": 27,
+									"src": {
+										"line": 3122,
+										"column": 8,
+										"start": 116372,
+										"end": 116400,
+										"length": 29,
+										"parent_index": 7102
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 7104,
+										"node_type": 16,
+										"src": {
+											"line": 3122,
+											"column": 8,
+											"start": 116372,
+											"end": 116385,
+											"length": 14,
+											"parent_index": 7103
+										},
+										"name": "nextValidNonce",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6651,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 7105,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 3122,
+											"column": 25,
+											"start": 116389,
+											"end": 116400,
+											"length": 12,
+											"parent_index": 7103
+										},
+										"operator": 1,
+										"left_expression": {
+											"id": 7106,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3122,
+												"column": 25,
+												"start": 116389,
+												"end": 116396,
+												"length": 8,
+												"parent_index": 7105
+											},
+											"member_location": {
+												"line": 3122,
+												"column": 28,
+												"start": 116392,
+												"end": 116396,
+												"length": 5,
+												"parent_index": 7106
+											},
+											"expression": {
+												"id": 7107,
+												"node_type": 16,
+												"src": {
+													"line": 3122,
+													"column": 25,
+													"start": 116389,
+													"end": 116390,
+													"length": 2,
+													"parent_index": 7106
+												},
+												"name": "vm",
+												"type_description": {
+													"type_identifier": "t_contract$_IWormhole_$7308",
+													"type_string": "contract IWormhole"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 8099,
+												"is_pure": false
+											},
+											"member_name": "nonce",
+											"argument_types": [],
+											"referenced_declaration": 8130,
+											"type_description": {
+												"type_identifier": "t_struct$_Global_VM_$8130",
+												"type_string": "struct Global.VM"
+											}
+										},
+										"right_expression": {
+											"id": 7108,
+											"node_type": 17,
+											"kind": 49,
+											"value": "1",
+											"hex_value": "31",
+											"src": {
+												"line": 3122,
+												"column": 36,
+												"start": 116400,
+												"end": 116400,
+												"length": 1,
+												"parent_index": 7105
+											},
+											"type_description": {
+												"type_identifier": "t_rational_1_by_1",
+												"type_string": "int_const 1"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": true
+										},
+										"type_description": {
+											"type_identifier": "t_struct$_Global_VM_$8130",
+											"type_string": "struct Global.VM"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 7109,
+								"node_type": 44,
+								"src": {
+									"line": 3123,
+									"column": 8,
+									"start": 116411,
+									"end": 116489,
+									"length": 79,
+									"parent_index": 7082
+								},
+								"assignments": [
+									7110,
+									7112
+								],
+								"declarations": [
+									{
+										"id": 7110,
+										"state_mutability": 1,
+										"name": "msgType",
+										"node_type": 44,
+										"scope": 7082,
+										"src": {
+											"line": 3123,
+											"column": 9,
+											"start": 116412,
+											"end": 116426,
+											"length": 15,
+											"parent_index": 7109
+										},
+										"name_location": {
+											"line": 3123,
+											"column": 17,
+											"start": 116420,
+											"end": 116426,
+											"length": 7,
+											"parent_index": 7110
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7111,
+											"node_type": 30,
+											"src": {
+												"line": 3123,
+												"column": 9,
+												"start": 116412,
+												"end": 116418,
+												"length": 7,
+												"parent_index": 7110
+											},
+											"name": "bytes32",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"id": 7112,
+										"state_mutability": 1,
+										"name": "amount",
+										"node_type": 44,
+										"scope": 7082,
+										"src": {
+											"line": 3123,
+											"column": 26,
+											"start": 116429,
+											"end": 116442,
+											"length": 14,
+											"parent_index": 7109
+										},
+										"name_location": {
+											"line": 3123,
+											"column": 34,
+											"start": 116437,
+											"end": 116442,
+											"length": 6,
+											"parent_index": 7112
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7113,
+											"node_type": 30,
+											"src": {
+												"line": 3123,
+												"column": 26,
+												"start": 116429,
+												"end": 116435,
+												"length": 7,
+												"parent_index": 7112
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7114,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3123,
+										"column": 44,
+										"start": 116447,
+										"end": 116488,
+										"length": 42,
+										"parent_index": 7109
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										{
+											"type_identifier": "t_tuple_$_t_bytes32_$_t_uint256$",
+											"type_string": "tuple(bytes32,uint256)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7117,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3123,
+												"column": 55,
+												"start": 116458,
+												"end": 116467,
+												"length": 10,
+												"parent_index": 7114
+											},
+											"member_location": {
+												"line": 3123,
+												"column": 58,
+												"start": 116461,
+												"end": 116467,
+												"length": 7,
+												"parent_index": 7117
+											},
+											"expression": {
+												"id": 7118,
+												"node_type": 16,
+												"src": {
+													"line": 3123,
+													"column": 55,
+													"start": 116458,
+													"end": 116459,
+													"length": 2,
+													"parent_index": 7117
+												},
+												"name": "vm",
+												"type_description": {
+													"type_identifier": "t_contract$_IWormhole_$7308",
+													"type_string": "contract IWormhole"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 8099,
+												"is_pure": false
+											},
+											"member_name": "payload",
+											"argument_types": [],
+											"referenced_declaration": 6998,
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										},
+										{
+											"id": 7119,
+											"node_type": 60,
+											"src": {
+												"line": 3123,
+												"column": 67,
+												"start": 116470,
+												"end": 116487,
+												"length": 18,
+												"parent_index": 7114
+											},
+											"is_constant": false,
+											"is_pure": false,
+											"components": [
+												{
+													"id": 7120,
+													"node_type": 16,
+													"src": {
+														"line": 3123,
+														"column": 68,
+														"start": 116471,
+														"end": 116477,
+														"length": 7,
+														"parent_index": 7119
+													},
+													"name": "bytes32",
+													"type_name": {
+														"id": 7121,
+														"node_type": 30,
+														"src": {
+															"line": 3123,
+															"column": 68,
+															"start": 116471,
+															"end": 116477,
+															"length": 7,
+															"parent_index": 7120
+														},
+														"name": "bytes32",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_bytes32",
+															"type_string": "bytes32"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												},
+												{
+													"id": 7122,
+													"node_type": 16,
+													"src": {
+														"line": 3123,
+														"column": 77,
+														"start": 116480,
+														"end": 116486,
+														"length": 7,
+														"parent_index": 7119
+													},
+													"name": "uint256",
+													"type_name": {
+														"id": 7123,
+														"node_type": 30,
+														"src": {
+															"line": 3123,
+															"column": 77,
+															"start": 116480,
+															"end": 116486,
+															"length": 7,
+															"parent_index": 7122
+														},
+														"name": "uint256",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"type_description": {
+												"type_identifier": "t_tuple_$_t_bytes32_$_t_uint256$",
+												"type_string": "tuple(bytes32,uint256)"
+											}
+										}
+									],
+									"expression": {
+										"id": 7115,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3123,
+											"column": 44,
+											"start": 116447,
+											"end": 116456,
+											"length": 10,
+											"parent_index": 7114
+										},
+										"member_location": {
+											"line": 3123,
+											"column": 48,
+											"start": 116451,
+											"end": 116456,
+											"length": 6,
+											"parent_index": 7115
+										},
+										"expression": {
+											"id": 7116,
+											"node_type": 16,
+											"src": {
+												"line": 3123,
+												"column": 44,
+												"start": 116447,
+												"end": 116449,
+												"length": 3,
+												"parent_index": 7115
+											},
+											"name": "abi",
+											"type_description": {
+												"type_identifier": "t_magic_abi",
+												"type_string": "abi"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "decode",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_magic_abi",
+											"type_string": "abi"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes$_t_tuple_$_t_bytes32_$_t_uint256$",
+										"type_string": "function(bytes,tuple(bytes32,uint256))"
+									}
+								}
+							},
+							{
+								"id": 7124,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3124,
+									"column": 8,
+									"start": 116499,
+									"end": 116571,
+									"length": 73,
+									"parent_index": 7082
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"WR: bad msg type\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 7126,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 3124,
+											"column": 16,
+											"start": 116507,
+											"end": 116550,
+											"length": 44,
+											"parent_index": 7124
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 7127,
+											"node_type": 16,
+											"src": {
+												"line": 3124,
+												"column": 16,
+												"start": 116507,
+												"end": 116513,
+												"length": 7,
+												"parent_index": 7126
+											},
+											"name": "msgType",
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7109,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 7128,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3124,
+												"column": 27,
+												"start": 116518,
+												"end": 116550,
+												"length": 33,
+												"parent_index": 7126
+											},
+											"member_location": {
+												"line": 3124,
+												"column": 37,
+												"start": 116528,
+												"end": 116550,
+												"length": 23,
+												"parent_index": 7128
+											},
+											"expression": {
+												"id": 7129,
+												"node_type": 16,
+												"src": {
+													"line": 3124,
+													"column": 27,
+													"start": 116518,
+													"end": 116526,
+													"length": 9,
+													"parent_index": 7128
+												},
+												"name": "Constants",
+												"type_description": {
+													"type_identifier": "t_contract$_Constants_$7468",
+													"type_string": "contract Constants"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 7468,
+												"is_pure": false
+											},
+											"member_name": "L2_FUND_TRANSFER_REPORT",
+											"argument_types": [],
+											"referenced_declaration": 8154,
+											"type_description": {
+												"type_identifier": "t_function__t_string_literal$",
+												"type_string": "function(string memory)"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 7130,
+										"node_type": 17,
+										"kind": 50,
+										"value": "WR: bad msg type",
+										"hex_value": "57523a20626164206d73672074797065",
+										"src": {
+											"line": 3124,
+											"column": 62,
+											"start": 116553,
+											"end": 116570,
+											"length": 18,
+											"parent_index": 7124
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"WR: bad msg type\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7125,
+									"node_type": 16,
+									"src": {
+										"line": 3124,
+										"column": 8,
+										"start": 116499,
+										"end": 116505,
+										"length": 7,
+										"parent_index": 7124
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 7131,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3126,
+									"column": 8,
+									"start": 116583,
+									"end": 116627,
+									"length": 45,
+									"parent_index": 7082
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7136,
+										"node_type": 16,
+										"src": {
+											"line": 3126,
+											"column": 40,
+											"start": 116615,
+											"end": 116620,
+											"length": 6,
+											"parent_index": 7131
+										},
+										"name": "amount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7109,
+										"is_pure": false
+									},
+									{
+										"id": 7137,
+										"node_type": 16,
+										"src": {
+											"line": 3126,
+											"column": 48,
+											"start": 116623,
+											"end": 116626,
+											"length": 4,
+											"parent_index": 7131
+										},
+										"name": "data",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7137,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7132,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"line": 3126,
+										"column": 8,
+										"start": 116583,
+										"end": 116613,
+										"length": 31,
+										"parent_index": 7131
+									},
+									"member_location": {
+										"line": 3126,
+										"column": 29,
+										"start": 116604,
+										"end": 116613,
+										"length": 10,
+										"parent_index": 7132
+									},
+									"expression": {
+										"id": 7133,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 3126,
+											"column": 8,
+											"start": 116583,
+											"end": 116602,
+											"length": 20,
+											"parent_index": 7132
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 7134,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3126,
+												"column": 8,
+												"start": 116583,
+												"end": 116600,
+												"length": 18,
+												"parent_index": 7133
+											},
+											"member_location": {
+												"line": 3126,
+												"column": 14,
+												"start": 116589,
+												"end": 116600,
+												"length": 12,
+												"parent_index": 7134
+											},
+											"expression": {
+												"id": 7135,
+												"node_type": 16,
+												"src": {
+													"line": 3126,
+													"column": 8,
+													"start": 116583,
+													"end": 116587,
+													"length": 5,
+													"parent_index": 7134
+												},
+												"name": "vault",
+												"type_description": {
+													"type_identifier": "t_contract$_BaseVault_$5126",
+													"type_string": "contract BaseVault"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 6608,
+												"is_pure": false
+											},
+											"member_name": "bridgeEscrow",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_contract$_BaseVault_$5126",
+												"type_string": "contract BaseVault"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									},
+									"member_name": "clearFunds",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+									"type_string": "function(uint256,bytes)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 7076,
+						"node_type": 43,
+						"src": {
+							"line": 3118,
+							"column": 26,
+							"start": 116126,
+							"end": 116168,
+							"length": 43,
+							"parent_index": 7075
+						},
+						"parameters": [
+							{
+								"id": 7077,
+								"node_type": 44,
+								"src": {
+									"line": 3118,
+									"column": 26,
+									"start": 116126,
+									"end": 116147,
+									"length": 22,
+									"parent_index": 7076
+								},
+								"scope": 7075,
+								"name": "message",
+								"type_name": {
+									"id": 7078,
+									"node_type": 30,
+									"src": {
+										"line": 3118,
+										"column": 26,
+										"start": 116126,
+										"end": 116130,
+										"length": 5,
+										"parent_index": 7077
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bytes",
+									"type_string": "bytes"
+								}
+							},
+							{
+								"id": 7079,
+								"node_type": 44,
+								"src": {
+									"line": 3118,
+									"column": 50,
+									"start": 116150,
+									"end": 116168,
+									"length": 19,
+									"parent_index": 7076
+								},
+								"scope": 7075,
+								"name": "data",
+								"type_name": {
+									"id": 7080,
+									"node_type": 30,
+									"src": {
+										"line": 3118,
+										"column": 50,
+										"start": 116150,
+										"end": 116154,
+										"length": 5,
+										"parent_index": 7079
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bytes",
+									"type_string": "bytes"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 7081,
+						"node_type": 43,
+						"src": {
+							"line": 3118,
+							"column": 4,
+							"start": 116104,
+							"end": 116634,
+							"length": 531,
+							"parent_index": 7075
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "receiveFunds(bytes, bytes)",
+					"signature": "69fb128a",
+					"scope": 6949,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes$_t_bytes$",
+						"type_string": "function(bytes,bytes)"
+					}
+				},
+				{
+					"id": 7139,
+					"name": "receiveFundRequest",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 3130,
+						"column": 4,
+						"start": 116709,
+						"end": 117223,
+						"length": 515,
+						"parent_index": 6949
+					},
+					"name_location": {
+						"line": 3130,
+						"column": 13,
+						"start": 116718,
+						"end": 116735,
+						"length": 18,
+						"parent_index": 7139
+					},
+					"body": {
+						"id": 7144,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 3130,
+							"column": 65,
+							"start": 116770,
+							"end": 117223,
+							"length": 454,
+							"parent_index": 7139
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 7145,
+								"node_type": 44,
+								"src": {
+									"line": 3131,
+									"column": 8,
+									"start": 116780,
+									"end": 116875,
+									"length": 96,
+									"parent_index": 7144
+								},
+								"assignments": [
+									7146,
+									7149,
+									7151
+								],
+								"declarations": [
+									{
+										"id": 7146,
+										"state_mutability": 1,
+										"name": "vm",
+										"node_type": 44,
+										"scope": 7144,
+										"src": {
+											"line": 3131,
+											"column": 9,
+											"start": 116781,
+											"end": 116802,
+											"length": 22,
+											"parent_index": 7145
+										},
+										"name_location": {
+											"line": 3131,
+											"column": 29,
+											"start": 116801,
+											"end": 116802,
+											"length": 2,
+											"parent_index": 7146
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 7147,
+											"node_type": 69,
+											"src": {
+												"line": 3131,
+												"column": 9,
+												"start": 116781,
+												"end": 116792,
+												"length": 12,
+												"parent_index": 7146
+											},
+											"path_node": {
+												"id": 7148,
+												"name": "IWormhole",
+												"node_type": 52,
+												"referenced_declaration": 0,
+												"src": {
+													"line": 3131,
+													"column": 9,
+													"start": 116781,
+													"end": 116792,
+													"length": 12,
+													"parent_index": 7147
+												},
+												"name_location": {
+													"line": 3131,
+													"column": 9,
+													"start": 116781,
+													"end": 116789,
+													"length": 9,
+													"parent_index": 7147
+												}
+											},
+											"referenced_declaration": 7308,
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"id": 7149,
+										"state_mutability": 1,
+										"name": "valid",
+										"node_type": 44,
+										"scope": 7144,
+										"src": {
+											"line": 3131,
+											"column": 33,
+											"start": 116805,
+											"end": 116814,
+											"length": 10,
+											"parent_index": 7145
+										},
+										"name_location": {
+											"line": 3131,
+											"column": 38,
+											"start": 116810,
+											"end": 116814,
+											"length": 5,
+											"parent_index": 7149
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7150,
+											"node_type": 30,
+											"src": {
+												"line": 3131,
+												"column": 33,
+												"start": 116805,
+												"end": 116808,
+												"length": 4,
+												"parent_index": 7149
+											},
+											"name": "bool",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"id": 7151,
+										"state_mutability": 1,
+										"name": "reason",
+										"node_type": 44,
+										"scope": 7144,
+										"src": {
+											"line": 3131,
+											"column": 45,
+											"start": 116817,
+											"end": 116836,
+											"length": 20,
+											"parent_index": 7145
+										},
+										"name_location": {
+											"line": 3131,
+											"column": 59,
+											"start": 116831,
+											"end": 116836,
+											"length": 6,
+											"parent_index": 7151
+										},
+										"is_state_variable": false,
+										"storage_location": 2,
+										"type_name": {
+											"id": 7152,
+											"node_type": 30,
+											"src": {
+												"line": 3131,
+												"column": 45,
+												"start": 116817,
+												"end": 116822,
+												"length": 6,
+												"parent_index": 7151
+											},
+											"name": "string",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_string",
+												"type_string": "string"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7153,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3131,
+										"column": 69,
+										"start": 116841,
+										"end": 116874,
+										"length": 34,
+										"parent_index": 7145
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7156,
+											"node_type": 16,
+											"src": {
+												"line": 3131,
+												"column": 95,
+												"start": 116867,
+												"end": 116873,
+												"length": 7,
+												"parent_index": 7153
+											},
+											"name": "message",
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7156,
+											"is_pure": false
+										}
+									],
+									"expression": {
+										"id": 7154,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3131,
+											"column": 69,
+											"start": 116841,
+											"end": 116865,
+											"length": 25,
+											"parent_index": 7153
+										},
+										"member_location": {
+											"line": 3131,
+											"column": 78,
+											"start": 116850,
+											"end": 116865,
+											"length": 16,
+											"parent_index": 7154
+										},
+										"expression": {
+											"id": 7155,
+											"node_type": 16,
+											"src": {
+												"line": 3131,
+												"column": 69,
+												"start": 116841,
+												"end": 116848,
+												"length": 8,
+												"parent_index": 7154
+											},
+											"name": "wormhole",
+											"type_description": {
+												"type_identifier": "t_contract$_IWormhole_$7308",
+												"type_string": "contract IWormhole"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 8075,
+											"is_pure": false
+										},
+										"member_name": "parseAndVerifyVM",
+										"argument_types": [],
+										"referenced_declaration": 7092,
+										"type_description": {
+											"type_identifier": "t_function_$_t_bytes$",
+											"type_string": "function(bytes)"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes$",
+										"type_string": "function(bytes)"
+									}
+								}
+							},
+							{
+								"id": 7157,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3132,
+									"column": 8,
+									"start": 116885,
+									"end": 116906,
+									"length": 22,
+									"parent_index": 7144
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string",
+										"type_string": "string"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7159,
+										"node_type": 16,
+										"src": {
+											"line": 3132,
+											"column": 16,
+											"start": 116893,
+											"end": 116897,
+											"length": 5,
+											"parent_index": 7157
+										},
+										"name": "valid",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7145,
+										"is_pure": false
+									},
+									{
+										"id": 7160,
+										"node_type": 16,
+										"src": {
+											"line": 3132,
+											"column": 23,
+											"start": 116900,
+											"end": 116905,
+											"length": 6,
+											"parent_index": 7157
+										},
+										"name": "reason",
+										"type_description": {
+											"type_identifier": "t_string",
+											"type_string": "string"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7145,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7158,
+									"node_type": 16,
+									"src": {
+										"line": 3132,
+										"column": 8,
+										"start": 116885,
+										"end": 116891,
+										"length": 7,
+										"parent_index": 7157
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string$",
+									"type_string": "function(bool,string)"
+								}
+							},
+							{
+								"id": 7161,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3134,
+									"column": 8,
+									"start": 116918,
+									"end": 116952,
+									"length": 35,
+									"parent_index": 7144
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_contract$_IWormhole_$7308",
+										"type_string": "contract IWormhole"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7163,
+										"node_type": 16,
+										"src": {
+											"line": 3134,
+											"column": 40,
+											"start": 116950,
+											"end": 116951,
+											"length": 2,
+											"parent_index": 7161
+										},
+										"name": "vm",
+										"type_description": {
+											"type_identifier": "t_contract$_IWormhole_$7308",
+											"type_string": "contract IWormhole"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 8099,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 7162,
+									"node_type": 16,
+									"src": {
+										"line": 3134,
+										"column": 8,
+										"start": 116918,
+										"end": 116948,
+										"length": 31,
+										"parent_index": 7161
+									},
+									"name": "_validateWormholeMessageEmitter",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_address$",
+									"type_string": "function(address)"
+								}
+							},
+							{
+								"id": 7164,
+								"node_type": 27,
+								"src": {
+									"line": 3135,
+									"column": 8,
+									"start": 116963,
+									"end": 116992,
+									"length": 30,
+									"parent_index": 7144
+								},
+								"expression": {
+									"id": 7165,
+									"node_type": 27,
+									"src": {
+										"line": 3135,
+										"column": 8,
+										"start": 116963,
+										"end": 116991,
+										"length": 29,
+										"parent_index": 7164
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 7166,
+										"node_type": 16,
+										"src": {
+											"line": 3135,
+											"column": 8,
+											"start": 116963,
+											"end": 116976,
+											"length": 14,
+											"parent_index": 7165
+										},
+										"name": "nextValidNonce",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6651,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 7167,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 3135,
+											"column": 25,
+											"start": 116980,
+											"end": 116991,
+											"length": 12,
+											"parent_index": 7165
+										},
+										"operator": 1,
+										"left_expression": {
+											"id": 7168,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3135,
+												"column": 25,
+												"start": 116980,
+												"end": 116987,
+												"length": 8,
+												"parent_index": 7167
+											},
+											"member_location": {
+												"line": 3135,
+												"column": 28,
+												"start": 116983,
+												"end": 116987,
+												"length": 5,
+												"parent_index": 7168
+											},
+											"expression": {
+												"id": 7169,
+												"node_type": 16,
+												"src": {
+													"line": 3135,
+													"column": 25,
+													"start": 116980,
+													"end": 116981,
+													"length": 2,
+													"parent_index": 7168
+												},
+												"name": "vm",
+												"type_description": {
+													"type_identifier": "t_contract$_IWormhole_$7308",
+													"type_string": "contract IWormhole"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 8099,
+												"is_pure": false
+											},
+											"member_name": "nonce",
+											"argument_types": [],
+											"referenced_declaration": 8130,
+											"type_description": {
+												"type_identifier": "t_struct$_Global_VM_$8130",
+												"type_string": "struct Global.VM"
+											}
+										},
+										"right_expression": {
+											"id": 7170,
+											"node_type": 17,
+											"kind": 49,
+											"value": "1",
+											"hex_value": "31",
+											"src": {
+												"line": 3135,
+												"column": 36,
+												"start": 116991,
+												"end": 116991,
+												"length": 1,
+												"parent_index": 7167
+											},
+											"type_description": {
+												"type_identifier": "t_rational_1_by_1",
+												"type_string": "int_const 1"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": true
+										},
+										"type_description": {
+											"type_identifier": "t_struct$_Global_VM_$8130",
+											"type_string": "struct Global.VM"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 7171,
+								"node_type": 44,
+								"src": {
+									"line": 3137,
+									"column": 8,
+									"start": 117003,
+									"end": 117081,
+									"length": 79,
+									"parent_index": 7144
+								},
+								"assignments": [
+									7172,
+									7174
+								],
+								"declarations": [
+									{
+										"id": 7172,
+										"state_mutability": 1,
+										"name": "msgType",
+										"node_type": 44,
+										"scope": 7144,
+										"src": {
+											"line": 3137,
+											"column": 9,
+											"start": 117004,
+											"end": 117018,
+											"length": 15,
+											"parent_index": 7171
+										},
+										"name_location": {
+											"line": 3137,
+											"column": 17,
+											"start": 117012,
+											"end": 117018,
+											"length": 7,
+											"parent_index": 7172
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7173,
+											"node_type": 30,
+											"src": {
+												"line": 3137,
+												"column": 9,
+												"start": 117004,
+												"end": 117010,
+												"length": 7,
+												"parent_index": 7172
+											},
+											"name": "bytes32",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											}
+										},
+										"visibility": 1
+									},
+									{
+										"id": 7174,
+										"state_mutability": 1,
+										"name": "amount",
+										"node_type": 44,
+										"scope": 7144,
+										"src": {
+											"line": 3137,
+											"column": 26,
+											"start": 117021,
+											"end": 117034,
+											"length": 14,
+											"parent_index": 7171
+										},
+										"name_location": {
+											"line": 3137,
+											"column": 34,
+											"start": 117029,
+											"end": 117034,
+											"length": 6,
+											"parent_index": 7174
+										},
+										"is_state_variable": false,
+										"storage_location": 1,
+										"type_name": {
+											"id": 7175,
+											"node_type": 30,
+											"src": {
+												"line": 3137,
+												"column": 26,
+												"start": 117021,
+												"end": 117027,
+												"length": 7,
+												"parent_index": 7174
+											},
+											"name": "uint256",
+											"referenced_declaration": 0,
+											"type_description": {
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										},
+										"visibility": 1
+									}
+								],
+								"initial_value": {
+									"id": 7176,
+									"node_type": 24,
+									"kind": 24,
+									"src": {
+										"line": 3137,
+										"column": 44,
+										"start": 117039,
+										"end": 117080,
+										"length": 42,
+										"parent_index": 7171
+									},
+									"argument_types": [
+										{
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										{
+											"type_identifier": "t_tuple_$_t_bytes32_$_t_uint256$",
+											"type_string": "tuple(bytes32,uint256)"
+										}
+									],
+									"arguments": [
+										{
+											"id": 7179,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3137,
+												"column": 55,
+												"start": 117050,
+												"end": 117059,
+												"length": 10,
+												"parent_index": 7176
+											},
+											"member_location": {
+												"line": 3137,
+												"column": 58,
+												"start": 117053,
+												"end": 117059,
+												"length": 7,
+												"parent_index": 7179
+											},
+											"expression": {
+												"id": 7180,
+												"node_type": 16,
+												"src": {
+													"line": 3137,
+													"column": 55,
+													"start": 117050,
+													"end": 117051,
+													"length": 2,
+													"parent_index": 7179
+												},
+												"name": "vm",
+												"type_description": {
+													"type_identifier": "t_contract$_IWormhole_$7308",
+													"type_string": "contract IWormhole"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 8099,
+												"is_pure": false
+											},
+											"member_name": "payload",
+											"argument_types": [],
+											"referenced_declaration": 6998,
+											"type_description": {
+												"type_identifier": "t_bytes",
+												"type_string": "bytes"
+											}
+										},
+										{
+											"id": 7181,
+											"node_type": 60,
+											"src": {
+												"line": 3137,
+												"column": 67,
+												"start": 117062,
+												"end": 117079,
+												"length": 18,
+												"parent_index": 7176
+											},
+											"is_constant": false,
+											"is_pure": false,
+											"components": [
+												{
+													"id": 7182,
+													"node_type": 16,
+													"src": {
+														"line": 3137,
+														"column": 68,
+														"start": 117063,
+														"end": 117069,
+														"length": 7,
+														"parent_index": 7181
+													},
+													"name": "bytes32",
+													"type_name": {
+														"id": 7183,
+														"node_type": 30,
+														"src": {
+															"line": 3137,
+															"column": 68,
+															"start": 117063,
+															"end": 117069,
+															"length": 7,
+															"parent_index": 7182
+														},
+														"name": "bytes32",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_bytes32",
+															"type_string": "bytes32"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_bytes32",
+														"type_string": "bytes32"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												},
+												{
+													"id": 7184,
+													"node_type": 16,
+													"src": {
+														"line": 3137,
+														"column": 77,
+														"start": 117072,
+														"end": 117078,
+														"length": 7,
+														"parent_index": 7181
+													},
+													"name": "uint256",
+													"type_name": {
+														"id": 7185,
+														"node_type": 30,
+														"src": {
+															"line": 3137,
+															"column": 77,
+															"start": 117072,
+															"end": 117078,
+															"length": 7,
+															"parent_index": 7184
+														},
+														"name": "uint256",
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_uint256",
+															"type_string": "uint256"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_uint256",
+														"type_string": "uint256"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false
+												}
+											],
+											"type_description": {
+												"type_identifier": "t_tuple_$_t_bytes32_$_t_uint256$",
+												"type_string": "tuple(bytes32,uint256)"
+											}
+										}
+									],
+									"expression": {
+										"id": 7177,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"node_type": 23,
+										"src": {
+											"line": 3137,
+											"column": 44,
+											"start": 117039,
+											"end": 117048,
+											"length": 10,
+											"parent_index": 7176
+										},
+										"member_location": {
+											"line": 3137,
+											"column": 48,
+											"start": 117043,
+											"end": 117048,
+											"length": 6,
+											"parent_index": 7177
+										},
+										"expression": {
+											"id": 7178,
+											"node_type": 16,
+											"src": {
+												"line": 3137,
+												"column": 44,
+												"start": 117039,
+												"end": 117041,
+												"length": 3,
+												"parent_index": 7177
+											},
+											"name": "abi",
+											"type_description": {
+												"type_identifier": "t_magic_abi",
+												"type_string": "abi"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"member_name": "decode",
+										"argument_types": [],
+										"type_description": {
+											"type_identifier": "t_magic_abi",
+											"type_string": "abi"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_function_$_t_bytes$_t_tuple_$_t_bytes32_$_t_uint256$",
+										"type_string": "function(bytes,tuple(bytes32,uint256))"
+									}
+								}
+							},
+							{
+								"id": 7186,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3138,
+									"column": 8,
+									"start": 117091,
+									"end": 117155,
+									"length": 65,
+									"parent_index": 7144
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"WR: bad msg type\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 7188,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 3138,
+											"column": 16,
+											"start": 117099,
+											"end": 117134,
+											"length": 36,
+											"parent_index": 7186
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 7189,
+											"node_type": 16,
+											"src": {
+												"line": 3138,
+												"column": 16,
+												"start": 117099,
+												"end": 117105,
+												"length": 7,
+												"parent_index": 7188
+											},
+											"name": "msgType",
+											"type_description": {
+												"type_identifier": "t_bytes32",
+												"type_string": "bytes32"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 7171,
+											"is_pure": false
+										},
+										"right_expression": {
+											"id": 7190,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 3138,
+												"column": 27,
+												"start": 117110,
+												"end": 117134,
+												"length": 25,
+												"parent_index": 7188
+											},
+											"member_location": {
+												"line": 3138,
+												"column": 37,
+												"start": 117120,
+												"end": 117134,
+												"length": 15,
+												"parent_index": 7190
+											},
+											"expression": {
+												"id": 7191,
+												"node_type": 16,
+												"src": {
+													"line": 3138,
+													"column": 27,
+													"start": 117110,
+													"end": 117118,
+													"length": 9,
+													"parent_index": 7190
+												},
+												"name": "Constants",
+												"type_description": {
+													"type_identifier": "t_contract$_Constants_$7468",
+													"type_string": "contract Constants"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 7468,
+												"is_pure": false
+											},
+											"member_name": "L2_FUND_REQUEST",
+											"argument_types": [],
+											"referenced_declaration": 8159,
+											"type_description": {
+												"type_identifier": "t_function__t_string_literal$",
+												"type_string": "function(string memory)"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 7192,
+										"node_type": 17,
+										"kind": 50,
+										"value": "WR: bad msg type",
+										"hex_value": "57523a20626164206d73672074797065",
+										"src": {
+											"line": 3138,
+											"column": 54,
+											"start": 117137,
+											"end": 117154,
+											"length": 18,
+											"parent_index": 7186
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"WR: bad msg type\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 7187,
+									"node_type": 16,
+									"src": {
+										"line": 3138,
+										"column": 8,
+										"start": 117091,
+										"end": 117097,
+										"length": 7,
+										"parent_index": 7186
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 7193,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 3140,
+									"column": 8,
+									"start": 117167,
+									"end": 117216,
+									"length": 50,
+									"parent_index": 7144
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								],
+								"arguments": [
+									{
+										"id": 7201,
+										"node_type": 16,
+										"src": {
+											"line": 3140,
+											"column": 51,
+											"start": 117210,
+											"end": 117215,
+											"length": 6,
+											"parent_index": 7193
+										},
+										"name": "amount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 7171,
+										"is_pure": false
+									}
+								],
+								"expression": {
+									"id": 7194,
+									"is_constant": false,
+									"is_l_value": false,
+									"is_pure": false,
+									"l_value_requested": false,
+									"node_type": 23,
+									"src": {
+										"line": 3140,
+										"column": 8,
+										"start": 117167,
+										"end": 117208,
+										"length": 42,
+										"parent_index": 7193
+									},
+									"member_location": {
+										"line": 3140,
+										"column": 32,
+										"start": 117191,
+										"end": 117208,
+										"length": 18,
+										"parent_index": 7194
+									},
+									"expression": {
+										"id": 7195,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 3140,
+											"column": 8,
+											"start": 117167,
+											"end": 117189,
+											"length": 23,
+											"parent_index": 7194
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$_t_function_$",
+												"type_string": "function(function())"
+											}
+										],
+										"arguments": [
+											{
+												"id": 7197,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"line": 3140,
+													"column": 16,
+													"start": 117175,
+													"end": 117188,
+													"length": 14,
+													"parent_index": 7195
+												},
+												"argument_types": [
+													{
+														"type_identifier": "t_function_$",
+														"type_string": "function()"
+													}
+												],
+												"arguments": [
+													{
+														"id": 7200,
+														"node_type": 16,
+														"src": {
+															"line": 3140,
+															"column": 24,
+															"start": 117183,
+															"end": 117187,
+															"length": 5,
+															"parent_index": 7197
+														},
+														"name": "vault",
+														"type_description": {
+															"type_identifier": "t_function_$",
+															"type_string": "function()"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 0,
+														"is_pure": false
+													}
+												],
+												"expression": {
+													"id": 7198,
+													"node_type": 16,
+													"src": {
+														"line": 3140,
+														"column": 16,
+														"start": 117175,
+														"end": 117181,
+														"length": 7,
+														"parent_index": 7197
+													},
+													"name": "address",
+													"type_name": {
+														"id": 7199,
+														"node_type": 30,
+														"src": {
+															"line": 3140,
+															"column": 16,
+															"start": 117175,
+															"end": 117181,
+															"length": 7,
+															"parent_index": 7198
+														},
+														"name": "address",
+														"state_mutability": 4,
+														"referenced_declaration": 0,
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													},
+													"type_description": {
+														"type_identifier": "t_function_$_t_address$",
+														"type_string": "function(address)"
+													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 0,
+													"is_pure": false,
+													"argument_types": [
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													]
+												},
+												"type_description": {
+													"type_identifier": "t_function_$_t_function_$",
+													"type_string": "function(function())"
+												}
+											}
+										],
+										"expression": {
+											"id": 7196,
+											"node_type": 16,
+											"src": {
+												"line": 3140,
+												"column": 8,
+												"start": 117167,
+												"end": 117173,
+												"length": 7,
+												"parent_index": 7195
+											},
+											"name": "L1Vault",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$_t_function_$",
+											"type_string": "function(function(function()))"
+										}
+									},
+									"member_name": "processFundRequest",
+									"argument_types": [],
+									"type_description": {
+										"type_identifier": "t_function_$_t_function_$_t_function_$",
+										"type_string": "function(function(function()))"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$",
+									"type_string": "function(uint256)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 7140,
+						"node_type": 43,
+						"src": {
+							"line": 3130,
+							"column": 32,
+							"start": 116737,
+							"end": 116758,
+							"length": 22,
+							"parent_index": 7139
+						},
+						"parameters": [
+							{
+								"id": 7141,
+								"node_type": 44,
+								"src": {
+									"line": 3130,
+									"column": 32,
+									"start": 116737,
+									"end": 116758,
+									"length": 22,
+									"parent_index": 7140
+								},
+								"scope": 7139,
+								"name": "message",
+								"type_name": {
+									"id": 7142,
+									"node_type": 30,
+									"src": {
+										"line": 3130,
+										"column": 32,
+										"start": 116737,
+										"end": 116741,
+										"length": 5,
+										"parent_index": 7141
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bytes",
+									"type_string": "bytes"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 7143,
+						"node_type": 43,
+						"src": {
+							"line": 3130,
+							"column": 4,
+							"start": 116709,
+							"end": 117223,
+							"length": 515,
+							"parent_index": 7139
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "receiveFundRequest(bytes)",
+					"signature": "a64fa6e3",
+					"scope": 6949,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bytes$",
+						"type_string": "function(bytes)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				6513,
+				6949,
+				6945,
+				6946,
+				6947,
+				6948
+			],
+			"base_contracts": [
+				{
+					"id": 6950,
+					"node_type": 62,
+					"src": {
+						"line": 3084,
+						"column": 29,
+						"start": 114567,
+						"end": 114580,
+						"length": 14,
+						"parent_index": 6949
+					},
+					"base_name": {
+						"id": 6951,
+						"node_type": 52,
+						"src": {
+							"line": 3084,
+							"column": 29,
+							"start": 114567,
+							"end": 114580,
+							"length": 14,
+							"parent_index": 6949
+						},
+						"name": "WormholeRouter",
+						"referenced_declaration": 6513
+					}
+				}
+			],
+			"contract_dependencies": [
+				6513,
+				6945,
+				6946,
+				6947,
+				6948
+			]
+		}
+	],
+	"src": {
+		"line": 3084,
+		"column": 0,
+		"start": 114538,
+		"end": 117225,
+		"length": 2688,
+		"parent_index": 440
+	}
+}
