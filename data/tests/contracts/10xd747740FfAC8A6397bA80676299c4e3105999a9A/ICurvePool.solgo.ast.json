@@ -1,0 +1,1338 @@
+{
+	"id": 5364,
+	"base_contracts": [],
+	"license": "agpl-3.0",
+	"exported_symbols": [
+		{
+			"id": 5364,
+			"name": "ICurvePool",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "ICurvePool",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 5366,
+			"node_type": 10,
+			"src": {
+				"line": 7,
+				"column": 0,
+				"start": 128,
+				"end": 146,
+				"length": 19,
+				"parent_index": 5364
+			},
+			"literals": [
+				"pragma",
+				"abicoder",
+				"v2",
+				";"
+			],
+			"text": "pragma abicoder v2;"
+		},
+		{
+			"id": 5367,
+			"name": "ICurvePool",
+			"node_type": 35,
+			"src": {
+				"line": 2635,
+				"column": 0,
+				"start": 100748,
+				"end": 101386,
+				"length": 639,
+				"parent_index": 5364
+			},
+			"name_location": {
+				"line": 2635,
+				"column": 10,
+				"start": 100758,
+				"end": 100767,
+				"length": 10,
+				"parent_index": 5367
+			},
+			"abstract": false,
+			"kind": 38,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 5369,
+					"name": "coins",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2636,
+						"column": 2,
+						"start": 100773,
+						"end": 100827,
+						"length": 55,
+						"parent_index": 5367
+					},
+					"name_location": {
+						"line": 2636,
+						"column": 11,
+						"start": 100782,
+						"end": 100786,
+						"length": 5,
+						"parent_index": 5369
+					},
+					"body": {
+						"id": 5376,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2636,
+							"column": 2,
+							"start": 100773,
+							"end": 100827,
+							"length": 55,
+							"parent_index": 5369
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5370,
+						"node_type": 43,
+						"src": {
+							"line": 2636,
+							"column": 17,
+							"start": 100788,
+							"end": 100793,
+							"length": 6,
+							"parent_index": 5369
+						},
+						"parameters": [
+							{
+								"id": 5371,
+								"node_type": 44,
+								"src": {
+									"line": 2636,
+									"column": 17,
+									"start": 100788,
+									"end": 100793,
+									"length": 6,
+									"parent_index": 5370
+								},
+								"scope": 5369,
+								"name": "",
+								"type_name": {
+									"id": 5372,
+									"node_type": 30,
+									"src": {
+										"line": 2636,
+										"column": 17,
+										"start": 100788,
+										"end": 100793,
+										"length": 6,
+										"parent_index": 5371
+									},
+									"name": "int128",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_int128",
+										"type_string": "int128"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_int128",
+									"type_string": "int128"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_int128",
+								"type_string": "int128"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5373,
+						"node_type": 43,
+						"src": {
+							"line": 2636,
+							"column": 48,
+							"start": 100819,
+							"end": 100825,
+							"length": 7,
+							"parent_index": 5369
+						},
+						"parameters": [
+							{
+								"id": 5374,
+								"node_type": 44,
+								"src": {
+									"line": 2636,
+									"column": 48,
+									"start": 100819,
+									"end": 100825,
+									"length": 7,
+									"parent_index": 5373
+								},
+								"scope": 5369,
+								"name": "",
+								"type_name": {
+									"id": 5375,
+									"node_type": 30,
+									"src": {
+										"line": 2636,
+										"column": 48,
+										"start": 100819,
+										"end": 100825,
+										"length": 7,
+										"parent_index": 5374
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"signature_raw": "coins(int128)",
+					"signature": "23746eb8",
+					"scope": 5367,
+					"type_description": {
+						"type_identifier": "t_function_$_t_int128$",
+						"type_string": "function(int128)"
+					}
+				},
+				{
+					"id": 5378,
+					"name": "calc_withdraw_one_coin",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2638,
+						"column": 2,
+						"start": 100832,
+						"end": 100927,
+						"length": 96,
+						"parent_index": 5367
+					},
+					"name_location": {
+						"line": 2638,
+						"column": 11,
+						"start": 100841,
+						"end": 100862,
+						"length": 22,
+						"parent_index": 5378
+					},
+					"body": {
+						"id": 5387,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2638,
+							"column": 2,
+							"start": 100832,
+							"end": 100927,
+							"length": 96,
+							"parent_index": 5378
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 5,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5379,
+						"node_type": 43,
+						"src": {
+							"line": 2638,
+							"column": 34,
+							"start": 100864,
+							"end": 100893,
+							"length": 30,
+							"parent_index": 5378
+						},
+						"parameters": [
+							{
+								"id": 5380,
+								"node_type": 44,
+								"src": {
+									"line": 2638,
+									"column": 34,
+									"start": 100864,
+									"end": 100883,
+									"length": 20,
+									"parent_index": 5379
+								},
+								"scope": 5378,
+								"name": "_burn_amount",
+								"type_name": {
+									"id": 5381,
+									"node_type": 30,
+									"src": {
+										"line": 2638,
+										"column": 34,
+										"start": 100864,
+										"end": 100870,
+										"length": 7,
+										"parent_index": 5380
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 5382,
+								"node_type": 44,
+								"src": {
+									"line": 2638,
+									"column": 56,
+									"start": 100886,
+									"end": 100893,
+									"length": 8,
+									"parent_index": 5379
+								},
+								"scope": 5378,
+								"name": "i",
+								"type_name": {
+									"id": 5383,
+									"node_type": 30,
+									"src": {
+										"line": 2638,
+										"column": 56,
+										"start": 100886,
+										"end": 100891,
+										"length": 6,
+										"parent_index": 5382
+									},
+									"name": "int128",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_int128",
+										"type_string": "int128"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_int128",
+									"type_string": "int128"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_int128",
+								"type_string": "int128"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5384,
+						"node_type": 43,
+						"src": {
+							"line": 2638,
+							"column": 89,
+							"start": 100919,
+							"end": 100925,
+							"length": 7,
+							"parent_index": 5378
+						},
+						"parameters": [
+							{
+								"id": 5385,
+								"node_type": 44,
+								"src": {
+									"line": 2638,
+									"column": 89,
+									"start": 100919,
+									"end": 100925,
+									"length": 7,
+									"parent_index": 5384
+								},
+								"scope": 5378,
+								"name": "",
+								"type_name": {
+									"id": 5386,
+									"node_type": 30,
+									"src": {
+										"line": 2638,
+										"column": 89,
+										"start": 100919,
+										"end": 100925,
+										"length": 7,
+										"parent_index": 5385
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "calc_withdraw_one_coin(uint256, int128)",
+					"signature": "74f2f5e3",
+					"scope": 5367,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_int128$",
+						"type_string": "function(uint256,int128)"
+					}
+				},
+				{
+					"id": 5389,
+					"name": "add_liquidity",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2640,
+						"column": 2,
+						"start": 100932,
+						"end": 101016,
+						"length": 85,
+						"parent_index": 5367
+					},
+					"name_location": {
+						"line": 2640,
+						"column": 11,
+						"start": 100941,
+						"end": 100953,
+						"length": 13,
+						"parent_index": 5389
+					},
+					"body": {
+						"id": 5398,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2640,
+							"column": 2,
+							"start": 100932,
+							"end": 101016,
+							"length": 85,
+							"parent_index": 5389
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5390,
+						"node_type": 43,
+						"src": {
+							"line": 2640,
+							"column": 25,
+							"start": 100955,
+							"end": 101005,
+							"length": 51,
+							"parent_index": 5389
+						},
+						"parameters": [
+							{
+								"id": 5391,
+								"node_type": 44,
+								"src": {
+									"line": 2640,
+									"column": 25,
+									"start": 100955,
+									"end": 100979,
+									"length": 25,
+									"parent_index": 5390
+								},
+								"scope": 5389,
+								"name": "amounts",
+								"type_name": {
+									"id": 5392,
+									"node_type": 16,
+									"src": {
+										"line": 2640,
+										"column": 25,
+										"start": 100955,
+										"end": 100961,
+										"length": 7,
+										"parent_index": 5391
+									},
+									"name": "function",
+									"referenced_declaration": 0,
+									"expression": {
+										"id": 5394,
+										"node_type": 17,
+										"kind": 49,
+										"value": "2",
+										"hex_value": "32",
+										"src": {
+											"line": 2640,
+											"column": 33,
+											"start": 100963,
+											"end": 100963,
+											"length": 1,
+											"parent_index": 5392
+										},
+										"type_description": {
+											"type_identifier": "t_rational_2_by_1",
+											"type_string": "int_const 2"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_rational_2_by_1",
+										"type_string": "int_const 2"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_rational_2_by_1",
+									"type_string": "int_const 2"
+								}
+							},
+							{
+								"id": 5395,
+								"node_type": 44,
+								"src": {
+									"line": 2640,
+									"column": 52,
+									"start": 100982,
+									"end": 101005,
+									"length": 24,
+									"parent_index": 5390
+								},
+								"scope": 5389,
+								"name": "_min_mint_amount",
+								"type_name": {
+									"id": 5396,
+									"node_type": 30,
+									"src": {
+										"line": 2640,
+										"column": 52,
+										"start": 100982,
+										"end": 100988,
+										"length": 7,
+										"parent_index": 5395
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_rational_2_by_1",
+								"type_string": "int_const 2"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5397,
+						"node_type": 43,
+						"src": {
+							"line": 2640,
+							"column": 2,
+							"start": 100932,
+							"end": 101016,
+							"length": 85,
+							"parent_index": 5389
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "add_liquidity(function, uint256)",
+					"signature": "c6489050",
+					"scope": 5367,
+					"type_description": {
+						"type_identifier": "t_function_$_t_rational_2_by_1$_t_uint256$",
+						"type_string": "function(int_const 2,uint256)"
+					}
+				},
+				{
+					"id": 5400,
+					"name": "add_liquidity",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2642,
+						"column": 2,
+						"start": 101021,
+						"end": 101105,
+						"length": 85,
+						"parent_index": 5367
+					},
+					"name_location": {
+						"line": 2642,
+						"column": 11,
+						"start": 101030,
+						"end": 101042,
+						"length": 13,
+						"parent_index": 5400
+					},
+					"body": {
+						"id": 5409,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2642,
+							"column": 2,
+							"start": 101021,
+							"end": 101105,
+							"length": 85,
+							"parent_index": 5400
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5401,
+						"node_type": 43,
+						"src": {
+							"line": 2642,
+							"column": 25,
+							"start": 101044,
+							"end": 101094,
+							"length": 51,
+							"parent_index": 5400
+						},
+						"parameters": [
+							{
+								"id": 5402,
+								"node_type": 44,
+								"src": {
+									"line": 2642,
+									"column": 25,
+									"start": 101044,
+									"end": 101068,
+									"length": 25,
+									"parent_index": 5401
+								},
+								"scope": 5400,
+								"name": "amounts",
+								"type_name": {
+									"id": 5403,
+									"node_type": 16,
+									"src": {
+										"line": 2642,
+										"column": 25,
+										"start": 101044,
+										"end": 101050,
+										"length": 7,
+										"parent_index": 5402
+									},
+									"name": "function",
+									"referenced_declaration": 0,
+									"expression": {
+										"id": 5405,
+										"node_type": 17,
+										"kind": 49,
+										"value": "3",
+										"hex_value": "33",
+										"src": {
+											"line": 2642,
+											"column": 33,
+											"start": 101052,
+											"end": 101052,
+											"length": 1,
+											"parent_index": 5403
+										},
+										"type_description": {
+											"type_identifier": "t_rational_3_by_1",
+											"type_string": "int_const 3"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_rational_3_by_1",
+										"type_string": "int_const 3"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_rational_3_by_1",
+									"type_string": "int_const 3"
+								}
+							},
+							{
+								"id": 5406,
+								"node_type": 44,
+								"src": {
+									"line": 2642,
+									"column": 52,
+									"start": 101071,
+									"end": 101094,
+									"length": 24,
+									"parent_index": 5401
+								},
+								"scope": 5400,
+								"name": "_min_mint_amount",
+								"type_name": {
+									"id": 5407,
+									"node_type": 30,
+									"src": {
+										"line": 2642,
+										"column": 52,
+										"start": 101071,
+										"end": 101077,
+										"length": 7,
+										"parent_index": 5406
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_rational_3_by_1",
+								"type_string": "int_const 3"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5408,
+						"node_type": 43,
+						"src": {
+							"line": 2642,
+							"column": 2,
+							"start": 101021,
+							"end": 101105,
+							"length": 85,
+							"parent_index": 5400
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "add_liquidity(function, uint256)",
+					"signature": "c6489050",
+					"scope": 5367,
+					"type_description": {
+						"type_identifier": "t_function_$_t_rational_3_by_1$_t_uint256$",
+						"type_string": "function(int_const 3,uint256)"
+					}
+				},
+				{
+					"id": 5411,
+					"name": "remove_liquidity_one_coin",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2644,
+						"column": 2,
+						"start": 101110,
+						"end": 101265,
+						"length": 156,
+						"parent_index": 5367
+					},
+					"name_location": {
+						"line": 2644,
+						"column": 11,
+						"start": 101119,
+						"end": 101143,
+						"length": 25,
+						"parent_index": 5411
+					},
+					"body": {
+						"id": 5424,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2644,
+							"column": 2,
+							"start": 101110,
+							"end": 101265,
+							"length": 156,
+							"parent_index": 5411
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5412,
+						"node_type": 43,
+						"src": {
+							"line": 2645,
+							"column": 4,
+							"start": 101150,
+							"end": 101233,
+							"length": 84,
+							"parent_index": 5411
+						},
+						"parameters": [
+							{
+								"id": 5413,
+								"node_type": 44,
+								"src": {
+									"line": 2645,
+									"column": 4,
+									"start": 101150,
+									"end": 101169,
+									"length": 20,
+									"parent_index": 5412
+								},
+								"scope": 5411,
+								"name": "_burn_amount",
+								"type_name": {
+									"id": 5414,
+									"node_type": 30,
+									"src": {
+										"line": 2645,
+										"column": 4,
+										"start": 101150,
+										"end": 101156,
+										"length": 7,
+										"parent_index": 5413
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 5415,
+								"node_type": 44,
+								"src": {
+									"line": 2646,
+									"column": 4,
+									"start": 101176,
+									"end": 101183,
+									"length": 8,
+									"parent_index": 5412
+								},
+								"scope": 5411,
+								"name": "i",
+								"type_name": {
+									"id": 5416,
+									"node_type": 30,
+									"src": {
+										"line": 2646,
+										"column": 4,
+										"start": 101176,
+										"end": 101181,
+										"length": 6,
+										"parent_index": 5415
+									},
+									"name": "int128",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_int128",
+										"type_string": "int128"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_int128",
+									"type_string": "int128"
+								}
+							},
+							{
+								"id": 5417,
+								"node_type": 44,
+								"src": {
+									"line": 2647,
+									"column": 4,
+									"start": 101190,
+									"end": 101210,
+									"length": 21,
+									"parent_index": 5412
+								},
+								"scope": 5411,
+								"name": "_min_received",
+								"type_name": {
+									"id": 5418,
+									"node_type": 30,
+									"src": {
+										"line": 2647,
+										"column": 4,
+										"start": 101190,
+										"end": 101196,
+										"length": 7,
+										"parent_index": 5417
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 5419,
+								"node_type": 44,
+								"src": {
+									"line": 2648,
+									"column": 4,
+									"start": 101217,
+									"end": 101233,
+									"length": 17,
+									"parent_index": 5412
+								},
+								"scope": 5411,
+								"name": "_receiver",
+								"type_name": {
+									"id": 5420,
+									"node_type": 30,
+									"src": {
+										"line": 2648,
+										"column": 4,
+										"start": 101217,
+										"end": 101223,
+										"length": 7,
+										"parent_index": 5419
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_int128",
+								"type_string": "int128"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5421,
+						"node_type": 43,
+						"src": {
+							"line": 2649,
+							"column": 22,
+							"start": 101257,
+							"end": 101263,
+							"length": 7,
+							"parent_index": 5411
+						},
+						"parameters": [
+							{
+								"id": 5422,
+								"node_type": 44,
+								"src": {
+									"line": 2649,
+									"column": 22,
+									"start": 101257,
+									"end": 101263,
+									"length": 7,
+									"parent_index": 5421
+								},
+								"scope": 5411,
+								"name": "",
+								"type_name": {
+									"id": 5423,
+									"node_type": 30,
+									"src": {
+										"line": 2649,
+										"column": 22,
+										"start": 101257,
+										"end": 101263,
+										"length": 7,
+										"parent_index": 5422
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"signature_raw": "remove_liquidity_one_coin(uint256, int128, uint256, address)",
+					"signature": "2edcb446",
+					"scope": 5367,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_int128$_t_uint256$_t_address$",
+						"type_string": "function(uint256,int128,uint256,address)"
+					}
+				},
+				{
+					"id": 5426,
+					"name": "remove_liquidity_one_coin",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2651,
+						"column": 2,
+						"start": 101270,
+						"end": 101384,
+						"length": 115,
+						"parent_index": 5367
+					},
+					"name_location": {
+						"line": 2651,
+						"column": 11,
+						"start": 101279,
+						"end": 101303,
+						"length": 25,
+						"parent_index": 5426
+					},
+					"body": {
+						"id": 5435,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2651,
+							"column": 2,
+							"start": 101270,
+							"end": 101384,
+							"length": 115,
+							"parent_index": 5426
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 5427,
+						"node_type": 43,
+						"src": {
+							"line": 2652,
+							"column": 4,
+							"start": 101310,
+							"end": 101370,
+							"length": 61,
+							"parent_index": 5426
+						},
+						"parameters": [
+							{
+								"id": 5428,
+								"node_type": 44,
+								"src": {
+									"line": 2652,
+									"column": 4,
+									"start": 101310,
+									"end": 101329,
+									"length": 20,
+									"parent_index": 5427
+								},
+								"scope": 5426,
+								"name": "_burn_amount",
+								"type_name": {
+									"id": 5429,
+									"node_type": 30,
+									"src": {
+										"line": 2652,
+										"column": 4,
+										"start": 101310,
+										"end": 101316,
+										"length": 7,
+										"parent_index": 5428
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 5430,
+								"node_type": 44,
+								"src": {
+									"line": 2653,
+									"column": 4,
+									"start": 101336,
+									"end": 101343,
+									"length": 8,
+									"parent_index": 5427
+								},
+								"scope": 5426,
+								"name": "i",
+								"type_name": {
+									"id": 5431,
+									"node_type": 30,
+									"src": {
+										"line": 2653,
+										"column": 4,
+										"start": 101336,
+										"end": 101341,
+										"length": 6,
+										"parent_index": 5430
+									},
+									"name": "int128",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_int128",
+										"type_string": "int128"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_int128",
+									"type_string": "int128"
+								}
+							},
+							{
+								"id": 5432,
+								"node_type": 44,
+								"src": {
+									"line": 2654,
+									"column": 4,
+									"start": 101350,
+									"end": 101370,
+									"length": 21,
+									"parent_index": 5427
+								},
+								"scope": 5426,
+								"name": "_min_received",
+								"type_name": {
+									"id": 5433,
+									"node_type": 30,
+									"src": {
+										"line": 2654,
+										"column": 4,
+										"start": 101350,
+										"end": 101356,
+										"length": 7,
+										"parent_index": 5432
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_int128",
+								"type_string": "int128"
+							},
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 5434,
+						"node_type": 43,
+						"src": {
+							"line": 2651,
+							"column": 2,
+							"start": 101270,
+							"end": 101384,
+							"length": 115,
+							"parent_index": 5426
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "remove_liquidity_one_coin(uint256, int128, uint256)",
+					"signature": "f2684efb",
+					"scope": 5367,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_int128$_t_uint256$",
+						"type_string": "function(uint256,int128,uint256)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				5367
+			],
+			"base_contracts": [],
+			"contract_dependencies": []
+		}
+	],
+	"src": {
+		"line": 2635,
+		"column": 0,
+		"start": 100748,
+		"end": 101386,
+		"length": 639,
+		"parent_index": 367
+	}
+}
