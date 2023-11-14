@@ -1,0 +1,2015 @@
+{
+	"id": 6344,
+	"base_contracts": [],
+	"license": "BUSL-1.1",
+	"exported_symbols": [
+		{
+			"id": 6344,
+			"name": "BridgeEscrow",
+			"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/10x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BridgeEscrow.sol"
+		},
+		{
+			"id": 5126,
+			"name": "ERC20",
+			"absolute_path": "ERC20.sol"
+		},
+		{
+			"id": 5126,
+			"name": "SafeTransferLib",
+			"absolute_path": "SafeTransferLib.sol"
+		},
+		{
+			"id": 5126,
+			"name": "BaseVault",
+			"absolute_path": "BaseVault.sol"
+		}
+	],
+	"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/10x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/BridgeEscrow.sol",
+	"name": "BridgeEscrow",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 6368,
+			"node_type": 10,
+			"src": {
+				"line": 2932,
+				"column": 0,
+				"start": 108781,
+				"end": 108804,
+				"length": 24,
+				"parent_index": 6344
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"=",
+				"0",
+				".",
+				"8",
+				".",
+				"16",
+				";"
+			],
+			"text": "pragma solidity =0.8.16;"
+		},
+		{
+			"id": 6412,
+			"node_type": 29,
+			"src": {
+				"line": 2934,
+				"column": 0,
+				"start": 108807,
+				"end": 108840,
+				"length": 34,
+				"parent_index": 6344
+			},
+			"absolute_path": "ERC20.sol",
+			"file": "./ERC20.sol",
+			"scope": 6344,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 5126
+		},
+		{
+			"id": 6413,
+			"node_type": 29,
+			"src": {
+				"line": 2935,
+				"column": 0,
+				"start": 108842,
+				"end": 108895,
+				"length": 54,
+				"parent_index": 6344
+			},
+			"absolute_path": "SafeTransferLib.sol",
+			"file": "./SafeTransferLib.sol",
+			"scope": 6344,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 5126
+		},
+		{
+			"id": 6414,
+			"node_type": 29,
+			"src": {
+				"line": 2937,
+				"column": 0,
+				"start": 108898,
+				"end": 108939,
+				"length": 42,
+				"parent_index": 6344
+			},
+			"absolute_path": "BaseVault.sol",
+			"file": "./BaseVault.sol",
+			"scope": 6344,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 5126
+		},
+		{
+			"id": 6415,
+			"name": "BridgeEscrow",
+			"node_type": 35,
+			"src": {
+				"line": 2939,
+				"column": 0,
+				"start": 108942,
+				"end": 110351,
+				"length": 1410,
+				"parent_index": 6344
+			},
+			"name_location": {
+				"line": 2939,
+				"column": 18,
+				"start": 108960,
+				"end": 108971,
+				"length": 12,
+				"parent_index": 6415
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 6417,
+					"node_type": 51,
+					"src": {
+						"line": 2940,
+						"column": 0,
+						"start": 108979,
+						"end": 109010,
+						"length": 32,
+						"parent_index": 6415
+					},
+					"type_description": {
+						"type_identifier": "t_contract$_ERC20_$4060",
+						"type_string": "contract ERC20"
+					},
+					"type_name": {
+						"id": 6419,
+						"node_type": 69,
+						"src": {
+							"line": 2940,
+							"column": 30,
+							"start": 109005,
+							"end": 109009,
+							"length": 5,
+							"parent_index": 6417
+						},
+						"path_node": {
+							"id": 6420,
+							"name": "ERC20",
+							"node_type": 52,
+							"referenced_declaration": 4060,
+							"src": {
+								"line": 2940,
+								"column": 30,
+								"start": 109005,
+								"end": 109009,
+								"length": 5,
+								"parent_index": 6419
+							},
+							"name_location": {
+								"line": 2940,
+								"column": 30,
+								"start": 109005,
+								"end": 109009,
+								"length": 5,
+								"parent_index": 6419
+							}
+						},
+						"referenced_declaration": 4060,
+						"type_description": {
+							"type_identifier": "t_contract$_ERC20_$4060",
+							"type_string": "contract ERC20"
+						}
+					},
+					"library_name": {
+						"id": 6418,
+						"node_type": 52,
+						"src": {
+							"line": 2940,
+							"column": 0,
+							"start": 108985,
+							"end": 108999,
+							"length": 15,
+							"parent_index": 6417
+						},
+						"name": "SafeTransferLib",
+						"referenced_declaration": 4499
+					}
+				},
+				{
+					"id": 6422,
+					"name": "asset",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"line": 2943,
+						"column": 4,
+						"start": 109050,
+						"end": 109078,
+						"length": 29,
+						"parent_index": 6415
+					},
+					"scope": 6415,
+					"type_description": {
+						"type_identifier": "t_contract$_ERC20_$4060",
+						"type_string": "contract ERC20"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 6423,
+						"node_type": 69,
+						"src": {
+							"line": 2943,
+							"column": 4,
+							"start": 109050,
+							"end": 109054,
+							"length": 5,
+							"parent_index": 6422
+						},
+						"path_node": {
+							"id": 6424,
+							"name": "ERC20",
+							"node_type": 52,
+							"referenced_declaration": 4060,
+							"src": {
+								"line": 2943,
+								"column": 4,
+								"start": 109050,
+								"end": 109054,
+								"length": 5,
+								"parent_index": 6423
+							},
+							"name_location": {
+								"line": 2943,
+								"column": 4,
+								"start": 109050,
+								"end": 109054,
+								"length": 5,
+								"parent_index": 6423
+							}
+						},
+						"referenced_declaration": 4060,
+						"type_description": {
+							"type_identifier": "t_contract$_ERC20_$4060",
+							"type_string": "contract ERC20"
+						}
+					},
+					"initial_value": null
+				},
+				{
+					"id": 6426,
+					"name": "wormholeRouter",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"line": 2945,
+						"column": 4,
+						"start": 109130,
+						"end": 109169,
+						"length": 40,
+						"parent_index": 6415
+					},
+					"scope": 6415,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 6427,
+						"node_type": 30,
+						"src": {
+							"line": 2945,
+							"column": 4,
+							"start": 109130,
+							"end": 109136,
+							"length": 7,
+							"parent_index": 6426
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					"initial_value": null
+				},
+				{
+					"id": 6429,
+					"name": "governance",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"line": 2947,
+						"column": 4,
+						"start": 109231,
+						"end": 109266,
+						"length": 36,
+						"parent_index": 6415
+					},
+					"scope": 6415,
+					"type_description": {
+						"type_identifier": "t_address",
+						"type_string": "address"
+					},
+					"visibility": 3,
+					"storage_location": 1,
+					"mutability": 2,
+					"type_name": {
+						"id": 6430,
+						"node_type": 30,
+						"src": {
+							"line": 2947,
+							"column": 4,
+							"start": 109231,
+							"end": 109237,
+							"length": 7,
+							"parent_index": 6429
+						},
+						"name": "address",
+						"state_mutability": 4,
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						}
+					},
+					"initial_value": null
+				},
+				{
+					"id": 6432,
+					"node_type": 57,
+					"src": {
+						"line": 2953,
+						"column": 4,
+						"start": 109423,
+						"end": 109460,
+						"length": 38,
+						"parent_index": 6415
+					},
+					"parameters": {
+						"id": 6433,
+						"node_type": 43,
+						"src": {
+							"line": 2953,
+							"column": 4,
+							"start": 109423,
+							"end": 109460,
+							"length": 38,
+							"parent_index": 6432
+						},
+						"parameters": [
+							{
+								"id": 6434,
+								"node_type": 44,
+								"src": {
+									"line": 2953,
+									"column": 26,
+									"start": 109445,
+									"end": 109458,
+									"length": 14,
+									"parent_index": 6433
+								},
+								"scope": 6432,
+								"name": "assets",
+								"type_name": {
+									"id": 6435,
+									"node_type": 30,
+									"src": {
+										"line": 2953,
+										"column": 26,
+										"start": 109445,
+										"end": 109451,
+										"length": 7,
+										"parent_index": 6434
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						]
+					},
+					"name": "TransferToVault",
+					"anonymous": false,
+					"type_description": {
+						"type_identifier": "t_event\u0026_BridgeEscrow_TransferToVault_\u00266432",
+						"type_string": "event BridgeEscrow.TransferToVault"
+					}
+				},
+				{
+					"id": 6437,
+					"node_type": 42,
+					"src": {
+						"line": 2955,
+						"column": 4,
+						"start": 109467,
+						"end": 109634,
+						"length": 168,
+						"parent_index": 6415
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 6438,
+						"node_type": 43,
+						"src": {
+							"line": 2955,
+							"column": 16,
+							"start": 109479,
+							"end": 109494,
+							"length": 16,
+							"parent_index": 6437
+						},
+						"parameters": [
+							{
+								"id": 6439,
+								"node_type": 44,
+								"src": {
+									"line": 2955,
+									"column": 16,
+									"start": 109479,
+									"end": 109494,
+									"length": 16,
+									"parent_index": 6438
+								},
+								"scope": 6437,
+								"name": "_vault",
+								"type_name": {
+									"id": 6440,
+									"node_type": 69,
+									"src": {
+										"line": 2955,
+										"column": 16,
+										"start": 109479,
+										"end": 109487,
+										"length": 9,
+										"parent_index": 6439
+									},
+									"path_node": {
+										"id": 6441,
+										"name": "BaseVault",
+										"node_type": 52,
+										"referenced_declaration": 5126,
+										"src": {
+											"line": 2955,
+											"column": 16,
+											"start": 109479,
+											"end": 109487,
+											"length": 9,
+											"parent_index": 6440
+										},
+										"name_location": {
+											"line": 2955,
+											"column": 16,
+											"start": 109479,
+											"end": 109487,
+											"length": 9,
+											"parent_index": 6440
+										}
+									},
+									"referenced_declaration": 5126,
+									"type_description": {
+										"type_identifier": "t_contract$_BaseVault_$5126",
+										"type_string": "contract BaseVault"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_contract$_BaseVault_$5126",
+									"type_string": "contract BaseVault"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_contract$_BaseVault_$5126",
+								"type_string": "contract BaseVault"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6442,
+						"node_type": 43,
+						"src": {
+							"line": 2955,
+							"column": 4,
+							"start": 109467,
+							"end": 109634,
+							"length": 168,
+							"parent_index": 6437
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 6415,
+					"body": {
+						"id": 6443,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2955,
+							"column": 34,
+							"start": 109497,
+							"end": 109634,
+							"length": 138,
+							"parent_index": 6437
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6444,
+								"node_type": 27,
+								"src": {
+									"line": 2956,
+									"column": 8,
+									"start": 109507,
+									"end": 109547,
+									"length": 41,
+									"parent_index": 6443
+								},
+								"expression": {
+									"id": 6445,
+									"node_type": 27,
+									"src": {
+										"line": 2956,
+										"column": 8,
+										"start": 109507,
+										"end": 109546,
+										"length": 40,
+										"parent_index": 6444
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6446,
+										"node_type": 16,
+										"src": {
+											"line": 2956,
+											"column": 8,
+											"start": 109507,
+											"end": 109520,
+											"length": 14,
+											"parent_index": 6445
+										},
+										"name": "wormholeRouter",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5271,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 6447,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 2956,
+											"column": 25,
+											"start": 109524,
+											"end": 109546,
+											"length": 23,
+											"parent_index": 6445
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 6448,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 2956,
+												"column": 25,
+												"start": 109524,
+												"end": 109544,
+												"length": 21,
+												"parent_index": 6447
+											},
+											"member_location": {
+												"line": 2956,
+												"column": 32,
+												"start": 109531,
+												"end": 109544,
+												"length": 14,
+												"parent_index": 6448
+											},
+											"expression": {
+												"id": 6449,
+												"node_type": 16,
+												"src": {
+													"line": 2956,
+													"column": 25,
+													"start": 109524,
+													"end": 109529,
+													"length": 6,
+													"parent_index": 6448
+												},
+												"name": "_vault",
+												"type_description": {
+													"type_identifier": "t_contract$_BaseVault_$5126",
+													"type_string": "contract BaseVault"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 6449,
+												"is_pure": false
+											},
+											"member_name": "wormholeRouter",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_contract$_BaseVault_$5126",
+												"type_string": "contract BaseVault"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							{
+								"id": 6450,
+								"node_type": 27,
+								"src": {
+									"line": 2957,
+									"column": 8,
+									"start": 109557,
+									"end": 109586,
+									"length": 30,
+									"parent_index": 6443
+								},
+								"expression": {
+									"id": 6451,
+									"node_type": 27,
+									"src": {
+										"line": 2957,
+										"column": 8,
+										"start": 109557,
+										"end": 109585,
+										"length": 29,
+										"parent_index": 6450
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6452,
+										"node_type": 16,
+										"src": {
+											"line": 2957,
+											"column": 8,
+											"start": 109557,
+											"end": 109561,
+											"length": 5,
+											"parent_index": 6451
+										},
+										"name": "asset",
+										"type_description": {
+											"type_identifier": "t_contract$_ERC20_$4060",
+											"type_string": "contract ERC20"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 5021,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 6453,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 2957,
+											"column": 16,
+											"start": 109565,
+											"end": 109585,
+											"length": 21,
+											"parent_index": 6451
+										},
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										],
+										"arguments": [
+											{
+												"id": 6455,
+												"node_type": 24,
+												"kind": 24,
+												"src": {
+													"line": 2957,
+													"column": 22,
+													"start": 109571,
+													"end": 109584,
+													"length": 14,
+													"parent_index": 6453
+												},
+												"argument_types": [],
+												"arguments": [],
+												"expression": {
+													"id": 6456,
+													"is_constant": false,
+													"is_l_value": false,
+													"is_pure": false,
+													"l_value_requested": false,
+													"node_type": 23,
+													"src": {
+														"line": 2957,
+														"column": 22,
+														"start": 109571,
+														"end": 109582,
+														"length": 12,
+														"parent_index": 6455
+													},
+													"member_location": {
+														"line": 2957,
+														"column": 29,
+														"start": 109578,
+														"end": 109582,
+														"length": 5,
+														"parent_index": 6456
+													},
+													"expression": {
+														"id": 6457,
+														"node_type": 16,
+														"src": {
+															"line": 2957,
+															"column": 22,
+															"start": 109571,
+															"end": 109576,
+															"length": 6,
+															"parent_index": 6456
+														},
+														"name": "_vault",
+														"type_description": {
+															"type_identifier": "t_contract$_BaseVault_$5126",
+															"type_string": "contract BaseVault"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 6457,
+														"is_pure": false
+													},
+													"member_name": "asset",
+													"argument_types": [],
+													"type_description": {
+														"type_identifier": "t_contract$_BaseVault_$5126",
+														"type_string": "contract BaseVault"
+													}
+												},
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												}
+											}
+										],
+										"expression": {
+											"id": 6454,
+											"node_type": 16,
+											"src": {
+												"line": 2957,
+												"column": 16,
+												"start": 109565,
+												"end": 109569,
+												"length": 5,
+												"parent_index": 6453
+											},
+											"name": "ERC20",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$_t_function_$",
+											"type_string": "function(function())"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_contract$_ERC20_$4060",
+										"type_string": "contract ERC20"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_contract$_ERC20_$4060",
+									"type_string": "contract ERC20"
+								}
+							},
+							{
+								"id": 6458,
+								"node_type": 27,
+								"src": {
+									"line": 2958,
+									"column": 8,
+									"start": 109596,
+									"end": 109628,
+									"length": 33,
+									"parent_index": 6443
+								},
+								"expression": {
+									"id": 6459,
+									"node_type": 27,
+									"src": {
+										"line": 2958,
+										"column": 8,
+										"start": 109596,
+										"end": 109627,
+										"length": 32,
+										"parent_index": 6458
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 6460,
+										"node_type": 16,
+										"src": {
+											"line": 2958,
+											"column": 8,
+											"start": 109596,
+											"end": 109605,
+											"length": 10,
+											"parent_index": 6459
+										},
+										"name": "governance",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 4884,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 6461,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 2958,
+											"column": 21,
+											"start": 109609,
+											"end": 109627,
+											"length": 19,
+											"parent_index": 6459
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 6462,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 2958,
+												"column": 21,
+												"start": 109609,
+												"end": 109625,
+												"length": 17,
+												"parent_index": 6461
+											},
+											"member_location": {
+												"line": 2958,
+												"column": 28,
+												"start": 109616,
+												"end": 109625,
+												"length": 10,
+												"parent_index": 6462
+											},
+											"expression": {
+												"id": 6463,
+												"node_type": 16,
+												"src": {
+													"line": 2958,
+													"column": 21,
+													"start": 109609,
+													"end": 109614,
+													"length": 6,
+													"parent_index": 6462
+												},
+												"name": "_vault",
+												"type_description": {
+													"type_identifier": "t_contract$_BaseVault_$5126",
+													"type_string": "contract BaseVault"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 6463,
+												"is_pure": false
+											},
+											"member_name": "governance",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_contract$_BaseVault_$5126",
+												"type_string": "contract BaseVault"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									},
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 6465,
+					"name": "clearFunds",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2966,
+						"column": 4,
+						"start": 109834,
+						"end": 110021,
+						"length": 188,
+						"parent_index": 6415
+					},
+					"name_location": {
+						"line": 2966,
+						"column": 13,
+						"start": 109843,
+						"end": 109852,
+						"length": 10,
+						"parent_index": 6465
+					},
+					"body": {
+						"id": 6472,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2966,
+							"column": 75,
+							"start": 109905,
+							"end": 110021,
+							"length": 117,
+							"parent_index": 6465
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6473,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 2967,
+									"column": 8,
+									"start": 109915,
+									"end": 109979,
+									"length": 65,
+									"parent_index": 6472
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"BE: Only wormhole router\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 6475,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 2967,
+											"column": 16,
+											"start": 109923,
+											"end": 109950,
+											"length": 28,
+											"parent_index": 6473
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 6476,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 2967,
+												"column": 16,
+												"start": 109923,
+												"end": 109932,
+												"length": 10,
+												"parent_index": 6475
+											},
+											"member_location": {
+												"line": 2967,
+												"column": 20,
+												"start": 109927,
+												"end": 109932,
+												"length": 6,
+												"parent_index": 6476
+											},
+											"expression": {
+												"id": 6477,
+												"node_type": 16,
+												"src": {
+													"line": 2967,
+													"column": 16,
+													"start": 109923,
+													"end": 109925,
+													"length": 3,
+													"parent_index": 6476
+												},
+												"name": "msg",
+												"type_description": {
+													"type_identifier": "t_magic_message",
+													"type_string": "msg"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "sender",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"right_expression": {
+											"id": 6478,
+											"node_type": 16,
+											"src": {
+												"line": 2967,
+												"column": 30,
+												"start": 109937,
+												"end": 109950,
+												"length": 14,
+												"parent_index": 6475
+											},
+											"name": "wormholeRouter",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 5271,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 6479,
+										"node_type": 17,
+										"kind": 50,
+										"value": "BE: Only wormhole router",
+										"hex_value": "42453a204f6e6c7920776f726d686f6c6520726f75746572",
+										"src": {
+											"line": 2967,
+											"column": 46,
+											"start": 109953,
+											"end": 109978,
+											"length": 26,
+											"parent_index": 6473
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"BE: Only wormhole router\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 6474,
+									"node_type": 16,
+									"src": {
+										"line": 2967,
+										"column": 8,
+										"start": 109915,
+										"end": 109921,
+										"length": 7,
+										"parent_index": 6473
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 6480,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 2968,
+									"column": 8,
+									"start": 109990,
+									"end": 110014,
+									"length": 25,
+									"parent_index": 6472
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								],
+								"arguments": [
+									{
+										"id": 6482,
+										"node_type": 16,
+										"src": {
+											"line": 2968,
+											"column": 15,
+											"start": 109997,
+											"end": 110002,
+											"length": 6,
+											"parent_index": 6480
+										},
+										"name": "assets",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6482,
+										"is_pure": false
+									},
+									{
+										"id": 6483,
+										"node_type": 16,
+										"src": {
+											"line": 2968,
+											"column": 23,
+											"start": 110005,
+											"end": 110013,
+											"length": 9,
+											"parent_index": 6480
+										},
+										"name": "exitProof",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6483,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 6481,
+									"node_type": 16,
+									"src": {
+										"line": 2968,
+										"column": 8,
+										"start": 109990,
+										"end": 109995,
+										"length": 6,
+										"parent_index": 6480
+									},
+									"name": "_clear",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+									"type_string": "function(uint256,bytes)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 6466,
+						"node_type": 43,
+						"src": {
+							"line": 2966,
+							"column": 24,
+							"start": 109854,
+							"end": 109893,
+							"length": 40,
+							"parent_index": 6465
+						},
+						"parameters": [
+							{
+								"id": 6467,
+								"node_type": 44,
+								"src": {
+									"line": 2966,
+									"column": 24,
+									"start": 109854,
+									"end": 109867,
+									"length": 14,
+									"parent_index": 6466
+								},
+								"scope": 6465,
+								"name": "assets",
+								"type_name": {
+									"id": 6468,
+									"node_type": 30,
+									"src": {
+										"line": 2966,
+										"column": 24,
+										"start": 109854,
+										"end": 109860,
+										"length": 7,
+										"parent_index": 6467
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 6469,
+								"node_type": 44,
+								"src": {
+									"line": 2966,
+									"column": 40,
+									"start": 109870,
+									"end": 109893,
+									"length": 24,
+									"parent_index": 6466
+								},
+								"scope": 6465,
+								"name": "exitProof",
+								"type_name": {
+									"id": 6470,
+									"node_type": 30,
+									"src": {
+										"line": 2966,
+										"column": 40,
+										"start": 109870,
+										"end": 109874,
+										"length": 5,
+										"parent_index": 6469
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bytes",
+									"type_string": "bytes"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6471,
+						"node_type": 43,
+						"src": {
+							"line": 2966,
+							"column": 4,
+							"start": 109834,
+							"end": 110021,
+							"length": 188,
+							"parent_index": 6465
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "clearFunds(uint256, bytes)",
+					"signature": "9b80db2c",
+					"scope": 6415,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+						"type_string": "function(uint256,bytes)"
+					}
+				},
+				{
+					"id": 6485,
+					"name": "rescueFunds",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2972,
+						"column": 4,
+						"start": 110089,
+						"end": 110268,
+						"length": 180,
+						"parent_index": 6415
+					},
+					"name_location": {
+						"line": 2972,
+						"column": 13,
+						"start": 110098,
+						"end": 110108,
+						"length": 11,
+						"parent_index": 6485
+					},
+					"body": {
+						"id": 6492,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2972,
+							"column": 76,
+							"start": 110161,
+							"end": 110268,
+							"length": 108,
+							"parent_index": 6485
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 6493,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 2973,
+									"column": 8,
+									"start": 110171,
+									"end": 110226,
+									"length": 56,
+									"parent_index": 6492
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"BE: Only Governance\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 6495,
+										"is_constant": false,
+										"is_pure": false,
+										"node_type": 19,
+										"src": {
+											"line": 2973,
+											"column": 16,
+											"start": 110179,
+											"end": 110202,
+											"length": 24,
+											"parent_index": 6493
+										},
+										"operator": 11,
+										"left_expression": {
+											"id": 6496,
+											"is_constant": false,
+											"is_l_value": false,
+											"is_pure": false,
+											"l_value_requested": false,
+											"node_type": 23,
+											"src": {
+												"line": 2973,
+												"column": 16,
+												"start": 110179,
+												"end": 110188,
+												"length": 10,
+												"parent_index": 6495
+											},
+											"member_location": {
+												"line": 2973,
+												"column": 20,
+												"start": 110183,
+												"end": 110188,
+												"length": 6,
+												"parent_index": 6496
+											},
+											"expression": {
+												"id": 6497,
+												"node_type": 16,
+												"src": {
+													"line": 2973,
+													"column": 16,
+													"start": 110179,
+													"end": 110181,
+													"length": 3,
+													"parent_index": 6496
+												},
+												"name": "msg",
+												"type_description": {
+													"type_identifier": "t_magic_message",
+													"type_string": "msg"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"member_name": "sender",
+											"argument_types": [],
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										},
+										"right_expression": {
+											"id": 6498,
+											"node_type": 16,
+											"src": {
+												"line": 2973,
+												"column": 30,
+												"start": 110193,
+												"end": 110202,
+												"length": 10,
+												"parent_index": 6495
+											},
+											"name": "governance",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4884,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										}
+									},
+									{
+										"id": 6499,
+										"node_type": 17,
+										"kind": 50,
+										"value": "BE: Only Governance",
+										"hex_value": "42453a204f6e6c7920476f7665726e616e6365",
+										"src": {
+											"line": 2973,
+											"column": 42,
+											"start": 110205,
+											"end": 110225,
+											"length": 21,
+											"parent_index": 6493
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"BE: Only Governance\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_bool",
+												"type_string": "bool"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 6494,
+									"node_type": 16,
+									"src": {
+										"line": 2973,
+										"column": 8,
+										"start": 110171,
+										"end": 110177,
+										"length": 7,
+										"parent_index": 6493
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
+									"type_string": "function(bool,string memory)"
+								}
+							},
+							{
+								"id": 6500,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 2974,
+									"column": 8,
+									"start": 110237,
+									"end": 110261,
+									"length": 25,
+									"parent_index": 6492
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									},
+									{
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								],
+								"arguments": [
+									{
+										"id": 6502,
+										"node_type": 16,
+										"src": {
+											"line": 2974,
+											"column": 15,
+											"start": 110244,
+											"end": 110249,
+											"length": 6,
+											"parent_index": 6500
+										},
+										"name": "amount",
+										"type_description": {
+											"type_identifier": "t_uint256",
+											"type_string": "uint256"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6502,
+										"is_pure": false
+									},
+									{
+										"id": 6503,
+										"node_type": 16,
+										"src": {
+											"line": 2974,
+											"column": 23,
+											"start": 110252,
+											"end": 110260,
+											"length": 9,
+											"parent_index": 6500
+										},
+										"name": "exitProof",
+										"type_description": {
+											"type_identifier": "t_bytes",
+											"type_string": "bytes"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 6503,
+										"is_pure": false,
+										"argument_types": [
+											{
+												"type_identifier": "t_uint256",
+												"type_string": "uint256"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 6501,
+									"node_type": 16,
+									"src": {
+										"line": 2974,
+										"column": 8,
+										"start": 110237,
+										"end": 110242,
+										"length": 6,
+										"parent_index": 6500
+									},
+									"name": "_clear",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+									"type_string": "function(uint256,bytes)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 4,
+					"state_mutability": 4,
+					"virtual": false,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 6486,
+						"node_type": 43,
+						"src": {
+							"line": 2972,
+							"column": 25,
+							"start": 110110,
+							"end": 110149,
+							"length": 40,
+							"parent_index": 6485
+						},
+						"parameters": [
+							{
+								"id": 6487,
+								"node_type": 44,
+								"src": {
+									"line": 2972,
+									"column": 25,
+									"start": 110110,
+									"end": 110123,
+									"length": 14,
+									"parent_index": 6486
+								},
+								"scope": 6485,
+								"name": "amount",
+								"type_name": {
+									"id": 6488,
+									"node_type": 30,
+									"src": {
+										"line": 2972,
+										"column": 25,
+										"start": 110110,
+										"end": 110116,
+										"length": 7,
+										"parent_index": 6487
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 6489,
+								"node_type": 44,
+								"src": {
+									"line": 2972,
+									"column": 41,
+									"start": 110126,
+									"end": 110149,
+									"length": 24,
+									"parent_index": 6486
+								},
+								"scope": 6485,
+								"name": "exitProof",
+								"type_name": {
+									"id": 6490,
+									"node_type": 30,
+									"src": {
+										"line": 2972,
+										"column": 41,
+										"start": 110126,
+										"end": 110130,
+										"length": 5,
+										"parent_index": 6489
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bytes",
+									"type_string": "bytes"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6491,
+						"node_type": 43,
+						"src": {
+							"line": 2972,
+							"column": 4,
+							"start": 110089,
+							"end": 110268,
+							"length": 180,
+							"parent_index": 6485
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "rescueFunds(uint256, bytes)",
+					"signature": "8a89a7ec",
+					"scope": 6415,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+						"type_string": "function(uint256,bytes)"
+					}
+				},
+				{
+					"id": 6505,
+					"name": "_clear",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 2977,
+						"column": 4,
+						"start": 110275,
+						"end": 110349,
+						"length": 75,
+						"parent_index": 6415
+					},
+					"name_location": {
+						"line": 2977,
+						"column": 13,
+						"start": 110284,
+						"end": 110289,
+						"length": 6,
+						"parent_index": 6505
+					},
+					"body": {
+						"id": 6512,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 2977,
+							"column": 4,
+							"start": 110275,
+							"end": 110349,
+							"length": 75,
+							"parent_index": 6505
+						},
+						"implemented": false,
+						"statements": []
+					},
+					"implemented": false,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 6506,
+						"node_type": 43,
+						"src": {
+							"line": 2977,
+							"column": 20,
+							"start": 110291,
+							"end": 110330,
+							"length": 40,
+							"parent_index": 6505
+						},
+						"parameters": [
+							{
+								"id": 6507,
+								"node_type": 44,
+								"src": {
+									"line": 2977,
+									"column": 20,
+									"start": 110291,
+									"end": 110304,
+									"length": 14,
+									"parent_index": 6506
+								},
+								"scope": 6505,
+								"name": "assets",
+								"type_name": {
+									"id": 6508,
+									"node_type": 30,
+									"src": {
+										"line": 2977,
+										"column": 20,
+										"start": 110291,
+										"end": 110297,
+										"length": 7,
+										"parent_index": 6507
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							{
+								"id": 6509,
+								"node_type": 44,
+								"src": {
+									"line": 2977,
+									"column": 36,
+									"start": 110307,
+									"end": 110330,
+									"length": 24,
+									"parent_index": 6506
+								},
+								"scope": 6505,
+								"name": "exitProof",
+								"type_name": {
+									"id": 6510,
+									"node_type": 30,
+									"src": {
+										"line": 2977,
+										"column": 36,
+										"start": 110307,
+										"end": 110311,
+										"length": 5,
+										"parent_index": 6509
+									},
+									"name": "bytes",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bytes",
+										"type_string": "bytes"
+									}
+								},
+								"storage_location": 4,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bytes",
+									"type_string": "bytes"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							{
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 6511,
+						"node_type": 43,
+						"src": {
+							"line": 2977,
+							"column": 4,
+							"start": 110275,
+							"end": 110349,
+							"length": 75,
+							"parent_index": 6505
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "_clear(uint256, bytes)",
+					"signature": "1894c922",
+					"scope": 6415,
+					"type_description": {
+						"type_identifier": "t_function_$_t_uint256$_t_bytes$",
+						"type_string": "function(uint256,bytes)"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				6415,
+				6412,
+				6413,
+				6414
+			],
+			"base_contracts": [],
+			"contract_dependencies": [
+				6412,
+				6413,
+				6414
+			]
+		}
+	],
+	"src": {
+		"line": 2939,
+		"column": 0,
+		"start": 108942,
+		"end": 110351,
+		"length": 1410,
+		"parent_index": 440
+	}
+}

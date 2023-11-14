@@ -1,0 +1,1830 @@
+{
+	"id": 305,
+	"base_contracts": [
+		{
+			"id": 310,
+			"node_type": 62,
+			"src": {
+				"line": 138,
+				"column": 30,
+				"start": 4367,
+				"end": 4373,
+				"length": 7,
+				"parent_index": 309
+			},
+			"base_name": {
+				"id": 311,
+				"node_type": 52,
+				"src": {
+					"line": 138,
+					"column": 30,
+					"start": 4367,
+					"end": 4373,
+					"length": 7,
+					"parent_index": 309
+				},
+				"name": "Context",
+				"referenced_declaration": 169
+			}
+		}
+	],
+	"license": "MIXED",
+	"exported_symbols": [
+		{
+			"id": 305,
+			"name": "Pausable",
+			"absolute_path": ""
+		},
+		{
+			"id": 310,
+			"name": "Context",
+			"absolute_path": ""
+		}
+	],
+	"absolute_path": "",
+	"name": "Pausable",
+	"node_type": 1,
+	"nodes": [
+		{
+			"id": 308,
+			"node_type": 10,
+			"src": {
+				"line": 127,
+				"column": 0,
+				"start": 3872,
+				"end": 3894,
+				"length": 23,
+				"parent_index": 305
+			},
+			"literals": [
+				"pragma",
+				"solidity",
+				"^",
+				"0",
+				".",
+				"8",
+				".",
+				"0",
+				";"
+			],
+			"text": "pragma solidity ^0.8.0;"
+		},
+		{
+			"id": 309,
+			"name": "Pausable",
+			"node_type": 35,
+			"src": {
+				"line": 138,
+				"column": 0,
+				"start": 4337,
+				"end": 6286,
+				"length": 1950,
+				"parent_index": 305
+			},
+			"name_location": {
+				"line": 138,
+				"column": 18,
+				"start": 4355,
+				"end": 4362,
+				"length": 8,
+				"parent_index": 309
+			},
+			"abstract": false,
+			"kind": 36,
+			"fully_implemented": true,
+			"nodes": [
+				{
+					"id": 313,
+					"node_type": 57,
+					"src": {
+						"line": 142,
+						"column": 4,
+						"start": 4459,
+						"end": 4488,
+						"length": 30,
+						"parent_index": 309
+					},
+					"parameters": {
+						"id": 314,
+						"node_type": 43,
+						"src": {
+							"line": 142,
+							"column": 4,
+							"start": 4459,
+							"end": 4488,
+							"length": 30,
+							"parent_index": 313
+						},
+						"parameters": [
+							{
+								"id": 315,
+								"node_type": 44,
+								"src": {
+									"line": 142,
+									"column": 17,
+									"start": 4472,
+									"end": 4486,
+									"length": 15,
+									"parent_index": 314
+								},
+								"scope": 313,
+								"name": "account",
+								"type_name": {
+									"id": 316,
+									"node_type": 30,
+									"src": {
+										"line": 142,
+										"column": 17,
+										"start": 4472,
+										"end": 4478,
+										"length": 7,
+										"parent_index": 315
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "Paused",
+					"anonymous": false,
+					"type_description": {
+						"type_identifier": "t_event\u0026_Pausable_Paused_\u0026313",
+						"type_string": "event Pausable.Paused"
+					}
+				},
+				{
+					"id": 318,
+					"node_type": 57,
+					"src": {
+						"line": 147,
+						"column": 4,
+						"start": 4570,
+						"end": 4601,
+						"length": 32,
+						"parent_index": 309
+					},
+					"parameters": {
+						"id": 319,
+						"node_type": 43,
+						"src": {
+							"line": 147,
+							"column": 4,
+							"start": 4570,
+							"end": 4601,
+							"length": 32,
+							"parent_index": 318
+						},
+						"parameters": [
+							{
+								"id": 320,
+								"node_type": 44,
+								"src": {
+									"line": 147,
+									"column": 19,
+									"start": 4585,
+									"end": 4599,
+									"length": 15,
+									"parent_index": 319
+								},
+								"scope": 318,
+								"name": "account",
+								"type_name": {
+									"id": 321,
+									"node_type": 30,
+									"src": {
+										"line": 147,
+										"column": 19,
+										"start": 4585,
+										"end": 4591,
+										"length": 7,
+										"parent_index": 320
+									},
+									"name": "address",
+									"state_mutability": 4,
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 4,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						]
+					},
+					"name": "Unpaused",
+					"anonymous": false,
+					"type_description": {
+						"type_identifier": "t_event\u0026_Pausable_Unpaused_\u0026318",
+						"type_string": "event Pausable.Unpaused"
+					}
+				},
+				{
+					"id": 323,
+					"name": "_paused",
+					"is_constant": false,
+					"is_state_variable": true,
+					"node_type": 44,
+					"src": {
+						"line": 149,
+						"column": 4,
+						"start": 4608,
+						"end": 4628,
+						"length": 21,
+						"parent_index": 309
+					},
+					"scope": 309,
+					"type_description": {
+						"type_identifier": "t_bool",
+						"type_string": "bool"
+					},
+					"visibility": 2,
+					"storage_location": 1,
+					"mutability": 1,
+					"type_name": {
+						"id": 324,
+						"node_type": 30,
+						"src": {
+							"line": 149,
+							"column": 4,
+							"start": 4608,
+							"end": 4611,
+							"length": 4,
+							"parent_index": 323
+						},
+						"name": "bool",
+						"referenced_declaration": 0,
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						}
+					},
+					"initial_value": null
+				},
+				{
+					"id": 326,
+					"node_type": 42,
+					"src": {
+						"line": 154,
+						"column": 4,
+						"start": 4707,
+						"end": 4752,
+						"length": 46,
+						"parent_index": 309
+					},
+					"kind": 11,
+					"state_mutability": 4,
+					"visibility": 1,
+					"implemented": true,
+					"modifiers": [],
+					"parameters": {
+						"id": 327,
+						"node_type": 43,
+						"src": {
+							"line": 154,
+							"column": 4,
+							"start": 4707,
+							"end": 4752,
+							"length": 46,
+							"parent_index": 326
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 328,
+						"node_type": 43,
+						"src": {
+							"line": 154,
+							"column": 4,
+							"start": 4707,
+							"end": 4752,
+							"length": 46,
+							"parent_index": 326
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"scope": 309,
+					"body": {
+						"id": 329,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 154,
+							"column": 18,
+							"start": 4721,
+							"end": 4752,
+							"length": 32,
+							"parent_index": 326
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 330,
+								"node_type": 27,
+								"src": {
+									"line": 155,
+									"column": 8,
+									"start": 4731,
+									"end": 4746,
+									"length": 16,
+									"parent_index": 329
+								},
+								"expression": {
+									"id": 331,
+									"node_type": 27,
+									"src": {
+										"line": 155,
+										"column": 8,
+										"start": 4731,
+										"end": 4745,
+										"length": 15,
+										"parent_index": 330
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 332,
+										"node_type": 16,
+										"src": {
+											"line": 155,
+											"column": 8,
+											"start": 4731,
+											"end": 4737,
+											"length": 7,
+											"parent_index": 331
+										},
+										"name": "_paused",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 323,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 333,
+										"node_type": 17,
+										"kind": 61,
+										"value": "false",
+										"hex_value": "66616c7365",
+										"src": {
+											"line": 155,
+											"column": 18,
+											"start": 4741,
+											"end": 4745,
+											"length": 5,
+											"parent_index": 331
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							}
+						]
+					}
+				},
+				{
+					"id": 335,
+					"name": "whenNotPaused",
+					"node_type": 68,
+					"src": {
+						"line": 165,
+						"column": 4,
+						"start": 4939,
+						"end": 5010,
+						"length": 72,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 165,
+						"column": 13,
+						"start": 4948,
+						"end": 4960,
+						"length": 13,
+						"parent_index": 335
+					},
+					"visibility": 1,
+					"virtual": false,
+					"parameters": {
+						"id": 336,
+						"node_type": 43,
+						"src": {
+							"line": 165,
+							"column": 4,
+							"start": 4939,
+							"end": 5010,
+							"length": 72,
+							"parent_index": 309
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"body": {
+						"id": 337,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 165,
+							"column": 29,
+							"start": 4964,
+							"end": 5010,
+							"length": 47,
+							"parent_index": 335
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 338,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 166,
+									"column": 8,
+									"start": 4974,
+									"end": 4992,
+									"length": 19,
+									"parent_index": 337
+								},
+								"argument_types": [],
+								"arguments": [],
+								"expression": {
+									"id": 339,
+									"node_type": 16,
+									"src": {
+										"line": 166,
+										"column": 8,
+										"start": 4974,
+										"end": 4990,
+										"length": 17,
+										"parent_index": 338
+									},
+									"name": "_requireNotPaused",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$",
+									"type_string": "function()"
+								}
+							},
+							{
+								"id": 340,
+								"node_type": 82,
+								"src": {
+									"line": 167,
+									"column": 8,
+									"start": 5003,
+									"end": 5003,
+									"length": 1,
+									"parent_index": 337
+								},
+								"name": "_",
+								"type_description": {
+									"type_identifier": "t_placeholder_literal",
+									"type_string": "t_placeholder"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": false
+							}
+						]
+					}
+				},
+				{
+					"id": 342,
+					"name": "whenPaused",
+					"node_type": 68,
+					"src": {
+						"line": 177,
+						"column": 4,
+						"start": 5189,
+						"end": 5254,
+						"length": 66,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 177,
+						"column": 13,
+						"start": 5198,
+						"end": 5207,
+						"length": 10,
+						"parent_index": 342
+					},
+					"visibility": 1,
+					"virtual": false,
+					"parameters": {
+						"id": 343,
+						"node_type": 43,
+						"src": {
+							"line": 177,
+							"column": 4,
+							"start": 5189,
+							"end": 5254,
+							"length": 66,
+							"parent_index": 309
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"body": {
+						"id": 344,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 177,
+							"column": 26,
+							"start": 5211,
+							"end": 5254,
+							"length": 44,
+							"parent_index": 342
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 345,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 178,
+									"column": 8,
+									"start": 5221,
+									"end": 5236,
+									"length": 16,
+									"parent_index": 344
+								},
+								"argument_types": [],
+								"arguments": [],
+								"expression": {
+									"id": 346,
+									"node_type": 16,
+									"src": {
+										"line": 178,
+										"column": 8,
+										"start": 5221,
+										"end": 5234,
+										"length": 14,
+										"parent_index": 345
+									},
+									"name": "_requirePaused",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": false
+								},
+								"type_description": {
+									"type_identifier": "t_function_$",
+									"type_string": "function()"
+								}
+							},
+							{
+								"id": 347,
+								"node_type": 82,
+								"src": {
+									"line": 179,
+									"column": 8,
+									"start": 5247,
+									"end": 5247,
+									"length": 1,
+									"parent_index": 344
+								},
+								"name": "_",
+								"type_description": {
+									"type_identifier": "t_placeholder_literal",
+									"type_string": "t_placeholder"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": false
+							}
+						]
+					}
+				},
+				{
+					"id": 349,
+					"name": "paused",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 185,
+						"column": 4,
+						"start": 5350,
+						"end": 5433,
+						"length": 84,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 185,
+						"column": 13,
+						"start": 5359,
+						"end": 5364,
+						"length": 6,
+						"parent_index": 349
+					},
+					"body": {
+						"id": 356,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 185,
+							"column": 57,
+							"start": 5403,
+							"end": 5433,
+							"length": 31,
+							"parent_index": 349
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 357,
+								"node_type": 47,
+								"src": {
+									"line": 186,
+									"column": 8,
+									"start": 5413,
+									"end": 5427,
+									"length": 15,
+									"parent_index": 349
+								},
+								"function_return_parameters": 349,
+								"expression": {
+									"id": 358,
+									"node_type": 16,
+									"src": {
+										"line": 186,
+										"column": 15,
+										"start": 5420,
+										"end": 5426,
+										"length": 7,
+										"parent_index": 357
+									},
+									"name": "_paused",
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 323,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 350,
+						"node_type": 43,
+						"src": {
+							"line": 185,
+							"column": 51,
+							"start": 5397,
+							"end": 5400,
+							"length": 4,
+							"parent_index": 349
+						},
+						"parameters": [
+							{
+								"id": 351,
+								"node_type": 44,
+								"src": {
+									"line": 185,
+									"column": 51,
+									"start": 5397,
+									"end": 5400,
+									"length": 4,
+									"parent_index": 350
+								},
+								"scope": 349,
+								"name": "",
+								"type_name": {
+									"id": 352,
+									"node_type": 30,
+									"src": {
+										"line": 185,
+										"column": 51,
+										"start": 5397,
+										"end": 5400,
+										"length": 4,
+										"parent_index": 351
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"return_parameters": {
+						"id": 353,
+						"node_type": 43,
+						"src": {
+							"line": 185,
+							"column": 51,
+							"start": 5397,
+							"end": 5400,
+							"length": 4,
+							"parent_index": 349
+						},
+						"parameters": [
+							{
+								"id": 354,
+								"node_type": 44,
+								"src": {
+									"line": 185,
+									"column": 51,
+									"start": 5397,
+									"end": 5400,
+									"length": 4,
+									"parent_index": 353
+								},
+								"scope": 349,
+								"name": "",
+								"type_name": {
+									"id": 355,
+									"node_type": 30,
+									"src": {
+										"line": 185,
+										"column": 51,
+										"start": 5397,
+										"end": 5400,
+										"length": 4,
+										"parent_index": 354
+									},
+									"name": "bool",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"storage_location": 2,
+								"visibility": 1,
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							}
+						],
+						"parameter_types": [
+							{
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						]
+					},
+					"signature_raw": "paused(bool)",
+					"signature": "837150cf",
+					"scope": 309,
+					"type_description": {
+						"type_identifier": "t_function_$_t_bool$",
+						"type_string": "function(bool)"
+					}
+				},
+				{
+					"id": 360,
+					"name": "_requireNotPaused",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 192,
+						"column": 4,
+						"start": 5502,
+						"end": 5607,
+						"length": 106,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 192,
+						"column": 13,
+						"start": 5511,
+						"end": 5527,
+						"length": 17,
+						"parent_index": 360
+					},
+					"body": {
+						"id": 363,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 192,
+							"column": 55,
+							"start": 5553,
+							"end": 5607,
+							"length": 55,
+							"parent_index": 360
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 364,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 193,
+									"column": 8,
+									"start": 5563,
+									"end": 5600,
+									"length": 38,
+									"parent_index": 363
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Pausable: paused\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 366,
+										"node_type": 18,
+										"kind": 104,
+										"src": {
+											"line": 193,
+											"column": 16,
+											"start": 5571,
+											"end": 5579,
+											"length": 9,
+											"parent_index": 360
+										},
+										"operator": 31,
+										"prefix": false,
+										"is_constant": false,
+										"is_l_value": false,
+										"is_pure": false,
+										"l_value_requested": false,
+										"expression": {
+											"id": 367,
+											"node_type": 24,
+											"kind": 24,
+											"src": {
+												"line": 193,
+												"column": 17,
+												"start": 5572,
+												"end": 5579,
+												"length": 8,
+												"parent_index": 366
+											},
+											"argument_types": [],
+											"arguments": [],
+											"expression": {
+												"id": 368,
+												"node_type": 16,
+												"src": {
+													"line": 193,
+													"column": 17,
+													"start": 5572,
+													"end": 5577,
+													"length": 6,
+													"parent_index": 367
+												},
+												"name": "paused",
+												"type_description": {
+													"type_identifier": "t_function_$",
+													"type_string": "function()"
+												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 0,
+												"is_pure": false
+											},
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									},
+									{
+										"id": 369,
+										"node_type": 17,
+										"kind": 50,
+										"value": "Pausable: paused",
+										"hex_value": "5061757361626c653a20706175736564",
+										"src": {
+											"line": 193,
+											"column": 27,
+											"start": 5582,
+											"end": 5599,
+											"length": 18,
+											"parent_index": 364
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"Pausable: paused\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 365,
+									"node_type": 16,
+									"src": {
+										"line": 193,
+										"column": 8,
+										"start": 5563,
+										"end": 5569,
+										"length": 7,
+										"parent_index": 364
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_string_literal$",
+									"type_string": "function(function(),string memory)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 361,
+						"node_type": 43,
+						"src": {
+							"line": 192,
+							"column": 4,
+							"start": 5502,
+							"end": 5607,
+							"length": 106,
+							"parent_index": 360
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 362,
+						"node_type": 43,
+						"src": {
+							"line": 192,
+							"column": 4,
+							"start": 5502,
+							"end": 5607,
+							"length": 106,
+							"parent_index": 360
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "_requireNotPaused()",
+					"signature": "abb87a6f",
+					"scope": 309,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				},
+				{
+					"id": 371,
+					"name": "_requirePaused",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 199,
+						"column": 4,
+						"start": 5680,
+						"end": 5785,
+						"length": 106,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 199,
+						"column": 13,
+						"start": 5689,
+						"end": 5702,
+						"length": 14,
+						"parent_index": 371
+					},
+					"body": {
+						"id": 374,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 199,
+							"column": 52,
+							"start": 5728,
+							"end": 5785,
+							"length": 58,
+							"parent_index": 371
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 375,
+								"node_type": 24,
+								"kind": 24,
+								"src": {
+									"line": 200,
+									"column": 8,
+									"start": 5738,
+									"end": 5778,
+									"length": 41,
+									"parent_index": 374
+								},
+								"argument_types": [
+									{
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									{
+										"type_identifier": "t_string_literal",
+										"type_string": "literal_string \"Pausable: not paused\""
+									}
+								],
+								"arguments": [
+									{
+										"id": 377,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 200,
+											"column": 16,
+											"start": 5746,
+											"end": 5753,
+											"length": 8,
+											"parent_index": 375
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 378,
+											"node_type": 16,
+											"src": {
+												"line": 200,
+												"column": 16,
+												"start": 5746,
+												"end": 5751,
+												"length": 6,
+												"parent_index": 377
+											},
+											"name": "paused",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									},
+									{
+										"id": 379,
+										"node_type": 17,
+										"kind": 50,
+										"value": "Pausable: not paused",
+										"hex_value": "5061757361626c653a206e6f7420706175736564",
+										"src": {
+											"line": 200,
+											"column": 26,
+											"start": 5756,
+											"end": 5777,
+											"length": 22,
+											"parent_index": 375
+										},
+										"type_description": {
+											"type_identifier": "t_string_literal",
+											"type_string": "literal_string \"Pausable: not paused\""
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true,
+										"argument_types": [
+											{
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											}
+										]
+									}
+								],
+								"expression": {
+									"id": 376,
+									"node_type": 16,
+									"src": {
+										"line": 200,
+										"column": 8,
+										"start": 5738,
+										"end": 5744,
+										"length": 7,
+										"parent_index": 375
+									},
+									"name": "require",
+									"type_description": {
+										"type_identifier": "t_function_$",
+										"type_string": "function()"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true
+								},
+								"type_description": {
+									"type_identifier": "t_function_$_t_function_$_t_string_literal$",
+									"type_string": "function(function(),string memory)"
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"modifiers": [],
+					"overrides": [],
+					"parameters": {
+						"id": 372,
+						"node_type": 43,
+						"src": {
+							"line": 199,
+							"column": 4,
+							"start": 5680,
+							"end": 5785,
+							"length": 106,
+							"parent_index": 371
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 373,
+						"node_type": 43,
+						"src": {
+							"line": 199,
+							"column": 4,
+							"start": 5680,
+							"end": 5785,
+							"length": 106,
+							"parent_index": 371
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "_requirePaused()",
+					"signature": "4a994e05",
+					"scope": 309,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				},
+				{
+					"id": 381,
+					"name": "_pause",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 210,
+						"column": 4,
+						"start": 5921,
+						"end": 6035,
+						"length": 115,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 210,
+						"column": 13,
+						"start": 5930,
+						"end": 5935,
+						"length": 6,
+						"parent_index": 381
+					},
+					"body": {
+						"id": 386,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 210,
+							"column": 53,
+							"start": 5970,
+							"end": 6035,
+							"length": 66,
+							"parent_index": 381
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 387,
+								"node_type": 27,
+								"src": {
+									"line": 211,
+									"column": 8,
+									"start": 5980,
+									"end": 5994,
+									"length": 15,
+									"parent_index": 386
+								},
+								"expression": {
+									"id": 388,
+									"node_type": 27,
+									"src": {
+										"line": 211,
+										"column": 8,
+										"start": 5980,
+										"end": 5993,
+										"length": 14,
+										"parent_index": 387
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 389,
+										"node_type": 16,
+										"src": {
+											"line": 211,
+											"column": 8,
+											"start": 5980,
+											"end": 5986,
+											"length": 7,
+											"parent_index": 388
+										},
+										"name": "_paused",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 323,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 390,
+										"node_type": 17,
+										"kind": 61,
+										"value": "true",
+										"hex_value": "74727565",
+										"src": {
+											"line": 211,
+											"column": 18,
+											"start": 5990,
+											"end": 5993,
+											"length": 4,
+											"parent_index": 388
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							},
+							{
+								"id": 391,
+								"node_type": 64,
+								"src": {
+									"line": 212,
+									"column": 8,
+									"start": 6004,
+									"end": 6029,
+									"length": 26,
+									"parent_index": 381
+								},
+								"arguments": [
+									{
+										"id": 392,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 212,
+											"column": 20,
+											"start": 6016,
+											"end": 6027,
+											"length": 12,
+											"parent_index": 391
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 393,
+											"node_type": 16,
+											"src": {
+												"line": 212,
+												"column": 20,
+												"start": 6016,
+												"end": 6025,
+												"length": 10,
+												"parent_index": 392
+											},
+											"name": "_msgSender",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									}
+								],
+								"expression": {
+									"id": 394,
+									"node_type": 16,
+									"src": {
+										"line": 212,
+										"column": 13,
+										"start": 6009,
+										"end": 6014,
+										"length": 6,
+										"parent_index": 391
+									},
+									"name": "Paused",
+									"type_description": {
+										"type_identifier": "t_event\u0026_Pausable_Paused_\u0026313",
+										"type_string": "event Pausable.Paused"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 313,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [
+						{
+							"id": 383,
+							"name": "whenNotPaused",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"line": 210,
+								"column": 39,
+								"start": 5956,
+								"end": 5968,
+								"length": 13,
+								"parent_index": 381
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 384,
+								"name": "whenNotPaused",
+								"node_type": 0,
+								"src": {
+									"line": 210,
+									"column": 39,
+									"start": 5956,
+									"end": 5968,
+									"length": 13,
+									"parent_index": 383
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 382,
+						"node_type": 43,
+						"src": {
+							"line": 210,
+							"column": 4,
+							"start": 5921,
+							"end": 6035,
+							"length": 115,
+							"parent_index": 381
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 385,
+						"node_type": 43,
+						"src": {
+							"line": 210,
+							"column": 4,
+							"start": 5921,
+							"end": 6035,
+							"length": 115,
+							"parent_index": 381
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "_pause()",
+					"signature": "320b2ad9",
+					"scope": 309,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				},
+				{
+					"id": 396,
+					"name": "_unpause",
+					"node_type": 42,
+					"kind": 41,
+					"src": {
+						"line": 222,
+						"column": 4,
+						"start": 6168,
+						"end": 6284,
+						"length": 117,
+						"parent_index": 309
+					},
+					"name_location": {
+						"line": 222,
+						"column": 13,
+						"start": 6177,
+						"end": 6184,
+						"length": 8,
+						"parent_index": 396
+					},
+					"body": {
+						"id": 401,
+						"node_type": 46,
+						"kind": 0,
+						"src": {
+							"line": 222,
+							"column": 52,
+							"start": 6216,
+							"end": 6284,
+							"length": 69,
+							"parent_index": 396
+						},
+						"implemented": true,
+						"statements": [
+							{
+								"id": 402,
+								"node_type": 27,
+								"src": {
+									"line": 223,
+									"column": 8,
+									"start": 6226,
+									"end": 6241,
+									"length": 16,
+									"parent_index": 401
+								},
+								"expression": {
+									"id": 403,
+									"node_type": 27,
+									"src": {
+										"line": 223,
+										"column": 8,
+										"start": 6226,
+										"end": 6240,
+										"length": 15,
+										"parent_index": 402
+									},
+									"operator": 11,
+									"left_expression": {
+										"id": 404,
+										"node_type": 16,
+										"src": {
+											"line": 223,
+											"column": 8,
+											"start": 6226,
+											"end": 6232,
+											"length": 7,
+											"parent_index": 403
+										},
+										"name": "_paused",
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 323,
+										"is_pure": false
+									},
+									"right_expression": {
+										"id": 405,
+										"node_type": 17,
+										"kind": 61,
+										"value": "false",
+										"hex_value": "66616c7365",
+										"src": {
+											"line": 223,
+											"column": 18,
+											"start": 6236,
+											"end": 6240,
+											"length": 5,
+											"parent_index": 403
+										},
+										"type_description": {
+											"type_identifier": "t_bool",
+											"type_string": "bool"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 0,
+										"is_pure": true
+									},
+									"type_description": {
+										"type_identifier": "t_bool",
+										"type_string": "bool"
+									}
+								},
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							},
+							{
+								"id": 406,
+								"node_type": 64,
+								"src": {
+									"line": 224,
+									"column": 8,
+									"start": 6251,
+									"end": 6278,
+									"length": 28,
+									"parent_index": 396
+								},
+								"arguments": [
+									{
+										"id": 407,
+										"node_type": 24,
+										"kind": 24,
+										"src": {
+											"line": 224,
+											"column": 22,
+											"start": 6265,
+											"end": 6276,
+											"length": 12,
+											"parent_index": 406
+										},
+										"argument_types": [],
+										"arguments": [],
+										"expression": {
+											"id": 408,
+											"node_type": 16,
+											"src": {
+												"line": 224,
+												"column": 22,
+												"start": 6265,
+												"end": 6274,
+												"length": 10,
+												"parent_index": 407
+											},
+											"name": "_msgSender",
+											"type_description": {
+												"type_identifier": "t_function_$",
+												"type_string": "function()"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 0,
+											"is_pure": false
+										},
+										"type_description": {
+											"type_identifier": "t_function_$",
+											"type_string": "function()"
+										}
+									}
+								],
+								"expression": {
+									"id": 409,
+									"node_type": 16,
+									"src": {
+										"line": 224,
+										"column": 13,
+										"start": 6256,
+										"end": 6263,
+										"length": 8,
+										"parent_index": 406
+									},
+									"name": "Unpaused",
+									"type_description": {
+										"type_identifier": "t_event\u0026_Pausable_Unpaused_\u0026318",
+										"type_string": "event Pausable.Unpaused"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 318,
+									"is_pure": false
+								}
+							}
+						]
+					},
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 4,
+					"virtual": true,
+					"modifiers": [
+						{
+							"id": 398,
+							"name": "whenPaused",
+							"node_type": 72,
+							"kind": 72,
+							"src": {
+								"line": 222,
+								"column": 41,
+								"start": 6205,
+								"end": 6214,
+								"length": 10,
+								"parent_index": 396
+							},
+							"argument_types": [],
+							"arguments": [],
+							"modifier_name": {
+								"id": 399,
+								"name": "whenPaused",
+								"node_type": 0,
+								"src": {
+									"line": 222,
+									"column": 41,
+									"start": 6205,
+									"end": 6214,
+									"length": 10,
+									"parent_index": 398
+								}
+							}
+						}
+					],
+					"overrides": [],
+					"parameters": {
+						"id": 397,
+						"node_type": 43,
+						"src": {
+							"line": 222,
+							"column": 4,
+							"start": 6168,
+							"end": 6284,
+							"length": 117,
+							"parent_index": 396
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"return_parameters": {
+						"id": 400,
+						"node_type": 43,
+						"src": {
+							"line": 222,
+							"column": 4,
+							"start": 6168,
+							"end": 6284,
+							"length": 117,
+							"parent_index": 396
+						},
+						"parameters": [],
+						"parameter_types": []
+					},
+					"signature_raw": "_unpause()",
+					"signature": "fc8234cb",
+					"scope": 309,
+					"type_description": {
+						"type_identifier": "t_function_$",
+						"type_string": "function()"
+					}
+				}
+			],
+			"linearized_base_contracts": [
+				169,
+				309
+			],
+			"base_contracts": [
+				{
+					"id": 310,
+					"node_type": 62,
+					"src": {
+						"line": 138,
+						"column": 30,
+						"start": 4367,
+						"end": 4373,
+						"length": 7,
+						"parent_index": 309
+					},
+					"base_name": {
+						"id": 311,
+						"node_type": 52,
+						"src": {
+							"line": 138,
+							"column": 30,
+							"start": 4367,
+							"end": 4373,
+							"length": 7,
+							"parent_index": 309
+						},
+						"name": "Context",
+						"referenced_declaration": 169
+					}
+				}
+			],
+			"contract_dependencies": [
+				169
+			]
+		}
+	],
+	"src": {
+		"line": 138,
+		"column": 0,
+		"start": 4337,
+		"end": 6286,
+		"length": 1950,
+		"parent_index": 168
+	}
+}
