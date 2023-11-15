@@ -131,11 +131,11 @@ func (r *RootSourceUnit) GetContractsCountByKind(kind ast_pb.NodeType) int64 {
 // SetContractType sets the contract type for the given standard.
 func (r *RootSourceUnit) SetContractType(standard standards.Standard) {
 	switch standard {
-	case standards.EIP20:
+	case standards.ERC20:
 		r.appendContractType("token")
-	case standards.EIP721, standards.EIP1155:
+	case standards.ERC721, standards.ERC1155:
 		r.appendContractType("nft")
-	case standards.EIP1967, standards.EIP1820:
+	case standards.ERC1967, standards.ERC1820:
 		r.appendContractType("proxy")
 		r.appendContractType("upgradeable")
 	}

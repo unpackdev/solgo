@@ -28,9 +28,9 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		expectedError string
 	}{
 		{
-			name: "Test EIP20",
+			name: "Test ERC20",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP20)
+				standard, err := GetContractByStandard(ERC20)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -167,7 +167,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP721",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP721)
+				standard, err := GetContractByStandard(ERC721)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -221,7 +221,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1155",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1155)
+				standard, err := GetContractByStandard(ERC1155)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -272,7 +272,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1820",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1820)
+				standard, err := GetContractByStandard(ERC1820)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -321,7 +321,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1822",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1822)
+				standard, err := GetContractByStandard(ERC1822)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -368,7 +368,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1967",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1967)
+				standard, err := GetContractByStandard(ERC1967)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
