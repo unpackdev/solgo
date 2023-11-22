@@ -54,6 +54,16 @@ func (c *Contract) Parse(ctx context.Context) error {
 			return err
 		}
 		c.descriptor.IRRoot = parser.GetIR().GetRoot()
+
+		// What we should update here is get basically missing information from external sources corrected now...
+		if c.descriptor.Name == "" {
+			c.descriptor.Name = c.descriptor.IRRoot.GetEntryName()
+		}
+
+		if c.descriptor.License == "" || c.descriptor.License == "None" && c.descriptor.IRRoot.GetEntryContract() != nil {
+			c.descriptor.License = c.descriptor.IRRoot.GetEntryContract().GetLicense()
+		}
+
 	}
 
 	return nil

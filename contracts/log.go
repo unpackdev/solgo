@@ -13,6 +13,7 @@ import (
 )
 
 type Log struct {
+	Log         *types.Log
 	Address     common.Address
 	Topics      []common.Hash
 	Data        []byte
@@ -27,6 +28,7 @@ type Log struct {
 
 func (c *Contract) DecodeLog(ctx context.Context, log *types.Log) (*Log, error) {
 	toReturn := &Log{
+		Log:         log,
 		Address:     log.Address,
 		Topics:      log.Topics,
 		Data:        log.Data,

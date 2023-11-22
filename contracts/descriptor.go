@@ -5,6 +5,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/google/uuid"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/audit"
 	"github.com/unpackdev/solgo/bytecode"
@@ -23,6 +24,14 @@ type TokenDescriptor struct {
 }
 
 type Descriptor struct {
+
+	// Helpers, usually for database....
+	UUID            *uuid.UUID `json:"uuid,omitempty"`
+	NetworkUUID     *uuid.UUID `json:"network_uuid,omitempty"`
+	BlockUUID       *uuid.UUID `json:"block_uuid,omitempty"`
+	TransactionUUID *uuid.UUID `json:"transaction_uuid,omitempty"`
+
+	// Contract related fields.
 	Network          utils.Network                             `json:"network"`
 	NetworkID        utils.NetworkID                           `json:"network_id"`
 	Address          common.Address                            `json:"address"`
@@ -33,6 +42,7 @@ type Descriptor struct {
 	Receipt          *types.Receipt                            `json:"receipt,omitempty"`
 	Token            *TokenDescriptor                          `json:"token,omitempty"`
 	ABI              string                                    `json:"abi,omitempty"`
+	Name             string                                    `json:"name,omitempty"`
 	License          string                                    `json:"license,omitempty"`
 	SolgoVersion     string                                    `json:"solgo_version,omitempty"`
 	CompilerVersion  string                                    `json:"compiler_version,omitempty"`
@@ -53,6 +63,38 @@ type Descriptor struct {
 
 	// Auditing related fields.
 	Audit *audit.Report `json:"audit,omitempty"`
+}
+
+func (d *Descriptor) HasAudit() bool {
+	return d.Audit != nil
+}
+
+func (d *Descriptor) HasLiquidityPairs() bool {
+	return len(d.LiquidityPairs) > 0
+}
+
+func (d *Descriptor) HasUUID() bool {
+	return d.UUID != nil
+}
+
+func (d *Descriptor) SetUUID(uuid *uuid.UUID) {
+	d.UUID = uuid
+}
+
+func (d *Descriptor) HasBlockUUID() bool {
+	return d.BlockUUID != nil
+}
+
+func (d *Descriptor) SetBlockUUID(uuid *uuid.UUID) {
+	d.BlockUUID = uuid
+}
+
+func (d *Descriptor) HasTransactionUUID() bool {
+	return d.TransactionUUID != nil
+}
+
+func (d *Descriptor) SetTransactionUUID(uuid *uuid.UUID) {
+	d.TransactionUUID = uuid
 }
 
 func (d *Descriptor) HasDetector() bool {

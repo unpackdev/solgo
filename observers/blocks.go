@@ -1,6 +1,7 @@
 package observers
 
 import (
+	"context"
 	"errors"
 	"math/big"
 	"sync/atomic"
@@ -184,6 +185,31 @@ func (b *BlocksProcessor) Subscribe(opts *SubscriberOptions, blockCh chan *Block
 	b.active.Store(false)
 
 	return nil
+}
+
+func (b *BlocksProcessor) ProcessBlock(ctx context.Context, network utils.Network, networkId utils.NetworkID, strategy utils.Strategy, block *types.Block) (*BlockEntry, error) {
+	entry := &BlockEntry{
+		NetworkID: networkId,
+		Network:   network,
+		Strategy:  strategy,
+		Block:     block,
+	}
+
+	if hook, ok := b.hooks[PostHook]; ok {
+		entry, err := hook(entry)
+		if err != nil {
+			zap.L().Error(
+				"Post process block hook failed",
+				zap.Error(err),
+				zap.Uint64("block_number", block.Number().Uint64()),
+				zap.String("block_hash", block.Hash().String()),
+			)
+			return nil, err
+		}
+		return entry, nil
+	}
+
+	return entry, nil
 }
 
 // Close terminates the block subscription and releases any associated resources.

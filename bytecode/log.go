@@ -22,12 +22,13 @@ type Topic struct {
 type Log struct {
 	Event *abi.Event // Event is the ABI definition of the log's event
 
-	Abi       string                 `json:"abi"`       // Abi is the ABI string of the event
-	Signature string                 `json:"signature"` // Signature of the event
-	Type      utils.LogEventType     `json:"type"`      // Type of the event as classified by solgo
-	Name      string                 `json:"name"`      // Name of the event
-	Data      map[string]interface{} `json:"data"`      // Data contains the decoded event data
-	Topics    []Topic                `json:"topics"`    // Topics are the decoded topics of the event
+	Abi          string             `json:"abi"`           // Abi is the ABI string of the event
+	SignatureHex common.Hash        `json:"signature_hex"` // SignatureHex is the hex-encoded signature of the event
+	Signature    string             `json:"signature"`     // Signature of the event
+	Type         utils.LogEventType `json:"type"`          // Type of the event as classified by solgo
+	Name         string             `json:"name"`          // Name of the event
+	Data         map[string]any     `json:"data"`          // Data contains the decoded event data
+	Topics       []Topic            `json:"topics"`        // Topics are the decoded topics of the event
 }
 
 // DecodeLogFromAbi decodes an Ethereum event log using the provided ABI.
@@ -47,7 +48,7 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 		return nil, fmt.Errorf("failed to get event by id %s: %s", log.Topics[0].Hex(), err)
 	}
 
-	data := make(map[string]interface{})
+	data := make(map[string]any)
 	if err := event.Inputs.UnpackIntoMap(data, log.Data); err != nil {
 		return nil, fmt.Errorf("failed to unpack inputs into map: %s", err)
 	}
@@ -72,13 +73,14 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 	abi, _ := utils.EventToABI(event)
 
 	toReturn := &Log{
-		Event:     event,
-		Abi:       abi,
-		Signature: strings.TrimLeft(event.String(), "event "),
-		Name:      event.Name,
-		Type:      utils.LogEventType(strings.ToLower(event.Name)),
-		Data:      data,
-		Topics:    decodedTopics[1:], // Exclude the first topic (event signature)
+		Event:        event,
+		Abi:          abi,
+		SignatureHex: log.Topics[0],
+		Signature:    strings.TrimLeft(event.String(), "event "),
+		Name:         event.Name,
+		Type:         utils.LogEventType(strings.ToLower(event.Name)),
+		Data:         data,
+		Topics:       decodedTopics[1:], // Exclude the first topic (event signature)
 	}
 
 	return toReturn, nil

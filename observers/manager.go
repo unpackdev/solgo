@@ -14,15 +14,17 @@ import (
 )
 
 type Manager struct {
-	ctx         context.Context
-	opts        Options
-	clientsPool *clients.ClientPool
-	blockCh     chan *BlockEntry
-	hooks       map[ProcessorType]map[HookType]interface{}
-	bqp         *bitquery.BitQueryProvider
-	etherscan   *etherscan.EtherScanProvider
-	compiler    *solc.Solc
-	bindings    *bindings.Manager
+	ctx             context.Context
+	opts            Options
+	clientsPool     *clients.ClientPool
+	blockCh         chan *BlockEntry
+	hooks           map[ProcessorType]map[HookType]interface{}
+	bqp             *bitquery.BitQueryProvider
+	etherscan       *etherscan.EtherScanProvider
+	compiler        *solc.Solc
+	bindings        *bindings.Manager
+	blocksProcessor *BlocksProcessor
+	txsProcessor    *TransactionsProcessor
 }
 
 func NewManager(ctx context.Context, clientsPool *clients.ClientPool, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindings *bindings.Manager, opts Options, blockCh chan *BlockEntry) (*Manager, error) {
@@ -49,17 +51,18 @@ func (m *Manager) Run() error {
 
 	errCh := make(chan error, 1)
 
-	subscriber, err := NewBlocksProcessor(m)
+	blocksProcessor, err := NewBlocksProcessor(m)
 	if err != nil {
-		return fmt.Errorf("failed to create block subscriber: %w", err)
+		return fmt.Errorf("failed to create block blocksProcessor: %w", err)
 	}
-	defer subscriber.Close()
+	defer blocksProcessor.Close()
+	m.blocksProcessor = blocksProcessor
 
 	for _, strategy := range m.opts.Strategies {
 		switch strategy {
 		case utils.HeadStrategy:
 			go func() {
-				if err := subscriber.SubscribeHeader(&SubscriberOptions{
+				if err := blocksProcessor.SubscribeHeader(&SubscriberOptions{
 					NetworkID: m.opts.NetworkID,
 					Network:   m.opts.Network,
 					Head:      true,
@@ -70,7 +73,7 @@ func (m *Manager) Run() error {
 			}()
 		case utils.ArchiveStrategy:
 			go func() {
-				if err := subscriber.Subscribe(&SubscriberOptions{
+				if err := blocksProcessor.Subscribe(&SubscriberOptions{
 					NetworkID:        m.opts.NetworkID,
 					Network:          m.opts.Network,
 					StartBlockNumber: m.opts.StartBlock,
@@ -99,9 +102,13 @@ func (m *Manager) Process() error {
 		return fmt.Errorf("failed to create transaction processor: %w", err)
 	}
 	defer txsProcessor.Close()
+	m.txsProcessor = txsProcessor
 
 	contractProcessor := txsProcessor.GetContractProcessor()
 	defer contractProcessor.Close()
+
+	logsProcessor := txsProcessor.GetLogsProcessor()
+	defer logsProcessor.Close()
 
 	for i := 1; i <= 2; i++ {
 		go func() {
@@ -115,6 +122,15 @@ func (m *Manager) Process() error {
 	for i := 1; i <= 2; i++ {
 		go func() {
 			if err := contractProcessor.Worker(); err != nil {
+				errCh <- err
+				return
+			}
+		}()
+	}
+
+	for i := 1; i <= 2; i++ {
+		go func() {
+			if err := logsProcessor.Worker(); err != nil {
 				errCh <- err
 				return
 			}

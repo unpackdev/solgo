@@ -44,6 +44,9 @@ type TransactionEntry struct {
 }
 
 type LogEntry struct {
+	UUID              uuid.UUID `json:"uuid"`
+	BlockUUID         uuid.UUID `json:"block_uuid"`
+	TransactionUUID   uuid.UUID `json:"transaction_uuid"`
 	NetworkID         utils.NetworkID
 	Network           utils.Network
 	Strategy          utils.Strategy
@@ -60,12 +63,15 @@ type LogEntry struct {
 	BlockHeader       *types.Header
 	Transaction       *types.Transaction
 	Receipt           *types.Receipt
-	Log               *types.Log
+	LogContract       *contracts.Contract
+	Log               *contracts.Log
 }
 
 type ContractEntry struct {
 	UUID              uuid.UUID
 	NetworkID         utils.NetworkID
+	BlockUUID         uuid.UUID `json:"block_uuid"`
+	TransactionUUID   uuid.UUID `json:"transaction_uuid"`
 	Network           utils.Network
 	Strategy          utils.Strategy
 	TransactionType   utils.TransactionMethodType

@@ -18,6 +18,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 		dir := filepath.Dir(filename)
 		sourcesDir := filepath.Clean(filepath.Join(dir, "..", "sources"))
 		storage.Sources.LocalSourcesPath = sourcesDir
+		c.descriptor.Name = storage.Sources.EntrySourceUnitName
 		c.descriptor.Sources = storage.Sources
 		c.descriptor.CompilerVersion = storage.CompilerVersion.String()
 		c.descriptor.Optimized = storage.Optimized
@@ -81,6 +82,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 		return err
 	}
 
+	c.descriptor.Name = response.Name
 	c.descriptor.CompilerVersion = c.descriptor.SourcesRaw.CompilerVersion
 	c.descriptor.Optimized = optimized
 	c.descriptor.OptimizationRuns = optimizationRuns
