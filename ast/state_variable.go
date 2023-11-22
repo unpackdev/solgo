@@ -277,7 +277,10 @@ func (v *StateVariableDeclaration) ParseGlobal(
 func (v *StateVariableDeclaration) ParseGlobalConstant(
 	ctx *parser.ConstantVariableDeclarationContext,
 ) {
-	v.Name = ctx.Identifier().GetText()
+	if ctx.Identifier() != nil {
+		v.Name = ctx.Identifier().GetText()
+	}
+
 	v.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),

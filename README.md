@@ -30,6 +30,8 @@ Once I am confident that the project is fully ready for production, this disclai
 
 The SolGo basic documentation is hosted on GitHub, ensuring it's always up-to-date with the latest changes and features. You can access the full documentation [here](https://github.com/unpackdev/solgo/wiki).
 
+**NOTE: Statement above is not true yet (lazy to change it)... Documentation is still being written.**
+
 ## Getting Started
 
 Detailed examples of how to install and use this package can be found in the [Usage](https://github.com/unpackdev/solgo/wiki/Getting-Started) section.

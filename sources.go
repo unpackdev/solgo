@@ -1,6 +1,7 @@
 package solgo
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -127,7 +128,7 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 // NewSourcesFromEtherScan creates a Sources from an EtherScan response.
 // This is a helper function that ensures easier integration when working with the EtherScan provider.
 // This includes BscScan, and other equivalent from the same family.
-func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources {
+func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources, error) {
 	_, filename, _, _ := runtime.Caller(0)
 	dir := filepath.Dir(filename)
 	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
@@ -145,6 +146,27 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources 
 			Path:    fmt.Sprintf("%s.sol", entryContractName),
 			Content: sourceCode,
 		})
+	case map[string]interface{}:
+		// Create an instance of ContractMetadata
+		var contractMetadata metadata.ContractMetadata
+
+		// Marshal the map into JSON, then Unmarshal it into the ContractMetadata struct
+		jsonBytes, err := json.Marshal(sourceCode)
+		if err != nil {
+			return nil, fmt.Errorf("error marshalling to json: %v", err)
+		}
+
+		if err := json.Unmarshal(jsonBytes, &contractMetadata); err != nil {
+			return nil, fmt.Errorf("error unmarshalling to contract metadata: %v", err)
+		}
+
+		for name, source := range contractMetadata.Sources {
+			sources.AppendSource(&SourceUnit{
+				Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
+				Path:    name,
+				Content: source.Content,
+			})
+		}
 	case metadata.ContractMetadata:
 		for name, source := range sourceCode.Sources {
 			sources.AppendSource(&SourceUnit{
@@ -154,10 +176,10 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources 
 			})
 		}
 	default:
-		panic(fmt.Sprintf("invalid source code type %T", sc))
+		return nil, fmt.Errorf("unknown source code type: %T", sourceCode)
 	}
 
-	return sources
+	return sources, nil
 }
 
 // AppendSource appends a SourceUnit to the Sources.
