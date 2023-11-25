@@ -38,6 +38,7 @@ type Function struct {
 	Scope                 int64                 `json:"scope"`
 	ReferencedDeclaration int64                 `json:"referenced_declaration,omitempty"`
 	TypeDescription       *TypeDescription      `json:"type_description"`
+	Text                  string                `json:"text,omitempty"`
 }
 
 // NewFunction creates and initializes a new Function node.
@@ -196,6 +197,10 @@ func (f *Function) GetNodes() []Node[NodeType] {
 	}
 
 	return toReturn
+}
+
+func (f *Function) ToString() string {
+	return f.Text
 }
 
 // GetReferencedDeclaration returns the referenced declaration identifier associated with the Function node.
@@ -384,6 +389,7 @@ func (f *Function) Parse(
 	ctx *parser.FunctionDefinitionContext,
 ) Node[NodeType] {
 	// Initialize basic properties.
+	f.Text = ctx.GetText()
 	f.Id = f.GetNextID()
 	f.Scope = contractNode.GetId()
 	if ctx.Identifier() != nil {

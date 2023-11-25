@@ -82,11 +82,18 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 			NetworkID:      utils.GetNetworkID(network),
 			Address:        addr,
 			LiquidityPairs: make(map[exchanges.ExchangeType]common.Address),
+			Safety:         &SafetyDescriptor{},
 		},
 		bindings:  bindManager,
 		tokenBind: tokenBind,
 	}
 
+	/* 	inspect, err := inspector.NewInspector(ctx, clientPool, toReturn)
+	   	if err != nil {
+	   		return nil, fmt.Errorf("failed to create new inspector: %w", err)
+	   	}
+	   	toReturn.inspector = inspect
+	*/
 	valid, err := toReturn.IsValid()
 	if err != nil {
 		return nil, fmt.Errorf("failure to check for contract validity: %s", err)

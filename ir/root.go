@@ -10,6 +10,7 @@ import (
 
 // RootSourceUnit represents the root of a Solidity contract's AST as an IR node.
 type RootSourceUnit struct {
+	builder           *Builder        `json:"-"`
 	Unit              *ast.RootNode   `json:"ast"`
 	NodeType          ast_pb.NodeType `json:"node_type"`
 	EntryContractId   int64           `json:"entry_contract_id"`
@@ -90,11 +91,24 @@ func (r *RootSourceUnit) GetStandards() []*Standard {
 	return r.Standards
 }
 
-// HasEips returns true if standard is already registered false otherwise.
+// HasStandard returns true if standard is already registered false otherwise.
 func (r *RootSourceUnit) HasStandard(standard standards.Standard) bool {
 	for _, e := range r.Standards {
 		if e.Standard.Type == standard {
 			return true
+		}
+	}
+
+	return false
+}
+
+// HasEips returns true if standard is already registered false otherwise.
+func (r *RootSourceUnit) HasHighConfidenceStandard(standard standards.Standard) bool {
+	for _, e := range r.Standards {
+		if e.Standard.Type == standard {
+			if e.GetConfidence().Confidence == standards.HighConfidence {
+				return true
+			}
 		}
 	}
 
@@ -173,10 +187,16 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 	return proto
 }
 
+func (r *RootSourceUnit) Walk(nodeVisitor ast.NodeVisitor) error {
+	r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
+	return nil
+}
+
 // processRoot processes the given root node of an AST and returns a RootSourceUnit.
 // It populates the RootSourceUnit with the contracts from the AST.
 func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	rootNode := &RootSourceUnit{
+		builder:        b,
 		Unit:           root,
 		NodeType:       root.GetType(),
 		ContractsCount: int32(root.GetSourceUnitCount()),

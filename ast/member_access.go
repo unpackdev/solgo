@@ -26,6 +26,7 @@ type MemberAccessExpression struct {
 	ArgumentTypes         []*TypeDescription `json:"argument_types"`
 	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
 	TypeDescription       *TypeDescription   `json:"type_description"`
+	Text                  string             `json:"text"`
 }
 
 // NewMemberAccessExpression creates a new MemberAccessExpression instance with initial values.
@@ -244,6 +245,10 @@ func (m *MemberAccessExpression) ToProto() NodeType {
 	return NewTypedStruct(&proto, "MemberAccess")
 }
 
+func (m *MemberAccessExpression) ToText() string {
+	return m.Text
+}
+
 // Parse populates the MemberAccessExpression node based on the provided context and other information.
 func (m *MemberAccessExpression) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
@@ -254,6 +259,7 @@ func (m *MemberAccessExpression) Parse(
 	expNode Node[NodeType],
 	ctx *parser.MemberAccessContext,
 ) Node[NodeType] {
+	m.Text = ctx.GetText()
 	m.Src = SrcNode{
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),

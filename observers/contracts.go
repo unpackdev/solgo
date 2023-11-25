@@ -234,6 +234,9 @@ func (p *ContractsProcessor) Unpack(ctx context.Context, network utils.Network, 
 	// Now lets try to audit the contract source code
 	contract.Audit(ctx)
 
+	// Now lets see what's the safety of the contract
+	contract.Inspect(ctx)
+
 	// How about potential liquidity?
 	contract.DiscoverLiquidity(ctx)
 

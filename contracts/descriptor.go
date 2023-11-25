@@ -13,6 +13,7 @@ import (
 	"github.com/unpackdev/solgo/exchanges"
 	"github.com/unpackdev/solgo/ir"
 	"github.com/unpackdev/solgo/providers/etherscan"
+	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -21,6 +22,12 @@ type TokenDescriptor struct {
 	Symbol      string   `json:"symbol"`
 	Decimals    uint8    `json:"decimals"`
 	TotalSupply *big.Int `json:"total_supply"`
+}
+
+type SafetyDescriptor struct {
+	Mintable             bool `json:"mintable"`
+	Burnable             bool `json:"burnable"`
+	CanRenounceOwnership bool `json:"can_renounce_ownership"`
 }
 
 type Descriptor struct {
@@ -62,7 +69,8 @@ type Descriptor struct {
 	Constructor *bytecode.Constructor `json:"constructor,omitempty"`
 
 	// Auditing related fields.
-	Audit *audit.Report `json:"audit,omitempty"`
+	Audit  *audit.Report     `json:"audit,omitempty"`
+	Safety *SafetyDescriptor `json:"safety,omitempty"`
 }
 
 func (d *Descriptor) HasAudit() bool {
@@ -111,4 +119,40 @@ func (d *Descriptor) HasContracts() bool {
 	}
 
 	return false
+}
+
+func (d *Descriptor) IsERC20() bool {
+	if !d.HasDetector() {
+		return false
+	}
+
+	return d.Detector.GetIR().GetRoot().HasHighConfidenceStandard(standards.ERC20)
+}
+
+func (d *Descriptor) IsERC721() bool {
+	if !d.HasDetector() {
+		return false
+	}
+
+	return d.Detector.GetIR().GetRoot().HasHighConfidenceStandard(standards.ERC721)
+}
+
+func (d *Descriptor) IsERC1155() bool {
+	if !d.HasDetector() {
+		return false
+	}
+
+	return d.Detector.GetIR().GetRoot().HasHighConfidenceStandard(standards.ERC1155)
+}
+
+func (d *Descriptor) IsERC165() bool {
+	if !d.HasDetector() {
+		return false
+	}
+
+	return d.Detector.GetIR().GetRoot().HasHighConfidenceStandard(standards.ERC165)
+}
+
+func (d *Descriptor) GetIrRoot() *ir.RootSourceUnit {
+	return d.IRRoot
 }

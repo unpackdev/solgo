@@ -28,6 +28,7 @@ type PrimaryExpression struct {
 	ReferencedDeclaration  int64              `json:"referenced_declaration"`     // Referenced declaration of the node.
 	Pure                   bool               `json:"is_pure"`                    // Indicates if the node is pure.
 	ArgumentTypes          []*TypeDescription `json:"argument_types,omitempty"`   // Argument types of the node.
+	Text                   string             `json:"text,omitempty"`             // Text of the node.
 }
 
 // NewPrimaryExpression creates a new PrimaryExpression node with a given ASTBuilder.
@@ -195,6 +196,7 @@ func (p *PrimaryExpression) Parse(
 	parentNodeId int64,
 	ctx *parser.PrimaryExpressionContext,
 ) Node[NodeType] {
+	p.Text = ctx.GetText()
 	p.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
