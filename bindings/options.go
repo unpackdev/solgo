@@ -10,6 +10,7 @@ import (
 type BindOptions struct {
 	Network   utils.Network
 	NetworkID utils.NetworkID
+	Name      string
 	Type      BindingType
 	Address   common.Address
 	ABI       string

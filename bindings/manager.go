@@ -3,11 +3,13 @@ package bindings
 import (
 	"context"
 	"fmt"
+	"math/big"
 	"strings"
 	"sync"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/unpackdev/solgo/clients"
@@ -15,22 +17,47 @@ import (
 	"github.com/unpackdev/solgo/utils"
 )
 
+type PairDetails struct {
+	Address  common.Address // Address of the Uniswap pair contract
+	Token0   common.Address // Address of the first token in the pair
+	Token1   common.Address // Address of the second token in the pair
+	Reserve0 *big.Int       // Reserve amount of the first token
+	Reserve1 *big.Int       // Reserve amount of the second token
+}
+
 type Manager struct {
-	ctx        context.Context
-	clientPool *clients.ClientPool
-	bindings   map[utils.Network]map[BindingType]*Binding
-	mu         sync.RWMutex // Mutex for thread-safe operations
+	ctx             context.Context
+	clientPool      *clients.ClientPool
+	simulatedClient *backends.SimulatedBackend
+	bindings        map[utils.Network]map[BindingType]*Binding
+	mu              sync.RWMutex // Mutex for thread-safe operations
 }
 
 func NewManager(ctx context.Context, clientPool *clients.ClientPool) (*Manager, error) {
-	if err := standards.LoadStandards(); err != nil {
-		return nil, fmt.Errorf("failed to load standards: %w", err)
+	if !standards.StandardsLoaded() {
+		if err := standards.LoadStandards(); err != nil {
+			return nil, fmt.Errorf("failed to load standards: %w", err)
+		}
 	}
 
 	return &Manager{
 		ctx:        ctx,
 		clientPool: clientPool,
 		bindings:   make(map[utils.Network]map[BindingType]*Binding),
+	}, nil
+}
+
+func NewSimulatedManager(ctx context.Context, clientPool *backends.SimulatedBackend) (*Manager, error) {
+	if !standards.StandardsLoaded() {
+		if err := standards.LoadStandards(); err != nil {
+			return nil, fmt.Errorf("failed to load standards: %w", err)
+		}
+	}
+
+	return &Manager{
+		ctx:             ctx,
+		simulatedClient: clientPool,
+		bindings:        make(map[utils.Network]map[BindingType]*Binding),
 	}, nil
 }
 
@@ -110,6 +137,11 @@ func (m *Manager) WatchEvents(network utils.Network, bindingType BindingType, ev
 	}
 
 	query.Topics = [][]common.Hash{{event.ID}}
+
+	if m.simulatedClient != nil {
+		return m.simulatedClient.SubscribeFilterLogs(context.Background(), query, ch)
+	}
+
 	client := m.clientPool.GetClientByGroup(network.String())
 	if client == nil {
 		return nil, fmt.Errorf("client not found for network %s", network)
@@ -137,20 +169,32 @@ func (m *Manager) CallContractMethod(network utils.Network, bindingType BindingT
 		return nil, err
 	}
 
-	client := m.clientPool.GetClientByGroup(network.String())
-	if client == nil {
-		return nil, fmt.Errorf("client not found for network %s", network)
-	}
-
 	callMsg := ethereum.CallMsg{
 		To:   &binding.Address,
 		Data: append(method.ID, data...),
 	}
 
-	result, err := client.CallContract(context.Background(), callMsg, nil)
-	if err != nil {
-		return nil, fmt.Errorf("failed to call contract: %w", err)
+	var result []byte
+
+	if m.simulatedClient != nil {
+		result, err = m.simulatedClient.CallContract(context.Background(), callMsg, nil)
+		if err != nil {
+			return nil, fmt.Errorf("failed to simulate call contract: %w", err)
+		}
+	} else {
+		client := m.clientPool.GetClientByGroup(network.String())
+		if client == nil {
+			return nil, fmt.Errorf("client not found for network %s", network)
+		}
+
+		result, err = client.CallContract(context.Background(), callMsg, nil)
+		if err != nil {
+			return nil, fmt.Errorf("failed to call contract: %w", err)
+		}
 	}
+
+	/* 	spew.Dump("Call Contract Response", &binding.Address, methodName, params, result)
+	   	spew.Dump("Raw Call Result", result) */
 
 	var unpackedResults any
 	err = binding.ABI.UnpackIntoInterface(&unpackedResults, methodName, result)
