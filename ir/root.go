@@ -187,7 +187,7 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 	return proto
 }
 
-func (r *RootSourceUnit) Walk(nodeVisitor ast.NodeVisitor) error {
+func (r *RootSourceUnit) Walk(nodeVisitor *ast.NodeVisitor) error {
 	r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
 	return nil
 }
