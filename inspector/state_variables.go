@@ -45,9 +45,9 @@ func (m *StateVariableDetector) Type() DetectorType {
 	return StateVariableDetectorType
 }
 
-func (m *StateVariableDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
-		ast_pb.NodeType_VARIABLE_DECLARATION: func(node ast.Node[ast.NodeType]) bool {
+func (m *StateVariableDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
+		ast_pb.NodeType_VARIABLE_DECLARATION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if varCtx, ok := node.(*ast.StateVariableDeclaration); ok {
 				m.results.Declarations = append(m.results.Declarations, &VariableDeclaration{
 					Name:          varCtx.GetName(),
@@ -57,17 +57,17 @@ func (m *StateVariableDetector) Enter(ctx context.Context) map[ast_pb.NodeType]f
 				})
 			}
 
-			return true
+			return true, nil
 		},
 	}
 }
 
-func (m *StateVariableDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{}
+func (m *StateVariableDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
 }
 
-func (m *StateVariableDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{}
+func (m *StateVariableDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
 }
 
 func (m *StateVariableDetector) Results() any {

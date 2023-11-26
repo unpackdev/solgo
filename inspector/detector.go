@@ -10,9 +10,9 @@ import (
 type Detector interface {
 	Name() string
 	Type() DetectorType
-	Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool
-	Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool
-	Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool
+	Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
+	Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
+	Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
 
 	// // We are not able to use generics yet to the way I want to use them... Once it's enabled lets use it!
 	// Basically we would need to use something like DetectorInterface but we cannot use it on registry variable declaration
@@ -33,4 +33,5 @@ type DetectorResult struct {
 	SeverityType        SeverityType           `json:"severity_type"`
 	ConfidenceLevelType ConfidenceLevelType    `json:"detection_level"`
 	Statement           ast.Node[ast.NodeType] `json:"statement"`
+	SubDetectors        []DetectorResult       `json:"sub_detectors"`
 }

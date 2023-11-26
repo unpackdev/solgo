@@ -2,6 +2,7 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -76,10 +77,10 @@ func (i *Inspector) GetTree() *ast.Tree {
 }
 
 func (i *Inspector) UsesTransfers() bool {
-	transferCheckFunc := func(node ast.Node[ast.NodeType]) bool {
+	transferCheckFunc := func(node ast.Node[ast.NodeType]) (bool, error) {
 		functionNode, ok := node.(*ast.Function)
 		if !ok {
-			return true // Not a function node, skip
+			return true, fmt.Errorf("node is not a function")
 		}
 
 		if functionNode.GetName() == "transfer" || functionNode.GetName() == "transferFrom" {
@@ -104,7 +105,7 @@ func (i *Inspector) UsesTransfers() bool {
 			}
 		}
 
-		return true // Continue walking
+		return true, nil
 	}
 
 	i.detector.GetAST().GetTree().ExecuteTypeVisit(ast_pb.NodeType_FUNCTION_DEFINITION, transferCheckFunc)

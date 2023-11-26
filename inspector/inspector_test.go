@@ -106,7 +106,7 @@ func TestInspector(t *testing.T) {
 				// Alright now we're at the point that we know contract should be checked for any type of malicious activity
 				tAssert.NoError(inspector.Inspect())
 
-				utils.DumpNodeNoExit(inspector.GetReport().Detectors[TransferDetectorType])
+				//utils.DumpNodeNoExit(inspector.GetReport().Detectors[TransferDetectorType])
 
 				/* 				md := GetDetector(MintDetectorType)
 				   				require.NotNil(t, md)

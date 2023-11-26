@@ -4,6 +4,7 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
@@ -104,24 +105,24 @@ func (m *MintDetector) FunctionNameExists(fnName string) bool {
 }
 
 // Enter prepares the detector for analysis but currently does nothing. It may be extended in the future.
-func (m *MintDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{}
+func (m *MintDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
 }
 
 // Detect initiates the detection process for mint functions within a smart contract.
 // It returns a map of node types to handler functions for further analysis.
-func (m *MintDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
-		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) bool {
+func (m *MintDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
+		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if nodeCtx, ok := node.(*ast.Function); ok {
 				if m.FunctionNameExists(nodeCtx.GetName()) {
 					if err := m.analyzeFunctionBody(nodeCtx); err != nil {
-						return true
+						return true, err
 					}
 				}
 			}
 
-			return true
+			return true, nil
 		},
 	}
 }
@@ -134,8 +135,8 @@ func (m *MintDetector) analyzeFunctionBody(fnCtx *ast.Function) error {
 	m.results.FunctionName = fnCtx.GetName()
 	//m.results.Statement = fnCtx
 
-	m.inspector.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_ASSIGNMENT, func(node ast.Node[ast.NodeType]) bool {
-		m.inspector.GetTree().ExecuteCustomTypeVisit(node.GetNodes(), ast_pb.NodeType_INDEX_ACCESS, func(node ast.Node[ast.NodeType]) bool {
+	m.inspector.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_ASSIGNMENT, func(node ast.Node[ast.NodeType]) (bool, error) {
+		m.inspector.GetTree().ExecuteCustomTypeVisit(node.GetNodes(), ast_pb.NodeType_INDEX_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
 			if indexCtx, ok := node.(*ast.IndexAccess); ok {
 				var detector *DetectorResult
 
@@ -159,10 +160,10 @@ func (m *MintDetector) analyzeFunctionBody(fnCtx *ast.Function) error {
 
 			}
 
-			return true
+			return true, nil
 		})
 
-		return true
+		return true, nil
 	})
 
 	return nil
@@ -170,24 +171,24 @@ func (m *MintDetector) analyzeFunctionBody(fnCtx *ast.Function) error {
 
 // Exit finalizes the detection process by performing any necessary cleanup and additional analysis on if discovered
 // mint function is used anywhere else in the contract.
-func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
+func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 
 		// Problem is that mint function can be discovered at any point in time so we need to go one more time
 		// through whole process in case that mint is discovered in order to get all of the reference locations where
 		// mint function is being called out...
 		// Mint function can exist and never be used or it can be announced as not being used where we in fact see that
 		// it can be used....
-		ast_pb.NodeType_FUNCTION_DEFINITION: func(fnNode ast.Node[ast.NodeType]) bool {
+		ast_pb.NodeType_FUNCTION_DEFINITION: func(fnNode ast.Node[ast.NodeType]) (bool, error) {
 			// We do not want to continue if we did not discover mint function...
 			if !m.results.Detected {
-				return false
+				return false, nil
 			}
 
-			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_MEMBER_ACCESS, func(node ast.Node[ast.NodeType]) bool {
+			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_MEMBER_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
 				nodeCtx, ok := node.(*ast.MemberAccessExpression)
 				if !ok {
-					return true
+					return true, fmt.Errorf("unable to convert node to MemberAccessExpression type in MintDetector.Exit: %T", node)
 				}
 
 				if nodeCtx.GetMemberName() == m.results.FunctionName {
@@ -202,18 +203,18 @@ func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 					}
 				}
 
-				return true
+				return true, nil
 			})
 
-			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) bool {
+			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) (bool, error) {
 				nodeCtx, ok := node.(*ast.FunctionCall)
 				if !ok {
-					return true
+					return true, fmt.Errorf("unable to convert node to FunctionCall type in MintDetector.Exit: %T", node)
 				}
 
 				expressionCtx, ok := nodeCtx.GetExpression().(*ast.PrimaryExpression)
 				if !ok {
-					return true
+					return true, fmt.Errorf("unable to convert node to PrimaryExpression type in MintDetector.Exit: %T", nodeCtx.GetExpression())
 				}
 
 				if expressionCtx.GetName() == m.results.FunctionName {
@@ -230,10 +231,10 @@ func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 						}
 					}
 				}
-				return true
+				return true, nil
 			})
 
-			return true
+			return true, nil
 		},
 	}
 }

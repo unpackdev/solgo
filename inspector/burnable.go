@@ -2,6 +2,7 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
@@ -74,13 +75,13 @@ func (m *BurnDetector) FunctionNameExists(fnName string) bool {
 }
 
 // Enter for now does nothing for mint detector. It may be needed in the future.
-func (m *BurnDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{}
+func (m *BurnDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
 }
 
-func (m *BurnDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
-		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) bool {
+func (m *BurnDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
+		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			switch nodeCtx := node.(type) {
 			case *ast.Constructor:
 			case *ast.Function:
@@ -91,29 +92,29 @@ func (m *BurnDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node
 					//m.results.Function = nodeCtx
 				}
 			}
-			return true
+			return true, nil
 		},
 	}
 }
 
-func (m *BurnDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
+func (m *BurnDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 
 		// Problem is that mint function can be discovered at any point in time so we need to go one more time
 		// through whole process in case that mint is discovered in order to get all of the reference locations where
 		// mint function is being called out...
 		// Burn function can exist and never be used or it can be announced as not being used where we in fact see that
 		// it can be used....
-		ast_pb.NodeType_FUNCTION_DEFINITION: func(fnNode ast.Node[ast.NodeType]) bool {
+		ast_pb.NodeType_FUNCTION_DEFINITION: func(fnNode ast.Node[ast.NodeType]) (bool, error) {
 			// We do not want to continue if we did not discover mint function...
 			if !m.results.Detected {
-				return false
+				return false, nil
 			}
 
-			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_MEMBER_ACCESS, func(node ast.Node[ast.NodeType]) bool {
+			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_MEMBER_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
 				nodeCtx, ok := node.(*ast.MemberAccessExpression)
 				if !ok {
-					return true
+					return true, fmt.Errorf("unable to convert node to MemberAccessExpression type in BurnDetector.Exit: %T", node)
 				}
 
 				if nodeCtx.GetMemberName() == m.results.FunctionName {
@@ -128,18 +129,18 @@ func (m *BurnDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 					}
 				}
 
-				return true
+				return true, nil
 			})
 
-			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) bool {
+			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) (bool, error) {
 				nodeCtx, ok := node.(*ast.FunctionCall)
 				if !ok {
-					return true
+					return true, fmt.Errorf("unable to convert node to FunctionCall type in BurnDetector.Exit: %T", node)
 				}
 
 				expressionCtx, ok := nodeCtx.GetExpression().(*ast.PrimaryExpression)
 				if !ok {
-					return true
+					return true, fmt.Errorf("unable to convert node to PrimaryExpression type in BurnDetector.Exit: %T", nodeCtx.GetExpression())
 				}
 
 				if expressionCtx.GetName() == m.results.FunctionName {
@@ -156,10 +157,10 @@ func (m *BurnDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 						}
 					}
 				}
-				return true
+				return true, nil
 			})
 
-			return true
+			return true, nil
 		},
 	}
 }

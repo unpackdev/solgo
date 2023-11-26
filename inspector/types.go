@@ -20,6 +20,7 @@ const (
 	SeverityMedium   SeverityType = "medium"
 	SeverityHigh     SeverityType = "high"
 	SeverityCritical SeverityType = "critical"
+	SeverityOk       SeverityType = "ok"
 
 	ConfidenceLevelLow    ConfidenceLevelType = "low"
 	ConfidenceLevelMedium ConfidenceLevelType = "medium"
