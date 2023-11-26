@@ -73,6 +73,10 @@ func (i *Inspector) HasStandard(standard standards.Standard) bool {
 	return i.detector.GetIR().GetRoot().HasHighConfidenceStandard(standard)
 }
 
+func (i *Inspector) GetTree() *ast.Tree {
+	return i.detector.GetAST().GetTree()
+}
+
 func (i *Inspector) UsesTransfers() bool {
 	transferCheckFunc := func(node ast.Node[ast.NodeType]) bool {
 		functionNode, ok := node.(*ast.Function)
@@ -109,12 +113,19 @@ func (i *Inspector) UsesTransfers() bool {
 	return i.report.UsesTransfers
 }
 
-func (i *Inspector) Inspect() error {
+func (i *Inspector) Inspect(only ...DetectorType) error {
 	zap.L().Info("Inspecting contract")
 
 	// Iterate through each registered detector and execute their logic
 	for detectorType, detector := range registry {
 		zap.L().Info("Running detector", zap.String("DetectorType", string(detectorType)))
+
+		// If only is not empty, check if detector type is in only slice, if not continue to next detector
+		if len(only) > 0 {
+			if !IsDetectorType(detectorType, only...) {
+				continue
+			}
+		}
 
 		// Enter phase
 		enterFuncs := detector.Enter(i.ctx)

@@ -38,6 +38,10 @@ func (t *Tree) ExecuteTypeVisit(nodeType ast_pb.NodeType, visitFunc func(node No
 	t.executeTypeVisitRecursive(t.astRoot.GetNodes(), nodeType, visitFunc)
 }
 
+func (t *Tree) ExecuteCustomTypeVisit(nodes []Node[NodeType], nodeType ast_pb.NodeType, visitFunc func(node Node[NodeType]) bool) {
+	t.executeTypeVisitRecursive(nodes, nodeType, visitFunc)
+}
+
 func (t *Tree) executeTypeVisitRecursive(nodes []Node[NodeType], nodeType ast_pb.NodeType, visitFunc func(node Node[NodeType]) bool) {
 	for _, node := range nodes {
 		if node == nil {

@@ -27,3 +27,10 @@ func ToDetector[T any](d Detector) T {
 func ToResults[T any](r any) T {
 	return r.(T)
 }
+
+type DetectorResult struct {
+	DetectionType       DetectionType          `json:"detection_type"`
+	SeverityType        SeverityType           `json:"severity_type"`
+	ConfidenceLevelType ConfidenceLevelType    `json:"detection_level"`
+	Statement           ast.Node[ast.NodeType] `json:"statement"`
+}

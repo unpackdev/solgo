@@ -46,7 +46,6 @@ func TestInspector(t *testing.T) {
 		Keys:     strings.Split(etherscanApiKeys, ","),
 	})
 
-	// Define your test cases
 	testCases := []struct {
 		name          string
 		contractAddr  common.Address
@@ -76,6 +75,8 @@ func TestInspector(t *testing.T) {
 				parser, err := detector.NewDetectorFromSources(ctx, nil, sources)
 				tAssert.NoError(err)
 				tAssert.NotNil(parser)
+
+				// So far contracts bellow 0.6.0 are doing some weird shit so we are disabling it for now...
 				require.False(t, utils.IsSemanticVersionLowerOrEqualTo(response.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 6, Patch: 0}))
 
 				_ = parser.Parse()

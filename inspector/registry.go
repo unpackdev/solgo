@@ -20,10 +20,23 @@ func RegisterDetector(detectorType DetectorType, detector Detector) bool {
 	return false
 }
 
+func IsDetectorType(detectorType DetectorType, detectorTypes ...DetectorType) bool {
+	for _, dt := range detectorTypes {
+		if dt == detectorType {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (i *Inspector) RegisterDetectors() {
 	RegisterDetector(StateVariableDetectorType, NewStateVariableDetector(i.ctx, i))
 	RegisterDetector(TransferDetectorType, NewTransferDetector(i.ctx, i))
+	RegisterDetector(ProxyDetectorType, NewProxyDetector(i.ctx, i))
 	RegisterDetector(MintDetectorType, NewMintDetector(i.ctx, i))
+	RegisterDetector(BurnDetectorType, NewBurnDetector(i.ctx, i))
+
 	/*
 		 	RegisterDetector(TransferDetector, &TransferDetectorImpl{})
 			RegisterDetector(MintDetector, &MintDetectorImpl{})

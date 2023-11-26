@@ -91,6 +91,16 @@ func (r *RootSourceUnit) GetStandards() []*Standard {
 	return r.Standards
 }
 
+// GetStandard returns the EIP with the given type.
+func (r *RootSourceUnit) GetStandard(standard standards.Standard) *Standard {
+	for _, e := range r.Standards {
+		if e.Standard.Type == standard {
+			return e
+		}
+	}
+	return nil
+}
+
 // HasStandard returns true if standard is already registered false otherwise.
 func (r *RootSourceUnit) HasStandard(standard standards.Standard) bool {
 	for _, e := range r.Standards {

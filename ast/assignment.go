@@ -23,6 +23,7 @@ type Assignment struct {
 	RightExpression       Node[NodeType]   `json:"right_expression,omitempty"`       // Right-hand side expression.
 	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration identifier (if used).
 	TypeDescription       *TypeDescription `json:"type_description,omitempty"`       // Type description associated with the Assignment node.
+	Text                  string           `json:"text,omitempty"`                   // Text of the Assignment node.
 }
 
 // NewAssignment creates a new Assignment node with a given ASTBuilder.
@@ -252,6 +253,11 @@ func (a *Assignment) ToProto() NodeType {
 	return NewTypedStruct(&proto, "Assignment")
 }
 
+// ToString returns the string representation of the Assignment node.
+func (a *Assignment) ToString() string {
+	return a.Text
+}
+
 // SetReferenceDescriptor sets the reference descriptions of the Assignment node.
 func (a *Assignment) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	a.ReferencedDeclaration = refId
@@ -295,6 +301,8 @@ func (a *Assignment) ParseStatement(
 		Length:      int64(eCtx.GetStop().GetStop() - eCtx.GetStart().GetStart() + 1),
 		ParentIndex: parentNodeId,
 	}
+
+	a.Text = eCtx.GetText()
 
 	// Parsing the expression and setting the type description.
 	expression := NewExpression(a.ASTBuilder)
