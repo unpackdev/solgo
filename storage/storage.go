@@ -2,6 +2,7 @@ package storage
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 
 	"github.com/0x19/solc-switch"
@@ -12,6 +13,7 @@ import (
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/utils"
+	"go.uber.org/zap"
 )
 
 type Storage struct {
@@ -79,8 +81,49 @@ func (s *Storage) GetStorageDescriptor(ctx context.Context, addr common.Address,
 		return nil, err
 	}
 
-	if err := reader.GetStorageLayout(); err != nil {
+	layout, err := reader.GetStorageLayout()
+	if err != nil {
 		return nil, err
+	}
+
+	for contract, v := range layout {
+		zap.L().Info(
+			"Found storage slot",
+			zap.String("contract_address", addr.Hex()),
+			zap.String("contract_name", contract),
+			zap.String("name", v.Name),
+			zap.String("type", v.Type),
+			zap.Int64("slot", v.Slot),
+			zap.Any("offset", v.Offset),
+			zap.Any("size", v.Size),
+		)
+
+		storageValue, err := s.StorageAt(ctx, addr, common.BytesToHash(v.Bytes()), atBlock)
+		if err != nil {
+			zap.L().Error(
+				"Failed to get storage value",
+				zap.Error(err),
+				zap.String("contract_address", addr.Hex()),
+				zap.String("contract_name", contract),
+				zap.String("name", v.Name),
+				zap.String("type", v.Type),
+				zap.Int64("slot", v.Slot),
+				zap.Any("offset", v.Offset),
+				zap.Any("size", v.Size),
+			)
+		}
+
+		zap.L().Info(
+			"Storage value",
+			zap.String("contract_address", addr.Hex()),
+			zap.String("contract_name", contract),
+			zap.String("name", v.Name),
+			zap.String("type", v.Type),
+			zap.Int64("slot", v.Slot),
+			zap.Any("offset", v.Offset),
+			zap.Any("size", v.Size),
+			zap.Any("value", storageValue),
+		)
 	}
 
 	return reader, nil
@@ -88,4 +131,17 @@ func (s *Storage) GetStorageDescriptor(ctx context.Context, addr common.Address,
 
 func (s *Storage) GetStorageDescriptorFromContract(ctx context.Context, c *contracts.Contract, atBlock *big.Int) (*Descriptor, error) {
 	return &Descriptor{}, nil
+}
+
+func (s *Storage) StorageAt(ctx context.Context, contractAddress common.Address, hashedSlot common.Hash, blockNumber *big.Int) ([]byte, error) {
+	client := s.clientsPool.GetClientByGroup(s.network.String())
+	if client == nil {
+		return nil, fmt.Errorf("no client found for network %s", s.network)
+	}
+
+	storageValue, err := client.StorageAt(ctx, contractAddress, hashedSlot, blockNumber)
+	if err != nil {
+		return nil, err
+	}
+	return storageValue, nil
 }
