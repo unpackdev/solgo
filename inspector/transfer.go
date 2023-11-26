@@ -11,12 +11,14 @@ import (
 )
 
 type Function struct {
-	ContractName string                       `json:"contract_name"`
-	ContractType ast_pb.NodeType              `json:"contract_type"`
-	ContractKind ast_pb.NodeType              `json:"contract_kind"`
-	Name         string                       `json:"name"`
-	Standard     *standards.FunctionDiscovery `json:"standard"`
-	Statement    ast.Node[ast_pb.NodeType]    `json:"statement"`
+	ContractName    string                       `json:"contract_name"`
+	ContractType    ast_pb.NodeType              `json:"contract_type"`
+	ContractKind    ast_pb.NodeType              `json:"contract_kind"`
+	Name            string                       `json:"name"`
+	Standard        *standards.FunctionDiscovery `json:"standard"`
+	Visibility      ast_pb.Visibility            `json:"visibility"`
+	StateMutability ast_pb.Mutability            `json:"mutability"`
+	Statement       *ast.Function                `json:"statement"`
 }
 
 type TransferResults struct {
@@ -67,6 +69,7 @@ func (m *TransferDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(n
 				if utils.StringInSlice(fnCtx.GetName(), m.functionNames) {
 					var discoveredFn Function
 					discoveredFn.Name = fnCtx.GetName()
+					//discoveredFn.Statement = fnCtx
 
 					if contract := m.inspector.GetDetector().GetAST().GetTree().GetById(fnCtx.GetScope()); contract != nil {
 						discoveredFn.ContractType = contract.GetType()
@@ -89,9 +92,9 @@ func (m *TransferDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(n
 						if check, found := standards.FunctionConfidenceCheck(standard, &newStandardFn); found {
 							discoveredFn.Standard = &check
 						}
-					} else { // handle _transfer and _transferFrom
-
 					}
+
+					m.analyzeERC20Function(fnCtx, &discoveredFn)
 
 					m.results.Functions = append(m.results.Functions, discoveredFn)
 				}
@@ -100,6 +103,26 @@ func (m *TransferDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(n
 			return true
 		},
 	}
+}
+
+func (m *TransferDetector) analyzeERC20Function(fnCtx *ast.Function, function *Function) {
+	function.Visibility = fnCtx.GetVisibility()
+	function.StateMutability = fnCtx.GetStateMutability()
+
+	/* 	m.inspector.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_VARIABLE_DECLARATION, func(node ast.Node[ast.NodeType]) bool {
+		if varCtx, ok := node.(*ast.VariableDeclaration); ok {
+			for _, declaration := range varCtx.GetDeclarations() {
+				for _, ss := range varCtx.GetNodes() {
+					fmt.Println(
+						"Name:", declaration.GetName(),
+						"Type:", declaration.GetTypeName().GetName(),
+						"Node Type:", ss.GetType().String(),
+					)
+				}
+			}
+		}
+		return true
+	}) */
 }
 
 func (m *TransferDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
@@ -153,30 +176,4 @@ func (m *TransferDetector) buildStandardFunction(fnCtx *ast.Function) standards.
 		Inputs:  inputs,
 		Outputs: outputs,
 	}
-}
-
-func (m *TransferDetector) validateParameters(fn *standards.Function, fnCtx *ast.Function) bool {
-	if parametersList := fnCtx.GetParameters(); parametersList != nil {
-		if parameters := parametersList.GetParameters(); parameters != nil {
-			if len(parameters) == len(fn.Inputs) {
-				fmt.Println("Inputs count match...")
-				//return true
-			} else {
-				fmt.Println("Inputs count mismatch...")
-				//return false
-			}
-
-			for _, param := range parameters {
-				for _, input := range fn.Inputs {
-					fmt.Println("Parameter Type:", param.GetTypeName().GetName(), "Input Type:", input.Type)
-					if param.GetName() == input.Type {
-						fmt.Println("Parameter name match...")
-					}
-				}
-			}
-
-		}
-	}
-
-	return false
 }
