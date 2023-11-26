@@ -9,7 +9,6 @@ import (
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/standards"
-	"go.uber.org/zap"
 )
 
 type Inspector struct {
@@ -113,12 +112,9 @@ func (i *Inspector) UsesTransfers() bool {
 }
 
 func (i *Inspector) Inspect(only ...DetectorType) error {
-	zap.L().Info("Inspecting contract")
 
 	// Iterate through each registered detector and execute their logic
 	for detectorType, detector := range registry {
-		zap.L().Info("Running detector", zap.String("DetectorType", string(detectorType)))
-
 		// If only is not empty, check if detector type is in only slice, if not continue to next detector
 		if len(only) > 0 {
 			if !IsDetectorType(detectorType, only...) {

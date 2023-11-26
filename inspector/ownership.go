@@ -26,7 +26,7 @@ func NewOwnershipDetector(ctx context.Context, inspector *Inspector) Detector {
 		inspector: inspector,
 		functionNames: []string{
 			"transferOwnership", "renounceOwnership", "_transferOwnership", "_renounceOwnership",
-			"owner", "isOwner", "setOwner", "claimOwnership", "initializeOwnership",
+			"owner", "isOwner", "setOwner", "claimOwnership", "initializeOwnership", "selfdestruct",
 		},
 		results: &OwnershipResults{},
 	}
