@@ -37,10 +37,4 @@ func (i *Inspector) RegisterDetectors() {
 	RegisterDetector(ProxyDetectorType, NewProxyDetector(i.ctx, i))
 	RegisterDetector(MintDetectorType, NewMintDetector(i.ctx, i))
 	RegisterDetector(BurnDetectorType, NewBurnDetector(i.ctx, i))
-
-	/*
-		 	RegisterDetector(TransferDetector, &TransferDetectorImpl{})
-			RegisterDetector(MintDetector, &MintDetectorImpl{})
-			RegisterDetector(BurnDetector, &BurnDetectorImpl{})
-	*/
 }
