@@ -32,6 +32,7 @@ type DetectorResult struct {
 	DetectionType       DetectionType          `json:"detection_type"`
 	SeverityType        SeverityType           `json:"severity_type"`
 	ConfidenceLevelType ConfidenceLevelType    `json:"detection_level"`
+	Description         string                 `json:"description"`
 	Statement           ast.Node[ast.NodeType] `json:"statement"`
 	SubDetectors        []DetectorResult       `json:"sub_detectors"`
 }

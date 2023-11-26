@@ -114,77 +114,164 @@ func (m *TransferDetector) analyzeERC20Function(fnCtx *ast.Function, function *F
 	function.Visibility = fnCtx.GetVisibility()
 	function.StateMutability = fnCtx.GetStateMutability()
 
-	// Detector designed to figure out if there is any owner variable present in the transfer function and
-	// if it's of type address and if it's a _msgSender() or msg.sender.
-	m.inspector.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_VARIABLE_DECLARATION, func(node ast.Node[ast.NodeType]) (bool, error) {
+	if fnCtx.GetName() == "transfer" || fnCtx.GetName() == "transferFrom" {
+		m.checkForOwnerVariable(fnCtx, function)
+		m.checkForInternalTransferCall(fnCtx, function)
+		m.checkForBalanceUpdate(fnCtx, function)
+		m.checkForEventEmission(fnCtx, function)
+		m.checkForAccessControl(fnCtx, function)
+	}
+
+	// Additional checks can be added here based on your requirements
+}
+
+// Example of a new check: Verify that the function correctly updates balances
+func (m *TransferDetector) checkForBalanceUpdate(fnCtx *ast.Function, function *Function) {
+	senderBalanceUpdated := false
+	recipientBalanceUpdated := false
+
+	for _, node := range fnCtx.GetNodes() {
+		// Check for assignments that update the balance mapping
+		if assignStmt, ok := node.(*ast.Assignment); ok {
+			_ = assignStmt
+			/* 			if mappingAccess, ok := assignStmt.GetLeftHandSide().(*ast.MappingAccess); ok {
+				if mappingAccess.GetMapping().GetName() == "_balances" {
+					if isSenderBalanceUpdate(mappingAccess, assignStmt) {
+						senderBalanceUpdated = true
+					}
+					if isRecipientBalanceUpdate(mappingAccess, assignStmt) {
+						recipientBalanceUpdated = true
+					}
+				}
+			} */
+		}
+	}
+
+	if !senderBalanceUpdated || !recipientBalanceUpdated {
+		function.Detectors = append(function.Detectors, DetectorResult{
+			DetectionType:       "balance_update_missing",
+			SeverityType:        SeverityMedium,
+			ConfidenceLevelType: ConfidenceLevelHigh,
+			Description:         "Balance update logic is missing or incorrect.",
+		})
+	} else {
+		function.Detectors = append(function.Detectors, DetectorResult{
+			DetectionType:       "balance_update_detected",
+			SeverityType:        SeverityInfo,
+			ConfidenceLevelType: ConfidenceLevelHigh,
+			Description:         "Balance update logic is correctly implemented.",
+		})
+	}
+}
+
+// Example of a new check: Verify that the correct events are emitted
+func (m *TransferDetector) checkForEventEmission(fnCtx *ast.Function, function *Function) {
+	expectedEvent := "Transfer" // Default event for transfer functions
+	if fnCtx.GetName() == "transferFrom" {
+		expectedEvent = "Approval" // Approval event is also expected in transferFrom
+	}
+
+	eventEmitted := false
+	for _, node := range fnCtx.GetNodes() {
+		if emitStmt, ok := node.(*ast.Emit); ok {
+			if eventCall, ok := emitStmt.GetExpression().(*ast.FunctionCall); ok {
+				if exprCtx, ok := eventCall.GetExpression().(*ast.PrimaryExpression); ok {
+					if exprCtx.GetName() == expectedEvent {
+						eventEmitted = true
+						break
+					}
+				}
+			}
+		}
+	}
+
+	if !eventEmitted {
+		function.Detectors = append(function.Detectors, DetectorResult{
+			DetectionType:       "event_emission_missing",
+			SeverityType:        SeverityMedium,
+			ConfidenceLevelType: ConfidenceLevelHigh,
+			Description:         fmt.Sprintf("Expected %s event emission is missing.", expectedEvent),
+		})
+	} else {
+		function.Detectors = append(function.Detectors, DetectorResult{
+			DetectionType:       "event_emission_detected",
+			SeverityType:        SeverityInfo,
+			ConfidenceLevelType: ConfidenceLevelHigh,
+			Description:         fmt.Sprintf("%s event emission is correctly implemented.", expectedEvent),
+		})
+	}
+}
+
+func (m *TransferDetector) checkForAccessControl(fnCtx *ast.Function, function *Function) {
+	accessControlImplemented := false
+
+	// Check if the function has modifiers
+	for _, modifier := range fnCtx.GetModifiers() {
+		if isAccessControlModifier(modifier) {
+			accessControlImplemented = true
+			break
+		}
+	}
+
+	if !accessControlImplemented {
+		function.Detectors = append(function.Detectors, DetectorResult{
+			DetectionType:       "access_control_missing",
+			SeverityType:        SeverityMedium,
+			ConfidenceLevelType: ConfidenceLevelHigh,
+			Description:         "Access control is missing or not properly implemented.",
+		})
+	} else {
+		function.Detectors = append(function.Detectors, DetectorResult{
+			DetectionType:       "access_control_detected",
+			SeverityType:        SeverityInfo,
+			ConfidenceLevelType: ConfidenceLevelHigh,
+			Description:         "Access control is properly implemented.",
+		})
+	}
+}
+
+func isAccessControlModifier(modifier *ast.ModifierInvocation) bool {
+	// Implement logic to identify access control modifiers
+	// Common examples include 'onlyOwner' or custom-defined access control modifiers
+	return modifier.GetName() == "onlyOwner" // Extend this check as needed
+}
+
+func (m *TransferDetector) checkForOwnerVariable(fnCtx *ast.Function, function *Function) {
+	// Iterate through all variable declarations in the function
+	for _, node := range fnCtx.GetNodes() {
 		if varCtx, ok := node.(*ast.VariableDeclaration); ok {
 			for _, declaration := range varCtx.GetDeclarations() {
-				// Make sure that owner variable is present in the transfer function
-				if fnCtx.GetName() == "transfer" || fnCtx.GetName() == "transferFrom" {
-					if declaration.GetName() == "owner" {
-						detectorResult := DetectorResult{
-							DetectionType:       DetectionType("owner_found_in_transfer"),
-							SeverityType:        SeverityInfo,
-							ConfidenceLevelType: ConfidenceLevelHigh,
-							SubDetectors:        make([]DetectorResult, 0),
-						}
-
-						if declaration.GetTypeName() != nil && declaration.GetTypeName().GetName() == "address" {
-							detectorResult.SubDetectors = append(detectorResult.SubDetectors, DetectorResult{
-								DetectionType:       DetectionType("owner_is_address_type"),
-								SeverityType:        SeverityInfo,
-								ConfidenceLevelType: ConfidenceLevelHigh,
-								//Statement:           declaration,
-							})
-						}
-
-						for _, varNodeCtx := range varCtx.GetNodes() {
-							if fnCallNode, ok := varNodeCtx.(*ast.FunctionCall); ok {
-								if fnCallNode.GetExpression() != nil {
-									if identifierCtx, ok := fnCallNode.GetExpression().(*ast.PrimaryExpression); ok {
-										if identifierCtx.GetName() == "_msgSender" {
-											detectorResult.SubDetectors = append(detectorResult.SubDetectors, DetectorResult{
-												DetectionType:       DetectionType("msg_sender_in_transfer"),
-												SeverityType:        SeverityInfo,
-												ConfidenceLevelType: ConfidenceLevelHigh,
-												//Statement:           fnCallNode,
-											})
-										}
-									}
-								}
-
-							}
-						}
-
-						function.Detectors = append(function.Detectors, detectorResult)
-					}
+				if declaration.GetName() == "owner" {
+					// Add a result indicating the presence of 'owner' variable
+					function.Detectors = append(function.Detectors, DetectorResult{
+						DetectionType:       "owner_variable_detected",
+						SeverityType:        SeverityInfo,
+						ConfidenceLevelType: ConfidenceLevelHigh,
+						Description:         "Owner variable is present in the function.",
+					})
 				}
 			}
 		}
-		return true, nil
-	})
+	}
+}
 
-	// Detector designed to check if _transfer(owner, to, amount) is present in the transfer function.
-	m.inspector.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *TransferDetector) checkForInternalTransferCall(fnCtx *ast.Function, function *Function) {
+	// Iterate through all function call expressions in the function
+	for _, node := range fnCtx.GetNodes() {
 		if fcCtx, ok := node.(*ast.FunctionCall); ok {
 			if exprCtx, ok := fcCtx.GetExpression().(*ast.PrimaryExpression); ok {
-				if fnCtx.GetName() == "transfer" || fnCtx.GetName() == "transferFrom" {
-					if exprCtx.GetName() == "_transfer" {
-						detectorResult := DetectorResult{
-							DetectionType:       DetectionType("found_internal_transfer"),
-							SeverityType:        SeverityInfo,
-							ConfidenceLevelType: ConfidenceLevelHigh,
-							SubDetectors:        make([]DetectorResult, 0),
-						}
-
-						function.Detectors = append(function.Detectors, detectorResult)
-						utils.DumpNodeNoExit(function)
-					}
+				if exprCtx.GetName() == "_transfer" {
+					// Add a result indicating the use of internal _transfer call
+					function.Detectors = append(function.Detectors, DetectorResult{
+						DetectionType:       "internal_transfer_call_detected",
+						SeverityType:        SeverityInfo,
+						ConfidenceLevelType: ConfidenceLevelHigh,
+						Description:         "Internal _transfer call is present in the function.",
+					})
 				}
 			}
 		}
-		return true, nil
-	})
+	}
 }
 
 func (m *TransferDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {

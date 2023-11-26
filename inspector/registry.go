@@ -32,6 +32,7 @@ func IsDetectorType(detectorType DetectorType, detectorTypes ...DetectorType) bo
 
 func (i *Inspector) RegisterDetectors() {
 	RegisterDetector(StateVariableDetectorType, NewStateVariableDetector(i.ctx, i))
+	RegisterDetector(OwnershipDetectorType, NewOwnershipDetector(i.ctx, i))
 	RegisterDetector(TransferDetectorType, NewTransferDetector(i.ctx, i))
 	RegisterDetector(ProxyDetectorType, NewProxyDetector(i.ctx, i))
 	RegisterDetector(MintDetectorType, NewMintDetector(i.ctx, i))

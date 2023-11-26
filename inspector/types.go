@@ -14,6 +14,7 @@ const (
 	MintDetectorType          DetectorType = "mint"
 	BurnDetectorType          DetectorType = "burn"
 	ProxyDetectorType         DetectorType = "proxy"
+	OwnershipDetectorType     DetectorType = "ownership"
 
 	SeverityInfo     SeverityType = "informatinal"
 	SeverityLow      SeverityType = "low"
