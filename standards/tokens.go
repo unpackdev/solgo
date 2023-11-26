@@ -45,3 +45,24 @@ func TokenCount(cs ContractStandard) int {
 
 	return count
 }
+
+func FunctionTokenCount(fn Function) int {
+	count := 1 // Assuming function name...
+
+	for _, input := range fn.Inputs {
+		count++
+		if len(input.Type) > 0 {
+			count++
+		}
+		count++ // Indexed is always counted as it's a boolean
+	}
+
+	for _, output := range fn.Outputs {
+		count++
+		if len(output.Type) > 0 {
+			count++
+		}
+	}
+
+	return count
+}

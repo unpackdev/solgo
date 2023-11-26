@@ -516,7 +516,7 @@ func TestFunctionMatch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotTokens, gotMatch := functionMatch(tt.newFn, tt.standardFn, tt.contractFn)
+			gotTokens, gotMatch := FunctionMatch(tt.newFn, tt.standardFn, tt.contractFn)
 			assert.Equal(t, tt.expectedTokens, gotTokens)
 			assert.Equal(t, tt.expectedMatch, gotMatch)
 		})

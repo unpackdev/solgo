@@ -37,12 +37,7 @@ type Transfer struct {
 }
 
 type Report struct {
-	Addresses      []common.Address `json:"addresses"`
-	StateVariables []StateVariable  `json:"state_variables"`
-	UsesTransfers  bool             `json:"uses_transfers"`
-	Transfers      []Transfer       `json:"transfers"`
-	//Mintable       Mintable         `json:"mintable"`
-	Burnable Burnable `json:"burnable"`
-
-	Detectors map[DetectorType]any `json:"detectors"`
+	Addresses     []common.Address     `json:"addresses"`
+	UsesTransfers bool                 `json:"uses_transfers"`
+	Detectors     map[DetectorType]any `json:"detectors"`
 }

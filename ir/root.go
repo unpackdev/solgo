@@ -125,6 +125,19 @@ func (r *RootSourceUnit) HasHighConfidenceStandard(standard standards.Standard) 
 	return false
 }
 
+// HasPerfectConfidenceStandard
+func (r *RootSourceUnit) HasPerfectConfidenceStandard(standard standards.Standard) bool {
+	for _, e := range r.Standards {
+		if e.Standard.Type == standard {
+			if e.GetConfidence().Confidence == standards.PerfectConfidence {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
 // GetContractTypes returns the list of contract types.
 func (r *RootSourceUnit) GetContractTypes() []string {
 	return r.ContractTypes

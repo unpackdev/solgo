@@ -38,7 +38,7 @@ func NewStateVariableDetector(ctx context.Context, inspector *Inspector) Detecto
 }
 
 func (m *StateVariableDetector) Name() string {
-	return "StateVariable Detector"
+	return "State Variable Detector"
 }
 
 func (m *StateVariableDetector) Type() DetectorType {
@@ -48,16 +48,7 @@ func (m *StateVariableDetector) Type() DetectorType {
 func (m *StateVariableDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
 		ast_pb.NodeType_VARIABLE_DECLARATION: func(node ast.Node[ast.NodeType]) bool {
-			if varCtx, ok := node.(*ast.VariableDeclaration); ok {
-				for _, declaration := range varCtx.GetDeclarations() {
-					m.results.Declarations = append(m.results.Declarations, &VariableDeclaration{
-						Name:          declaration.GetName(),
-						StateVariable: declaration.GetIsStateVariable(),
-						//Statement:     declaration,
-					})
-					//m.results.StateVariable = varCtx
-				}
-			} else if varCtx, ok := node.(*ast.StateVariableDeclaration); ok {
+			if varCtx, ok := node.(*ast.StateVariableDeclaration); ok {
 				m.results.Declarations = append(m.results.Declarations, &VariableDeclaration{
 					Name:          varCtx.GetName(),
 					StateVariable: varCtx.IsStateVariable(),

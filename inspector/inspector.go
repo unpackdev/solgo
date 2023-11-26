@@ -25,10 +25,8 @@ func NewInspector(detector *detector.Detector, addresses ...common.Address) (*In
 		detector:  detector,
 		visitor:   &ast.NodeVisitor{},
 		report: &Report{
-			Addresses:      addresses,
-			StateVariables: make([]StateVariable, 0),
-			Transfers:      make([]Transfer, 0),
-			Detectors:      make(map[DetectorType]any),
+			Addresses: addresses,
+			Detectors: make(map[DetectorType]any),
 		},
 	}, nil
 }
@@ -70,7 +68,7 @@ func (i *Inspector) IsReady() bool {
 }
 
 func (i *Inspector) HasStandard(standard standards.Standard) bool {
-	return i.detector.GetIR().GetRoot().HasHighConfidenceStandard(standard)
+	return i.detector.GetIR().GetRoot().HasHighConfidenceStandard(standard) || i.detector.GetIR().GetRoot().HasPerfectConfidenceStandard(standard)
 }
 
 func (i *Inspector) GetTree() *ast.Tree {
@@ -148,59 +146,6 @@ func (i *Inspector) Inspect(only ...DetectorType) error {
 		results := detector.Results()
 		i.report.Detectors[detectorType] = results
 	}
-
-	return i.resolve()
-
-	/* 	i.detector.GetIR().GetRoot().Walk(ast.NodeVisitor{
-	   		TypeVisit: map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) bool{
-	   			ast_pb.NodeType_VARIABLE_DECLARATION: func(node ast.Node[ast.NodeType]) bool {
-
-	   				switch nodeCtx := node.(type) {
-	   				case *ast.VariableDeclaration:
-	   					_ = nodeCtx
-	   										i.report.StateVariables = append(i.report.StateVariables, StateVariable{
-	   						Variable: nodeCtx,
-	   					})
-	   				}
-
-	   				return true
-	   			},
-	   			ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) bool {
-	   				switch nodeCtx := node.(type) {
-	   				case *ast.Constructor:
-	   					//utils.DumpNodeNoExit(nodeCtx.Parameters)
-	   				case *ast.Function:
-	   					_ = nodeCtx
-	   					// Lets detect if contract use mintable functionality...
-	   					// If it's already discovered do not do it again....
-	   					// @TODO: Figure out places where this function is being called out....
-	   										if !i.report.Mintable.Enabled {
-	   						if utils.StringInSlice(nodeCtx.GetName(), mintableFunctions) {
-	   							i.report.Mintable.Enabled = true
-	   							i.report.Mintable.Visibility = nodeCtx.GetVisibility()
-	   							//i.report.Mintable.Function = nodeCtx
-	   						}
-	   					}
-
-	   					// Lets detect if contract use burnable functionality...
-	   					// If it's already discovered do not do it again....
-	   					// @TODO: Figure out places where this function is being called out....
-	   										if !i.report.Burnable.Enabled {
-	   						if utils.StringInSlice(nodeCtx.GetName(), mintableFunctions) {
-	   							i.report.Burnable.Enabled = true
-	   							i.report.Burnable.Visibility = nodeCtx.GetVisibility()
-	   							//i.report.Burnable.Function = nodeCtx
-	   						}
-	   					}
-
-	   				}
-
-	   				return true
-	   			},
-	   		},
-	   	})
-
-	   	utils.DumpNodeWithExit(i) */
 
 	return i.resolve()
 }

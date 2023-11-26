@@ -49,7 +49,7 @@ func NewBurnDetector(ctx context.Context, inspector *Inspector) Detector {
 }
 
 func (m *BurnDetector) Name() string {
-	return "Burn Detector"
+	return "Burnable Detector"
 }
 
 func (m *BurnDetector) Type() DetectorType {

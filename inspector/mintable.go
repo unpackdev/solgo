@@ -74,7 +74,7 @@ func NewMintDetector(ctx context.Context, inspector *Inspector) Detector {
 
 // Name returns the name of the detector, which is "Mint Detector".
 func (m *MintDetector) Name() string {
-	return "Mint Detector"
+	return "Mintable Detector"
 }
 
 // Type returns the type of the detector, which is MintDetectorType.
