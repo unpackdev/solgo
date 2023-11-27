@@ -89,14 +89,16 @@ func (s *Descriptor) GetStorageLayout() *StorageLayout {
 	return s.StorageLayout
 }
 
+// GetSlots returns  slots descriptor by its declaration line.
+func (s *Descriptor) GetSlots() []*SlotDescriptor {
+	return s.StorageLayout.Slots
+}
+
 // GetSortedSlots returns a slice of slot descriptors sorted by their declaration line.
 // It aggregates and sorts slot descriptors from all storage layouts.
 func (s *Descriptor) GetSortedSlots() []*SlotDescriptor {
 	var slots []*SlotDescriptor
-
-	for _, slot := range s.StorageLayout.Slots {
-		slots = append(slots, slot)
-	}
+	slots = append(slots, s.StorageLayout.Slots...)
 
 	sort.Slice(slots, func(i, j int) bool {
 		return slots[i].DeclarationId < slots[j].DeclarationId

@@ -129,7 +129,7 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 	var lastSlot int64 = -1
 	var lastBlockNumber *big.Int
 
-	for _, slot := range descriptor.GetStorageLayout().Slots {
+	for _, slot := range descriptor.GetSlots() {
 		if slot.Slot != lastSlot {
 			blockNumber, storageValue, err := s.getStorageValueAt(ctx, addr, slot.Slot, atBlock)
 			if err != nil {
@@ -142,7 +142,7 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 		}
 
 		slot.BlockNumber = lastBlockNumber
-		slot.RawValue = lastStorageValue
+		slot.RawValue = common.BytesToHash(lastStorageValue)
 		if err := convertStorageToValue(slot, lastStorageValue); err != nil {
 			return err
 		}

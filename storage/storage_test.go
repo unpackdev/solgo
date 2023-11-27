@@ -75,15 +75,15 @@ func TestStorage(t *testing.T) {
 		expectedSlotsCount int
 		expectedSlots      map[int]*SlotDescriptor
 	}{
-		{
+		/* 		{
 			name:               "Valid GROK (ETH) Contract: 0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
 			address:            common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
 			atBlock:            nil,
 			expectError:        false,
 			expectedSlotsCount: 24,
 			expectedSlots:      map[int]*SlotDescriptor{},
-		},
-		/* 		{
+		}, */
+		{
 			name:               "Operation Black Rock: 0x01e99288ea767084cdabb1542aaa017425525f5b",
 			address:            common.HexToAddress("0x01e99288ea767084cdabb1542aaa017425525f5b"),
 			atBlock:            nil,
@@ -92,6 +92,14 @@ func TestStorage(t *testing.T) {
 			expectedSlots: map[int]*SlotDescriptor{
 				0: {},
 			},
+		},
+		/* 		{
+			name:               "Q*: 0x9abfc0f085c82ec1be31d30843965fcc63053ffe",
+			address:            common.HexToAddress("0x9abfc0f085c82ec1be31d30843965fcc63053ffe"),
+			atBlock:            nil,
+			expectError:        false,
+			expectedSlotsCount: 24,
+			expectedSlots:      map[int]*SlotDescriptor{},
 		}, */
 	}
 

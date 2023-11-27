@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/unpackdev/solgo/utils"
 )
 
 func calculateSlot(variable *Variable, currentSlot int64, previousVars []*Variable) (int64, int64, []*Variable) {
@@ -55,6 +56,7 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 	switch {
 	case strings.HasPrefix(slot.Type, "uint") || strings.HasPrefix(slot.Type, "int"):
 		slot.Value = new(big.Int).SetBytes(storageValue)
+		return nil
 
 	case strings.HasPrefix(slot.Type, "bool"):
 		if slot.Offset >= 8*int64(len(storageValue)) {
@@ -91,7 +93,19 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 		}
 		slot.Value = decodedString
 
+	case strings.HasPrefix(slot.Type, "struct"):
+		slot.Value = struct{}{}
+
+	case strings.HasPrefix(slot.Type, "mapping"):
+		slot.Value = struct{}{}
+
 	default:
+		// Fuck this shit, will figure out later on how to deal with it properly...
+		if common.BytesToAddress(storageValue) == utils.ZeroAddress {
+			slot.Value = big.NewInt(0)
+			return nil
+		}
+
 		slot.Value = storageValue
 	}
 

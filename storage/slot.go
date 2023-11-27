@@ -3,6 +3,7 @@ package storage
 import (
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/ir"
 )
 
@@ -16,6 +17,6 @@ type SlotDescriptor struct {
 	Slot          int64        `json:"slot"`
 	Size          int64        `json:"size"`
 	Offset        int64        `json:"offset"`
-	RawValue      []byte       `json:"raw_value"`
+	RawValue      common.Hash  `json:"raw_value"`
 	Value         interface{}  `json:"value"`
 }
