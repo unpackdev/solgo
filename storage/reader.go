@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sort"
+	"strings"
 )
 
 type Reader struct {
@@ -58,7 +59,6 @@ func (r *Reader) DiscoverStorageVariables() error {
 
 		r.descriptor.StateVariables[subContract.Name] = stateVariables
 
-		// Append the sorted variables to the appropriate descriptor slices
 		for _, variable := range stateVariables {
 			if !variable.StateVariable.IsConstant() {
 				r.descriptor.TargetVariables[subContract.Name] = append(
@@ -90,13 +90,19 @@ func (r *Reader) CalculateStorageLayout() error {
 				return fmt.Errorf("error calculating storage size for variable %s", variable.GetName())
 			}
 
+			typeName := variable.GetType()
+			if strings.HasPrefix(typeName, "contract") {
+				typeName = "address"
+			}
+
 			sortedSlots = append(sortedSlots, &SlotDescriptor{
-				DeclarationId: variable.StateVariable.GetId(),
-				Variable:      variable,
-				Contract:      variable.Contract,
-				Name:          variable.GetName(),
-				Type:          variable.GetType(),
-				Size:          storageSize,
+				DeclarationId:   variable.StateVariable.GetId(),
+				Variable:        variable,
+				Contract:        variable.Contract,
+				Name:            variable.GetName(),
+				Type:            typeName,
+				TypeDescription: variable.StateVariable.GetTypeDescription(),
+				Size:            storageSize,
 			})
 		}
 	}
@@ -111,12 +117,9 @@ func (r *Reader) CalculateStorageLayout() error {
 		sortedSlots[i].Slot = slot
 		sortedSlots[i].Offset = offset
 
-		fmt.Printf("declaration_id: %d, slot: %d, offset: %d, size: %d, name: %s, type: %s\n", variable.Variable.GetId(), slot, offset, variable.Size, variable.Name, variable.Type)
-
 		if slot != currentSlot {
 			currentSlot = slot
 		}
-
 	}
 
 	r.descriptor.StorageLayout = &StorageLayout{

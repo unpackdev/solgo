@@ -1,6 +1,8 @@
 package ir
 
 import (
+	"strings"
+
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/ast"
@@ -113,6 +115,10 @@ func (b *Builder) processStateVariables(unit *ast.StateVariableDeclaration) *Sta
 		StateMutability: unit.GetStateMutability(),
 		Type:            unit.GetTypeName().GetName(),
 		TypeDescription: unit.GetTypeName().GetTypeDescription(),
+	}
+
+	if strings.HasPrefix(unit.GetTypeName().GetName(), "contract") {
+		variableNode.Type = "address"
 	}
 
 	// It could be that the name of the type name node is not set, but the type description string is.

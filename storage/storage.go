@@ -153,10 +153,33 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 
 // getStorageValueAt retrieves the storage value at a given slot for a contract.
 func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
+	if s.simulator != nil && s.opts.UseSimulator {
+		return s.getSimulatedStorageValueAt(ctx, contractAddress, slot, blockNumber)
+	}
+
 	client := s.clientsPool.GetClientByGroup(s.network.String())
 	if client == nil {
 		return blockNumber, nil, fmt.Errorf("no client found for network %s", s.network)
 	}
+
+	if blockNumber == nil {
+		latestHeader, err := client.BlockByNumber(ctx, nil)
+		if err != nil {
+			return blockNumber, nil, fmt.Errorf("failed to get latest block header: %v", err)
+		}
+		blockNumber = latestHeader.Number()
+	}
+
+	bigIntIndex := big.NewInt(slot)
+	position := common.BigToHash(bigIntIndex)
+
+	response, err := client.StorageAt(ctx, contractAddress, position, blockNumber)
+	return blockNumber, response, err
+}
+
+// getStorageValueAt retrieves the storage value at a given slot for a contract using local simulator instance (debugging purpose).
+func (s *Storage) getSimulatedStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
+	client := s.simulator.GetBackend()
 
 	if blockNumber == nil {
 		latestHeader, err := client.BlockByNumber(ctx, nil)
