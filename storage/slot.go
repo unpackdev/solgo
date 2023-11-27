@@ -1,31 +1,16 @@
 package storage
 
-import (
-	"bytes"
-	"encoding/binary"
-)
+import "math/big"
 
-type SlotInfo struct {
-	Name   string
-	Type   string
-	Slot   int64
-	Size   int64
-	Offset int64
-}
-
-func (si *SlotInfo) Bytes() []byte {
-	buffer := new(bytes.Buffer)
-
-	// Write the Name as bytes
-	buffer.Write([]byte(si.Name))
-
-	// Write the Type as bytes
-	buffer.Write([]byte(si.Type))
-
-	// Convert Slot, Size, and Offset to bytes and write
-	binary.Write(buffer, binary.BigEndian, si.Slot)
-	binary.Write(buffer, binary.BigEndian, si.Size)
-	binary.Write(buffer, binary.BigEndian, si.Offset)
-
-	return buffer.Bytes()
+type SlotDescriptor struct {
+	Variable        *Variable   `json:"-"`
+	BlockNumber     *big.Int    `json:"block_number"`
+	Name            string      `json:"name"`
+	Type            string      `json:"type"`
+	DeclarationLine int64       `json:"declaration_line"`
+	Slot            int64       `json:"slot"`
+	Size            int64       `json:"size"`
+	Offset          int64       `json:"offset"`
+	RawValue        []byte      `json:"raw_value"`
+	Value           interface{} `json:"value"`
 }

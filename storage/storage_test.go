@@ -2,6 +2,9 @@ package storage
 
 import (
 	"context"
+	"math/big"
+	"os"
+	"strings"
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -33,7 +36,7 @@ func TestStorage(t *testing.T) {
 			{
 				Group:                   string(utils.Ethereum),
 				Type:                    "mainnet",
-				Endpoint:                "ws://localhost:8545",
+				Endpoint:                "https://ethereum.publicnode.com",
 				NetworkId:               1,
 				ConcurrentClientsNumber: 1,
 			},
@@ -48,14 +51,11 @@ func TestStorage(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(simulator)
 
+	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
 	etherscanProvider := etherscan.NewEtherScanProvider(ctx, nil, &etherscan.Options{
 		Provider: etherscan.EtherScan,
 		Endpoint: "https://api.etherscan.io/api",
-		Keys: []string{
-			"Q54IYAWC4NE6XC9Q9YNTUM54U9YGI8QGUY", //unpackdev
-			"DW4CPPGR8TWYYNAZQDEKT332UJI9R68C8S", //nevio
-			"NYH2MKD67GGQAMG8UXDVYBGX2K6J9HMS7E", //inorbit
-		},
+		Keys:     strings.Split(etherscanApiKeys, ","),
 	})
 
 	bindManager, err := bindings.NewManager(ctx, pool)
@@ -66,12 +66,88 @@ func TestStorage(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(storage)
 
-	// Now we have base prepared and we can start with actual testing scenarios...
-	uniswapV3Factory := common.HexToAddress("0x1F98431c8aD98523631AE4a59f267346ea31F984")
+	testCases := []struct {
+		name               string
+		address            common.Address
+		atBlock            *big.Int
+		expectError        bool
+		expectedSlotsCount int
+		expectedSlots      map[int]*SlotDescriptor
+	}{
+		/* 		{
+			name:               "Valid GROK (ETH) Contract: 0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
+			address:            common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
+			atBlock:            big.NewInt(18663396),
+			expectError:        false,
+			expectedSlotsCount: 24,
+			expectedSlots: map[int]*SlotDescriptor{
+				0: {
+					Slot:            0,
+					Offset:          0,
+					Type:            "address",
+					Name:            "_owner",
+					Value:           common.HexToAddress("0x0000000000000000000000000000000000000000"),
+					Size:            160,
+					DeclarationLine: 66,
+				},
+				1: {
+					Slot:            1,
+					Offset:          0,
+					Type:            "mapping(address=>uint256)",
+					Name:            "_balances",
+					Value:           []uint8([]byte{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}),
+					Size:            256,
+					DeclarationLine: 117,
+				},
+			},
+		}, */
+		{
+			name:               "Operation Black Rock: 0x01e99288ea767084cdabb1542aaa017425525f5b",
+			address:            common.HexToAddress("0x01e99288ea767084cdabb1542aaa017425525f5b"),
+			atBlock:            nil,
+			expectError:        false,
+			expectedSlotsCount: 20,
+			expectedSlots: map[int]*SlotDescriptor{
+				0: {},
+			},
+		},
+	}
 
-	// Look up for storage descriptor at latest block...
-	descriptor, err := storage.GetStorageDescriptor(ctx, uniswapV3Factory, nil)
-	tAssert.NoError(err)
-	tAssert.NotNil(descriptor)
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			tAssert := assert.New(t)
+
+			// Use the test case data to run the test
+			reader, err := storage.Describe(ctx, tc.address, tc.atBlock)
+
+			if tc.expectError {
+				tAssert.Error(err)
+				tAssert.Nil(reader)
+			} else {
+				tAssert.NoError(err)
+				tAssert.NotNil(reader)
+			}
+
+			sortedSlots := reader.GetDescriptor().GetSortedSlots()
+			tAssert.NotNil(sortedSlots)
+			tAssert.Equal(tc.expectedSlotsCount, len(sortedSlots))
+
+			for _, slot := range sortedSlots {
+				utils.DumpNodeNoExit(slot)
+			}
+
+			/* 			for i, slot := range sortedSlots {
+				require.NotNil(t, tc.expectedSlots[i])
+				tAssert.Equal(tc.expectedSlots[i].Slot, slot.Slot)
+				tAssert.Equal(tc.expectedSlots[i].Offset, slot.Offset)
+				tAssert.Equal(tc.expectedSlots[i].Type, slot.Type)
+				tAssert.Equal(tc.expectedSlots[i].Name, slot.Name)
+				tAssert.Equal(tc.expectedSlots[i].Value, slot.Value)
+				tAssert.Equal(tc.expectedSlots[i].Size, slot.Size)
+				tAssert.Equal(tc.expectedSlots[i].DeclarationLine, slot.DeclarationLine)
+			} */
+
+		})
+	}
 
 }

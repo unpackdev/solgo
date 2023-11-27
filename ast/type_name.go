@@ -505,6 +505,7 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.MappingTypeContext) {
 	keyCtx := ctx.GetKey()
 	valueCtx := ctx.GetValue()
+	t.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 
 	t.KeyType = t.generateTypeName(unit, keyCtx, t, t)
 
@@ -923,75 +924,70 @@ func (t *TypeName) StorageSize() (int64, bool) {
 	switch t.NodeType {
 	case ast_pb.NodeType_ELEMENTARY_TYPE_NAME:
 		// Handle elementary types (int, uint, etc.)
-		return elementaryTypeSize(t.Name)
-		/* 	case ast_pb.NodeType_MAPPING_TYPE_NAME:
-		   		// Handle mapping types
-		   		// Storage size for mappings can be complex and might depend on the implementation
-		   		return mappingTypeSize()
-		   	case ast_pb.NodeType_FUNCTION_TYPE_NAME:
-		   		// Handle function types
-		   		// Typically, function types do not have a storage size in the traditional sense
-		   		return 0
-		   	case ast_pb.NodeType_USER_DEFINED_PATH_NAME:
-		   		// Handle user-defined types
-		   		// Size could be determined by the type it refers to
-		   		return userDefinedTypeSize(t.ReferencedDeclaration) */
-	// Add cases for other node types...
+		return elementaryTypeSizeInBits(t.Name)
+
+	case ast_pb.NodeType_MAPPING_TYPE_NAME:
+		// Mappings in Solidity are implemented as a hash table.
+		// Since they don't occupy a fixed amount of space in a contract's storage,
+		// it's not straightforward to define their size in bits.
+		// This might be represented as a pointer size.
+		return 256, true
+
+	case ast_pb.NodeType_FUNCTION_TYPE_NAME:
+		// Function types in Solidity represent external function pointers and typically take up 24 bytes.
+		// Converting this size into bits.
+		return 24 * 8, true
+
+	case ast_pb.NodeType_USER_DEFINED_PATH_NAME:
+		// @TODO: Calculate properly....
+		return 256, true
+
+	// Add cases for other node types like struct, enum, etc., as needed.
 	default:
-		return 0, false
+		panic(fmt.Sprintf("Unhandled node type @ StorageSize: %s", t.NodeType))
+		return 0, false // Type not recognized or not handled yet.
 	}
 }
 
-func elementaryTypeSize(typeName string) (int64, bool) {
-	// Handle special cases for "string" and "bytes"
-	if typeName == "string" || typeName == "bytes" {
-		return 32, true // 32 bytes, size is not fixed
+func elementaryTypeSizeInBits(typeName string) (int64, bool) {
+	size, found := getTypeSizeInBits(typeName)
+	if !found {
+		return 0, false // Type not recognized
 	}
 
-	// Assuming you have a way to get the size of the type, like `size`
-	// If not, you'll need to map type names to their sizes
-	size := getTypeSize(typeName) // This is a placeholder function
-
-	if size == nil {
-		return 32, true // Default to 32 bytes if size is not defined
-	}
-
-	// Convert size to bytes and indicate the size is fixed
-	return *size / 8, false
+	return size, true
 }
 
-func getTypeSize(typeName string) *int64 {
+func getTypeSizeInBits(typeName string) (int64, bool) {
 	switch {
 	case typeName == "bool":
-		size := int64(8) // 1 byte, but Solidity aligns to full 8 bytes
-		return &size
-	case typeName == "address":
-		size := int64(160) // 20 bytes (160 bits)
-		return &size
+		return 8, true
+	case typeName == "address" || typeName == "addresspayable" || strings.HasPrefix("contract", typeName):
+		return 160, true
 	case strings.HasPrefix(typeName, "int") || strings.HasPrefix(typeName, "uint"):
-		// Extracting the bit size from the type name
 		bitSizeStr := strings.TrimPrefix(typeName, "int")
 		bitSizeStr = strings.TrimPrefix(bitSizeStr, "uint")
 		bitSize, err := strconv.Atoi(bitSizeStr)
 		if err != nil || bitSize < 8 || bitSize > 256 || bitSize%8 != 0 {
-			return nil // Invalid size
+			return 0, false // Invalid size
 		}
-		size := int64(bitSize)
-		return &size
+		return int64(bitSize), true
+
 	case strings.HasPrefix(typeName, "bytes"):
-		// Extracting the size from the type name
 		byteSizeStr := strings.TrimPrefix(typeName, "bytes")
 		byteSize, err := strconv.Atoi(byteSizeStr)
 		if err != nil || byteSize < 1 || byteSize > 32 {
-			return nil // Invalid size
+			return 0, false
 		}
-		size := int64(byteSize * 8) // Convert byte size to bit size
-		return &size
+		return int64(byteSize) * 8, true
+
 	case typeName == "string", typeName == "bytes":
-		// Dynamic sizes, typically 32 bytes for the length prefix
-		size := int64(256) // 32 bytes (256 bits)
-		return &size
+		// Dynamic-size types; the size depends on the actual content.
+		// It's hard to determine the exact size in bits without the content.
+		// Returning a default size for the pointer.
+		return 256, true
+
 	default:
-		return nil // Type not recognized
+		return 0, false // Type not recognized
 	}
 }

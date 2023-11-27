@@ -1,164 +1,128 @@
 package storage
 
 import (
+	"fmt"
 	"math/big"
-	"strings"
+	"sort"
 
+	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/contracts"
+	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/ir"
 )
 
-type Variable struct {
-	Contract      *ir.Contract
-	EntryContract bool
-	*ir.StateVariable
-}
-
+// Descriptor holds information about a smart contract's state at a specific block.
+// It includes details like state variables, target variables, constant variables, and storage layouts.
 type Descriptor struct {
-	Contract                     *contracts.Contract
-	Block                        *big.Int
-	StateVariables               map[string][]*Variable
-	TargetVariables              map[string][]*Variable
-	ConstantStorageSlotVariables map[string][]*Variable
+	Contract         *contracts.Contract
+	Block            *big.Int
+	StateVariables   map[string][]*Variable
+	TargetVariables  map[string][]*Variable
+	ConstanVariables map[string][]*Variable
+	StorageLayout    map[string]*StorageLayout
 }
 
+// GetDetector retrieves the contract's detector, which is essential for contract analysis.
+// It returns an error if the contract or its detector is not properly set up.
+func (s *Descriptor) GetDetector() (*detector.Detector, error) {
+	if s.Contract == nil {
+		return nil, fmt.Errorf("contract not set in Descriptor")
+	}
+
+	descriptor := s.Contract.GetDescriptor()
+	if descriptor == nil {
+		return nil, fmt.Errorf("contract descriptor not set (parsing did not occur or failed)")
+	}
+
+	return descriptor.Detector, nil
+}
+
+// GetAST retrieves the abstract syntax tree (AST) builder for the contract.
+// It returns an error if the AST builder is not available due to parsing failures or initialization issues.
+func (s *Descriptor) GetAST() (*ast.ASTBuilder, error) {
+	detector, err := s.GetDetector()
+	if err != nil {
+		return nil, err
+	}
+
+	return detector.GetAST(), nil
+}
+
+// GetIR retrieves the intermediate representation (IR) builder of the contract.
+// It returns an error if the IR builder is not set, indicating parsing or initialization issues.
+func (s *Descriptor) GetIR() (*ir.Builder, error) {
+	detector, err := s.GetDetector()
+	if err != nil {
+		return nil, err
+	}
+
+	return detector.GetIR(), nil
+}
+
+// GetStateVariables returns a map of state variables associated with the contract.
 func (s *Descriptor) GetStateVariables() map[string][]*Variable {
 	return s.StateVariables
 }
 
+// GetTargetVariables returns a map of target variables associated with the contract.
 func (s *Descriptor) GetTargetVariables() map[string][]*Variable {
 	return s.TargetVariables
 }
 
+// GetConstantStorageSlotVariables returns a map of constant variables associated with the contract.
 func (s *Descriptor) GetConstantStorageSlotVariables() map[string][]*Variable {
-	return s.ConstantStorageSlotVariables
+	return s.ConstanVariables
 }
 
+// GetContract returns the contract associated with this descriptor.
 func (s *Descriptor) GetContract() *contracts.Contract {
 	return s.Contract
 }
 
+// GetBlock returns the block number at which the contract's state is described.
 func (s *Descriptor) GetBlock() *big.Int {
 	return s.Block
 }
 
-func (v *Variable) IsElementaryType() bool {
-	variableType := v.StateVariable.GetType()
-
-	// List of elementary types in Solidity
-	elementaryTypes := []string{
-		"bool", "address", "bytes32", // Fixed-size byte arrays are elementary
-		"int", "uint", // These include all sizes, e.g., int256, uint256, etc.
-		// Include all sizes explicitly if necessary
-		"int8", "int16", "int32", "int64", "int128", "int256",
-		"uint8", "uint16", "uint32", "uint64", "uint128", "uint256",
-		//... other elementary types like fixed and ufixed of various sizes
-	}
-
-	// Check if the variable's type is in the list of elementary types
-	for _, t := range elementaryTypes {
-		if variableType == t {
-			return true
-		}
-	}
-
-	return false
+// GetStorageLayouts returns all storage layouts associated with the contract.
+func (s *Descriptor) GetStorageLayouts() map[string]*StorageLayout {
+	return s.StorageLayout
 }
 
-func (v *Variable) IsPackedType() bool {
-	// Assuming StateVariable has a method GetType that returns the type of the variable
-	variableType := v.StateVariable.GetType()
+// GetStorageLayout retrieves the storage layout for a specific contract name.
+// It returns nil if no layout is found for the given contract name.
+func (s *Descriptor) GetStorageLayout(contractName string) *StorageLayout {
+	return s.StorageLayout[contractName]
+}
 
-	// List of types that are typically packed
-	packedTypes := []string{
-		"bool",    // 1 byte
-		"int8",    // 1 byte
-		"uint8",   // 1 byte
-		"int16",   // 2 bytes
-		"uint16",  // 2 bytes
-		"int24",   // 3 bytes
-		"uint24",  // 3 bytes
-		"int32",   // 4 bytes
-		"uint32",  // 4 bytes
-		"int40",   // 5 bytes
-		"uint40",  // 5 bytes
-		"int48",   // 6 bytes
-		"uint48",  // 6 bytes
-		"int56",   // 7 bytes
-		"uint56",  // 7 bytes
-		"int64",   // 8 bytes
-		"uint64",  // 8 bytes
-		"int72",   // 9 bytes
-		"uint72",  // 9 bytes
-		"int80",   // 10 bytes
-		"uint80",  // 10 bytes
-		"int88",   // 11 bytes
-		"uint88",  // 11 bytes
-		"int96",   // 12 bytes
-		"uint96",  // 12 bytes
-		"int104",  // 13 bytes
-		"uint104", // 13 bytes
-		"int112",  // 14 bytes
-		"uint112", // 14 bytes
-		"int120",  // 15 bytes
-		"uint120", // 15 bytes
-		"int128",  // 16 bytes
-		"uint128", // 16 bytes
-		// ... Continue for types up to 31 bytes
-	}
-	// Check if the variable's type is in the list of packed types
-	for _, t := range packedTypes {
-		if variableType == t {
-			return true
-		}
+// StorageLayoutExists checks if a storage layout exists for a given contract name.
+func (s *Descriptor) StorageLayoutExists(contractName string) bool {
+	_, exists := s.StorageLayout[contractName]
+	return exists
+}
+
+// GetStorageLayoutBySlot retrieves the slot descriptor for a given contract name and slot number.
+// It returns nil if no such slot descriptor exists.
+func (s *Descriptor) GetStorageLayoutBySlot(contract string, slot int64) *SlotDescriptor {
+	if layout, exists := s.StorageLayout[contract]; exists {
+		return layout.GetSlot(slot)
 	}
 
-	return false
+	return nil
 }
 
-func (v *Variable) IsArrayType() bool {
-	variableType := v.StateVariable.GetType()
+// GetSortedSlots returns a slice of slot descriptors sorted by their declaration line.
+// It aggregates and sorts slot descriptors from all storage layouts.
+func (s *Descriptor) GetSortedSlots() []*SlotDescriptor {
+	var slots []*SlotDescriptor
 
-	// Check if the variable's type contains square brackets, indicating an array
-	return strings.Contains(variableType, "[]") || strings.Contains(variableType, "[")
-}
-
-func (v *Variable) IsMappingType() bool {
-	variableType := v.StateVariable.GetType()
-
-	// Check if the variable's type starts with "mapping"
-	return strings.HasPrefix(variableType, "mapping")
-}
-
-func (v *Variable) IsStructType() bool {
-	variableType := v.StateVariable.GetType()
-
-	// Check if the variable's type starts with "mapping"
-	return strings.HasPrefix(variableType, "struct")
-}
-
-func (v *Variable) GetArrayLength() int64 {
-	variableType := v.StateVariable.GetType()
-
-	// Check if the variable's type contains square brackets, indicating an array
-	if strings.Contains(variableType, "[]") || strings.Contains(variableType, "[") {
-		// Parse the array length from the type
-		// ...
-		return 1
+	for _, layout := range s.StorageLayout {
+		slots = append(slots, layout.GetSlots()...)
 	}
 
-	return 0
-}
+	sort.Slice(slots, func(i, j int) bool {
+		return slots[i].DeclarationLine < slots[j].DeclarationLine
+	})
 
-func (v *Variable) GetStructMembers() []*Variable {
-	variableType := v.StateVariable.GetType()
-
-	// Check if the variable's type starts with "struct"
-	if strings.HasPrefix(variableType, "struct") {
-		// Parse the members from the type
-		// ...
-		return []*Variable{}
-	}
-
-	return []*Variable{}
+	return slots
 }

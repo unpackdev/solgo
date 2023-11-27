@@ -13,9 +13,9 @@ import (
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/utils"
-	"go.uber.org/zap"
 )
 
+// Storage is a struct that encapsulates various components required to interact with Ethereum smart contracts.
 type Storage struct {
 	ctx         context.Context
 	network     utils.Network
@@ -27,6 +27,9 @@ type Storage struct {
 	bindManager *bindings.Manager
 }
 
+// NewStorage creates a new Storage instance. It requires context, network configuration, and various components
+// such as a client pool, simulator, etherscan provider, compiler, and binding manager.
+// It returns an initialized Storage object or an error if the initialization fails.
 func NewStorage(
 	ctx context.Context,
 	network utils.Network,
@@ -38,10 +41,10 @@ func NewStorage(
 	opts *Options,
 ) (*Storage, error) {
 	if opts == nil {
-		opts = NewDefaultOptions() // Use default options if none provided
+		opts = NewDefaultOptions()
 	}
 
-	s := &Storage{
+	return &Storage{
 		ctx:         ctx,
 		network:     network,
 		clientsPool: clientsPool,
@@ -50,98 +53,122 @@ func NewStorage(
 		etherscan:   etherscan,
 		compiler:    compiler,
 		bindManager: bindManager,
-	}
-
-	return s, nil
+	}, nil
 }
 
-func (s *Storage) GetStorageDescriptor(ctx context.Context, addr common.Address, atBlock *big.Int) (*Reader, error) {
+// Describe queries and returns detailed information about a smart contract at a specific address.
+// It requires context, the contract address, and the block number for the query.
+// It returns a Reader instance containing contract details or an error if the query fails.
+func (s *Storage) Describe(ctx context.Context, addr common.Address, atBlock *big.Int) (*Reader, error) {
 	contract, err := contracts.NewContract(ctx, s.network, s.clientsPool, nil, nil, s.etherscan, s.compiler, s.bindManager, addr)
 	if err != nil {
 		return nil, err
 	}
 
-	if contract, err = s.DecodeContract(ctx, contract); err != nil {
+	decodedContract, err := s.DecodeContract(ctx, contract)
+	if err != nil {
 		return nil, err
 	}
 
-	descriptor := &Descriptor{
-		Contract:                     contract,
-		Block:                        atBlock,
-		StateVariables:               make(map[string][]*Variable),
-		TargetVariables:              make(map[string][]*Variable),
-		ConstantStorageSlotVariables: make(map[string][]*Variable),
+	return s._describe(ctx, addr, decodedContract, atBlock)
+}
+
+// DescribeFromContract is similar to Describe but starts with an existing contract instance.
+// It requires context, a contract object, and the block number for the query.
+// It returns a Reader instance containing contract details or an error if the query fails.
+func (s *Storage) DescribeFromContract(ctx context.Context, contract *contracts.Contract, atBlock *big.Int) (*Reader, error) {
+	if contract == nil {
+		return nil, fmt.Errorf("contract is nil")
 	}
+
+	decodedContract, err := s.DecodeContract(ctx, contract)
+	if err != nil {
+		return nil, err
+	}
+
+	return s._describe(ctx, contract.GetAddress(), decodedContract, atBlock)
+}
+
+// _describe is an internal method that performs the actual description process of a contract.
+// It constructs a Descriptor and utilizes a Reader to discover and calculate storage variables and layouts.
+func (s *Storage) _describe(ctx context.Context, addr common.Address, contract *contracts.Contract, atBlock *big.Int) (*Reader, error) {
+	descriptor := &Descriptor{
+		Contract:         contract,
+		Block:            atBlock,
+		StateVariables:   make(map[string][]*Variable),
+		TargetVariables:  make(map[string][]*Variable),
+		ConstanVariables: make(map[string][]*Variable),
+		StorageLayout:    make(map[string]*StorageLayout),
+	}
+
 	reader, err := NewReader(ctx, s, descriptor)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := reader.GetStorageVariables(); err != nil {
+	if err := reader.DiscoverStorageVariables(); err != nil {
 		return nil, err
 	}
 
-	layout, err := reader.GetStorageLayout()
-	if err != nil {
+	if err := reader.CalculateStorageLayout(); err != nil {
 		return nil, err
 	}
 
-	for contract, v := range layout {
-		zap.L().Info(
-			"Found storage slot",
-			zap.String("contract_address", addr.Hex()),
-			zap.String("contract_name", contract),
-			zap.String("name", v.Name),
-			zap.String("type", v.Type),
-			zap.Int64("slot", v.Slot),
-			zap.Any("offset", v.Offset),
-			zap.Any("size", v.Size),
-		)
-
-		storageValue, err := s.StorageAt(ctx, addr, common.BytesToHash(v.Bytes()), atBlock)
-		if err != nil {
-			zap.L().Error(
-				"Failed to get storage value",
-				zap.Error(err),
-				zap.String("contract_address", addr.Hex()),
-				zap.String("contract_name", contract),
-				zap.String("name", v.Name),
-				zap.String("type", v.Type),
-				zap.Int64("slot", v.Slot),
-				zap.Any("offset", v.Offset),
-				zap.Any("size", v.Size),
-			)
-		}
-
-		zap.L().Info(
-			"Storage value",
-			zap.String("contract_address", addr.Hex()),
-			zap.String("contract_name", contract),
-			zap.String("name", v.Name),
-			zap.String("type", v.Type),
-			zap.Int64("slot", v.Slot),
-			zap.Any("offset", v.Offset),
-			zap.Any("size", v.Size),
-			zap.Any("value", storageValue),
-		)
+	if err := s.populateStorageValues(ctx, addr, descriptor, atBlock); err != nil {
+		return nil, err
 	}
 
 	return reader, nil
 }
 
-func (s *Storage) GetStorageDescriptorFromContract(ctx context.Context, c *contracts.Contract, atBlock *big.Int) (*Descriptor, error) {
-	return &Descriptor{}, nil
+// populateStorageValues populates storage values for each slot in the descriptor's storage layout.
+func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address, descriptor *Descriptor, atBlock *big.Int) error {
+	var lastStorageValue []byte
+	var lastSlot int64 = -1
+	var lastBlockNumber *big.Int
+
+	for _, layout := range descriptor.GetStorageLayouts() {
+		for _, slot := range layout.GetSlots() {
+			if slot.Slot != lastSlot {
+				blockNumber, storageValue, err := s.getStorageValueAt(ctx, addr, slot.Slot, atBlock)
+				if err != nil {
+					return err
+				}
+				slot.BlockNumber = blockNumber
+				lastStorageValue = storageValue
+				lastSlot = slot.Slot
+				lastBlockNumber = blockNumber
+			}
+
+			slot.BlockNumber = lastBlockNumber
+			slot.RawValue = lastStorageValue
+			if err := convertStorageToValue(slot, lastStorageValue); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
 
-func (s *Storage) StorageAt(ctx context.Context, contractAddress common.Address, hashedSlot common.Hash, blockNumber *big.Int) ([]byte, error) {
+// getStorageValueAt retrieves the storage value at a given slot for a contract.
+func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
 	client := s.clientsPool.GetClientByGroup(s.network.String())
 	if client == nil {
-		return nil, fmt.Errorf("no client found for network %s", s.network)
+		return blockNumber, nil, fmt.Errorf("no client found for network %s", s.network)
 	}
 
-	storageValue, err := client.StorageAt(ctx, contractAddress, hashedSlot, blockNumber)
-	if err != nil {
-		return nil, err
+	if blockNumber == nil {
+		latestHeader, err := client.BlockByNumber(ctx, nil)
+		if err != nil {
+			return blockNumber, nil, fmt.Errorf("failed to get latest block header: %v", err)
+		}
+		blockNumber = latestHeader.Number()
 	}
-	return storageValue, nil
+
+	bigIntIndex := big.NewInt(slot)
+	position := common.BigToHash(bigIntIndex)
+
+	response, err := client.StorageAt(ctx, contractAddress, position, blockNumber)
+	return blockNumber, response, err
 }
