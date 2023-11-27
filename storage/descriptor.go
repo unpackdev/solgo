@@ -121,7 +121,7 @@ func (s *Descriptor) GetSortedSlots() []*SlotDescriptor {
 	}
 
 	sort.Slice(slots, func(i, j int) bool {
-		return slots[i].DeclarationLine < slots[j].DeclarationLine
+		return slots[i].DeclarationId < slots[j].DeclarationId
 	})
 
 	return slots

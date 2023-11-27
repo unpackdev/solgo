@@ -9,6 +9,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/providers/etherscan"
@@ -128,6 +129,8 @@ func TestStorage(t *testing.T) {
 				tAssert.NotNil(reader)
 			}
 
+			require.NotNil(t, reader, "reader should not be nil")
+			require.NotNil(t, reader.GetDescriptor(), "reader descriptor should not be nil")
 			sortedSlots := reader.GetDescriptor().GetSortedSlots()
 			tAssert.NotNil(sortedSlots)
 			tAssert.Equal(tc.expectedSlotsCount, len(sortedSlots))

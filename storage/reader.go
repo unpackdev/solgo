@@ -88,7 +88,7 @@ func (r *Reader) CalculateStorageLayout() error {
 
 		// Sort the variables by their declaration line number
 		sort.Slice(variables, func(i, j int) bool {
-			return variables[i].GetSrc().GetLine() < variables[j].GetSrc().GetLine()
+			return variables[i].GetId() < variables[j].GetId()
 		})
 
 		for _, variable := range variables {
@@ -100,13 +100,13 @@ func (r *Reader) CalculateStorageLayout() error {
 			}
 
 			slots = append(slots, &SlotDescriptor{
-				Variable:        variable,
-				Name:            variable.GetName(),
-				Type:            variable.GetType(),
-				Slot:            slot,
-				Size:            storageSize,
-				Offset:          offset,
-				DeclarationLine: variable.GetSrc().GetLine(),
+				DeclarationId: variable.StateVariable.GetId(),
+				Variable:      variable,
+				Name:          variable.GetName(),
+				Type:          variable.GetType(),
+				Slot:          slot,
+				Size:          storageSize,
+				Offset:        offset,
 			})
 
 			if slot != currentSlot {

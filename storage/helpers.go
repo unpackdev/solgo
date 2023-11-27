@@ -80,12 +80,12 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 		slot.Value = storageValue
 
 	case strings.HasPrefix(slot.Type, "string"):
-		// Assume decodeSolidityString returns an error if decoding fails
-		decodedString, err := decodeSolidityString(storageValue)
-		if err != nil {
-			return fmt.Errorf("error decoding string: %v", err)
-		}
-		slot.Value = decodedString
+		/* 		// Assume decodeSolidityString returns an error if decoding fails
+		   		decodedString, err := decodeSolidityString(storageValue)
+		   		if err != nil {
+		   			return fmt.Errorf("error decoding string: %v", err)
+		   		} */
+		slot.Value = string(storageValue)
 
 	default:
 		slot.Value = storageValue

@@ -62,7 +62,7 @@ func (s *StorageLayout) AppendSlot(index int64, slot *SlotDescriptor) bool {
 		// Ensure that the slot is in the correct position
 		// It's basically a trick to order them by their declaration order
 		sort.Slice(s.Slots, func(i, j int) bool {
-			return s.Slots[i].DeclarationLine < s.Slots[j].DeclarationLine
+			return s.Slots[i].DeclarationId < s.Slots[j].DeclarationId
 		})
 
 		return true
