@@ -81,40 +81,46 @@ func (r *Reader) CalculateStorageLayout() error {
 	currentSlot := int64(0)
 	var previousVars []*Variable
 
-	slots := []*SlotDescriptor{}
+	sortedSlots := []*SlotDescriptor{}
 
 	for _, variables := range r.descriptor.GetTargetVariables() {
 		for _, variable := range variables {
-			slot, offset, updatedPreviousVars := calculateSlot(variable, currentSlot, previousVars)
-			previousVars = updatedPreviousVars
 			storageSize, found := variable.GetAST().GetTypeName().StorageSize()
 			if !found {
 				return fmt.Errorf("error calculating storage size for variable %s", variable.GetName())
 			}
 
-			slots = append(slots, &SlotDescriptor{
+			sortedSlots = append(sortedSlots, &SlotDescriptor{
 				DeclarationId: variable.StateVariable.GetId(),
 				Variable:      variable,
 				Contract:      variable.Contract,
 				Name:          variable.GetName(),
 				Type:          variable.GetType(),
-				Slot:          slot,
 				Size:          storageSize,
-				Offset:        offset,
 			})
-
-			if slot != currentSlot {
-				currentSlot = slot
-			}
 		}
 	}
 
-	sort.Slice(slots, func(i, j int) bool {
-		return slots[i].DeclarationId < slots[j].DeclarationId
+	sort.Slice(sortedSlots, func(i, j int) bool {
+		return sortedSlots[i].DeclarationId < sortedSlots[j].DeclarationId
 	})
 
+	for i, variable := range sortedSlots {
+		slot, offset, updatedPreviousVars := calculateSlot(variable.Variable, currentSlot, previousVars)
+		previousVars = updatedPreviousVars
+		sortedSlots[i].Slot = slot
+		sortedSlots[i].Offset = offset
+
+		fmt.Printf("declaration_id: %d, slot: %d, offset: %d, size: %d, name: %s, type: %s\n", variable.Variable.GetId(), slot, offset, variable.Size, variable.Name, variable.Type)
+
+		if slot != currentSlot {
+			currentSlot = slot
+		}
+
+	}
+
 	r.descriptor.StorageLayout = &StorageLayout{
-		Slots: slots,
+		Slots: sortedSlots,
 	}
 
 	return nil
