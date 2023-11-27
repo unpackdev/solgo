@@ -75,34 +75,15 @@ func TestStorage(t *testing.T) {
 		expectedSlotsCount int
 		expectedSlots      map[int]*SlotDescriptor
 	}{
-		/* 		{
+		{
 			name:               "Valid GROK (ETH) Contract: 0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
 			address:            common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
-			atBlock:            big.NewInt(18663396),
+			atBlock:            nil,
 			expectError:        false,
 			expectedSlotsCount: 24,
-			expectedSlots: map[int]*SlotDescriptor{
-				0: {
-					Slot:            0,
-					Offset:          0,
-					Type:            "address",
-					Name:            "_owner",
-					Value:           common.HexToAddress("0x0000000000000000000000000000000000000000"),
-					Size:            160,
-					DeclarationLine: 66,
-				},
-				1: {
-					Slot:            1,
-					Offset:          0,
-					Type:            "mapping(address=>uint256)",
-					Name:            "_balances",
-					Value:           []uint8([]byte{0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}),
-					Size:            256,
-					DeclarationLine: 117,
-				},
-			},
-		}, */
-		{
+			expectedSlots:      map[int]*SlotDescriptor{},
+		},
+		/* 		{
 			name:               "Operation Black Rock: 0x01e99288ea767084cdabb1542aaa017425525f5b",
 			address:            common.HexToAddress("0x01e99288ea767084cdabb1542aaa017425525f5b"),
 			atBlock:            nil,
@@ -111,7 +92,7 @@ func TestStorage(t *testing.T) {
 			expectedSlots: map[int]*SlotDescriptor{
 				0: {},
 			},
-		},
+		}, */
 	}
 
 	for _, tc := range testCases {

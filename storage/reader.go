@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"sort"
-
-	"github.com/unpackdev/solgo/ir"
 )
 
 type Reader struct {
@@ -81,16 +79,11 @@ func (r *Reader) DiscoverStorageVariables() error {
 
 func (r *Reader) CalculateStorageLayout() error {
 	currentSlot := int64(0)
+	var previousVars []*Variable
 
-	for contractName, variables := range r.descriptor.GetTargetVariables() {
-		var slots []*SlotDescriptor
-		var previousVars []*Variable
+	slots := []*SlotDescriptor{}
 
-		// Sort the variables by their declaration line number
-		sort.Slice(variables, func(i, j int) bool {
-			return variables[i].GetId() < variables[j].GetId()
-		})
-
+	for _, variables := range r.descriptor.GetTargetVariables() {
 		for _, variable := range variables {
 			slot, offset, updatedPreviousVars := calculateSlot(variable, currentSlot, previousVars)
 			previousVars = updatedPreviousVars
@@ -102,6 +95,7 @@ func (r *Reader) CalculateStorageLayout() error {
 			slots = append(slots, &SlotDescriptor{
 				DeclarationId: variable.StateVariable.GetId(),
 				Variable:      variable,
+				Contract:      variable.Contract,
 				Name:          variable.GetName(),
 				Type:          variable.GetType(),
 				Slot:          slot,
@@ -113,16 +107,14 @@ func (r *Reader) CalculateStorageLayout() error {
 				currentSlot = slot
 			}
 		}
+	}
 
-		r.descriptor.StorageLayout[contractName] = &StorageLayout{
-			Contract: func() *ir.Contract {
-				if len(slots) != 0 {
-					return slots[0].Variable.Contract
-				}
-				return nil
-			}(),
-			Slots: slots,
-		}
+	sort.Slice(slots, func(i, j int) bool {
+		return slots[i].DeclarationId < slots[j].DeclarationId
+	})
+
+	r.descriptor.StorageLayout = &StorageLayout{
+		Slots: slots,
 	}
 
 	return nil

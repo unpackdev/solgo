@@ -98,7 +98,9 @@ func (s *Storage) _describe(ctx context.Context, addr common.Address, contract *
 		StateVariables:   make(map[string][]*Variable),
 		TargetVariables:  make(map[string][]*Variable),
 		ConstanVariables: make(map[string][]*Variable),
-		StorageLayout:    make(map[string]*StorageLayout),
+		StorageLayout: &StorageLayout{
+			Slots: make([]*SlotDescriptor, 0),
+		},
 	}
 
 	reader, err := NewReader(ctx, s, descriptor)
@@ -127,24 +129,22 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 	var lastSlot int64 = -1
 	var lastBlockNumber *big.Int
 
-	for _, layout := range descriptor.GetStorageLayouts() {
-		for _, slot := range layout.GetSlots() {
-			if slot.Slot != lastSlot {
-				blockNumber, storageValue, err := s.getStorageValueAt(ctx, addr, slot.Slot, atBlock)
-				if err != nil {
-					return err
-				}
-				slot.BlockNumber = blockNumber
-				lastStorageValue = storageValue
-				lastSlot = slot.Slot
-				lastBlockNumber = blockNumber
-			}
-
-			slot.BlockNumber = lastBlockNumber
-			slot.RawValue = lastStorageValue
-			if err := convertStorageToValue(slot, lastStorageValue); err != nil {
+	for _, slot := range descriptor.GetStorageLayout().Slots {
+		if slot.Slot != lastSlot {
+			blockNumber, storageValue, err := s.getStorageValueAt(ctx, addr, slot.Slot, atBlock)
+			if err != nil {
 				return err
 			}
+			slot.BlockNumber = blockNumber
+			lastStorageValue = storageValue
+			lastSlot = slot.Slot
+			lastBlockNumber = blockNumber
+		}
+
+		slot.BlockNumber = lastBlockNumber
+		slot.RawValue = lastStorageValue
+		if err := convertStorageToValue(slot, lastStorageValue); err != nil {
+			return err
 		}
 	}
 

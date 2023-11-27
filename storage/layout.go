@@ -2,17 +2,10 @@ package storage
 
 import (
 	"sort"
-
-	"github.com/unpackdev/solgo/ir"
 )
 
 type StorageLayout struct {
-	Contract *ir.Contract
-	Slots    []*SlotDescriptor
-}
-
-func (s *StorageLayout) GetContract() *ir.Contract {
-	return s.Contract
+	Slots []*SlotDescriptor
 }
 
 func (s *StorageLayout) GetSlots() []*SlotDescriptor {

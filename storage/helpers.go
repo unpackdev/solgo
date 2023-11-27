@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"math/big"
@@ -10,8 +11,11 @@ import (
 )
 
 func calculateSlot(variable *Variable, currentSlot int64, previousVars []*Variable) (int64, int64, []*Variable) {
-	if variable.IsMappingType() || variable.IsDynamicArray() {
-		return currentSlot + 1, 0, append(previousVars, variable)
+	isNewSlotNeeded := variable.IsMappingType() || variable.IsDynamicArray()
+
+	// If this is a mapping or dynamic array, or no previous vars, assign a new slot
+	if isNewSlotNeeded && len(previousVars) == 0 {
+		return currentSlot, 0, []*Variable{variable}
 	}
 
 	if canBePacked(variable, previousVars) {
@@ -80,12 +84,12 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 		slot.Value = storageValue
 
 	case strings.HasPrefix(slot.Type, "string"):
-		/* 		// Assume decodeSolidityString returns an error if decoding fails
-		   		decodedString, err := decodeSolidityString(storageValue)
-		   		if err != nil {
-		   			return fmt.Errorf("error decoding string: %v", err)
-		   		} */
-		slot.Value = string(storageValue)
+		// Assume decodeSolidityString returns an error if decoding fails
+		decodedString, err := decodeSolidityString(storageValue)
+		if err != nil {
+			return fmt.Errorf("error decoding string: %v", err)
+		}
+		slot.Value = decodedString
 
 	default:
 		slot.Value = storageValue
@@ -95,31 +99,15 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 }
 
 func decodeSolidityString(storageValue []byte) (string, error) {
-	// Check if storageValue has at least 32 bytes (minimum size for dynamic types)
-	if len(storageValue) < 32 {
-		return "", errors.New("storage value too short for a dynamic string")
+	// Check if storageValue has exactly 32 bytes
+	if len(storageValue) != 32 {
+		return "", errors.New("storage value is not 32 bytes long")
 	}
 
-	// The first 32 bytes represent the length of the string in bytes
-	length := new(big.Int).SetBytes(storageValue[:32]).Uint64()
-
-	// Check if the total length makes sense given the storageValue size
-	if uint64(len(storageValue)) < 32+length {
-		return "", errors.New("storage value length mismatch")
+	length := binary.BigEndian.Uint32(storageValue[len(storageValue)-4:])
+	if length/2 < 31 {
+		return string(storageValue[length/2]), nil
 	}
 
-	// Extract the string data
-	strBytes := storageValue[32 : 32+length]
-
-	// Convert bytes to string, ensuring valid UTF-8 encoding
-	if !isValidUTF8(strBytes) {
-		return "", errors.New("invalid UTF-8 encoding in string data")
-	}
-
-	return string(strBytes), nil
-}
-
-// isValidUTF8 checks if the provided byte slice is valid UTF-8.
-func isValidUTF8(data []byte) bool {
-	return len(data) == len(string(data))
+	return "", errors.New("string spans multiple slots, handling not implemented in this function")
 }

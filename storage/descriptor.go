@@ -19,7 +19,7 @@ type Descriptor struct {
 	StateVariables   map[string][]*Variable
 	TargetVariables  map[string][]*Variable
 	ConstanVariables map[string][]*Variable
-	StorageLayout    map[string]*StorageLayout
+	StorageLayout    *StorageLayout
 }
 
 // GetDetector retrieves the contract's detector, which is essential for contract analysis.
@@ -84,31 +84,9 @@ func (s *Descriptor) GetBlock() *big.Int {
 	return s.Block
 }
 
-// GetStorageLayouts returns all storage layouts associated with the contract.
-func (s *Descriptor) GetStorageLayouts() map[string]*StorageLayout {
+// GetStorageLayout returns all storage layouts associated with the contract.
+func (s *Descriptor) GetStorageLayout() *StorageLayout {
 	return s.StorageLayout
-}
-
-// GetStorageLayout retrieves the storage layout for a specific contract name.
-// It returns nil if no layout is found for the given contract name.
-func (s *Descriptor) GetStorageLayout(contractName string) *StorageLayout {
-	return s.StorageLayout[contractName]
-}
-
-// StorageLayoutExists checks if a storage layout exists for a given contract name.
-func (s *Descriptor) StorageLayoutExists(contractName string) bool {
-	_, exists := s.StorageLayout[contractName]
-	return exists
-}
-
-// GetStorageLayoutBySlot retrieves the slot descriptor for a given contract name and slot number.
-// It returns nil if no such slot descriptor exists.
-func (s *Descriptor) GetStorageLayoutBySlot(contract string, slot int64) *SlotDescriptor {
-	if layout, exists := s.StorageLayout[contract]; exists {
-		return layout.GetSlot(slot)
-	}
-
-	return nil
 }
 
 // GetSortedSlots returns a slice of slot descriptors sorted by their declaration line.
@@ -116,8 +94,8 @@ func (s *Descriptor) GetStorageLayoutBySlot(contract string, slot int64) *SlotDe
 func (s *Descriptor) GetSortedSlots() []*SlotDescriptor {
 	var slots []*SlotDescriptor
 
-	for _, layout := range s.StorageLayout {
-		slots = append(slots, layout.GetSlots()...)
+	for _, slot := range s.StorageLayout.Slots {
+		slots = append(slots, slot)
 	}
 
 	sort.Slice(slots, func(i, j int) bool {
