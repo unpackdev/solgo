@@ -6,6 +6,8 @@ import (
 
 // https://book.getfoundry.sh/reference/anvil/#custom-methods
 // TODO: We should integrate all anvil custom methods into the simulator package.
+// WARN: Methods such as autoImpersonateAccount, reset, setRpcUrl, setLoggingEnabled have direct impact to the nodes and simulator
+// and should be treated according.
 
 // ImpersonateAccount requests the binding manager to impersonate a specified account.
 // This is typically used in a testing environment to simulate transactions and interactions
