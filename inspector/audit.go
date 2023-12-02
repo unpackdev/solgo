@@ -17,7 +17,7 @@ type AuditResults struct {
 	HoneyPot                    bool              `json:"honey_pot"`
 	ApproveEnabled              bool              `json:"approve_enabled"`
 	ApproveTx                   string            `json:"approve_tx"`
-	ApproveStatus               int               `json:"approve_status"`
+	ApproveStatus               uint64            `json:"approve_status"`
 	BuyEnabled                  bool              `json:"buy_enabled"`
 	BuyTax                      *big.Float        `json:"buy_tax"`
 	SellEnabled                 bool              `json:"sell_enabled"`
@@ -145,75 +145,72 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
-					anvilProvider := m.sim.GetProvider(utils.AnvilSimulator)
-					if _, found := anvilProvider.GetNodeByBlockNumber(latestBlock.Number); found {
-						account := m.sim.GetFaucet().List(utils.AnvilNetwork)[0]
-						m.results.FaucetAccount = account
-						faucetInitialBalance, err := tokenBind.BalanceOf(account.Address)
-						if err != nil {
-							zap.L().Error(
-								"failed to get faucet account balance",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-							)
-							return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
-						}
-						m.results.FaucetAccountInitialBalance = faucetInitialBalance
+					//anvilProvider := m.sim.GetProvider(utils.AnvilSimulator)
 
-						uniswapAddr, err := uniswapBind.GetAddress(bindings.UniswapV2Router)
-						if err != nil {
-							zap.L().Error(
-								"failed to get uniswap address",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-							)
-							return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
-						}
+					account := m.sim.GetFaucet().List(utils.AnvilNetwork)[0]
+					m.results.FaucetAccount = account
+					faucetInitialBalance, err := tokenBind.BalanceOf(account.Address)
+					if err != nil {
+						zap.L().Error(
+							"failed to get faucet account balance",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+						)
+						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
+					}
+					m.results.FaucetAccountInitialBalance = faucetInitialBalance
 
-						purchaseAmount := new(big.Int).Mul(big.NewInt(10), new(big.Int).Exp(big.NewInt(10), big.NewInt(int64(tokenDetector.Decimals)), nil))
-						authApprove, err := account.TransactOpts(client, purchaseAmount, true)
-						if err != nil {
-							zap.L().Error(
-								"failed to create transaction options",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-							)
-							return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
-						}
+					uniswapAddr, err := uniswapBind.GetAddress(bindings.UniswapV2Router)
+					if err != nil {
+						zap.L().Error(
+							"failed to get uniswap address",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+						)
+						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
+					}
 
-						_, approveReceiptTx, err := tokenBind.Approve(authApprove, uniswapAddr, purchaseAmount, false)
-						if err != nil {
-							zap.L().Error(
-								"failed to approve tokens",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-							)
-							return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
-						}
+					purchaseAmount := new(big.Int).Mul(big.NewInt(10), new(big.Int).Exp(big.NewInt(10), big.NewInt(int64(tokenDetector.Decimals)), nil))
+					authApprove, err := account.TransactOpts(client, purchaseAmount, false)
+					if err != nil {
+						zap.L().Error(
+							"failed to create transaction options",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+						)
+						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
+					}
 
-						m.results.ApproveEnabled = true
-						m.results.ApproveTx = approveReceiptTx.TxHash.Hex()
-						m.results.ApproveStatus = int(approveReceiptTx.Status)
-
+					_, approveReceiptTx, err := tokenBind.Approve(authApprove, uniswapAddr, purchaseAmount, false)
+					if err != nil {
+						zap.L().Error(
+							"failed to approve tokens",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+						)
+						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
 					m.results.Detected = true
+					m.results.ApproveEnabled = true
+					m.results.ApproveTx = approveReceiptTx.TxHash.Hex()
+					m.results.ApproveStatus = approveReceiptTx.Status
 
 					_ = client
 				}
