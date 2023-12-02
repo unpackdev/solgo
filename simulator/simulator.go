@@ -256,7 +256,18 @@ func (s *Simulator) Status(ctx context.Context, simulators ...utils.SimulatorTyp
 	return toReturn, nil
 }
 
-// GetClient retrieves a blockchain client for a given provider and block number.
+// GetClient retrieves a blockchain client for a specific provider and block number.
+// It first checks if the provider exists. If not, it returns an error.
+// For an existing provider, it attempts to find a node that matches the given block number.
+// If such a node doesn't exist, it tries to spawn a new node:
+// - It first gets the next available port. If no ports are available, an error is returned.
+// - It then starts a new node with the specified start options.
+// - If faucets are enabled, it sets up faucet accounts for the new node.
+// - Finally, it attempts to retrieve a client for the new node. If not found, an error is reported.
+// If a matching node is found, it attempts to retrieve the corresponding client.
+// If the client doesn't exist, it returns an error.
+// If the provider is recognized but not fully implemented, an appropriate error is returned.
+// Returns a pointer to the blockchain client and an error if any issues occur during the process.
 func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType, blockNumber *big.Int) (*clients.Client, error) {
 	if !s.ProviderExists(provider) {
 		return nil, fmt.Errorf("provider %s does not exist", provider)
