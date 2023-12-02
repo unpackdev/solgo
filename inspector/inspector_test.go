@@ -73,11 +73,13 @@ func TestInspector(t *testing.T) {
 	testCases := []struct {
 		name          string
 		contractAddr  common.Address
+		network       utils.Network
 		expectedError bool
 	}{
 		{
 			name:          "HoneyPot 1",
 			contractAddr:  common.HexToAddress("0x0c65b5d43f2c2252897ce04d86d7fa46b83ed514"),
+			network:       utils.Ethereum,
 			expectedError: false,
 		},
 	}
@@ -108,7 +110,7 @@ func TestInspector(t *testing.T) {
 				err = parser.Build()
 				tAssert.NoError(err)
 
-				inspector, err := NewInspector(ctx, parser, sim, storage, bindManager, tc.contractAddr)
+				inspector, err := NewInspector(ctx, tc.network, parser, sim, storage, bindManager, tc.contractAddr)
 				tAssert.NoError(err)
 				tAssert.NotNil(inspector)
 
@@ -129,7 +131,7 @@ func TestInspector(t *testing.T) {
 				// Alright now we're at the point that we know contract should be checked for any type of malicious activity
 				tAssert.NoError(inspector.Inspect())
 
-				utils.DumpNodeNoExit(inspector.GetReport().Detectors[StandardsDetectorType])
+				utils.DumpNodeNoExit(inspector.GetReport().Detectors[AuditDetectorType])
 
 				/* 				md := GetDetector(MintDetectorType)
 				   				require.NotNil(t, md)

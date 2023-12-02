@@ -36,8 +36,8 @@ const (
 	// TokenDetectorType represents a detector type focused on token (ERC20) patterns in smart contracts.
 	TokenDetectorType DetectorType = "token"
 
-	// SimulateDetectorType represents a detector type focused on simulation of smart contract behaviors.
-	SimulateDetectorType DetectorType = "simulate"
+	// AuditDetectorType represents a detector type focused on simulation of smart contract behaviors.
+	AuditDetectorType DetectorType = "audit"
 )
 
 // SeverityType represents the severity level of a detection.

@@ -37,7 +37,6 @@ func (m *StorageDetector) Type() DetectorType {
 }
 
 func (m *StorageDetector) Enter(ctx context.Context) (DetectorFn, error) {
-
 	// As of now, we do not need to traverse through the AST.
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }

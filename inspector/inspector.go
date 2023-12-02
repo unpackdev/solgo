@@ -12,6 +12,7 @@ import (
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/storage"
+	"github.com/unpackdev/solgo/utils"
 )
 
 type Inspector struct {
@@ -24,7 +25,7 @@ type Inspector struct {
 	visitor     *ast.NodeVisitor
 }
 
-func NewInspector(ctx context.Context, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address) (*Inspector, error) {
+func NewInspector(ctx context.Context, network utils.Network, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address) (*Inspector, error) {
 	return &Inspector{
 		ctx:         ctx,
 		detector:    detector,
@@ -34,6 +35,7 @@ func NewInspector(ctx context.Context, detector *detector.Detector, simulator *s
 		visitor:     &ast.NodeVisitor{},
 		report: &Report{
 			Address:   addr,
+			Network:   network,
 			Detectors: make(map[DetectorType]any),
 		},
 	}, nil
@@ -112,45 +114,56 @@ func (i *Inspector) UsesTransfers() bool {
 }
 
 func (i *Inspector) Inspect(only ...DetectorType) error {
-	for detectorType, detector := range registry {
-		if len(only) > 0 {
-			if !IsDetectorType(detectorType, only...) {
-				continue
-			}
+	for _, detectorEntry := range registry {
+		detectorType := detectorEntry.detectorType
+
+		// Check if we need to run this detector
+		if len(only) > 0 && !IsDetectorType(detectorType, only...) {
+			continue
 		}
 
-		enterFuncs, err := detector.Enter(i.ctx)
-		if err != nil {
+		// Execute Enter, Detect, and Exit functions
+		if err := executeDetectorFunctions(i, detectorEntry.detector); err != nil {
 			return err
 		}
 
-		for nodeType, visitFunc := range enterFuncs {
-			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
-		}
-
-		detectFuncs, err := detector.Detect(i.ctx)
-		if err != nil {
-			return err
-		}
-
-		for nodeType, visitFunc := range detectFuncs {
-			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
-		}
-
-		exitFuncs, err := detector.Exit(i.ctx)
-		if err != nil {
-			return err
-		}
-
-		for nodeType, visitFunc := range exitFuncs {
-			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
-		}
-
-		results := detector.Results()
+		// Store results
+		results := detectorEntry.detector.Results()
 		i.report.Detectors[detectorType] = results
 	}
 
 	return i.resolve()
+}
+
+func executeDetectorFunctions(i *Inspector, detector Detector) error {
+	enterFuncs, err := detector.Enter(i.ctx)
+	if err != nil {
+		return err
+	}
+
+	for nodeType, visitFunc := range enterFuncs {
+		i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
+	}
+
+	detectFuncs, err := detector.Detect(i.ctx)
+	if err != nil {
+		return err
+	}
+
+	for nodeType, visitFunc := range detectFuncs {
+		i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
+	}
+
+	exitFuncs, err := detector.Exit(i.ctx)
+	if err != nil {
+		return err
+	}
+
+	for nodeType, visitFunc := range exitFuncs {
+		i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
+	}
+
+	return nil
 }
 
 func (i *Inspector) resolve() error {

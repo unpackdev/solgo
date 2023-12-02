@@ -2,13 +2,24 @@ package inspector
 
 import (
 	"context"
+	"math/big"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/bindings"
+	"github.com/unpackdev/solgo/standards"
+	"go.uber.org/zap"
 )
 
 type TokenResults struct {
-	Detected bool `json:"detected"`
+	*bindings.Token
+
+	Detected    bool     `json:"detected"`
+	Corrupted   bool     `json:"corrupted"`
+	Name        string   `json:"name"`
+	Symbol      string   `json:"symbol"`
+	Decimals    uint8    `json:"decimals"`
+	TotalSupply *big.Int `json:"total_supply"`
 }
 
 type TokenDetector struct {
@@ -26,7 +37,7 @@ func NewTokenDetector(ctx context.Context, inspector *Inspector) Detector {
 }
 
 func (m *TokenDetector) Name() string {
-	return "State Variable Detector"
+	return "Token (ERC-20) Detector"
 }
 
 func (m *TokenDetector) Type() DetectorType {
@@ -34,26 +45,89 @@ func (m *TokenDetector) Type() DetectorType {
 }
 
 func (m *TokenDetector) Enter(ctx context.Context) (DetectorFn, error) {
-	/* 	uniswap, err := bindings.NewUniswap(ctx, m.GetBindingManager(), bindings.DefaultUniswapBindOptions())
-	   	if err != nil {
-	   		zap.L().Error("failed to create uniswap bindings", zap.Error(err))
-	   		return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
-	   	}
-
-	   	uniswap.EstimateTaxesForToken(m.GetAddress()) */
-
-	//sim := m.Inspector.GetSimulator()
-
-	// First thing what we need to do is figure out if this is in fact a token or not...
-	if m.GetDetector() != nil && m.GetDetector().GetIR() != nil && m.GetDetector().GetIR().GetRoot() != nil {
-		irRoot := m.GetDetector().GetIR().GetRoot()
-		_ = irRoot
-	}
-
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 func (m *TokenDetector) Detect(ctx context.Context) (DetectorFn, error) {
+	if m.GetDetector() != nil && m.GetDetector().GetIR() != nil && m.GetDetector().GetIR().GetRoot() != nil {
+		//irRoot := m.GetDetector().GetIR().GetRoot()
+		report := m.GetReport()
+
+		if report.HasDetector(StandardsDetectorType) {
+			if standardsDetector, ok := report.GetDetector(StandardsDetectorType).(*StandardsResults); ok {
+				for _, standard := range standardsDetector.StandardTypes {
+					if standard == standards.ERC20 {
+						m.results.Detected = true
+
+						tokenBinding, err := bindings.NewToken(ctx, report.Network, m.GetBindingManager(), bindings.DefaultTokenBindOptions(m.GetAddress()))
+						if err != nil {
+							zap.L().Error(
+								"failed to create token bindings",
+								zap.Error(err),
+								zap.String("address", m.GetAddress().Hex()),
+								zap.Any("network", report.Network),
+							)
+							return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
+						}
+
+						m.results.Token = tokenBinding
+
+						name, err := tokenBinding.GetName()
+						if err != nil {
+							zap.L().Error(
+								"failed to get token name",
+								zap.Error(err),
+								zap.String("address", m.GetAddress().Hex()),
+								zap.Any("network", report.Network),
+							)
+						} else {
+							m.results.Name = name
+						}
+
+						symbol, err := tokenBinding.GetSymbol()
+						if err != nil {
+							zap.L().Error(
+								"failed to get token symbol",
+								zap.Error(err),
+								zap.String("address", m.GetAddress().Hex()),
+								zap.Any("network", report.Network),
+							)
+							m.results.Corrupted = true
+						} else {
+							m.results.Symbol = symbol
+						}
+
+						decimals, err := tokenBinding.GetDecimals()
+						if err != nil {
+							zap.L().Error(
+								"failed to get token decimals",
+								zap.Error(err),
+								zap.String("address", m.GetAddress().Hex()),
+								zap.Any("network", report.Network),
+							)
+							m.results.Corrupted = true
+						} else {
+							m.results.Decimals = decimals
+						}
+
+						totalSupply, err := tokenBinding.GetTotalSupply()
+						if err != nil {
+							zap.L().Error(
+								"failed to get token total supply",
+								zap.Error(err),
+								zap.String("address", m.GetAddress().Hex()),
+								zap.Any("network", report.Network),
+							)
+							m.results.Corrupted = true
+						} else {
+							m.results.TotalSupply = totalSupply
+						}
+					}
+				}
+			}
+		}
+	}
+
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
