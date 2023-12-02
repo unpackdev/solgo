@@ -36,13 +36,13 @@ func (m *StorageDetector) Type() DetectorType {
 	return StorageDetectorType
 }
 
-func (m *StorageDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *StorageDetector) Enter(ctx context.Context) (DetectorFn, error) {
 
 	// As of now, we do not need to traverse through the AST.
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *StorageDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *StorageDetector) Detect(ctx context.Context) (DetectorFn, error) {
 	reader, err := m.GetStorage().Describe(ctx, m.GetAddress(), m.GetDetector(), nil)
 	if err != nil {
 		zap.L().Error(
@@ -50,19 +50,20 @@ func (m *StorageDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(n
 			zap.Error(err),
 			zap.String("address", m.GetAddress().Hex()),
 		)
+		return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 	} else {
 		m.results.Detected = true
 		m.results.Descriptor = reader.GetDescriptor()
 	}
 
 	// As of now, we do not need to traverse through the AST.
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *StorageDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *StorageDetector) Exit(ctx context.Context) (DetectorFn, error) {
 
 	// As of now, we do not need to traverse through the AST.
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 func (m *StorageDetector) Results() any {

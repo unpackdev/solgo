@@ -119,17 +119,29 @@ func (i *Inspector) Inspect(only ...DetectorType) error {
 			}
 		}
 
-		enterFuncs := detector.Enter(i.ctx)
+		enterFuncs, err := detector.Enter(i.ctx)
+		if err != nil {
+			return err
+		}
+
 		for nodeType, visitFunc := range enterFuncs {
 			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
 		}
 
-		detectFuncs := detector.Detect(i.ctx)
+		detectFuncs, err := detector.Detect(i.ctx)
+		if err != nil {
+			return err
+		}
+
 		for nodeType, visitFunc := range detectFuncs {
 			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
 		}
 
-		exitFuncs := detector.Exit(i.ctx)
+		exitFuncs, err := detector.Exit(i.ctx)
+		if err != nil {
+			return err
+		}
+
 		for nodeType, visitFunc := range exitFuncs {
 			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
 		}

@@ -33,7 +33,7 @@ func (m *SimulateDetector) Type() DetectorType {
 	return SimulateDetectorType
 }
 
-func (m *SimulateDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *SimulateDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	/* 	uniswap, err := bindings.NewUniswap(ctx, m.GetBindingManager(), bindings.DefaultUniswapBindOptions())
 	   	if err != nil {
 	   		zap.L().Error("failed to create uniswap bindings", zap.Error(err))
@@ -44,15 +44,18 @@ func (m *SimulateDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(n
 
 	//sim := m.Inspector.GetSimulator()
 
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+	// First thing what we need to do is figure out if this is in fact a token or not...
+	m.GetReport()
+
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *SimulateDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *SimulateDetector) Detect(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *SimulateDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *SimulateDetector) Exit(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 func (m *SimulateDetector) Results() any {

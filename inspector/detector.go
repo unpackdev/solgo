@@ -7,12 +7,14 @@ import (
 	"github.com/unpackdev/solgo/ast"
 )
 
+type DetectorFn map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
+
 type Detector interface {
 	Name() string
 	Type() DetectorType
-	Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
-	Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
-	Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error)
+	Enter(ctx context.Context) (DetectorFn, error)
+	Detect(ctx context.Context) (DetectorFn, error)
+	Exit(ctx context.Context) (DetectorFn, error)
 
 	// // We are not able to use generics yet to the way I want to use them... Once it's enabled lets use it!
 	// Basically we would need to use something like DetectorInterface but we cannot use it on registry variable declaration

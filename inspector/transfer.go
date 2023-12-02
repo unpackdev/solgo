@@ -61,7 +61,7 @@ func (m *TransferDetector) Type() DetectorType {
 	return TransferDetectorType
 }
 
-func (m *TransferDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *TransferDetector) Enter(ctx context.Context) (DetectorFn, error) {
 
 	standard, err := standards.GetContractByStandard(standards.ERC20)
 	if err != nil {
@@ -107,7 +107,7 @@ func (m *TransferDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(n
 			}
 			return true, nil
 		},
-	}
+	}, nil
 }
 
 func (m *TransferDetector) analyzeERC20Function(fnCtx *ast.Function, function *Function) {
@@ -274,12 +274,12 @@ func (m *TransferDetector) checkForInternalTransferCall(fnCtx *ast.Function, fun
 	}
 }
 
-func (m *TransferDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *TransferDetector) Detect(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *TransferDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *TransferDetector) Exit(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 func (m *TransferDetector) Results() any {

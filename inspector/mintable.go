@@ -105,13 +105,13 @@ func (m *MintDetector) FunctionNameExists(fnName string) bool {
 }
 
 // Enter prepares the detector for analysis but currently does nothing. It may be extended in the future.
-func (m *MintDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *MintDetector) Enter(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 // Detect initiates the detection process for mint functions within a smart contract.
 // It returns a map of node types to handler functions for further analysis.
-func (m *MintDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *MintDetector) Detect(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if nodeCtx, ok := node.(*ast.Function); ok {
@@ -124,7 +124,7 @@ func (m *MintDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node
 
 			return true, nil
 		},
-	}
+	}, nil
 }
 
 // analyzeFunctionBody analyzes the body of a function to detect unconventional patterns or potential honeypots.
@@ -171,7 +171,7 @@ func (m *MintDetector) analyzeFunctionBody(fnCtx *ast.Function) error {
 
 // Exit finalizes the detection process by performing any necessary cleanup and additional analysis on if discovered
 // mint function is used anywhere else in the contract.
-func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *MintDetector) Exit(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 
 		// Problem is that mint function can be discovered at any point in time so we need to go one more time
@@ -236,7 +236,7 @@ func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 
 			return true, nil
 		},
-	}
+	}, nil
 }
 
 // Results returns the results of the mint function detection and analysis.

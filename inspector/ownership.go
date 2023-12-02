@@ -40,7 +40,7 @@ func (m *OwnershipDetector) Type() DetectorType {
 	return OwnershipDetectorType
 }
 
-func (m *OwnershipDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *OwnershipDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if fn, ok := node.(*ast.Function); ok {
@@ -51,15 +51,15 @@ func (m *OwnershipDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(
 			}
 			return true, nil
 		},
-	}
+	}, nil
 }
 
-func (m *OwnershipDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *OwnershipDetector) Detect(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *OwnershipDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *OwnershipDetector) Exit(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 func (m *OwnershipDetector) Results() any {

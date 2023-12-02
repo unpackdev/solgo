@@ -75,11 +75,11 @@ func (m *BurnDetector) FunctionNameExists(fnName string) bool {
 }
 
 // Enter for now does nothing for mint detector. It may be needed in the future.
-func (m *BurnDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *BurnDetector) Enter(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *BurnDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *BurnDetector) Detect(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			switch nodeCtx := node.(type) {
@@ -94,10 +94,10 @@ func (m *BurnDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node
 			}
 			return true, nil
 		},
-	}
+	}, nil
 }
 
-func (m *BurnDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *BurnDetector) Exit(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 
 		// Problem is that mint function can be discovered at any point in time so we need to go one more time
@@ -162,7 +162,7 @@ func (m *BurnDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 
 			return true, nil
 		},
-	}
+	}, nil
 }
 
 func (m *BurnDetector) Results() any {

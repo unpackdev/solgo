@@ -38,11 +38,11 @@ func (m *ProxyDetector) Type() DetectorType {
 	return ProxyDetectorType
 }
 
-func (m *ProxyDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *ProxyDetector) Enter(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *ProxyDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
+func (m *ProxyDetector) Detect(ctx context.Context) (DetectorFn, error) {
 	// This detector can use IR as well to do its job and walking through the AST if absolutely necessary...
 	detector := m.inspector.GetDetector()
 	irRoot := detector.GetIR().GetRoot()
@@ -55,11 +55,11 @@ func (m *ProxyDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(nod
 		m.results.Standard = irRoot.GetStandard(standards.ERC1822)
 	}
 
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
-func (m *ProxyDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+func (m *ProxyDetector) Exit(ctx context.Context) (DetectorFn, error) {
+	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }
 
 func (m *ProxyDetector) Results() any {
