@@ -4,6 +4,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
+// https://book.getfoundry.sh/reference/anvil/#custom-methods
+// TODO: We should integrate all anvil custom methods into the simulator package.
+
 // ImpersonateAccount requests the binding manager to impersonate a specified account.
 // This is typically used in a testing environment to simulate transactions and interactions
 // from the perspective of the given account.
