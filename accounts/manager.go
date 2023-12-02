@@ -118,12 +118,6 @@ func (m *Manager) GetKeystore(network utils.Network) (*keystore.KeyStore, error)
 	return m.ks[network], nil
 }
 
-// Import imports an account with a given private key and password into the keystore of a specified network.
-// TODO: Currently, the function body is empty and needs implementation.
-func (m *Manager) Import(network utils.Network, privateKey string, password string) error {
-	return nil
-}
-
 // Create creates a new account for a given network with a specified password and optional tags.
 // It saves the account to the network's keystore path and adds it to the accounts map.
 func (m *Manager) Create(network utils.Network, password string, pin bool, tags ...string) (*Account, error) {
