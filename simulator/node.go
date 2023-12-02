@@ -72,15 +72,6 @@ func (f *Account) TransactOpts(simulator *clients.Client, amount *big.Int) (*bin
 	}, nil
 }
 
-type NodeStatus struct {
-	ID      uuid.UUID `json:"id"`
-	IPAddr  string    `json:"ip_addr"`
-	Port    int       `json:"port"`
-	Success bool      `json:"success"`
-	Status  string    `json:"status"`
-	Error   error     `json:"error"`
-}
-
 // Node represents each node's information
 type Node struct {
 	cmd                 *exec.Cmd   `json:"-"`
@@ -255,7 +246,7 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 			IPAddr:  n.Addr.IP.String(),
 			Port:    n.Addr.Port,
 			Success: false,
-			Status:  "stopped",
+			Status:  NodeStatusTypeStopped,
 			Error:   nil,
 		}, nil
 	}
@@ -268,7 +259,7 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 			IPAddr:  n.Addr.IP.String(),
 			Port:    n.Addr.Port,
 			Success: false,
-			Status:  "unknown",
+			Status:  NodeStatusTypeError,
 			Error:   fmt.Errorf("error finding process: %v", err),
 		}, fmt.Errorf("error finding process: %v", err)
 	}
@@ -281,7 +272,7 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 			IPAddr:  n.Addr.IP.String(),
 			Port:    n.Addr.Port,
 			Success: true,
-			Status:  "running",
+			Status:  NodeStatusTypeRunning,
 			Error:   nil,
 		}, nil
 	}
@@ -292,7 +283,7 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 			IPAddr:  n.Addr.IP.String(),
 			Port:    n.Addr.Port,
 			Success: true,
-			Status:  "stopped",
+			Status:  NodeStatusTypeStopped,
 			Error:   nil,
 		}, nil
 	}
@@ -302,7 +293,7 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 		IPAddr:  n.Addr.IP.String(),
 		Port:    n.Addr.Port,
 		Success: false,
-		Status:  "unknown",
+		Status:  NodeStatusTypeError,
 		Error:   fmt.Errorf("error checking process status: %v", err),
 	}, fmt.Errorf("error checking process status: %v", err)
 }

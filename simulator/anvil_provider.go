@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"math/big"
 	"net"
+	"sync"
 
 	"github.com/google/uuid"
+	"github.com/unpackdev/solgo/accounts"
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
@@ -226,7 +228,11 @@ func (a *AnvilProvider) Status(ctx context.Context) ([]*NodeStatus, error) {
 	return statuses, nil
 }
 
-// SetupFaucetAccounts sets up faucet accounts for a specified simulation node.
+// SetupFaucetAccounts prepares faucet accounts for a given simulation node in the AnvilProvider.
+//
+// This function is responsible for initializing and setting up faucet accounts that are essential for simulating
+// blockchain transactions. It is typically used in testing environments where simulated accounts with pre-filled
+// balances are required.
 func (a *AnvilProvider) SetupFaucetAccounts(ctx context.Context, node *Node) error {
 	zap.L().Info(
 		"Loading faucet accounts...",
@@ -237,11 +243,30 @@ func (a *AnvilProvider) SetupFaucetAccounts(ctx context.Context, node *Node) err
 		zap.Uint64("block_number", node.BlockNumber.Uint64()),
 	)
 
+	wg := sync.WaitGroup{}
+
 	for _, address := range a.simulator.faucets.List(a.Network()) {
+		wg.Add(1)
+
 		client := a.pool.GetClient(utils.AnvilSimulator.String(), node.GetID().String())
 		address.SetClient(client)
-		address.SetAccountBalance(ctx, a.simulator.opts.FaucetAccountDefaultBalance)
+		go func(address *accounts.Account) {
+			defer wg.Done()
+			if err := address.SetAccountBalance(ctx, a.simulator.opts.FaucetAccountDefaultBalance); err != nil {
+				zap.L().Error(
+					fmt.Sprintf("failure to set account balance: %s", err.Error()),
+					zap.String("account", address.GetAddress().String()),
+					zap.String("id", node.GetID().String()),
+					zap.String("addr", node.Addr.String()),
+					zap.String("network", node.Provider.Network().String()),
+					zap.Any("network_id", node.Provider.NetworkID()),
+					zap.Uint64("block_number", node.BlockNumber.Uint64()),
+				)
+			}
+		}(address)
 	}
+
+	wg.Wait()
 
 	return nil
 }

@@ -2,10 +2,6 @@ package simulator
 
 import (
 	"context"
-	"math/big"
-	"net"
-	"os"
-	"path/filepath"
 	"testing"
 	"time"
 
@@ -29,50 +25,11 @@ func TestAnvilSimulator(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	// Get the current working directory
-	cwd, err := os.Getwd()
-	tAssert.NoError(err)
-	tAssert.NotEmpty(cwd)
-
-	// Navigate up one level
-	keystorePath := filepath.Join(filepath.Dir(cwd), "data", "faucets")
-
-	// Establish base simulator
-	// It acts as a faucet provider and manager for all the simulation providers.
-	// It also provides a way to manage the simulation providers.
-	simulator, err := NewSimulator(ctx, &Options{
-		KeystorePath:                keystorePath,
-		SupportedNetworks:           []utils.Network{utils.Ethereum, utils.AnvilNetwork},
-		FaucetsEnabled:              true,
-		FaucetAccountCount:          10,
-		FaucetAccountDefaultBalance: new(big.Int).Mul(big.NewInt(1000), new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)),
-		DefaultPassword:             "wearegoingtogethacked",
-	})
-
+	simulator, err := CreateNewTestSimulator(ctx, t)
 	require.NoError(t, err)
-	tAssert.NotNil(simulator)
+	require.NotNil(t, simulator)
+	defer simulator.Close()
 
-	anvilProvider, err := NewAnvilProvider(ctx, simulator, &AnvilProviderOptions{
-		Network:             utils.AnvilNetwork,
-		NetworkID:           utils.EthereumNetworkID,
-		ClientCount:         1,
-		MaxClientCount:      10,
-		AutoImpersonate:     false,
-		PidPath:             filepath.Join("/", "tmp", ".solgo", "/", "simulator", "/", "anvil"),
-		AnvilExecutablePath: "/home/cortex/.cargo/bin/anvil",
-		Fork:                true,
-		ForkEndpoint:        os.Getenv("SOLGO_SIMULATOR_FORK_ENDPOINT"),
-		IPAddr:              net.ParseIP("127.0.0.1"),
-		StartPort:           5400,
-		EndPort:             5500,
-	})
-
-	require.NoError(t, err)
-	tAssert.NotNil(anvilProvider)
-
-	simulator.RegisterProvider(utils.AnvilSimulator, anvilProvider)
-
-	// Define test cases
 	testCases := []struct {
 		name      string
 		provider  utils.SimulatorType
@@ -85,7 +42,6 @@ func TestAnvilSimulator(t *testing.T) {
 		},
 	}
 
-	// Run test cases
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			ctx, cancel := context.WithCancel(ctx)
@@ -105,9 +61,12 @@ func TestAnvilSimulator(t *testing.T) {
 				} else {
 					require.NoError(t, err)
 					tAssert.NotNil(statuses)
-
-					utils.DumpNodeNoExit(statuses)
 				}
+
+				anvilStatuses, found := statuses.GetNodesByType(utils.AnvilSimulator)
+				tAssert.NotNil(anvilStatuses)
+				tAssert.True(found)
+				tAssert.Exactly(1, len(anvilStatuses))
 
 				time.Sleep(300 * time.Millisecond)
 			}

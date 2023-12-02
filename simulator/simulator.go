@@ -223,8 +223,10 @@ func (s *Simulator) Stop(ctx context.Context, simulators ...utils.SimulatorType)
 // This method iterates through each registered provider and calls its Status method,
 // passing the provided context. The Status method of each provider is expected to
 // return the current status of the simulation client.
-func (s *Simulator) Status(ctx context.Context, simulators ...utils.SimulatorType) (map[utils.SimulatorType][]*NodeStatus, error) {
-	statuses := make(map[utils.SimulatorType][]*NodeStatus)
+func (s *Simulator) Status(ctx context.Context, simulators ...utils.SimulatorType) (*NodeStatusResponse, error) {
+	toReturn := &NodeStatusResponse{
+		Nodes: make(map[utils.SimulatorType][]*NodeStatus),
+	}
 
 	for _, provider := range s.providers {
 		if len(simulators) > 0 {
@@ -235,7 +237,7 @@ func (s *Simulator) Status(ctx context.Context, simulators ...utils.SimulatorTyp
 						return nil, err
 					}
 					for _, status := range statusSlice {
-						statuses[provider.Type()] = append(statuses[provider.Type()], status)
+						toReturn.Nodes[provider.Type()] = append(toReturn.Nodes[provider.Type()], status)
 					}
 				}
 			}
@@ -245,12 +247,12 @@ func (s *Simulator) Status(ctx context.Context, simulators ...utils.SimulatorTyp
 				return nil, err
 			}
 			for _, status := range statusSlice {
-				statuses[provider.Type()] = append(statuses[provider.Type()], status)
+				toReturn.Nodes[provider.Type()] = append(toReturn.Nodes[provider.Type()], status)
 			}
 		}
 	}
 
-	return statuses, nil
+	return toReturn, nil
 }
 
 // GetClient retrieves a blockchain client for a given provider and block number.
@@ -273,4 +275,13 @@ func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType,
 	}
 
 	return nil, fmt.Errorf("provider %s is not fully implemented", provider)
+}
+
+func (s *Simulator) Close() error {
+	if err := s.Stop(s.ctx); err != nil {
+		return err
+	}
+
+	s.clientPool.Close()
+	return nil
 }
