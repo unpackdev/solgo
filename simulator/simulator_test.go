@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/unpackdev/solgo/clients"
@@ -160,6 +161,53 @@ func TestAnvilSimulator(t *testing.T) {
 		},
 		{
 			name:      "Get anvil client from latest block",
+			provider:  utils.AnvilSimulator,
+			expectErr: false,
+			testFunc: func(t *testing.T, simulator *Simulator, name string, provider utils.SimulatorType, expectErr bool) {
+				ctx, cancel := context.WithCancel(ctx)
+				defer cancel()
+
+				client := pool.GetClientByGroup(string(utils.Ethereum))
+				require.NotNil(t, client)
+
+				latestBlock, err := client.HeaderByNumber(ctx, nil)
+				require.NoError(t, err)
+				require.NotNil(t, latestBlock)
+
+				simulatorClient, err := simulator.GetClient(ctx, utils.AnvilSimulator, latestBlock.Number)
+				if expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+					tAssert.NotNil(simulatorClient)
+				}
+
+				// Just for testing purpose lets fetch from each faucet account balance at latest block
+				for _, account := range simulator.GetFaucet().List(utils.AnvilNetwork) {
+					balance, err := simulatorClient.BalanceAt(ctx, account.GetAddress(), nil)
+					require.NoError(t, err)
+					require.NotNil(t, balance)
+					fmt.Println("Balance", balance)
+				}
+
+				anvilProvider, found := ToAnvilProvider(simulator.GetProvider(utils.AnvilSimulator))
+				require.True(t, found)
+				require.NotNil(t, anvilProvider)
+
+				// Some random etherscan address... (Have no affiliation with it)
+				randomAddress := common.HexToAddress("0x235eE805F962690254e9a440E01574376136ecb1")
+
+				impersonatedAddr, err := anvilProvider.ImpersonateAccount(randomAddress)
+				require.NoError(t, err)
+				require.Equal(t, randomAddress, impersonatedAddr)
+
+				impersonatedAddr, err = anvilProvider.StopImpersonateAccount(randomAddress)
+				require.NoError(t, err)
+				require.Equal(t, randomAddress, impersonatedAddr)
+			},
+		},
+		{
+			name:      "Attempt to impersonate account and to stop impersonating account",
 			provider:  utils.AnvilSimulator,
 			expectErr: false,
 			testFunc: func(t *testing.T, simulator *Simulator, name string, provider utils.SimulatorType, expectErr bool) {

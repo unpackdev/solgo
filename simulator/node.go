@@ -170,7 +170,8 @@ func (n *Node) Start(ctx context.Context) error {
 		err := cmd.Wait()
 		if err != nil {
 			// Ignore the error if the process was killed
-			if strings.Contains(err.Error(), "no child processes") {
+			if strings.Contains(err.Error(), "no child processes") ||
+				strings.Contains(err.Error(), "signal: killed") {
 				return
 			}
 
@@ -204,10 +205,12 @@ func (n *Node) Stop(ctx context.Context, force bool) error {
 
 	err := n.cmd.Process.Signal(os.Interrupt) // or syscall.SIGTERM, depending on how your node handles signals
 	if err != nil {
-		return fmt.Errorf("failed to send interrupt signal to process: %v", err)
+		if !errors.Is(err, os.ErrProcessDone) {
+			return fmt.Errorf("failed to send interrupt signal to process: %v", err)
+		}
 	}
 
-	if !force {
+	if !force && err == nil {
 		_, err = n.cmd.Process.Wait()
 		if err != nil {
 			return fmt.Errorf("error waiting for process to exit: %v", err)

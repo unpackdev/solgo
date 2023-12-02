@@ -329,6 +329,12 @@ func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType,
 	return nil, fmt.Errorf("provider %s is not fully implemented", provider)
 }
 
+// Close gracefully shuts down the simulator. It performs the following steps:
+//  1. Stops the simulator by calling the Stop method with the simulator's context.
+//     If stopping the simulator fails, it returns the encountered error.
+//  2. Closes the client pool to release all associated resources.
+//
+// Returns an error if any issues occur during the stopping process, otherwise nil.
 func (s *Simulator) Close() error {
 	if err := s.Stop(s.ctx); err != nil {
 		return err
