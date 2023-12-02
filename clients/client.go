@@ -48,10 +48,6 @@ func NewClient(ctx context.Context, opts *Node) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) GetRpcClient() *rpc.Client {
-	return c.Client.Client()
-}
-
 // GetNetworkID retrieves the network ID for the client.
 func (c *Client) GetNetworkID() int64 {
 	return c.opts.NetworkId
@@ -80,6 +76,11 @@ func (c *Client) GetFailoverGroup() string {
 // GetFailoverType retrieves the type of failover for the client.
 func (c *Client) GetFailoverType() string {
 	return c.opts.FailoverType
+}
+
+// GetRpcClient retrieves the RPC client associated with the client.
+func (c *Client) GetRpcClient() *rpc.Client {
+	return c.Client.Client()
 }
 
 // Close gracefully closes the Ethereum client connection.
