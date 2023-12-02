@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/rpc"
 )
 
 // Client wraps the Ethereum client with additional context and options.
@@ -75,6 +76,11 @@ func (c *Client) GetFailoverGroup() string {
 // GetFailoverType retrieves the type of failover for the client.
 func (c *Client) GetFailoverType() string {
 	return c.opts.FailoverType
+}
+
+// GetRpcClient retrieves the RPC client associated with the client.
+func (c *Client) GetRpcClient() *rpc.Client {
+	return c.Client.Client()
 }
 
 // Close gracefully closes the Ethereum client connection.
