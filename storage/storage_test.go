@@ -50,8 +50,9 @@ func TestStorage(t *testing.T) {
 	tAssert.NotNil(pool)
 
 	sim, err := simulator.CreateNewTestSimulator(ctx, t)
-	tAssert.NoError(err)
-	tAssert.NotNil(sim)
+	require.NoError(t, err)
+	require.NotNil(t, sim)
+	defer sim.Close()
 
 	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
 	etherscanProvider := etherscan.NewEtherScanProvider(ctx, nil, &etherscan.Options{
