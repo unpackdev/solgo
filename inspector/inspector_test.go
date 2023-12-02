@@ -14,6 +14,7 @@ import (
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/providers/etherscan"
+	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/storage"
 	"github.com/unpackdev/solgo/utils"
@@ -56,6 +57,19 @@ func TestInspector(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(bindManager)
 
+	sim, err := simulator.CreateNewTestSimulator(ctx, t)
+	require.NoError(t, err)
+	require.NotNil(t, sim)
+	defer sim.Close()
+
+	err = sim.Start(ctx)
+	require.NoError(t, err)
+
+	defer func() {
+		err := sim.Stop(ctx)
+		require.NoError(t, err)
+	}()
+
 	testCases := []struct {
 		name          string
 		contractAddr  common.Address
@@ -94,7 +108,7 @@ func TestInspector(t *testing.T) {
 				err = parser.Build()
 				tAssert.NoError(err)
 
-				inspector, err := NewInspector(ctx, parser, storage, bindManager, tc.contractAddr)
+				inspector, err := NewInspector(ctx, parser, sim, storage, bindManager, tc.contractAddr)
 				tAssert.NoError(err)
 				tAssert.NotNil(inspector)
 

@@ -9,6 +9,7 @@ import (
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/detector"
+	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/storage"
 )
@@ -18,16 +19,18 @@ type Inspector struct {
 	detector    *detector.Detector
 	storage     *storage.Storage
 	bindManager *bindings.Manager
+	sim         *simulator.Simulator
 	report      *Report
 	visitor     *ast.NodeVisitor
 }
 
-func NewInspector(ctx context.Context, detector *detector.Detector, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address) (*Inspector, error) {
+func NewInspector(ctx context.Context, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address) (*Inspector, error) {
 	return &Inspector{
 		ctx:         ctx,
 		detector:    detector,
 		storage:     storage,
 		bindManager: bindManager,
+		sim:         simulator,
 		visitor:     &ast.NodeVisitor{},
 		report: &Report{
 			Address:   addr,
