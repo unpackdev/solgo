@@ -2,6 +2,7 @@ package accounts
 
 import (
 	"context"
+	"crypto/ecdsa"
 	"encoding/base64"
 	"fmt"
 	"os"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
 )
@@ -126,6 +128,45 @@ func (m *Manager) Create(network utils.Network, password string, pin bool, tags 
 		return nil, err
 	}
 
+	// In case that we should not pin the account, we need to generate a new private key and avoid saving it to the keystore.
+	// This is basically a one time use account.
+	if !pin {
+		// Generate a new private key
+		privateKey, err := crypto.GenerateKey()
+		if err != nil {
+			return nil, fmt.Errorf("failed to generate private key: %s", err)
+		}
+
+		// Obtain the public key from the private key
+		publicKey := privateKey.Public()
+
+		// Cast the public key to *ecdsa.PublicKey
+		ecdsaPublicKey, ok := publicKey.(*ecdsa.PublicKey)
+		if !ok {
+			return nil, fmt.Errorf("failed to cast public key to *ecdsa.PublicKey")
+		}
+
+		// Obtain the address from the public key
+		address := crypto.PubkeyToAddress(*ecdsaPublicKey)
+
+		acc := &Account{
+			KeyStore:   ks,
+			Address:    address,
+			Type:       utils.SimpleAccountType,
+			PrivateKey: fmt.Sprintf("%x", privateKey.D),
+			PublicKey:  fmt.Sprintf("%x", crypto.FromECDSAPub(ecdsaPublicKey)),
+			Password:   base64.StdEncoding.EncodeToString([]byte(password)),
+			Network:    network,
+			Tags:       tags,
+		}
+
+		// Now we need to add the account to the accounts map.
+		m.accounts[network] = append(m.accounts[network], acc)
+
+		acc.SetClient(m.client.GetClientByGroup(network.String()))
+		return acc, nil
+	}
+
 	kacc, err := ks.NewAccount(password)
 	if err != nil {
 		return nil, err
@@ -133,6 +174,8 @@ func (m *Manager) Create(network utils.Network, password string, pin bool, tags 
 
 	acc := &Account{
 		KeyStore:        ks,
+		Address:         kacc.Address,
+		Type:            utils.KeystoreAccountType,
 		KeystoreAccount: kacc,
 		Password:        base64.StdEncoding.EncodeToString([]byte(password)),
 		Network:         network,
@@ -141,18 +184,15 @@ func (m *Manager) Create(network utils.Network, password string, pin bool, tags 
 
 	acc.SetClient(m.client.GetClientByGroup(network.String()))
 
-	// If the pin flag is set, we need to pin the account.
-	if pin {
-		// Now we need to save the account to the keystore path.
-		path := path.Join(m.GetNetworkPath(network), kacc.Address.Hex()+".json")
+	// Now we need to save the account to the keystore path.
+	path := path.Join(m.GetNetworkPath(network), kacc.Address.Hex()+".json")
 
-		if err := acc.SaveToPath(path); err != nil {
-			return nil, err
-		}
-
-		// Now we need to add the account to the accounts map.
-		m.accounts[network] = append(m.accounts[network], acc)
+	if err := acc.SaveToPath(path); err != nil {
+		return nil, err
 	}
+
+	// Now we need to add the account to the accounts map.
+	m.accounts[network] = append(m.accounts[network], acc)
 
 	return acc, nil
 }
@@ -187,11 +227,49 @@ func (m *Manager) List(network utils.Network, tags ...string) []*Account {
 func (m *Manager) Get(network utils.Network, address common.Address) (*Account, error) {
 	if accounts, ok := m.accounts[network]; ok {
 		for _, acc := range accounts {
-			if acc.KeystoreAccount.Address.Hex() == address.Hex() {
+			if acc.Address.Hex() == address.Hex() {
 				return acc, nil
 			}
 		}
 	}
 
-	return nil, fmt.Errorf("account not found")
+	return nil, fmt.Errorf("account for network: %s not found: %s", network.String(), address.Hex())
+}
+
+// Delete removes an account for a given network by its address.
+// It deletes the account from both the keystore and the Manager's accounts map.
+// Returns an error if the account is not found or if there's an issue with deletion.
+func (m *Manager) Delete(network utils.Network, address common.Address) error {
+	// Check if the account exists in the Manager's accounts map.
+	if accounts, ok := m.accounts[network]; ok {
+		for i, acc := range accounts {
+			if acc.Address == address {
+				if acc.PrivateKey == "" && acc.PublicKey == "" {
+					password, err := acc.DecodePassword()
+					if err != nil {
+						return fmt.Errorf("failed to decode password: %s for account: %s", err, address.Hex())
+					}
+
+					// Delete the account from the keystore, if applicable.
+					ks, err := m.GetKeystore(network)
+					if err != nil {
+						return err
+					}
+
+					err = ks.Delete(acc.KeystoreAccount, password)
+					if err != nil {
+						return fmt.Errorf("failed to delete account from keystore: %s", err)
+					}
+				}
+
+				// Remove the account from the Manager's accounts map.
+				// Using append to remove the element at index i from accounts.
+				m.accounts[network] = append(accounts[:i], accounts[i+1:]...)
+
+				return nil
+			}
+		}
+	}
+
+	return fmt.Errorf("account for network: %s not found: %s", network.String(), address.Hex())
 }

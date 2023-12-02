@@ -220,7 +220,7 @@ func (n *Node) Stop(ctx context.Context, force bool) error {
 
 	if !force && err == nil {
 		_, err = n.cmd.Process.Wait()
-		if err != nil {
+		if err != nil && !errors.Is(err, os.ErrProcessDone) {
 			return fmt.Errorf("error waiting for process to exit: %v", err)
 		}
 	}

@@ -17,6 +17,8 @@ const (
 	AnvilSimulator SimulatorType = "anvil"
 
 	SimulatorAccountType AccountType = "simulator"
+	SimpleAccountType    AccountType = "simple"
+	KeystoreAccountType  AccountType = "keystore"
 )
 
 type Strategy string

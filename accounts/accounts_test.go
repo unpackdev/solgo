@@ -2,6 +2,7 @@ package accounts
 
 import (
 	"context"
+	"math/big"
 	"os"
 	"path/filepath"
 	"testing"
@@ -61,6 +62,15 @@ func TestAccountsManager(t *testing.T) {
 			require.NoError(t, err)
 			tAssert.NotNil(manager)
 
+			require.NotNil(t, manager.GetConfig())
+
+			found, err := manager.GetKeystore(utils.AnvilNetwork)
+			require.Nil(t, err)
+			require.NotNil(t, found)
+
+			path := manager.GetNetworkPath(utils.AnvilNetwork)
+			require.Equal(t, path, filepath.Join(keystorePath, "anvil"))
+
 			err = manager.Load()
 			require.NoError(t, err)
 
@@ -72,6 +82,57 @@ func TestAccountsManager(t *testing.T) {
 
 			anvilSimulatorAccounts := manager.List(utils.AnvilNetwork, utils.SimulatorAccountType.String())
 			tAssert.NotEmpty(anvilSimulatorAccounts)
+
+			// Create new account but do not pin it as we don't want to overbloat the keystore
+			newAccount, err := manager.Create(utils.Ethereum, utils.SimulatorAccountType.String(), false, "test")
+			require.NoError(t, err)
+			require.NotNil(t, newAccount)
+			require.NotNil(t, newAccount.GetAddress())
+
+			require.True(t, newAccount.HasTag("test"))
+			require.False(t, newAccount.HasTag("test2"))
+
+			newAccountRead, err := manager.Get(utils.Ethereum, newAccount.GetAddress())
+			require.NoError(t, err)
+			require.NotNil(t, newAccountRead)
+			require.NotNil(t, newAccountRead.GetAddress())
+
+			require.Equal(t, newAccount.GetAddress(), newAccountRead.GetAddress())
+
+			currentBalance, err := newAccount.Balance(ctx, nil)
+			require.NoError(t, err)
+			require.NotNil(t, currentBalance)
+			require.Equal(t, "0", currentBalance.String())
+
+			client := pool.GetClientByGroup(utils.Ethereum.String())
+
+			simulatedTopts, err := newAccount.TransactOpts(client, big.NewInt(1000000000000000000), true)
+			tAssert.NoError(err)
+			tAssert.NotNil(simulatedTopts)
+
+			err = manager.Delete(utils.Ethereum, newAccount.GetAddress())
+			require.NoError(t, err)
+
+			// Create new account with pin
+			newAccount, err = manager.Create(utils.Ethereum, utils.SimulatorAccountType.String(), true, "test")
+			require.NoError(t, err)
+			require.NotNil(t, newAccount)
+			require.NotNil(t, newAccount.GetAddress())
+
+			newAccountRead, err = manager.Get(utils.Ethereum, newAccount.GetAddress())
+			tAssert.NoError(err)
+			tAssert.NotNil(newAccountRead)
+			tAssert.NotNil(newAccountRead.GetAddress())
+
+			simulatedTopts, err = newAccount.TransactOpts(client, big.NewInt(1000000000000000000), false)
+			tAssert.NoError(err)
+			tAssert.NotNil(simulatedTopts)
+
+			tAssert.True(newAccountRead.HasAddress(newAccount.GetAddress()))
+			tAssert.Equal(newAccount.GetAddress().Hex(), newAccountRead.GetAddress().Hex())
+
+			err = manager.Delete(utils.Ethereum, newAccount.GetAddress())
+			require.NoError(t, err)
 
 		})
 	}
