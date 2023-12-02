@@ -72,23 +72,25 @@ func (f *Account) TransactOpts(simulator *clients.Client, amount *big.Int) (*bin
 	}, nil
 }
 
-// Node represents each node's information
+// Node represents a single node in the simulation environment. It encapsulates the
+// details and operations for a blockchain simulation node.
 type Node struct {
-	cmd                 *exec.Cmd   `json:"-"`
-	Simulator           *Simulator  `json:"-"`
-	Provider            Provider    `json:"-"`
-	ID                  uuid.UUID   `json:"id"`
-	PID                 int         `json:"pid"`
-	Addr                net.TCPAddr `json:"addr"`
-	IpcPath             string      `json:"ipc_path"`
-	AutoImpersonate     bool        `json:"auto_impersonate"`
-	BlockNumber         *big.Int    `json:"block_number"`
-	PidPath             string      `json:"pid_path"`
-	AnvilExecutablePath string      `json:"anvil_binary_path"`
-	Fork                bool        `json:"fork"`
-	ForkEndpoint        string      `json:"fork_endpoint"`
+	cmd                 *exec.Cmd   `json:"-"`                 // The command used to start the node process. Not exported in JSON.
+	Simulator           *Simulator  `json:"-"`                 // Reference to the Simulator instance managing this node. Not exported in JSON.
+	Provider            Provider    `json:"-"`                 // The Provider instance representing the blockchain network provider. Not exported in JSON.
+	ID                  uuid.UUID   `json:"id"`                // Unique identifier for the node.
+	PID                 int         `json:"pid"`               // Process ID of the running node.
+	Addr                net.TCPAddr `json:"addr"`              // TCP address on which the node is running.
+	IpcPath             string      `json:"ipc_path"`          // The file path for the IPC endpoint of the node.
+	AutoImpersonate     bool        `json:"auto_impersonate"`  // Flag indicating whether the node should automatically impersonate accounts.
+	BlockNumber         *big.Int    `json:"block_number"`      // The block number from which the node is operating, if applicable.
+	PidPath             string      `json:"pid_path"`          // The file path where the node's PID file is stored.
+	AnvilExecutablePath string      `json:"anvil_binary_path"` // The file path to the Anvil executable used by this node.
+	Fork                bool        `json:"fork"`              // Flag indicating whether the node is running in fork mode.
+	ForkEndpoint        string      `json:"fork_endpoint"`     // The endpoint URL of the blockchain to fork from, if fork mode is enabled.
 }
 
+// GetAnvilArguments builds the command-line arguments for starting the Anvil node.
 func (n *Node) GetAnvilArguments() []string {
 	args := []string{
 		"--auto-impersonate",
@@ -112,22 +114,27 @@ func (n *Node) GetAnvilArguments() []string {
 	return args
 }
 
+// GetNodeAddr returns the HTTP address of the node.
 func (n *Node) GetNodeAddr() string {
 	return fmt.Sprintf("http://%s:%d", n.Addr.IP.String(), n.Addr.Port)
 }
 
+// GetSimulator returns the Simulator instance associated with the node.
 func (n *Node) GetSimulator() *Simulator {
 	return n.Simulator
 }
 
+// GetProvider returns the Provider instance associated with the node.
 func (n *Node) GetProvider() Provider {
 	return n.Provider
 }
 
+// GetID returns the unique identifier of the node.
 func (n *Node) GetID() uuid.UUID {
 	return n.ID
 }
 
+// Start initiates the Anvil node's process, capturing its output and handling its lifecycle.
 func (n *Node) Start(ctx context.Context) error {
 	started := make(chan struct{})
 
@@ -189,6 +196,7 @@ func (n *Node) Start(ctx context.Context) error {
 	}
 }
 
+// Stop terminates the Anvil node's process, cleans up resources, and removes relevant files.
 func (n *Node) Stop(ctx context.Context, force bool) error {
 	zap.L().Info(
 		"Stopping Anvil node...",
@@ -243,6 +251,7 @@ func (n *Node) Stop(ctx context.Context, force bool) error {
 	return nil
 }
 
+// Status checks the current status of the node, including its running state and error conditions.
 func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 	if n.cmd == nil || n.cmd.Process == nil {
 		return &NodeStatus{
@@ -302,7 +311,8 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 	}, fmt.Errorf("error checking process status: %v", err)
 }
 
-// Adjusted streamOutput to handle both block number and node readiness
+// streamOutput handles the output from the node's stdout and stderr, extracting information
+// like block number and node readiness, and logging the output.
 func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan struct{}) {
 	blockNumberRegex := regexp.MustCompile(`Block number:\s+(\d+)`)
 	listeningRegex := regexp.MustCompile(`Listening on ([\d\.]+:\d+)`)
