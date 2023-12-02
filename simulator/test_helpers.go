@@ -13,6 +13,18 @@ import (
 	"github.com/unpackdev/solgo/utils"
 )
 
+// CreateNewTestSimulator initializes and configures a new Simulator instance for testing purposes.
+// It performs the following steps:
+//  1. Determines the current working directory and verifies it's not empty.
+//  2. Sets up the keystore path, which is assumed to be one level up from the current directory.
+//  3. Establishes a base simulator with predefined options such as keystore path, supported networks,
+//     faucet configurations, and a default password for the accounts.
+//  4. Creates a new AnvilProvider instance with specified options including network settings,
+//     client count limits, process ID path, executable path, and port range.
+//  5. Registers the AnvilProvider with the newly created simulator.
+//
+// Returns the initialized Simulator instance and an error if any occurs during the setup process.
+// This function utilizes the 'assert' and 'require' packages from 'testify' to ensure that each setup step is successful.
 func CreateNewTestSimulator(ctx context.Context, t *testing.T) (*Simulator, error) {
 	tAssert := assert.New(t)
 
