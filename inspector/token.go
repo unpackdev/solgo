@@ -45,7 +45,10 @@ func (m *TokenDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	//sim := m.Inspector.GetSimulator()
 
 	// First thing what we need to do is figure out if this is in fact a token or not...
-	m.GetReport()
+	if m.GetDetector() != nil && m.GetDetector().GetIR() != nil && m.GetDetector().GetIR().GetRoot() != nil {
+		irRoot := m.GetDetector().GetIR().GetRoot()
+		_ = irRoot
+	}
 
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }

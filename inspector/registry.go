@@ -38,6 +38,7 @@ func (i *Inspector) RegisterDetectors() {
 	RegisterDetector(ProxyDetectorType, NewProxyDetector(i.ctx, i))
 	RegisterDetector(MintDetectorType, NewMintDetector(i.ctx, i))
 	RegisterDetector(BurnDetectorType, NewBurnDetector(i.ctx, i))
+	RegisterDetector(StandardsDetectorType, NewStandardsDetector(i.ctx, i))
 	RegisterDetector(TokenDetectorType, NewTokenDetector(i.ctx, i))
 	RegisterDetector(SimulateDetectorType, NewSimulateDetector(i.ctx, i))
 }

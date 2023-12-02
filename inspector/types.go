@@ -30,6 +30,9 @@ const (
 	// StorageDetectorType represents a detector type focused on storage patterns in smart contracts.
 	StorageDetectorType DetectorType = "storage"
 
+	// StandardsDetectorType represents a detector type focused on standards patterns in smart contracts.
+	StandardsDetectorType DetectorType = "standards"
+
 	// TokenDetectorType represents a detector type focused on token (ERC20) patterns in smart contracts.
 	TokenDetectorType DetectorType = "token"
 
