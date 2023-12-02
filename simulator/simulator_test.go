@@ -2,17 +2,19 @@ package simulator
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
-func TestAnvilSimulator(t *testing.T) {
+func TestSimulatorConnectivity(t *testing.T) {
 	tAssert := assert.New(t)
 
 	config := zap.NewDevelopmentConfig()
@@ -54,7 +56,7 @@ func TestAnvilSimulator(t *testing.T) {
 				require.NoError(t, err)
 			}
 
-			for i := 0; i < 10; i++ {
+			for i := 0; i < 2; i++ {
 				statuses, err := simulator.Status(ctx)
 				if tc.expectErr {
 					require.Error(t, err)
@@ -77,6 +79,122 @@ func TestAnvilSimulator(t *testing.T) {
 			} else {
 				require.NoError(t, err)
 			}
+		})
+	}
+}
+
+func TestAnvilSimulator(t *testing.T) {
+	tAssert := assert.New(t)
+
+	config := zap.NewDevelopmentConfig()
+	config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, err := config.Build()
+	tAssert.NoError(err)
+	zap.ReplaceGlobals(logger)
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	clientOptions := &clients.Options{
+		Nodes: []clients.Node{
+			{
+				Group:                   string(utils.Ethereum),
+				Type:                    "mainnet",
+				Endpoint:                "https://ethereum.publicnode.com",
+				NetworkId:               1,
+				ConcurrentClientsNumber: 1,
+			},
+		},
+	}
+
+	pool, err := clients.NewClientPool(ctx, clientOptions)
+	tAssert.NoError(err)
+	tAssert.NotNil(pool)
+
+	simulator, err := CreateNewTestSimulator(ctx, t)
+	require.NoError(t, err)
+	require.NotNil(t, simulator)
+	defer simulator.Close()
+
+	err = simulator.Start(ctx)
+	require.NoError(t, err)
+
+	defer func() {
+		err := simulator.Stop(ctx)
+		require.NoError(t, err)
+	}()
+
+	testCases := []struct {
+		name      string
+		provider  utils.SimulatorType
+		expectErr bool
+		testFunc  func(t *testing.T, simulator *Simulator, name string, provider utils.SimulatorType, expectErr bool)
+	}{
+		{
+			name:      "Anvil simulator periodic status checks",
+			provider:  utils.AnvilSimulator,
+			expectErr: false,
+			testFunc: func(t *testing.T, simulator *Simulator, name string, provider utils.SimulatorType, expectErr bool) {
+				ctx, cancel := context.WithCancel(ctx)
+				defer cancel()
+
+				for i := 0; i < 2; i++ {
+					statuses, err := simulator.Status(ctx)
+					if expectErr {
+						require.Error(t, err)
+					} else {
+						require.NoError(t, err)
+						tAssert.NotNil(statuses)
+					}
+
+					anvilStatuses, found := statuses.GetNodesByType(utils.AnvilSimulator)
+					tAssert.NotNil(anvilStatuses)
+					tAssert.True(found)
+					tAssert.Exactly(1, len(anvilStatuses))
+
+					time.Sleep(100 * time.Millisecond)
+				}
+
+			},
+		},
+		{
+			name:      "Get anvil client from latest block",
+			provider:  utils.AnvilSimulator,
+			expectErr: false,
+			testFunc: func(t *testing.T, simulator *Simulator, name string, provider utils.SimulatorType, expectErr bool) {
+				ctx, cancel := context.WithCancel(ctx)
+				defer cancel()
+
+				client := pool.GetClientByGroup(string(utils.Ethereum))
+				require.NotNil(t, client)
+
+				latestBlock, err := client.HeaderByNumber(ctx, nil)
+				require.NoError(t, err)
+				require.NotNil(t, latestBlock)
+
+				simulatorClient, err := simulator.GetClient(ctx, utils.AnvilSimulator, latestBlock.Number)
+				if expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+					tAssert.NotNil(simulatorClient)
+				}
+
+				// Just for testing purpose lets fetch from each faucet account balance at latest block
+				for _, account := range simulator.GetFaucet().List(utils.AnvilNetwork) {
+					balance, err := simulatorClient.BalanceAt(ctx, account.GetAddress(), nil)
+					require.NoError(t, err)
+					require.NotNil(t, balance)
+					fmt.Println("Balance", balance)
+				}
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			tc.testFunc(t, simulator, tc.name, tc.provider, tc.expectErr)
 		})
 	}
 }

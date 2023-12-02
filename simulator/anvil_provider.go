@@ -315,12 +315,25 @@ func (a *AnvilProvider) NeedClients() int {
 	return int(a.opts.ClientCount) - len(a.nodes)
 }
 
-// PortAvailable checks if a specific port is available (i.e., not in use by any simulation node).
-// Returns true if the port is available, false otherwise.
+// PortAvailable checks if a specific port is available both in the simulation nodes
+// and on the OS level. Returns true if the port is available, false otherwise.
 func (a *AnvilProvider) PortAvailable(port int) bool {
+	// First, check if the port is in use by any simulation node.
 	if _, ok := a.GetNodeByPort(port); ok {
 		return false
 	}
+
+	// Now, check if the port is available on the OS.
+	address := fmt.Sprintf(":%d", port)
+	listener, err := net.Listen("tcp", address)
+	if err != nil {
+		// If there is an error opening the listener, the port is not available.
+		return false
+	}
+
+	// Don't forget to close the listener if the port is available.
+	listener.Close()
+
 	return true
 }
 

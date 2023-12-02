@@ -169,7 +169,8 @@ func (n *Node) Start(ctx context.Context) error {
 	go func() {
 		err := cmd.Wait()
 		if err != nil {
-			if err.Error() == "wait: no child processes" {
+			// Ignore the error if the process was killed
+			if strings.Contains(err.Error(), "no child processes") {
 				return
 			}
 

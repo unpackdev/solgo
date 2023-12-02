@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/big"
+	"net"
 	"sync"
 
 	"github.com/unpackdev/solgo/bindings"
@@ -35,12 +36,12 @@ func NewSimulator(ctx context.Context, opts *Options) (*Simulator, error) {
 
 	pool, err := clients.NewClientPool(ctx, &clients.Options{Nodes: []clients.Node{}})
 	if err != nil {
-		return nil, fmt.Errorf("failed to create simulator client pool: %w", err)
+		return nil, fmt.Errorf("failed to create simulator client pool: %s", err)
 	}
 
 	faucets, err := NewFaucet(ctx, pool, opts)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create new faucet: %w", err)
+		return nil, fmt.Errorf("failed to create new faucet: %s", err)
 	}
 
 	if opts.FaucetsEnabled {
@@ -170,13 +171,13 @@ func (s *Simulator) Start(ctx context.Context, simulators ...utils.SimulatorType
 			for _, simulator := range simulators {
 				if provider.Type() == simulator {
 					if err := provider.Load(ctx); err != nil {
-						return fmt.Errorf("failed to start provider: %w", err)
+						return fmt.Errorf("failed to start provider: %s", err)
 					}
 				}
 			}
 		} else {
 			if err := provider.Load(ctx); err != nil {
-				return fmt.Errorf("failed to start provider: %w", err)
+				return fmt.Errorf("failed to start provider: %s", err)
 			}
 		}
 	}
@@ -263,8 +264,48 @@ func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType,
 
 	if providerCtx, ok := s.GetProvider(provider).(*AnvilProvider); ok {
 		if node, ok := providerCtx.GetNodeByBlockNumber(blockNumber); !ok {
-			// TODO: Spawn the new node or attempt to fetch the node....
-			return nil, fmt.Errorf("node for block number %d does not exist", blockNumber)
+			zap.L().Debug(
+				"Node for block number does not exist. Attempting to spawn new node...",
+				zap.Any("block_number", blockNumber),
+				zap.String("provider", provider.String()),
+				zap.String("network", providerCtx.Network().String()),
+			)
+
+			port := providerCtx.GetNextPort()
+			if port == 0 {
+				return nil, fmt.Errorf("no available ports to start anvil nodes")
+			}
+
+			startOpts := StartOptions{
+				Fork:         providerCtx.opts.Fork,
+				ForkEndpoint: providerCtx.opts.ForkEndpoint,
+				Addr: net.TCPAddr{
+					IP:   providerCtx.opts.IPAddr,
+					Port: port,
+				},
+				BlockNumber: blockNumber,
+			}
+
+			newNode, err := providerCtx.Start(ctx, startOpts)
+			if err != nil {
+				return nil, fmt.Errorf("failed to spawn anvil node: %s", err)
+			}
+
+			// Lets now load faucet accounts for the newly spawned node
+			if providerCtx.simulator.opts.FaucetsEnabled {
+				if err := providerCtx.SetupFaucetAccounts(ctx, newNode); err != nil {
+					return nil, fmt.Errorf("failed to load faucet accounts: %s", err)
+				}
+			}
+
+			if client, found := providerCtx.GetClientByGroupAndType(newNode.GetProvider().Type(), newNode.GetID().String()); found {
+				return client, nil
+			} else {
+				return nil, fmt.Errorf(
+					"client for provider: %s - node %s - block number: %d does not exist",
+					node.Provider, node.GetID().String(), blockNumber,
+				)
+			}
 		} else {
 			if client, found := providerCtx.GetClientByGroupAndType(node.GetProvider().Type(), node.GetID().String()); found {
 				return client, nil
