@@ -49,9 +49,9 @@ func TestStorage(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(pool)
 
-	simulator, err := simulator.NewSimulator(ctx, pool, nil)
+	sim, err := simulator.CreateNewTestSimulator(ctx, t)
 	tAssert.NoError(err)
-	tAssert.NotNil(simulator)
+	tAssert.NotNil(sim)
 
 	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
 	etherscanProvider := etherscan.NewEtherScanProvider(ctx, nil, &etherscan.Options{
@@ -60,7 +60,7 @@ func TestStorage(t *testing.T) {
 		Keys:     strings.Split(etherscanApiKeys, ","),
 	})
 
-	storage, err := NewStorage(ctx, utils.Ethereum, pool, simulator, NewDefaultOptions())
+	storage, err := NewStorage(ctx, utils.Ethereum, pool, sim, NewDefaultOptions())
 	tAssert.NoError(err)
 	tAssert.NotNil(storage)
 
