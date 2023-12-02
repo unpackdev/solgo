@@ -2,10 +2,13 @@ package bindings
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/utils"
 )
@@ -16,11 +19,12 @@ const (
 
 type Token struct {
 	*Manager
-	ctx  context.Context
-	opts []*BindOptions
+	network utils.Network
+	ctx     context.Context
+	opts    []*BindOptions
 }
 
-func NewToken(ctx context.Context, manager *Manager, opts []*BindOptions) (*Token, error) {
+func NewToken(ctx context.Context, network utils.Network, manager *Manager, opts []*BindOptions) (*Token, error) {
 	if opts == nil {
 		return nil, fmt.Errorf("no binding options provided for new token")
 	}
@@ -33,22 +37,28 @@ func NewToken(ctx context.Context, manager *Manager, opts []*BindOptions) (*Toke
 
 	// Now lets register all the bindings with the manager
 	for _, opt := range opts {
-		if _, err := manager.RegisterBinding(opt.Network, opt.NetworkID, opt.Type, opt.Address, opt.ABI); err != nil {
-			return nil, err
+		for _, network := range opt.Networks {
+			if _, err := manager.RegisterBinding(network, opt.NetworkID, opt.Type, opt.Address, opt.ABI); err != nil {
+				return nil, err
+			}
 		}
 	}
 
 	return &Token{
 		Manager: manager,
+		network: network,
 		ctx:     ctx,
 		opts:    opts,
 	}, nil
 }
 
+func (t *Token) GetBinding(network utils.Network, bindingType BindingType) (*Binding, error) {
+	return t.Manager.GetBinding(network, bindingType)
+}
+
 // GetName calls the name() function in the ERC-20 contract.
 func (t *Token) GetName() (string, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "name")
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "name")
 	if err != nil {
 		return "", err
 	}
@@ -63,8 +73,7 @@ func (t *Token) GetName() (string, error) {
 
 // GetSymbol calls the symbol() function in the ERC-20 contract.
 func (t *Token) GetSymbol() (string, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "symbol")
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "symbol")
 	if err != nil {
 		return "", err
 	}
@@ -79,8 +88,7 @@ func (t *Token) GetSymbol() (string, error) {
 
 // GetDecimals calls the decimals() function in the ERC-20 contract.
 func (t *Token) GetDecimals() (uint8, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "decimals")
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "decimals")
 	if err != nil {
 		return 0, err
 	}
@@ -95,8 +103,7 @@ func (t *Token) GetDecimals() (uint8, error) {
 
 // GetTotalSupply calls the totalSupply() function in the ERC-20 contract.
 func (t *Token) GetTotalSupply() (*big.Int, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "totalSupply")
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "totalSupply")
 	if err != nil {
 		return nil, err
 	}
@@ -110,8 +117,7 @@ func (t *Token) GetTotalSupply() (*big.Int, error) {
 }
 
 func (t *Token) BalanceOf(address common.Address) (*big.Int, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "balanceOf", address)
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "balanceOf", address)
 	if err != nil {
 		return nil, err
 	}
@@ -125,8 +131,7 @@ func (t *Token) BalanceOf(address common.Address) (*big.Int, error) {
 }
 
 func (t *Token) Allowance(owner, spender common.Address) (*big.Int, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "allowance", owner, spender)
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "allowance", owner, spender)
 	if err != nil {
 		return nil, err
 	}
@@ -139,39 +144,95 @@ func (t *Token) Allowance(owner, spender common.Address) (*big.Int, error) {
 	return allowance, nil
 }
 
-func (t *Token) Transfer(to common.Address, amount *big.Int) (bool, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "transfer", to, amount)
+func (t *Token) Transfer(opts *bind.TransactOpts, to common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	binding, err := t.GetBinding(utils.Ethereum, Erc20)
 	if err != nil {
-		return false, err
+		return nil, nil, err
+	}
+	bindingAbi := binding.GetABI()
+
+	method, exists := bindingAbi.Methods["transfer"]
+	if !exists {
+		return nil, nil, errors.New("transfer method not found")
 	}
 
-	success, ok := result.(bool)
-	if !ok {
-		return false, fmt.Errorf("failed to assert result as bool - transfer")
+	input, err := method.Inputs.Pack(method.Name, to, amount)
+	if err != nil {
+		return nil, nil, err
 	}
 
-	return success, nil
+	txHash, err := t.Manager.SendSimulatedTransaction(opts, t.network, &binding.Address, method, input)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to send transfer transaction: %w", err)
+	}
+
+	// Wait for the receipt
+	receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, *txHash)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to get transfer transaction receipt: %w", err)
+	}
+
+	tx, _, err := t.Manager.GetTransactionByHash(t.ctx, t.network, receipt.TxHash)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to get transfer transaction by hash: %w", err)
+	}
+
+	return tx, receipt, nil
 }
 
-func (t *Token) Approve(spender common.Address, amount *big.Int) (bool, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "approve", spender, amount)
+func (t *Token) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
+	binding, err := t.GetBinding(utils.Ethereum, Erc20)
 	if err != nil {
-		return false, err
+		return nil, nil, err
+	}
+	bindingAbi := binding.GetABI()
+
+	method, exists := bindingAbi.Methods["approve"]
+	if !exists {
+		return nil, nil, errors.New("approve method not found")
 	}
 
-	success, ok := result.(bool)
-	if !ok {
-		return false, fmt.Errorf("failed to assert result as bool - approve")
+	input, err := bindingAbi.Pack(method.Name, spender, amount)
+	if err != nil {
+		return nil, nil, err
 	}
 
-	return success, nil
+	if simulate {
+		txHash, err := t.Manager.SendSimulatedTransaction(opts, t.network, &binding.Address, method, input)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to send approve transaction: %w", err)
+		}
+
+		// Wait for the receipt
+		receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, *txHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get approve transaction receipt: %w", err)
+		}
+
+		tx, _, err := t.Manager.GetTransactionByHash(t.ctx, t.network, receipt.TxHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get approve transaction by hash: %w", err)
+		}
+
+		return tx, receipt, nil
+	}
+
+	tx, err := t.Manager.SendTransaction(opts, t.network, &binding.Address, input)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to send approve transaction: %w", err)
+	}
+
+	// Wait for the receipt
+	receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, tx.Hash())
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to get approve transaction receipt: %w", err)
+	}
+
+	return tx, receipt, nil
 }
 
 func (t *Token) TransferFrom(from, to common.Address, amount *big.Int) (bool, error) {
-	opts := t.GetOptionsByNetwork(utils.Ethereum)
-	result, err := t.Manager.CallContractMethod(opts.Network, Erc20, "transferFrom", from, to, amount)
+	result, err := t.Manager.CallContractMethod(t.network, Erc20, "transferFrom", from, to, amount)
 	if err != nil {
 		return false, err
 	}
@@ -186,7 +247,7 @@ func (t *Token) TransferFrom(from, to common.Address, amount *big.Int) (bool, er
 
 func (t *Token) GetOptionsByNetwork(network utils.Network) *BindOptions {
 	for _, opt := range t.opts {
-		if opt.Network == network {
+		if t.network == network {
 			return opt
 		}
 	}
@@ -197,7 +258,7 @@ func DefaultTokenBindOptions(address common.Address) []*BindOptions {
 	eip, _ := standards.GetStandard(standards.ERC20)
 	return []*BindOptions{
 		{
-			Network:   utils.Ethereum,
+			Networks:  []utils.Network{utils.Ethereum, utils.AnvilNetwork},
 			NetworkID: utils.EthereumNetworkID,
 			Type:      Erc20,
 			Address:   address,

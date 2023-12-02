@@ -89,6 +89,44 @@ func (c *ClientPool) Close() {
 	}
 }
 
+// RegisterClient adds a new client to the pool. It takes the group and type of the client
+// as well as the necessary parameters to create the client.
+func (c *ClientPool) RegisterClient(ctx context.Context, networkId uint64, group, typ, endpoint string, concurrentClientsNumber int) error {
+	if group == "" || typ == "" || endpoint == "" {
+		return errors.New("invalid parameters: group, type, and endpoint are required")
+	}
+	if concurrentClientsNumber <= 0 {
+		return errors.New("concurrentClientsNumber must be greater than 0")
+	}
+
+	mutex := sync.Mutex{}
+	g, ctx := errgroup.WithContext(ctx)
+	key := group + "_" + typ
+
+	for i := 0; i < concurrentClientsNumber; i++ {
+		g.Go(func() error {
+			node := Node{Endpoint: endpoint, Group: group, Type: typ, NetworkId: int64(networkId), ConcurrentClientsNumber: concurrentClientsNumber}
+			client, err := NewClient(ctx, &node)
+			if err != nil {
+				return err
+			}
+
+			// Additional checks or configurations for the client can be added here
+
+			mutex.Lock()
+			c.clients[key] = append(c.clients[key], client)
+			mutex.Unlock()
+			return nil
+		})
+	}
+
+	if err := g.Wait(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // NewClientPool initializes a new ClientPool with the given options.
 // It returns an error if the options are not set, if there are no nodes specified in the options,
 // or if there's an issue with any of the nodes' configurations.
@@ -101,9 +139,9 @@ func NewClientPool(ctx context.Context, opts *Options) (*ClientPool, error) {
 		return nil, ErrOptionsNotSet
 	}
 
-	if len(opts.GetNodes()) == 0 {
+	/* 	if len(opts.GetNodes()) == 0 {
 		return nil, ErrNodesNotSet
-	}
+	} */
 
 	for _, node := range opts.GetNodes() {
 		if node.GetEndpoint() == "" {

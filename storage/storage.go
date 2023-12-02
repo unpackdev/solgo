@@ -5,12 +5,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/0x19/solc-switch"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/clients"
-	"github.com/unpackdev/solgo/contracts"
-	"github.com/unpackdev/solgo/providers/etherscan"
+	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/utils"
 )
@@ -22,9 +19,6 @@ type Storage struct {
 	clientsPool *clients.ClientPool
 	opts        *Options
 	simulator   *simulator.Simulator
-	etherscan   *etherscan.EtherScanProvider
-	compiler    *solc.Solc
-	bindManager *bindings.Manager
 }
 
 // NewStorage creates a new Storage instance. It requires context, network configuration, and various components
@@ -35,13 +29,10 @@ func NewStorage(
 	network utils.Network,
 	clientsPool *clients.ClientPool,
 	simulator *simulator.Simulator,
-	etherscan *etherscan.EtherScanProvider,
-	compiler *solc.Solc,
-	bindManager *bindings.Manager,
 	opts *Options,
 ) (*Storage, error) {
 	if opts == nil {
-		opts = NewDefaultOptions()
+		return nil, fmt.Errorf("options cannot be nil")
 	}
 
 	return &Storage{
@@ -50,50 +41,22 @@ func NewStorage(
 		clientsPool: clientsPool,
 		opts:        opts,
 		simulator:   simulator,
-		etherscan:   etherscan,
-		compiler:    compiler,
-		bindManager: bindManager,
 	}, nil
 }
 
 // Describe queries and returns detailed information about a smart contract at a specific address.
-// It requires context, the contract address, and the block number for the query.
+// It requires context, the contract address, detector and the block number for the query.
 // It returns a Reader instance containing contract details or an error if the query fails.
-func (s *Storage) Describe(ctx context.Context, addr common.Address, atBlock *big.Int) (*Reader, error) {
-	contract, err := contracts.NewContract(ctx, s.network, s.clientsPool, nil, nil, s.etherscan, s.compiler, s.bindManager, addr)
-	if err != nil {
-		return nil, err
-	}
-
-	decodedContract, err := s.DecodeContract(ctx, contract)
-	if err != nil {
-		return nil, err
-	}
-
-	return s._describe(ctx, addr, decodedContract, atBlock)
-}
-
-// DescribeFromContract is similar to Describe but starts with an existing contract instance.
-// It requires context, a contract object, and the block number for the query.
-// It returns a Reader instance containing contract details or an error if the query fails.
-func (s *Storage) DescribeFromContract(ctx context.Context, contract *contracts.Contract, atBlock *big.Int) (*Reader, error) {
-	if contract == nil {
-		return nil, fmt.Errorf("contract is nil")
-	}
-
-	decodedContract, err := s.DecodeContract(ctx, contract)
-	if err != nil {
-		return nil, err
-	}
-
-	return s._describe(ctx, contract.GetAddress(), decodedContract, atBlock)
+func (s *Storage) Describe(ctx context.Context, addr common.Address, detector *detector.Detector, atBlock *big.Int) (*Reader, error) {
+	return s._describe(ctx, addr, detector, atBlock)
 }
 
 // _describe is an internal method that performs the actual description process of a contract.
 // It constructs a Descriptor and utilizes a Reader to discover and calculate storage variables and layouts.
-func (s *Storage) _describe(ctx context.Context, addr common.Address, contract *contracts.Contract, atBlock *big.Int) (*Reader, error) {
+func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *detector.Detector, atBlock *big.Int) (*Reader, error) {
 	descriptor := &Descriptor{
-		Contract:         contract,
+		Detector:         detector,
+		Address:          addr,
 		Block:            atBlock,
 		StateVariables:   make(map[string][]*Variable),
 		TargetVariables:  make(map[string][]*Variable),
@@ -135,6 +98,11 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 			if err != nil {
 				return err
 			}
+
+			if descriptor.Block == nil {
+				descriptor.Block = blockNumber
+			}
+
 			slot.BlockNumber = blockNumber
 			lastStorageValue = storageValue
 			lastSlot = slot.Slot
@@ -153,10 +121,10 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 
 // getStorageValueAt retrieves the storage value at a given slot for a contract.
 func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
-	if s.simulator != nil && s.opts.UseSimulator {
-		return s.getSimulatedStorageValueAt(ctx, contractAddress, slot, blockNumber)
-	}
-
+	/* 	if s.simulator != nil && s.opts.UseSimulator {
+	   		return s.getSimulatedStorageValueAt(ctx, contractAddress, slot, blockNumber)
+	   	}
+	*/
 	client := s.clientsPool.GetClientByGroup(s.network.String())
 	if client == nil {
 		return blockNumber, nil, fmt.Errorf("no client found for network %s", s.network)
@@ -178,7 +146,7 @@ func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.
 }
 
 // getStorageValueAt retrieves the storage value at a given slot for a contract using local simulator instance (debugging purpose).
-func (s *Storage) getSimulatedStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
+/* func (s *Storage) getSimulatedStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
 	client := s.simulator.GetBackend()
 
 	if blockNumber == nil {
@@ -194,4 +162,4 @@ func (s *Storage) getSimulatedStorageValueAt(ctx context.Context, contractAddres
 
 	response, err := client.StorageAt(ctx, contractAddress, position, blockNumber)
 	return blockNumber, response, err
-}
+} */

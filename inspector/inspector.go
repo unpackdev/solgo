@@ -7,56 +7,49 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/standards"
+	"github.com/unpackdev/solgo/storage"
 )
 
 type Inspector struct {
-	ctx       context.Context
-	addresses []common.Address
-	detector  *detector.Detector
-	report    *Report
-	visitor   *ast.NodeVisitor
+	ctx         context.Context
+	detector    *detector.Detector
+	storage     *storage.Storage
+	bindManager *bindings.Manager
+	report      *Report
+	visitor     *ast.NodeVisitor
 }
 
-func NewInspector(detector *detector.Detector, addresses ...common.Address) (*Inspector, error) {
+func NewInspector(ctx context.Context, detector *detector.Detector, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address) (*Inspector, error) {
 	return &Inspector{
-		addresses: addresses,
-		detector:  detector,
-		visitor:   &ast.NodeVisitor{},
+		ctx:         ctx,
+		detector:    detector,
+		storage:     storage,
+		bindManager: bindManager,
+		visitor:     &ast.NodeVisitor{},
 		report: &Report{
-			Addresses: addresses,
+			Address:   addr,
 			Detectors: make(map[DetectorType]any),
 		},
 	}, nil
 }
 
-func (i *Inspector) GetAddresses() []common.Address {
-	return i.addresses
-}
-
-func (i *Inspector) AddressExists(address common.Address) bool {
-	for _, addr := range i.addresses {
-		if addr == address {
-			return true
-		}
-	}
-
-	return false
-}
-
-func (i *Inspector) RegisterAddress(address common.Address) bool {
-	if !i.AddressExists(address) {
-		i.addresses = append(i.addresses, address)
-		i.report.Addresses = append(i.report.Addresses, address)
-		return true
-	}
-
-	return false
+func (i *Inspector) GetAddress() common.Address {
+	return i.report.Address
 }
 
 func (i *Inspector) GetDetector() *detector.Detector {
 	return i.detector
+}
+
+func (i *Inspector) GetStorage() *storage.Storage {
+	return i.storage
+}
+
+func (i *Inspector) GetBindingManager() *bindings.Manager {
+	return i.bindManager
 }
 
 func (i *Inspector) GetReport() *Report {

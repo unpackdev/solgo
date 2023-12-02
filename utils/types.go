@@ -1,5 +1,24 @@
 package utils
 
+const (
+	HeadStrategy    Strategy = "head"
+	ArchiveStrategy Strategy = "archive"
+
+	ZeroAddressRecipient AddressType = "zero_address"
+	AddressRecipient     AddressType = "address"
+	ContractRecipient    AddressType = "contract"
+
+	UnknownTransactionMethodType TransactionMethodType = "unknown"
+	ContractCreationType         TransactionMethodType = "contract_creation"
+	TransferMethodType           TransactionMethodType = "transfer"
+
+	UnknownLogEventType LogEventType = "unknown"
+
+	AnvilSimulator SimulatorType = "anvil"
+
+	SimulatorAccountType AccountType = "simulator"
+)
+
 type Strategy string
 
 func (s Strategy) String() string {
@@ -24,15 +43,14 @@ func (t LogEventType) String() string {
 	return string(t)
 }
 
-const (
-	HeadStrategy    Strategy = "head"
-	ArchiveStrategy Strategy = "archive"
+type AccountType string
 
-	ZeroAddressRecipient AddressType = "zero_address"
-	AddressRecipient     AddressType = "address"
-	ContractRecipient    AddressType = "contract"
+func (t AccountType) String() string {
+	return string(t)
+}
 
-	UnknownTransactionMethodType TransactionMethodType = "unknown"
-	ContractCreationType         TransactionMethodType = "contract_creation"
-	TransferMethodType           TransactionMethodType = "transfer"
-)
+type SimulatorType string
+
+func (t SimulatorType) String() string {
+	return string(t)
+}

@@ -10,10 +10,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/standards"
+	"github.com/unpackdev/solgo/storage"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -45,6 +47,14 @@ func TestInspector(t *testing.T) {
 		Endpoint: "https://api.etherscan.io/api",
 		Keys:     strings.Split(etherscanApiKeys, ","),
 	})
+
+	storage, err := storage.NewStorage(ctx, utils.Ethereum, pool, nil, storage.NewDefaultOptions())
+	tAssert.NoError(err)
+	tAssert.NotNil(storage)
+
+	bindManager, err := bindings.NewManager(ctx, utils.Ethereum, pool)
+	tAssert.NoError(err)
+	tAssert.NotNil(bindManager)
 
 	testCases := []struct {
 		name          string
@@ -79,13 +89,12 @@ func TestInspector(t *testing.T) {
 				// So far contracts bellow 0.6.0 are doing some weird shit so we are disabling it for now...
 				require.False(t, utils.IsSemanticVersionLowerOrEqualTo(response.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 6, Patch: 0}))
 
-				_ = parser.Parse()
-				//tAssert.NoError(errs)
+				parser.Parse()
 
 				err = parser.Build()
 				tAssert.NoError(err)
 
-				inspector, err := NewInspector(parser, tc.contractAddr)
+				inspector, err := NewInspector(ctx, parser, storage, bindManager, tc.contractAddr)
 				tAssert.NoError(err)
 				tAssert.NotNil(inspector)
 
@@ -106,7 +115,7 @@ func TestInspector(t *testing.T) {
 				// Alright now we're at the point that we know contract should be checked for any type of malicious activity
 				tAssert.NoError(inspector.Inspect())
 
-				utils.DumpNodeNoExit(inspector.GetReport().Detectors[TransferDetectorType])
+				utils.DumpNodeNoExit(inspector.GetReport().Detectors[SimulateDetectorType])
 
 				/* 				md := GetDetector(MintDetectorType)
 				   				require.NotNil(t, md)

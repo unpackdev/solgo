@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/rpc"
 )
 
 // Client wraps the Ethereum client with additional context and options.
@@ -45,6 +46,10 @@ func NewClient(ctx context.Context, opts *Node) (*Client, error) {
 		opts:   opts,
 		Client: ethClient,
 	}, nil
+}
+
+func (c *Client) GetRpcClient() *rpc.Client {
+	return c.Client.Client()
 }
 
 // GetNetworkID retrieves the network ID for the client.

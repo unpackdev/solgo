@@ -10,8 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/unpackdev/solgo/bindings"
+	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/clients"
+	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/utils"
@@ -59,11 +60,7 @@ func TestStorage(t *testing.T) {
 		Keys:     strings.Split(etherscanApiKeys, ","),
 	})
 
-	bindManager, err := bindings.NewManager(ctx, pool)
-	tAssert.NoError(err)
-	tAssert.NotNil(bindManager)
-
-	storage, err := NewStorage(ctx, utils.Ethereum, pool, simulator, etherscanProvider, nil, bindManager, NewDefaultOptions())
+	storage, err := NewStorage(ctx, utils.Ethereum, pool, simulator, NewDefaultOptions())
 	tAssert.NoError(err)
 	tAssert.NotNil(storage)
 
@@ -107,8 +104,30 @@ func TestStorage(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			tAssert := assert.New(t)
 
+			response, err := etherscanProvider.ScanContract(tc.address)
+			tAssert.NoError(err)
+			tAssert.NotNil(response)
+
+			sources, err := solgo.NewSourcesFromEtherScan(response.Name, response.SourceCode)
+			tAssert.NoError(err)
+			tAssert.NotNil(sources)
+			require.True(t, sources.HasUnits())
+
+			parser, err := detector.NewDetectorFromSources(ctx, nil, sources)
+			tAssert.NoError(err)
+			tAssert.NotNil(parser)
+
+			// So far contracts bellow 0.6.0 are doing some weird shit so we are disabling it for now...
+			require.False(t, utils.IsSemanticVersionLowerOrEqualTo(response.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 6, Patch: 0}))
+
+			errs := parser.Parse()
+			tAssert.Equal(len(errs), 0)
+
+			err = parser.Build()
+			tAssert.NoError(err)
+
 			// Use the test case data to run the test
-			reader, err := storage.Describe(ctx, tc.address, tc.atBlock)
+			reader, err := storage.Describe(ctx, tc.address, parser, tc.atBlock)
 
 			if tc.expectError {
 				tAssert.Error(err)

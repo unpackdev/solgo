@@ -1,8 +1,11 @@
 package bindings
 
 import (
+	"context"
 	"errors"
+	"fmt"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -17,7 +20,46 @@ var (
 
 )
 
-func (m *Manager) SendTransaction(opts *bind.TransactOpts, contract *common.Address, input []byte) (*types.Transaction, error) {
+func (m *Manager) GetTransactionByHash(ctx context.Context, network utils.Network, txHash common.Hash) (*types.Transaction, bool, error) {
+	client := m.clientPool.GetClientByGroup(string(network))
+	if client == nil {
+		return nil, false, fmt.Errorf("client not found for network %s", network)
+	}
+
+	return client.TransactionByHash(ctx, txHash)
+}
+
+func (m *Manager) WaitForReceipt(ctx context.Context, network utils.Network, txHash common.Hash) (*types.Receipt, error) {
+	client := m.clientPool.GetClientByGroup(string(network))
+	if client == nil {
+		return nil, fmt.Errorf("client not found for network %s", network)
+	}
+
+	// TODO: This should be configurable per network... (this: 2 seconds)
+	ctxWait, cancel := context.WithTimeout(ctx, 2*time.Second)
+	defer cancel()
+
+	for {
+		select {
+		case <-ctx.Done():
+			return nil, fmt.Errorf("context cancelled while waiting to get transaction receipt: %s", txHash.Hex())
+		default:
+			receipt, err := client.TransactionReceipt(ctxWait, txHash)
+			if err != nil {
+				if errors.Is(err, context.DeadlineExceeded) {
+					return nil, fmt.Errorf("timeout waiting to get transaction receipt: %s", txHash.Hex())
+				}
+				// Transaction not yet mined
+				time.Sleep(500 * time.Millisecond) // Configurable delay
+				continue
+			}
+
+			return receipt, nil
+		}
+	}
+}
+
+func (m *Manager) SendTransaction(opts *bind.TransactOpts, network utils.Network, contract *common.Address, input []byte) (*types.Transaction, error) {
 	var rawTx *types.Transaction
 	var err error
 	if opts.GasPrice != nil {
@@ -32,9 +74,9 @@ func (m *Manager) SendTransaction(opts *bind.TransactOpts, contract *common.Addr
 				return nil, errHead
 			}
 		} else {
-			client := m.clientPool.GetClientByGroup(string(utils.Ethereum))
+			client := m.clientPool.GetClientByGroup(string(network))
 			if client == nil {
-				return nil, errors.New("client not found for network")
+				return nil, fmt.Errorf("client not found for network %s", network)
 			}
 
 			head, errHead = client.HeaderByNumber(opts.Context, nil)
@@ -62,7 +104,6 @@ func (m *Manager) SendTransaction(opts *bind.TransactOpts, contract *common.Addr
 		return nil, err
 	}
 
-	// Send the transaction
 	if !opts.NoSend {
 		if m.simulatedClient != nil {
 			if err := m.simulatedClient.SendTransaction(opts.Context, signedTx); err != nil {
@@ -70,7 +111,7 @@ func (m *Manager) SendTransaction(opts *bind.TransactOpts, contract *common.Addr
 			}
 			m.simulatedClient.Commit()
 		} else {
-			client := m.clientPool.GetClientByGroup(string(utils.Ethereum))
+			client := m.clientPool.GetClientByGroup(string(network))
 			if client == nil {
 				return nil, errors.New("client not found for network")
 			}

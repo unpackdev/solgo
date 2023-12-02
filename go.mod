@@ -6,6 +6,7 @@ require (
 	github.com/0x19/solc-switch v1.0.3
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
+	github.com/davecgh/go-spew v1.1.1
 	github.com/ethereum/go-ethereum v1.13.4
 	github.com/fxamacker/cbor/v2 v2.5.0
 	github.com/goccy/go-graphviz v0.1.1
@@ -13,6 +14,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
+	github.com/miguelmota/go-ethereum-hdwallet v0.1.2
 	github.com/mr-tron/base58 v1.2.0
 	github.com/redis/go-redis/v9 v9.3.0
 	github.com/sergi/go-diff v1.3.1
@@ -21,7 +23,7 @@ require (
 	github.com/unpackdev/protos v0.3.2
 	github.com/wadey/go-rounding v1.1.0
 	go.uber.org/zap v1.26.0
-	golang.org/x/crypto v0.14.0
+	golang.org/x/crypto v0.16.0
 	golang.org/x/sync v0.3.0
 	google.golang.org/protobuf v1.31.0
 )
@@ -36,7 +38,10 @@ require (
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bits-and-blooms/bitset v1.8.0 // indirect
+	github.com/btcsuite/btcd v0.22.1 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.3.2 // indirect
+	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.3 // indirect
+	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/cockroachdb/errors v1.8.1 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20190617123548-eb05cc24525f // indirect
@@ -48,7 +53,6 @@ require (
 	github.com/consensys/gnark-crypto v0.12.1 // indirect
 	github.com/crackcomm/go-gitignore v0.0.0-20170627025303-887ab5e44cc3 // indirect
 	github.com/crate-crypto/go-kzg-4844 v0.3.0 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deckarep/golang-set/v2 v2.3.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
@@ -116,8 +120,8 @@ require (
 	golang.org/x/image v0.12.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.13.0 // indirect
 	google.golang.org/genproto v0.0.0-20230920204549-e6e6cdab5c13 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13 // indirect

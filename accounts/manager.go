@@ -17,11 +17,11 @@ import (
 // Manager handles the account operations across various Ethereum networks.
 // It maintains a map of keystores and accounts for each supported network.
 type Manager struct {
-	ctx      context.Context                // Context for managing async operations
-	cfg      *Options                       // Configuration options for the Manager
-	client   *clients.ClientPool            // Ethereum client pool
-	ks       map[Network]*keystore.KeyStore // Keystores for different networks
-	accounts map[Network][]*Account         // Accounts mapped by their network
+	ctx      context.Context                      // Context for managing async operations
+	cfg      *Options                             // Configuration options for the Manager
+	client   *clients.ClientPool                  // Ethereum client pool
+	ks       map[utils.Network]*keystore.KeyStore // Keystores for different networks
+	accounts map[utils.Network][]*Account         // Accounts mapped by their network
 }
 
 // NewManager initializes a new Manager instance.
@@ -36,7 +36,7 @@ func NewManager(ctx context.Context, client *clients.ClientPool, cfg *Options) (
 		return nil, fmt.Errorf("no supported networks provided. You must provide at least one network")
 	}
 
-	var keystores = make(map[Network]*keystore.KeyStore)
+	var keystores = make(map[utils.Network]*keystore.KeyStore)
 
 	// Now for each supported network, we need to create a subdirectory in the keystore path if it does not exist.
 	// Be sure that write permissions are set correctly.
@@ -60,7 +60,7 @@ func NewManager(ctx context.Context, client *clients.ClientPool, cfg *Options) (
 		cfg:      cfg,
 		ks:       keystores,
 		client:   client,
-		accounts: make(map[Network][]*Account),
+		accounts: make(map[utils.Network][]*Account),
 	}
 
 	if err := toReturn.Load(); err != nil {
@@ -85,7 +85,11 @@ func (m *Manager) Load() error {
 			if err != nil {
 				return err
 			}
-			acc.ClientPool = m.client
+
+			if client := m.client.GetClientByGroup(network.String()); client != nil {
+				acc.SetClient(client)
+			}
+
 			acc.KeyStore = ks
 			m.accounts[network] = append(m.accounts[network], acc)
 		}
@@ -100,13 +104,13 @@ func (m *Manager) GetConfig() *Options {
 }
 
 // GetNetworkPath returns the file path for a given network's keystore.
-func (m *Manager) GetNetworkPath(network Network) string {
+func (m *Manager) GetNetworkPath(network utils.Network) string {
 	return path.Join(m.cfg.KeystorePath, strings.ToLower(string(network)))
 }
 
 // GetKeystore retrieves the keystore for a given network.
 // Returns an error if the network is not supported.
-func (m *Manager) GetKeystore(network Network) (*keystore.KeyStore, error) {
+func (m *Manager) GetKeystore(network utils.Network) (*keystore.KeyStore, error) {
 	if _, ok := m.ks[network]; !ok {
 		return nil, fmt.Errorf("network %s is not supported", network)
 	}
@@ -116,13 +120,13 @@ func (m *Manager) GetKeystore(network Network) (*keystore.KeyStore, error) {
 
 // Import imports an account with a given private key and password into the keystore of a specified network.
 // TODO: Currently, the function body is empty and needs implementation.
-func (m *Manager) Import(network Network, privateKey string, password string) error {
+func (m *Manager) Import(network utils.Network, privateKey string, password string) error {
 	return nil
 }
 
 // Create creates a new account for a given network with a specified password and optional tags.
 // It saves the account to the network's keystore path and adds it to the accounts map.
-func (m *Manager) Create(network Network, password string, tags ...string) (*Account, error) {
+func (m *Manager) Create(network utils.Network, password string, pin bool, tags ...string) (*Account, error) {
 	ks, err := m.GetKeystore(network)
 	if err != nil {
 		return nil, err
@@ -134,7 +138,6 @@ func (m *Manager) Create(network Network, password string, tags ...string) (*Acc
 	}
 
 	acc := &Account{
-		ClientPool:      m.client,
 		KeyStore:        ks,
 		KeystoreAccount: kacc,
 		Password:        base64.StdEncoding.EncodeToString([]byte(password)),
@@ -142,21 +145,26 @@ func (m *Manager) Create(network Network, password string, tags ...string) (*Acc
 		Tags:            tags,
 	}
 
-	// Now we need to save the account to the keystore path.
-	path := path.Join(m.GetNetworkPath(network), kacc.Address.Hex()+".json")
+	acc.SetClient(m.client.GetClientByGroup(network.String()))
 
-	if err := acc.SaveToPath(path); err != nil {
-		return nil, err
+	// If the pin flag is set, we need to pin the account.
+	if pin {
+		// Now we need to save the account to the keystore path.
+		path := path.Join(m.GetNetworkPath(network), kacc.Address.Hex()+".json")
+
+		if err := acc.SaveToPath(path); err != nil {
+			return nil, err
+		}
+
+		// Now we need to add the account to the accounts map.
+		m.accounts[network] = append(m.accounts[network], acc)
 	}
-
-	// Now we need to add the account to the accounts map.
-	m.accounts[network] = append(m.accounts[network], acc)
 
 	return acc, nil
 }
 
 // List lists all accounts for a given network, optionally filtered by tags.
-func (m *Manager) List(network Network, tags ...string) []*Account {
+func (m *Manager) List(network utils.Network, tags ...string) []*Account {
 	var toReturn []*Account
 
 	if accounts, ok := m.accounts[network]; ok {
@@ -166,7 +174,11 @@ func (m *Manager) List(network Network, tags ...string) []*Account {
 
 		for _, acc := range accounts {
 			for _, tag := range tags {
-				if acc.HasTag(tag) {
+				if len(tags) > 0 {
+					if acc.HasTag(tag) {
+						toReturn = append(toReturn, acc)
+					}
+				} else {
 					toReturn = append(toReturn, acc)
 				}
 			}
@@ -178,7 +190,7 @@ func (m *Manager) List(network Network, tags ...string) []*Account {
 
 // Get retrieves a specific account by its address for a given network.
 // Returns an error if the account is not found.
-func (m *Manager) Get(network Network, address common.Address) (*Account, error) {
+func (m *Manager) Get(network utils.Network, address common.Address) (*Account, error) {
 	if accounts, ok := m.accounts[network]; ok {
 		for _, acc := range accounts {
 			if acc.KeystoreAccount.Address.Hex() == address.Hex() {

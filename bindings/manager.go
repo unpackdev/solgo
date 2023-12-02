@@ -90,6 +90,10 @@ func (m *Manager) RegisterBinding(network utils.Network, networkID utils.Network
 	return binding, nil
 }
 
+func (m *Manager) GetClient() *clients.ClientPool {
+	return m.clientPool
+}
+
 func (m *Manager) GetBinding(network utils.Network, name BindingType) (*Binding, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
@@ -154,6 +158,7 @@ func (m *Manager) WatchEvents(network utils.Network, bindingType BindingType, ev
 func (m *Manager) CallContractMethod(network utils.Network, bindingType BindingType, methodName string, params ...interface{}) (any, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
+
 	binding, ok := m.bindings[network][bindingType]
 	if !ok {
 		return nil, fmt.Errorf("binding %s not found for network %s", bindingType, network)

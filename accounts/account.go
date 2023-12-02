@@ -13,18 +13,19 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/unpackdev/solgo/clients"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // Account represents an Ethereum account with extended functionalities.
 // It embeds ClientPool for network interactions and KeyStore for account management.
 // It also includes fields for account details, network information, and additional tags.
 type Account struct {
-	*clients.ClientPool `json:"-" yaml:"-"` // ClientPool for Ethereum client interactions
-	*keystore.KeyStore  `json:"-" yaml:"-"` // KeyStore for managing account keys
-	KeystoreAccount     account.Account     `json:"account" yaml:"account"`   // Ethereum account information
-	Password            string              `json:"password" yaml:"password"` // Account's password
-	Network             Network             `json:"network" yaml:"network"`   // Network information
-	Tags                []string            `json:"tags" yaml:"tags"`         // Arbitrary tags for the account
+	client             *clients.Client     `json:"-" yaml:"-"` // Client for Ethereum client interactions
+	*keystore.KeyStore `json:"-" yaml:"-"` // KeyStore for managing account keys
+	KeystoreAccount    account.Account     `json:"account" yaml:"account"`   // Ethereum account information
+	Password           string              `json:"password" yaml:"password"` // Account's password
+	Network            utils.Network       `json:"network" yaml:"network"`   // Network information
+	Tags               []string            `json:"tags" yaml:"tags"`         // Arbitrary tags for the account
 }
 
 // HasTag checks if the account has a specific tag.
@@ -51,15 +52,23 @@ func (a *Account) GetAddress() common.Address {
 	return a.KeystoreAccount.Address
 }
 
+func (a *Account) SetClient(client *clients.Client) {
+	a.client = client
+}
+
+func (a *Account) GetClient() *clients.Client {
+	return a.client
+}
+
+func (a *Account) SetAccountBalance(ctx context.Context, amount *big.Int) error {
+	amountHex := common.Bytes2Hex(amount.Bytes())
+	return a.client.GetRpcClient().Call(nil, "anvil_setBalance", a.GetAddress(), amountHex)
+}
+
 // Balance queries the Ethereum network for the account's balance at a specific block number.
 // Returns the balance or an error if the query fails.
 func (a *Account) Balance(ctx context.Context, blockNum *big.Int) (*big.Int, error) {
-	client := a.ClientPool.GetClientByGroup(string(a.Network))
-	if client == nil {
-		return big.NewInt(0), fmt.Errorf("no client found for network %s", string(a.Network))
-	}
-
-	balance, err := client.BalanceAt(ctx, a.KeystoreAccount.Address, blockNum)
+	balance, err := a.client.BalanceAt(ctx, a.KeystoreAccount.Address, blockNum)
 	if err != nil {
 		return big.NewInt(0), err
 	}
@@ -71,11 +80,6 @@ func (a *Account) Balance(ctx context.Context, blockNum *big.Int) (*big.Int, err
 // Validates sufficient balance and signs the transaction with the account's passphrase.
 // Returns the signed transaction or an error if the transfer fails.
 func (a *Account) Transfer(ctx context.Context, to common.Address, value *big.Int) (*types.Transaction, error) {
-	client := a.ClientPool.GetClientByGroup(string(a.Network))
-	if client == nil {
-		return nil, fmt.Errorf("no client found for network %s", string(a.Network))
-	}
-
 	currentBalance, err := a.Balance(ctx, nil)
 	if err != nil {
 		return nil, err
@@ -90,13 +94,13 @@ func (a *Account) Transfer(ctx context.Context, to common.Address, value *big.In
 		return nil, fmt.Errorf("failed to decode password: %s", err.Error())
 	}
 
-	nonce, err := client.PendingNonceAt(context.Background(), a.KeystoreAccount.Address)
+	nonce, err := a.client.PendingNonceAt(context.Background(), a.KeystoreAccount.Address)
 	if err != nil {
 		return nil, err
 	}
 
 	gasLimit := uint64(21000)
-	gasPrice, err := client.SuggestGasPrice(context.Background())
+	gasPrice, err := a.client.SuggestGasPrice(context.Background())
 	if err != nil {
 		return nil, err
 	}
@@ -104,12 +108,12 @@ func (a *Account) Transfer(ctx context.Context, to common.Address, value *big.In
 	var data []byte
 	tx := types.NewTransaction(nonce, to, value, gasLimit, gasPrice, data)
 
-	signedTx, err := a.KeyStore.SignTxWithPassphrase(a.KeystoreAccount, passwd, tx, big.NewInt(client.GetNetworkID()))
+	signedTx, err := a.KeyStore.SignTxWithPassphrase(a.KeystoreAccount, passwd, tx, big.NewInt(a.client.GetNetworkID()))
 	if err != nil {
 		return nil, err
 	}
 
-	if err := client.SendTransaction(ctx, signedTx); err != nil {
+	if err := a.client.SendTransaction(ctx, signedTx); err != nil {
 		return nil, err
 	}
 

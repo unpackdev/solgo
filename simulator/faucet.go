@@ -2,72 +2,65 @@ package simulator
 
 import (
 	"context"
-	"crypto/ecdsa"
-	"errors"
-	"math/big"
+	"fmt"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/unpackdev/solgo/accounts"
+	"github.com/unpackdev/solgo/clients"
+	"github.com/unpackdev/solgo/utils"
 )
 
+// Faucet is responsible for creating and managing simulated blockchain accounts.
+// It integrates with solgo's accounts.Manager to leverage existing account management features.
+// Faucet is primarily used in testing environments where multiple accounts with
+// specific configurations are required.
 type Faucet struct {
-	Address    common.Address
-	PrivateKey *ecdsa.PrivateKey
-	Balance    *big.Int
+	*accounts.Manager
+	ctx        context.Context
+	opts       *Options
+	clientPool *clients.ClientPool
 }
 
-func NewFaucet() (*Faucet, error) {
-	sk, err := crypto.GenerateKey()
-	if err != nil {
-		return nil, err
+// NewFaucet creates a new instance of Faucet. It requires a context and options to
+// initialize the underlying accounts manager and other configurations.
+// Returns an error if the options are not provided or if the accounts manager fails to initialize.
+func NewFaucet(ctx context.Context, clientPool *clients.ClientPool, opts *Options) (*Faucet, error) {
+	if opts == nil {
+		return nil, fmt.Errorf("in order to create a new faucet, you must provide options")
 	}
-	address := crypto.PubkeyToAddress(sk.PublicKey)
+
+	manager, err := accounts.NewManager(ctx, clientPool, &accounts.Options{KeystorePath: opts.KeystorePath, SupportedNetworks: opts.SupportedNetworks})
+	if err != nil {
+		return nil, fmt.Errorf("failed to create new faucet manager: %w", err)
+	}
+
 	return &Faucet{
-		Address:    address,
-		PrivateKey: sk,
-		Balance:    big.NewInt(0),
+		ctx:        ctx,
+		opts:       opts,
+		Manager:    manager,
+		clientPool: clientPool,
 	}, nil
 }
 
-func (f *Faucet) AddFunds(amount *big.Int) {
-	f.Balance.Add(f.Balance, amount)
-}
+// Create generates a new simulated account for a specific network.
+// This method is particularly useful in testing scenarios where multiple accounts
+// are needed with different configurations. If no password is provided, the default
+// password from Faucet options is used. The account can be optionally pinned, and
+// additional tags can be assigned for further categorization or identification.
+// Returns the created account or an error if the account creation fails.
+func (f *Faucet) Create(network utils.Network, password string, pin bool, tags ...string) (*accounts.Account, error) {
+	tags = append(tags, utils.SimulatorAccountType.String())
 
-func (f *Faucet) RemoveFunds(amount *big.Int) error {
-	if f.Balance.Cmp(amount) < 0 {
-		return errors.New("insufficient funds")
+	var pwd string
+	if password == "" {
+		pwd = f.opts.DefaultPassword
+	} else {
+		pwd = password
 	}
-	f.Balance.Sub(f.Balance, amount)
-	return nil
-}
 
-func (f *Faucet) GetBalance() *big.Int {
-	return new(big.Int).Set(f.Balance)
-}
-
-// Method to create bind.TransactOpts from the Faucet
-func (f *Faucet) TransactOpts(simulator *Simulator, chainID *big.Int) (*bind.TransactOpts, error) {
-	auth, err := bind.NewKeyedTransactorWithChainID(f.PrivateKey, chainID)
+	account, err := f.Manager.Create(network, pwd, pin, tags...)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to generate faucet account for network: %s err: %s", network, err)
 	}
 
-	backend := simulator.GetBackend()
-
-	// Set the nonce, gas price, and gas limit as needed
-	nonce, err := backend.PendingNonceAt(context.Background(), auth.From)
-	if err != nil {
-		return nil, err
-	}
-	auth.Nonce = big.NewInt(int64(nonce))
-
-	gasPrice, err := backend.SuggestGasPrice(context.Background())
-	if err != nil {
-		return nil, err
-	}
-	auth.GasPrice = gasPrice
-	auth.GasLimit = uint64(3000000) // Set your desired gas limit
-
-	return auth, nil
+	return account, nil
 }

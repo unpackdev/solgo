@@ -41,8 +41,8 @@ func (m MintResults) IsVisible() bool {
 // MintDetector is a structure responsible for detecting mint functions
 // and analyzing their characteristics in Solidity smart contracts.
 type MintDetector struct {
-	ctx             context.Context
-	inspector       *Inspector
+	ctx context.Context
+	*Inspector
 	functionNames   []string
 	allowancesNames []string
 	results         *MintResults
@@ -53,7 +53,7 @@ type MintDetector struct {
 func NewMintDetector(ctx context.Context, inspector *Inspector) Detector {
 	return &MintDetector{
 		ctx:       ctx,
-		inspector: inspector,
+		Inspector: inspector,
 		// Function names typically associated with minting tokens in ERC20 contracts.
 		functionNames: []string{
 			"mint", "mintFor", "mintTo", "mintWithTokenURI", "mintBatch", "mintBatchFor", "mintBatchTo", "mintBatchWithTokenURI",
@@ -135,8 +135,8 @@ func (m *MintDetector) analyzeFunctionBody(fnCtx *ast.Function) error {
 	m.results.FunctionName = fnCtx.GetName()
 	//m.results.Statement = fnCtx
 
-	m.inspector.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_ASSIGNMENT, func(node ast.Node[ast.NodeType]) (bool, error) {
-		m.inspector.GetTree().ExecuteCustomTypeVisit(node.GetNodes(), ast_pb.NodeType_INDEX_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
+	m.GetTree().ExecuteCustomTypeVisit(fnCtx.GetNodes(), ast_pb.NodeType_ASSIGNMENT, func(node ast.Node[ast.NodeType]) (bool, error) {
+		m.GetTree().ExecuteCustomTypeVisit(node.GetNodes(), ast_pb.NodeType_INDEX_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
 			if indexCtx, ok := node.(*ast.IndexAccess); ok {
 				var detector *DetectorResult
 
@@ -185,7 +185,7 @@ func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 				return false, nil
 			}
 
-			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_MEMBER_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
+			m.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_MEMBER_ACCESS, func(node ast.Node[ast.NodeType]) (bool, error) {
 				nodeCtx, ok := node.(*ast.MemberAccessExpression)
 				if !ok {
 					return true, fmt.Errorf("unable to convert node to MemberAccessExpression type in MintDetector.Exit: %T", node)
@@ -206,7 +206,7 @@ func (m *MintDetector) Exit(ctx context.Context) map[ast_pb.NodeType]func(node a
 				return true, nil
 			})
 
-			m.inspector.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) (bool, error) {
+			m.GetTree().ExecuteCustomTypeVisit(fnNode.GetNodes(), ast_pb.NodeType_FUNCTION_CALL, func(node ast.Node[ast.NodeType]) (bool, error) {
 				nodeCtx, ok := node.(*ast.FunctionCall)
 				if !ok {
 					return true, fmt.Errorf("unable to convert node to FunctionCall type in MintDetector.Exit: %T", node)

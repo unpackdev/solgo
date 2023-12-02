@@ -26,23 +26,7 @@ func (r *Reader) GetDescriptor() *Descriptor {
 }
 
 func (r *Reader) DiscoverStorageVariables() error {
-	contract := r.descriptor.Contract
-
-	if contract == nil {
-		return fmt.Errorf("failed to get storage variables as contract is not set")
-	}
-
-	descriptor := contract.GetDescriptor()
-	if descriptor == nil {
-		return fmt.Errorf("failed to get storage variables as contract descriptor is not set (parsing did not occur or failed)")
-	}
-
-	detector := descriptor.Detector
-	if detector == nil {
-		return fmt.Errorf("failed to get storage variables as contract detector is not set (parsing did not occur or failed)")
-	}
-
-	ir := detector.GetIR()
+	ir := r.descriptor.GetIR()
 	if ir == nil {
 		return fmt.Errorf("failed to get storage variables as contract IR is not set (parsing did not occur or failed)")
 	}

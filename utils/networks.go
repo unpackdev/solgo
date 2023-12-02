@@ -8,13 +8,14 @@ type Network string
 type NetworkID uint64
 
 const (
-	Ethereum  Network = "ethereum"
-	Bsc       Network = "bsc"
-	Polygon   Network = "polygon"
-	Avalanche Network = "avalanche"
-	Fantom    Network = "fantom"
-	Arbitrum  Network = "arbitrum"
-	Optimism  Network = "optimism"
+	AnvilNetwork Network = "anvil"
+	Ethereum     Network = "ethereum"
+	Bsc          Network = "bsc"
+	Polygon      Network = "polygon"
+	Avalanche    Network = "avalanche"
+	Fantom       Network = "fantom"
+	Arbitrum     Network = "arbitrum"
+	Optimism     Network = "optimism"
 
 	// Mainnets
 	EthereumNetworkID  NetworkID = 1

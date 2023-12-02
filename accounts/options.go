@@ -1,5 +1,7 @@
 package accounts
 
+import "github.com/unpackdev/solgo/utils"
+
 // Options defines the configuration parameters for account management.
 type Options struct {
 	// KeystorePath specifies the file system path to the directory where the keystore files are stored.
@@ -8,5 +10,5 @@ type Options struct {
 
 	// SupportedNetworks lists the Ethereum based networks that the account manager will interact with.
 	// Each network has a corresponding keystore and set of account configurations.
-	SupportedNetworks []Network `json:"supported_networks" yaml:"supported_networks"`
+	SupportedNetworks []utils.Network `json:"supported_networks" yaml:"supported_networks"`
 }

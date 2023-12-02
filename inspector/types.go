@@ -15,6 +15,8 @@ const (
 	BurnDetectorType          DetectorType = "burn"
 	ProxyDetectorType         DetectorType = "proxy"
 	OwnershipDetectorType     DetectorType = "ownership"
+	StorageDetectorType       DetectorType = "storage"
+	SimulateDetectorType      DetectorType = "simulate"
 
 	SeverityInfo     SeverityType = "informatinal"
 	SeverityLow      SeverityType = "low"

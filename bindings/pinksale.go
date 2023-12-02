@@ -33,8 +33,10 @@ func NewPinkSale(ctx context.Context, manager *Manager, opts []*BindOptions) (*P
 
 	// Now lets register all the bindings with the manager
 	for _, opt := range opts {
-		if _, err := manager.RegisterBinding(opt.Network, opt.NetworkID, opt.Type, opt.Address, opt.ABI); err != nil {
-			return nil, err
+		for _, network := range opt.Networks {
+			if _, err := manager.RegisterBinding(network, opt.NetworkID, opt.Type, opt.Address, opt.ABI); err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -102,7 +104,7 @@ func (ps *PinkSale) handleUnlockEvent(log types.Log) {
 func DefaultPinksaleBindOptions() []*BindOptions {
 	return []*BindOptions{
 		{
-			Network:   utils.Ethereum,
+			Networks:  []utils.Network{utils.Ethereum, utils.AnvilNetwork},
 			NetworkID: utils.EthereumNetworkID,
 			Type:      PinkSaleLockV2Type,
 			Address:   common.HexToAddress("0x71B5759d73262FBb223956913ecF4ecC51057641"),

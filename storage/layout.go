@@ -5,7 +5,7 @@ import (
 )
 
 type StorageLayout struct {
-	Slots []*SlotDescriptor
+	Slots []*SlotDescriptor `json:"slots"`
 }
 
 func (s *StorageLayout) GetSlots() []*SlotDescriptor {

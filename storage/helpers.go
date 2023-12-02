@@ -48,6 +48,7 @@ func canBePacked(variable *Variable, previousVars []*Variable) bool {
 	return totalUsedBits+bitSize <= 256
 }
 
+// @TODO: Multi slot....
 func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 	if len(storageValue) == 0 {
 		return errors.New("storage value is empty")
@@ -113,14 +114,13 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 }
 
 func decodeSolidityString(storageValue []byte) (string, error) {
-	// Check if storageValue has exactly 32 bytes
 	if len(storageValue) != 32 {
 		return "", errors.New("storage value is not 32 bytes long")
 	}
 
 	length := binary.BigEndian.Uint32(storageValue[len(storageValue)-4:])
 	if length/2 < 31 {
-		return string(storageValue[length/2]), nil
+		return string(storageValue[:length/2]), nil
 	}
 
 	return "", errors.New("string spans multiple slots, handling not implemented in this function")

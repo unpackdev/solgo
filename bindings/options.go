@@ -8,7 +8,7 @@ import (
 )
 
 type BindOptions struct {
-	Network   utils.Network
+	Networks  []utils.Network
 	NetworkID utils.NetworkID
 	Name      string
 	Type      BindingType
@@ -17,7 +17,7 @@ type BindOptions struct {
 }
 
 func (b *BindOptions) Validate() error {
-	if b.Network == "" {
+	if len(b.Networks) == 0 {
 		return fmt.Errorf("missing network")
 	}
 	if b.NetworkID == 0 {

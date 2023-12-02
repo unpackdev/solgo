@@ -5,7 +5,7 @@ import (
 )
 
 type Report struct {
-	Addresses     []common.Address     `json:"addresses"`
+	Address       common.Address       `json:"address"`
 	UsesTransfers bool                 `json:"uses_transfers"`
 	Detectors     map[DetectorType]any `json:"detectors"`
 }

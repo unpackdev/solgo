@@ -1,12 +1,11 @@
 package storage
 
 import (
-	"fmt"
 	"math/big"
 	"sort"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/ast"
-	"github.com/unpackdev/solgo/contracts"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/ir"
 )
@@ -14,49 +13,31 @@ import (
 // Descriptor holds information about a smart contract's state at a specific block.
 // It includes details like state variables, target variables, constant variables, and storage layouts.
 type Descriptor struct {
-	Contract         *contracts.Contract
-	Block            *big.Int
-	StateVariables   map[string][]*Variable
-	TargetVariables  map[string][]*Variable
-	ConstanVariables map[string][]*Variable
-	StorageLayout    *StorageLayout
+	Detector         *detector.Detector     `json:"-"`
+	Address          common.Address         `json:"address"`
+	Block            *big.Int               `json:"block"`
+	StateVariables   map[string][]*Variable `json:"-"`
+	TargetVariables  map[string][]*Variable `json:"-"`
+	ConstanVariables map[string][]*Variable `json:"-"`
+	StorageLayout    *StorageLayout         `json:"storage_layout"`
 }
 
 // GetDetector retrieves the contract's detector, which is essential for contract analysis.
 // It returns an error if the contract or its detector is not properly set up.
-func (s *Descriptor) GetDetector() (*detector.Detector, error) {
-	if s.Contract == nil {
-		return nil, fmt.Errorf("contract not set in Descriptor")
-	}
-
-	descriptor := s.Contract.GetDescriptor()
-	if descriptor == nil {
-		return nil, fmt.Errorf("contract descriptor not set (parsing did not occur or failed)")
-	}
-
-	return descriptor.Detector, nil
+func (s *Descriptor) GetDetector() *detector.Detector {
+	return s.Detector
 }
 
 // GetAST retrieves the abstract syntax tree (AST) builder for the contract.
 // It returns an error if the AST builder is not available due to parsing failures or initialization issues.
-func (s *Descriptor) GetAST() (*ast.ASTBuilder, error) {
-	detector, err := s.GetDetector()
-	if err != nil {
-		return nil, err
-	}
-
-	return detector.GetAST(), nil
+func (s *Descriptor) GetAST() *ast.ASTBuilder {
+	return s.GetDetector().GetAST()
 }
 
 // GetIR retrieves the intermediate representation (IR) builder of the contract.
 // It returns an error if the IR builder is not set, indicating parsing or initialization issues.
-func (s *Descriptor) GetIR() (*ir.Builder, error) {
-	detector, err := s.GetDetector()
-	if err != nil {
-		return nil, err
-	}
-
-	return detector.GetIR(), nil
+func (s *Descriptor) GetIR() *ir.Builder {
+	return s.GetDetector().GetIR()
 }
 
 // GetStateVariables returns a map of state variables associated with the contract.
@@ -72,11 +53,6 @@ func (s *Descriptor) GetTargetVariables() map[string][]*Variable {
 // GetConstantStorageSlotVariables returns a map of constant variables associated with the contract.
 func (s *Descriptor) GetConstantStorageSlotVariables() map[string][]*Variable {
 	return s.ConstanVariables
-}
-
-// GetContract returns the contract associated with this descriptor.
-func (s *Descriptor) GetContract() *contracts.Contract {
-	return s.Contract
 }
 
 // GetBlock returns the block number at which the contract's state is described.

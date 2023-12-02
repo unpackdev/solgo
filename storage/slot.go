@@ -8,6 +8,7 @@ import (
 	"github.com/unpackdev/solgo/ir"
 )
 
+// SlotDescriptor represents information about an Ethereum storage slot.
 type SlotDescriptor struct {
 	DeclarationId   int64                `json:"declaration_id"`
 	Variable        *Variable            `json:"-"`
