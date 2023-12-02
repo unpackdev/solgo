@@ -30,6 +30,9 @@ const (
 	// StorageDetectorType represents a detector type focused on storage patterns in smart contracts.
 	StorageDetectorType DetectorType = "storage"
 
+	// TokenDetectorType represents a detector type focused on token (ERC20) patterns in smart contracts.
+	TokenDetectorType DetectorType = "token"
+
 	// SimulateDetectorType represents a detector type focused on simulation of smart contract behaviors.
 	SimulateDetectorType DetectorType = "simulate"
 )
