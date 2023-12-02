@@ -52,7 +52,7 @@ func TestInspector(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(storage)
 
-	bindManager, err := bindings.NewManager(ctx, utils.Ethereum, pool)
+	bindManager, err := bindings.NewManager(ctx, pool)
 	tAssert.NoError(err)
 	tAssert.NotNil(bindManager)
 

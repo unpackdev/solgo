@@ -5,8 +5,6 @@ import (
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
-	"github.com/unpackdev/solgo/bindings"
-	"go.uber.org/zap"
 )
 
 type SimulateResults struct {
@@ -36,13 +34,13 @@ func (m *SimulateDetector) Type() DetectorType {
 }
 
 func (m *SimulateDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-	uniswap, err := bindings.NewUniswap(ctx, m.GetBindingManager(), bindings.DefaultUniswapBindOptions())
-	if err != nil {
-		zap.L().Error("failed to create uniswap bindings", zap.Error(err))
-		return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
-	}
+	/* 	uniswap, err := bindings.NewUniswap(ctx, m.GetBindingManager(), bindings.DefaultUniswapBindOptions())
+	   	if err != nil {
+	   		zap.L().Error("failed to create uniswap bindings", zap.Error(err))
+	   		return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
+	   	}
 
-	uniswap.EstimateTaxesForToken(m.GetAddress())
+	   	uniswap.EstimateTaxesForToken(m.GetAddress()) */
 
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
 }

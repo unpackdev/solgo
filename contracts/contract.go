@@ -62,7 +62,7 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 		return nil, fmt.Errorf("invalid address provided: %s", addr.Hex())
 	}
 
-	tokenBind, err := bindings.NewToken(ctx, bindManager, bindings.DefaultTokenBindOptions(addr))
+	tokenBind, err := bindings.NewToken(ctx, network, bindManager, bindings.DefaultTokenBindOptions(addr))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new token %s bindings: %w", addr, err)
 	}
