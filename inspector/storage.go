@@ -43,8 +43,6 @@ func (m *StorageDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(no
 }
 
 func (m *StorageDetector) Detect(ctx context.Context) map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error) {
-
-	// Will always look for the latest block.
 	reader, err := m.GetStorage().Describe(ctx, m.GetAddress(), m.GetDetector(), nil)
 	if err != nil {
 		zap.L().Error(

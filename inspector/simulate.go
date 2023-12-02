@@ -42,6 +42,8 @@ func (m *SimulateDetector) Enter(ctx context.Context) map[ast_pb.NodeType]func(n
 
 	   	uniswap.EstimateTaxesForToken(m.GetAddress()) */
 
+	//sim := m.Inspector.GetSimulator()
+
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}
 }
 

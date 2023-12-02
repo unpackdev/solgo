@@ -59,6 +59,10 @@ func (i *Inspector) GetReport() *Report {
 	return i.report
 }
 
+func (i *Inspector) GetSimulator() *simulator.Simulator {
+	return i.sim
+}
+
 func (i *Inspector) IsReady() bool {
 	return i.detector != nil && i.detector.GetIR() != nil && i.detector.GetIR().GetRoot() != nil && i.detector.GetIR().GetRoot().HasContracts()
 }
@@ -108,29 +112,23 @@ func (i *Inspector) UsesTransfers() bool {
 }
 
 func (i *Inspector) Inspect(only ...DetectorType) error {
-
-	// Iterate through each registered detector and execute their logic
 	for detectorType, detector := range registry {
-		// If only is not empty, check if detector type is in only slice, if not continue to next detector
 		if len(only) > 0 {
 			if !IsDetectorType(detectorType, only...) {
 				continue
 			}
 		}
 
-		// Enter phase
 		enterFuncs := detector.Enter(i.ctx)
 		for nodeType, visitFunc := range enterFuncs {
 			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
 		}
 
-		// Detect phase
 		detectFuncs := detector.Detect(i.ctx)
 		for nodeType, visitFunc := range detectFuncs {
 			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
 		}
 
-		// Exit phase
 		exitFuncs := detector.Exit(i.ctx)
 		for nodeType, visitFunc := range exitFuncs {
 			i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
