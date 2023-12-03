@@ -25,7 +25,7 @@ import (
 //
 // Returns the initialized Simulator instance and an error if any occurs during the setup process.
 // This function utilizes the 'assert' and 'require' packages from 'testify' to ensure that each setup step is successful.
-func CreateNewTestSimulator(ctx context.Context, t *testing.T) (*Simulator, error) {
+func CreateNewTestSimulator(ctx context.Context, t *testing.T, opts *AnvilProviderOptions) (*Simulator, error) {
 	tAssert := assert.New(t)
 
 	// Get the current working directory
@@ -51,20 +51,24 @@ func CreateNewTestSimulator(ctx context.Context, t *testing.T) (*Simulator, erro
 	require.NoError(t, err)
 	tAssert.NotNil(simulator)
 
-	anvilProvider, err := NewAnvilProvider(ctx, simulator, &AnvilProviderOptions{
-		Network:             utils.AnvilNetwork,
-		NetworkID:           utils.EthereumNetworkID,
-		ClientCount:         1,
-		MaxClientCount:      10,
-		AutoImpersonate:     true,
-		PidPath:             filepath.Join("/", "tmp", ".solgo", "/", "simulator", "/", "anvil"),
-		AnvilExecutablePath: "/home/cortex/.cargo/bin/anvil",
-		Fork:                true,
-		ForkEndpoint:        os.Getenv("SOLGO_SIMULATOR_FORK_ENDPOINT"),
-		IPAddr:              net.ParseIP("127.0.0.1"),
-		StartPort:           5400,
-		EndPort:             5500,
-	})
+	if opts == nil {
+		opts = &AnvilProviderOptions{
+			Network:             utils.AnvilNetwork,
+			NetworkID:           utils.EthereumNetworkID,
+			ClientCount:         1,
+			MaxClientCount:      10,
+			AutoImpersonate:     true,
+			PidPath:             filepath.Join("/", "tmp", ".solgo", "/", "simulator", "/", "anvil"),
+			AnvilExecutablePath: "/home/cortex/.cargo/bin/anvil",
+			Fork:                true,
+			ForkEndpoint:        os.Getenv("SOLGO_SIMULATOR_FORK_ENDPOINT"),
+			IPAddr:              net.ParseIP("127.0.0.1"),
+			StartPort:           5400,
+			EndPort:             5500,
+		}
+	}
+
+	anvilProvider, err := NewAnvilProvider(ctx, simulator, opts)
 
 	require.NoError(t, err)
 	tAssert.NotNil(anvilProvider)

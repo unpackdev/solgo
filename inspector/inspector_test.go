@@ -2,7 +2,9 @@ package inspector
 
 import (
 	"context"
+	"net"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -66,7 +68,22 @@ func TestInspector(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(bindManager)
 
-	sim, err := simulator.CreateNewTestSimulator(ctx, t)
+	simulatorOPts := &simulator.AnvilProviderOptions{
+		Network:             utils.AnvilNetwork,
+		NetworkID:           utils.EthereumNetworkID,
+		ClientCount:         0, // We do not want any clients as they will be fetched when necessary...
+		MaxClientCount:      10,
+		AutoImpersonate:     true,
+		PidPath:             filepath.Join("/", "tmp", ".solgo", "/", "simulator", "/", "anvil"),
+		AnvilExecutablePath: "/home/cortex/.cargo/bin/anvil",
+		Fork:                true,
+		ForkEndpoint:        os.Getenv("SOLGO_SIMULATOR_FORK_ENDPOINT"),
+		IPAddr:              net.ParseIP("127.0.0.1"),
+		StartPort:           5400,
+		EndPort:             5500,
+	}
+
+	sim, err := simulator.CreateNewTestSimulator(ctx, t, simulatorOPts)
 	require.NoError(t, err)
 	require.NotNil(t, sim)
 	defer sim.Close()

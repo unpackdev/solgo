@@ -28,7 +28,7 @@ func TestSimulatorConnectivity(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	simulator, err := CreateNewTestSimulator(ctx, t)
+	simulator, err := CreateNewTestSimulator(ctx, t, nil)
 	require.NoError(t, err)
 	require.NotNil(t, simulator)
 	defer simulator.Close()
@@ -113,7 +113,7 @@ func TestAnvilSimulator(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(pool)
 
-	simulator, err := CreateNewTestSimulator(ctx, t)
+	simulator, err := CreateNewTestSimulator(ctx, t, nil)
 	require.NoError(t, err)
 	require.NotNil(t, simulator)
 	defer simulator.Close()

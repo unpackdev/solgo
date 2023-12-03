@@ -35,12 +35,8 @@ type AnvilProviderOptions struct {
 // client counts, path existence, network settings, and port configurations.
 // Returns an error if any validation check fails.
 func (a *AnvilProviderOptions) Validate() error {
-	if a.ClientCount < 1 || a.ClientCount > MAX_ANVIL_SIMULATED_CLIENTS {
-		return fmt.Errorf("simulated clients must be greater than 0 and less then %d", MAX_ANVIL_SIMULATED_CLIENTS)
-	}
-
-	if a.MaxClientCount < 1 || a.MaxClientCount > MAX_ANVIL_SIMULATED_CLIENTS {
-		return fmt.Errorf("max simulated clients must be greater than 0 and less then %d", MAX_ANVIL_SIMULATED_CLIENTS)
+	if a.MaxClientCount > MAX_ANVIL_SIMULATED_CLIENTS {
+		return fmt.Errorf("max simulated clients must be less then %d", MAX_ANVIL_SIMULATED_CLIENTS)
 	}
 
 	if a.ClientCount > a.MaxClientCount {

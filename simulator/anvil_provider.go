@@ -183,7 +183,7 @@ func (a *AnvilProvider) Start(ctx context.Context, opts StartOptions) (*Node, er
 		utils.AnvilSimulator.String(),
 		node.GetID().String(),
 		node.GetNodeAddr(),
-		int(a.opts.ClientCount), // We are going to have only one concurrent client per node
+		1, // We are going to have only one concurrent client per node
 	)
 
 	if err != nil {
