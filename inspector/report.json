@@ -6,9 +6,31 @@
 		"audit": {
 			"detected": true,
 			"honey_pot": false,
-			"approve_enabled": false,
-			"approve_tx": "0xe9a886e809c80f5ae09b38b8e755c2c6c44cc615ce8ff21fbb3cdd065fe1cb0c",
-			"approve_status": 0,
+			"approve": true,
+			"approve_tx": "0xe6749f85ee0df0ef222965d40cb8ba623b9308f1c9db98c2afdf191812319dba",
+			"approve_status": 1,
+			"approve_logs": [
+				{
+					"abi": "[{\"name\":\"Approval\",\"type\":\"event\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true},{\"name\":\"spender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
+					"signature_hex": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+					"signature": "Approval(address indexed owner, address indexed spender, uint256 value)",
+					"type": "approval",
+					"name": "Approval",
+					"data": {
+						"value": 1000000000000000
+					},
+					"topics": [
+						{
+							"name": "owner",
+							"value": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9"
+						},
+						{
+							"name": "spender",
+							"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+						}
+					]
+				}
+			],
 			"buy_enabled": false,
 			"buy_tax": null,
 			"sell_enabled": false,

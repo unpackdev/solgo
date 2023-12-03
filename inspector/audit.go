@@ -10,6 +10,7 @@ import (
 	"github.com/unpackdev/solgo/accounts"
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/bindings"
+	"github.com/unpackdev/solgo/bytecode"
 	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
 )
@@ -17,9 +18,10 @@ import (
 type AuditResults struct {
 	Detected                    bool              `json:"detected"`
 	HoneyPot                    bool              `json:"honey_pot"`
-	ApproveEnabled              bool              `json:"approve_enabled"`
+	Approve                     bool              `json:"approve"`
 	ApproveTx                   string            `json:"approve_tx"`
 	ApproveStatus               uint64            `json:"approve_status"`
+	ApproveLogs                 []*bytecode.Log   `json:"approve_logs"`
 	BuyEnabled                  bool              `json:"buy_enabled"`
 	BuyTax                      *big.Float        `json:"buy_tax"`
 	SellEnabled                 bool              `json:"sell_enabled"`
@@ -39,7 +41,9 @@ func NewAuditDetector(ctx context.Context, inspector *Inspector) Detector {
 	return &AuditDetector{
 		ctx:       ctx,
 		Inspector: inspector,
-		results:   &AuditResults{},
+		results: &AuditResults{
+			ApproveLogs: make([]*bytecode.Log, 0),
+		},
 	}
 }
 
@@ -209,8 +213,8 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 
 					// TODO: Prior we can go into the transact to approve we need to know the amount to approve.
 
-					purchaseAmount := big.NewInt(10000000000000000)
-					authApprove, err := account.TransactOpts(client, purchaseAmount, false)
+					purchaseAmount := big.NewInt(1000000000000000)
+					authApprove, err := account.TransactOpts(client, nil, false)
 					if err != nil {
 						zap.L().Error(
 							"failed to create transaction options",
@@ -224,6 +228,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						)
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
+
 					fmt.Println(" I AM HERE....")
 					spew.Dump(authApprove)
 
@@ -245,14 +250,19 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 					m.results.Detected = true
 					m.results.ApproveTx = approveReceiptTx.TxHash.Hex()
 					if approveReceiptTx.Status == 1 {
-						m.results.ApproveEnabled = true
+						m.results.Approve = true
 					}
 					m.results.ApproveStatus = approveReceiptTx.Status
 
-					_ = client
+					tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
+
+					if len(approveReceiptTx.Logs) > 0 {
+						if decodedApprovalLog, err := bytecode.DecodeLogFromAbi(approveReceiptTx.Logs[0], []byte(tokenBinding.RawABI)); err == nil {
+							m.results.ApproveLogs = append(m.results.ApproveLogs, decodedApprovalLog)
+						}
+					}
 				}
 
-				//simBinding, err := bindings.NewSimulatedManager(m.ctx, m.GetStorage(), m.GetBindingManager(), m.GetAddress(), m.GetDetector())
 			}
 		}
 	}

@@ -350,7 +350,7 @@ func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan str
 		if matches := revertedRegex.FindStringSubmatch(line); len(matches) > 1 {
 			zap.L().Error(
 				"Discovered revert message",
-				zap.Error(fmt.Errorf("%v", matches)),
+				zap.Error(fmt.Errorf("%s", matches[1])),
 				zap.String("addr", n.Addr.String()),
 				zap.Int("port", n.Addr.Port),
 				zap.String("network", n.Provider.Network().String()),

@@ -20,8 +20,7 @@ type Topic struct {
 
 // Log encapsulates details of a decoded Ethereum event log.
 type Log struct {
-	Event *abi.Event // Event is the ABI definition of the log's event
-
+	Event        *abi.Event         `json:"-"`             // Event is the ABI definition of the log's event
 	Abi          string             `json:"abi"`           // Abi is the ABI string of the event
 	SignatureHex common.Hash        `json:"signature_hex"` // SignatureHex is the hex-encoded signature of the event
 	Signature    string             `json:"signature"`     // Signature of the event
