@@ -2,8 +2,10 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 
+	"github.com/davecgh/go-spew/spew"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/accounts"
 	"github.com/unpackdev/solgo/ast"
@@ -170,7 +172,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						"Faucet account balance",
 						zap.Any("simulator", utils.AnvilSimulator),
 						zap.Any("network", utils.AnvilNetwork),
-						zap.Any("address", m.GetAddress().Hex()),
+						zap.Any("contract_address", m.GetAddress().Hex()),
 						zap.Any("eth_address", ethAddr.Hex()),
 						zap.Any("faucet_address", account.Address.Hex()),
 						zap.Any("balance", balance),
@@ -207,7 +209,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 
 					// TODO: Prior we can go into the transact to approve we need to know the amount to approve.
 
-					purchaseAmount := new(big.Int).Mul(big.NewInt(10), new(big.Int).Exp(big.NewInt(1), big.NewInt(int64(tokenDetector.Decimals)), nil))
+					purchaseAmount := big.NewInt(10000000000000000)
 					authApprove, err := account.TransactOpts(client, purchaseAmount, false)
 					if err != nil {
 						zap.L().Error(
@@ -222,6 +224,8 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						)
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
+					fmt.Println(" I AM HERE....")
+					spew.Dump(authApprove)
 
 					_, approveReceiptTx, err := tokenBind.Approve(authApprove, uniswapAddr, purchaseAmount, false)
 					if err != nil {

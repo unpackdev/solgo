@@ -316,6 +316,7 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan struct{}) {
 	blockNumberRegex := regexp.MustCompile(`Block number:\s+(\d+)`)
 	listeningRegex := regexp.MustCompile(`Listening on ([\d\.]+:\d+)`)
+	revertedRegex := regexp.MustCompile(`Error: reverted with:\s+(.+)`)
 	scanner := bufio.NewScanner(pipe)
 
 	for scanner.Scan() {
@@ -343,6 +344,19 @@ func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan str
 					zap.Uint64("block_number", n.BlockNumber.Uint64()),
 				)
 			}
+		}
+
+		// Check for revert messages....
+		if matches := revertedRegex.FindStringSubmatch(line); len(matches) > 1 {
+			zap.L().Error(
+				"Discovered revert message",
+				zap.Error(fmt.Errorf("%v", matches)),
+				zap.String("addr", n.Addr.String()),
+				zap.Int("port", n.Addr.Port),
+				zap.String("network", n.Provider.Network().String()),
+				zap.Any("network_id", n.Provider.NetworkID()),
+				zap.Uint64("block_number", n.BlockNumber.Uint64()),
+			)
 		}
 
 		// Check if the node is listening and if the done channel is set

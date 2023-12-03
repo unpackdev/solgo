@@ -145,7 +145,7 @@ func (a *Account) TransactOpts(client *clients.Client, amount *big.Int, simulate
 			if err != nil {
 				return nil, err
 			}
-			fmt.Println("AM I HERE???")
+
 			auth.Nonce = big.NewInt(int64(nonce))
 			auth.GasPrice = gasPrice
 			auth.GasLimit = DEFAULT_GAS_LIMIT

@@ -28,7 +28,7 @@ func TestInspector(t *testing.T) {
 	tAssert := assert.New(t)
 
 	config := zap.NewDevelopmentConfig()
-	config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+	config.Level = zap.NewAtomicLevelAt(zap.InfoLevel)
 	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	logger, err := config.Build()
 	tAssert.NoError(err)
