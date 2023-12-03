@@ -2,10 +2,10 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 	"time"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
@@ -54,8 +54,20 @@ type Exchange struct {
 }
 
 type AuditTaxResults struct {
-	TradeLossAmountRaw *big.Int `json:"trade_loss_amount"`
-	TradeLossAmount    string   `json:"trade_loss_amount_float"`
+	// Fields for Buy transaction tax calculation
+	BuyTradeLossAmountRaw  *big.Int `json:"buy_trade_loss_amount_raw"`
+	BuyTradeLossAmount     string   `json:"buy_trade_loss_amount"`
+	BuyTradeLossPercentage string   `json:"buy_trade_loss_percentage"`
+
+	// Fields for Sell transaction tax calculation
+	SellTradeLossAmountRaw  *big.Int `json:"sell_trade_loss_amount_raw"`
+	SellTradeLossAmount     string   `json:"sell_trade_loss_amount"`
+	SellTradeLossPercentage string   `json:"sell_trade_loss_percentage"`
+
+	// Fields for Total transaction tax calculation
+	TotalTradeLossAmountRaw  *big.Int `json:"total_trade_loss_amount_raw"`
+	TotalTradeLossAmount     string   `json:"total_trade_loss_amount"`
+	TotalTradeLossPercentage string   `json:"total_trade_loss_percentage"`
 }
 
 type AuditResults struct {
@@ -120,69 +132,6 @@ func (m *AuditDetector) Results() any {
 	return m.results
 }
 
-/* func (m *AuditDetector) handleTokenDetection(ctx context.Context) error {
-	if !m.IsReady() {
-		return fmt.Errorf("audit detector for contract %s is not ready", m.GetAddress().Hex())
-	}
-
-	tokenDetector, found := m.GetTokenDetector()
-	if !found {
-		return fmt.Errorf("token detector not found for contract %s", m.GetAddress().Hex())
-	}
-
-	realClient := m.GetBindingManager().GetClient().GetClientByGroup(string(utils.Ethereum))
-	if realClient == nil {
-		return fmt.Errorf("failed to get client for network %s", utils.Ethereum)
-	}
-
-	latestBlock, err := realClient.HeaderByNumber(ctx, nil)
-	if err != nil {
-		return fmt.Errorf("failed to get latest block for network %s", utils.Ethereum)
-	}
-	m.results.BlockNumber = latestBlock.Number
-	m.results.BlockHash = latestBlock.Hash()
-
-	// Following function will return client by block. In case that block is not yet ready it will spawn new anvil node
-	// and wait for it to be ready. Once it's ready it will return the client.
-	client, err := m.sim.GetClient(ctx, utils.AnvilSimulator, latestBlock.Number)
-	if err != nil {
-		return fmt.Errorf("failed to get simulated client for network %s", utils.AnvilNetwork)
-	}
-
-	bindingManager, err := bindings.NewManager(ctx, m.sim.GetProvider(utils.AnvilSimulator).GetClientPool())
-	if err != nil {
-		return fmt.Errorf("failed to create binding manager for network %s", utils.AnvilNetwork)
-	}
-
-	uniswapBind, err := bindings.NewUniswap(ctx, utils.AnvilNetwork, bindingManager, bindings.DefaultUniswapBindOptions())
-	if err != nil {
-		return fmt.Errorf("failed to create uniswap bindings for network %s", utils.AnvilNetwork)
-	}
-
-	tokenBind, err := bindings.NewToken(ctx, utils.AnvilNetwork, bindingManager, bindings.DefaultTokenBindOptions(m.GetAddress()))
-	if err != nil {
-		return fmt.Errorf("failed to create token bindings for network %s", utils.AnvilNetwork)
-	}
-
-	ethAddr, err := uniswapBind.WETH()
-	if err != nil {
-		return fmt.Errorf("failed to get WETH address for network %s", utils.AnvilNetwork)
-	}
-
-	// Lets figure out what the pair address is...
-	pairAddress, err = uniswapBind.GetPair(m.GetAddress(), ethAddr)
-	if err != nil {
-		return fmt.Errorf("failed to get pair address for network %s", utils.AnvilNetwork)
-	}
-
-	_ = client
-	_ = tokenDetector
-	_ = ethAddr
-	_ = tokenBind
-
-	return nil
-} */
-
 func (m *AuditDetector) IsReady() bool {
 	return m.GetDetector() != nil && m.GetDetector().GetIR() != nil && m.GetDetector().GetIR().GetRoot() != nil && m.GetReport().HasDetector(TokenDetectorType)
 }
@@ -215,108 +164,42 @@ func (m *AuditDetector) handleTokenDetection(ctx context.Context) error {
 				if client := m.GetBindingManager().GetClient().GetClientByGroup(string(utils.Ethereum)); client != nil {
 					latestBlock, err := client.HeaderByNumber(ctx, nil)
 					if err != nil {
-						zap.L().Error(
-							"failed to get latest block",
-							zap.Error(err),
-							zap.Any("network", utils.Ethereum),
-							zap.Any("address", m.GetAddress().Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to get latest block for network %s", utils.Ethereum)
 					}
 
 					// Following function will return client by block. In case that block is not yet ready it will spawn new anvil node
 					// and wait for it to be ready. Once it's ready it will return the client.
 					client, err := m.sim.GetClient(ctx, utils.AnvilSimulator, latestBlock.Number)
 					if err != nil {
-						zap.L().Error(
-							"failed to get simulated client",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to get simulated client for network %s", utils.AnvilNetwork)
 					}
 
 					bindingManager, err := bindings.NewManager(ctx, m.sim.GetProvider(utils.AnvilSimulator).GetClientPool())
 					if err != nil {
-						zap.L().Error(
-							"failed to create binding manager",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to create binding manager for network %s", utils.AnvilNetwork)
 					}
 
 					uniswapBind, err := bindings.NewUniswap(ctx, utils.AnvilNetwork, bindingManager, bindings.DefaultUniswapBindOptions())
 					if err != nil {
-						zap.L().Error(
-							"failed to create uniswap bindings",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to create uniswap bindings for network %s", utils.AnvilNetwork)
 					}
 
 					tokenBind, err := bindings.NewToken(ctx, utils.AnvilNetwork, bindingManager, bindings.DefaultTokenBindOptions(m.GetAddress()))
 					if err != nil {
-						zap.L().Error(
-							"failed to create token bindings",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to create token bindings for network %s", utils.AnvilNetwork)
 					}
 
 					ethAddr, err := uniswapBind.WETH()
 					if err != nil {
-						zap.L().Error(
-							"failed to get WETH address",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to get WETH address for network %s", utils.AnvilNetwork)
 					}
-
-					// Lets figure out what the pair address is...
-					_, err = uniswapBind.GetPair(m.GetAddress(), ethAddr)
-					if err != nil {
-						zap.L().Error(
-							"failed to get pair address",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-							zap.Any("eth_address", ethAddr.Hex()),
-						)
-						return err
-					}
-
-					//anvilProvider := m.sim.GetProvider(utils.AnvilSimulator)
 
 					account := m.sim.GetFaucet().List(utils.AnvilNetwork)[0]
 					m.results.FaucetAddress = account.GetAddress()
 
 					balance, err := account.Balance(ctx, nil)
 					if err != nil {
-						zap.L().Error(
-							"failed to get faucet account balance",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-							zap.Any("eth_address", ethAddr.Hex()),
-							zap.Any("faucet_address", account.Address.Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to get faucet account balance for network %s", utils.AnvilNetwork)
 					}
 					m.results.FaucetAccountEthBalance = balance
 
@@ -330,20 +213,10 @@ func (m *AuditDetector) handleTokenDetection(ctx context.Context) error {
 						zap.Any("balance", balance),
 					)
 
-					faucetInitialBalance, err := tokenBind.BalanceOf(account.Address)
+					m.results.FaucetAccountInitialBalance, err = tokenBind.BalanceOf(account.Address)
 					if err != nil {
-						zap.L().Error(
-							"failed to get faucet account balance",
-							zap.Error(err),
-							zap.Any("simulator", utils.AnvilSimulator),
-							zap.Any("network", utils.AnvilNetwork),
-							zap.Any("address", m.GetAddress().Hex()),
-							zap.Any("eth_address", ethAddr.Hex()),
-							zap.Any("faucet_address", account.Address.Hex()),
-						)
-						return err
+						return fmt.Errorf("failed to get faucet account initial balance for network %s", utils.AnvilNetwork)
 					}
-					m.results.FaucetAccountInitialBalance = faucetInitialBalance
 
 					uniswapAddr, err := uniswapBind.GetAddress(bindings.UniswapV2Router)
 					if err != nil {
@@ -396,6 +269,7 @@ func (m *AuditDetector) handleTokenDetection(ctx context.Context) error {
 					}
 
 					purchaseAmount := big.NewInt(1000000000)
+
 					tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
 					uniswapBinding, _ := uniswapBind.GetBinding(utils.AnvilNetwork, bindings.UniswapV2Router)
 					uniswapPairBinding, _ := uniswapBind.GetBinding(utils.AnvilNetwork, bindings.UniswapV2Pair)
@@ -550,175 +424,193 @@ func (m *AuditDetector) handleTokenDetection(ctx context.Context) error {
 
 					m.results.Buy.Results = buyResults
 
-					// SELL RESULTS
+					/* 					// SELL RESULTS
 
-					if buyResults.Detected && buyResults.Receipt && buyResults.ReceivedAmount != nil {
-						sellApprove, err := account.TransactOpts(client, nil, false) // Approval cannot take value as value is in the approve call
-						if err != nil {
-							zap.L().Error(
-								"failed to create sell transaction options",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-								zap.Any("sell_amount", buyResults.ReceivedAmount),
-							)
-							return err
-						}
+					   					if buyResults.Detected && buyResults.Receipt && buyResults.ReceivedAmount != nil {
+					   						sellApprove, err := account.TransactOpts(client, nil, false) // Approval cannot take value as value is in the approve call
+					   						if err != nil {
+					   							zap.L().Error(
+					   								"failed to create sell transaction options",
+					   								zap.Error(err),
+					   								zap.Any("simulator", utils.AnvilSimulator),
+					   								zap.Any("network", utils.AnvilNetwork),
+					   								zap.Any("address", m.GetAddress().Hex()),
+					   								zap.Any("eth_address", ethAddr.Hex()),
+					   								zap.Any("faucet_address", account.Address.Hex()),
+					   								zap.Any("sell_amount", buyResults.ReceivedAmount),
+					   							)
+					   							return err
+					   						}
 
-						_, approveReceiptTx, err := tokenBind.Approve(sellApprove, uniswapAddr, buyResults.ReceivedAmount, false)
-						if err != nil {
-							zap.L().Error(
-								"failed to approve sell tokens",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-								zap.Any("sell_amount", buyResults.ReceivedAmount),
-							)
-						}
+					   						_, approveReceiptTx, err := tokenBind.Approve(sellApprove, uniswapAddr, buyResults.ReceivedAmount, false)
+					   						if err != nil {
+					   							zap.L().Error(
+					   								"failed to approve sell tokens",
+					   								zap.Error(err),
+					   								zap.Any("simulator", utils.AnvilSimulator),
+					   								zap.Any("network", utils.AnvilNetwork),
+					   								zap.Any("address", m.GetAddress().Hex()),
+					   								zap.Any("eth_address", ethAddr.Hex()),
+					   								zap.Any("faucet_address", account.Address.Hex()),
+					   								zap.Any("sell_amount", buyResults.ReceivedAmount),
+					   							)
+					   						}
 
-						sellRequest := &AuditBuyOrSellResults{
-							Approval: &AuditApprovalResults{
-								Detected:          true,
-								ApprovalRequested: true,
-								Approved: func() bool {
-									if approveReceiptTx != nil {
-										return approveReceiptTx.Status == 1
-									}
+					   						sellRequest := &AuditBuyOrSellResults{
+					   							Approval: &AuditApprovalResults{
+					   								Detected:          true,
+					   								ApprovalRequested: true,
+					   								Approved: func() bool {
+					   									if approveReceiptTx != nil {
+					   										return approveReceiptTx.Status == 1
+					   									}
 
-									return false
-								}(),
-								TxHash:  approveReceiptTx.TxHash,
-								Receipt: approveReceiptTx != nil,
-								ReceiptStatus: func() uint64 {
-									if approveReceiptTx != nil {
-										return approveReceiptTx.Status
-									}
+					   									return false
+					   								}(),
+					   								TxHash:  approveReceiptTx.TxHash,
+					   								Receipt: approveReceiptTx != nil,
+					   								ReceiptStatus: func() uint64 {
+					   									if approveReceiptTx != nil {
+					   										return approveReceiptTx.Status
+					   									}
 
-									return 0
-								}(),
-								Logs:            make([]*bytecode.Log, 0),
-								RequestedAmount: buyResults.ReceivedAmount,
-							},
-						}
+					   									return 0
+					   								}(),
+					   								Logs:            make([]*bytecode.Log, 0),
+					   								RequestedAmount: buyResults.ReceivedAmount,
+					   							},
+					   						}
 
-						m.results.Sell = sellRequest
+					   						m.results.Sell = sellRequest
 
-						if approveReceiptTx != nil {
-							if len(approveReceiptTx.Logs) > 0 {
-								if decodedApprovalLog, err := bytecode.DecodeLogFromAbi(approveReceiptTx.Logs[0], []byte(tokenBinding.RawABI)); err == nil {
-									m.results.Buy.Approval.Logs = append(m.results.Buy.Approval.Logs, decodedApprovalLog)
-								}
-							}
-						}
+					   						if approveReceiptTx != nil {
+					   							if len(approveReceiptTx.Logs) > 0 {
+					   								if decodedApprovalLog, err := bytecode.DecodeLogFromAbi(approveReceiptTx.Logs[0], []byte(tokenBinding.RawABI)); err == nil {
+					   									m.results.Buy.Approval.Logs = append(m.results.Buy.Approval.Logs, decodedApprovalLog)
+					   								}
+					   							}
+					   						}
 
-						sellResults := &AuditSwapResults{
-							Detected:      false,
-							SwapRequested: true,
-							PairDetails: []common.Address{
-								m.GetAddress(),
-								currencies.WETH.Addresses[utils.Ethereum],
-							},
-						}
+					   						sellResults := &AuditSwapResults{
+					   							Detected:      false,
+					   							SwapRequested: true,
+					   							PairDetails: []common.Address{
+					   								m.GetAddress(),
+					   								currencies.WETH.Addresses[utils.Ethereum],
+					   							},
+					   						}
 
-						sellOpts, err := account.TransactOpts(client, nil, false)
-						if err != nil {
-							zap.L().Error(
-								"failed to create transfer transact information",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-								zap.Any("sell_amount", buyResults.ReceivedAmount),
-							)
-							return err
-						}
+					   						sellOpts, err := account.TransactOpts(client, nil, false)
+					   						if err != nil {
+					   							zap.L().Error(
+					   								"failed to create transfer transact information",
+					   								zap.Error(err),
+					   								zap.Any("simulator", utils.AnvilSimulator),
+					   								zap.Any("network", utils.AnvilNetwork),
+					   								zap.Any("address", m.GetAddress().Hex()),
+					   								zap.Any("eth_address", ethAddr.Hex()),
+					   								zap.Any("faucet_address", account.Address.Hex()),
+					   								zap.Any("sell_amount", buyResults.ReceivedAmount),
+					   							)
+					   							return err
+					   						}
 
-						deadline := big.NewInt(time.Now().Add(time.Minute).Unix())
-						_, sellReceipt, err := uniswapBind.Sell(sellOpts, buyResults.ReceivedAmount, big.NewInt(0), sellResults.PairDetails, account.Address, deadline, false)
-						if err != nil {
-							zap.L().Error(
-								"failed to sell tokens",
-								zap.Error(err),
-								zap.Any("simulator", utils.AnvilSimulator),
-								zap.Any("network", utils.AnvilNetwork),
-								zap.Any("address", m.GetAddress().Hex()),
-								zap.Any("eth_address", ethAddr.Hex()),
-								zap.Any("faucet_address", account.Address.Hex()),
-								zap.Any("purchase_amount", purchaseAmount),
-							)
-						} else {
-							sellResults.Detected = true
-							sellResults.TxHash = sellReceipt.TxHash
-							sellResults.Receipt = sellReceipt != nil
-							sellResults.ReceiptStatus = func() uint64 {
-								if sellReceipt != nil {
-									return sellReceipt.Status
-								}
+					   						deadline := big.NewInt(time.Now().Add(time.Minute).Unix())
+					   						_, sellReceipt, err := uniswapBind.Sell(sellOpts, buyResults.ReceivedAmount, big.NewInt(0), sellResults.PairDetails, account.Address, deadline, false)
+					   						if err != nil {
+					   							zap.L().Error(
+					   								"failed to sell tokens",
+					   								zap.Error(err),
+					   								zap.Any("simulator", utils.AnvilSimulator),
+					   								zap.Any("network", utils.AnvilNetwork),
+					   								zap.Any("address", m.GetAddress().Hex()),
+					   								zap.Any("eth_address", ethAddr.Hex()),
+					   								zap.Any("faucet_address", account.Address.Hex()),
+					   								zap.Any("purchase_amount", purchaseAmount),
+					   							)
+					   						} else {
+					   							sellResults.Detected = true
+					   							sellResults.TxHash = sellReceipt.TxHash
+					   							sellResults.Receipt = sellReceipt != nil
+					   							sellResults.ReceiptStatus = func() uint64 {
+					   								if sellReceipt != nil {
+					   									return sellReceipt.Status
+					   								}
 
-								return 0
-							}()
+					   								return 0
+					   							}()
 
-							if sellReceipt != nil {
-								if len(sellReceipt.Logs) > 0 {
-									var buyLogs []*bytecode.Log
-									for _, log := range sellReceipt.Logs {
-										if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(tokenBinding.RawABI)); err == nil {
-											buyLogs = append(buyLogs, decodedBuyLog)
-										} else if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(uniswapBinding.RawABI)); err == nil {
-											buyLogs = append(buyLogs, decodedBuyLog)
-										} else if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(uniswapPairBinding.RawABI)); err == nil {
-											buyLogs = append(buyLogs, decodedBuyLog)
-										}
-									}
+					   							if sellReceipt != nil {
+					   								if len(sellReceipt.Logs) > 0 {
+					   									var buyLogs []*bytecode.Log
+					   									for _, log := range sellReceipt.Logs {
+					   										if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(tokenBinding.RawABI)); err == nil {
+					   											buyLogs = append(buyLogs, decodedBuyLog)
+					   										} else if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(uniswapBinding.RawABI)); err == nil {
+					   											buyLogs = append(buyLogs, decodedBuyLog)
+					   										} else if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(uniswapPairBinding.RawABI)); err == nil {
+					   											buyLogs = append(buyLogs, decodedBuyLog)
+					   										}
+					   									}
 
-									sellResults.Logs = buyLogs
+					   									sellResults.Logs = buyLogs
 
-									for _, log := range buyLogs {
-										if log.Type == "swap" {
-											spew.Dump(log.Data)
-											if amountOut, ok := log.Data["amount1Out"]; ok {
-												if amountOut, ok := amountOut.(*big.Int); ok {
-													sellResults.ReceivedAmount = amountOut
-												}
-											}
+					   									for _, log := range buyLogs {
+					   										if log.Type == "swap" {
+					   											spew.Dump(log.Data)
+					   											if amountOut, ok := log.Data["amount1Out"]; ok {
+					   												if amountOut, ok := amountOut.(*big.Int); ok {
+					   													sellResults.ReceivedAmount = amountOut
+					   												}
+					   											}
 
-											if amountIn, ok := log.Data["amount0In"]; ok {
-												if amountIn, ok := amountIn.(*big.Int); ok {
-													sellResults.RequestedAmount = amountIn
-												}
-											}
-										}
-									}
-								}
-							}
-						}
+					   											if amountIn, ok := log.Data["amount0In"]; ok {
+					   												if amountIn, ok := amountIn.(*big.Int); ok {
+					   													sellResults.RequestedAmount = amountIn
+					   												}
+					   											}
+					   										}
+					   									}
+					   								}
+					   							}
+					   						}
 
-						m.results.Sell.Results = sellResults
-					}
+					   						m.results.Sell.Results = sellResults
+					   					}
 
-					// TAX CALCULATION
+					   					// TAX CALCULATION
+					   					m.calculateTaxes(ctx) */
 
-					tax := &AuditTaxResults{}
-
-					if m.results.Buy.Results.Receipt && m.results.Sell.Results.Receipt {
-						tax.TradeLossAmountRaw = big.NewInt(0).Sub(m.results.Buy.Results.RequestedAmount, m.results.Sell.Results.ReceivedAmount)
-						tax.TradeLossAmount = entities.FromRawAmount(entities.WETH9[1], tax.TradeLossAmountRaw).ToFixed(18)
-					}
-
-					m.results.Tax = tax
 				}
 
 			}
 		}
 	}
 
+	return nil
+}
+
+func (m *AuditDetector) calculateTaxes(ctx context.Context) error {
+	tax := &AuditTaxResults{}
+
+	if m.results.Buy.Results.Receipt && m.results.Sell.Results.Receipt {
+		// Corrected calculation for raw trade loss amount
+		tax.TotalTradeLossAmountRaw = big.NewInt(0).Sub(m.results.Buy.Results.RequestedAmount, m.results.Sell.Results.ReceivedAmount)
+		tax.TotalTradeLossAmount = entities.FromRawAmount(entities.WETH9[1], tax.TotalTradeLossAmountRaw).ToFixed(18)
+
+		// Calculate trade loss percentage
+		if m.results.Buy.Results.RequestedAmount.Cmp(big.NewInt(0)) != 0 { // Avoid division by zero
+			lossPercentage := new(big.Float).Quo(
+				new(big.Float).SetInt(tax.TotalTradeLossAmountRaw),
+				new(big.Float).SetInt(m.results.Buy.Results.RequestedAmount),
+			)
+			lossPercentage = lossPercentage.Mul(lossPercentage, big.NewFloat(100)) // Convert to percentage
+			tax.TotalTradeLossPercentage = lossPercentage.Text('f', 2)             // Format as string with 2 decimal places
+		} else {
+			tax.TotalTradeLossPercentage = "0.00" // Default to 0.00% if buy amount is zero
+		}
+	}
+
+	m.results.Tax = tax
 	return nil
 }
