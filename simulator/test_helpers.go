@@ -56,7 +56,7 @@ func CreateNewTestSimulator(ctx context.Context, t *testing.T) (*Simulator, erro
 		NetworkID:           utils.EthereumNetworkID,
 		ClientCount:         1,
 		MaxClientCount:      10,
-		AutoImpersonate:     false,
+		AutoImpersonate:     true,
 		PidPath:             filepath.Join("/", "tmp", ".solgo", "/", "simulator", "/", "anvil"),
 		AnvilExecutablePath: "/home/cortex/.cargo/bin/anvil",
 		Fork:                true,

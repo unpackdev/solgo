@@ -23,6 +23,7 @@ type AuditResults struct {
 	SellEnabled                 bool              `json:"sell_enabled"`
 	SellTax                     *big.Float        `json:"sell_tax"`
 	FaucetAccount               *accounts.Account `json:"faucet_account"`
+	FaucetAccountEthBalance     *big.Int          `json:"faucet_account_eth_balance"`
 	FaucetAccountInitialBalance *big.Int          `json:"faucet_account_initial_balance"`
 }
 
@@ -149,6 +150,32 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 
 					account := m.sim.GetFaucet().List(utils.AnvilNetwork)[0]
 					m.results.FaucetAccount = account
+
+					balance, err := account.Balance(ctx, nil)
+					if err != nil {
+						zap.L().Error(
+							"failed to get faucet account balance",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+						)
+						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
+					}
+					m.results.FaucetAccountEthBalance = balance
+
+					zap.L().Info(
+						"Faucet account balance",
+						zap.Any("simulator", utils.AnvilSimulator),
+						zap.Any("network", utils.AnvilNetwork),
+						zap.Any("address", m.GetAddress().Hex()),
+						zap.Any("eth_address", ethAddr.Hex()),
+						zap.Any("faucet_address", account.Address.Hex()),
+						zap.Any("balance", balance),
+					)
+
 					faucetInitialBalance, err := tokenBind.BalanceOf(account.Address)
 					if err != nil {
 						zap.L().Error(
@@ -178,7 +205,9 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
-					purchaseAmount := new(big.Int).Mul(big.NewInt(10), new(big.Int).Exp(big.NewInt(10), big.NewInt(int64(tokenDetector.Decimals)), nil))
+					// TODO: Prior we can go into the transact to approve we need to know the amount to approve.
+
+					purchaseAmount := new(big.Int).Mul(big.NewInt(10), new(big.Int).Exp(big.NewInt(1), big.NewInt(int64(tokenDetector.Decimals)), nil))
 					authApprove, err := account.TransactOpts(client, purchaseAmount, false)
 					if err != nil {
 						zap.L().Error(
@@ -189,6 +218,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 							zap.Any("address", m.GetAddress().Hex()),
 							zap.Any("eth_address", ethAddr.Hex()),
 							zap.Any("faucet_address", account.Address.Hex()),
+							zap.Any("purchase_amount", purchaseAmount),
 						)
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
@@ -203,13 +233,16 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 							zap.Any("address", m.GetAddress().Hex()),
 							zap.Any("eth_address", ethAddr.Hex()),
 							zap.Any("faucet_address", account.Address.Hex()),
+							zap.Any("purchase_amount", purchaseAmount),
 						)
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
 					m.results.Detected = true
-					m.results.ApproveEnabled = true
 					m.results.ApproveTx = approveReceiptTx.TxHash.Hex()
+					if approveReceiptTx.Status == 1 {
+						m.results.ApproveEnabled = true
+					}
 					m.results.ApproveStatus = approveReceiptTx.Status
 
 					_ = client

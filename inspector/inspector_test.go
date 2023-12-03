@@ -18,10 +18,19 @@ import (
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/storage"
 	"github.com/unpackdev/solgo/utils"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func TestInspector(t *testing.T) {
 	tAssert := assert.New(t)
+
+	config := zap.NewDevelopmentConfig()
+	config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	logger, err := config.Build()
+	tAssert.NoError(err)
+	zap.ReplaceGlobals(logger)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -31,7 +40,7 @@ func TestInspector(t *testing.T) {
 			{
 				Group:                   string(utils.Ethereum),
 				Type:                    "mainnet",
-				Endpoint:                "https://ethereum.publicnode.com",
+				Endpoint:                "https://eth-mainnet.g.alchemy.com/v2/Dcctb0Q9tu7V_4FgggehOvoJK4lT1ppG",
 				NetworkId:               1,
 				ConcurrentClientsNumber: 1,
 			},
@@ -77,8 +86,9 @@ func TestInspector(t *testing.T) {
 		expectedError bool
 	}{
 		{
-			name:          "HoneyPot 1",
-			contractAddr:  common.HexToAddress("0x0c65b5d43f2c2252897ce04d86d7fa46b83ed514"),
+			name: "HoneyPot 1",
+			//contractAddr:  common.HexToAddress("0x0c65b5d43f2c2252897ce04d86d7fa46b83ed514"),
+			contractAddr:  common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
 			network:       utils.Ethereum,
 			expectedError: false,
 		},
@@ -130,6 +140,9 @@ func TestInspector(t *testing.T) {
 
 				// Alright now we're at the point that we know contract should be checked for any type of malicious activity
 				tAssert.NoError(inspector.Inspect())
+
+				toJson, _ := utils.ToJSONPretty(inspector.GetReport())
+				utils.WriteToFile("report.json", toJson)
 
 				utils.DumpNodeNoExit(inspector.GetReport().Detectors[AuditDetectorType])
 

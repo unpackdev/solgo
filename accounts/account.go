@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	DEFAULT_GAS_LIMIT = uint64(90000)
+	DEFAULT_GAS_LIMIT = uint64(900000)
 )
 
 // Account represents an Ethereum account with extended functionalities.

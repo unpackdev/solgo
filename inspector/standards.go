@@ -33,7 +33,12 @@ func NewStandardsDetector(ctx context.Context, inspector *Inspector) Detector {
 	return &StandardsDetector{
 		ctx:       ctx,
 		Inspector: inspector,
-		results:   &StandardsResults{},
+		results: &StandardsResults{
+			StandardTypes:                   make([]standards.Standard, 0),
+			Standards:                       make([]*ir.Standard, 0),
+			HighConfidenceMatchStandards:    make([]*ir.Standard, 0),
+			PerfectConfidenceMatchStandards: make([]*ir.Standard, 0),
+		},
 	}
 }
 

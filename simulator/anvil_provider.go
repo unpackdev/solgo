@@ -250,6 +250,7 @@ func (a *AnvilProvider) SetupFaucetAccounts(ctx context.Context, node *Node) err
 
 		client := a.pool.GetClient(utils.AnvilSimulator.String(), node.GetID().String())
 		address.SetClient(client)
+
 		go func(address *accounts.Account) {
 			defer wg.Done()
 			if err := address.SetAccountBalance(ctx, a.simulator.opts.FaucetAccountDefaultBalance); err != nil {

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -216,6 +217,8 @@ func (t *Token) Approve(opts *bind.TransactOpts, spender common.Address, amount 
 
 		return tx, receipt, nil
 	}
+
+	spew.Dump(opts)
 
 	tx, err := t.Manager.SendTransaction(opts, t.network, &binding.Address, input)
 	if err != nil {
