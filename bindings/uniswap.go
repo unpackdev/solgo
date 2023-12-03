@@ -95,7 +95,7 @@ func (u *Uniswap) GetPair(tokenA, tokenB common.Address) (common.Address, error)
 	return pairAddress, nil
 }
 
-func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []common.Address, to common.Address, deadline *big.Int) (*types.Transaction, *types.Receipt, error) {
+func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []common.Address, to common.Address, deadline *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
 	bind, err := u.GetBinding(utils.Ethereum, UniswapV2Router)
 	if err != nil {
 		return nil, nil, err
@@ -112,19 +112,33 @@ func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []com
 		return nil, nil, err
 	}
 
-	txHash, err := u.Manager.SendSimulatedTransaction(opts, u.network, &bind.Address, method, input)
+	if simulate {
+		txHash, err := u.Manager.SendSimulatedTransaction(opts, u.network, &bind.Address, method, input)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to send swapExactETHForTokensSupportingFeeOnTransferTokens transaction: %w", err)
+		}
+
+		receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, *txHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction receipt: %w", err)
+		}
+
+		tx, _, err := u.Manager.GetTransactionByHash(u.ctx, u.network, receipt.TxHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction by hash: %w", err)
+		}
+
+		return tx, receipt, nil
+	}
+
+	tx, err := u.Manager.SendTransaction(opts, u.network, &bind.Address, input)
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to send swapExactETHForTokensSupportingFeeOnTransferTokens transaction: %w", err)
 	}
 
-	receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, *txHash)
+	receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, tx.Hash())
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction receipt: %w", err)
-	}
-
-	tx, _, err := u.Manager.GetTransactionByHash(u.ctx, u.network, receipt.TxHash)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction by hash: %w", err)
 	}
 
 	return tx, receipt, nil

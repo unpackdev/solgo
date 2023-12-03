@@ -3,6 +3,7 @@ package inspector
 import (
 	"context"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -274,7 +275,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 
 					// TODO: Prior we can go into the transact to approve we need to know the amount to approve.
 
-					purchaseAmount := big.NewInt(1000000000000000)
+					purchaseAmount := big.NewInt(1000000000)
 					authApprove, err := account.TransactOpts(client, nil, false) // Approval cannot take value as value is in the approve call
 					if err != nil {
 						zap.L().Error(
@@ -350,7 +351,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						},
 					}
 
-					transferOpts, err := account.TransactOpts(client, nil, false)
+					transferOpts, err := account.TransactOpts(client, purchaseAmount, true)
 					if err != nil {
 						zap.L().Error(
 							"failed to create transfer transact information",
@@ -365,7 +366,8 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
-					_, buyReceipt, err := tokenBind.Transfer(transferOpts, account.Address, purchaseAmount, false)
+					deadline := big.NewInt(time.Now().Add(time.Minute).Unix())
+					_, buyReceipt, err := uniswapBind.Buy(transferOpts, big.NewInt(0), buyResults.PairDetails, account.Address, deadline, true)
 					if err != nil {
 						zap.L().Error(
 							"failed to transfer tokens",
