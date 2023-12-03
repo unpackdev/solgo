@@ -21,6 +21,7 @@ type Topic struct {
 // Log encapsulates details of a decoded Ethereum event log.
 type Log struct {
 	Event        *abi.Event         `json:"-"`             // Event is the ABI definition of the log's event
+	Address      common.Address     `json:"address"`       // Address is the address of the contract that emitted the event
 	Abi          string             `json:"abi"`           // Abi is the ABI string of the event
 	SignatureHex common.Hash        `json:"signature_hex"` // SignatureHex is the hex-encoded signature of the event
 	Signature    string             `json:"signature"`     // Signature of the event
@@ -73,6 +74,7 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 
 	toReturn := &Log{
 		Event:        event,
+		Address:      log.Address,
 		Abi:          abi,
 		SignatureHex: log.Topics[0],
 		Signature:    strings.TrimLeft(event.String(), "event "),

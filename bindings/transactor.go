@@ -35,8 +35,8 @@ func (m *Manager) WaitForReceipt(ctx context.Context, network utils.Network, txH
 		return nil, fmt.Errorf("client not found for network %s", network)
 	}
 
-	// TODO: This should be configurable per network... (this: 2 seconds)
-	ctxWait, cancel := context.WithTimeout(ctx, 2*time.Second)
+	// TODO: This should be configurable per network... (this: 30 seconds)
+	ctxWait, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
 	for {

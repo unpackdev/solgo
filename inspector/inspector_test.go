@@ -103,7 +103,7 @@ func TestInspector(t *testing.T) {
 		expectedError bool
 	}{
 		{
-			name: "HoneyPot 1",
+			name: "GROK Token",
 			//contractAddr:  common.HexToAddress("0x0c65b5d43f2c2252897ce04d86d7fa46b83ed514"),
 			contractAddr:  common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
 			network:       utils.Ethereum,

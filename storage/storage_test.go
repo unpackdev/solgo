@@ -49,7 +49,7 @@ func TestStorage(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(pool)
 
-	sim, err := simulator.CreateNewTestSimulator(ctx, t)
+	sim, err := simulator.CreateNewTestSimulator(ctx, t, nil)
 	require.NoError(t, err)
 	require.NotNil(t, sim)
 	defer sim.Close()

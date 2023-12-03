@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/unpackdev/solgo/utils"
-	"github.com/unpackdev/solgo/utils/currencies"
 )
 
 const (
@@ -118,6 +118,8 @@ func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []com
 			return nil, nil, fmt.Errorf("failed to send swapExactETHForTokensSupportingFeeOnTransferTokens transaction: %w", err)
 		}
 
+		spew.Dump(opts)
+
 		receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, *txHash)
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction receipt: %w", err)
@@ -144,32 +146,83 @@ func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []com
 	return tx, receipt, nil
 }
 
+func (u *Uniswap) Sell(opts *bind.TransactOpts, amountIn *big.Int, amountOut *big.Int, path []common.Address, to common.Address, deadline *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
+	bind, err := u.GetBinding(utils.Ethereum, UniswapV2Router)
+	if err != nil {
+		return nil, nil, err
+	}
+	bindAbi := bind.GetABI()
+
+	method, exists := bindAbi.Methods["swapExactTokensForETHSupportingFeeOnTransferTokens"]
+	if !exists {
+		return nil, nil, errors.New("swap method not found")
+	}
+
+	input, err := bindAbi.Pack(method.Name, amountIn, amountOut, path, to, deadline)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if simulate {
+		txHash, err := u.Manager.SendSimulatedTransaction(opts, u.network, &bind.Address, method, input)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to send swapExactTokensForETHSupportingFeeOnTransferTokens transaction: %w", err)
+		}
+
+		spew.Dump(opts)
+
+		receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, *txHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get swapExactTokensForETHSupportingFeeOnTransferTokens transaction receipt: %w", err)
+		}
+
+		tx, _, err := u.Manager.GetTransactionByHash(u.ctx, u.network, receipt.TxHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get swapExactTokensForETHSupportingFeeOnTransferTokens transaction by hash: %w", err)
+		}
+
+		return tx, receipt, nil
+	}
+
+	tx, err := u.Manager.SendTransaction(opts, u.network, &bind.Address, input)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to send swapExactTokensForETHSupportingFeeOnTransferTokens transaction: %w", err)
+	}
+
+	receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, tx.Hash())
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to get swapExactTokensForETHSupportingFeeOnTransferTokens transaction receipt: %w", err)
+	}
+
+	return tx, receipt, nil
+}
+
 func (u *Uniswap) EstimateTaxesForToken(tokenAddress common.Address) (*big.Int, error) {
-	wEthAddr, err := u.WETH()
-	if err != nil {
-		return nil, err
-	}
+	/* 	wEthAddr, err := u.WETH()
+	   	if err != nil {
+	   		return nil, err
+	   	}
 
-	// Figure out the pair address...
-	pairAddress, err := u.GetPair(tokenAddress, wEthAddr)
-	if err != nil {
-		return nil, err
-	}
+	   	// Figure out the pair address...
+	   	pairAddress, err := u.GetPair(tokenAddress, wEthAddr)
+	   	if err != nil {
+	   		return nil, err
+	   	}
 
-	fmt.Println("Pair Address:", pairAddress.Hex())
+	   	fmt.Println("Pair Address:", pairAddress.Hex())
 
-	currencyEth, _ := currencies.NewEther(big.NewInt(100000000000000000))
-	fmt.Println(currencyEth.Addresses[utils.Ethereum].Hex())
+	   	currencyEth, _ := currencies.NewEther(big.NewInt(100000000000000000))
+	   	fmt.Println(currencyEth.Addresses[utils.Ethereum].Hex())
 
-	amounts, err := u.CalculateAmounts(currencyEth.Raw(), tokenAddress, wEthAddr)
-	if err != nil {
-		panic(err)
-		return nil, err
-	}
+	   	amounts, err := u.CalculateAmounts(currencyEth.Raw(), tokenAddress, wEthAddr)
+	   	if err != nil {
+	   		panic(err)
+	   		return nil, err
+	   	}
 
-	fmt.Println("Amounts:", amounts)
+	   	fmt.Println("Amounts:", amounts)
 
-	utils.DumpNodeWithExit(1)
+	   	utils.DumpNodeWithExit(1) */
 	return nil, nil
 }
 
