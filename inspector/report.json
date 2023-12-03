@@ -4,55 +4,63 @@
 	"uses_transfers": true,
 	"detectors": {
 		"audit": {
-			"detected": true,
-			"honey_pot": false,
-			"approve": true,
-			"approve_tx": "0xe6749f85ee0df0ef222965d40cb8ba623b9308f1c9db98c2afdf191812319dba",
-			"approve_status": 1,
-			"approve_logs": [
-				{
-					"abi": "[{\"name\":\"Approval\",\"type\":\"event\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true},{\"name\":\"spender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
-					"signature_hex": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
-					"signature": "Approval(address indexed owner, address indexed spender, uint256 value)",
-					"type": "approval",
-					"name": "Approval",
-					"data": {
-						"value": 1000000000000000
-					},
-					"topics": [
-						{
-							"name": "owner",
-							"value": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9"
-						},
-						{
-							"name": "spender",
-							"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-						}
-					]
-				}
-			],
-			"buy_enabled": false,
-			"buy_tax": null,
-			"sell_enabled": false,
-			"sell_tax": null,
-			"faucet_account": {
-				"address": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9",
-				"type": "keystore",
-				"private_key": "",
-				"public_key": "",
-				"account": {
-					"address": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9",
-					"url": "keystore:///home/cortex/github/txpull/solgo/data/faucets/anvil/UTC--2023-12-02T16-24-30.256993857Z--490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9"
-				},
-				"password": "d2VhcmVnb2luZ3RvZ2V0aGFja2Vk",
-				"network": "anvil",
-				"tags": [
-					"simulator",
-					"simulator"
-				]
-			},
+			"detected": false,
+			"faucet_address": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9",
 			"faucet_account_eth_balance": 1000000000000000000000,
-			"faucet_account_initial_balance": 0
+			"faucet_account_initial_balance": 0,
+			"honey_pot": false,
+			"exchange": {
+				"exchange_type": "uniswap_v2",
+				"address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
+				"pair_address": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2",
+				"balance": 86858043518739045
+			},
+			"buy": {
+				"detected": false,
+				"approval": {
+					"detected": true,
+					"approval_requested": true,
+					"approved": true,
+					"transaction_hash": "0xada2f40d8fe0b5ff9de495c945d494326c9ae879168f87cc3ba8e3f37541bee0",
+					"receipt": true,
+					"receipt_status": 1,
+					"logs": [
+						{
+							"abi": "[{\"name\":\"Approval\",\"type\":\"event\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true},{\"name\":\"spender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
+							"signature_hex": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+							"signature": "Approval(address indexed owner, address indexed spender, uint256 value)",
+							"type": "approval",
+							"name": "Approval",
+							"data": {
+								"value": 1000000000000000
+							},
+							"topics": [
+								{
+									"name": "owner",
+									"value": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9"
+								},
+								{
+									"name": "spender",
+									"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+								}
+							]
+						}
+					],
+					"requested_amount": 1000000000000000
+				},
+				"results": {
+					"detected": true,
+					"transfer_requested": true,
+					"pair_details": [
+						"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+						"0x8390a1da07e376ef7add4be859ba74fb83aa02d5"
+					],
+					"transaction_hash": "0x293e31a4b9c128067c8d796231e83721445aaa2bb9e5eab703c42f44c8b6c91f",
+					"receipt": true,
+					"receipt_status": 0,
+					"logs": null
+				}
+			}
 		},
 		"standards": {
 			"detected": true,

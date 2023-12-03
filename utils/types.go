@@ -19,6 +19,10 @@ const (
 	SimulatorAccountType AccountType = "simulator"
 	SimpleAccountType    AccountType = "simple"
 	KeystoreAccountType  AccountType = "keystore"
+
+	UniswapV2 ExchangeType = "uniswap_v2"
+	UniswapV3 ExchangeType = "uniswap_v3"
+	SushiSwap ExchangeType = "sushiswap"
 )
 
 type Strategy string
@@ -54,5 +58,11 @@ func (t AccountType) String() string {
 type SimulatorType string
 
 func (t SimulatorType) String() string {
+	return string(t)
+}
+
+type ExchangeType string
+
+func (t ExchangeType) String() string {
 	return string(t)
 }

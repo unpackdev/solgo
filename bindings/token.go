@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -145,7 +144,7 @@ func (t *Token) Allowance(owner, spender common.Address) (*big.Int, error) {
 	return allowance, nil
 }
 
-func (t *Token) Transfer(opts *bind.TransactOpts, to common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+func (t *Token) Transfer(opts *bind.TransactOpts, to common.Address, amount *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
 	binding, err := t.GetBinding(utils.Ethereum, Erc20)
 	if err != nil {
 		return nil, nil, err
@@ -157,25 +156,40 @@ func (t *Token) Transfer(opts *bind.TransactOpts, to common.Address, amount *big
 		return nil, nil, errors.New("transfer method not found")
 	}
 
-	input, err := method.Inputs.Pack(method.Name, to, amount)
+	input, err := bindingAbi.Pack(method.Name, to, amount)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	txHash, err := t.Manager.SendSimulatedTransaction(opts, t.network, &binding.Address, method, input)
+	if simulate {
+		txHash, err := t.Manager.SendSimulatedTransaction(opts, t.network, &binding.Address, method, input)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to send transfer transaction: %w", err)
+		}
+
+		// Wait for the receipt
+		receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, *txHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get transfer transaction receipt: %w", err)
+		}
+
+		tx, _, err := t.Manager.GetTransactionByHash(t.ctx, t.network, receipt.TxHash)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get transfer transaction by hash: %w", err)
+		}
+
+		return tx, receipt, nil
+	}
+
+	tx, err := t.Manager.SendTransaction(opts, t.network, &binding.Address, input)
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to send transfer transaction: %w", err)
 	}
 
 	// Wait for the receipt
-	receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, *txHash)
+	receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, tx.Hash())
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to get transfer transaction receipt: %w", err)
-	}
-
-	tx, _, err := t.Manager.GetTransactionByHash(t.ctx, t.network, receipt.TxHash)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get transfer transaction by hash: %w", err)
 	}
 
 	return tx, receipt, nil
@@ -217,8 +231,6 @@ func (t *Token) Approve(opts *bind.TransactOpts, spender common.Address, amount 
 
 		return tx, receipt, nil
 	}
-
-	spew.Dump(opts)
 
 	tx, err := t.Manager.SendTransaction(opts, t.network, &binding.Address, input)
 	if err != nil {

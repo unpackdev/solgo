@@ -2,33 +2,60 @@ package inspector
 
 import (
 	"context"
-	"fmt"
 	"math/big"
 
-	"github.com/davecgh/go-spew/spew"
+	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
-	"github.com/unpackdev/solgo/accounts"
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/bytecode"
 	"github.com/unpackdev/solgo/utils"
+	"github.com/unpackdev/solgo/utils/currencies"
 	"go.uber.org/zap"
 )
 
+type AuditApprovalResults struct {
+	Detected          bool            `json:"detected"`
+	ApprovalRequested bool            `json:"approval_requested"`
+	Approved          bool            `json:"approved"`
+	TxHash            common.Hash     `json:"transaction_hash"`
+	Receipt           bool            `json:"receipt"`
+	ReceiptStatus     uint64          `json:"receipt_status"`
+	Logs              []*bytecode.Log `json:"logs"`
+	RequestedAmount   *big.Int        `json:"requested_amount"`
+}
+
+type AuditSwapResults struct {
+	Detected          bool             `json:"detected"`
+	TransferRequested bool             `json:"transfer_requested"`
+	PairDetails       []common.Address `json:"pair_details"`
+	TxHash            common.Hash      `json:"transaction_hash"`
+	Receipt           bool             `json:"receipt"`
+	ReceiptStatus     uint64           `json:"receipt_status"`
+	Logs              []*bytecode.Log  `json:"logs"`
+}
+
+type AuditBuyResults struct {
+	Detected bool                  `json:"detected"`
+	Approval *AuditApprovalResults `json:"approval"`
+	Results  *AuditSwapResults     `json:"results"`
+}
+
+type Exchange struct {
+	ExchangeType utils.ExchangeType `json:"exchange_type"`
+	Address      common.Address     `json:"address"`
+	PairAddress  common.Address     `json:"pair_address"`
+	Balance      *big.Int           `json:"balance"`
+}
+
 type AuditResults struct {
-	Detected                    bool              `json:"detected"`
-	HoneyPot                    bool              `json:"honey_pot"`
-	Approve                     bool              `json:"approve"`
-	ApproveTx                   string            `json:"approve_tx"`
-	ApproveStatus               uint64            `json:"approve_status"`
-	ApproveLogs                 []*bytecode.Log   `json:"approve_logs"`
-	BuyEnabled                  bool              `json:"buy_enabled"`
-	BuyTax                      *big.Float        `json:"buy_tax"`
-	SellEnabled                 bool              `json:"sell_enabled"`
-	SellTax                     *big.Float        `json:"sell_tax"`
-	FaucetAccount               *accounts.Account `json:"faucet_account"`
-	FaucetAccountEthBalance     *big.Int          `json:"faucet_account_eth_balance"`
-	FaucetAccountInitialBalance *big.Int          `json:"faucet_account_initial_balance"`
+	Detected                    bool             `json:"detected"`
+	FaucetAddress               common.Address   `json:"faucet_address"`
+	FaucetAccountEthBalance     *big.Int         `json:"faucet_account_eth_balance"`
+	FaucetAccountInitialBalance *big.Int         `json:"faucet_account_initial_balance"`
+	HoneyPot                    bool             `json:"honey_pot"`
+	Exchange                    *Exchange        `json:"exchange"`
+	Buy                         *AuditBuyResults `json:"buy"`
 }
 
 type AuditDetector struct {
@@ -41,9 +68,7 @@ func NewAuditDetector(ctx context.Context, inspector *Inspector) Detector {
 	return &AuditDetector{
 		ctx:       ctx,
 		Inspector: inspector,
-		results: &AuditResults{
-			ApproveLogs: make([]*bytecode.Log, 0),
-		},
+		results:   &AuditResults{},
 	}
 }
 
@@ -155,7 +180,7 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 					//anvilProvider := m.sim.GetProvider(utils.AnvilSimulator)
 
 					account := m.sim.GetFaucet().List(utils.AnvilNetwork)[0]
-					m.results.FaucetAccount = account
+					m.results.FaucetAddress = account.GetAddress()
 
 					balance, err := account.Balance(ctx, nil)
 					if err != nil {
@@ -211,10 +236,46 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
+					m.results.Exchange = &Exchange{
+						ExchangeType: utils.UniswapV2,
+						Address:      uniswapAddr,
+					}
+
+					// Lets figure out what the pair address is...
+					pairAddr, err := uniswapBind.GetPair(m.GetAddress(), ethAddr)
+					if err != nil {
+						zap.L().Error(
+							"failed to get pair address",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+						)
+					} else {
+						m.results.Exchange.PairAddress = pairAddr
+
+						// Getting the balance from the pair to be able calculate later on taxes and what not...
+						balance, err := tokenBind.BalanceOf(pairAddr)
+						if err != nil {
+							zap.L().Error(
+								"failed to get pair token balance",
+								zap.Error(err),
+								zap.Any("simulator", utils.AnvilSimulator),
+								zap.Any("network", utils.AnvilNetwork),
+								zap.Any("contract_address", m.GetAddress().Hex()),
+								zap.Any("pair_address", pairAddr.Hex()),
+							)
+						} else {
+							m.results.Exchange.Balance = balance
+						}
+					}
+
 					// TODO: Prior we can go into the transact to approve we need to know the amount to approve.
 
 					purchaseAmount := big.NewInt(1000000000000000)
-					authApprove, err := account.TransactOpts(client, nil, false)
+					authApprove, err := account.TransactOpts(client, nil, false) // Approval cannot take value as value is in the approve call
 					if err != nil {
 						zap.L().Error(
 							"failed to create transaction options",
@@ -229,9 +290,6 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
-					fmt.Println(" I AM HERE....")
-					spew.Dump(authApprove)
-
 					_, approveReceiptTx, err := tokenBind.Approve(authApprove, uniswapAddr, purchaseAmount, false)
 					if err != nil {
 						zap.L().Error(
@@ -244,23 +302,100 @@ func (m *AuditDetector) Detect(ctx context.Context) (DetectorFn, error) {
 							zap.Any("faucet_address", account.Address.Hex()),
 							zap.Any("purchase_amount", purchaseAmount),
 						)
+						//return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
+					}
+
+					buyRequest := &AuditBuyResults{
+						Approval: &AuditApprovalResults{
+							Detected:          true,
+							ApprovalRequested: true,
+							Approved: func() bool {
+								if approveReceiptTx != nil {
+									return approveReceiptTx.Status == 1
+								}
+
+								return false
+							}(),
+							TxHash:  approveReceiptTx.TxHash,
+							Receipt: approveReceiptTx != nil,
+							ReceiptStatus: func() uint64 {
+								if approveReceiptTx != nil {
+									return approveReceiptTx.Status
+								}
+
+								return 0
+							}(),
+							Logs:            make([]*bytecode.Log, 0),
+							RequestedAmount: purchaseAmount,
+						},
+					}
+
+					m.results.Buy = buyRequest
+
+					if approveReceiptTx != nil {
+						tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
+						if len(approveReceiptTx.Logs) > 0 {
+							if decodedApprovalLog, err := bytecode.DecodeLogFromAbi(approveReceiptTx.Logs[0], []byte(tokenBinding.RawABI)); err == nil {
+								m.results.Buy.Approval.Logs = append(m.results.Buy.Approval.Logs, decodedApprovalLog)
+							}
+						}
+					}
+
+					buyResults := &AuditSwapResults{
+						Detected:          false,
+						TransferRequested: true,
+						PairDetails: []common.Address{
+							currencies.WETH.Addresses[utils.Ethereum],
+							m.GetAddress(),
+						},
+					}
+
+					transferOpts, err := account.TransactOpts(client, nil, false)
+					if err != nil {
+						zap.L().Error(
+							"failed to create transfer transact information",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+							zap.Any("purchase_amount", purchaseAmount),
+						)
 						return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, err
 					}
 
-					m.results.Detected = true
-					m.results.ApproveTx = approveReceiptTx.TxHash.Hex()
-					if approveReceiptTx.Status == 1 {
-						m.results.Approve = true
-					}
-					m.results.ApproveStatus = approveReceiptTx.Status
+					_, buyReceipt, err := tokenBind.Transfer(transferOpts, account.Address, purchaseAmount, false)
+					if err != nil {
+						zap.L().Error(
+							"failed to transfer tokens",
+							zap.Error(err),
+							zap.Any("simulator", utils.AnvilSimulator),
+							zap.Any("network", utils.AnvilNetwork),
+							zap.Any("address", m.GetAddress().Hex()),
+							zap.Any("eth_address", ethAddr.Hex()),
+							zap.Any("faucet_address", account.Address.Hex()),
+							zap.Any("purchase_amount", purchaseAmount),
+						)
+					} else {
+						buyResults.Detected = true
+						buyResults.TxHash = buyReceipt.TxHash
+						buyResults.Receipt = buyReceipt != nil
+						buyResults.ReceiptStatus = func() uint64 {
+							if buyReceipt != nil {
+								return buyReceipt.Status
+							}
 
-					tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
+							return 0
+						}()
 
-					if len(approveReceiptTx.Logs) > 0 {
-						if decodedApprovalLog, err := bytecode.DecodeLogFromAbi(approveReceiptTx.Logs[0], []byte(tokenBinding.RawABI)); err == nil {
-							m.results.ApproveLogs = append(m.results.ApproveLogs, decodedApprovalLog)
+						if buyReceipt != nil {
+							if len(buyReceipt.Logs) > 0 {
+							}
 						}
 					}
+
+					m.results.Buy.Results = buyResults
 				}
 
 			}

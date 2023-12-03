@@ -5,7 +5,6 @@ import (
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
-	"github.com/unpackdev/solgo/utils"
 )
 
 // Parameter represents a parameter node in the abstract syntax tree.
@@ -40,11 +39,6 @@ func NewParameter(b *ASTBuilder) *Parameter {
 
 // SetReferenceDescriptor sets the reference descriptors of the Parameter node.
 func (p *Parameter) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-
-	if p.GetName() == "L" {
-		utils.DumpNodeWithExit(p)
-	}
-
 	return false
 }
 

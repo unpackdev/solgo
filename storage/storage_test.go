@@ -144,10 +144,6 @@ func TestStorage(t *testing.T) {
 			tAssert.NotNil(sortedSlots)
 			tAssert.Equal(tc.expectedSlotsCount, len(sortedSlots))
 
-			for _, slot := range sortedSlots {
-				utils.DumpNodeNoExit(slot)
-			}
-
 			/* 			for i, slot := range sortedSlots {
 				require.NotNil(t, tc.expectedSlots[i])
 				tAssert.Equal(tc.expectedSlots[i].Slot, slot.Slot)

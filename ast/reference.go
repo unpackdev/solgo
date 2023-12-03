@@ -155,11 +155,6 @@ func (r *Resolver) Resolve() []error {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
 					delete(r.UnprocessedNodes, nodeId)
 				} else {
-					/* 					if node.Name == "M" {
-						parentNode := r.tree.GetById(node.Node.GetSrc().GetParentIndex())
-						utils.DumpNodeNoExit(parentNode)
-						utils.DumpNodeWithExit(node)
-					} */
 					uNode := r.UnprocessedNodes[nodeId]
 					uNode.ErrUpdateRef = true
 					r.UnprocessedNodes[nodeId] = uNode

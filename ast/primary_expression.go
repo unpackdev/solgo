@@ -375,9 +375,6 @@ func (p *PrimaryExpression) Parse(
 		}
 
 		if p.TypeDescription == nil {
-			/* 			if p.GetId() == 4186 {
-				utils.DumpNodeWithExit(p)
-			} */
 			if refId, refTypeDescription := p.GetResolver().ResolveByNode(p, p.Name); refTypeDescription != nil {
 				p.ReferencedDeclaration = refId
 				p.TypeDescription = refTypeDescription
