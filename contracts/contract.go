@@ -13,6 +13,8 @@ import (
 	"github.com/unpackdev/solgo/liquidity"
 	"github.com/unpackdev/solgo/providers/bitquery"
 	"github.com/unpackdev/solgo/providers/etherscan"
+	"github.com/unpackdev/solgo/simulator"
+	"github.com/unpackdev/solgo/tokens"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -30,25 +32,27 @@ type Metadata struct {
 // It encapsulates the contract's address, network information, and associated metadata,
 // and provides methods to interact with the contract on the blockchain.
 type Contract struct {
-	ctx        context.Context
-	clientPool *clients.ClientPool
-	client     *clients.Client
-	addr       common.Address
-	network    utils.Network
-	descriptor *Descriptor
-	liq        *liquidity.Liquidity
-	token      *Token
-	bqp        *bitquery.BitQueryProvider
-	etherscan  *etherscan.EtherScanProvider
-	compiler   *solc.Solc
-	bindings   *bindings.Manager
-	tokenBind  *bindings.Token
+	ctx             context.Context
+	clientPool      *clients.ClientPool
+	client          *clients.Client
+	addr            common.Address
+	network         utils.Network
+	descriptor      *Descriptor
+	liq             *liquidity.Liquidity
+	sim             *simulator.Simulator
+	token           *tokens.Token
+	bqp             *bitquery.BitQueryProvider
+	etherscan       *etherscan.EtherScanProvider
+	compiler        *solc.Solc
+	bindings        *bindings.Manager
+	exchangeManager *exchanges.Manager
+	tokenBind       *bindings.Token
 }
 
 // NewContract creates a new instance of Contract for a given Ethereum address and network.
 // It initializes the contract's context, metadata, and associated blockchain clients.
 // The function validates the contract's existence and its bytecode before creation.
-func NewContract(ctx context.Context, network utils.Network, clientPool *clients.ClientPool, liq *liquidity.Liquidity, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindManager *bindings.Manager, addr common.Address) (*Contract, error) {
+func NewContract(ctx context.Context, network utils.Network, clientPool *clients.ClientPool, sim *simulator.Simulator, liq *liquidity.Liquidity, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindManager *bindings.Manager, exchange *exchanges.Manager, addr common.Address) (*Contract, error) {
 	if clientPool == nil {
 		return nil, fmt.Errorf("client pool is nil")
 	}
@@ -67,6 +71,20 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 		return nil, fmt.Errorf("failed to create new token %s bindings: %w", addr, err)
 	}
 
+	token, err := tokens.NewToken(
+		ctx,
+		network,
+		addr,
+		utils.AnvilSimulator,
+		bindManager,
+		exchange,
+		sim,
+		clientPool,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create new token %s instance: %w", addr, err)
+	}
+
 	toReturn := &Contract{
 		ctx:        ctx,
 		network:    network,
@@ -77,15 +95,18 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 		bqp:        bqp,
 		etherscan:  etherscan,
 		compiler:   compiler,
+		sim:        sim,
 		descriptor: &Descriptor{
 			Network:        network,
 			NetworkID:      utils.GetNetworkID(network),
 			Address:        addr,
-			LiquidityPairs: make(map[exchanges.ExchangeType]common.Address),
+			LiquidityPairs: make(map[utils.ExchangeType]common.Address),
 			Safety:         &SafetyDescriptor{},
 		},
-		bindings:  bindManager,
-		tokenBind: tokenBind,
+		bindings:        bindManager,
+		exchangeManager: exchange,
+		token:           token,
+		tokenBind:       tokenBind,
 	}
 
 	/* 	inspect, err := inspector.NewInspector(ctx, clientPool, toReturn)
@@ -94,12 +115,10 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 	   	}
 	   	toReturn.inspector = inspect
 	*/
-	valid, err := toReturn.IsValid()
-	if err != nil {
-		return nil, fmt.Errorf("failure to check for contract validity: %s", err)
-	}
 
-	if !valid {
+	if valid, err := toReturn.IsValid(); err != nil {
+		return nil, fmt.Errorf("failure to check for contract validity: %s", err)
+	} else if !valid {
 		return nil, fmt.Errorf("requested contract '%s' is not valid", addr.Hex())
 	}
 
@@ -153,6 +172,10 @@ func (c *Contract) GetSender() (common.Address, error) {
 	}
 
 	return from, nil
+}
+
+func (c *Contract) GetToken() *tokens.Token {
+	return c.token
 }
 
 // IsValid checks if the contract is valid by verifying its deployed bytecode.

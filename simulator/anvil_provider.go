@@ -2,10 +2,15 @@ package simulator
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"math/big"
 	"net"
+	"os"
+	"path/filepath"
 	"sync"
+	"syscall"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/unpackdev/solgo/accounts"
@@ -22,6 +27,7 @@ type AnvilProvider struct {
 	ctx            context.Context       // The context for managing the lifecycle of the provider.
 	opts           *AnvilProviderOptions // Configuration options for the Anvil provider.
 	nodes          map[uint64]*Node      // Collection of active simulation nodes.
+	mu             sync.Mutex            // Mutex for managing concurrent access to the provider.
 	pool           *clients.ClientPool   // Client pool for managing simulated clients.
 	simulator      *Simulator            // Reference to the parent Simulator.
 	bindingManager *bindings.Manager     // Binding manager for managing contract bindings.
@@ -49,6 +55,7 @@ func NewAnvilProvider(ctx context.Context, simulator *Simulator, opts *AnvilProv
 		pool:      simulator.GetClientPool(),
 		simulator: simulator,
 		nodes:     make(map[uint64]*Node),
+		mu:        sync.Mutex{},
 	}
 
 	return provider, nil
@@ -84,12 +91,40 @@ func (a *AnvilProvider) NetworkID() utils.NetworkID {
 	return a.opts.NetworkID
 }
 
+// GetCmdArguments builds the command-line arguments for starting the node...
+// @TODO: Fetch arguments based on provider, not just for Anvil.
+func (a *AnvilProvider) GetCmdArguments(node *Node) []string {
+	args := []string{
+		"--auto-impersonate",
+		"--accounts", "0",
+		"--host", node.Addr.IP.String(),
+		"--port", fmt.Sprintf("%d", node.Addr.Port),
+	}
+
+	ipcPath := filepath.Join(node.IpcPath, fmt.Sprintf("anvil.%d.ipc", node.Addr.Port))
+	args = append(args, "--ipc", ipcPath)
+
+	if node.Fork {
+		args = append(args, "--fork-url", node.ForkEndpoint)
+		args = append(args, "--chain-id", fmt.Sprintf("%d", node.GetProvider().NetworkID()))
+	}
+
+	if node.BlockNumber != nil {
+		args = append(args, "--fork-block-number", node.BlockNumber.String())
+	}
+
+	return args
+}
+
 // Load initializes and loads the Anvil simulation nodes. It ensures that existing nodes
 // are properly managed and new nodes are created as needed. It is crucial for avoiding
 // zombie processes and ensuring a clean simulation environment.
 func (a *AnvilProvider) Load(ctx context.Context) error {
-	// First we are going to load already existing nodes that are currently running but we did not
-	// stop them properly. This is a very important step as we do not want to have zombie processes.
+
+	// Lets go through process of shutting down any existing zombie nodes...
+	if err := a.ResolveZombieNodes(ctx); err != nil {
+		return fmt.Errorf("failed to resolve zombie nodes: %w", err)
+	}
 
 	// Now we are going to load remaining of the nodes that are not running yet.
 	if remainingClientsCount := a.NeedClients(); remainingClientsCount > 0 {
@@ -139,17 +174,17 @@ func (a *AnvilProvider) Unload(ctx context.Context) error {
 // Start initializes and starts a new simulation node with the given options.
 func (a *AnvilProvider) Start(ctx context.Context, opts StartOptions) (*Node, error) {
 	node := &Node{
-		Provider:            a,
-		Simulator:           a.simulator,
-		ID:                  uuid.New(),
-		Addr:                opts.Addr,
-		IpcPath:             a.opts.PidPath,
-		PidPath:             a.opts.PidPath,
-		AutoImpersonate:     a.opts.AutoImpersonate,
-		AnvilExecutablePath: a.opts.AnvilExecutablePath,
-		Fork:                a.opts.Fork,
-		ForkEndpoint:        a.opts.ForkEndpoint,
-		BlockNumber:         opts.BlockNumber,
+		provider:        a,
+		simulator:       a.simulator,
+		ID:              uuid.New(),
+		Addr:            opts.Addr,
+		IpcPath:         a.opts.PidPath,
+		PidPath:         a.opts.PidPath,
+		AutoImpersonate: a.opts.AutoImpersonate,
+		ExecutablePath:  a.opts.AnvilExecutablePath,
+		Fork:            a.opts.Fork,
+		ForkEndpoint:    a.opts.ForkEndpoint,
+		BlockNumber:     opts.BlockNumber,
 	}
 
 	// Ability to override the fork defaults if needed
@@ -171,8 +206,8 @@ func (a *AnvilProvider) Start(ctx context.Context, opts StartOptions) (*Node, er
 		"Anvil node successfully started",
 		zap.String("id", node.GetID().String()),
 		zap.String("addr", node.Addr.String()),
-		zap.String("network", node.Provider.Network().String()),
-		zap.Any("network_id", node.Provider.NetworkID()),
+		zap.String("network", node.GetProvider().Network().String()),
+		zap.Any("network_id", node.GetProvider().NetworkID()),
 		zap.Uint64("block_number", node.BlockNumber.Uint64()),
 	)
 
@@ -193,7 +228,10 @@ func (a *AnvilProvider) Start(ctx context.Context, opts StartOptions) (*Node, er
 		)
 	}
 
+	a.mu.Lock()
 	a.nodes[uint64(node.Addr.Port)] = node
+	a.mu.Unlock()
+
 	return node, nil
 }
 
@@ -238,8 +276,8 @@ func (a *AnvilProvider) SetupFaucetAccounts(ctx context.Context, node *Node) err
 		"Loading faucet accounts...",
 		zap.String("id", node.GetID().String()),
 		zap.String("addr", node.Addr.String()),
-		zap.String("network", node.Provider.Network().String()),
-		zap.Any("network_id", node.Provider.NetworkID()),
+		zap.String("network", node.GetProvider().Network().String()),
+		zap.Any("network_id", node.GetProvider().NetworkID()),
 		zap.Uint64("block_number", node.BlockNumber.Uint64()),
 	)
 
@@ -259,10 +297,44 @@ func (a *AnvilProvider) SetupFaucetAccounts(ctx context.Context, node *Node) err
 					zap.String("account", address.GetAddress().String()),
 					zap.String("id", node.GetID().String()),
 					zap.String("addr", node.Addr.String()),
-					zap.String("network", node.Provider.Network().String()),
-					zap.Any("network_id", node.Provider.NetworkID()),
+					zap.String("network", node.GetProvider().Network().String()),
+					zap.Any("network_id", node.GetProvider().NetworkID()),
 					zap.Uint64("block_number", node.BlockNumber.Uint64()),
 				)
+			}
+
+			for i := 0; i < 2; i++ {
+				balance, err := address.Balance(ctx, nil)
+				if err != nil {
+					zap.L().Error(
+						fmt.Sprintf("failure to get account balance: %s", err.Error()),
+						zap.String("account", address.GetAddress().String()),
+						zap.String("id", node.GetID().String()),
+						zap.String("addr", node.Addr.String()),
+						zap.String("network", node.GetProvider().Network().String()),
+						zap.Any("network_id", node.GetProvider().NetworkID()),
+						zap.Uint64("block_number", node.BlockNumber.Uint64()),
+					)
+					time.Sleep(500 * time.Millisecond)
+					continue
+				}
+
+				if balance.Cmp(a.simulator.opts.FaucetAccountDefaultBalance) != 0 {
+					zap.L().Debug(
+						"Account balance successfully set",
+						zap.String("account", address.GetAddress().String()),
+						zap.String("id", node.GetID().String()),
+						zap.String("addr", node.Addr.String()),
+						zap.String("network", node.GetProvider().Network().String()),
+						zap.Any("network_id", node.GetProvider().NetworkID()),
+						zap.Uint64("block_number", node.BlockNumber.Uint64()),
+						zap.String("balance", balance.String()),
+					)
+					time.Sleep(500 * time.Millisecond)
+					continue
+				}
+
+				break
 			}
 		}(address)
 	}
@@ -280,6 +352,10 @@ func (a *AnvilProvider) GetNodes() map[uint64]*Node {
 // GetNodeByBlockNumber retrieves a simulation node corresponding to a specific block number.
 // Returns the node and a boolean indicating whether such a node was found.
 func (a *AnvilProvider) GetNodeByBlockNumber(blockNumber *big.Int) (*Node, bool) {
+	if blockNumber == nil {
+		return nil, false
+	}
+
 	node, ok := a.nodes[blockNumber.Uint64()]
 	return node, ok
 }
@@ -347,4 +423,55 @@ func (a *AnvilProvider) GetNextPort() int {
 		}
 	}
 	return 0
+}
+
+func (a *AnvilProvider) ResolveZombieNodes(ctx context.Context) error {
+	pidPath := a.opts.PidPath
+	files, err := os.ReadDir(pidPath)
+	if err != nil {
+		return fmt.Errorf("failed to read simulator processes directory: %w", err)
+	}
+
+	for _, file := range files {
+		if filepath.Ext(file.Name()) != ".json" {
+			continue
+		}
+
+		filePath := filepath.Join(pidPath, file.Name())
+		fileBytes, err := os.ReadFile(filePath)
+		if err != nil {
+			zap.L().Error("Failed to read zombie simulator node file", zap.String("path", filePath), zap.Error(err))
+			continue
+		}
+
+		var node *Node
+
+		if err := json.Unmarshal(fileBytes, &node); err != nil {
+			zap.L().Error("Failed to unmarshal zombie simulator node file", zap.String("path", filePath), zap.Error(err))
+			continue
+		}
+
+		if process, err := os.FindProcess(node.PID); err == nil {
+			if err := process.Signal(syscall.SIGTERM); err == nil {
+				zap.L().Info(
+					"Successfully terminated zombie simulator node",
+					zap.String("path", filePath),
+					zap.Any("pid", node.PID),
+					zap.Any("network", utils.AnvilNetwork),
+				)
+			}
+		}
+
+		pidFileName := fmt.Sprintf("anvil.%d.pid.json", node.Addr.Port)
+		if err := os.Remove(filepath.Join(node.PidPath, pidFileName)); err != nil {
+			zap.L().Error("Failed to remove zombie simulator node file", zap.String("path", filePath), zap.Error(err))
+		}
+
+		pidFileName = fmt.Sprintf("anvil.%d.ipc", node.Addr.Port)
+		if err := os.Remove(filepath.Join(node.PidPath, pidFileName)); err != nil {
+			zap.L().Error("Failed to remove zombie simulator node file", zap.String("path", filePath), zap.Error(err))
+		}
+	}
+
+	return nil
 }

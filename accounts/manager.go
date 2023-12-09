@@ -5,9 +5,11 @@ import (
 	"crypto/ecdsa"
 	"encoding/base64"
 	"fmt"
+	"math/rand"
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
@@ -234,6 +236,28 @@ func (m *Manager) Get(network utils.Network, address common.Address) (*Account, 
 	}
 
 	return nil, fmt.Errorf("account for network: %s not found: %s", network.String(), address.Hex())
+}
+
+// GetRandomAccount returns a random account from all the available accounts across networks.
+// Returns an error if there are no accounts available.
+func (m *Manager) GetRandomAccount() (*Account, error) {
+	var allAccounts []*Account
+
+	// Collect all accounts from all networks
+	for _, accs := range m.accounts {
+		allAccounts = append(allAccounts, accs...)
+	}
+
+	if len(allAccounts) == 0 {
+		return nil, fmt.Errorf("no accounts available")
+	}
+
+	// Seed the random number generator to ensure different results on each call
+	rand.Seed(time.Now().UnixNano())
+
+	// Select a random account
+	randomIndex := rand.Intn(len(allAccounts))
+	return allAccounts[randomIndex], nil
 }
 
 // Delete removes an account for a given network by its address.

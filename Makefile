@@ -25,11 +25,6 @@ generate: submodules ## Run tests
 benchmark: ## Run benchmarks
 	go test -v -bench . -benchmem ./... > benchmark.txt
 
-.PHONY: generate-bindings
-generate-bindings:
-	@echo "Generating bindings..."
-	@go generate ./bindings
-
 .PHONY: submodules
 submodules: ## Update submodules
 	git submodule update --init --recursive

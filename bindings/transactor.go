@@ -10,6 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -29,13 +30,8 @@ func (m *Manager) GetTransactionByHash(ctx context.Context, network utils.Networ
 	return client.TransactionByHash(ctx, txHash)
 }
 
-func (m *Manager) WaitForReceipt(ctx context.Context, network utils.Network, txHash common.Hash) (*types.Receipt, error) {
-	client := m.clientPool.GetClientByGroup(string(network))
-	if client == nil {
-		return nil, fmt.Errorf("client not found for network %s", network)
-	}
-
-	// TODO: This should be configurable per network... (this: 30 seconds)
+func (m *Manager) WaitForReceipt(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, txHash common.Hash) (*types.Receipt, error) {
+	// TODO: This should be configurable per network... (this: 60 seconds)
 	ctxWait, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
@@ -59,7 +55,7 @@ func (m *Manager) WaitForReceipt(ctx context.Context, network utils.Network, txH
 	}
 }
 
-func (m *Manager) SendTransaction(opts *bind.TransactOpts, network utils.Network, contract *common.Address, input []byte) (*types.Transaction, error) {
+func (m *Manager) SendTransaction(opts *bind.TransactOpts, network utils.Network, simulateType utils.SimulatorType, client *clients.Client, contract *common.Address, input []byte) (*types.Transaction, error) {
 	var rawTx *types.Transaction
 	var err error
 	if opts.GasPrice != nil {
@@ -68,21 +64,9 @@ func (m *Manager) SendTransaction(opts *bind.TransactOpts, network utils.Network
 		var head *types.Header
 		var errHead error
 
-		if m.simulatedClient != nil {
-			head, errHead = m.simulatedClient.HeaderByNumber(opts.Context, nil)
-			if errHead != nil {
-				return nil, errHead
-			}
-		} else {
-			client := m.clientPool.GetClientByGroup(string(network))
-			if client == nil {
-				return nil, fmt.Errorf("client not found for network %s", network)
-			}
-
-			head, errHead = client.HeaderByNumber(opts.Context, nil)
-			if errHead != nil {
-				return nil, errHead
-			}
+		head, errHead = client.HeaderByNumber(opts.Context, nil)
+		if errHead != nil {
+			return nil, errHead
 		}
 
 		if head.BaseFee != nil {
@@ -95,31 +79,27 @@ func (m *Manager) SendTransaction(opts *bind.TransactOpts, network utils.Network
 		return nil, err
 	}
 
-	// Sign the transaction
 	if opts.Signer == nil {
-		return nil, errors.New("no signer to authorize the transaction with")
+		return nil, fmt.Errorf(
+			"no signer to authorize the transaction with, network: %s, simulate_type: %s, contract: %s",
+			network, simulateType, contract.Hex(),
+		)
 	}
+
 	signedTx, err := opts.Signer(opts.From, rawTx)
 	if err != nil {
 		return nil, err
 	}
 
-	if !opts.NoSend {
-		if m.simulatedClient != nil {
-			if err := m.simulatedClient.SendTransaction(opts.Context, signedTx); err != nil {
-				return nil, err
-			}
-			m.simulatedClient.Commit()
-		} else {
-			client := m.clientPool.GetClientByGroup(string(network))
-			if client == nil {
-				return nil, errors.New("client not found for network")
-			}
+	if opts.NoSend {
+		return signedTx, nil
+	}
 
-			if err := client.SendTransaction(opts.Context, signedTx); err != nil {
-				return nil, err
-			}
-		}
+	fmt.Println("Sending transaction", signedTx.Hash().Hex())
+	fmt.Println("Client Endpoint", client.GetEndpoint())
+
+	if err := client.SendTransaction(opts.Context, signedTx); err != nil {
+		return nil, err
 	}
 
 	return signedTx, nil

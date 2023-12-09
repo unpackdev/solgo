@@ -12,17 +12,29 @@ const (
 	ContractCreationType         TransactionMethodType = "contract_creation"
 	TransferMethodType           TransactionMethodType = "transfer"
 
-	UnknownLogEventType LogEventType = "unknown"
+	UnknownLogEventType  LogEventType = "unknown"
+	SwapLogEventType     LogEventType = "swap"
+	TransferLogEventType LogEventType = "transfer"
+	DepositLogEventType  LogEventType = "deposit"
+	WithdrawLogEventType LogEventType = "withdraw"
+	MintLogEventType     LogEventType = "mint"
+	BurnLogEventType     LogEventType = "burn"
 
+	NoSimulator    SimulatorType = "no_simulator"
 	AnvilSimulator SimulatorType = "anvil"
 
 	SimulatorAccountType AccountType = "simulator"
 	SimpleAccountType    AccountType = "simple"
 	KeystoreAccountType  AccountType = "keystore"
 
-	UniswapV2 ExchangeType = "uniswap_v2"
-	UniswapV3 ExchangeType = "uniswap_v3"
-	SushiSwap ExchangeType = "sushiswap"
+	NoExchange    ExchangeType = "no_exchange"
+	UniswapV2     ExchangeType = "uniswap_v2"
+	UniswapV3     ExchangeType = "uniswap_v3"
+	SushiSwap     ExchangeType = "sushiswap"
+	PancakeswapV2 ExchangeType = "pancakeswap_v2"
+
+	Erc20TokenType  TokenType = "erc20"
+	Erc721TokenType TokenType = "erc721"
 )
 
 type Strategy string
@@ -64,5 +76,11 @@ func (t SimulatorType) String() string {
 type ExchangeType string
 
 func (t ExchangeType) String() string {
+	return string(t)
+}
+
+type TokenType string
+
+func (t TokenType) String() string {
 	return string(t)
 }

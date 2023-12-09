@@ -83,7 +83,7 @@ func TestInspector(t *testing.T) {
 		EndPort:             5500,
 	}
 
-	sim, err := simulator.CreateNewTestSimulator(ctx, t, simulatorOPts)
+	sim, err := simulator.CreateNewTestSimulator(ctx, pool, t, simulatorOPts)
 	require.NoError(t, err)
 	require.NotNil(t, sim)
 	defer sim.Close()

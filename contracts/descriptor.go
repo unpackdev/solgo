@@ -10,10 +10,10 @@ import (
 	"github.com/unpackdev/solgo/audit"
 	"github.com/unpackdev/solgo/bytecode"
 	"github.com/unpackdev/solgo/detector"
-	"github.com/unpackdev/solgo/exchanges"
 	"github.com/unpackdev/solgo/ir"
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/standards"
+	"github.com/unpackdev/solgo/tokens"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -39,24 +39,23 @@ type Descriptor struct {
 	TransactionUUID *uuid.UUID `json:"transaction_uuid,omitempty"`
 
 	// Contract related fields.
-	Network          utils.Network                             `json:"network"`
-	NetworkID        utils.NetworkID                           `json:"network_id"`
-	Address          common.Address                            `json:"address"`
-	RuntimeBytecode  []byte                                    `json:"runtime_bytecode"`
-	DeployedBytecode []byte                                    `json:"deployed_bytecode"`
-	Block            *types.Block                              `json:"block,omitempty"`
-	Transaction      *types.Transaction                        `json:"transaction,omitempty"`
-	Receipt          *types.Receipt                            `json:"receipt,omitempty"`
-	Token            *TokenDescriptor                          `json:"token,omitempty"`
-	ABI              string                                    `json:"abi,omitempty"`
-	Name             string                                    `json:"name,omitempty"`
-	License          string                                    `json:"license,omitempty"`
-	SolgoVersion     string                                    `json:"solgo_version,omitempty"`
-	CompilerVersion  string                                    `json:"compiler_version,omitempty"`
-	Optimized        bool                                      `json:"optimized,omitempty"`
-	OptimizationRuns uint64                                    `json:"optimization_runs,omitempty"`
-	EVMVersion       string                                    `json:"evm_version,omitempty"`
-	LiquidityPairs   map[exchanges.ExchangeType]common.Address `json:"liquidity_pairs,omitempty"`
+	Network          utils.Network                         `json:"network"`
+	NetworkID        utils.NetworkID                       `json:"network_id"`
+	Address          common.Address                        `json:"address"`
+	RuntimeBytecode  []byte                                `json:"runtime_bytecode"`
+	DeployedBytecode []byte                                `json:"deployed_bytecode"`
+	Block            *types.Block                          `json:"block,omitempty"`
+	Transaction      *types.Transaction                    `json:"transaction,omitempty"`
+	Receipt          *types.Receipt                        `json:"receipt,omitempty"`
+	ABI              string                                `json:"abi,omitempty"`
+	Name             string                                `json:"name,omitempty"`
+	License          string                                `json:"license,omitempty"`
+	SolgoVersion     string                                `json:"solgo_version,omitempty"`
+	CompilerVersion  string                                `json:"compiler_version,omitempty"`
+	Optimized        bool                                  `json:"optimized,omitempty"`
+	OptimizationRuns uint64                                `json:"optimization_runs,omitempty"`
+	EVMVersion       string                                `json:"evm_version,omitempty"`
+	LiquidityPairs   map[utils.ExchangeType]common.Address `json:"liquidity_pairs,omitempty"`
 
 	// SourcesRaw is the raw sources from Etherscan|BscScan|etc. Should not be used anywhere except in
 	// the contract discovery process.
@@ -71,6 +70,21 @@ type Descriptor struct {
 	// Auditing related fields.
 	Audit  *audit.Report     `json:"audit,omitempty"`
 	Safety *SafetyDescriptor `json:"safety,omitempty"`
+
+	// Token related fields.
+	Token *tokens.Descriptor `json:"token,omitempty"`
+}
+
+func (d *Descriptor) HasToken() bool {
+	return d.Token != nil
+}
+
+func (d *Descriptor) HasConstructor() bool {
+	return d.Constructor != nil
+}
+
+func (d *Descriptor) HasSources() bool {
+	return d.Sources != nil
 }
 
 func (d *Descriptor) HasAudit() bool {
@@ -155,4 +169,8 @@ func (d *Descriptor) IsERC165() bool {
 
 func (d *Descriptor) GetIrRoot() *ir.RootSourceUnit {
 	return d.IRRoot
+}
+
+func (d *Descriptor) GetToken() *tokens.Descriptor {
+	return d.Token
 }

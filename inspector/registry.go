@@ -61,14 +61,12 @@ func InsertDetector(newType DetectorType, newDetector Detector, existingType Det
 }
 
 func (i *Inspector) RegisterDetectors() {
-	//RegisterDetector(StorageDetectorType, NewStorageDetector(i.ctx, i))
-	//RegisterDetector(StateVariableDetectorType, NewStateVariableDetector(i.ctx, i))
-	//RegisterDetector(OwnershipDetectorType, NewOwnershipDetector(i.ctx, i))
-	//RegisterDetector(TransferDetectorType, NewTransferDetector(i.ctx, i))
-	//RegisterDetector(ProxyDetectorType, NewProxyDetector(i.ctx, i))
-	//RegisterDetector(MintDetectorType, NewMintDetector(i.ctx, i))
-	//(BurnDetectorType, NewBurnDetector(i.ctx, i))
+	RegisterDetector(StorageDetectorType, NewStorageDetector(i.ctx, i))
+	RegisterDetector(StateVariableDetectorType, NewStateVariableDetector(i.ctx, i))
+	RegisterDetector(OwnershipDetectorType, NewOwnershipDetector(i.ctx, i))
+	RegisterDetector(TransferDetectorType, NewTransferDetector(i.ctx, i))
+	RegisterDetector(ProxyDetectorType, NewProxyDetector(i.ctx, i))
+	RegisterDetector(MintDetectorType, NewMintDetector(i.ctx, i))
+	RegisterDetector(BurnDetectorType, NewBurnDetector(i.ctx, i))
 	RegisterDetector(StandardsDetectorType, NewStandardsDetector(i.ctx, i))
-	RegisterDetector(TokenDetectorType, NewTokenDetector(i.ctx, i))
-	RegisterDetector(AuditDetectorType, NewAuditDetector(i.ctx, i))
 }

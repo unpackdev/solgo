@@ -42,6 +42,16 @@ func NewBlocksProcessor(manager *Manager) (*BlocksProcessor, error) {
 	}, nil
 }
 
+func (b *BlocksProcessor) ReloadHooks() bool {
+	hooks := map[HookType]BlockHookFn{}
+	for hook, fn := range b.GetHooks(BlockProcessor) {
+		hooks[hook] = fn.(BlockHookFn)
+	}
+
+	b.hooks = hooks
+	return true
+}
+
 // IsActive checks if the block subscriber is currently active.
 func (b *BlocksProcessor) IsActive() bool {
 	return b.active.Load()
@@ -56,10 +66,6 @@ func (b *BlocksProcessor) SubscribeHeader(opts *SubscriberOptions, blockCh chan 
 		zap.String("network", opts.Network.String()),
 	)
 
-	/* 	if b.active.Load() {
-		return errors.New("block subscriber is already active")
-	} */
-
 	client := b.clientsPool.GetClientByGroup(opts.Network.String())
 	if client == nil {
 		return errors.New("client not found")
@@ -73,6 +79,8 @@ func (b *BlocksProcessor) SubscribeHeader(opts *SubscriberOptions, blockCh chan 
 			return err
 		}
 		b.sub = sub
+
+		b.ReloadHooks()
 
 		// Set subscriber as active
 		b.active.Store(true)
@@ -94,10 +102,12 @@ func (b *BlocksProcessor) SubscribeHeader(opts *SubscriberOptions, blockCh chan 
 				}
 
 				entry := &BlockEntry{
-					NetworkID: opts.NetworkID,
-					Network:   opts.Network,
-					Strategy:  utils.HeadStrategy,
-					Block:     block,
+					NetworkID:   opts.NetworkID,
+					Network:     opts.Network,
+					Strategy:    utils.HeadStrategy,
+					BlockHash:   block.Hash(),
+					BlockNumber: block.Number(),
+					Block:       block,
 				}
 
 				if hook, ok := b.hooks[PostHook]; ok {
@@ -128,10 +138,6 @@ func (b *BlocksProcessor) SubscribeHeader(opts *SubscriberOptions, blockCh chan 
 func (b *BlocksProcessor) Subscribe(opts *SubscriberOptions, blockCh chan *BlockEntry) error {
 	zap.L().Info("Subscribing to blocks", zap.Any("options", opts))
 
-	/* 	if b.active.Load() {
-		return errors.New("block subscriber is already active")
-	} */
-
 	client := b.clientsPool.GetClientByGroup(opts.Network.String())
 	if client == nil {
 		return errors.New("client not found")
@@ -145,10 +151,11 @@ func (b *BlocksProcessor) Subscribe(opts *SubscriberOptions, blockCh chan *Block
 		return errors.New("end block number is less than start block number")
 	}
 
+	b.ReloadHooks()
+
 	b.active.Store(true)
 
 	for i := opts.StartBlockNumber.Int64(); i <= opts.EndBlockNumber.Int64(); i++ {
-
 		block, err := client.BlockByNumber(b.ctx, big.NewInt(i))
 		if err != nil {
 			zap.L().Error(
@@ -160,10 +167,12 @@ func (b *BlocksProcessor) Subscribe(opts *SubscriberOptions, blockCh chan *Block
 		}
 
 		entry := &BlockEntry{
-			NetworkID: opts.NetworkID,
-			Network:   opts.Network,
-			Strategy:  utils.ArchiveStrategy,
-			Block:     block,
+			NetworkID:   opts.NetworkID,
+			Network:     opts.Network,
+			Strategy:    utils.ArchiveStrategy,
+			BlockHash:   block.Hash(),
+			BlockNumber: block.Number(),
+			Block:       block,
 		}
 
 		if hook, ok := b.hooks[PostHook]; ok {
@@ -178,7 +187,6 @@ func (b *BlocksProcessor) Subscribe(opts *SubscriberOptions, blockCh chan *Block
 				continue
 			}
 		}
-
 		blockCh <- entry
 	}
 
@@ -189,10 +197,12 @@ func (b *BlocksProcessor) Subscribe(opts *SubscriberOptions, blockCh chan *Block
 
 func (b *BlocksProcessor) ProcessBlock(ctx context.Context, network utils.Network, networkId utils.NetworkID, strategy utils.Strategy, block *types.Block) (*BlockEntry, error) {
 	entry := &BlockEntry{
-		NetworkID: networkId,
-		Network:   network,
-		Strategy:  strategy,
-		Block:     block,
+		NetworkID:   networkId,
+		Network:     network,
+		Strategy:    strategy,
+		BlockHash:   block.Hash(),
+		BlockNumber: block.Number(),
+		Block:       block,
 	}
 
 	if hook, ok := b.hooks[PostHook]; ok {

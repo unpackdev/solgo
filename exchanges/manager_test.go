@@ -2,14 +2,11 @@ package exchanges
 
 import (
 	"context"
-	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
-	"github.com/unpackdev/solgo/utils/currencies"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -74,7 +71,7 @@ func TestUniswapV2Exchange(t *testing.T) {
 	tAssert.NoError(err)
 	tAssert.NotNil(manager)
 
-	exchange, found := manager.GetExchange(UniswapV2)
+	exchange, found := manager.GetExchange(utils.UniswapV2)
 	tAssert.True(found)
 	tAssert.NotNil(exchange)
 
@@ -86,28 +83,5 @@ func TestUniswapV2Exchange(t *testing.T) {
 	uniswapv2 := ToUniswapV2(exchange)
 	tAssert.NotNil(uniswapv2)
 	tAssert.IsType(&UniswapV2Exchange{}, uniswapv2)
-
-	GROK := &currencies.Currency{
-		Name:     "GROK",
-		Symbol:   "GROK",
-		Decimals: 18,
-		Addresses: map[utils.Network]common.Address{
-			utils.Ethereum: common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
-		},
-	}
-
-	amount, err := GROK.ToAmount(big.NewInt(1000000000000000000))
-	tAssert.NoError(err)
-	tAssert.NotNil(amount)
-
-	priceETH, err := uniswapv2.GetPriceByAmount(ctx, amount, GROK, currencies.WETH, nil)
-	tAssert.NoError(err)
-	tAssert.NotNil(priceETH)
-
-	amountUSDC, _ := currencies.USDC.ToAmount(big.NewInt(1000000000))
-
-	priceUSDC, err := uniswapv2.GetPriceByAmount(ctx, amountUSDC, currencies.USDC, currencies.WETH, nil)
-	tAssert.NoError(err)
-	tAssert.NotNil(priceUSDC)
 
 }

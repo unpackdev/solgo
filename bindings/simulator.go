@@ -7,6 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -45,15 +46,7 @@ func (m *Manager) StopImpersonateAccount(network utils.Network, contract common.
 	return contract, nil
 }
 
-func (m *Manager) SendSimulatedTransaction(opts *bind.TransactOpts, network utils.Network, contract *common.Address, method abi.Method, input []byte) (*common.Hash, error) {
-	client := m.clientPool.GetClientByGroup(string(network))
-	if client == nil {
-		return nil, fmt.Errorf("client not found for network %s", network)
-	}
-
-	rpcClient := client.GetRpcClient()
-
-	// Constructing the transaction object for eth_sendTransaction
+func (m *Manager) SendSimulatedTransaction(opts *bind.TransactOpts, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, contract *common.Address, method abi.Method, input []byte) (*common.Hash, error) {
 	txArgs := map[string]interface{}{
 		"from": opts.From.Hex(),
 		"to":   contract.Hex(),
@@ -65,7 +58,7 @@ func (m *Manager) SendSimulatedTransaction(opts *bind.TransactOpts, network util
 	}
 
 	var txHash common.Hash
-	if err := rpcClient.Call(&txHash, "eth_sendTransaction", txArgs); err != nil {
+	if err := client.GetRpcClient().Call(&txHash, "eth_sendTransaction", txArgs); err != nil {
 		return nil, fmt.Errorf("failed to send transaction: %v - contract: %v - args: %v", err, contract.Hex(), txArgs)
 	}
 

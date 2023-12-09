@@ -17,101 +17,26 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/google/uuid"
-	"github.com/unpackdev/solgo/clients"
 	"go.uber.org/zap"
 )
-
-type Account struct {
-	Simulate   bool           `json:"simulate"`
-	Address    common.Address `json:"address"`
-	PrivateKey common.Hash    `json:"private_key"`
-}
-
-// Method to create bind.TransactOpts from the Faucet
-func (f *Account) TransactOpts(simulator *clients.Client, amount *big.Int) (*bind.TransactOpts, error) {
-	nonce, err := simulator.NonceAt(context.Background(), f.Address, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	gasPrice, err := simulator.SuggestGasPrice(context.Background())
-	if err != nil {
-		return nil, err
-	}
-
-	if !f.Simulate {
-		privateKey, err := crypto.HexToECDSA(strings.TrimLeft(f.PrivateKey.String(), "0x"))
-		if err != nil {
-			return nil, err
-		}
-
-		auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(simulator.GetNetworkID()))
-		if err != nil {
-			return nil, err
-		}
-
-		auth.Nonce = big.NewInt(int64(nonce))
-		auth.GasPrice = gasPrice
-		auth.GasLimit = uint64(90000)
-		auth.Value = amount
-
-		return auth, nil
-	}
-
-	return &bind.TransactOpts{
-		From:     f.Address,
-		GasPrice: gasPrice,
-		GasLimit: uint64(3000000),
-		Nonce:    big.NewInt(int64(nonce)),
-		Context:  context.Background(),
-		Value:    amount,
-	}, nil
-}
 
 // Node represents a single node in the simulation environment. It encapsulates the
 // details and operations for a blockchain simulation node.
 type Node struct {
-	cmd                 *exec.Cmd   `json:"-"`                 // The command used to start the node process. Not exported in JSON.
-	Simulator           *Simulator  `json:"-"`                 // Reference to the Simulator instance managing this node. Not exported in JSON.
-	Provider            Provider    `json:"-"`                 // The Provider instance representing the blockchain network provider. Not exported in JSON.
-	ID                  uuid.UUID   `json:"id"`                // Unique identifier for the node.
-	PID                 int         `json:"pid"`               // Process ID of the running node.
-	Addr                net.TCPAddr `json:"addr"`              // TCP address on which the node is running.
-	IpcPath             string      `json:"ipc_path"`          // The file path for the IPC endpoint of the node.
-	AutoImpersonate     bool        `json:"auto_impersonate"`  // Flag indicating whether the node should automatically impersonate accounts.
-	BlockNumber         *big.Int    `json:"block_number"`      // The block number from which the node is operating, if applicable.
-	PidPath             string      `json:"pid_path"`          // The file path where the node's PID file is stored.
-	AnvilExecutablePath string      `json:"anvil_binary_path"` // The file path to the Anvil executable used by this node.
-	Fork                bool        `json:"fork"`              // Flag indicating whether the node is running in fork mode.
-	ForkEndpoint        string      `json:"fork_endpoint"`     // The endpoint URL of the blockchain to fork from, if fork mode is enabled.
-}
-
-// GetAnvilArguments builds the command-line arguments for starting the Anvil node.
-func (n *Node) GetAnvilArguments() []string {
-	args := []string{
-		"--auto-impersonate",
-		"--accounts", "0",
-		"--host", n.Addr.IP.String(),
-		"--port", fmt.Sprintf("%d", n.Addr.Port),
-	}
-
-	ipcPath := filepath.Join(n.IpcPath, fmt.Sprintf("anvil.%d.ipc", n.Addr.Port))
-	args = append(args, "--ipc", ipcPath)
-
-	if n.Fork {
-		args = append(args, "--fork-url", n.ForkEndpoint)
-		args = append(args, "--chain-id", fmt.Sprintf("%d", n.Provider.NetworkID()))
-	}
-
-	if n.BlockNumber != nil {
-		args = append(args, "--fork-block-number", n.BlockNumber.String())
-	}
-
-	return args
+	cmd             *exec.Cmd   `json:"-"`                // The command used to start the node process. Not exported in JSON.
+	simulator       *Simulator  `json:"-"`                // Reference to the Simulator instance managing this node. Not exported in JSON.
+	provider        Provider    `json:"-"`                // The Provider instance representing the blockchain network provider. Not exported in JSON.
+	ID              uuid.UUID   `json:"id"`               // Unique identifier for the node.
+	PID             int         `json:"pid"`              // Process ID of the running node.
+	Addr            net.TCPAddr `json:"addr"`             // TCP address on which the node is running.
+	IpcPath         string      `json:"ipc_path"`         // The file path for the IPC endpoint of the node.
+	AutoImpersonate bool        `json:"auto_impersonate"` // Flag indicating whether the node should automatically impersonate accounts.
+	BlockNumber     *big.Int    `json:"block_number"`     // The block number from which the node is operating, if applicable.
+	PidPath         string      `json:"pid_path"`         // The file path where the node's PID file is stored.
+	ExecutablePath  string      `json:"executable_path"`  // The file path to the executable used by this node.
+	Fork            bool        `json:"fork"`             // Flag indicating whether the node is running in fork mode.
+	ForkEndpoint    string      `json:"fork_endpoint"`    // The endpoint URL of the blockchain to fork from, if fork mode is enabled.
 }
 
 // GetNodeAddr returns the HTTP address of the node.
@@ -121,12 +46,12 @@ func (n *Node) GetNodeAddr() string {
 
 // GetSimulator returns the Simulator instance associated with the node.
 func (n *Node) GetSimulator() *Simulator {
-	return n.Simulator
+	return n.simulator
 }
 
 // GetProvider returns the Provider instance associated with the node.
 func (n *Node) GetProvider() Provider {
-	return n.Provider
+	return n.provider
 }
 
 // GetID returns the unique identifier of the node.
@@ -138,7 +63,7 @@ func (n *Node) GetID() uuid.UUID {
 func (n *Node) Start(ctx context.Context) error {
 	started := make(chan struct{})
 
-	cmd := exec.CommandContext(ctx, n.AnvilExecutablePath, n.GetAnvilArguments()...)
+	cmd := exec.CommandContext(ctx, n.ExecutablePath, n.provider.GetCmdArguments(n)...)
 
 	stdoutPipe, err := cmd.StdoutPipe()
 	if err != nil {
@@ -202,8 +127,8 @@ func (n *Node) Stop(ctx context.Context, force bool) error {
 		"Stopping Anvil node...",
 		zap.String("addr", n.Addr.String()),
 		zap.Int("port", n.Addr.Port),
-		zap.String("network", n.Provider.Network().String()),
-		zap.Any("network_id", n.Provider.NetworkID()),
+		zap.String("network", n.provider.Network().String()),
+		zap.Any("network_id", n.provider.NetworkID()),
 		zap.Any("block_number", n.BlockNumber),
 	)
 
@@ -227,24 +152,18 @@ func (n *Node) Stop(ctx context.Context, force bool) error {
 
 	pidFileName := fmt.Sprintf("anvil.%d.pid.json", n.Addr.Port)
 	filePath := filepath.Join(n.PidPath, pidFileName)
-	err = os.Remove(filePath)
-	if err != nil {
-		return fmt.Errorf("failed to remove json pid file: %v", err)
-	}
+	os.Remove(filePath)
 
 	pidFileName = fmt.Sprintf("anvil.%d.ipc", n.Addr.Port)
 	filePath = filepath.Join(n.PidPath, pidFileName)
-	err = os.Remove(filePath)
-	if err != nil {
-		return fmt.Errorf("failed to remove anvil ipc file: %v", err)
-	}
+	os.Remove(filePath)
 
 	zap.L().Info(
 		"Anvil node successfully stopped",
 		zap.String("addr", n.Addr.String()),
 		zap.Int("port", n.Addr.Port),
-		zap.String("network", n.Provider.Network().String()),
-		zap.Any("network_id", n.Provider.NetworkID()),
+		zap.String("network", n.provider.Network().String()),
+		zap.Any("network_id", n.provider.NetworkID()),
 		zap.Any("block_number", n.BlockNumber),
 	)
 
@@ -321,14 +240,17 @@ func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan str
 
 	for scanner.Scan() {
 		line := scanner.Text()
-		zap.L().Debug(
-			line,
-			zap.String("addr", n.Addr.String()),
-			zap.Int("port", n.Addr.Port),
-			zap.String("network", n.Provider.Network().String()),
-			zap.Any("network_id", n.Provider.NetworkID()),
-			zap.Any("block_number", n.BlockNumber),
-		)
+
+		if lineTrimmed := strings.TrimSpace(line); lineTrimmed != "" {
+			zap.L().Debug(
+				line,
+				zap.String("addr", n.Addr.String()),
+				zap.Int("port", n.Addr.Port),
+				zap.String("network", n.provider.Network().String()),
+				zap.Any("network_id", n.provider.NetworkID()),
+				zap.Any("block_number", n.BlockNumber),
+			)
+		}
 
 		// Check for block number in the output
 		if matches := blockNumberRegex.FindStringSubmatch(line); len(matches) > 1 {
@@ -339,8 +261,8 @@ func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan str
 					"Discovered block number for Anvil node",
 					zap.String("addr", n.Addr.String()),
 					zap.Int("port", n.Addr.Port),
-					zap.String("network", n.Provider.Network().String()),
-					zap.Any("network_id", n.Provider.NetworkID()),
+					zap.String("network", n.provider.Network().String()),
+					zap.Any("network_id", n.provider.NetworkID()),
 					zap.Uint64("block_number", n.BlockNumber.Uint64()),
 				)
 			}
@@ -353,8 +275,8 @@ func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan str
 				zap.Error(fmt.Errorf("%s", matches[1])),
 				zap.String("addr", n.Addr.String()),
 				zap.Int("port", n.Addr.Port),
-				zap.String("network", n.Provider.Network().String()),
-				zap.Any("network_id", n.Provider.NetworkID()),
+				zap.String("network", n.provider.Network().String()),
+				zap.Any("network_id", n.provider.NetworkID()),
 				zap.Uint64("block_number", n.BlockNumber.Uint64()),
 			)
 		}

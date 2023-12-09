@@ -6,11 +6,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -20,6 +19,12 @@ const (
 	UniswapV2Router  BindingType = "UniswapV2Router"
 )
 
+type UniswapV2Reserves struct {
+	Reserve0           *big.Int
+	Reserve1           *big.Int
+	BlockTimestampLast uint32
+}
+
 type Uniswap struct {
 	*Manager
 	network utils.Network
@@ -27,7 +32,7 @@ type Uniswap struct {
 	opts    []*BindOptions
 }
 
-func NewUniswap(ctx context.Context, network utils.Network, manager *Manager, opts []*BindOptions) (*Uniswap, error) {
+func NewUniswapV2(ctx context.Context, network utils.Network, manager *Manager, opts []*BindOptions) (*Uniswap, error) {
 	if opts == nil {
 		opts = DefaultUniswapBindOptions()
 	}
@@ -55,7 +60,7 @@ func NewUniswap(ctx context.Context, network utils.Network, manager *Manager, op
 	}, nil
 }
 
-func (u *Uniswap) GetAddress(bindingType BindingType) (common.Address, error) {
+func (u *Uniswap) GetAddress(ctx context.Context, bindingType BindingType) (common.Address, error) {
 	for _, opt := range u.opts {
 		if opt.Type == bindingType {
 			return opt.Address, nil
@@ -65,8 +70,8 @@ func (u *Uniswap) GetAddress(bindingType BindingType) (common.Address, error) {
 	return common.Address{}, fmt.Errorf("binding not found for type %s", bindingType)
 }
 
-func (u *Uniswap) WETH() (common.Address, error) {
-	result, err := u.Manager.CallContractMethod(u.network, UniswapV2Router, "WETH")
+func (u *Uniswap) WETH(ctx context.Context) (common.Address, error) {
+	result, err := u.Manager.CallContractMethod(ctx, u.network, UniswapV2Router, utils.ZeroAddress, "WETH")
 	if err != nil {
 		return common.Address{}, fmt.Errorf("failed to get WETH address: %w", err)
 	}
@@ -74,19 +79,12 @@ func (u *Uniswap) WETH() (common.Address, error) {
 	return result.(common.Address), nil
 }
 
-func (u *Uniswap) GetPair(tokenA, tokenB common.Address) (common.Address, error) {
-	// Ensure tokenA is less than tokenB to conform with Uniswap's sorting
-	if tokenA.Hex() > tokenB.Hex() {
-		tokenA, tokenB = tokenB, tokenA
-	}
-
-	// Call the 'getPair' method on the Uniswap V2 Factory contract
-	result, err := u.Manager.CallContractMethod(u.network, UniswapV2Factory, "getPair", tokenA, tokenB)
+func (u *Uniswap) GetPair(ctx context.Context, tokenA, tokenB common.Address) (common.Address, error) {
+	result, err := u.Manager.CallContractMethod(ctx, u.network, UniswapV2Factory, utils.ZeroAddress, "getPair", tokenA, tokenB)
 	if err != nil {
 		return common.Address{}, fmt.Errorf("failed to get pair: %w", err)
 	}
 
-	// The result is expected to be the address of the pair
 	pairAddress, ok := result.(common.Address)
 	if !ok {
 		return common.Address{}, fmt.Errorf("failed to assert result as common.Address - pair address")
@@ -95,16 +93,43 @@ func (u *Uniswap) GetPair(tokenA, tokenB common.Address) (common.Address, error)
 	return pairAddress, nil
 }
 
-func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []common.Address, to common.Address, deadline *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
+func (u *Uniswap) GetReserves(ctx context.Context, pairAddr common.Address) (*UniswapV2Reserves, error) {
+	result, err := u.Manager.CallContractMethodUnpackMap(ctx, u.network, UniswapV2Pair, pairAddr, "getReserves")
+	if err != nil {
+		return nil, fmt.Errorf("failed to get pair reserves: %w", err)
+	}
+
+	return &UniswapV2Reserves{
+		Reserve0:           result["_reserve0"].(*big.Int),
+		Reserve1:           result["_reserve1"].(*big.Int),
+		BlockTimestampLast: result["_blockTimestampLast"].(uint32),
+	}, nil
+}
+
+func (u *Uniswap) GetAmountOut(ctx context.Context, amountIn *big.Int, reserveIn *big.Int, reserveOut *big.Int) (*big.Int, error) {
+	result, err := u.Manager.CallContractMethod(ctx, u.network, UniswapV2Router, utils.ZeroAddress, "getAmountOut", amountIn, reserveIn, reserveOut)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get amounts out: %w", err)
+	}
+
+	amountOut, ok := result.(*big.Int)
+	if !ok {
+		return nil, fmt.Errorf("failed to assert amount result as []*big.Int: %v", result)
+	}
+
+	return amountOut, nil
+}
+
+func (u *Uniswap) Buy(opts *bind.TransactOpts, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, amountOutMin *big.Int, path []common.Address, to common.Address, deadline *big.Int) (*types.Transaction, *types.Receipt, error) {
 	bind, err := u.GetBinding(utils.Ethereum, UniswapV2Router)
 	if err != nil {
 		return nil, nil, err
 	}
 	bindAbi := bind.GetABI()
 
-	method, exists := bindAbi.Methods["swapExactETHForTokensSupportingFeeOnTransferTokens"]
+	method, exists := bindAbi.Methods["swapExactETHForTokens"]
 	if !exists {
-		return nil, nil, errors.New("swap method not found")
+		return nil, nil, errors.New("swapExactETHForTokens method not found")
 	}
 
 	input, err := bindAbi.Pack(method.Name, amountOutMin, path, to, deadline)
@@ -112,302 +137,48 @@ func (u *Uniswap) Buy(opts *bind.TransactOpts, amountOutMin *big.Int, path []com
 		return nil, nil, err
 	}
 
-	if simulate {
-		txHash, err := u.Manager.SendSimulatedTransaction(opts, u.network, &bind.Address, method, input)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to send swapExactETHForTokensSupportingFeeOnTransferTokens transaction: %w", err)
-		}
-
-		spew.Dump(opts)
-
-		receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, *txHash)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction receipt: %w", err)
-		}
-
-		tx, _, err := u.Manager.GetTransactionByHash(u.ctx, u.network, receipt.TxHash)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction by hash: %w", err)
-		}
-
-		return tx, receipt, nil
+	tx, err := u.Manager.SendTransaction(opts, u.network, simulatorType, client, &bind.Address, input)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to send swapExactETHForTokens transaction: %w", err)
 	}
 
-	tx, err := u.Manager.SendTransaction(opts, u.network, &bind.Address, input)
+	receipt, err := u.Manager.WaitForReceipt(u.ctx, network, simulatorType, client, tx.Hash())
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to send swapExactETHForTokensSupportingFeeOnTransferTokens transaction: %w", err)
-	}
-
-	receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, tx.Hash())
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get swapExactETHForTokensSupportingFeeOnTransferTokens transaction receipt: %w", err)
+		return nil, nil, fmt.Errorf("failed to get swapExactETHForTokens transaction receipt: %w", err)
 	}
 
 	return tx, receipt, nil
 }
 
-func (u *Uniswap) Sell(opts *bind.TransactOpts, amountIn *big.Int, amountOut *big.Int, path []common.Address, to common.Address, deadline *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
+func (u *Uniswap) Sell(opts *bind.TransactOpts, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, amountIn *big.Int, amountOutMin *big.Int, path []common.Address, to common.Address, deadline *big.Int) (*types.Transaction, *types.Receipt, error) {
 	bind, err := u.GetBinding(utils.Ethereum, UniswapV2Router)
 	if err != nil {
 		return nil, nil, err
 	}
+
 	bindAbi := bind.GetABI()
 
 	method, exists := bindAbi.Methods["swapExactTokensForETHSupportingFeeOnTransferTokens"]
 	if !exists {
-		return nil, nil, errors.New("swap method not found")
+		return nil, nil, errors.New("swapExactTokensForETH method not found")
 	}
 
-	input, err := bindAbi.Pack(method.Name, amountIn, amountOut, path, to, deadline)
+	input, err := bindAbi.Pack(method.Name, amountIn, amountOutMin, path, to, deadline)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	if simulate {
-		txHash, err := u.Manager.SendSimulatedTransaction(opts, u.network, &bind.Address, method, input)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to send swapExactTokensForETHSupportingFeeOnTransferTokens transaction: %w", err)
-		}
-
-		spew.Dump(opts)
-
-		receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, *txHash)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to get swapExactTokensForETHSupportingFeeOnTransferTokens transaction receipt: %w", err)
-		}
-
-		tx, _, err := u.Manager.GetTransactionByHash(u.ctx, u.network, receipt.TxHash)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to get swapExactTokensForETHSupportingFeeOnTransferTokens transaction by hash: %w", err)
-		}
-
-		return tx, receipt, nil
+	tx, err := u.Manager.SendTransaction(opts, u.network, simulatorType, client, &bind.Address, input)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to send swapExactTokensForETH transaction: %w", err)
 	}
 
-	tx, err := u.Manager.SendTransaction(opts, u.network, &bind.Address, input)
+	receipt, err := u.Manager.WaitForReceipt(u.ctx, network, simulatorType, client, tx.Hash())
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to send swapExactTokensForETHSupportingFeeOnTransferTokens transaction: %w", err)
-	}
-
-	receipt, err := u.Manager.WaitForReceipt(u.ctx, u.network, tx.Hash())
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get swapExactTokensForETHSupportingFeeOnTransferTokens transaction receipt: %w", err)
+		return nil, nil, fmt.Errorf("failed to get swapExactTokensForETH transaction receipt: %w", err)
 	}
 
 	return tx, receipt, nil
-}
-
-func (u *Uniswap) EstimateTaxesForToken(tokenAddress common.Address) (*big.Int, error) {
-	/* 	wEthAddr, err := u.WETH()
-	   	if err != nil {
-	   		return nil, err
-	   	}
-
-	   	// Figure out the pair address...
-	   	pairAddress, err := u.GetPair(tokenAddress, wEthAddr)
-	   	if err != nil {
-	   		return nil, err
-	   	}
-
-	   	fmt.Println("Pair Address:", pairAddress.Hex())
-
-	   	currencyEth, _ := currencies.NewEther(big.NewInt(100000000000000000))
-	   	fmt.Println(currencyEth.Addresses[utils.Ethereum].Hex())
-
-	   	amounts, err := u.CalculateAmounts(currencyEth.Raw(), tokenAddress, wEthAddr)
-	   	if err != nil {
-	   		panic(err)
-	   		return nil, err
-	   	}
-
-	   	fmt.Println("Amounts:", amounts)
-
-	   	utils.DumpNodeWithExit(1) */
-	return nil, nil
-}
-
-func (u *Uniswap) CalculateAmounts(amount *big.Int, baseAddress, quoteAddress common.Address) ([]common.Address, error) {
-	/*
-		bind, err := u.GetBinding(utils.Ethereum, UniswapV2Router)
-		if err != nil {
-			return nil, err
-		}
-
-		 	bindAbi := bind.GetABI()
-
-		   	createPairMethod, exists := bindAbi.Methods["swapExactTokensForTokensSupportingFeeOnTransferTokens"]
-		   	if !exists {
-		   		return nil, errors.New("createPair method not found")
-		   	}
-
-		   	_ = createPairMethod
-
-		   	getAmountsOut, exists := bindAbi.Methods["getAmountsOut"]
-		   	if !exists {
-		   		return nil, errors.New("getAmountsOut method not found")
-		   	}
-
-		   	packedInput, err := getAmountsOut.Inputs.Pack(amount, baseAddress, quoteAddress)
-		   	if err != nil {
-		   		return nil, err
-		   	} */
-
-	amountsOut, err := u.Manager.CallContractMethod(utils.Ethereum, UniswapV2Router, "getAmountsOut", amount, []common.Address{baseAddress, quoteAddress})
-	if err != nil {
-		return nil, err
-	}
-
-	amountsIn, err := u.Manager.CallContractMethod(utils.Ethereum, UniswapV2Router, "getAmountsIn", amount, []common.Address{baseAddress, quoteAddress})
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(amountsOut, amountsIn)
-
-	return nil, nil
-}
-
-func (u *Uniswap) CreatePair(opts *bind.TransactOpts, tokenA, tokenB common.Address) (*types.Transaction, error) {
-	// Ensure tokenA is less than tokenB
-	if tokenA.Hex() > tokenB.Hex() {
-		tokenA, tokenB = tokenB, tokenA
-	}
-
-	bind, err := u.GetBinding(utils.Ethereum, UniswapV2Factory)
-	if err != nil {
-		return nil, err
-	}
-
-	bindAbi := bind.GetABI()
-
-	// Find the `createPair` method in the ABI
-	createPairMethod, exists := bindAbi.Methods["createPair"]
-	if !exists {
-		return nil, errors.New("createPair method not found")
-	}
-
-	// ABI encode the input parameters for the `createPair` method
-	input, err := createPairMethod.Inputs.Pack(tokenA, tokenB)
-	if err != nil {
-		return nil, err
-	}
-
-	// Send the createPair transaction
-	tx, err := u.Manager.SendTransaction(opts, u.network, &bind.Address, input)
-	if err != nil {
-		return nil, fmt.Errorf("failed to send createPair transaction: %w", err)
-	}
-
-	return tx, nil
-}
-
-func (u *Uniswap) FetchPairs(pairAddresses []common.Address) ([]*PairDetails, error) {
-	var pairs []*PairDetails
-
-	for _, pairAddress := range pairAddresses {
-		pair, err := u.FetchPair(pairAddress)
-		if err != nil {
-			return nil, err
-		}
-		pairs = append(pairs, pair)
-	}
-
-	return pairs, nil
-}
-
-func (u *Uniswap) FetchPair(pairAddress common.Address) (*PairDetails, error) {
-	// Use Manager to call the 'token0', 'token1', and 'getReserves' methods on the pair contract
-	token0, err := u.Manager.CallContractMethod(utils.Ethereum, UniswapV2Pair, "token0", pairAddress)
-	if err != nil {
-		return nil, err
-	}
-	token1, err := u.Manager.CallContractMethod(utils.Ethereum, UniswapV2Pair, "token1", pairAddress)
-	if err != nil {
-		return nil, err
-	}
-
-	reserves, err := u.Manager.CallContractMethod(utils.Ethereum, UniswapV2Pair, "getReserves", pairAddress)
-	if err != nil {
-		return nil, err
-	}
-
-	// Parse the result to get the reserve values
-	reserveA, reserveB, err := parseReserves(reserves)
-	if err != nil {
-		return nil, err
-	}
-
-	return &PairDetails{
-		Address:  pairAddress,
-		Token0:   common.HexToAddress(token0.(string)),
-		Token1:   common.HexToAddress(token1.(string)),
-		Reserve0: reserveA,
-		Reserve1: reserveB,
-	}, nil
-}
-
-/*
-func (u *Uniswap) AddLiquidity(pairAddress common.Address, amountTokenA, amountTokenB *big.Int) error {
-	// Implement logic to add liquidity to the specified pair
-	// This might involve interacting with the pair contract directly
-	// or through a router contract if necessary
-}
-
-func (u *Uniswap) RemoveLiquidity(pairAddress common.Address, liquidity *big.Int) error {
-	// Implement logic to remove liquidity from the specified pair
-}
-
-func (u *Uniswap) SwapTokens(pairAddress common.Address, amountIn *big.Int, tokenIn, tokenOut common.Address) (*big.Int, error) {
-	// Implement logic to simulate a token swap
-	// This is useful to analyze the pair's behavior in a trade
-}
-
-func (u *Uniswap) GetReserves(pairAddress common.Address) (*big.Int, *big.Int, error) {
-	// Implement logic to interact with the Uniswap Pair contract
-	// to fetch the reserves for each token in the pair
-} */
-
-func GetPairAddress(factoryAddress, token0, token1 common.Address) (common.Address, error) {
-	// Ensure token0 is less than token1
-	if token0.Hex() > token1.Hex() {
-		token0, token1 = token1, token0
-	}
-
-	// Create the hash of the token addresses
-	tokenHash := crypto.Keccak256Hash(abiEncodePacked(token0, token1))
-
-	// Prepend the "ff" prefix and append the Uniswap-specific hash
-	data := append([]byte{0xff}, factoryAddress.Bytes()...)
-	data = append(data, tokenHash.Bytes()...)
-	data = append(data, common.Hex2Bytes("96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f")...)
-
-	// Calculate the final address hash
-	finalHash := crypto.Keccak256Hash(data)
-
-	// Convert the hash to an address
-	return common.BytesToAddress(finalHash.Bytes()[12:]), nil
-}
-
-func abiEncodePacked(addresses ...common.Address) []byte {
-	var data []byte
-	for _, address := range addresses {
-		data = append(data, address.Bytes()...)
-	}
-	return data
-}
-
-func parseReserves(data any) (*big.Int, *big.Int, error) {
-	// Assuming data is a byte slice returned from the contract call
-	if dataBytes, ok := data.([]byte); ok {
-		// The first 32 bytes are the length of the array (skip it)
-		// Next 32 bytes each for the two reserve values
-		if len(dataBytes) >= 96 { // 32 bytes length + 2 * 32 bytes values
-			reserve0 := new(big.Int).SetBytes(dataBytes[32:64])
-			reserve1 := new(big.Int).SetBytes(dataBytes[64:96])
-			return reserve0, reserve1, nil
-		}
-	}
-	return nil, nil, fmt.Errorf("invalid data format for reserves")
 }
 
 func DefaultUniswapBindOptions() []*BindOptions {

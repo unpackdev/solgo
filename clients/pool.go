@@ -27,6 +27,11 @@ func (c *ClientPool) Len() int {
 	return len(c.clients)
 }
 
+// GetClients returns all clients in the pool.
+func (c *ClientPool) GetClients() map[string][]*Client {
+	return c.clients
+}
+
 // GetClient retrieves a client based on the group and type in a round-robin fashion.
 func (c *ClientPool) GetClient(group, typ string) *Client {
 	key := group + "_" + typ

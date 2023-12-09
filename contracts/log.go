@@ -7,7 +7,6 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/unpackdev/solgo/bytecode"
-	"github.com/unpackdev/solgo/contracts/storage"
 	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
 )
@@ -85,7 +84,7 @@ func (c *Contract) DecodeLog(ctx context.Context, log *types.Log) (*Log, error) 
 
 	// There are contracts that just reuse different contracts a lot so we'll try to decode from storage
 	// This is a very expensive operation so we'll only do it if we have no other choice.
-	if storages := storage.GetStorages(); len(storages) > 0 {
+	/* 	if storages := storage.GetStorages(); len(storages) > 0 {
 		for _, storage := range storages {
 			logData, err := bytecode.DecodeLogFromAbi(log, []byte(storage.ABI))
 			if err != nil {
@@ -101,7 +100,7 @@ func (c *Contract) DecodeLog(ctx context.Context, log *types.Log) (*Log, error) 
 			toReturn.DecodedLog = logData
 			return toReturn, nil
 		}
-	}
+	} */
 
 	// Last attempt as we have no ABI and no IR to decode from :(
 	// What we have is bindings, quite a lot of them so let's try to decode from them.

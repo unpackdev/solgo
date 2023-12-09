@@ -25,6 +25,9 @@ type Provider interface {
 	// Type returns the type of the simulation provider.
 	Type() utils.SimulatorType
 
+	// GetCmdArguments returns the command line arguments for the simulation provider.
+	GetCmdArguments(node *Node) []string
+
 	// Load initializes the provider and loads necessary resources.
 	Load(context.Context) error
 

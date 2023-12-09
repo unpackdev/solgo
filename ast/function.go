@@ -158,7 +158,7 @@ func (f *Function) ComputeSignature() {
 		[]string{
 			f.GetName(),
 			"(",
-			strings.Join(params, ", "),
+			strings.Join(params, ","),
 			")",
 		}, "",
 	)

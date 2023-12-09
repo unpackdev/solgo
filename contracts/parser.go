@@ -29,13 +29,13 @@ func (c *Contract) Parse(ctx context.Context) error {
 		// we are getting into issues where we are not capable ATM to parse contracts with < 0.6.0 version.
 		// Because of it, we are going to disable all of the functionality for this particular contract related to
 		// source code parsing. :( In the future we should sort this out but right now, MVP is the most important thing.
-		if utils.IsSemanticVersionLowerOrEqualTo(c.descriptor.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 6, Patch: 0}) {
+		if utils.IsSemanticVersionLowerOrEqualTo(c.descriptor.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 5, Patch: 10}) {
 			return fmt.Errorf("not supported compiler version (older version): %v", c.descriptor.CompilerVersion)
 		}
 
 		if errs := parser.Parse(); errs != nil {
 			for _, err := range errs {
-				zap.L().Error(
+				zap.L().Debug(
 					"failed to parse contract sources",
 					zap.Error(err),
 					zap.Any("network", c.network),
@@ -63,7 +63,6 @@ func (c *Contract) Parse(ctx context.Context) error {
 		if c.descriptor.License == "" || c.descriptor.License == "None" && c.descriptor.IRRoot.GetEntryContract() != nil {
 			c.descriptor.License = c.descriptor.IRRoot.GetEntryContract().GetLicense()
 		}
-
 	}
 
 	return nil

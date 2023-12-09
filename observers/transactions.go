@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -104,7 +105,7 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 
 	// In case that receipt is not available, we need to fetch one...
 	// In the future we may have cases where receipt is already passed from some other source and if that is the case
-	// we for sure do not want to
+	// we for sure do not want to fetch it again...
 	if entry.Receipt == nil {
 		if client == nil {
 			zap.L().Error(
@@ -216,7 +217,7 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 		group.Go(func() error {
 			contract, err := p.contracts.Unpack(p.ctx, entry.Network, entry.ContractAddress, entry)
 			if err != nil {
-				/* zap.L().Error(
+				zap.L().Error(
 					"Failed to unpack transaction contract",
 					zap.Error(err),
 					zap.Any("network_id", entry.NetworkID),
@@ -225,7 +226,7 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 					zap.Uint64("block_number", entry.BlockHeader.Number.Uint64()),
 					zap.String("tx_hash", entry.Transaction.Hash().String()),
 					zap.String("sender_address", entry.Sender.String()),
-				) */
+				)
 				return err
 			}
 			entry.Contract = contract
@@ -238,8 +239,8 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 			for _, logEntry := range entry.Receipt.Logs {
 				contract, err := p.contracts.Unpack(p.ctx, entry.Network, logEntry.Address, entry)
 				if err != nil {
-					/* zap.L().Error(
-						"Failed to unpack transaction contract",
+					zap.L().Error(
+						"Failed to unpack transaction log contract",
 						zap.Error(err),
 						zap.Any("network_id", entry.NetworkID),
 						zap.String("network", entry.Network.String()),
@@ -247,7 +248,8 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 						zap.Uint64("block_number", entry.BlockHeader.Number.Uint64()),
 						zap.String("tx_hash", entry.Transaction.Hash().String()),
 						zap.String("sender_address", entry.Sender.String()),
-					) */
+						zap.String("log_address", logEntry.Address.String()),
+					)
 					continue
 				}
 				entry.LogContracts[logEntry.Address] = contract
@@ -259,7 +261,7 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 
 	if err := group.Wait(); err != nil {
 		zap.L().Error(
-			"failed to unpack contracts",
+			"failed to unpack transaction and associated information",
 			zap.Error(err),
 			zap.Any("network_id", entry.NetworkID),
 			zap.String("network", entry.Network.String()),
@@ -305,7 +307,7 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 		if entry.SenderContract != nil && entry.RecipientContract != nil {
 			// If we have both sender and recipient contract, we can assume that this is a contract to contract
 			// transaction.
-			//fmt.Println("Yolo 2....")
+			zap.L().Info("Contract to contract transaction detected, this is not yet implemented")
 		} else if entry.SenderContract == nil && entry.RecipientContract != nil {
 			// If we have recipient contract but not sender contract, we can assume that this is contract method
 			// invocation.
@@ -327,9 +329,7 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 				entry.TransactionMethod = transaction
 			}
 		} else if entry.SenderContract != nil && entry.RecipientContract == nil {
-			// If we have sender contract but not recipient contract, we can assume that this is contract method
-			// invocation.
-			//fmt.Println("Yolo 3....")
+			zap.L().Info("Address to address transaction detected, this is not yet implemented")
 		} else {
 			entry.TransactionType = utils.TransferMethodType
 		}
@@ -354,6 +354,9 @@ func (p *TransactionsProcessor) processTransaction(entry *TransactionEntry) (*Tr
 	// Final thing is to queue contracts and logs in case that these functionalities are
 	// enabled...
 	p.QueueLog(entry)
+
+	time.Sleep(1 * time.Second)
+	utils.DumpNodeWithExit(entry)
 
 	return entry, nil
 }

@@ -52,11 +52,11 @@ func IsSemanticVersionGreaterOrEqualTo(versionStr string, version SemanticVersio
 		return true
 	}
 
-	if parsedVersion.Major == version.Major && parsedVersion.Minor >= version.Minor {
+	if parsedVersion.Major == version.Major && parsedVersion.Minor > version.Minor {
 		return true
 	}
 
-	if parsedVersion.Major >= version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch == version.Patch {
+	if parsedVersion.Major > version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch == version.Patch {
 		return true
 	}
 
@@ -66,15 +66,15 @@ func IsSemanticVersionGreaterOrEqualTo(versionStr string, version SemanticVersio
 // IsSemanticVersionLowerOrEqualTo checks if the version represented by the string is lower than or equal to the provided SemanticVersion.
 func IsSemanticVersionLowerOrEqualTo(versionStr string, version SemanticVersion) bool {
 	parsedVersion := ParseSemanticVersion(versionStr)
-	if parsedVersion.Major == version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch >= version.Patch {
+	if parsedVersion.Major == version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch < version.Patch {
 		return true
 	}
 
-	if parsedVersion.Major == version.Major && parsedVersion.Minor <= version.Minor {
+	if parsedVersion.Major == version.Major && parsedVersion.Minor < version.Minor {
 		return true
 	}
 
-	if parsedVersion.Major <= version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch == version.Patch {
+	if parsedVersion.Major < version.Major && parsedVersion.Minor == version.Minor && parsedVersion.Patch == version.Patch {
 		return true
 	}
 

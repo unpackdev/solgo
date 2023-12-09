@@ -12,7 +12,9 @@ func (c *Contract) Inspect(ctx context.Context) (*SafetyDescriptor, error) {
 	descriptor := c.GetDescriptor()
 	detector := descriptor.Detector
 
-	inspector, err := inspector.NewInspector(c.ctx, detector, nil, c.bindings, c.GetAddress())
+	return nil, nil
+
+	inspector, err := inspector.NewInspector(c.ctx, c.network, detector, nil, nil, c.bindings, c.GetAddress())
 	if err != nil {
 		zap.L().Error("Error creating inspector", zap.Error(err))
 	}

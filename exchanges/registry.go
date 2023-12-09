@@ -4,17 +4,19 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/clients"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // exchangeFn is a function type that returns an Exchange instance and an error.
-type exchangeFn func(ctx context.Context, clientsPool *clients.ClientPool, opts *ExchangeOptions) (Exchange, error)
+type exchangeFn func(ctx context.Context, clientsPool *clients.ClientPool, bindManager *bindings.Manager, opts *ExchangeOptions) (Exchange, error)
 
 // exchanges is a map of exchange functions, keyed by a string.
-var exchanges map[ExchangeType]exchangeFn
+var exchanges = make(map[utils.ExchangeType]exchangeFn)
 
 // RegisterExchange stores the exchange function in the exchanges map.
-func registerExchange(name ExchangeType, exchange exchangeFn) error {
+func registerExchange(name utils.ExchangeType, exchange exchangeFn) error {
 	if _, ok := exchanges[name]; ok {
 		return fmt.Errorf("exchange %s already registered", name)
 	}
@@ -24,7 +26,7 @@ func registerExchange(name ExchangeType, exchange exchangeFn) error {
 }
 
 // GetExchange retrieves an exchange function from the exchanges map.
-func GetExchange(name ExchangeType) (exchangeFn, bool) {
+func GetExchange(name utils.ExchangeType) (exchangeFn, bool) {
 	if exchange, ok := exchanges[name]; ok {
 		return exchange, true
 	}
@@ -33,28 +35,13 @@ func GetExchange(name ExchangeType) (exchangeFn, bool) {
 }
 
 // GetExchanges retrieves the exchanges map.
-func GetExchanges() map[ExchangeType]exchangeFn {
+func GetExchanges() map[utils.ExchangeType]exchangeFn {
 	return exchanges
 }
 
-func init() {
-	exchanges = make(map[ExchangeType]exchangeFn)
-
-	registerExchange(UniswapV2, func(ctx context.Context, clientsPool *clients.ClientPool, opts *ExchangeOptions) (Exchange, error) {
+/* func init() {
+	registerExchange(utils.UniswapV2, func(ctx context.Context, clientsPool *clients.ClientPool, opts *ExchangeOptions) (Exchange, error) {
+		uniswapBind.  := bindings.NewManager(ctx, clientsPool)
 		return NewUniswapV2(ctx, clientsPool, opts)
 	})
-
-	registerExchange(UniswapV3, func(ctx context.Context, clientsPool *clients.ClientPool, opts *ExchangeOptions) (Exchange, error) {
-		return NewUniswapV3(ctx, clientsPool, opts)
-	})
-
-	/*
-		 	RegisterExchange(Sushiswap, func(ctx context.Context, clientsPool *clients.ClientPool, opts *ExchangeOptions) (Exchange, error) {
-				return NewSushiswap(ctx, clientsPool, opts)
-			})
-
-			RegisterExchange(PancakeswapV2, func(ctx context.Context, clientsPool *clients.ClientPool, opts *ExchangeOptions) (Exchange, error) {
-				return NewPancakeswapV2(ctx, clientsPool, opts)
-			})
-	*/
-}
+} */

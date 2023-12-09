@@ -15,7 +15,7 @@ var (
 // Token represents an ERC20 token with a unique address and some metadata.
 type Token struct {
 	*BaseCurrency
-	Address common.Address // The contract address on the chain on which this token lives
+	Address common.Address `json:"address"` // The contract address on the chain on which this token lives
 }
 
 // NewToken creates a new token with the given currency and address.

@@ -28,7 +28,7 @@ type Manager struct {
 }
 
 func NewManager(ctx context.Context, clientsPool *clients.ClientPool, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindings *bindings.Manager, opts Options, blockCh chan *BlockEntry) (*Manager, error) {
-	return &Manager{
+	toReturn := &Manager{
 		ctx:         ctx,
 		opts:        opts,
 		clientsPool: clientsPool,
@@ -38,7 +38,15 @@ func NewManager(ctx context.Context, clientsPool *clients.ClientPool, bqp *bitqu
 		hooks:       make(map[ProcessorType]map[HookType]interface{}),
 		compiler:    compiler,
 		bindings:    bindings,
-	}, nil
+	}
+
+	blocksProcessor, err := NewBlocksProcessor(toReturn)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create block processor: %w", err)
+	}
+	toReturn.blocksProcessor = blocksProcessor
+
+	return toReturn, nil
 }
 
 func (m *Manager) Run() error {
@@ -50,19 +58,13 @@ func (m *Manager) Run() error {
 	)
 
 	errCh := make(chan error, 1)
-
-	blocksProcessor, err := NewBlocksProcessor(m)
-	if err != nil {
-		return fmt.Errorf("failed to create block blocksProcessor: %w", err)
-	}
-	defer blocksProcessor.Close()
-	m.blocksProcessor = blocksProcessor
+	//defer m.blocksProcessor.Close()
 
 	for _, strategy := range m.opts.Strategies {
 		switch strategy {
 		case utils.HeadStrategy:
 			go func() {
-				if err := blocksProcessor.SubscribeHeader(&SubscriberOptions{
+				if err := m.blocksProcessor.SubscribeHeader(&SubscriberOptions{
 					NetworkID: m.opts.NetworkID,
 					Network:   m.opts.Network,
 					Head:      true,
@@ -73,7 +75,7 @@ func (m *Manager) Run() error {
 			}()
 		case utils.ArchiveStrategy:
 			go func() {
-				if err := blocksProcessor.Subscribe(&SubscriberOptions{
+				if err := m.blocksProcessor.Subscribe(&SubscriberOptions{
 					NetworkID:        m.opts.NetworkID,
 					Network:          m.opts.Network,
 					StartBlockNumber: m.opts.StartBlock,
@@ -92,6 +94,13 @@ func (m *Manager) Run() error {
 	case <-m.ctx.Done():
 		return nil
 	}
+}
+
+// SubmitBlock submits a new block to the manager. This method is useful if you do not want to start the manager
+// but submit blocks from the external aplications. As well usefull if you want to re-process existing blocks.
+func (m *Manager) SubmitBlock(block *BlockEntry) error {
+	m.blockCh <- block
+	return nil
 }
 
 func (m *Manager) Process() error {

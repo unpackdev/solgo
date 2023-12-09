@@ -155,7 +155,7 @@ func (m *Manager) WatchEvents(network utils.Network, bindingType BindingType, ev
 }
 
 // CallContractMethod calls a method on a registered contract.
-func (m *Manager) CallContractMethod(network utils.Network, bindingType BindingType, methodName string, params ...interface{}) (any, error) {
+func (m *Manager) CallContractMethod(ctx context.Context, network utils.Network, bindingType BindingType, toAddr common.Address, methodName string, params ...interface{}) (any, error) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 
@@ -174,8 +174,64 @@ func (m *Manager) CallContractMethod(network utils.Network, bindingType BindingT
 		return nil, err
 	}
 
+	destinationAddr := toAddr
+	if destinationAddr == utils.ZeroAddress {
+		destinationAddr = binding.Address
+	}
+
 	callMsg := ethereum.CallMsg{
-		To:   &binding.Address,
+		To:   &destinationAddr,
+		Data: append(method.ID, data...),
+	}
+
+	var result []byte
+
+	fmt.Println("GOOOOOG NETWORK", network.String(), destinationAddr.Hex())
+	client := m.clientPool.GetClientByGroup(network.String())
+	if client == nil {
+		return nil, fmt.Errorf("client not found for network %s", network)
+	}
+
+	result, err = client.CallContract(context.Background(), callMsg, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to call contract: %w", err)
+	}
+
+	var unpackedResults any
+	err = binding.ABI.UnpackIntoInterface(&unpackedResults, methodName, result)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unpack results: %w", err)
+	}
+
+	return unpackedResults, nil
+}
+
+func (m *Manager) CallContractMethodUnpackMap(ctx context.Context, network utils.Network, bindingType BindingType, toAddr common.Address, methodName string, params ...interface{}) (map[string]any, error) {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+
+	binding, ok := m.bindings[network][bindingType]
+	if !ok {
+		return nil, fmt.Errorf("binding %s not found for network %s", bindingType, network)
+	}
+
+	method, ok := binding.ABI.Methods[methodName]
+	if !ok {
+		return nil, fmt.Errorf("binding %s method %s not found in ABI", bindingType, methodName)
+	}
+
+	data, err := method.Inputs.Pack(params...)
+	if err != nil {
+		return nil, err
+	}
+
+	destinationAddr := toAddr
+	if destinationAddr == utils.ZeroAddress {
+		destinationAddr = binding.Address
+	}
+
+	callMsg := ethereum.CallMsg{
+		To:   &destinationAddr,
 		Data: append(method.ID, data...),
 	}
 
@@ -198,13 +254,11 @@ func (m *Manager) CallContractMethod(network utils.Network, bindingType BindingT
 		}
 	}
 
-	/* 	spew.Dump("Call Contract Response", &binding.Address, methodName, params, result)
-	   	spew.Dump("Raw Call Result", result) */
-
-	var unpackedResults any
-	err = binding.ABI.UnpackIntoInterface(&unpackedResults, methodName, result)
+	unpackedResults := map[string]any{}
+	err = binding.ABI.UnpackIntoMap(unpackedResults, methodName, result)
 	if err != nil {
 		return nil, fmt.Errorf("failed to unpack results: %w", err)
 	}
+
 	return unpackedResults, nil
 }

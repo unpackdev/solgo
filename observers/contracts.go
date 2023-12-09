@@ -156,7 +156,7 @@ func (p *ContractsProcessor) Unpack(ctx context.Context, network utils.Network, 
 		return contract, nil
 	}
 
-	contract, err := contracts.NewContract(ctx, network, p.clientsPool, nil, p.bqp, p.etherscan, p.compiler, p.bindings, addr)
+	contract, err := contracts.NewContract(ctx, network, p.clientsPool, nil, nil, p.bqp, p.etherscan, p.compiler, p.bindings, nil, addr)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (p *ContractsProcessor) Unpack(ctx context.Context, network utils.Network, 
 	contract.DiscoverSourceCode(ctx)
 
 	// Contract may have token or may not. We should not treat this as critical error.
-	contract.DiscoverToken(ctx)
+	//contract.DiscoverToken(ctx)
 
 	// Now we should attempt to parse contract's source code if we have it under our disposal.
 	contract.Parse(ctx)

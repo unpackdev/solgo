@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	DEFAULT_GAS_LIMIT = uint64(900000)
+	DEFAULT_GAS_LIMIT = uint64(1000000)
 )
 
 // Account represents an Ethereum account with extended functionalities.
@@ -109,6 +109,11 @@ func (a *Account) TransactOpts(client *clients.Client, amount *big.Int, simulate
 	if err != nil {
 		return nil, err
 	}
+
+	balance, _ := a.Balance(context.Background(), nil)
+	fmt.Println("balance: ", balance)
+
+	fmt.Println(a.client.GetEndpoint())
 
 	if !simulate {
 		if a.Type == utils.SimpleAccountType {

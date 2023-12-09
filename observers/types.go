@@ -1,6 +1,8 @@
 package observers
 
 import (
+	"math/big"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/google/uuid"
@@ -12,11 +14,13 @@ import (
 type BlockEntry struct {
 	// UUID is never set by the observer and can be used by you to implement relational database and other
 	// features if you wish to. Basically so you are aware of the block UUID when processing transactions as example...
-	UUID      uuid.UUID
-	NetworkID utils.NetworkID
-	Network   utils.Network
-	Strategy  utils.Strategy
-	Block     *types.Block
+	UUID        uuid.UUID       `json:"uuid"`
+	NetworkID   utils.NetworkID `json:"network_id"`
+	Network     utils.Network   `json:"network"`
+	Strategy    utils.Strategy  `json:"strategy"`
+	BlockHash   common.Hash     `json:"block_hash"`
+	BlockNumber *big.Int        `json:"block_number"`
+	Block       *types.Block    `json:"block"`
 }
 
 type TransactionEntry struct {
@@ -91,9 +95,9 @@ type ContractEntry struct {
 
 // IsToken checks if contract entry contains token information.
 func (c *ContractEntry) IsToken() bool {
-	if c.Contract != nil {
+	/* 	if c.Contract != nil {
 		return c.Contract.IsToken()
-	}
+	} */
 
 	return false
 }

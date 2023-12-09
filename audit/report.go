@@ -1,6 +1,9 @@
 package audit
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"strings"
+)
 
 // ImpactLevel represents the severity of a detected issue in the audit results.
 type ImpactLevel string
@@ -104,7 +107,7 @@ func (r *Report) CountByImpactLevel() map[ImpactLevel]int {
 func (r *Report) HighConfidenceDetectors() []Detector {
 	var detectors []Detector
 	for _, detector := range r.Results.Detectors {
-		if detector.Confidence == "High" {
+		if strings.ToLower(detector.Confidence) == "high" {
 			detectors = append(detectors, detector)
 		}
 	}

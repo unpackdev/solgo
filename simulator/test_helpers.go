@@ -10,6 +10,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -25,7 +26,7 @@ import (
 //
 // Returns the initialized Simulator instance and an error if any occurs during the setup process.
 // This function utilizes the 'assert' and 'require' packages from 'testify' to ensure that each setup step is successful.
-func CreateNewTestSimulator(ctx context.Context, t *testing.T, opts *AnvilProviderOptions) (*Simulator, error) {
+func CreateNewTestSimulator(ctx context.Context, clientPool *clients.ClientPool, t *testing.T, opts *AnvilProviderOptions) (*Simulator, error) {
 	tAssert := assert.New(t)
 
 	// Get the current working directory
@@ -39,7 +40,7 @@ func CreateNewTestSimulator(ctx context.Context, t *testing.T, opts *AnvilProvid
 	// Establish base simulator
 	// It acts as a faucet provider and manager for all the simulation providers.
 	// It also provides a way to manage the simulation providers.
-	simulator, err := NewSimulator(ctx, &Options{
+	simulator, err := NewSimulator(ctx, clientPool, &Options{
 		KeystorePath:                keystorePath,
 		SupportedNetworks:           []utils.Network{utils.Ethereum, utils.AnvilNetwork},
 		FaucetsEnabled:              true,
@@ -59,7 +60,7 @@ func CreateNewTestSimulator(ctx context.Context, t *testing.T, opts *AnvilProvid
 			MaxClientCount:      10,
 			AutoImpersonate:     true,
 			PidPath:             filepath.Join("/", "tmp", ".solgo", "/", "simulator", "/", "anvil"),
-			AnvilExecutablePath: "/home/cortex/.cargo/bin/anvil",
+			AnvilExecutablePath: os.Getenv("SOLGO_ANVIL_PATH"),
 			Fork:                true,
 			ForkEndpoint:        os.Getenv("SOLGO_SIMULATOR_FORK_ENDPOINT"),
 			IPAddr:              net.ParseIP("127.0.0.1"),

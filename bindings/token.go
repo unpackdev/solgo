@@ -9,8 +9,10 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/utils"
+	"go.uber.org/zap"
 )
 
 const (
@@ -57,8 +59,8 @@ func (t *Token) GetBinding(network utils.Network, bindingType BindingType) (*Bin
 }
 
 // GetName calls the name() function in the ERC-20 contract.
-func (t *Token) GetName() (string, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "name")
+func (t *Token) GetName(ctx context.Context, from common.Address) (string, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20, from, "name")
 	if err != nil {
 		return "", err
 	}
@@ -72,8 +74,8 @@ func (t *Token) GetName() (string, error) {
 }
 
 // GetSymbol calls the symbol() function in the ERC-20 contract.
-func (t *Token) GetSymbol() (string, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "symbol")
+func (t *Token) GetSymbol(ctx context.Context, from common.Address) (string, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20, from, "symbol")
 	if err != nil {
 		return "", err
 	}
@@ -87,8 +89,8 @@ func (t *Token) GetSymbol() (string, error) {
 }
 
 // GetDecimals calls the decimals() function in the ERC-20 contract.
-func (t *Token) GetDecimals() (uint8, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "decimals")
+func (t *Token) GetDecimals(ctx context.Context, from common.Address) (uint8, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20, from, "decimals")
 	if err != nil {
 		return 0, err
 	}
@@ -102,8 +104,8 @@ func (t *Token) GetDecimals() (uint8, error) {
 }
 
 // GetTotalSupply calls the totalSupply() function in the ERC-20 contract.
-func (t *Token) GetTotalSupply() (*big.Int, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "totalSupply")
+func (t *Token) GetTotalSupply(ctx context.Context, from common.Address) (*big.Int, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20, from, "totalSupply")
 	if err != nil {
 		return nil, err
 	}
@@ -116,8 +118,8 @@ func (t *Token) GetTotalSupply() (*big.Int, error) {
 	return totalSupply, nil
 }
 
-func (t *Token) BalanceOf(address common.Address) (*big.Int, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "balanceOf", address)
+func (t *Token) BalanceOf(ctx context.Context, from common.Address, address common.Address) (*big.Int, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20, from, "balanceOf", address)
 	if err != nil {
 		return nil, err
 	}
@@ -130,8 +132,8 @@ func (t *Token) BalanceOf(address common.Address) (*big.Int, error) {
 	return balance, nil
 }
 
-func (t *Token) Allowance(owner, spender common.Address) (*big.Int, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "allowance", owner, spender)
+func (t *Token) Allowance(ctx context.Context, owner, from common.Address, spender common.Address) (*big.Int, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20, from, "allowance", owner, spender)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +146,7 @@ func (t *Token) Allowance(owner, spender common.Address) (*big.Int, error) {
 	return allowance, nil
 }
 
-func (t *Token) Transfer(opts *bind.TransactOpts, to common.Address, amount *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
+func (t *Token) Transfer(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, opts *bind.TransactOpts, to common.Address, amount *big.Int, atBlock *big.Int) (*types.Transaction, *types.Receipt, error) {
 	binding, err := t.GetBinding(utils.Ethereum, Erc20)
 	if err != nil {
 		return nil, nil, err
@@ -156,46 +158,30 @@ func (t *Token) Transfer(opts *bind.TransactOpts, to common.Address, amount *big
 		return nil, nil, errors.New("transfer method not found")
 	}
 
-	input, err := bindingAbi.Pack(method.Name, to, amount)
-	if err != nil {
-		return nil, nil, err
-	}
+	select {
+	case <-ctx.Done():
+		return nil, nil, ctx.Err()
+	default:
+		input, err := bindingAbi.Pack(method.Name, to, amount)
+		if err != nil {
+			return nil, nil, err
+		}
 
-	if simulate {
-		txHash, err := t.Manager.SendSimulatedTransaction(opts, t.network, &binding.Address, method, input)
+		tx, err := t.Manager.SendTransaction(opts, t.network, simulatorType, client, &binding.Address, input)
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to send transfer transaction: %w", err)
 		}
 
-		// Wait for the receipt
-		receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, *txHash)
+		receipt, err := t.Manager.WaitForReceipt(t.ctx, network, simulatorType, client, tx.Hash())
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to get transfer transaction receipt: %w", err)
 		}
 
-		tx, _, err := t.Manager.GetTransactionByHash(t.ctx, t.network, receipt.TxHash)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to get transfer transaction by hash: %w", err)
-		}
-
 		return tx, receipt, nil
 	}
-
-	tx, err := t.Manager.SendTransaction(opts, t.network, &binding.Address, input)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to send transfer transaction: %w", err)
-	}
-
-	// Wait for the receipt
-	receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, tx.Hash())
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get transfer transaction receipt: %w", err)
-	}
-
-	return tx, receipt, nil
 }
 
-func (t *Token) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int, simulate bool) (*types.Transaction, *types.Receipt, error) {
+func (t *Token) Approve(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, opts *bind.TransactOpts, spender common.Address, amount *big.Int, atBlock *big.Int) (*types.Transaction, *types.Receipt, error) {
 	binding, err := t.GetBinding(utils.Ethereum, Erc20)
 	if err != nil {
 		return nil, nil, err
@@ -212,52 +198,67 @@ func (t *Token) Approve(opts *bind.TransactOpts, spender common.Address, amount 
 		return nil, nil, err
 	}
 
-	if simulate {
-		txHash, err := t.Manager.SendSimulatedTransaction(opts, t.network, &binding.Address, method, input)
+	select {
+	case <-ctx.Done():
+		return nil, nil, ctx.Err()
+	default:
+		tx, err := t.Manager.SendTransaction(opts, t.network, simulatorType, client, &binding.Address, input)
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to send approve transaction: %w", err)
 		}
 
-		// Wait for the receipt
-		receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, *txHash)
+		receipt, err := t.Manager.WaitForReceipt(t.ctx, network, simulatorType, client, tx.Hash())
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to get approve transaction receipt: %w", err)
 		}
 
-		tx, _, err := t.Manager.GetTransactionByHash(t.ctx, t.network, receipt.TxHash)
+		zap.L().Debug(
+			"Approve transaction sent and receipt received",
+			zap.String("tx_hash", tx.Hash().Hex()),
+			zap.String("tx_from", spender.Hex()),
+			zap.String("tx_to", tx.To().Hex()),
+			zap.String("tx_nonce", fmt.Sprintf("%d", tx.Nonce())),
+			zap.String("tx_gas_price", tx.GasPrice().String()),
+			zap.String("tx_gas", fmt.Sprintf("%d", tx.Gas())),
+		)
+
+		return tx, receipt, nil
+	}
+}
+
+func (t *Token) TransferFrom(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, opts *bind.TransactOpts, from, to common.Address, amount *big.Int, atBlock *big.Int) (*types.Transaction, *types.Receipt, error) {
+	binding, err := t.GetBinding(utils.Ethereum, Erc20)
+	if err != nil {
+		return nil, nil, err
+	}
+	bindingAbi := binding.GetABI()
+
+	method, exists := bindingAbi.Methods["transferFrom"]
+	if !exists {
+		return nil, nil, errors.New("transfer method not found")
+	}
+
+	input, err := bindingAbi.Pack(method.Name, from, to, amount)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	select {
+	case <-ctx.Done():
+		return nil, nil, ctx.Err()
+	default:
+		tx, err := t.Manager.SendTransaction(opts, t.network, simulatorType, client, &binding.Address, input)
 		if err != nil {
-			return nil, nil, fmt.Errorf("failed to get approve transaction by hash: %w", err)
+			return nil, nil, fmt.Errorf("failed to send transfer transaction: %w", err)
+		}
+
+		receipt, err := t.Manager.WaitForReceipt(t.ctx, network, simulatorType, client, tx.Hash())
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to get transfer transaction receipt: %w", err)
 		}
 
 		return tx, receipt, nil
 	}
-
-	tx, err := t.Manager.SendTransaction(opts, t.network, &binding.Address, input)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to send approve transaction: %w", err)
-	}
-
-	// Wait for the receipt
-	receipt, err := t.Manager.WaitForReceipt(t.ctx, t.network, tx.Hash())
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get approve transaction receipt: %w", err)
-	}
-
-	return tx, receipt, nil
-}
-
-func (t *Token) TransferFrom(from, to common.Address, amount *big.Int) (bool, error) {
-	result, err := t.Manager.CallContractMethod(t.network, Erc20, "transferFrom", from, to, amount)
-	if err != nil {
-		return false, err
-	}
-
-	success, ok := result.(bool)
-	if !ok {
-		return false, fmt.Errorf("failed to assert result as bool - transferFrom")
-	}
-
-	return success, nil
 }
 
 func (t *Token) GetOptionsByNetwork(network utils.Network) *BindOptions {

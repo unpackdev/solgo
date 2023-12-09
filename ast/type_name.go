@@ -942,6 +942,9 @@ func (t *TypeName) StorageSize() (int64, bool) {
 		// @TODO: Calculate properly....
 		return 256, true
 
+	case ast_pb.NodeType_IDENTIFIER:
+		return elementaryTypeSizeInBits(t.Name)
+
 	// Add cases for other node types like struct, enum, etc., as needed.
 	default:
 		panic(fmt.Sprintf("Unhandled node type @ StorageSize: %s", t.NodeType))

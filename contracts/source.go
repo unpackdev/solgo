@@ -3,17 +3,14 @@ package contracts
 import (
 	"context"
 	"fmt"
-	"path/filepath"
-	"runtime"
 	"strconv"
 
 	"github.com/unpackdev/solgo"
-	"github.com/unpackdev/solgo/contracts/storage"
 	"go.uber.org/zap"
 )
 
 func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
-	if storage := storage.GetStorage(c.addr); storage != nil {
+	/* 	if storage := storage.GetStorage(c.addr); storage != nil {
 		_, filename, _, _ := runtime.Caller(0)
 		dir := filepath.Dir(filename)
 		sourcesDir := filepath.Clean(filepath.Join(dir, "..", "sources"))
@@ -27,7 +24,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 		c.descriptor.ABI = storage.ABI
 		c.descriptor.License = storage.License
 		return nil
-	}
+	} */
 
 	response, err := c.etherscan.ScanContract(c.addr)
 	if err != nil {

@@ -6,6 +6,7 @@ import (
 	"math/big"
 	"net"
 	"sync"
+	"sync/atomic"
 
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/clients"
@@ -24,19 +25,26 @@ type Simulator struct {
 	providers  map[utils.SimulatorType]Provider // Registered providers for different simulation types.
 	mu         sync.Mutex                       // Mutex to protect concurrent access to the providers map and other shared resources.
 	faucets    *Faucet                          // Faucet for managing simulated accounts.
+	started    atomic.Bool                      // Flag to indicate if the Simulator has been started.
 }
 
 // NewSimulator initializes a new Simulator with the given context and options.
 // It sets up a new Faucet for account management and prepares the Simulator for operation.
 // Returns an error if options are not provided or if the Faucet fails to initialize.
-func NewSimulator(ctx context.Context, opts *Options) (*Simulator, error) {
+func NewSimulator(ctx context.Context, clientPool *clients.ClientPool, opts *Options) (*Simulator, error) {
 	if opts == nil {
 		return nil, fmt.Errorf("in order to create a new simulator, you must provide options")
 	}
 
-	pool, err := clients.NewClientPool(ctx, &clients.Options{Nodes: []clients.Node{}})
-	if err != nil {
-		return nil, fmt.Errorf("failed to create simulator client pool: %s", err)
+	var pool *clients.ClientPool
+	if clientPool == nil {
+		emptyPool, err := clients.NewClientPool(ctx, &clients.Options{Nodes: []clients.Node{}})
+		if err != nil {
+			return nil, fmt.Errorf("failed to create simulator client pool: %s", err)
+		}
+		pool = emptyPool
+	} else {
+		pool = clientPool
 	}
 
 	faucets, err := NewFaucet(ctx, pool, opts)
@@ -83,6 +91,7 @@ func NewSimulator(ctx context.Context, opts *Options) (*Simulator, error) {
 		providers:  make(map[utils.SimulatorType]Provider),
 		faucets:    faucets,
 		clientPool: pool,
+		started:    atomic.Bool{},
 	}, nil
 }
 
@@ -182,7 +191,16 @@ func (s *Simulator) Start(ctx context.Context, simulators ...utils.SimulatorType
 		}
 	}
 
+	s.started.Store(true)
+
+	zap.L().Info("Simulator started successfully")
+
 	return nil
+}
+
+// IsStarted returns a boolean indicating if the Simulator has been started.
+func (s *Simulator) IsStarted() bool {
+	return s.started.Load()
 }
 
 // Stop terminates the simulation providers within the Simulator. Similar to Start,
@@ -195,6 +213,10 @@ func (s *Simulator) Start(ctx context.Context, simulators ...utils.SimulatorType
 // passing the provided context. The Unload method of each provider is expected to
 // perform any necessary operations to stop the simulation client.
 func (s *Simulator) Stop(ctx context.Context, simulators ...utils.SimulatorType) error {
+	if !s.IsStarted() {
+		return fmt.Errorf("simulator has not been started")
+	}
+
 	for _, provider := range s.providers {
 		if len(simulators) > 0 {
 			for _, simulator := range simulators {
@@ -210,6 +232,8 @@ func (s *Simulator) Stop(ctx context.Context, simulators ...utils.SimulatorType)
 			}
 		}
 	}
+
+	zap.L().Info("Simulator stopped successfully")
 
 	return nil
 }
@@ -268,9 +292,13 @@ func (s *Simulator) Status(ctx context.Context, simulators ...utils.SimulatorTyp
 // If the client doesn't exist, it returns an error.
 // If the provider is recognized but not fully implemented, an appropriate error is returned.
 // Returns a pointer to the blockchain client and an error if any issues occur during the process.
-func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType, blockNumber *big.Int) (*clients.Client, error) {
+func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType, blockNumber *big.Int) (*clients.Client, *Node, error) {
 	if !s.ProviderExists(provider) {
-		return nil, fmt.Errorf("provider %s does not exist", provider)
+		return nil, nil, fmt.Errorf("provider %s does not exist", provider)
+	}
+
+	if !s.IsStarted() {
+		return nil, nil, fmt.Errorf("simulator has not been started")
 	}
 
 	if providerCtx, ok := s.GetProvider(provider).(*AnvilProvider); ok {
@@ -284,7 +312,7 @@ func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType,
 
 			port := providerCtx.GetNextPort()
 			if port == 0 {
-				return nil, fmt.Errorf("no available ports to start anvil nodes")
+				return nil, nil, fmt.Errorf("no available ports to start anvil nodes")
 			}
 
 			startOpts := StartOptions{
@@ -299,34 +327,45 @@ func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType,
 
 			newNode, err := providerCtx.Start(ctx, startOpts)
 			if err != nil {
-				return nil, fmt.Errorf("failed to spawn anvil node: %s", err)
+				return nil, nil, fmt.Errorf("failed to spawn anvil node: %s", err)
 			}
 
 			// Lets now load faucet accounts for the newly spawned node
 			if providerCtx.simulator.opts.FaucetsEnabled {
 				if err := providerCtx.SetupFaucetAccounts(ctx, newNode); err != nil {
-					return nil, fmt.Errorf("failed to load faucet accounts: %s", err)
+					return nil, newNode, fmt.Errorf("failed to load faucet accounts: %s", err)
 				}
 			}
 
+			providerCtx.mu.Lock()
+			providerCtx.nodes[newNode.BlockNumber.Uint64()] = newNode
+			providerCtx.mu.Unlock()
+
 			if client, found := providerCtx.GetClientByGroupAndType(newNode.GetProvider().Type(), newNode.GetID().String()); found {
-				return client, nil
+				return client, newNode, nil
 			} else {
-				return nil, fmt.Errorf(
+				return nil, nil, fmt.Errorf(
 					"client for provider: %s - node %s - block number: %d does not exist",
-					node.Provider, node.GetID().String(), blockNumber,
+					node.GetProvider(), node.GetID().String(), blockNumber,
 				)
 			}
+
 		} else {
 			if client, found := providerCtx.GetClientByGroupAndType(node.GetProvider().Type(), node.GetID().String()); found {
-				return client, nil
+				return client, node, nil
 			} else {
-				return nil, fmt.Errorf("client for provider: %s - node %s does not exist", node.Provider, node.GetID().String())
+				return nil, nil, fmt.Errorf("client for provider: %s - node %s does not exist", node.GetProvider(), node.GetID().String())
 			}
 		}
 	}
 
-	return nil, fmt.Errorf("provider %s is not fully implemented", provider)
+	return nil, nil, fmt.Errorf("provider %s is not fully implemented", provider)
+}
+
+// GetOptions returns the Simulator's configuration options.
+// The options are used to configure the Simulator's behavior.
+func (s *Simulator) GetOptions() *Options {
+	return s.opts
 }
 
 // Close gracefully shuts down the simulator. It performs the following steps:
