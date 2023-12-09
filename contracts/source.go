@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/unpackdev/solgo"
 	"go.uber.org/zap"
@@ -28,7 +29,8 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 
 	response, err := c.etherscan.ScanContract(c.addr)
 	if err != nil {
-		if err.Error() != "contract not found" { // Do not print error if contract is not found. Just clusterfucks the logs...
+		if !strings.Contains(err.Error(), "not found") &&
+			!strings.Contains(err.Error(), "not verified") { // Do not print error if contract is not found. Just clusterfucks the logs...
 			zap.L().Error(
 				"failed to scan contract source code",
 				zap.Error(err),
@@ -62,7 +64,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	optimized, err := strconv.ParseBool(c.descriptor.SourcesRaw.OptimizationUsed)
 	if err != nil {
 		zap.L().Error(
-			"Failed to parse OptimizationUsed to bool",
+			"failed to parse OptimizationUsed to bool",
 			zap.Error(err),
 			zap.String("OptimizationUsed", c.descriptor.SourcesRaw.OptimizationUsed),
 		)
@@ -72,7 +74,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	optimizationRuns, err := strconv.ParseUint(c.descriptor.SourcesRaw.Runs, 10, 64)
 	if err != nil {
 		zap.L().Error(
-			"Failed to parse OptimizationRuns to uint64",
+			"failed to parse OptimizationRuns to uint64",
 			zap.Error(err),
 			zap.String("OptimizationRuns", c.descriptor.SourcesRaw.Runs),
 		)

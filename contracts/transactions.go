@@ -11,6 +11,10 @@ import (
 )
 
 func (c *Contract) DecodeTransaction(ctx context.Context, data []byte) (*bytecode.Transaction, error) {
+	if len(data) < 4 {
+		return nil, fmt.Errorf("invalid transaction data length: %d", len(data))
+	}
+
 	// The first 4 bytes of the t represent the ID of the method in the ABI.
 	methodSigData := data[:4]
 
