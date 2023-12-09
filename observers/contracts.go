@@ -156,7 +156,7 @@ func (p *ContractsProcessor) Unpack(ctx context.Context, network utils.Network, 
 		return contract, nil
 	}
 
-	contract, err := contracts.NewContract(ctx, network, p.clientsPool, nil, nil, p.bqp, p.etherscan, p.compiler, p.bindings, nil, addr)
+	contract, err := contracts.NewContract(ctx, network, p.clientsPool, p.sim, p.stor, nil, p.bqp, p.etherscan, p.compiler, p.bindings, nil, addr)
 	if err != nil {
 		return nil, err
 	}

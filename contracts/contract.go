@@ -14,6 +14,7 @@ import (
 	"github.com/unpackdev/solgo/providers/bitquery"
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/simulator"
+	"github.com/unpackdev/solgo/storage"
 	"github.com/unpackdev/solgo/tokens"
 	"github.com/unpackdev/solgo/utils"
 )
@@ -47,12 +48,13 @@ type Contract struct {
 	bindings        *bindings.Manager
 	exchangeManager *exchanges.Manager
 	tokenBind       *bindings.Token
+	stor            *storage.Storage
 }
 
 // NewContract creates a new instance of Contract for a given Ethereum address and network.
 // It initializes the contract's context, metadata, and associated blockchain clients.
 // The function validates the contract's existence and its bytecode before creation.
-func NewContract(ctx context.Context, network utils.Network, clientPool *clients.ClientPool, sim *simulator.Simulator, liq *liquidity.Liquidity, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindManager *bindings.Manager, exchange *exchanges.Manager, addr common.Address) (*Contract, error) {
+func NewContract(ctx context.Context, network utils.Network, clientPool *clients.ClientPool, sim *simulator.Simulator, stor *storage.Storage, liq *liquidity.Liquidity, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindManager *bindings.Manager, exchange *exchanges.Manager, addr common.Address) (*Contract, error) {
 	if clientPool == nil {
 		return nil, fmt.Errorf("client pool is nil")
 	}
@@ -107,6 +109,7 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 		exchangeManager: exchange,
 		token:           token,
 		tokenBind:       tokenBind,
+		stor:            stor,
 	}
 
 	/* 	inspect, err := inspector.NewInspector(ctx, clientPool, toReturn)
