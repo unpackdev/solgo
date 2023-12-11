@@ -247,7 +247,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2330,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenA"
 										},
 										"right_expression": {
 											"id": 2331,
@@ -267,7 +268,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2331,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenB"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -300,7 +302,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: IDENTICAL_ADDRESSES\""
 									}
 								],
 								"expression": {
@@ -321,7 +324,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -383,7 +387,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2322,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token0"
 											},
 											{
 												"id": 2337,
@@ -403,7 +408,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2324,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token1"
 											}
 										],
 										"type_description": {
@@ -455,7 +461,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2341,
-													"is_pure": false
+													"is_pure": false,
+													"text": "tokenA"
 												},
 												"right_expression": {
 													"id": 2342,
@@ -475,7 +482,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2342,
-													"is_pure": false
+													"is_pure": false,
+													"text": "tokenB"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -514,7 +522,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2344,
-														"is_pure": false
+														"is_pure": false,
+														"text": "tokenA"
 													},
 													{
 														"id": 2345,
@@ -534,7 +543,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2345,
-														"is_pure": false
+														"is_pure": false,
+														"text": "tokenB"
 													}
 												],
 												"type_description": {
@@ -574,7 +584,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2347,
-														"is_pure": false
+														"is_pure": false,
+														"text": "tokenB"
 													},
 													{
 														"id": 2348,
@@ -594,7 +605,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2348,
-														"is_pure": false
+														"is_pure": false,
+														"text": "tokenA"
 													}
 												],
 												"type_description": {
@@ -627,7 +639,8 @@
 								"type_description": {
 									"type_identifier": "t_tuple_$_t_address_$_t_address$",
 									"type_string": "tuple(address,address)"
-								}
+								},
+								"text": "(token0,token1)=tokenA\u003ctokenB?(tokenA,tokenB):(tokenB,tokenA);"
 							},
 							{
 								"id": 2349,
@@ -684,7 +697,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2322,
-											"is_pure": false
+											"is_pure": false,
+											"text": "token0"
 										},
 										"right_expression": {
 											"id": 2353,
@@ -725,7 +739,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												}
 											],
 											"expression": {
@@ -771,7 +786,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -809,7 +825,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: ZERO_ADDRESS\""
 									}
 								],
 								"expression": {
@@ -830,7 +847,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -1053,13 +1071,14 @@
 							}
 						]
 					},
-					"signature_raw": "sortTokens(address, address)",
-					"signature": "a52ffdb9",
+					"signature_raw": "sortTokens(address,address)",
+					"signature": "544caa56",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$",
 						"type_string": "function(address,address)"
-					}
+					},
+					"text": "functionsortTokens(addresstokenA,addresstokenB)internalpurereturns(addresstoken0,addresstoken1){require(tokenA!=tokenB,\"UniswapV2Library: IDENTICAL_ADDRESSES\");(token0,token1)=tokenA\u003ctokenB?(tokenA,tokenB):(tokenB,tokenA);require(token0!=address(0),\"UniswapV2Library: ZERO_ADDRESS\");}"
 				},
 				{
 					"id": 2359,
@@ -1244,7 +1263,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2380,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenA"
 										},
 										{
 											"id": 2381,
@@ -1270,7 +1290,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "tokenB"
 										}
 									],
 									"expression": {
@@ -1291,7 +1312,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "sortTokens"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_address$",
@@ -1340,7 +1362,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2370,
-										"is_pure": false
+										"is_pure": false,
+										"text": "pair"
 									},
 									"right_expression": {
 										"id": 2385,
@@ -1469,7 +1492,8 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 0,
-																				"is_pure": true
+																				"is_pure": true,
+																				"text": "hex\"ff\""
 																			},
 																			{
 																				"id": 2400,
@@ -1495,7 +1519,8 @@
 																						"type_identifier": "t_string_hex_literal",
 																						"type_string": "literal_hex_string hex\"ff\""
 																					}
-																				]
+																				],
+																				"text": "factory"
 																			},
 																			{
 																				"id": 2401,
@@ -1557,7 +1582,8 @@
 																								},
 																								"overloaded_declarations": [],
 																								"referenced_declaration": 2373,
-																								"is_pure": false
+																								"is_pure": false,
+																								"text": "token0"
 																							},
 																							{
 																								"id": 2407,
@@ -1583,7 +1609,8 @@
 																										"type_identifier": "t_address",
 																										"type_string": "address"
 																									}
-																								]
+																								],
+																								"text": "token1"
 																							}
 																						],
 																						"expression": {
@@ -1627,14 +1654,16 @@
 																								},
 																								"overloaded_declarations": [],
 																								"referenced_declaration": 0,
-																								"is_pure": false
+																								"is_pure": false,
+																								"text": "abi"
 																							},
 																							"member_name": "encodePacked",
 																							"argument_types": [],
 																							"type_description": {
 																								"type_identifier": "t_magic_abi",
 																								"type_string": "abi"
-																							}
+																							},
+																							"text": "abi.encodePacked"
 																						},
 																						"type_description": {
 																							"type_identifier": "t_function_$_t_address$_t_address$",
@@ -1660,7 +1689,8 @@
 																					},
 																					"overloaded_declarations": [],
 																					"referenced_declaration": 0,
-																					"is_pure": false
+																					"is_pure": false,
+																					"text": "keccak256"
 																				},
 																				"type_description": {
 																					"type_identifier": "t_function_$_t_function_$_t_address$_t_address$",
@@ -1699,7 +1729,8 @@
 																						"type_identifier": "t_function_$_t_function_$_t_address$_t_address$",
 																						"type_string": "function(function(address,address))"
 																					}
-																				]
+																				],
+																				"text": "pairCodeHash"
 																			}
 																		],
 																		"expression": {
@@ -1743,14 +1774,16 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 0,
-																				"is_pure": false
+																				"is_pure": false,
+																				"text": "abi"
 																			},
 																			"member_name": "encodePacked",
 																			"argument_types": [],
 																			"type_description": {
 																				"type_identifier": "t_magic_abi",
 																				"type_string": "abi"
-																			}
+																			},
+																			"text": "abi.encodePacked"
 																		},
 																		"type_description": {
 																			"type_identifier": "t_function_$_t_string_hex_literal$_t_address$_t_function_$_t_function_$_t_address$_t_address$_t_bytes32$",
@@ -1776,7 +1809,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "keccak256"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_function_$_t_string_hex_literal$_t_address$_t_function_$_t_function_$_t_address$_t_address$_t_bytes32$",
@@ -1826,7 +1860,8 @@
 																	"type_identifier": "t_uint256",
 																	"type_string": "uint256"
 																}
-															]
+															],
+															"text": "uint256"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_function_$_t_function_$_t_string_hex_literal$_t_address$_t_function_$_t_function_$_t_address$_t_address$_t_bytes32$",
@@ -1876,7 +1911,8 @@
 															"type_identifier": "t_uint160",
 															"type_string": "uint160"
 														}
-													]
+													],
+													"text": "uint160"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$_t_string_hex_literal$_t_address$_t_function_$_t_function_$_t_address$_t_address$_t_bytes32$",
@@ -1927,7 +1963,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "address"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$_t_function_$_t_string_hex_literal$_t_address$_t_function_$_t_function_$_t_address$_t_address$_t_bytes32$",
@@ -1942,7 +1979,8 @@
 								"type_description": {
 									"type_identifier": "t_address",
 									"type_string": "address"
-								}
+								},
+								"text": "pair=address(uint160(uint256(keccak256(abi.encodePacked(hex\"ff\",factory,keccak256(abi.encodePacked(token0,token1)),pairCodeHash)))));"
 							}
 						]
 					},
@@ -2203,13 +2241,14 @@
 							}
 						]
 					},
-					"signature_raw": "pairFor(address, address, address, bytes32)",
-					"signature": "fc9bce2a",
+					"signature_raw": "pairFor(address,address,address,bytes32)",
+					"signature": "7855da66",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_bytes32$",
 						"type_string": "function(address,address,address,bytes32)"
-					}
+					},
+					"text": "functionpairFor(addressfactory,addresstokenA,addresstokenB,bytes32pairCodeHash)internalpurereturns(addresspair){(addresstoken0,addresstoken1)=sortTokens(tokenA,tokenB);pair=address(uint160(uint256(keccak256(abi.encodePacked(hex\"ff\",factory,keccak256(abi.encodePacked(token0,token1)),pairCodeHash)))));}"
 				},
 				{
 					"id": 2410,
@@ -2348,7 +2387,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2431,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenA"
 										},
 										{
 											"id": 2432,
@@ -2374,7 +2414,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "tokenB"
 										}
 									],
 									"expression": {
@@ -2395,7 +2436,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "sortTokens"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_address$",
@@ -2613,7 +2655,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2444,
-															"is_pure": false
+															"is_pure": false,
+															"text": "factory"
 														},
 														{
 															"id": 2445,
@@ -2639,7 +2682,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "tokenA"
 														},
 														{
 															"id": 2446,
@@ -2669,7 +2713,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "tokenB"
 														},
 														{
 															"id": 2447,
@@ -2703,7 +2748,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "pairCodeHash"
 														}
 													],
 													"expression": {
@@ -2724,7 +2770,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "pairFor"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_bytes32$",
@@ -2750,7 +2797,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "IUniswapV2Pair"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_address$_t_address$_t_address$_t_bytes32$",
@@ -2762,7 +2810,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_address$_t_address$_t_address$_t_bytes32$",
 											"type_string": "function(function(address,address,address,bytes32))"
-										}
+										},
+										"text": "IUniswapV2Pair(pairFor(factory,tokenA,tokenB,pairCodeHash)).getReserves"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -2825,7 +2874,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2421,
-												"is_pure": false
+												"is_pure": false,
+												"text": "reserveA"
 											},
 											{
 												"id": 2452,
@@ -2845,7 +2895,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2423,
-												"is_pure": false
+												"is_pure": false,
+												"text": "reserveB"
 											}
 										],
 										"type_description": {
@@ -2897,7 +2948,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2456,
-													"is_pure": false
+													"is_pure": false,
+													"text": "tokenA"
 												},
 												"right_expression": {
 													"id": 2457,
@@ -2917,7 +2969,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2426,
-													"is_pure": false
+													"is_pure": false,
+													"text": "token0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -2956,7 +3009,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2433,
-														"is_pure": false
+														"is_pure": false,
+														"text": "reserve0"
 													},
 													{
 														"id": 2460,
@@ -2976,7 +3030,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2433,
-														"is_pure": false
+														"is_pure": false,
+														"text": "reserve1"
 													}
 												],
 												"type_description": {
@@ -3016,7 +3071,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2433,
-														"is_pure": false
+														"is_pure": false,
+														"text": "reserve1"
 													},
 													{
 														"id": 2463,
@@ -3036,7 +3092,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2433,
-														"is_pure": false
+														"is_pure": false,
+														"text": "reserve0"
 													}
 												],
 												"type_description": {
@@ -3069,7 +3126,8 @@
 								"type_description": {
 									"type_identifier": "t_tuple_$_t_uint256_$_t_uint256$",
 									"type_string": "tuple(uint256,uint256)"
-								}
+								},
+								"text": "(reserveA,reserveB)=tokenA==token0?(reserve0,reserve1):(reserve1,reserve0);"
 							}
 						]
 					},
@@ -3372,13 +3430,14 @@
 							}
 						]
 					},
-					"signature_raw": "getReserves(address, address, address, bytes32)",
-					"signature": "4b420a27",
+					"signature_raw": "getReserves(address,address,address,bytes32)",
+					"signature": "20f86dbb",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_bytes32$",
 						"type_string": "function(address,address,address,bytes32)"
-					}
+					},
+					"text": "functiongetReserves(addressfactory,addresstokenA,addresstokenB,bytes32pairCodeHash)internalviewreturns(uint256reserveA,uint256reserveB){(addresstoken0,)=sortTokens(tokenA,tokenB);(uint256reserve0,uint256reserve1,)=IUniswapV2Pair(pairFor(factory,tokenA,tokenB,pairCodeHash)).getReserves();(reserveA,reserveB)=tokenA==token0?(reserve0,reserve1):(reserve1,reserve0);}"
 				},
 				{
 					"id": 2465,
@@ -3470,7 +3529,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2480,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amountA"
 										},
 										"right_expression": {
 											"id": 2481,
@@ -3492,7 +3552,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -3525,7 +3586,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INSUFFICIENT_AMOUNT\""
 									}
 								],
 								"expression": {
@@ -3546,7 +3608,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3620,7 +3683,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2488,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveA"
 												},
 												"right_expression": {
 													"id": 2489,
@@ -3642,7 +3706,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -3681,7 +3746,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2491,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveB"
 												},
 												"right_expression": {
 													"id": 2492,
@@ -3703,7 +3769,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -3748,7 +3815,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\""
 									}
 								],
 								"expression": {
@@ -3769,7 +3837,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3817,7 +3886,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2474,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amountB"
 									},
 									"right_expression": {
 										"id": 2497,
@@ -3870,7 +3940,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2501,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveB"
 												}
 											],
 											"expression": {
@@ -3914,14 +3985,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2500,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amountA"
 												},
 												"member_name": "mul",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "amountA.mul"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_uint256$",
@@ -3946,7 +4019,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2502,
-											"is_pure": false
+											"is_pure": false,
+											"text": "reserveA"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_uint256$",
@@ -3961,7 +4035,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "amountB=amountA.mul(reserveB)/reserveA;"
 							}
 						]
 					},
@@ -4175,13 +4250,14 @@
 							}
 						]
 					},
-					"signature_raw": "quote(uint256, uint256, uint256)",
-					"signature": "1f7722dd",
+					"signature_raw": "quote(uint256,uint256,uint256)",
+					"signature": "ad615dec",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$_t_uint256$_t_uint256$",
 						"type_string": "function(uint256,uint256,uint256)"
-					}
+					},
+					"text": "functionquote(uint256amountA,uint256reserveA,uint256reserveB)internalpurereturns(uint256amountB){require(amountA\u003e0,\"UniswapV2Library: INSUFFICIENT_AMOUNT\");require(reserveA\u003e0\u0026\u0026reserveB\u003e0,\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\");amountB=amountA.mul(reserveB)/reserveA;}"
 				},
 				{
 					"id": 2504,
@@ -4273,7 +4349,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2519,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amountIn"
 										},
 										"right_expression": {
 											"id": 2520,
@@ -4295,7 +4372,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -4328,7 +4406,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT\""
 									}
 								],
 								"expression": {
@@ -4349,7 +4428,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -4423,7 +4503,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2527,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveIn"
 												},
 												"right_expression": {
 													"id": 2528,
@@ -4445,7 +4526,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -4484,7 +4566,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2530,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveOut"
 												},
 												"right_expression": {
 													"id": 2531,
@@ -4506,7 +4589,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -4551,7 +4635,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\""
 									}
 								],
 								"expression": {
@@ -4572,7 +4657,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -4678,7 +4764,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "997"
 										}
 									],
 									"expression": {
@@ -4722,14 +4809,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2538,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amountIn"
 										},
 										"member_name": "mul",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "amountIn.mul"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_rational_997_by_1$",
@@ -4834,7 +4923,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2546,
-											"is_pure": false
+											"is_pure": false,
+											"text": "reserveOut"
 										}
 									],
 									"expression": {
@@ -4878,14 +4968,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2533,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amountInWithFee"
 										},
 										"member_name": "mul",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "amountInWithFee.mul"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_uint256$",
@@ -4990,7 +5082,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2533,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amountInWithFee"
 										}
 									],
 									"expression": {
@@ -5055,7 +5148,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "1000"
 												}
 											],
 											"expression": {
@@ -5099,14 +5193,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2554,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveIn"
 												},
 												"member_name": "mul",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "reserveIn.mul"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_1000_by_1$",
@@ -5118,7 +5214,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_rational_1000_by_1$",
 											"type_string": "function(int_const 1000)"
-										}
+										},
+										"text": "reserveIn.mul(1000).add"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_uint256$",
@@ -5167,7 +5264,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 646,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amountOut"
 									},
 									"right_expression": {
 										"id": 2560,
@@ -5201,7 +5299,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2540,
-											"is_pure": false
+											"is_pure": false,
+											"text": "numerator"
 										},
 										"right_expression": {
 											"id": 2562,
@@ -5221,7 +5320,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2547,
-											"is_pure": false
+											"is_pure": false,
+											"text": "denominator"
 										},
 										"type_description": {
 											"type_identifier": "t_uint256",
@@ -5236,7 +5336,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "amountOut=numerator/denominator;"
 							}
 						]
 					},
@@ -5450,13 +5551,14 @@
 							}
 						]
 					},
-					"signature_raw": "getAmountOut(uint256, uint256, uint256)",
-					"signature": "6cae4d22",
+					"signature_raw": "getAmountOut(uint256,uint256,uint256)",
+					"signature": "054d50d4",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$_t_uint256$_t_uint256$",
 						"type_string": "function(uint256,uint256,uint256)"
-					}
+					},
+					"text": "functiongetAmountOut(uint256amountIn,uint256reserveIn,uint256reserveOut)internalpurereturns(uint256amountOut){require(amountIn\u003e0,\"UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT\");require(reserveIn\u003e0\u0026\u0026reserveOut\u003e0,\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\");uint256amountInWithFee=amountIn.mul(997);uint256numerator=amountInWithFee.mul(reserveOut);uint256denominator=reserveIn.mul(1000).add(amountInWithFee);amountOut=numerator/denominator;}"
 				},
 				{
 					"id": 2564,
@@ -5548,7 +5650,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2579,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amountOut"
 										},
 										"right_expression": {
 											"id": 2580,
@@ -5570,7 +5673,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -5603,7 +5707,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INSUFFICIENT_OUTPUT_AMOUNT\""
 									}
 								],
 								"expression": {
@@ -5624,7 +5729,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -5698,7 +5804,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2587,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveIn"
 												},
 												"right_expression": {
 													"id": 2588,
@@ -5720,7 +5827,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -5759,7 +5867,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2590,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveOut"
 												},
 												"right_expression": {
 													"id": 2591,
@@ -5781,7 +5890,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -5826,7 +5936,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\""
 									}
 								],
 								"expression": {
@@ -5847,7 +5958,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -5953,7 +6065,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "1000"
 										}
 									],
 									"expression": {
@@ -6016,7 +6129,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2601,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amountOut"
 												}
 											],
 											"expression": {
@@ -6060,14 +6174,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2600,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveIn"
 												},
 												"member_name": "mul",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "reserveIn.mul"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_uint256$",
@@ -6079,7 +6195,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_uint256$",
 											"type_string": "function(uint256)"
-										}
+										},
+										"text": "reserveIn.mul(amountOut).mul"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_rational_1000_by_1$",
@@ -6186,7 +6303,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "997"
 										}
 									],
 									"expression": {
@@ -6249,7 +6367,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2611,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amountOut"
 												}
 											],
 											"expression": {
@@ -6293,14 +6412,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2610,
-													"is_pure": false
+													"is_pure": false,
+													"text": "reserveOut"
 												},
 												"member_name": "sub",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "reserveOut.sub"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_uint256$",
@@ -6312,7 +6433,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_uint256$",
 											"type_string": "function(uint256)"
-										}
+										},
+										"text": "reserveOut.sub(amountOut).mul"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_rational_997_by_1$",
@@ -6361,7 +6483,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1363,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amountIn"
 									},
 									"right_expression": {
 										"id": 2616,
@@ -6402,7 +6525,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "1"
 											}
 										],
 										"expression": {
@@ -6474,7 +6598,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2593,
-															"is_pure": false
+															"is_pure": false,
+															"text": "numerator"
 														},
 														"right_expression": {
 															"id": 2621,
@@ -6494,7 +6619,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2603,
-															"is_pure": false
+															"is_pure": false,
+															"text": "denominator"
 														},
 														"type_description": {
 															"type_identifier": "t_uint256",
@@ -6512,7 +6638,8 @@
 											"type_description": {
 												"type_identifier": "t_tuple_$_t_uint256$",
 												"type_string": "tuple(uint256)"
-											}
+											},
+											"text": "(numerator/denominator).add"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_rational_1_by_1$",
@@ -6527,7 +6654,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "amountIn=(numerator/denominator).add(1);"
 							}
 						]
 					},
@@ -6741,13 +6869,14 @@
 							}
 						]
 					},
-					"signature_raw": "getAmountIn(uint256, uint256, uint256)",
-					"signature": "d7a891de",
+					"signature_raw": "getAmountIn(uint256,uint256,uint256)",
+					"signature": "85f8c259",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$_t_uint256$_t_uint256$",
 						"type_string": "function(uint256,uint256,uint256)"
-					}
+					},
+					"text": "functiongetAmountIn(uint256amountOut,uint256reserveIn,uint256reserveOut)internalpurereturns(uint256amountIn){require(amountOut\u003e0,\"UniswapV2Library: INSUFFICIENT_OUTPUT_AMOUNT\");require(reserveIn\u003e0\u0026\u0026reserveOut\u003e0,\"UniswapV2Library: INSUFFICIENT_LIQUIDITY\");uint256numerator=reserveIn.mul(amountOut).mul(1000);uint256denominator=reserveOut.sub(amountOut).mul(997);amountIn=(numerator/denominator).add(1);}"
 				},
 				{
 					"id": 2624,
@@ -6862,14 +6991,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2642,
-												"is_pure": false
+												"is_pure": false,
+												"text": "path"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "path.length"
 										},
 										"right_expression": {
 											"id": 2643,
@@ -6891,7 +7022,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "2"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -6924,7 +7056,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INVALID_PATH\""
 									}
 								],
 								"expression": {
@@ -6945,7 +7078,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -6993,7 +7127,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2635,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amounts"
 									},
 									"right_expression": {
 										"id": 2648,
@@ -7055,14 +7190,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2652,
-													"is_pure": false
+													"is_pure": false,
+													"text": "path"
 												},
 												"member_name": "length",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "path.length"
 											}
 										],
 										"expression": {
@@ -7113,7 +7250,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "amounts=newuint256[](path.length);"
 							},
 							{
 								"id": 2653,
@@ -7167,7 +7305,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2635,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amounts"
 										},
 										"base_expression": {
 											"id": 2657,
@@ -7189,7 +7328,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_descriptions": [
 											{
@@ -7224,7 +7364,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2658,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amountIn"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_uint256]$_t_rational_0_by_1]$",
@@ -7234,7 +7375,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_uint256]$_t_rational_0_by_1]$",
 									"type_string": "index[uint256:int_const 0]"
-								}
+								},
+								"text": "amounts[0]=amountIn;"
 							},
 							{
 								"id": 2659,
@@ -7340,7 +7482,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2660,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"right_expression": {
 										"id": 2665,
@@ -7397,14 +7540,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2667,
-												"is_pure": false
+												"is_pure": false,
+												"text": "path"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "path.length"
 										},
 										"right_expression": {
 											"id": 2668,
@@ -7426,7 +7571,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "1"
 										},
 										"type_description": {
 											"type_identifier": "t_address",
@@ -7469,7 +7615,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2660,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -7649,7 +7796,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "factory"
 													},
 													{
 														"id": 2680,
@@ -7680,7 +7828,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2630,
-															"is_pure": false
+															"is_pure": false,
+															"text": "path"
 														},
 														"base_expression": {
 															"id": 2682,
@@ -7700,7 +7849,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2660,
-															"is_pure": false
+															"is_pure": false,
+															"text": "i"
 														},
 														"type_descriptions": [
 															{
@@ -7746,7 +7896,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2630,
-															"is_pure": false
+															"is_pure": false,
+															"text": "path"
 														},
 														"base_expression": {
 															"id": 2685,
@@ -7780,7 +7931,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2660,
-																"is_pure": false
+																"is_pure": false,
+																"text": "i"
 															},
 															"right_expression": {
 																"id": 2687,
@@ -7802,7 +7954,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "1"
 															},
 															"type_description": {
 																"type_identifier": "t_uint256",
@@ -7856,7 +8009,8 @@
 																"type_identifier": "t_[_[$_t_address]$_t_uint256]$",
 																"type_string": "index[address:uint256]"
 															}
-														]
+														],
+														"text": "pairCodeHash"
 													}
 												],
 												"expression": {
@@ -7877,7 +8031,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "getReserves"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$_t_[_[$_t_address]$_t_uint256]$_t_[_[$_t_address]$_t_uint256]$_t_function_$_t_function_$_t_[_[$_t_address]$_t_uint256]$_t_[_[$_t_address]$_t_uint256]$",
@@ -7937,7 +8092,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2635,
-														"is_pure": false
+														"is_pure": false,
+														"text": "amounts"
 													},
 													"base_expression": {
 														"id": 2693,
@@ -7971,7 +8127,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2660,
-															"is_pure": false
+															"is_pure": false,
+															"text": "i"
 														},
 														"right_expression": {
 															"id": 2695,
@@ -7993,7 +8150,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "1"
 														},
 														"type_description": {
 															"type_identifier": "t_uint256",
@@ -8071,7 +8229,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2635,
-																"is_pure": false
+																"is_pure": false,
+																"text": "amounts"
 															},
 															"base_expression": {
 																"id": 2700,
@@ -8091,7 +8250,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2660,
-																"is_pure": false
+																"is_pure": false,
+																"text": "i"
 															},
 															"type_descriptions": [
 																{
@@ -8132,7 +8292,8 @@
 																	"type_identifier": "t_[_[$_t_uint256]$_t_uint256]$",
 																	"type_string": "index[uint256:uint256]"
 																}
-															]
+															],
+															"text": "reserveIn"
 														},
 														{
 															"id": 2702,
@@ -8162,7 +8323,8 @@
 																	"type_identifier": "t_uint256",
 																	"type_string": "uint256"
 																}
-															]
+															],
+															"text": "reserveOut"
 														}
 													],
 													"expression": {
@@ -8183,7 +8345,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "getAmountOut"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_[_[$_t_uint256]$_t_uint256]$_t_uint256$_t_uint256$",
@@ -8198,7 +8361,8 @@
 											"type_description": {
 												"type_identifier": "t_[_[$_t_uint256]$_t_uint256]$",
 												"type_string": "index[uint256:uint256]"
-											}
+											},
+											"text": "amounts[i+1]=getAmountOut(amounts[i],reserveIn,reserveOut);"
 										}
 									]
 								}
@@ -8459,13 +8623,14 @@
 							}
 						]
 					},
-					"signature_raw": "getAmountsOut(address, uint256, address, bytes32)",
-					"signature": "ce79344e",
+					"signature_raw": "getAmountsOut(address,uint256,address,bytes32)",
+					"signature": "3f0b56bd",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$_t_address$_t_bytes32$",
 						"type_string": "function(address,uint256,address,bytes32)"
-					}
+					},
+					"text": "functiongetAmountsOut(addressfactory,uint256amountIn,address[]memorypath,bytes32pairCodeHash)internalviewreturns(uint256[]memoryamounts){require(path.length\u003e=2,\"UniswapV2Library: INVALID_PATH\");amounts=newuint256[](path.length);amounts[0]=amountIn;for(uint256i;i\u003cpath.length-1;i++){(uint256reserveIn,uint256reserveOut)=getReserves(factory,path[i],path[i+1],pairCodeHash);amounts[i+1]=getAmountOut(amounts[i],reserveIn,reserveOut);}}"
 				},
 				{
 					"id": 2704,
@@ -8580,14 +8745,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2722,
-												"is_pure": false
+												"is_pure": false,
+												"text": "path"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "path.length"
 										},
 										"right_expression": {
 											"id": 2723,
@@ -8609,7 +8776,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "2"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -8642,7 +8810,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"UniswapV2Library: INVALID_PATH\""
 									}
 								],
 								"expression": {
@@ -8663,7 +8832,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -8711,7 +8881,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2635,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amounts"
 									},
 									"right_expression": {
 										"id": 2728,
@@ -8773,14 +8944,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2732,
-													"is_pure": false
+													"is_pure": false,
+													"text": "path"
 												},
 												"member_name": "length",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "path.length"
 											}
 										],
 										"expression": {
@@ -8831,7 +9004,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "amounts=newuint256[](path.length);"
 							},
 							{
 								"id": 2733,
@@ -8885,7 +9059,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2635,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amounts"
 										},
 										"base_expression": {
 											"id": 2737,
@@ -8942,14 +9117,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 2635,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amounts"
 												},
 												"member_name": "length",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "amounts.length"
 											},
 											"right_expression": {
 												"id": 2740,
@@ -8971,7 +9148,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "1"
 											},
 											"type_description": {
 												"type_identifier": "t_uint256",
@@ -9011,7 +9189,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2741,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amountOut"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_uint256]$_t_uint256]$",
@@ -9021,7 +9200,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_uint256]$_t_uint256]$",
 									"type_string": "index[uint256:uint256]"
-								}
+								},
+								"text": "amounts[amounts.length-1]=amountOut;"
 							},
 							{
 								"id": 2742,
@@ -9149,14 +9329,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2748,
-												"is_pure": false
+												"is_pure": false,
+												"text": "path"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "path.length"
 										},
 										"right_expression": {
 											"id": 2749,
@@ -9178,7 +9360,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "1"
 										},
 										"type_description": {
 											"type_identifier": "t_address",
@@ -9218,7 +9401,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2660,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"right_expression": {
 										"id": 2752,
@@ -9240,7 +9424,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -9278,7 +9463,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2660,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -9458,7 +9644,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "factory"
 													},
 													{
 														"id": 2764,
@@ -9489,7 +9676,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2630,
-															"is_pure": false
+															"is_pure": false,
+															"text": "path"
 														},
 														"base_expression": {
 															"id": 2766,
@@ -9523,7 +9711,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2660,
-																"is_pure": false
+																"is_pure": false,
+																"text": "i"
 															},
 															"right_expression": {
 																"id": 2768,
@@ -9545,7 +9734,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "1"
 															},
 															"type_description": {
 																"type_identifier": "t_uint256",
@@ -9596,7 +9786,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2630,
-															"is_pure": false
+															"is_pure": false,
+															"text": "path"
 														},
 														"base_expression": {
 															"id": 2771,
@@ -9616,7 +9807,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2660,
-															"is_pure": false
+															"is_pure": false,
+															"text": "i"
 														},
 														"type_descriptions": [
 															{
@@ -9665,7 +9857,8 @@
 																"type_identifier": "t_[_[$_t_address]$_t_uint256]$",
 																"type_string": "index[address:uint256]"
 															}
-														]
+														],
+														"text": "pairCodeHash"
 													}
 												],
 												"expression": {
@@ -9686,7 +9879,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "getReserves"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$_t_[_[$_t_address]$_t_uint256]$_t_[_[$_t_address]$_t_uint256]$_t_function_$_t_function_$_t_[_[$_t_address]$_t_uint256]$_t_[_[$_t_address]$_t_uint256]$",
@@ -9746,7 +9940,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 2635,
-														"is_pure": false
+														"is_pure": false,
+														"text": "amounts"
 													},
 													"base_expression": {
 														"id": 2777,
@@ -9780,7 +9975,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 2660,
-															"is_pure": false
+															"is_pure": false,
+															"text": "i"
 														},
 														"right_expression": {
 															"id": 2779,
@@ -9802,7 +9998,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "1"
 														},
 														"type_description": {
 															"type_identifier": "t_uint256",
@@ -9880,7 +10077,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2635,
-																"is_pure": false
+																"is_pure": false,
+																"text": "amounts"
 															},
 															"base_expression": {
 																"id": 2784,
@@ -9900,7 +10098,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2660,
-																"is_pure": false
+																"is_pure": false,
+																"text": "i"
 															},
 															"type_descriptions": [
 																{
@@ -9941,7 +10140,8 @@
 																	"type_identifier": "t_[_[$_t_uint256]$_t_uint256]$",
 																	"type_string": "index[uint256:uint256]"
 																}
-															]
+															],
+															"text": "reserveIn"
 														},
 														{
 															"id": 2786,
@@ -9971,7 +10171,8 @@
 																	"type_identifier": "t_uint256",
 																	"type_string": "uint256"
 																}
-															]
+															],
+															"text": "reserveOut"
 														}
 													],
 													"expression": {
@@ -9992,7 +10193,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "getAmountIn"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_[_[$_t_uint256]$_t_uint256]$_t_uint256$_t_uint256$",
@@ -10007,7 +10209,8 @@
 											"type_description": {
 												"type_identifier": "t_[_[$_t_uint256]$_t_uint256]$",
 												"type_string": "index[uint256:uint256]"
-											}
+											},
+											"text": "amounts[i-1]=getAmountIn(amounts[i],reserveIn,reserveOut);"
 										}
 									]
 								}
@@ -10268,13 +10471,14 @@
 							}
 						]
 					},
-					"signature_raw": "getAmountsIn(address, uint256, address, bytes32)",
-					"signature": "9c6b5824",
+					"signature_raw": "getAmountsIn(address,uint256,address,bytes32)",
+					"signature": "6ba120d4",
 					"scope": 2309,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$_t_address$_t_bytes32$",
 						"type_string": "function(address,uint256,address,bytes32)"
-					}
+					},
+					"text": "functiongetAmountsIn(addressfactory,uint256amountOut,address[]memorypath,bytes32pairCodeHash)internalviewreturns(uint256[]memoryamounts){require(path.length\u003e=2,\"UniswapV2Library: INVALID_PATH\");amounts=newuint256[](path.length);amounts[amounts.length-1]=amountOut;for(uint256i=path.length-1;i\u003e0;i--){(uint256reserveIn,uint256reserveOut)=getReserves(factory,path[i-1],path[i],pairCodeHash);amounts[i-1]=getAmountIn(amounts[i],reserveIn,reserveOut);}}"
 				}
 			],
 			"linearized_base_contracts": [

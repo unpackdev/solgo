@@ -140,7 +140,7 @@
 							"name": "_indexes",
 							"type_name": {
 								"id": 438,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 254,
 									"column": 8,
@@ -323,7 +323,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 457,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											{
 												"id": 458,
@@ -349,7 +350,8 @@
 														"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 														"type_string": "struct EnumerableSet.Set"
 													}
-												]
+												],
+												"text": "value"
 											}
 										],
 										"expression": {
@@ -370,7 +372,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_contains"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$_t_bytes32$",
@@ -433,7 +436,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 464,
-													"is_pure": false
+													"is_pure": false,
+													"text": "value"
 												}
 											],
 											"expression": {
@@ -500,21 +504,24 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 463,
-														"is_pure": false
+														"is_pure": false,
+														"text": "set"
 													},
 													"member_name": "_values",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 														"type_string": "struct EnumerableSet.Set"
-													}
+													},
+													"text": "set._values"
 												},
 												"member_name": "push",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 													"type_string": "struct EnumerableSet.Set"
-												}
+												},
+												"text": "set._values.push"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_bytes32$",
@@ -596,14 +603,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 469,
-															"is_pure": false
+															"is_pure": false,
+															"text": "set"
 														},
 														"member_name": "_indexes",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 															"type_string": "struct EnumerableSet.Set"
-														}
+														},
+														"text": "set._indexes"
 													},
 													"base_expression": {
 														"id": 470,
@@ -623,7 +632,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 470,
-														"is_pure": false
+														"is_pure": false,
+														"text": "value"
 													},
 													"type_descriptions": [
 														{
@@ -704,21 +714,24 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 473,
-															"is_pure": false
+															"is_pure": false,
+															"text": "set"
 														},
 														"member_name": "_values",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 															"type_string": "struct EnumerableSet.Set"
-														}
+														},
+														"text": "set._values"
 													},
 													"member_name": "length",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 														"type_string": "struct EnumerableSet.Set"
-													}
+													},
+													"text": "set._values.length"
 												},
 												"type_description": {
 													"type_identifier": "t_[_[$_t_struct$_EnumerableSet_Set_$434]$_t_bytes32]$",
@@ -728,7 +741,8 @@
 											"type_description": {
 												"type_identifier": "t_[_[$_t_struct$_EnumerableSet_Set_$434]$_t_bytes32]$",
 												"type_string": "index[struct EnumerableSet.Set:bytes32]"
-											}
+											},
+											"text": "set._indexes[value]=set._values.length;"
 										},
 										{
 											"id": 474,
@@ -762,7 +776,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "true"
 											}
 										}
 									]
@@ -958,13 +973,14 @@
 							}
 						]
 					},
-					"signature_raw": "_add(, bytes32)",
-					"signature": "91169624",
+					"signature_raw": "_add(,bytes32)",
+					"signature": "0eb78afe",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$_t_bytes32$",
 						"type_string": "function(struct EnumerableSet.Set,bytes32)"
-					}
+					},
+					"text": "function_add(Setstorageset,bytes32value)privatereturns(bool){if(!_contains(set,value)){set._values.push(value);set._indexes[value]=set._values.length;returntrue;}else{returnfalse;}}"
 				},
 				{
 					"id": 477,
@@ -1113,14 +1129,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 493,
-											"is_pure": false
+											"is_pure": false,
+											"text": "set"
 										},
 										"member_name": "_indexes",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 											"type_string": "struct EnumerableSet.Set"
-										}
+										},
+										"text": "set._indexes"
 									},
 									"base_expression": {
 										"id": 494,
@@ -1140,7 +1158,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 494,
-										"is_pure": false
+										"is_pure": false,
+										"text": "value"
 									},
 									"type_descriptions": [
 										{
@@ -1201,7 +1220,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 488,
-										"is_pure": false
+										"is_pure": false,
+										"text": "valueIndex"
 									},
 									"right_expression": {
 										"id": 498,
@@ -1223,7 +1243,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -1336,7 +1357,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 488,
-													"is_pure": false
+													"is_pure": false,
+													"text": "valueIndex"
 												},
 												"right_expression": {
 													"id": 505,
@@ -1358,7 +1380,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "1"
 												},
 												"type_description": {
 													"type_identifier": "t_uint256",
@@ -1504,21 +1527,24 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 512,
-															"is_pure": false
+															"is_pure": false,
+															"text": "set"
 														},
 														"member_name": "_values",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 															"type_string": "struct EnumerableSet.Set"
-														}
+														},
+														"text": "set._values"
 													},
 													"member_name": "length",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 														"type_string": "struct EnumerableSet.Set"
-													}
+													},
+													"text": "set._values.length"
 												},
 												"right_expression": {
 													"id": 513,
@@ -1540,7 +1566,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "1"
 												},
 												"type_description": {
 													"type_identifier": "t_struct$_EnumerableSet_Set_$434",
@@ -1591,7 +1618,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 506,
-													"is_pure": false
+													"is_pure": false,
+													"text": "lastIndex"
 												},
 												"right_expression": {
 													"id": 517,
@@ -1611,7 +1639,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 500,
-													"is_pure": false
+													"is_pure": false,
+													"text": "toDeleteIndex"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -1744,14 +1773,16 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 524,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "set"
 																},
 																"member_name": "_values",
 																"argument_types": [],
 																"type_description": {
 																	"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 																	"type_string": "struct EnumerableSet.Set"
-																}
+																},
+																"text": "set._values"
 															},
 															"base_expression": {
 																"id": 525,
@@ -1771,7 +1802,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 506,
-																"is_pure": false
+																"is_pure": false,
+																"text": "lastIndex"
 															},
 															"type_descriptions": [
 																{
@@ -1864,14 +1896,16 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 530,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "set"
 																	},
 																	"member_name": "_values",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 																		"type_string": "struct EnumerableSet.Set"
-																	}
+																	},
+																	"text": "set._values"
 																},
 																"base_expression": {
 																	"id": 531,
@@ -1891,7 +1925,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 500,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "toDeleteIndex"
 																},
 																"type_descriptions": [
 																	{
@@ -1926,7 +1961,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 519,
-																"is_pure": false
+																"is_pure": false,
+																"text": "lastValue"
 															},
 															"type_description": {
 																"type_identifier": "t_[_[$_t_struct$_EnumerableSet_Set_$434]$_t_uint256]$",
@@ -1936,7 +1972,8 @@
 														"type_description": {
 															"type_identifier": "t_[_[$_t_struct$_EnumerableSet_Set_$434]$_t_uint256]$",
 															"type_string": "index[struct EnumerableSet.Set:uint256]"
-														}
+														},
+														"text": "set._values[toDeleteIndex]=lastValue;"
 													},
 													{
 														"id": 533,
@@ -2013,14 +2050,16 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 537,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "set"
 																	},
 																	"member_name": "_indexes",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 																		"type_string": "struct EnumerableSet.Set"
-																	}
+																	},
+																	"text": "set._indexes"
 																},
 																"base_expression": {
 																	"id": 538,
@@ -2040,7 +2079,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 519,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "lastValue"
 																},
 																"type_descriptions": [
 																	{
@@ -2075,7 +2115,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 488,
-																"is_pure": false
+																"is_pure": false,
+																"text": "valueIndex"
 															},
 															"type_description": {
 																"type_identifier": "t_[_[$_t_struct$_EnumerableSet_Set_$434]$_t_bytes32]$",
@@ -2085,7 +2126,8 @@
 														"type_description": {
 															"type_identifier": "t_[_[$_t_struct$_EnumerableSet_Set_$434]$_t_bytes32]$",
 															"type_string": "index[struct EnumerableSet.Set:bytes32]"
-														}
+														},
+														"text": "set._indexes[lastValue]=valueIndex;"
 													}
 												]
 											}
@@ -2168,21 +2210,24 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 543,
-														"is_pure": false
+														"is_pure": false,
+														"text": "set"
 													},
 													"member_name": "_values",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 														"type_string": "struct EnumerableSet.Set"
-													}
+													},
+													"text": "set._values"
 												},
 												"member_name": "pop",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 													"type_string": "struct EnumerableSet.Set"
-												}
+												},
+												"text": "set._values.pop"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -2259,14 +2304,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 547,
-														"is_pure": false
+														"is_pure": false,
+														"text": "set"
 													},
 													"member_name": "_indexes",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 														"type_string": "struct EnumerableSet.Set"
-													}
+													},
+													"text": "set._indexes"
 												},
 												"base_expression": {
 													"id": 548,
@@ -2286,7 +2333,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 548,
-													"is_pure": false
+													"is_pure": false,
+													"text": "value"
 												},
 												"type_descriptions": [
 													{
@@ -2340,7 +2388,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "true"
 											}
 										}
 									]
@@ -2536,13 +2585,14 @@
 							}
 						]
 					},
-					"signature_raw": "_remove(, bytes32)",
-					"signature": "bedb339a",
+					"signature_raw": "_remove(,bytes32)",
+					"signature": "c133ba09",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$_t_bytes32$",
 						"type_string": "function(struct EnumerableSet.Set,bytes32)"
-					}
+					},
+					"text": "function_remove(Setstorageset,bytes32value)privatereturns(bool){uint256valueIndex=set._indexes[value];if(valueIndex!=0){uint256toDeleteIndex=valueIndex-1;uint256lastIndex=set._values.length-1;if(lastIndex!=toDeleteIndex){bytes32lastValue=set._values[lastIndex];set._values[toDeleteIndex]=lastValue;set._indexes[lastValue]=valueIndex;}set._values.pop();deleteset._indexes[value];returntrue;}else{returnfalse;}}"
 				},
 				{
 					"id": 552,
@@ -2657,14 +2707,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 567,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_indexes",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 												"type_string": "struct EnumerableSet.Set"
-											}
+											},
+											"text": "set._indexes"
 										},
 										"base_expression": {
 											"id": 568,
@@ -2684,7 +2736,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 568,
-											"is_pure": false
+											"is_pure": false,
+											"text": "value"
 										},
 										"type_descriptions": [
 											{
@@ -2721,7 +2774,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -2919,13 +2973,14 @@
 							}
 						]
 					},
-					"signature_raw": "_contains(, bytes32)",
-					"signature": "8b8fe893",
+					"signature_raw": "_contains(,bytes32)",
+					"signature": "a7cd3d5b",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$_t_bytes32$",
 						"type_string": "function(struct EnumerableSet.Set,bytes32)"
-					}
+					},
+					"text": "function_contains(Setstorageset,bytes32value)privateviewreturns(bool){returnset._indexes[value]!=0;}"
 				},
 				{
 					"id": 571,
@@ -3038,21 +3093,24 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 583,
-											"is_pure": false
+											"is_pure": false,
+											"text": "set"
 										},
 										"member_name": "_values",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 											"type_string": "struct EnumerableSet.Set"
-										}
+										},
+										"text": "set._values"
 									},
 									"member_name": "length",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 										"type_string": "struct EnumerableSet.Set"
-									}
+									},
+									"text": "set._values.length"
 								}
 							}
 						]
@@ -3208,7 +3266,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$",
 						"type_string": "function(struct EnumerableSet.Set)"
-					}
+					},
+					"text": "function_length(Setstorageset)privateviewreturns(uint256){returnset._values.length;}"
 				},
 				{
 					"id": 585,
@@ -3309,14 +3368,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 599,
-											"is_pure": false
+											"is_pure": false,
+											"text": "set"
 										},
 										"member_name": "_values",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 											"type_string": "struct EnumerableSet.Set"
-										}
+										},
+										"text": "set._values"
 									},
 									"base_expression": {
 										"id": 600,
@@ -3336,7 +3397,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 600,
-										"is_pure": false
+										"is_pure": false,
+										"text": "index"
 									},
 									"type_descriptions": [
 										{
@@ -3544,13 +3606,14 @@
 							}
 						]
 					},
-					"signature_raw": "_at(, uint256)",
-					"signature": "9ca0f474",
+					"signature_raw": "_at(,uint256)",
+					"signature": "0292ee33",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.Set,uint256)"
-					}
+					},
+					"text": "function_at(Setstorageset,uint256index)privateviewreturns(bytes32){returnset._values[index];}"
 				},
 				{
 					"id": 602,
@@ -3640,14 +3703,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 613,
-										"is_pure": false
+										"is_pure": false,
+										"text": "set"
 									},
 									"member_name": "_values",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_struct$_EnumerableSet_Set_$434",
 										"type_string": "struct EnumerableSet.Set"
-									}
+									},
+									"text": "set._values"
 								}
 							}
 						]
@@ -3803,7 +3868,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Set_$434$",
 						"type_string": "function(struct EnumerableSet.Set)"
-					}
+					},
+					"text": "function_values(Setstorageset)privateviewreturns(bytes32[]memory){returnset._values;}"
 				},
 				{
 					"id": 615,
@@ -4005,14 +4071,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 635,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 												"type_string": "struct EnumerableSet.Bytes32Set"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 636,
@@ -4038,7 +4106,8 @@
 													"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 													"type_string": "struct EnumerableSet.Bytes32Set"
 												}
-											]
+											],
+											"text": "value"
 										}
 									],
 									"expression": {
@@ -4059,7 +4128,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_add"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_bytes32$",
@@ -4257,13 +4327,14 @@
 							}
 						]
 					},
-					"signature_raw": "add(, bytes32)",
-					"signature": "c5158694",
+					"signature_raw": "add(,bytes32)",
+					"signature": "110e4e23",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_bytes32$",
 						"type_string": "function(struct EnumerableSet.Bytes32Set,bytes32)"
-					}
+					},
+					"text": "functionadd(Bytes32Setstorageset,bytes32value)internalreturns(bool){return_add(set._inner,value);}"
 				},
 				{
 					"id": 638,
@@ -4376,14 +4447,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 653,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 												"type_string": "struct EnumerableSet.Bytes32Set"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 654,
@@ -4409,7 +4482,8 @@
 													"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 													"type_string": "struct EnumerableSet.Bytes32Set"
 												}
-											]
+											],
+											"text": "value"
 										}
 									],
 									"expression": {
@@ -4430,7 +4504,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_remove"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_bytes32$",
@@ -4628,13 +4703,14 @@
 							}
 						]
 					},
-					"signature_raw": "remove(, bytes32)",
-					"signature": "de0a80cb",
+					"signature_raw": "remove(,bytes32)",
+					"signature": "276c052f",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_bytes32$",
 						"type_string": "function(struct EnumerableSet.Bytes32Set,bytes32)"
-					}
+					},
+					"text": "functionremove(Bytes32Setstorageset,bytes32value)internalreturns(bool){return_remove(set._inner,value);}"
 				},
 				{
 					"id": 656,
@@ -4747,14 +4823,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 671,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 												"type_string": "struct EnumerableSet.Bytes32Set"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 672,
@@ -4780,7 +4858,8 @@
 													"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 													"type_string": "struct EnumerableSet.Bytes32Set"
 												}
-											]
+											],
+											"text": "value"
 										}
 									],
 									"expression": {
@@ -4801,7 +4880,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_contains"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_bytes32$",
@@ -4999,13 +5079,14 @@
 							}
 						]
 					},
-					"signature_raw": "contains(, bytes32)",
-					"signature": "69ed6acb",
+					"signature_raw": "contains(,bytes32)",
+					"signature": "7bda12ec",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_bytes32$",
 						"type_string": "function(struct EnumerableSet.Bytes32Set,bytes32)"
-					}
+					},
+					"text": "functioncontains(Bytes32Setstorageset,bytes32value)internalviewreturns(bool){return_contains(set._inner,value);}"
 				},
 				{
 					"id": 674,
@@ -5114,14 +5195,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 687,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 												"type_string": "struct EnumerableSet.Bytes32Set"
-											}
+											},
+											"text": "set._inner"
 										}
 									],
 									"expression": {
@@ -5142,7 +5225,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_length"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$",
@@ -5303,7 +5387,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$",
 						"type_string": "function(struct EnumerableSet.Bytes32Set)"
-					}
+					},
+					"text": "functionlength(Bytes32Setstorageset)internalviewreturns(uint256){return_length(set._inner);}"
 				},
 				{
 					"id": 689,
@@ -5416,14 +5501,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 704,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 												"type_string": "struct EnumerableSet.Bytes32Set"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 705,
@@ -5449,7 +5536,8 @@
 													"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 													"type_string": "struct EnumerableSet.Bytes32Set"
 												}
-											]
+											],
+											"text": "index"
 										}
 									],
 									"expression": {
@@ -5470,7 +5558,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_at"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_uint256$",
@@ -5668,13 +5757,14 @@
 							}
 						]
 					},
-					"signature_raw": "at(, uint256)",
-					"signature": "38ffe300",
+					"signature_raw": "at(,uint256)",
+					"signature": "702d5637",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.Bytes32Set,uint256)"
-					}
+					},
+					"text": "functionat(Bytes32Setstorageset,uint256index)internalviewreturns(bytes32){return_at(set._inner,index);}"
 				},
 				{
 					"id": 707,
@@ -5831,14 +5921,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 722,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_Bytes32Set_$615",
 												"type_string": "struct EnumerableSet.Bytes32Set"
-											}
+											},
+											"text": "set._inner"
 										}
 									],
 									"expression": {
@@ -5859,7 +5951,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_values"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$",
@@ -6040,7 +6133,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 723,
-									"is_pure": false
+									"is_pure": false,
+									"text": "result"
 								}
 							}
 						]
@@ -6196,7 +6290,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_Bytes32Set_$615$",
 						"type_string": "function(struct EnumerableSet.Bytes32Set)"
-					}
+					},
+					"text": "functionvalues(Bytes32Setstorageset)internalviewreturns(bytes32[]memory){bytes32[]memorystore=_values(set._inner);bytes32[]memoryresult;assembly{result:=store}returnresult;}"
 				},
 				{
 					"id": 735,
@@ -6398,14 +6493,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 755,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 												"type_string": "struct EnumerableSet.AddressSet"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 756,
@@ -6482,7 +6579,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 765,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "value"
 																}
 															],
 															"expression": {
@@ -6527,7 +6625,8 @@
 																		"type_identifier": "t_uint160",
 																		"type_string": "uint160"
 																	}
-																]
+																],
+																"text": "uint160"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_address$",
@@ -6577,7 +6676,8 @@
 																"type_identifier": "t_uint256",
 																"type_string": "uint256"
 															}
-														]
+														],
+														"text": "uint256"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_address$",
@@ -6627,7 +6727,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function_$_t_address$",
@@ -6653,7 +6754,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_add"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_function_$_t_function_$_t_function_$_t_address$",
@@ -6852,13 +6954,14 @@
 							}
 						]
 					},
-					"signature_raw": "add(, address)",
-					"signature": "ffb40420",
+					"signature_raw": "add(,address)",
+					"signature": "ec2ae210",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_address$",
 						"type_string": "function(struct EnumerableSet.AddressSet,address)"
-					}
+					},
+					"text": "functionadd(AddressSetstorageset,addressvalue)internalreturns(bool){return_add(set._inner,bytes32(uint256(uint160(value))));}"
 				},
 				{
 					"id": 767,
@@ -6971,14 +7074,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 782,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 												"type_string": "struct EnumerableSet.AddressSet"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 783,
@@ -7055,7 +7160,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 792,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "value"
 																}
 															],
 															"expression": {
@@ -7100,7 +7206,8 @@
 																		"type_identifier": "t_uint160",
 																		"type_string": "uint160"
 																	}
-																]
+																],
+																"text": "uint160"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_address$",
@@ -7150,7 +7257,8 @@
 																"type_identifier": "t_uint256",
 																"type_string": "uint256"
 															}
-														]
+														],
+														"text": "uint256"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_address$",
@@ -7200,7 +7308,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function_$_t_address$",
@@ -7226,7 +7335,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_remove"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_function_$_t_function_$_t_function_$_t_address$",
@@ -7425,13 +7535,14 @@
 							}
 						]
 					},
-					"signature_raw": "remove(, address)",
-					"signature": "469d3b40",
+					"signature_raw": "remove(,address)",
+					"signature": "7d109e7a",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_address$",
 						"type_string": "function(struct EnumerableSet.AddressSet,address)"
-					}
+					},
+					"text": "functionremove(AddressSetstorageset,addressvalue)internalreturns(bool){return_remove(set._inner,bytes32(uint256(uint160(value))));}"
 				},
 				{
 					"id": 794,
@@ -7544,14 +7655,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 809,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 												"type_string": "struct EnumerableSet.AddressSet"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 810,
@@ -7628,7 +7741,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 819,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "value"
 																}
 															],
 															"expression": {
@@ -7673,7 +7787,8 @@
 																		"type_identifier": "t_uint160",
 																		"type_string": "uint160"
 																	}
-																]
+																],
+																"text": "uint160"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_address$",
@@ -7723,7 +7838,8 @@
 																"type_identifier": "t_uint256",
 																"type_string": "uint256"
 															}
-														]
+														],
+														"text": "uint256"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_address$",
@@ -7773,7 +7889,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function_$_t_address$",
@@ -7799,7 +7916,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_contains"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_function_$_t_function_$_t_function_$_t_address$",
@@ -7998,13 +8116,14 @@
 							}
 						]
 					},
-					"signature_raw": "contains(, address)",
-					"signature": "ca2020f2",
+					"signature_raw": "contains(,address)",
+					"signature": "b3a85911",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_address$",
 						"type_string": "function(struct EnumerableSet.AddressSet,address)"
-					}
+					},
+					"text": "functioncontains(AddressSetstorageset,addressvalue)internalviewreturns(bool){return_contains(set._inner,bytes32(uint256(uint160(value))));}"
 				},
 				{
 					"id": 821,
@@ -8113,14 +8232,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 834,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 												"type_string": "struct EnumerableSet.AddressSet"
-											}
+											},
+											"text": "set._inner"
 										}
 									],
 									"expression": {
@@ -8141,7 +8262,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_length"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$",
@@ -8302,7 +8424,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$",
 						"type_string": "function(struct EnumerableSet.AddressSet)"
-					}
+					},
+					"text": "functionlength(AddressSetstorageset)internalviewreturns(uint256){return_length(set._inner);}"
 				},
 				{
 					"id": 836,
@@ -8472,14 +8595,16 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 860,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "set"
 																	},
 																	"member_name": "_inner",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 																		"type_string": "struct EnumerableSet.AddressSet"
-																	}
+																	},
+																	"text": "set._inner"
 																},
 																{
 																	"id": 861,
@@ -8505,7 +8630,8 @@
 																			"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 																			"type_string": "struct EnumerableSet.AddressSet"
 																		}
-																	]
+																	],
+																	"text": "index"
 																}
 															],
 															"expression": {
@@ -8526,7 +8652,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_at"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_uint256$",
@@ -8576,7 +8703,8 @@
 																"type_identifier": "t_uint256",
 																"type_string": "uint256"
 															}
-														]
+														],
+														"text": "uint256"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_uint256$",
@@ -8626,7 +8754,8 @@
 														"type_identifier": "t_uint160",
 														"type_string": "uint160"
 													}
-												]
+												],
+												"text": "uint160"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_uint256$",
@@ -8677,7 +8806,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "address"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_uint256$",
@@ -8876,13 +9006,14 @@
 							}
 						]
 					},
-					"signature_raw": "at(, uint256)",
-					"signature": "38ffe300",
+					"signature_raw": "at(,uint256)",
+					"signature": "702d5637",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.AddressSet,uint256)"
-					}
+					},
+					"text": "functionat(AddressSetstorageset,uint256index)internalviewreturns(address){returnaddress(uint160(uint256(_at(set._inner,index))));}"
 				},
 				{
 					"id": 863,
@@ -9039,14 +9170,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 878,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_AddressSet_$735",
 												"type_string": "struct EnumerableSet.AddressSet"
-											}
+											},
+											"text": "set._inner"
 										}
 									],
 									"expression": {
@@ -9067,7 +9200,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_values"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$",
@@ -9248,7 +9382,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 879,
-									"is_pure": false
+									"is_pure": false,
+									"text": "result"
 								}
 							}
 						]
@@ -9404,7 +9539,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_AddressSet_$735$",
 						"type_string": "function(struct EnumerableSet.AddressSet)"
-					}
+					},
+					"text": "functionvalues(AddressSetstorageset)internalviewreturns(address[]memory){bytes32[]memorystore=_values(set._inner);address[]memoryresult;assembly{result:=store}returnresult;}"
 				},
 				{
 					"id": 891,
@@ -9606,14 +9742,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 911,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 												"type_string": "struct EnumerableSet.UintSet"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 912,
@@ -9652,7 +9790,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 915,
-													"is_pure": false
+													"is_pure": false,
+													"text": "value"
 												}
 											],
 											"expression": {
@@ -9697,7 +9836,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_uint256$",
@@ -9723,7 +9863,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_add"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_function_$_t_uint256$",
@@ -9921,13 +10062,14 @@
 							}
 						]
 					},
-					"signature_raw": "add(, uint256)",
-					"signature": "4f19b716",
+					"signature_raw": "add(,uint256)",
+					"signature": "6a890ae0",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.UintSet,uint256)"
-					}
+					},
+					"text": "functionadd(UintSetstorageset,uint256value)internalreturns(bool){return_add(set._inner,bytes32(value));}"
 				},
 				{
 					"id": 917,
@@ -10040,14 +10182,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 932,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 												"type_string": "struct EnumerableSet.UintSet"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 933,
@@ -10086,7 +10230,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 936,
-													"is_pure": false
+													"is_pure": false,
+													"text": "value"
 												}
 											],
 											"expression": {
@@ -10131,7 +10276,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_uint256$",
@@ -10157,7 +10303,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_remove"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_function_$_t_uint256$",
@@ -10355,13 +10502,14 @@
 							}
 						]
 					},
-					"signature_raw": "remove(, uint256)",
-					"signature": "feb231bd",
+					"signature_raw": "remove(,uint256)",
+					"signature": "a5ef5e79",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.UintSet,uint256)"
-					}
+					},
+					"text": "functionremove(UintSetstorageset,uint256value)internalreturns(bool){return_remove(set._inner,bytes32(value));}"
 				},
 				{
 					"id": 938,
@@ -10474,14 +10622,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 953,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 												"type_string": "struct EnumerableSet.UintSet"
-											}
+											},
+											"text": "set._inner"
 										},
 										{
 											"id": 954,
@@ -10520,7 +10670,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 957,
-													"is_pure": false
+													"is_pure": false,
+													"text": "value"
 												}
 											],
 											"expression": {
@@ -10565,7 +10716,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_uint256$",
@@ -10591,7 +10743,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_contains"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_function_$_t_uint256$",
@@ -10789,13 +10942,14 @@
 							}
 						]
 					},
-					"signature_raw": "contains(, uint256)",
-					"signature": "b3de74b3",
+					"signature_raw": "contains(,uint256)",
+					"signature": "5a40e739",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.UintSet,uint256)"
-					}
+					},
+					"text": "functioncontains(UintSetstorageset,uint256value)internalviewreturns(bool){return_contains(set._inner,bytes32(value));}"
 				},
 				{
 					"id": 959,
@@ -10904,14 +11058,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 972,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 												"type_string": "struct EnumerableSet.UintSet"
-											}
+											},
+											"text": "set._inner"
 										}
 									],
 									"expression": {
@@ -10932,7 +11088,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_length"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$",
@@ -11093,7 +11250,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$",
 						"type_string": "function(struct EnumerableSet.UintSet)"
-					}
+					},
+					"text": "functionlength(UintSetstorageset)internalviewreturns(uint256){return_length(set._inner);}"
 				},
 				{
 					"id": 974,
@@ -11225,14 +11383,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 992,
-														"is_pure": false
+														"is_pure": false,
+														"text": "set"
 													},
 													"member_name": "_inner",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 														"type_string": "struct EnumerableSet.UintSet"
-													}
+													},
+													"text": "set._inner"
 												},
 												{
 													"id": 993,
@@ -11258,7 +11418,8 @@
 															"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 															"type_string": "struct EnumerableSet.UintSet"
 														}
-													]
+													],
+													"text": "index"
 												}
 											],
 											"expression": {
@@ -11279,7 +11440,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_at"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_uint256$",
@@ -11329,7 +11491,8 @@
 												"type_identifier": "t_uint256",
 												"type_string": "uint256"
 											}
-										]
+										],
+										"text": "uint256"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_uint256$",
@@ -11527,13 +11690,14 @@
 							}
 						]
 					},
-					"signature_raw": "at(, uint256)",
-					"signature": "38ffe300",
+					"signature_raw": "at(,uint256)",
+					"signature": "702d5637",
 					"scope": 432,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$_t_uint256$",
 						"type_string": "function(struct EnumerableSet.UintSet,uint256)"
-					}
+					},
+					"text": "functionat(UintSetstorageset,uint256index)internalviewreturns(uint256){returnuint256(_at(set._inner,index));}"
 				},
 				{
 					"id": 995,
@@ -11690,14 +11854,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1010,
-												"is_pure": false
+												"is_pure": false,
+												"text": "set"
 											},
 											"member_name": "_inner",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_EnumerableSet_UintSet_$891",
 												"type_string": "struct EnumerableSet.UintSet"
-											}
+											},
+											"text": "set._inner"
 										}
 									],
 									"expression": {
@@ -11718,7 +11884,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_values"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$",
@@ -11899,7 +12066,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 1011,
-									"is_pure": false
+									"is_pure": false,
+									"text": "result"
 								}
 							}
 						]
@@ -12055,7 +12223,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_EnumerableSet_UintSet_$891$",
 						"type_string": "function(struct EnumerableSet.UintSet)"
-					}
+					},
+					"text": "functionvalues(UintSetstorageset)internalviewreturns(uint256[]memory){bytes32[]memorystore=_values(set._inner);uint256[]memoryresult;assembly{result:=store}returnresult;}"
 				}
 			],
 			"linearized_base_contracts": [

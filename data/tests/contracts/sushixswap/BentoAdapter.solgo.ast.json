@@ -223,7 +223,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1056,
-										"is_pure": false
+										"is_pure": false,
+										"text": "token"
 									},
 									{
 										"id": 1057,
@@ -249,7 +250,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "from"
 									},
 									{
 										"id": 1058,
@@ -279,7 +281,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "to"
 									},
 									{
 										"id": 1059,
@@ -313,7 +316,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "amount"
 									},
 									{
 										"id": 1060,
@@ -351,7 +355,8 @@
 												"type_identifier": "t_uint256",
 												"type_string": "uint256"
 											}
-										]
+										],
+										"text": "share"
 									}
 								],
 								"expression": {
@@ -407,14 +412,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 963,
-											"is_pure": false
+											"is_pure": false,
+											"text": "bentoBox"
 										},
 										"member_name": "deposit",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_IBentoBoxMinimal_$546",
 											"type_string": "contract IBentoBoxMinimal"
-										}
+										},
+										"text": "bentoBox.deposit"
 									},
 									"type_description": {
 										"type_identifier": "t_contract$_IBentoBoxMinimal_$546",
@@ -725,13 +732,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_depositToBentoBox(address, address, address, uint256, uint256, uint256)",
-					"signature": "18b5c23f",
+					"signature_raw": "_depositToBentoBox(address,address,address,uint256,uint256,uint256)",
+					"signature": "e8726e4b",
 					"scope": 1032,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_uint256$_t_uint256$_t_uint256$",
 						"type_string": "function(address,address,address,uint256,uint256,uint256)"
-					}
+					},
+					"text": "function_depositToBentoBox(addresstoken,addressfrom,addressto,uint256amount,uint256share,uint256value)internal{bentoBox.deposit{value:value}(token,from,to,amount,share);}"
 				},
 				{
 					"id": 1062,
@@ -797,7 +805,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 1079,
-									"is_pure": false
+									"is_pure": false,
+									"text": "unwrapBento"
 								},
 								"body": {
 									"id": 1080,
@@ -866,7 +875,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1084,
-													"is_pure": false
+													"is_pure": false,
+													"text": "token"
 												},
 												{
 													"id": 1085,
@@ -892,7 +902,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "from"
 												},
 												{
 													"id": 1086,
@@ -922,7 +933,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "to"
 												},
 												{
 													"id": 1087,
@@ -956,7 +968,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "amount"
 												},
 												{
 													"id": 1088,
@@ -994,7 +1007,8 @@
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
 														}
-													]
+													],
+													"text": "share"
 												}
 											],
 											"expression": {
@@ -1038,14 +1052,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 963,
-													"is_pure": false
+													"is_pure": false,
+													"text": "bentoBox"
 												},
 												"member_name": "withdraw",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_IBentoBoxMinimal_$546",
 													"type_string": "contract IBentoBoxMinimal"
-												}
+												},
+												"text": "bentoBox.withdraw"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_uint256$_t_uint256$",
@@ -1354,13 +1370,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_transferFromBentoBox(address, address, address, uint256, uint256, bool)",
-					"signature": "3fc92c8a",
+					"signature_raw": "_transferFromBentoBox(address,address,address,uint256,uint256,bool)",
+					"signature": "6222712f",
 					"scope": 1032,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_uint256$_t_uint256$_t_bool$",
 						"type_string": "function(address,address,address,uint256,uint256,bool)"
-					}
+					},
+					"text": "function_transferFromBentoBox(addresstoken,addressfrom,addressto,uint256amount,uint256share,boolunwrapBento)internal{if(unwrapBento){bentoBox.withdraw(token,from,to,amount,share);}else{if(amount\u003e0){share=bentoBox.toShare(token,amount,false);}bentoBox.transfer(token,from,to,share);}}"
 				}
 			],
 			"linearized_base_contracts": [

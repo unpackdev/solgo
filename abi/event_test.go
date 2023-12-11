@@ -29,6 +29,7 @@ func TestProcessEvent(t *testing.T) {
 							TypeString:     "uint256",
 							TypeIdentifier: "t_uint256",
 						},
+						Indexed: true,
 					},
 				},
 			},

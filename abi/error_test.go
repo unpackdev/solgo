@@ -36,7 +36,7 @@ func TestProcessError(t *testing.T) {
 						Name:         "param1",
 						Type:         "uint256",
 						InternalType: "uint256",
-						Indexed:      true,
+						Indexed:      false,
 					},
 				},
 				Outputs: []MethodIO{},
@@ -52,12 +52,14 @@ func TestProcessError(t *testing.T) {
 						TypeDescription: &ast.TypeDescription{
 							TypeString: "uint256",
 						},
+						Indexed: true,
 					},
 					{
 						Name: "param2",
 						TypeDescription: &ast.TypeDescription{
 							TypeString: "address",
 						},
+						Indexed: true,
 					},
 				},
 			},
