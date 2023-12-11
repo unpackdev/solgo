@@ -143,6 +143,16 @@ func TestStorage(t *testing.T) {
 			err = parser.Build()
 			tAssert.NoError(err)
 
+			/* 			for _, contract := range parser.GetIR().GetRoot().GetContracts() {
+			   				fmt.Println(contract.GetName())
+			   			}
+			*/
+			/* 			for _, contract := range parser.GetSources().SourceUnits {
+			   				fmt.Println(contract.GetName())
+			   			}
+
+			   			return */
+
 			// Use the test case data to run the test
 			reader, err := storage.Describe(ctx, tc.address, parser, tc.atBlock)
 

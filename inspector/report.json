@@ -3,151 +3,34 @@
 	"network": "ethereum",
 	"uses_transfers": true,
 	"detectors": {
-		"audit": {
+		"burn": {
 			"detected": false,
-			"block_number": null,
-			"block_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
-			"faucet_address": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9",
-			"faucet_account_eth_balance": 1000000000000000000000,
-			"faucet_account_initial_balance": 0,
-			"honey_pot": false,
-			"exchange": {
-				"exchange_type": "uniswap_v2",
-				"address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
-				"pair_address": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2",
-				"balance": 95031150724583877
-			},
-			"buy": {
-				"detected": false,
-				"approval": {
-					"detected": true,
-					"approval_requested": true,
-					"approved": true,
-					"transaction_hash": "0x250ccd312a5b1059fb2c3d4c39815a78b0c96c45e59d24c14341b5257ab2c4d1",
-					"receipt": true,
-					"receipt_status": 1,
-					"logs": [
-						{
-							"address": "0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
-							"abi": "[{\"name\":\"Approval\",\"type\":\"event\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true},{\"name\":\"spender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
-							"signature_hex": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
-							"signature": "Approval(address indexed owner, address indexed spender, uint256 value)",
-							"type": "approval",
-							"name": "Approval",
-							"data": {
-								"value": 1000000000
-							},
-							"topics": [
-								{
-									"name": "owner",
-									"value": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9"
-								},
-								{
-									"name": "spender",
-									"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-								}
-							]
-						}
-					],
-					"requested_amount": 1000000000
-				},
-				"results": {
-					"detected": true,
-					"swap_requested": true,
-					"pair_details": [
-						"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-						"0x8390a1da07e376ef7add4be859ba74fb83aa02d5"
-					],
-					"transaction_hash": "0xbe0061c4ce506c782d1655873e1c4b05cf6aecc592c05fff66f93c57f660256e",
-					"receipt": true,
-					"receipt_status": 1,
-					"logs": [
-						{
-							"address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-							"abi": "[{\"name\":\"Transfer\",\"type\":\"event\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
-							"signature_hex": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-							"signature": "Transfer(address indexed from, address indexed to, uint256 value)",
-							"type": "transfer",
-							"name": "Transfer",
-							"data": {
-								"value": 1000000000
-							},
-							"topics": [
-								{
-									"name": "from",
-									"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-								},
-								{
-									"name": "to",
-									"value": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2"
-								}
-							]
-						},
-						{
-							"address": "0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
-							"abi": "[{\"name\":\"Transfer\",\"type\":\"event\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
-							"signature_hex": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-							"signature": "Transfer(address indexed from, address indexed to, uint256 value)",
-							"type": "transfer",
-							"name": "Transfer",
-							"data": {
-								"value": 170001
-							},
-							"topics": [
-								{
-									"name": "from",
-									"value": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2"
-								},
-								{
-									"name": "to",
-									"value": "0x490ef2aaa7eb84242580c8ec5e1d1fd22a7f59f9"
-								}
-							]
-						},
-						{
-							"address": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2",
-							"abi": "[{\"name\":\"Sync\",\"type\":\"event\",\"inputs\":[{\"name\":\"reserve0\",\"type\":\"uint112\"},{\"name\":\"reserve1\",\"type\":\"uint112\"}]}]",
-							"signature_hex": "0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1",
-							"signature": "Sync(uint112 reserve0, uint112 reserve1)",
-							"type": "sync",
-							"name": "Sync",
-							"data": {
-								"reserve0": 95031150724413876,
-								"reserve1": 557326040717341950315
-							},
-							"topics": []
-						},
-						{
-							"address": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2",
-							"abi": "[{\"name\":\"Swap\",\"type\":\"event\",\"inputs\":[{\"name\":\"sender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"amount0In\",\"type\":\"uint256\"},{\"name\":\"amount1In\",\"type\":\"uint256\"},{\"name\":\"amount0Out\",\"type\":\"uint256\"},{\"name\":\"amount1Out\",\"type\":\"uint256\"},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true}]}]",
-							"signature_hex": "0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822",
-							"signature": "Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)",
-							"type": "swap",
-							"name": "Swap",
-							"data": {
-								"amount0In": 0,
-								"amount0Out": 170001,
-								"amount1In": 1000000000,
-								"amount1Out": 0
-							},
-							"topics": [
-								{
-									"name": "sender",
-									"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
-								},
-								{
-									"name": "amount0In",
-									"value": 417089675947321521731953079395895320301696670201
-								}
-							]
-						}
-					],
-					"requested_amount": 1000000000,
-					"received_amount": 170001
-				}
-			},
-			"sell": null,
-			"tax": null
+			"function_name": "",
+			"visibility": 0,
+			"externally_callable": false,
+			"externally_callable_locations": [],
+			"uses_constructor": false,
+			"constructor": null,
+			"function": null
+		},
+		"mint": {
+			"detected": false,
+			"safe": true,
+			"function_name": "",
+			"visibility": 0,
+			"externally_callable": false,
+			"externally_callable_locations": [],
+			"used_at_constructor": false,
+			"constructor": null,
+			"statement": null,
+			"detectors": {}
+		},
+		"ownership": {
+			"detected": true
+		},
+		"proxy": {
+			"detected": false,
+			"standard": null
 		},
 		"standards": {
 			"detected": true,
@@ -1904,13 +1787,3468 @@
 				}
 			]
 		},
-		"token": {
+		"state_variable": {
+			"detected": false,
+			"declarations": [
+				{
+					"name": "_owner",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 260,
+						"name": "_owner",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 66,
+							"column": 4,
+							"start": 2094,
+							"end": 2116,
+							"length": 23,
+							"parent_index": 256
+						},
+						"scope": 256,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 261,
+							"node_type": 30,
+							"src": {
+								"line": 66,
+								"column": 4,
+								"start": 2094,
+								"end": 2100,
+								"length": 7,
+								"parent_index": 260
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 260,
+						"block_number": 18764255,
+						"name": "_owner",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						},
+						"slot": 0,
+						"size": 160,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": "0x0000000000000000000000000000000000000000"
+					}
+				},
+				{
+					"name": "_balances",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 421,
+						"name": "_balances",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 117,
+							"column": 4,
+							"start": 3592,
+							"end": 3638,
+							"length": 47,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_uint256$",
+							"type_string": "mapping(address=\u003euint256)"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 422,
+							"node_type": 53,
+							"src": {
+								"line": 117,
+								"column": 4,
+								"start": 3592,
+								"end": 3619,
+								"length": 28,
+								"parent_index": 421
+							},
+							"key_type": {
+								"id": 423,
+								"node_type": 30,
+								"src": {
+									"line": 117,
+									"column": 13,
+									"start": 3601,
+									"end": 3607,
+									"length": 7,
+									"parent_index": 422
+								},
+								"name": "address",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							"key_name_location": {
+								"line": 117,
+								"column": 13,
+								"start": 3601,
+								"end": 3607,
+								"length": 7,
+								"parent_index": 422
+							},
+							"value_type": {
+								"id": 424,
+								"node_type": 30,
+								"src": {
+									"line": 117,
+									"column": 24,
+									"start": 3612,
+									"end": 3618,
+									"length": 7,
+									"parent_index": 422
+								},
+								"name": "uint256",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_uint256",
+									"type_string": "uint256"
+								}
+							},
+							"value_name_location": {
+								"line": 117,
+								"column": 24,
+								"start": 3612,
+								"end": 3618,
+								"length": 7,
+								"parent_index": 422
+							},
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_uint256$",
+								"type_string": "mapping(address=\u003euint256)"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 421,
+						"block_number": 18764255,
+						"name": "_balances",
+						"type": "mapping(address=\u003euint256)",
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_uint256$",
+							"type_string": "mapping(address=\u003euint256)"
+						},
+						"slot": 1,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": {}
+					}
+				},
+				{
+					"name": "_allowances",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 426,
+						"name": "_allowances",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 118,
+							"column": 4,
+							"start": 3645,
+							"end": 3714,
+							"length": 70,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+							"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 427,
+							"node_type": 53,
+							"src": {
+								"line": 118,
+								"column": 4,
+								"start": 3645,
+								"end": 3693,
+								"length": 49,
+								"parent_index": 426
+							},
+							"key_type": {
+								"id": 428,
+								"node_type": 30,
+								"src": {
+									"line": 118,
+									"column": 13,
+									"start": 3654,
+									"end": 3660,
+									"length": 7,
+									"parent_index": 427
+								},
+								"name": "address",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							"key_name_location": {
+								"line": 118,
+								"column": 13,
+								"start": 3654,
+								"end": 3660,
+								"length": 7,
+								"parent_index": 427
+							},
+							"value_type": {
+								"id": 429,
+								"node_type": 53,
+								"src": {
+									"line": 118,
+									"column": 24,
+									"start": 3665,
+									"end": 3692,
+									"length": 28,
+									"parent_index": 427
+								},
+								"name": "mapping(address=\u003euint256)",
+								"key_type": {
+									"id": 431,
+									"node_type": 30,
+									"src": {
+										"line": 118,
+										"column": 33,
+										"start": 3674,
+										"end": 3680,
+										"length": 7,
+										"parent_index": 427
+									},
+									"name": "address",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_address",
+										"type_string": "address"
+									}
+								},
+								"key_name_location": {
+									"line": 118,
+									"column": 33,
+									"start": 3674,
+									"end": 3680,
+									"length": 7,
+									"parent_index": 429
+								},
+								"value_type": {
+									"id": 432,
+									"node_type": 30,
+									"src": {
+										"line": 118,
+										"column": 44,
+										"start": 3685,
+										"end": 3691,
+										"length": 7,
+										"parent_index": 427
+									},
+									"name": "uint256",
+									"referenced_declaration": 0,
+									"type_description": {
+										"type_identifier": "t_uint256",
+										"type_string": "uint256"
+									}
+								},
+								"value_name_location": {
+									"line": 118,
+									"column": 44,
+									"start": 3685,
+									"end": 3691,
+									"length": 7,
+									"parent_index": 429
+								},
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_mapping_$t_address_$t_uint256",
+									"type_string": "mapping(address=\u003euint256)"
+								}
+							},
+							"value_name_location": {
+								"line": 118,
+								"column": 24,
+								"start": 3665,
+								"end": 3692,
+								"length": 28,
+								"parent_index": 427
+							},
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+								"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 426,
+						"block_number": 18764255,
+						"name": "_allowances",
+						"type": "mapping(address=\u003emapping(address=\u003euint256))",
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+							"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+						},
+						"slot": 2,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": {}
+					}
+				},
+				{
+					"name": "_isExcludedFromFee",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 434,
+						"name": "_isExcludedFromFee",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 119,
+							"column": 4,
+							"start": 3721,
+							"end": 3773,
+							"length": 53,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_bool$",
+							"type_string": "mapping(address=\u003ebool)"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 435,
+							"node_type": 53,
+							"src": {
+								"line": 119,
+								"column": 4,
+								"start": 3721,
+								"end": 3745,
+								"length": 25,
+								"parent_index": 434
+							},
+							"key_type": {
+								"id": 436,
+								"node_type": 30,
+								"src": {
+									"line": 119,
+									"column": 13,
+									"start": 3730,
+									"end": 3736,
+									"length": 7,
+									"parent_index": 435
+								},
+								"name": "address",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							"key_name_location": {
+								"line": 119,
+								"column": 13,
+								"start": 3730,
+								"end": 3736,
+								"length": 7,
+								"parent_index": 435
+							},
+							"value_type": {
+								"id": 437,
+								"node_type": 30,
+								"src": {
+									"line": 119,
+									"column": 24,
+									"start": 3741,
+									"end": 3744,
+									"length": 4,
+									"parent_index": 435
+								},
+								"name": "bool",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							},
+							"value_name_location": {
+								"line": 119,
+								"column": 24,
+								"start": 3741,
+								"end": 3744,
+								"length": 4,
+								"parent_index": 435
+							},
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_bool$",
+								"type_string": "mapping(address=\u003ebool)"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 434,
+						"block_number": 18764256,
+						"name": "_isExcludedFromFee",
+						"type": "mapping(address=\u003ebool)",
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_bool$",
+							"type_string": "mapping(address=\u003ebool)"
+						},
+						"slot": 3,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": {}
+					}
+				},
+				{
+					"name": "bots",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 439,
+						"name": "bots",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 120,
+							"column": 4,
+							"start": 3780,
+							"end": 3818,
+							"length": 39,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_bool$",
+							"type_string": "mapping(address=\u003ebool)"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 440,
+							"node_type": 53,
+							"src": {
+								"line": 120,
+								"column": 4,
+								"start": 3780,
+								"end": 3804,
+								"length": 25,
+								"parent_index": 439
+							},
+							"key_type": {
+								"id": 441,
+								"node_type": 30,
+								"src": {
+									"line": 120,
+									"column": 13,
+									"start": 3789,
+									"end": 3795,
+									"length": 7,
+									"parent_index": 440
+								},
+								"name": "address",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_address",
+									"type_string": "address"
+								}
+							},
+							"key_name_location": {
+								"line": 120,
+								"column": 13,
+								"start": 3789,
+								"end": 3795,
+								"length": 7,
+								"parent_index": 440
+							},
+							"value_type": {
+								"id": 442,
+								"node_type": 30,
+								"src": {
+									"line": 120,
+									"column": 24,
+									"start": 3800,
+									"end": 3803,
+									"length": 4,
+									"parent_index": 440
+								},
+								"name": "bool",
+								"referenced_declaration": 0,
+								"type_description": {
+									"type_identifier": "t_bool",
+									"type_string": "bool"
+								}
+							},
+							"value_name_location": {
+								"line": 120,
+								"column": 24,
+								"start": 3800,
+								"end": 3803,
+								"length": 4,
+								"parent_index": 440
+							},
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_bool$",
+								"type_string": "mapping(address=\u003ebool)"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 439,
+						"block_number": 18764256,
+						"name": "bots",
+						"type": "mapping(address=\u003ebool)",
+						"type_description": {
+							"type_identifier": "t_mapping_$t_address_$t_bool$",
+							"type_string": "mapping(address=\u003ebool)"
+						},
+						"slot": 4,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": {}
+					}
+				},
+				{
+					"name": "_taxWallet",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 444,
+						"name": "_taxWallet",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 121,
+							"column": 4,
+							"start": 3825,
+							"end": 3859,
+							"length": 35,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_address_payable",
+							"type_string": "address"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 445,
+							"node_type": 30,
+							"src": {
+								"line": 121,
+								"column": 4,
+								"start": 3825,
+								"end": 3839,
+								"length": 15,
+								"parent_index": 444
+							},
+							"name": "addresspayable",
+							"state_mutability": 3,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address_payable",
+								"type_string": "address"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 444,
+						"block_number": 18764256,
+						"name": "_taxWallet",
+						"type": "addresspayable",
+						"type_description": {
+							"type_identifier": "t_address_payable",
+							"type_string": "address"
+						},
+						"slot": 5,
+						"size": 160,
+						"offset": 0,
+						"raw_value": "0x000000000000000000000000f9387ac9f61cc22994a59a6008f827435ce744b6",
+						"value": "0xf9387ac9f61cc22994a59a6008f827435ce744b6"
+					}
+				},
+				{
+					"name": "firstBlock",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 447,
+						"name": "firstBlock",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 122,
+							"column": 4,
+							"start": 3866,
+							"end": 3884,
+							"length": 19,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"visibility": 1,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 448,
+							"node_type": 30,
+							"src": {
+								"line": 122,
+								"column": 4,
+								"start": 3866,
+								"end": 3872,
+								"length": 7,
+								"parent_index": 447
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 447,
+						"block_number": 18764256,
+						"name": "firstBlock",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 6,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x00000000000000000000000000000000000000000000000000000000011a3b08",
+						"value": 18496264
+					}
+				},
+				{
+					"name": "_initialBuyTax",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 450,
+						"name": "_initialBuyTax",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 124,
+							"column": 4,
+							"start": 3893,
+							"end": 3926,
+							"length": 34,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_24_by_1",
+							"type_string": "int_const 24"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 451,
+							"node_type": 30,
+							"src": {
+								"line": 124,
+								"column": 4,
+								"start": 3893,
+								"end": 3899,
+								"length": 7,
+								"parent_index": 450
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 452,
+							"node_type": 17,
+							"kind": 49,
+							"value": "24",
+							"hex_value": "3234",
+							"src": {
+								"line": 124,
+								"column": 35,
+								"start": 3924,
+								"end": 3925,
+								"length": 2,
+								"parent_index": 450
+							},
+							"type_description": {
+								"type_identifier": "t_rational_24_by_1",
+								"type_string": "int_const 24"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "24"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 450,
+						"block_number": 18764256,
+						"name": "_initialBuyTax",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 7,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000018",
+						"value": 24
+					}
+				},
+				{
+					"name": "_initialSellTax",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 454,
+						"name": "_initialSellTax",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 125,
+							"column": 4,
+							"start": 3933,
+							"end": 3967,
+							"length": 35,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_24_by_1",
+							"type_string": "int_const 24"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 455,
+							"node_type": 30,
+							"src": {
+								"line": 125,
+								"column": 4,
+								"start": 3933,
+								"end": 3939,
+								"length": 7,
+								"parent_index": 454
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 456,
+							"node_type": 17,
+							"kind": 49,
+							"value": "24",
+							"hex_value": "3234",
+							"src": {
+								"line": 125,
+								"column": 36,
+								"start": 3965,
+								"end": 3966,
+								"length": 2,
+								"parent_index": 454
+							},
+							"type_description": {
+								"type_identifier": "t_rational_24_by_1",
+								"type_string": "int_const 24"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "24"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 454,
+						"block_number": 18764256,
+						"name": "_initialSellTax",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 8,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000018",
+						"value": 24
+					}
+				},
+				{
+					"name": "_finalBuyTax",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 458,
+						"name": "_finalBuyTax",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 126,
+							"column": 4,
+							"start": 3974,
+							"end": 4004,
+							"length": 31,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_0_by_1",
+							"type_string": "int_const 0"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 459,
+							"node_type": 30,
+							"src": {
+								"line": 126,
+								"column": 4,
+								"start": 3974,
+								"end": 3980,
+								"length": 7,
+								"parent_index": 458
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 460,
+							"node_type": 17,
+							"kind": 49,
+							"value": "0",
+							"hex_value": "30",
+							"src": {
+								"line": 126,
+								"column": 33,
+								"start": 4003,
+								"end": 4003,
+								"length": 1,
+								"parent_index": 458
+							},
+							"type_description": {
+								"type_identifier": "t_rational_0_by_1",
+								"type_string": "int_const 0"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "0"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 458,
+						"block_number": 18764256,
+						"name": "_finalBuyTax",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 9,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": 0
+					}
+				},
+				{
+					"name": "_finalSellTax",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 462,
+						"name": "_finalSellTax",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 127,
+							"column": 4,
+							"start": 4011,
+							"end": 4042,
+							"length": 32,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_0_by_1",
+							"type_string": "int_const 0"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 463,
+							"node_type": 30,
+							"src": {
+								"line": 127,
+								"column": 4,
+								"start": 4011,
+								"end": 4017,
+								"length": 7,
+								"parent_index": 462
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 464,
+							"node_type": 17,
+							"kind": 49,
+							"value": "0",
+							"hex_value": "30",
+							"src": {
+								"line": 127,
+								"column": 34,
+								"start": 4041,
+								"end": 4041,
+								"length": 1,
+								"parent_index": 462
+							},
+							"type_description": {
+								"type_identifier": "t_rational_0_by_1",
+								"type_string": "int_const 0"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "0"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 462,
+						"block_number": 18764256,
+						"name": "_finalSellTax",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 10,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"value": 0
+					}
+				},
+				{
+					"name": "_reduceBuyTaxAt",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 466,
+						"name": "_reduceBuyTaxAt",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 128,
+							"column": 4,
+							"start": 4049,
+							"end": 4083,
+							"length": 35,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_19_by_1",
+							"type_string": "int_const 19"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 467,
+							"node_type": 30,
+							"src": {
+								"line": 128,
+								"column": 4,
+								"start": 4049,
+								"end": 4055,
+								"length": 7,
+								"parent_index": 466
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 468,
+							"node_type": 17,
+							"kind": 49,
+							"value": "19",
+							"hex_value": "3139",
+							"src": {
+								"line": 128,
+								"column": 36,
+								"start": 4081,
+								"end": 4082,
+								"length": 2,
+								"parent_index": 466
+							},
+							"type_description": {
+								"type_identifier": "t_rational_19_by_1",
+								"type_string": "int_const 19"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "19"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 466,
+						"block_number": 18764256,
+						"name": "_reduceBuyTaxAt",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 11,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000013",
+						"value": 19
+					}
+				},
+				{
+					"name": "_reduceSellTaxAt",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 470,
+						"name": "_reduceSellTaxAt",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 129,
+							"column": 4,
+							"start": 4090,
+							"end": 4125,
+							"length": 36,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_29_by_1",
+							"type_string": "int_const 29"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 471,
+							"node_type": 30,
+							"src": {
+								"line": 129,
+								"column": 4,
+								"start": 4090,
+								"end": 4096,
+								"length": 7,
+								"parent_index": 470
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 472,
+							"node_type": 17,
+							"kind": 49,
+							"value": "29",
+							"hex_value": "3239",
+							"src": {
+								"line": 129,
+								"column": 37,
+								"start": 4123,
+								"end": 4124,
+								"length": 2,
+								"parent_index": 470
+							},
+							"type_description": {
+								"type_identifier": "t_rational_29_by_1",
+								"type_string": "int_const 29"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "29"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 470,
+						"block_number": 18764256,
+						"name": "_reduceSellTaxAt",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 12,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x000000000000000000000000000000000000000000000000000000000000001d",
+						"value": 29
+					}
+				},
+				{
+					"name": "_preventSwapBefore",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 474,
+						"name": "_preventSwapBefore",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 130,
+							"column": 4,
+							"start": 4132,
+							"end": 4169,
+							"length": 38,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_20_by_1",
+							"type_string": "int_const 20"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 475,
+							"node_type": 30,
+							"src": {
+								"line": 130,
+								"column": 4,
+								"start": 4132,
+								"end": 4138,
+								"length": 7,
+								"parent_index": 474
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 476,
+							"node_type": 17,
+							"kind": 49,
+							"value": "20",
+							"hex_value": "3230",
+							"src": {
+								"line": 130,
+								"column": 39,
+								"start": 4167,
+								"end": 4168,
+								"length": 2,
+								"parent_index": 474
+							},
+							"type_description": {
+								"type_identifier": "t_rational_20_by_1",
+								"type_string": "int_const 20"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "20"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 474,
+						"block_number": 18764256,
+						"name": "_preventSwapBefore",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 13,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000014",
+						"value": 20
+					}
+				},
+				{
+					"name": "_buyCount",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 478,
+						"name": "_buyCount",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 131,
+							"column": 4,
+							"start": 4176,
+							"end": 4203,
+							"length": 28,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_0_by_1",
+							"type_string": "int_const 0"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 479,
+							"node_type": 30,
+							"src": {
+								"line": 131,
+								"column": 4,
+								"start": 4176,
+								"end": 4182,
+								"length": 7,
+								"parent_index": 478
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 480,
+							"node_type": 17,
+							"kind": 49,
+							"value": "0",
+							"hex_value": "30",
+							"src": {
+								"line": 131,
+								"column": 30,
+								"start": 4202,
+								"end": 4202,
+								"length": 1,
+								"parent_index": 478
+							},
+							"type_description": {
+								"type_identifier": "t_rational_0_by_1",
+								"type_string": "int_const 0"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "0"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 478,
+						"block_number": 18764256,
+						"name": "_buyCount",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 14,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x00000000000000000000000000000000000000000000000000000000000159fa",
+						"value": 88570
+					}
+				},
+				{
+					"name": "_decimals",
+					"state_variable": true,
+					"constant": true,
+					"statement": {
+						"id": 482,
+						"name": "_decimals",
+						"is_constant": true,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 133,
+							"column": 4,
+							"start": 4212,
+							"end": 4248,
+							"length": 37,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_9_by_1",
+							"type_string": "int_const 9"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 483,
+							"node_type": 30,
+							"src": {
+								"line": 133,
+								"column": 4,
+								"start": 4212,
+								"end": 4216,
+								"length": 5,
+								"parent_index": 482
+							},
+							"name": "uint8",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint8",
+								"type_string": "uint8"
+							}
+						},
+						"initial_value": {
+							"id": 484,
+							"node_type": 17,
+							"kind": 49,
+							"value": "9",
+							"hex_value": "39",
+							"src": {
+								"line": 133,
+								"column": 39,
+								"start": 4247,
+								"end": 4247,
+								"length": 1,
+								"parent_index": 482
+							},
+							"type_description": {
+								"type_identifier": "t_rational_9_by_1",
+								"type_string": "int_const 9"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "9"
+						}
+					},
+					"storage_slot": null
+				},
+				{
+					"name": "_tTotal",
+					"state_variable": true,
+					"constant": true,
+					"statement": {
+						"id": 486,
+						"name": "_tTotal",
+						"is_constant": true,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 134,
+							"column": 4,
+							"start": 4255,
+							"end": 4316,
+							"length": 62,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_6900000000_by_1",
+							"type_string": "int_const 6900000000"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 487,
+							"node_type": 30,
+							"src": {
+								"line": 134,
+								"column": 4,
+								"start": 4255,
+								"end": 4261,
+								"length": 7,
+								"parent_index": 486
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 488,
+							"is_constant": false,
+							"is_pure": false,
+							"node_type": 19,
+							"src": {
+								"line": 134,
+								"column": 39,
+								"start": 4290,
+								"end": 4315,
+								"length": 26,
+								"parent_index": 486
+							},
+							"operator": 3,
+							"left_expression": {
+								"id": 489,
+								"node_type": 17,
+								"kind": 49,
+								"value": "6900000000",
+								"hex_value": "36393030303030303030",
+								"src": {
+									"line": 134,
+									"column": 39,
+									"start": 4290,
+									"end": 4299,
+									"length": 10,
+									"parent_index": 488
+								},
+								"type_description": {
+									"type_identifier": "t_rational_6900000000_by_1",
+									"type_string": "int_const 6900000000"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": true,
+								"text": "6900000000"
+							},
+							"right_expression": {
+								"id": 491,
+								"node_type": 95,
+								"src": {
+									"line": 134,
+									"column": 52,
+									"start": 4303,
+									"end": 4315,
+									"length": 13,
+									"parent_index": 488
+								},
+								"left_expression": {
+									"id": 492,
+									"node_type": 17,
+									"kind": 49,
+									"value": "10",
+									"hex_value": "3130",
+									"src": {
+										"line": 134,
+										"column": 52,
+										"start": 4303,
+										"end": 4304,
+										"length": 2,
+										"parent_index": 491
+									},
+									"type_description": {
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true,
+									"text": "10"
+								},
+								"right_expression": {
+									"id": 493,
+									"node_type": 16,
+									"src": {
+										"line": 134,
+										"column": 56,
+										"start": 4307,
+										"end": 4315,
+										"length": 9,
+										"parent_index": 491
+									},
+									"name": "_decimals",
+									"type_description": {
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 482,
+									"is_pure": false,
+									"text": "_decimals"
+								},
+								"type_descriptions": [
+									{
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									{
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									}
+								]
+							},
+							"type_description": {
+								"type_identifier": "t_rational_6900000000_by_1",
+								"type_string": "int_const 6900000000"
+							}
+						}
+					},
+					"storage_slot": null
+				},
+				{
+					"name": "_name",
+					"state_variable": true,
+					"constant": true,
+					"statement": {
+						"id": 495,
+						"name": "_name",
+						"is_constant": true,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 135,
+							"column": 4,
+							"start": 4323,
+							"end": 4368,
+							"length": 46,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_string_unicode_literal",
+							"type_string": "literal_unicode_string \"unicode\"GROK\"\""
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 496,
+							"node_type": 30,
+							"src": {
+								"line": 135,
+								"column": 4,
+								"start": 4323,
+								"end": 4328,
+								"length": 6,
+								"parent_index": 495
+							},
+							"name": "string",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						},
+						"initial_value": {
+							"id": 497,
+							"node_type": 17,
+							"kind": 100,
+							"value": "GROK",
+							"src": {
+								"line": 135,
+								"column": 36,
+								"start": 4355,
+								"end": 4367,
+								"length": 13,
+								"parent_index": 495
+							},
+							"type_description": {
+								"type_identifier": "t_string_unicode_literal",
+								"type_string": "literal_unicode_string \"unicode\"GROK\"\""
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "unicode\"GROK\""
+						}
+					},
+					"storage_slot": null
+				},
+				{
+					"name": "_symbol",
+					"state_variable": true,
+					"constant": true,
+					"statement": {
+						"id": 499,
+						"name": "_symbol",
+						"is_constant": true,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 136,
+							"column": 4,
+							"start": 4375,
+							"end": 4422,
+							"length": 48,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_string_unicode_literal",
+							"type_string": "literal_unicode_string \"unicode\"GROK\"\""
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 500,
+							"node_type": 30,
+							"src": {
+								"line": 136,
+								"column": 4,
+								"start": 4375,
+								"end": 4380,
+								"length": 6,
+								"parent_index": 499
+							},
+							"name": "string",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						},
+						"initial_value": {
+							"id": 501,
+							"node_type": 17,
+							"kind": 100,
+							"value": "GROK",
+							"src": {
+								"line": 136,
+								"column": 38,
+								"start": 4409,
+								"end": 4421,
+								"length": 13,
+								"parent_index": 499
+							},
+							"type_description": {
+								"type_identifier": "t_string_unicode_literal",
+								"type_string": "literal_unicode_string \"unicode\"GROK\"\""
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "unicode\"GROK\""
+						}
+					},
+					"storage_slot": null
+				},
+				{
+					"name": "_maxTxAmount",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 503,
+						"name": "_maxTxAmount",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 137,
+							"column": 4,
+							"start": 4429,
+							"end": 4484,
+							"length": 56,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_138000000_by_1",
+							"type_string": "int_const 138000000"
+						},
+						"visibility": 3,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 504,
+							"node_type": 30,
+							"src": {
+								"line": 137,
+								"column": 4,
+								"start": 4429,
+								"end": 4435,
+								"length": 7,
+								"parent_index": 503
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 505,
+							"is_constant": false,
+							"is_pure": false,
+							"node_type": 19,
+							"src": {
+								"line": 137,
+								"column": 34,
+								"start": 4459,
+								"end": 4483,
+								"length": 25,
+								"parent_index": 503
+							},
+							"operator": 3,
+							"left_expression": {
+								"id": 506,
+								"node_type": 17,
+								"kind": 49,
+								"value": "138000000",
+								"hex_value": "313338303030303030",
+								"src": {
+									"line": 137,
+									"column": 34,
+									"start": 4459,
+									"end": 4467,
+									"length": 9,
+									"parent_index": 505
+								},
+								"type_description": {
+									"type_identifier": "t_rational_138000000_by_1",
+									"type_string": "int_const 138000000"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": true,
+								"text": "138000000"
+							},
+							"right_expression": {
+								"id": 508,
+								"node_type": 95,
+								"src": {
+									"line": 137,
+									"column": 46,
+									"start": 4471,
+									"end": 4483,
+									"length": 13,
+									"parent_index": 505
+								},
+								"left_expression": {
+									"id": 509,
+									"node_type": 17,
+									"kind": 49,
+									"value": "10",
+									"hex_value": "3130",
+									"src": {
+										"line": 137,
+										"column": 46,
+										"start": 4471,
+										"end": 4472,
+										"length": 2,
+										"parent_index": 508
+									},
+									"type_description": {
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true,
+									"text": "10"
+								},
+								"right_expression": {
+									"id": 510,
+									"node_type": 16,
+									"src": {
+										"line": 137,
+										"column": 50,
+										"start": 4475,
+										"end": 4483,
+										"length": 9,
+										"parent_index": 508
+									},
+									"name": "_decimals",
+									"type_description": {
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 482,
+									"is_pure": false,
+									"text": "_decimals"
+								},
+								"type_descriptions": [
+									{
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									{
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									}
+								]
+							},
+							"type_description": {
+								"type_identifier": "t_rational_138000000_by_1",
+								"type_string": "int_const 138000000"
+							}
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 503,
+						"block_number": 18764256,
+						"name": "_maxTxAmount",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 15,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000005fc1b97136320000",
+						"value": 6900000000000000000
+					}
+				},
+				{
+					"name": "_maxWalletSize",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 512,
+						"name": "_maxWalletSize",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 138,
+							"column": 4,
+							"start": 4491,
+							"end": 4548,
+							"length": 58,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_138000000_by_1",
+							"type_string": "int_const 138000000"
+						},
+						"visibility": 3,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 513,
+							"node_type": 30,
+							"src": {
+								"line": 138,
+								"column": 4,
+								"start": 4491,
+								"end": 4497,
+								"length": 7,
+								"parent_index": 512
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 514,
+							"is_constant": false,
+							"is_pure": false,
+							"node_type": 19,
+							"src": {
+								"line": 138,
+								"column": 36,
+								"start": 4523,
+								"end": 4547,
+								"length": 25,
+								"parent_index": 512
+							},
+							"operator": 3,
+							"left_expression": {
+								"id": 515,
+								"node_type": 17,
+								"kind": 49,
+								"value": "138000000",
+								"hex_value": "313338303030303030",
+								"src": {
+									"line": 138,
+									"column": 36,
+									"start": 4523,
+									"end": 4531,
+									"length": 9,
+									"parent_index": 514
+								},
+								"type_description": {
+									"type_identifier": "t_rational_138000000_by_1",
+									"type_string": "int_const 138000000"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": true,
+								"text": "138000000"
+							},
+							"right_expression": {
+								"id": 517,
+								"node_type": 95,
+								"src": {
+									"line": 138,
+									"column": 48,
+									"start": 4535,
+									"end": 4547,
+									"length": 13,
+									"parent_index": 514
+								},
+								"left_expression": {
+									"id": 518,
+									"node_type": 17,
+									"kind": 49,
+									"value": "10",
+									"hex_value": "3130",
+									"src": {
+										"line": 138,
+										"column": 48,
+										"start": 4535,
+										"end": 4536,
+										"length": 2,
+										"parent_index": 517
+									},
+									"type_description": {
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true,
+									"text": "10"
+								},
+								"right_expression": {
+									"id": 519,
+									"node_type": 16,
+									"src": {
+										"line": 138,
+										"column": 52,
+										"start": 4539,
+										"end": 4547,
+										"length": 9,
+										"parent_index": 517
+									},
+									"name": "_decimals",
+									"type_description": {
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 482,
+									"is_pure": false,
+									"text": "_decimals"
+								},
+								"type_descriptions": [
+									{
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									{
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									}
+								]
+							},
+							"type_description": {
+								"type_identifier": "t_rational_138000000_by_1",
+								"type_string": "int_const 138000000"
+							}
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 512,
+						"block_number": 18764256,
+						"name": "_maxWalletSize",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 16,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000000000000000000000000000005fc1b97136320000",
+						"value": 6900000000000000000
+					}
+				},
+				{
+					"name": "_taxSwapThreshold",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 521,
+						"name": "_taxSwapThreshold",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 139,
+							"column": 4,
+							"start": 4555,
+							"end": 4613,
+							"length": 59,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_69000000_by_1",
+							"type_string": "int_const 69000000"
+						},
+						"visibility": 3,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 522,
+							"node_type": 30,
+							"src": {
+								"line": 139,
+								"column": 4,
+								"start": 4555,
+								"end": 4561,
+								"length": 7,
+								"parent_index": 521
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 523,
+							"is_constant": false,
+							"is_pure": false,
+							"node_type": 19,
+							"src": {
+								"line": 139,
+								"column": 38,
+								"start": 4589,
+								"end": 4612,
+								"length": 24,
+								"parent_index": 521
+							},
+							"operator": 3,
+							"left_expression": {
+								"id": 524,
+								"node_type": 17,
+								"kind": 49,
+								"value": "69000000",
+								"hex_value": "3639303030303030",
+								"src": {
+									"line": 139,
+									"column": 38,
+									"start": 4589,
+									"end": 4596,
+									"length": 8,
+									"parent_index": 523
+								},
+								"type_description": {
+									"type_identifier": "t_rational_69000000_by_1",
+									"type_string": "int_const 69000000"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": true,
+								"text": "69000000"
+							},
+							"right_expression": {
+								"id": 526,
+								"node_type": 95,
+								"src": {
+									"line": 139,
+									"column": 49,
+									"start": 4600,
+									"end": 4612,
+									"length": 13,
+									"parent_index": 523
+								},
+								"left_expression": {
+									"id": 527,
+									"node_type": 17,
+									"kind": 49,
+									"value": "10",
+									"hex_value": "3130",
+									"src": {
+										"line": 139,
+										"column": 49,
+										"start": 4600,
+										"end": 4601,
+										"length": 2,
+										"parent_index": 526
+									},
+									"type_description": {
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true,
+									"text": "10"
+								},
+								"right_expression": {
+									"id": 528,
+									"node_type": 16,
+									"src": {
+										"line": 139,
+										"column": 53,
+										"start": 4604,
+										"end": 4612,
+										"length": 9,
+										"parent_index": 526
+									},
+									"name": "_decimals",
+									"type_description": {
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 482,
+									"is_pure": false,
+									"text": "_decimals"
+								},
+								"type_descriptions": [
+									{
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									{
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									}
+								]
+							},
+							"type_description": {
+								"type_identifier": "t_rational_69000000_by_1",
+								"type_string": "int_const 69000000"
+							}
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 521,
+						"block_number": 18764256,
+						"name": "_taxSwapThreshold",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 17,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x00000000000000000000000000000000000000000000000000f5232269808000",
+						"value": 69000000000000000
+					}
+				},
+				{
+					"name": "_maxTaxSwap",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 530,
+						"name": "_maxTaxSwap",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 140,
+							"column": 4,
+							"start": 4620,
+							"end": 4672,
+							"length": 53,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_rational_69000000_by_1",
+							"type_string": "int_const 69000000"
+						},
+						"visibility": 3,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 531,
+							"node_type": 30,
+							"src": {
+								"line": 140,
+								"column": 4,
+								"start": 4620,
+								"end": 4626,
+								"length": 7,
+								"parent_index": 530
+							},
+							"name": "uint256",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						"initial_value": {
+							"id": 532,
+							"is_constant": false,
+							"is_pure": false,
+							"node_type": 19,
+							"src": {
+								"line": 140,
+								"column": 32,
+								"start": 4648,
+								"end": 4671,
+								"length": 24,
+								"parent_index": 530
+							},
+							"operator": 3,
+							"left_expression": {
+								"id": 533,
+								"node_type": 17,
+								"kind": 49,
+								"value": "69000000",
+								"hex_value": "3639303030303030",
+								"src": {
+									"line": 140,
+									"column": 32,
+									"start": 4648,
+									"end": 4655,
+									"length": 8,
+									"parent_index": 532
+								},
+								"type_description": {
+									"type_identifier": "t_rational_69000000_by_1",
+									"type_string": "int_const 69000000"
+								},
+								"overloaded_declarations": [],
+								"referenced_declaration": 0,
+								"is_pure": true,
+								"text": "69000000"
+							},
+							"right_expression": {
+								"id": 535,
+								"node_type": 95,
+								"src": {
+									"line": 140,
+									"column": 43,
+									"start": 4659,
+									"end": 4671,
+									"length": 13,
+									"parent_index": 532
+								},
+								"left_expression": {
+									"id": 536,
+									"node_type": 17,
+									"kind": 49,
+									"value": "10",
+									"hex_value": "3130",
+									"src": {
+										"line": 140,
+										"column": 43,
+										"start": 4659,
+										"end": 4660,
+										"length": 2,
+										"parent_index": 535
+									},
+									"type_description": {
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 0,
+									"is_pure": true,
+									"text": "10"
+								},
+								"right_expression": {
+									"id": 537,
+									"node_type": 16,
+									"src": {
+										"line": 140,
+										"column": 47,
+										"start": 4663,
+										"end": 4671,
+										"length": 9,
+										"parent_index": 535
+									},
+									"name": "_decimals",
+									"type_description": {
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									},
+									"overloaded_declarations": [],
+									"referenced_declaration": 482,
+									"is_pure": false,
+									"text": "_decimals"
+								},
+								"type_descriptions": [
+									{
+										"type_identifier": "t_rational_10_by_1",
+										"type_string": "int_const 10"
+									},
+									{
+										"type_identifier": "t_rational_9_by_1",
+										"type_string": "int_const 9"
+									}
+								]
+							},
+							"type_description": {
+								"type_identifier": "t_rational_69000000_by_1",
+								"type_string": "int_const 69000000"
+							}
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 530,
+						"block_number": 18764256,
+						"name": "_maxTaxSwap",
+						"type": "uint256",
+						"type_description": {
+							"type_identifier": "t_uint256",
+							"type_string": "uint256"
+						},
+						"slot": 18,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x00000000000000000000000000000000000000000000000000f5232269808000",
+						"value": 69000000000000000
+					}
+				},
+				{
+					"name": "uniswapV2Router",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 539,
+						"name": "uniswapV2Router",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 142,
+							"column": 4,
+							"start": 4681,
+							"end": 4723,
+							"length": 43,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_contract$_IUniswapV2Router02_$348",
+							"type_string": "contract IUniswapV2Router02"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 540,
+							"node_type": 69,
+							"src": {
+								"line": 142,
+								"column": 4,
+								"start": 4681,
+								"end": 4698,
+								"length": 18,
+								"parent_index": 539
+							},
+							"path_node": {
+								"id": 541,
+								"name": "IUniswapV2Router02",
+								"node_type": 52,
+								"referenced_declaration": 348,
+								"src": {
+									"line": 142,
+									"column": 4,
+									"start": 4681,
+									"end": 4698,
+									"length": 18,
+									"parent_index": 540
+								},
+								"name_location": {
+									"line": 142,
+									"column": 4,
+									"start": 4681,
+									"end": 4698,
+									"length": 18,
+									"parent_index": 540
+								}
+							},
+							"referenced_declaration": 348,
+							"type_description": {
+								"type_identifier": "t_contract$_IUniswapV2Router02_$348",
+								"type_string": "contract IUniswapV2Router02"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 539,
+						"block_number": 18764256,
+						"name": "uniswapV2Router",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_contract$_IUniswapV2Router02_$348",
+							"type_string": "contract IUniswapV2Router02"
+						},
+						"slot": 19,
+						"size": 256,
+						"offset": 0,
+						"raw_value": "0x0000000000000000000000007a250d5630b4cf539739df2c5dacb4c659f2488d",
+						"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+					}
+				},
+				{
+					"name": "uniswapV2Pair",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 543,
+						"name": "uniswapV2Pair",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 143,
+							"column": 4,
+							"start": 4730,
+							"end": 4759,
+							"length": 30,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 544,
+							"node_type": 30,
+							"src": {
+								"line": 143,
+								"column": 4,
+								"start": 4730,
+								"end": 4736,
+								"length": 7,
+								"parent_index": 543
+							},
+							"name": "address",
+							"state_mutability": 4,
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 543,
+						"block_number": 18764256,
+						"name": "uniswapV2Pair",
+						"type": "address",
+						"type_description": {
+							"type_identifier": "t_address",
+							"type_string": "address"
+						},
+						"slot": 20,
+						"size": 160,
+						"offset": 0,
+						"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+						"value": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2"
+					}
+				},
+				{
+					"name": "tradingOpen",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 546,
+						"name": "tradingOpen",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 144,
+							"column": 4,
+							"start": 4766,
+							"end": 4790,
+							"length": 25,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 547,
+							"node_type": 30,
+							"src": {
+								"line": 144,
+								"column": 4,
+								"start": 4766,
+								"end": 4769,
+								"length": 4,
+								"parent_index": 546
+							},
+							"name": "bool",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						"initial_value": null
+					},
+					"storage_slot": {
+						"declaration_id": 546,
+						"block_number": 18764256,
+						"name": "tradingOpen",
+						"type": "bool",
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						},
+						"slot": 20,
+						"size": 8,
+						"offset": 160,
+						"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+						"value": true
+					}
+				},
+				{
+					"name": "inSwap",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 549,
+						"name": "inSwap",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 145,
+							"column": 4,
+							"start": 4797,
+							"end": 4824,
+							"length": 28,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 550,
+							"node_type": 30,
+							"src": {
+								"line": 145,
+								"column": 4,
+								"start": 4797,
+								"end": 4800,
+								"length": 4,
+								"parent_index": 549
+							},
+							"name": "bool",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						"initial_value": {
+							"id": 551,
+							"node_type": 17,
+							"kind": 61,
+							"value": "false",
+							"hex_value": "66616c7365",
+							"src": {
+								"line": 145,
+								"column": 26,
+								"start": 4819,
+								"end": 4823,
+								"length": 5,
+								"parent_index": 549
+							},
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "false"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 549,
+						"block_number": 18764256,
+						"name": "inSwap",
+						"type": "bool",
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						},
+						"slot": 20,
+						"size": 8,
+						"offset": 168,
+						"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+						"value": false
+					}
+				},
+				{
+					"name": "swapEnabled",
+					"state_variable": true,
+					"constant": false,
+					"statement": {
+						"id": 553,
+						"name": "swapEnabled",
+						"is_constant": false,
+						"is_state_variable": true,
+						"node_type": 44,
+						"src": {
+							"line": 146,
+							"column": 4,
+							"start": 4831,
+							"end": 4863,
+							"length": 33,
+							"parent_index": 409
+						},
+						"scope": 409,
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						},
+						"visibility": 2,
+						"storage_location": 1,
+						"mutability": 1,
+						"type_name": {
+							"id": 554,
+							"node_type": 30,
+							"src": {
+								"line": 146,
+								"column": 4,
+								"start": 4831,
+								"end": 4834,
+								"length": 4,
+								"parent_index": 553
+							},
+							"name": "bool",
+							"referenced_declaration": 0,
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						"initial_value": {
+							"id": 555,
+							"node_type": 17,
+							"kind": 61,
+							"value": "false",
+							"hex_value": "66616c7365",
+							"src": {
+								"line": 146,
+								"column": 31,
+								"start": 4858,
+								"end": 4862,
+								"length": 5,
+								"parent_index": 553
+							},
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							},
+							"overloaded_declarations": [],
+							"referenced_declaration": 0,
+							"is_pure": true,
+							"text": "false"
+						}
+					},
+					"storage_slot": {
+						"declaration_id": 553,
+						"block_number": 18764256,
+						"name": "swapEnabled",
+						"type": "bool",
+						"type_description": {
+							"type_identifier": "t_bool",
+							"type_string": "bool"
+						},
+						"slot": 20,
+						"size": 8,
+						"offset": 176,
+						"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+						"value": true
+					}
+				}
+			]
+		},
+		"storage": {
 			"detected": true,
-			"corrupted": false,
-			"name": "GROK",
-			"symbol": "GROK",
-			"decimals": 9,
-			"total_supply": 6900000000000000000
+			"descriptor": {
+				"address": "0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
+				"block": 18764255,
+				"storage_layout": {
+					"slots": [
+						{
+							"declaration_id": 260,
+							"block_number": 18764255,
+							"name": "_owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							"slot": 0,
+							"size": 160,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": "0x0000000000000000000000000000000000000000"
+						},
+						{
+							"declaration_id": 421,
+							"block_number": 18764255,
+							"name": "_balances",
+							"type": "mapping(address=\u003euint256)",
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_uint256$",
+								"type_string": "mapping(address=\u003euint256)"
+							},
+							"slot": 1,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": {}
+						},
+						{
+							"declaration_id": 426,
+							"block_number": 18764255,
+							"name": "_allowances",
+							"type": "mapping(address=\u003emapping(address=\u003euint256))",
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+								"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+							},
+							"slot": 2,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": {}
+						},
+						{
+							"declaration_id": 434,
+							"block_number": 18764256,
+							"name": "_isExcludedFromFee",
+							"type": "mapping(address=\u003ebool)",
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_bool$",
+								"type_string": "mapping(address=\u003ebool)"
+							},
+							"slot": 3,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": {}
+						},
+						{
+							"declaration_id": 439,
+							"block_number": 18764256,
+							"name": "bots",
+							"type": "mapping(address=\u003ebool)",
+							"type_description": {
+								"type_identifier": "t_mapping_$t_address_$t_bool$",
+								"type_string": "mapping(address=\u003ebool)"
+							},
+							"slot": 4,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": {}
+						},
+						{
+							"declaration_id": 444,
+							"block_number": 18764256,
+							"name": "_taxWallet",
+							"type": "addresspayable",
+							"type_description": {
+								"type_identifier": "t_address_payable",
+								"type_string": "address"
+							},
+							"slot": 5,
+							"size": 160,
+							"offset": 0,
+							"raw_value": "0x000000000000000000000000f9387ac9f61cc22994a59a6008f827435ce744b6",
+							"value": "0xf9387ac9f61cc22994a59a6008f827435ce744b6"
+						},
+						{
+							"declaration_id": 447,
+							"block_number": 18764256,
+							"name": "firstBlock",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 6,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x00000000000000000000000000000000000000000000000000000000011a3b08",
+							"value": 18496264
+						},
+						{
+							"declaration_id": 450,
+							"block_number": 18764256,
+							"name": "_initialBuyTax",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 7,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000018",
+							"value": 24
+						},
+						{
+							"declaration_id": 454,
+							"block_number": 18764256,
+							"name": "_initialSellTax",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 8,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000018",
+							"value": 24
+						},
+						{
+							"declaration_id": 458,
+							"block_number": 18764256,
+							"name": "_finalBuyTax",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 9,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": 0
+						},
+						{
+							"declaration_id": 462,
+							"block_number": 18764256,
+							"name": "_finalSellTax",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 10,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"value": 0
+						},
+						{
+							"declaration_id": 466,
+							"block_number": 18764256,
+							"name": "_reduceBuyTaxAt",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 11,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000013",
+							"value": 19
+						},
+						{
+							"declaration_id": 470,
+							"block_number": 18764256,
+							"name": "_reduceSellTaxAt",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 12,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x000000000000000000000000000000000000000000000000000000000000001d",
+							"value": 29
+						},
+						{
+							"declaration_id": 474,
+							"block_number": 18764256,
+							"name": "_preventSwapBefore",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 13,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000000000000000000014",
+							"value": 20
+						},
+						{
+							"declaration_id": 478,
+							"block_number": 18764256,
+							"name": "_buyCount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 14,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x00000000000000000000000000000000000000000000000000000000000159fa",
+							"value": 88570
+						},
+						{
+							"declaration_id": 503,
+							"block_number": 18764256,
+							"name": "_maxTxAmount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 15,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000005fc1b97136320000",
+							"value": 6900000000000000000
+						},
+						{
+							"declaration_id": 512,
+							"block_number": 18764256,
+							"name": "_maxWalletSize",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 16,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000000000000000000000000000005fc1b97136320000",
+							"value": 6900000000000000000
+						},
+						{
+							"declaration_id": 521,
+							"block_number": 18764256,
+							"name": "_taxSwapThreshold",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 17,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x00000000000000000000000000000000000000000000000000f5232269808000",
+							"value": 69000000000000000
+						},
+						{
+							"declaration_id": 530,
+							"block_number": 18764256,
+							"name": "_maxTaxSwap",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							},
+							"slot": 18,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x00000000000000000000000000000000000000000000000000f5232269808000",
+							"value": 69000000000000000
+						},
+						{
+							"declaration_id": 539,
+							"block_number": 18764256,
+							"name": "uniswapV2Router",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_contract$_IUniswapV2Router02_$348",
+								"type_string": "contract IUniswapV2Router02"
+							},
+							"slot": 19,
+							"size": 256,
+							"offset": 0,
+							"raw_value": "0x0000000000000000000000007a250d5630b4cf539739df2c5dacb4c659f2488d",
+							"value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+						},
+						{
+							"declaration_id": 543,
+							"block_number": 18764256,
+							"name": "uniswapV2Pair",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							},
+							"slot": 20,
+							"size": 160,
+							"offset": 0,
+							"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+							"value": "0x69c66beafb06674db41b22cfc50c34a93b8d82a2"
+						},
+						{
+							"declaration_id": 546,
+							"block_number": 18764256,
+							"name": "tradingOpen",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							},
+							"slot": 20,
+							"size": 8,
+							"offset": 160,
+							"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+							"value": true
+						},
+						{
+							"declaration_id": 549,
+							"block_number": 18764256,
+							"name": "inSwap",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							},
+							"slot": 20,
+							"size": 8,
+							"offset": 168,
+							"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+							"value": false
+						},
+						{
+							"declaration_id": 553,
+							"block_number": 18764256,
+							"name": "swapEnabled",
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							},
+							"slot": 20,
+							"size": 8,
+							"offset": 176,
+							"raw_value": "0x00000000000000000001000169c66beafb06674db41b22cfc50c34a93b8d82a2",
+							"value": true
+						}
+					]
+				}
+			}
+		},
+		"transfer": {
+			"detected": true,
+			"safe": true,
+			"functions": [
+				{
+					"contract_name": "IERC20",
+					"contract_type": 35,
+					"contract_kind": 38,
+					"name": "transfer",
+					"signature_compatibility": 4,
+					"standard": {
+						"confidence": 4,
+						"confidence_points": 1,
+						"threshold": 1,
+						"maximum_tokens": 9,
+						"discovered_tokens": 9,
+						"standard": "ERC20",
+						"function": {
+							"name": "transfer",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "uint256",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [
+								{
+									"type": "bool",
+									"matched": true
+								}
+							],
+							"matched": true
+						}
+					},
+					"visibility": 4,
+					"mutability": 4,
+					"unit": null,
+					"detectors": [
+						{
+							"detection_type": "balance_update_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Balance update logic is missing or incorrect.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "event_emission_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Expected Transfer event emission is missing.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "access_control_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Access control is missing or not properly implemented.",
+							"statement": null,
+							"sub_detectors": null
+						}
+					]
+				},
+				{
+					"contract_name": "IERC20",
+					"contract_type": 35,
+					"contract_kind": 38,
+					"name": "transferFrom",
+					"signature_compatibility": 4,
+					"standard": {
+						"confidence": 4,
+						"confidence_points": 1,
+						"threshold": 1,
+						"maximum_tokens": 12,
+						"discovered_tokens": 12,
+						"standard": "ERC20",
+						"function": {
+							"name": "transferFrom",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "uint256",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [
+								{
+									"type": "bool",
+									"matched": true
+								}
+							],
+							"matched": true
+						}
+					},
+					"visibility": 4,
+					"mutability": 4,
+					"unit": null,
+					"detectors": [
+						{
+							"detection_type": "balance_update_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Balance update logic is missing or incorrect.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "event_emission_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Expected Approval event emission is missing.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "access_control_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Access control is missing or not properly implemented.",
+							"statement": null,
+							"sub_detectors": null
+						}
+					]
+				},
+				{
+					"contract_name": "GROK",
+					"contract_type": 35,
+					"contract_kind": 36,
+					"name": "transfer",
+					"signature_compatibility": 4,
+					"standard": {
+						"confidence": 4,
+						"confidence_points": 1,
+						"threshold": 1,
+						"maximum_tokens": 9,
+						"discovered_tokens": 9,
+						"standard": "ERC20",
+						"function": {
+							"name": "transfer",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "uint256",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [
+								{
+									"type": "bool",
+									"matched": true
+								}
+							],
+							"matched": true
+						}
+					},
+					"visibility": 3,
+					"mutability": 4,
+					"unit": null,
+					"detectors": [
+						{
+							"detection_type": "internal_transfer_call_detected",
+							"severity_type": "informatinal",
+							"detection_level": "high",
+							"description": "Internal _transfer call is present in the function.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "balance_update_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Balance update logic is missing or incorrect.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "event_emission_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Expected Transfer event emission is missing.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "access_control_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Access control is missing or not properly implemented.",
+							"statement": null,
+							"sub_detectors": null
+						}
+					]
+				},
+				{
+					"contract_name": "GROK",
+					"contract_type": 35,
+					"contract_kind": 36,
+					"name": "transferFrom",
+					"signature_compatibility": 4,
+					"standard": {
+						"confidence": 4,
+						"confidence_points": 1,
+						"threshold": 1,
+						"maximum_tokens": 12,
+						"discovered_tokens": 12,
+						"standard": "ERC20",
+						"function": {
+							"name": "transferFrom",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "uint256",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [
+								{
+									"type": "bool",
+									"matched": true
+								}
+							],
+							"matched": true
+						}
+					},
+					"visibility": 3,
+					"mutability": 4,
+					"unit": null,
+					"detectors": [
+						{
+							"detection_type": "internal_transfer_call_detected",
+							"severity_type": "informatinal",
+							"detection_level": "high",
+							"description": "Internal _transfer call is present in the function.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "balance_update_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Balance update logic is missing or incorrect.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "event_emission_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Expected Approval event emission is missing.",
+							"statement": null,
+							"sub_detectors": null
+						},
+						{
+							"detection_type": "access_control_missing",
+							"severity_type": "medium",
+							"detection_level": "high",
+							"description": "Access control is missing or not properly implemented.",
+							"statement": null,
+							"sub_detectors": null
+						}
+					]
+				},
+				{
+					"contract_name": "GROK",
+					"contract_type": 35,
+					"contract_kind": 36,
+					"name": "_transfer",
+					"signature_compatibility": 0,
+					"standard": null,
+					"visibility": 2,
+					"mutability": 4,
+					"unit": null,
+					"detectors": []
+				}
+			]
 		}
 	}
 }

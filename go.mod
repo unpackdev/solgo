@@ -6,11 +6,14 @@ require (
 	github.com/0x19/solc-switch v1.0.3
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20230607035331-e9ce68804cb4
+	github.com/daoleno/uniswap-sdk-core v0.1.7
+	github.com/davecgh/go-spew v1.1.1
 	github.com/ethereum/go-ethereum v1.13.4
 	github.com/fxamacker/cbor/v2 v2.5.0
 	github.com/goccy/go-graphviz v0.1.1
 	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.3.0
+	github.com/iancoleman/orderedmap v0.3.0
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
 	github.com/mr-tron/base58 v1.2.0
@@ -19,7 +22,6 @@ require (
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.8.4
 	github.com/unpackdev/protos v0.3.2
-	github.com/wadey/go-rounding v1.1.0
 	go.uber.org/zap v1.26.0
 	golang.org/x/crypto v0.16.0
 	golang.org/x/sync v0.3.0
@@ -49,8 +51,6 @@ require (
 	github.com/consensys/gnark-crypto v0.12.1 // indirect
 	github.com/crackcomm/go-gitignore v0.0.0-20170627025303-887ab5e44cc3 // indirect
 	github.com/crate-crypto/go-kzg-4844 v0.3.0 // indirect
-	github.com/daoleno/uniswap-sdk-core v0.1.7 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deckarep/golang-set/v2 v2.3.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect

@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -175,6 +176,11 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 				Content: source.Content,
 			})
 		}
+
+		if err := sources.DeterministicSortContracts(); err != nil {
+			return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+		}
+
 	default:
 		return nil, fmt.Errorf("unknown source code type: %T", sourceCode)
 	}
@@ -185,7 +191,6 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 // AppendSource appends a SourceUnit to the Sources.
 // If a SourceUnit with the same name already exists, it replaces it unless the new SourceUnit has less content.
 func (s *Sources) AppendSource(source *SourceUnit) {
-
 	if s.SourceUnitExists(source.GetName()) {
 		unit := s.GetSourceUnitByName(source.GetName())
 
@@ -740,4 +745,87 @@ func compareVersions(v1, v2 string) int {
 		}
 	}
 	return 0
+}
+
+func (s *Sources) DeterministicSortContracts() error {
+	nodes := createNodesFromSourceUnits(s.SourceUnits)
+
+	// Sort the nodes by name to ensure deterministic behavior
+	sort.Slice(nodes, func(i, j int) bool {
+		return nodes[i].Name < nodes[j].Name
+	})
+
+	sortedNodes, err := deterministicTopologicalSort(nodes)
+	if err != nil {
+		return err
+	}
+
+	var sortedSourceUnits []*SourceUnit
+	for _, node := range sortedNodes {
+		if sourceUnit := s.GetSourceUnitByNameAndSize(node.Name, node.Size); sourceUnit != nil {
+			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
+		}
+	}
+
+	s.SourceUnits = sortedSourceUnits
+	return nil
+}
+
+// deterministicTopologicalSort performs a topological sort on the given nodes based on their dependencies.
+// It sorts the dependencies of each node to ensure the sort is deterministic.
+func deterministicTopologicalSort(nodes []Node) ([]Node, error) {
+	var sorted []Node
+	visited := make(map[string]bool)
+	var visit func(node Node) error
+
+	visit = func(node Node) error {
+		nodeKey := node.Name
+		if visited[nodeKey] {
+			return nil
+		}
+		visited[nodeKey] = true
+
+		// Sort dependencies for deterministic behavior
+		sort.Strings(node.Dependencies)
+		for _, depName := range node.Dependencies {
+			for _, depNode := range nodes {
+				if depNode.Name == depName {
+					if err := visit(depNode); err != nil {
+						return err
+					}
+				}
+			}
+		}
+
+		sorted = append([]Node{node}, sorted...) // Prepend to maintain order
+		return nil
+	}
+
+	for _, node := range nodes {
+		if err := visit(node); err != nil {
+			return nil, err
+		}
+	}
+
+	return sorted, nil
+}
+
+// createNodesFromSourceUnits creates nodes from source units for topological sorting.
+func createNodesFromSourceUnits(sourceUnits []*SourceUnit) []Node {
+	var nodes []Node
+	for _, sourceUnit := range sourceUnits {
+		imports := extractImports(sourceUnit.Content)
+		var dependencies []string
+		for _, imp := range imports {
+			baseName := filepath.Base(imp)
+			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
+		}
+		nodes = append(nodes, Node{
+			Name:         sourceUnit.Name,
+			Size:         len(sourceUnit.Content),
+			Content:      sourceUnit.Content,
+			Dependencies: dependencies,
+		})
+	}
+	return nodes
 }
