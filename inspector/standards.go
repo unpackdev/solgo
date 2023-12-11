@@ -52,6 +52,16 @@ func (m *StandardsDetector) Type() DetectorType {
 	return StandardsDetectorType
 }
 
+// SetInspector sets the Inspector instance of the StandardsDetector.
+func (m *StandardsDetector) SetInspector(inspector *Inspector) {
+	m.Inspector = inspector
+}
+
+// GetInspector returns the Inspector instance of the StandardsDetector.
+func (m *StandardsDetector) GetInspector() *Inspector {
+	return m.Inspector
+}
+
 // Enter initializes the detection process, setting up any necessary state or configuration.
 func (m *StandardsDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil

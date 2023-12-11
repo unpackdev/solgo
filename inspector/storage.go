@@ -36,6 +36,20 @@ func (m *StorageDetector) Type() DetectorType {
 	return StorageDetectorType
 }
 
+func (m *StorageDetector) GetResults() any {
+	return m.results
+}
+
+// SetInspector sets the inspector for the detector
+func (m *StorageDetector) SetInspector(inspector *Inspector) {
+	m.Inspector = inspector
+}
+
+// GetInspector returns the inspector for the detector
+func (m *StorageDetector) GetInspector() *Inspector {
+	return m.Inspector
+}
+
 func (m *StorageDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	// As of now, we do not need to traverse through the AST.
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
@@ -53,6 +67,7 @@ func (m *StorageDetector) Detect(ctx context.Context) (DetectorFn, error) {
 	} else {
 		m.results.Detected = true
 		m.results.Descriptor = reader.GetDescriptor()
+		//utils.DumpNodeNoExit(reader.GetDescriptor())
 	}
 
 	// As of now, we do not need to traverse through the AST.

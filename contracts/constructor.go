@@ -27,8 +27,12 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 			position := bytes.Index(tx.Data(), deployedBytecode[:20])
 			if position != -1 {
 				adjustedData := tx.Data()[position:]
+				constructorDataIndex := len(deployedBytecode)
+				if constructorDataIndex > len(adjustedData) {
+					return fmt.Errorf("constructor data index out of range")
+				}
 
-				constructor, err := bytecode.DecodeConstructorFromAbi(adjustedData[len(deployedBytecode):], constructorAbi)
+				constructor, err := bytecode.DecodeConstructorFromAbi(adjustedData[constructorDataIndex:], constructorAbi)
 				if err != nil {
 					if !strings.Contains(err.Error(), "would go over slice boundary") {
 						zap.L().Error(

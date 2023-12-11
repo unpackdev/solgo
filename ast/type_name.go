@@ -397,7 +397,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 	} else if ctx.TypeName() != nil {
 		t.generateTypeName(unit, ctx.TypeName(), t, t)
 	} else {
-		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
 			t.Name,
 		)
 
@@ -408,10 +408,20 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			t.StateMutability = ast_pb.Mutability_PAYABLE
 		}
 
-		if len(normalizedTypeName) > 0 {
-			t.TypeDescription = &TypeDescription{
-				TypeIdentifier: normalizedTypeIdentifier,
-				TypeString:     normalizedTypeName,
+		if found {
+			if len(normalizedTypeName) > 0 {
+				t.TypeDescription = &TypeDescription{
+					TypeIdentifier: normalizedTypeIdentifier,
+					TypeString:     normalizedTypeName,
+				}
+			} else {
+				if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
+					if t.PathNode != nil {
+						t.PathNode.ReferencedDeclaration = refId
+					}
+					t.ReferencedDeclaration = refId
+					t.TypeDescription = refTypeDescription
+				}
 			}
 		} else {
 			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
@@ -422,6 +432,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				t.TypeDescription = refTypeDescription
 			}
 		}
+
 	}
 }
 
@@ -430,7 +441,7 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 	t.Name = ctx.GetText()
 	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 
-	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+	normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
 		ctx.GetText(),
 	)
 
@@ -441,9 +452,19 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 		t.StateMutability = ast_pb.Mutability_PAYABLE
 	}
 
-	t.TypeDescription = &TypeDescription{
-		TypeIdentifier: normalizedTypeIdentifier,
-		TypeString:     normalizedTypeName,
+	if found {
+		t.TypeDescription = &TypeDescription{
+			TypeIdentifier: normalizedTypeIdentifier,
+			TypeString:     normalizedTypeName,
+		}
+	} else {
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
+			if t.PathNode != nil {
+				t.PathNode.ReferencedDeclaration = refId
+			}
+			t.ReferencedDeclaration = refId
+			t.TypeDescription = refTypeDescription
+		}
 	}
 }
 
@@ -508,7 +529,6 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 	t.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 
 	t.KeyType = t.generateTypeName(unit, keyCtx, t, t)
-
 	if keyCtx.GetStart().GetLine() > 0 {
 		t.KeyNameLocation = &SrcNode{
 			Line:        int64(keyCtx.GetStart().GetLine()),
@@ -519,6 +539,7 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 			ParentIndex: t.GetId(),
 		}
 	}
+
 	t.ValueType = t.generateTypeName(unit, valueCtx, t, t)
 	if valueCtx.GetStart().GetLine() > 0 {
 		t.ValueNameLocation = &SrcNode{
@@ -563,7 +584,6 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 			t.ValueType.TypeDescription.TypeIdentifier,
 		),
 	}
-
 }
 
 // generateTypeName generates the TypeName based on the given context.
@@ -662,7 +682,11 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			t.generateTypeName(sourceUnit, specificCtx.MappingType(), parentNode, typeName)
 		} else if specificCtx.FunctionTypeName() != nil {
 			t.parseFunctionTypeName(sourceUnit, parentNode.GetId(), specificCtx.FunctionTypeName().(*parser.FunctionTypeNameContext))
+		} else if specificCtx.IdentifierPath() != nil {
+			typeName.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+			t.parseIdentifierPath(sourceUnit, parentNode.GetId(), specificCtx.IdentifierPath().(*parser.IdentifierPathContext))
 		} else {
+
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeName.Name,
 			)
@@ -968,12 +992,18 @@ func getTypeSizeInBits(typeName string) (int64, bool) {
 	case typeName == "address" || typeName == "addresspayable" || strings.HasPrefix("contract", typeName):
 		return 160, true
 	case strings.HasPrefix(typeName, "int") || strings.HasPrefix(typeName, "uint"):
+		if typeName == "uint" || typeName == "int" {
+			return 256, true
+		}
+
 		bitSizeStr := strings.TrimPrefix(typeName, "int")
 		bitSizeStr = strings.TrimPrefix(bitSizeStr, "uint")
 		bitSize, err := strconv.Atoi(bitSizeStr)
+
 		if err != nil || bitSize < 8 || bitSize > 256 || bitSize%8 != 0 {
 			return 0, false // Invalid size
 		}
+
 		return int64(bitSize), true
 
 	case strings.HasPrefix(typeName, "bytes"):

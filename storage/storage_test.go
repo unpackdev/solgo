@@ -38,7 +38,7 @@ func TestStorage(t *testing.T) {
 			{
 				Group:                   string(utils.Ethereum),
 				Type:                    "mainnet",
-				Endpoint:                "https://ethereum.publicnode.com",
+				Endpoint:                "ws://localhost:8545",
 				NetworkId:               1,
 				ConcurrentClientsNumber: 1,
 			},
@@ -91,12 +91,28 @@ func TestStorage(t *testing.T) {
 				0: {},
 			},
 		}, */
-		{
+		/* 		{
 			name:               "Q*: 0x9abfc0f085c82ec1be31d30843965fcc63053ffe",
 			address:            common.HexToAddress("0x9abfc0f085c82ec1be31d30843965fcc63053ffe"),
 			atBlock:            nil,
 			expectError:        false,
 			expectedSlotsCount: 24,
+			expectedSlots:      map[int]*SlotDescriptor{},
+		}, */
+		/* 		{
+			name:               "Q*: 0x818339b4E536E707f14980219037c5046b049dD4",
+			address:            common.HexToAddress("0x818339b4E536E707f14980219037c5046b049dD4"),
+			atBlock:            nil,
+			expectError:        false,
+			expectedSlotsCount: 26,
+			expectedSlots:      map[int]*SlotDescriptor{},
+		}, */
+		{
+			name:               "Q*: 0x8dB4beACcd1698892821a9a0Dc367792c0cB9940",
+			address:            common.HexToAddress("0x8dB4beACcd1698892821a9a0Dc367792c0cB9940"),
+			atBlock:            nil,
+			expectError:        false,
+			expectedSlotsCount: 37,
 			expectedSlots:      map[int]*SlotDescriptor{},
 		},
 	}
@@ -143,6 +159,8 @@ func TestStorage(t *testing.T) {
 			sortedSlots := reader.GetDescriptor().GetSortedSlots()
 			tAssert.NotNil(sortedSlots)
 			tAssert.Equal(tc.expectedSlotsCount, len(sortedSlots))
+
+			utils.DumpNodeWithExit(reader.GetDescriptor())
 
 			/* 			for i, slot := range sortedSlots {
 				require.NotNil(t, tc.expectedSlots[i])

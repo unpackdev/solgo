@@ -48,5 +48,9 @@ func (b *Builder) processStateVariable(stateVar *ir.StateVariable) *Method {
 		})
 	}
 
+	/* 	if stateVar.GetName() == "_checkpoints" {
+		utils.DumpNodeWithExit(toReturn)
+	} */
+
 	return toReturn
 }

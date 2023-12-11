@@ -12,9 +12,11 @@ type DetectorFn map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, err
 type Detector interface {
 	Name() string
 	Type() DetectorType
-	Enter(ctx context.Context) (DetectorFn, error)
-	Detect(ctx context.Context) (DetectorFn, error)
-	Exit(ctx context.Context) (DetectorFn, error)
+	SetInspector(*Inspector)
+	GetInspector() *Inspector
+	Enter(context.Context) (DetectorFn, error)
+	Detect(context.Context) (DetectorFn, error)
+	Exit(context.Context) (DetectorFn, error)
 
 	// // We are not able to use generics yet to the way I want to use them... Once it's enabled lets use it!
 	// Basically we would need to use something like DetectorInterface but we cannot use it on registry variable declaration

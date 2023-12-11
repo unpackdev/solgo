@@ -186,7 +186,6 @@ func (m *Manager) CallContractMethod(ctx context.Context, network utils.Network,
 
 	var result []byte
 
-	fmt.Println("GOOOOOG NETWORK", network.String(), destinationAddr.Hex())
 	client := m.clientPool.GetClientByGroup(network.String())
 	if client == nil {
 		return nil, fmt.Errorf("client not found for network %s", network)

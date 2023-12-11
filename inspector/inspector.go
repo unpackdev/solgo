@@ -9,6 +9,7 @@ import (
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/detector"
+	"github.com/unpackdev/solgo/metadata"
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/storage"
@@ -16,16 +17,17 @@ import (
 )
 
 type Inspector struct {
-	ctx         context.Context
-	detector    *detector.Detector
-	storage     *storage.Storage
-	bindManager *bindings.Manager
-	sim         *simulator.Simulator
-	report      *Report
-	visitor     *ast.NodeVisitor
+	ctx          context.Context
+	detector     *detector.Detector
+	storage      *storage.Storage
+	bindManager  *bindings.Manager
+	sim          *simulator.Simulator
+	report       *Report
+	visitor      *ast.NodeVisitor
+	ipfsProvider metadata.Provider
 }
 
-func NewInspector(ctx context.Context, network utils.Network, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address) (*Inspector, error) {
+func NewInspector(ctx context.Context, network utils.Network, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address, ipfsProvider metadata.Provider) (*Inspector, error) {
 	return &Inspector{
 		ctx:         ctx,
 		detector:    detector,
@@ -38,6 +40,7 @@ func NewInspector(ctx context.Context, network utils.Network, detector *detector
 			Network:   network,
 			Detectors: make(map[DetectorType]any),
 		},
+		ipfsProvider: ipfsProvider,
 	}, nil
 }
 
@@ -122,8 +125,11 @@ func (i *Inspector) Inspect(only ...DetectorType) error {
 			continue
 		}
 
+		// Sets the detector and overwrites it
+		detectorEntry.detector.SetInspector(i)
+
 		// Execute Enter, Detect, and Exit functions
-		if err := executeDetectorFunctions(i, detectorEntry.detector); err != nil {
+		if err := i.execute(detectorEntry.detector); err != nil {
 			return err
 		}
 
@@ -135,7 +141,7 @@ func (i *Inspector) Inspect(only ...DetectorType) error {
 	return i.resolve()
 }
 
-func executeDetectorFunctions(i *Inspector, detector Detector) error {
+func (i *Inspector) execute(detector Detector) error {
 	enterFuncs, err := detector.Enter(i.ctx)
 	if err != nil {
 		return err

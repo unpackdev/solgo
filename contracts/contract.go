@@ -11,6 +11,7 @@ import (
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/exchanges"
 	"github.com/unpackdev/solgo/liquidity"
+	"github.com/unpackdev/solgo/metadata"
 	"github.com/unpackdev/solgo/providers/bitquery"
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/simulator"
@@ -49,12 +50,13 @@ type Contract struct {
 	exchangeManager *exchanges.Manager
 	tokenBind       *bindings.Token
 	stor            *storage.Storage
+	ipfsProvider    metadata.Provider
 }
 
 // NewContract creates a new instance of Contract for a given Ethereum address and network.
 // It initializes the contract's context, metadata, and associated blockchain clients.
 // The function validates the contract's existence and its bytecode before creation.
-func NewContract(ctx context.Context, network utils.Network, clientPool *clients.ClientPool, sim *simulator.Simulator, stor *storage.Storage, liq *liquidity.Liquidity, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindManager *bindings.Manager, exchange *exchanges.Manager, addr common.Address) (*Contract, error) {
+func NewContract(ctx context.Context, network utils.Network, clientPool *clients.ClientPool, sim *simulator.Simulator, stor *storage.Storage, liq *liquidity.Liquidity, bqp *bitquery.BitQueryProvider, etherscan *etherscan.EtherScanProvider, compiler *solc.Solc, bindManager *bindings.Manager, exchange *exchanges.Manager, ipfsProvider metadata.Provider, addr common.Address) (*Contract, error) {
 	if clientPool == nil {
 		return nil, fmt.Errorf("client pool is nil")
 	}
@@ -103,13 +105,13 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 			NetworkID:      utils.GetNetworkID(network),
 			Address:        addr,
 			LiquidityPairs: make(map[utils.ExchangeType]common.Address),
-			Safety:         &SafetyDescriptor{},
 		},
 		bindings:        bindManager,
 		exchangeManager: exchange,
 		token:           token,
 		tokenBind:       tokenBind,
 		stor:            stor,
+		ipfsProvider:    ipfsProvider,
 	}
 
 	/* 	inspect, err := inspector.NewInspector(ctx, clientPool, toReturn)

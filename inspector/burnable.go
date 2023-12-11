@@ -74,6 +74,14 @@ func (m *BurnDetector) FunctionNameExists(fnName string) bool {
 	return utils.StringInSlice(fnName, m.functionNames)
 }
 
+func (m *BurnDetector) SetInspector(inspector *Inspector) {
+	m.inspector = inspector
+}
+
+func (m *BurnDetector) GetInspector() *Inspector {
+	return m.inspector
+}
+
 // Enter for now does nothing for mint detector. It may be needed in the future.
 func (m *BurnDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil

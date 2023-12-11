@@ -104,6 +104,16 @@ func (m *MintDetector) FunctionNameExists(fnName string) bool {
 	return utils.StringInSlice(fnName, m.functionNames)
 }
 
+// SetInspector sets the inspector for the detector.
+func (m *MintDetector) SetInspector(inspector *Inspector) {
+	m.Inspector = inspector
+}
+
+// GetInspector returns the inspector for the detector.
+func (m *MintDetector) GetInspector() *Inspector {
+	return m.Inspector
+}
+
 // Enter prepares the detector for analysis but currently does nothing. It may be extended in the future.
 func (m *MintDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil

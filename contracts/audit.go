@@ -20,7 +20,7 @@ func (c *Contract) Audit(ctx context.Context) error {
 
 		audit, err := c.descriptor.Detector.Analyze()
 		if err != nil {
-			zap.L().Error(
+			zap.L().Debug(
 				"failed to analyze contract",
 				zap.Error(err),
 				zap.String("contract_address", c.descriptor.Address.Hex()),

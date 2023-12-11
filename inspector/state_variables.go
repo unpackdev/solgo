@@ -47,6 +47,16 @@ func (m *StateVariableDetector) Type() DetectorType {
 	return StateVariableDetectorType
 }
 
+// SetInspector sets the inspector for the detector
+func (m *StateVariableDetector) SetInspector(inspector *Inspector) {
+	m.Inspector = inspector
+}
+
+// GetInspector returns the inspector for the detector
+func (m *StateVariableDetector) GetInspector() *Inspector {
+	return m.Inspector
+}
+
 func (m *StateVariableDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }

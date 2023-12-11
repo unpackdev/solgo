@@ -182,7 +182,10 @@ func (v *StateVariableDeclaration) Parse(
 	bodyCtx parser.IContractBodyElementContext,
 	ctx *parser.StateVariableDeclarationContext,
 ) {
-	v.Name = ctx.Identifier().GetText()
+	if ctx.Identifier() != nil {
+		v.Name = ctx.Identifier().GetText()
+	}
+
 	v.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
@@ -205,6 +208,7 @@ func (v *StateVariableDeclaration) Parse(
 	}
 
 	typeName := NewTypeName(v.ASTBuilder)
+
 	typeName.Parse(unit, nil, v.Id, ctx.GetType_())
 	v.TypeName = typeName
 	v.TypeDescription = typeName.TypeDescription

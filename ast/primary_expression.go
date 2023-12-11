@@ -361,7 +361,7 @@ func (p *PrimaryExpression) Parse(
 
 		if bodyNode != nil {
 			for _, statement := range bodyNode.GetStatements() {
-				if statement.GetType() == ast_pb.NodeType_VARIABLE_DECLARATION {
+				if statement != nil && statement.GetType() == ast_pb.NodeType_VARIABLE_DECLARATION {
 					vDeclar := statement.(*VariableDeclaration)
 					for _, declaration := range vDeclar.GetDeclarations() {
 						if declaration.GetName() == p.Name {

@@ -38,6 +38,16 @@ func (m *ProxyDetector) Type() DetectorType {
 	return ProxyDetectorType
 }
 
+// SetInspector sets the inspector for the detector
+func (m *ProxyDetector) SetInspector(inspector *Inspector) {
+	m.inspector = inspector
+}
+
+// GetInspector returns the inspector for the detector
+func (m *ProxyDetector) GetInspector() *Inspector {
+	return m.inspector
+}
+
 func (m *ProxyDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){}, nil
 }

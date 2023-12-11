@@ -61,6 +61,16 @@ func (m *TransferDetector) Type() DetectorType {
 	return TransferDetectorType
 }
 
+// SetInspector sets the inspector for the detector
+func (m *TransferDetector) SetInspector(inspector *Inspector) {
+	m.inspector = inspector
+}
+
+// GetInspector returns the inspector for the detector
+func (m *TransferDetector) GetInspector() *Inspector {
+	return m.inspector
+}
+
 func (m *TransferDetector) Enter(ctx context.Context) (DetectorFn, error) {
 
 	standard, err := standards.GetContractByStandard(standards.ERC20)

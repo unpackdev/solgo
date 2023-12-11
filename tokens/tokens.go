@@ -175,9 +175,6 @@ func (t *Token) Unpack(ctx context.Context, atBlock *big.Int, simulate bool, sim
 		return nil, fmt.Errorf("failed to resolve token name: %w", err)
 	}
 
-	fmt.Println("GGOoooooooooooot siiiiiimulaaatorrrr", t.descriptor.Address.Hex())
-	fmt.Println("GGOoooooooooooot siiiiiimulaaatorrrr", t.descriptor.Name)
-
 	t.descriptor.Symbol, err = t.ResolveSymbol(ctx, t.descriptor.Address, tokenBinding)
 	if err != nil {
 		return nil, fmt.Errorf("failed to resolve token symbol: %w", err)

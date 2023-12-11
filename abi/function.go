@@ -2,13 +2,15 @@
 package abi
 
 import (
+	"fmt"
+
 	"github.com/unpackdev/solgo/ir"
 )
 
 // processFunction processes an IR function and returns a Method representation of it.
 // It extracts the name, input, and output parameters of the function, sets its type to "function",
 // and normalizes its state mutability.
-func (b *Builder) processFunction(unit *ir.Function) *Method {
+func (b *Builder) processFunction(unit *ir.Function) (*Method, error) {
 	toReturn := &Method{
 		Name:            unit.GetName(),
 		Inputs:          make([]MethodIO, 0),
@@ -18,6 +20,10 @@ func (b *Builder) processFunction(unit *ir.Function) *Method {
 	}
 
 	for _, parameter := range unit.GetParameters() {
+		if parameter.GetTypeDescription() == nil {
+			return nil, fmt.Errorf("nil type description for function parameter %s", parameter.GetName())
+		}
+
 		methodIo := MethodIO{
 			Name: parameter.GetName(),
 		}
@@ -28,6 +34,10 @@ func (b *Builder) processFunction(unit *ir.Function) *Method {
 	}
 
 	for _, parameter := range unit.GetReturnStatements() {
+		if parameter.GetTypeDescription() == nil {
+			return nil, fmt.Errorf("nil type description for function return parameter %s", parameter.GetName())
+		}
+
 		methodIo := MethodIO{
 			Name: parameter.GetName(),
 		}
@@ -38,5 +48,5 @@ func (b *Builder) processFunction(unit *ir.Function) *Method {
 
 	}
 
-	return toReturn
+	return toReturn, nil
 }

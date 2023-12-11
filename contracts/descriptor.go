@@ -10,6 +10,7 @@ import (
 	"github.com/unpackdev/solgo/audit"
 	"github.com/unpackdev/solgo/bytecode"
 	"github.com/unpackdev/solgo/detector"
+	"github.com/unpackdev/solgo/inspector"
 	"github.com/unpackdev/solgo/ir"
 	"github.com/unpackdev/solgo/providers/etherscan"
 	"github.com/unpackdev/solgo/standards"
@@ -66,10 +67,11 @@ type Descriptor struct {
 	Detector    *detector.Detector    `json:"-"`
 	IRRoot      *ir.RootSourceUnit    `json:"ir,omitempty"`
 	Constructor *bytecode.Constructor `json:"constructor,omitempty"`
+	Metadata    *bytecode.Metadata    `json:"metadata,omitempty"`
 
 	// Auditing related fields.
-	Audit  *audit.Report     `json:"audit,omitempty"`
-	Safety *SafetyDescriptor `json:"safety,omitempty"`
+	Audit         *audit.Report     `json:"audit,omitempty"`
+	Introspection *inspector.Report `json:"introspection,omitempty"`
 
 	// Token related fields.
 	Token *tokens.Descriptor `json:"token,omitempty"`
@@ -117,6 +119,10 @@ func (d *Descriptor) HasTransactionUUID() bool {
 
 func (d *Descriptor) SetTransactionUUID(uuid *uuid.UUID) {
 	d.TransactionUUID = uuid
+}
+
+func (d *Descriptor) SetCompilerVersion(ver string) {
+	d.CompilerVersion = ver
 }
 
 func (d *Descriptor) HasDetector() bool {
@@ -173,4 +179,16 @@ func (d *Descriptor) GetIrRoot() *ir.RootSourceUnit {
 
 func (d *Descriptor) GetToken() *tokens.Descriptor {
 	return d.Token
+}
+
+func (d *Descriptor) GetAudit() *audit.Report {
+	return d.Audit
+}
+
+func (d *Descriptor) GetIntrospection() *inspector.Report {
+	return d.Introspection
+}
+
+func (d *Descriptor) GetMetadata() *bytecode.Metadata {
+	return d.Metadata
 }
