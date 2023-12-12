@@ -2,9 +2,11 @@ package inspector
 
 import (
 	"context"
+	"fmt"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/cfg"
 	"github.com/unpackdev/solgo/storage"
 	"go.uber.org/zap"
 )
@@ -12,6 +14,7 @@ import (
 type StorageResults struct {
 	Detected   bool                `json:"detected"`
 	Descriptor *storage.Descriptor `json:"descriptor"`
+	Cfg        *cfg.Builder        `json:"cfg"`
 }
 
 type StorageDetector struct {
@@ -56,7 +59,17 @@ func (m *StorageDetector) Enter(ctx context.Context) (DetectorFn, error) {
 }
 
 func (m *StorageDetector) Detect(ctx context.Context) (DetectorFn, error) {
-	reader, err := m.GetStorage().Describe(ctx, m.GetAddress(), m.GetDetector(), nil)
+	cfgBuilder, err := cfg.NewBuilder(ctx, m.GetDetector().GetIR())
+	if err != nil {
+		return nil, fmt.Errorf("failed to create control flow graph builder: %w", err)
+	}
+
+	if err := cfgBuilder.Build(); err != nil {
+		return nil, fmt.Errorf("failed to build control flow graph: %w", err)
+	}
+	m.results.Cfg = cfgBuilder
+
+	reader, err := m.GetStorage().Describe(ctx, m.GetAddress(), m.GetDetector(), cfgBuilder, nil)
 	if err != nil {
 		zap.L().Error(
 			"failed to describe contract storage",

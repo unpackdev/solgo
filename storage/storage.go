@@ -81,7 +81,7 @@ func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *
 		return nil, err
 	}
 
-	if err := s.populateStorageValues(ctx, addr, descriptor, atBlock); err != nil {
+	if err := s.populateStorageValues(ctx, reader, addr, descriptor, atBlock); err != nil {
 		return nil, err
 	}
 
@@ -89,7 +89,7 @@ func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *
 }
 
 // populateStorageValues populates storage values for each slot in the descriptor's storage layout.
-func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address, descriptor *Descriptor, atBlock *big.Int) error {
+func (s *Storage) populateStorageValues(ctx context.Context, reader *Reader, addr common.Address, descriptor *Descriptor, atBlock *big.Int) error {
 	var lastStorageValue []byte
 	var lastSlot int64 = -1
 	var lastBlockNumber *big.Int
@@ -113,7 +113,7 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 
 		slot.BlockNumber = lastBlockNumber
 		slot.RawValue = common.BytesToHash(lastStorageValue)
-		if err := convertStorageToValue(slot, lastStorageValue); err != nil {
+		if err := convertStorageToValue(s, addr, slot, lastStorageValue); err != nil {
 			return err
 		}
 	}
@@ -141,4 +141,13 @@ func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.
 
 	response, err := client.StorageAt(ctx, contractAddress, position, blockNumber)
 	return blockNumber, response, err
+}
+
+// ReadStorageSlot reads the storage at a given slot for a specific contract.
+func (s *Storage) ReadStorageSlot(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) ([]byte, error) {
+	_, storageValue, err := s.getStorageValueAt(ctx, contractAddress, slot, blockNumber)
+	if err != nil {
+		return nil, fmt.Errorf("error reading storage slot %d: %v", slot, err)
+	}
+	return storageValue, nil
 }

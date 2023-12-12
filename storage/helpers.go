@@ -71,7 +71,7 @@ func canBePacked(variable *Variable, previousVars []*Variable) bool {
 // convertStorageToValue converts raw storage bytes into a meaningful value based on the slot's type.
 // Handles various Ethereum data types like integers, booleans, addresses, etc.
 // Returns an error if the conversion is not possible or if the data format is not as expected.
-func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
+func convertStorageToValue(storage *Storage, contractAddress common.Address, slot *SlotDescriptor, storageValue []byte) error {
 	if len(storageValue) == 0 {
 		return errors.New("storage value is empty")
 	}
@@ -126,7 +126,7 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 		slot.Value = storageValue
 
 	case strings.HasPrefix(slot.Type, "string"):
-		decodedString, err := decodeSolidityString(storageValue)
+		decodedString, err := decodeSolidityString(storage, contractAddress, slot.Slot, storageValue, slot.BlockNumber)
 		if err != nil {
 			return fmt.Errorf("error decoding string: %v", err)
 		}
@@ -152,16 +152,43 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 }
 
 // decodeSolidityString decodes a string stored in Ethereum's Solidity format from raw storage bytes.
-// Returns an error if the storage value does not represent a valid Solidity string.
-func decodeSolidityString(storageValue []byte) (string, error) {
+// It handles strings that span multiple slots.
+func decodeSolidityString(storage *Storage, contractAddress common.Address, startSlot int64, storageValue []byte, blockNumber *big.Int) (string, error) {
 	if len(storageValue) != 32 {
-		return "", errors.New("storage value is not 32 bytes long")
+		return "", errors.New("initial storage value is not 32 bytes long")
 	}
 
-	length := binary.BigEndian.Uint32(storageValue[len(storageValue)-4:])
-	if length/2 < 31 {
-		return string(storageValue[:length/2]), nil
+	// Length is read from the last 8 bytes of the storageValue
+	length := binary.BigEndian.Uint64(storageValue[24:32])
+
+	// Guard against excessively large length values
+	const maxLength = 10 * 1024 // For example, 10 KB
+	if length > maxLength {
+		return "", fmt.Errorf("string length %d exceeds maximum allowed length of %d", length, maxLength)
 	}
 
-	return "", errors.New("string spans multiple slots, handling not implemented in this function")
+	if length <= 31 { // Fits in a single slot
+		return string(storageValue[:length]), nil
+	}
+
+	var result strings.Builder
+	result.Grow(int(length))
+
+	// Read additional slots
+	for offset := int64(1); offset*32 < int64(length+32); offset++ {
+		nextSlotValue, err := storage.ReadStorageSlot(storage.ctx, contractAddress, startSlot+offset, blockNumber)
+		if err != nil {
+			return "", err
+		}
+
+		// Calculate the number of bytes to write from nextSlotValue
+		bytesToWrite := int64(32)
+		if (offset+1)*32 > int64(length+32) {
+			bytesToWrite = int64(length+32) - offset*32
+		}
+
+		result.Write(nextSlotValue[:bytesToWrite])
+	}
+
+	return result.String(), nil
 }

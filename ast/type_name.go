@@ -970,7 +970,17 @@ func (t *TypeName) StorageSize() (int64, bool) {
 		return 256, true
 
 	case ast_pb.NodeType_IDENTIFIER:
-		return elementaryTypeSizeInBits(t.Name)
+		if size, found := elementaryTypeSizeInBits(t.Name); found {
+			return size, true
+		}
+
+		if identifier, ok := t.Expression.(*PrimaryExpression); ok {
+			if len(identifier.GetValue()) > 0 {
+				return 256, true
+			}
+		}
+
+		return 0, false
 
 	// Add cases for other node types like struct, enum, etc., as needed.
 	default:
