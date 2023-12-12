@@ -219,12 +219,15 @@ func (r *Resolver) resolveImportDirectives() {
 // resolveBaseContracts resolves base contracts in the AST.
 func (r *Resolver) resolveBaseContracts() {
 	for _, sourceNode := range r.sourceUnits {
+	looper:
 		for _, baseContract := range sourceNode.GetBaseContracts() {
 			if baseContract.GetBaseName() != nil {
 				if baseContract.GetBaseName().GetReferencedDeclaration() == 0 {
 					for _, sourceNode := range r.sourceUnits {
 						if sourceNode.GetName() == baseContract.GetBaseName().GetName() {
 							baseContract.BaseName.ReferencedDeclaration = sourceNode.GetId()
+							baseContract.BaseName.ContractReferencedDeclaration = sourceNode.GetContract().GetId()
+							continue looper
 						}
 					}
 				}

@@ -71,6 +71,17 @@ func (r *RootSourceUnit) GetContractById(id int64) *Contract {
 	return nil
 }
 
+// GetContractBySourceUnitId returns the contract with the given source unit ID from the IR.
+func (r *RootSourceUnit) GetContractBySourceUnitId(id int64) *Contract {
+	for _, su := range r.Contracts {
+		if su.GetSourceUnitId() == id {
+			return su
+		}
+	}
+
+	return nil
+}
+
 // GetEntryContract returns the entry contract from the IR.
 func (r *RootSourceUnit) GetEntryContract() *Contract {
 	return r.GetContractById(r.EntryContractId)

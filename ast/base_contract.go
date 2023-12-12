@@ -60,8 +60,10 @@ type BaseContractName struct {
 	Src SrcNode `json:"src"`
 	// Name is the name of the base contract.
 	Name string `json:"name"`
-	// ReferencedDeclaration is the unique identifier of the contract declaration that this name references.
+	// ReferencedDeclaration is the unique identifier of the source unit declaration that this name references.
 	ReferencedDeclaration int64 `json:"referenced_declaration"`
+	// ContractReferencedDeclaration is the unique identifier of the source unit contract declaration that this name references.
+	ContractReferencedDeclaration int64 `json:"contract_referenced_declaration"`
 }
 
 // GetId returns the unique identifier of the base contract name.
@@ -88,6 +90,11 @@ func (b *BaseContractName) GetName() string {
 // GetReferencedDeclaration returns the unique identifier of the source unit contract declaration that this name references.
 func (b *BaseContractName) GetReferencedDeclaration() int64 {
 	return b.ReferencedDeclaration
+}
+
+// GetContractReferencedDeclaration returns the unique identifier of the source unit contract declaration that this name references.
+func (b *BaseContractName) GetContractReferencedDeclaration() int64 {
+	return b.ContractReferencedDeclaration
 }
 
 // ToProto returns the protobuf representation of the base contract name.

@@ -244,7 +244,7 @@ func parseImportPathsForSourceUnit(
 
 	for i := len(imports) - 1; i >= 0; i-- {
 		importNode := imports[i]
-		if int64(contractLine)-importNode.Src.Line <= 20 && int64(contractLine)-importNode.Src.Line >= -1 {
+		if int64(contractLine)-importNode.Src.Line <= 50 && int64(contractLine)-importNode.Src.Line >= -1 {
 			importNode.Src.ParentIndex = unit.Id
 			for _, unitCtx := range b.sourceUnits {
 				for _, symbol := range unitCtx.ExportedSymbols {

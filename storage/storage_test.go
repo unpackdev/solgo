@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/cfg"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/providers/etherscan"
@@ -46,8 +47,8 @@ func TestStorage(t *testing.T) {
 	}
 
 	pool, err := clients.NewClientPool(ctx, clientOptions)
-	tAssert.NoError(err)
-	tAssert.NotNil(pool)
+	require.NoError(t, err)
+	require.NotNil(t, pool)
 
 	sim, err := simulator.CreateNewTestSimulator(ctx, pool, t, nil)
 	require.NoError(t, err)
@@ -112,7 +113,7 @@ func TestStorage(t *testing.T) {
 			address:            common.HexToAddress("0x8dB4beACcd1698892821a9a0Dc367792c0cB9940"),
 			atBlock:            nil,
 			expectError:        false,
-			expectedSlotsCount: 37,
+			expectedSlotsCount: 26,
 			expectedSlots:      map[int]*SlotDescriptor{},
 		},
 	}
@@ -143,18 +144,14 @@ func TestStorage(t *testing.T) {
 			err = parser.Build()
 			tAssert.NoError(err)
 
-			/* 			for _, contract := range parser.GetIR().GetRoot().GetContracts() {
-			   				fmt.Println(contract.GetName())
-			   			}
-			*/
-			/* 			for _, contract := range parser.GetSources().SourceUnits {
-			   				fmt.Println(contract.GetName())
-			   			}
+			builder, err := cfg.NewBuilder(context.Background(), parser.GetIR())
+			assert.NoError(t, err)
+			assert.NotNil(t, builder)
 
-			   			return */
+			assert.NoError(t, builder.Build())
 
 			// Use the test case data to run the test
-			reader, err := storage.Describe(ctx, tc.address, parser, tc.atBlock)
+			reader, err := storage.Describe(ctx, tc.address, parser, builder, tc.atBlock)
 
 			if tc.expectError {
 				tAssert.Error(err)
@@ -170,7 +167,7 @@ func TestStorage(t *testing.T) {
 			tAssert.NotNil(sortedSlots)
 			tAssert.Equal(tc.expectedSlotsCount, len(sortedSlots))
 
-			//utils.DumpNodeWithExit(reader.GetDescriptor())
+			utils.DumpNodeWithExit(reader.GetDescriptor())
 
 			/* 			for i, slot := range sortedSlots {
 				require.NotNil(t, tc.expectedSlots[i])

@@ -3,16 +3,19 @@ package storage
 import (
 	"context"
 	"fmt"
-	"sort"
 	"strings"
 )
 
+// Reader is responsible for reading and interpreting storage-related information of a smart contract.
+// It uses a Descriptor to understand the contract's storage layout and variables.
 type Reader struct {
-	ctx        context.Context
-	storage    *Storage
-	descriptor *Descriptor
+	ctx        context.Context // ctx is the context for operations within Reader.
+	storage    *Storage        // storage is the storage system associated with the Reader.
+	descriptor *Descriptor     // descriptor contains the contract's storage layout and variable information.
 }
 
+// NewReader creates a new instance of Reader with the given context, Storage, and Descriptor.
+// It returns a pointer to the created Reader and any error encountered during its creation.
 func NewReader(ctx context.Context, s *Storage, d *Descriptor) (*Reader, error) {
 	return &Reader{
 		ctx:        ctx,
@@ -21,46 +24,46 @@ func NewReader(ctx context.Context, s *Storage, d *Descriptor) (*Reader, error) 
 	}, nil
 }
 
+// GetDescriptor returns the Descriptor associated with the Reader.
 func (r *Reader) GetDescriptor() *Descriptor {
 	return r.descriptor
 }
 
+// DiscoverStorageVariables analyzes the smart contract to discover and categorize storage variables.
+// It differentiates between constant and non-constant variables and organizes them accordingly.
 func (r *Reader) DiscoverStorageVariables() error {
-	ir := r.descriptor.GetIR()
-	if ir == nil {
-		return fmt.Errorf("failed to get storage variables as contract IR is not set (parsing did not occur or failed)")
+	cfgBuilder := r.descriptor.GetCFG()
+	if cfgBuilder == nil {
+		return fmt.Errorf("CFG builder is not available")
 	}
 
-	for _, subContract := range ir.GetRoot().GetContracts() {
-		var stateVariables []*Variable
-		for _, stateVariable := range subContract.GetStateVariables() {
-			stateVariables = append(stateVariables, &Variable{
-				Contract:      subContract,
-				EntryContract: ir.GetRoot().GetEntryName() == subContract.GetName(),
-				StateVariable: stateVariable,
-			})
+	orderedStateVars, err := cfgBuilder.GetStorageStateVariables()
+	if err != nil {
+		return fmt.Errorf("failed to get ordered state variables: %v", err)
+	}
+
+	for _, stateVar := range orderedStateVars {
+		contractName := stateVar.GetContract().GetName()
+		variable := &Variable{
+			Contract:      stateVar.GetContract(),
+			EntryContract: stateVar.IsEntryContract(),
+			StateVariable: stateVar.GetVariable(),
 		}
 
-		r.descriptor.StateVariables[subContract.Name] = stateVariables
+		r.descriptor.StateVariables[contractName] = append(r.descriptor.StateVariables[contractName], variable)
 
-		for _, variable := range stateVariables {
-			if !variable.StateVariable.IsConstant() {
-				r.descriptor.TargetVariables[subContract.Name] = append(
-					r.descriptor.TargetVariables[subContract.Name],
-					variable,
-				)
-			} else {
-				r.descriptor.ConstanVariables[subContract.Name] = append(
-					r.descriptor.ConstanVariables[subContract.Name],
-					variable,
-				)
-			}
+		if !variable.StateVariable.IsConstant() {
+			r.descriptor.TargetVariables[contractName] = append(r.descriptor.TargetVariables[contractName], variable)
+		} else {
+			r.descriptor.ConstanVariables[contractName] = append(r.descriptor.ConstanVariables[contractName], variable)
 		}
 	}
 
 	return nil
 }
 
+// CalculateStorageLayout calculates and sets the storage layout of the smart contract in the Descriptor.
+// It determines the slot and offset for each storage variable and organizes them accordingly.
 func (r *Reader) CalculateStorageLayout() error {
 	currentSlot := int64(0)
 	var previousVars []*Variable
@@ -90,10 +93,6 @@ func (r *Reader) CalculateStorageLayout() error {
 			})
 		}
 	}
-
-	sort.Slice(sortedSlots, func(i, j int) bool {
-		return sortedSlots[i].DeclarationId < sortedSlots[j].DeclarationId
-	})
 
 	for i, variable := range sortedSlots {
 		slot, offset, updatedPreviousVars := calculateSlot(variable.Variable, currentSlot, previousVars)

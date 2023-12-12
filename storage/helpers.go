@@ -11,6 +11,9 @@ import (
 	"github.com/unpackdev/solgo/utils"
 )
 
+// calculateSlot determines the appropriate storage slot and offset for a given variable.
+// It handles different cases like mapping, dynamic arrays, and variable packing within a slot.
+// Returns the slot number, offset within the slot, and an updated slice of variables.
 func calculateSlot(variable *Variable, currentSlot int64, previousVars []*Variable) (int64, int64, []*Variable) {
 	isNewSlotNeeded := variable.IsMappingType() || variable.IsDynamicArray()
 
@@ -27,6 +30,8 @@ func calculateSlot(variable *Variable, currentSlot int64, previousVars []*Variab
 	return currentSlot + 1, 0, []*Variable{variable}
 }
 
+// calculateOffset computes the total bit offset for a set of variables.
+// Used to determine the offset within a storage slot for variable packing.
 func calculateOffset(previousVars []*Variable) int64 {
 	totalUsedBits := int64(0)
 	for _, prevVar := range previousVars {
@@ -37,6 +42,8 @@ func calculateOffset(previousVars []*Variable) int64 {
 	return totalUsedBits
 }
 
+// canBePacked checks if a given variable can be packed into the same storage slot
+// as previous variables. Considers the total bit size and special cases like boolean variables.
 func canBePacked(variable *Variable, previousVars []*Variable) bool {
 	totalUsedBits := int64(0)
 	for _, prevVar := range previousVars {
@@ -45,10 +52,25 @@ func canBePacked(variable *Variable, previousVars []*Variable) bool {
 	}
 
 	bitSize, _ := variable.GetAST().GetTypeName().StorageSize()
-	return totalUsedBits+bitSize <= 256
+
+	// Check if the total size exceeds the 256-bit boundary of a single slot.
+	if totalUsedBits+bitSize > 256 {
+		return false
+	}
+
+	// Special handling for bool variables
+	if variable.Type == "bool" {
+		return totalUsedBits%256+bitSize <= 256
+	}
+
+	// General case for other types: Allow packing different-sized variables
+	// as long as they fit within the 256-bit boundary of a single slot
+	return totalUsedBits%256+bitSize <= 256
 }
 
-// @TODO: Multi slot....
+// convertStorageToValue converts raw storage bytes into a meaningful value based on the slot's type.
+// Handles various Ethereum data types like integers, booleans, addresses, etc.
+// Returns an error if the conversion is not possible or if the data format is not as expected.
 func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 	if len(storageValue) == 0 {
 		return errors.New("storage value is empty")
@@ -78,16 +100,32 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 		slot.Value = (littleEndianValue[byteIndex] & (1 << bitPos)) != 0
 
 	case strings.HasPrefix(slot.Type, "address") || strings.HasPrefix(slot.Type, "contract"):
-		if len(storageValue) < 20 {
+		if len(storageValue) < 32 {
 			return errors.New("storage value too short for an Ethereum address")
 		}
-		slot.Value = common.BytesToAddress(storageValue)
+
+		var addressBytes []byte
+		if slot.Offset == 0 {
+			// If the address starts at the beginning of the slot, use the last 20 bytes
+			addressBytes = storageValue[len(storageValue)-20:]
+		} else {
+			// Calculate the start index based on the offset (in bits)
+			startIndex := slot.Offset / 8
+
+			// Adjust the endIndex to extract 20 bytes after the offset
+			endIndex := startIndex + 20
+			if endIndex > int64(len(storageValue)) {
+				return errors.New("storage value too short for an Ethereum address with given offset")
+			}
+			addressBytes = storageValue[startIndex:endIndex]
+		}
+
+		slot.Value = common.BytesToAddress(addressBytes)
 
 	case strings.HasPrefix(slot.Type, "bytes"):
 		slot.Value = storageValue
 
 	case strings.HasPrefix(slot.Type, "string"):
-		// Assume decodeSolidityString returns an error if decoding fails
 		decodedString, err := decodeSolidityString(storageValue)
 		if err != nil {
 			return fmt.Errorf("error decoding string: %v", err)
@@ -113,6 +151,8 @@ func convertStorageToValue(slot *SlotDescriptor, storageValue []byte) error {
 	return nil
 }
 
+// decodeSolidityString decodes a string stored in Ethereum's Solidity format from raw storage bytes.
+// Returns an error if the storage value does not represent a valid Solidity string.
 func decodeSolidityString(storageValue []byte) (string, error) {
 	if len(storageValue) != 32 {
 		return "", errors.New("storage value is not 32 bytes long")

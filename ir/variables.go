@@ -83,6 +83,10 @@ func (v *StateVariable) GetSrc() ast.SrcNode {
 	return v.Unit.GetSrc()
 }
 
+func (v *StateVariable) GetStorageSize() (int64, bool) {
+	return v.Unit.GetTypeName().StorageSize()
+}
+
 // ToProto is a function that converts the StateVariable to a protobuf message.
 func (v *StateVariable) ToProto() *ir_pb.StateVariable {
 	proto := &ir_pb.StateVariable{

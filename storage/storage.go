@@ -6,6 +6,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/unpackdev/solgo/cfg"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/simulator"
@@ -47,15 +48,16 @@ func NewStorage(
 // Describe queries and returns detailed information about a smart contract at a specific address.
 // It requires context, the contract address, detector and the block number for the query.
 // It returns a Reader instance containing contract details or an error if the query fails.
-func (s *Storage) Describe(ctx context.Context, addr common.Address, detector *detector.Detector, atBlock *big.Int) (*Reader, error) {
-	return s._describe(ctx, addr, detector, atBlock)
+func (s *Storage) Describe(ctx context.Context, addr common.Address, detector *detector.Detector, cfgBuilder *cfg.Builder, atBlock *big.Int) (*Reader, error) {
+	return s._describe(ctx, addr, detector, cfgBuilder, atBlock)
 }
 
 // _describe is an internal method that performs the actual description process of a contract.
 // It constructs a Descriptor and utilizes a Reader to discover and calculate storage variables and layouts.
-func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *detector.Detector, atBlock *big.Int) (*Reader, error) {
+func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *detector.Detector, cfgBuilder *cfg.Builder, atBlock *big.Int) (*Reader, error) {
 	descriptor := &Descriptor{
 		Detector:         detector,
+		cfgBuilder:       cfgBuilder,
 		Address:          addr,
 		Block:            atBlock,
 		StateVariables:   make(map[string][]*Variable),
@@ -121,10 +123,6 @@ func (s *Storage) populateStorageValues(ctx context.Context, addr common.Address
 
 // getStorageValueAt retrieves the storage value at a given slot for a contract.
 func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
-	/* 	if s.simulator != nil && s.opts.UseSimulator {
-	   		return s.getSimulatedStorageValueAt(ctx, contractAddress, slot, blockNumber)
-	   	}
-	*/
 	client := s.clientsPool.GetClientByGroup(s.network.String())
 	if client == nil {
 		return blockNumber, nil, fmt.Errorf("no client found for network %s", s.network)
@@ -144,22 +142,3 @@ func (s *Storage) getStorageValueAt(ctx context.Context, contractAddress common.
 	response, err := client.StorageAt(ctx, contractAddress, position, blockNumber)
 	return blockNumber, response, err
 }
-
-// getStorageValueAt retrieves the storage value at a given slot for a contract using local simulator instance (debugging purpose).
-/* func (s *Storage) getSimulatedStorageValueAt(ctx context.Context, contractAddress common.Address, slot int64, blockNumber *big.Int) (*big.Int, []byte, error) {
-	client := s.simulator.GetBackend()
-
-	if blockNumber == nil {
-		latestHeader, err := client.BlockByNumber(ctx, nil)
-		if err != nil {
-			return blockNumber, nil, fmt.Errorf("failed to get latest block header: %v", err)
-		}
-		blockNumber = latestHeader.Number()
-	}
-
-	bigIntIndex := big.NewInt(slot)
-	position := common.BigToHash(bigIntIndex)
-
-	response, err := client.StorageAt(ctx, contractAddress, position, blockNumber)
-	return blockNumber, response, err
-} */

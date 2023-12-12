@@ -6,6 +6,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/cfg"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/ir"
 )
@@ -14,6 +15,7 @@ import (
 // It includes details like state variables, target variables, constant variables, and storage layouts.
 type Descriptor struct {
 	Detector         *detector.Detector     `json:"-"`
+	cfgBuilder       *cfg.Builder           `json:"-"`
 	Address          common.Address         `json:"address"`
 	Block            *big.Int               `json:"block"`
 	StateVariables   map[string][]*Variable `json:"-"`
@@ -38,6 +40,12 @@ func (s *Descriptor) GetAST() *ast.ASTBuilder {
 // It returns an error if the IR builder is not set, indicating parsing or initialization issues.
 func (s *Descriptor) GetIR() *ir.Builder {
 	return s.GetDetector().GetIR()
+}
+
+// GetCFG retrieves the control flow graph (CFG) builder of the contract.
+// It returns an error if the CFG builder is not set, indicating parsing or initialization issues.
+func (s *Descriptor) GetCFG() *cfg.Builder {
+	return s.cfgBuilder
 }
 
 // GetStateVariables returns a map of state variables associated with the contract.

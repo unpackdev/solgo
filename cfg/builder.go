@@ -1,161 +1,86 @@
 package cfg
 
 import (
-	"bytes"
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/goccy/go-graphviz"
-	"github.com/goccy/go-graphviz/cgraph"
 	"github.com/unpackdev/solgo/ir"
 )
 
-// Builder is responsible for constructing the control flow graph.
+// Builder is responsible for constructing the control flow graph (CFG) of Solidity contracts.
+// It utilizes the Intermediate Representation (IR) provided by solgo and Graphviz for graph operations.
 type Builder struct {
-	ctx     context.Context    // Context for the builder operations
-	builder *ir.Builder        // IR builder from solgo
-	viz     *graphviz.Graphviz // Graphviz instance for graph operations
+	ctx     context.Context    // Context for the builder operations.
+	builder *ir.Builder        // IR builder from solgo, used for generating the IR of the contracts.
+	viz     *graphviz.Graphviz // Graphviz instance for visualizing the CFG.
+	graph   *Graph             // Internal representation of the CFG.
 }
 
-// NewBuilder initializes a new CFG builder.
-func NewBuilder(ctx context.Context, builder *ir.Builder) *Builder {
+// NewBuilder initializes a new CFG builder with the given context and IR builder.
+// Returns an error if the provided IR builder is nil or if it does not have a root contract set.
+func NewBuilder(ctx context.Context, builder *ir.Builder) (*Builder, error) {
+	if builder == nil || builder.GetRoot() == nil {
+		return nil, errors.New("builder is not set")
+	}
+
 	return &Builder{
 		ctx:     ctx,
 		builder: builder,
 		viz:     graphviz.New(),
-	}
+		graph:   NewGraph(),
+	}, nil
 }
 
-// Close releases any resources used by the Graphviz instance.
-func (b *Builder) Close() error {
-	return b.viz.Close()
+// GetGraph returns the internal Graph instance of the CFG.
+func (b *Builder) GetGraph() *Graph {
+	return b.graph
 }
 
-// GetGraphviz returns the underlying Graphviz instance.
-func (b *Builder) GetGraphviz() *graphviz.Graphviz {
-	return b.viz
-}
-
-// Build constructs the control flow graph for the given IR.
-func (b *Builder) Build() (*cgraph.Graph, error) {
-	if b.viz == nil {
-		return nil, errors.New("graphviz instance is not set")
-	}
-
+// Build processes the Solidity contracts using the IR builder to construct the CFG.
+// It identifies the entry contract and explores all dependencies and inherited contracts.
+// Returns an error if the root node or entry contract is not set in the IR builder.
+func (b *Builder) Build() error {
 	root := b.builder.GetRoot()
 	if root == nil {
-		return nil, errors.New("root node is not set")
+		return errors.New("root node is not set in IR builder")
 	}
 
-	graph, err := b.viz.Graph()
-	if err != nil {
-		return nil, err
+	entryContract := root.GetEntryContract()
+	if entryContract == nil {
+		return errors.New("no entry contract found")
 	}
 
-	if _, err := b.traverseIR(root, graph); err != nil {
-		return nil, err
+	if b.graph == nil {
+		b.graph = NewGraph()
 	}
 
-	return graph, nil
-}
-
-// traverseIR recursively traverses the IR to build nodes and edges for the graph.
-func (b *Builder) traverseIR(root *ir.RootSourceUnit, graph *cgraph.Graph) (*cgraph.Node, error) {
-	rootNode, err := graph.CreateNode("You")
-	if err != nil {
-		return nil, err
-	}
-
-	nodeMap := make(map[string]*cgraph.Node)
-	nodeMap["You"] = rootNode
-
-	if len(root.Contracts) == 0 {
-		return nil, nil
-	}
-
-	for _, contract := range root.Contracts {
-		// Create a subgraph for the contract with the "cluster" prefix
-		clusterName := fmt.Sprintf("cluster_%s", contract.GetName())
-		contractSubGraph := graph.SubGraph(clusterName, 1)
-		contractSubGraph.SetLabel(contract.GetName())
-
-		// Create a node for the contract within the subgraph
-		contractNode, err := contractSubGraph.CreateNode(contract.GetName())
-		if err != nil {
-			return nil, err
-		}
-
-		// Link the rootNode to the contractNode
-		if _, err := graph.CreateEdge("", rootNode, contractNode); err != nil {
-			return nil, err
-		}
-
-		// Traverse functions within the contract (assuming there's a method to get functions)
-		for _, function := range contract.GetFunctions() {
-			funcNode, err := contractSubGraph.CreateNode(function.GetName())
-			if err != nil {
-				return nil, err
-			}
-			nodeMap[function.GetName()] = funcNode
-
-			// Link the contractNode to the funcNode
-			if _, err := graph.CreateEdge("", contractNode, funcNode); err != nil {
-				return nil, err
-			}
-
-			refFns := b.builder.LookupReferencedFunctionsByNode(function.GetAST())
-			for _, refFn := range refFns {
-				refFnNode, exists := nodeMap[refFn.GetName()]
-				if !exists {
-					refFnNode, err = graph.CreateNode(refFn.GetName())
-					if err != nil {
-						return nil, err
-					}
-					nodeMap[refFn.GetName()] = refFnNode
-				}
-
-				// Create an edge from the current function node to the referenced function node
-				if _, err := graph.CreateEdge("", funcNode, refFnNode); err != nil {
-					return nil, err
+	var dfs func(contract *ir.Contract, isEntryContract bool)
+	dfs = func(contract *ir.Contract, isEntryContract bool) {
+		if !b.graph.NodeExists(contract.GetName()) {
+			b.graph.AddNode(contract.GetName(), contract, isEntryContract)
+			allRelatedContracts := make([]*ir.Contract, 0)
+			for _, importStmt := range contract.GetImports() {
+				importedContract := root.GetContractById(importStmt.GetContractId())
+				if importedContract != nil {
+					b.graph.AddDependency(contract.GetName(), importStmt)
+					allRelatedContracts = append(allRelatedContracts, importedContract)
 				}
 			}
+			for _, baseContract := range contract.GetBaseContracts() {
+				baseContractId := baseContract.GetBaseName().GetReferencedDeclaration()
+				baseContractObj := root.GetContractBySourceUnitId(baseContractId)
+				if baseContractObj != nil {
+					b.graph.AddInheritance(contract.GetName(), baseContract)
+					allRelatedContracts = append(allRelatedContracts, baseContractObj)
+				}
+			}
+			for _, relatedContract := range allRelatedContracts {
+				dfs(relatedContract, false)
+			}
 		}
 	}
 
-	return rootNode, nil
-}
-
-// GenerateDOT produces the DOT representation of the given graph.
-func (b *Builder) GenerateDOT(graph *cgraph.Graph) (string, error) {
-	if b.viz == nil {
-		return "", errors.New("graphviz instance is not set")
-	}
-
-	if graph == nil {
-		return "", errors.New("graph is not set")
-	}
-
-	var buf bytes.Buffer
-	if err := b.viz.Render(graph, "dot", &buf); err != nil {
-		return "", err
-	}
-
-	return buf.String(), nil
-}
-
-// SaveAs renders the graph to a file in the specified format.
-func (b *Builder) SaveAs(graph *cgraph.Graph, format graphviz.Format, file string) error {
-	if b.viz == nil {
-		return errors.New("graphviz instance is not set")
-	}
-
-	if graph == nil {
-		return errors.New("graph is not set")
-	}
-
-	if err := b.viz.RenderFilename(graph, format, file); err != nil {
-		return err
-	}
+	dfs(entryContract, true)
 	return nil
 }

@@ -963,7 +963,10 @@ func (t *TypeName) StorageSize() (int64, bool) {
 		return 24 * 8, true
 
 	case ast_pb.NodeType_USER_DEFINED_PATH_NAME:
-		// @TODO: Calculate properly....
+		if size, found := elementaryTypeSizeInBits(t.Name); found {
+			return size, true
+		}
+
 		return 256, true
 
 	case ast_pb.NodeType_IDENTIFIER:
