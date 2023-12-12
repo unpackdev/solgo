@@ -1,23 +1,38 @@
 {
 	"node_type": 80,
-	"entry_contract_id": 131,
+	"entry_contract_id": 16,
 	"entry_contract_name": "SimpleStorage",
 	"contracts_count": 2,
 	"contracts": [
 		{
 			"id": 16,
 			"node_type": 35,
-			"kind": 37,
+			"kind": 36,
 			"source_unit_id": 13,
-			"name": "MathLib",
+			"name": "SimpleStorage",
 			"license": "MIT",
 			"language": "solidity",
-			"absolute_path": "MathLib.sol",
+			"absolute_path": "SimpleStorage.sol",
 			"symbols": [
 				{
 					"id": 13,
+					"name": "SimpleStorage",
+					"absolute_path": "SimpleStorage.sol"
+				},
+				{
+					"id": 63,
 					"name": "MathLib",
 					"absolute_path": "MathLib.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 15,
+					"node_type": 29,
+					"source_unit_id": 63,
+					"contract_id": 68,
+					"absolute_path": "MathLib.sol",
+					"file": "./MathLib.sol"
 				}
 			],
 			"pragmas": [
@@ -36,9 +51,150 @@
 						";"
 					],
 					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"state_variables": [
+				{
+					"id": 22,
+					"node_type": 44,
+					"name": "storedData",
+					"contract_id": 16,
+					"visibility": 1,
+					"storage_location": 1,
+					"state_mutability": 1,
+					"type": "uint",
+					"type_description": {
+						"type_identifier": "t_uint256",
+						"type_string": "uint256"
+					}
+				}
+			],
+			"functions": [
+				{
+					"id": 25,
+					"node_type": 42,
+					"kind": 41,
+					"name": "increment",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"parameters": [
+						{
+							"id": 27,
+							"node_type": 44,
+							"name": "x",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 30,
+						"node_type": 46
+					},
+					"signature": "b7d4555a"
 				},
 				{
-					"id": 15,
+					"id": 39,
+					"node_type": 42,
+					"kind": 41,
+					"name": "decrement",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 4,
+					"parameters": [
+						{
+							"id": 41,
+							"node_type": 44,
+							"name": "x",
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 44,
+						"node_type": 46
+					},
+					"signature": "8e7c8441"
+				},
+				{
+					"id": 53,
+					"node_type": 42,
+					"kind": 41,
+					"name": "get",
+					"implemented": true,
+					"visibility": 3,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 55,
+							"node_type": 44,
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 60,
+						"node_type": 46
+					},
+					"signature": "64f1bd63",
+					"return": [
+						{
+							"id": 58,
+							"node_type": 44,
+							"type": "uint",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 68,
+			"node_type": 35,
+			"kind": 37,
+			"source_unit_id": 63,
+			"name": "MathLib",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "MathLib.sol",
+			"symbols": [
+				{
+					"id": 63,
+					"name": "MathLib",
+					"absolute_path": "MathLib.sol"
+				}
+			],
+			"pragmas": [
+				{
+					"id": 65,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				},
+				{
+					"id": 66,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -51,7 +207,7 @@
 			],
 			"functions": [
 				{
-					"id": 18,
+					"id": 70,
 					"node_type": 42,
 					"kind": 41,
 					"name": "add",
@@ -60,7 +216,7 @@
 					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 20,
+							"id": 72,
 							"node_type": 44,
 							"name": "a",
 							"type": "uint",
@@ -70,7 +226,7 @@
 							}
 						},
 						{
-							"id": 22,
+							"id": 74,
 							"node_type": 44,
 							"name": "b",
 							"type": "uint",
@@ -81,7 +237,7 @@
 						}
 					],
 					"body": {
-						"id": 27,
+						"id": 79,
 						"node_type": 46,
 						"statements": [
 							{
@@ -97,7 +253,7 @@
 											"typeString": "literal_string \"Addition overflow\""
 										}
 									],
-									"id": "34",
+									"id": "86",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -112,7 +268,7 @@
 					"signature": "b8966352",
 					"return": [
 						{
-							"id": 25,
+							"id": 77,
 							"node_type": 44,
 							"type": "uint",
 							"type_description": {
@@ -123,7 +279,7 @@
 					]
 				},
 				{
-					"id": 43,
+					"id": 95,
 					"node_type": 42,
 					"kind": 41,
 					"name": "sub",
@@ -132,7 +288,7 @@
 					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 45,
+							"id": 97,
 							"node_type": 44,
 							"name": "a",
 							"type": "uint",
@@ -142,7 +298,7 @@
 							}
 						},
 						{
-							"id": 47,
+							"id": 99,
 							"node_type": 44,
 							"name": "b",
 							"type": "uint",
@@ -153,7 +309,7 @@
 						}
 					],
 					"body": {
-						"id": 52,
+						"id": 104,
 						"node_type": 46,
 						"statements": [
 							{
@@ -169,7 +325,7 @@
 											"typeString": "literal_string \"Subtraction underflow\""
 										}
 									],
-									"id": "53",
+									"id": "105",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -184,7 +340,7 @@
 					"signature": "796e3e3f",
 					"return": [
 						{
-							"id": 50,
+							"id": 102,
 							"node_type": 44,
 							"type": "uint",
 							"type_description": {
@@ -195,7 +351,7 @@
 					]
 				},
 				{
-					"id": 68,
+					"id": 120,
 					"node_type": 42,
 					"kind": 41,
 					"name": "mul",
@@ -204,7 +360,7 @@
 					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 70,
+							"id": 122,
 							"node_type": 44,
 							"name": "a",
 							"type": "uint",
@@ -214,7 +370,7 @@
 							}
 						},
 						{
-							"id": 72,
+							"id": 124,
 							"node_type": 44,
 							"name": "b",
 							"type": "uint",
@@ -225,7 +381,7 @@
 						}
 					],
 					"body": {
-						"id": 77,
+						"id": 129,
 						"node_type": 46,
 						"statements": [
 							{
@@ -241,7 +397,7 @@
 											"typeString": "literal_string \"Multiplication overflow\""
 										}
 									],
-									"id": "91",
+									"id": "143",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -256,7 +412,7 @@
 					"signature": "20949e90",
 					"return": [
 						{
-							"id": 75,
+							"id": 127,
 							"node_type": 44,
 							"type": "uint",
 							"type_description": {
@@ -267,7 +423,7 @@
 					]
 				},
 				{
-					"id": 102,
+					"id": 154,
 					"node_type": 42,
 					"kind": 41,
 					"name": "div",
@@ -276,7 +432,7 @@
 					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 104,
+							"id": 156,
 							"node_type": 44,
 							"name": "a",
 							"type": "uint",
@@ -286,7 +442,7 @@
 							}
 						},
 						{
-							"id": 106,
+							"id": 158,
 							"node_type": 44,
 							"name": "b",
 							"type": "uint",
@@ -297,7 +453,7 @@
 						}
 					],
 					"body": {
-						"id": 111,
+						"id": 163,
 						"node_type": 46,
 						"statements": [
 							{
@@ -313,7 +469,7 @@
 											"typeString": "literal_string \"Division by zero\""
 										}
 									],
-									"id": "112",
+									"id": "164",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -328,163 +484,7 @@
 					"signature": "7011598a",
 					"return": [
 						{
-							"id": 109,
-							"node_type": 44,
-							"type": "uint",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"id": 131,
-			"node_type": 35,
-			"kind": 36,
-			"source_unit_id": 126,
-			"name": "SimpleStorage",
-			"license": "MIT",
-			"language": "solidity",
-			"absolute_path": "SimpleStorage.sol",
-			"symbols": [
-				{
-					"id": 126,
-					"name": "SimpleStorage",
-					"absolute_path": "SimpleStorage.sol"
-				},
-				{
-					"id": 13,
-					"name": "MathLib",
-					"absolute_path": "MathLib.sol"
-				}
-			],
-			"imports": [
-				{
-					"id": 130,
-					"node_type": 29,
-					"source_unit_id": 13,
-					"contract_id": 16,
-					"absolute_path": "MathLib.sol",
-					"file": "./MathLib.sol"
-				}
-			],
-			"pragmas": [
-				{
-					"id": 129,
-					"node_type": 10,
-					"literals": [
-						"pragma",
-						"solidity",
-						"^",
-						"0",
-						".",
-						"8",
-						".",
-						"0",
-						";"
-					],
-					"text": "pragma solidity ^0.8.0;"
-				}
-			],
-			"state_variables": [
-				{
-					"id": 137,
-					"node_type": 44,
-					"name": "storedData",
-					"contract_id": 131,
-					"visibility": 1,
-					"storage_location": 1,
-					"state_mutability": 1,
-					"type": "uint",
-					"type_description": {
-						"type_identifier": "t_uint256",
-						"type_string": "uint256"
-					}
-				}
-			],
-			"functions": [
-				{
-					"id": 140,
-					"node_type": 42,
-					"kind": 41,
-					"name": "increment",
-					"implemented": true,
-					"visibility": 3,
-					"state_mutability": 4,
-					"parameters": [
-						{
-							"id": 142,
-							"node_type": 44,
-							"name": "x",
-							"type": "uint",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 145,
-						"node_type": 46
-					},
-					"signature": "b7d4555a"
-				},
-				{
-					"id": 154,
-					"node_type": 42,
-					"kind": 41,
-					"name": "decrement",
-					"implemented": true,
-					"visibility": 3,
-					"state_mutability": 4,
-					"parameters": [
-						{
-							"id": 156,
-							"node_type": 44,
-							"name": "x",
-							"type": "uint",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 159,
-						"node_type": 46
-					},
-					"signature": "8e7c8441"
-				},
-				{
-					"id": 168,
-					"node_type": 42,
-					"kind": 41,
-					"name": "get",
-					"implemented": true,
-					"visibility": 3,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 170,
-							"node_type": 44,
-							"type": "uint",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 175,
-						"node_type": 46
-					},
-					"signature": "64f1bd63",
-					"return": [
-						{
-							"id": 173,
+							"id": 161,
 							"node_type": 44,
 							"type": "uint",
 							"type_description": {

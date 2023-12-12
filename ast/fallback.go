@@ -60,12 +60,10 @@ func (f *Fallback) GetType() ast_pb.NodeType {
 
 // GetNodes returns a slice of child nodes within the body of the fallback function.
 func (f *Fallback) GetNodes() []Node[NodeType] {
-	var toReturn []Node[NodeType]
+	toReturn := []Node[NodeType]{}
 
 	if f.Body != nil {
-		for _, statement := range f.Body.Statements {
-			toReturn = append(toReturn, statement)
-		}
+		toReturn = append(toReturn, f.Body.Statements...)
 	}
 
 	return toReturn

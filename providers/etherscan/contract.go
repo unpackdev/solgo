@@ -143,12 +143,6 @@ func manualUnquote(s string) string {
 		s = "{" + s[2:len(s)-2] + "}"
 	}
 
-	// Perform other replacements
-	/* 	s = strings.ReplaceAll(s, `\r`, ``)
-	   	s = strings.ReplaceAll(s, `\n`, ``)
-	   	s = strings.ReplaceAll(s, `\t`, ``)
-	   	s = strings.ReplaceAll(s, ` `, ``) */
-
 	return s
 }
 

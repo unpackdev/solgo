@@ -177,12 +177,16 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 			})
 		}
 
-		if err := sources.DeterministicSortContracts(); err != nil {
+		if err := sources.SortContracts(); err != nil {
 			return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
 		}
 
 	default:
 		return nil, fmt.Errorf("unknown source code type: %T", sourceCode)
+	}
+
+	for _, contract := range sources.SourceUnits {
+		fmt.Println(contract.Name)
 	}
 
 	return sources, nil
@@ -647,8 +651,12 @@ func (s *Sources) SortContracts() error {
 		}
 	}
 
-	// Use uniqueNodesSlice for the topological sort
-	sortedNodes, err := topologicalSort(uniqueNodesSlice)
+	originalOrderMap := make(map[string]int)
+	for i, sourceUnit := range s.SourceUnits {
+		originalOrderMap[sourceUnit.Name] = i
+	}
+
+	sortedNodes, err := topologicalSort(nodes, originalOrderMap)
 	if err != nil {
 		return err
 	}
@@ -668,11 +676,10 @@ func (s *Sources) SortContracts() error {
 // It returns a slice of nodes sorted in a way that for every directed edge U -> V,
 // node U comes before V in the ordering. If a cycle is detected, the function will
 // continue without error, but the result may not be a valid topological order.
-func topologicalSort(nodes []Node) ([]Node, error) {
+func topologicalSort(nodes []Node, originalOrder map[string]int) ([]Node, error) {
 	var sorted []Node
 	visited := make(map[string]bool)
 	onStack := make(map[string]bool) // To detect cycles
-	stack := []string{}              // Stack to track nodes being visited
 
 	// Helper function to generate a unique key for each node
 	uniqueKey := func(node Node) string {
@@ -691,7 +698,13 @@ func topologicalSort(nodes []Node) ([]Node, error) {
 		}
 		visited[nodeKey] = true
 		onStack[nodeKey] = true
-		stack = append(stack, nodeKey) // Push node to stack
+
+		// Sort dependencies for consistent order
+		sort.SliceStable(node.Dependencies, func(i, j int) bool {
+			depIKey := node.Dependencies[i]
+			depJKey := node.Dependencies[j]
+			return originalOrder[depIKey] < originalOrder[depJKey]
+		})
 
 		for _, depName := range node.Dependencies {
 			for _, depNode := range nodes {
@@ -704,9 +717,13 @@ func topologicalSort(nodes []Node) ([]Node, error) {
 		}
 
 		sorted = append(sorted, node)
-		stack = stack[:len(stack)-1] // Pop node from stack
 		onStack[nodeKey] = false
 		return nil
+	}
+
+	originalOrderMap := make(map[string]int)
+	for i, node := range nodes {
+		originalOrderMap[node.Name] = i
 	}
 
 	for _, node := range nodes {
@@ -745,87 +762,4 @@ func compareVersions(v1, v2 string) int {
 		}
 	}
 	return 0
-}
-
-func (s *Sources) DeterministicSortContracts() error {
-	nodes := createNodesFromSourceUnits(s.SourceUnits)
-
-	// Sort the nodes by name to ensure deterministic behavior
-	sort.Slice(nodes, func(i, j int) bool {
-		return nodes[i].Name < nodes[j].Name
-	})
-
-	sortedNodes, err := deterministicTopologicalSort(nodes)
-	if err != nil {
-		return err
-	}
-
-	var sortedSourceUnits []*SourceUnit
-	for _, node := range sortedNodes {
-		if sourceUnit := s.GetSourceUnitByNameAndSize(node.Name, node.Size); sourceUnit != nil {
-			sortedSourceUnits = append(sortedSourceUnits, sourceUnit)
-		}
-	}
-
-	s.SourceUnits = sortedSourceUnits
-	return nil
-}
-
-// deterministicTopologicalSort performs a topological sort on the given nodes based on their dependencies.
-// It sorts the dependencies of each node to ensure the sort is deterministic.
-func deterministicTopologicalSort(nodes []Node) ([]Node, error) {
-	var sorted []Node
-	visited := make(map[string]bool)
-	var visit func(node Node) error
-
-	visit = func(node Node) error {
-		nodeKey := node.Name
-		if visited[nodeKey] {
-			return nil
-		}
-		visited[nodeKey] = true
-
-		// Sort dependencies for deterministic behavior
-		sort.Strings(node.Dependencies)
-		for _, depName := range node.Dependencies {
-			for _, depNode := range nodes {
-				if depNode.Name == depName {
-					if err := visit(depNode); err != nil {
-						return err
-					}
-				}
-			}
-		}
-
-		sorted = append([]Node{node}, sorted...) // Prepend to maintain order
-		return nil
-	}
-
-	for _, node := range nodes {
-		if err := visit(node); err != nil {
-			return nil, err
-		}
-	}
-
-	return sorted, nil
-}
-
-// createNodesFromSourceUnits creates nodes from source units for topological sorting.
-func createNodesFromSourceUnits(sourceUnits []*SourceUnit) []Node {
-	var nodes []Node
-	for _, sourceUnit := range sourceUnits {
-		imports := extractImports(sourceUnit.Content)
-		var dependencies []string
-		for _, imp := range imports {
-			baseName := filepath.Base(imp)
-			dependencies = append(dependencies, strings.TrimSuffix(baseName, ".sol"))
-		}
-		nodes = append(nodes, Node{
-			Name:         sourceUnit.Name,
-			Size:         len(sourceUnit.Content),
-			Content:      sourceUnit.Content,
-			Dependencies: dependencies,
-		})
-	}
-	return nodes
 }

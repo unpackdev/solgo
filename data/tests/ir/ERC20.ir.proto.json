@@ -1,6 +1,6 @@
 {
 	"node_type": 80,
-	"entry_contract_id": 524,
+	"entry_contract_id": 361,
 	"entry_contract_name": "ERC20",
 	"contracts_count": 5,
 	"contracts": [
@@ -720,19 +720,31 @@
 			]
 		},
 		{
-			"id": 362,
+			"id": 361,
 			"node_type": 35,
-			"kind": 38,
+			"kind": 36,
 			"source_unit_id": 355,
-			"name": "IERC20",
+			"name": "ERC20",
 			"license": "MIT",
 			"language": "solidity",
-			"absolute_path": "IERC20.sol",
+			"absolute_path": "ERC20.sol",
 			"symbols": [
 				{
 					"id": 355,
-					"name": "IERC20",
-					"absolute_path": "IERC20.sol"
+					"name": "ERC20",
+					"absolute_path": "ERC20.sol"
+				},
+				{
+					"id": 362,
+					"name": "Context"
+				},
+				{
+					"id": 364,
+					"name": "IERC20"
+				},
+				{
+					"id": 366,
+					"name": "IERC20Metadata"
 				}
 			],
 			"pragmas": [
@@ -753,670 +765,12 @@
 					"text": "pragma solidity ^0.8.0;"
 				}
 			],
-			"events": [
-				{
-					"id": 428,
-					"node_type": 57,
-					"name": "Transfer",
-					"parameters": [
-						{
-							"id": 430,
-							"node_type": 44,
-							"name": "from",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 432,
-							"node_type": 44,
-							"name": "to",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 434,
-							"node_type": 44,
-							"name": "value",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 437,
-					"node_type": 57,
-					"name": "Approval",
-					"parameters": [
-						{
-							"id": 439,
-							"node_type": 44,
-							"name": "owner",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 441,
-							"node_type": 44,
-							"name": "spender",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 443,
-							"node_type": 44,
-							"name": "value",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				}
-			],
-			"functions": [
-				{
-					"id": 364,
-					"node_type": 42,
-					"kind": 41,
-					"name": "totalSupply",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 366,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 371,
-						"node_type": 46
-					},
-					"signature": "bd85b039",
-					"return": [
-						{
-							"id": 369,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 373,
-					"node_type": 42,
-					"kind": 41,
-					"name": "balanceOf",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 375,
-							"node_type": 44,
-							"name": "account",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					],
-					"body": {
-						"id": 380,
-						"node_type": 46
-					},
-					"signature": "70a08231",
-					"return": [
-						{
-							"id": 378,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 382,
-					"node_type": 42,
-					"kind": 41,
-					"name": "transfer",
-					"visibility": 4,
-					"state_mutability": 4,
-					"parameters": [
-						{
-							"id": 384,
-							"node_type": 44,
-							"name": "recipient",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 386,
-							"node_type": 44,
-							"name": "amount",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 391,
-						"node_type": 46
-					},
-					"signature": "a9059cbb",
-					"return": [
-						{
-							"id": 389,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						}
-					]
-				},
-				{
-					"id": 393,
-					"node_type": 42,
-					"kind": 41,
-					"name": "allowance",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 395,
-							"node_type": 44,
-							"name": "owner",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 397,
-							"node_type": 44,
-							"name": "spender",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					],
-					"body": {
-						"id": 402,
-						"node_type": 46
-					},
-					"signature": "dd62ed3e",
-					"return": [
-						{
-							"id": 400,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 404,
-					"node_type": 42,
-					"kind": 41,
-					"name": "approve",
-					"visibility": 4,
-					"state_mutability": 4,
-					"parameters": [
-						{
-							"id": 406,
-							"node_type": 44,
-							"name": "spender",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 408,
-							"node_type": 44,
-							"name": "amount",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 413,
-						"node_type": 46
-					},
-					"signature": "095ea7b3",
-					"return": [
-						{
-							"id": 411,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						}
-					]
-				},
-				{
-					"id": 415,
-					"node_type": 42,
-					"kind": 41,
-					"name": "transferFrom",
-					"visibility": 4,
-					"state_mutability": 4,
-					"parameters": [
-						{
-							"id": 417,
-							"node_type": 44,
-							"name": "sender",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 419,
-							"node_type": 44,
-							"name": "recipient",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 421,
-							"node_type": 44,
-							"name": "amount",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 426,
-						"node_type": 46
-					},
-					"signature": "23b872dd",
-					"return": [
-						{
-							"id": 424,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"id": 453,
-			"node_type": 35,
-			"kind": 38,
-			"source_unit_id": 445,
-			"name": "IERC20Metadata",
-			"license": "MIT",
-			"language": "solidity",
-			"absolute_path": "IERC20Metadata.sol",
-			"symbols": [
-				{
-					"id": 445,
-					"name": "IERC20Metadata",
-					"absolute_path": "IERC20Metadata.sol"
-				},
-				{
-					"id": 355,
-					"name": "IERC20",
-					"absolute_path": "IERC20.sol"
-				}
-			],
-			"imports": [
-				{
-					"id": 449,
-					"node_type": 29,
-					"source_unit_id": 355,
-					"contract_id": 362,
-					"absolute_path": "IERC20.sol",
-					"file": "../IERC20.sol"
-				}
-			],
-			"pragmas": [
-				{
-					"id": 448,
-					"node_type": 10,
-					"literals": [
-						"pragma",
-						"solidity",
-						"^",
-						"0",
-						".",
-						"8",
-						".",
-						"0",
-						";"
-					],
-					"text": "pragma solidity ^0.8.0;"
-				}
-			],
-			"functions": [
-				{
-					"id": 457,
-					"node_type": 42,
-					"kind": 41,
-					"name": "name",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 459,
-							"node_type": 44,
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					],
-					"body": {
-						"id": 464,
-						"node_type": 46
-					},
-					"signature": "5b43bc99",
-					"return": [
-						{
-							"id": 462,
-							"node_type": 44,
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					]
-				},
-				{
-					"id": 466,
-					"node_type": 42,
-					"kind": 41,
-					"name": "symbol",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 468,
-							"node_type": 44,
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					],
-					"body": {
-						"id": 473,
-						"node_type": 46
-					},
-					"signature": "41bb0559",
-					"return": [
-						{
-							"id": 471,
-							"node_type": 44,
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					]
-				},
-				{
-					"id": 475,
-					"node_type": 42,
-					"kind": 41,
-					"name": "decimals",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 477,
-							"node_type": 44,
-							"type": "uint8",
-							"type_description": {
-								"type_identifier": "t_uint8",
-								"type_string": "uint8"
-							}
-						}
-					],
-					"body": {
-						"id": 482,
-						"node_type": 46
-					},
-					"signature": "82fd60ab",
-					"return": [
-						{
-							"id": 480,
-							"node_type": 44,
-							"type": "uint8",
-							"type_description": {
-								"type_identifier": "t_uint8",
-								"type_string": "uint8"
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"id": 489,
-			"node_type": 35,
-			"kind": 36,
-			"source_unit_id": 483,
-			"name": "Context",
-			"license": "MIT",
-			"language": "solidity",
-			"absolute_path": "Context.sol",
-			"symbols": [
-				{
-					"id": 483,
-					"name": "Context",
-					"absolute_path": "Context.sol"
-				}
-			],
-			"pragmas": [
-				{
-					"id": 487,
-					"node_type": 10,
-					"literals": [
-						"pragma",
-						"solidity",
-						"^",
-						"0",
-						".",
-						"8",
-						".",
-						"0",
-						";"
-					],
-					"text": "pragma solidity ^0.8.0;"
-				}
-			],
-			"functions": [
-				{
-					"id": 491,
-					"node_type": 42,
-					"kind": 41,
-					"name": "_msgSender",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 5,
-					"virtual": true,
-					"parameters": [
-						{
-							"id": 493,
-							"node_type": 44,
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					],
-					"body": {
-						"id": 498,
-						"node_type": 46
-					},
-					"signature": "b1717086",
-					"return": [
-						{
-							"id": 496,
-							"node_type": 44,
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					]
-				},
-				{
-					"id": 503,
-					"node_type": 42,
-					"kind": 41,
-					"name": "_msgData",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 5,
-					"virtual": true,
-					"parameters": [
-						{
-							"id": 505,
-							"node_type": 44,
-							"type": "bytes",
-							"type_description": {
-								"type_identifier": "t_bytes",
-								"type_string": "bytes"
-							}
-						}
-					],
-					"body": {
-						"id": 510,
-						"node_type": 46
-					},
-					"signature": "0f970e56",
-					"return": [
-						{
-							"id": 508,
-							"node_type": 44,
-							"type": "bytes",
-							"type_description": {
-								"type_identifier": "t_bytes",
-								"type_string": "bytes"
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"id": 524,
-			"node_type": 35,
-			"kind": 36,
-			"source_unit_id": 514,
-			"name": "ERC20",
-			"license": "MIT",
-			"language": "solidity",
-			"absolute_path": "ERC20.sol",
-			"symbols": [
-				{
-					"id": 514,
-					"name": "ERC20",
-					"absolute_path": "ERC20.sol"
-				},
-				{
-					"id": 525,
-					"name": "Context"
-				},
-				{
-					"id": 527,
-					"name": "IERC20"
-				},
-				{
-					"id": 529,
-					"name": "IERC20Metadata"
-				}
-			],
-			"pragmas": [
-				{
-					"id": 519,
-					"node_type": 10,
-					"literals": [
-						"pragma",
-						"solidity",
-						"^",
-						"0",
-						".",
-						"8",
-						".",
-						"0",
-						";"
-					],
-					"text": "pragma solidity ^0.8.0;"
-				}
-			],
 			"state_variables": [
 				{
-					"id": 532,
+					"id": 369,
 					"node_type": 44,
 					"name": "_balances",
-					"contract_id": 524,
+					"contract_id": 361,
 					"visibility": 2,
 					"storage_location": 1,
 					"state_mutability": 1,
@@ -1427,10 +781,10 @@
 					}
 				},
 				{
-					"id": 537,
+					"id": 374,
 					"node_type": 44,
 					"name": "_allowances",
-					"contract_id": 524,
+					"contract_id": 361,
 					"visibility": 2,
 					"storage_location": 1,
 					"state_mutability": 1,
@@ -1441,10 +795,10 @@
 					}
 				},
 				{
-					"id": 545,
+					"id": 382,
 					"node_type": 44,
 					"name": "_totalSupply",
-					"contract_id": 524,
+					"contract_id": 361,
 					"visibility": 2,
 					"storage_location": 1,
 					"state_mutability": 1,
@@ -1455,10 +809,10 @@
 					}
 				},
 				{
-					"id": 548,
+					"id": 385,
 					"node_type": 44,
 					"name": "_name",
-					"contract_id": 524,
+					"contract_id": 361,
 					"visibility": 2,
 					"storage_location": 1,
 					"state_mutability": 1,
@@ -1469,10 +823,10 @@
 					}
 				},
 				{
-					"id": 551,
+					"id": 388,
 					"node_type": 44,
 					"name": "_symbol",
-					"contract_id": 524,
+					"contract_id": 361,
 					"visibility": 2,
 					"storage_location": 1,
 					"state_mutability": 1,
@@ -1484,7 +838,7 @@
 				}
 			],
 			"constructor": {
-				"id": 554,
+				"id": 391,
 				"node_type": 42,
 				"kind": 11,
 				"name": "constructor",
@@ -1493,7 +847,7 @@
 				"state_mutability": 4,
 				"parameters": [
 					{
-						"id": 556,
+						"id": 393,
 						"node_type": 44,
 						"name": "name_",
 						"type": "string",
@@ -1503,7 +857,7 @@
 						}
 					},
 					{
-						"id": 558,
+						"id": 395,
 						"node_type": 44,
 						"name": "symbol_",
 						"type": "string",
@@ -1516,7 +870,7 @@
 			},
 			"functions": [
 				{
-					"id": 571,
+					"id": 408,
 					"node_type": 42,
 					"kind": 41,
 					"name": "name",
@@ -1526,7 +880,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 573,
+							"id": 410,
 							"node_type": 44,
 							"type": "string",
 							"type_description": {
@@ -1536,13 +890,13 @@
 						}
 					],
 					"body": {
-						"id": 579,
+						"id": 416,
 						"node_type": 46
 					},
 					"signature": "5b43bc99",
 					"return": [
 						{
-							"id": 577,
+							"id": 414,
 							"node_type": 44,
 							"type": "string",
 							"type_description": {
@@ -1553,7 +907,7 @@
 					]
 				},
 				{
-					"id": 583,
+					"id": 420,
 					"node_type": 42,
 					"kind": 41,
 					"name": "symbol",
@@ -1563,7 +917,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 585,
+							"id": 422,
 							"node_type": 44,
 							"type": "string",
 							"type_description": {
@@ -1573,13 +927,13 @@
 						}
 					],
 					"body": {
-						"id": 591,
+						"id": 428,
 						"node_type": 46
 					},
 					"signature": "41bb0559",
 					"return": [
 						{
-							"id": 589,
+							"id": 426,
 							"node_type": 44,
 							"type": "string",
 							"type_description": {
@@ -1590,7 +944,7 @@
 					]
 				},
 				{
-					"id": 595,
+					"id": 432,
 					"node_type": 42,
 					"kind": 41,
 					"name": "decimals",
@@ -1600,7 +954,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 597,
+							"id": 434,
 							"node_type": 44,
 							"type": "uint8",
 							"type_description": {
@@ -1610,13 +964,13 @@
 						}
 					],
 					"body": {
-						"id": 603,
+						"id": 440,
 						"node_type": 46
 					},
 					"signature": "82fd60ab",
 					"return": [
 						{
-							"id": 601,
+							"id": 438,
 							"node_type": 44,
 							"type": "uint8",
 							"type_description": {
@@ -1627,7 +981,7 @@
 					]
 				},
 				{
-					"id": 607,
+					"id": 444,
 					"node_type": 42,
 					"kind": 41,
 					"name": "totalSupply",
@@ -1637,7 +991,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 609,
+							"id": 446,
 							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
@@ -1647,13 +1001,13 @@
 						}
 					],
 					"body": {
-						"id": 615,
+						"id": 452,
 						"node_type": 46
 					},
 					"signature": "bd85b039",
 					"return": [
 						{
-							"id": 613,
+							"id": 450,
 							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
@@ -1664,7 +1018,7 @@
 					]
 				},
 				{
-					"id": 619,
+					"id": 456,
 					"node_type": 42,
 					"kind": 41,
 					"name": "balanceOf",
@@ -1674,7 +1028,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 621,
+							"id": 458,
 							"node_type": 44,
 							"name": "account",
 							"type": "address",
@@ -1685,13 +1039,13 @@
 						}
 					],
 					"body": {
-						"id": 627,
+						"id": 464,
 						"node_type": 46
 					},
 					"signature": "70a08231",
 					"return": [
 						{
-							"id": 625,
+							"id": 462,
 							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
@@ -1702,7 +1056,7 @@
 					]
 				},
 				{
-					"id": 633,
+					"id": 470,
 					"node_type": 42,
 					"kind": 41,
 					"name": "transfer",
@@ -1712,7 +1066,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 635,
+							"id": 472,
 							"node_type": 44,
 							"name": "to",
 							"type": "address",
@@ -1722,7 +1076,7 @@
 							}
 						},
 						{
-							"id": 637,
+							"id": 474,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -1733,7 +1087,7 @@
 						}
 					],
 					"body": {
-						"id": 643,
+						"id": 480,
 						"node_type": 46,
 						"statements": [
 							{
@@ -1753,14 +1107,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "649",
+									"id": "486",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_transfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "797",
+									"referenceStatementId": "634",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_uint256$",
 										"typeString": "function(address,address,uint256)"
@@ -1772,7 +1126,7 @@
 					"signature": "a9059cbb",
 					"return": [
 						{
-							"id": 641,
+							"id": 478,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -1783,7 +1137,7 @@
 					]
 				},
 				{
-					"id": 657,
+					"id": 494,
 					"node_type": 42,
 					"kind": 41,
 					"name": "allowance",
@@ -1793,7 +1147,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 659,
+							"id": 496,
 							"node_type": 44,
 							"name": "owner",
 							"type": "address",
@@ -1803,7 +1157,7 @@
 							}
 						},
 						{
-							"id": 661,
+							"id": 498,
 							"node_type": 44,
 							"name": "spender",
 							"type": "address",
@@ -1814,13 +1168,13 @@
 						}
 					],
 					"body": {
-						"id": 667,
+						"id": 504,
 						"node_type": 46
 					},
 					"signature": "dd62ed3e",
 					"return": [
 						{
-							"id": 665,
+							"id": 502,
 							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
@@ -1831,7 +1185,7 @@
 					]
 				},
 				{
-					"id": 675,
+					"id": 512,
 					"node_type": 42,
 					"kind": 41,
 					"name": "approve",
@@ -1841,7 +1195,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 677,
+							"id": 514,
 							"node_type": 44,
 							"name": "spender",
 							"type": "address",
@@ -1851,7 +1205,7 @@
 							}
 						},
 						{
-							"id": 679,
+							"id": 516,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -1862,7 +1216,7 @@
 						}
 					],
 					"body": {
-						"id": 685,
+						"id": 522,
 						"node_type": 46,
 						"statements": [
 							{
@@ -1882,14 +1236,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "691",
+									"id": "528",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_approve",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "988",
+									"referenceStatementId": "825",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_uint256$",
 										"typeString": "function(address,address,uint256)"
@@ -1901,7 +1255,7 @@
 					"signature": "095ea7b3",
 					"return": [
 						{
-							"id": 683,
+							"id": 520,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -1912,7 +1266,7 @@
 					]
 				},
 				{
-					"id": 699,
+					"id": 536,
 					"node_type": 42,
 					"kind": 41,
 					"name": "transferFrom",
@@ -1922,7 +1276,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 701,
+							"id": 538,
 							"node_type": 44,
 							"name": "from",
 							"type": "address",
@@ -1932,7 +1286,7 @@
 							}
 						},
 						{
-							"id": 703,
+							"id": 540,
 							"node_type": 44,
 							"name": "to",
 							"type": "address",
@@ -1942,7 +1296,7 @@
 							}
 						},
 						{
-							"id": 705,
+							"id": 542,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -1953,7 +1307,7 @@
 						}
 					],
 					"body": {
-						"id": 711,
+						"id": 548,
 						"node_type": 46,
 						"statements": [
 							{
@@ -1973,14 +1327,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "717",
+									"id": "554",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_spendAllowance",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1030",
+									"referenceStatementId": "867",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_uint256$",
 										"typeString": "function(address,address,uint256)"
@@ -2004,14 +1358,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "722",
+									"id": "559",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_transfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "797",
+									"referenceStatementId": "634",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_uint256$",
 										"typeString": "function(address,address,uint256)"
@@ -2023,7 +1377,7 @@
 					"signature": "23b872dd",
 					"return": [
 						{
-							"id": 709,
+							"id": 546,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -2034,7 +1388,7 @@
 					]
 				},
 				{
-					"id": 730,
+					"id": 567,
 					"node_type": 42,
 					"kind": 41,
 					"name": "increaseAllowance",
@@ -2044,7 +1398,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 732,
+							"id": 569,
 							"node_type": 44,
 							"name": "spender",
 							"type": "address",
@@ -2054,7 +1408,7 @@
 							}
 						},
 						{
-							"id": 734,
+							"id": 571,
 							"node_type": 44,
 							"name": "addedValue",
 							"type": "uint256",
@@ -2065,7 +1419,7 @@
 						}
 					],
 					"body": {
-						"id": 739,
+						"id": 576,
 						"node_type": 46,
 						"statements": [
 							{
@@ -2085,14 +1439,14 @@
 											"typeString": "function(address,address)"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "745",
+									"id": "582",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_approve",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "988",
+									"referenceStatementId": "825",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_function_$_t_address$_t_address$",
 										"typeString": "function(address,address,function(address,address))"
@@ -2104,7 +1458,7 @@
 					"signature": "39509351",
 					"return": [
 						{
-							"id": 737,
+							"id": 574,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -2115,7 +1469,7 @@
 					]
 				},
 				{
-					"id": 758,
+					"id": 595,
 					"node_type": 42,
 					"kind": 41,
 					"name": "decreaseAllowance",
@@ -2124,7 +1478,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 760,
+							"id": 597,
 							"node_type": 44,
 							"name": "spender",
 							"type": "address",
@@ -2134,7 +1488,7 @@
 							}
 						},
 						{
-							"id": 762,
+							"id": 599,
 							"node_type": 44,
 							"name": "subtractedValue",
 							"type": "uint256",
@@ -2145,7 +1499,7 @@
 						}
 					],
 					"body": {
-						"id": 767,
+						"id": 604,
 						"node_type": 46,
 						"statements": [
 							{
@@ -2161,7 +1515,7 @@
 											"typeString": "literal_string \"ERC20: decreased allowance below zero\""
 										}
 									],
-									"id": "780",
+									"id": "617",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2176,7 +1530,7 @@
 					"signature": "a457c2d7",
 					"return": [
 						{
-							"id": 765,
+							"id": 602,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
@@ -2187,7 +1541,7 @@
 					]
 				},
 				{
-					"id": 797,
+					"id": 634,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_transfer",
@@ -2196,7 +1550,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 799,
+							"id": 636,
 							"node_type": 44,
 							"name": "from",
 							"type": "address",
@@ -2206,7 +1560,7 @@
 							}
 						},
 						{
-							"id": 801,
+							"id": 638,
 							"node_type": 44,
 							"name": "to",
 							"type": "address",
@@ -2216,7 +1570,7 @@
 							}
 						},
 						{
-							"id": 803,
+							"id": 640,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2227,7 +1581,7 @@
 						}
 					],
 					"body": {
-						"id": 806,
+						"id": 643,
 						"node_type": 46,
 						"statements": [
 							{
@@ -2243,7 +1597,7 @@
 											"typeString": "literal_string \"ERC20: transfer from the zero address\""
 										}
 									],
-									"id": "807",
+									"id": "644",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2266,7 +1620,7 @@
 											"typeString": "literal_string \"ERC20: transfer to the zero address\""
 										}
 									],
-									"id": "816",
+									"id": "653",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2293,14 +1647,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "825",
+									"id": "662",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_beforeTokenTransfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1060",
+									"referenceStatementId": "897",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_uint256$",
 										"typeString": "function(address,address,uint256)"
@@ -2320,7 +1674,7 @@
 											"typeString": "literal_string \"ERC20: transfer amount exceeds balance\""
 										}
 									],
-									"id": "836",
+									"id": "673",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2347,14 +1701,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "847",
+									"id": "684",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_afterTokenTransfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1071",
+									"referenceStatementId": "908",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_address$_t_uint256$",
 										"typeString": "function(address,address,uint256)"
@@ -2366,7 +1720,7 @@
 					"signature": "30e0789e"
 				},
 				{
-					"id": 868,
+					"id": 705,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_mint",
@@ -2375,7 +1729,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 870,
+							"id": 707,
 							"node_type": 44,
 							"name": "account",
 							"type": "address",
@@ -2385,7 +1739,7 @@
 							}
 						},
 						{
-							"id": 872,
+							"id": 709,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2396,7 +1750,7 @@
 						}
 					],
 					"body": {
-						"id": 875,
+						"id": 712,
 						"node_type": 46,
 						"statements": [
 							{
@@ -2412,7 +1766,7 @@
 											"typeString": "literal_string \"ERC20: mint to the zero address\""
 										}
 									],
-									"id": "876",
+									"id": "713",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2439,14 +1793,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "885",
+									"id": "722",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_beforeTokenTransfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1060",
+									"referenceStatementId": "897",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_function_$_t_rational_0_by_1$_t_address$_t_uint256$",
 										"typeString": "function(function(int_const 0),address,uint256)"
@@ -2470,14 +1824,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "905",
+									"id": "742",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_afterTokenTransfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1071",
+									"referenceStatementId": "908",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_function_$_t_rational_0_by_1$_t_address$_t_uint256$",
 										"typeString": "function(function(int_const 0),address,uint256)"
@@ -2489,7 +1843,7 @@
 					"signature": "4e6ec247"
 				},
 				{
-					"id": 921,
+					"id": 758,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_burn",
@@ -2498,7 +1852,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 923,
+							"id": 760,
 							"node_type": 44,
 							"name": "account",
 							"type": "address",
@@ -2508,7 +1862,7 @@
 							}
 						},
 						{
-							"id": 925,
+							"id": 762,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2519,7 +1873,7 @@
 						}
 					],
 					"body": {
-						"id": 928,
+						"id": 765,
 						"node_type": 46,
 						"statements": [
 							{
@@ -2535,7 +1889,7 @@
 											"typeString": "literal_string \"ERC20: burn from the zero address\""
 										}
 									],
-									"id": "929",
+									"id": "766",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2562,14 +1916,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "938",
+									"id": "775",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_beforeTokenTransfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1060",
+									"referenceStatementId": "897",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_function_$_t_rational_0_by_1$_t_uint256$",
 										"typeString": "function(address,function(int_const 0),uint256)"
@@ -2589,7 +1943,7 @@
 											"typeString": "literal_string \"ERC20: burn amount exceeds balance\""
 										}
 									],
-									"id": "952",
+									"id": "789",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2616,14 +1970,14 @@
 											"typeString": "uint256"
 										}
 									],
-									"externalContractId": "524",
+									"externalContractId": "361",
 									"externalContractName": "ERC20",
-									"id": "966",
+									"id": "803",
 									"isExternal": true,
 									"kind": "FUNCTION_CALL",
 									"name": "_afterTokenTransfer",
 									"nodeType": "FUNCTION_CALL",
-									"referenceStatementId": "1071",
+									"referenceStatementId": "908",
 									"typeDescription": {
 										"typeIdentifier": "t_function_$_t_address$_t_function_$_t_rational_0_by_1$_t_uint256$",
 										"typeString": "function(address,function(int_const 0),uint256)"
@@ -2635,7 +1989,7 @@
 					"signature": "6161eb18"
 				},
 				{
-					"id": 988,
+					"id": 825,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_approve",
@@ -2645,7 +1999,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 990,
+							"id": 827,
 							"node_type": 44,
 							"name": "owner",
 							"type": "address",
@@ -2655,7 +2009,7 @@
 							}
 						},
 						{
-							"id": 992,
+							"id": 829,
 							"node_type": 44,
 							"name": "spender",
 							"type": "address",
@@ -2665,7 +2019,7 @@
 							}
 						},
 						{
-							"id": 994,
+							"id": 831,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2676,7 +2030,7 @@
 						}
 					],
 					"body": {
-						"id": 997,
+						"id": 834,
 						"node_type": 46,
 						"statements": [
 							{
@@ -2692,7 +2046,7 @@
 											"typeString": "literal_string \"ERC20: approve from the zero address\""
 										}
 									],
-									"id": "998",
+									"id": "835",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2715,7 +2069,7 @@
 											"typeString": "literal_string \"ERC20: approve to the zero address\""
 										}
 									],
-									"id": "1007",
+									"id": "844",
 									"kind": "FUNCTION_CALL",
 									"name": "require",
 									"nodeType": "FUNCTION_CALL",
@@ -2730,7 +2084,7 @@
 					"signature": "104e81ff"
 				},
 				{
-					"id": 1030,
+					"id": 867,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_spendAllowance",
@@ -2740,7 +2094,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 1032,
+							"id": 869,
 							"node_type": 44,
 							"name": "owner",
 							"type": "address",
@@ -2750,7 +2104,7 @@
 							}
 						},
 						{
-							"id": 1034,
+							"id": 871,
 							"node_type": 44,
 							"name": "spender",
 							"type": "address",
@@ -2760,7 +2114,7 @@
 							}
 						},
 						{
-							"id": 1036,
+							"id": 873,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2771,13 +2125,13 @@
 						}
 					],
 					"body": {
-						"id": 1039,
+						"id": 876,
 						"node_type": 46
 					},
 					"signature": "1532335e"
 				},
 				{
-					"id": 1060,
+					"id": 897,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_beforeTokenTransfer",
@@ -2787,7 +2141,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 1062,
+							"id": 899,
 							"node_type": 44,
 							"name": "from",
 							"type": "address",
@@ -2797,7 +2151,7 @@
 							}
 						},
 						{
-							"id": 1064,
+							"id": 901,
 							"node_type": 44,
 							"name": "to",
 							"type": "address",
@@ -2807,7 +2161,7 @@
 							}
 						},
 						{
-							"id": 1066,
+							"id": 903,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2818,13 +2172,13 @@
 						}
 					],
 					"body": {
-						"id": 1069,
+						"id": 906,
 						"node_type": 46
 					},
 					"signature": "cad3be83"
 				},
 				{
-					"id": 1071,
+					"id": 908,
 					"node_type": 42,
 					"kind": 41,
 					"name": "_afterTokenTransfer",
@@ -2834,7 +2188,7 @@
 					"virtual": true,
 					"parameters": [
 						{
-							"id": 1073,
+							"id": 910,
 							"node_type": 44,
 							"name": "from",
 							"type": "address",
@@ -2844,7 +2198,7 @@
 							}
 						},
 						{
-							"id": 1075,
+							"id": 912,
 							"node_type": 44,
 							"name": "to",
 							"type": "address",
@@ -2854,7 +2208,7 @@
 							}
 						},
 						{
-							"id": 1077,
+							"id": 914,
 							"node_type": 44,
 							"name": "amount",
 							"type": "uint256",
@@ -2865,10 +2219,656 @@
 						}
 					],
 					"body": {
-						"id": 1080,
+						"id": 917,
 						"node_type": 46
 					},
 					"signature": "8f811a1c"
+				}
+			]
+		},
+		{
+			"id": 926,
+			"node_type": 35,
+			"kind": 38,
+			"source_unit_id": 918,
+			"name": "IERC20Metadata",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "IERC20Metadata.sol",
+			"symbols": [
+				{
+					"id": 918,
+					"name": "IERC20Metadata",
+					"absolute_path": "IERC20Metadata.sol"
+				},
+				{
+					"id": 355,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
+				}
+			],
+			"imports": [
+				{
+					"id": 925,
+					"node_type": 29,
+					"source_unit_id": 355,
+					"contract_id": 361,
+					"absolute_path": "IERC20.sol",
+					"file": "../IERC20.sol"
+				}
+			],
+			"pragmas": [
+				{
+					"id": 921,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"functions": [
+				{
+					"id": 930,
+					"node_type": 42,
+					"kind": 41,
+					"name": "name",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 932,
+							"node_type": 44,
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 937,
+						"node_type": 46
+					},
+					"signature": "5b43bc99",
+					"return": [
+						{
+							"id": 935,
+							"node_type": 44,
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					]
+				},
+				{
+					"id": 939,
+					"node_type": 42,
+					"kind": 41,
+					"name": "symbol",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 941,
+							"node_type": 44,
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 946,
+						"node_type": 46
+					},
+					"signature": "41bb0559",
+					"return": [
+						{
+							"id": 944,
+							"node_type": 44,
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					]
+				},
+				{
+					"id": 948,
+					"node_type": 42,
+					"kind": 41,
+					"name": "decimals",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 950,
+							"node_type": 44,
+							"type": "uint8",
+							"type_description": {
+								"type_identifier": "t_uint8",
+								"type_string": "uint8"
+							}
+						}
+					],
+					"body": {
+						"id": 955,
+						"node_type": 46
+					},
+					"signature": "82fd60ab",
+					"return": [
+						{
+							"id": 953,
+							"node_type": 44,
+							"type": "uint8",
+							"type_description": {
+								"type_identifier": "t_uint8",
+								"type_string": "uint8"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 965,
+			"node_type": 35,
+			"kind": 38,
+			"source_unit_id": 956,
+			"name": "IERC20",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "IERC20.sol",
+			"symbols": [
+				{
+					"id": 956,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
+				}
+			],
+			"pragmas": [
+				{
+					"id": 960,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"events": [
+				{
+					"id": 1031,
+					"node_type": 57,
+					"name": "Transfer",
+					"parameters": [
+						{
+							"id": 1033,
+							"node_type": 44,
+							"name": "from",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1035,
+							"node_type": 44,
+							"name": "to",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1037,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 1040,
+					"node_type": 57,
+					"name": "Approval",
+					"parameters": [
+						{
+							"id": 1042,
+							"node_type": 44,
+							"name": "owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1044,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1046,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			],
+			"functions": [
+				{
+					"id": 967,
+					"node_type": 42,
+					"kind": 41,
+					"name": "totalSupply",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 969,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 974,
+						"node_type": 46
+					},
+					"signature": "bd85b039",
+					"return": [
+						{
+							"id": 972,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 976,
+					"node_type": 42,
+					"kind": 41,
+					"name": "balanceOf",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 978,
+							"node_type": 44,
+							"name": "account",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 983,
+						"node_type": 46
+					},
+					"signature": "70a08231",
+					"return": [
+						{
+							"id": 981,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 985,
+					"node_type": 42,
+					"kind": 41,
+					"name": "transfer",
+					"visibility": 4,
+					"state_mutability": 4,
+					"parameters": [
+						{
+							"id": 987,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 989,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 994,
+						"node_type": 46
+					},
+					"signature": "a9059cbb",
+					"return": [
+						{
+							"id": 992,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 996,
+					"node_type": 42,
+					"kind": 41,
+					"name": "allowance",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 998,
+							"node_type": 44,
+							"name": "owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1000,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 1005,
+						"node_type": 46
+					},
+					"signature": "dd62ed3e",
+					"return": [
+						{
+							"id": 1003,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 1007,
+					"node_type": 42,
+					"kind": 41,
+					"name": "approve",
+					"visibility": 4,
+					"state_mutability": 4,
+					"parameters": [
+						{
+							"id": 1009,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1011,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 1016,
+						"node_type": 46
+					},
+					"signature": "095ea7b3",
+					"return": [
+						{
+							"id": 1014,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 1018,
+					"node_type": 42,
+					"kind": 41,
+					"name": "transferFrom",
+					"visibility": 4,
+					"state_mutability": 4,
+					"parameters": [
+						{
+							"id": 1020,
+							"node_type": 44,
+							"name": "sender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1022,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 1024,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 1029,
+						"node_type": 46
+					},
+					"signature": "23b872dd",
+					"return": [
+						{
+							"id": 1027,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 1058,
+			"node_type": 35,
+			"kind": 36,
+			"source_unit_id": 1048,
+			"name": "Context",
+			"license": "MIT",
+			"language": "solidity",
+			"absolute_path": "Context.sol",
+			"symbols": [
+				{
+					"id": 1048,
+					"name": "Context",
+					"absolute_path": "Context.sol"
+				}
+			],
+			"pragmas": [
+				{
+					"id": 1053,
+					"node_type": 10,
+					"literals": [
+						"pragma",
+						"solidity",
+						"^",
+						"0",
+						".",
+						"8",
+						".",
+						"0",
+						";"
+					],
+					"text": "pragma solidity ^0.8.0;"
+				}
+			],
+			"functions": [
+				{
+					"id": 1060,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_msgSender",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"parameters": [
+						{
+							"id": 1062,
+							"node_type": 44,
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 1067,
+						"node_type": 46
+					},
+					"signature": "b1717086",
+					"return": [
+						{
+							"id": 1065,
+							"node_type": 44,
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					]
+				},
+				{
+					"id": 1072,
+					"node_type": 42,
+					"kind": 41,
+					"name": "_msgData",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 5,
+					"virtual": true,
+					"parameters": [
+						{
+							"id": 1074,
+							"node_type": 44,
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					],
+					"body": {
+						"id": 1079,
+						"node_type": 46
+					},
+					"signature": "0f970e56",
+					"return": [
+						{
+							"id": 1077,
+							"node_type": 44,
+							"type": "bytes",
+							"type_description": {
+								"type_identifier": "t_bytes",
+								"type_string": "bytes"
+							}
+						}
+					]
 				}
 			]
 		}
