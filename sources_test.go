@@ -116,7 +116,7 @@ func TestSources(t *testing.T) {
 			err = testCase.sources.Prepare()
 			assert.NoError(t, err)
 
-			assert.NoError(t, testCase.sources.DeterministicSortContracts())
+			assert.NoError(t, testCase.sources.SortContracts())
 			combinedSource := testCase.sources.GetCombinedSource()
 			assert.Equal(t, testCase.expected, combinedSource)
 			assert.Equal(t, testCase.expectedUnits, len(testCase.sources.SourceUnits))

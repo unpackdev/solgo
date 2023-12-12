@@ -54,11 +54,5 @@ func TestProcessFallback(t *testing.T) {
 	assert.Equal(t, builder.normalizeStateMutability(mockFallback.GetStateMutability()), result.StateMutability)
 	assert.Equal(t, "", result.Name)
 	assert.Equal(t, 0, len(result.Inputs))
-	assert.Equal(t, "inputParam1", result.Inputs[0].Name)
-	assert.Equal(t, "inputParam2", result.Inputs[1].Name)
-	assert.Equal(t, "uint256", result.Inputs[0].Type)
-	assert.Equal(t, "uint256", result.Inputs[1].Type)
-	assert.Equal(t, "uint256", result.Inputs[0].InternalType)
-	assert.Equal(t, "uint256", result.Inputs[1].InternalType)
 	assert.Equal(t, 0, len(result.Outputs))
 }
