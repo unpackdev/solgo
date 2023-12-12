@@ -185,10 +185,6 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 		return nil, fmt.Errorf("unknown source code type: %T", sourceCode)
 	}
 
-	for _, contract := range sources.SourceUnits {
-		fmt.Println(contract.Name)
-	}
-
 	return sources, nil
 }
 

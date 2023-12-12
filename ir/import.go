@@ -16,6 +16,7 @@ type Import struct {
 	UnitAlias    string          `json:"unit_alias"`
 	SourceUnitId int64           `json:"source_unit_id"`
 	ContractId   int64           `json:"contract_id"`
+	Contract     *Contract       `json:"contract"`
 }
 
 // GetId returns the unique identifier of the import statement.

@@ -191,6 +191,10 @@ func (r *RootSourceUnit) GetLinks() []*Link {
 	return r.Links
 }
 
+func (r *RootSourceUnit) IsEntryContract(contract *Contract) bool {
+	return r.EntryContractId == contract.Id
+}
+
 // ToProto is a placeholder function for converting the RootSourceUnit to a protobuf message.
 func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 	proto := &ir_pb.Root{

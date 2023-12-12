@@ -3,11 +3,14 @@ package ast
 import (
 	"encoding/json"
 	"fmt"
+	"path/filepath"
+	"regexp"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/parser"
+	"go.uber.org/zap"
 )
 
 // SourceUnit represents a source unit in the abstract syntax tree.
@@ -41,10 +44,41 @@ func NewSourceUnit[T any](builder *ASTBuilder, name string, license string) *Sou
 
 // SetAbsolutePathFromSources sets the absolute path of the source unit from the provided sources.
 func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources *solgo.Sources) {
+	found := false
 	for _, unit := range sources.SourceUnits {
 		if unit.Name == s.Name {
-			s.AbsolutePath = unit.Path
+			path := filepath.Clean(unit.Path)
+			path = filepath.Base(path)
+			s.AbsolutePath = path
+			found = true
+			break
 		}
+	}
+
+	if !found {
+		pattern := fmt.Sprintf(`(?m)^\s*(library|interface|contract)\s+%s\s*(is\s+[\w\s,]+)?\s*{?`, regexp.QuoteMeta(s.Name))
+		regex, err := regexp.Compile(pattern)
+		if err != nil {
+			fmt.Println("Regex compilation error:", err)
+			return
+		}
+		for _, unit := range sources.SourceUnits {
+			content := unit.GetContent()
+			if regex.MatchString(content) {
+				path := filepath.Clean(unit.Path)
+				path = filepath.Base(path)
+				s.AbsolutePath = path
+				found = true
+				break
+			}
+		}
+	}
+
+	if !found {
+		zap.L().Warn(
+			"Could not set absolute path from sources as source unit was not found in sources",
+			zap.String("name", s.Name),
+		)
 	}
 }
 
@@ -90,7 +124,9 @@ func (s *SourceUnit[T]) GetExportedSymbols() []Symbol {
 
 // GetAbsolutePath returns the absolute path of the source unit.
 func (s *SourceUnit[T]) GetAbsolutePath() string {
-	return s.AbsolutePath
+	toReturn := filepath.Clean(s.AbsolutePath)
+	toReturn = filepath.Base(toReturn)
+	return toReturn
 }
 
 // GetContract returns the contract associated with the source unit.

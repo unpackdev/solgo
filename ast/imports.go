@@ -180,13 +180,16 @@ func parseImportPathsForSourceUnit(
 					ParentIndex: unit.Id,
 				},
 				AbsolutePath: func() string {
-					toReturn := filepath.Base(importCtx.Path().GetText())
+					path := filepath.Clean(importCtx.Path().GetText())
+					toReturn := filepath.Base(path)
 					toReturn = strings.ReplaceAll(toReturn, "\"", "")
+					toReturn = strings.ReplaceAll(toReturn, "'", "")
 					return toReturn
 				}(),
 				File: func() string {
-					toReturn := importCtx.Path().GetText()
+					toReturn := filepath.Clean(importCtx.Path().GetText())
 					toReturn = strings.ReplaceAll(toReturn, "\"", "")
+					toReturn = strings.ReplaceAll(toReturn, "'", "")
 					return toReturn
 				}(),
 				Scope:       unit.Id,
@@ -223,14 +226,15 @@ func parseImportPathsForSourceUnit(
 			// Find the source unit that corresponds to the import path
 			// and add the exported symbols to the current source unit exported symbols.
 			// @TODO: Perhaps too much of iterations?
-			for _, unitCtx := range b.sourceUnits {
+			/* 			for _, unitCtx := range b.sourceUnits {
 				for _, source := range b.sources.SourceUnits {
 					absolutePath := filepath.Base(source.Path)
+					fmt.Println("ABS Path:", absolutePath)
 					if importNode.AbsolutePath == absolutePath {
 						importNode.SourceUnit = unitCtx.Id
 					}
 				}
-			}
+			} */
 
 			imports = append(imports, importNode)
 		}
@@ -258,6 +262,5 @@ func parseImportPathsForSourceUnit(
 	}
 
 	b.currentImports = append(b.currentImports, filteredImports...)
-
 	return filteredImports
 }

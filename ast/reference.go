@@ -199,15 +199,15 @@ func (r *Resolver) Resolve() []error {
 // resolveImportDirectives resolves import directives in the AST.
 func (r *Resolver) resolveImportDirectives() {
 	for _, sourceNode := range r.sourceUnits {
-		// In case any imports are available and they are not exported
-		// we are going to append them to the exported symbols.
+	nodeLookup:
 		for _, node := range sourceNode.GetNodes() {
 			if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
 				importNode := node.(*Import)
 				if importNode.GetSourceUnit() == 0 {
-					for _, sourceNode := range r.sourceUnits {
-						if sourceNode.GetAbsolutePath() == importNode.GetAbsolutePath() {
-							node.SetReferenceDescriptor(sourceNode.GetId(), nil)
+					for _, matchNode := range r.sourceUnits {
+						if importNode.GetAbsolutePath() == matchNode.GetAbsolutePath() {
+							node.SetReferenceDescriptor(matchNode.GetId(), nil)
+							continue nodeLookup
 						}
 					}
 				}
