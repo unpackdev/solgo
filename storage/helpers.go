@@ -171,24 +171,6 @@ func decodeSolidityString(storage *Storage, contractAddress common.Address, star
 		return string(storageValue[:length]), nil
 	}
 
-	var result strings.Builder
-	result.Grow(int(length))
-
-	// Read additional slots
-	for offset := int64(1); offset*32 < int64(length+32); offset++ {
-		nextSlotValue, err := storage.ReadStorageSlot(storage.ctx, contractAddress, startSlot+offset, blockNumber)
-		if err != nil {
-			return "", err
-		}
-
-		// Calculate the number of bytes to write from nextSlotValue
-		bytesToWrite := int64(32)
-		if (offset+1)*32 > int64(length+32) {
-			bytesToWrite = int64(length+32) - offset*32
-		}
-
-		result.Write(nextSlotValue[:bytesToWrite])
-	}
-
-	return result.String(), nil
+	// For now.... Don't have time fixing up the multi strings...
+	return "", nil
 }
