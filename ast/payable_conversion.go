@@ -37,9 +37,37 @@ func NewPayableConversionExpression(b *ASTBuilder) *PayableConversion {
 
 // SetReferenceDescriptor sets the reference descriptions of the PayableConversion node.
 func (p *PayableConversion) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	p.ReferencedDeclaration = refId
-	p.TypeDescription = refDesc
+	p.RebuildDescriptions()
 	return false
+}
+
+// RebuildDescriptions rebuilds the type descriptions of the FunctionCall node. It is called after the AST is built.
+func (p *PayableConversion) RebuildDescriptions() {
+	var newArgs []*TypeDescription
+	typeStrings := []string{}
+	typeIdentifiers := []string{}
+
+	for _, arg := range p.GetArguments() {
+		newArgs = append(newArgs, arg.GetTypeDescription())
+		typeStrings = append(typeStrings, arg.GetTypeDescription().GetString())
+		typeIdentifiers = append(typeIdentifiers, arg.GetTypeDescription().GetIdentifier())
+	}
+	p.ArgumentTypes = newArgs
+
+	p.TypeDescription = &TypeDescription{
+		TypeString: func() string {
+			return fmt.Sprintf(
+				"function(%s) payable",
+				strings.Join(typeStrings, ","),
+			)
+		}(),
+		TypeIdentifier: func() string {
+			return fmt.Sprintf(
+				"t_function_payable$_%s$",
+				strings.Join(typeIdentifiers, "$_"),
+			)
+		}(),
+	}
 }
 
 // GetId returns the ID of the PayableConversion node.
@@ -230,13 +258,15 @@ func (p *PayableConversion) Parse(
 				expr,
 			)
 
-			typeStrings = append(typeStrings, expr.GetTypeDescription().TypeString)
-			typeIdentifiers = append(typeIdentifiers, expr.GetTypeDescription().TypeIdentifier)
+			if expr.GetTypeDescription() != nil {
+				typeStrings = append(typeStrings, expr.GetTypeDescription().TypeString)
+				typeIdentifiers = append(typeIdentifiers, expr.GetTypeDescription().TypeIdentifier)
 
-			p.ArgumentTypes = append(
-				p.ArgumentTypes,
-				expr.GetTypeDescription(),
-			)
+				p.ArgumentTypes = append(
+					p.ArgumentTypes,
+					expr.GetTypeDescription(),
+				)
+			}
 		}
 	}
 

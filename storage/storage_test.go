@@ -2,6 +2,7 @@ package storage
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 	"os"
 	"strings"
@@ -124,12 +125,20 @@ func TestStorage(t *testing.T) {
 			expectedSlotsCount: 25,
 			expectedSlots:      map[int]*SlotDescriptor{},
 		}, */
-		{
+		/* 		{
 			name:               "UniswapV3Pool: 0xE67b950F4b84c5b06Ee36DEd6727a17443fE7493",
 			address:            common.HexToAddress("0xE67b950F4b84c5b06Ee36DEd6727a17443fE7493"),
 			atBlock:            nil,
 			expectError:        false,
 			expectedSlotsCount: 16,
+			expectedSlots:      map[int]*SlotDescriptor{},
+		}, */
+		{
+			name:               "SpareBytes: 0xc2F78739074b5dDCA2aDB85DE63826Cc92cE792e",
+			address:            common.HexToAddress("0xc2F78739074b5dDCA2aDB85DE63826Cc92cE792e"),
+			atBlock:            nil,
+			expectError:        false,
+			expectedSlotsCount: 37,
 			expectedSlots:      map[int]*SlotDescriptor{},
 		},
 	}
@@ -183,7 +192,16 @@ func TestStorage(t *testing.T) {
 			tAssert.NotNil(sortedSlots)
 			tAssert.Equal(tc.expectedSlotsCount, len(sortedSlots))
 
-			//utils.DumpNodeWithExit(reader.GetDescriptor())
+			//
+			storageVars, err := builder.GetStorageStateVariables()
+			require.NoError(t, err)
+			require.NotNil(t, storageVars)
+
+			for _, slot := range storageVars {
+				fmt.Println(slot)
+			}
+
+			utils.DumpNodeWithExit(reader.GetDescriptor())
 
 			/* 			for i, slot := range sortedSlots {
 				require.NotNil(t, tc.expectedSlots[i])

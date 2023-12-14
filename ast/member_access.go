@@ -43,6 +43,13 @@ func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 func (m *MemberAccessExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	m.ReferencedDeclaration = refId
 	m.TypeDescription = refDesc
+
+	// We have to now go one layer in parent to ensure that the type description is set everywhere...
+	if m.GetSrc().ParentIndex != 0 {
+		if parent := m.tree.GetById(m.GetSrc().ParentIndex); parent != nil {
+			parent.SetReferenceDescriptor(refId, refDesc)
+		}
+	}
 	return true
 }
 

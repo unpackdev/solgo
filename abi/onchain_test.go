@@ -88,9 +88,15 @@ func TestOnchainContracts(t *testing.T) {
 			atBlock:     nil,
 			expectError: false,
 		}, */
-		{
+		/* 		{
 			name:        "ERC20 - 0x1F98431c8aD98523631AE4a59f267346ea31F984",
 			address:     common.HexToAddress("0x1F98431c8aD98523631AE4a59f267346ea31F984"),
+			atBlock:     nil,
+			expectError: false,
+		}, */
+		{
+			name:        "SystemConfig - 0xC664864b9f625be7c0CFA2aeDC75B3aafC28eb01",
+			address:     common.HexToAddress("0xC664864b9f625be7c0CFA2aeDC75B3aafC28eb01"),
 			atBlock:     nil,
 			expectError: false,
 		},

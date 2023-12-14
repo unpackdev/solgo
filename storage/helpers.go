@@ -162,10 +162,10 @@ func decodeSolidityString(storage *Storage, contractAddress common.Address, star
 	length := binary.BigEndian.Uint64(storageValue[24:32])
 
 	// Guard against excessively large length values
-	const maxLength = 10 * 1024 // For example, 10 KB
-	if length > maxLength {
-		return "", fmt.Errorf("string length %d exceeds maximum allowed length of %d", length, maxLength)
-	}
+	/* 	const maxLength = 10 * 1024 // For example, 10 KB
+	   	if length > maxLength {
+	   		return "", fmt.Errorf("string length %d exceeds maximum allowed length of %d", length, maxLength)
+	   	} */
 
 	if length <= 31 { // Fits in a single slot
 		return string(storageValue[:length]), nil
