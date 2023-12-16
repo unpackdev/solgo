@@ -124,7 +124,7 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 	if valid, err := toReturn.IsValid(); err != nil {
 		return nil, fmt.Errorf("failure to check for contract validity: %s", err)
 	} else if !valid {
-		return nil, fmt.Errorf("requested contract '%s' is not valid", addr.Hex())
+		return nil, fmt.Errorf("requested contract '%s' does not appear to be valid contract or is selfdestructed", addr.Hex())
 	}
 
 	return toReturn, nil
@@ -157,15 +157,31 @@ func (c *Contract) GetBlock() *types.Block {
 	return c.descriptor.Block
 }
 
+// SetBlock sets the blockchain block in which the contract was deployed or involved.
+func (c *Contract) SetBlock(block *types.Block) {
+	c.descriptor.Block = block
+}
+
 // GetTransaction returns the Ethereum transaction associated with the contract's deployment or a specific operation.
 func (c *Contract) GetTransaction() *types.Transaction {
 	return c.descriptor.Transaction
+}
+
+// SetTransaction sets the Ethereum transaction associated with the contract's deployment or a specific operation.
+func (c *Contract) SetTransaction(tx *types.Transaction) {
+	c.descriptor.Transaction = tx
 }
 
 // GetReceipt returns the receipt of the transaction in which the contract was involved,
 // providing details such as gas used and logs generated.
 func (c *Contract) GetReceipt() *types.Receipt {
 	return c.descriptor.Receipt
+}
+
+// SetReceipt sets the receipt of the transaction in which the contract was involved,
+// providing details such as gas used and logs generated.
+func (c *Contract) SetReceipt(receipt *types.Receipt) {
+	c.descriptor.Receipt = receipt
 }
 
 // GetSender returns the Ethereum address of the sender of the contract's transaction.

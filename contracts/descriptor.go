@@ -60,8 +60,9 @@ type Descriptor struct {
 
 	// SourcesRaw is the raw sources from Etherscan|BscScan|etc. Should not be used anywhere except in
 	// the contract discovery process.
-	SourcesRaw *etherscan.Contract `json:"-"`
-	Sources    *solgo.Sources      `json:"sources,omitempty"`
+	SourcesRaw      *etherscan.Contract `json:"-"`
+	Sources         *solgo.Sources      `json:"sources,omitempty"`
+	SourcesProvider string              `json:"sources_provider,omitempty"`
 
 	// Source detection related fields.
 	Detector    *detector.Detector    `json:"-"`
@@ -99,6 +100,14 @@ func (d *Descriptor) HasLiquidityPairs() bool {
 
 func (d *Descriptor) HasUUID() bool {
 	return d.UUID != nil
+}
+
+func (d *Descriptor) HasNetworkUUID() bool {
+	return d.NetworkUUID != nil
+}
+
+func (d *Descriptor) HasMetadata() bool {
+	return d.Metadata != nil
 }
 
 func (d *Descriptor) SetUUID(uuid *uuid.UUID) {
@@ -191,4 +200,104 @@ func (d *Descriptor) GetIntrospection() *inspector.Report {
 
 func (d *Descriptor) GetMetadata() *bytecode.Metadata {
 	return d.Metadata
+}
+
+func (d *Descriptor) GetConstructor() *bytecode.Constructor {
+	return d.Constructor
+}
+
+func (d *Descriptor) GetSources() *solgo.Sources {
+	return d.Sources
+}
+
+func (d *Descriptor) GetSourcesRaw() *etherscan.Contract {
+	return d.SourcesRaw
+}
+
+func (d *Descriptor) GetSourcesProvider() string {
+	return d.SourcesProvider
+}
+
+func (d *Descriptor) IsOptimized() bool {
+	return d.Optimized
+}
+
+func (d *Descriptor) GetOptimizationRuns() uint64 {
+	return d.OptimizationRuns
+}
+
+func (d *Descriptor) GetEVMVersion() string {
+	return d.EVMVersion
+}
+
+func (d *Descriptor) GetABI() string {
+	return d.ABI
+}
+
+func (d *Descriptor) GetLicense() string {
+	return d.License
+}
+
+func (d *Descriptor) GetName() string {
+	return d.Name
+}
+
+func (d *Descriptor) GetCompilerVersion() string {
+	return d.CompilerVersion
+}
+
+func (d *Descriptor) GetSolgoVersion() string {
+	return d.SolgoVersion
+}
+
+func (d *Descriptor) GetNetwork() utils.Network {
+	return d.Network
+}
+
+func (d *Descriptor) GetNetworkID() utils.NetworkID {
+	return d.NetworkID
+}
+
+func (d *Descriptor) GetAddress() common.Address {
+	return d.Address
+}
+
+func (d *Descriptor) GetRuntimeBytecode() []byte {
+	return d.RuntimeBytecode
+}
+
+func (d *Descriptor) GetDeployedBytecode() []byte {
+	return d.DeployedBytecode
+}
+
+func (d *Descriptor) GetBlock() *types.Block {
+	return d.Block
+}
+
+func (d *Descriptor) GetTransaction() *types.Transaction {
+	return d.Transaction
+}
+
+func (d *Descriptor) GetReceipt() *types.Receipt {
+	return d.Receipt
+}
+
+func (d *Descriptor) GetLiquidityPairs() map[utils.ExchangeType]common.Address {
+	return d.LiquidityPairs
+}
+
+func (d *Descriptor) GetDetector() *detector.Detector {
+	return d.Detector
+}
+
+func (d *Descriptor) GetUUID() *uuid.UUID {
+	return d.UUID
+}
+
+func (d *Descriptor) GetBlockUUID() *uuid.UUID {
+	return d.BlockUUID
+}
+
+func (d *Descriptor) GetTransactionUUID() *uuid.UUID {
+	return d.TransactionUUID
 }

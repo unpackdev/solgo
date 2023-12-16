@@ -87,6 +87,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	c.descriptor.OptimizationRuns = optimizationRuns
 	c.descriptor.EVMVersion = c.descriptor.SourcesRaw.EVMVersion
 	c.descriptor.ABI = c.descriptor.SourcesRaw.ABI
+	c.descriptor.SourcesProvider = c.etherscan.ProviderName()
 
 	return nil
 }

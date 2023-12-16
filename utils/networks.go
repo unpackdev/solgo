@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"math/big"
 )
 
@@ -102,5 +103,28 @@ func GetNetworkID(network Network) NetworkID {
 		return AnvilMainnetNetworkID
 	default:
 		return 0
+	}
+}
+
+func GetNetworkFromString(network string) (Network, error) {
+	switch network {
+	case "ethereum":
+		return Ethereum, nil
+	case "bsc":
+		return Bsc, nil
+	case "polygon":
+		return Polygon, nil
+	case "avalanche":
+		return Avalanche, nil
+	case "fantom":
+		return Fantom, nil
+	case "arbitrum":
+		return Arbitrum, nil
+	case "optimism":
+		return Optimism, nil
+	case "anvil":
+		return AnvilNetwork, nil
+	default:
+		return "", fmt.Errorf("unknown network '%s' provided", network)
 	}
 }

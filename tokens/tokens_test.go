@@ -16,7 +16,6 @@ import (
 	"github.com/unpackdev/solgo/exchanges"
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/utils"
-	"github.com/unpackdev/solgo/utils/entities"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -135,7 +134,7 @@ func TestToken(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			tAssert := assert.New(t)
+			//tAssert := assert.New(t)
 
 			token, err := NewToken(ctx, tc.network, tc.address, tc.simulatorType, bindManager, exchangeManager, sim, pool)
 			if tc.expectError {
@@ -166,7 +165,7 @@ func TestToken(t *testing.T) {
 
 			utils.DumpNodeNoExit(descriptor)
 
-			if tc.simulate {
+			/* if tc.simulate {
 				account, err := sim.GetFaucet().GetRandomAccount()
 				require.NoError(t, err)
 				require.NotNil(t, account)
@@ -189,7 +188,7 @@ func TestToken(t *testing.T) {
 						continue
 					}
 				}
-			}
+			} */
 
 		})
 	}

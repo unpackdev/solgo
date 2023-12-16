@@ -1,4 +1,4 @@
-package abi
+package tests
 
 import (
 	"context"
@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/abi"
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/ir"
@@ -20,7 +21,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func TestOnchainContracts(t *testing.T) {
+func TestAbiContracts(t *testing.T) {
 	tAssert := assert.New(t)
 
 	config := zap.NewDevelopmentConfig()
@@ -95,15 +96,14 @@ func TestOnchainContracts(t *testing.T) {
 			expectError: false,
 		}, */
 		{
-			name:        "SystemConfig - 0xC664864b9f625be7c0CFA2aeDC75B3aafC28eb01",
-			address:     common.HexToAddress("0xC664864b9f625be7c0CFA2aeDC75B3aafC28eb01"),
+			name:        "EigenLayerBeaconOracleProxy - 0xA9a8D4bE67b553EC811B6C73618B2Cfd2fde61E7",
+			address:     common.HexToAddress("0xA9a8D4bE67b553EC811B6C73618B2Cfd2fde61E7"),
 			atBlock:     nil,
 			expectError: false,
 		},
 	}
 
 	for _, tc := range testCases {
-		//time.Sleep(1000 * time.Second)
 		t.Run(tc.name, func(t *testing.T) {
 			tAssert := assert.New(t)
 
@@ -116,7 +116,7 @@ func TestOnchainContracts(t *testing.T) {
 			tAssert.NotNil(sources)
 			require.True(t, sources.HasUnits())
 
-			builder, err := NewBuilderFromSources(context.TODO(), sources)
+			builder, err := abi.NewBuilderFromSources(context.TODO(), sources)
 			assert.NoError(t, err)
 			assert.NotNil(t, builder)
 
