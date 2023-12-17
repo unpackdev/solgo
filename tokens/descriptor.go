@@ -4,17 +4,26 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/unpackdev/solgo/utils"
 	"github.com/unpackdev/solgo/utils/entities"
 )
 
+type Pair struct {
+	BaseToken   *entities.Token `json:"base_token"`
+	QuoteToken  *entities.Token `json:"quote_token"`
+	PairAddress common.Address  `json:"pair_address"`
+}
+
 type Descriptor struct {
-	BlockNumber *big.Int        `json:"block_number"`
-	Address     common.Address  `json:"address"`
-	Name        string          `json:"name"`
-	Symbol      string          `json:"symbol"`
-	Decimals    uint8           `json:"decimals"`
-	TotalSupply *big.Int        `json:"total_supply"`
-	Entity      *entities.Token `json:"-"`
+	BlockNumber       *big.Int                     `json:"block_number"`
+	Address           common.Address               `json:"address"`
+	Name              string                       `json:"name"`
+	Symbol            string                       `json:"symbol"`
+	Decimals          uint8                        `json:"decimals"`
+	TotalSupply       *big.Int                     `json:"total_supply"`
+	TotalBurnedSupply *big.Int                     `json:"total_burned_supply"`
+	Entity            *entities.Token              `json:"-"`
+	Pairs             map[utils.ExchangeType]*Pair `json:"pairs"`
 }
 
 func (d *Descriptor) GetAddress() common.Address {
@@ -37,6 +46,31 @@ func (d *Descriptor) GetTotalSupply() *big.Int {
 	return d.TotalSupply
 }
 
+func (d *Descriptor) GetTotalBurnedSupply() *big.Int {
+	return d.TotalBurnedSupply
+}
+
 func (d *Descriptor) GetEntity() *entities.Token {
 	return d.Entity
+}
+
+func (d *Descriptor) GetTotalCirculatingSupply() *big.Int {
+	return new(big.Int).Sub(d.TotalSupply, d.TotalBurnedSupply)
+}
+
+func (d *Descriptor) GetPairs() map[utils.ExchangeType]*Pair {
+	return d.Pairs
+}
+
+func (d *Descriptor) GetPairByExchange(exchangeType utils.ExchangeType) *Pair {
+	return d.Pairs[exchangeType]
+}
+
+func (d *Descriptor) HasPairs() bool {
+	return len(d.Pairs) > 0
+}
+
+func (d *Descriptor) HasPairByExchange(exchangeType utils.ExchangeType) bool {
+	_, ok := d.Pairs[exchangeType]
+	return ok
 }

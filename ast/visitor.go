@@ -1,6 +1,8 @@
 package ast
 
-import ast_pb "github.com/unpackdev/protos/dist/go/ast"
+import (
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+)
 
 type NodeVisitor struct {
 	Visit     func(node Node[NodeType]) bool

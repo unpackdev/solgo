@@ -161,12 +161,6 @@ type ContractStandard struct {
 	// ABI specifies the ABI of the contract standard.
 	ABI string `json:"abi"`
 
-	// PackageName specifies the package name of the contract standard.
-	PackageName string `json:"package_name"`
-
-	// PackageOutputPath specifies the package output path of the contract standard.
-	PackageOutputPath string `json:"package_output_path"`
-
 	// Functions is a slice of Function structs, representing the functions defined in the contract standard.
 	Functions []Function `json:"functions"`
 

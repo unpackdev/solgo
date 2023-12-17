@@ -88,6 +88,8 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	c.descriptor.EVMVersion = c.descriptor.SourcesRaw.EVMVersion
 	c.descriptor.ABI = c.descriptor.SourcesRaw.ABI
 	c.descriptor.SourcesProvider = c.etherscan.ProviderName()
+	c.descriptor.Verified = true
+	c.descriptor.VerificationProvider = c.etherscan.ProviderName()
 
 	return nil
 }

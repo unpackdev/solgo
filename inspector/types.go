@@ -38,6 +38,15 @@ const (
 
 	// AuditDetectorType represents a detector type focused on simulation of smart contract behaviors.
 	AuditDetectorType DetectorType = "audit"
+
+	// PausableDetectorType represents a detector type focused on pausable patterns in smart contracts.
+	PausableDetectorType DetectorType = "pausable"
+
+	// ExternalCallsDetectorType represents a detector type focused on external calls in smart contracts.
+	ExternalCallsDetectorType DetectorType = "external_calls"
+
+	// AntiWhaleDetectorType represents a detector type focused on anti-whale patterns in smart contracts.
+	AntiWhaleDetectorType DetectorType = "anti_whale"
 )
 
 // SeverityType represents the severity level of a detection.

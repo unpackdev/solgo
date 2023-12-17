@@ -28,6 +28,10 @@ func (t *Token) GetTokenBind(ctx context.Context, simulatorType utils.SimulatorT
 	return bindings.NewToken(t.ctx, t.network, bindManager, bindings.DefaultTokenBindOptions(t.descriptor.Address))
 }
 
+func (t *Token) GetBinding() *bindings.Token {
+	return t.tokenBind
+}
+
 // GetTokenBind connects to a blockchain simulator or live network to create a token binding.
 // It uses bindings.Manager and can target a specific block number.
 func (t *Token) GetUniswapV2Bind(ctx context.Context, simulatorType utils.SimulatorType, bindManager *bindings.Manager, atBlock *big.Int) (*bindings.Uniswap, error) {

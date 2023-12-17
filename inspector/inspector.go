@@ -13,6 +13,7 @@ import (
 	"github.com/unpackdev/solgo/simulator"
 	"github.com/unpackdev/solgo/standards"
 	"github.com/unpackdev/solgo/storage"
+	"github.com/unpackdev/solgo/tokens"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -24,10 +25,11 @@ type Inspector struct {
 	sim          *simulator.Simulator
 	report       *Report
 	visitor      *ast.NodeVisitor
+	token        *tokens.Token
 	ipfsProvider metadata.Provider
 }
 
-func NewInspector(ctx context.Context, network utils.Network, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, addr common.Address, ipfsProvider metadata.Provider) (*Inspector, error) {
+func NewInspector(ctx context.Context, network utils.Network, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, ipfsProvider metadata.Provider, addr common.Address, token *tokens.Token) (*Inspector, error) {
 	return &Inspector{
 		ctx:         ctx,
 		detector:    detector,
@@ -41,6 +43,7 @@ func NewInspector(ctx context.Context, network utils.Network, detector *detector
 			Detectors: make(map[DetectorType]any),
 		},
 		ipfsProvider: ipfsProvider,
+		token:        token,
 	}, nil
 }
 
@@ -58,6 +61,10 @@ func (i *Inspector) GetStorage() *storage.Storage {
 
 func (i *Inspector) GetBindingManager() *bindings.Manager {
 	return i.bindManager
+}
+
+func (i *Inspector) GetToken() *tokens.Token {
+	return i.token
 }
 
 func (i *Inspector) GetReport() *Report {

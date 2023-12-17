@@ -38,6 +38,8 @@ type Descriptor struct {
 	NetworkUUID     *uuid.UUID `json:"network_uuid,omitempty"`
 	BlockUUID       *uuid.UUID `json:"block_uuid,omitempty"`
 	TransactionUUID *uuid.UUID `json:"transaction_uuid,omitempty"`
+	ContractUUID    *uuid.UUID `json:"contract_uuid,omitempty"`
+	TokenUUID       *uuid.UUID `json:"token_uuid,omitempty"`
 
 	// Contract related fields.
 	Network          utils.Network                         `json:"network"`
@@ -58,6 +60,9 @@ type Descriptor struct {
 	EVMVersion       string                                `json:"evm_version,omitempty"`
 	LiquidityPairs   map[utils.ExchangeType]common.Address `json:"liquidity_pairs,omitempty"`
 
+	// Identity related fields
+	Owner common.Address `json:"owner,omitempty"`
+
 	// SourcesRaw is the raw sources from Etherscan|BscScan|etc. Should not be used anywhere except in
 	// the contract discovery process.
 	SourcesRaw      *etherscan.Contract `json:"-"`
@@ -71,8 +76,11 @@ type Descriptor struct {
 	Metadata    *bytecode.Metadata    `json:"metadata,omitempty"`
 
 	// Auditing related fields.
-	Audit         *audit.Report     `json:"audit,omitempty"`
-	Introspection *inspector.Report `json:"introspection,omitempty"`
+	Verified             bool              `json:"verified,omitempty"`
+	VerificationProvider string            `json:"verification_provider,omitempty"`
+	Safe                 bool              `json:"safe,omitempty"`
+	Audit                *audit.Report     `json:"audit,omitempty"`
+	Introspection        *inspector.Report `json:"introspection,omitempty"`
 
 	// Token related fields.
 	Token *tokens.Descriptor `json:"token,omitempty"`
@@ -300,4 +308,32 @@ func (d *Descriptor) GetBlockUUID() *uuid.UUID {
 
 func (d *Descriptor) GetTransactionUUID() *uuid.UUID {
 	return d.TransactionUUID
+}
+
+func (d *Descriptor) GetNetworkUUID() *uuid.UUID {
+	return d.NetworkUUID
+}
+
+func (d *Descriptor) IsVerified() bool {
+	return d.Verified
+}
+
+func (d *Descriptor) GetVerificationProvider() string {
+	return d.VerificationProvider
+}
+
+func (d *Descriptor) IsSafe() bool {
+	return d.Safe
+}
+
+func (d *Descriptor) HasIntropection() bool {
+	return d.Introspection != nil
+}
+
+func (d *Descriptor) HasAuditReport() bool {
+	return d.Audit != nil
+}
+
+func (d *Descriptor) GetOwner() common.Address {
+	return d.Owner
 }

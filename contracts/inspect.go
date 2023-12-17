@@ -2,6 +2,7 @@ package contracts
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/unpackdev/solgo/inspector"
 	"go.uber.org/zap"
@@ -10,32 +11,26 @@ import (
 func (c *Contract) Inspect(ctx context.Context) (*inspector.Report, error) {
 	descriptor := c.GetDescriptor()
 
-	inspector, err := inspector.NewInspector(c.ctx, c.network, descriptor.Detector, c.sim, c.stor, c.bindings, c.GetAddress(), c.ipfsProvider)
+	inspector, err := inspector.NewInspector(c.ctx, c.network, descriptor.Detector, c.sim, c.stor, c.bindings, c.ipfsProvider, c.GetAddress(), c.token)
 	if err != nil {
-		zap.L().Error(
-			"failure to create new inspector",
-			zap.Error(err),
-			zap.Any("network", c.network),
-			zap.Any("network_id", c.descriptor.NetworkID),
-			zap.String("contract", descriptor.Address.Hex()),
+		return nil, fmt.Errorf(
+			"failed to create inspector: %s, network: %s, network_id: %d, contract: %s",
+			err,
+			c.network.String(),
+			c.descriptor.NetworkID,
+			c.GetAddress().Hex(),
 		)
 	}
 
 	// If contract does not have any source code available we don't want to check it here.
 	// In that case we will in the future go towards the opcodes...
 	if !inspector.IsReady() {
-		return nil, nil
+		return nil, fmt.Errorf(
+			"inspection rejected as contract '%s' on network '%s' does not have any source code available",
+			c.GetAddress().Hex(),
+			c.network.String(),
+		)
 	}
-
-	// First we don't want to do any type of inspections if contract is not ERC20
-	/* 	if !inspector.HasStandard(standards.ERC20) {
-		return nil, nil
-	} else { */
-	// It can be that we're not able to successfully get the standard but it is still doing trading...
-	/* 		if !inspector.UsesTransfers() {
-		return nil, nil
-	} */
-	/* 	} */
 
 	inspector.RegisterDetectors()
 

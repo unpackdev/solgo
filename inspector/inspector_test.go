@@ -137,7 +137,7 @@ func TestInspector(t *testing.T) {
 				err = parser.Build()
 				tAssert.NoError(err)
 
-				inspector, err := NewInspector(ctx, tc.network, parser, sim, storage, bindManager, tc.contractAddr, nil)
+				inspector, err := NewInspector(ctx, tc.network, parser, sim, storage, bindManager, nil, tc.contractAddr, nil)
 				tAssert.NoError(err)
 				tAssert.NotNil(inspector)
 

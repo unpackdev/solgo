@@ -12,6 +12,10 @@ type Report struct {
 	Detectors     map[DetectorType]any `json:"detectors"`
 }
 
+func (r *Report) GetDetectors() map[DetectorType]any {
+	return r.Detectors
+}
+
 func (r *Report) HasDetector(detectorType DetectorType) bool {
 	_, ok := r.Detectors[detectorType]
 	return ok
@@ -23,4 +27,16 @@ func (r *Report) GetDetector(detectorType DetectorType) any {
 
 func (r *Report) AddDetector(detectorType DetectorType, detector any) {
 	r.Detectors[detectorType] = detector
+}
+
+func (r *Report) GetAddress() common.Address {
+	return r.Address
+}
+
+func (r *Report) GetNetwork() utils.Network {
+	return r.Network
+}
+
+func (r *Report) GetUsesTransfers() bool {
+	return r.UsesTransfers
 }

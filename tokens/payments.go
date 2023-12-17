@@ -13,7 +13,7 @@ import (
 
 // @TODO: Figure out how to dynamically handle exchanges in the future...
 func (t *Token) Buy(ctx context.Context, exchangeType utils.ExchangeType, simulatorType utils.SimulatorType, spender *accounts.Account, baseToken *entities.Token, amount *entities.CurrencyAmount, atBlock *big.Int) (any, error) {
-	client, err := t.GetSimulatedClient(ctx, simulatorType, atBlock)
+	client, err := t.GetClient(ctx)
 	if err != nil {
 		return utils.ZeroAddress, fmt.Errorf("failed to get client: %s", err)
 	}

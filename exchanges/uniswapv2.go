@@ -6,7 +6,6 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/accounts"
 	"github.com/unpackdev/solgo/bindings"
@@ -97,7 +96,7 @@ func (u *UniswapV2Exchange) GetOptions() *ExchangeOptions {
 }
 
 func (u *UniswapV2Exchange) GetClient(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, atBlock *big.Int) (*clients.Client, error) {
-	if u.sim != nil && simulatorType != utils.NoSimulator {
+	if u.sim != nil && simulatorType != utils.NoSimulator && simulatorType != utils.TraceSimulator {
 		client, _, err := u.sim.GetClient(ctx, simulatorType, atBlock)
 		if err != nil {
 			return nil, fmt.Errorf("failed to get client from simulator: %s", err)
@@ -189,17 +188,17 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 		}
 	}
 
-	yes, _ := tokenIn.SortsBefore(tokenOut)
-	spew.Dump(
-		toReturn.Price.Invert().Quotient(),
-		toReturn.Price.Quotient(),
-		tokenIn.Decimals(),
-		tokenOut.Decimals(),
-		inverted,
-		reserveIn,
-		reserveOut,
-		yes,
-	)
+	/* 	yes, _ := tokenIn.SortsBefore(tokenOut)
+	   	spew.Dump(
+	   		toReturn.Price.Invert().Quotient(),
+	   		toReturn.Price.Quotient(),
+	   		tokenIn.Decimals(),
+	   		tokenOut.Decimals(),
+	   		inverted,
+	   		reserveIn,
+	   		reserveOut,
+	   		yes,
+	   	) */
 
 	/* 	if inverted {
 		toReturn.PricePerToken = toReturn.Price.Invert().ToSignificant(9)
@@ -242,6 +241,21 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 
 	tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
 	uniswapBinding, _ := u.uniswapBind.GetBinding(utils.AnvilNetwork, bindings.UniswapV2Router)
+
+	if currentBalance.Cmp(amount.Quotient()) < 0 {
+		spender.SetAccountBalance(ctx, u.sim.GetOptions().FaucetAccountDefaultBalance)
+
+		for {
+			currentBalance, err := spender.Balance(ctx, nil)
+			if err != nil {
+				continue
+			}
+
+			if currentBalance.Cmp(amount.Quotient()) >= 0 {
+				break
+			}
+		}
+	}
 
 	authApprove, err := spender.TransactOpts(client, nil, false) // Approval cannot take value as value is in the approve call
 	if err != nil {
@@ -397,7 +411,6 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	}
 
 	toReturn.SpenderBalanceAfter = afterBalance
-	utils.DumpNodeNoExit(toReturn)
 	return toReturn, nil
 }
 
@@ -692,7 +705,6 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	}
 
 	toReturn.SpenderBalanceAfter = afterBalance
-	utils.DumpNodeNoExit(toReturn)
 	return toReturn, nil
 }
 

@@ -9,7 +9,11 @@ import (
 )
 
 type OwnershipResults struct {
-	Detected bool `json:"detected"`
+	Detected          bool `json:"detected"`
+	RenounceOwnership bool `json:"renounce_ownership"`
+	CanLookupOwner    bool `json:"can_lookup_owner"`
+	OwnerModifiable   bool `json:"owner_modifiable"`
+	CanSelfDestruct   bool `json:"can_self_destruct"`
 }
 
 type OwnershipDetector struct {
@@ -25,7 +29,7 @@ func NewOwnershipDetector(ctx context.Context, inspector *Inspector) Detector {
 		inspector: inspector,
 		functionNames: []string{
 			"transferOwnership", "renounceOwnership", "_transferOwnership", "_renounceOwnership",
-			"owner", "isOwner", "setOwner", "claimOwnership", "initializeOwnership", "selfdestruct",
+			"owner", "setOwner", "claimOwnership", "initializeOwnership", "selfdestruct", "setTokenOwner",
 		},
 		results: &OwnershipResults{},
 	}
@@ -55,7 +59,32 @@ func (m *OwnershipDetector) Enter(ctx context.Context) (DetectorFn, error) {
 			if fn, ok := node.(*ast.Function); ok {
 				if utils.StringInSlice(fn.GetName(), m.functionNames) {
 					m.results.Detected = true
-					//fmt.Printf("Detected ownership function: %s\n", fn.GetName())
+
+					if fn.GetName() == "setOwner" || fn.GetName() == "transferOwnership" || fn.GetName() == "_transferOwnership" || fn.GetName() == "claimOwnership" || fn.GetName() == "setTokenOwner" {
+						m.results.OwnerModifiable = true
+						return true, nil
+					}
+
+					if fn.GetName() == "renounceOwnership" || fn.GetName() == "_renounceOwnership" {
+						m.results.RenounceOwnership = true
+						return true, nil
+					}
+
+					if fn.GetName() == "owner" {
+						m.results.CanLookupOwner = true
+						return true, nil
+					}
+				}
+			}
+			return true, nil
+		},
+		ast_pb.NodeType_FUNCTION_CALL: func(node ast.Node[ast.NodeType]) (bool, error) {
+			if fn, ok := node.(*ast.FunctionCall); ok {
+				if expr, ok := fn.GetExpression().(*ast.PrimaryExpression); ok {
+					if expr.GetName() == "selfdestruct" {
+						m.results.CanSelfDestruct = true
+						return true, nil
+					}
 				}
 			}
 			return true, nil

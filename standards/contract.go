@@ -80,16 +80,6 @@ func (e *Contract) String() string {
 	return e.GetName()
 }
 
-// ***** USED FOR GENERATING BINDINGS *****
-
-func (e *Contract) GetPackageName() string {
-	return e.Standard.PackageName
-}
-
-func (e *Contract) GetPackageOutputPath() string {
-	return e.Standard.PackageOutputPath
-}
-
 // NewContract initializes and returns an instance of the standard.
 // It sets up the standard with its name, type, associated functions, and events.
 func NewContract(standard ContractStandard) EIP {

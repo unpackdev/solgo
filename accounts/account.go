@@ -79,7 +79,7 @@ func (a *Account) GetClient() *clients.Client {
 // It does not affect the real balance on the Ethereum network.
 func (a *Account) SetAccountBalance(ctx context.Context, amount *big.Int) error {
 	amountHex := common.Bytes2Hex(amount.Bytes())
-	return a.client.GetRpcClient().Call(nil, "anvil_setBalance", a.GetAddress(), amountHex)
+	return a.client.GetRpcClient().CallContext(ctx, nil, "anvil_setBalance", a.GetAddress(), amountHex)
 }
 
 // Balance retrieves the account's balance from the Ethereum network at a specified block number.
@@ -111,9 +111,7 @@ func (a *Account) TransactOpts(client *clients.Client, amount *big.Int, simulate
 	}
 
 	balance, _ := a.Balance(context.Background(), nil)
-	fmt.Println("balance: ", balance)
-
-	fmt.Println(a.client.GetEndpoint())
+	fmt.Println("ACCOUNT", a.Address.Hex(), "balance:", balance, "endpoint:", a.client.GetEndpoint())
 
 	if !simulate {
 		if a.Type == utils.SimpleAccountType {

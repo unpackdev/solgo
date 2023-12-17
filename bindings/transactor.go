@@ -95,9 +95,6 @@ func (m *Manager) SendTransaction(opts *bind.TransactOpts, network utils.Network
 		return signedTx, nil
 	}
 
-	fmt.Println("Sending transaction", signedTx.Hash().Hex())
-	fmt.Println("Client Endpoint", client.GetEndpoint())
-
 	if err := client.SendTransaction(opts.Context, signedTx); err != nil {
 		return nil, err
 	}

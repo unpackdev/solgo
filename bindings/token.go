@@ -16,7 +16,8 @@ import (
 )
 
 const (
-	Erc20 BindingType = "ERC20"
+	Erc20        BindingType = "ERC20"
+	Erc20Ownable BindingType = "ERC20Ownable"
 )
 
 type Token struct {
@@ -56,6 +57,20 @@ func NewToken(ctx context.Context, network utils.Network, manager *Manager, opts
 
 func (t *Token) GetBinding(network utils.Network, bindingType BindingType) (*Binding, error) {
 	return t.Manager.GetBinding(network, bindingType)
+}
+
+func (t *Token) Owner(ctx context.Context, from common.Address) (common.Address, error) {
+	result, err := t.Manager.CallContractMethod(ctx, t.network, Erc20Ownable, from, "owner")
+	if err != nil {
+		return utils.ZeroAddress, err
+	}
+
+	addr, ok := result.(common.Address)
+	if !ok {
+		return utils.ZeroAddress, fmt.Errorf("failed to assert result as common.address - owner")
+	}
+
+	return addr, nil
 }
 
 // GetName calls the name() function in the ERC-20 contract.
@@ -272,6 +287,7 @@ func (t *Token) GetOptionsByNetwork(network utils.Network) *BindOptions {
 
 func DefaultTokenBindOptions(address common.Address) []*BindOptions {
 	eip, _ := standards.GetStandard(standards.ERC20)
+	eipOwnable, _ := standards.GetStandard(standards.OZOWNABLE)
 	return []*BindOptions{
 		{
 			Networks:  []utils.Network{utils.Ethereum, utils.AnvilNetwork},
@@ -279,6 +295,13 @@ func DefaultTokenBindOptions(address common.Address) []*BindOptions {
 			Type:      Erc20,
 			Address:   address,
 			ABI:       eip.GetStandard().ABI,
+		},
+		{
+			Networks:  []utils.Network{utils.Ethereum, utils.AnvilNetwork},
+			NetworkID: utils.EthereumNetworkID,
+			Type:      Erc20Ownable,
+			Address:   address,
+			ABI:       eipOwnable.GetStandard().ABI,
 		},
 	}
 }

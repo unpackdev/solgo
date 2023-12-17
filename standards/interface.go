@@ -49,10 +49,4 @@ type EIP interface {
 
 	// String returns a string representation of the Ethereum standard, typically its name.
 	String() string
-
-	// GetPackageName returns the package name of the Ethereum standard.
-	GetPackageName() string
-
-	// GetPackageOutputPath returns the package output path of the Ethereum standard.
-	GetPackageOutputPath() string
 }

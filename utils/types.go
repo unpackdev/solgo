@@ -22,6 +22,7 @@ const (
 
 	NoSimulator    SimulatorType = "no_simulator"
 	AnvilSimulator SimulatorType = "anvil"
+	TraceSimulator SimulatorType = "trace"
 
 	SimulatorAccountType AccountType = "simulator"
 	SimpleAccountType    AccountType = "simple"
@@ -35,6 +36,8 @@ const (
 
 	Erc20TokenType  TokenType = "erc20"
 	Erc721TokenType TokenType = "erc721"
+
+	AntiWhalePinksale AntiWhaleType = "pinksale"
 )
 
 type Strategy string
@@ -82,5 +85,11 @@ func (t ExchangeType) String() string {
 type TokenType string
 
 func (t TokenType) String() string {
+	return string(t)
+}
+
+type AntiWhaleType string
+
+func (t AntiWhaleType) String() string {
 	return string(t)
 }

@@ -19,6 +19,7 @@ import (
 type Token struct {
 	ctx             context.Context
 	network         utils.Network
+	networkID       utils.NetworkID
 	bindManager     *bindings.Manager
 	exchangeManager *exchanges.Manager
 	clientPool      *clients.ClientPool
@@ -39,11 +40,10 @@ func NewToken(ctx context.Context, network utils.Network, address common.Address
 		return nil, errors.New("client pool is nil")
 	}
 
-	bindManager.GetBinding(network, bindings.Erc20)
-
-	return &Token{
+	toReturn := &Token{
 		ctx:             ctx,
 		network:         network,
+		networkID:       utils.GetNetworkID(network),
 		bindManager:     bindManager,
 		exchangeManager: exchangeManager,
 		clientPool:      clientPool,
@@ -52,9 +52,16 @@ func NewToken(ctx context.Context, network utils.Network, address common.Address
 		simulatorType:   simulatorType,
 		descriptor: &Descriptor{
 			Address: address,
+			Pairs:   make(map[utils.ExchangeType]*Pair),
 		},
 		exchanges: make(map[utils.ExchangeType]map[utils.SimulatorType]exchanges.Exchange),
-	}, nil
+	}
+
+	if err := toReturn.PrepareBindings(ctx); err != nil {
+		return nil, fmt.Errorf("failed to prepare bindings: %w", err)
+	}
+
+	return toReturn, nil
 }
 
 func (t *Token) GetDescriptor() *Descriptor {
@@ -67,6 +74,10 @@ func (t *Token) GetContext() context.Context {
 
 func (t *Token) GetNetwork() utils.Network {
 	return t.network
+}
+
+func (t *Token) GetNetworkID() utils.NetworkID {
+	return t.networkID
 }
 
 func (t *Token) GetBindManager() *bindings.Manager {
