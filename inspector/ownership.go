@@ -30,6 +30,7 @@ func NewOwnershipDetector(ctx context.Context, inspector *Inspector) Detector {
 		functionNames: []string{
 			"transferOwnership", "renounceOwnership", "_transferOwnership", "_renounceOwnership",
 			"owner", "setOwner", "claimOwnership", "initializeOwnership", "selfdestruct", "setTokenOwner",
+			"confirmOwnershipTransfer", "cancelOwnershipTransfer",
 		},
 		results: &OwnershipResults{},
 	}
@@ -65,7 +66,7 @@ func (m *OwnershipDetector) Enter(ctx context.Context) (DetectorFn, error) {
 						return true, nil
 					}
 
-					if fn.GetName() == "renounceOwnership" || fn.GetName() == "_renounceOwnership" {
+					if fn.GetName() == "renounceOwnership" || fn.GetName() == "_renounceOwnership" || fn.GetName() == "RenounceOwner" {
 						m.results.RenounceOwnership = true
 						return true, nil
 					}

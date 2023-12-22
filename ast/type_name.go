@@ -646,13 +646,24 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			}
 		}
 
+		var keyTypeDescriptionName string
+		var valueTypeDescriptionName string
+
+		if typeNameNode.KeyType.TypeDescription == nil {
+			keyTypeDescriptionName = fmt.Sprintf("unknown_%d", typeNameNode.KeyType.GetId())
+		} else {
+			keyTypeDescriptionName = typeNameNode.KeyType.TypeDescription.TypeIdentifier
+		}
+
+		if typeNameNode.ValueType.TypeDescription == nil {
+			valueTypeDescriptionName = fmt.Sprintf("unknown_%d", typeNameNode.ValueType.GetId())
+		} else {
+			valueTypeDescriptionName = typeNameNode.ValueType.TypeDescription.TypeIdentifier
+		}
+
 		typeNameNode.TypeDescription = &TypeDescription{
-			TypeString: fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
-			TypeIdentifier: fmt.Sprintf(
-				"t_mapping_$%s_$%s",
-				typeNameNode.KeyType.TypeDescription.TypeIdentifier,
-				typeNameNode.ValueType.TypeDescription.TypeIdentifier,
-			),
+			TypeString:     fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
+			TypeIdentifier: fmt.Sprintf("t_mapping_$%s_$%s", keyTypeDescriptionName, valueTypeDescriptionName),
 		}
 		parentNode.TypeDescription = t.TypeDescription
 		typeName = typeNameNode
@@ -978,6 +989,11 @@ func (t *TypeName) StorageSize() (int64, bool) {
 			if len(identifier.GetValue()) > 0 {
 				return 256, true
 			}
+		}
+
+		// For now this is a major hack...
+		if strings.Contains(t.GetTypeDescription().GetString(), "struct") {
+			return 256, true
 		}
 
 		return 0, false

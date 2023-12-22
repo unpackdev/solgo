@@ -174,12 +174,13 @@ func (n *Node) Stop(ctx context.Context, force bool) error {
 func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 	if n.cmd == nil || n.cmd.Process == nil {
 		return &NodeStatus{
-			ID:      n.ID,
-			IPAddr:  n.Addr.IP.String(),
-			Port:    n.Addr.Port,
-			Success: false,
-			Status:  NodeStatusTypeStopped,
-			Error:   nil,
+			ID:          n.ID,
+			BlockNumber: n.BlockNumber.Uint64(),
+			IPAddr:      n.Addr.IP.String(),
+			Port:        n.Addr.Port,
+			Success:     false,
+			Status:      NodeStatusTypeStopped,
+			Error:       nil,
 		}, nil
 	}
 
@@ -187,12 +188,13 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 	process, err := os.FindProcess(n.cmd.Process.Pid)
 	if err != nil {
 		return &NodeStatus{
-			ID:      n.ID,
-			IPAddr:  n.Addr.IP.String(),
-			Port:    n.Addr.Port,
-			Success: false,
-			Status:  NodeStatusTypeError,
-			Error:   fmt.Errorf("error finding process: %v", err),
+			ID:          n.ID,
+			BlockNumber: n.BlockNumber.Uint64(),
+			IPAddr:      n.Addr.IP.String(),
+			Port:        n.Addr.Port,
+			Success:     false,
+			Status:      NodeStatusTypeError,
+			Error:       fmt.Errorf("error finding process: %v", err),
 		}, fmt.Errorf("error finding process: %v", err)
 	}
 
@@ -200,33 +202,36 @@ func (n *Node) Status(ctx context.Context) (*NodeStatus, error) {
 	err = process.Signal(syscall.Signal(0))
 	if err == nil {
 		return &NodeStatus{
-			ID:      n.ID,
-			IPAddr:  n.Addr.IP.String(),
-			Port:    n.Addr.Port,
-			Success: true,
-			Status:  NodeStatusTypeRunning,
-			Error:   nil,
+			ID:          n.ID,
+			BlockNumber: n.BlockNumber.Uint64(),
+			IPAddr:      n.Addr.IP.String(),
+			Port:        n.Addr.Port,
+			Success:     true,
+			Status:      NodeStatusTypeRunning,
+			Error:       nil,
 		}, nil
 	}
 
 	if errors.Is(err, os.ErrProcessDone) {
 		return &NodeStatus{
-			ID:      n.ID,
-			IPAddr:  n.Addr.IP.String(),
-			Port:    n.Addr.Port,
-			Success: true,
-			Status:  NodeStatusTypeStopped,
-			Error:   nil,
+			ID:          n.ID,
+			BlockNumber: n.BlockNumber.Uint64(),
+			IPAddr:      n.Addr.IP.String(),
+			Port:        n.Addr.Port,
+			Success:     true,
+			Status:      NodeStatusTypeStopped,
+			Error:       nil,
 		}, nil
 	}
 
 	return &NodeStatus{
-		ID:      n.ID,
-		IPAddr:  n.Addr.IP.String(),
-		Port:    n.Addr.Port,
-		Success: false,
-		Status:  NodeStatusTypeError,
-		Error:   fmt.Errorf("error checking process status: %v", err),
+		ID:          n.ID,
+		BlockNumber: n.BlockNumber.Uint64(),
+		IPAddr:      n.Addr.IP.String(),
+		Port:        n.Addr.Port,
+		Success:     false,
+		Status:      NodeStatusTypeError,
+		Error:       fmt.Errorf("error checking process status: %v", err),
 	}, fmt.Errorf("error checking process status: %v", err)
 }
 
@@ -289,6 +294,8 @@ func (n *Node) streamOutput(pipe io.ReadCloser, outputType string, done chan str
 	}
 
 	if err := scanner.Err(); err != nil {
-		zap.L().Error(fmt.Sprintf("Error reading from node %s: %v", outputType, err))
+		if !strings.Contains(err.Error(), "file already closed") {
+			zap.L().Error(fmt.Sprintf("Error reading from node %s: %v", outputType, err))
+		}
 	}
 }

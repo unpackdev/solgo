@@ -30,10 +30,12 @@ func (t *Token) DiscoverLiquidityPairs(ctx context.Context) error {
 			}
 
 			if uniswapPair, err := uniswapBinding.GetPair(ctx, baseToken.Address, t.descriptor.Address); err == nil {
-				t.descriptor.Pairs[utils.UniswapV2] = &Pair{
-					BaseToken:   baseToken,
-					QuoteToken:  currentToken,
-					PairAddress: uniswapPair,
+				if uniswapPair != utils.ZeroAddress {
+					t.descriptor.Pairs[utils.UniswapV2] = &Pair{
+						BaseToken:   baseToken,
+						QuoteToken:  currentToken,
+						PairAddress: uniswapPair,
+					}
 				}
 			}
 		}

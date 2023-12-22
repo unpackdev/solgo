@@ -27,11 +27,12 @@ type StopOptions struct {
 // Options encapsulates the general configuration settings for the simulator.
 // It includes settings for the keystore, supported networks, faucet options, and default password.
 type Options struct {
-	Endpoint                    string          `json:"endpoint"`            // Endpoint URL for interacting with the blockchain.
-	KeystorePath                string          `json:"keystore_path"`       // Filesystem path to the keystore directory.
-	SupportedNetworks           []utils.Network `json:"supported_networks"`  // List of supported blockchain networks.
-	FaucetsEnabled              bool            `json:"faucets_enabled"`     // Flag to enable or disable faucet functionality.
-	FaucetAccountCount          int             `json:"auto_faucet_count"`   // Number of faucet accounts to create.
-	FaucetAccountDefaultBalance *big.Int        `json:"auto_faucet_balance"` // Default balance for each faucet account.
-	DefaultPassword             string          `json:"default_password"`    // Default password for accounts managed by the simulator.
+	Endpoint                    string          `json:"endpoint"`                       // Endpoint URL for interacting with the blockchain.
+	KeystorePath                string          `json:"keystore_path"`                  // Filesystem path to the keystore directory.
+	SupportedNetworks           []utils.Network `json:"supported_networks"`             // List of supported blockchain networks.
+	FaucetsEnabled              bool            `json:"faucets_enabled"`                // Flag to enable or disable faucet functionality.
+	FaucetsAutoReplenishEnabled bool            `json:"faucets_auto_replenish_enabled"` // Flag to enable or disable automatic replenishment of faucet accounts.
+	FaucetAccountCount          int             `json:"auto_faucet_count"`              // Number of faucet accounts to create.
+	FaucetAccountDefaultBalance *big.Int        `json:"auto_faucet_balance"`            // Default balance for each faucet account.
+	DefaultPassword             string          `json:"default_password"`               // Default password for accounts managed by the simulator.
 }

@@ -19,6 +19,8 @@ func (b *Builder) processError(unit *ir.Error) (*Method, error) {
 
 	for _, parameter := range unit.GetParameters() {
 		if parameter.GetTypeDescription() == nil {
+			//fmt.Println("PROCESS ERROR ABI")
+			//utils.DumpNodeWithExit(parameter)
 			return nil, fmt.Errorf("nil type description for error parameter %s", parameter.GetName())
 		}
 

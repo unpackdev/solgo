@@ -29,11 +29,21 @@ func NewAntiWhaleDetector(ctx context.Context, inspector *Inspector) Detector {
 		inspector:          inspector,
 		contractNames:      []string{"IPinkAntiBot"},
 		stateVariableNames: []string{"antiBotEnabled"},
-		functionNames:      []string{"setEnableAntiBot", "setTokenOwner", "setAntiBotEnabled", "onPreTransferCheck"},
-		results:            &AntiWhaleResults{},
+		functionNames: []string{
+			"setenableantibot", "settokenowner", "setantibotenabled", "onpretransfercheck",
+			"blockbots", "setuserjunglebotlimit", "setantibotenabled", "setantibotenabled", "setantibotenabled",
+			"managebot", "delbots", "setmaxtransferamount", "setwhalepenaltythreshold", "updatecooldown",
+			"updatemaxwalletamount", "updatemaxwalletlimit", "updatetaxthresholds",
+			"setwalletlimit", "setmaxwalletsize", "setmaxwalletamount", "setmaxwallet", "_setmaxwallet",
+			"setearlyselltax", "maxwallet", "calculatemaxwalletaftertax", "settaxfeepercent", "settaxfeepercentown",
+			"settransactioncooldown", "setmaxtransactionamount", "setdynamictransactiontax",
+			"settransactiontaxpercent", "settransferlimit", "setmaxwalletbalance",
+			"setselllimit", "setbuylimit", "imposetransactiontax", "setpenaltythreshold",
+			"setcooldownperiod", "setmaxsellamount",
+		},
+		results: &AntiWhaleResults{},
 	}
 }
-
 func (m *AntiWhaleDetector) Name() string {
 	return "External Calls Detector"
 }
@@ -54,13 +64,22 @@ func (m *AntiWhaleDetector) GetInspector() *Inspector {
 
 func (m *AntiWhaleDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
+		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
+			if fn, ok := node.(*ast.Function); ok {
+				if utils.StringInSlice(strings.ToLower(fn.GetName()), m.functionNames) {
+					m.results.Detected = true
+					return false, nil
+				}
+			}
+			return true, nil
+		},
 		ast_pb.NodeType_MEMBER_ACCESS: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if ma, ok := node.(*ast.MemberAccessExpression); ok {
 				if expr, ok := ma.GetExpression().(*ast.PrimaryExpression); ok {
 					if expr.GetTypeDescription() != nil && strings.Contains(expr.GetTypeDescription().GetString(), "contract") {
 						// This is basically for pinksale anti bot...
 						// https://github.com/ctonydev/pink-antibot-guide-binance-solidity
-						if utils.StringInSlice(ma.GetMemberName(), []string{"onPreTransferCheck"}) {
+						if utils.StringInSlice(strings.ToLower(ma.GetMemberName()), m.functionNames) {
 							m.results.Detected = true
 
 							// We are going to have contract type in the type description

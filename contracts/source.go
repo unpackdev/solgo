@@ -11,22 +11,6 @@ import (
 )
 
 func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
-	/* 	if storage := storage.GetStorage(c.addr); storage != nil {
-		_, filename, _, _ := runtime.Caller(0)
-		dir := filepath.Dir(filename)
-		sourcesDir := filepath.Clean(filepath.Join(dir, "..", "sources"))
-		storage.Sources.LocalSourcesPath = sourcesDir
-		c.descriptor.Name = storage.Sources.EntrySourceUnitName
-		c.descriptor.Sources = storage.Sources
-		c.descriptor.CompilerVersion = storage.CompilerVersion.String()
-		c.descriptor.Optimized = storage.Optimized
-		c.descriptor.OptimizationRuns = uint64(storage.OptimizationRuns)
-		c.descriptor.EVMVersion = storage.EvmVersion
-		c.descriptor.ABI = storage.ABI
-		c.descriptor.License = storage.License
-		return nil
-	} */
-
 	response, err := c.etherscan.ScanContract(c.addr)
 	if err != nil {
 		if !strings.Contains(err.Error(), "not found") &&

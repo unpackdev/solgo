@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/detector"
 	"github.com/unpackdev/solgo/utils"
 	"go.uber.org/zap"
@@ -29,8 +30,12 @@ func (c *Contract) Parse(ctx context.Context) error {
 		// we are getting into issues where we are not capable ATM to parse contracts with < 0.6.0 version.
 		// Because of it, we are going to disable all of the functionality for this particular contract related to
 		// source code parsing. :( In the future we should sort this out but right now, MVP is the most important thing.
-		if utils.IsSemanticVersionLowerOrEqualTo(c.descriptor.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 5, Patch: 10}) {
-			return fmt.Errorf("not supported compiler version (older version): %v", c.descriptor.CompilerVersion)
+		if utils.IsSemanticVersionLowerOrEqualTo(c.descriptor.CompilerVersion, utils.SemanticVersion{Major: 0, Minor: 5, Patch: 0}) {
+			// There are some contracts we want to ensure are not going to be parsed even if less.
+			// ETH: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 - 0.4.19 - WETH9
+			if c.descriptor.Address != common.HexToAddress("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2") {
+				return fmt.Errorf("not supported compiler version (older version): %v", c.descriptor.CompilerVersion)
+			}
 		}
 
 		if errs := parser.Parse(); errs != nil {

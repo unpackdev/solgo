@@ -47,6 +47,9 @@ const (
 
 	// AntiWhaleDetectorType represents a detector type focused on anti-whale patterns in smart contracts.
 	AntiWhaleDetectorType DetectorType = "anti_whale"
+
+	// FeeDetectorType represents a detector type focused on fee patterns in smart contracts.
+	FeeDetectorType DetectorType = "fees"
 )
 
 // SeverityType represents the severity level of a detection.

@@ -72,4 +72,5 @@ func (i *Inspector) RegisterDetectors() {
 	RegisterDetector(ExternalCallsDetectorType, NewExternalCallsDetector(i.ctx, i))
 	RegisterDetector(AntiWhaleDetectorType, NewAntiWhaleDetector(i.ctx, i))
 	RegisterDetector(StandardsDetectorType, NewStandardsDetector(i.ctx, i))
+	RegisterDetector(FeeDetectorType, NewFeesDetector(i.ctx, i))
 }

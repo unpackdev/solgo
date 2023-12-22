@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 
@@ -98,4 +99,14 @@ func EventToABI(method *abi.Event) (string, error) {
 	}
 
 	return string(abiJSON), nil
+}
+
+// ToABI converts the ABI object into an ethereum/go-ethereum ABI object.
+func ToABI(data []byte) (*abi.ABI, error) {
+	toReturn, err := abi.JSON(bytes.NewReader(data))
+	if err != nil {
+		return nil, err
+	}
+
+	return &toReturn, nil
 }

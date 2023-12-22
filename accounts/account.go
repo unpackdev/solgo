@@ -33,7 +33,9 @@ type Account struct {
 	Address            common.Address      `json:"address" yaml:"address"`         // Ethereum address of the account
 	Type               utils.AccountType   `json:"type" yaml:"type"`               // Account type
 	PrivateKey         string              `json:"private_key" yaml:"private_key"` // Private key of the account
+	PrivateKeyBytes    []byte              `json:"-" yaml:"-"`                     // Private key of the account in bytes
 	PublicKey          string              `json:"public_key" yaml:"public_key"`   // Public key of the account
+	PublicKeyBytes     []byte              `json:"-" yaml:"-"`                     // Public key of the account in bytes
 	KeystoreAccount    account.Account     `json:"account" yaml:"account"`         // Ethereum account information
 	Password           string              `json:"password" yaml:"password"`       // Account's password
 	Network            utils.Network       `json:"network" yaml:"network"`         // Network information
@@ -109,9 +111,6 @@ func (a *Account) TransactOpts(client *clients.Client, amount *big.Int, simulate
 	if err != nil {
 		return nil, err
 	}
-
-	balance, _ := a.Balance(context.Background(), nil)
-	fmt.Println("ACCOUNT", a.Address.Hex(), "balance:", balance, "endpoint:", a.client.GetEndpoint())
 
 	if !simulate {
 		if a.Type == utils.SimpleAccountType {

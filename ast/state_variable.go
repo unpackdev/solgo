@@ -242,7 +242,14 @@ func (v *StateVariableDeclaration) Parse(
 func (v *StateVariableDeclaration) ParseGlobal(
 	ctx *parser.StateVariableDeclarationContext,
 ) {
-	v.Name = ctx.Identifier().GetText()
+
+	// Nil can be fallback in older parsing...
+	// @TODO SHOULD FIX THIS SHIT - UPGRADE AST SUPPORT TO v0.5+
+	// Thankfully it's only fallback...
+	if ctx.Identifier() != nil {
+		v.Name = ctx.Identifier().GetText()
+	}
+
 	v.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),

@@ -12,6 +12,11 @@ type Pair struct {
 	BaseToken   *entities.Token `json:"base_token"`
 	QuoteToken  *entities.Token `json:"quote_token"`
 	PairAddress common.Address  `json:"pair_address"`
+	Balance     *big.Int        `json:"balance"`
+}
+
+func (p *Pair) SetBalance(balance *big.Int) {
+	p.Balance = balance
 }
 
 type Descriptor struct {
@@ -22,8 +27,10 @@ type Descriptor struct {
 	Decimals          uint8                        `json:"decimals"`
 	TotalSupply       *big.Int                     `json:"total_supply"`
 	TotalBurnedSupply *big.Int                     `json:"total_burned_supply"`
+	LatestBlockNumber *big.Int                     `json:"latest_block_number"`
 	Entity            *entities.Token              `json:"-"`
 	Pairs             map[utils.ExchangeType]*Pair `json:"pairs"`
+	Price             *entities.Price              `json:"price"`
 }
 
 func (d *Descriptor) GetAddress() common.Address {
@@ -55,6 +62,10 @@ func (d *Descriptor) GetEntity() *entities.Token {
 }
 
 func (d *Descriptor) GetTotalCirculatingSupply() *big.Int {
+	if d.TotalBurnedSupply == nil {
+		return d.TotalSupply
+	}
+
 	return new(big.Int).Sub(d.TotalSupply, d.TotalBurnedSupply)
 }
 

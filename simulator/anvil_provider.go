@@ -150,8 +150,10 @@ func (a *AnvilProvider) Load(ctx context.Context) error {
 
 			// Lets now load faucet accounts for the newly spawned node
 			if a.simulator.opts.FaucetsEnabled {
-				if err := a.SetupFaucetAccounts(ctx, node); err != nil {
-					return fmt.Errorf("failed to load faucet accounts: %w", err)
+				if a.simulator.opts.FaucetsAutoReplenishEnabled {
+					if err := a.SetupFaucetAccounts(ctx, node); err != nil {
+						return fmt.Errorf("failed to load faucet accounts: %w", err)
+					}
 				}
 			}
 		}
@@ -173,6 +175,10 @@ func (a *AnvilProvider) Unload(ctx context.Context) error {
 
 // Start initializes and starts a new simulation node with the given options.
 func (a *AnvilProvider) Start(ctx context.Context, opts StartOptions) (*Node, error) {
+	if node, ok := a.nodes[uint64(opts.Addr.Port)]; ok {
+		return node, nil
+	}
+
 	node := &Node{
 		provider:        a,
 		simulator:       a.simulator,
@@ -229,7 +235,9 @@ func (a *AnvilProvider) Start(ctx context.Context, opts StartOptions) (*Node, er
 	}
 
 	a.mu.Lock()
-	a.nodes[uint64(node.Addr.Port)] = node
+	if _, ok := a.nodes[opts.BlockNumber.Uint64()]; !ok {
+		a.nodes[opts.BlockNumber.Uint64()] = node
+	}
 	a.mu.Unlock()
 
 	return node, nil
@@ -290,6 +298,7 @@ func (a *AnvilProvider) SetupFaucetAccounts(ctx context.Context, node *Node) err
 		address.SetClient(client)
 
 		go func(address *accounts.Account) {
+
 			defer wg.Done()
 			if err := address.SetAccountBalance(ctx, a.simulator.opts.FaucetAccountDefaultBalance); err != nil {
 				zap.L().Error(

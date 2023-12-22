@@ -42,6 +42,8 @@ func NewBurnDetector(ctx context.Context, inspector *Inspector) Detector {
 		functionNames: []string{
 			"burn", "burnFor", "burnTo", "burnBatch", "burnBatchFor", "burnBatchTo",
 			"_burn", "_burnFor", "_burnTo", "_burnBatch", "_burnBatchFor", "_burnBatchTo",
+			"autoBurnLiquidityPairTokens", "setAutoLPBurnSettings", "manualBurnLiquidityPairTokens",
+			"burnLiquidity", "BurnLiquidity",
 		},
 		results: &BurnResults{
 			ExternallCallableLocations: make([]ast.Node[ast.NodeType], 0),

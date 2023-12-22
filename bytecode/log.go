@@ -38,12 +38,12 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 		return nil, fmt.Errorf("log is nil or has no topics")
 	}
 
-	contractABI, err := abi.JSON(bytes.NewReader(abiData))
+	logABI, err := abi.JSON(bytes.NewReader(abiData))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse abi: %s", err)
 	}
 
-	event, err := contractABI.EventByID(log.Topics[0])
+	event, err := logABI.EventByID(log.Topics[0])
 	if err != nil {
 		return nil, fmt.Errorf("failed to get event by id %s: %s", log.Topics[0].Hex(), err)
 	}

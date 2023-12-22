@@ -95,6 +95,60 @@ func (s *Sources) ToProto() *sources_pb.Sources {
 	}
 }
 
+func NewSourcesFromPath(entrySourceUnitName, path string) (*Sources, error) {
+	info, err := os.Stat(path)
+	if err != nil {
+		return nil, err // Return the error if the path does not exist or cannot be accessed
+	}
+
+	if !info.IsDir() {
+		return nil, fmt.Errorf("path is not a directory: %s", path)
+	}
+
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		LocalSources:         false,
+		EntrySourceUnitName:  entrySourceUnitName,
+	}
+
+	files, err := os.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue // Skip directories
+		}
+
+		// Check if the file has a .sol extension
+		if filepath.Ext(file.Name()) == ".sol" {
+			filePath := filepath.Join(path, file.Name())
+
+			content, err := os.ReadFile(filePath)
+			if err != nil {
+				return nil, err
+			}
+
+			sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+				Name:    strings.TrimSuffix(file.Name(), ".sol"),
+				Path:    filePath,
+				Content: string(content),
+			})
+		}
+	}
+
+	if err := sources.SortContracts(); err != nil {
+		return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+	}
+
+	return sources, nil
+}
+
 // NewSourcesFromMetadata creates a Sources from a metadata package ContractMetadata.
 // This is a helper function that ensures easier integration when working with the metadata package.
 func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
@@ -473,6 +527,7 @@ func (s *Sources) WriteToDir(path string) error {
 		content := utils.SimplifyImportPaths(sourceUnit.Content)
 
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
+
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
 			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
 		}

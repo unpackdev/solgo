@@ -22,12 +22,13 @@ const (
 // NodeStatus represents the status of a simulation node, including its unique identifier,
 // IP address, port, and operational state.
 type NodeStatus struct {
-	ID      uuid.UUID      `json:"id"`      // Unique identifier for the node.
-	IPAddr  string         `json:"ip_addr"` // IP address of the node.
-	Port    int            `json:"port"`    // Port on which the node is running.
-	Success bool           `json:"success"` // Indicates whether the node is operating successfully.
-	Status  NodeStatusType `json:"status"`  // Current status of the node.
-	Error   error          `json:"error"`   // Error encountered by the node, if any.
+	ID          uuid.UUID      `json:"id"`           // Unique identifier for the node.
+	BlockNumber uint64         `json:"block_number"` // Block number at which the node is currently operating.
+	IPAddr      string         `json:"ip_addr"`      // IP address of the node.
+	Port        int            `json:"port"`         // Port on which the node is running.
+	Success     bool           `json:"success"`      // Indicates whether the node is operating successfully.
+	Status      NodeStatusType `json:"status"`       // Current status of the node.
+	Error       error          `json:"error"`        // Error encountered by the node, if any.
 }
 
 // NodeStatusResponse contains a mapping of node statuses categorized by simulator type.

@@ -84,6 +84,11 @@ func (ca *CurrencyAmount) ToFixed(decimalPlaces int32) string {
 }
 
 // ToExact returns the currency amount as a string with the specified number of digits after the decimal
+func (ca *CurrencyAmount) ToExactRaw() decimal.Decimal {
+	return decimal.NewFromBigInt(ca.Quotient(), 0).Div(decimal.NewFromBigInt(ca.DecimalScale, 0))
+}
+
+// ToExact returns the currency amount as a string with the specified number of digits after the decimal
 func (ca *CurrencyAmount) ToExact() string {
 	return decimal.NewFromBigInt(ca.Quotient(), 0).Div(decimal.NewFromBigInt(ca.DecimalScale, 0)).String()
 }

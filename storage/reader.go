@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"strings"
-
-	"github.com/unpackdev/solgo/utils"
 )
 
 // Reader is responsible for reading and interpreting storage-related information of a smart contract.
@@ -76,7 +74,7 @@ func (r *Reader) CalculateStorageLayout() error {
 		for _, variable := range variables {
 			storageSize, found := variable.GetAST().GetTypeName().StorageSize()
 			if !found {
-				utils.DumpNodeWithExit(variable.GetAST().GetTypeName())
+				//utils.DumpNodeWithExit(variable.GetAST().GetTypeName())
 				return fmt.Errorf("error calculating storage size for variable: %s", variable.GetName())
 			}
 

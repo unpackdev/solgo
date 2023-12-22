@@ -20,7 +20,6 @@ func (b *Builder) processEvent(unit *ir.Event) (*Method, error) {
 	// Process parameters of the event.
 	// Note: In Ethereum, event parameters are considered as outputs.
 	for _, parameter := range unit.GetParameters() {
-
 		if parameter.GetTypeDescription() == nil {
 			return nil, fmt.Errorf("nil type description for event parameter %s", parameter.GetName())
 		}
@@ -29,11 +28,20 @@ func (b *Builder) processEvent(unit *ir.Event) (*Method, error) {
 			Name:    parameter.GetName(),
 			Indexed: parameter.IsIndexed(),
 		}
-		toReturn.Outputs = append(
+		toReturn.Inputs = append(
 			toReturn.Inputs,
 			b.buildMethodIO(methodIo, parameter.GetTypeDescription()),
 		)
 	}
 
 	return toReturn, nil
+}
+
+func (b *Builder) GetEventAsAbi(unit *ir.Event) ([]*Method, error) {
+	method, err := b.processEvent(unit)
+	if err != nil {
+		return nil, err
+	}
+
+	return []*Method{method}, nil
 }

@@ -50,3 +50,12 @@ func (b *Builder) processFunction(unit *ir.Function) (*Method, error) {
 
 	return toReturn, nil
 }
+
+func (b *Builder) GetFunctionAsABI(unit *ir.Function) ([]*Method, error) {
+	method, err := b.processFunction(unit)
+	if err != nil {
+		return nil, err
+	}
+
+	return []*Method{method}, nil
+}

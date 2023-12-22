@@ -91,7 +91,7 @@ func (t *Token) Approve(ctx context.Context, network utils.Network, simulatorTyp
 		return nil, nil, fmt.Errorf("failed to get transact opts: %w", err)
 	}
 
-	return bind.Approve(ctx, network, simulatorType, client, opts, spender.GetAddress(), amount, atBlock)
+	return bind.Approve(ctx, network, simulatorType, client, opts, t.GetDescriptor().GetAddress(), spender.GetAddress(), amount, atBlock)
 }
 
 // Transfer facilitates the transfer of tokens to a to address.

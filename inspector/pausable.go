@@ -2,6 +2,7 @@ package inspector
 
 import (
 	"context"
+	"strings"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
@@ -9,11 +10,8 @@ import (
 )
 
 type PausableResults struct {
-	Detected          bool `json:"detected"`
-	RenounceOwnership bool `json:"renounce_ownership"`
-	CanLookupOwner    bool `json:"can_lookup_owner"`
-	OwnerModifiable   bool `json:"owner_modifiable"`
-	CanSelfDestruct   bool `json:"can_self_destruct"`
+	Detected           bool `json:"detected"`
+	UseInFunctionCalls bool `json:"use_in_function_calls"`
 }
 
 type PausableDetector struct {
@@ -29,13 +27,10 @@ func NewPausableDetector(ctx context.Context, inspector *Inspector) Detector {
 		inspector: inspector,
 		functionNames: []string{
 			"paused", "pause", "unpause", "_pause", "_unpause",
-			"isPaused",
-			"canPause", "canUnpause",
-			"togglePause",
-			"setPaused",
-			"enablePause", "disablePause",
-			"pauseTransfer", "unpauseTransfer",
-			"pauseAll", "unpauseAll",
+			"isPaused", "canpause", "canunpause", "togglepause", "setpaused",
+			"enablepause", "disablepause", "pausetransfer", "unpausetransfer",
+			"pauseall", "unpauseall", "settradingstatus", "updateswapenabled",
+			"setcontractpaused", "setpause",
 		},
 		results: &PausableResults{},
 	}
@@ -63,7 +58,7 @@ func (m *PausableDetector) Enter(ctx context.Context) (DetectorFn, error) {
 	return map[ast_pb.NodeType]func(node ast.Node[ast.NodeType]) (bool, error){
 		ast_pb.NodeType_FUNCTION_DEFINITION: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if fn, ok := node.(*ast.Function); ok {
-				if utils.StringInSlice(fn.GetName(), m.functionNames) {
+				if utils.StringInSlice(strings.ToLower(fn.GetName()), m.functionNames) {
 					m.results.Detected = true
 					return false, nil
 				}
@@ -73,8 +68,9 @@ func (m *PausableDetector) Enter(ctx context.Context) (DetectorFn, error) {
 		ast_pb.NodeType_FUNCTION_CALL: func(node ast.Node[ast.NodeType]) (bool, error) {
 			if fn, ok := node.(*ast.FunctionCall); ok {
 				if expr, ok := fn.GetExpression().(*ast.PrimaryExpression); ok {
-					if utils.StringInSlice(expr.GetName(), m.functionNames) {
+					if utils.StringInSlice(strings.ToLower(expr.GetName()), m.functionNames) {
 						m.results.Detected = true
+						m.results.UseInFunctionCalls = true
 						return false, nil
 					}
 				}

@@ -95,7 +95,7 @@ func (d *Descriptor) HasConstructor() bool {
 }
 
 func (d *Descriptor) HasSources() bool {
-	return d.Sources != nil
+	return d.Sources != nil && d.Sources.HasUnits()
 }
 
 func (d *Descriptor) HasAudit() bool {

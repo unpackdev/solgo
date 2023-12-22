@@ -2,8 +2,11 @@ package exchanges
 
 import (
 	"context"
+	"encoding/hex"
 	"fmt"
+	"log"
 	"math/big"
+	"strings"
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -108,11 +111,12 @@ func (u *UniswapV2Exchange) GetClient(ctx context.Context, network utils.Network
 	return u.clientPool.GetClientByGroup(network.String()), nil
 }
 
-func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, tokenBind *bindings.Token, spender *accounts.Account, baseToken *entities.Token, quoteToken *entities.Token, amount *entities.CurrencyAmount, atBlock *big.Int) (*UniswapV2TradeDescriptor, error) {
+func (u *UniswapV2Exchange) Buy(ctx context.Context, client *clients.Client, network utils.Network, simulatorType utils.SimulatorType, tokenBind *bindings.Token, spender *accounts.Account, baseToken *entities.Token, quoteToken *entities.Token, amount *entities.CurrencyAmount, atBlock *big.Int) (*TradeDescriptor, error) {
 	networkID := utils.GetNetworkID(network)
-	toReturn := &UniswapV2TradeDescriptor{
+	toReturn := &TradeDescriptor{
 		ExchangeType:   utils.UniswapV2,
 		Network:        network,
+		TradeType:      utils.BuyTradeType,
 		Simulation:     network == utils.AnvilNetwork,
 		NetworkID:      networkID,
 		RouterAddress:  u.opts.RouterAddress,
@@ -121,11 +125,6 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 		SpenderAddress: spender.Address,
 		AmountRaw:      amount.Quotient(),
 		Amount:         amount.ToExact(),
-	}
-
-	client, err := u.GetClient(ctx, network, simulatorType, atBlock)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get client: %s", err)
 	}
 
 	usdtToken := entities.USDT[uint(networkID)]
@@ -148,12 +147,16 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	}
 
 	unixReserveTime := time.Unix(int64(reserves.BlockTimestampLast), 0)
-	toReturn.PairReserves = &UniswapV2PairReserves{
+	toReturn.PairReserves = &PairReserves{
 		Token0:    quoteToken.Address,
 		Token1:    baseToken.Address,
 		Reserve0:  reserves.Reserve0,
 		Reserve1:  reserves.Reserve1,
 		BlockTime: unixReserveTime,
+	}
+
+	if reserves.Reserve0.Cmp(big.NewInt(0)) == 0 || reserves.Reserve1.Cmp(big.NewInt(0)) == 0 {
+		return nil, fmt.Errorf("one of the reserves is zero, cannot calculate price and rejecting purchase")
 	}
 
 	var inverted bool
@@ -200,12 +203,6 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	   		yes,
 	   	) */
 
-	/* 	if inverted {
-		toReturn.PricePerToken = toReturn.Price.Invert().ToSignificant(9)
-	} else { */
-	//toReturn.PricePerToken = toReturn.Price.ToSignificant(9)
-	/* 	} */
-
 	usdtPairAddr, err := u.uniswapBind.GetPair(ctx, usdtToken.Address, entities.WETH9[1].Address)
 	if err != nil {
 		return nil, err
@@ -237,32 +234,21 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 		return nil, err
 	}
 	toReturn.MaxAmountRaw = amountOut
-	toReturn.MaxAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+	if tokenOut.Decimals() >= 2 {
+		toReturn.MaxAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+	} else {
+		toReturn.MaxAmount = entities.FromRawAmount(tokenOut, amountOut).ToSignificant(0)
+	}
 
 	tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
 	uniswapBinding, _ := u.uniswapBind.GetBinding(utils.AnvilNetwork, bindings.UniswapV2Router)
-
-	if currentBalance.Cmp(amount.Quotient()) < 0 {
-		spender.SetAccountBalance(ctx, u.sim.GetOptions().FaucetAccountDefaultBalance)
-
-		for {
-			currentBalance, err := spender.Balance(ctx, nil)
-			if err != nil {
-				continue
-			}
-
-			if currentBalance.Cmp(amount.Quotient()) >= 0 {
-				break
-			}
-		}
-	}
 
 	authApprove, err := spender.TransactOpts(client, nil, false) // Approval cannot take value as value is in the approve call
 	if err != nil {
 		return nil, fmt.Errorf("failed to create approve transact opts: %s", err)
 	}
 
-	_, approveReceiptTx, err := tokenBind.Approve(ctx, network, simulatorType, client, authApprove, u.opts.RouterAddress, amount.Quotient(), atBlock)
+	_, approveReceiptTx, err := tokenBind.Approve(ctx, network, simulatorType, client, authApprove, tokenBind.GetAddress(), u.opts.RouterAddress, amount.Quotient(), atBlock)
 	if err != nil {
 		return nil, fmt.Errorf("failed to approve token: %s", err)
 	}
@@ -305,9 +291,11 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	}
 
 	buyResults := &AuditSwapResults{
-		Detected:      false,
-		SwapRequested: true,
-		PairDetails:   []common.Address{baseToken.Address, quoteToken.Address},
+		Detected:       false,
+		SwapRequested:  true,
+		Failure:        false,
+		FailureReasons: []string{},
+		PairDetails:    []common.Address{baseToken.Address, quoteToken.Address},
 	}
 
 	authBuy, err := spender.TransactOpts(client, amount.Quotient(), false) // Approval cannot take value as value is in the approve call
@@ -318,22 +306,22 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	// We are using hack to pretend sending normal transaction while using simulated client...
 	// Therefore, instead of passing simulatorType we pass utils.NoSimulator
 	deadline := big.NewInt(time.Now().Add(time.Minute).Unix())
-	_, buyReceipt, err := u.uniswapBind.Buy(authBuy, network, simulatorType, client, big.NewInt(0), buyResults.PairDetails, spender.Address, deadline)
+	_, buyReceipt, err := u.uniswapBind.Buy(authBuy, network, simulatorType, client, big.NewInt(1), buyResults.PairDetails, spender.Address, deadline)
 	if err != nil {
-		return nil, fmt.Errorf("failed to buy token: %s", err)
-
+		buyResults.Failure = true
 	}
 
 	buyResults.Detected = true
 	buyResults.TxHash = buyReceipt.TxHash
 	buyResults.Receipt = buyReceipt != nil
 	buyResults.ReceiptStatus = func() uint64 {
-		if buyReceipt != nil {
+		if buyResults != nil {
 			return buyReceipt.Status
 		}
 
 		return 0
 	}()
+	buyResults.Failure = buyResults.ReceiptStatus != 1
 
 	if buyReceipt != nil {
 		buyResults.GasUsedRaw = buyReceipt.GasUsed
@@ -362,7 +350,11 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 					if amountOut, ok := log.Data["amount0Out"]; ok {
 						if amountOut, ok := amountOut.(*big.Int); ok {
 							buyResults.SwapReceivedAmountRaw = amountOut
-							buyResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+							if tokenOut.Decimals() >= 2 {
+								buyResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+							} else {
+								buyResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+							}
 						}
 					}
 
@@ -370,7 +362,11 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 						if amountOut, ok := log.Data["amount1Out"]; ok {
 							if amountOut, ok := amountOut.(*big.Int); ok {
 								buyResults.SwapReceivedAmountRaw = amountOut
-								buyResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+								if tokenOut.Decimals() >= 2 {
+									buyResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+								} else {
+									buyResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+								}
 							}
 						}
 					}
@@ -382,9 +378,43 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 							if amountOut, ok := log.Data["value"]; ok {
 								if amountOut, ok := amountOut.(*big.Int); ok {
 									buyResults.ReceivedAmountRaw = amountOut
-									buyResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+									if tokenOut.Decimals() >= 2 {
+										buyResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+									} else {
+										buyResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+									}
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+	} else if buyResults != nil && buyReceipt.Status == 0 {
+		var traceResults []*bindings.TraceResult
+		rpcClient := client.GetRpcClient()
+
+		err = rpcClient.CallContext(context.Background(), &traceResults, "trace_transaction", buyResults.TxHash)
+		if err != nil {
+			log.Fatalf("Failed to trace transaction: %v", err)
+		}
+
+		if len(traceResults) > 0 {
+			for _, trace := range traceResults {
+				if strings.HasPrefix(trace.Result.Output, "0x08c379a0") {
+					data, err := hex.DecodeString(trace.Result.Output[10:]) // Remove "0x08c379a0"
+					if err != nil {
+						log.Printf("Failed to decode hex: %v", err)
+						continue
+					}
+
+					// Assuming the message is ABI encoded, it will have a 32 byte offset and then the string
+					if len(data) >= 64 { // Check if data has at least 64 bytes (32 for offset and 32 for length)
+						// Decode the length of the string
+						length := new(big.Int).SetBytes(data[32:64]).Uint64()
+						if uint64(len(data)) >= 64+length {
+							revertMessage := string(data[64 : 64+length])
+							buyResults.FailureReasons = append(buyResults.FailureReasons, revertMessage)
 						}
 					}
 				}
@@ -395,7 +425,17 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	if buyResults.ReceivedAmountRaw != nil && buyResults.SwapReceivedAmountRaw != nil {
 		tax := CalculatePercentageDifference(buyResults.SwapReceivedAmountRaw, buyResults.ReceivedAmountRaw, quoteToken.Decimals())
 		buyResults.TaxRaw = tax
-		buyResults.Tax = entities.FromRawAmount(quoteToken, tax).ToFixed(2)
+		if quoteToken.Decimals() >= 2 {
+			buyResults.Tax = entities.FromRawAmount(quoteToken, tax).ToFixed(2)
+		} else {
+			buyResults.Tax = entities.FromRawAmount(quoteToken, tax).ToFixed(0)
+		}
+	}
+
+	if buyResults.ReceivedAmountRaw != nil && buyResults.SwapReceivedAmountRaw != nil {
+		buyResults.Failure = buyResults.ReceivedAmountRaw.Uint64() == 0 || buyResults.SwapReceivedAmountRaw.Uint64() == 0
+	} else {
+		buyResults.Failure = true
 	}
 
 	tradeRequest.Results = buyResults
@@ -414,11 +454,12 @@ func (u *UniswapV2Exchange) Buy(ctx context.Context, network utils.Network, simu
 	return toReturn, nil
 }
 
-func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, tokenBind *bindings.Token, spender *accounts.Account, baseToken *entities.Token, quoteToken *entities.Token, amount *entities.CurrencyAmount, atBlock *big.Int) (*UniswapV2TradeDescriptor, error) {
+func (u *UniswapV2Exchange) Sell(ctx context.Context, client *clients.Client, network utils.Network, simulatorType utils.SimulatorType, tokenBind *bindings.Token, spender *accounts.Account, baseToken *entities.Token, quoteToken *entities.Token, amount *entities.CurrencyAmount, atBlock *big.Int) (*TradeDescriptor, error) {
 	networkID := utils.GetNetworkID(network)
-	toReturn := &UniswapV2TradeDescriptor{
+	toReturn := &TradeDescriptor{
 		ExchangeType:   utils.UniswapV2,
 		Network:        network,
+		TradeType:      utils.SellTradeType,
 		Simulation:     network == utils.AnvilNetwork,
 		NetworkID:      networkID,
 		RouterAddress:  u.opts.RouterAddress,
@@ -427,11 +468,6 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 		SpenderAddress: spender.Address,
 		AmountRaw:      amount.Quotient(),
 		Amount:         amount.ToExact(),
-	}
-
-	client, err := u.GetClient(ctx, network, simulatorType, atBlock)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get client: %s", err)
 	}
 
 	wethBind, err := bindings.NewWETH(ctx, tokenBind.Manager, bindings.DefaultWETHBindOptions())
@@ -466,7 +502,7 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	}
 
 	unixReserveTime := time.Unix(int64(reserves.BlockTimestampLast), 0)
-	toReturn.PairReserves = &UniswapV2PairReserves{
+	toReturn.PairReserves = &PairReserves{
 		Token0:    quoteToken.Address,
 		Token1:    baseToken.Address,
 		Reserve0:  reserves.Reserve0,
@@ -521,26 +557,23 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	toReturn.EthToUsdPriceRaw = usdtEthPrice.Invert()
 	toReturn.EthToUsdPrice = toReturn.EthToUsdPriceRaw.ToSignificant(9)
 
-	// Calculate Token Price in USD
-	// First, ensure both prices are in the same scale (adjust decimals if needed)
-	//tokenPriceInUsdRaw := new(big.Int).Mul(toReturn.Price.Quotient(), toReturn.UsdToEthPriceRaw.Quotient())
-
-	// Adjust for the decimals to get the final price in USD
-	// Assuming 18 decimals for ETH and your token
-	//tokenPriceInUsd := new(big.Float).Quo(new(big.Float).SetInt(tokenPriceInUsdRaw), big.NewFloat(math.Pow10(18)))
-
-	//toReturn.PricePerTokenUsd = entities.FromRawAmount(entities.WETH9[1], tokenPriceInUsdRaw).Invert().ToFixed(9)
-
 	amountOut, err := u.uniswapBind.GetAmountOut(ctx, amount.Quotient(), reserves.Reserve0, reserves.Reserve1)
 	if err != nil {
 		return nil, err
 	}
 	toReturn.MaxAmountRaw = amountOut
-	toReturn.MaxAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+	if tokenOut.Decimals() >= 2 {
+		toReturn.MaxAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+	} else {
+		toReturn.MaxAmount = entities.FromRawAmount(tokenOut, amountOut).ToSignificant(0)
+	}
 
 	tokenBinding, _ := tokenBind.GetBinding(utils.AnvilNetwork, bindings.Erc20)
 	uniswapBinding, _ := u.uniswapBind.GetBinding(utils.AnvilNetwork, bindings.UniswapV2Router)
 	uniswapPairBinding, _ := u.uniswapBind.GetBinding(utils.AnvilNetwork, bindings.UniswapV2Pair)
+
+	// Maximum value for a Uint256
+	//maxUint256 := new(big.Int).Sub(new(big.Int).Lsh(big.NewInt(1), 256), big.NewInt(1))
 
 	authApprove, err := spender.TransactOpts(client, amount.Quotient(), false) // Approval cannot take value as value is in the approve call
 	if err != nil {
@@ -548,7 +581,7 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	}
 	authApprove.Value = big.NewInt(0)
 
-	_, approveReceiptTx, err := tokenBind.Approve(ctx, network, simulatorType, client, authApprove, u.opts.RouterAddress, amount.Quotient(), atBlock)
+	_, approveReceiptTx, err := tokenBind.Approve(ctx, network, simulatorType, client, authApprove, tokenBind.GetAddress(), u.opts.RouterAddress, amount.Quotient(), atBlock)
 	if err != nil {
 		return nil, fmt.Errorf("failed to approve sell token: %s", err)
 	}
@@ -591,10 +624,11 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	}
 
 	sellResults := &AuditSwapResults{
-		Detected:      true,
-		SwapRequested: true,
-		Failure:       false,
-		PairDetails:   []common.Address{baseToken.Address, quoteToken.Address},
+		Detected:       true,
+		SwapRequested:  true,
+		Failure:        false,
+		FailureReasons: []string{},
+		PairDetails:    []common.Address{baseToken.Address, quoteToken.Address},
 	}
 
 	authSell, err := spender.TransactOpts(client, amount.Quotient(), false) // Approval cannot take value as value is in the approve call
@@ -609,32 +643,30 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	// We are using hack to pretend sending normal transaction while using simulated client...
 	// Therefore, instead of passing simulatorType we pass utils.NoSimulator
 	deadline := big.NewInt(time.Now().Add(time.Minute).Unix())
-	_, buyReceipt, err := u.uniswapBind.Sell(authSell, network, simulatorType, client, amount.Quotient(), big.NewInt(0), sellResults.PairDetails, spender.Address, deadline)
+	_, sellReceipt, err := u.uniswapBind.Sell(authSell, network, simulatorType, client, amount.Quotient(), big.NewInt(1), sellResults.PairDetails, spender.Address, deadline)
 	if err != nil {
 		sellResults.Failure = true
-		tradeRequest.Results = sellResults
-		toReturn.Trade = tradeRequest
-		return nil, fmt.Errorf("failed to sell token: %s", err)
 	}
 
 	sellResults.Detected = true
-	sellResults.TxHash = buyReceipt.TxHash
-	sellResults.Receipt = buyReceipt != nil
+	sellResults.TxHash = sellReceipt.TxHash
+	sellResults.Receipt = sellReceipt != nil
 	sellResults.ReceiptStatus = func() uint64 {
-		if buyReceipt != nil {
-			return buyReceipt.Status
+		if sellReceipt != nil {
+			return sellReceipt.Status
 		}
 
 		return 0
 	}()
+	sellResults.Failure = sellResults.ReceiptStatus != 1
 
-	if buyReceipt != nil {
-		sellResults.GasUsedRaw = buyReceipt.GasUsed
-		sellResults.GasUsed = entities.FromRawAmount(quoteToken, big.NewInt(int64(buyReceipt.GasUsed))).ToFixed(int32(quoteToken.Decimals()))
+	if sellReceipt != nil && sellReceipt.Status == 1 {
+		sellResults.GasUsedRaw = sellReceipt.GasUsed
+		sellResults.GasUsed = entities.FromRawAmount(quoteToken, big.NewInt(int64(sellReceipt.GasUsed))).ToFixed(int32(quoteToken.Decimals()))
 
-		if len(buyReceipt.Logs) > 0 {
+		if len(sellReceipt.Logs) > 0 {
 			var buyLogs []*bytecode.Log
-			for _, log := range buyReceipt.Logs {
+			for _, log := range sellReceipt.Logs {
 				if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(tokenBinding.RawABI)); err == nil {
 					buyLogs = append(buyLogs, decodedBuyLog)
 				} else if decodedBuyLog, err := bytecode.DecodeLogFromAbi(log, []byte(uniswapBinding.RawABI)); err == nil {
@@ -653,15 +685,23 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 					if amountOut, ok := log.Data["amount1Out"]; ok {
 						if amountOut, ok := amountOut.(*big.Int); ok {
 							sellResults.SwapReceivedAmountRaw = amountOut
-							sellResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToSignificant(2)
+							if tokenOut.Decimals() >= 2 {
+								sellResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+							} else {
+								sellResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+							}
 						}
 					}
 
 					if sellResults.SwapReceivedAmountRaw == nil || sellResults.SwapReceivedAmountRaw.Uint64() == 0 {
-						if amountOut, ok := log.Data["amount1Out"]; ok {
+						if amountOut, ok := log.Data["amount0Out"]; ok {
 							if amountOut, ok := amountOut.(*big.Int); ok {
 								sellResults.SwapReceivedAmountRaw = amountOut
-								sellResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToSignificant(2)
+								if tokenOut.Decimals() >= 2 {
+									sellResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+								} else {
+									sellResults.SwapReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+								}
 							}
 						}
 					}
@@ -669,7 +709,11 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 					if amountOut, ok := log.Data["amount0In"]; ok {
 						if amountOut, ok := amountOut.(*big.Int); ok {
 							sellResults.ReceivedAmountRaw = amountOut
-							sellResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToSignificant(2)
+							if tokenOut.Decimals() >= 2 {
+								sellResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+							} else {
+								sellResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+							}
 						}
 					}
 
@@ -677,8 +721,40 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 						if amountOut, ok := log.Data["amount1In"]; ok {
 							if amountOut, ok := amountOut.(*big.Int); ok {
 								sellResults.ReceivedAmountRaw = amountOut
-								sellResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToSignificant(2)
+								if tokenOut.Decimals() >= 2 {
+									sellResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(2)
+								} else {
+									sellResults.ReceivedAmount = entities.FromRawAmount(tokenOut, amountOut).ToFixed(0)
+								}
 							}
+						}
+					}
+				}
+			}
+		}
+	} else if sellReceipt != nil && sellReceipt.Status == 0 {
+		var traceResults []*bindings.TraceResult
+		rpcClient := client.GetRpcClient()
+
+		err = rpcClient.CallContext(context.Background(), &traceResults, "trace_transaction", sellReceipt.TxHash)
+		if err != nil {
+			log.Fatalf("Failed to trace transaction: %v", err)
+		}
+
+		if len(traceResults) > 0 {
+			for _, trace := range traceResults {
+				if strings.HasPrefix(trace.Result.Output, "0x08c379a0") {
+					data, err := hex.DecodeString(trace.Result.Output[10:]) // Remove "0x08c379a0"
+					if err != nil {
+						continue
+					}
+
+					// Assuming the message is ABI encoded, it will have a 32 byte offset and then the string
+					if len(data) >= 64 { // Check if data has at least 64 bytes (32 for offset and 32 for length)
+						length := new(big.Int).SetBytes(data[32:64]).Uint64()
+						if uint64(len(data)) >= 64+length {
+							revertMessage := string(data[64 : 64+length])
+							sellResults.FailureReasons = append(sellResults.FailureReasons, revertMessage)
 						}
 					}
 				}
@@ -689,7 +765,17 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	if sellResults.ReceivedAmountRaw != nil && sellResults.SwapReceivedAmountRaw != nil {
 		tax := CalculatePercentageDifference(amount.Quotient(), sellResults.ReceivedAmountRaw, quoteToken.Decimals())
 		sellResults.TaxRaw = tax
-		sellResults.Tax = entities.FromRawAmount(quoteToken, tax).ToFixed(2)
+		if quoteToken.Decimals() >= 2 {
+			sellResults.Tax = entities.FromRawAmount(quoteToken, tax).ToFixed(2)
+		} else {
+			sellResults.Tax = entities.FromRawAmount(quoteToken, tax).ToFixed(0)
+		}
+	}
+
+	if sellResults.ReceivedAmountRaw != nil && sellResults.SwapReceivedAmountRaw != nil {
+		sellResults.Failure = sellResults.ReceivedAmountRaw.Uint64() == 0 || sellResults.SwapReceivedAmountRaw.Uint64() == 0
+	} else {
+		sellResults.Failure = true
 	}
 
 	tradeRequest.Results = sellResults
@@ -703,7 +789,6 @@ func (u *UniswapV2Exchange) Sell(ctx context.Context, network utils.Network, sim
 	if err != nil {
 		return nil, fmt.Errorf("failed to get current balance: %s", err)
 	}
-
 	toReturn.SpenderBalanceAfter = afterBalance
 	return toReturn, nil
 }

@@ -30,7 +30,7 @@ func NewProxyDetector(ctx context.Context, inspector *Inspector) Detector {
 		functionNames: []string{
 			"upgradeTo", "upgradeToAndCall", "getAdmin", "changeAdmin", "_implementation", "implementation",
 			"upgradeBeaconToAndCall", "getImplementation", "_setImplementation", "_setAdmin", "_dispatchUpgradeToAndCall",
-			"_delegate",
+			"_delegate", "changeProxyAdmin", "getProxyAdmin", "getProxyImplementation", "recoverERC20FromProxy",
 		},
 		results: &ProxyResults{},
 	}

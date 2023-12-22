@@ -58,6 +58,7 @@ func NewMintDetector(ctx context.Context, inspector *Inspector) Detector {
 		functionNames: []string{
 			"mint", "mintFor", "mintTo", "mintWithTokenURI", "mintBatch", "mintBatchFor", "mintBatchTo", "mintBatchWithTokenURI",
 			"_mint", "_mintFor", "_mintTo", "_mintWithTokenURI", "_mintBatch", "_mintBatchFor", "_mintBatchTo", "_mintBatchWithTokenURI",
+			"firstMintAndDeposit", "mintAndCall", "mintBatchToken", "mintDepositCallback", "mintMany", "mintManyAndCall", "safeMint",
 		},
 		// Common variable names for allowances in ERC20 contracts.
 		allowancesNames: []string{

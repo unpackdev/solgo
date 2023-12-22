@@ -70,7 +70,7 @@ func NewSimulator(ctx context.Context, clientPool *clients.ClientPool, opts *Opt
 				)
 
 				for i := 0; i < missingFaucetCount; i++ {
-					zap.L().Debug(
+					zap.L().Info(
 						"Generating new faucet account...",
 						zap.Int("current_count", i),
 						zap.Int("required_count", opts.FaucetAccountCount),
@@ -332,13 +332,17 @@ func (s *Simulator) GetClient(ctx context.Context, provider utils.SimulatorType,
 
 			// Lets now load faucet accounts for the newly spawned node
 			if providerCtx.simulator.opts.FaucetsEnabled {
-				if err := providerCtx.SetupFaucetAccounts(ctx, newNode); err != nil {
-					return nil, newNode, fmt.Errorf("failed to load faucet accounts: %s", err)
+				if providerCtx.simulator.opts.FaucetsAutoReplenishEnabled {
+					if err := providerCtx.SetupFaucetAccounts(ctx, newNode); err != nil {
+						return nil, newNode, fmt.Errorf("failed to load faucet accounts: %s", err)
+					}
 				}
 			}
 
 			providerCtx.mu.Lock()
-			providerCtx.nodes[newNode.BlockNumber.Uint64()] = newNode
+			if _, ok := providerCtx.nodes[newNode.BlockNumber.Uint64()]; !ok {
+				providerCtx.nodes[newNode.BlockNumber.Uint64()] = newNode
+			}
 			providerCtx.mu.Unlock()
 
 			if client, found := providerCtx.GetClientByGroupAndType(newNode.GetProvider().Type(), newNode.GetID().String()); found {

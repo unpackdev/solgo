@@ -104,7 +104,6 @@ func (p *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 		sourceCode, _ := unprettyJSON(manualUnquote(toReturn.SourceCode.(string)))
 
 		if err := json.Unmarshal([]byte(sourceCode), &cm); err != nil {
-			fmt.Println("failed to unmarshal metadata response (fu): ", err, sourceCode, toReturn.SourceCode.(string))
 			var onlySources map[string]metadata.ContractSource
 			if err := json.Unmarshal([]byte(fmt.Sprint(toReturn.SourceCode.(string))), &onlySources); err != nil {
 				return nil, fmt.Errorf("failed to unmarshal metadata response (string): %s", err)

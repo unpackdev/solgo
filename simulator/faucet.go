@@ -3,6 +3,7 @@ package simulator
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/unpackdev/solgo/accounts"
 	"github.com/unpackdev/solgo/clients"
@@ -57,10 +58,16 @@ func (f *Faucet) Create(network utils.Network, password string, pin bool, tags .
 		pwd = password
 	}
 
-	account, err := f.Manager.Create(network, pwd, pin, tags...)
-	if err != nil {
-		return nil, fmt.Errorf("failed to generate faucet account for network: %s err: %s", network, err)
+	var account *accounts.Account
+	var err error
+	attempts := 3
+	for i := 0; i < attempts; i++ {
+		account, err = f.Manager.Create(network, pwd, pin, tags...)
+		if err == nil {
+			time.Sleep(100 * time.Millisecond)
+			return account, nil
+		}
 	}
 
-	return account, nil
+	return nil, fmt.Errorf("failed to generate faucet account for network: %s after %d attempts, err: %s", network, attempts, err)
 }

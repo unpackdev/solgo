@@ -55,6 +55,10 @@ func NewToken(ctx context.Context, network utils.Network, manager *Manager, opts
 	}, nil
 }
 
+func (t *Token) GetAddress() common.Address {
+	return t.opts[0].Address
+}
+
 func (t *Token) GetBinding(network utils.Network, bindingType BindingType) (*Binding, error) {
 	return t.Manager.GetBinding(network, bindingType)
 }
@@ -196,7 +200,7 @@ func (t *Token) Transfer(ctx context.Context, network utils.Network, simulatorTy
 	}
 }
 
-func (t *Token) Approve(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, opts *bind.TransactOpts, spender common.Address, amount *big.Int, atBlock *big.Int) (*types.Transaction, *types.Receipt, error) {
+func (t *Token) Approve(ctx context.Context, network utils.Network, simulatorType utils.SimulatorType, client *clients.Client, opts *bind.TransactOpts, from common.Address, spender common.Address, amount *big.Int, atBlock *big.Int) (*types.Transaction, *types.Receipt, error) {
 	binding, err := t.GetBinding(utils.Ethereum, Erc20)
 	if err != nil {
 		return nil, nil, err
@@ -217,7 +221,7 @@ func (t *Token) Approve(ctx context.Context, network utils.Network, simulatorTyp
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
 	default:
-		tx, err := t.Manager.SendTransaction(opts, t.network, simulatorType, client, &binding.Address, input)
+		tx, err := t.Manager.SendTransaction(opts, t.network, simulatorType, client, &from, input)
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to send approve transaction: %w", err)
 		}
