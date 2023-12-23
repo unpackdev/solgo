@@ -30,7 +30,8 @@ func TestProcessReceive(t *testing.T) {
 	}
 
 	builder := &Builder{}
-	result := builder.processReceive(mockReceive)
+	result, err := builder.processReceive(mockReceive)
+	assert.NoError(t, err)
 
 	// Assert that the returned Method object has the expected properties
 	assert.Equal(t, "receive", result.Type)

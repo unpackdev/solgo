@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	DEFAULT_GAS_LIMIT = uint64(90000)
+	DEFAULT_GAS_LIMIT = uint64(1000000)
 )
 
 // Account represents an Ethereum account with extended functionalities.
@@ -33,7 +33,9 @@ type Account struct {
 	Address            common.Address      `json:"address" yaml:"address"`         // Ethereum address of the account
 	Type               utils.AccountType   `json:"type" yaml:"type"`               // Account type
 	PrivateKey         string              `json:"private_key" yaml:"private_key"` // Private key of the account
+	PrivateKeyBytes    []byte              `json:"-" yaml:"-"`                     // Private key of the account in bytes
 	PublicKey          string              `json:"public_key" yaml:"public_key"`   // Public key of the account
+	PublicKeyBytes     []byte              `json:"-" yaml:"-"`                     // Public key of the account in bytes
 	KeystoreAccount    account.Account     `json:"account" yaml:"account"`         // Ethereum account information
 	Password           string              `json:"password" yaml:"password"`       // Account's password
 	Network            utils.Network       `json:"network" yaml:"network"`         // Network information
@@ -79,7 +81,7 @@ func (a *Account) GetClient() *clients.Client {
 // It does not affect the real balance on the Ethereum network.
 func (a *Account) SetAccountBalance(ctx context.Context, amount *big.Int) error {
 	amountHex := common.Bytes2Hex(amount.Bytes())
-	return a.client.GetRpcClient().Call(nil, "anvil_setBalance", a.GetAddress(), amountHex)
+	return a.client.GetRpcClient().CallContext(ctx, nil, "anvil_setBalance", a.GetAddress(), amountHex)
 }
 
 // Balance retrieves the account's balance from the Ethereum network at a specified block number.

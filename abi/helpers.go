@@ -38,6 +38,11 @@ func isEnumType(name string) bool {
 	return strings.Contains(name, "enum")
 }
 
+// isStructType checks if the given type name represents a enum type in Solidity.
+func isStructType(name string) bool {
+	return strings.Contains(name, "struct")
+}
+
 // parseMappingType parses a Solidity ABI mapping type.
 // It returns a boolean indicating success, a slice of key types, and a slice of value types.
 func parseMappingType(typeName string) (bool, []string, []string) {

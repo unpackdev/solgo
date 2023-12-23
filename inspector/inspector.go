@@ -1,0 +1,184 @@
+package inspector
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/ethereum/go-ethereum/common"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"github.com/unpackdev/solgo/ast"
+	"github.com/unpackdev/solgo/bindings"
+	"github.com/unpackdev/solgo/detector"
+	"github.com/unpackdev/solgo/metadata"
+	"github.com/unpackdev/solgo/simulator"
+	"github.com/unpackdev/solgo/standards"
+	"github.com/unpackdev/solgo/storage"
+	"github.com/unpackdev/solgo/tokens"
+	"github.com/unpackdev/solgo/utils"
+)
+
+type Inspector struct {
+	ctx          context.Context
+	detector     *detector.Detector
+	storage      *storage.Storage
+	bindManager  *bindings.Manager
+	sim          *simulator.Simulator
+	report       *Report
+	visitor      *ast.NodeVisitor
+	token        *tokens.Token
+	ipfsProvider metadata.Provider
+}
+
+func NewInspector(ctx context.Context, network utils.Network, detector *detector.Detector, simulator *simulator.Simulator, storage *storage.Storage, bindManager *bindings.Manager, ipfsProvider metadata.Provider, addr common.Address, token *tokens.Token) (*Inspector, error) {
+	return &Inspector{
+		ctx:         ctx,
+		detector:    detector,
+		storage:     storage,
+		bindManager: bindManager,
+		sim:         simulator,
+		visitor:     &ast.NodeVisitor{},
+		report: &Report{
+			Address:   addr,
+			Network:   network,
+			Detectors: make(map[DetectorType]any),
+		},
+		ipfsProvider: ipfsProvider,
+		token:        token,
+	}, nil
+}
+
+func (i *Inspector) GetAddress() common.Address {
+	return i.report.Address
+}
+
+func (i *Inspector) GetDetector() *detector.Detector {
+	return i.detector
+}
+
+func (i *Inspector) GetStorage() *storage.Storage {
+	return i.storage
+}
+
+func (i *Inspector) GetBindingManager() *bindings.Manager {
+	return i.bindManager
+}
+
+func (i *Inspector) GetToken() *tokens.Token {
+	return i.token
+}
+
+func (i *Inspector) GetReport() *Report {
+	return i.report
+}
+
+func (i *Inspector) GetSimulator() *simulator.Simulator {
+	return i.sim
+}
+
+func (i *Inspector) IsReady() bool {
+	return i.detector != nil && i.detector.GetIR() != nil && i.detector.GetIR().GetRoot() != nil && i.detector.GetIR().GetRoot().HasContracts()
+}
+
+func (i *Inspector) HasStandard(standard standards.Standard) bool {
+	return i.detector.GetIR().GetRoot().HasHighConfidenceStandard(standard) || i.detector.GetIR().GetRoot().HasPerfectConfidenceStandard(standard)
+}
+
+func (i *Inspector) GetTree() *ast.Tree {
+	return i.detector.GetAST().GetTree()
+}
+
+func (i *Inspector) UsesTransfers() bool {
+	transferCheckFunc := func(node ast.Node[ast.NodeType]) (bool, error) {
+		functionNode, ok := node.(*ast.Function)
+		if !ok {
+			return true, fmt.Errorf("node is not a function")
+		}
+
+		if functionNode.GetName() == "transfer" || functionNode.GetName() == "transferFrom" {
+			i.report.UsesTransfers = true
+		}
+
+		for _, childNode := range functionNode.GetNodes() {
+			functionCallNode, ok := childNode.(*ast.FunctionCall)
+			if !ok {
+				continue // Not a function call, skip
+			}
+
+			if expr := functionCallNode.GetExpression(); expr != nil && expr.GetType() == ast_pb.NodeType_MEMBER_ACCESS {
+				memberAccessExpr, ok := expr.(*ast.MemberAccessExpression)
+				if !ok {
+					continue // Not a member access expression, skip
+				}
+
+				if memberAccessExpr.GetMemberName() == "transfer" || memberAccessExpr.GetMemberName() == "transferFrom" {
+					i.report.UsesTransfers = true
+				}
+			}
+		}
+
+		return true, nil
+	}
+
+	i.detector.GetAST().GetTree().ExecuteTypeVisit(ast_pb.NodeType_FUNCTION_DEFINITION, transferCheckFunc)
+	return i.report.UsesTransfers
+}
+
+func (i *Inspector) Inspect(only ...DetectorType) error {
+	for _, detectorEntry := range registry {
+		detectorType := detectorEntry.detectorType
+
+		// Check if we need to run this detector
+		if len(only) > 0 && !IsDetectorType(detectorType, only...) {
+			continue
+		}
+
+		// Sets the detector and overwrites it
+		detectorEntry.detector.SetInspector(i)
+
+		// Execute Enter, Detect, and Exit functions
+		if err := i.execute(detectorEntry.detector); err != nil {
+			return err
+		}
+
+		// Store results
+		results := detectorEntry.detector.Results()
+		i.report.Detectors[detectorType] = results
+	}
+
+	return i.resolve()
+}
+
+func (i *Inspector) execute(detector Detector) error {
+	enterFuncs, err := detector.Enter(i.ctx)
+	if err != nil {
+		return err
+	}
+
+	for nodeType, visitFunc := range enterFuncs {
+		i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
+	}
+
+	detectFuncs, err := detector.Detect(i.ctx)
+	if err != nil {
+		return err
+	}
+
+	for nodeType, visitFunc := range detectFuncs {
+		i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
+	}
+
+	exitFuncs, err := detector.Exit(i.ctx)
+	if err != nil {
+		return err
+	}
+
+	for nodeType, visitFunc := range exitFuncs {
+		i.detector.GetAST().GetTree().ExecuteTypeVisit(nodeType, visitFunc)
+	}
+
+	return nil
+}
+
+func (i *Inspector) resolve() error {
+	return nil
+}

@@ -21,10 +21,10 @@ type Argument struct {
 // Constructor represents a contract constructor.
 // It includes the ABI of the constructor, the raw signature, and the arguments.
 type Constructor struct {
-	Abi               string        `json:"abi"`           // ABI of the constructor
-	Parsed            abi.ABI       `json:"-"`             // Parsed ABI of the constructor
-	SignatureRaw      string        `json:"signature_raw"` // Raw signature of the constructor
-	Arguments         []Argument    // List of arguments in the constructor
+	Abi               string        `json:"abi"`                // ABI of the constructor
+	Parsed            abi.ABI       `json:"-"`                  // Parsed ABI of the constructor
+	SignatureRaw      string        `json:"signature_raw"`      // Raw signature of the constructor
+	Arguments         []Argument    `json:"arguments"`          // List of arguments in the constructor
 	UnpackedArguments []interface{} `json:"unpacked_arguments"` // List of unpacked arguments in the constructor
 }
 

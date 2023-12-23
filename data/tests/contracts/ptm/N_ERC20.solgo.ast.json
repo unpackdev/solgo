@@ -253,7 +253,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 1029,
-						"node_type": 0,
+						"node_type": 53,
 						"src": {
 							"line": 458,
 							"column": 4,
@@ -553,7 +553,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 430,
-										"is_pure": false
+										"is_pure": false,
+										"text": "name"
 									},
 									"right_expression": {
 										"id": 1046,
@@ -573,7 +574,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1046,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_name"
 									},
 									"type_description": {
 										"type_identifier": "t_string",
@@ -583,7 +585,8 @@
 								"type_description": {
 									"type_identifier": "t_string",
 									"type_string": "string"
-								}
+								},
+								"text": "name=_name;"
 							},
 							{
 								"id": 1047,
@@ -626,7 +629,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 433,
-										"is_pure": false
+										"is_pure": false,
+										"text": "symbol"
 									},
 									"right_expression": {
 										"id": 1050,
@@ -646,7 +650,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1050,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_symbol"
 									},
 									"type_description": {
 										"type_identifier": "t_string",
@@ -656,7 +661,8 @@
 								"type_description": {
 									"type_identifier": "t_string",
 									"type_string": "string"
-								}
+								},
+								"text": "symbol=_symbol;"
 							},
 							{
 								"id": 1051,
@@ -699,7 +705,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 436,
-										"is_pure": false
+										"is_pure": false,
+										"text": "decimals"
 									},
 									"right_expression": {
 										"id": 1054,
@@ -719,7 +726,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1054,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_decimals"
 									},
 									"type_description": {
 										"type_identifier": "t_uint8",
@@ -729,7 +737,8 @@
 								"type_description": {
 									"type_identifier": "t_uint8",
 									"type_string": "uint8"
-								}
+								},
+								"text": "decimals=_decimals;"
 							}
 						]
 					}
@@ -810,7 +819,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 439,
-										"is_pure": false
+										"is_pure": false,
+										"text": "totalSupply"
 									},
 									"right_expression": {
 										"id": 1067,
@@ -830,7 +840,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1067,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amount"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -840,7 +851,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "totalSupply+=amount;"
 							},
 							{
 								"id": 1068,
@@ -908,7 +920,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 442,
-													"is_pure": false
+													"is_pure": false,
+													"text": "balanceOf"
 												},
 												"base_expression": {
 													"id": 1073,
@@ -928,7 +941,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1073,
-													"is_pure": false
+													"is_pure": false,
+													"text": "to"
 												},
 												"type_descriptions": [
 													{
@@ -963,7 +977,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1074,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											},
 											"type_description": {
 												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -973,7 +988,8 @@
 										"type_description": {
 											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 											"type_string": "index[mapping(address=\u003euint256):address]"
-										}
+										},
+										"text": "balanceOf[to]+=amount;"
 									}
 								]
 							}
@@ -1102,13 +1118,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_mint(address, uint256)",
-					"signature": "7dbf8efb",
+					"signature_raw": "_mint(address,uint256)",
+					"signature": "4e6ec247",
 					"scope": 1014,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "function_mint(addressto,uint256amount)internalvirtual{totalSupply+=amount;unchecked{balanceOf[to]+=amount;}}"
 				},
 				{
 					"id": 1076,
@@ -1197,7 +1214,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 442,
-											"is_pure": false
+											"is_pure": false,
+											"text": "balanceOf"
 										},
 										"base_expression": {
 											"id": 1088,
@@ -1217,7 +1235,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1088,
-											"is_pure": false
+											"is_pure": false,
+											"text": "from"
 										},
 										"type_descriptions": [
 											{
@@ -1252,7 +1271,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1089,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amount"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -1262,7 +1282,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003euint256):address]"
-								}
+								},
+								"text": "balanceOf[from]-=amount;"
 							},
 							{
 								"id": 1090,
@@ -1319,7 +1340,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 439,
-												"is_pure": false
+												"is_pure": false,
+												"text": "totalSupply"
 											},
 											"right_expression": {
 												"id": 1094,
@@ -1339,7 +1361,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1094,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											},
 											"type_description": {
 												"type_identifier": "t_uint256",
@@ -1349,7 +1372,8 @@
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "totalSupply-=amount;"
 									}
 								]
 							}
@@ -1478,13 +1502,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_burn(address, uint256)",
-					"signature": "dd1607d7",
+					"signature_raw": "_burn(address,uint256)",
+					"signature": "6161eb18",
 					"scope": 1014,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "function_burn(addressfrom,uint256amount)internalvirtual{balanceOf[from]-=amount;unchecked{totalSupply-=amount;}}"
 				}
 			],
 			"linearized_base_contracts": [

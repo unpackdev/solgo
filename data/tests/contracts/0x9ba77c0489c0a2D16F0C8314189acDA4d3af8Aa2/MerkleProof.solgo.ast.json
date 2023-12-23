@@ -163,7 +163,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 505,
-												"is_pure": false
+												"is_pure": false,
+												"text": "proof"
 											},
 											{
 												"id": 506,
@@ -189,7 +190,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "leaf"
 											}
 										],
 										"expression": {
@@ -210,7 +212,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "processProof"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
@@ -235,7 +238,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 507,
-										"is_pure": false
+										"is_pure": false,
+										"text": "root"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -455,13 +459,14 @@
 							}
 						]
 					},
-					"signature_raw": "verify(bytes32, bytes32, bytes32)",
-					"signature": "5d3911ee",
+					"signature_raw": "verify(bytes32,bytes32,bytes32)",
+					"signature": "3fb82028",
 					"scope": 487,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$_t_bytes32$",
 						"type_string": "function(bytes32,bytes32,bytes32)"
-					}
+					},
+					"text": "functionverify(bytes32[]memoryproof,bytes32root,bytes32leaf)internalpurereturns(bool){returnprocessProof(proof,leaf)==root;}"
 				},
 				{
 					"id": 509,
@@ -576,7 +581,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 522,
-									"is_pure": false
+									"is_pure": false,
+									"text": "leaf"
 								}
 							},
 							{
@@ -670,7 +676,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									}
 								},
 								"condition": {
@@ -705,7 +712,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 444,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"right_expression": {
 										"id": 530,
@@ -748,14 +756,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 531,
-											"is_pure": false
+											"is_pure": false,
+											"text": "proof"
 										},
 										"member_name": "length",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_bytes32",
 											"type_string": "bytes32"
-										}
+										},
+										"text": "proof.length"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -793,7 +803,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 444,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -908,7 +919,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 491,
-													"is_pure": false
+													"is_pure": false,
+													"text": "proof"
 												},
 												"base_expression": {
 													"id": 540,
@@ -928,7 +940,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 444,
-													"is_pure": false
+													"is_pure": false,
+													"text": "i"
 												},
 												"type_descriptions": [
 													{
@@ -989,7 +1002,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 519,
-													"is_pure": false
+													"is_pure": false,
+													"text": "computedHash"
 												},
 												"right_expression": {
 													"id": 544,
@@ -1009,7 +1023,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 535,
-													"is_pure": false
+													"is_pure": false,
+													"text": "proofElement"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -1071,7 +1086,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 519,
-																"is_pure": false
+																"is_pure": false,
+																"text": "computedHash"
 															},
 															"right_expression": {
 																"id": 549,
@@ -1114,7 +1130,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 0,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "computedHash"
 																	},
 																	{
 																		"id": 552,
@@ -1140,7 +1157,8 @@
 																				"type_identifier": "t_function_$",
 																				"type_string": "function()"
 																			}
-																		]
+																		],
+																		"text": "proofElement"
 																	}
 																],
 																"expression": {
@@ -1161,7 +1179,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "_efficientHash"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$",
@@ -1176,7 +1195,8 @@
 														"type_description": {
 															"type_identifier": "t_bytes32",
 															"type_string": "bytes32"
-														}
+														},
+														"text": "computedHash=_efficientHash(computedHash,proofElement);"
 													}
 												]
 											}
@@ -1214,7 +1234,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 519,
-									"is_pure": false
+									"is_pure": false,
+									"text": "computedHash"
 								}
 							}
 						]
@@ -1386,13 +1407,14 @@
 							}
 						]
 					},
-					"signature_raw": "processProof(bytes32, bytes32)",
-					"signature": "f5c589a1",
+					"signature_raw": "processProof(bytes32,bytes32)",
+					"signature": "90747bea",
 					"scope": 487,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
 						"type_string": "function(bytes32,bytes32)"
-					}
+					},
+					"text": "functionprocessProof(bytes32[]memoryproof,bytes32leaf)internalpurereturns(bytes32){bytes32computedHash=leaf;for(uint256i=0;i\u003cproof.length;i++){bytes32proofElement=proof[i];if(computedHash\u003c=proofElement){computedHash=_efficientHash(computedHash,proofElement);}else{computedHash=_efficientHash(proofElement,computedHash);}}returncomputedHash;}"
 				},
 				{
 					"id": 556,
@@ -2286,13 +2308,14 @@
 							}
 						]
 					},
-					"signature_raw": "_efficientHash(bytes32, bytes32)",
-					"signature": "8ff8f318",
+					"signature_raw": "_efficientHash(bytes32,bytes32)",
+					"signature": "41ed615b",
 					"scope": 487,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
 						"type_string": "function(bytes32,bytes32)"
-					}
+					},
+					"text": "function_efficientHash(bytes32a,bytes32b)privatepurereturns(bytes32value){assembly{mstore(0x00,a)mstore(0x20,b)value:=keccak256(0x00,0x40)}}"
 				}
 			],
 			"linearized_base_contracts": [

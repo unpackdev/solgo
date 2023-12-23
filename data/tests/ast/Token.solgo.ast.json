@@ -358,7 +358,7 @@
 			"mutability": 1,
 			"type_name": {
 				"id": 824,
-				"node_type": 0,
+				"node_type": 53,
 				"src": {
 					"line": 175,
 					"column": 4,
@@ -450,7 +450,7 @@
 			"mutability": 1,
 			"type_name": {
 				"id": 828,
-				"node_type": 0,
+				"node_type": 53,
 				"src": {
 					"line": 177,
 					"column": 4,
@@ -1633,7 +1633,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint256$",
 								"type_string": "function(uint256)"
-							}
+							},
+							"text": "functiontotalSupply()externalviewreturns(uint256);"
 						},
 						{
 							"id": 85,
@@ -1802,7 +1803,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionbalanceOf(addressaccount)externalviewreturns(uint256);"
 						},
 						{
 							"id": 94,
@@ -2008,13 +2010,14 @@
 									}
 								]
 							},
-							"signature_raw": "transfer(address, uint256)",
-							"signature": "9d61d234",
+							"signature_raw": "transfer(address,uint256)",
+							"signature": "a9059cbb",
 							"scope": 56,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functiontransfer(addressto,uint256amount)externalreturns(bool);"
 						},
 						{
 							"id": 105,
@@ -2221,13 +2224,14 @@
 									}
 								]
 							},
-							"signature_raw": "allowance(address, address)",
-							"signature": "69bfed33",
+							"signature_raw": "allowance(address,address)",
+							"signature": "dd62ed3e",
 							"scope": 56,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$",
 								"type_string": "function(address,address)"
-							}
+							},
+							"text": "functionallowance(addressowner,addressspender)externalviewreturns(uint256);"
 						},
 						{
 							"id": 116,
@@ -2433,13 +2437,14 @@
 									}
 								]
 							},
-							"signature_raw": "approve(address, uint256)",
-							"signature": "8b069f2a",
+							"signature_raw": "approve(address,uint256)",
+							"signature": "095ea7b3",
 							"scope": 56,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functionapprove(addressspender,uint256amount)externalreturns(bool);"
 						},
 						{
 							"id": 127,
@@ -2689,13 +2694,14 @@
 									}
 								]
 							},
-							"signature_raw": "transferFrom(address, address, uint256)",
-							"signature": "b642fe57",
+							"signature_raw": "transferFrom(address,address,uint256)",
+							"signature": "23b872dd",
 							"scope": 56,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "functiontransferFrom(addressfrom,addressto,uint256amount)externalreturns(bool);"
 						}
 					],
 					"linearized_base_contracts": [
@@ -2994,7 +3000,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_string$",
 								"type_string": "function(string)"
-							}
+							},
+							"text": "functionname()externalviewreturns(stringmemory);"
 						},
 						{
 							"id": 160,
@@ -3162,7 +3169,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_string$",
 								"type_string": "function(string)"
-							}
+							},
+							"text": "functionsymbol()externalviewreturns(stringmemory);"
 						},
 						{
 							"id": 169,
@@ -3330,7 +3338,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint8$",
 								"type_string": "function(uint8)"
-							}
+							},
+							"text": "functiondecimals()externalviewreturns(uint8);"
 						}
 					],
 					"linearized_base_contracts": [
@@ -3532,14 +3541,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										}
 									}
 								]
@@ -3676,7 +3687,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "function_msgSender()internalviewvirtualreturns(address){returnmsg.sender;}"
 						},
 						{
 							"id": 196,
@@ -3766,14 +3778,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "data",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_bytes_calldata_ptr",
 												"type_string": "bytes calldata"
-											}
+											},
+											"text": "msg.data"
 										}
 									}
 								]
@@ -3908,7 +3922,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_bytes$",
 								"type_string": "function(bytes)"
-							}
+							},
+							"text": "function_msgData()internalviewvirtualreturns(bytescalldata){returnmsg.data;}"
 						}
 					],
 					"linearized_base_contracts": [
@@ -4108,7 +4123,7 @@
 							"mutability": 1,
 							"type_name": {
 								"id": 225,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 175,
 									"column": 4,
@@ -4201,7 +4216,7 @@
 							"mutability": 1,
 							"type_name": {
 								"id": 230,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 177,
 									"column": 4,
@@ -4636,7 +4651,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 240,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_name"
 											},
 											"right_expression": {
 												"id": 257,
@@ -4656,7 +4672,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 257,
-												"is_pure": false
+												"is_pure": false,
+												"text": "name_"
 											},
 											"type_description": {
 												"type_identifier": "t_string",
@@ -4666,7 +4683,8 @@
 										"type_description": {
 											"type_identifier": "t_string",
 											"type_string": "string"
-										}
+										},
+										"text": "_name=name_;"
 									},
 									{
 										"id": 258,
@@ -4709,7 +4727,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 243,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_symbol"
 											},
 											"right_expression": {
 												"id": 261,
@@ -4729,7 +4748,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 261,
-												"is_pure": false
+												"is_pure": false,
+												"text": "symbol_"
 											},
 											"type_description": {
 												"type_identifier": "t_string",
@@ -4739,7 +4759,8 @@
 										"type_description": {
 											"type_identifier": "t_string",
 											"type_string": "string"
-										}
+										},
+										"text": "_symbol=symbol_;"
 									}
 								]
 							}
@@ -4809,7 +4830,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 240,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_name"
 										}
 									}
 								]
@@ -4963,7 +4985,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_string$",
 								"type_string": "function(string)"
-							}
+							},
+							"text": "functionname()publicviewvirtualoverridereturns(stringmemory){return_name;}"
 						},
 						{
 							"id": 275,
@@ -5030,7 +5053,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 243,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_symbol"
 										}
 									}
 								]
@@ -5184,7 +5208,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_string$",
 								"type_string": "function(string)"
-							}
+							},
+							"text": "functionsymbol()publicviewvirtualoverridereturns(stringmemory){return_symbol;}"
 						},
 						{
 							"id": 287,
@@ -5253,7 +5278,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "18"
 										}
 									}
 								]
@@ -5407,7 +5433,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint8$",
 								"type_string": "function(uint8)"
-							}
+							},
+							"text": "functiondecimals()publicviewvirtualoverridereturns(uint8){return18;}"
 						},
 						{
 							"id": 299,
@@ -5474,7 +5501,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 237,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_totalSupply"
 										}
 									}
 								]
@@ -5628,7 +5656,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint256$",
 								"type_string": "function(uint256)"
-							}
+							},
+							"text": "functiontotalSupply()publicviewvirtualoverridereturns(uint256){return_totalSupply;}"
 						},
 						{
 							"id": 311,
@@ -5706,7 +5735,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 224,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_balances"
 											},
 											"base_expression": {
 												"id": 323,
@@ -5726,7 +5756,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 323,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											"type_descriptions": [
 												{
@@ -5896,7 +5927,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionbalanceOf(addressaccount)publicviewvirtualoverridereturns(uint256){return_balances[account];}"
 						},
 						{
 							"id": 325,
@@ -6026,7 +6058,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -6079,7 +6112,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 336,
-												"is_pure": false
+												"is_pure": false,
+												"text": "owner"
 											},
 											{
 												"id": 344,
@@ -6105,7 +6139,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "to"
 											},
 											{
 												"id": 345,
@@ -6135,7 +6170,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -6156,7 +6192,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_transfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -6195,7 +6232,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -6387,13 +6425,14 @@
 									}
 								]
 							},
-							"signature_raw": "transfer(address, uint256)",
-							"signature": "9d61d234",
+							"signature_raw": "transfer(address,uint256)",
+							"signature": "a9059cbb",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functiontransfer(addressto,uint256amount)publicvirtualoverridereturns(bool){addressowner=_msgSender();_transfer(owner,to,amount);returntrue;}"
 						},
 						{
 							"id": 349,
@@ -6482,7 +6521,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 229,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_allowances"
 												},
 												"base_expression": {
 													"id": 364,
@@ -6502,7 +6542,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 364,
-													"is_pure": false
+													"is_pure": false,
+													"text": "owner"
 												},
 												"type_descriptions": [
 													{
@@ -6537,7 +6578,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 365,
-												"is_pure": false
+												"is_pure": false,
+												"text": "spender"
 											},
 											"type_descriptions": [
 												{
@@ -6745,13 +6787,14 @@
 									}
 								]
 							},
-							"signature_raw": "allowance(address, address)",
-							"signature": "69bfed33",
+							"signature_raw": "allowance(address,address)",
+							"signature": "dd62ed3e",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$",
 								"type_string": "function(address,address)"
-							}
+							},
+							"text": "functionallowance(addressowner,addressspender)publicviewvirtualoverridereturns(uint256){return_allowances[owner][spender];}"
 						},
 						{
 							"id": 367,
@@ -6881,7 +6924,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -6934,7 +6978,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 378,
-												"is_pure": false
+												"is_pure": false,
+												"text": "owner"
 											},
 											{
 												"id": 386,
@@ -6960,7 +7005,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "spender"
 											},
 											{
 												"id": 387,
@@ -6990,7 +7036,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -7011,7 +7058,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_approve"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -7050,7 +7098,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -7242,13 +7291,14 @@
 									}
 								]
 							},
-							"signature_raw": "approve(address, uint256)",
-							"signature": "8b069f2a",
+							"signature_raw": "approve(address,uint256)",
+							"signature": "095ea7b3",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functionapprove(addressspender,uint256amount)publicvirtualoverridereturns(bool){addressowner=_msgSender();_approve(owner,spender,amount);returntrue;}"
 						},
 						{
 							"id": 391,
@@ -7378,7 +7428,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -7431,7 +7482,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 411,
-												"is_pure": false
+												"is_pure": false,
+												"text": "from"
 											},
 											{
 												"id": 412,
@@ -7457,7 +7509,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "spender"
 											},
 											{
 												"id": 413,
@@ -7487,7 +7540,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -7508,7 +7562,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_spendAllowance"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -7560,7 +7615,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 416,
-												"is_pure": false
+												"is_pure": false,
+												"text": "from"
 											},
 											{
 												"id": 417,
@@ -7586,7 +7642,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "to"
 											},
 											{
 												"id": 418,
@@ -7616,7 +7673,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -7637,7 +7695,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_transfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -7676,7 +7735,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -7912,13 +7972,14 @@
 									}
 								]
 							},
-							"signature_raw": "transferFrom(address, address, uint256)",
-							"signature": "b642fe57",
+							"signature_raw": "transferFrom(address,address,uint256)",
+							"signature": "23b872dd",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "functiontransferFrom(addressfrom,addressto,uint256amount)publicvirtualoverridereturns(bool){addressspender=_msgSender();_spendAllowance(from,spender,amount);_transfer(from,to,amount);returntrue;}"
 						},
 						{
 							"id": 422,
@@ -8048,7 +8109,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -8101,7 +8163,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 432,
-												"is_pure": false
+												"is_pure": false,
+												"text": "owner"
 											},
 											{
 												"id": 440,
@@ -8127,7 +8190,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "spender"
 											},
 											{
 												"id": 441,
@@ -8184,7 +8248,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 432,
-															"is_pure": false
+															"is_pure": false,
+															"text": "owner"
 														},
 														{
 															"id": 445,
@@ -8210,7 +8275,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "spender"
 														}
 													],
 													"expression": {
@@ -8231,7 +8297,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "allowance"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_address$_t_address$",
@@ -8256,7 +8323,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 446,
-													"is_pure": false
+													"is_pure": false,
+													"text": "addedValue"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$_t_address$",
@@ -8282,7 +8350,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_approve"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_function_$_t_address$_t_address$",
@@ -8321,7 +8390,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -8494,13 +8564,14 @@
 									}
 								]
 							},
-							"signature_raw": "increaseAllowance(address, uint256)",
-							"signature": "0553e395",
+							"signature_raw": "increaseAllowance(address,uint256)",
+							"signature": "39509351",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functionincreaseAllowance(addressspender,uint256addedValue)publicvirtualreturns(bool){addressowner=_msgSender();_approve(owner,spender,allowance(owner,spender)+addedValue);returntrue;}"
 						},
 						{
 							"id": 450,
@@ -8630,7 +8701,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -8739,7 +8811,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 460,
-													"is_pure": false
+													"is_pure": false,
+													"text": "owner"
 												},
 												{
 													"id": 471,
@@ -8765,7 +8838,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "spender"
 												}
 											],
 											"expression": {
@@ -8786,7 +8860,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "allowance"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_address$",
@@ -8849,7 +8924,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 465,
-													"is_pure": false
+													"is_pure": false,
+													"text": "currentAllowance"
 												},
 												"right_expression": {
 													"id": 476,
@@ -8869,7 +8945,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 476,
-													"is_pure": false
+													"is_pure": false,
+													"text": "subtractedValue"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -8902,7 +8979,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: decreased allowance below zero\""
 											}
 										],
 										"expression": {
@@ -8923,7 +9001,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -8962,7 +9041,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									},
 									{
@@ -9024,7 +9104,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "owner"
 													},
 													{
 														"id": 484,
@@ -9050,7 +9131,8 @@
 																"type_identifier": "t_function_$",
 																"type_string": "function()"
 															}
-														]
+														],
+														"text": "spender"
 													},
 													{
 														"id": 485,
@@ -9084,7 +9166,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 465,
-															"is_pure": false
+															"is_pure": false,
+															"text": "currentAllowance"
 														},
 														"right_expression": {
 															"id": 487,
@@ -9104,7 +9187,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 487,
-															"is_pure": false
+															"is_pure": false,
+															"text": "subtractedValue"
 														},
 														"type_description": {
 															"type_identifier": "t_uint256",
@@ -9130,7 +9214,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_approve"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$_t_address$_t_uint256$",
@@ -9309,13 +9394,14 @@
 									}
 								]
 							},
-							"signature_raw": "decreaseAllowance(address, uint256)",
-							"signature": "26444acc",
+							"signature_raw": "decreaseAllowance(address,uint256)",
+							"signature": "a457c2d7",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functiondecreaseAllowance(addressspender,uint256subtractedValue)publicvirtualreturns(bool){addressowner=_msgSender();uint256currentAllowance=allowance(owner,spender);require(currentAllowance\u003e=subtractedValue,\"ERC20: decreased allowance below zero\");unchecked{_approve(owner,spender,currentAllowance-subtractedValue);}returntrue;}"
 						},
 						{
 							"id": 489,
@@ -9407,7 +9493,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 502,
-													"is_pure": false
+													"is_pure": false,
+													"text": "from"
 												},
 												"right_expression": {
 													"id": 503,
@@ -9448,7 +9535,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -9494,7 +9582,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -9532,7 +9621,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: transfer from the zero address\""
 											}
 										],
 										"expression": {
@@ -9553,7 +9643,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -9615,7 +9706,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 511,
-													"is_pure": false
+													"is_pure": false,
+													"text": "to"
 												},
 												"right_expression": {
 													"id": 512,
@@ -9656,7 +9748,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -9702,7 +9795,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -9740,7 +9834,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: transfer to the zero address\""
 											}
 										],
 										"expression": {
@@ -9761,7 +9856,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -9813,7 +9909,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 519,
-												"is_pure": false
+												"is_pure": false,
+												"text": "from"
 											},
 											{
 												"id": 520,
@@ -9839,7 +9936,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "to"
 											},
 											{
 												"id": 521,
@@ -9869,7 +9967,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -9890,7 +9989,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_beforeTokenTransfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -9986,7 +10086,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 224,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_balances"
 											},
 											"base_expression": {
 												"id": 527,
@@ -10006,7 +10107,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 527,
-												"is_pure": false
+												"is_pure": false,
+												"text": "from"
 											},
 											"type_descriptions": [
 												{
@@ -10079,7 +10181,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 522,
-													"is_pure": false
+													"is_pure": false,
+													"text": "fromBalance"
 												},
 												"right_expression": {
 													"id": 532,
@@ -10099,7 +10202,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 532,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amount"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -10132,7 +10236,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: transfer amount exceeds balance\""
 											}
 										],
 										"expression": {
@@ -10153,7 +10258,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -10190,7 +10296,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 535,
-												"is_pure": false
+												"is_pure": false,
+												"text": "from"
 											},
 											{
 												"id": 536,
@@ -10210,7 +10317,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 536,
-												"is_pure": false
+												"is_pure": false,
+												"text": "to"
 											},
 											{
 												"id": 537,
@@ -10230,7 +10338,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 537,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -10251,7 +10360,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 58,
-											"is_pure": false
+											"is_pure": false,
+											"text": "Transfer"
 										}
 									},
 									{
@@ -10299,7 +10409,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 541,
-												"is_pure": false
+												"is_pure": false,
+												"text": "from"
 											},
 											{
 												"id": 542,
@@ -10325,7 +10436,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "to"
 											},
 											{
 												"id": 543,
@@ -10355,7 +10467,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -10376,7 +10489,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_afterTokenTransfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -10449,7 +10563,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 224,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_balances"
 														},
 														"base_expression": {
 															"id": 549,
@@ -10469,7 +10584,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 549,
-															"is_pure": false
+															"is_pure": false,
+															"text": "from"
 														},
 														"type_descriptions": [
 															{
@@ -10518,7 +10634,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 522,
-															"is_pure": false
+															"is_pure": false,
+															"text": "fromBalance"
 														},
 														"right_expression": {
 															"id": 552,
@@ -10538,7 +10655,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 552,
-															"is_pure": false
+															"is_pure": false,
+															"text": "amount"
 														},
 														"type_description": {
 															"type_identifier": "t_uint256",
@@ -10553,7 +10671,8 @@
 												"type_description": {
 													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 													"type_string": "index[mapping(address=\u003euint256):address]"
-												}
+												},
+												"text": "_balances[from]=fromBalance-amount;"
 											},
 											{
 												"id": 553,
@@ -10607,7 +10726,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 224,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_balances"
 														},
 														"base_expression": {
 															"id": 557,
@@ -10627,7 +10747,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 557,
-															"is_pure": false
+															"is_pure": false,
+															"text": "to"
 														},
 														"type_descriptions": [
 															{
@@ -10662,7 +10783,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 558,
-														"is_pure": false
+														"is_pure": false,
+														"text": "amount"
 													},
 													"type_description": {
 														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -10672,7 +10794,8 @@
 												"type_description": {
 													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 													"type_string": "index[mapping(address=\u003euint256):address]"
-												}
+												},
+												"text": "_balances[to]+=amount;"
 											}
 										]
 									}
@@ -10845,13 +10968,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_transfer(address, address, uint256)",
-							"signature": "5dbcfdbe",
+							"signature_raw": "_transfer(address,address,uint256)",
+							"signature": "30e0789e",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "function_transfer(addressfrom,addressto,uint256amount)internalvirtual{require(from!=address(0),\"ERC20: transfer from the zero address\");require(to!=address(0),\"ERC20: transfer to the zero address\");_beforeTokenTransfer(from,to,amount);uint256fromBalance=_balances[from];require(fromBalance\u003e=amount,\"ERC20: transfer amount exceeds balance\");unchecked{_balances[from]=fromBalance-amount;_balances[to]+=amount;}emitTransfer(from,to,amount);_afterTokenTransfer(from,to,amount);}"
 						},
 						{
 							"id": 560,
@@ -10943,7 +11067,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 571,
-													"is_pure": false
+													"is_pure": false,
+													"text": "account"
 												},
 												"right_expression": {
 													"id": 572,
@@ -10984,7 +11109,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -11030,7 +11156,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -11068,7 +11195,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: mint to the zero address\""
 											}
 										],
 										"expression": {
@@ -11089,7 +11217,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -11162,7 +11291,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -11208,7 +11338,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -11239,7 +11370,8 @@
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
 														"type_string": "function(int_const 0)"
 													}
-												]
+												],
+												"text": "account"
 											},
 											{
 												"id": 584,
@@ -11269,7 +11401,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -11290,7 +11423,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_beforeTokenTransfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_rational_0_by_1$_t_address$_t_uint256$",
@@ -11338,7 +11472,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 237,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_totalSupply"
 											},
 											"right_expression": {
 												"id": 588,
@@ -11358,7 +11493,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 588,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											},
 											"type_description": {
 												"type_identifier": "t_uint256",
@@ -11368,7 +11504,8 @@
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "_totalSupply+=amount;"
 									},
 									{
 										"id": 589,
@@ -11421,7 +11558,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -11467,7 +11605,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -11492,7 +11631,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 594,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											{
 												"id": 595,
@@ -11512,7 +11652,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 595,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -11533,7 +11674,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 58,
-											"is_pure": false
+											"is_pure": false,
+											"text": "Transfer"
 										}
 									},
 									{
@@ -11602,7 +11744,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -11648,7 +11791,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -11679,7 +11823,8 @@
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
 														"type_string": "function(int_const 0)"
 													}
-												]
+												],
+												"text": "account"
 											},
 											{
 												"id": 604,
@@ -11709,7 +11854,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -11730,7 +11876,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_afterTokenTransfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_rational_0_by_1$_t_address$_t_uint256$",
@@ -11803,7 +11950,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 224,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_balances"
 														},
 														"base_expression": {
 															"id": 610,
@@ -11823,7 +11971,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 610,
-															"is_pure": false
+															"is_pure": false,
+															"text": "account"
 														},
 														"type_descriptions": [
 															{
@@ -11858,7 +12007,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 611,
-														"is_pure": false
+														"is_pure": false,
+														"text": "amount"
 													},
 													"type_description": {
 														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -11868,7 +12018,8 @@
 												"type_description": {
 													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 													"type_string": "index[mapping(address=\u003euint256):address]"
-												}
+												},
+												"text": "_balances[account]+=amount;"
 											}
 										]
 									}
@@ -11997,13 +12148,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_mint(address, uint256)",
-							"signature": "7dbf8efb",
+							"signature_raw": "_mint(address,uint256)",
+							"signature": "4e6ec247",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "function_mint(addressaccount,uint256amount)internalvirtual{require(account!=address(0),\"ERC20: mint to the zero address\");_beforeTokenTransfer(address(0),account,amount);_totalSupply+=amount;unchecked{_balances[account]+=amount;}emitTransfer(address(0),account,amount);_afterTokenTransfer(address(0),account,amount);}"
 						},
 						{
 							"id": 613,
@@ -12095,7 +12247,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 624,
-													"is_pure": false
+													"is_pure": false,
+													"text": "account"
 												},
 												"right_expression": {
 													"id": 625,
@@ -12136,7 +12289,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -12182,7 +12336,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -12220,7 +12375,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: burn from the zero address\""
 											}
 										],
 										"expression": {
@@ -12241,7 +12397,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -12293,7 +12450,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 632,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											{
 												"id": 633,
@@ -12334,7 +12492,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -12380,7 +12539,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -12415,7 +12575,8 @@
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
 														"type_string": "function(int_const 0)"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -12436,7 +12597,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_beforeTokenTransfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_rational_0_by_1$_t_uint256$",
@@ -12532,7 +12694,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 224,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_balances"
 											},
 											"base_expression": {
 												"id": 643,
@@ -12552,7 +12715,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 643,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											"type_descriptions": [
 												{
@@ -12625,7 +12789,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 638,
-													"is_pure": false
+													"is_pure": false,
+													"text": "accountBalance"
 												},
 												"right_expression": {
 													"id": 648,
@@ -12645,7 +12810,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 648,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amount"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -12678,7 +12844,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: burn amount exceeds balance\""
 											}
 										],
 										"expression": {
@@ -12699,7 +12866,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -12736,7 +12904,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 651,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											{
 												"id": 652,
@@ -12777,7 +12946,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -12823,7 +12993,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -12848,7 +13019,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 656,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -12869,7 +13041,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 58,
-											"is_pure": false
+											"is_pure": false,
+											"text": "Transfer"
 										}
 									},
 									{
@@ -12917,7 +13090,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 660,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											{
 												"id": 661,
@@ -12958,7 +13132,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -13004,7 +13179,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -13039,7 +13215,8 @@
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
 														"type_string": "function(int_const 0)"
 													}
-												]
+												],
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -13060,7 +13237,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_afterTokenTransfer"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_rational_0_by_1$_t_uint256$",
@@ -13133,7 +13311,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 224,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_balances"
 														},
 														"base_expression": {
 															"id": 671,
@@ -13153,7 +13332,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 671,
-															"is_pure": false
+															"is_pure": false,
+															"text": "account"
 														},
 														"type_descriptions": [
 															{
@@ -13202,7 +13382,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 638,
-															"is_pure": false
+															"is_pure": false,
+															"text": "accountBalance"
 														},
 														"right_expression": {
 															"id": 674,
@@ -13222,7 +13403,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 674,
-															"is_pure": false
+															"is_pure": false,
+															"text": "amount"
 														},
 														"type_description": {
 															"type_identifier": "t_uint256",
@@ -13237,7 +13419,8 @@
 												"type_description": {
 													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 													"type_string": "index[mapping(address=\u003euint256):address]"
-												}
+												},
+												"text": "_balances[account]=accountBalance-amount;"
 											},
 											{
 												"id": 675,
@@ -13280,7 +13463,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 237,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_totalSupply"
 													},
 													"right_expression": {
 														"id": 678,
@@ -13300,7 +13484,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 678,
-														"is_pure": false
+														"is_pure": false,
+														"text": "amount"
 													},
 													"type_description": {
 														"type_identifier": "t_uint256",
@@ -13310,7 +13495,8 @@
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "_totalSupply-=amount;"
 											}
 										]
 									}
@@ -13439,13 +13625,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_burn(address, uint256)",
-							"signature": "dd1607d7",
+							"signature_raw": "_burn(address,uint256)",
+							"signature": "6161eb18",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "function_burn(addressaccount,uint256amount)internalvirtual{require(account!=address(0),\"ERC20: burn from the zero address\");_beforeTokenTransfer(account,address(0),amount);uint256accountBalance=_balances[account];require(accountBalance\u003e=amount,\"ERC20: burn amount exceeds balance\");unchecked{_balances[account]=accountBalance-amount;_totalSupply-=amount;}emitTransfer(account,address(0),amount);_afterTokenTransfer(account,address(0),amount);}"
 						},
 						{
 							"id": 680,
@@ -13537,7 +13724,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 693,
-													"is_pure": false
+													"is_pure": false,
+													"text": "owner"
 												},
 												"right_expression": {
 													"id": 694,
@@ -13578,7 +13766,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -13624,7 +13813,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -13662,7 +13852,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: approve from the zero address\""
 											}
 										],
 										"expression": {
@@ -13683,7 +13874,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -13745,7 +13937,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 702,
-													"is_pure": false
+													"is_pure": false,
+													"text": "spender"
 												},
 												"right_expression": {
 													"id": 703,
@@ -13786,7 +13979,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -13832,7 +14026,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -13870,7 +14065,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"ERC20: approve to the zero address\""
 											}
 										],
 										"expression": {
@@ -13891,7 +14087,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -13961,7 +14158,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 229,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_allowances"
 													},
 													"base_expression": {
 														"id": 713,
@@ -13981,7 +14179,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 713,
-														"is_pure": false
+														"is_pure": false,
+														"text": "owner"
 													},
 													"type_descriptions": [
 														{
@@ -14016,7 +14215,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 714,
-													"is_pure": false
+													"is_pure": false,
+													"text": "spender"
 												},
 												"type_descriptions": [
 													{
@@ -14051,7 +14251,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 715,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											},
 											"type_description": {
 												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
@@ -14061,7 +14262,8 @@
 										"type_description": {
 											"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
 											"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
-										}
+										},
+										"text": "_allowances[owner][spender]=amount;"
 									},
 									{
 										"id": 716,
@@ -14093,7 +14295,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 717,
-												"is_pure": false
+												"is_pure": false,
+												"text": "owner"
 											},
 											{
 												"id": 718,
@@ -14113,7 +14316,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 718,
-												"is_pure": false
+												"is_pure": false,
+												"text": "spender"
 											},
 											{
 												"id": 719,
@@ -14133,7 +14337,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 719,
-												"is_pure": false
+												"is_pure": false,
+												"text": "amount"
 											}
 										],
 										"expression": {
@@ -14154,7 +14359,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 67,
-											"is_pure": false
+											"is_pure": false,
+											"text": "Approval"
 										}
 									}
 								]
@@ -14326,13 +14532,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_approve(address, address, uint256)",
-							"signature": "76c3ae3e",
+							"signature_raw": "_approve(address,address,uint256)",
+							"signature": "104e81ff",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "function_approve(addressowner,addressspender,uint256amount)internalvirtual{require(owner!=address(0),\"ERC20: approve from the zero address\");require(spender!=address(0),\"ERC20: approve to the zero address\");_allowances[owner][spender]=amount;emitApproval(owner,spender,amount);}"
 						},
 						{
 							"id": 722,
@@ -14470,7 +14677,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 737,
-													"is_pure": false
+													"is_pure": false,
+													"text": "owner"
 												},
 												{
 													"id": 738,
@@ -14496,7 +14704,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "spender"
 												}
 											],
 											"expression": {
@@ -14517,7 +14726,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "allowance"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_address$",
@@ -14568,7 +14778,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 732,
-												"is_pure": false
+												"is_pure": false,
+												"text": "currentAllowance"
 											},
 											"right_expression": {
 												"id": 742,
@@ -14615,7 +14826,8 @@
 												"type_description": {
 													"type_identifier": "",
 													"type_string": "type"
-												}
+												},
+												"text": "type(uint256).max"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -14691,7 +14903,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 465,
-																"is_pure": false
+																"is_pure": false,
+																"text": "currentAllowance"
 															},
 															"right_expression": {
 																"id": 749,
@@ -14711,7 +14924,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 749,
-																"is_pure": false
+																"is_pure": false,
+																"text": "amount"
 															},
 															"type_description": {
 																"type_identifier": "t_bool",
@@ -14744,7 +14958,8 @@
 																	"type_identifier": "t_bool",
 																	"type_string": "bool"
 																}
-															]
+															],
+															"text": "\"ERC20: insufficient allowance\""
 														}
 													],
 													"expression": {
@@ -14765,7 +14980,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "require"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -14944,13 +15160,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_spendAllowance(address, address, uint256)",
-							"signature": "2b81cb6e",
+							"signature_raw": "_spendAllowance(address,address,uint256)",
+							"signature": "1532335e",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "function_spendAllowance(addressowner,addressspender,uint256amount)internalvirtual{uint256currentAllowance=allowance(owner,spender);if(currentAllowance!=type(uint256).max){require(currentAllowance\u003e=amount,\"ERC20: insufficient allowance\");unchecked{_approve(owner,spender,currentAllowance-amount);}}}"
 						},
 						{
 							"id": 752,
@@ -15155,13 +15372,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_beforeTokenTransfer(address, address, uint256)",
-							"signature": "03cc7b47",
+							"signature_raw": "_beforeTokenTransfer(address,address,uint256)",
+							"signature": "cad3be83",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "function_beforeTokenTransfer(addressfrom,addressto,uint256amount)internalvirtual{}"
 						},
 						{
 							"id": 763,
@@ -15366,13 +15584,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_afterTokenTransfer(address, address, uint256)",
-							"signature": "41e6856b",
+							"signature_raw": "_afterTokenTransfer(address,address,uint256)",
+							"signature": "8f811a1c",
 							"scope": 216,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "function_afterTokenTransfer(addressfrom,addressto,uint256amount)internalvirtual{}"
 						}
 					],
 					"linearized_base_contracts": [
@@ -15651,7 +15870,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "\"MyToken\""
 										},
 										{
 											"id": 794,
@@ -15673,7 +15893,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "\"MTK\""
 										}
 									],
 									"modifier_name": {
@@ -15798,14 +16019,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "msg"
 												},
 												"member_name": "sender",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "msg.sender"
 											},
 											{
 												"id": 800,
@@ -15841,7 +16064,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "1000000"
 												},
 												"right_expression": {
 													"id": 803,
@@ -15874,7 +16098,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "10"
 													},
 													"right_expression": {
 														"id": 805,
@@ -15908,7 +16133,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "decimals"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$",
@@ -15950,7 +16176,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_mint"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_rational_1000000_by_1$",

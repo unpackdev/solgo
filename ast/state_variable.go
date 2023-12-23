@@ -182,7 +182,10 @@ func (v *StateVariableDeclaration) Parse(
 	bodyCtx parser.IContractBodyElementContext,
 	ctx *parser.StateVariableDeclarationContext,
 ) {
-	v.Name = ctx.Identifier().GetText()
+	if ctx.Identifier() != nil {
+		v.Name = ctx.Identifier().GetText()
+	}
+
 	v.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
@@ -205,6 +208,7 @@ func (v *StateVariableDeclaration) Parse(
 	}
 
 	typeName := NewTypeName(v.ASTBuilder)
+
 	typeName.Parse(unit, nil, v.Id, ctx.GetType_())
 	v.TypeName = typeName
 	v.TypeDescription = typeName.TypeDescription
@@ -238,7 +242,14 @@ func (v *StateVariableDeclaration) Parse(
 func (v *StateVariableDeclaration) ParseGlobal(
 	ctx *parser.StateVariableDeclarationContext,
 ) {
-	v.Name = ctx.Identifier().GetText()
+
+	// Nil can be fallback in older parsing...
+	// @TODO SHOULD FIX THIS SHIT - UPGRADE AST SUPPORT TO v0.5+
+	// Thankfully it's only fallback...
+	if ctx.Identifier() != nil {
+		v.Name = ctx.Identifier().GetText()
+	}
+
 	v.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),
@@ -277,7 +288,10 @@ func (v *StateVariableDeclaration) ParseGlobal(
 func (v *StateVariableDeclaration) ParseGlobalConstant(
 	ctx *parser.ConstantVariableDeclarationContext,
 ) {
-	v.Name = ctx.Identifier().GetText()
+	if ctx.Identifier() != nil {
+		v.Name = ctx.Identifier().GetText()
+	}
+
 	v.Src = SrcNode{
 		Line:        int64(ctx.GetStart().GetLine()),
 		Column:      int64(ctx.GetStart().GetColumn()),

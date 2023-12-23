@@ -47,7 +47,8 @@ func TestProcessConstructor(t *testing.T) {
 	}
 
 	builder := &Builder{}
-	result := builder.processConstructor(mockConstructor)
+	result, err := builder.processConstructor(mockConstructor)
+	assert.NoError(t, err)
 
 	// Assert that the returned Method object has the expected properties
 	assert.Equal(t, "constructor", result.Type)

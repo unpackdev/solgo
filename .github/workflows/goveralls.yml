@@ -7,6 +7,8 @@ jobs:
       SOLC_SWITCH_GITHUB_TOKEN: ${{ secrets.SOLC_SWITCH_GITHUB_TOKEN }}
       FULL_NODE_TEST_URL: ${{ secrets.FULL_NODE_TEST_URL }}
       ARCHIVE_NODE_TEST_URL: ${{ secrets.ARCHIVE_NODE_TEST_URL }}
+      # Initialize SOLGO_ANVIL_PATH, will be set after installing Foundry
+      SOLGO_ANVIL_PATH: ''
     strategy:
       fail-fast: false
       matrix:
@@ -19,6 +21,13 @@ jobs:
           go-version: ${{ matrix.go }}
       - uses: actions/checkout@v3
       - run: make submodules
+
+      # Install Foundry and Anvil
+      - name: Install Foundry and Anvil
+        run: |
+          curl -L https://foundry.paradigm.xyz | bash
+          foundryup
+          echo "SOLGO_ANVIL_PATH=$(which anvil)" >> $GITHUB_ENV
 
       # Install solc-select
       - name: Install solc-select

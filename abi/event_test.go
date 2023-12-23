@@ -29,6 +29,7 @@ func TestProcessEvent(t *testing.T) {
 							TypeString:     "uint256",
 							TypeIdentifier: "t_uint256",
 						},
+						Indexed: true,
 					},
 				},
 			},
@@ -40,7 +41,8 @@ func TestProcessEvent(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			result := builder.processEvent(tc.input)
+			result, err := builder.processEvent(tc.input)
+			assert.NoError(t, err)
 			assert.Equal(t, tc.expectedType, result.Type)
 			assert.Equal(t, tc.expectedName, result.Name)
 			assert.Equal(t, tc.expectedOutputs, len(result.Outputs))

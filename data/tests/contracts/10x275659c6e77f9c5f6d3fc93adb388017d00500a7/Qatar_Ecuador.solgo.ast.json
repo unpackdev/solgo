@@ -1320,7 +1320,8 @@
 				},
 				"overloaded_declarations": [],
 				"referenced_declaration": 0,
-				"is_pure": true
+				"is_pure": true,
+				"text": "1e4"
 			}
 		},
 		{
@@ -1428,7 +1429,7 @@
 			"mutability": 1,
 			"type_name": {
 				"id": 1558,
-				"node_type": 0,
+				"node_type": 53,
 				"src": {
 					"line": 677,
 					"column": 4,
@@ -1520,7 +1521,7 @@
 			"mutability": 1,
 			"type_name": {
 				"id": 1562,
-				"node_type": 0,
+				"node_type": 53,
 				"src": {
 					"line": 678,
 					"column": 4,
@@ -1612,7 +1613,7 @@
 			"mutability": 1,
 			"type_name": {
 				"id": 1566,
-				"node_type": 0,
+				"node_type": 53,
 				"src": {
 					"line": 679,
 					"column": 4,
@@ -3003,21 +3004,24 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 110,
-														"is_pure": false
+														"is_pure": false,
+														"text": "account"
 													},
 													"member_name": "code",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_address",
 														"type_string": "address"
-													}
+													},
+													"text": "account.code"
 												},
 												"member_name": "length",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "account.code.length"
 											},
 											"right_expression": {
 												"id": 111,
@@ -3039,7 +3043,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -3180,7 +3185,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionisContract(addressaccount)internalviewreturns(bool){returnaccount.code.length\u003e0;}"
 						},
 						{
 							"id": 113,
@@ -3314,7 +3320,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "this"
 															}
 														],
 														"expression": {
@@ -3360,7 +3367,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "address"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
@@ -3372,7 +3380,8 @@
 													"type_description": {
 														"type_identifier": "t_function_$_t_address$",
 														"type_string": "function(address)"
-													}
+													},
+													"text": "address(this).balance"
 												},
 												"right_expression": {
 													"id": 129,
@@ -3392,7 +3401,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 129,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amount"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -3425,7 +3435,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"Address: insufficient balance\""
 											}
 										],
 										"expression": {
@@ -3446,7 +3457,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3550,7 +3562,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "\"\""
 												}
 											],
 											"expression": {
@@ -3606,14 +3619,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 137,
-														"is_pure": false
+														"is_pure": false,
+														"text": "recipient"
 													},
 													"member_name": "call",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_address_payable",
 														"type_string": "address"
-													}
+													},
+													"text": "recipient.call"
 												},
 												"type_description": {
 													"type_identifier": "t_address_payable",
@@ -3667,7 +3682,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 131,
-												"is_pure": false
+												"is_pure": false,
+												"text": "success"
 											},
 											{
 												"id": 142,
@@ -3695,7 +3711,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"Address: unable to send value, recipient may have reverted\""
 											}
 										],
 										"expression": {
@@ -3716,7 +3733,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3848,13 +3866,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "sendValue(addresspayable, uint256)",
-							"signature": "557790e6",
+							"signature_raw": "sendValue(addresspayable,uint256)",
+							"signature": "cd3a2a84",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address_payable$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functionsendValue(addresspayablerecipient,uint256amount)internal{require(address(this).balance\u003e=amount,\"Address: insufficient balance\");(boolsuccess,)=recipient.call{value:amount}(\"\");require(success,\"Address: unable to send value, recipient may have reverted\");}"
 						},
 						{
 							"id": 144,
@@ -3952,7 +3971,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 157,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 158,
@@ -3978,7 +3998,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												},
 												{
 													"id": 159,
@@ -4010,7 +4031,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "0"
 												},
 												{
 													"id": 160,
@@ -4046,7 +4068,8 @@
 															"type_identifier": "t_rational_0_by_1",
 															"type_string": "int_const 0"
 														}
-													]
+													],
+													"text": "\"Address: low-level call failed\""
 												}
 											],
 											"expression": {
@@ -4067,7 +4090,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "functionCallWithValue"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$_t_rational_0_by_1$_t_string_literal$",
@@ -4245,13 +4269,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionCall(address, bytes)",
-							"signature": "61c524b8",
+							"signature_raw": "functionCall(address,bytes)",
+							"signature": "a0b5ffb0",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$",
 								"type_string": "function(address,bytes)"
-							}
+							},
+							"text": "functionfunctionCall(addresstarget,bytesmemorydata)internalreturns(bytesmemory){returnfunctionCallWithValue(target,data,0,\"Address: low-level call failed\");}"
 						},
 						{
 							"id": 162,
@@ -4349,7 +4374,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 177,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 178,
@@ -4375,7 +4401,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												},
 												{
 													"id": 179,
@@ -4407,7 +4434,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "0"
 												},
 												{
 													"id": 180,
@@ -4441,7 +4469,8 @@
 															"type_identifier": "t_rational_0_by_1",
 															"type_string": "int_const 0"
 														}
-													]
+													],
+													"text": "errorMessage"
 												}
 											],
 											"expression": {
@@ -4462,7 +4491,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "functionCallWithValue"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$_t_rational_0_by_1$_t_string$",
@@ -4683,13 +4713,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionCall(address, bytes, string)",
-							"signature": "5f581aaa",
+							"signature_raw": "functionCall(address,bytes,string)",
+							"signature": "241b5886",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$_t_string$",
 								"type_string": "function(address,bytes,string)"
-							}
+							},
+							"text": "functionfunctionCall(addresstarget,bytesmemorydata,stringmemoryerrorMessage)internalreturns(bytesmemory){returnfunctionCallWithValue(target,data,0,errorMessage);}"
 						},
 						{
 							"id": 182,
@@ -4787,7 +4818,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 197,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 198,
@@ -4813,7 +4845,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												},
 												{
 													"id": 199,
@@ -4843,7 +4876,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "value"
 												},
 												{
 													"id": 200,
@@ -4879,7 +4913,8 @@
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
 														}
-													]
+													],
+													"text": "\"Address: low-level call with value failed\""
 												}
 											],
 											"expression": {
@@ -4900,7 +4935,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "functionCallWithValue"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$_t_uint256$_t_string_literal$",
@@ -5121,13 +5157,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionCallWithValue(address, bytes, uint256)",
-							"signature": "9a466078",
+							"signature_raw": "functionCallWithValue(address,bytes,uint256)",
+							"signature": "2a011594",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$_t_uint256$",
 								"type_string": "function(address,bytes,uint256)"
-							}
+							},
+							"text": "functionfunctionCallWithValue(addresstarget,bytesmemorydata,uint256value)internalreturns(bytesmemory){returnfunctionCallWithValue(target,data,value,\"Address: low-level call with value failed\");}"
 						},
 						{
 							"id": 202,
@@ -5261,7 +5298,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "this"
 															}
 														],
 														"expression": {
@@ -5307,7 +5345,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "address"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
@@ -5319,7 +5358,8 @@
 													"type_description": {
 														"type_identifier": "t_function_$_t_address$",
 														"type_string": "function(address)"
-													}
+													},
+													"text": "address(this).balance"
 												},
 												"right_expression": {
 													"id": 224,
@@ -5339,7 +5379,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 224,
-													"is_pure": false
+													"is_pure": false,
+													"text": "value"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -5372,7 +5413,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"Address: insufficient balance for call\""
 											}
 										],
 										"expression": {
@@ -5393,7 +5435,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -5542,7 +5585,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 235,
-													"is_pure": false
+													"is_pure": false,
+													"text": "data"
 												}
 											],
 											"expression": {
@@ -5598,14 +5642,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 234,
-														"is_pure": false
+														"is_pure": false,
+														"text": "target"
 													},
 													"member_name": "call",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_address",
 														"type_string": "address"
-													}
+													},
+													"text": "target.call"
 												},
 												"type_description": {
 													"type_identifier": "t_address",
@@ -5679,7 +5725,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 239,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 240,
@@ -5705,7 +5752,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "success"
 												},
 												{
 													"id": 241,
@@ -5735,7 +5783,8 @@
 															"type_identifier": "t_bool",
 															"type_string": "bool"
 														}
-													]
+													],
+													"text": "returndata"
 												},
 												{
 													"id": 242,
@@ -5769,7 +5818,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "errorMessage"
 												}
 											],
 											"expression": {
@@ -5790,7 +5840,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "verifyCallResultFromTarget"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bool$_t_bytes$_t_string$",
@@ -6054,13 +6105,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionCallWithValue(address, bytes, uint256, string)",
-							"signature": "7a931a92",
+							"signature_raw": "functionCallWithValue(address,bytes,uint256,string)",
+							"signature": "d525ab8a",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$_t_uint256$_t_string$",
 								"type_string": "function(address,bytes,uint256,string)"
-							}
+							},
+							"text": "functionfunctionCallWithValue(addresstarget,bytesmemorydata,uint256value,stringmemoryerrorMessage)internalreturns(bytesmemory){require(address(this).balance\u003e=value,\"Address: insufficient balance for call\");(boolsuccess,bytesmemoryreturndata)=target.call{value:value}(data);returnverifyCallResultFromTarget(target,success,returndata,errorMessage);}"
 						},
 						{
 							"id": 244,
@@ -6154,7 +6206,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 257,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 258,
@@ -6180,7 +6233,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												},
 												{
 													"id": 259,
@@ -6212,7 +6266,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "\"Address: low-level static call failed\""
 												}
 											],
 											"expression": {
@@ -6233,7 +6288,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "functionStaticCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$_t_string_literal$",
@@ -6411,13 +6467,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionStaticCall(address, bytes)",
-							"signature": "35b5002e",
+							"signature_raw": "functionStaticCall(address,bytes)",
+							"signature": "c21d36f3",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$",
 								"type_string": "function(address,bytes)"
-							}
+							},
+							"text": "functionfunctionStaticCall(addresstarget,bytesmemorydata)internalviewreturns(bytesmemory){returnfunctionStaticCall(target,data,\"Address: low-level static call failed\");}"
 						},
 						{
 							"id": 261,
@@ -6596,7 +6653,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 281,
-													"is_pure": false
+													"is_pure": false,
+													"text": "data"
 												}
 											],
 											"expression": {
@@ -6640,14 +6698,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 280,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												"member_name": "staticcall",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "target.staticcall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_bytes$",
@@ -6716,7 +6776,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 285,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 286,
@@ -6742,7 +6803,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "success"
 												},
 												{
 													"id": 287,
@@ -6772,7 +6834,8 @@
 															"type_identifier": "t_bool",
 															"type_string": "bool"
 														}
-													]
+													],
+													"text": "returndata"
 												},
 												{
 													"id": 288,
@@ -6806,7 +6869,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "errorMessage"
 												}
 											],
 											"expression": {
@@ -6827,7 +6891,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "verifyCallResultFromTarget"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bool$_t_bytes$_t_string$",
@@ -7048,13 +7113,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionStaticCall(address, bytes, string)",
-							"signature": "47374319",
+							"signature_raw": "functionStaticCall(address,bytes,string)",
+							"signature": "dbc40fb9",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$_t_string$",
 								"type_string": "function(address,bytes,string)"
-							}
+							},
+							"text": "functionfunctionStaticCall(addresstarget,bytesmemorydata,stringmemoryerrorMessage)internalviewreturns(bytesmemory){(boolsuccess,bytesmemoryreturndata)=target.staticcall(data);returnverifyCallResultFromTarget(target,success,returndata,errorMessage);}"
 						},
 						{
 							"id": 290,
@@ -7148,7 +7214,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 303,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 304,
@@ -7174,7 +7241,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												},
 												{
 													"id": 305,
@@ -7206,7 +7274,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "\"Address: low-level delegate call failed\""
 												}
 											],
 											"expression": {
@@ -7227,7 +7296,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "functionDelegateCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$_t_string_literal$",
@@ -7405,13 +7475,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionDelegateCall(address, bytes)",
-							"signature": "ce0c9802",
+							"signature_raw": "functionDelegateCall(address,bytes)",
+							"signature": "ee33b7e2",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$",
 								"type_string": "function(address,bytes)"
-							}
+							},
+							"text": "functionfunctionDelegateCall(addresstarget,bytesmemorydata)internalreturns(bytesmemory){returnfunctionDelegateCall(target,data,\"Address: low-level delegate call failed\");}"
 						},
 						{
 							"id": 307,
@@ -7590,7 +7661,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 327,
-													"is_pure": false
+													"is_pure": false,
+													"text": "data"
 												}
 											],
 											"expression": {
@@ -7634,14 +7706,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 326,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												"member_name": "delegatecall",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "target.delegatecall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_bytes$",
@@ -7710,7 +7784,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 331,
-													"is_pure": false
+													"is_pure": false,
+													"text": "target"
 												},
 												{
 													"id": 332,
@@ -7736,7 +7811,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "success"
 												},
 												{
 													"id": 333,
@@ -7766,7 +7842,8 @@
 															"type_identifier": "t_bool",
 															"type_string": "bool"
 														}
-													]
+													],
+													"text": "returndata"
 												},
 												{
 													"id": 334,
@@ -7800,7 +7877,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "errorMessage"
 												}
 											],
 											"expression": {
@@ -7821,7 +7899,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "verifyCallResultFromTarget"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bool$_t_bytes$_t_string$",
@@ -8042,13 +8121,14 @@
 									}
 								]
 							},
-							"signature_raw": "functionDelegateCall(address, bytes, string)",
-							"signature": "a6f0db75",
+							"signature_raw": "functionDelegateCall(address,bytes,string)",
+							"signature": "57387df0",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bytes$_t_string$",
 								"type_string": "function(address,bytes,string)"
-							}
+							},
+							"text": "functionfunctionDelegateCall(addresstarget,bytesmemorydata,stringmemoryerrorMessage)internalreturns(bytesmemory){(boolsuccess,bytesmemoryreturndata)=target.delegatecall(data);returnverifyCallResultFromTarget(target,success,returndata,errorMessage);}"
 						},
 						{
 							"id": 336,
@@ -8114,7 +8194,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 351,
-											"is_pure": false
+											"is_pure": false,
+											"text": "success"
 										},
 										"body": {
 											"id": 352,
@@ -8196,14 +8277,16 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 356,
-																"is_pure": false
+																"is_pure": false,
+																"text": "returndata"
 															},
 															"member_name": "length",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_bytes",
 																"type_string": "bytes"
-															}
+															},
+															"text": "returndata.length"
 														},
 														"right_expression": {
 															"id": 357,
@@ -8225,7 +8308,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														},
 														"type_description": {
 															"type_identifier": "t_bool",
@@ -8306,7 +8390,8 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 363,
-																				"is_pure": false
+																				"is_pure": false,
+																				"text": "target"
 																			}
 																		],
 																		"expression": {
@@ -8327,7 +8412,8 @@
 																			},
 																			"overloaded_declarations": [],
 																			"referenced_declaration": 0,
-																			"is_pure": false
+																			"is_pure": false,
+																			"text": "isContract"
 																		},
 																		"type_description": {
 																			"type_identifier": "t_function_$_t_address$",
@@ -8360,7 +8446,8 @@
 																				"type_identifier": "t_function_$_t_address$",
 																				"type_string": "function(address)"
 																			}
-																		]
+																		],
+																		"text": "\"Address: call to non-contract\""
 																	}
 																],
 																"expression": {
@@ -8381,7 +8468,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": true
+																	"is_pure": true,
+																	"text": "require"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -8421,7 +8509,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 366,
-														"is_pure": false
+														"is_pure": false,
+														"text": "returndata"
 													}
 												}
 											]
@@ -8683,13 +8772,14 @@
 									}
 								]
 							},
-							"signature_raw": "verifyCallResultFromTarget(address, bool, bytes, string)",
-							"signature": "ac377f6d",
+							"signature_raw": "verifyCallResultFromTarget(address,bool,bytes,string)",
+							"signature": "1daa78c1",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_bool$_t_bytes$_t_string$",
 								"type_string": "function(address,bool,bytes,string)"
-							}
+							},
+							"text": "functionverifyCallResultFromTarget(addresstarget,boolsuccess,bytesmemoryreturndata,stringmemoryerrorMessage)internalviewreturns(bytesmemory){if(success){if(returndata.length==0){require(isContract(target),\"Address: call to non-contract\");}returnreturndata;}else{_revert(returndata,errorMessage);}}"
 						},
 						{
 							"id": 368,
@@ -8755,7 +8845,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 381,
-											"is_pure": false
+											"is_pure": false,
+											"text": "success"
 										},
 										"body": {
 											"id": 382,
@@ -8801,7 +8892,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 384,
-														"is_pure": false
+														"is_pure": false,
+														"text": "returndata"
 													}
 												}
 											]
@@ -9019,13 +9111,14 @@
 									}
 								]
 							},
-							"signature_raw": "verifyCallResult(bool, bytes, string)",
-							"signature": "15a412bd",
+							"signature_raw": "verifyCallResult(bool,bytes,string)",
+							"signature": "946b5793",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_bool$_t_bytes$_t_string$",
 								"type_string": "function(bool,bytes,string)"
-							}
+							},
+							"text": "functionverifyCallResult(boolsuccess,bytesmemoryreturndata,stringmemoryerrorMessage)internalpurereturns(bytesmemory){if(success){returnreturndata;}else{_revert(returndata,errorMessage);}}"
 						},
 						{
 							"id": 386,
@@ -9128,14 +9221,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 397,
-													"is_pure": false
+													"is_pure": false,
+													"text": "returndata"
 												},
 												"member_name": "length",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
-												}
+												},
+												"text": "returndata.length"
 											},
 											"right_expression": {
 												"id": 398,
@@ -9157,7 +9252,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -9711,13 +9807,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_revert(bytes, string)",
-							"signature": "26a4ef1a",
+							"signature_raw": "_revert(bytes,string)",
+							"signature": "6cadf5e1",
 							"scope": 96,
 							"type_description": {
 								"type_identifier": "t_function_$_t_bytes$_t_string$",
 								"type_string": "function(bytes,string)"
-							}
+							},
+							"text": "function_revert(bytesmemoryreturndata,stringmemoryerrorMessage)privatepure{if(returndata.length\u003e0){assembly{letreturndata_size:=mload(returndata)revert(add(32,returndata),returndata_size)}}else{revert(errorMessage);}}"
 						}
 					],
 					"linearized_base_contracts": [
@@ -10174,13 +10271,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "permit(address, address, uint256, uint256, uint8, bytes32, bytes32)",
-							"signature": "f8e100d5",
+							"signature_raw": "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)",
+							"signature": "d505accf",
 							"scope": 419,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$_t_uint256$_t_uint8$_t_bytes32$_t_bytes32$",
 								"type_string": "function(address,address,uint256,uint256,uint8,bytes32,bytes32)"
-							}
+							},
+							"text": "functionpermit(addressowner,addressspender,uint256value,uint256deadline,uint8v,bytes32r,bytes32s)external;"
 						},
 						{
 							"id": 440,
@@ -10349,7 +10447,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionnonces(addressowner)externalviewreturns(uint256);"
 						},
 						{
 							"id": 449,
@@ -10517,7 +10616,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_bytes32$",
 								"type_string": "function(bytes32)"
-							}
+							},
+							"text": "functionDOMAIN_SEPARATOR()externalviewreturns(bytes32);"
 						}
 					],
 					"linearized_base_contracts": [
@@ -11099,7 +11199,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint256$",
 								"type_string": "function(uint256)"
-							}
+							},
+							"text": "functiontotalSupply()externalviewreturns(uint256);"
 						},
 						{
 							"id": 490,
@@ -11268,7 +11369,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionbalanceOf(addressaccount)externalviewreturns(uint256);"
 						},
 						{
 							"id": 499,
@@ -11474,13 +11576,14 @@
 									}
 								]
 							},
-							"signature_raw": "transfer(address, uint256)",
-							"signature": "9d61d234",
+							"signature_raw": "transfer(address,uint256)",
+							"signature": "a9059cbb",
 							"scope": 461,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functiontransfer(addressto,uint256amount)externalreturns(bool);"
 						},
 						{
 							"id": 510,
@@ -11687,13 +11790,14 @@
 									}
 								]
 							},
-							"signature_raw": "allowance(address, address)",
-							"signature": "69bfed33",
+							"signature_raw": "allowance(address,address)",
+							"signature": "dd62ed3e",
 							"scope": 461,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$",
 								"type_string": "function(address,address)"
-							}
+							},
+							"text": "functionallowance(addressowner,addressspender)externalviewreturns(uint256);"
 						},
 						{
 							"id": 521,
@@ -11899,13 +12003,14 @@
 									}
 								]
 							},
-							"signature_raw": "approve(address, uint256)",
-							"signature": "8b069f2a",
+							"signature_raw": "approve(address,uint256)",
+							"signature": "095ea7b3",
 							"scope": 461,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_uint256$",
 								"type_string": "function(address,uint256)"
-							}
+							},
+							"text": "functionapprove(addressspender,uint256amount)externalreturns(bool);"
 						},
 						{
 							"id": 532,
@@ -12155,13 +12260,14 @@
 									}
 								]
 							},
-							"signature_raw": "transferFrom(address, address, uint256)",
-							"signature": "b642fe57",
+							"signature_raw": "transferFrom(address,address,uint256)",
+							"signature": "23b872dd",
 							"scope": 461,
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(address,address,uint256)"
-							}
+							},
+							"text": "functiontransferFrom(addressfrom,addressto,uint256amount)externalreturns(bool);"
 						}
 					],
 					"linearized_base_contracts": [
@@ -12368,7 +12474,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 568,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token"
 											},
 											{
 												"id": 569,
@@ -12461,21 +12568,24 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 574,
-																"is_pure": false
+																"is_pure": false,
+																"text": "token"
 															},
 															"member_name": "transfer",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
-															}
+															},
+															"text": "token.transfer"
 														},
 														"member_name": "selector",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "token.transfer.selector"
 													},
 													{
 														"id": 575,
@@ -12501,7 +12611,8 @@
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
 															}
-														]
+														],
+														"text": "to"
 													},
 													{
 														"id": 576,
@@ -12531,7 +12642,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "value"
 													}
 												],
 												"expression": {
@@ -12575,14 +12687,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encodeWithSelector",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encodeWithSelector"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -12608,7 +12722,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_callOptionalReturn"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_address$_t_uint256$",
@@ -12804,13 +12919,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "safeTransfer(, address, uint256)",
-							"signature": "8d2f8c29",
+							"signature_raw": "safeTransfer(,address,uint256)",
+							"signature": "d6e935fe",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20_$457$_t_address$_t_uint256$",
 								"type_string": "function(contract IERC20,address,uint256)"
-							}
+							},
+							"text": "functionsafeTransfer(IERC20token,addressto,uint256value)internal{_callOptionalReturn(token,abi.encodeWithSelector(token.transfer.selector,to,value));}"
 						},
 						{
 							"id": 578,
@@ -12888,7 +13004,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 593,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token"
 											},
 											{
 												"id": 594,
@@ -12985,21 +13102,24 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 599,
-																"is_pure": false
+																"is_pure": false,
+																"text": "token"
 															},
 															"member_name": "transferFrom",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
-															}
+															},
+															"text": "token.transferFrom"
 														},
 														"member_name": "selector",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "token.transferFrom.selector"
 													},
 													{
 														"id": 600,
@@ -13025,7 +13145,8 @@
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
 															}
-														]
+														],
+														"text": "from"
 													},
 													{
 														"id": 601,
@@ -13055,7 +13176,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "to"
 													},
 													{
 														"id": 602,
@@ -13089,7 +13211,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "value"
 													}
 												],
 												"expression": {
@@ -13133,14 +13256,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encodeWithSelector",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encodeWithSelector"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$_t_address$_t_address$_t_uint256$",
@@ -13166,7 +13291,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_callOptionalReturn"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_address$_t_address$_t_uint256$",
@@ -13406,13 +13532,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "safeTransferFrom(, address, address, uint256)",
-							"signature": "d9098537",
+							"signature_raw": "safeTransferFrom(,address,address,uint256)",
+							"signature": "d0e2343c",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20_$457$_t_address$_t_address$_t_uint256$",
 								"type_string": "function(contract IERC20,address,address,uint256)"
-							}
+							},
+							"text": "functionsafeTransferFrom(IERC20token,addressfrom,addressto,uint256value)internal{_callOptionalReturn(token,abi.encodeWithSelector(token.transferFrom.selector,from,to,value));}"
 						},
 						{
 							"id": 604,
@@ -13532,7 +13659,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 620,
-																"is_pure": false
+																"is_pure": false,
+																"text": "value"
 															},
 															"right_expression": {
 																"id": 621,
@@ -13554,7 +13682,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "0"
 															},
 															"type_description": {
 																"type_identifier": "t_bool",
@@ -13655,7 +13784,8 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 0,
-																				"is_pure": false
+																				"is_pure": false,
+																				"text": "this"
 																			}
 																		],
 																		"expression": {
@@ -13701,7 +13831,8 @@
 																					"type_identifier": "t_address",
 																					"type_string": "address"
 																				}
-																			]
+																			],
+																			"text": "address"
 																		},
 																		"type_description": {
 																			"type_identifier": "t_function_$_t_address$",
@@ -13732,7 +13863,8 @@
 																				"type_identifier": "t_function_$_t_address$",
 																				"type_string": "function(address)"
 																			}
-																		]
+																		],
+																		"text": "spender"
 																	}
 																],
 																"expression": {
@@ -13776,14 +13908,16 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 626,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "token"
 																	},
 																	"member_name": "allowance",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_contract$_IERC20_$457",
 																		"type_string": "contract IERC20"
-																	}
+																	},
+																	"text": "token.allowance"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_function_$_t_address$_t_address$",
@@ -13810,7 +13944,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "0"
 															},
 															"type_description": {
 																"type_identifier": "t_bool",
@@ -13854,7 +13989,8 @@
 														"type_identifier": "t_tuple_$_t_bool$",
 														"type_string": "tuple(bool)"
 													}
-												]
+												],
+												"text": "\"SafeERC20: approve from non-zero to non-zero allowance\""
 											}
 										],
 										"expression": {
@@ -13875,7 +14011,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_tuple_$_t_bool$_t_string_literal$",
@@ -13923,7 +14060,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 636,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token"
 											},
 											{
 												"id": 637,
@@ -14016,21 +14154,24 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 642,
-																"is_pure": false
+																"is_pure": false,
+																"text": "token"
 															},
 															"member_name": "approve",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
-															}
+															},
+															"text": "token.approve"
 														},
 														"member_name": "selector",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "token.approve.selector"
 													},
 													{
 														"id": 643,
@@ -14056,7 +14197,8 @@
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
 															}
-														]
+														],
+														"text": "spender"
 													},
 													{
 														"id": 644,
@@ -14086,7 +14228,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "value"
 													}
 												],
 												"expression": {
@@ -14130,14 +14273,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encodeWithSelector",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encodeWithSelector"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -14163,7 +14308,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_callOptionalReturn"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_address$_t_uint256$",
@@ -14359,13 +14505,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "safeApprove(, address, uint256)",
-							"signature": "11e8fd6d",
+							"signature_raw": "safeApprove(,address,uint256)",
+							"signature": "75a98b8a",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20_$457$_t_address$_t_uint256$",
 								"type_string": "function(contract IERC20,address,uint256)"
-							}
+							},
+							"text": "functionsafeApprove(IERC20token,addressspender,uint256value)internal{require((value==0)||(token.allowance(address(this),spender)==0),\"SafeERC20: approve from non-zero to non-zero allowance\");_callOptionalReturn(token,abi.encodeWithSelector(token.approve.selector,spender,value));}"
 						},
 						{
 							"id": 646,
@@ -14536,7 +14683,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "this"
 															}
 														],
 														"expression": {
@@ -14582,7 +14730,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "address"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
@@ -14613,7 +14762,8 @@
 																"type_identifier": "t_function_$_t_address$",
 																"type_string": "function(address)"
 															}
-														]
+														],
+														"text": "spender"
 													}
 												],
 												"expression": {
@@ -14657,14 +14807,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 663,
-														"is_pure": false
+														"is_pure": false,
+														"text": "token"
 													},
 													"member_name": "allowance",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_contract$_IERC20_$457",
 														"type_string": "contract IERC20"
-													}
+													},
+													"text": "token.allowance"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$_t_address$_t_address$",
@@ -14689,7 +14841,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 669,
-												"is_pure": false
+												"is_pure": false,
+												"text": "value"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_address$_t_address$",
@@ -14738,7 +14891,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 672,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token"
 											},
 											{
 												"id": 673,
@@ -14831,21 +14985,24 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 678,
-																"is_pure": false
+																"is_pure": false,
+																"text": "token"
 															},
 															"member_name": "approve",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
-															}
+															},
+															"text": "token.approve"
 														},
 														"member_name": "selector",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "token.approve.selector"
 													},
 													{
 														"id": 679,
@@ -14871,7 +15028,8 @@
 																"type_identifier": "t_contract$_IERC20_$457",
 																"type_string": "contract IERC20"
 															}
-														]
+														],
+														"text": "spender"
 													},
 													{
 														"id": 680,
@@ -14901,7 +15059,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "newAllowance"
 													}
 												],
 												"expression": {
@@ -14945,14 +15104,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encodeWithSelector",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encodeWithSelector"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -14978,7 +15139,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_callOptionalReturn"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_address$_t_uint256$",
@@ -15174,13 +15336,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "safeIncreaseAllowance(, address, uint256)",
-							"signature": "d5ee8724",
+							"signature_raw": "safeIncreaseAllowance(,address,uint256)",
+							"signature": "8d3df938",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20_$457$_t_address$_t_uint256$",
 								"type_string": "function(contract IERC20,address,uint256)"
-							}
+							},
+							"text": "functionsafeIncreaseAllowance(IERC20token,addressspender,uint256value)internal{uint256newAllowance=token.allowance(address(this),spender)+value;_callOptionalReturn(token,abi.encodeWithSelector(token.approve.selector,spender,newAllowance));}"
 						},
 						{
 							"id": 682,
@@ -15351,7 +15514,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "this"
 																}
 															],
 															"expression": {
@@ -15397,7 +15561,8 @@
 																		"type_identifier": "t_address",
 																		"type_string": "address"
 																	}
-																]
+																],
+																"text": "address"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_address$",
@@ -15428,7 +15593,8 @@
 																	"type_identifier": "t_function_$_t_address$",
 																	"type_string": "function(address)"
 																}
-															]
+															],
+															"text": "spender"
 														}
 													],
 													"expression": {
@@ -15472,14 +15638,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 699,
-															"is_pure": false
+															"is_pure": false,
+															"text": "token"
 														},
 														"member_name": "allowance",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "token.allowance"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_address$_t_address$",
@@ -15542,7 +15710,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 694,
-															"is_pure": false
+															"is_pure": false,
+															"text": "oldAllowance"
 														},
 														"right_expression": {
 															"id": 709,
@@ -15562,7 +15731,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 709,
-															"is_pure": false
+															"is_pure": false,
+															"text": "value"
 														},
 														"type_description": {
 															"type_identifier": "t_bool",
@@ -15595,7 +15765,8 @@
 																"type_identifier": "t_bool",
 																"type_string": "bool"
 															}
-														]
+														],
+														"text": "\"SafeERC20: decreased allowance below zero\""
 													}
 												],
 												"expression": {
@@ -15616,7 +15787,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "require"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -15715,7 +15887,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 694,
-														"is_pure": false
+														"is_pure": false,
+														"text": "oldAllowance"
 													},
 													"right_expression": {
 														"id": 716,
@@ -15735,7 +15908,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 716,
-														"is_pure": false
+														"is_pure": false,
+														"text": "value"
 													},
 													"type_description": {
 														"type_identifier": "t_uint256",
@@ -15784,7 +15958,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 719,
-														"is_pure": false
+														"is_pure": false,
+														"text": "token"
 													},
 													{
 														"id": 720,
@@ -15877,21 +16052,24 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 725,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "token"
 																	},
 																	"member_name": "approve",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_contract$_IERC20_$457",
 																		"type_string": "contract IERC20"
-																	}
+																	},
+																	"text": "token.approve"
 																},
 																"member_name": "selector",
 																"argument_types": [],
 																"type_description": {
 																	"type_identifier": "t_contract$_IERC20_$457",
 																	"type_string": "contract IERC20"
-																}
+																},
+																"text": "token.approve.selector"
 															},
 															{
 																"id": 726,
@@ -15917,7 +16095,8 @@
 																		"type_identifier": "t_contract$_IERC20_$457",
 																		"type_string": "contract IERC20"
 																	}
-																]
+																],
+																"text": "spender"
 															},
 															{
 																"id": 727,
@@ -15947,7 +16126,8 @@
 																		"type_identifier": "t_address",
 																		"type_string": "address"
 																	}
-																]
+																],
+																"text": "newAllowance"
 															}
 														],
 														"expression": {
@@ -15991,14 +16171,16 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "abi"
 															},
 															"member_name": "encodeWithSelector",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_magic_abi",
 																"type_string": "abi"
-															}
+															},
+															"text": "abi.encodeWithSelector"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
@@ -16024,7 +16206,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_callOptionalReturn"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_address$_t_uint256$",
@@ -16222,13 +16405,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "safeDecreaseAllowance(, address, uint256)",
-							"signature": "dd6a69b1",
+							"signature_raw": "safeDecreaseAllowance(,address,uint256)",
+							"signature": "d9cb6425",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20_$457$_t_address$_t_uint256$",
 								"type_string": "function(contract IERC20,address,uint256)"
-							}
+							},
+							"text": "functionsafeDecreaseAllowance(IERC20token,addressspender,uint256value)internal{unchecked{uint256oldAllowance=token.allowance(address(this),spender);require(oldAllowance\u003e=value,\"SafeERC20: decreased allowance below zero\");uint256newAllowance=oldAllowance-value;_callOptionalReturn(token,abi.encodeWithSelector(token.approve.selector,spender,newAllowance));}}"
 						},
 						{
 							"id": 729,
@@ -16362,7 +16546,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 756,
-													"is_pure": false
+													"is_pure": false,
+													"text": "owner"
 												}
 											],
 											"expression": {
@@ -16406,14 +16591,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 755,
-													"is_pure": false
+													"is_pure": false,
+													"text": "token"
 												},
 												"member_name": "nonces",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_IERC20Permit_$416",
 													"type_string": "contract IERC20Permit"
-												}
+												},
+												"text": "token.nonces"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -16482,7 +16669,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 760,
-												"is_pure": false
+												"is_pure": false,
+												"text": "owner"
 											},
 											{
 												"id": 761,
@@ -16508,7 +16696,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "spender"
 											},
 											{
 												"id": 762,
@@ -16538,7 +16727,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "value"
 											},
 											{
 												"id": 763,
@@ -16572,7 +16762,8 @@
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
 													}
-												]
+												],
+												"text": "deadline"
 											},
 											{
 												"id": 764,
@@ -16610,7 +16801,8 @@
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
 													}
-												]
+												],
+												"text": "v"
 											},
 											{
 												"id": 765,
@@ -16652,7 +16844,8 @@
 														"type_identifier": "t_uint8",
 														"type_string": "uint8"
 													}
-												]
+												],
+												"text": "r"
 											},
 											{
 												"id": 766,
@@ -16698,7 +16891,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "s"
 											}
 										],
 										"expression": {
@@ -16742,14 +16936,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 759,
-												"is_pure": false
+												"is_pure": false,
+												"text": "token"
 											},
 											"member_name": "permit",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IERC20Permit_$416",
 												"type_string": "contract IERC20Permit"
-											}
+											},
+											"text": "token.permit"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$_t_uint256$_t_uint8$_t_bytes32$_t_bytes32$",
@@ -16853,7 +17049,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 773,
-													"is_pure": false
+													"is_pure": false,
+													"text": "owner"
 												}
 											],
 											"expression": {
@@ -16897,14 +17094,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 772,
-													"is_pure": false
+													"is_pure": false,
+													"text": "token"
 												},
 												"member_name": "nonces",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_IERC20Permit_$416",
 													"type_string": "contract IERC20Permit"
-												}
+												},
+												"text": "token.nonces"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -16967,7 +17166,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 767,
-													"is_pure": false
+													"is_pure": false,
+													"text": "nonceAfter"
 												},
 												"right_expression": {
 													"id": 778,
@@ -17001,7 +17201,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 750,
-														"is_pure": false
+														"is_pure": false,
+														"text": "nonceBefore"
 													},
 													"right_expression": {
 														"id": 780,
@@ -17023,7 +17224,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "1"
 													},
 													"type_description": {
 														"type_identifier": "t_uint256",
@@ -17061,7 +17263,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"SafeERC20: permit did not succeed\""
 											}
 										],
 										"expression": {
@@ -17082,7 +17285,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -17494,13 +17698,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "safePermit(, address, address, uint256, uint256, uint8, bytes32, bytes32)",
-							"signature": "f8fe8854",
+							"signature_raw": "safePermit(,address,address,uint256,uint256,uint8,bytes32,bytes32)",
+							"signature": "1f73058e",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20Permit_$416$_t_address$_t_address$_t_uint256$_t_uint256$_t_uint8$_t_bytes32$_t_bytes32$",
 								"type_string": "function(contract IERC20Permit,address,address,uint256,uint256,uint8,bytes32,bytes32)"
-							}
+							},
+							"text": "functionsafePermit(IERC20Permittoken,addressowner,addressspender,uint256value,uint256deadline,uint8v,bytes32r,bytes32s)internal{uint256nonceBefore=token.nonces(owner);token.permit(owner,spender,value,deadline,v,r,s);uint256nonceAfter=token.nonces(owner);require(nonceAfter==nonceBefore+1,\"SafeERC20: permit did not succeed\");}"
 						},
 						{
 							"id": 783,
@@ -17638,7 +17843,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 801,
-													"is_pure": false
+													"is_pure": false,
+													"text": "data"
 												},
 												{
 													"id": 802,
@@ -17666,7 +17872,8 @@
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														}
-													]
+													],
+													"text": "\"SafeERC20: low-level call failed\""
 												}
 											],
 											"expression": {
@@ -17729,7 +17936,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 800,
-															"is_pure": false
+															"is_pure": false,
+															"text": "token"
 														}
 													],
 													"expression": {
@@ -17775,7 +17983,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_address$",
@@ -17787,7 +17996,8 @@
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
 													"type_string": "function(address)"
-												}
+												},
+												"text": "address(token).functionCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_bytes$_t_string_literal$",
@@ -17861,14 +18071,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 792,
-													"is_pure": false
+													"is_pure": false,
+													"text": "returndata"
 												},
 												"member_name": "length",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
-												}
+												},
+												"text": "returndata.length"
 											},
 											"right_expression": {
 												"id": 807,
@@ -17890,7 +18102,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -17975,7 +18188,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "returndata"
 																},
 																{
 																	"id": 815,
@@ -18027,7 +18241,8 @@
 																			},
 																			"overloaded_declarations": [],
 																			"referenced_declaration": 0,
-																			"is_pure": false
+																			"is_pure": false,
+																			"text": "bool"
 																		}
 																	],
 																	"type_description": {
@@ -18077,14 +18292,16 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "abi"
 																},
 																"member_name": "decode",
 																"argument_types": [],
 																"type_description": {
 																	"type_identifier": "t_magic_abi",
 																	"type_string": "abi"
-																}
+																},
+																"text": "abi.decode"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_function_$_t_tuple_$_t_bool$",
@@ -18117,7 +18334,8 @@
 																	"type_identifier": "t_function_$_t_function_$_t_tuple_$_t_bool$",
 																	"type_string": "function(function(),tuple(bool))"
 																}
-															]
+															],
+															"text": "\"SafeERC20: ERC20 operation did not succeed\""
 														}
 													],
 													"expression": {
@@ -18138,7 +18356,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "require"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_function_$_t_tuple_$_t_bool$_t_string_literal$",
@@ -18293,13 +18512,14 @@
 								"parameters": [],
 								"parameter_types": []
 							},
-							"signature_raw": "_callOptionalReturn(, bytes)",
-							"signature": "50effced",
+							"signature_raw": "_callOptionalReturn(,bytes)",
+							"signature": "8a35aadd",
 							"scope": 549,
 							"type_description": {
 								"type_identifier": "t_function_$_t_contract$_IERC20_$457$_t_bytes$",
 								"type_string": "function(contract IERC20,bytes)"
-							}
+							},
+							"text": "function_callOptionalReturn(IERC20token,bytesmemorydata)private{bytesmemoryreturndata=address(token).functionCall(data,\"SafeERC20: low-level call failed\");if(returndata.length\u003e0){require(abi.decode(returndata,(bool)),\"SafeERC20: ERC20 operation did not succeed\");}}"
 						}
 					],
 					"linearized_base_contracts": [
@@ -18469,14 +18689,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										}
 									}
 								]
@@ -18613,7 +18835,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "function_msgSender()internalviewvirtualreturns(address){returnmsg.sender;}"
 						},
 						{
 							"id": 840,
@@ -18703,14 +18926,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "data",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_bytes_calldata_ptr",
 												"type_string": "bytes calldata"
-											}
+											},
+											"text": "msg.data"
 										}
 									}
 								]
@@ -18845,7 +19070,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_bytes$",
 								"type_string": "function(bytes)"
-							}
+							},
+							"text": "function_msgData()internalviewvirtualreturns(bytescalldata){returnmsg.data;}"
 						}
 					],
 					"linearized_base_contracts": [
@@ -19236,7 +19462,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_msgSender"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$",
@@ -19262,7 +19489,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_transferOwnership"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -19354,7 +19582,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_checkOwner"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -19379,7 +19608,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_"
 									}
 								]
 							}
@@ -19449,7 +19679,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 863,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_owner"
 										}
 									}
 								]
@@ -19586,7 +19817,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionowner()publicviewvirtualreturns(address){return_owner;}"
 						},
 						{
 							"id": 900,
@@ -19692,7 +19924,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "owner"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$",
@@ -19731,7 +19964,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_msgSender"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$",
@@ -19769,7 +20003,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"Ownable: caller is not the owner\""
 											}
 										],
 										"expression": {
@@ -19790,7 +20025,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -19839,7 +20075,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$",
 								"type_string": "function()"
-							}
+							},
+							"text": "function_checkOwner()internalviewvirtual{require(owner()==_msgSender(),\"Ownable: caller is not the owner\");}"
 						},
 						{
 							"id": 913,
@@ -19934,7 +20171,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"expression": {
@@ -19980,7 +20218,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -20006,7 +20245,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_transferOwnership"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_rational_0_by_1$",
@@ -20085,7 +20325,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$",
 								"type_string": "function()"
-							}
+							},
+							"text": "functionrenounceOwnership()publicvirtualonlyOwner{_transferOwnership(address(0));}"
 						},
 						{
 							"id": 926,
@@ -20177,7 +20418,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 937,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newOwner"
 												},
 												"right_expression": {
 													"id": 938,
@@ -20218,7 +20460,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "0"
 														}
 													],
 													"expression": {
@@ -20264,7 +20507,8 @@
 																"type_identifier": "t_address",
 																"type_string": "address"
 															}
-														]
+														],
+														"text": "address"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -20302,7 +20546,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"Ownable: new owner is the zero address\""
 											}
 										],
 										"expression": {
@@ -20323,7 +20568,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -20367,7 +20613,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 945,
-												"is_pure": false
+												"is_pure": false,
+												"text": "newOwner"
 											}
 										],
 										"expression": {
@@ -20388,7 +20635,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_transferOwnership"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -20513,7 +20761,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functiontransferOwnership(addressnewOwner)publicvirtualonlyOwner{require(newOwner!=address(0),\"Ownable: new owner is the zero address\");_transferOwnership(newOwner);}"
 						},
 						{
 							"id": 947,
@@ -20629,7 +20878,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 863,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_owner"
 										}
 									},
 									{
@@ -20673,7 +20923,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 863,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_owner"
 											},
 											"right_expression": {
 												"id": 960,
@@ -20693,7 +20944,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 960,
-												"is_pure": false
+												"is_pure": false,
+												"text": "newOwner"
 											},
 											"type_description": {
 												"type_identifier": "t_address",
@@ -20703,7 +20955,8 @@
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "_owner=newOwner;"
 									},
 									{
 										"id": 961,
@@ -20735,7 +20988,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 953,
-												"is_pure": false
+												"is_pure": false,
+												"text": "oldOwner"
 											},
 											{
 												"id": 963,
@@ -20755,7 +21009,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 963,
-												"is_pure": false
+												"is_pure": false,
+												"text": "newOwner"
 											}
 										],
 										"expression": {
@@ -20776,7 +21031,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 866,
-											"is_pure": false
+											"is_pure": false,
+											"text": "OwnershipTransferred"
 										}
 									}
 								]
@@ -20867,7 +21123,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "function_transferOwnership(addressnewOwner)internalvirtual{addressoldOwner=_owner;_owner=newOwner;emitOwnershipTransferred(oldOwner,newOwner);}"
 						}
 					],
 					"linearized_base_contracts": [
@@ -21330,7 +21587,8 @@
 								},
 								"overloaded_declarations": [],
 								"referenced_declaration": 0,
-								"is_pure": true
+								"is_pure": true,
+								"text": "1e4"
 							}
 						},
 						{
@@ -21441,7 +21699,7 @@
 							"mutability": 1,
 							"type_name": {
 								"id": 1007,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 677,
 									"column": 4,
@@ -21534,7 +21792,7 @@
 							"mutability": 1,
 							"type_name": {
 								"id": 1012,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 678,
 									"column": 4,
@@ -21627,7 +21885,7 @@
 							"mutability": 1,
 							"type_name": {
 								"id": 1017,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 679,
 									"column": 4,
@@ -22450,7 +22708,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "startbet"
 											},
 											{
 												"id": 1064,
@@ -22478,7 +22737,8 @@
 														"type_identifier": "t_function_$",
 														"type_string": "function()"
 													}
-												]
+												],
+												"text": "\"Betting not started yet\""
 											}
 										],
 										"expression": {
@@ -22499,7 +22759,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_string_literal$",
@@ -22524,7 +22785,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_"
 									}
 								]
 							}
@@ -22634,7 +22896,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1054,
-													"is_pure": false
+													"is_pure": false,
+													"text": "resultStatus"
 												},
 												"right_expression": {
 													"id": 1074,
@@ -22677,14 +22940,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1021,
-														"is_pure": false
+														"is_pure": false,
+														"text": "ResultStatus"
 													},
 													"member_name": "NotDeclare",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_enum_$_ResultStatus_$1021",
 														"type_string": "enum Qatar_Ecuador.ResultStatus"
-													}
+													},
+													"text": "ResultStatus.NotDeclare"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -22717,7 +22982,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"already delcare\""
 											}
 										],
 										"expression": {
@@ -22738,7 +23004,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -22763,7 +23030,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_"
 									}
 								]
 							}
@@ -22918,7 +23186,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1081,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_amnt"
 												},
 												"right_expression": {
 													"id": 1088,
@@ -22940,7 +23209,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -22973,7 +23243,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"bet value 0\""
 											}
 										],
 										"expression": {
@@ -22994,7 +23265,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -23019,7 +23291,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_"
 									}
 								]
 							}
@@ -23129,7 +23402,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1054,
-													"is_pure": false
+													"is_pure": false,
+													"text": "resultStatus"
 												},
 												"right_expression": {
 													"id": 1099,
@@ -23172,14 +23446,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1021,
-														"is_pure": false
+														"is_pure": false,
+														"text": "ResultStatus"
 													},
 													"member_name": "NotDeclare",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_enum_$_ResultStatus_$1021",
 														"type_string": "enum Qatar_Ecuador.ResultStatus"
-													}
+													},
+													"text": "ResultStatus.NotDeclare"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -23212,7 +23488,8 @@
 														"type_identifier": "t_bool",
 														"type_string": "bool"
 													}
-												]
+												],
+												"text": "\"not delcare\""
 											}
 										],
 										"expression": {
@@ -23233,7 +23510,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -23258,7 +23536,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_"
 									}
 								]
 							}
@@ -23429,7 +23708,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1016,
-														"is_pure": false
+														"is_pure": false,
+														"text": "userClaimed"
 													},
 													"base_expression": {
 														"id": 1114,
@@ -23449,7 +23729,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1106,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_user"
 													},
 													"type_descriptions": [
 														{
@@ -23497,7 +23778,8 @@
 														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 														"type_string": "index[mapping(address=\u003ebool):address]"
 													}
-												]
+												],
+												"text": "\"claimed!\""
 											}
 										],
 										"expression": {
@@ -23518,7 +23800,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "require"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$_t_string_literal$",
@@ -23543,7 +23826,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_"
 									}
 								]
 							}
@@ -23758,7 +24042,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 987,
-												"is_pure": false
+												"is_pure": false,
+												"text": "admin"
 											},
 											"right_expression": {
 												"id": 1130,
@@ -23778,7 +24063,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1130,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_admin"
 											},
 											"type_description": {
 												"type_identifier": "t_address",
@@ -23788,7 +24074,8 @@
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "admin=_admin;"
 									},
 									{
 										"id": 1131,
@@ -23831,7 +24118,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 983,
-												"is_pure": false
+												"is_pure": false,
+												"text": "usdt"
 											},
 											"right_expression": {
 												"id": 1134,
@@ -23851,7 +24139,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1134,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_usdt"
 											},
 											"type_description": {
 												"type_identifier": "t_contract$_IERC20_$457",
@@ -23861,7 +24150,8 @@
 										"type_description": {
 											"type_identifier": "t_contract$_IERC20_$457",
 											"type_string": "contract IERC20"
-										}
+										},
+										"text": "usdt=_usdt;"
 									}
 								]
 							}
@@ -23942,7 +24232,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 990,
-												"is_pure": false
+												"is_pure": false,
+												"text": "totalBetsA"
 											},
 											"right_expression": {
 												"id": 1154,
@@ -23976,7 +24267,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 990,
-													"is_pure": false
+													"is_pure": false,
+													"text": "totalBetsA"
 												},
 												"right_expression": {
 													"id": 1156,
@@ -23996,7 +24288,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1156,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_amount"
 												},
 												"type_description": {
 													"type_identifier": "t_uint256",
@@ -24011,7 +24304,8 @@
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "totalBetsA=totalBetsA+_amount;"
 									},
 									{
 										"id": 1157,
@@ -24115,14 +24409,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										}
 									},
 									{
@@ -24214,7 +24510,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1006,
-												"is_pure": false
+												"is_pure": false,
+												"text": "userBets"
 											},
 											"base_expression": {
 												"id": 1167,
@@ -24234,7 +24531,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1157,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											"type_descriptions": [
 												{
@@ -24295,7 +24593,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1162,
-												"is_pure": false
+												"is_pure": false,
+												"text": "previousBet"
 											},
 											"right_expression": {
 												"id": 1171,
@@ -24317,7 +24616,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -24404,7 +24704,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 1011,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "userChoice"
 																},
 																"base_expression": {
 																	"id": 1178,
@@ -24424,7 +24725,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 1106,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "_user"
 																},
 																"type_descriptions": [
 																	{
@@ -24461,7 +24763,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "1"
 															},
 															"type_description": {
 																"type_identifier": "t_bool",
@@ -24494,7 +24797,8 @@
 																	"type_identifier": "t_bool",
 																	"type_string": "bool"
 																}
-															]
+															],
+															"text": "\"wrong choice\""
 														}
 													],
 													"expression": {
@@ -24515,7 +24819,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "require"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -24574,7 +24879,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 1006,
-																"is_pure": false
+																"is_pure": false,
+																"text": "userBets"
 															},
 															"base_expression": {
 																"id": 1185,
@@ -24594,7 +24900,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 1106,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_user"
 															},
 															"type_descriptions": [
 																{
@@ -24629,7 +24936,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1186,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_amount"
 														},
 														"type_description": {
 															"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -24639,7 +24947,8 @@
 													"type_description": {
 														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 														"type_string": "index[mapping(address=\u003euint256):address]"
-													}
+													},
+													"text": "userBets[_user]+=_amount;"
 												}
 											]
 										}
@@ -24674,7 +24983,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1157,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											{
 												"id": 1189,
@@ -24694,7 +25004,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1189,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_amount"
 											}
 										],
 										"expression": {
@@ -24715,7 +25026,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1028,
-											"is_pure": false
+											"is_pure": false,
+											"text": "VoteA"
 										}
 									},
 									{
@@ -24763,7 +25075,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1157,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											{
 												"id": 1195,
@@ -24802,7 +25115,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "this"
 													}
 												],
 												"expression": {
@@ -24848,7 +25162,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
@@ -24883,7 +25198,8 @@
 														"type_identifier": "t_function_$_t_address$",
 														"type_string": "function(address)"
 													}
-												]
+												],
+												"text": "_amount"
 											}
 										],
 										"expression": {
@@ -24927,14 +25243,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 983,
-												"is_pure": false
+												"is_pure": false,
+												"text": "usdt"
 											},
 											"member_name": "safeTransferFrom",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IERC20_$457",
 												"type_string": "contract IERC20"
-											}
+											},
+											"text": "usdt.safeTransferFrom"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_uint256$",
@@ -24973,7 +25291,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -25079,7 +25398,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1146,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_amount"
 										}
 									],
 									"modifier_name": {
@@ -25222,7 +25542,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint256$",
 								"type_string": "function(uint256)"
-							}
+							},
+							"text": "functionvoteA(uint256_amount)externalisStartbetnotDeclareminAmount(_amount)returns(bool){totalBetsA=totalBetsA+_amount;address_user=msg.sender;uint256previousBet=userBets[_user];if(previousBet\u003e0){require(userChoice[_user]==1,\"wrong choice\");userBets[_user]+=_amount;}else{userBets[_user]=_amount;userChoice[_user]=1;}emitVoteA(_user,_amount);usdt.safeTransferFrom(_user,address(this),_amount);returntrue;}"
 						},
 						{
 							"id": 1203,
@@ -25300,7 +25621,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 993,
-												"is_pure": false
+												"is_pure": false,
+												"text": "totalBetsB"
 											},
 											"right_expression": {
 												"id": 1221,
@@ -25334,7 +25656,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 993,
-													"is_pure": false
+													"is_pure": false,
+													"text": "totalBetsB"
 												},
 												"right_expression": {
 													"id": 1223,
@@ -25354,7 +25677,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1223,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_amount"
 												},
 												"type_description": {
 													"type_identifier": "t_uint256",
@@ -25369,7 +25693,8 @@
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "totalBetsB=totalBetsB+_amount;"
 									},
 									{
 										"id": 1224,
@@ -25473,14 +25798,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										}
 									},
 									{
@@ -25572,7 +25899,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1006,
-												"is_pure": false
+												"is_pure": false,
+												"text": "userBets"
 											},
 											"base_expression": {
 												"id": 1234,
@@ -25592,7 +25920,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1224,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											"type_descriptions": [
 												{
@@ -25653,7 +25982,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1229,
-												"is_pure": false
+												"is_pure": false,
+												"text": "previousBet"
 											},
 											"right_expression": {
 												"id": 1238,
@@ -25675,7 +26005,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -25762,7 +26093,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 1011,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "userChoice"
 																},
 																"base_expression": {
 																	"id": 1245,
@@ -25782,7 +26114,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 1106,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "_user"
 																},
 																"type_descriptions": [
 																	{
@@ -25819,7 +26152,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "2"
 															},
 															"type_description": {
 																"type_identifier": "t_bool",
@@ -25852,7 +26186,8 @@
 																	"type_identifier": "t_bool",
 																	"type_string": "bool"
 																}
-															]
+															],
+															"text": "\"wrong choice\""
 														}
 													],
 													"expression": {
@@ -25873,7 +26208,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "require"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -25932,7 +26268,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 1006,
-																"is_pure": false
+																"is_pure": false,
+																"text": "userBets"
 															},
 															"base_expression": {
 																"id": 1252,
@@ -25952,7 +26289,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 1106,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_user"
 															},
 															"type_descriptions": [
 																{
@@ -25987,7 +26325,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1253,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_amount"
 														},
 														"type_description": {
 															"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -25997,7 +26336,8 @@
 													"type_description": {
 														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
 														"type_string": "index[mapping(address=\u003euint256):address]"
-													}
+													},
+													"text": "userBets[_user]+=_amount;"
 												}
 											]
 										}
@@ -26032,7 +26372,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1224,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											{
 												"id": 1256,
@@ -26052,7 +26393,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1256,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_amount"
 											}
 										],
 										"expression": {
@@ -26073,7 +26415,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1035,
-											"is_pure": false
+											"is_pure": false,
+											"text": "VoteB"
 										}
 									},
 									{
@@ -26121,7 +26464,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1224,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											{
 												"id": 1262,
@@ -26160,7 +26504,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "this"
 													}
 												],
 												"expression": {
@@ -26206,7 +26551,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
@@ -26241,7 +26587,8 @@
 														"type_identifier": "t_function_$_t_address$",
 														"type_string": "function(address)"
 													}
-												]
+												],
+												"text": "_amount"
 											}
 										],
 										"expression": {
@@ -26285,14 +26632,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 983,
-												"is_pure": false
+												"is_pure": false,
+												"text": "usdt"
 											},
 											"member_name": "safeTransferFrom",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IERC20_$457",
 												"type_string": "contract IERC20"
-											}
+											},
+											"text": "usdt.safeTransferFrom"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$_t_function_$_t_address$_t_uint256$",
@@ -26331,7 +26680,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -26437,7 +26787,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1213,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_amount"
 										}
 									],
 									"modifier_name": {
@@ -26580,7 +26931,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint256$",
 								"type_string": "function(uint256)"
-							}
+							},
+							"text": "functionvoteB(uint256_amount)externalisStartbetnotDeclareminAmount(_amount)returns(bool){totalBetsB=totalBetsB+_amount;address_user=msg.sender;uint256previousBet=userBets[_user];if(previousBet\u003e0){require(userChoice[_user]==2,\"wrong choice\");userBets[_user]+=_amount;}else{userBets[_user]=_amount;userChoice[_user]=2;}emitVoteB(_user,_amount);usdt.safeTransferFrom(_user,address(this),_amount);returntrue;}"
 						},
 						{
 							"id": 1270,
@@ -26658,7 +27010,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1054,
-												"is_pure": false
+												"is_pure": false,
+												"text": "resultStatus"
 											},
 											"right_expression": {
 												"id": 1284,
@@ -26678,7 +27031,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1284,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_result"
 											},
 											"type_description": {
 												"type_identifier": "t_enum_$_ResultStatus_$1021",
@@ -26688,7 +27042,8 @@
 										"type_description": {
 											"type_identifier": "t_enum_$_ResultStatus_$1021",
 											"type_string": "enum Qatar_Ecuador.ResultStatus"
-										}
+										},
+										"text": "resultStatus=_result;"
 									},
 									{
 										"id": 1285,
@@ -26739,7 +27094,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1289,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_result"
 													}
 												],
 												"expression": {
@@ -26784,7 +27140,8 @@
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
 														}
-													]
+													],
+													"text": "uint256"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_enum_$_ResultStatus_$1021$",
@@ -26810,7 +27167,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1049,
-											"is_pure": false
+											"is_pure": false,
+											"text": "DeclareResult"
 										}
 									},
 									{
@@ -26868,7 +27226,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1295,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_result"
 													},
 													"right_expression": {
 														"id": 1296,
@@ -26911,14 +27270,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1021,
-															"is_pure": false
+															"is_pure": false,
+															"text": "ResultStatus"
 														},
 														"member_name": "Cancel",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_enum_$_ResultStatus_$1021",
 															"type_string": "enum Qatar_Ecuador.ResultStatus"
-														}
+														},
+														"text": "ResultStatus.Cancel"
 													},
 													"type_description": {
 														"type_identifier": "t_bool",
@@ -26957,7 +27318,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1299,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_result"
 													},
 													"right_expression": {
 														"id": 1300,
@@ -27000,14 +27362,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1021,
-															"is_pure": false
+															"is_pure": false,
+															"text": "ResultStatus"
 														},
 														"member_name": "NotDeclare",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_enum_$_ResultStatus_$1021",
 															"type_string": "enum Qatar_Ecuador.ResultStatus"
-														}
+														},
+														"text": "ResultStatus.NotDeclare"
 													},
 													"type_description": {
 														"type_identifier": "t_bool",
@@ -27146,7 +27510,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 990,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "totalBetsA"
 																},
 																"right_expression": {
 																	"id": 1309,
@@ -27166,7 +27531,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 993,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "totalBetsB"
 																},
 																"type_description": {
 																	"type_identifier": "t_uint256",
@@ -27300,7 +27666,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 1303,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "totalBets"
 																	},
 																	"right_expression": {
 																		"id": 1317,
@@ -27320,7 +27687,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 996,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "fee"
 																	},
 																	"type_description": {
 																		"type_identifier": "t_uint256",
@@ -27353,7 +27721,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "1e5"
 														},
 														"type_description": {
 															"type_identifier": "t_tuple_$_t_uint256$",
@@ -27402,7 +27771,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1000,
-															"is_pure": false
+															"is_pure": false,
+															"text": "finalBettingAmount"
 														},
 														"right_expression": {
 															"id": 1322,
@@ -27436,7 +27806,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 1303,
-																"is_pure": false
+																"is_pure": false,
+																"text": "totalBets"
 															},
 															"right_expression": {
 																"id": 1324,
@@ -27456,7 +27827,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 1310,
-																"is_pure": false
+																"is_pure": false,
+																"text": "feeAmount"
 															},
 															"type_description": {
 																"type_identifier": "t_uint256",
@@ -27471,7 +27843,8 @@
 													"type_description": {
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
-													}
+													},
+													"text": "finalBettingAmount=totalBets-feeAmount;"
 												},
 												{
 													"id": 1325,
@@ -27514,7 +27887,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "admin"
 														},
 														{
 															"id": 1329,
@@ -27540,7 +27914,8 @@
 																	"type_identifier": "t_function_$",
 																	"type_string": "function()"
 																}
-															]
+															],
+															"text": "feeAmount"
 														}
 													],
 													"expression": {
@@ -27584,14 +27959,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 983,
-															"is_pure": false
+															"is_pure": false,
+															"text": "usdt"
 														},
 														"member_name": "safeTransfer",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "usdt.safeTransfer"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_uint256$",
@@ -27768,7 +28145,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_enum_$_ResultStatus_$1021$",
 								"type_string": "function(enum Qatar_Ecuador.ResultStatus)"
-							}
+							},
+							"text": "functiondeclareResult(ResultStatus_result)externalnotDeclareonlyOwner{resultStatus=_result;emitDeclareResult(uint256(_result));if(_result!=ResultStatus.Cancel\u0026\u0026_result!=ResultStatus.NotDeclare){uint256totalBets=(totalBetsA+totalBetsB);uint256feeAmount=(totalBets*fee)/1e5;finalBettingAmount=totalBets-feeAmount;usdt.safeTransfer(admin,feeAmount);}}"
 						},
 						{
 							"id": 1331,
@@ -27907,14 +28285,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										}
 									},
 									{
@@ -28014,7 +28394,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1345,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_user"
 												}
 											],
 											"expression": {
@@ -28035,7 +28416,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "getUserClaimAmount"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -28095,7 +28477,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1016,
-													"is_pure": false
+													"is_pure": false,
+													"text": "userClaimed"
 												},
 												"base_expression": {
 													"id": 1360,
@@ -28115,7 +28498,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1345,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_user"
 												},
 												"type_descriptions": [
 													{
@@ -28152,7 +28536,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "true"
 											},
 											"type_description": {
 												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -28162,7 +28547,8 @@
 										"type_description": {
 											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 											"type_string": "index[mapping(address=\u003ebool):address]"
-										}
+										},
+										"text": "userClaimed[_user]=true;"
 									},
 									{
 										"id": 1362,
@@ -28207,7 +28593,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1350,
-												"is_pure": false
+												"is_pure": false,
+												"text": "claimAmount"
 											},
 											"right_expression": {
 												"id": 1365,
@@ -28229,7 +28616,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -28280,7 +28668,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1106,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_user"
 														},
 														{
 															"id": 1369,
@@ -28300,7 +28689,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 1350,
-															"is_pure": false
+															"is_pure": false,
+															"text": "claimAmount"
 														}
 													],
 													"expression": {
@@ -28321,7 +28711,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 1042,
-														"is_pure": false
+														"is_pure": false,
+														"text": "Claim"
 													}
 												},
 												{
@@ -28365,7 +28756,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_user"
 														},
 														{
 															"id": 1375,
@@ -28391,7 +28783,8 @@
 																	"type_identifier": "t_function_$",
 																	"type_string": "function()"
 																}
-															]
+															],
+															"text": "claimAmount"
 														}
 													],
 													"expression": {
@@ -28435,14 +28828,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 983,
-															"is_pure": false
+															"is_pure": false,
+															"text": "usdt"
 														},
 														"member_name": "safeTransfer",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IERC20_$457",
 															"type_string": "contract IERC20"
-														}
+														},
+														"text": "usdt.safeTransfer"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$",
@@ -28484,7 +28879,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -28584,14 +28980,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										}
 									],
 									"modifier_name": {
@@ -28734,7 +29132,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_bool$",
 								"type_string": "function(bool)"
-							}
+							},
+							"text": "functionclaim()externaldeclarenotClaimed(msg.sender)returns(bool){address_user=msg.sender;uint256claimAmount=getUserClaimAmount(_user);userClaimed[_user]=true;if(claimAmount\u003e0){emitClaim(_user,claimAmount);usdt.safeTransfer(_user,claimAmount);}returntrue;}"
 						},
 						{
 							"id": 1379,
@@ -28812,7 +29211,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 996,
-												"is_pure": false
+												"is_pure": false,
+												"text": "fee"
 											},
 											"right_expression": {
 												"id": 1394,
@@ -28832,7 +29232,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1394,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_newfee"
 											},
 											"type_description": {
 												"type_identifier": "t_rational_0_by_1",
@@ -28842,7 +29243,8 @@
 										"type_description": {
 											"type_identifier": "t_rational_0_by_1",
 											"type_string": "int_const 1e4"
-										}
+										},
+										"text": "fee=_newfee;"
 									},
 									{
 										"id": 1395,
@@ -28876,7 +29278,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -29070,7 +29473,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_uint256$",
 								"type_string": "function(uint256)"
-							}
+							},
+							"text": "functionchangeFee(uint256_newfee)externalonlyOwnernotDeclarereturns(bool){fee=_newfee;returntrue;}"
 						},
 						{
 							"id": 1398,
@@ -29148,7 +29552,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 987,
-												"is_pure": false
+												"is_pure": false,
+												"text": "admin"
 											},
 											"right_expression": {
 												"id": 1411,
@@ -29168,7 +29573,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1411,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_admin"
 											},
 											"type_description": {
 												"type_identifier": "t_address",
@@ -29178,7 +29584,8 @@
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "admin=_admin;"
 									},
 									{
 										"id": 1412,
@@ -29212,7 +29619,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "true"
 										}
 									}
 								]
@@ -29378,7 +29786,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functionchangeAdmin(address_admin)externalonlyOwnerreturns(bool){admin=_admin;returntrue;}"
 						},
 						{
 							"id": 1415,
@@ -29456,7 +29865,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1003,
-												"is_pure": false
+												"is_pure": false,
+												"text": "startbet"
 											},
 											"right_expression": {
 												"id": 1424,
@@ -29478,7 +29888,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "true"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -29488,7 +29899,8 @@
 										"type_description": {
 											"type_identifier": "t_bool",
 											"type_string": "bool"
-										}
+										},
+										"text": "startbet=true;"
 									}
 								]
 							},
@@ -29562,7 +29974,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$",
 								"type_string": "function()"
-							}
+							},
+							"text": "functionstartBetting()externalonlyOwner{startbet=true;}"
 						},
 						{
 							"id": 1426,
@@ -29640,7 +30053,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1003,
-												"is_pure": false
+												"is_pure": false,
+												"text": "startbet"
 											},
 											"right_expression": {
 												"id": 1435,
@@ -29662,7 +30076,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "false"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -29672,7 +30087,8 @@
 										"type_description": {
 											"type_identifier": "t_bool",
 											"type_string": "bool"
-										}
+										},
+										"text": "startbet=false;"
 									}
 								]
 							},
@@ -29746,7 +30162,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$",
 								"type_string": "function()"
-							}
+							},
+							"text": "functionstopBetting()externalonlyOwner{startbet=false;}"
 						},
 						{
 							"id": 1437,
@@ -29845,7 +30262,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "resultStatus"
 													}
 												],
 												"expression": {
@@ -29890,7 +30308,8 @@
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
 														}
-													]
+													],
+													"text": "uint256"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$",
@@ -29917,7 +30336,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -29970,7 +30390,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "\"Not Declared\""
 													}
 												}
 											]
@@ -30108,7 +30529,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_string$",
 								"type_string": "function(string)"
-							}
+							},
+							"text": "functiongetResultStatus()publicviewreturns(stringmemory){if(uint256(resultStatus)==0){return\"Not Declared\";}elseif(uint256(resultStatus)==1){return\"Winner A\";}elseif(uint256(resultStatus)==2){return\"Winner B\";}elseif(uint256(resultStatus)==3){return\"Cancel\";}else{return\"Draw\";}}"
 						},
 						{
 							"id": 1456,
@@ -30244,7 +30666,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1054,
-											"is_pure": false
+											"is_pure": false,
+											"text": "resultStatus"
 										}
 									},
 									{
@@ -30336,7 +30759,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1006,
-												"is_pure": false
+												"is_pure": false,
+												"text": "userBets"
 											},
 											"base_expression": {
 												"id": 1474,
@@ -30356,7 +30780,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1474,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											"type_descriptions": [
 												{
@@ -30463,7 +30888,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1011,
-												"is_pure": false
+												"is_pure": false,
+												"text": "userChoice"
 											},
 											"base_expression": {
 												"id": 1480,
@@ -30483,7 +30909,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1480,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_user"
 											},
 											"type_descriptions": [
 												{
@@ -30544,7 +30971,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1464,
-												"is_pure": false
+												"is_pure": false,
+												"text": "resultstatus"
 											},
 											"right_expression": {
 												"id": 1484,
@@ -30587,14 +31015,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1021,
-													"is_pure": false
+													"is_pure": false,
+													"text": "ResultStatus"
 												},
 												"member_name": "NotDeclare",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_enum_$_ResultStatus_$1021",
 													"type_string": "enum Qatar_Ecuador.ResultStatus"
-												}
+												},
+												"text": "ResultStatus.NotDeclare"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -30647,7 +31077,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												}
 											]
@@ -30786,7 +31217,8 @@
 							"type_description": {
 								"type_identifier": "t_function_$_t_address$",
 								"type_string": "function(address)"
-							}
+							},
+							"text": "functiongetUserClaimAmount(address_user)publicviewreturns(uint256){ResultStatusresultstatus=resultStatus;uint256amount=userBets[_user];uint8choice=userChoice[_user];if(resultstatus==ResultStatus.NotDeclare){return0;}elseif(resultstatus==ResultStatus.Cancel){returnamount;}elseif(resultstatus==ResultStatus.Draw){return((amount*(1e5-fee))/1e5);}elseif(resultstatus==ResultStatus.WinnerA){return(choice==1)?(finalBettingAmount*amount)/(totalBetsA):0;}else{return(choice==2)?(finalBettingAmount*amount)/(totalBetsB):0;}}"
 						}
 					],
 					"linearized_base_contracts": [

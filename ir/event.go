@@ -1,6 +1,11 @@
 package ir
 
 import (
+	"fmt"
+	"strings"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/ast"
@@ -51,6 +56,30 @@ func (e *Event) GetSrc() ast.SrcNode {
 	return e.Unit.GetSrc()
 }
 
+// GetSignature computes the Keccak-256 hash of the event signature to generate the 'topic0' hash.
+// This method calls GetSignatureRaw to obtain the raw event signature string and then applies
+// the Keccak-256 hash function to it. The resulting hash is commonly used in Ethereum as the
+// identifier for the event in logs and is crucial for event tracking and decoding in smart contract
+// interactions.
+func (e *Event) GetSignature() common.Hash {
+	signature := e.GetSignatureRaw()
+	return crypto.Keccak256Hash([]byte(signature))
+}
+
+// GetSignatureRaw constructs the raw event signature string for the Event.
+// It generates this signature by concatenating the event's name with a list of its parameters' types
+// in their canonical form. The canonical form of each parameter type is obtained by using the
+// canonicalizeType function. This method is particularly useful for creating a human-readable
+// version of the event signature, which is essential for various Ethereum-related operations,
+// such as logging and event filtering.
+func (e *Event) GetSignatureRaw() string {
+	paramTypes := make([]string, 0)
+	for _, p := range e.Parameters {
+		paramTypes = append(paramTypes, canonicalizeType(p.Type))
+	}
+	return fmt.Sprintf("%s(%s)", e.Name, strings.Join(paramTypes, ","))
+}
+
 // ToProto converts the Event to its protobuf representation.
 func (e *Event) ToProto() *ir_pb.Event {
 	proto := &ir_pb.Event{
@@ -92,4 +121,39 @@ func (b *Builder) processEvent(unit *ast.EventDefinition) *Event {
 	}
 
 	return toReturn
+}
+
+// canonicalizeType converts a Solidity type into its canonical form as per Solidity's type system.
+// This function handles various types, including basic types (uint, int, fixed, ufixed), bytes types,
+// arrays (both fixed-size and dynamic), and tuples. The canonicalization is essential for ensuring
+// consistency in how types are represented, particularly when generating event signatures. It
+// transforms basic types to their full representation (e.g., 'uint' to 'uint256') and handles the
+// formatting of array and tuple types. Note that complex or nested tuples might require additional
+// parsing, which is not covered in this basic implementation.
+func canonicalizeType(typ string) string {
+	switch {
+	case typ == "uint":
+		return "uint256"
+	case typ == "int":
+		return "int256"
+	case typ == "fixed":
+		return "fixed128x18"
+	case typ == "ufixed":
+		return "ufixed128x18"
+	case strings.HasPrefix(typ, "bytes") && len(typ) > 5:
+		// bytes1 to bytes32 are unchanged
+		return typ
+	case strings.HasSuffix(typ, "[]"):
+		// Dynamic array
+		elementType := typ[:len(typ)-2]
+		return canonicalizeType(elementType) + "[]"
+	case strings.Contains(typ, "[") && strings.Contains(typ, "]"):
+		// Fixed-size array
+		elementType := typ[:strings.Index(typ, "[")]
+		arraySize := typ[strings.Index(typ, "["):]
+		return canonicalizeType(elementType) + arraySize
+	default:
+		// For all other types, return as-is or add specific handling
+		return typ
+	}
 }

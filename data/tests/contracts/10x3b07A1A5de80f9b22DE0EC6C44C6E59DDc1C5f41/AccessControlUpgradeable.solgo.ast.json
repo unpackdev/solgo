@@ -292,7 +292,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "function__AccessControl_init()internalonlyInitializing{}"
 				},
 				{
 					"id": 2537,
@@ -400,7 +401,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "function__AccessControl_init_unchained()internalonlyInitializing{}"
 				},
 				{
 					"id": 2544,
@@ -443,7 +445,7 @@
 							"name": "members",
 							"type_name": {
 								"id": 2546,
-								"node_type": 0,
+								"node_type": 53,
 								"src": {
 									"line": 1094,
 									"column": 8,
@@ -575,7 +577,7 @@
 					},
 					"scope": 2520,
 					"type_description": {
-						"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+						"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 						"type_string": "mapping(bytes32=\u003eRoleData)"
 					},
 					"visibility": 2,
@@ -583,7 +585,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 2553,
-						"node_type": 0,
+						"node_type": 69,
 						"src": {
 							"line": 1098,
 							"column": 4,
@@ -620,7 +622,7 @@
 						},
 						"value_type": {
 							"id": 2555,
-							"node_type": 30,
+							"node_type": 69,
 							"src": {
 								"line": 1098,
 								"column": 23,
@@ -630,10 +632,10 @@
 								"parent_index": 2553
 							},
 							"name": "RoleData",
-							"referenced_declaration": 0,
+							"referenced_declaration": 2544,
 							"type_description": {
-								"type_identifier": "t_RoleData",
-								"type_string": "RoleData"
+								"type_identifier": "t_struct$_AccessControlUpgradeable_RoleData_$2544",
+								"type_string": "struct AccessControlUpgradeable.RoleData"
 							}
 						},
 						"value_name_location": {
@@ -644,16 +646,38 @@
 							"length": 8,
 							"parent_index": 2553
 						},
-						"referenced_declaration": 0,
+						"path_node": {
+							"id": 2556,
+							"name": "RoleData",
+							"node_type": 52,
+							"referenced_declaration": 2544,
+							"src": {
+								"line": 1098,
+								"column": 23,
+								"start": 40297,
+								"end": 40304,
+								"length": 8,
+								"parent_index": 2553
+							},
+							"name_location": {
+								"line": 1098,
+								"column": 23,
+								"start": 40297,
+								"end": 40304,
+								"length": 8,
+								"parent_index": 2553
+							}
+						},
+						"referenced_declaration": 2544,
 						"type_description": {
-							"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+							"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 							"type_string": "mapping(bytes32=\u003eRoleData)"
 						}
 					},
 					"initial_value": null
 				},
 				{
-					"id": 2557,
+					"id": 2558,
 					"name": "DEFAULT_ADMIN_ROLE",
 					"is_constant": true,
 					"is_state_variable": true,
@@ -675,7 +699,7 @@
 					"storage_location": 1,
 					"mutability": 1,
 					"type_name": {
-						"id": 2558,
+						"id": 2559,
 						"node_type": 30,
 						"src": {
 							"line": 1100,
@@ -683,7 +707,7 @@
 							"start": 40328,
 							"end": 40334,
 							"length": 7,
-							"parent_index": 2557
+							"parent_index": 2558
 						},
 						"name": "bytes32",
 						"referenced_declaration": 0,
@@ -693,7 +717,7 @@
 						}
 					},
 					"initial_value": {
-						"id": 2559,
+						"id": 2560,
 						"node_type": 17,
 						"kind": 49,
 						"value": "0x00",
@@ -704,7 +728,7 @@
 							"start": 40373,
 							"end": 40376,
 							"length": 4,
-							"parent_index": 2557
+							"parent_index": 2558
 						},
 						"type_description": {
 							"type_identifier": "t_rational_0_by_1",
@@ -712,11 +736,12 @@
 						},
 						"overloaded_declarations": [],
 						"referenced_declaration": 0,
-						"is_pure": true
+						"is_pure": true,
+						"text": "0x00"
 					}
 				},
 				{
-					"id": 2561,
+					"id": 2562,
 					"name": "onlyRole",
 					"node_type": 68,
 					"src": {
@@ -733,12 +758,12 @@
 						"start": 40773,
 						"end": 40780,
 						"length": 8,
-						"parent_index": 2561
+						"parent_index": 2562
 					},
 					"visibility": 1,
 					"virtual": false,
 					"parameters": {
-						"id": 2562,
+						"id": 2563,
 						"node_type": 43,
 						"src": {
 							"line": 1112,
@@ -750,7 +775,7 @@
 						},
 						"parameters": [
 							{
-								"id": 2563,
+								"id": 2564,
 								"node_type": 44,
 								"src": {
 									"line": 1112,
@@ -758,12 +783,12 @@
 									"start": 40782,
 									"end": 40793,
 									"length": 12,
-									"parent_index": 2562
+									"parent_index": 2563
 								},
 								"scope": 2520,
 								"name": "role",
 								"type_name": {
-									"id": 2564,
+									"id": 2565,
 									"node_type": 30,
 									"src": {
 										"line": 1112,
@@ -771,7 +796,7 @@
 										"start": 40782,
 										"end": 40788,
 										"length": 7,
-										"parent_index": 2563
+										"parent_index": 2564
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -797,7 +822,7 @@
 						]
 					},
 					"body": {
-						"id": 2565,
+						"id": 2566,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -806,12 +831,12 @@
 							"start": 40796,
 							"end": 40839,
 							"length": 44,
-							"parent_index": 2561
+							"parent_index": 2562
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2566,
+								"id": 2567,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -820,7 +845,7 @@
 									"start": 40806,
 									"end": 40821,
 									"length": 16,
-									"parent_index": 2565
+									"parent_index": 2566
 								},
 								"argument_types": [
 									{
@@ -830,7 +855,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2568,
+										"id": 2569,
 										"node_type": 16,
 										"src": {
 											"line": 1113,
@@ -838,7 +863,7 @@
 											"start": 40817,
 											"end": 40820,
 											"length": 4,
-											"parent_index": 2566
+											"parent_index": 2567
 										},
 										"name": "role",
 										"type_description": {
@@ -847,11 +872,12 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "role"
 									}
 								],
 								"expression": {
-									"id": 2567,
+									"id": 2568,
 									"node_type": 16,
 									"src": {
 										"line": 1113,
@@ -859,7 +885,7 @@
 										"start": 40806,
 										"end": 40815,
 										"length": 10,
-										"parent_index": 2566
+										"parent_index": 2567
 									},
 									"name": "_checkRole",
 									"type_description": {
@@ -868,7 +894,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_checkRole"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$",
@@ -876,7 +903,7 @@
 								}
 							},
 							{
-								"id": 2569,
+								"id": 2570,
 								"node_type": 82,
 								"src": {
 									"line": 1114,
@@ -884,7 +911,7 @@
 									"start": 40832,
 									"end": 40832,
 									"length": 1,
-									"parent_index": 2565
+									"parent_index": 2566
 								},
 								"name": "_",
 								"type_description": {
@@ -893,13 +920,14 @@
 								},
 								"overloaded_declarations": [],
 								"referenced_declaration": 0,
-								"is_pure": false
+								"is_pure": false,
+								"text": "_"
 							}
 						]
 					}
 				},
 				{
-					"id": 2571,
+					"id": 2572,
 					"name": "supportsInterface",
 					"node_type": 42,
 					"kind": 41,
@@ -917,10 +945,10 @@
 						"start": 40916,
 						"end": 40932,
 						"length": 17,
-						"parent_index": 2571
+						"parent_index": 2572
 					},
 					"body": {
-						"id": 2579,
+						"id": 2580,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -929,12 +957,12 @@
 							"start": 40998,
 							"end": 41119,
 							"length": 122,
-							"parent_index": 2571
+							"parent_index": 2572
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2580,
+								"id": 2581,
 								"node_type": 47,
 								"src": {
 									"line": 1121,
@@ -942,11 +970,11 @@
 									"start": 41008,
 									"end": 41113,
 									"length": 106,
-									"parent_index": 2571
+									"parent_index": 2572
 								},
-								"function_return_parameters": 2571,
+								"function_return_parameters": 2572,
 								"expression": {
-									"id": 2581,
+									"id": 2582,
 									"is_constant": false,
 									"is_pure": false,
 									"node_type": 19,
@@ -956,11 +984,11 @@
 										"start": 41015,
 										"end": 41112,
 										"length": 98,
-										"parent_index": 2580
+										"parent_index": 2581
 									},
 									"operator": 33,
 									"left_expression": {
-										"id": 2582,
+										"id": 2583,
 										"is_constant": false,
 										"is_pure": false,
 										"node_type": 19,
@@ -970,11 +998,11 @@
 											"start": 41015,
 											"end": 41072,
 											"length": 58,
-											"parent_index": 2581
+											"parent_index": 2582
 										},
 										"operator": 11,
 										"left_expression": {
-											"id": 2583,
+											"id": 2584,
 											"node_type": 16,
 											"src": {
 												"line": 1121,
@@ -982,7 +1010,7 @@
 												"start": 41015,
 												"end": 41025,
 												"length": 11,
-												"parent_index": 2582
+												"parent_index": 2583
 											},
 											"name": "interfaceId",
 											"type_description": {
@@ -990,11 +1018,12 @@
 												"type_string": "bytes4"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2583,
-											"is_pure": false
+											"referenced_declaration": 2584,
+											"is_pure": false,
+											"text": "interfaceId"
 										},
 										"right_expression": {
-											"id": 2584,
+											"id": 2585,
 											"is_constant": false,
 											"is_l_value": false,
 											"is_pure": false,
@@ -1006,7 +1035,7 @@
 												"start": 41030,
 												"end": 41072,
 												"length": 43,
-												"parent_index": 2582
+												"parent_index": 2583
 											},
 											"member_location": {
 												"line": 1121,
@@ -1014,10 +1043,10 @@
 												"start": 41062,
 												"end": 41072,
 												"length": 11,
-												"parent_index": 2584
+												"parent_index": 2585
 											},
 											"expression": {
-												"id": 2585,
+												"id": 2586,
 												"node_type": 16,
 												"name": "type",
 												"src": {
@@ -1026,7 +1055,7 @@
 													"start": 41030,
 													"end": 41060,
 													"length": 31,
-													"parent_index": 2584
+													"parent_index": 2585
 												},
 												"type_description": {
 													"type_identifier": "",
@@ -1038,7 +1067,8 @@
 											"type_description": {
 												"type_identifier": "",
 												"type_string": "type"
-											}
+											},
+											"text": "type(IAccessControlUpgradeable).interfaceId"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -1046,7 +1076,7 @@
 										}
 									},
 									"right_expression": {
-										"id": 2586,
+										"id": 2587,
 										"node_type": 24,
 										"kind": 24,
 										"src": {
@@ -1055,7 +1085,7 @@
 											"start": 41077,
 											"end": 41112,
 											"length": 36,
-											"parent_index": 2581
+											"parent_index": 2582
 										},
 										"argument_types": [
 											{
@@ -1065,7 +1095,7 @@
 										],
 										"arguments": [
 											{
-												"id": 2589,
+												"id": 2590,
 												"node_type": 16,
 												"src": {
 													"line": 1121,
@@ -1073,7 +1103,7 @@
 													"start": 41101,
 													"end": 41111,
 													"length": 11,
-													"parent_index": 2586
+													"parent_index": 2587
 												},
 												"name": "interfaceId",
 												"type_description": {
@@ -1081,12 +1111,13 @@
 													"type_string": "bytes4"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2589,
-												"is_pure": false
+												"referenced_declaration": 2590,
+												"is_pure": false,
+												"text": "interfaceId"
 											}
 										],
 										"expression": {
-											"id": 2587,
+											"id": 2588,
 											"is_constant": false,
 											"is_l_value": false,
 											"is_pure": false,
@@ -1098,7 +1129,7 @@
 												"start": 41077,
 												"end": 41099,
 												"length": 23,
-												"parent_index": 2586
+												"parent_index": 2587
 											},
 											"member_location": {
 												"line": 1121,
@@ -1106,10 +1137,10 @@
 												"start": 41083,
 												"end": 41099,
 												"length": 17,
-												"parent_index": 2587
+												"parent_index": 2588
 											},
 											"expression": {
-												"id": 2588,
+												"id": 2589,
 												"node_type": 16,
 												"src": {
 													"line": 1121,
@@ -1117,7 +1148,7 @@
 													"start": 41077,
 													"end": 41081,
 													"length": 5,
-													"parent_index": 2587
+													"parent_index": 2588
 												},
 												"name": "super",
 												"type_description": {
@@ -1126,14 +1157,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "super"
 											},
 											"member_name": "supportsInterface",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_magic_super",
 												"type_string": "super"
-											}
+											},
+											"text": "super.supportsInterface"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bytes4$",
@@ -1155,7 +1188,7 @@
 					"modifiers": [],
 					"overrides": [
 						{
-							"id": 2575,
+							"id": 2576,
 							"node_type": 63,
 							"src": {
 								"line": 1120,
@@ -1163,7 +1196,7 @@
 								"start": 40974,
 								"end": 40981,
 								"length": 8,
-								"parent_index": 2571
+								"parent_index": 2572
 							},
 							"overrides": [],
 							"referenced_declaration": 0,
@@ -1174,7 +1207,7 @@
 						}
 					],
 					"parameters": {
-						"id": 2572,
+						"id": 2573,
 						"node_type": 43,
 						"src": {
 							"line": 1120,
@@ -1182,11 +1215,11 @@
 							"start": 40934,
 							"end": 40951,
 							"length": 18,
-							"parent_index": 2571
+							"parent_index": 2572
 						},
 						"parameters": [
 							{
-								"id": 2573,
+								"id": 2574,
 								"node_type": 44,
 								"src": {
 									"line": 1120,
@@ -1194,12 +1227,12 @@
 									"start": 40934,
 									"end": 40951,
 									"length": 18,
-									"parent_index": 2572
+									"parent_index": 2573
 								},
-								"scope": 2571,
+								"scope": 2572,
 								"name": "interfaceId",
 								"type_name": {
-									"id": 2574,
+									"id": 2575,
 									"node_type": 30,
 									"src": {
 										"line": 1120,
@@ -1207,7 +1240,7 @@
 										"start": 40934,
 										"end": 40939,
 										"length": 6,
-										"parent_index": 2573
+										"parent_index": 2574
 									},
 									"name": "bytes4",
 									"referenced_declaration": 0,
@@ -1233,7 +1266,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2576,
+						"id": 2577,
 						"node_type": 43,
 						"src": {
 							"line": 1120,
@@ -1241,11 +1274,11 @@
 							"start": 40992,
 							"end": 40995,
 							"length": 4,
-							"parent_index": 2571
+							"parent_index": 2572
 						},
 						"parameters": [
 							{
-								"id": 2577,
+								"id": 2578,
 								"node_type": 44,
 								"src": {
 									"line": 1120,
@@ -1253,12 +1286,12 @@
 									"start": 40992,
 									"end": 40995,
 									"length": 4,
-									"parent_index": 2576
+									"parent_index": 2577
 								},
-								"scope": 2571,
+								"scope": 2572,
 								"name": "",
 								"type_name": {
-									"id": 2578,
+									"id": 2579,
 									"node_type": 30,
 									"src": {
 										"line": 1120,
@@ -1266,7 +1299,7 @@
 										"start": 40992,
 										"end": 40995,
 										"length": 4,
-										"parent_index": 2577
+										"parent_index": 2578
 									},
 									"name": "bool",
 									"referenced_declaration": 0,
@@ -1297,10 +1330,11 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes4$",
 						"type_string": "function(bytes4)"
-					}
+					},
+					"text": "functionsupportsInterface(bytes4interfaceId)publicviewvirtualoverridereturns(bool){returninterfaceId==type(IAccessControlUpgradeable).interfaceId||super.supportsInterface(interfaceId);}"
 				},
 				{
-					"id": 2591,
+					"id": 2592,
 					"name": "hasRole",
 					"node_type": 42,
 					"kind": 41,
@@ -1318,10 +1352,10 @@
 						"start": 41216,
 						"end": 41222,
 						"length": 7,
-						"parent_index": 2591
+						"parent_index": 2592
 					},
 					"body": {
-						"id": 2601,
+						"id": 2602,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -1330,12 +1364,12 @@
 							"start": 41299,
 							"end": 41351,
 							"length": 53,
-							"parent_index": 2591
+							"parent_index": 2592
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2602,
+								"id": 2603,
 								"node_type": 47,
 								"src": {
 									"line": 1128,
@@ -1343,11 +1377,11 @@
 									"start": 41309,
 									"end": 41345,
 									"length": 37,
-									"parent_index": 2591
+									"parent_index": 2592
 								},
-								"function_return_parameters": 2591,
+								"function_return_parameters": 2592,
 								"expression": {
-									"id": 2603,
+									"id": 2604,
 									"node_type": 22,
 									"src": {
 										"line": 1128,
@@ -1355,10 +1389,10 @@
 										"start": 41316,
 										"end": 41344,
 										"length": 29,
-										"parent_index": 2602
+										"parent_index": 2603
 									},
 									"index_expression": {
-										"id": 2604,
+										"id": 2605,
 										"is_constant": false,
 										"is_l_value": false,
 										"is_pure": false,
@@ -1370,7 +1404,7 @@
 											"start": 41316,
 											"end": 41335,
 											"length": 20,
-											"parent_index": 2603
+											"parent_index": 2604
 										},
 										"member_location": {
 											"line": 1128,
@@ -1378,10 +1412,10 @@
 											"start": 41329,
 											"end": 41335,
 											"length": 7,
-											"parent_index": 2604
+											"parent_index": 2605
 										},
 										"expression": {
-											"id": 2605,
+											"id": 2606,
 											"node_type": 22,
 											"src": {
 												"line": 1128,
@@ -1389,10 +1423,10 @@
 												"start": 41316,
 												"end": 41327,
 												"length": 12,
-												"parent_index": 2604
+												"parent_index": 2605
 											},
 											"index_expression": {
-												"id": 2606,
+												"id": 2607,
 												"node_type": 16,
 												"src": {
 													"line": 1128,
@@ -1400,19 +1434,20 @@
 													"start": 41316,
 													"end": 41321,
 													"length": 6,
-													"parent_index": 2605
+													"parent_index": 2606
 												},
 												"name": "_roles",
 												"type_description": {
-													"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 													"type_string": "mapping(bytes32=\u003eRoleData)"
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2552,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_roles"
 											},
 											"base_expression": {
-												"id": 2607,
+												"id": 2608,
 												"node_type": 16,
 												"src": {
 													"line": 1128,
@@ -1420,7 +1455,7 @@
 													"start": 41323,
 													"end": 41326,
 													"length": 4,
-													"parent_index": 2605
+													"parent_index": 2606
 												},
 												"name": "role",
 												"type_description": {
@@ -1428,12 +1463,13 @@
 													"type_string": "bytes32"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2607,
-												"is_pure": false
+												"referenced_declaration": 2608,
+												"is_pure": false,
+												"text": "role"
 											},
 											"type_descriptions": [
 												{
-													"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 													"type_string": "mapping(bytes32=\u003eRoleData)"
 												},
 												{
@@ -1442,19 +1478,20 @@
 												}
 											],
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 												"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 											}
 										},
 										"member_name": "members",
 										"argument_types": [],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-										}
+										},
+										"text": "_roles[role].members"
 									},
 									"base_expression": {
-										"id": 2608,
+										"id": 2609,
 										"node_type": 16,
 										"src": {
 											"line": 1128,
@@ -1462,7 +1499,7 @@
 											"start": 41337,
 											"end": 41343,
 											"length": 7,
-											"parent_index": 2603
+											"parent_index": 2604
 										},
 										"name": "account",
 										"type_description": {
@@ -1470,12 +1507,13 @@
 											"type_string": "address"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2608,
-										"is_pure": false
+										"referenced_declaration": 2609,
+										"is_pure": false,
+										"text": "account"
 									},
 									"type_descriptions": [
 										{
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 										},
 										{
@@ -1484,7 +1522,7 @@
 										}
 									],
 									"type_description": {
-										"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+										"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 										"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
 									}
 								}
@@ -1498,7 +1536,7 @@
 					"modifiers": [],
 					"overrides": [
 						{
-							"id": 2597,
+							"id": 2598,
 							"node_type": 63,
 							"src": {
 								"line": 1127,
@@ -1506,7 +1544,7 @@
 								"start": 41275,
 								"end": 41282,
 								"length": 8,
-								"parent_index": 2591
+								"parent_index": 2592
 							},
 							"overrides": [],
 							"referenced_declaration": 0,
@@ -1517,7 +1555,7 @@
 						}
 					],
 					"parameters": {
-						"id": 2592,
+						"id": 2593,
 						"node_type": 43,
 						"src": {
 							"line": 1127,
@@ -1525,11 +1563,11 @@
 							"start": 41224,
 							"end": 41252,
 							"length": 29,
-							"parent_index": 2591
+							"parent_index": 2592
 						},
 						"parameters": [
 							{
-								"id": 2593,
+								"id": 2594,
 								"node_type": 44,
 								"src": {
 									"line": 1127,
@@ -1537,12 +1575,12 @@
 									"start": 41224,
 									"end": 41235,
 									"length": 12,
-									"parent_index": 2592
+									"parent_index": 2593
 								},
-								"scope": 2591,
+								"scope": 2592,
 								"name": "role",
 								"type_name": {
-									"id": 2594,
+									"id": 2595,
 									"node_type": 30,
 									"src": {
 										"line": 1127,
@@ -1550,7 +1588,7 @@
 										"start": 41224,
 										"end": 41230,
 										"length": 7,
-										"parent_index": 2593
+										"parent_index": 2594
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -1568,7 +1606,7 @@
 								}
 							},
 							{
-								"id": 2595,
+								"id": 2596,
 								"node_type": 44,
 								"src": {
 									"line": 1127,
@@ -1576,12 +1614,12 @@
 									"start": 41238,
 									"end": 41252,
 									"length": 15,
-									"parent_index": 2592
+									"parent_index": 2593
 								},
-								"scope": 2591,
+								"scope": 2592,
 								"name": "account",
 								"type_name": {
-									"id": 2596,
+									"id": 2597,
 									"node_type": 30,
 									"src": {
 										"line": 1127,
@@ -1589,7 +1627,7 @@
 										"start": 41238,
 										"end": 41244,
 										"length": 7,
-										"parent_index": 2595
+										"parent_index": 2596
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -1620,7 +1658,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2598,
+						"id": 2599,
 						"node_type": 43,
 						"src": {
 							"line": 1127,
@@ -1628,11 +1666,11 @@
 							"start": 41293,
 							"end": 41296,
 							"length": 4,
-							"parent_index": 2591
+							"parent_index": 2592
 						},
 						"parameters": [
 							{
-								"id": 2599,
+								"id": 2600,
 								"node_type": 44,
 								"src": {
 									"line": 1127,
@@ -1640,12 +1678,12 @@
 									"start": 41293,
 									"end": 41296,
 									"length": 4,
-									"parent_index": 2598
+									"parent_index": 2599
 								},
-								"scope": 2591,
+								"scope": 2592,
 								"name": "",
 								"type_name": {
-									"id": 2600,
+									"id": 2601,
 									"node_type": 30,
 									"src": {
 										"line": 1127,
@@ -1653,7 +1691,7 @@
 										"start": 41293,
 										"end": 41296,
 										"length": 4,
-										"parent_index": 2599
+										"parent_index": 2600
 									},
 									"name": "bool",
 									"referenced_declaration": 0,
@@ -1678,16 +1716,17 @@
 							}
 						]
 					},
-					"signature_raw": "hasRole(bytes32, address)",
-					"signature": "86282e07",
+					"signature_raw": "hasRole(bytes32,address)",
+					"signature": "91d14854",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "functionhasRole(bytes32role,addressaccount)publicviewvirtualoverridereturns(bool){return_roles[role].members[account];}"
 				},
 				{
-					"id": 2610,
+					"id": 2611,
 					"name": "_checkRole",
 					"node_type": 42,
 					"kind": 41,
@@ -1705,10 +1744,10 @@
 						"start": 41655,
 						"end": 41664,
 						"length": 10,
-						"parent_index": 2610
+						"parent_index": 2611
 					},
 					"body": {
-						"id": 2615,
+						"id": 2616,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -1717,12 +1756,12 @@
 							"start": 41702,
 							"end": 41748,
 							"length": 47,
-							"parent_index": 2610
+							"parent_index": 2611
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2616,
+								"id": 2617,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -1731,7 +1770,7 @@
 									"start": 41712,
 									"end": 41741,
 									"length": 30,
-									"parent_index": 2615
+									"parent_index": 2616
 								},
 								"argument_types": [
 									{
@@ -1745,7 +1784,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2618,
+										"id": 2619,
 										"node_type": 16,
 										"src": {
 											"line": 1140,
@@ -1753,7 +1792,7 @@
 											"start": 41723,
 											"end": 41726,
 											"length": 4,
-											"parent_index": 2616
+											"parent_index": 2617
 										},
 										"name": "role",
 										"type_description": {
@@ -1761,11 +1800,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2618,
-										"is_pure": false
+										"referenced_declaration": 2619,
+										"is_pure": false,
+										"text": "role"
 									},
 									{
-										"id": 2619,
+										"id": 2620,
 										"node_type": 24,
 										"kind": 24,
 										"src": {
@@ -1774,12 +1814,12 @@
 											"start": 41729,
 											"end": 41740,
 											"length": 12,
-											"parent_index": 2616
+											"parent_index": 2617
 										},
 										"argument_types": [],
 										"arguments": [],
 										"expression": {
-											"id": 2620,
+											"id": 2621,
 											"node_type": 16,
 											"src": {
 												"line": 1140,
@@ -1787,7 +1827,7 @@
 												"start": 41729,
 												"end": 41738,
 												"length": 10,
-												"parent_index": 2619
+												"parent_index": 2620
 											},
 											"name": "_msgSender",
 											"type_description": {
@@ -1796,7 +1836,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_msgSender"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -1805,7 +1846,7 @@
 									}
 								],
 								"expression": {
-									"id": 2617,
+									"id": 2618,
 									"node_type": 16,
 									"src": {
 										"line": 1140,
@@ -1813,7 +1854,7 @@
 										"start": 41712,
 										"end": 41721,
 										"length": 10,
-										"parent_index": 2616
+										"parent_index": 2617
 									},
 									"name": "_checkRole",
 									"type_description": {
@@ -1822,7 +1863,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_checkRole"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bytes32$_t_function_$",
@@ -1838,7 +1880,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 2611,
+						"id": 2612,
 						"node_type": 43,
 						"src": {
 							"line": 1139,
@@ -1846,11 +1888,11 @@
 							"start": 41666,
 							"end": 41677,
 							"length": 12,
-							"parent_index": 2610
+							"parent_index": 2611
 						},
 						"parameters": [
 							{
-								"id": 2612,
+								"id": 2613,
 								"node_type": 44,
 								"src": {
 									"line": 1139,
@@ -1858,12 +1900,12 @@
 									"start": 41666,
 									"end": 41677,
 									"length": 12,
-									"parent_index": 2611
+									"parent_index": 2612
 								},
-								"scope": 2610,
+								"scope": 2611,
 								"name": "role",
 								"type_name": {
-									"id": 2613,
+									"id": 2614,
 									"node_type": 30,
 									"src": {
 										"line": 1139,
@@ -1871,7 +1913,7 @@
 										"start": 41666,
 										"end": 41672,
 										"length": 7,
-										"parent_index": 2612
+										"parent_index": 2613
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -1897,7 +1939,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2614,
+						"id": 2615,
 						"node_type": 43,
 						"src": {
 							"line": 1139,
@@ -1905,7 +1947,7 @@
 							"start": 41646,
 							"end": 41748,
 							"length": 103,
-							"parent_index": 2610
+							"parent_index": 2611
 						},
 						"parameters": [],
 						"parameter_types": []
@@ -1916,10 +1958,11 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$",
 						"type_string": "function(bytes32)"
-					}
+					},
+					"text": "function_checkRole(bytes32role)internalviewvirtual{_checkRole(role,_msgSender());}"
 				},
 				{
-					"id": 2622,
+					"id": 2623,
 					"name": "_checkRole",
 					"node_type": 42,
 					"kind": 41,
@@ -1937,10 +1980,10 @@
 						"start": 42039,
 						"end": 42048,
 						"length": 10,
-						"parent_index": 2622
+						"parent_index": 2623
 					},
 					"body": {
-						"id": 2629,
+						"id": 2630,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -1949,12 +1992,12 @@
 							"start": 42103,
 							"end": 42543,
 							"length": 441,
-							"parent_index": 2622
+							"parent_index": 2623
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2630,
+								"id": 2631,
 								"node_type": 48,
 								"src": {
 									"line": 1151,
@@ -1962,10 +2005,10 @@
 									"start": 42113,
 									"end": 42537,
 									"length": 425,
-									"parent_index": 2629
+									"parent_index": 2630
 								},
 								"condition": {
-									"id": 2631,
+									"id": 2632,
 									"node_type": 18,
 									"kind": 104,
 									"src": {
@@ -1974,7 +2017,7 @@
 										"start": 42117,
 										"end": 42139,
 										"length": 23,
-										"parent_index": 2622
+										"parent_index": 2623
 									},
 									"operator": 31,
 									"prefix": false,
@@ -1983,7 +2026,7 @@
 									"is_pure": false,
 									"l_value_requested": false,
 									"expression": {
-										"id": 2632,
+										"id": 2633,
 										"node_type": 24,
 										"kind": 24,
 										"src": {
@@ -1992,7 +2035,7 @@
 											"start": 42118,
 											"end": 42139,
 											"length": 22,
-											"parent_index": 2631
+											"parent_index": 2632
 										},
 										"argument_types": [
 											{
@@ -2006,7 +2049,7 @@
 										],
 										"arguments": [
 											{
-												"id": 2634,
+												"id": 2635,
 												"node_type": 16,
 												"src": {
 													"line": 1151,
@@ -2014,7 +2057,7 @@
 													"start": 42126,
 													"end": 42129,
 													"length": 4,
-													"parent_index": 2632
+													"parent_index": 2633
 												},
 												"name": "role",
 												"type_description": {
@@ -2022,11 +2065,12 @@
 													"type_string": "bytes32"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2634,
-												"is_pure": false
+												"referenced_declaration": 2635,
+												"is_pure": false,
+												"text": "role"
 											},
 											{
-												"id": 2635,
+												"id": 2636,
 												"node_type": 16,
 												"src": {
 													"line": 1151,
@@ -2034,7 +2078,7 @@
 													"start": 42132,
 													"end": 42138,
 													"length": 7,
-													"parent_index": 2632
+													"parent_index": 2633
 												},
 												"name": "account",
 												"type_description": {
@@ -2042,18 +2086,19 @@
 													"type_string": "address"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2635,
+												"referenced_declaration": 2636,
 												"is_pure": false,
 												"argument_types": [
 													{
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "account"
 											}
 										],
 										"expression": {
-											"id": 2633,
+											"id": 2634,
 											"node_type": 16,
 											"src": {
 												"line": 1151,
@@ -2061,7 +2106,7 @@
 												"start": 42118,
 												"end": 42124,
 												"length": 7,
-												"parent_index": 2632
+												"parent_index": 2633
 											},
 											"name": "hasRole",
 											"type_description": {
@@ -2070,7 +2115,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "hasRole"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -2083,7 +2129,7 @@
 									}
 								},
 								"body": {
-									"id": 2636,
+									"id": 2637,
 									"node_type": 46,
 									"kind": 0,
 									"src": {
@@ -2092,12 +2138,12 @@
 										"start": 42142,
 										"end": 42537,
 										"length": 396,
-										"parent_index": 2622
+										"parent_index": 2623
 									},
 									"implemented": true,
 									"statements": [
 										{
-											"id": 2637,
+											"id": 2638,
 											"node_type": 24,
 											"kind": 24,
 											"src": {
@@ -2106,7 +2152,7 @@
 												"start": 42156,
 												"end": 42526,
 												"length": 371,
-												"parent_index": 2636
+												"parent_index": 2637
 											},
 											"argument_types": [
 												{
@@ -2116,7 +2162,7 @@
 											],
 											"arguments": [
 												{
-													"id": 2639,
+													"id": 2640,
 													"node_type": 24,
 													"kind": 24,
 													"src": {
@@ -2125,7 +2171,7 @@
 														"start": 42180,
 														"end": 42512,
 														"length": 333,
-														"parent_index": 2637
+														"parent_index": 2638
 													},
 													"argument_types": [
 														{
@@ -2135,7 +2181,7 @@
 													],
 													"arguments": [
 														{
-															"id": 2642,
+															"id": 2643,
 															"node_type": 24,
 															"kind": 24,
 															"src": {
@@ -2144,7 +2190,7 @@
 																"start": 42208,
 																"end": 42494,
 																"length": 287,
-																"parent_index": 2639
+																"parent_index": 2640
 															},
 															"argument_types": [
 																{
@@ -2166,7 +2212,7 @@
 															],
 															"arguments": [
 																{
-																	"id": 2645,
+																	"id": 2646,
 																	"node_type": 17,
 																	"kind": 50,
 																	"value": "AccessControl: account",
@@ -2177,7 +2223,7 @@
 																		"start": 42250,
 																		"end": 42274,
 																		"length": 25,
-																		"parent_index": 2642
+																		"parent_index": 2643
 																	},
 																	"type_description": {
 																		"type_identifier": "t_string_literal",
@@ -2185,10 +2231,11 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": true
+																	"is_pure": true,
+																	"text": "\"AccessControl: account \""
 																},
 																{
-																	"id": 2646,
+																	"id": 2647,
 																	"node_type": 24,
 																	"kind": 24,
 																	"src": {
@@ -2197,7 +2244,7 @@
 																		"start": 42301,
 																		"end": 42352,
 																		"length": 52,
-																		"parent_index": 2642
+																		"parent_index": 2643
 																	},
 																	"argument_types": [
 																		{
@@ -2211,7 +2258,7 @@
 																	],
 																	"arguments": [
 																		{
-																			"id": 2649,
+																			"id": 2650,
 																			"node_type": 24,
 																			"kind": 24,
 																			"src": {
@@ -2220,7 +2267,7 @@
 																				"start": 42332,
 																				"end": 42347,
 																				"length": 16,
-																				"parent_index": 2646
+																				"parent_index": 2647
 																			},
 																			"argument_types": [
 																				{
@@ -2230,7 +2277,7 @@
 																			],
 																			"arguments": [
 																				{
-																					"id": 2652,
+																					"id": 2653,
 																					"node_type": 16,
 																					"src": {
 																						"line": 1156,
@@ -2238,7 +2285,7 @@
 																						"start": 42340,
 																						"end": 42346,
 																						"length": 7,
-																						"parent_index": 2649
+																						"parent_index": 2650
 																					},
 																					"name": "account",
 																					"type_description": {
@@ -2246,12 +2293,13 @@
 																						"type_string": "address"
 																					},
 																					"overloaded_declarations": [],
-																					"referenced_declaration": 2652,
-																					"is_pure": false
+																					"referenced_declaration": 2653,
+																					"is_pure": false,
+																					"text": "account"
 																				}
 																			],
 																			"expression": {
-																				"id": 2650,
+																				"id": 2651,
 																				"node_type": 16,
 																				"src": {
 																					"line": 1156,
@@ -2259,11 +2307,11 @@
 																					"start": 42332,
 																					"end": 42338,
 																					"length": 7,
-																					"parent_index": 2649
+																					"parent_index": 2650
 																				},
 																				"name": "uint160",
 																				"type_name": {
-																					"id": 2651,
+																					"id": 2652,
 																					"node_type": 30,
 																					"src": {
 																						"line": 1156,
@@ -2271,7 +2319,7 @@
 																						"start": 42332,
 																						"end": 42338,
 																						"length": 7,
-																						"parent_index": 2650
+																						"parent_index": 2651
 																					},
 																					"name": "uint160",
 																					"referenced_declaration": 0,
@@ -2292,7 +2340,8 @@
 																						"type_identifier": "t_uint160",
 																						"type_string": "uint160"
 																					}
-																				]
+																				],
+																				"text": "uint160"
 																			},
 																			"type_description": {
 																				"type_identifier": "t_function_$_t_address$",
@@ -2300,7 +2349,7 @@
 																			}
 																		},
 																		{
-																			"id": 2653,
+																			"id": 2654,
 																			"node_type": 17,
 																			"kind": 49,
 																			"value": "20",
@@ -2311,7 +2360,7 @@
 																				"start": 42350,
 																				"end": 42351,
 																				"length": 2,
-																				"parent_index": 2646
+																				"parent_index": 2647
 																			},
 																			"type_description": {
 																				"type_identifier": "t_rational_20_by_1",
@@ -2325,11 +2374,12 @@
 																					"type_identifier": "t_function_$_t_address$",
 																					"type_string": "function(address)"
 																				}
-																			]
+																			],
+																			"text": "20"
 																		}
 																	],
 																	"expression": {
-																		"id": 2647,
+																		"id": 2648,
 																		"is_constant": false,
 																		"is_l_value": false,
 																		"is_pure": false,
@@ -2341,7 +2391,7 @@
 																			"start": 42301,
 																			"end": 42330,
 																			"length": 30,
-																			"parent_index": 2646
+																			"parent_index": 2647
 																		},
 																		"member_location": {
 																			"line": 1156,
@@ -2349,10 +2399,10 @@
 																			"start": 42320,
 																			"end": 42330,
 																			"length": 11,
-																			"parent_index": 2647
+																			"parent_index": 2648
 																		},
 																		"expression": {
-																			"id": 2648,
+																			"id": 2649,
 																			"node_type": 16,
 																			"src": {
 																				"line": 1156,
@@ -2360,7 +2410,7 @@
 																				"start": 42301,
 																				"end": 42318,
 																				"length": 18,
-																				"parent_index": 2647
+																				"parent_index": 2648
 																			},
 																			"name": "StringsUpgradeable",
 																			"type_description": {
@@ -2369,14 +2419,16 @@
 																			},
 																			"overloaded_declarations": [],
 																			"referenced_declaration": 2110,
-																			"is_pure": false
+																			"is_pure": false,
+																			"text": "StringsUpgradeable"
 																		},
 																		"member_name": "toHexString",
 																		"argument_types": [],
 																		"type_description": {
 																			"type_identifier": "t_contract$_StringsUpgradeable_$2110",
 																			"type_string": "contract StringsUpgradeable"
-																		}
+																		},
+																		"text": "StringsUpgradeable.toHexString"
 																	},
 																	"type_description": {
 																		"type_identifier": "t_function_$_t_function_$_t_address$_t_rational_20_by_1$",
@@ -2384,7 +2436,7 @@
 																	}
 																},
 																{
-																	"id": 2654,
+																	"id": 2655,
 																	"node_type": 17,
 																	"kind": 50,
 																	"value": "is missing role",
@@ -2395,7 +2447,7 @@
 																		"start": 42379,
 																		"end": 42397,
 																		"length": 19,
-																		"parent_index": 2642
+																		"parent_index": 2643
 																	},
 																	"type_description": {
 																		"type_identifier": "t_string_literal",
@@ -2413,10 +2465,11 @@
 																			"type_identifier": "t_function_$_t_function_$_t_address$_t_rational_20_by_1$",
 																			"type_string": "function(function(address),int_const 20)"
 																		}
-																	]
+																	],
+																	"text": "\" is missing role \""
 																},
 																{
-																	"id": 2655,
+																	"id": 2656,
 																	"node_type": 24,
 																	"kind": 24,
 																	"src": {
@@ -2425,7 +2478,7 @@
 																		"start": 42424,
 																		"end": 42472,
 																		"length": 49,
-																		"parent_index": 2642
+																		"parent_index": 2643
 																	},
 																	"argument_types": [
 																		{
@@ -2439,7 +2492,7 @@
 																	],
 																	"arguments": [
 																		{
-																			"id": 2658,
+																			"id": 2659,
 																			"node_type": 24,
 																			"kind": 24,
 																			"src": {
@@ -2448,7 +2501,7 @@
 																				"start": 42455,
 																				"end": 42467,
 																				"length": 13,
-																				"parent_index": 2655
+																				"parent_index": 2656
 																			},
 																			"argument_types": [
 																				{
@@ -2458,7 +2511,7 @@
 																			],
 																			"arguments": [
 																				{
-																					"id": 2661,
+																					"id": 2662,
 																					"node_type": 16,
 																					"src": {
 																						"line": 1158,
@@ -2466,7 +2519,7 @@
 																						"start": 42463,
 																						"end": 42466,
 																						"length": 4,
-																						"parent_index": 2658
+																						"parent_index": 2659
 																					},
 																					"name": "role",
 																					"type_description": {
@@ -2474,12 +2527,13 @@
 																						"type_string": "bytes32"
 																					},
 																					"overloaded_declarations": [],
-																					"referenced_declaration": 2661,
-																					"is_pure": false
+																					"referenced_declaration": 2662,
+																					"is_pure": false,
+																					"text": "role"
 																				}
 																			],
 																			"expression": {
-																				"id": 2659,
+																				"id": 2660,
 																				"node_type": 16,
 																				"src": {
 																					"line": 1158,
@@ -2487,11 +2541,11 @@
 																					"start": 42455,
 																					"end": 42461,
 																					"length": 7,
-																					"parent_index": 2658
+																					"parent_index": 2659
 																				},
 																				"name": "uint256",
 																				"type_name": {
-																					"id": 2660,
+																					"id": 2661,
 																					"node_type": 30,
 																					"src": {
 																						"line": 1158,
@@ -2499,7 +2553,7 @@
 																						"start": 42455,
 																						"end": 42461,
 																						"length": 7,
-																						"parent_index": 2659
+																						"parent_index": 2660
 																					},
 																					"name": "uint256",
 																					"referenced_declaration": 0,
@@ -2520,7 +2574,8 @@
 																						"type_identifier": "t_uint256",
 																						"type_string": "uint256"
 																					}
-																				]
+																				],
+																				"text": "uint256"
 																			},
 																			"type_description": {
 																				"type_identifier": "t_function_$_t_bytes32$",
@@ -2528,7 +2583,7 @@
 																			}
 																		},
 																		{
-																			"id": 2662,
+																			"id": 2663,
 																			"node_type": 17,
 																			"kind": 49,
 																			"value": "32",
@@ -2539,7 +2594,7 @@
 																				"start": 42470,
 																				"end": 42471,
 																				"length": 2,
-																				"parent_index": 2655
+																				"parent_index": 2656
 																			},
 																			"type_description": {
 																				"type_identifier": "t_rational_32_by_1",
@@ -2553,11 +2608,12 @@
 																					"type_identifier": "t_function_$_t_bytes32$",
 																					"type_string": "function(bytes32)"
 																				}
-																			]
+																			],
+																			"text": "32"
 																		}
 																	],
 																	"expression": {
-																		"id": 2656,
+																		"id": 2657,
 																		"is_constant": false,
 																		"is_l_value": false,
 																		"is_pure": false,
@@ -2569,7 +2625,7 @@
 																			"start": 42424,
 																			"end": 42453,
 																			"length": 30,
-																			"parent_index": 2655
+																			"parent_index": 2656
 																		},
 																		"member_location": {
 																			"line": 1158,
@@ -2577,10 +2633,10 @@
 																			"start": 42443,
 																			"end": 42453,
 																			"length": 11,
-																			"parent_index": 2656
+																			"parent_index": 2657
 																		},
 																		"expression": {
-																			"id": 2657,
+																			"id": 2658,
 																			"node_type": 16,
 																			"src": {
 																				"line": 1158,
@@ -2588,7 +2644,7 @@
 																				"start": 42424,
 																				"end": 42441,
 																				"length": 18,
-																				"parent_index": 2656
+																				"parent_index": 2657
 																			},
 																			"name": "StringsUpgradeable",
 																			"type_description": {
@@ -2597,14 +2653,16 @@
 																			},
 																			"overloaded_declarations": [],
 																			"referenced_declaration": 2110,
-																			"is_pure": false
+																			"is_pure": false,
+																			"text": "StringsUpgradeable"
 																		},
 																		"member_name": "toHexString",
 																		"argument_types": [],
 																		"type_description": {
 																			"type_identifier": "t_contract$_StringsUpgradeable_$2110",
 																			"type_string": "contract StringsUpgradeable"
-																		}
+																		},
+																		"text": "StringsUpgradeable.toHexString"
 																	},
 																	"type_description": {
 																		"type_identifier": "t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
@@ -2613,7 +2671,7 @@
 																}
 															],
 															"expression": {
-																"id": 2643,
+																"id": 2644,
 																"is_constant": false,
 																"is_l_value": false,
 																"is_pure": false,
@@ -2625,7 +2683,7 @@
 																	"start": 42208,
 																	"end": 42223,
 																	"length": 16,
-																	"parent_index": 2642
+																	"parent_index": 2643
 																},
 																"member_location": {
 																	"line": 1154,
@@ -2633,10 +2691,10 @@
 																	"start": 42212,
 																	"end": 42223,
 																	"length": 12,
-																	"parent_index": 2643
+																	"parent_index": 2644
 																},
 																"expression": {
-																	"id": 2644,
+																	"id": 2645,
 																	"node_type": 16,
 																	"src": {
 																		"line": 1154,
@@ -2644,7 +2702,7 @@
 																		"start": 42208,
 																		"end": 42210,
 																		"length": 3,
-																		"parent_index": 2643
+																		"parent_index": 2644
 																	},
 																	"name": "abi",
 																	"type_description": {
@@ -2653,14 +2711,16 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "abi"
 																},
 																"member_name": "encodePacked",
 																"argument_types": [],
 																"type_description": {
 																	"type_identifier": "t_magic_abi",
 																	"type_string": "abi"
-																}
+																},
+																"text": "abi.encodePacked"
 															},
 															"type_description": {
 																"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
@@ -2669,7 +2729,7 @@
 														}
 													],
 													"expression": {
-														"id": 2640,
+														"id": 2641,
 														"node_type": 16,
 														"src": {
 															"line": 1153,
@@ -2677,11 +2737,11 @@
 															"start": 42180,
 															"end": 42185,
 															"length": 6,
-															"parent_index": 2639
+															"parent_index": 2640
 														},
 														"name": "string",
 														"type_name": {
-															"id": 2641,
+															"id": 2642,
 															"node_type": 30,
 															"src": {
 																"line": 1153,
@@ -2689,7 +2749,7 @@
 																"start": 42180,
 																"end": 42185,
 																"length": 6,
-																"parent_index": 2640
+																"parent_index": 2641
 															},
 															"name": "string",
 															"referenced_declaration": 0,
@@ -2710,7 +2770,8 @@
 																"type_identifier": "t_string",
 																"type_string": "string"
 															}
-														]
+														],
+														"text": "string"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
@@ -2719,7 +2780,7 @@
 												}
 											],
 											"expression": {
-												"id": 2638,
+												"id": 2639,
 												"node_type": 16,
 												"src": {
 													"line": 1152,
@@ -2727,7 +2788,7 @@
 													"start": 42156,
 													"end": 42161,
 													"length": 6,
-													"parent_index": 2637
+													"parent_index": 2638
 												},
 												"name": "revert",
 												"type_description": {
@@ -2736,7 +2797,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "revert"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_address$_t_rational_20_by_1$_t_string_literal$_t_function_$_t_function_$_t_bytes32$_t_rational_32_by_1$",
@@ -2755,7 +2817,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 2623,
+						"id": 2624,
 						"node_type": 43,
 						"src": {
 							"line": 1150,
@@ -2763,11 +2825,11 @@
 							"start": 42050,
 							"end": 42078,
 							"length": 29,
-							"parent_index": 2622
+							"parent_index": 2623
 						},
 						"parameters": [
 							{
-								"id": 2624,
+								"id": 2625,
 								"node_type": 44,
 								"src": {
 									"line": 1150,
@@ -2775,12 +2837,12 @@
 									"start": 42050,
 									"end": 42061,
 									"length": 12,
-									"parent_index": 2623
+									"parent_index": 2624
 								},
-								"scope": 2622,
+								"scope": 2623,
 								"name": "role",
 								"type_name": {
-									"id": 2625,
+									"id": 2626,
 									"node_type": 30,
 									"src": {
 										"line": 1150,
@@ -2788,7 +2850,7 @@
 										"start": 42050,
 										"end": 42056,
 										"length": 7,
-										"parent_index": 2624
+										"parent_index": 2625
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -2806,7 +2868,7 @@
 								}
 							},
 							{
-								"id": 2626,
+								"id": 2627,
 								"node_type": 44,
 								"src": {
 									"line": 1150,
@@ -2814,12 +2876,12 @@
 									"start": 42064,
 									"end": 42078,
 									"length": 15,
-									"parent_index": 2623
+									"parent_index": 2624
 								},
-								"scope": 2622,
+								"scope": 2623,
 								"name": "account",
 								"type_name": {
-									"id": 2627,
+									"id": 2628,
 									"node_type": 30,
 									"src": {
 										"line": 1150,
@@ -2827,7 +2889,7 @@
 										"start": 42064,
 										"end": 42070,
 										"length": 7,
-										"parent_index": 2626
+										"parent_index": 2627
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -2858,7 +2920,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2628,
+						"id": 2629,
 						"node_type": 43,
 						"src": {
 							"line": 1150,
@@ -2866,21 +2928,22 @@
 							"start": 42030,
 							"end": 42543,
 							"length": 514,
-							"parent_index": 2622
+							"parent_index": 2623
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_checkRole(bytes32, address)",
-					"signature": "ad90b429",
+					"signature_raw": "_checkRole(bytes32,address)",
+					"signature": "5b7b2c38",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "function_checkRole(bytes32role,addressaccount)internalviewvirtual{if(!hasRole(role,account)){revert(string(abi.encodePacked(\"AccessControl: account \",StringsUpgradeable.toHexString(uint160(account),20),\" is missing role \",StringsUpgradeable.toHexString(uint256(role),32))));}}"
 				},
 				{
-					"id": 2664,
+					"id": 2665,
 					"name": "getRoleAdmin",
 					"node_type": 42,
 					"kind": 41,
@@ -2898,10 +2961,10 @@
 						"start": 42734,
 						"end": 42745,
 						"length": 12,
-						"parent_index": 2664
+						"parent_index": 2665
 					},
 					"body": {
-						"id": 2672,
+						"id": 2673,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -2910,12 +2973,12 @@
 							"start": 42808,
 							"end": 42853,
 							"length": 46,
-							"parent_index": 2664
+							"parent_index": 2665
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2673,
+								"id": 2674,
 								"node_type": 47,
 								"src": {
 									"line": 1172,
@@ -2923,11 +2986,11 @@
 									"start": 42818,
 									"end": 42847,
 									"length": 30,
-									"parent_index": 2664
+									"parent_index": 2665
 								},
-								"function_return_parameters": 2664,
+								"function_return_parameters": 2665,
 								"expression": {
-									"id": 2674,
+									"id": 2675,
 									"is_constant": false,
 									"is_l_value": false,
 									"is_pure": false,
@@ -2939,7 +3002,7 @@
 										"start": 42825,
 										"end": 42846,
 										"length": 22,
-										"parent_index": 2673
+										"parent_index": 2674
 									},
 									"member_location": {
 										"line": 1172,
@@ -2947,10 +3010,10 @@
 										"start": 42838,
 										"end": 42846,
 										"length": 9,
-										"parent_index": 2674
+										"parent_index": 2675
 									},
 									"expression": {
-										"id": 2675,
+										"id": 2676,
 										"node_type": 22,
 										"src": {
 											"line": 1172,
@@ -2958,10 +3021,10 @@
 											"start": 42825,
 											"end": 42836,
 											"length": 12,
-											"parent_index": 2674
+											"parent_index": 2675
 										},
 										"index_expression": {
-											"id": 2676,
+											"id": 2677,
 											"node_type": 16,
 											"src": {
 												"line": 1172,
@@ -2969,19 +3032,20 @@
 												"start": 42825,
 												"end": 42830,
 												"length": 6,
-												"parent_index": 2675
+												"parent_index": 2676
 											},
 											"name": "_roles",
 											"type_description": {
-												"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+												"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 												"type_string": "mapping(bytes32=\u003eRoleData)"
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2552,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_roles"
 										},
 										"base_expression": {
-											"id": 2677,
+											"id": 2678,
 											"node_type": 16,
 											"src": {
 												"line": 1172,
@@ -2989,7 +3053,7 @@
 												"start": 42832,
 												"end": 42835,
 												"length": 4,
-												"parent_index": 2675
+												"parent_index": 2676
 											},
 											"name": "role",
 											"type_description": {
@@ -2997,12 +3061,13 @@
 												"type_string": "bytes32"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2677,
-											"is_pure": false
+											"referenced_declaration": 2678,
+											"is_pure": false,
+											"text": "role"
 										},
 										"type_descriptions": [
 											{
-												"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+												"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 												"type_string": "mapping(bytes32=\u003eRoleData)"
 											},
 											{
@@ -3011,16 +3076,17 @@
 											}
 										],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 										}
 									},
 									"member_name": "adminRole",
 									"argument_types": [],
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 										"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-									}
+									},
+									"text": "_roles[role].adminRole"
 								}
 							}
 						]
@@ -3032,7 +3098,7 @@
 					"modifiers": [],
 					"overrides": [
 						{
-							"id": 2668,
+							"id": 2669,
 							"node_type": 63,
 							"src": {
 								"line": 1171,
@@ -3040,7 +3106,7 @@
 								"start": 42781,
 								"end": 42788,
 								"length": 8,
-								"parent_index": 2664
+								"parent_index": 2665
 							},
 							"overrides": [],
 							"referenced_declaration": 0,
@@ -3051,7 +3117,7 @@
 						}
 					],
 					"parameters": {
-						"id": 2665,
+						"id": 2666,
 						"node_type": 43,
 						"src": {
 							"line": 1171,
@@ -3059,11 +3125,11 @@
 							"start": 42747,
 							"end": 42758,
 							"length": 12,
-							"parent_index": 2664
+							"parent_index": 2665
 						},
 						"parameters": [
 							{
-								"id": 2666,
+								"id": 2667,
 								"node_type": 44,
 								"src": {
 									"line": 1171,
@@ -3071,12 +3137,12 @@
 									"start": 42747,
 									"end": 42758,
 									"length": 12,
-									"parent_index": 2665
+									"parent_index": 2666
 								},
-								"scope": 2664,
+								"scope": 2665,
 								"name": "role",
 								"type_name": {
-									"id": 2667,
+									"id": 2668,
 									"node_type": 30,
 									"src": {
 										"line": 1171,
@@ -3084,7 +3150,7 @@
 										"start": 42747,
 										"end": 42753,
 										"length": 7,
-										"parent_index": 2666
+										"parent_index": 2667
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -3110,7 +3176,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2669,
+						"id": 2670,
 						"node_type": 43,
 						"src": {
 							"line": 1171,
@@ -3118,11 +3184,11 @@
 							"start": 42799,
 							"end": 42805,
 							"length": 7,
-							"parent_index": 2664
+							"parent_index": 2665
 						},
 						"parameters": [
 							{
-								"id": 2670,
+								"id": 2671,
 								"node_type": 44,
 								"src": {
 									"line": 1171,
@@ -3130,12 +3196,12 @@
 									"start": 42799,
 									"end": 42805,
 									"length": 7,
-									"parent_index": 2669
+									"parent_index": 2670
 								},
-								"scope": 2664,
+								"scope": 2665,
 								"name": "",
 								"type_name": {
-									"id": 2671,
+									"id": 2672,
 									"node_type": 30,
 									"src": {
 										"line": 1171,
@@ -3143,7 +3209,7 @@
 										"start": 42799,
 										"end": 42805,
 										"length": 7,
-										"parent_index": 2670
+										"parent_index": 2671
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -3174,10 +3240,11 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$",
 						"type_string": "function(bytes32)"
-					}
+					},
+					"text": "functiongetRoleAdmin(bytes32role)publicviewvirtualoverridereturns(bytes32){return_roles[role].adminRole;}"
 				},
 				{
-					"id": 2679,
+					"id": 2680,
 					"name": "grantRole",
 					"node_type": 42,
 					"kind": 41,
@@ -3195,10 +3262,10 @@
 						"start": 43159,
 						"end": 43167,
 						"length": 9,
-						"parent_index": 2679
+						"parent_index": 2680
 					},
 					"body": {
-						"id": 2692,
+						"id": 2693,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -3207,12 +3274,12 @@
 							"start": 43253,
 							"end": 43294,
 							"length": 42,
-							"parent_index": 2679
+							"parent_index": 2680
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2693,
+								"id": 2694,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -3221,7 +3288,7 @@
 									"start": 43263,
 									"end": 43287,
 									"length": 25,
-									"parent_index": 2692
+									"parent_index": 2693
 								},
 								"argument_types": [
 									{
@@ -3235,7 +3302,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2695,
+										"id": 2696,
 										"node_type": 16,
 										"src": {
 											"line": 1188,
@@ -3243,7 +3310,7 @@
 											"start": 43274,
 											"end": 43277,
 											"length": 4,
-											"parent_index": 2693
+											"parent_index": 2694
 										},
 										"name": "role",
 										"type_description": {
@@ -3251,11 +3318,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2695,
-										"is_pure": false
+										"referenced_declaration": 2696,
+										"is_pure": false,
+										"text": "role"
 									},
 									{
-										"id": 2696,
+										"id": 2697,
 										"node_type": 16,
 										"src": {
 											"line": 1188,
@@ -3263,7 +3331,7 @@
 											"start": 43280,
 											"end": 43286,
 											"length": 7,
-											"parent_index": 2693
+											"parent_index": 2694
 										},
 										"name": "account",
 										"type_description": {
@@ -3271,18 +3339,19 @@
 											"type_string": "address"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2696,
+										"referenced_declaration": 2697,
 										"is_pure": false,
 										"argument_types": [
 											{
 												"type_identifier": "t_bytes32",
 												"type_string": "bytes32"
 											}
-										]
+										],
+										"text": "account"
 									}
 								],
 								"expression": {
-									"id": 2694,
+									"id": 2695,
 									"node_type": 16,
 									"src": {
 										"line": 1188,
@@ -3290,7 +3359,7 @@
 										"start": 43263,
 										"end": 43272,
 										"length": 10,
-										"parent_index": 2693
+										"parent_index": 2694
 									},
 									"name": "_grantRole",
 									"type_description": {
@@ -3299,7 +3368,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_grantRole"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -3314,7 +3384,7 @@
 					"virtual": true,
 					"modifiers": [
 						{
-							"id": 2685,
+							"id": 2686,
 							"name": "onlyRole",
 							"node_type": 72,
 							"kind": 72,
@@ -3324,7 +3394,7 @@
 								"start": 43224,
 								"end": 43251,
 								"length": 28,
-								"parent_index": 2679
+								"parent_index": 2680
 							},
 							"argument_types": [
 								{
@@ -3334,7 +3404,7 @@
 							],
 							"arguments": [
 								{
-									"id": 2687,
+									"id": 2688,
 									"node_type": 24,
 									"kind": 24,
 									"src": {
@@ -3343,7 +3413,7 @@
 										"start": 43233,
 										"end": 43250,
 										"length": 18,
-										"parent_index": 2685
+										"parent_index": 2686
 									},
 									"argument_types": [
 										{
@@ -3353,7 +3423,7 @@
 									],
 									"arguments": [
 										{
-											"id": 2689,
+											"id": 2690,
 											"node_type": 16,
 											"src": {
 												"line": 1187,
@@ -3361,7 +3431,7 @@
 												"start": 43246,
 												"end": 43249,
 												"length": 4,
-												"parent_index": 2687
+												"parent_index": 2688
 											},
 											"name": "role",
 											"type_description": {
@@ -3369,12 +3439,13 @@
 												"type_string": "bytes32"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2689,
-											"is_pure": false
+											"referenced_declaration": 2690,
+											"is_pure": false,
+											"text": "role"
 										}
 									],
 									"expression": {
-										"id": 2688,
+										"id": 2689,
 										"node_type": 16,
 										"src": {
 											"line": 1187,
@@ -3382,7 +3453,7 @@
 											"start": 43233,
 											"end": 43244,
 											"length": 12,
-											"parent_index": 2687
+											"parent_index": 2688
 										},
 										"name": "getRoleAdmin",
 										"type_description": {
@@ -3391,7 +3462,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "getRoleAdmin"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes32$",
@@ -3400,7 +3472,7 @@
 								}
 							],
 							"modifier_name": {
-								"id": 2686,
+								"id": 2687,
 								"name": "onlyRole",
 								"node_type": 0,
 								"src": {
@@ -3409,14 +3481,14 @@
 									"start": 43224,
 									"end": 43231,
 									"length": 8,
-									"parent_index": 2685
+									"parent_index": 2686
 								}
 							}
 						}
 					],
 					"overrides": [
 						{
-							"id": 2690,
+							"id": 2691,
 							"node_type": 63,
 							"src": {
 								"line": 1187,
@@ -3424,7 +3496,7 @@
 								"start": 43215,
 								"end": 43222,
 								"length": 8,
-								"parent_index": 2679
+								"parent_index": 2680
 							},
 							"overrides": [],
 							"referenced_declaration": 0,
@@ -3435,7 +3507,7 @@
 						}
 					],
 					"parameters": {
-						"id": 2680,
+						"id": 2681,
 						"node_type": 43,
 						"src": {
 							"line": 1187,
@@ -3443,11 +3515,11 @@
 							"start": 43169,
 							"end": 43197,
 							"length": 29,
-							"parent_index": 2679
+							"parent_index": 2680
 						},
 						"parameters": [
 							{
-								"id": 2681,
+								"id": 2682,
 								"node_type": 44,
 								"src": {
 									"line": 1187,
@@ -3455,12 +3527,12 @@
 									"start": 43169,
 									"end": 43180,
 									"length": 12,
-									"parent_index": 2680
+									"parent_index": 2681
 								},
-								"scope": 2679,
+								"scope": 2680,
 								"name": "role",
 								"type_name": {
-									"id": 2682,
+									"id": 2683,
 									"node_type": 30,
 									"src": {
 										"line": 1187,
@@ -3468,7 +3540,7 @@
 										"start": 43169,
 										"end": 43175,
 										"length": 7,
-										"parent_index": 2681
+										"parent_index": 2682
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -3486,7 +3558,7 @@
 								}
 							},
 							{
-								"id": 2683,
+								"id": 2684,
 								"node_type": 44,
 								"src": {
 									"line": 1187,
@@ -3494,12 +3566,12 @@
 									"start": 43183,
 									"end": 43197,
 									"length": 15,
-									"parent_index": 2680
+									"parent_index": 2681
 								},
-								"scope": 2679,
+								"scope": 2680,
 								"name": "account",
 								"type_name": {
-									"id": 2684,
+									"id": 2685,
 									"node_type": 30,
 									"src": {
 										"line": 1187,
@@ -3507,7 +3579,7 @@
 										"start": 43183,
 										"end": 43189,
 										"length": 7,
-										"parent_index": 2683
+										"parent_index": 2684
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -3538,7 +3610,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2691,
+						"id": 2692,
 						"node_type": 43,
 						"src": {
 							"line": 1187,
@@ -3546,21 +3618,22 @@
 							"start": 43150,
 							"end": 43294,
 							"length": 145,
-							"parent_index": 2679
+							"parent_index": 2680
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "grantRole(bytes32, address)",
-					"signature": "44f0a842",
+					"signature_raw": "grantRole(bytes32,address)",
+					"signature": "2f2ff15d",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "functiongrantRole(bytes32role,addressaccount)publicvirtualoverrideonlyRole(getRoleAdmin(role)){_grantRole(role,account);}"
 				},
 				{
-					"id": 2698,
+					"id": 2699,
 					"name": "revokeRole",
 					"node_type": 42,
 					"kind": 41,
@@ -3578,10 +3651,10 @@
 						"start": 43584,
 						"end": 43593,
 						"length": 10,
-						"parent_index": 2698
+						"parent_index": 2699
 					},
 					"body": {
-						"id": 2711,
+						"id": 2712,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -3590,12 +3663,12 @@
 							"start": 43679,
 							"end": 43721,
 							"length": 43,
-							"parent_index": 2698
+							"parent_index": 2699
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2712,
+								"id": 2713,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -3604,7 +3677,7 @@
 									"start": 43689,
 									"end": 43714,
 									"length": 26,
-									"parent_index": 2711
+									"parent_index": 2712
 								},
 								"argument_types": [
 									{
@@ -3618,7 +3691,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2714,
+										"id": 2715,
 										"node_type": 16,
 										"src": {
 											"line": 1203,
@@ -3626,7 +3699,7 @@
 											"start": 43701,
 											"end": 43704,
 											"length": 4,
-											"parent_index": 2712
+											"parent_index": 2713
 										},
 										"name": "role",
 										"type_description": {
@@ -3634,11 +3707,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2714,
-										"is_pure": false
+										"referenced_declaration": 2715,
+										"is_pure": false,
+										"text": "role"
 									},
 									{
-										"id": 2715,
+										"id": 2716,
 										"node_type": 16,
 										"src": {
 											"line": 1203,
@@ -3646,7 +3720,7 @@
 											"start": 43707,
 											"end": 43713,
 											"length": 7,
-											"parent_index": 2712
+											"parent_index": 2713
 										},
 										"name": "account",
 										"type_description": {
@@ -3654,18 +3728,19 @@
 											"type_string": "address"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2715,
+										"referenced_declaration": 2716,
 										"is_pure": false,
 										"argument_types": [
 											{
 												"type_identifier": "t_bytes32",
 												"type_string": "bytes32"
 											}
-										]
+										],
+										"text": "account"
 									}
 								],
 								"expression": {
-									"id": 2713,
+									"id": 2714,
 									"node_type": 16,
 									"src": {
 										"line": 1203,
@@ -3673,7 +3748,7 @@
 										"start": 43689,
 										"end": 43699,
 										"length": 11,
-										"parent_index": 2712
+										"parent_index": 2713
 									},
 									"name": "_revokeRole",
 									"type_description": {
@@ -3682,7 +3757,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_revokeRole"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -3697,7 +3773,7 @@
 					"virtual": true,
 					"modifiers": [
 						{
-							"id": 2704,
+							"id": 2705,
 							"name": "onlyRole",
 							"node_type": 72,
 							"kind": 72,
@@ -3707,7 +3783,7 @@
 								"start": 43650,
 								"end": 43677,
 								"length": 28,
-								"parent_index": 2698
+								"parent_index": 2699
 							},
 							"argument_types": [
 								{
@@ -3717,7 +3793,7 @@
 							],
 							"arguments": [
 								{
-									"id": 2706,
+									"id": 2707,
 									"node_type": 24,
 									"kind": 24,
 									"src": {
@@ -3726,7 +3802,7 @@
 										"start": 43659,
 										"end": 43676,
 										"length": 18,
-										"parent_index": 2704
+										"parent_index": 2705
 									},
 									"argument_types": [
 										{
@@ -3736,7 +3812,7 @@
 									],
 									"arguments": [
 										{
-											"id": 2708,
+											"id": 2709,
 											"node_type": 16,
 											"src": {
 												"line": 1202,
@@ -3744,7 +3820,7 @@
 												"start": 43672,
 												"end": 43675,
 												"length": 4,
-												"parent_index": 2706
+												"parent_index": 2707
 											},
 											"name": "role",
 											"type_description": {
@@ -3752,12 +3828,13 @@
 												"type_string": "bytes32"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2708,
-											"is_pure": false
+											"referenced_declaration": 2709,
+											"is_pure": false,
+											"text": "role"
 										}
 									],
 									"expression": {
-										"id": 2707,
+										"id": 2708,
 										"node_type": 16,
 										"src": {
 											"line": 1202,
@@ -3765,7 +3842,7 @@
 											"start": 43659,
 											"end": 43670,
 											"length": 12,
-											"parent_index": 2706
+											"parent_index": 2707
 										},
 										"name": "getRoleAdmin",
 										"type_description": {
@@ -3774,7 +3851,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "getRoleAdmin"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes32$",
@@ -3783,7 +3861,7 @@
 								}
 							],
 							"modifier_name": {
-								"id": 2705,
+								"id": 2706,
 								"name": "onlyRole",
 								"node_type": 0,
 								"src": {
@@ -3792,14 +3870,14 @@
 									"start": 43650,
 									"end": 43657,
 									"length": 8,
-									"parent_index": 2704
+									"parent_index": 2705
 								}
 							}
 						}
 					],
 					"overrides": [
 						{
-							"id": 2709,
+							"id": 2710,
 							"node_type": 63,
 							"src": {
 								"line": 1202,
@@ -3807,7 +3885,7 @@
 								"start": 43641,
 								"end": 43648,
 								"length": 8,
-								"parent_index": 2698
+								"parent_index": 2699
 							},
 							"overrides": [],
 							"referenced_declaration": 0,
@@ -3818,7 +3896,7 @@
 						}
 					],
 					"parameters": {
-						"id": 2699,
+						"id": 2700,
 						"node_type": 43,
 						"src": {
 							"line": 1202,
@@ -3826,11 +3904,11 @@
 							"start": 43595,
 							"end": 43623,
 							"length": 29,
-							"parent_index": 2698
+							"parent_index": 2699
 						},
 						"parameters": [
 							{
-								"id": 2700,
+								"id": 2701,
 								"node_type": 44,
 								"src": {
 									"line": 1202,
@@ -3838,12 +3916,12 @@
 									"start": 43595,
 									"end": 43606,
 									"length": 12,
-									"parent_index": 2699
+									"parent_index": 2700
 								},
-								"scope": 2698,
+								"scope": 2699,
 								"name": "role",
 								"type_name": {
-									"id": 2701,
+									"id": 2702,
 									"node_type": 30,
 									"src": {
 										"line": 1202,
@@ -3851,7 +3929,7 @@
 										"start": 43595,
 										"end": 43601,
 										"length": 7,
-										"parent_index": 2700
+										"parent_index": 2701
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -3869,7 +3947,7 @@
 								}
 							},
 							{
-								"id": 2702,
+								"id": 2703,
 								"node_type": 44,
 								"src": {
 									"line": 1202,
@@ -3877,12 +3955,12 @@
 									"start": 43609,
 									"end": 43623,
 									"length": 15,
-									"parent_index": 2699
+									"parent_index": 2700
 								},
-								"scope": 2698,
+								"scope": 2699,
 								"name": "account",
 								"type_name": {
-									"id": 2703,
+									"id": 2704,
 									"node_type": 30,
 									"src": {
 										"line": 1202,
@@ -3890,7 +3968,7 @@
 										"start": 43609,
 										"end": 43615,
 										"length": 7,
-										"parent_index": 2702
+										"parent_index": 2703
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -3921,7 +3999,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2710,
+						"id": 2711,
 						"node_type": 43,
 						"src": {
 							"line": 1202,
@@ -3929,21 +4007,22 @@
 							"start": 43575,
 							"end": 43721,
 							"length": 147,
-							"parent_index": 2698
+							"parent_index": 2699
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "revokeRole(bytes32, address)",
-					"signature": "b3252796",
+					"signature_raw": "revokeRole(bytes32,address)",
+					"signature": "d547741f",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "functionrevokeRole(bytes32role,addressaccount)publicvirtualoverrideonlyRole(getRoleAdmin(role)){_revokeRole(role,account);}"
 				},
 				{
-					"id": 2717,
+					"id": 2718,
 					"name": "renounceRole",
 					"node_type": 42,
 					"kind": 41,
@@ -3961,10 +4040,10 @@
 						"start": 44268,
 						"end": 44279,
 						"length": 12,
-						"parent_index": 2717
+						"parent_index": 2718
 					},
 					"body": {
-						"id": 2725,
+						"id": 2726,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -3973,12 +4052,12 @@
 							"start": 44336,
 							"end": 44472,
 							"length": 137,
-							"parent_index": 2717
+							"parent_index": 2718
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2726,
+								"id": 2727,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -3987,7 +4066,7 @@
 									"start": 44346,
 									"end": 44428,
 									"length": 83,
-									"parent_index": 2725
+									"parent_index": 2726
 								},
 								"argument_types": [
 									{
@@ -4001,7 +4080,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2728,
+										"id": 2729,
 										"is_constant": false,
 										"is_pure": false,
 										"node_type": 19,
@@ -4011,11 +4090,11 @@
 											"start": 44354,
 											"end": 44376,
 											"length": 23,
-											"parent_index": 2726
+											"parent_index": 2727
 										},
 										"operator": 11,
 										"left_expression": {
-											"id": 2729,
+											"id": 2730,
 											"node_type": 16,
 											"src": {
 												"line": 1223,
@@ -4023,7 +4102,7 @@
 												"start": 44354,
 												"end": 44360,
 												"length": 7,
-												"parent_index": 2728
+												"parent_index": 2729
 											},
 											"name": "account",
 											"type_description": {
@@ -4031,11 +4110,12 @@
 												"type_string": "address"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2729,
-											"is_pure": false
+											"referenced_declaration": 2730,
+											"is_pure": false,
+											"text": "account"
 										},
 										"right_expression": {
-											"id": 2730,
+											"id": 2731,
 											"node_type": 24,
 											"kind": 24,
 											"src": {
@@ -4044,12 +4124,12 @@
 												"start": 44365,
 												"end": 44376,
 												"length": 12,
-												"parent_index": 2728
+												"parent_index": 2729
 											},
 											"argument_types": [],
 											"arguments": [],
 											"expression": {
-												"id": 2731,
+												"id": 2732,
 												"node_type": 16,
 												"src": {
 													"line": 1223,
@@ -4057,7 +4137,7 @@
 													"start": 44365,
 													"end": 44374,
 													"length": 10,
-													"parent_index": 2730
+													"parent_index": 2731
 												},
 												"name": "_msgSender",
 												"type_description": {
@@ -4066,7 +4146,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -4079,7 +4160,7 @@
 										}
 									},
 									{
-										"id": 2732,
+										"id": 2733,
 										"node_type": 17,
 										"kind": 50,
 										"value": "AccessControl: can only renounce roles for self",
@@ -4090,7 +4171,7 @@
 											"start": 44379,
 											"end": 44427,
 											"length": 49,
-											"parent_index": 2726
+											"parent_index": 2727
 										},
 										"type_description": {
 											"type_identifier": "t_string_literal",
@@ -4104,11 +4185,12 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"AccessControl: can only renounce roles for self\""
 									}
 								],
 								"expression": {
-									"id": 2727,
+									"id": 2728,
 									"node_type": 16,
 									"src": {
 										"line": 1223,
@@ -4116,7 +4198,7 @@
 										"start": 44346,
 										"end": 44352,
 										"length": 7,
-										"parent_index": 2726
+										"parent_index": 2727
 									},
 									"name": "require",
 									"type_description": {
@@ -4125,7 +4207,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -4133,7 +4216,7 @@
 								}
 							},
 							{
-								"id": 2733,
+								"id": 2734,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -4142,7 +4225,7 @@
 									"start": 44440,
 									"end": 44465,
 									"length": 26,
-									"parent_index": 2725
+									"parent_index": 2726
 								},
 								"argument_types": [
 									{
@@ -4156,7 +4239,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2735,
+										"id": 2736,
 										"node_type": 16,
 										"src": {
 											"line": 1225,
@@ -4164,7 +4247,7 @@
 											"start": 44452,
 											"end": 44455,
 											"length": 4,
-											"parent_index": 2733
+											"parent_index": 2734
 										},
 										"name": "role",
 										"type_description": {
@@ -4172,11 +4255,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2735,
-										"is_pure": false
+										"referenced_declaration": 2736,
+										"is_pure": false,
+										"text": "role"
 									},
 									{
-										"id": 2736,
+										"id": 2737,
 										"node_type": 16,
 										"src": {
 											"line": 1225,
@@ -4184,7 +4268,7 @@
 											"start": 44458,
 											"end": 44464,
 											"length": 7,
-											"parent_index": 2733
+											"parent_index": 2734
 										},
 										"name": "account",
 										"type_description": {
@@ -4192,18 +4276,19 @@
 											"type_string": "address"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2736,
+										"referenced_declaration": 2737,
 										"is_pure": false,
 										"argument_types": [
 											{
 												"type_identifier": "t_bytes32",
 												"type_string": "bytes32"
 											}
-										]
+										],
+										"text": "account"
 									}
 								],
 								"expression": {
-									"id": 2734,
+									"id": 2735,
 									"node_type": 16,
 									"src": {
 										"line": 1225,
@@ -4211,7 +4296,7 @@
 										"start": 44440,
 										"end": 44450,
 										"length": 11,
-										"parent_index": 2733
+										"parent_index": 2734
 									},
 									"name": "_revokeRole",
 									"type_description": {
@@ -4220,7 +4305,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_revokeRole"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -4236,7 +4322,7 @@
 					"modifiers": [],
 					"overrides": [
 						{
-							"id": 2723,
+							"id": 2724,
 							"node_type": 63,
 							"src": {
 								"line": 1222,
@@ -4244,7 +4330,7 @@
 								"start": 44327,
 								"end": 44334,
 								"length": 8,
-								"parent_index": 2717
+								"parent_index": 2718
 							},
 							"overrides": [],
 							"referenced_declaration": 0,
@@ -4255,7 +4341,7 @@
 						}
 					],
 					"parameters": {
-						"id": 2718,
+						"id": 2719,
 						"node_type": 43,
 						"src": {
 							"line": 1222,
@@ -4263,11 +4349,11 @@
 							"start": 44281,
 							"end": 44309,
 							"length": 29,
-							"parent_index": 2717
+							"parent_index": 2718
 						},
 						"parameters": [
 							{
-								"id": 2719,
+								"id": 2720,
 								"node_type": 44,
 								"src": {
 									"line": 1222,
@@ -4275,12 +4361,12 @@
 									"start": 44281,
 									"end": 44292,
 									"length": 12,
-									"parent_index": 2718
+									"parent_index": 2719
 								},
-								"scope": 2717,
+								"scope": 2718,
 								"name": "role",
 								"type_name": {
-									"id": 2720,
+									"id": 2721,
 									"node_type": 30,
 									"src": {
 										"line": 1222,
@@ -4288,7 +4374,7 @@
 										"start": 44281,
 										"end": 44287,
 										"length": 7,
-										"parent_index": 2719
+										"parent_index": 2720
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -4306,7 +4392,7 @@
 								}
 							},
 							{
-								"id": 2721,
+								"id": 2722,
 								"node_type": 44,
 								"src": {
 									"line": 1222,
@@ -4314,12 +4400,12 @@
 									"start": 44295,
 									"end": 44309,
 									"length": 15,
-									"parent_index": 2718
+									"parent_index": 2719
 								},
-								"scope": 2717,
+								"scope": 2718,
 								"name": "account",
 								"type_name": {
-									"id": 2722,
+									"id": 2723,
 									"node_type": 30,
 									"src": {
 										"line": 1222,
@@ -4327,7 +4413,7 @@
 										"start": 44295,
 										"end": 44301,
 										"length": 7,
-										"parent_index": 2721
+										"parent_index": 2722
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -4358,7 +4444,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2724,
+						"id": 2725,
 						"node_type": 43,
 						"src": {
 							"line": 1222,
@@ -4366,21 +4452,22 @@
 							"start": 44259,
 							"end": 44472,
 							"length": 214,
-							"parent_index": 2717
+							"parent_index": 2718
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "renounceRole(bytes32, address)",
-					"signature": "e8365576",
+					"signature_raw": "renounceRole(bytes32,address)",
+					"signature": "36568abe",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "functionrenounceRole(bytes32role,addressaccount)publicvirtualoverride{require(account==_msgSender(),\"AccessControl: can only renounce roles for self\");_revokeRole(role,account);}"
 				},
 				{
-					"id": 2738,
+					"id": 2739,
 					"name": "_setupRole",
 					"node_type": 42,
 					"kind": 41,
@@ -4398,10 +4485,10 @@
 						"start": 45167,
 						"end": 45176,
 						"length": 10,
-						"parent_index": 2738
+						"parent_index": 2739
 					},
 					"body": {
-						"id": 2745,
+						"id": 2746,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -4410,12 +4497,12 @@
 							"start": 45226,
 							"end": 45267,
 							"length": 42,
-							"parent_index": 2738
+							"parent_index": 2739
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2746,
+								"id": 2747,
 								"node_type": 24,
 								"kind": 24,
 								"src": {
@@ -4424,7 +4511,7 @@
 									"start": 45236,
 									"end": 45260,
 									"length": 25,
-									"parent_index": 2745
+									"parent_index": 2746
 								},
 								"argument_types": [
 									{
@@ -4438,7 +4525,7 @@
 								],
 								"arguments": [
 									{
-										"id": 2748,
+										"id": 2749,
 										"node_type": 16,
 										"src": {
 											"line": 1249,
@@ -4446,7 +4533,7 @@
 											"start": 45247,
 											"end": 45250,
 											"length": 4,
-											"parent_index": 2746
+											"parent_index": 2747
 										},
 										"name": "role",
 										"type_description": {
@@ -4454,11 +4541,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2748,
-										"is_pure": false
+										"referenced_declaration": 2749,
+										"is_pure": false,
+										"text": "role"
 									},
 									{
-										"id": 2749,
+										"id": 2750,
 										"node_type": 16,
 										"src": {
 											"line": 1249,
@@ -4466,7 +4554,7 @@
 											"start": 45253,
 											"end": 45259,
 											"length": 7,
-											"parent_index": 2746
+											"parent_index": 2747
 										},
 										"name": "account",
 										"type_description": {
@@ -4474,18 +4562,19 @@
 											"type_string": "address"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2749,
+										"referenced_declaration": 2750,
 										"is_pure": false,
 										"argument_types": [
 											{
 												"type_identifier": "t_bytes32",
 												"type_string": "bytes32"
 											}
-										]
+										],
+										"text": "account"
 									}
 								],
 								"expression": {
-									"id": 2747,
+									"id": 2748,
 									"node_type": 16,
 									"src": {
 										"line": 1249,
@@ -4493,7 +4582,7 @@
 										"start": 45236,
 										"end": 45245,
 										"length": 10,
-										"parent_index": 2746
+										"parent_index": 2747
 									},
 									"name": "_grantRole",
 									"type_description": {
@@ -4502,7 +4591,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_grantRole"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -4518,7 +4608,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 2739,
+						"id": 2740,
 						"node_type": 43,
 						"src": {
 							"line": 1248,
@@ -4526,11 +4616,11 @@
 							"start": 45178,
 							"end": 45206,
 							"length": 29,
-							"parent_index": 2738
+							"parent_index": 2739
 						},
 						"parameters": [
 							{
-								"id": 2740,
+								"id": 2741,
 								"node_type": 44,
 								"src": {
 									"line": 1248,
@@ -4538,12 +4628,12 @@
 									"start": 45178,
 									"end": 45189,
 									"length": 12,
-									"parent_index": 2739
+									"parent_index": 2740
 								},
-								"scope": 2738,
+								"scope": 2739,
 								"name": "role",
 								"type_name": {
-									"id": 2741,
+									"id": 2742,
 									"node_type": 30,
 									"src": {
 										"line": 1248,
@@ -4551,7 +4641,7 @@
 										"start": 45178,
 										"end": 45184,
 										"length": 7,
-										"parent_index": 2740
+										"parent_index": 2741
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -4569,7 +4659,7 @@
 								}
 							},
 							{
-								"id": 2742,
+								"id": 2743,
 								"node_type": 44,
 								"src": {
 									"line": 1248,
@@ -4577,12 +4667,12 @@
 									"start": 45192,
 									"end": 45206,
 									"length": 15,
-									"parent_index": 2739
+									"parent_index": 2740
 								},
-								"scope": 2738,
+								"scope": 2739,
 								"name": "account",
 								"type_name": {
-									"id": 2743,
+									"id": 2744,
 									"node_type": 30,
 									"src": {
 										"line": 1248,
@@ -4590,7 +4680,7 @@
 										"start": 45192,
 										"end": 45198,
 										"length": 7,
-										"parent_index": 2742
+										"parent_index": 2743
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -4621,7 +4711,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2744,
+						"id": 2745,
 						"node_type": 43,
 						"src": {
 							"line": 1248,
@@ -4629,21 +4719,22 @@
 							"start": 45158,
 							"end": 45267,
 							"length": 110,
-							"parent_index": 2738
+							"parent_index": 2739
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_setupRole(bytes32, address)",
-					"signature": "95e930c8",
+					"signature_raw": "_setupRole(bytes32,address)",
+					"signature": "4fa943a6",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "function_setupRole(bytes32role,addressaccount)internalvirtual{_grantRole(role,account);}"
 				},
 				{
-					"id": 2751,
+					"id": 2752,
 					"name": "_setRoleAdmin",
 					"node_type": 42,
 					"kind": 41,
@@ -4661,10 +4752,10 @@
 						"start": 45402,
 						"end": 45414,
 						"length": 13,
-						"parent_index": 2751
+						"parent_index": 2752
 					},
 					"body": {
-						"id": 2758,
+						"id": 2759,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -4673,12 +4764,12 @@
 							"start": 45466,
 							"end": 45639,
 							"length": 174,
-							"parent_index": 2751
+							"parent_index": 2752
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2759,
+								"id": 2760,
 								"node_type": 44,
 								"src": {
 									"line": 1258,
@@ -4686,25 +4777,25 @@
 									"start": 45476,
 									"end": 45522,
 									"length": 47,
-									"parent_index": 2758
+									"parent_index": 2759
 								},
 								"assignments": [
-									2760
+									2761
 								],
 								"declarations": [
 									{
-										"id": 2760,
+										"id": 2761,
 										"state_mutability": 1,
 										"name": "previousAdminRole",
 										"node_type": 44,
-										"scope": 2758,
+										"scope": 2759,
 										"src": {
 											"line": 1258,
 											"column": 8,
 											"start": 45476,
 											"end": 45500,
 											"length": 25,
-											"parent_index": 2759
+											"parent_index": 2760
 										},
 										"name_location": {
 											"line": 1258,
@@ -4712,12 +4803,12 @@
 											"start": 45484,
 											"end": 45500,
 											"length": 17,
-											"parent_index": 2760
+											"parent_index": 2761
 										},
 										"is_state_variable": false,
 										"storage_location": 1,
 										"type_name": {
-											"id": 2761,
+											"id": 2762,
 											"node_type": 30,
 											"src": {
 												"line": 1258,
@@ -4725,7 +4816,7 @@
 												"start": 45476,
 												"end": 45482,
 												"length": 7,
-												"parent_index": 2760
+												"parent_index": 2761
 											},
 											"name": "bytes32",
 											"referenced_declaration": 0,
@@ -4738,7 +4829,7 @@
 									}
 								],
 								"initial_value": {
-									"id": 2762,
+									"id": 2763,
 									"node_type": 24,
 									"kind": 24,
 									"src": {
@@ -4747,7 +4838,7 @@
 										"start": 45504,
 										"end": 45521,
 										"length": 18,
-										"parent_index": 2759
+										"parent_index": 2760
 									},
 									"argument_types": [
 										{
@@ -4757,7 +4848,7 @@
 									],
 									"arguments": [
 										{
-											"id": 2764,
+											"id": 2765,
 											"node_type": 16,
 											"src": {
 												"line": 1258,
@@ -4765,7 +4856,7 @@
 												"start": 45517,
 												"end": 45520,
 												"length": 4,
-												"parent_index": 2762
+												"parent_index": 2763
 											},
 											"name": "role",
 											"type_description": {
@@ -4773,12 +4864,13 @@
 												"type_string": "bytes32"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2764,
-											"is_pure": false
+											"referenced_declaration": 2765,
+											"is_pure": false,
+											"text": "role"
 										}
 									],
 									"expression": {
-										"id": 2763,
+										"id": 2764,
 										"node_type": 16,
 										"src": {
 											"line": 1258,
@@ -4786,7 +4878,7 @@
 											"start": 45504,
 											"end": 45515,
 											"length": 12,
-											"parent_index": 2762
+											"parent_index": 2763
 										},
 										"name": "getRoleAdmin",
 										"type_description": {
@@ -4795,7 +4887,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "getRoleAdmin"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes32$",
@@ -4804,7 +4897,7 @@
 								}
 							},
 							{
-								"id": 2765,
+								"id": 2766,
 								"node_type": 27,
 								"src": {
 									"line": 1259,
@@ -4812,10 +4905,10 @@
 									"start": 45532,
 									"end": 45566,
 									"length": 35,
-									"parent_index": 2758
+									"parent_index": 2759
 								},
 								"expression": {
-									"id": 2766,
+									"id": 2767,
 									"node_type": 27,
 									"src": {
 										"line": 1259,
@@ -4823,11 +4916,11 @@
 										"start": 45532,
 										"end": 45565,
 										"length": 34,
-										"parent_index": 2765
+										"parent_index": 2766
 									},
 									"operator": 11,
 									"left_expression": {
-										"id": 2767,
+										"id": 2768,
 										"is_constant": false,
 										"is_l_value": false,
 										"is_pure": false,
@@ -4839,7 +4932,7 @@
 											"start": 45532,
 											"end": 45553,
 											"length": 22,
-											"parent_index": 2766
+											"parent_index": 2767
 										},
 										"member_location": {
 											"line": 1259,
@@ -4847,10 +4940,10 @@
 											"start": 45545,
 											"end": 45553,
 											"length": 9,
-											"parent_index": 2767
+											"parent_index": 2768
 										},
 										"expression": {
-											"id": 2768,
+											"id": 2769,
 											"node_type": 22,
 											"src": {
 												"line": 1259,
@@ -4858,10 +4951,10 @@
 												"start": 45532,
 												"end": 45543,
 												"length": 12,
-												"parent_index": 2767
+												"parent_index": 2768
 											},
 											"index_expression": {
-												"id": 2769,
+												"id": 2770,
 												"node_type": 16,
 												"src": {
 													"line": 1259,
@@ -4869,19 +4962,20 @@
 													"start": 45532,
 													"end": 45537,
 													"length": 6,
-													"parent_index": 2768
+													"parent_index": 2769
 												},
 												"name": "_roles",
 												"type_description": {
-													"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 													"type_string": "mapping(bytes32=\u003eRoleData)"
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2552,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_roles"
 											},
 											"base_expression": {
-												"id": 2770,
+												"id": 2771,
 												"node_type": 16,
 												"src": {
 													"line": 1259,
@@ -4889,7 +4983,7 @@
 													"start": 45539,
 													"end": 45542,
 													"length": 4,
-													"parent_index": 2768
+													"parent_index": 2769
 												},
 												"name": "role",
 												"type_description": {
@@ -4897,12 +4991,13 @@
 													"type_string": "bytes32"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2770,
-												"is_pure": false
+												"referenced_declaration": 2771,
+												"is_pure": false,
+												"text": "role"
 											},
 											"type_descriptions": [
 												{
-													"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 													"type_string": "mapping(bytes32=\u003eRoleData)"
 												},
 												{
@@ -4911,19 +5006,20 @@
 												}
 											],
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 												"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 											}
 										},
 										"member_name": "adminRole",
 										"argument_types": [],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-										}
+										},
+										"text": "_roles[role].adminRole"
 									},
 									"right_expression": {
-										"id": 2771,
+										"id": 2772,
 										"node_type": 16,
 										"src": {
 											"line": 1259,
@@ -4931,7 +5027,7 @@
 											"start": 45557,
 											"end": 45565,
 											"length": 9,
-											"parent_index": 2766
+											"parent_index": 2767
 										},
 										"name": "adminRole",
 										"type_description": {
@@ -4939,21 +5035,23 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2771,
-										"is_pure": false
+										"referenced_declaration": 2772,
+										"is_pure": false,
+										"text": "adminRole"
 									},
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 										"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 									}
 								},
 								"type_description": {
-									"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+									"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 									"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-								}
+								},
+								"text": "_roles[role].adminRole=adminRole;"
 							},
 							{
-								"id": 2772,
+								"id": 2773,
 								"node_type": 64,
 								"src": {
 									"line": 1260,
@@ -4961,11 +5059,11 @@
 									"start": 45576,
 									"end": 45633,
 									"length": 58,
-									"parent_index": 2751
+									"parent_index": 2752
 								},
 								"arguments": [
 									{
-										"id": 2773,
+										"id": 2774,
 										"node_type": 16,
 										"src": {
 											"line": 1260,
@@ -4973,7 +5071,7 @@
 											"start": 45598,
 											"end": 45601,
 											"length": 4,
-											"parent_index": 2772
+											"parent_index": 2773
 										},
 										"name": "role",
 										"type_description": {
@@ -4981,11 +5079,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2773,
-										"is_pure": false
+										"referenced_declaration": 2774,
+										"is_pure": false,
+										"text": "role"
 									},
 									{
-										"id": 2774,
+										"id": 2775,
 										"node_type": 16,
 										"src": {
 											"line": 1260,
@@ -4993,7 +5092,7 @@
 											"start": 45604,
 											"end": 45620,
 											"length": 17,
-											"parent_index": 2772
+											"parent_index": 2773
 										},
 										"name": "previousAdminRole",
 										"type_description": {
@@ -5001,11 +5100,12 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2759,
-										"is_pure": false
+										"referenced_declaration": 2760,
+										"is_pure": false,
+										"text": "previousAdminRole"
 									},
 									{
-										"id": 2775,
+										"id": 2776,
 										"node_type": 16,
 										"src": {
 											"line": 1260,
@@ -5013,7 +5113,7 @@
 											"start": 45623,
 											"end": 45631,
 											"length": 9,
-											"parent_index": 2772
+											"parent_index": 2773
 										},
 										"name": "adminRole",
 										"type_description": {
@@ -5021,12 +5121,13 @@
 											"type_string": "bytes32"
 										},
 										"overloaded_declarations": [],
-										"referenced_declaration": 2775,
-										"is_pure": false
+										"referenced_declaration": 2776,
+										"is_pure": false,
+										"text": "adminRole"
 									}
 								],
 								"expression": {
-									"id": 2776,
+									"id": 2777,
 									"node_type": 16,
 									"src": {
 										"line": 1260,
@@ -5034,7 +5135,7 @@
 										"start": 45581,
 										"end": 45596,
 										"length": 16,
-										"parent_index": 2772
+										"parent_index": 2773
 									},
 									"name": "RoleAdminChanged",
 									"type_description": {
@@ -5043,7 +5144,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 1586,
-									"is_pure": false
+									"is_pure": false,
+									"text": "RoleAdminChanged"
 								}
 							}
 						]
@@ -5055,7 +5157,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 2752,
+						"id": 2753,
 						"node_type": 43,
 						"src": {
 							"line": 1257,
@@ -5063,11 +5165,11 @@
 							"start": 45416,
 							"end": 45446,
 							"length": 31,
-							"parent_index": 2751
+							"parent_index": 2752
 						},
 						"parameters": [
 							{
-								"id": 2753,
+								"id": 2754,
 								"node_type": 44,
 								"src": {
 									"line": 1257,
@@ -5075,12 +5177,12 @@
 									"start": 45416,
 									"end": 45427,
 									"length": 12,
-									"parent_index": 2752
+									"parent_index": 2753
 								},
-								"scope": 2751,
+								"scope": 2752,
 								"name": "role",
 								"type_name": {
-									"id": 2754,
+									"id": 2755,
 									"node_type": 30,
 									"src": {
 										"line": 1257,
@@ -5088,7 +5190,7 @@
 										"start": 45416,
 										"end": 45422,
 										"length": 7,
-										"parent_index": 2753
+										"parent_index": 2754
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -5106,7 +5208,7 @@
 								}
 							},
 							{
-								"id": 2755,
+								"id": 2756,
 								"node_type": 44,
 								"src": {
 									"line": 1257,
@@ -5114,12 +5216,12 @@
 									"start": 45430,
 									"end": 45446,
 									"length": 17,
-									"parent_index": 2752
+									"parent_index": 2753
 								},
-								"scope": 2751,
+								"scope": 2752,
 								"name": "adminRole",
 								"type_name": {
-									"id": 2756,
+									"id": 2757,
 									"node_type": 30,
 									"src": {
 										"line": 1257,
@@ -5127,7 +5229,7 @@
 										"start": 45430,
 										"end": 45436,
 										"length": 7,
-										"parent_index": 2755
+										"parent_index": 2756
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -5157,7 +5259,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2757,
+						"id": 2758,
 						"node_type": 43,
 						"src": {
 							"line": 1257,
@@ -5165,21 +5267,22 @@
 							"start": 45393,
 							"end": 45639,
 							"length": 247,
-							"parent_index": 2751
+							"parent_index": 2752
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_setRoleAdmin(bytes32, bytes32)",
-					"signature": "09c75694",
+					"signature_raw": "_setRoleAdmin(bytes32,bytes32)",
+					"signature": "7612997d",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
 						"type_string": "function(bytes32,bytes32)"
-					}
+					},
+					"text": "function_setRoleAdmin(bytes32role,bytes32adminRole)internalvirtual{bytes32previousAdminRole=getRoleAdmin(role);_roles[role].adminRole=adminRole;emitRoleAdminChanged(role,previousAdminRole,adminRole);}"
 				},
 				{
-					"id": 2778,
+					"id": 2779,
 					"name": "_grantRole",
 					"node_type": 42,
 					"kind": 41,
@@ -5197,10 +5300,10 @@
 						"start": 45817,
 						"end": 45826,
 						"length": 10,
-						"parent_index": 2778
+						"parent_index": 2779
 					},
 					"body": {
-						"id": 2785,
+						"id": 2786,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -5209,12 +5312,12 @@
 							"start": 45876,
 							"end": 46040,
 							"length": 165,
-							"parent_index": 2778
+							"parent_index": 2779
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2786,
+								"id": 2787,
 								"node_type": 48,
 								"src": {
 									"line": 1271,
@@ -5222,10 +5325,10 @@
 									"start": 45886,
 									"end": 46034,
 									"length": 149,
-									"parent_index": 2785
+									"parent_index": 2786
 								},
 								"condition": {
-									"id": 2787,
+									"id": 2788,
 									"node_type": 18,
 									"kind": 104,
 									"src": {
@@ -5234,7 +5337,7 @@
 										"start": 45890,
 										"end": 45912,
 										"length": 23,
-										"parent_index": 2778
+										"parent_index": 2779
 									},
 									"operator": 31,
 									"prefix": false,
@@ -5243,7 +5346,7 @@
 									"is_pure": false,
 									"l_value_requested": false,
 									"expression": {
-										"id": 2788,
+										"id": 2789,
 										"node_type": 24,
 										"kind": 24,
 										"src": {
@@ -5252,7 +5355,7 @@
 											"start": 45891,
 											"end": 45912,
 											"length": 22,
-											"parent_index": 2787
+											"parent_index": 2788
 										},
 										"argument_types": [
 											{
@@ -5266,7 +5369,7 @@
 										],
 										"arguments": [
 											{
-												"id": 2790,
+												"id": 2791,
 												"node_type": 16,
 												"src": {
 													"line": 1271,
@@ -5274,7 +5377,7 @@
 													"start": 45899,
 													"end": 45902,
 													"length": 4,
-													"parent_index": 2788
+													"parent_index": 2789
 												},
 												"name": "role",
 												"type_description": {
@@ -5282,11 +5385,12 @@
 													"type_string": "bytes32"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2790,
-												"is_pure": false
+												"referenced_declaration": 2791,
+												"is_pure": false,
+												"text": "role"
 											},
 											{
-												"id": 2791,
+												"id": 2792,
 												"node_type": 16,
 												"src": {
 													"line": 1271,
@@ -5294,7 +5398,7 @@
 													"start": 45905,
 													"end": 45911,
 													"length": 7,
-													"parent_index": 2788
+													"parent_index": 2789
 												},
 												"name": "account",
 												"type_description": {
@@ -5302,18 +5406,19 @@
 													"type_string": "address"
 												},
 												"overloaded_declarations": [],
-												"referenced_declaration": 2791,
+												"referenced_declaration": 2792,
 												"is_pure": false,
 												"argument_types": [
 													{
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "account"
 											}
 										],
 										"expression": {
-											"id": 2789,
+											"id": 2790,
 											"node_type": 16,
 											"src": {
 												"line": 1271,
@@ -5321,7 +5426,7 @@
 												"start": 45891,
 												"end": 45897,
 												"length": 7,
-												"parent_index": 2788
+												"parent_index": 2789
 											},
 											"name": "hasRole",
 											"type_description": {
@@ -5330,7 +5435,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "hasRole"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -5343,7 +5449,7 @@
 									}
 								},
 								"body": {
-									"id": 2792,
+									"id": 2793,
 									"node_type": 46,
 									"kind": 0,
 									"src": {
@@ -5352,12 +5458,12 @@
 										"start": 45915,
 										"end": 46034,
 										"length": 120,
-										"parent_index": 2778
+										"parent_index": 2779
 									},
 									"implemented": true,
 									"statements": [
 										{
-											"id": 2793,
+											"id": 2794,
 											"node_type": 27,
 											"src": {
 												"line": 1272,
@@ -5365,10 +5471,10 @@
 												"start": 45929,
 												"end": 45965,
 												"length": 37,
-												"parent_index": 2792
+												"parent_index": 2793
 											},
 											"expression": {
-												"id": 2794,
+												"id": 2795,
 												"node_type": 27,
 												"src": {
 													"line": 1272,
@@ -5376,11 +5482,11 @@
 													"start": 45929,
 													"end": 45964,
 													"length": 36,
-													"parent_index": 2793
+													"parent_index": 2794
 												},
 												"operator": 11,
 												"left_expression": {
-													"id": 2795,
+													"id": 2796,
 													"node_type": 22,
 													"src": {
 														"line": 1272,
@@ -5388,10 +5494,10 @@
 														"start": 45929,
 														"end": 45957,
 														"length": 29,
-														"parent_index": 2794
+														"parent_index": 2795
 													},
 													"index_expression": {
-														"id": 2796,
+														"id": 2797,
 														"is_constant": false,
 														"is_l_value": false,
 														"is_pure": false,
@@ -5403,7 +5509,7 @@
 															"start": 45929,
 															"end": 45948,
 															"length": 20,
-															"parent_index": 2795
+															"parent_index": 2796
 														},
 														"member_location": {
 															"line": 1272,
@@ -5411,10 +5517,10 @@
 															"start": 45942,
 															"end": 45948,
 															"length": 7,
-															"parent_index": 2796
+															"parent_index": 2797
 														},
 														"expression": {
-															"id": 2797,
+															"id": 2798,
 															"node_type": 22,
 															"src": {
 																"line": 1272,
@@ -5422,10 +5528,10 @@
 																"start": 45929,
 																"end": 45940,
 																"length": 12,
-																"parent_index": 2796
+																"parent_index": 2797
 															},
 															"index_expression": {
-																"id": 2798,
+																"id": 2799,
 																"node_type": 16,
 																"src": {
 																	"line": 1272,
@@ -5433,19 +5539,20 @@
 																	"start": 45929,
 																	"end": 45934,
 																	"length": 6,
-																	"parent_index": 2797
+																	"parent_index": 2798
 																},
 																"name": "_roles",
 																"type_description": {
-																	"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 																	"type_string": "mapping(bytes32=\u003eRoleData)"
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2552,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_roles"
 															},
 															"base_expression": {
-																"id": 2799,
+																"id": 2800,
 																"node_type": 16,
 																"src": {
 																	"line": 1272,
@@ -5453,7 +5560,7 @@
 																	"start": 45936,
 																	"end": 45939,
 																	"length": 4,
-																	"parent_index": 2797
+																	"parent_index": 2798
 																},
 																"name": "role",
 																"type_description": {
@@ -5461,12 +5568,13 @@
 																	"type_string": "bytes32"
 																},
 																"overloaded_declarations": [],
-																"referenced_declaration": 2799,
-																"is_pure": false
+																"referenced_declaration": 2800,
+																"is_pure": false,
+																"text": "role"
 															},
 															"type_descriptions": [
 																{
-																	"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 																	"type_string": "mapping(bytes32=\u003eRoleData)"
 																},
 																{
@@ -5475,19 +5583,20 @@
 																}
 															],
 															"type_description": {
-																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 																"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 															}
 														},
 														"member_name": "members",
 														"argument_types": [],
 														"type_description": {
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-														}
+														},
+														"text": "_roles[role].members"
 													},
 													"base_expression": {
-														"id": 2800,
+														"id": 2801,
 														"node_type": 16,
 														"src": {
 															"line": 1272,
@@ -5495,7 +5604,7 @@
 															"start": 45950,
 															"end": 45956,
 															"length": 7,
-															"parent_index": 2795
+															"parent_index": 2796
 														},
 														"name": "account",
 														"type_description": {
@@ -5503,12 +5612,13 @@
 															"type_string": "address"
 														},
 														"overloaded_declarations": [],
-														"referenced_declaration": 2800,
-														"is_pure": false
+														"referenced_declaration": 2801,
+														"is_pure": false,
+														"text": "account"
 													},
 													"type_descriptions": [
 														{
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 														},
 														{
@@ -5517,12 +5627,12 @@
 														}
 													],
 													"type_description": {
-														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 														"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
 													}
 												},
 												"right_expression": {
-													"id": 2801,
+													"id": 2802,
 													"node_type": 17,
 													"kind": 61,
 													"value": "true",
@@ -5533,7 +5643,7 @@
 														"start": 45961,
 														"end": 45964,
 														"length": 4,
-														"parent_index": 2794
+														"parent_index": 2795
 													},
 													"type_description": {
 														"type_identifier": "t_bool",
@@ -5541,20 +5651,22 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "true"
 												},
 												"type_description": {
-													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 													"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
 												}
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 												"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
-											}
+											},
+											"text": "_roles[role].members[account]=true;"
 										},
 										{
-											"id": 2802,
+											"id": 2803,
 											"node_type": 64,
 											"src": {
 												"line": 1273,
@@ -5562,11 +5674,11 @@
 												"start": 45979,
 												"end": 46024,
 												"length": 46,
-												"parent_index": 2778
+												"parent_index": 2779
 											},
 											"arguments": [
 												{
-													"id": 2803,
+													"id": 2804,
 													"node_type": 16,
 													"src": {
 														"line": 1273,
@@ -5574,7 +5686,7 @@
 														"start": 45996,
 														"end": 45999,
 														"length": 4,
-														"parent_index": 2802
+														"parent_index": 2803
 													},
 													"name": "role",
 													"type_description": {
@@ -5582,11 +5694,12 @@
 														"type_string": "bytes32"
 													},
 													"overloaded_declarations": [],
-													"referenced_declaration": 2803,
-													"is_pure": false
+													"referenced_declaration": 2804,
+													"is_pure": false,
+													"text": "role"
 												},
 												{
-													"id": 2804,
+													"id": 2805,
 													"node_type": 16,
 													"src": {
 														"line": 1273,
@@ -5594,7 +5707,7 @@
 														"start": 46002,
 														"end": 46008,
 														"length": 7,
-														"parent_index": 2802
+														"parent_index": 2803
 													},
 													"name": "account",
 													"type_description": {
@@ -5602,11 +5715,12 @@
 														"type_string": "address"
 													},
 													"overloaded_declarations": [],
-													"referenced_declaration": 2804,
-													"is_pure": false
+													"referenced_declaration": 2805,
+													"is_pure": false,
+													"text": "account"
 												},
 												{
-													"id": 2805,
+													"id": 2806,
 													"node_type": 24,
 													"kind": 24,
 													"src": {
@@ -5615,12 +5729,12 @@
 														"start": 46011,
 														"end": 46022,
 														"length": 12,
-														"parent_index": 2802
+														"parent_index": 2803
 													},
 													"argument_types": [],
 													"arguments": [],
 													"expression": {
-														"id": 2806,
+														"id": 2807,
 														"node_type": 16,
 														"src": {
 															"line": 1273,
@@ -5628,7 +5742,7 @@
 															"start": 46011,
 															"end": 46020,
 															"length": 10,
-															"parent_index": 2805
+															"parent_index": 2806
 														},
 														"name": "_msgSender",
 														"type_description": {
@@ -5637,7 +5751,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_msgSender"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$",
@@ -5646,7 +5761,7 @@
 												}
 											],
 											"expression": {
-												"id": 2807,
+												"id": 2808,
 												"node_type": 16,
 												"src": {
 													"line": 1273,
@@ -5654,7 +5769,7 @@
 													"start": 45984,
 													"end": 45994,
 													"length": 11,
-													"parent_index": 2802
+													"parent_index": 2803
 												},
 												"name": "RoleGranted",
 												"type_description": {
@@ -5663,7 +5778,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1595,
-												"is_pure": false
+												"is_pure": false,
+												"text": "RoleGranted"
 											}
 										}
 									]
@@ -5678,7 +5794,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 2779,
+						"id": 2780,
 						"node_type": 43,
 						"src": {
 							"line": 1270,
@@ -5686,11 +5802,11 @@
 							"start": 45828,
 							"end": 45856,
 							"length": 29,
-							"parent_index": 2778
+							"parent_index": 2779
 						},
 						"parameters": [
 							{
-								"id": 2780,
+								"id": 2781,
 								"node_type": 44,
 								"src": {
 									"line": 1270,
@@ -5698,12 +5814,12 @@
 									"start": 45828,
 									"end": 45839,
 									"length": 12,
-									"parent_index": 2779
+									"parent_index": 2780
 								},
-								"scope": 2778,
+								"scope": 2779,
 								"name": "role",
 								"type_name": {
-									"id": 2781,
+									"id": 2782,
 									"node_type": 30,
 									"src": {
 										"line": 1270,
@@ -5711,7 +5827,7 @@
 										"start": 45828,
 										"end": 45834,
 										"length": 7,
-										"parent_index": 2780
+										"parent_index": 2781
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -5729,7 +5845,7 @@
 								}
 							},
 							{
-								"id": 2782,
+								"id": 2783,
 								"node_type": 44,
 								"src": {
 									"line": 1270,
@@ -5737,12 +5853,12 @@
 									"start": 45842,
 									"end": 45856,
 									"length": 15,
-									"parent_index": 2779
+									"parent_index": 2780
 								},
-								"scope": 2778,
+								"scope": 2779,
 								"name": "account",
 								"type_name": {
-									"id": 2783,
+									"id": 2784,
 									"node_type": 30,
 									"src": {
 										"line": 1270,
@@ -5750,7 +5866,7 @@
 										"start": 45842,
 										"end": 45848,
 										"length": 7,
-										"parent_index": 2782
+										"parent_index": 2783
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -5781,7 +5897,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2784,
+						"id": 2785,
 						"node_type": 43,
 						"src": {
 							"line": 1270,
@@ -5789,21 +5905,22 @@
 							"start": 45808,
 							"end": 46040,
 							"length": 233,
-							"parent_index": 2778
+							"parent_index": 2779
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_grantRole(bytes32, address)",
-					"signature": "389027d9",
+					"signature_raw": "_grantRole(bytes32,address)",
+					"signature": "ce2cc1d0",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "function_grantRole(bytes32role,addressaccount)internalvirtual{if(!hasRole(role,account)){_roles[role].members[account]=true;emitRoleGranted(role,account,_msgSender());}}"
 				},
 				{
-					"id": 2809,
+					"id": 2810,
 					"name": "_revokeRole",
 					"node_type": 42,
 					"kind": 41,
@@ -5821,10 +5938,10 @@
 						"start": 46221,
 						"end": 46231,
 						"length": 11,
-						"parent_index": 2809
+						"parent_index": 2810
 					},
 					"body": {
-						"id": 2816,
+						"id": 2817,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -5833,12 +5950,12 @@
 							"start": 46281,
 							"end": 46445,
 							"length": 165,
-							"parent_index": 2809
+							"parent_index": 2810
 						},
 						"implemented": true,
 						"statements": [
 							{
-								"id": 2817,
+								"id": 2818,
 								"node_type": 48,
 								"src": {
 									"line": 1285,
@@ -5846,10 +5963,10 @@
 									"start": 46291,
 									"end": 46439,
 									"length": 149,
-									"parent_index": 2816
+									"parent_index": 2817
 								},
 								"condition": {
-									"id": 2818,
+									"id": 2819,
 									"node_type": 24,
 									"kind": 24,
 									"src": {
@@ -5858,7 +5975,7 @@
 										"start": 46295,
 										"end": 46316,
 										"length": 22,
-										"parent_index": 2817
+										"parent_index": 2818
 									},
 									"argument_types": [
 										{
@@ -5872,7 +5989,7 @@
 									],
 									"arguments": [
 										{
-											"id": 2820,
+											"id": 2821,
 											"node_type": 16,
 											"src": {
 												"line": 1285,
@@ -5880,7 +5997,7 @@
 												"start": 46303,
 												"end": 46306,
 												"length": 4,
-												"parent_index": 2818
+												"parent_index": 2819
 											},
 											"name": "role",
 											"type_description": {
@@ -5888,11 +6005,12 @@
 												"type_string": "bytes32"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2820,
-											"is_pure": false
+											"referenced_declaration": 2821,
+											"is_pure": false,
+											"text": "role"
 										},
 										{
-											"id": 2821,
+											"id": 2822,
 											"node_type": 16,
 											"src": {
 												"line": 1285,
@@ -5900,7 +6018,7 @@
 												"start": 46309,
 												"end": 46315,
 												"length": 7,
-												"parent_index": 2818
+												"parent_index": 2819
 											},
 											"name": "account",
 											"type_description": {
@@ -5908,18 +6026,19 @@
 												"type_string": "address"
 											},
 											"overloaded_declarations": [],
-											"referenced_declaration": 2821,
+											"referenced_declaration": 2822,
 											"is_pure": false,
 											"argument_types": [
 												{
 													"type_identifier": "t_bytes32",
 													"type_string": "bytes32"
 												}
-											]
+											],
+											"text": "account"
 										}
 									],
 									"expression": {
-										"id": 2819,
+										"id": 2820,
 										"node_type": 16,
 										"src": {
 											"line": 1285,
@@ -5927,7 +6046,7 @@
 											"start": 46295,
 											"end": 46301,
 											"length": 7,
-											"parent_index": 2818
+											"parent_index": 2819
 										},
 										"name": "hasRole",
 										"type_description": {
@@ -5936,7 +6055,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "hasRole"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes32$_t_address$",
@@ -5944,7 +6064,7 @@
 									}
 								},
 								"body": {
-									"id": 2822,
+									"id": 2823,
 									"node_type": 46,
 									"kind": 0,
 									"src": {
@@ -5953,12 +6073,12 @@
 										"start": 46319,
 										"end": 46439,
 										"length": 121,
-										"parent_index": 2809
+										"parent_index": 2810
 									},
 									"implemented": true,
 									"statements": [
 										{
-											"id": 2823,
+											"id": 2824,
 											"node_type": 27,
 											"src": {
 												"line": 1286,
@@ -5966,10 +6086,10 @@
 												"start": 46333,
 												"end": 46370,
 												"length": 38,
-												"parent_index": 2822
+												"parent_index": 2823
 											},
 											"expression": {
-												"id": 2824,
+												"id": 2825,
 												"node_type": 27,
 												"src": {
 													"line": 1286,
@@ -5977,11 +6097,11 @@
 													"start": 46333,
 													"end": 46369,
 													"length": 37,
-													"parent_index": 2823
+													"parent_index": 2824
 												},
 												"operator": 11,
 												"left_expression": {
-													"id": 2825,
+													"id": 2826,
 													"node_type": 22,
 													"src": {
 														"line": 1286,
@@ -5989,10 +6109,10 @@
 														"start": 46333,
 														"end": 46361,
 														"length": 29,
-														"parent_index": 2824
+														"parent_index": 2825
 													},
 													"index_expression": {
-														"id": 2826,
+														"id": 2827,
 														"is_constant": false,
 														"is_l_value": false,
 														"is_pure": false,
@@ -6004,7 +6124,7 @@
 															"start": 46333,
 															"end": 46352,
 															"length": 20,
-															"parent_index": 2825
+															"parent_index": 2826
 														},
 														"member_location": {
 															"line": 1286,
@@ -6012,10 +6132,10 @@
 															"start": 46346,
 															"end": 46352,
 															"length": 7,
-															"parent_index": 2826
+															"parent_index": 2827
 														},
 														"expression": {
-															"id": 2827,
+															"id": 2828,
 															"node_type": 22,
 															"src": {
 																"line": 1286,
@@ -6023,10 +6143,10 @@
 																"start": 46333,
 																"end": 46344,
 																"length": 12,
-																"parent_index": 2826
+																"parent_index": 2827
 															},
 															"index_expression": {
-																"id": 2828,
+																"id": 2829,
 																"node_type": 16,
 																"src": {
 																	"line": 1286,
@@ -6034,19 +6154,20 @@
 																	"start": 46333,
 																	"end": 46338,
 																	"length": 6,
-																	"parent_index": 2827
+																	"parent_index": 2828
 																},
 																"name": "_roles",
 																"type_description": {
-																	"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 																	"type_string": "mapping(bytes32=\u003eRoleData)"
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 2552,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_roles"
 															},
 															"base_expression": {
-																"id": 2829,
+																"id": 2830,
 																"node_type": 16,
 																"src": {
 																	"line": 1286,
@@ -6054,7 +6175,7 @@
 																	"start": 46340,
 																	"end": 46343,
 																	"length": 4,
-																	"parent_index": 2827
+																	"parent_index": 2828
 																},
 																"name": "role",
 																"type_description": {
@@ -6062,12 +6183,13 @@
 																	"type_string": "bytes32"
 																},
 																"overloaded_declarations": [],
-																"referenced_declaration": 2829,
-																"is_pure": false
+																"referenced_declaration": 2830,
+																"is_pure": false,
+																"text": "role"
 															},
 															"type_descriptions": [
 																{
-																	"type_identifier": "t_mapping_$t_bytes32_$t_RoleData$",
+																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$",
 																	"type_string": "mapping(bytes32=\u003eRoleData)"
 																},
 																{
@@ -6076,19 +6198,20 @@
 																}
 															],
 															"type_description": {
-																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 																"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 															}
 														},
 														"member_name": "members",
 														"argument_types": [],
 														"type_description": {
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-														}
+														},
+														"text": "_roles[role].members"
 													},
 													"base_expression": {
-														"id": 2830,
+														"id": 2831,
 														"node_type": 16,
 														"src": {
 															"line": 1286,
@@ -6096,7 +6219,7 @@
 															"start": 46354,
 															"end": 46360,
 															"length": 7,
-															"parent_index": 2825
+															"parent_index": 2826
 														},
 														"name": "account",
 														"type_description": {
@@ -6104,12 +6227,13 @@
 															"type_string": "address"
 														},
 														"overloaded_declarations": [],
-														"referenced_declaration": 2830,
-														"is_pure": false
+														"referenced_declaration": 2831,
+														"is_pure": false,
+														"text": "account"
 													},
 													"type_descriptions": [
 														{
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$",
+															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$",
 															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
 														},
 														{
@@ -6118,12 +6242,12 @@
 														}
 													],
 													"type_description": {
-														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 														"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
 													}
 												},
 												"right_expression": {
-													"id": 2831,
+													"id": 2832,
 													"node_type": 17,
 													"kind": 61,
 													"value": "false",
@@ -6134,7 +6258,7 @@
 														"start": 46365,
 														"end": 46369,
 														"length": 5,
-														"parent_index": 2824
+														"parent_index": 2825
 													},
 													"type_description": {
 														"type_identifier": "t_bool",
@@ -6142,20 +6266,22 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "false"
 												},
 												"type_description": {
-													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 													"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
 												}
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_RoleData$]$_t_bytes32]$]$_t_address]$",
+												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControlUpgradeable_RoleData_$2544$]$_t_bytes32]$]$_t_address]$",
 												"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
-											}
+											},
+											"text": "_roles[role].members[account]=false;"
 										},
 										{
-											"id": 2832,
+											"id": 2833,
 											"node_type": 64,
 											"src": {
 												"line": 1287,
@@ -6163,11 +6289,11 @@
 												"start": 46384,
 												"end": 46429,
 												"length": 46,
-												"parent_index": 2809
+												"parent_index": 2810
 											},
 											"arguments": [
 												{
-													"id": 2833,
+													"id": 2834,
 													"node_type": 16,
 													"src": {
 														"line": 1287,
@@ -6175,7 +6301,7 @@
 														"start": 46401,
 														"end": 46404,
 														"length": 4,
-														"parent_index": 2832
+														"parent_index": 2833
 													},
 													"name": "role",
 													"type_description": {
@@ -6183,11 +6309,12 @@
 														"type_string": "bytes32"
 													},
 													"overloaded_declarations": [],
-													"referenced_declaration": 2833,
-													"is_pure": false
+													"referenced_declaration": 2834,
+													"is_pure": false,
+													"text": "role"
 												},
 												{
-													"id": 2834,
+													"id": 2835,
 													"node_type": 16,
 													"src": {
 														"line": 1287,
@@ -6195,7 +6322,7 @@
 														"start": 46407,
 														"end": 46413,
 														"length": 7,
-														"parent_index": 2832
+														"parent_index": 2833
 													},
 													"name": "account",
 													"type_description": {
@@ -6203,11 +6330,12 @@
 														"type_string": "address"
 													},
 													"overloaded_declarations": [],
-													"referenced_declaration": 2834,
-													"is_pure": false
+													"referenced_declaration": 2835,
+													"is_pure": false,
+													"text": "account"
 												},
 												{
-													"id": 2835,
+													"id": 2836,
 													"node_type": 24,
 													"kind": 24,
 													"src": {
@@ -6216,12 +6344,12 @@
 														"start": 46416,
 														"end": 46427,
 														"length": 12,
-														"parent_index": 2832
+														"parent_index": 2833
 													},
 													"argument_types": [],
 													"arguments": [],
 													"expression": {
-														"id": 2836,
+														"id": 2837,
 														"node_type": 16,
 														"src": {
 															"line": 1287,
@@ -6229,7 +6357,7 @@
 															"start": 46416,
 															"end": 46425,
 															"length": 10,
-															"parent_index": 2835
+															"parent_index": 2836
 														},
 														"name": "_msgSender",
 														"type_description": {
@@ -6238,7 +6366,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_msgSender"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$",
@@ -6247,7 +6376,7 @@
 												}
 											],
 											"expression": {
-												"id": 2837,
+												"id": 2838,
 												"node_type": 16,
 												"src": {
 													"line": 1287,
@@ -6255,7 +6384,7 @@
 													"start": 46389,
 													"end": 46399,
 													"length": 11,
-													"parent_index": 2832
+													"parent_index": 2833
 												},
 												"name": "RoleRevoked",
 												"type_description": {
@@ -6264,7 +6393,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1604,
-												"is_pure": false
+												"is_pure": false,
+												"text": "RoleRevoked"
 											}
 										}
 									]
@@ -6279,7 +6409,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 2810,
+						"id": 2811,
 						"node_type": 43,
 						"src": {
 							"line": 1284,
@@ -6287,11 +6417,11 @@
 							"start": 46233,
 							"end": 46261,
 							"length": 29,
-							"parent_index": 2809
+							"parent_index": 2810
 						},
 						"parameters": [
 							{
-								"id": 2811,
+								"id": 2812,
 								"node_type": 44,
 								"src": {
 									"line": 1284,
@@ -6299,12 +6429,12 @@
 									"start": 46233,
 									"end": 46244,
 									"length": 12,
-									"parent_index": 2810
+									"parent_index": 2811
 								},
-								"scope": 2809,
+								"scope": 2810,
 								"name": "role",
 								"type_name": {
-									"id": 2812,
+									"id": 2813,
 									"node_type": 30,
 									"src": {
 										"line": 1284,
@@ -6312,7 +6442,7 @@
 										"start": 46233,
 										"end": 46239,
 										"length": 7,
-										"parent_index": 2811
+										"parent_index": 2812
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -6330,7 +6460,7 @@
 								}
 							},
 							{
-								"id": 2813,
+								"id": 2814,
 								"node_type": 44,
 								"src": {
 									"line": 1284,
@@ -6338,12 +6468,12 @@
 									"start": 46247,
 									"end": 46261,
 									"length": 15,
-									"parent_index": 2810
+									"parent_index": 2811
 								},
-								"scope": 2809,
+								"scope": 2810,
 								"name": "account",
 								"type_name": {
-									"id": 2814,
+									"id": 2815,
 									"node_type": 30,
 									"src": {
 										"line": 1284,
@@ -6351,7 +6481,7 @@
 										"start": 46247,
 										"end": 46253,
 										"length": 7,
-										"parent_index": 2813
+										"parent_index": 2814
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -6382,7 +6512,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 2815,
+						"id": 2816,
 						"node_type": 43,
 						"src": {
 							"line": 1284,
@@ -6390,21 +6520,22 @@
 							"start": 46212,
 							"end": 46445,
 							"length": 234,
-							"parent_index": 2809
+							"parent_index": 2810
 						},
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_revokeRole(bytes32, address)",
-					"signature": "ed5226ed",
+					"signature_raw": "_revokeRole(bytes32,address)",
+					"signature": "2c95bd23",
 					"scope": 2520,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$",
 						"type_string": "function(bytes32,address)"
-					}
+					},
+					"text": "function_revokeRole(bytes32role,addressaccount)internalvirtual{if(hasRole(role,account)){_roles[role].members[account]=false;emitRoleRevoked(role,account,_msgSender());}}"
 				},
 				{
-					"id": 2839,
+					"id": 2840,
 					"name": "__gap",
 					"is_constant": false,
 					"is_state_variable": true,
@@ -6426,7 +6557,7 @@
 					"storage_location": 1,
 					"mutability": 1,
 					"type_name": {
-						"id": 2840,
+						"id": 2841,
 						"node_type": 16,
 						"src": {
 							"line": 1296,
@@ -6434,12 +6565,12 @@
 							"start": 46711,
 							"end": 46717,
 							"length": 7,
-							"parent_index": 2839
+							"parent_index": 2840
 						},
 						"name": "function",
 						"referenced_declaration": 0,
 						"expression": {
-							"id": 2842,
+							"id": 2843,
 							"node_type": 17,
 							"kind": 49,
 							"value": "49",
@@ -6450,7 +6581,7 @@
 								"start": 46719,
 								"end": 46720,
 								"length": 2,
-								"parent_index": 2840
+								"parent_index": 2841
 							},
 							"type_description": {
 								"type_identifier": "t_rational_49_by_1",
@@ -6458,7 +6589,8 @@
 							},
 							"overloaded_declarations": [],
 							"referenced_declaration": 0,
-							"is_pure": true
+							"is_pure": true,
+							"text": "49"
 						},
 						"type_description": {
 							"type_identifier": "t_rational_49_by_1",

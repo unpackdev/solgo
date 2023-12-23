@@ -76,7 +76,9 @@ func (w *WhileStatement) GetTypeDescription() *TypeDescription {
 func (w *WhileStatement) GetNodes() []Node[NodeType] {
 	toReturn := make([]Node[NodeType], 0)
 	toReturn = append(toReturn, w.Condition)
-	toReturn = append(toReturn, w.Body.GetNodes()...)
+	if w.Body != nil {
+		toReturn = append(toReturn, w.Body.GetNodes()...)
+	}
 	return toReturn
 }
 
@@ -168,11 +170,12 @@ func (w *WhileStatement) Parse(
 	expression := NewExpression(w.ASTBuilder)
 	w.Condition = expression.Parse(unit, contractNode, fnNode, bodyNode, nil, w, w.GetId(), ctx.Expression())
 
+	bn := NewBodyNode(w.ASTBuilder, false)
+	w.Body = bn
+
 	// Parsing the body of the while loop.
 	if ctx.Statement() != nil && ctx.Statement().Block() != nil && !ctx.Statement().Block().IsEmpty() {
-		bodyNode := NewBodyNode(w.ASTBuilder, false)
-		bodyNode.ParseBlock(unit, contractNode, w, ctx.Statement().Block())
-		w.Body = bodyNode
+		w.Body.ParseBlock(unit, contractNode, w, ctx.Statement().Block())
 
 		// Parsing unchecked blocks within the body.
 		if ctx.Statement().Block() != nil && ctx.Statement().Block().AllUncheckedBlock() != nil {

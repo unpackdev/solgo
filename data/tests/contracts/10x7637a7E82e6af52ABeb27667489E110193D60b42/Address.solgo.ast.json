@@ -186,21 +186,24 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 636,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											"member_name": "code",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "account.code"
 										},
 										"member_name": "length",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "account.code.length"
 									},
 									"right_expression": {
 										"id": 637,
@@ -222,7 +225,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -363,7 +367,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionisContract(addressaccount)internalviewreturns(bool){returnaccount.code.length\u003e0;}"
 				},
 				{
 					"id": 639,
@@ -497,7 +502,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "this"
 													}
 												],
 												"expression": {
@@ -543,7 +549,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
@@ -555,7 +562,8 @@
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
-											}
+											},
+											"text": "address(this).balance"
 										},
 										"right_expression": {
 											"id": 655,
@@ -575,7 +583,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 655,
-											"is_pure": false
+											"is_pure": false,
+											"text": "amount"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -608,7 +617,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Address: insufficient balance\""
 									}
 								],
 								"expression": {
@@ -629,7 +639,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -733,7 +744,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "\"\""
 										}
 									],
 									"expression": {
@@ -789,14 +801,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 663,
-												"is_pure": false
+												"is_pure": false,
+												"text": "recipient"
 											},
 											"member_name": "call",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address_payable",
 												"type_string": "address"
-											}
+											},
+											"text": "recipient.call"
 										},
 										"type_description": {
 											"type_identifier": "t_address_payable",
@@ -850,7 +864,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 657,
-										"is_pure": false
+										"is_pure": false,
+										"text": "success"
 									},
 									{
 										"id": 668,
@@ -878,7 +893,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Address: unable to send value, recipient may have reverted\""
 									}
 								],
 								"expression": {
@@ -899,7 +915,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -1031,13 +1048,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "sendValue(addresspayable, uint256)",
-					"signature": "557790e6",
+					"signature_raw": "sendValue(addresspayable,uint256)",
+					"signature": "cd3a2a84",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address_payable$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "functionsendValue(addresspayablerecipient,uint256amount)internal{require(address(this).balance\u003e=amount,\"Address: insufficient balance\");(boolsuccess,)=recipient.call{value:amount}(\"\");require(success,\"Address: unable to send value, recipient may have reverted\");}"
 				},
 				{
 					"id": 670,
@@ -1131,7 +1149,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 683,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										{
 											"id": 684,
@@ -1157,7 +1176,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "data"
 										},
 										{
 											"id": 685,
@@ -1189,7 +1209,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "\"Address: low-level call failed\""
 										}
 									],
 									"expression": {
@@ -1210,7 +1231,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "functionCall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_bytes$_t_string_literal$",
@@ -1388,13 +1410,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionCall(address, bytes)",
-					"signature": "61c524b8",
+					"signature_raw": "functionCall(address,bytes)",
+					"signature": "a0b5ffb0",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$",
 						"type_string": "function(address,bytes)"
-					}
+					},
+					"text": "functionfunctionCall(addresstarget,bytesmemorydata)internalreturns(bytesmemory){returnfunctionCall(target,data,\"Address: low-level call failed\");}"
 				},
 				{
 					"id": 687,
@@ -1492,7 +1515,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 702,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										{
 											"id": 703,
@@ -1518,7 +1542,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "data"
 										},
 										{
 											"id": 704,
@@ -1550,7 +1575,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "0"
 										},
 										{
 											"id": 705,
@@ -1584,7 +1610,8 @@
 													"type_identifier": "t_rational_0_by_1",
 													"type_string": "int_const 0"
 												}
-											]
+											],
+											"text": "errorMessage"
 										}
 									],
 									"expression": {
@@ -1605,7 +1632,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "functionCallWithValue"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_bytes$_t_rational_0_by_1$_t_string$",
@@ -1826,13 +1854,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionCall(address, bytes, string)",
-					"signature": "5f581aaa",
+					"signature_raw": "functionCall(address,bytes,string)",
+					"signature": "241b5886",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_string$",
 						"type_string": "function(address,bytes,string)"
-					}
+					},
+					"text": "functionfunctionCall(addresstarget,bytesmemorydata,stringmemoryerrorMessage)internalreturns(bytesmemory){returnfunctionCallWithValue(target,data,0,errorMessage);}"
 				},
 				{
 					"id": 707,
@@ -1930,7 +1959,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 722,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										{
 											"id": 723,
@@ -1956,7 +1986,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "data"
 										},
 										{
 											"id": 724,
@@ -1986,7 +2017,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "value"
 										},
 										{
 											"id": 725,
@@ -2022,7 +2054,8 @@
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
 												}
-											]
+											],
+											"text": "\"Address: low-level call with value failed\""
 										}
 									],
 									"expression": {
@@ -2043,7 +2076,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "functionCallWithValue"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_bytes$_t_uint256$_t_string_literal$",
@@ -2264,13 +2298,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionCallWithValue(address, bytes, uint256)",
-					"signature": "9a466078",
+					"signature_raw": "functionCallWithValue(address,bytes,uint256)",
+					"signature": "2a011594",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_uint256$",
 						"type_string": "function(address,bytes,uint256)"
-					}
+					},
+					"text": "functionfunctionCallWithValue(addresstarget,bytesmemorydata,uint256value)internalreturns(bytesmemory){returnfunctionCallWithValue(target,data,value,\"Address: low-level call with value failed\");}"
 				},
 				{
 					"id": 727,
@@ -2404,7 +2439,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "this"
 													}
 												],
 												"expression": {
@@ -2450,7 +2486,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
@@ -2462,7 +2499,8 @@
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
-											}
+											},
+											"text": "address(this).balance"
 										},
 										"right_expression": {
 											"id": 749,
@@ -2482,7 +2520,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 749,
-											"is_pure": false
+											"is_pure": false,
+											"text": "value"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -2515,7 +2554,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Address: insufficient balance for call\""
 									}
 								],
 								"expression": {
@@ -2536,7 +2576,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -2603,7 +2644,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 755,
-												"is_pure": false
+												"is_pure": false,
+												"text": "target"
 											}
 										],
 										"expression": {
@@ -2624,7 +2666,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -2657,7 +2700,8 @@
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
 											}
-										]
+										],
+										"text": "\"Address: call to non-contract\""
 									}
 								],
 								"expression": {
@@ -2678,7 +2722,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -2827,7 +2872,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 766,
-											"is_pure": false
+											"is_pure": false,
+											"text": "data"
 										}
 									],
 									"expression": {
@@ -2883,14 +2929,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 765,
-												"is_pure": false
+												"is_pure": false,
+												"text": "target"
 											},
 											"member_name": "call",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "target.call"
 										},
 										"type_description": {
 											"type_identifier": "t_address",
@@ -2960,7 +3008,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 757,
-											"is_pure": false
+											"is_pure": false,
+											"text": "success"
 										},
 										{
 											"id": 771,
@@ -2986,7 +3035,8 @@
 													"type_identifier": "t_bool",
 													"type_string": "bool"
 												}
-											]
+											],
+											"text": "returndata"
 										},
 										{
 											"id": 772,
@@ -3016,7 +3066,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "errorMessage"
 										}
 									],
 									"expression": {
@@ -3037,7 +3088,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "verifyCallResult"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bool$_t_bytes$_t_string$",
@@ -3301,13 +3353,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionCallWithValue(address, bytes, uint256, string)",
-					"signature": "7a931a92",
+					"signature_raw": "functionCallWithValue(address,bytes,uint256,string)",
+					"signature": "d525ab8a",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_uint256$_t_string$",
 						"type_string": "function(address,bytes,uint256,string)"
-					}
+					},
+					"text": "functionfunctionCallWithValue(addresstarget,bytesmemorydata,uint256value,stringmemoryerrorMessage)internalreturns(bytesmemory){require(address(this).balance\u003e=value,\"Address: insufficient balance for call\");require(isContract(target),\"Address: call to non-contract\");(boolsuccess,bytesmemoryreturndata)=target.call{value:value}(data);returnverifyCallResult(success,returndata,errorMessage);}"
 				},
 				{
 					"id": 774,
@@ -3401,7 +3454,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 787,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										{
 											"id": 788,
@@ -3427,7 +3481,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "data"
 										},
 										{
 											"id": 789,
@@ -3459,7 +3514,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "\"Address: low-level static call failed\""
 										}
 									],
 									"expression": {
@@ -3480,7 +3536,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "functionStaticCall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_bytes$_t_string_literal$",
@@ -3658,13 +3715,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionStaticCall(address, bytes)",
-					"signature": "35b5002e",
+					"signature_raw": "functionStaticCall(address,bytes)",
+					"signature": "c21d36f3",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$",
 						"type_string": "function(address,bytes)"
-					}
+					},
+					"text": "functionfunctionStaticCall(addresstarget,bytesmemorydata)internalviewreturns(bytesmemory){returnfunctionStaticCall(target,data,\"Address: low-level static call failed\");}"
 				},
 				{
 					"id": 791,
@@ -3761,7 +3819,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 807,
-												"is_pure": false
+												"is_pure": false,
+												"text": "target"
 											}
 										],
 										"expression": {
@@ -3782,7 +3841,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -3815,7 +3875,8 @@
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
 											}
-										]
+										],
+										"text": "\"Address: static call to non-contract\""
 									}
 								],
 								"expression": {
@@ -3836,7 +3897,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -3985,7 +4047,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 817,
-											"is_pure": false
+											"is_pure": false,
+											"text": "data"
 										}
 									],
 									"expression": {
@@ -4029,14 +4092,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 816,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										"member_name": "staticcall",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "target.staticcall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes$",
@@ -4101,7 +4166,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 809,
-											"is_pure": false
+											"is_pure": false,
+											"text": "success"
 										},
 										{
 											"id": 822,
@@ -4127,7 +4193,8 @@
 													"type_identifier": "t_bool",
 													"type_string": "bool"
 												}
-											]
+											],
+											"text": "returndata"
 										},
 										{
 											"id": 823,
@@ -4157,7 +4224,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "errorMessage"
 										}
 									],
 									"expression": {
@@ -4178,7 +4246,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "verifyCallResult"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bool$_t_bytes$_t_string$",
@@ -4399,13 +4468,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionStaticCall(address, bytes, string)",
-					"signature": "47374319",
+					"signature_raw": "functionStaticCall(address,bytes,string)",
+					"signature": "dbc40fb9",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_string$",
 						"type_string": "function(address,bytes,string)"
-					}
+					},
+					"text": "functionfunctionStaticCall(addresstarget,bytesmemorydata,stringmemoryerrorMessage)internalviewreturns(bytesmemory){require(isContract(target),\"Address: static call to non-contract\");(boolsuccess,bytesmemoryreturndata)=target.staticcall(data);returnverifyCallResult(success,returndata,errorMessage);}"
 				},
 				{
 					"id": 825,
@@ -4499,7 +4569,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 838,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										{
 											"id": 839,
@@ -4525,7 +4596,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "data"
 										},
 										{
 											"id": 840,
@@ -4557,7 +4629,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "\"Address: low-level delegate call failed\""
 										}
 									],
 									"expression": {
@@ -4578,7 +4651,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "functionDelegateCall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$_t_bytes$_t_string_literal$",
@@ -4756,13 +4830,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionDelegateCall(address, bytes)",
-					"signature": "ce0c9802",
+					"signature_raw": "functionDelegateCall(address,bytes)",
+					"signature": "ee33b7e2",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$",
 						"type_string": "function(address,bytes)"
-					}
+					},
+					"text": "functionfunctionDelegateCall(addresstarget,bytesmemorydata)internalreturns(bytesmemory){returnfunctionDelegateCall(target,data,\"Address: low-level delegate call failed\");}"
 				},
 				{
 					"id": 842,
@@ -4859,7 +4934,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 858,
-												"is_pure": false
+												"is_pure": false,
+												"text": "target"
 											}
 										],
 										"expression": {
@@ -4880,7 +4956,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -4913,7 +4990,8 @@
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
 											}
-										]
+										],
+										"text": "\"Address: delegate call to non-contract\""
 									}
 								],
 								"expression": {
@@ -4934,7 +5012,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -5083,7 +5162,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 868,
-											"is_pure": false
+											"is_pure": false,
+											"text": "data"
 										}
 									],
 									"expression": {
@@ -5127,14 +5207,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 867,
-											"is_pure": false
+											"is_pure": false,
+											"text": "target"
 										},
 										"member_name": "delegatecall",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "target.delegatecall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes$",
@@ -5199,7 +5281,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 860,
-											"is_pure": false
+											"is_pure": false,
+											"text": "success"
 										},
 										{
 											"id": 873,
@@ -5225,7 +5308,8 @@
 													"type_identifier": "t_bool",
 													"type_string": "bool"
 												}
-											]
+											],
+											"text": "returndata"
 										},
 										{
 											"id": 874,
@@ -5255,7 +5339,8 @@
 													"type_identifier": "t_bytes",
 													"type_string": "bytes"
 												}
-											]
+											],
+											"text": "errorMessage"
 										}
 									],
 									"expression": {
@@ -5276,7 +5361,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "verifyCallResult"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bool$_t_bytes$_t_string$",
@@ -5497,13 +5583,14 @@
 							}
 						]
 					},
-					"signature_raw": "functionDelegateCall(address, bytes, string)",
-					"signature": "a6f0db75",
+					"signature_raw": "functionDelegateCall(address,bytes,string)",
+					"signature": "57387df0",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_string$",
 						"type_string": "function(address,bytes,string)"
-					}
+					},
+					"text": "functionfunctionDelegateCall(addresstarget,bytesmemorydata,stringmemoryerrorMessage)internalreturns(bytesmemory){require(isContract(target),\"Address: delegate call to non-contract\");(boolsuccess,bytesmemoryreturndata)=target.delegatecall(data);returnverifyCallResult(success,returndata,errorMessage);}"
 				},
 				{
 					"id": 876,
@@ -5569,7 +5656,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 889,
-									"is_pure": false
+									"is_pure": false,
+									"text": "success"
 								},
 								"body": {
 									"id": 890,
@@ -5615,7 +5703,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 892,
-												"is_pure": false
+												"is_pure": false,
+												"text": "returndata"
 											}
 										}
 									]
@@ -5833,13 +5922,14 @@
 							}
 						]
 					},
-					"signature_raw": "verifyCallResult(bool, bytes, string)",
-					"signature": "15a412bd",
+					"signature_raw": "verifyCallResult(bool,bytes,string)",
+					"signature": "946b5793",
 					"scope": 622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bool$_t_bytes$_t_string$",
 						"type_string": "function(bool,bytes,string)"
-					}
+					},
+					"text": "functionverifyCallResult(boolsuccess,bytesmemoryreturndata,stringmemoryerrorMessage)internalpurereturns(bytesmemory){if(success){returnreturndata;}else{if(returndata.length\u003e0){assembly{letreturndata_size:=mload(returndata)revert(add(32,returndata),returndata_size)}}else{revert(errorMessage);}}}"
 				}
 			],
 			"linearized_base_contracts": [

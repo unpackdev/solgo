@@ -470,7 +470,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1243,
-										"is_pure": false
+										"is_pure": false,
+										"text": "implementation_"
 									}
 								],
 								"expression": {
@@ -491,7 +492,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setImplementation"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -566,7 +568,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 1227,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_implementation"
 								}
 							}
 						]
@@ -722,7 +725,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionimplementation()publicviewvirtualoverridereturns(address){return_implementation;}"
 				},
 				{
 					"id": 1257,
@@ -796,7 +800,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1267,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -817,7 +822,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setImplementation"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -854,7 +860,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1269,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -875,7 +882,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 633,
-									"is_pure": false
+									"is_pure": false,
+									"text": "Upgraded"
 								}
 							}
 						]
@@ -996,7 +1004,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionupgradeTo(addressnewImplementation)publicvirtualonlyOwner{_setImplementation(newImplementation);emitUpgraded(newImplementation);}"
 				},
 				{
 					"id": 1272,
@@ -1093,7 +1102,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 1283,
-												"is_pure": false
+												"is_pure": false,
+												"text": "newImplementation"
 											}
 										],
 										"expression": {
@@ -1137,14 +1147,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 239,
-												"is_pure": false
+												"is_pure": false,
+												"text": "Address"
 											},
 											"member_name": "isContract",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_Address_$239",
 												"type_string": "contract Address"
-											}
+											},
+											"text": "Address.isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -1177,7 +1189,8 @@
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
 											}
-										]
+										],
+										"text": "\"UpgradeableBeacon: implementation is not a contract\""
 									}
 								],
 								"expression": {
@@ -1198,7 +1211,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -1246,7 +1260,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1227,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_implementation"
 									},
 									"right_expression": {
 										"id": 1288,
@@ -1266,7 +1281,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1288,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									},
 									"type_description": {
 										"type_identifier": "t_address",
@@ -1276,7 +1292,8 @@
 								"type_description": {
 									"type_identifier": "t_address",
 									"type_string": "address"
-								}
+								},
+								"text": "_implementation=newImplementation;"
 							}
 						]
 					},
@@ -1366,7 +1383,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_setImplementation(addressnewImplementation)private{require(Address.isContract(newImplementation),\"UpgradeableBeacon: implementation is not a contract\");_implementation=newImplementation;}"
 				}
 			],
 			"linearized_base_contracts": [

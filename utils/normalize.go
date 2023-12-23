@@ -35,7 +35,7 @@ func (n *NormalizeType) Normalize(typeName string) NormalizationInfo {
 // isBuiltInType checks if the provided type name is one of the recognized built-in types.
 func (n *NormalizeType) isBuiltInType(typeName string) bool {
 	cases := []string{
-		"uint", "int", "bool", "bytes", "string", "address", "addresspayable", "tuple", "enum",
+		"uint", "int", "bool", "bytes", "string", "address", "addresspayable", "tuple", "enum", "error",
 	}
 
 	for _, bcase := range cases {
@@ -63,16 +63,18 @@ func (n *NormalizeType) normalizeTypeNameWithStatus(typeName string) (string, bo
 		case isArray:
 			numberPart := typeName[strings.Index(typeName, "[")+1 : strings.Index(typeName, "]")]
 			typePart := typeName[strings.Index(typeName, "]")+1:]
-
-			return "[" + numberPart + "]" + n.normalizeTypeName(typePart), true
+			normalizedTypeName, found := n.normalizeTypeName(typePart)
+			return "[" + numberPart + "]" + normalizedTypeName, found
 
 		case isSlice:
 			typePart := typeName[2:]
-			return "[]" + n.normalizeTypeName(typePart), true
+			normalizedTypeName, found := n.normalizeTypeName(typePart)
+			return "[]" + normalizedTypeName, found
 
 		case isSliceRight:
 			typePart := typeName[:len(typeName)-2]
-			return n.normalizeTypeName(typePart) + "[]", true
+			normalizedTypeName, found := n.normalizeTypeName(typePart)
+			return normalizedTypeName + "[]", found
 		}
 	}
 
@@ -116,7 +118,7 @@ func (n *NormalizeType) normalizeTypeNameWithStatus(typeName string) (string, bo
 }
 
 // normalizeTypeName provides the normalized version of the provided type name.
-func (n *NormalizeType) normalizeTypeName(typeName string) string {
-	normalizedTypeName, _ := n.normalizeTypeNameWithStatus(typeName)
-	return normalizedTypeName
+func (n *NormalizeType) normalizeTypeName(typeName string) (string, bool) {
+	normalizedTypeName, found := n.normalizeTypeNameWithStatus(typeName)
+	return normalizedTypeName, found
 }

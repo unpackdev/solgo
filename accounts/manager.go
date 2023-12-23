@@ -5,9 +5,11 @@ import (
 	"crypto/ecdsa"
 	"encoding/base64"
 	"fmt"
+	"math/rand"
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
@@ -118,6 +120,51 @@ func (m *Manager) GetKeystore(network utils.Network) (*keystore.KeyStore, error)
 	}
 
 	return m.ks[network], nil
+}
+
+// CreateOneTimeAccount creates a one time use account for a given network with a specified password and optional tags.
+// It does not save the account to the keystore and does not add it to the accounts map.
+// Useful for simulations and testing.
+func (m *Manager) CreateOneTimeAccount(network utils.Network, password string, tags ...string) (*Account, error) {
+	ks, err := m.GetKeystore(network)
+	if err != nil {
+		return nil, err
+	}
+
+	// Generate a new private key
+	privateKey, err := crypto.GenerateKey()
+	if err != nil {
+		return nil, fmt.Errorf("failed to generate private key: %s", err)
+	}
+
+	privateKeyBytes := crypto.FromECDSA(privateKey)
+
+	publicKey := privateKey.Public()
+	ecdsaPublicKey, ok := publicKey.(*ecdsa.PublicKey)
+	if !ok {
+		return nil, fmt.Errorf("failed to cast public key to *ecdsa.PublicKey")
+	}
+
+	publicKeyBytes := crypto.FromECDSAPub(ecdsaPublicKey)
+
+	// Obtain the address from the public key
+	address := crypto.PubkeyToAddress(*ecdsaPublicKey)
+
+	acc := &Account{
+		KeyStore:        ks,
+		Address:         address,
+		Type:            utils.SimpleAccountType,
+		PrivateKey:      fmt.Sprintf("%x", privateKey.D),
+		PrivateKeyBytes: privateKeyBytes,
+		PublicKey:       fmt.Sprintf("%x", crypto.FromECDSAPub(ecdsaPublicKey)),
+		PublicKeyBytes:  publicKeyBytes,
+		Password:        base64.StdEncoding.EncodeToString([]byte(password)),
+		Network:         network,
+		Tags:            tags,
+	}
+
+	acc.SetClient(m.client.GetClientByGroup(network.String()))
+	return acc, nil
 }
 
 // Create creates a new account for a given network with a specified password and optional tags.
@@ -234,6 +281,30 @@ func (m *Manager) Get(network utils.Network, address common.Address) (*Account, 
 	}
 
 	return nil, fmt.Errorf("account for network: %s not found: %s", network.String(), address.Hex())
+}
+
+// GetRandomAccount returns a random account from all the available accounts across networks.
+// Returns an error if there are no accounts available.
+func (m *Manager) GetRandomAccount(network utils.Network) (*Account, error) {
+	var allAccounts []*Account
+
+	// Collect all accounts from all networks
+	for accNetwork, accs := range m.accounts {
+		if accNetwork == network {
+			allAccounts = append(allAccounts, accs...)
+		}
+	}
+
+	if len(allAccounts) == 0 {
+		return nil, fmt.Errorf("no accounts available")
+	}
+
+	// Seed the random number generator to ensure different results on each call
+	rand.Seed(time.Now().UnixNano())
+
+	// Select a random account
+	randomIndex := rand.Intn(len(allAccounts))
+	return allAccounts[randomIndex], nil
 }
 
 // Delete removes an account for a given network by its address.

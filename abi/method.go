@@ -1,7 +1,10 @@
 package abi
 
 import (
+	"encoding/json"
+
 	abi_pb "github.com/unpackdev/protos/dist/go/abi"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // MethodIO represents an input or output parameter of a contract method or event.
@@ -52,6 +55,10 @@ type Method struct {
 	Name            string     `json:"name"`                 // Name of the function.
 	Type            string     `json:"type"`                 // Type of the method (always "function" for functions).
 	StateMutability string     `json:"stateMutability"`      // State mutability of the function (e.g., pure, view, nonpayable, payable).
+}
+
+func (m *Method) ToJSON() (json.RawMessage, error) {
+	return utils.ToJSON(m)
 }
 
 // ToProto converts the Method to its protobuf representation.

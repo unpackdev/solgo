@@ -3,27 +3,7 @@
 	"entryContractName": "Lottery",
 	"contractsCount": 2,
 	"contracts": {
-		"IDummyContract": {
-			"methods": [
-				{
-					"inputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"name": "dummyFunction",
-					"type": "function",
-					"stateMutability": "nonpayable"
-				}
-			]
-		},
+		"IDummyContract": {},
 		"Lottery": {
 			"methods": [
 				{
@@ -85,7 +65,6 @@
 				{
 					"outputs": [
 						{
-							"indexed": true,
 							"internalType": "address",
 							"name": "addr",
 							"type": "address"
@@ -98,7 +77,6 @@
 				{
 					"outputs": [
 						{
-							"indexed": true,
 							"internalType": "address",
 							"name": "winner",
 							"type": "address"
@@ -116,7 +94,6 @@
 				{
 					"outputs": [
 						{
-							"indexed": true,
 							"internalType": "string",
 							"name": "reason",
 							"type": "string"
@@ -159,121 +136,6 @@
 				{
 					"type": "constructor",
 					"stateMutability": "nonpayable"
-				},
-				{
-					"name": "join",
-					"type": "function",
-					"stateMutability": "payable"
-				},
-				{
-					"name": "finishLottery",
-					"type": "function",
-					"stateMutability": "nonpayable"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"type": "address"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "address",
-							"type": "address"
-						}
-					],
-					"name": "owner",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "balance",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"name": "checkAllPlayers",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"name": "requireOwner",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"name": "externalContractAddress",
-							"type": "address"
-						}
-					],
-					"name": "callExternalFunction",
-					"type": "function",
-					"stateMutability": "nonpayable"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "_i",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "string",
-							"type": "string"
-						}
-					],
-					"name": "integerToString",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "result",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"name": "result",
-							"type": "uint256"
-						}
-					],
-					"name": "dummyFunctionAssembly",
-					"type": "function",
-					"stateMutability": "pure"
 				},
 				{
 					"type": "fallback",

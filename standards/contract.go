@@ -47,9 +47,22 @@ func (e *Contract) ConfidenceCheck(contract *ContractMatcher) (Discovery, bool) 
 	return ConfidenceCheck(e, contract)
 }
 
+func (e *Contract) FunctionConfidenceCheck(fn *Function) (FunctionDiscovery, bool) {
+	return FunctionConfidenceCheck(e, fn)
+}
+
 // TokenCount returns the number of tokens associated with the standard.
 func (e *Contract) TokenCount() int {
 	return TokenCount(e.Standard)
+}
+
+func (e *Contract) FunctionTokenCount(fnName string) int {
+	for _, fn := range e.Standard.Functions {
+		if fn.Name == fnName {
+			return FunctionTokenCount(fn)
+		}
+	}
+	return 0
 }
 
 // ToProto returns a protobuf representation of the standard.

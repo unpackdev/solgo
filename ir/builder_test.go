@@ -320,7 +320,7 @@ func TestIrBuilderFromSources(t *testing.T) {
 				assert.NotNil(t, eip.ToProto())
 			}
 
-			assert.NotNil(t, root.HasStandard(standards.EIP1014))
+			assert.NotNil(t, root.HasStandard(standards.ERC1014))
 			assert.NotNil(t, root.GetAST())
 
 			for _, contract := range root.GetContracts() {
@@ -736,7 +736,7 @@ func TestIrBuilderFromJSON(t *testing.T) {
 				assert.NotNil(t, eip.ToProto())
 			}
 
-			assert.NotNil(t, root.HasStandard(standards.EIP1014))
+			assert.NotNil(t, root.HasStandard(standards.ERC1014))
 			assert.NotNil(t, root.GetAST())
 
 			for _, contract := range root.GetContracts() {

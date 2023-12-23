@@ -32,8 +32,14 @@ type EIP interface {
 	// the contract is to any level compliant with the Ethereum standard.
 	ConfidenceCheck(contract *ContractMatcher) (Discovery, bool)
 
+	// FunctionConfidenceCheck returns a discovery confidence information and a boolean indicating whether
+	// the contract function is to any level compliant with the Ethereum standard.
+	FunctionConfidenceCheck(fn *Function) (FunctionDiscovery, bool)
+
 	// TokenCount returns the number of tokens associated with the Ethereum standard.
 	TokenCount() int
+
+	FunctionTokenCount(fnName string) int
 
 	// GetABI returns the ABI of the Ethereum standard.
 	GetABI() string

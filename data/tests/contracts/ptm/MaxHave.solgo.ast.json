@@ -159,7 +159,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 3211,
-						"node_type": 0,
+						"node_type": 53,
 						"src": {
 							"line": 1285,
 							"column": 4,
@@ -373,7 +373,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3207,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_maxHavAmount"
 									},
 									"right_expression": {
 										"id": 3224,
@@ -393,7 +394,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3224,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_maxHav"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -403,7 +405,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "_maxHavAmount=_maxHav;"
 							},
 							{
 								"id": 3225,
@@ -457,7 +460,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3229,
@@ -500,14 +504,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "msg"
 											},
 											"member_name": "sender",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "msg.sender"
 										},
 										"type_descriptions": [
 											{
@@ -544,7 +550,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -554,7 +561,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "isHavLimitExempt[msg.sender]=true;"
 							},
 							{
 								"id": 3232,
@@ -608,7 +616,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3236,
@@ -647,7 +656,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "this"
 												}
 											],
 											"expression": {
@@ -693,7 +703,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -735,7 +746,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_address$",
@@ -745,7 +757,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_address$",
 									"type_string": "index[mapping(address=\u003ebool):function(address)]"
-								}
+								},
+								"text": "isHavLimitExempt[address(this)]=true;"
 							},
 							{
 								"id": 3241,
@@ -799,7 +812,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3245,
@@ -840,7 +854,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												}
 											],
 											"expression": {
@@ -886,7 +901,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -928,7 +944,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
@@ -938,7 +955,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
 									"type_string": "index[mapping(address=\u003ebool):function(int_const 0)]"
-								}
+								},
+								"text": "isHavLimitExempt[address(0)]=true;"
 							},
 							{
 								"id": 3250,
@@ -992,7 +1010,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3254,
@@ -1033,7 +1052,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0xdead"
 												}
 											],
 											"expression": {
@@ -1079,7 +1099,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -1121,7 +1142,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
@@ -1131,7 +1153,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
 									"type_string": "index[mapping(address=\u003ebool):function(int_const 0xdead)]"
-								}
+								},
+								"text": "isHavLimitExempt[address(0xdead)]=true;"
 							},
 							{
 								"id": 3259,
@@ -1185,7 +1208,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3263,
@@ -1226,7 +1250,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0x714675834Fc80Ff85f892840d7940496C52b1BA8"
 												}
 											],
 											"expression": {
@@ -1272,7 +1297,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -1314,7 +1340,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
@@ -1324,7 +1351,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
 									"type_string": "index[mapping(address=\u003ebool):function(int_const 0x714675834Fc80Ff85f892840d7940496C52b1BA8)]"
-								}
+								},
+								"text": "isHavLimitExempt[address(0x714675834Fc80Ff85f892840d7940496C52b1BA8)]=true;"
 							},
 							{
 								"id": 3268,
@@ -1378,7 +1406,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3272,
@@ -1419,7 +1448,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0x242B3f82697846f4d0fd979EE2fA960aAd41d31C"
 												}
 											],
 											"expression": {
@@ -1465,7 +1495,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -1507,7 +1538,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
@@ -1517,7 +1549,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_function_$_t_rational_0_by_1$",
 									"type_string": "index[mapping(address=\u003ebool):function(int_const 0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)]"
-								}
+								},
+								"text": "isHavLimitExempt[address(0x242B3f82697846f4d0fd979EE2fA960aAd41d31C)]=true;"
 							}
 						]
 					}
@@ -1598,7 +1631,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3207,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_maxHavAmount"
 									},
 									"right_expression": {
 										"id": 3287,
@@ -1645,7 +1679,8 @@
 										"type_description": {
 											"type_identifier": "",
 											"type_string": "type"
-										}
+										},
+										"text": "type(uint256).max"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -1655,7 +1690,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "_maxHavAmount=type(uint256).max;"
 							}
 						]
 					},
@@ -1729,7 +1765,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "functionsetMaxHavAmount()externalonlyOwner{_maxHavAmount=type(uint256).max;}"
 				},
 				{
 					"id": 3290,
@@ -1818,7 +1855,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3210,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isHavLimitExempt"
 										},
 										"base_expression": {
 											"id": 3304,
@@ -1838,7 +1876,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3304,
-											"is_pure": false
+											"is_pure": false,
+											"text": "holder"
 										},
 										"type_descriptions": [
 											{
@@ -1873,7 +1912,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3305,
-										"is_pure": false
+										"is_pure": false,
+										"text": "havExempt"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -1883,7 +1923,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "isHavLimitExempt[holder]=havExempt;"
 							}
 						]
 					},
@@ -2040,13 +2081,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "setIsHavLimitExempt(address, bool)",
-					"signature": "4688c0d8",
+					"signature_raw": "setIsHavLimitExempt(address,bool)",
+					"signature": "7a4c443f",
 					"scope": 3203,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bool$",
 						"type_string": "function(address,bool)"
-					}
+					},
+					"text": "functionsetIsHavLimitExempt(addressholder,boolhavExempt)externalonlyOwner{isHavLimitExempt[holder]=havExempt;}"
 				}
 			],
 			"linearized_base_contracts": [

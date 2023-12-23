@@ -370,7 +370,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_msgSender"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -396,7 +397,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_transferOwnership"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$",
@@ -488,7 +490,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_checkOwner"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$",
@@ -513,7 +516,8 @@
 								},
 								"overloaded_declarations": [],
 								"referenced_declaration": 0,
-								"is_pure": false
+								"is_pure": false,
+								"text": "_"
 							}
 						]
 					}
@@ -583,7 +587,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 254,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_owner"
 								}
 							}
 						]
@@ -720,7 +725,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionowner()publicviewvirtualreturns(address){return_owner;}"
 				},
 				{
 					"id": 291,
@@ -826,7 +832,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "owner"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -865,7 +872,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_msgSender"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$",
@@ -903,7 +911,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Ownable: caller is not the owner\""
 									}
 								],
 								"expression": {
@@ -924,7 +933,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -973,7 +983,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "function_checkOwner()internalviewvirtual{require(owner()==_msgSender(),\"Ownable: caller is not the owner\");}"
 				},
 				{
 					"id": 304,
@@ -1068,7 +1079,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											}
 										],
 										"expression": {
@@ -1114,7 +1126,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "address"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -1140,7 +1153,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_transferOwnership"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_rational_0_by_1$",
@@ -1219,7 +1233,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "functionrenounceOwnership()publicvirtualonlyOwner{_transferOwnership(address(0));}"
 				},
 				{
 					"id": 317,
@@ -1311,7 +1326,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 328,
-											"is_pure": false
+											"is_pure": false,
+											"text": "newOwner"
 										},
 										"right_expression": {
 											"id": 329,
@@ -1352,7 +1368,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												}
 											],
 											"expression": {
@@ -1398,7 +1415,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -1436,7 +1454,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Ownable: new owner is the zero address\""
 									}
 								],
 								"expression": {
@@ -1457,7 +1476,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -1501,7 +1521,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 336,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newOwner"
 									}
 								],
 								"expression": {
@@ -1522,7 +1543,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_transferOwnership"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -1647,7 +1669,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functiontransferOwnership(addressnewOwner)publicvirtualonlyOwner{require(newOwner!=address(0),\"Ownable: new owner is the zero address\");_transferOwnership(newOwner);}"
 				},
 				{
 					"id": 338,
@@ -1763,7 +1786,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 254,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_owner"
 								}
 							},
 							{
@@ -1807,7 +1831,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 254,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_owner"
 									},
 									"right_expression": {
 										"id": 351,
@@ -1827,7 +1852,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 351,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newOwner"
 									},
 									"type_description": {
 										"type_identifier": "t_address",
@@ -1837,7 +1863,8 @@
 								"type_description": {
 									"type_identifier": "t_address",
 									"type_string": "address"
-								}
+								},
+								"text": "_owner=newOwner;"
 							},
 							{
 								"id": 352,
@@ -1869,7 +1896,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 344,
-										"is_pure": false
+										"is_pure": false,
+										"text": "oldOwner"
 									},
 									{
 										"id": 354,
@@ -1889,7 +1917,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 354,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newOwner"
 									}
 								],
 								"expression": {
@@ -1910,7 +1939,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 257,
-									"is_pure": false
+									"is_pure": false,
+									"text": "OwnershipTransferred"
 								}
 							}
 						]
@@ -2001,7 +2031,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_transferOwnership(addressnewOwner)internalvirtual{addressoldOwner=_owner;_owner=newOwner;emitOwnershipTransferred(oldOwner,newOwner);}"
 				}
 			],
 			"linearized_base_contracts": [

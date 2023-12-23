@@ -320,6 +320,10 @@ func (b *BodyNode) ParseUncheckedBlock(
 	return b
 }
 
+func (b *BodyNode) ToString() string {
+	return ""
+}
+
 // parseStatements is a helper function for the ParseBlock and ParseUncheckedBlock methods.
 // It takes a source unit, a contract node, a function node, and a child context as arguments.
 // It checks the type of the child context and based on its type, it creates a new node of the corresponding type and parses it.

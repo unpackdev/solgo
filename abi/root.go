@@ -82,7 +82,7 @@ func (r *Root) ToProto() *abi_pb.Root {
 }
 
 // processRoot processes the provided RootSourceUnit from the IR and constructs a Root structure.
-func (b *Builder) processRoot(root *ir.RootSourceUnit) *Root {
+func (b *Builder) processRoot(root *ir.RootSourceUnit) (*Root, error) {
 	rootNode := &Root{
 		unit:           root,
 		ContractsCount: int32(root.GetContractsCount()),
@@ -90,15 +90,20 @@ func (b *Builder) processRoot(root *ir.RootSourceUnit) *Root {
 	}
 
 	if !root.HasContracts() {
-		return rootNode
+		return rootNode, nil
 	}
 
 	rootNode.EntryContractId = root.GetEntryId()
 	rootNode.EntryContractName = root.GetEntryName()
 
 	for _, contract := range root.GetContracts() {
-		rootNode.Contracts[contract.Name] = b.processContract(contract)
+		pc, err := b.processContract(contract)
+		if err != nil {
+			return nil, err
+		}
+
+		rootNode.Contracts[contract.Name] = pc
 	}
 
-	return rootNode
+	return rootNode, nil
 }

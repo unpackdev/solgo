@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/ethereum/go-ethereum/common"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/ast"
@@ -14,6 +15,7 @@ import (
 // Builder facilitates the creation of the IR from source code using solgo and AST tools.
 type Builder struct {
 	ctx        context.Context // Context for the builder operations.
+	address    common.Address  // Optional address that can be provided to the builder.
 	sources    *solgo.Sources  // Source files to be processed.
 	parser     *solgo.Parser   // Parser for the source code.
 	astBuilder *ast.ASTBuilder // AST Builder for generating AST from parsed source.
@@ -134,4 +136,12 @@ func (b *Builder) Build() error {
 		b.root = b.processRoot(root)
 	}
 	return nil
+}
+
+func (b *Builder) SetAddress(address common.Address) {
+	b.address = address
+}
+
+func (b *Builder) GetAddress() common.Address {
+	return b.address
 }

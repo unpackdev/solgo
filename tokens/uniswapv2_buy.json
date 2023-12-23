@@ -1,0 +1,195 @@
+{
+    "network": "anvil",
+    "network_id": 1,
+    "simulation": true,
+    "exchange_type": "uniswap_v2",
+    "spender_address": "0xe8f513de7789529fe179e05a2f0850376c16621b",
+    "spender_balance_before": 1000000000000000000000,
+    "amount_raw": 100000000000000000,
+    "amount": "0.1",
+    "router_address": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d",
+    "factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
+    "weth_address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    "pair_address": "0x80f5666a6fe5c51739dc99b55463d5b098ffc10a",
+    "pair_reserves": {
+        "token0": "0x1e241521f4767853b376c2fe795a222a07d588ee",
+        "token1": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "reserve0": 126757817614358996652690,
+        "reserve1": 80329644043583282001,
+        "block_time": "2023-12-05T14:39:47+01:00"
+    },
+    "price_per_token": "0.000633725363495700",
+    "max_amount_raw": 157128652066382757179,
+    "max_amount": "157.13",
+    "trade": {
+        "detected": false,
+        "approval": {
+            "detected": true,
+            "approval_requested": true,
+            "approved": true,
+            "transaction_hash": "0x2f6c8e7cc22f264abda093416542e680349565416bd6e49d741b5b92cfcfeb56",
+            "receipt": true,
+            "receipt_status": 1,
+            "logs": [
+                {
+                    "address": "0x1e241521f4767853b376c2fe795a222a07d588ee",
+                    "abi": "[{\"name\":\"Approval\",\"type\":\"event\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true},{\"name\":\"spender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
+                    "signature_hex": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                    "signature": "Approval(address indexed owner, address indexed spender, uint256 value)",
+                    "type": "approval",
+                    "name": "Approval",
+                    "data": {
+                        "value": 100000000000000000
+                    },
+                    "topics": [
+                        {
+                            "name": "owner",
+                            "value": "0xe8f513de7789529fe179e05a2f0850376c16621b"
+                        },
+                        {
+                            "name": "spender",
+                            "value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+                        }
+                    ]
+                }
+            ]
+        },
+        "results": {
+            "detected": true,
+            "swap_requested": true,
+            "pair_details": [
+                "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+                "0x1e241521f4767853b376c2fe795a222a07d588ee"
+            ],
+            "transaction_hash": "0x10dde4c769949f4aa7a139f13ee96452d82d552d524654752d6a6f68bc8641a1",
+            "receipt": true,
+            "receipt_status": 1,
+            "logs": [
+                {
+                    "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+                    "abi": "[{\"name\":\"Deposit\",\"type\":\"event\",\"inputs\":[{\"name\":\"dst\",\"type\":\"address\",\"indexed\":true},{\"name\":\"wad\",\"type\":\"uint256\"}]}]",
+                    "signature_hex": "0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c",
+                    "signature": "Deposit(address indexed dst, uint256 wad)",
+                    "type": "deposit",
+                    "name": "Deposit",
+                    "data": {
+                        "wad": 100000000000000000
+                    },
+                    "topics": [
+                        {
+                            "name": "dst",
+                            "value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+                        }
+                    ]
+                },
+                {
+                    "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+                    "abi": "[{\"name\":\"Transfer\",\"type\":\"event\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
+                    "signature_hex": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "signature": "Transfer(address indexed from, address indexed to, uint256 value)",
+                    "type": "transfer",
+                    "name": "Transfer",
+                    "data": {
+                        "value": 100000000000000000
+                    },
+                    "topics": [
+                        {
+                            "name": "from",
+                            "value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+                        },
+                        {
+                            "name": "to",
+                            "value": "0x80f5666a6fe5c51739dc99b55463d5b098ffc10a"
+                        }
+                    ]
+                },
+                {
+                    "address": "0x1e241521f4767853b376c2fe795a222a07d588ee",
+                    "abi": "[{\"name\":\"Transfer\",\"type\":\"event\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
+                    "signature_hex": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "signature": "Transfer(address indexed from, address indexed to, uint256 value)",
+                    "type": "transfer",
+                    "name": "Transfer",
+                    "data": {
+                        "value": 7856432603319137858
+                    },
+                    "topics": [
+                        {
+                            "name": "from",
+                            "value": "0x80f5666a6fe5c51739dc99b55463d5b098ffc10a"
+                        },
+                        {
+                            "name": "to",
+                            "value": "0x1e241521f4767853b376c2fe795a222a07d588ee"
+                        }
+                    ]
+                },
+                {
+                    "address": "0x1e241521f4767853b376c2fe795a222a07d588ee",
+                    "abi": "[{\"name\":\"Transfer\",\"type\":\"event\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true},{\"name\":\"value\",\"type\":\"uint256\"}]}]",
+                    "signature_hex": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "signature": "Transfer(address indexed from, address indexed to, uint256 value)",
+                    "type": "transfer",
+                    "name": "Transfer",
+                    "data": {
+                        "value": 149272219463063619321
+                    },
+                    "topics": [
+                        {
+                            "name": "from",
+                            "value": "0x80f5666a6fe5c51739dc99b55463d5b098ffc10a"
+                        },
+                        {
+                            "name": "to",
+                            "value": "0xe8f513de7789529fe179e05a2f0850376c16621b"
+                        }
+                    ]
+                },
+                {
+                    "address": "0x80f5666a6fe5c51739dc99b55463d5b098ffc10a",
+                    "abi": "[{\"name\":\"Sync\",\"type\":\"event\",\"inputs\":[{\"name\":\"reserve0\",\"type\":\"uint112\"},{\"name\":\"reserve1\",\"type\":\"uint112\"}]}]",
+                    "signature_hex": "0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1",
+                    "signature": "Sync(uint112 reserve0, uint112 reserve1)",
+                    "type": "sync",
+                    "name": "Sync",
+                    "data": {
+                        "reserve0": 126600688962292613895511,
+                        "reserve1": 80429644043583282001
+                    },
+                    "topics": []
+                },
+                {
+                    "address": "0x80f5666a6fe5c51739dc99b55463d5b098ffc10a",
+                    "abi": "[{\"name\":\"Swap\",\"type\":\"event\",\"inputs\":[{\"name\":\"sender\",\"type\":\"address\",\"indexed\":true},{\"name\":\"amount0In\",\"type\":\"uint256\"},{\"name\":\"amount1In\",\"type\":\"uint256\"},{\"name\":\"amount0Out\",\"type\":\"uint256\"},{\"name\":\"amount1Out\",\"type\":\"uint256\"},{\"name\":\"to\",\"type\":\"address\",\"indexed\":true}]}]",
+                    "signature_hex": "0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822",
+                    "signature": "Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)",
+                    "type": "swap",
+                    "name": "Swap",
+                    "data": {
+                        "amount0In": 0,
+                        "amount0Out": 157128652066382757179,
+                        "amount1In": 100000000000000000,
+                        "amount1Out": 0
+                    },
+                    "topics": [
+                        {
+                            "name": "sender",
+                            "value": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d"
+                        },
+                        {
+                            "name": "amount0In",
+                            "value": 1329951272239780084177461871522514079270001074715
+                        }
+                    ]
+                }
+            ],
+            "swap_received_amount_raw": 157128652066382757179,
+            "swap_received_amount": "157.13",
+            "received_amount_raw": 149272219463063619321,
+            "received_amount": "149.27",
+            "tax_raw": 7856432603319137858,
+            "tax": "7.86"
+        }
+    },
+    "spender_balance_after": 999886584226353928880
+}

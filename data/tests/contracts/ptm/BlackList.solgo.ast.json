@@ -117,7 +117,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 3147,
-						"node_type": 0,
+						"node_type": 53,
 						"src": {
 							"line": 1266,
 							"column": 4,
@@ -273,7 +273,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3146,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isBlackListed"
 										},
 										"base_expression": {
 											"id": 3163,
@@ -293,7 +294,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3163,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_evilUser"
 										},
 										"type_descriptions": [
 											{
@@ -330,7 +332,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -340,7 +343,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "isBlackListed[_evilUser]=true;"
 							},
 							{
 								"id": 3165,
@@ -372,7 +376,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3166,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_evilUser"
 									}
 								],
 								"expression": {
@@ -393,7 +398,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 3954,
-									"is_pure": false
+									"is_pure": false,
+									"text": "AddedBlackList"
 								}
 							}
 						]
@@ -514,7 +520,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionaddBlackList(address_evilUser)publiconlyOwner{isBlackListed[_evilUser]=true;emitAddedBlackList(_evilUser);}"
 				},
 				{
 					"id": 3169,
@@ -603,7 +610,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3146,
-											"is_pure": false
+											"is_pure": false,
+											"text": "isBlackListed"
 										},
 										"base_expression": {
 											"id": 3181,
@@ -623,7 +631,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3181,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_clearedUser"
 										},
 										"type_descriptions": [
 											{
@@ -660,7 +669,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "false"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -670,7 +680,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "isBlackListed[_clearedUser]=false;"
 							},
 							{
 								"id": 3183,
@@ -702,7 +713,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3184,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_clearedUser"
 									}
 								],
 								"expression": {
@@ -723,7 +735,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 3958,
-									"is_pure": false
+									"is_pure": false,
+									"text": "RemovedBlackList"
 								}
 							}
 						]
@@ -844,7 +857,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionremoveBlackList(address_clearedUser)publiconlyOwner{isBlackListed[_clearedUser]=false;emitRemovedBlackList(_clearedUser);}"
 				},
 				{
 					"id": 3187,

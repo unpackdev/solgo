@@ -40,6 +40,7 @@ type Contract struct {
 	Language       Language                                     `json:"language"`
 	AbsolutePath   string                                       `json:"absolute_path"`
 	Symbols        []*Symbol                                    `json:"symbols"`
+	BaseContracts  []*ast.BaseContract                          `json:"base_contracts"`
 	Imports        []*Import                                    `json:"imports"`
 	Pragmas        []*Pragma                                    `json:"pragmas"`
 	StateVariables []*StateVariable                             `json:"state_variables"`
@@ -163,6 +164,11 @@ func (c *Contract) GetSymbols() []*Symbol {
 	return c.Symbols
 }
 
+// GetBaseContracts returns the base contracts of the contract.
+func (c *Contract) GetBaseContracts() []*ast.BaseContract {
+	return c.BaseContracts
+}
+
 // GetLanguage returns the programming language of the contract.
 func (c *Contract) GetLanguage() Language {
 	return c.Language
@@ -257,6 +263,7 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 		Pragmas:        make([]*Pragma, 0),
 		Imports:        make([]*Import, 0),
 		Symbols:        make([]*Symbol, 0),
+		BaseContracts:  unit.GetBaseContracts(),
 		StateVariables: make([]*StateVariable, 0),
 		Structs:        make([]*Struct, 0),
 		Enums:          make([]*Enum, 0),
