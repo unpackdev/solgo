@@ -55,6 +55,25 @@ func NewToken(ctx context.Context, network utils.Network, manager *Manager, opts
 	}, nil
 }
 
+func NewSimpleToken(ctx context.Context, network utils.Network, manager *Manager, opts []*BindOptions) (*Token, error) {
+	if opts == nil {
+		return nil, fmt.Errorf("no binding options provided for new token")
+	}
+
+	for _, opt := range opts {
+		if err := opt.Validate(); err != nil {
+			return nil, err
+		}
+	}
+
+	return &Token{
+		Manager: manager,
+		network: network,
+		ctx:     ctx,
+		opts:    opts,
+	}, nil
+}
+
 func (t *Token) GetAddress() common.Address {
 	return t.opts[0].Address
 }

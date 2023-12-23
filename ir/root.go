@@ -1,6 +1,7 @@
 package ir
 
 import (
+	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/ast"
@@ -13,6 +14,7 @@ type RootSourceUnit struct {
 	builder           *Builder        `json:"-"`
 	Unit              *ast.RootNode   `json:"ast"`
 	NodeType          ast_pb.NodeType `json:"node_type"`
+	Address           common.Address  `json:"address"`
 	EntryContractId   int64           `json:"entry_contract_id"`
 	EntryContractName string          `json:"entry_contract_name"`
 	ContractsCount    int32           `json:"contracts_count"`
@@ -250,7 +252,10 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 
 	entrySourceUnit := root.GetSourceUnitById(root.GetEntrySourceUnit())
 	if entrySourceUnit == nil {
-		zap.L().Warn("Entry source unit not found. Make sure it's correctly set.", zap.Int64("id", root.GetEntrySourceUnit()))
+		zap.L().Warn(
+			"Entry source unit not found. Make sure it's correctly set.",
+			zap.String("contract_address", b.GetAddress().Hex()),
+		)
 	} else {
 		if entrySourceUnit.GetContract() != nil {
 			rootNode.EntryContractId = entrySourceUnit.GetContract().GetId()

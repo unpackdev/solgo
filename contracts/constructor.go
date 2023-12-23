@@ -18,7 +18,7 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 		abiRoot := detector.GetABI().GetRoot()
 
 		if irRoot.GetEntryContract() != nil && irRoot.GetEntryContract().GetConstructor() != nil &&
-			abiRoot.GetEntryContract().GetMethodByType("constructor") != nil {
+			abiRoot != nil && abiRoot.GetEntryContract().GetMethodByType("constructor") != nil {
 			cAbi, _ := utils.ToJSON(abiRoot.GetEntryContract().GetMethodByType("constructor"))
 			constructorAbi := fmt.Sprintf("[%s]", string(cAbi))
 
