@@ -282,7 +282,11 @@ func (m *MemberAccessExpression) Parse(
 				return expNode.GetId()
 			}
 
-			return bodyNode.GetId()
+			if bodyNode != nil {
+				return bodyNode.GetId()
+			}
+
+			return 0 // Should fix this in the future...
 		}(),
 	}
 	m.NodeType = ast_pb.NodeType_MEMBER_ACCESS
