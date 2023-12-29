@@ -5,25 +5,45 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/unpackdev/solgo"
+	"github.com/unpackdev/solgo/providers/etherscan"
 	"go.uber.org/zap"
 )
 
 func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
-	response, err := c.etherscan.ScanContract(c.addr)
-	if err != nil {
-		if !strings.Contains(err.Error(), "not found") &&
-			!strings.Contains(err.Error(), "not verified") { // Do not print error if contract is not found. Just clusterfucks the logs...
-			zap.L().Error(
-				"failed to scan contract source code",
-				zap.Error(err),
-				zap.String("network", c.network.String()),
-				zap.String("contract_address", c.addr.String()),
-			)
+	var response *etherscan.Contract // Assuming ScanResponse is the type returned by ScanContract
+	var err error
+
+	// Retry mechanism
+	const maxRetries = 5
+	for i := 0; i < maxRetries; i++ {
+		response, err = c.etherscan.ScanContract(c.addr)
+		if err != nil {
+			if strings.Contains(err.Error(), "Max rate limit reached") {
+				// Wait for 100ms before retrying
+				time.Sleep(100 * time.Millisecond)
+				continue
+			} else if !strings.Contains(err.Error(), "not found") &&
+				!strings.Contains(err.Error(), "not verified") {
+				zap.L().Error(
+					"failed to scan contract source code",
+					zap.Error(err),
+					zap.String("network", c.network.String()),
+					zap.String("contract_address", c.addr.String()),
+				)
+			}
+			return fmt.Errorf("failed to scan contract source code from %s: %s", c.etherscan.ProviderName(), err)
 		}
-		return fmt.Errorf("failed to scan contract source code from %s: %s", c.etherscan.ProviderName(), err)
+		break // Exit loop if ScanContract is successful
 	}
+
+	// Handle the case when all retries fail
+	if err != nil {
+		return fmt.Errorf("after %d retries, failed to scan contract source code from %s: %s", maxRetries, c.etherscan.ProviderName(), err)
+	}
+
 	c.descriptor.SourcesRaw = response
 
 	sources, err := solgo.NewSourcesFromEtherScan(response.Name, response.SourceCode)

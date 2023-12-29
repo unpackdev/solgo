@@ -142,4 +142,6 @@ func (b *ASTBuilder) GarbageCollect() {
 	b.globalDefinitions = nil
 	b.currentImports = nil
 	b.currentUserDefinedVariables = nil
+	b.comments = nil
+	b.commentsParsed = false
 }

@@ -241,6 +241,7 @@ func parseImportPathsForSourceUnit(
 	}
 
 	filteredImports := make([]Node[NodeType], 0)
+	exportedSymbolMap := make(map[string]struct{}) // To track already added symbols
 
 	for i := len(imports) - 1; i >= 0; i-- {
 		importNode := imports[i]
@@ -249,11 +250,13 @@ func parseImportPathsForSourceUnit(
 			for _, unitCtx := range b.sourceUnits {
 				for _, symbol := range unitCtx.ExportedSymbols {
 					if symbol.AbsolutePath == importNode.AbsolutePath {
-						unit.ExportedSymbols = append(
-							unit.ExportedSymbols,
-							NewSymbol(symbol.Id, symbol.Name, symbol.AbsolutePath),
-						)
-
+						if _, exists := exportedSymbolMap[symbol.AbsolutePath]; !exists {
+							unit.ExportedSymbols = append(
+								unit.ExportedSymbols,
+								NewSymbol(symbol.Id, symbol.Name, symbol.AbsolutePath),
+							)
+							exportedSymbolMap[symbol.AbsolutePath] = struct{}{}
+						}
 					}
 				}
 			}

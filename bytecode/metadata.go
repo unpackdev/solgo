@@ -16,14 +16,14 @@ import (
 // The structure and encoding of the metadata is defined by the Solidity compiler.
 // More information can be found at https://docs.soliditylang.org/en/v0.8.20/metadata.html#encoding-of-the-metadata-hash-in-the-bytecode
 type Metadata struct {
-	executionBytecode []byte // The execution bytecode of the contract
-	cborLength        int16  // The length of the CBOR metadata
-	auxbytes          []byte // The raw CBOR metadata
-	Ipfs              []byte `cbor:"ipfs"`         // The IPFS hash of the metadata, if present
-	Bzzr1             []byte `cbor:"bzzr1"`        // The Swarm hash of the metadata, if present (version 1)
-	Bzzr0             []byte `cbor:"bzzr0"`        // The Swarm hash of the metadata, if present (version 0)
-	Experimental      []byte `cbor:"experimental"` // Experimental metadata, if present
-	Solc              []byte `cbor:"solc"`         // The version of the Solidity compiler used
+	executionBytecode []byte      // The execution bytecode of the contract
+	cborLength        int16       // The length of the CBOR metadata
+	auxbytes          []byte      // The raw CBOR metadata
+	Ipfs              []byte      `cbor:"ipfs"`         // The IPFS hash of the metadata, if present
+	Bzzr1             []byte      `cbor:"bzzr1"`        // The Swarm hash of the metadata, if present (version 1)
+	Bzzr0             []byte      `cbor:"bzzr0"`        // The Swarm hash of the metadata, if present (version 0)
+	Experimental      interface{} `cbor:"experimental"` // Experimental metadata, if present
+	Solc              []byte      `cbor:"solc"`         // The version of the Solidity compiler used
 }
 
 func (m *Metadata) ToProto() *metadata_pb.BytecodeMetadata {
@@ -51,11 +51,19 @@ func (m *Metadata) GetCompilerVersion() string {
 
 // GetExperimental returns whether the contract includes experimental metadata.
 func (m *Metadata) GetExperimental() bool {
-	toReturn, err := strconv.ParseBool(string(m.Experimental))
-	if err != nil {
-		return false
+	if experimental, ok := m.Experimental.(string); ok {
+		toReturn, err := strconv.ParseBool(experimental)
+		if err != nil {
+			return false
+		}
+		return toReturn
 	}
-	return toReturn
+
+	if experimental, ok := m.Experimental.(bool); ok {
+		return experimental
+	}
+
+	return false
 }
 
 // GetIPFS returns the IPFS hash of the contract's metadata, if present.
@@ -134,7 +142,6 @@ func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {
 	if len(bytecode) >= bytesLength+cborLength {
 		toReturn.executionBytecode = bytecode[:len(bytecode)-bytesLength-cborLength]
 		toReturn.auxbytes = bytecode[len(bytecode)-bytesLength-cborLength : len(bytecode)-bytesLength]
-
 		if err := cbor.Unmarshal(toReturn.auxbytes, &toReturn); err != nil {
 			return nil, err
 		}

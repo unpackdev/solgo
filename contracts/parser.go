@@ -11,6 +11,17 @@ import (
 )
 
 func (c *Contract) Parse(ctx context.Context) error {
+	// Defer a function to catch and handle a panic
+	defer func() {
+		if r := recover(); r != nil {
+			zap.L().Error(
+				"Recovered from panic while parsing contract...",
+				zap.Any("panic", r),
+				zap.String("contract_address", c.addr.String()),
+			)
+		}
+	}()
+
 	// We are interested in attempt to decompile source code only if we actually have source code available.
 	if c.descriptor.Sources != nil && c.descriptor.Sources.HasUnits() {
 		parser, err := detector.NewDetectorFromSources(ctx, c.compiler, c.descriptor.Sources)
