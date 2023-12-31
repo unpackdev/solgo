@@ -19,7 +19,8 @@ type Type struct {
 
 // TypeResolver provides methods to resolve and discover types within the ABI.
 type TypeResolver struct {
-	parser *ir.Builder
+	parser         *ir.Builder
+	processedTypes map[string]bool
 }
 
 // ResolveType determines the type of a given typeName based on its identifier.
@@ -106,7 +107,6 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 		for _, structVar := range contract.GetStructs() {
 			if structVar.GetName() == toReturn.Name {
 				for _, member := range structVar.GetMembers() {
-
 					// Mapping types are not supported in structs
 					if isMappingType(member.GetTypeDescription().GetString()) {
 						continue
@@ -143,10 +143,6 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 		}
 	}
 
-	/* 	if nameParts[1] == "UintToAddressMap" {
-		utils.DumpNodeWithExit(toReturn)
-	} */
-
 	return toReturn
 }
 
@@ -155,6 +151,19 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 // Returns a Type representation of the discovered type.
 // @WARN: This function will probably need more work to handle more complex types.
 func (t *TypeResolver) discoverType(typeName string) Type {
+	// Check if type has already been processed to avoid recursion
+	if _, exists := t.processedTypes[typeName]; exists {
+		return Type{} // Return an empty Type to break recursion
+	}
+
+	// Mark this type as processed
+	t.processedTypes[typeName] = true
+
+	defer func() {
+		// Before returning, mark this type as not processed for future calls
+		delete(t.processedTypes, typeName)
+	}()
+
 	toReturn := Type{
 		Outputs: make([]Type, 0),
 	}

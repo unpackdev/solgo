@@ -350,6 +350,13 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 	} else if ctx.IdentifierPath() != nil {
 		pathCtx := ctx.IdentifierPath()
 
+		if strings.Contains(pathCtx.GetText(), ".") {
+			identifierParts := strings.Split(pathCtx.GetText(), ".")
+			if len(identifierParts) > 1 {
+				t.Name = identifierParts[len(identifierParts)-1]
+			}
+		}
+
 		// It seems to be a user-defined type but that does not exist as a type in the parser...
 		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
 
@@ -369,7 +376,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 		}
 
 		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
-			pathCtx.GetText(),
+			t.Name,
 		)
 
 		switch normalizedTypeIdentifier {
@@ -385,7 +392,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				TypeString:     normalizedTypeName,
 			}
 		} else {
-			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
 				if t.PathNode != nil {
 					t.PathNode.ReferencedDeclaration = refId
 				}

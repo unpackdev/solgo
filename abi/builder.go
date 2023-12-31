@@ -36,7 +36,8 @@ func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builde
 		parser:     parser,
 		astBuilder: parser.GetAstBuilder(),
 		resolver: &TypeResolver{
-			parser: parser,
+			parser:         parser,
+			processedTypes: make(map[string]bool),
 		},
 	}, nil
 }

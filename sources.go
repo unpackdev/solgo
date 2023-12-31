@@ -222,6 +222,7 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 				Content: source.Content,
 			})
 		}
+
 	case metadata.ContractMetadata:
 		for name, source := range sourceCode.Sources {
 			sources.AppendSource(&SourceUnit{
@@ -245,8 +246,8 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 // AppendSource appends a SourceUnit to the Sources.
 // If a SourceUnit with the same name already exists, it replaces it unless the new SourceUnit has less content.
 func (s *Sources) AppendSource(source *SourceUnit) {
-	if s.SourceUnitExists(source.GetName()) {
-		unit := s.GetSourceUnitByName(source.GetName())
+	if s.SourceUnitPathExists(source.GetPath()) {
+		unit := s.GetSourceUnitByPath(source.GetPath())
 
 		if len(unit.Content) == len(source.Content) {
 			return
@@ -503,10 +504,25 @@ func (s *Sources) SourceUnitExists(name string) bool {
 	return s.SourceUnitExistsIn(name, s.SourceUnits)
 }
 
+// SourceUnitExists returns true if a SourceUnit with the given name exists in the Sources.
+func (s *Sources) SourceUnitPathExists(name string) bool {
+	return s.SourceUnitPathExistsIn(name, s.SourceUnits)
+}
+
 // SourceUnitExistsIn returns true if a SourceUnit with the given name exists in the given slice of SourceUnits.
 func (s *Sources) SourceUnitExistsIn(name string, units []*SourceUnit) bool {
 	for _, sourceUnit := range units {
 		if sourceUnit.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
+// SourceUnitExistsIn returns true if a SourceUnit with the given name exists in the given slice of SourceUnits.
+func (s *Sources) SourceUnitPathExistsIn(name string, units []*SourceUnit) bool {
+	for _, sourceUnit := range units {
+		if sourceUnit.Path == name {
 			return true
 		}
 	}
