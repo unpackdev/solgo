@@ -42,23 +42,23 @@ type Descriptor struct {
 	TokenUUID       *uuid.UUID `json:"token_uuid,omitempty"`
 
 	// Contract related fields.
-	Network          utils.Network                         `json:"network"`
-	NetworkID        utils.NetworkID                       `json:"network_id"`
-	Address          common.Address                        `json:"address"`
-	RuntimeBytecode  []byte                                `json:"runtime_bytecode"`
-	DeployedBytecode []byte                                `json:"deployed_bytecode"`
-	Block            *types.Block                          `json:"block,omitempty"`
-	Transaction      *types.Transaction                    `json:"transaction,omitempty"`
-	Receipt          *types.Receipt                        `json:"receipt,omitempty"`
-	ABI              string                                `json:"abi,omitempty"`
-	Name             string                                `json:"name,omitempty"`
-	License          string                                `json:"license,omitempty"`
-	SolgoVersion     string                                `json:"solgo_version,omitempty"`
-	CompilerVersion  string                                `json:"compiler_version,omitempty"`
-	Optimized        bool                                  `json:"optimized,omitempty"`
-	OptimizationRuns uint64                                `json:"optimization_runs,omitempty"`
-	EVMVersion       string                                `json:"evm_version,omitempty"`
-	LiquidityPairs   map[utils.ExchangeType]common.Address `json:"liquidity_pairs,omitempty"`
+	Network           utils.Network                         `json:"network"`
+	NetworkID         utils.NetworkID                       `json:"network_id"`
+	Address           common.Address                        `json:"address"`
+	ExecutionBytecode []byte                                `json:"execution_bytecode"`
+	DeployedBytecode  []byte                                `json:"deployed_bytecode"`
+	Block             *types.Header                         `json:"block,omitempty"`
+	Transaction       *types.Transaction                    `json:"transaction,omitempty"`
+	Receipt           *types.Receipt                        `json:"receipt,omitempty"`
+	ABI               string                                `json:"abi,omitempty"`
+	Name              string                                `json:"name,omitempty"`
+	License           string                                `json:"license,omitempty"`
+	SolgoVersion      string                                `json:"solgo_version,omitempty"`
+	CompilerVersion   string                                `json:"compiler_version,omitempty"`
+	Optimized         bool                                  `json:"optimized,omitempty"`
+	OptimizationRuns  uint64                                `json:"optimization_runs,omitempty"`
+	EVMVersion        string                                `json:"evm_version,omitempty"`
+	LiquidityPairs    map[utils.ExchangeType]common.Address `json:"liquidity_pairs,omitempty"`
 
 	// Identity related fields
 	Owner common.Address `json:"owner,omitempty"`
@@ -81,6 +81,10 @@ type Descriptor struct {
 	Safe                 bool              `json:"safe,omitempty"`
 	Audit                *audit.Report     `json:"audit,omitempty"`
 	Introspection        *inspector.Report `json:"introspection,omitempty"`
+
+	// Proxy
+	Proxy           bool             `json:"proxy"`
+	Implementations []common.Address `json:"implementations"`
 
 	// Token related fields.
 	Token *tokens.Descriptor `json:"token,omitempty"`
@@ -270,15 +274,15 @@ func (d *Descriptor) GetAddress() common.Address {
 	return d.Address
 }
 
-func (d *Descriptor) GetRuntimeBytecode() []byte {
-	return d.RuntimeBytecode
+func (d *Descriptor) GetExecutionBytecode() []byte {
+	return d.ExecutionBytecode
 }
 
 func (d *Descriptor) GetDeployedBytecode() []byte {
 	return d.DeployedBytecode
 }
 
-func (d *Descriptor) GetBlock() *types.Block {
+func (d *Descriptor) GetBlock() *types.Header {
 	return d.Block
 }
 

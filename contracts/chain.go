@@ -3,24 +3,30 @@ package contracts
 import (
 	"context"
 	"fmt"
+	"github.com/unpackdev/solgo/bindings"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/utils"
 )
 
-func (c *Contract) DiscoverChainInfo(ctx context.Context) error {
+func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error {
+
+	var info *bindings.CreatorInformation
+
 	// What we are going to do, as erigon node is used in this particular case, is to query etherscan only if
 	// otterscan is not available.
-
-	info, err := c.bindings.GetContractCreator(ctx, c.network, c.addr)
-	if err != nil {
-		return fmt.Errorf("failed to get contract creator: %w", err)
+	if otsLookup {
+		var err error
+		info, err = c.bindings.GetContractCreator(ctx, c.network, c.addr)
+		if err != nil {
+			return fmt.Errorf("failed to get contract creator: %w", err)
+		}
 	}
 
 	var txHash common.Hash
 
 	if info == nil || info.CreationHash == utils.ZeroHash {
-		// Prior we continue with the unpacking of the contract, we want to make sure that we can reach properly
+		// Prior to continuing with the unpacking of the contract, we want to make sure that we can reach properly
 		// contract transaction and associated creation block. If we can't, we're not going to unpack it.
 		cInfo, err := c.etherscan.QueryContractCreationTx(ctx, c.addr)
 		if err != nil {
@@ -50,7 +56,7 @@ func (c *Contract) DiscoverChainInfo(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("failed to get block by number: %s", err)
 	}
-	c.descriptor.Block = block
+	c.descriptor.Block = block.Header()
 
 	return nil
 }

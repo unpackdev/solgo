@@ -50,7 +50,7 @@ func NewClient(ctx context.Context, opts *Node) (*Client, error) {
 
 // GetNetworkID retrieves the network ID for the client.
 func (c *Client) GetNetworkID() int64 {
-	return c.opts.NetworkId
+	return int64(c.opts.NetworkId)
 }
 
 // GetGroup retrieves the group associated with the client.

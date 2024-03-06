@@ -43,15 +43,15 @@ type ContractResponse struct {
 	Result  []Contract `json:"result"`
 }
 
-func (p *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error) {
-	cacheKey := p.CacheKey("getsourcecode_method_1", addr.Hex())
+func (e *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error) {
+	cacheKey := e.CacheKey("getsourcecode_method_1", addr.Hex())
 
-	if p.cache != nil {
-		if result, err := p.cache.Exists(p.ctx, cacheKey).Result(); err == nil && result == 1 {
-			if result, err := p.cache.Get(p.ctx, cacheKey).Result(); err == nil {
+	if e.cache != nil {
+		if result, err := e.cache.Exists(e.ctx, cacheKey).Result(); err == nil && result == 1 {
+			if result, err := e.cache.Get(e.ctx, cacheKey).Result(); err == nil {
 				var response *Contract
 				if err := json.Unmarshal([]byte(result), &response); err != nil {
-					return nil, fmt.Errorf("failed to unmarshal %s response: %s", p.ProviderName(), err)
+					return nil, fmt.Errorf("failed to unmarshal %s response: %s", e.ProviderName(), err)
 				}
 				return response, nil
 			}
@@ -63,7 +63,10 @@ func (p *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 	// In addition, what's a must at first is basically purchasing the API key from Etherscan.
 	time.Sleep(200 * time.Millisecond)
 
-	url := fmt.Sprintf("%s?module=contract&action=getsourcecode&address=%s&apikey=%s", p.opts.Endpoint, addr.Hex(), p.GetNextKey())
+	url := fmt.Sprintf(
+		"%s?module=contract&action=getsourcecode&address=%s&apikey=%s",
+		e.opts.Endpoint, addr.Hex(), e.GetNextKey(),
+	)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -127,8 +130,8 @@ func (p *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 		return nil, fmt.Errorf("contract not found")
 	}
 
-	if p.cache != nil {
-		if err := p.cache.Set(p.ctx, cacheKey, toReturn, 1*time.Hour).Err(); err != nil {
+	if e.cache != nil {
+		if err := e.cache.Set(e.ctx, cacheKey, toReturn, 1*time.Hour).Err(); err != nil {
 			return nil, fmt.Errorf("failed to write to cache: %s", err)
 		}
 	}

@@ -3,6 +3,7 @@ package contracts
 import (
 	"context"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common"
 	"strconv"
 	"strings"
 	"time"
@@ -58,7 +59,11 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	}
 
 	c.descriptor.Sources = sources
-	c.descriptor.License = c.descriptor.SourcesRaw.LicenseType
+
+	license := strings.ReplaceAll(c.descriptor.SourcesRaw.LicenseType, "\r", "")
+	license = strings.ReplaceAll(license, "\n", "")
+	license = strings.TrimSpace(c.descriptor.SourcesRaw.LicenseType)
+	c.descriptor.License = license
 
 	// Contract has no source code available. This is not critical error but annoyance that we can't decompile
 	// contract's source code. @TODO: Figure out with external toolings how to decompile bytecode...
@@ -94,6 +99,16 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	c.descriptor.SourcesProvider = c.etherscan.ProviderName()
 	c.descriptor.Verified = true
 	c.descriptor.VerificationProvider = c.etherscan.ProviderName()
+
+	proxy, _ := strconv.ParseBool(response.Proxy)
+	c.descriptor.Proxy = proxy
+
+	if len(response.Implementation) > 10 {
+		c.descriptor.Implementations = append(
+			c.descriptor.Implementations,
+			common.HexToAddress(response.Implementation),
+		)
+	}
 
 	return nil
 }

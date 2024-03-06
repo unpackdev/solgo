@@ -5,3 +5,7 @@ type Options struct {
 	Endpoint string       `json:"endpoint" yaml:"endpoint" mapstructure:"endpoint"`
 	Keys     []string     `json:"keys" yaml:"keys" mapstructure:"keys"`
 }
+
+func (o *Options) Validate() error {
+	return nil
+}

@@ -9,8 +9,8 @@ import (
 )
 
 type Fraction struct {
-	Numerator   *big.Int
-	Denominator *big.Int
+	Numerator   *big.Int `json:"numerator"`
+	Denominator *big.Int `json:"denominator"`
 }
 
 // NewFraction creates a new fraction
@@ -104,8 +104,10 @@ var (
 // Result is normalized without trailing zeros.
 //
 // Example:
-// 	5.45 figures:2 --> 5.51
-// 	545 figures:2 --> 550
+//
+//	5.45 figures:2 --> 5.51
+//	545 figures:2 --> 550
+//
 // Ref: https://github.com/shopspring/decimal/pull/117/files#diff-84512ce9971597d4817ea830422f80d41b8f8f050b5998bd49499d8d1eebb16dR922
 func roundToSignificantFigures(f *Fraction, figures int32) decimal.Decimal {
 	if figures <= 0 {

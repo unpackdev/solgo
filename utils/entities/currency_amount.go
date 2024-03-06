@@ -1,15 +1,54 @@
 package entities
 
 import (
+	"encoding/json"
 	"math/big"
 
 	"github.com/shopspring/decimal"
 )
 
 type CurrencyAmount struct {
-	*Fraction
-	Currency     Currency
-	DecimalScale *big.Int
+	*Fraction    `json:"fraction"`
+	Currency     Currency `json:"currency"`
+	DecimalScale *big.Int `json:"decimalScale"`
+}
+
+func (c *CurrencyAmount) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if fractionData, ok := tempMap["fraction"]; ok {
+		fraction := &Fraction{}
+		if err := json.Unmarshal(fractionData, fraction); err != nil {
+			return err
+		}
+		c.Fraction = fraction
+	}
+
+	if decimalScaleData, ok := tempMap["decimalScale"]; ok {
+		decimalScale := new(big.Int)
+		if err := decimalScale.UnmarshalText(decimalScaleData); err != nil {
+			return err
+		}
+		c.DecimalScale = decimalScale
+	}
+
+	if currencyData, ok := tempMap["currency"]; ok {
+		// Attempt to unmarshal as BaseCurrency by default
+		var baseCurrency BaseCurrency
+		if err := json.Unmarshal(currencyData, &baseCurrency); err != nil {
+			return err
+		}
+		c.Currency = &baseCurrency
+
+		// If you have other types that implement Currency, you can
+		// include additional logic here to decide which type to unmarshal into.
+		// For example, you might look for specific fields that are unique to each type.
+	}
+
+	return nil
 }
 
 /**

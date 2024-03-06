@@ -101,10 +101,11 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 		compiler:   compiler,
 		sim:        sim,
 		descriptor: &Descriptor{
-			Network:        network,
-			NetworkID:      utils.GetNetworkID(network),
-			Address:        addr,
-			LiquidityPairs: make(map[utils.ExchangeType]common.Address),
+			Network:         network,
+			NetworkID:       utils.GetNetworkID(network),
+			Address:         addr,
+			LiquidityPairs:  make(map[utils.ExchangeType]common.Address),
+			Implementations: make([]common.Address, 0),
 		},
 		bindings:        bindManager,
 		exchangeManager: exchange,
@@ -120,12 +121,6 @@ func NewContract(ctx context.Context, network utils.Network, clientPool *clients
 	   	}
 	   	toReturn.inspector = inspect
 	*/
-
-	if valid, err := toReturn.IsValid(); err != nil {
-		return nil, fmt.Errorf("failure to check for contract validity: %s", err)
-	} else if !valid {
-		return nil, fmt.Errorf("requested contract '%s' does not appear to be valid contract or is selfdestructed", addr.Hex())
-	}
 
 	return toReturn, nil
 }
@@ -146,19 +141,19 @@ func (c *Contract) GetDeployedBytecode() []byte {
 	return c.descriptor.DeployedBytecode
 }
 
-// GetRuntimeBytecode returns the runtime bytecode of the contract.
+// GetExecutionBytecode returns the runtime bytecode of the contract.
 // This bytecode is used during the execution of contract calls and transactions.
-func (c *Contract) GetRuntimeBytecode() []byte {
-	return c.descriptor.RuntimeBytecode
+func (c *Contract) GetExecutionBytecode() []byte {
+	return c.descriptor.ExecutionBytecode
 }
 
 // GetBlock returns the blockchain block in which the contract was deployed or involved.
-func (c *Contract) GetBlock() *types.Block {
+func (c *Contract) GetBlock() *types.Header {
 	return c.descriptor.Block
 }
 
 // SetBlock sets the blockchain block in which the contract was deployed or involved.
-func (c *Contract) SetBlock(block *types.Block) {
+func (c *Contract) SetBlock(block *types.Header) {
 	c.descriptor.Block = block
 }
 
@@ -170,6 +165,7 @@ func (c *Contract) GetTransaction() *types.Transaction {
 // SetTransaction sets the Ethereum transaction associated with the contract's deployment or a specific operation.
 func (c *Contract) SetTransaction(tx *types.Transaction) {
 	c.descriptor.Transaction = tx
+	c.descriptor.ExecutionBytecode = tx.Data()
 }
 
 // GetReceipt returns the receipt of the transaction in which the contract was involved,
@@ -206,7 +202,7 @@ func (c *Contract) IsValid() (bool, error) {
 		return false, err
 	}
 
-	return len(c.descriptor.DeployedBytecode) > 0, nil
+	return len(c.descriptor.DeployedBytecode) > 2, nil
 }
 
 func (c *Contract) GetDescriptor() *Descriptor {

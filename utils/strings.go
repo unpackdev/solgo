@@ -1,6 +1,9 @@
 package utils
 
-import "github.com/google/uuid"
+import (
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/google/uuid"
+)
 
 func StringInSlice(str string, list []string) bool {
 	for _, item := range list {
@@ -10,6 +13,26 @@ func StringInSlice(str string, list []string) bool {
 	}
 
 	return false
+}
+
+func AddressInSlice(addr common.Address, list []common.Address) bool {
+	for _, item := range list {
+		if item == addr {
+			return true
+		}
+	}
+
+	return false
+}
+
+func NamedAddressInSlice(addr common.Address, list []NamedAddr) (*NamedAddr, bool) {
+	for _, item := range list {
+		if item.Addr == addr {
+			return &item, true
+		}
+	}
+
+	return nil, false
 }
 
 func ContainsBlacklistType(list []BlacklistType, item BlacklistType) bool {

@@ -11,6 +11,18 @@ func ToJSON(data any) ([]byte, error) {
 	return json.Marshal(data)
 }
 
+// FromJSON converts JSON data into a Go data structure of type T.
+// It takes a slice of bytes representing the JSON data and a pointer to the type T where the data will be decoded.
+// Returns an error if the decoding fails.
+func FromJSON[T any](data []byte, target *T) error {
+	err := json.Unmarshal(data, target)
+	if err != nil {
+		// Handle the error according to your application's requirements
+		return fmt.Errorf("error unmarshaling from JSON: %w", err)
+	}
+	return nil
+}
+
 // ToProtoJSON converts a Go struct to its JSON representation.
 func ToProtoJSON(data any) ([]byte, error) {
 	return json.Marshal(data)

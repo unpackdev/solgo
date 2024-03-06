@@ -37,26 +37,24 @@ type ContractCreationResponse struct {
 	Result  []*ContractCreation `json:"result"`
 }
 
-func (p *EtherScanProvider) QueryContractCreationTx(ctx context.Context, addr common.Address) (*ContractCreation, error) {
-	if p.cache != nil {
-		cacheKey := p.CacheKey("getcontractcreation", addr.Hex())
-		if result, err := p.cache.Exists(p.ctx, cacheKey).Result(); err == nil && result == 1 {
-			if result, err := p.cache.Get(p.ctx, cacheKey).Result(); err == nil {
+func (e *EtherScanProvider) QueryContractCreationTx(ctx context.Context, addr common.Address) (*ContractCreation, error) {
+	if e.cache != nil {
+		cacheKey := e.CacheKey("getcontractcreation", addr.Hex())
+		if result, err := e.cache.Exists(e.ctx, cacheKey).Result(); err == nil && result == 1 {
+			if result, err := e.cache.Get(e.ctx, cacheKey).Result(); err == nil {
 				var response *ContractCreation
 				if err := json.Unmarshal([]byte(result), &response); err != nil {
-					return nil, fmt.Errorf("failed to unmarshal %s response: %s", p.ProviderName(), err)
+					return nil, fmt.Errorf("failed to unmarshal %s response: %s", e.ProviderName(), err)
 				}
 				return response, nil
 			}
 		}
 	}
 
-	// @FIXME: For now we're going to sleep a bit to avoid rate limiting.
-	// There are multiple ways we can sort this by applying pool of the API keys and rotating them.
-	// In addition, what's a must at first is basically purchasing the API key from Etherscan.
-	time.Sleep(200 * time.Millisecond)
-
-	url := fmt.Sprintf("%s?module=contract&action=getcontractcreation&contractaddresses=%s&apikey=%s", p.opts.Endpoint, addr.Hex(), p.GetNextKey())
+	url := fmt.Sprintf(
+		"%s?module=contract&action=getcontractcreation&contractaddresses=%s&apikey=%s",
+		e.opts.Endpoint, addr.Hex(), e.GetNextKey(),
+	)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -83,10 +81,12 @@ func (p *EtherScanProvider) QueryContractCreationTx(ctx context.Context, addr co
 		return nil, fmt.Errorf("failed to unmarshal contract creation response: %s", err)
 	}
 
-	if p.cache != nil {
-		cacheKey := p.CacheKey("getcontractcreation", addr.Hex())
-		if err := p.cache.Set(p.ctx, cacheKey, creationResponse.Result[0], 1*time.Hour).Err(); err != nil {
-			return nil, fmt.Errorf("failed to write to cache: %s", err)
+	if e.cache != nil {
+		cacheKey := e.CacheKey("getcontractcreation", addr.Hex())
+		if len(creationResponse.Result) > 0 {
+			if err := e.cache.Set(e.ctx, cacheKey, creationResponse.Result[0], 1*time.Hour).Err(); err != nil {
+				return nil, fmt.Errorf("failed to write to cache: %s", err)
+			}
 		}
 	}
 

@@ -110,7 +110,7 @@ func (c *ClientPool) RegisterClient(ctx context.Context, networkId uint64, group
 
 	for i := 0; i < concurrentClientsNumber; i++ {
 		g.Go(func() error {
-			node := Node{Endpoint: endpoint, Group: group, Type: typ, NetworkId: int64(networkId), ConcurrentClientsNumber: concurrentClientsNumber}
+			node := Node{Endpoint: endpoint, Group: group, Type: typ, NetworkId: int(networkId), ConcurrentClients: concurrentClientsNumber}
 			client, err := NewClient(ctx, &node)
 			if err != nil {
 				return err

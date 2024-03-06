@@ -23,13 +23,17 @@ type EtherScanProvider struct {
 }
 
 // NewEtherScanProvider creates a new instance of EtherScanProvider with the provided API key and API URL.
-func NewEtherScanProvider(ctx context.Context, cache *redis.Client, opts *Options) *EtherScanProvider {
+func NewEtherScanProvider(ctx context.Context, cache *redis.Client, opts *Options) (*EtherScanProvider, error) {
+	if err := opts.Validate(); err != nil {
+		return nil, err
+	}
+
 	return &EtherScanProvider{
 		ctx:      ctx,
 		opts:     opts,
 		cache:    cache,
 		keyIndex: 0,
-	}
+	}, nil
 }
 
 func (e *EtherScanProvider) ProviderName() string {

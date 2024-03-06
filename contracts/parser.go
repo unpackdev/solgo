@@ -3,6 +3,7 @@ package contracts
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/unpackdev/solgo/detector"
@@ -78,6 +79,10 @@ func (c *Contract) Parse(ctx context.Context) error {
 
 		if c.descriptor.License == "" || c.descriptor.License == "None" && c.descriptor.IRRoot.GetEntryContract() != nil {
 			c.descriptor.License = c.descriptor.IRRoot.GetEntryContract().GetLicense()
+			c.descriptor.License = strings.ReplaceAll(c.descriptor.License, "\r", "")
+			c.descriptor.License = strings.ReplaceAll(c.descriptor.License, "\n", "")
+			c.descriptor.License = strings.TrimSpace(c.descriptor.License)
+			c.descriptor.License = strings.ToLower(c.descriptor.License)
 		}
 	}
 
