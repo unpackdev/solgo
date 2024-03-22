@@ -48,7 +48,7 @@ func (s *SimpleStatement) Parse(
 				unit, contractNode, fnNode, bodyNode, parentNode, parentNodeId, childCtx,
 			)
 		case *antlr.ErrorNodeImpl:
-			zap.L().Warn(
+			zap.L().Debug(
 				"Older contract parsing error @ SimpleStatement.Parse",
 				zap.String("child", fmt.Sprintf("%T", childCtx)),
 				zap.String("statement_text", childCtx.GetText()),

@@ -3,6 +3,8 @@ package ast
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+	"strings"
 
 	"github.com/antlr4-go/antlr/v4"
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -348,6 +350,13 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 	} else if ctx.IdentifierPath() != nil {
 		pathCtx := ctx.IdentifierPath()
 
+		if strings.Contains(pathCtx.GetText(), ".") {
+			identifierParts := strings.Split(pathCtx.GetText(), ".")
+			if len(identifierParts) > 1 {
+				t.Name = identifierParts[len(identifierParts)-1]
+			}
+		}
+
 		// It seems to be a user-defined type but that does not exist as a type in the parser...
 		t.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
 
@@ -367,7 +376,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 		}
 
 		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
-			pathCtx.GetText(),
+			t.Name,
 		)
 
 		switch normalizedTypeIdentifier {
@@ -383,7 +392,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				TypeString:     normalizedTypeName,
 			}
 		} else {
-			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, pathCtx.GetText()); refTypeDescription != nil {
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
 				if t.PathNode != nil {
 					t.PathNode.ReferencedDeclaration = refId
 				}
@@ -395,7 +404,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 	} else if ctx.TypeName() != nil {
 		t.generateTypeName(unit, ctx.TypeName(), t, t)
 	} else {
-		normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+		normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
 			t.Name,
 		)
 
@@ -406,10 +415,20 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 			t.StateMutability = ast_pb.Mutability_PAYABLE
 		}
 
-		if len(normalizedTypeName) > 0 {
-			t.TypeDescription = &TypeDescription{
-				TypeIdentifier: normalizedTypeIdentifier,
-				TypeString:     normalizedTypeName,
+		if found {
+			if len(normalizedTypeName) > 0 {
+				t.TypeDescription = &TypeDescription{
+					TypeIdentifier: normalizedTypeIdentifier,
+					TypeString:     normalizedTypeName,
+				}
+			} else {
+				if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
+					if t.PathNode != nil {
+						t.PathNode.ReferencedDeclaration = refId
+					}
+					t.ReferencedDeclaration = refId
+					t.TypeDescription = refTypeDescription
+				}
 			}
 		} else {
 			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
@@ -420,6 +439,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				t.TypeDescription = refTypeDescription
 			}
 		}
+
 	}
 }
 
@@ -428,7 +448,7 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 	t.Name = ctx.GetText()
 	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 
-	normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
+	normalizedTypeName, normalizedTypeIdentifier, found := normalizeTypeDescriptionWithStatus(
 		ctx.GetText(),
 	)
 
@@ -439,9 +459,19 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 		t.StateMutability = ast_pb.Mutability_PAYABLE
 	}
 
-	t.TypeDescription = &TypeDescription{
-		TypeIdentifier: normalizedTypeIdentifier,
-		TypeString:     normalizedTypeName,
+	if found {
+		t.TypeDescription = &TypeDescription{
+			TypeIdentifier: normalizedTypeIdentifier,
+			TypeString:     normalizedTypeName,
+		}
+	} else {
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
+			if t.PathNode != nil {
+				t.PathNode.ReferencedDeclaration = refId
+			}
+			t.ReferencedDeclaration = refId
+			t.TypeDescription = refTypeDescription
+		}
 	}
 }
 
@@ -503,9 +533,9 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], parentNodeId int64, ctx *parser.MappingTypeContext) {
 	keyCtx := ctx.GetKey()
 	valueCtx := ctx.GetValue()
+	t.NodeType = ast_pb.NodeType_MAPPING_TYPE_NAME
 
 	t.KeyType = t.generateTypeName(unit, keyCtx, t, t)
-
 	if keyCtx.GetStart().GetLine() > 0 {
 		t.KeyNameLocation = &SrcNode{
 			Line:        int64(keyCtx.GetStart().GetLine()),
@@ -516,6 +546,7 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 			ParentIndex: t.GetId(),
 		}
 	}
+
 	t.ValueType = t.generateTypeName(unit, valueCtx, t, t)
 	if valueCtx.GetStart().GetLine() > 0 {
 		t.ValueNameLocation = &SrcNode{
@@ -560,7 +591,6 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 			t.ValueType.TypeDescription.TypeIdentifier,
 		),
 	}
-
 }
 
 // generateTypeName generates the TypeName based on the given context.
@@ -623,13 +653,24 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			}
 		}
 
+		var keyTypeDescriptionName string
+		var valueTypeDescriptionName string
+
+		if typeNameNode.KeyType.TypeDescription == nil {
+			keyTypeDescriptionName = fmt.Sprintf("unknown_%d", typeNameNode.KeyType.GetId())
+		} else {
+			keyTypeDescriptionName = typeNameNode.KeyType.TypeDescription.TypeIdentifier
+		}
+
+		if typeNameNode.ValueType.TypeDescription == nil {
+			valueTypeDescriptionName = fmt.Sprintf("unknown_%d", typeNameNode.ValueType.GetId())
+		} else {
+			valueTypeDescriptionName = typeNameNode.ValueType.TypeDescription.TypeIdentifier
+		}
+
 		typeNameNode.TypeDescription = &TypeDescription{
-			TypeString: fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
-			TypeIdentifier: fmt.Sprintf(
-				"t_mapping_$%s_$%s",
-				typeNameNode.KeyType.TypeDescription.TypeIdentifier,
-				typeNameNode.ValueType.TypeDescription.TypeIdentifier,
-			),
+			TypeString:     fmt.Sprintf("mapping(%s=>%s)", typeNameNode.KeyType.Name, typeNameNode.ValueType.Name),
+			TypeIdentifier: fmt.Sprintf("t_mapping_$%s_$%s", keyTypeDescriptionName, valueTypeDescriptionName),
 		}
 		parentNode.TypeDescription = t.TypeDescription
 		typeName = typeNameNode
@@ -659,7 +700,11 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 			t.generateTypeName(sourceUnit, specificCtx.MappingType(), parentNode, typeName)
 		} else if specificCtx.FunctionTypeName() != nil {
 			t.parseFunctionTypeName(sourceUnit, parentNode.GetId(), specificCtx.FunctionTypeName().(*parser.FunctionTypeNameContext))
+		} else if specificCtx.IdentifierPath() != nil {
+			typeName.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
+			t.parseIdentifierPath(sourceUnit, parentNode.GetId(), specificCtx.IdentifierPath().(*parser.IdentifierPathContext))
 		} else {
+
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
 				typeName.Name,
 			)
@@ -914,5 +959,104 @@ func (td TypeDescription) ToProto() *ast_pb.TypeDescription {
 	return &ast_pb.TypeDescription{
 		TypeString:     td.TypeString,
 		TypeIdentifier: td.TypeIdentifier,
+	}
+}
+
+func (t *TypeName) StorageSize() (int64, bool) {
+	switch t.NodeType {
+	case ast_pb.NodeType_ELEMENTARY_TYPE_NAME:
+		// Handle elementary types (int, uint, etc.)
+		return elementaryTypeSizeInBits(t.Name)
+
+	case ast_pb.NodeType_MAPPING_TYPE_NAME:
+		// Mappings in Solidity are implemented as a hash table.
+		// Since they don't occupy a fixed amount of space in a contract's storage,
+		// it's not straightforward to define their size in bits.
+		// This might be represented as a pointer size.
+		return 256, true
+
+	case ast_pb.NodeType_FUNCTION_TYPE_NAME:
+		// Function types in Solidity represent external function pointers and typically take up 24 bytes.
+		// Converting this size into bits.
+		return 24 * 8, true
+
+	case ast_pb.NodeType_USER_DEFINED_PATH_NAME:
+		if size, found := elementaryTypeSizeInBits(t.Name); found {
+			return size, true
+		}
+
+		return 256, true
+
+	case ast_pb.NodeType_IDENTIFIER:
+		if size, found := elementaryTypeSizeInBits(t.Name); found {
+			return size, true
+		}
+
+		if identifier, ok := t.Expression.(*PrimaryExpression); ok {
+			if len(identifier.GetValue()) > 0 {
+				return 256, true
+			}
+		}
+
+		// For now this is a major hack...
+		if strings.Contains(t.GetTypeDescription().GetString(), "struct") {
+			return 256, true
+		}
+
+		return 0, false
+
+	// Add cases for other node types like struct, enum, etc., as needed.
+	default:
+		panic(fmt.Sprintf("Unhandled node type @ StorageSize: %s", t.NodeType))
+		return 0, false // Type not recognized or not handled yet.
+	}
+}
+
+func elementaryTypeSizeInBits(typeName string) (int64, bool) {
+	size, found := getTypeSizeInBits(typeName)
+	if !found {
+		return 0, false // Type not recognized
+	}
+
+	return size, true
+}
+
+func getTypeSizeInBits(typeName string) (int64, bool) {
+	switch {
+	case typeName == "bool":
+		return 8, true
+	case typeName == "address" || typeName == "addresspayable" || strings.HasPrefix("contract", typeName):
+		return 160, true
+	case strings.HasPrefix(typeName, "int") || strings.HasPrefix(typeName, "uint"):
+		if typeName == "uint" || typeName == "int" {
+			return 256, true
+		}
+
+		bitSizeStr := strings.TrimPrefix(typeName, "int")
+		bitSizeStr = strings.TrimPrefix(bitSizeStr, "uint")
+		bitSize, err := strconv.Atoi(bitSizeStr)
+
+		if err != nil || bitSize < 8 || bitSize > 256 || bitSize%8 != 0 {
+			return 0, false // Invalid size
+		}
+
+		return int64(bitSize), true
+
+	case strings.HasPrefix(typeName, "bytes"):
+		byteSizeStr := strings.TrimPrefix(typeName, "bytes")
+		byteSize, err := strconv.Atoi(byteSizeStr)
+		if err != nil || byteSize < 1 || byteSize > 32 {
+			return 0, false
+		}
+		return int64(byteSize) * 8, true
+
+	case typeName == "string", typeName == "bytes":
+		// Dynamic-size types; the size depends on the actual content.
+		// It's hard to determine the exact size in bits without the content.
+		// Returning a default size for the pointer.
+		return 256, true
+
+	default:
+		return 0, false // Type not recognized
 	}
 }

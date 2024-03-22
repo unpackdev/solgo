@@ -3,11 +3,14 @@ package ast
 import (
 	"encoding/json"
 	"fmt"
+	"path/filepath"
+	"regexp"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/parser"
+	"go.uber.org/zap"
 )
 
 // SourceUnit represents a source unit in the abstract syntax tree.
@@ -41,10 +44,36 @@ func NewSourceUnit[T any](builder *ASTBuilder, name string, license string) *Sou
 
 // SetAbsolutePathFromSources sets the absolute path of the source unit from the provided sources.
 func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources *solgo.Sources) {
+	// Compile the regex outside the loop to improve efficiency.
+	pattern := fmt.Sprintf(`(?m)^\s*(abstract\s+)?(library|interface|contract)\s+%s\s*(is\s+[\w\s,]+)?\s*{?`, regexp.QuoteMeta(s.Name))
+	regex, err := regexp.Compile(pattern)
+	if err != nil {
+		zap.L().Error("Regex compilation error", zap.Error(err))
+		return
+	}
+
+	found := false
 	for _, unit := range sources.SourceUnits {
 		if unit.Name == s.Name {
-			s.AbsolutePath = unit.Path
+			s.AbsolutePath = filepath.Base(filepath.Clean(unit.Path))
+			found = true
+			break
 		}
+
+		// Use the compiled regex for matching.
+		if !found && regex.MatchString(unit.GetContent()) {
+			s.AbsolutePath = filepath.Base(filepath.Clean(unit.Path))
+			found = true
+			break
+		}
+	}
+
+	if !found {
+		zap.L().Warn(
+			"Could not set absolute path from sources as source unit was not found in sources",
+			zap.String("name", s.Name),
+			zap.String("pattern", pattern),
+		)
 	}
 }
 
@@ -90,12 +119,19 @@ func (s *SourceUnit[T]) GetExportedSymbols() []Symbol {
 
 // GetAbsolutePath returns the absolute path of the source unit.
 func (s *SourceUnit[T]) GetAbsolutePath() string {
-	return s.AbsolutePath
+	toReturn := filepath.Clean(s.AbsolutePath)
+	toReturn = filepath.Base(toReturn)
+	return toReturn
 }
 
 // GetContract returns the contract associated with the source unit.
 func (s *SourceUnit[T]) GetContract() Node[NodeType] {
 	return s.Contract
+}
+
+// SetContract sets the contract associated with the source unit.
+func (s *SourceUnit[T]) SetContract(contract Node[NodeType]) {
+	s.Contract = contract
 }
 
 // GetBaseContracts returns the base contracts of the source unit.
