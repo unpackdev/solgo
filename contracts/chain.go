@@ -10,7 +10,6 @@ import (
 )
 
 func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error {
-
 	var info *bindings.CreatorInformation
 
 	// What we are going to do, as erigon node is used in this particular case, is to query etherscan only if
@@ -57,6 +56,18 @@ func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error 
 		return fmt.Errorf("failed to get block by number: %s", err)
 	}
 	c.descriptor.Block = block.Header()
+
+	if len(c.descriptor.ExecutionBytecode) < 1 {
+		c.descriptor.ExecutionBytecode = c.descriptor.Transaction.Data()
+	}
+
+	if len(c.descriptor.DeployedBytecode) < 1 {
+		code, err := c.client.CodeAt(ctx, receipt.ContractAddress, nil)
+		if err != nil {
+			return fmt.Errorf("failed to get contract code: %s", err)
+		}
+		c.descriptor.DeployedBytecode = code
+	}
 
 	return nil
 }

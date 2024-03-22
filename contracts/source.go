@@ -18,13 +18,13 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 	var err error
 
 	// Retry mechanism
-	const maxRetries = 5
+	const maxRetries = 10
 	for i := 0; i < maxRetries; i++ {
 		response, err = c.etherscan.ScanContract(c.addr)
 		if err != nil {
 			if strings.Contains(err.Error(), "Max rate limit reached") {
-				// Wait for 100ms before retrying
-				time.Sleep(100 * time.Millisecond)
+				// Wait for i*1000ms before retrying
+				time.Sleep(time.Duration(i*1000) * time.Millisecond)
 				continue
 			} else if !strings.Contains(err.Error(), "not found") &&
 				!strings.Contains(err.Error(), "not verified") {

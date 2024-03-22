@@ -255,6 +255,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 		zap.L().Warn(
 			"Entry source unit not found. Make sure it's correctly set.",
 			zap.String("contract_address", b.GetAddress().Hex()),
+			zap.Int64("requested_source_unit_id", root.GetEntrySourceUnit()),
 		)
 	} else {
 		if entrySourceUnit.GetContract() != nil {
@@ -278,7 +279,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	b.processEips(rootNode)
 
 	// Discovery and processing of links within the AST comments.
-	// This is useful in order to extract social links from the comments in the code.
+	// This is useful to extract social links from the comments in the code.
 	b.processLinks(rootNode)
 
 	return rootNode

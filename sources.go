@@ -180,6 +180,32 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	return sources
 }
 
+func NewSourcesFromProto(entryContractName string, sc *sources_pb.Sources) (*Sources, error) {
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		EntrySourceUnitName:  entryContractName,
+		LocalSources:         false,
+	}
+
+	for _, source := range sc.GetSourceUnits() {
+		sources.AppendSource(&SourceUnit{
+			Name:    strings.TrimSuffix(filepath.Base(source.Name), ".sol"),
+			Path:    source.Name,
+			Content: source.Content,
+		})
+	}
+
+	if err := sources.SortContracts(); err != nil {
+		return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+	}
+
+	return sources, nil
+}
+
 // NewSourcesFromEtherScan creates a Sources from an EtherScan response.
 // This is a helper function that ensures easier integration when working with the EtherScan provider.
 // This includes BscScan, and other equivalent from the same family.

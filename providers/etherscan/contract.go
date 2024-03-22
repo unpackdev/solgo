@@ -103,13 +103,14 @@ func (e *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 	if len(toReturn.SourceCode.(string)) > 2 && (toReturn.SourceCode.(string)[:2] == "{{" || toReturn.SourceCode.(string)[:1] == "{") {
 		cm := metadata.ContractMetadata{}
 
-		// This is just nasty but I don't really care at this moment...
+		// This is just nasty, but I don't really care at this moment...
 		sourceCode, _ := unprettyJSON(manualUnquote(toReturn.SourceCode.(string)))
 
 		if err := json.Unmarshal([]byte(sourceCode), &cm); err != nil {
+			fmt.Println("failure to decode contract metadata", err)
 			var onlySources map[string]metadata.ContractSource
 			if err := json.Unmarshal([]byte(fmt.Sprint(toReturn.SourceCode.(string))), &onlySources); err != nil {
-				return nil, fmt.Errorf("failed to unmarshal metadata response (string): %s", err)
+				return nil, fmt.Errorf("failed to unmarshal metadata response (string): %w", err)
 			} else {
 				cm.Sources = onlySources
 			}

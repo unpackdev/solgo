@@ -8,5 +8,6 @@ import (
 type NamedAddr struct {
 	Name  string          `json:"name"`
 	Addr  common.Address  `json:"addr"`
+	Type  AddressType     `json:"type"`
 	Token *entities.Token `json:"token"`
 }

@@ -24,6 +24,13 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 
 			tx := c.descriptor.Transaction
 			deployedBytecode := c.descriptor.DeployedBytecode
+
+			// Ensure that empty bytecode is not processed, otherwise:
+			// panic: runtime error: slice bounds out of range [:20] with capacity 0
+			if len(deployedBytecode) < 20 {
+				return nil
+			}
+
 			position := bytes.Index(tx.Data(), deployedBytecode[:20])
 			if position != -1 {
 				adjustedData := tx.Data()[position:]

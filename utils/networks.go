@@ -106,6 +106,27 @@ func GetNetworkID(network Network) NetworkID {
 	}
 }
 
+func GetNetworkFromID(id NetworkID) (Network, error) {
+	switch id {
+	case EthereumNetworkID:
+		return Ethereum, nil
+	case BscNetworkID:
+		return Bsc, nil
+	case PolygonNetworkID:
+		return Polygon, nil
+	case AvalancheNetworkID:
+		return Avalanche, nil
+	case FantomNetworkID:
+		return Fantom, nil
+	case ArbitrumNetworkID:
+		return Arbitrum, nil
+	case OptimismNetworkID:
+		return Optimism, nil
+	default:
+		return "", fmt.Errorf("unknown network ID '%d' provided", id)
+	}
+}
+
 func GetNetworkFromString(network string) (Network, error) {
 	switch network {
 	case "ethereum":
