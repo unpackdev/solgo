@@ -24,7 +24,8 @@
 					"parent_index": 1312
 				},
 				"name": "Proxy",
-				"referenced_declaration": 151
+				"referenced_declaration": 151,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -50,7 +51,8 @@
 					"parent_index": 1312
 				},
 				"name": "ERC1967Upgrade",
-				"referenced_declaration": 614
+				"referenced_declaration": 614,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -65,16 +67,6 @@
 			"id": 614,
 			"name": "ERC1967Upgrade",
 			"absolute_path": "ERC1967Upgrade.sol"
-		},
-		{
-			"id": 614,
-			"name": "ERC1967Upgrade",
-			"absolute_path": "ERC1967Upgrade.sol"
-		},
-		{
-			"id": 151,
-			"name": "Proxy",
-			"absolute_path": "Proxy.sol"
 		},
 		{
 			"id": 151,
@@ -127,7 +119,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 1201
+			"source_unit": 151
 		},
 		{
 			"id": 1311,
@@ -146,7 +138,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 1201
+			"source_unit": 614
 		},
 		{
 			"id": 1312,
@@ -371,7 +363,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 629,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_IMPLEMENTATION_SLOT"
 										},
 										"right_expression": {
 											"id": 1330,
@@ -464,7 +457,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 0,
-																		"is_pure": true
+																		"is_pure": true,
+																		"text": "\"eip1967.proxy.implementation\""
 																	}
 																],
 																"expression": {
@@ -485,7 +479,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "keccak256"
 																},
 																"type_description": {
 																	"type_identifier": "t_function__t_string_literal$",
@@ -535,7 +530,8 @@
 																	"type_identifier": "t_uint256",
 																	"type_string": "uint256"
 																}
-															]
+															],
+															"text": "uint256"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_function__t_string_literal$",
@@ -562,7 +558,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "1"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function__t_string_literal$",
@@ -612,7 +609,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$",
@@ -643,7 +641,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "assert"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$",
@@ -695,7 +694,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1343,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_logic"
 									},
 									{
 										"id": 1344,
@@ -721,7 +721,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "_data"
 									},
 									{
 										"id": 1345,
@@ -753,7 +754,8 @@
 												"type_identifier": "t_bytes",
 												"type_string": "bytes"
 											}
-										]
+										],
+										"text": "false"
 									}
 								],
 								"expression": {
@@ -774,7 +776,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_upgradeToAndCall"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
@@ -886,14 +889,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 614,
-											"is_pure": false
+											"is_pure": false,
+											"text": "ERC1967Upgrade"
 										},
 										"member_name": "_getImplementation",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_ERC1967Upgrade_$614",
 											"type_string": "contract ERC1967Upgrade"
-										}
+										},
+										"text": "ERC1967Upgrade._getImplementation"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -1054,7 +1059,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_implementation()internalviewvirtualoverridereturns(addressimpl){returnERC1967Upgrade._getImplementation();}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -1088,7 +1094,8 @@
 							"parent_index": 1312
 						},
 						"name": "Proxy",
-						"referenced_declaration": 151
+						"referenced_declaration": 151,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -1114,7 +1121,8 @@
 							"parent_index": 1312
 						},
 						"name": "ERC1967Upgrade",
-						"referenced_declaration": 614
+						"referenced_declaration": 614,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

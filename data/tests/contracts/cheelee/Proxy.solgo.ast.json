@@ -2188,7 +2188,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_delegate(addressimplementation)internalvirtual{assembly{calldatacopy(0,0,calldatasize())letresult:=delegatecall(gas(),implementation,0,calldatasize(),0,0)returndatacopy(0,0,returndatasize())switchresultcase0{revert(0,returndatasize())}default{return(0,returndatasize())}}}"
 				},
 				{
 					"id": 201,
@@ -2358,7 +2359,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_implementation()internalviewvirtualreturns(address);"
 				},
 				{
 					"id": 210,
@@ -2427,7 +2429,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_beforeFallback"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$",
@@ -2485,7 +2488,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_implementation"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -2511,7 +2515,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_delegate"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$",
@@ -2560,7 +2565,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "function_fallback()internalvirtual{_beforeFallback();_delegate(_implementation());}"
 				},
 				{
 					"id": 221,
@@ -2653,7 +2659,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_fallback"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$",
@@ -2755,7 +2762,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_fallback"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$",
@@ -2843,7 +2851,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "function_beforeFallback()internalvirtual{}"
 				}
 			],
 			"linearized_base_contracts": [

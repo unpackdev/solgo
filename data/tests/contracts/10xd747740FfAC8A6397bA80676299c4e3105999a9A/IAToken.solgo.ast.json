@@ -24,7 +24,8 @@
 					"parent_index": 2398
 				},
 				"name": "IERC20",
-				"referenced_declaration": 368
+				"referenced_declaration": 368,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -50,7 +51,8 @@
 					"parent_index": 2398
 				},
 				"name": "IScaledBalanceToken",
-				"referenced_declaration": 2141
+				"referenced_declaration": 2141,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -76,7 +78,8 @@
 					"parent_index": 2398
 				},
 				"name": "IInitializableAToken",
-				"referenced_declaration": 2349
+				"referenced_declaration": 2349,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -85,7 +88,7 @@
 		{
 			"id": 2395,
 			"name": "IAToken",
-			"absolute_path": ""
+			"absolute_path": "FRAX3CRVLevSwap.sol"
 		},
 		{
 			"id": 2399,
@@ -103,7 +106,7 @@
 			"absolute_path": ""
 		}
 	],
-	"absolute_path": "",
+	"absolute_path": "FRAX3CRVLevSwap.sol",
 	"name": "IAToken",
 	"node_type": 1,
 	"nodes": [
@@ -562,13 +565,14 @@
 							}
 						]
 					},
-					"signature_raw": "mint(address, uint256, uint256)",
-					"signature": "1146be74",
+					"signature_raw": "mint(address,uint256,uint256)",
+					"signature": "156e29f6",
 					"scope": 2398,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$_t_uint256$",
 						"type_string": "function(address,uint256,uint256)"
-					}
+					},
+					"text": "functionmint(addressuser,uint256amount,uint256index)externalpayablereturns(bool);"
 				},
 				{
 					"id": 2428,
@@ -1236,13 +1240,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "burn(address, address, uint256, uint256)",
-					"signature": "6aa2d810",
+					"signature_raw": "burn(address,address,uint256,uint256)",
+					"signature": "d7020d0a",
 					"scope": 2398,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$_t_uint256$",
 						"type_string": "function(address,address,uint256,uint256)"
-					}
+					},
+					"text": "functionburn(addressuser,addressreceiverOfUnderlying,uint256amount,uint256index)externalpayable;"
 				},
 				{
 					"id": 2463,
@@ -1402,13 +1407,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "mintToTreasury(uint256, uint256)",
-					"signature": "48150abe",
+					"signature_raw": "mintToTreasury(uint256,uint256)",
+					"signature": "7df5bd3b",
 					"scope": 2398,
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$_t_uint256$",
 						"type_string": "function(uint256,uint256)"
-					}
+					},
+					"text": "functionmintToTreasury(uint256amount,uint256index)externalpayable;"
 				},
 				{
 					"id": 2472,
@@ -1613,13 +1619,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "transferOnLiquidation(address, address, uint256)",
-					"signature": "62da2670",
+					"signature_raw": "transferOnLiquidation(address,address,uint256)",
+					"signature": "f866c319",
 					"scope": 2398,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 						"type_string": "function(address,address,uint256)"
-					}
+					},
+					"text": "functiontransferOnLiquidation(addressfrom,addressto,uint256value)externalpayable;"
 				},
 				{
 					"id": 2483,
@@ -1825,13 +1832,14 @@
 							}
 						]
 					},
-					"signature_raw": "transferUnderlyingTo(address, uint256)",
-					"signature": "76b50fc4",
+					"signature_raw": "transferUnderlyingTo(address,uint256)",
+					"signature": "4efecaa5",
 					"scope": 2398,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "functiontransferUnderlyingTo(addressuser,uint256amount)externalpayablereturns(uint256);"
 				},
 				{
 					"id": 2494,
@@ -1992,13 +2000,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "handleRepayment(address, uint256)",
-					"signature": "289108a3",
+					"signature_raw": "handleRepayment(address,uint256)",
+					"signature": "88dd91a1",
 					"scope": 2398,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "functionhandleRepayment(addressuser,uint256amount)external;"
 				},
 				{
 					"id": 2503,
@@ -2208,7 +2217,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_ISturdyIncentivesController_$2174$",
 						"type_string": "function(contract ISturdyIncentivesController)"
-					}
+					},
+					"text": "functiongetIncentivesController()externalviewreturns(ISturdyIncentivesController);"
 				},
 				{
 					"id": 2514,
@@ -2378,7 +2388,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionUNDERLYING_ASSET_ADDRESS()externalviewreturns(address);"
 				}
 			],
 			"linearized_base_contracts": [
@@ -2411,7 +2422,8 @@
 							"parent_index": 2398
 						},
 						"name": "IERC20",
-						"referenced_declaration": 368
+						"referenced_declaration": 368,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -2437,7 +2449,8 @@
 							"parent_index": 2398
 						},
 						"name": "IScaledBalanceToken",
-						"referenced_declaration": 2141
+						"referenced_declaration": 2141,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -2463,7 +2476,8 @@
 							"parent_index": 2398
 						},
 						"name": "IInitializableAToken",
-						"referenced_declaration": 2349
+						"referenced_declaration": 2349,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

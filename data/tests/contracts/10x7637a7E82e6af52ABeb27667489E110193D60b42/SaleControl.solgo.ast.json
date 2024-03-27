@@ -24,7 +24,8 @@
 					"parent_index": 2269
 				},
 				"name": "Ownable",
-				"referenced_declaration": 196
+				"referenced_declaration": 196,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -33,7 +34,7 @@
 		{
 			"id": 2253,
 			"name": "SaleControl",
-			"absolute_path": ""
+			"absolute_path": "MintPassExtension.sol"
 		},
 		{
 			"id": 2270,
@@ -41,7 +42,7 @@
 			"absolute_path": ""
 		}
 	],
-	"absolute_path": "",
+	"absolute_path": "MintPassExtension.sol",
 	"name": "SaleControl",
 	"node_type": 1,
 	"nodes": [
@@ -178,7 +179,8 @@
 								},
 								"overloaded_declarations": [],
 								"referenced_declaration": 0,
-								"is_pure": true
+								"is_pure": true,
+								"text": "2"
 							},
 							"right_expression": {
 								"id": 2279,
@@ -200,7 +202,8 @@
 								},
 								"overloaded_declarations": [],
 								"referenced_declaration": 0,
-								"is_pure": true
+								"is_pure": true,
+								"text": "256"
 							},
 							"type_descriptions": [
 								{
@@ -233,7 +236,8 @@
 							},
 							"overloaded_declarations": [],
 							"referenced_declaration": 0,
-							"is_pure": true
+							"is_pure": true,
+							"text": "1"
 						},
 						"type_description": {
 							"type_identifier": "t_rational_2_by_1",
@@ -299,7 +303,8 @@
 						},
 						"overloaded_declarations": [],
 						"referenced_declaration": 2273,
-						"is_pure": false
+						"is_pure": false,
+						"text": "__SALE_NEVER_STARTS"
 					}
 				},
 				{
@@ -407,7 +412,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "saleStarted"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -440,7 +446,8 @@
 												"type_identifier": "t_function_$",
 												"type_string": "function()"
 											}
-										]
+										],
+										"text": "\"Sale not started yet\""
 									}
 								],
 								"expression": {
@@ -461,7 +468,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_string_literal$",
@@ -486,7 +494,8 @@
 								},
 								"overloaded_declarations": [],
 								"referenced_declaration": 0,
-								"is_pure": false
+								"is_pure": false,
+								"text": "_"
 							}
 						]
 					}
@@ -567,7 +576,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2282,
-										"is_pure": false
+										"is_pure": false,
+										"text": "startTimestamp"
 									},
 									"right_expression": {
 										"id": 2307,
@@ -587,7 +597,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2307,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_startTimestamp"
 									},
 									"type_description": {
 										"type_identifier": "t_rational_2_by_1",
@@ -597,7 +608,8 @@
 								"type_description": {
 									"type_identifier": "t_rational_2_by_1",
 									"type_string": "int_const 2"
-								}
+								},
+								"text": "startTimestamp=_startTimestamp;"
 							}
 						]
 					},
@@ -716,7 +728,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functionupdateStartTimestamp(uint256_startTimestamp)publiconlyOwner{startTimestamp=_startTimestamp;}"
 				},
 				{
 					"id": 2309,
@@ -794,7 +807,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2282,
-										"is_pure": false
+										"is_pure": false,
+										"text": "startTimestamp"
 									},
 									"right_expression": {
 										"id": 2318,
@@ -837,14 +851,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "block"
 										},
 										"member_name": "timestamp",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "block.timestamp"
 									},
 									"type_description": {
 										"type_identifier": "t_rational_2_by_1",
@@ -854,7 +870,8 @@
 								"type_description": {
 									"type_identifier": "t_rational_2_by_1",
 									"type_string": "int_const 2"
-								}
+								},
+								"text": "startTimestamp=block.timestamp;"
 							}
 						]
 					},
@@ -928,7 +945,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "functionstartSale()publiconlyOwner{startTimestamp=block.timestamp;}"
 				},
 				{
 					"id": 2321,
@@ -1006,7 +1024,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2282,
-										"is_pure": false
+										"is_pure": false,
+										"text": "startTimestamp"
 									},
 									"right_expression": {
 										"id": 2330,
@@ -1026,7 +1045,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2273,
-										"is_pure": false
+										"is_pure": false,
+										"text": "__SALE_NEVER_STARTS"
 									},
 									"type_description": {
 										"type_identifier": "t_rational_2_by_1",
@@ -1036,7 +1056,8 @@
 								"type_description": {
 									"type_identifier": "t_rational_2_by_1",
 									"type_string": "int_const 2"
-								}
+								},
+								"text": "startTimestamp=__SALE_NEVER_STARTS;"
 							}
 						]
 					},
@@ -1110,7 +1131,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "functionstopSale()publiconlyOwner{startTimestamp=__SALE_NEVER_STARTS;}"
 				},
 				{
 					"id": 2332,
@@ -1214,14 +1236,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "block"
 										},
 										"member_name": "timestamp",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "block.timestamp"
 									},
 									"right_expression": {
 										"id": 2344,
@@ -1241,7 +1265,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2282,
-										"is_pure": false
+										"is_pure": false,
+										"text": "startTimestamp"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -1381,7 +1406,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bool$",
 						"type_string": "function(bool)"
-					}
+					},
+					"text": "functionsaleStarted()publicviewreturns(bool){returnblock.timestamp\u003e=startTimestamp;}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -1412,7 +1438,8 @@
 							"parent_index": 2269
 						},
 						"name": "Ownable",
-						"referenced_declaration": 196
+						"referenced_declaration": 196,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

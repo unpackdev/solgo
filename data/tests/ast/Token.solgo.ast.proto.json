@@ -352,6 +352,7 @@
 						"parentIndex": "824",
 						"start": "5866"
 					},
+					"nodeType": "MAPPING_TYPE_NAME",
 					"src": {
 						"column": "4",
 						"end": "5884",
@@ -440,6 +441,7 @@
 						"parentIndex": "828",
 						"start": "5918"
 					},
+					"nodeType": "MAPPING_TYPE_NAME",
 					"src": {
 						"column": "4",
 						"end": "5956",
@@ -1031,12 +1033,12 @@
 			"id": 49,
 			"license": "MIT",
 			"name": "IERC20",
-			"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/token/ERC20/IERC20.sol",
+			"absolute_path": "IERC20.sol",
 			"exported_symbols": [
 				{
 					"id": 49,
 					"name": "IERC20",
-					"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/token/ERC20/IERC20.sol"
+					"absolute_path": "IERC20.sol"
 				}
 			],
 			"node_type": 1,
@@ -1858,7 +1860,7 @@
 											}
 										},
 										"scope": "56",
-										"signature": "9d61d234",
+										"signature": "a9059cbb",
 										"src": {
 											"column": "4",
 											"end": "1262",
@@ -2046,7 +2048,7 @@
 											}
 										},
 										"scope": "56",
-										"signature": "69bfed33",
+										"signature": "dd62ed3e",
 										"src": {
 											"column": "4",
 											"end": "1620",
@@ -2233,7 +2235,7 @@
 											}
 										},
 										"scope": "56",
-										"signature": "8b069f2a",
+										"signature": "095ea7b3",
 										"src": {
 											"column": "4",
 											"end": "2347",
@@ -2459,7 +2461,7 @@
 											}
 										},
 										"scope": "56",
-										"signature": "b642fe57",
+										"signature": "23b872dd",
 										"src": {
 											"column": "4",
 											"end": "2733",
@@ -2500,12 +2502,12 @@
 			"id": 139,
 			"license": "MIT",
 			"name": "IERC20Metadata",
-			"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+			"absolute_path": "IERC20Metadata.sol",
 			"exported_symbols": [
 				{
 					"id": 139,
 					"name": "IERC20Metadata",
-					"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol"
+					"absolute_path": "IERC20Metadata.sol"
 				},
 				{
 					"id": 49,
@@ -3079,12 +3081,17 @@
 			"id": 177,
 			"license": "MIT",
 			"name": "Context",
-			"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/utils/Context.sol",
+			"absolute_path": "Context.sol",
 			"exported_symbols": [
 				{
 					"id": 177,
 					"name": "Context",
-					"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/utils/Context.sol"
+					"absolute_path": "Context.sol"
+				},
+				{
+					"id": 49,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
 				}
 			],
 			"node_type": 1,
@@ -3117,13 +3124,35 @@
 						}
 					},
 					{
+						"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Import",
+						"value": {
+							"absolutePath": "IERC20.sol",
+							"file": "../IERC20.sol",
+							"id": "181",
+							"nodeType": "IMPORT_DIRECTIVE",
+							"scope": "177",
+							"sourceUnit": "49",
+							"src": {
+								"end": "2896",
+								"length": "23",
+								"line": "86",
+								"parentIndex": "177",
+								"start": "2874"
+							}
+						}
+					},
+					{
 						"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Contract",
 						"value": {
+							"contractDependencies": [
+								"181"
+							],
 							"fullyImplemented": true,
 							"id": "182",
 							"kind": "KIND_CONTRACT",
 							"linearizedBaseContracts": [
-								"182"
+								"182",
+								"181"
 							],
 							"name": "Context",
 							"nameLocation": {
@@ -3602,24 +3631,27 @@
 			"id": 207,
 			"license": "MIT",
 			"name": "ERC20",
-			"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/token/ERC20/ERC20.sol",
+			"absolute_path": "ERC20.sol",
 			"exported_symbols": [
 				{
 					"id": 207,
 					"name": "ERC20",
-					"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/token/ERC20/ERC20.sol"
+					"absolute_path": "ERC20.sol"
 				},
 				{
-					"id": 217,
-					"name": "Context"
+					"id": 177,
+					"name": "Context",
+					"absolute_path": "Context.sol"
 				},
 				{
-					"id": 219,
-					"name": "IERC20"
+					"id": 139,
+					"name": "IERC20Metadata",
+					"absolute_path": "IERC20Metadata.sol"
 				},
 				{
-					"id": 221,
-					"name": "IERC20Metadata"
+					"id": 49,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
 				}
 			],
 			"node_type": 1,
@@ -3649,6 +3681,60 @@
 								"start": "4375"
 							},
 							"text": "pragma solidity ^0.8.0;"
+						}
+					},
+					{
+						"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Import",
+						"value": {
+							"absolutePath": "IERC20.sol",
+							"file": "./IERC20.sol",
+							"id": "213",
+							"nodeType": "IMPORT_DIRECTIVE",
+							"scope": "207",
+							"sourceUnit": "49",
+							"src": {
+								"end": "4421",
+								"length": "22",
+								"line": "142",
+								"parentIndex": "207",
+								"start": "4400"
+							}
+						}
+					},
+					{
+						"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Import",
+						"value": {
+							"absolutePath": "IERC20Metadata.sol",
+							"file": "./extensions/IERC20Metadata.sol",
+							"id": "214",
+							"nodeType": "IMPORT_DIRECTIVE",
+							"scope": "207",
+							"sourceUnit": "139",
+							"src": {
+								"end": "4463",
+								"length": "41",
+								"line": "143",
+								"parentIndex": "207",
+								"start": "4423"
+							}
+						}
+					},
+					{
+						"type_url": "github.com/unpackdev/protos/unpack.v1.ast.Import",
+						"value": {
+							"absolutePath": "Context.sol",
+							"file": "utils/Context.sol",
+							"id": "215",
+							"nodeType": "IMPORT_DIRECTIVE",
+							"scope": "207",
+							"sourceUnit": "177",
+							"src": {
+								"end": "4497",
+								"length": "33",
+								"line": "144",
+								"parentIndex": "207",
+								"start": "4465"
+							}
 						}
 					},
 					{
@@ -3737,7 +3823,10 @@
 							"contractDependencies": [
 								"177",
 								"49",
-								"139"
+								"139",
+								"213",
+								"214",
+								"215"
 							],
 							"fullyImplemented": true,
 							"id": "216",
@@ -3746,7 +3835,10 @@
 								"177",
 								"49",
 								"139",
-								"216"
+								"216",
+								"213",
+								"214",
+								"215"
 							],
 							"name": "ERC20",
 							"nameLocation": {
@@ -3808,6 +3900,7 @@
 												"parentIndex": "225",
 												"start": "5866"
 											},
+											"nodeType": "MAPPING_TYPE_NAME",
 											"src": {
 												"column": "4",
 												"end": "5884",
@@ -3898,6 +3991,7 @@
 												"parentIndex": "230",
 												"start": "5918"
 											},
+											"nodeType": "MAPPING_TYPE_NAME",
 											"src": {
 												"column": "4",
 												"end": "5956",
@@ -6004,7 +6098,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "9d61d234",
+										"signature": "a9059cbb",
 										"src": {
 											"column": "4",
 											"end": "8198",
@@ -6356,7 +6450,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "69bfed33",
+										"signature": "dd62ed3e",
 										"src": {
 											"column": "4",
 											"end": "8405",
@@ -6851,7 +6945,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "8b069f2a",
+										"signature": "095ea7b3",
 										"src": {
 											"column": "4",
 											"end": "8910",
@@ -7520,7 +7614,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "b642fe57",
+										"signature": "23b872dd",
 										"src": {
 											"column": "4",
 											"end": "9728",
@@ -8107,7 +8201,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "0553e395",
+										"signature": "39509351",
 										"src": {
 											"column": "4",
 											"end": "10357",
@@ -8940,7 +9034,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "26444acc",
+										"signature": "a457c2d7",
 										"src": {
 											"column": "4",
 											"end": "11271",
@@ -10539,7 +10633,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "5dbcfdbe",
+										"signature": "30e0789e",
 										"src": {
 											"column": "4",
 											"end": "12513",
@@ -11731,7 +11825,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "7dbf8efb",
+										"signature": "4e6ec247",
 										"src": {
 											"column": "4",
 											"end": "13324",
@@ -13233,7 +13327,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "dd1607d7",
+										"signature": "6161eb18",
 										"src": {
 											"column": "4",
 											"end": "14303",
@@ -14143,7 +14237,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "76c3ae3e",
+										"signature": "104e81ff",
 										"src": {
 											"column": "4",
 											"end": "15066",
@@ -14761,7 +14855,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "2b81cb6e",
+										"signature": "1532335e",
 										"src": {
 											"column": "4",
 											"end": "15758",
@@ -14951,7 +15045,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "03cc7b47",
+										"signature": "cad3be83",
 										"src": {
 											"column": "4",
 											"end": "16433",
@@ -15141,7 +15235,7 @@
 											}
 										},
 										"scope": "216",
-										"signature": "41e6856b",
+										"signature": "8f811a1c",
 										"src": {
 											"column": "4",
 											"end": "17111",

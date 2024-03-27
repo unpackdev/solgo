@@ -69,7 +69,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 524
+			"source_unit": 119
 		},
 		{
 			"id": 621,
@@ -83,12 +83,12 @@
 				"parent_index": 614
 			},
 			"absolute_path": "Address.sol",
-			"file": "../../utils/Address.sol",
+			"file": "utils/Address.sol",
 			"scope": 614,
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 524
+			"source_unit": 239
 		},
 		{
 			"id": 622,
@@ -102,7 +102,7 @@
 				"parent_index": 614
 			},
 			"absolute_path": "StorageSlot.sol",
-			"file": "../../utils/StorageSlot.sol",
+			"file": "utils/StorageSlot.sol",
 			"scope": 614,
 			"unit_alias": "",
 			"as": "",
@@ -193,7 +193,8 @@
 						},
 						"overloaded_declarations": [],
 						"referenced_declaration": 0,
-						"is_pure": true
+						"is_pure": true,
+						"text": "0x4910fdfa16fed3260ed0e7147f7cc6da11a60208b5b9406d12a635614ffd9143"
 					}
 				},
 				{
@@ -256,7 +257,8 @@
 						},
 						"overloaded_declarations": [],
 						"referenced_declaration": 0,
-						"is_pure": true
+						"is_pure": true,
+						"text": "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc"
 					}
 				},
 				{
@@ -445,7 +447,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_IMPLEMENTATION_SLOT"
 											}
 										],
 										"expression": {
@@ -489,14 +492,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 524,
-												"is_pure": false
+												"is_pure": false,
+												"text": "StorageSlot"
 											},
 											"member_name": "getAddressSlot",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_StorageSlot_$524",
 												"type_string": "contract StorageSlot"
-											}
+											},
+											"text": "StorageSlot.getAddressSlot"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -508,7 +513,8 @@
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
 										"type_string": "function(function())"
-									}
+									},
+									"text": "StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value"
 								}
 							}
 						]
@@ -645,7 +651,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_getImplementation()internalviewreturns(address){returnStorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value;}"
 				},
 				{
 					"id": 653,
@@ -742,7 +749,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 664,
-												"is_pure": false
+												"is_pure": false,
+												"text": "newImplementation"
 											}
 										],
 										"expression": {
@@ -786,14 +794,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 239,
-												"is_pure": false
+												"is_pure": false,
+												"text": "Address"
 											},
 											"member_name": "isContract",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_Address_$239",
 												"type_string": "contract Address"
-											}
+											},
+											"text": "Address.isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -826,7 +836,8 @@
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
 											}
-										]
+										],
+										"text": "\"ERC1967: new implementation is not a contract\""
 									}
 								],
 								"expression": {
@@ -847,7 +858,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -937,7 +949,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_IMPLEMENTATION_SLOT"
 												}
 											],
 											"expression": {
@@ -981,14 +994,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 524,
-													"is_pure": false
+													"is_pure": false,
+													"text": "StorageSlot"
 												},
 												"member_name": "getAddressSlot",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_StorageSlot_$524",
 													"type_string": "contract StorageSlot"
-												}
+												},
+												"text": "StorageSlot.getAddressSlot"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$",
@@ -1000,7 +1015,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
 											"type_string": "function(function())"
-										}
+										},
+										"text": "StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value"
 									},
 									"right_expression": {
 										"id": 673,
@@ -1020,7 +1036,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 673,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
@@ -1030,7 +1047,8 @@
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$",
 									"type_string": "function(function())"
-								}
+								},
+								"text": "StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value=newImplementation;"
 							}
 						]
 					},
@@ -1120,7 +1138,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_setImplementation(addressnewImplementation)private{require(Address.isContract(newImplementation),\"ERC1967: new implementation is not a contract\");StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value=newImplementation;}"
 				},
 				{
 					"id": 675,
@@ -1194,7 +1213,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 683,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -1215,7 +1235,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setImplementation"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -1252,7 +1273,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 685,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -1273,7 +1295,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 633,
-									"is_pure": false
+									"is_pure": false,
+									"text": "Upgraded"
 								}
 							}
 						]
@@ -1364,7 +1387,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_upgradeTo(addressnewImplementation)internal{_setImplementation(newImplementation);emitUpgraded(newImplementation);}"
 				},
 				{
 					"id": 688,
@@ -1438,7 +1462,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 700,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -1459,7 +1484,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setImplementation"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -1496,7 +1522,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 702,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -1517,7 +1544,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 633,
-									"is_pure": false
+									"is_pure": false,
+									"text": "Upgraded"
 								}
 							},
 							{
@@ -1600,14 +1628,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 708,
-												"is_pure": false
+												"is_pure": false,
+												"text": "data"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_bytes",
 												"type_string": "bytes"
-											}
+											},
+											"text": "data.length"
 										},
 										"right_expression": {
 											"id": 709,
@@ -1629,7 +1659,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -1654,7 +1685,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 710,
-										"is_pure": false
+										"is_pure": false,
+										"text": "forceCall"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -1716,7 +1748,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 715,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newImplementation"
 												},
 												{
 													"id": 716,
@@ -1742,7 +1775,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												}
 											],
 											"expression": {
@@ -1786,14 +1820,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 239,
-													"is_pure": false
+													"is_pure": false,
+													"text": "Address"
 												},
 												"member_name": "functionDelegateCall",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_Address_$239",
 													"type_string": "contract Address"
-												}
+												},
+												"text": "Address.functionDelegateCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$",
@@ -1971,13 +2007,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_upgradeToAndCall(address, bytes, bool)",
-					"signature": "b2f571b5",
+					"signature_raw": "_upgradeToAndCall(address,bytes,bool)",
+					"signature": "267b04ae",
 					"scope": 623,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
 						"type_string": "function(address,bytes,bool)"
-					}
+					},
+					"text": "function_upgradeToAndCall(addressnewImplementation,bytesmemorydata,boolforceCall)internal{_setImplementation(newImplementation);emitUpgraded(newImplementation);if(data.length\u003e0||forceCall){Address.functionDelegateCall(newImplementation,data);}}"
 				},
 				{
 					"id": 718,
@@ -2107,7 +2144,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_getImplementation"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -2152,7 +2190,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 735,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newImplementation"
 									}
 								],
 								"expression": {
@@ -2173,7 +2212,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setImplementation"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -2260,14 +2300,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 740,
-												"is_pure": false
+												"is_pure": false,
+												"text": "data"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_bytes",
 												"type_string": "bytes"
-											}
+											},
+											"text": "data.length"
 										},
 										"right_expression": {
 											"id": 741,
@@ -2289,7 +2331,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -2314,7 +2357,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 742,
-										"is_pure": false
+										"is_pure": false,
+										"text": "forceCall"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -2376,7 +2420,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 747,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newImplementation"
 												},
 												{
 													"id": 748,
@@ -2402,7 +2447,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "data"
 												}
 											],
 											"expression": {
@@ -2446,14 +2492,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 239,
-													"is_pure": false
+													"is_pure": false,
+													"text": "Address"
 												},
 												"member_name": "functionDelegateCall",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_Address_$239",
 													"type_string": "contract Address"
-												}
+												},
+												"text": "Address.functionDelegateCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_bytes$",
@@ -2581,7 +2629,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_ROLLBACK_SLOT"
 										}
 									],
 									"expression": {
@@ -2625,14 +2674,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 524,
-											"is_pure": false
+											"is_pure": false,
+											"text": "StorageSlot"
 										},
 										"member_name": "getBooleanSlot",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_StorageSlot_$524",
 											"type_string": "contract StorageSlot"
-										}
+										},
+										"text": "StorageSlot.getBooleanSlot"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
@@ -2710,14 +2761,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 749,
-											"is_pure": false
+											"is_pure": false,
+											"text": "rollbackTesting"
 										},
 										"member_name": "value",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_StorageSlot_$524",
 											"type_string": "contract StorageSlot"
-										}
+										},
+										"text": "rollbackTesting.value"
 									},
 									"type_description": {
 										"type_identifier": "t_contract$_StorageSlot_$524",
@@ -2802,14 +2855,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 749,
-														"is_pure": false
+														"is_pure": false,
+														"text": "rollbackTesting"
 													},
 													"member_name": "value",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_contract$_StorageSlot_$524",
 														"type_string": "contract StorageSlot"
-													}
+													},
+													"text": "rollbackTesting.value"
 												},
 												"right_expression": {
 													"id": 766,
@@ -2831,7 +2886,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "true"
 												},
 												"type_description": {
 													"type_identifier": "t_contract$_StorageSlot_$524",
@@ -2841,7 +2897,8 @@
 											"type_description": {
 												"type_identifier": "t_contract$_StorageSlot_$524",
 												"type_string": "contract StorageSlot"
-											}
+											},
+											"text": "rollbackTesting.value=true;"
 										},
 										{
 											"id": 767,
@@ -2884,7 +2941,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 770,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newImplementation"
 												},
 												{
 													"id": 771,
@@ -2929,7 +2987,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "\"upgradeTo(address)\""
 														},
 														{
 															"id": 775,
@@ -2955,7 +3014,8 @@
 																	"type_identifier": "t_string_literal",
 																	"type_string": "literal_string \"upgradeTo(address)\""
 																}
-															]
+															],
+															"text": "oldImplementation"
 														}
 													],
 													"expression": {
@@ -2999,14 +3059,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "abi"
 														},
 														"member_name": "encodeWithSignature",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_magic_abi",
 															"type_string": "abi"
-														}
+														},
+														"text": "abi.encodeWithSignature"
 													},
 													"type_description": {
 														"type_identifier": "t_function__t_string_literal$_t_function_$_t_string_literal$",
@@ -3055,14 +3117,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 239,
-													"is_pure": false
+													"is_pure": false,
+													"text": "Address"
 												},
 												"member_name": "functionDelegateCall",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_Address_$239",
 													"type_string": "contract Address"
-												}
+												},
+												"text": "Address.functionDelegateCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$_t_function__t_string_literal$_t_function_$_t_string_literal$",
@@ -3133,14 +3197,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 749,
-														"is_pure": false
+														"is_pure": false,
+														"text": "rollbackTesting"
 													},
 													"member_name": "value",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_contract$_StorageSlot_$524",
 														"type_string": "contract StorageSlot"
-													}
+													},
+													"text": "rollbackTesting.value"
 												},
 												"right_expression": {
 													"id": 780,
@@ -3162,7 +3228,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "false"
 												},
 												"type_description": {
 													"type_identifier": "t_contract$_StorageSlot_$524",
@@ -3172,7 +3239,8 @@
 											"type_description": {
 												"type_identifier": "t_contract$_StorageSlot_$524",
 												"type_string": "contract StorageSlot"
-											}
+											},
+											"text": "rollbackTesting.value=false;"
 										},
 										{
 											"id": 781,
@@ -3229,7 +3297,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 728,
-														"is_pure": false
+														"is_pure": false,
+														"text": "oldImplementation"
 													},
 													"right_expression": {
 														"id": 785,
@@ -3263,7 +3332,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "_getImplementation"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$",
@@ -3301,7 +3371,8 @@
 															"type_identifier": "t_bool",
 															"type_string": "bool"
 														}
-													]
+													],
+													"text": "\"ERC1967Upgrade: upgrade breaks further upgrades\""
 												}
 											],
 											"expression": {
@@ -3322,7 +3393,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "require"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3366,7 +3438,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 790,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newImplementation"
 												}
 											],
 											"expression": {
@@ -3387,7 +3460,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_setImplementation"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -3424,7 +3498,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 792,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newImplementation"
 												}
 											],
 											"expression": {
@@ -3445,7 +3520,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 633,
-												"is_pure": false
+												"is_pure": false,
+												"text": "Upgraded"
 											}
 										}
 									]
@@ -3619,13 +3695,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_upgradeToAndCallSecure(address, bytes, bool)",
-					"signature": "1d5980d3",
+					"signature_raw": "_upgradeToAndCallSecure(address,bytes,bool)",
+					"signature": "ce2ea66a",
 					"scope": 623,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
 						"type_string": "function(address,bytes,bool)"
-					}
+					},
+					"text": "function_upgradeToAndCallSecure(addressnewImplementation,bytesmemorydata,boolforceCall)internal{addressoldImplementation=_getImplementation();_setImplementation(newImplementation);if(data.length\u003e0||forceCall){Address.functionDelegateCall(newImplementation,data);}StorageSlot.BooleanSlotstoragerollbackTesting=StorageSlot.getBooleanSlot(_ROLLBACK_SLOT);if(!rollbackTesting.value){rollbackTesting.value=true;Address.functionDelegateCall(newImplementation,abi.encodeWithSignature(\"upgradeTo(address)\",oldImplementation));rollbackTesting.value=false;require(oldImplementation==_getImplementation(),\"ERC1967Upgrade: upgrade breaks further upgrades\");_setImplementation(newImplementation);emitUpgraded(newImplementation);}}"
 				},
 				{
 					"id": 795,
@@ -3699,7 +3776,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 807,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newBeacon"
 									}
 								],
 								"expression": {
@@ -3720,7 +3798,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setBeacon"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -3757,7 +3836,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 809,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newBeacon"
 									}
 								],
 								"expression": {
@@ -3778,7 +3858,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 1796,
-									"is_pure": false
+									"is_pure": false,
+									"text": "BeaconUpgraded"
 								}
 							},
 							{
@@ -3861,14 +3942,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 815,
-												"is_pure": false
+												"is_pure": false,
+												"text": "data"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_bytes",
 												"type_string": "bytes"
-											}
+											},
+											"text": "data.length"
 										},
 										"right_expression": {
 											"id": 816,
@@ -3890,7 +3973,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "0"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -3915,7 +3999,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 817,
-										"is_pure": false
+										"is_pure": false,
+										"text": "forceCall"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -4033,7 +4118,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 826,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "newBeacon"
 																}
 															],
 															"expression": {
@@ -4054,7 +4140,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "IBeacon"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_address$",
@@ -4066,7 +4153,8 @@
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
 															"type_string": "function(address)"
-														}
+														},
+														"text": "IBeacon(newBeacon).implementation"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$",
@@ -4097,7 +4185,8 @@
 															"type_identifier": "t_function_$",
 															"type_string": "function()"
 														}
-													]
+													],
+													"text": "data"
 												}
 											],
 											"expression": {
@@ -4141,14 +4230,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 239,
-													"is_pure": false
+													"is_pure": false,
+													"text": "Address"
 												},
 												"member_name": "functionDelegateCall",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_Address_$239",
 													"type_string": "contract Address"
-												}
+												},
+												"text": "Address.functionDelegateCall"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_bytes$",
@@ -4326,13 +4417,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_upgradeBeaconToAndCall(address, bytes, bool)",
-					"signature": "01ace874",
+					"signature_raw": "_upgradeBeaconToAndCall(address,bytes,bool)",
+					"signature": "9ba186fe",
 					"scope": 623,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
 						"type_string": "function(address,bytes,bool)"
-					}
+					},
+					"text": "function_upgradeBeaconToAndCall(addressnewBeacon,bytesmemorydata,boolforceCall)internal{_setBeacon(newBeacon);emitBeaconUpgraded(newBeacon);if(data.length\u003e0||forceCall){Address.functionDelegateCall(IBeacon(newBeacon).implementation(),data);}}"
 				},
 				{
 					"id": 829,
@@ -4394,7 +4486,8 @@
 						},
 						"overloaded_declarations": [],
 						"referenced_declaration": 0,
-						"is_pure": true
+						"is_pure": true,
+						"text": "0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103"
 					}
 				},
 				{
@@ -4626,7 +4719,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_ADMIN_SLOT"
 											}
 										],
 										"expression": {
@@ -4670,14 +4764,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 524,
-												"is_pure": false
+												"is_pure": false,
+												"text": "StorageSlot"
 											},
 											"member_name": "getAddressSlot",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_StorageSlot_$524",
 												"type_string": "contract StorageSlot"
-											}
+											},
+											"text": "StorageSlot.getAddressSlot"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -4689,7 +4785,8 @@
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
 										"type_string": "function(function())"
-									}
+									},
+									"text": "StorageSlot.getAddressSlot(_ADMIN_SLOT).value"
 								}
 							}
 						]
@@ -4826,7 +4923,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_getAdmin()internalviewreturns(address){returnStorageSlot.getAddressSlot(_ADMIN_SLOT).value;}"
 				},
 				{
 					"id": 855,
@@ -4918,7 +5016,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 864,
-											"is_pure": false
+											"is_pure": false,
+											"text": "newAdmin"
 										},
 										"right_expression": {
 											"id": 865,
@@ -4959,7 +5058,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												}
 											],
 											"expression": {
@@ -5005,7 +5105,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -5043,7 +5144,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"ERC1967: new admin is the zero address\""
 									}
 								],
 								"expression": {
@@ -5064,7 +5166,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -5154,7 +5257,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_ADMIN_SLOT"
 												}
 											],
 											"expression": {
@@ -5198,14 +5302,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 524,
-													"is_pure": false
+													"is_pure": false,
+													"text": "StorageSlot"
 												},
 												"member_name": "getAddressSlot",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_StorageSlot_$524",
 													"type_string": "contract StorageSlot"
-												}
+												},
+												"text": "StorageSlot.getAddressSlot"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$",
@@ -5217,7 +5323,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
 											"type_string": "function(function())"
-										}
+										},
+										"text": "StorageSlot.getAddressSlot(_ADMIN_SLOT).value"
 									},
 									"right_expression": {
 										"id": 877,
@@ -5237,7 +5344,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 877,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newAdmin"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
@@ -5247,7 +5355,8 @@
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$",
 									"type_string": "function(function())"
-								}
+								},
+								"text": "StorageSlot.getAddressSlot(_ADMIN_SLOT).value=newAdmin;"
 							}
 						]
 					},
@@ -5337,7 +5446,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_setAdmin(addressnewAdmin)private{require(newAdmin!=address(0),\"ERC1967: new admin is the zero address\");StorageSlot.getAddressSlot(_ADMIN_SLOT).value=newAdmin;}"
 				},
 				{
 					"id": 879,
@@ -5418,7 +5528,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_getAdmin"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -5443,7 +5554,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 888,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newAdmin"
 									}
 								],
 								"expression": {
@@ -5464,7 +5576,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 833,
-									"is_pure": false
+									"is_pure": false,
+									"text": "AdminChanged"
 								}
 							},
 							{
@@ -5504,7 +5617,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 892,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newAdmin"
 									}
 								],
 								"expression": {
@@ -5525,7 +5639,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setAdmin"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -5620,7 +5735,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_changeAdmin(addressnewAdmin)internal{emitAdminChanged(_getAdmin(),newAdmin);_setAdmin(newAdmin);}"
 				},
 				{
 					"id": 894,
@@ -5682,7 +5798,8 @@
 						},
 						"overloaded_declarations": [],
 						"referenced_declaration": 0,
-						"is_pure": true
+						"is_pure": true,
+						"text": "0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50"
 					}
 				},
 				{
@@ -5871,7 +5988,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_BEACON_SLOT"
 											}
 										],
 										"expression": {
@@ -5915,14 +6033,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 524,
-												"is_pure": false
+												"is_pure": false,
+												"text": "StorageSlot"
 											},
 											"member_name": "getAddressSlot",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_StorageSlot_$524",
 												"type_string": "contract StorageSlot"
-											}
+											},
+											"text": "StorageSlot.getAddressSlot"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -5934,7 +6054,8 @@
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
 										"type_string": "function(function())"
-									}
+									},
+									"text": "StorageSlot.getAddressSlot(_BEACON_SLOT).value"
 								}
 							}
 						]
@@ -6071,7 +6192,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_getBeacon()internalviewreturns(address){returnStorageSlot.getAddressSlot(_BEACON_SLOT).value;}"
 				},
 				{
 					"id": 918,
@@ -6168,7 +6290,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 929,
-												"is_pure": false
+												"is_pure": false,
+												"text": "newBeacon"
 											}
 										],
 										"expression": {
@@ -6212,14 +6335,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 239,
-												"is_pure": false
+												"is_pure": false,
+												"text": "Address"
 											},
 											"member_name": "isContract",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_Address_$239",
 												"type_string": "contract Address"
-											}
+											},
+											"text": "Address.isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -6252,7 +6377,8 @@
 												"type_identifier": "t_function_$_t_address$",
 												"type_string": "function(address)"
 											}
-										]
+										],
+										"text": "\"ERC1967: new beacon is not a contract\""
 									}
 								],
 								"expression": {
@@ -6273,7 +6399,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -6396,7 +6523,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 940,
-																"is_pure": false
+																"is_pure": false,
+																"text": "newBeacon"
 															}
 														],
 														"expression": {
@@ -6417,7 +6545,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "IBeacon"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
@@ -6429,7 +6558,8 @@
 													"type_description": {
 														"type_identifier": "t_function_$_t_address$",
 														"type_string": "function(address)"
-													}
+													},
+													"text": "IBeacon(newBeacon).implementation"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$",
@@ -6478,14 +6608,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 239,
-												"is_pure": false
+												"is_pure": false,
+												"text": "Address"
 											},
 											"member_name": "isContract",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_Address_$239",
 												"type_string": "contract Address"
-											}
+											},
+											"text": "Address.isContract"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -6518,7 +6650,8 @@
 												"type_identifier": "t_function_$_t_function_$",
 												"type_string": "function(function())"
 											}
-										]
+										],
+										"text": "\"ERC1967: beacon implementation is not a contract\""
 									}
 								],
 								"expression": {
@@ -6539,7 +6672,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_function_$_t_string_literal$",
@@ -6629,7 +6763,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_BEACON_SLOT"
 												}
 											],
 											"expression": {
@@ -6673,14 +6808,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 524,
-													"is_pure": false
+													"is_pure": false,
+													"text": "StorageSlot"
 												},
 												"member_name": "getAddressSlot",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_StorageSlot_$524",
 													"type_string": "contract StorageSlot"
-												}
+												},
+												"text": "StorageSlot.getAddressSlot"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$",
@@ -6692,7 +6829,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
 											"type_string": "function(function())"
-										}
+										},
+										"text": "StorageSlot.getAddressSlot(_BEACON_SLOT).value"
 									},
 									"right_expression": {
 										"id": 949,
@@ -6712,7 +6850,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 949,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newBeacon"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_function_$",
@@ -6722,7 +6861,8 @@
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$",
 									"type_string": "function(function())"
-								}
+								},
+								"text": "StorageSlot.getAddressSlot(_BEACON_SLOT).value=newBeacon;"
 							}
 						]
 					},
@@ -6812,7 +6952,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_setBeacon(addressnewBeacon)private{require(Address.isContract(newBeacon),\"ERC1967: new beacon is not a contract\");require(Address.isContract(IBeacon(newBeacon).implementation()),\"ERC1967: beacon implementation is not a contract\");StorageSlot.getAddressSlot(_BEACON_SLOT).value=newBeacon;}"
 				}
 			],
 			"linearized_base_contracts": [

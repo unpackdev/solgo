@@ -24,7 +24,8 @@
 					"parent_index": 194
 				},
 				"name": "Ownable",
-				"referenced_declaration": 88
+				"referenced_declaration": 88,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -33,7 +34,7 @@
 		{
 			"id": 192,
 			"name": "ExcludedFromFeeList",
-			"absolute_path": ""
+			"absolute_path": "Ptm.sol"
 		},
 		{
 			"id": 195,
@@ -41,7 +42,7 @@
 			"absolute_path": ""
 		}
 	],
-	"absolute_path": "",
+	"absolute_path": "Ptm.sol",
 	"name": "ExcludedFromFeeList",
 	"node_type": 1,
 	"nodes": [
@@ -117,7 +118,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 199,
-						"node_type": 0,
+						"node_type": 53,
 						"src": {
 							"line": 67,
 							"column": 4,
@@ -418,7 +419,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 198,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_isExcludedFromFee"
 									},
 									"base_expression": {
 										"id": 224,
@@ -438,7 +440,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 224,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									},
 									"type_descriptions": [
 										{
@@ -589,7 +592,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionisExcludedFromFee(addressaccount)publicviewreturns(bool){return_isExcludedFromFee[account];}"
 				},
 				{
 					"id": 226,
@@ -678,7 +682,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 198,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_isExcludedFromFee"
 										},
 										"base_expression": {
 											"id": 238,
@@ -698,7 +703,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 238,
-											"is_pure": false
+											"is_pure": false,
+											"text": "account"
 										},
 										"type_descriptions": [
 											{
@@ -735,7 +741,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -745,7 +752,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "_isExcludedFromFee[account]=true;"
 							},
 							{
 								"id": 240,
@@ -777,7 +785,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 241,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									}
 								],
 								"expression": {
@@ -798,7 +807,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 203,
-									"is_pure": false
+									"is_pure": false,
+									"text": "ExcludedFromFee"
 								}
 							}
 						]
@@ -919,7 +929,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionexcludeFromFee(addressaccount)publiconlyOwner{_isExcludedFromFee[account]=true;emitExcludedFromFee(account);}"
 				},
 				{
 					"id": 244,
@@ -1008,7 +1019,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 198,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_isExcludedFromFee"
 										},
 										"base_expression": {
 											"id": 256,
@@ -1028,7 +1040,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 256,
-											"is_pure": false
+											"is_pure": false,
+											"text": "account"
 										},
 										"type_descriptions": [
 											{
@@ -1065,7 +1078,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "false"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -1075,7 +1089,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "_isExcludedFromFee[account]=false;"
 							},
 							{
 								"id": 258,
@@ -1107,7 +1122,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 259,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									}
 								],
 								"expression": {
@@ -1128,7 +1144,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 208,
-									"is_pure": false
+									"is_pure": false,
+									"text": "IncludedToFee"
 								}
 							}
 						]
@@ -1249,7 +1266,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionincludeInFee(addressaccount)publiconlyOwner{_isExcludedFromFee[account]=false;emitIncludedToFee(account);}"
 				},
 				{
 					"id": 262,
@@ -1406,14 +1424,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 277,
-												"is_pure": false
+												"is_pure": false,
+												"text": "accounts"
 											},
 											"member_name": "length",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_address",
 												"type_string": "address"
-											}
+											},
+											"text": "accounts.length"
 										}
 									],
 									"expression": {
@@ -1458,7 +1478,8 @@
 												"type_identifier": "t_uint256",
 												"type_string": "uint256"
 											}
-										]
+										],
+										"text": "uint256"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$",
@@ -1557,7 +1578,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									}
 								},
 								"condition": {
@@ -1592,7 +1614,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 279,
-										"is_pure": false
+										"is_pure": false,
+										"text": "i"
 									},
 									"right_expression": {
 										"id": 285,
@@ -1612,7 +1635,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 270,
-										"is_pure": false
+										"is_pure": false,
+										"text": "len"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -1686,7 +1710,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 198,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_isExcludedFromFee"
 													},
 													"base_expression": {
 														"id": 291,
@@ -1717,7 +1742,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 264,
-															"is_pure": false
+															"is_pure": false,
+															"text": "accounts"
 														},
 														"base_expression": {
 															"id": 293,
@@ -1737,7 +1763,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 279,
-															"is_pure": false
+															"is_pure": false,
+															"text": "i"
 														},
 														"type_descriptions": [
 															{
@@ -1789,7 +1816,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "true"
 												},
 												"type_description": {
 													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_[_[$_t_address]$_t_uint256]$",
@@ -1799,7 +1827,8 @@
 											"type_description": {
 												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_[_[$_t_address]$_t_uint256]$",
 												"type_string": "index[mapping(address=\u003ebool):index[address:uint256]]"
-											}
+											},
+											"text": "_isExcludedFromFee[accounts[i]]=true;"
 										},
 										{
 											"id": 295,
@@ -1851,7 +1880,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 279,
-														"is_pure": false
+														"is_pure": false,
+														"text": "i"
 													},
 													"type_description": {
 														"type_identifier": "t_uint256",
@@ -1980,7 +2010,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionexcludeMultipleAccountsFromFee(address[]calldataaccounts)publiconlyOwner{uint256len=uint256(accounts.length);for(uint256i=0;i\u003clen;){_isExcludedFromFee[accounts[i]]=true;unchecked{++i;}}}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -2011,7 +2042,8 @@
 							"parent_index": 194
 						},
 						"name": "Ownable",
-						"referenced_declaration": 88
+						"referenced_declaration": 88,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

@@ -2,11 +2,11 @@ package solgo
 
 import (
 	"context"
+	"github.com/unpackdev/solgo/tests"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/unpackdev/solgo/tests"
 	"github.com/unpackdev/solgo/utils"
 )
 

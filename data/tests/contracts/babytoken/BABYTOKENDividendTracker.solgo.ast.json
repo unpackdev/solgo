@@ -24,7 +24,8 @@
 					"parent_index": 4820
 				},
 				"name": "OwnableUpgradeable",
-				"referenced_declaration": 3457
+				"referenced_declaration": 3457,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -50,7 +51,8 @@
 					"parent_index": 4820
 				},
 				"name": "DividendPayingToken",
-				"referenced_declaration": 4408
+				"referenced_declaration": 4408,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -59,7 +61,7 @@
 		{
 			"id": 4819,
 			"name": "BABYTOKENDividendTracker",
-			"absolute_path": ""
+			"absolute_path": "Token.sol"
 		},
 		{
 			"id": 4821,
@@ -72,7 +74,7 @@
 			"absolute_path": ""
 		}
 	],
-	"absolute_path": "",
+	"absolute_path": "Token.sol",
 	"name": "BABYTOKENDividendTracker",
 	"node_type": 1,
 	"nodes": [
@@ -394,7 +396,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 4847,
-						"node_type": 0,
+						"node_type": 53,
 						"src": {
 							"line": 2637,
 							"column": 4,
@@ -487,7 +489,7 @@
 					"mutability": 1,
 					"type_name": {
 						"id": 4852,
-						"node_type": 0,
+						"node_type": 53,
 						"src": {
 							"line": 2639,
 							"column": 4,
@@ -1087,7 +1089,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4896,
-										"is_pure": false
+										"is_pure": false,
+										"text": "rewardToken_"
 									},
 									{
 										"id": 4897,
@@ -1115,7 +1118,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "\"DIVIDEND_TRACKER\""
 									},
 									{
 										"id": 4898,
@@ -1147,7 +1151,8 @@
 												"type_identifier": "t_string_literal",
 												"type_string": "literal_string \"DIVIDEND_TRACKER\""
 											}
-										]
+										],
+										"text": "\"DIVIDEND_TRACKER\""
 									}
 								],
 								"expression": {
@@ -1191,14 +1196,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4408,
-										"is_pure": false
+										"is_pure": false,
+										"text": "DividendPayingToken"
 									},
 									"member_name": "__DividendPayingToken_init",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_DividendPayingToken_$4408",
 										"type_string": "contract DividendPayingToken"
-									}
+									},
+									"text": "DividendPayingToken.__DividendPayingToken_init"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$_t_string_literal$_t_string_literal$",
@@ -1246,7 +1253,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4856,
-										"is_pure": false
+										"is_pure": false,
+										"text": "claimWait"
 									},
 									"right_expression": {
 										"id": 4902,
@@ -1268,7 +1276,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "3600"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -1278,7 +1287,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "claimWait=3600;"
 							},
 							{
 								"id": 4903,
@@ -1321,7 +1331,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4859,
-										"is_pure": false
+										"is_pure": false,
+										"text": "minimumTokenBalanceForDividends"
 									},
 									"right_expression": {
 										"id": 4906,
@@ -1341,7 +1352,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4906,
-										"is_pure": false
+										"is_pure": false,
+										"text": "minimumTokenBalanceForDividends_"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -1351,7 +1363,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "minimumTokenBalanceForDividends=minimumTokenBalanceForDividends_;"
 							}
 						]
 					},
@@ -1508,13 +1521,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "initialize(address, uint256)",
-					"signature": "ed712a55",
+					"signature_raw": "initialize(address,uint256)",
+					"signature": "cd6dc687",
 					"scope": 4820,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "functioninitialize(addressrewardToken_,uint256minimumTokenBalanceForDividends_)externalinitializer{DividendPayingToken.__DividendPayingToken_init(rewardToken_,\"DIVIDEND_TRACKER\",\"DIVIDEND_TRACKER\");claimWait=3600;minimumTokenBalanceForDividends=minimumTokenBalanceForDividends_;}"
 				},
 				{
 					"id": 4908,
@@ -1594,7 +1608,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "false"
 									},
 									{
 										"id": 4922,
@@ -1622,7 +1637,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Dividend_Tracker: No transfers allowed\""
 									}
 								],
 								"expression": {
@@ -1643,7 +1659,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -1838,13 +1855,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_transfer(address, address, uint256)",
-					"signature": "5dbcfdbe",
+					"signature_raw": "_transfer(address,address,uint256)",
+					"signature": "30e0789e",
 					"scope": 4820,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_address$_t_uint256$",
 						"type_string": "function(address,address,uint256)"
-					}
+					},
+					"text": "function_transfer(address,address,uint256)internalpureoverride{require(false,\"Dividend_Tracker: No transfers allowed\");}"
 				},
 				{
 					"id": 4924,
@@ -1924,7 +1942,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "false"
 									},
 									{
 										"id": 4932,
@@ -1952,7 +1971,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Dividend_Tracker: withdrawDividend disabled. Use the 'claim' function on the main BABYTOKEN contract.\""
 									}
 								],
 								"expression": {
@@ -1973,7 +1993,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -2041,7 +2062,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "functionwithdrawDividend()publicpureoverride{require(false,\"Dividend_Tracker: withdrawDividend disabled. Use the 'claim' function on the main BABYTOKEN contract.\");}"
 				},
 				{
 					"id": 4934,
@@ -2144,7 +2166,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 4846,
-												"is_pure": false
+												"is_pure": false,
+												"text": "excludedFromDividends"
 											},
 											"base_expression": {
 												"id": 4947,
@@ -2164,7 +2187,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 4947,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											},
 											"type_descriptions": [
 												{
@@ -2205,7 +2229,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -2264,7 +2289,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4846,
-											"is_pure": false
+											"is_pure": false,
+											"text": "excludedFromDividends"
 										},
 										"base_expression": {
 											"id": 4952,
@@ -2284,7 +2310,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4952,
-											"is_pure": false
+											"is_pure": false,
+											"text": "account"
 										},
 										"type_descriptions": [
 											{
@@ -2321,7 +2348,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "true"
 									},
 									"type_description": {
 										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
@@ -2331,7 +2359,8 @@
 								"type_description": {
 									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_bool$]$_t_address]$",
 									"type_string": "index[mapping(address=\u003ebool):address]"
-								}
+								},
+								"text": "excludedFromDividends[account]=true;"
 							},
 							{
 								"id": 4954,
@@ -2374,7 +2403,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4956,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									},
 									{
 										"id": 4957,
@@ -2402,7 +2432,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "0"
 									}
 								],
 								"expression": {
@@ -2423,7 +2454,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_setBalance"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$_t_rational_0_by_1$",
@@ -2467,7 +2499,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4961,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									}
 								],
 								"expression": {
@@ -2511,14 +2544,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4839,
-										"is_pure": false
+										"is_pure": false,
+										"text": "tokenHoldersMap"
 									},
 									"member_name": "remove",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_IterableMapping_$4155",
 										"type_string": "contract IterableMapping"
-									}
+									},
+									"text": "tokenHoldersMap.remove"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -2555,7 +2590,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4963,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									}
 								],
 								"expression": {
@@ -2576,7 +2612,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 4862,
-									"is_pure": false
+									"is_pure": false,
+									"text": "ExcludeFromDividends"
 								}
 							}
 						]
@@ -2697,7 +2734,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionexcludeFromDividends(addressaccount)externalonlyOwner{require(!excludedFromDividends[account]);excludedFromDividends[account]=true;_setBalance(account,0);tokenHoldersMap.remove(account);emitExcludeFromDividends(account);}"
 				},
 				{
 					"id": 4966,
@@ -2775,7 +2813,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4846,
-										"is_pure": false
+										"is_pure": false,
+										"text": "excludedFromDividends"
 									},
 									"base_expression": {
 										"id": 4977,
@@ -2795,7 +2834,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4977,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									},
 									"type_descriptions": [
 										{
@@ -2946,7 +2986,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functionisExcludedFromDividends(addressaccount)publicviewreturns(bool){returnexcludedFromDividends[account];}"
 				},
 				{
 					"id": 4979,
@@ -3050,7 +3091,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 4992,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newClaimWait"
 												},
 												"right_expression": {
 													"id": 4993,
@@ -3072,7 +3114,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "3600"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -3111,7 +3154,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 4995,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newClaimWait"
 												},
 												"right_expression": {
 													"id": 4996,
@@ -3133,7 +3177,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "86400"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -3178,7 +3223,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Dividend_Tracker: claimWait must be updated to between 1 and 24 hours\""
 									}
 								],
 								"expression": {
@@ -3199,7 +3245,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3261,7 +3308,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 5001,
-											"is_pure": false
+											"is_pure": false,
+											"text": "newClaimWait"
 										},
 										"right_expression": {
 											"id": 5002,
@@ -3281,7 +3329,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4856,
-											"is_pure": false
+											"is_pure": false,
+											"text": "claimWait"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -3314,7 +3363,8 @@
 												"type_identifier": "t_bool",
 												"type_string": "bool"
 											}
-										]
+										],
+										"text": "\"Dividend_Tracker: Cannot update claimWait to same value\""
 									}
 								],
 								"expression": {
@@ -3335,7 +3385,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$_t_string_literal$",
@@ -3372,7 +3423,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5005,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newClaimWait"
 									},
 									{
 										"id": 5006,
@@ -3392,7 +3444,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4856,
-										"is_pure": false
+										"is_pure": false,
+										"text": "claimWait"
 									}
 								],
 								"expression": {
@@ -3413,7 +3466,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 4867,
-									"is_pure": false
+									"is_pure": false,
+									"text": "ClaimWaitUpdated"
 								}
 							},
 							{
@@ -3457,7 +3511,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4856,
-										"is_pure": false
+										"is_pure": false,
+										"text": "claimWait"
 									},
 									"right_expression": {
 										"id": 5011,
@@ -3477,7 +3532,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5011,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newClaimWait"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -3487,7 +3543,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "claimWait=newClaimWait;"
 							}
 						]
 					},
@@ -3606,7 +3663,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functionupdateClaimWait(uint256newClaimWait)externalonlyOwner{require(newClaimWait\u003e=3600\u0026\u0026newClaimWait\u003c=86400,\"Dividend_Tracker: claimWait must be updated to between 1 and 24 hours\");require(newClaimWait!=claimWait,\"Dividend_Tracker: Cannot update claimWait to same value\");emitClaimWaitUpdated(newClaimWait,claimWait);claimWait=newClaimWait;}"
 				},
 				{
 					"id": 5013,
@@ -3684,7 +3742,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4859,
-										"is_pure": false
+										"is_pure": false,
+										"text": "minimumTokenBalanceForDividends"
 									},
 									"right_expression": {
 										"id": 5024,
@@ -3704,7 +3763,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5024,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amount"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -3714,7 +3774,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "minimumTokenBalanceForDividends=amount;"
 							}
 						]
 					},
@@ -3833,7 +3894,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functionupdateMinimumTokenBalanceForDividends(uint256amount)externalonlyOwner{minimumTokenBalanceForDividends=amount;}"
 				},
 				{
 					"id": 5026,
@@ -3900,7 +3962,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 4843,
-									"is_pure": false
+									"is_pure": false,
+									"text": "lastProcessedIndex"
 								}
 							}
 						]
@@ -4035,7 +4098,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functiongetLastProcessedIndex()externalviewreturns(uint256){returnlastProcessedIndex;}"
 				},
 				{
 					"id": 5037,
@@ -4148,21 +4212,24 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4839,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenHoldersMap"
 										},
 										"member_name": "keys",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_IterableMapping_$4155",
 											"type_string": "contract IterableMapping"
-										}
+										},
+										"text": "tokenHoldersMap.keys"
 									},
 									"member_name": "length",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_IterableMapping_$4155",
 										"type_string": "contract IterableMapping"
-									}
+									},
+									"text": "tokenHoldersMap.keys.length"
 								}
 							}
 						]
@@ -4297,7 +4364,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functiongetNumberOfTokenHolders()externalviewreturns(uint256){returntokenHoldersMap.keys.length;}"
 				},
 				{
 					"id": 5050,
@@ -4375,7 +4443,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 361,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									},
 									"right_expression": {
 										"id": 5075,
@@ -4395,7 +4464,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5075,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_account"
 									},
 									"type_description": {
 										"type_identifier": "t_address",
@@ -4405,7 +4475,8 @@
 								"type_description": {
 									"type_identifier": "t_address",
 									"type_string": "address"
-								}
+								},
+								"text": "account=_account;"
 							},
 							{
 								"id": 5076,
@@ -4448,7 +4519,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4226,
-										"is_pure": false
+										"is_pure": false,
+										"text": "index"
 									},
 									"right_expression": {
 										"id": 5079,
@@ -4487,7 +4559,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											}
 										],
 										"expression": {
@@ -4531,14 +4604,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 4839,
-												"is_pure": false
+												"is_pure": false,
+												"text": "tokenHoldersMap"
 											},
 											"member_name": "getIndexOfKey",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IterableMapping_$4155",
 												"type_string": "contract IterableMapping"
-											}
+											},
+											"text": "tokenHoldersMap.getIndexOfKey"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -4553,7 +4628,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "index=tokenHoldersMap.getIndexOfKey(account);"
 							},
 							{
 								"id": 5083,
@@ -4596,7 +4672,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5059,
-										"is_pure": false
+										"is_pure": false,
+										"text": "iterationsUntilProcessed"
 									},
 									"right_expression": {
 										"id": 5086,
@@ -4636,7 +4713,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "1"
 										},
 										"type_description": {
 											"type_identifier": "t_rational_1_by_1",
@@ -4651,7 +4729,8 @@
 								"type_description": {
 									"type_identifier": "t_int256",
 									"type_string": "int256"
-								}
+								},
+								"text": "iterationsUntilProcessed=-1;"
 							},
 							{
 								"id": 5088,
@@ -4696,7 +4775,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4226,
-										"is_pure": false
+										"is_pure": false,
+										"text": "index"
 									},
 									"right_expression": {
 										"id": 5091,
@@ -4718,7 +4798,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -4801,7 +4882,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "index"
 														}
 													],
 													"expression": {
@@ -4846,7 +4928,8 @@
 																"type_identifier": "t_uint256",
 																"type_string": "uint256"
 															}
-														]
+														],
+														"text": "uint256"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$",
@@ -4871,7 +4954,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 4843,
-													"is_pure": false
+													"is_pure": false,
+													"text": "lastProcessedIndex"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -4933,7 +5017,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 5059,
-																"is_pure": false
+																"is_pure": false,
+																"text": "iterationsUntilProcessed"
 															},
 															"right_expression": {
 																"id": 5104,
@@ -4991,7 +5076,8 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 0,
-																				"is_pure": false
+																				"is_pure": false,
+																				"text": "lastProcessedIndex"
 																			}
 																		],
 																		"expression": {
@@ -5036,7 +5122,8 @@
 																					"type_identifier": "t_int256",
 																					"type_string": "int256"
 																				}
-																			]
+																			],
+																			"text": "int256"
 																		},
 																		"type_description": {
 																			"type_identifier": "t_function_$_t_function_$",
@@ -5085,14 +5172,16 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 4226,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "index"
 																	},
 																	"member_name": "sub",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_uint256",
 																		"type_string": "uint256"
-																	}
+																	},
+																	"text": "index.sub"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_function_$_t_function_$",
@@ -5107,7 +5196,8 @@
 														"type_description": {
 															"type_identifier": "t_int256",
 															"type_string": "int256"
-														}
+														},
+														"text": "iterationsUntilProcessed=index.sub(int256(lastProcessedIndex));"
 													}
 												]
 											}
@@ -5156,7 +5246,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5061,
-										"is_pure": false
+										"is_pure": false,
+										"text": "withdrawableDividends"
 									},
 									"right_expression": {
 										"id": 5114,
@@ -5195,7 +5286,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											}
 										],
 										"expression": {
@@ -5216,7 +5308,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "withdrawableDividendOf"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -5231,7 +5324,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "withdrawableDividends=withdrawableDividendOf(account);"
 							},
 							{
 								"id": 5117,
@@ -5274,7 +5368,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5063,
-										"is_pure": false
+										"is_pure": false,
+										"text": "totalDividends"
 									},
 									"right_expression": {
 										"id": 5120,
@@ -5313,7 +5408,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "account"
 											}
 										],
 										"expression": {
@@ -5334,7 +5430,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "accumulativeDividendOf"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -5349,7 +5446,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "totalDividends=accumulativeDividendOf(account);"
 							},
 							{
 								"id": 5123,
@@ -5392,7 +5490,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5065,
-										"is_pure": false
+										"is_pure": false,
+										"text": "lastClaimTime"
 									},
 									"right_expression": {
 										"id": 5126,
@@ -5423,7 +5522,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4851,
-											"is_pure": false
+											"is_pure": false,
+											"text": "lastClaimTimes"
 										},
 										"base_expression": {
 											"id": 5128,
@@ -5443,7 +5543,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 361,
-											"is_pure": false
+											"is_pure": false,
+											"text": "account"
 										},
 										"type_descriptions": [
 											{
@@ -5468,7 +5569,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "lastClaimTime=lastClaimTimes[account];"
 							},
 							{
 								"id": 5129,
@@ -5511,7 +5613,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5067,
-										"is_pure": false
+										"is_pure": false,
+										"text": "nextClaimTime"
 									},
 									"right_expression": {
 										"id": 5133,
@@ -5557,7 +5660,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5065,
-													"is_pure": false
+													"is_pure": false,
+													"text": "lastClaimTime"
 												},
 												"right_expression": {
 													"id": 5136,
@@ -5579,7 +5683,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -5623,7 +5728,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "claimWait"
 													}
 												],
 												"expression": {
@@ -5667,14 +5773,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 5065,
-														"is_pure": false
+														"is_pure": false,
+														"text": "lastClaimTime"
 													},
 													"member_name": "add",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
-													}
+													},
+													"text": "lastClaimTime.add"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$",
@@ -5701,7 +5809,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											}
 										],
 										"type_descriptions": [
@@ -5728,7 +5837,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "nextClaimTime=lastClaimTime\u003e0?lastClaimTime.add(claimWait):0;"
 							},
 							{
 								"id": 5142,
@@ -5771,7 +5881,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5069,
-										"is_pure": false
+										"is_pure": false,
+										"text": "secondsUntilAutoClaimAvailable"
 									},
 									"right_expression": {
 										"id": 5146,
@@ -5817,7 +5928,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5067,
-													"is_pure": false
+													"is_pure": false,
+													"text": "nextClaimTime"
 												},
 												"right_expression": {
 													"id": 5149,
@@ -5860,14 +5972,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "block"
 													},
 													"member_name": "timestamp",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
-													}
+													},
+													"text": "block.timestamp"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -5934,14 +6048,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "block"
 														},
 														"member_name": "timestamp",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
-														}
+														},
+														"text": "block.timestamp"
 													}
 												],
 												"expression": {
@@ -5985,14 +6101,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 5067,
-														"is_pure": false
+														"is_pure": false,
+														"text": "nextClaimTime"
 													},
 													"member_name": "sub",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
-													}
+													},
+													"text": "nextClaimTime.sub"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_uint256$",
@@ -6019,7 +6137,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "0"
 											}
 										],
 										"type_descriptions": [
@@ -6046,7 +6165,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "secondsUntilAutoClaimAvailable=nextClaimTime\u003eblock.timestamp?nextClaimTime.sub(block.timestamp):0;"
 							}
 						]
 					},
@@ -6483,7 +6603,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "functiongetAccount(address_account)publicviewreturns(addressaccount,int256index,int256iterationsUntilProcessed,uint256withdrawableDividends,uint256totalDividends,uint256lastClaimTime,uint256nextClaimTime,uint256secondsUntilAutoClaimAvailable){account=_account;index=tokenHoldersMap.getIndexOfKey(account);iterationsUntilProcessed=-1;if(index\u003e=0){if(uint256(index)\u003elastProcessedIndex){iterationsUntilProcessed=index.sub(int256(lastProcessedIndex));}else{uint256processesUntilEndOfArray=tokenHoldersMap.keys.length\u003elastProcessedIndex?tokenHoldersMap.keys.length.sub(lastProcessedIndex):0;iterationsUntilProcessed=index.add(int256(processesUntilEndOfArray));}}withdrawableDividends=withdrawableDividendOf(account);totalDividends=accumulativeDividendOf(account);lastClaimTime=lastClaimTimes[account];nextClaimTime=lastClaimTime\u003e0?lastClaimTime.add(claimWait):0;secondsUntilAutoClaimAvailable=nextClaimTime\u003eblock.timestamp?nextClaimTime.sub(block.timestamp):0;}"
 				},
 				{
 					"id": 5158,
@@ -6563,7 +6684,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5182,
-										"is_pure": false
+										"is_pure": false,
+										"text": "index"
 									},
 									"right_expression": {
 										"id": 5183,
@@ -6620,14 +6742,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 4839,
-												"is_pure": false
+												"is_pure": false,
+												"text": "tokenHoldersMap"
 											},
 											"member_name": "size",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IterableMapping_$4155",
 												"type_string": "contract IterableMapping"
-											}
+											},
+											"text": "tokenHoldersMap.size"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -6718,7 +6842,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "0"
 															}
 														],
 														"expression": {
@@ -6764,7 +6889,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "address"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -6809,7 +6935,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "1"
 														},
 														"type_description": {
 															"type_identifier": "t_rational_1_by_1",
@@ -6854,7 +6981,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "1"
 														},
 														"type_description": {
 															"type_identifier": "t_rational_1_by_1",
@@ -6881,7 +7009,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													},
 													{
 														"id": 5198,
@@ -6903,7 +7032,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													},
 													{
 														"id": 5199,
@@ -6925,7 +7055,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													},
 													{
 														"id": 5200,
@@ -6947,7 +7078,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													},
 													{
 														"id": 5201,
@@ -6969,7 +7101,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													}
 												],
 												"type_description": {
@@ -7079,7 +7212,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 5208,
-											"is_pure": false
+											"is_pure": false,
+											"text": "index"
 										}
 									],
 									"expression": {
@@ -7123,14 +7257,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4839,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenHoldersMap"
 										},
 										"member_name": "getKeyAtIndex",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_IterableMapping_$4155",
 											"type_string": "contract IterableMapping"
-										}
+										},
+										"text": "tokenHoldersMap.getKeyAtIndex"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_uint256$",
@@ -7187,7 +7323,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 5202,
-											"is_pure": false
+											"is_pure": false,
+											"text": "account"
 										}
 									],
 									"expression": {
@@ -7208,7 +7345,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "getAccount"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address$",
@@ -7650,7 +7788,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functiongetAccountAtIndex(uint256index)publicviewreturns(address,int256,int256,uint256,uint256,uint256,uint256,uint256){if(index\u003e=tokenHoldersMap.size()){return(address(0),-1,-1,0,0,0,0,0);}addressaccount=tokenHoldersMap.getKeyAtIndex(index);returngetAccount(account);}"
 				},
 				{
 					"id": 5214,
@@ -7730,7 +7869,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5224,
-										"is_pure": false
+										"is_pure": false,
+										"text": "lastClaimTime"
 									},
 									"right_expression": {
 										"id": 5225,
@@ -7773,14 +7913,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "block"
 										},
 										"member_name": "timestamp",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_uint256",
 											"type_string": "uint256"
-										}
+										},
+										"text": "block.timestamp"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -7833,7 +7975,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "false"
 											}
 										}
 									]
@@ -7902,7 +8045,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5236,
-												"is_pure": false
+												"is_pure": false,
+												"text": "lastClaimTime"
 											}
 										],
 										"expression": {
@@ -7969,21 +8113,24 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "block"
 												},
 												"member_name": "timestamp",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
-												}
+												},
+												"text": "block.timestamp"
 											},
 											"member_name": "sub",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_uint256",
 												"type_string": "uint256"
-											}
+											},
+											"text": "block.timestamp.sub"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_uint256$",
@@ -8008,7 +8155,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4856,
-										"is_pure": false
+										"is_pure": false,
+										"text": "claimWait"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -8148,7 +8296,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functioncanAutoClaim(uint256lastClaimTime)privateviewreturns(bool){if(lastClaimTime\u003eblock.timestamp){returnfalse;}returnblock.timestamp.sub(lastClaimTime)\u003e=claimWait;}"
 				},
 				{
 					"id": 5239,
@@ -8225,7 +8374,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4846,
-										"is_pure": false
+										"is_pure": false,
+										"text": "excludedFromDividends"
 									},
 									"base_expression": {
 										"id": 5252,
@@ -8245,7 +8395,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5252,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									},
 									"type_descriptions": [
 										{
@@ -8336,7 +8487,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5257,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newBalance"
 									},
 									"right_expression": {
 										"id": 5258,
@@ -8356,7 +8508,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4859,
-										"is_pure": false
+										"is_pure": false,
+										"text": "minimumTokenBalanceForDividends"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -8418,7 +8571,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5262,
-													"is_pure": false
+													"is_pure": false,
+													"text": "account"
 												},
 												{
 													"id": 5263,
@@ -8444,7 +8598,8 @@
 															"type_identifier": "t_address_payable",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "newBalance"
 												}
 											],
 											"expression": {
@@ -8465,7 +8620,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_setBalance"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address_payable$_t_uint256$",
@@ -8513,7 +8669,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5267,
-													"is_pure": false
+													"is_pure": false,
+													"text": "account"
 												},
 												{
 													"id": 5268,
@@ -8539,7 +8696,8 @@
 															"type_identifier": "t_address_payable",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "newBalance"
 												}
 											],
 											"expression": {
@@ -8583,14 +8741,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 4839,
-													"is_pure": false
+													"is_pure": false,
+													"text": "tokenHoldersMap"
 												},
 												"member_name": "set",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_contract$_IterableMapping_$4155",
 													"type_string": "contract IterableMapping"
-												}
+												},
+												"text": "tokenHoldersMap.set"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address_payable$_t_uint256$",
@@ -8641,7 +8801,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5271,
-										"is_pure": false
+										"is_pure": false,
+										"text": "account"
 									},
 									{
 										"id": 5272,
@@ -8669,7 +8830,8 @@
 												"type_identifier": "t_address_payable",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "true"
 									}
 								],
 								"expression": {
@@ -8690,7 +8852,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "processAccount"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address_payable$_t_bool$",
@@ -8852,13 +9015,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "setBalance(addresspayable, uint256)",
-					"signature": "67100469",
+					"signature_raw": "setBalance(addresspayable,uint256)",
+					"signature": "3fa4948d",
 					"scope": 4820,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address_payable$_t_uint256$",
 						"type_string": "function(address,uint256)"
-					}
+					},
+					"text": "functionsetBalance(addresspayableaccount,uint256newBalance)externalonlyOwner{if(excludedFromDividends[account]){return;}if(newBalance\u003e=minimumTokenBalanceForDividends){_setBalance(account,newBalance);tokenHoldersMap.set(account,newBalance);}else{_setBalance(account,0);tokenHoldersMap.remove(account);}processAccount(account,true);}"
 				},
 				{
 					"id": 5274,
@@ -9019,21 +9183,24 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4839,
-											"is_pure": false
+											"is_pure": false,
+											"text": "tokenHoldersMap"
 										},
 										"member_name": "keys",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_IterableMapping_$4155",
 											"type_string": "contract IterableMapping"
-										}
+										},
+										"text": "tokenHoldersMap.keys"
 									},
 									"member_name": "length",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_IterableMapping_$4155",
 										"type_string": "contract IterableMapping"
-									}
+									},
+									"text": "tokenHoldersMap.keys.length"
 								}
 							},
 							{
@@ -9079,7 +9246,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5286,
-										"is_pure": false
+										"is_pure": false,
+										"text": "numberOfTokenHolders"
 									},
 									"right_expression": {
 										"id": 5295,
@@ -9101,7 +9269,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -9168,7 +9337,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													},
 													{
 														"id": 5300,
@@ -9190,7 +9360,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "0"
 													},
 													{
 														"id": 5301,
@@ -9210,7 +9381,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 4843,
-														"is_pure": false
+														"is_pure": false,
+														"text": "lastProcessedIndex"
 													}
 												],
 												"type_description": {
@@ -9300,7 +9472,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 4843,
-									"is_pure": false
+									"is_pure": false,
+									"text": "lastProcessedIndex"
 								}
 							},
 							{
@@ -9383,7 +9556,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "0"
 								}
 							},
 							{
@@ -9478,7 +9652,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "gasleft"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -9566,7 +9741,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "0"
 								}
 							},
 							{
@@ -9649,7 +9825,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "0"
 								}
 							},
 							{
@@ -9707,7 +9884,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5306,
-												"is_pure": false
+												"is_pure": false,
+												"text": "gasUsed"
 											},
 											"right_expression": {
 												"id": 5327,
@@ -9727,7 +9905,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5327,
-												"is_pure": false
+												"is_pure": false,
+												"text": "gas"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -9766,7 +9945,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5315,
-												"is_pure": false
+												"is_pure": false,
+												"text": "iterations"
 											},
 											"right_expression": {
 												"id": 5330,
@@ -9786,7 +9966,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5286,
-												"is_pure": false
+												"is_pure": false,
+												"text": "numberOfTokenHolders"
 											},
 											"type_description": {
 												"type_identifier": "t_bool",
@@ -9848,7 +10029,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5302,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_lastProcessedIndex"
 											},
 											"type_description": {
 												"type_identifier": "t_uint256",
@@ -9903,7 +10085,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5302,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_lastProcessedIndex"
 												},
 												"right_expression": {
 													"id": 5337,
@@ -9969,21 +10152,24 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 4839,
-															"is_pure": false
+															"is_pure": false,
+															"text": "tokenHoldersMap"
 														},
 														"member_name": "keys",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_contract$_IterableMapping_$4155",
 															"type_string": "contract IterableMapping"
-														}
+														},
+														"text": "tokenHoldersMap.keys"
 													},
 													"member_name": "length",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_contract$_IterableMapping_$4155",
 														"type_string": "contract IterableMapping"
-													}
+													},
+													"text": "tokenHoldersMap.keys.length"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -10044,7 +10230,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 5302,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_lastProcessedIndex"
 															},
 															"right_expression": {
 																"id": 5344,
@@ -10066,7 +10253,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": true
+																"is_pure": true,
+																"text": "0"
 															},
 															"type_description": {
 																"type_identifier": "t_uint256",
@@ -10076,7 +10264,8 @@
 														"type_description": {
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
-														}
+														},
+														"text": "_lastProcessedIndex=0;"
 													}
 												]
 											}
@@ -10194,14 +10383,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 4839,
-														"is_pure": false
+														"is_pure": false,
+														"text": "tokenHoldersMap"
 													},
 													"member_name": "keys",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_contract$_IterableMapping_$4155",
 														"type_string": "contract IterableMapping"
-													}
+													},
+													"text": "tokenHoldersMap.keys"
 												},
 												"base_expression": {
 													"id": 5351,
@@ -10221,7 +10412,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5302,
-													"is_pure": false
+													"is_pure": false,
+													"text": "_lastProcessedIndex"
 												},
 												"type_descriptions": [
 													{
@@ -10298,7 +10490,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 4851,
-															"is_pure": false
+															"is_pure": false,
+															"text": "lastClaimTimes"
 														},
 														"base_expression": {
 															"id": 5357,
@@ -10318,7 +10511,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 5345,
-															"is_pure": false
+															"is_pure": false,
+															"text": "account"
 														},
 														"type_descriptions": [
 															{
@@ -10354,7 +10548,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "canAutoClaim"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
@@ -10438,7 +10633,8 @@
 																			},
 																			"overloaded_declarations": [],
 																			"referenced_declaration": 361,
-																			"is_pure": false
+																			"is_pure": false,
+																			"text": "account"
 																		}
 																	],
 																	"argument_types": [
@@ -10479,7 +10675,8 @@
 																			"type_identifier": "t_function_payable$_t_address$",
 																			"type_string": "function(address) payable"
 																		}
-																	]
+																	],
+																	"text": "true"
 																}
 															],
 															"expression": {
@@ -10500,7 +10697,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "processAccount"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_function_payable$_t_address$_t_bool$",
@@ -10550,7 +10748,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 5319,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "claims"
 																	},
 																	"type_description": {
 																		"type_identifier": "t_uint256",
@@ -10598,7 +10797,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 5315,
-												"is_pure": false
+												"is_pure": false,
+												"text": "iterations"
 											},
 											"type_description": {
 												"type_identifier": "t_uint256",
@@ -10702,7 +10902,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "gasleft"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$",
@@ -10753,7 +10954,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5310,
-													"is_pure": false
+													"is_pure": false,
+													"text": "gasLeft"
 												},
 												"right_expression": {
 													"id": 5378,
@@ -10773,7 +10975,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5370,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newGasLeft"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -10834,7 +11037,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 5306,
-																"is_pure": false
+																"is_pure": false,
+																"text": "gasUsed"
 															},
 															"right_expression": {
 																"id": 5383,
@@ -10892,7 +11096,8 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 0,
-																				"is_pure": false
+																				"is_pure": false,
+																				"text": "newGasLeft"
 																			}
 																		],
 																		"expression": {
@@ -10936,14 +11141,16 @@
 																				},
 																				"overloaded_declarations": [],
 																				"referenced_declaration": 5310,
-																				"is_pure": false
+																				"is_pure": false,
+																				"text": "gasLeft"
 																			},
 																			"member_name": "sub",
 																			"argument_types": [],
 																			"type_description": {
 																				"type_identifier": "t_uint256",
 																				"type_string": "uint256"
-																			}
+																			},
+																			"text": "gasLeft.sub"
 																		},
 																		"type_description": {
 																			"type_identifier": "t_function_$_t_function_$",
@@ -10992,14 +11199,16 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 5306,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "gasUsed"
 																	},
 																	"member_name": "add",
 																	"argument_types": [],
 																	"type_description": {
 																		"type_identifier": "t_uint256",
 																		"type_string": "uint256"
-																	}
+																	},
+																	"text": "gasUsed.add"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_function_$_t_function_$",
@@ -11014,7 +11223,8 @@
 														"type_description": {
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
-														}
+														},
+														"text": "gasUsed=gasUsed.add(gasLeft.sub(newGasLeft));"
 													}
 												]
 											}
@@ -11060,7 +11270,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5310,
-													"is_pure": false
+													"is_pure": false,
+													"text": "gasLeft"
 												},
 												"right_expression": {
 													"id": 5393,
@@ -11080,7 +11291,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5370,
-													"is_pure": false
+													"is_pure": false,
+													"text": "newGasLeft"
 												},
 												"type_description": {
 													"type_identifier": "t_uint256",
@@ -11090,7 +11302,8 @@
 											"type_description": {
 												"type_identifier": "t_uint256",
 												"type_string": "uint256"
-											}
+											},
+											"text": "gasLeft=newGasLeft;"
 										}
 									]
 								}
@@ -11136,7 +11349,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4843,
-										"is_pure": false
+										"is_pure": false,
+										"text": "lastProcessedIndex"
 									},
 									"right_expression": {
 										"id": 5397,
@@ -11156,7 +11370,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5302,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_lastProcessedIndex"
 									},
 									"type_description": {
 										"type_identifier": "t_uint256",
@@ -11166,7 +11381,8 @@
 								"type_description": {
 									"type_identifier": "t_uint256",
 									"type_string": "uint256"
-								}
+								},
+								"text": "lastProcessedIndex=_lastProcessedIndex;"
 							},
 							{
 								"id": 5398,
@@ -11212,7 +11428,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 5315,
-											"is_pure": false
+											"is_pure": false,
+											"text": "iterations"
 										},
 										{
 											"id": 5401,
@@ -11232,7 +11449,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 5319,
-											"is_pure": false
+											"is_pure": false,
+											"text": "claims"
 										},
 										{
 											"id": 5402,
@@ -11252,7 +11470,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 4843,
-											"is_pure": false
+											"is_pure": false,
+											"text": "lastProcessedIndex"
 										}
 									],
 									"type_description": {
@@ -11479,7 +11698,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint256$",
 						"type_string": "function(uint256)"
-					}
+					},
+					"text": "functionprocess(uint256gas)publicreturns(uint256,uint256,uint256){uint256numberOfTokenHolders=tokenHoldersMap.keys.length;if(numberOfTokenHolders==0){return(0,0,lastProcessedIndex);}uint256_lastProcessedIndex=lastProcessedIndex;uint256gasUsed=0;uint256gasLeft=gasleft();uint256iterations=0;uint256claims=0;while(gasUsed\u003cgas\u0026\u0026iterations\u003cnumberOfTokenHolders){_lastProcessedIndex++;if(_lastProcessedIndex\u003e=tokenHoldersMap.keys.length){_lastProcessedIndex=0;}addressaccount=tokenHoldersMap.keys[_lastProcessedIndex];if(canAutoClaim(lastClaimTimes[account])){if(processAccount(payable(account),true)){claims++;}}iterations++;uint256newGasLeft=gasleft();if(gasLeft\u003enewGasLeft){gasUsed=gasUsed.add(gasLeft.sub(newGasLeft));}gasLeft=newGasLeft;}lastProcessedIndex=_lastProcessedIndex;return(iterations,claims,lastProcessedIndex);}"
 				},
 				{
 					"id": 5404,
@@ -11613,7 +11833,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 5421,
-											"is_pure": false
+											"is_pure": false,
+											"text": "account"
 										}
 									],
 									"expression": {
@@ -11634,7 +11855,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_withdrawDividendOfUser"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_address_payable$",
@@ -11685,7 +11907,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 5416,
-										"is_pure": false
+										"is_pure": false,
+										"text": "amount"
 									},
 									"right_expression": {
 										"id": 5425,
@@ -11707,7 +11930,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -11780,7 +12004,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 4851,
-														"is_pure": false
+														"is_pure": false,
+														"text": "lastClaimTimes"
 													},
 													"base_expression": {
 														"id": 5431,
@@ -11800,7 +12025,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 5431,
-														"is_pure": false
+														"is_pure": false,
+														"text": "account"
 													},
 													"type_descriptions": [
 														{
@@ -11858,14 +12084,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "block"
 													},
 													"member_name": "timestamp",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_uint256",
 														"type_string": "uint256"
-													}
+													},
+													"text": "block.timestamp"
 												},
 												"type_description": {
 													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address_payable]$",
@@ -11875,7 +12103,8 @@
 											"type_description": {
 												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address_payable]$",
 												"type_string": "index[mapping(address=\u003euint256):address]"
-											}
+											},
+											"text": "lastClaimTimes[account]=block.timestamp;"
 										},
 										{
 											"id": 5434,
@@ -11907,7 +12136,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5435,
-													"is_pure": false
+													"is_pure": false,
+													"text": "account"
 												},
 												{
 													"id": 5436,
@@ -11927,7 +12157,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 372,
-													"is_pure": false
+													"is_pure": false,
+													"text": "amount"
 												},
 												{
 													"id": 5437,
@@ -11947,7 +12178,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 5437,
-													"is_pure": false
+													"is_pure": false,
+													"text": "automatic"
 												}
 											],
 											"expression": {
@@ -11968,7 +12200,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 4874,
-												"is_pure": false
+												"is_pure": false,
+												"text": "Claim"
 											}
 										},
 										{
@@ -12003,7 +12236,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": true
+												"is_pure": true,
+												"text": "true"
 											}
 										}
 									]
@@ -12041,7 +12275,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "false"
 								}
 							}
 						]
@@ -12244,13 +12479,14 @@
 							}
 						]
 					},
-					"signature_raw": "processAccount(addresspayable, bool)",
-					"signature": "a97667a5",
+					"signature_raw": "processAccount(addresspayable,bool)",
+					"signature": "d45936cb",
 					"scope": 4820,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address_payable$_t_bool$",
 						"type_string": "function(address,bool)"
-					}
+					},
+					"text": "functionprocessAccount(addresspayableaccount,boolautomatic)publiconlyOwnerreturns(bool){uint256amount=_withdrawDividendOfUser(account);if(amount\u003e0){lastClaimTimes[account]=block.timestamp;emitClaim(account,amount,automatic);returntrue;}returnfalse;}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -12282,7 +12518,8 @@
 							"parent_index": 4820
 						},
 						"name": "OwnableUpgradeable",
-						"referenced_declaration": 3457
+						"referenced_declaration": 3457,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -12308,7 +12545,8 @@
 							"parent_index": 4820
 						},
 						"name": "DividendPayingToken",
-						"referenced_declaration": 4408
+						"referenced_declaration": 4408,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

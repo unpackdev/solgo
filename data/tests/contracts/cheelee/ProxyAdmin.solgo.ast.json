@@ -24,7 +24,8 @@
 					"parent_index": 1567
 				},
 				"name": "Ownable",
-				"referenced_declaration": 1080
+				"referenced_declaration": 1080,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -34,11 +35,6 @@
 			"id": 1539,
 			"name": "ProxyAdmin",
 			"absolute_path": "ProxyAdmin.sol"
-		},
-		{
-			"id": 1080,
-			"name": "Ownable",
-			"absolute_path": "Ownable.sol"
 		},
 		{
 			"id": 1080,
@@ -110,12 +106,12 @@
 				"parent_index": 1539
 			},
 			"absolute_path": "Ownable.sol",
-			"file": "../../access/Ownable.sol",
+			"file": "access/Ownable.sol",
 			"scope": 1539,
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 1360
+			"source_unit": 1080
 		},
 		{
 			"id": 1567,
@@ -320,7 +316,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "hex\"5c60da1b\""
 										}
 									],
 									"expression": {
@@ -383,7 +380,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1590,
-													"is_pure": false
+													"is_pure": false,
+													"text": "proxy"
 												}
 											],
 											"expression": {
@@ -429,7 +427,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -441,7 +440,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
 											"type_string": "function(address)"
-										}
+										},
+										"text": "address(proxy).staticcall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_string_hex_literal$",
@@ -486,7 +486,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1580,
-										"is_pure": false
+										"is_pure": false,
+										"text": "success"
 									}
 								],
 								"expression": {
@@ -507,7 +508,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$",
@@ -567,7 +569,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1580,
-											"is_pure": false
+											"is_pure": false,
+											"text": "returndata"
 										},
 										{
 											"id": 1600,
@@ -620,7 +623,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "address"
 												}
 											],
 											"type_description": {
@@ -670,14 +674,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "abi"
 										},
 										"member_name": "decode",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_magic_abi",
 											"type_string": "abi"
-										}
+										},
+										"text": "abi.decode"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes$_t_tuple_$_t_address$",
@@ -839,7 +845,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_TransparentUpgradeableProxy_$1360$",
 						"type_string": "function(contract TransparentUpgradeableProxy)"
-					}
+					},
+					"text": "functiongetProxyImplementation(TransparentUpgradeableProxyproxy)publicviewvirtualreturns(address){(boolsuccess,bytesmemoryreturndata)=address(proxy).staticcall(hex\"5c60da1b\");require(success);returnabi.decode(returndata,(address));}"
 				},
 				{
 					"id": 1604,
@@ -1020,7 +1027,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": true
+											"is_pure": true,
+											"text": "hex\"f851a440\""
 										}
 									],
 									"expression": {
@@ -1083,7 +1091,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 1623,
-													"is_pure": false
+													"is_pure": false,
+													"text": "proxy"
 												}
 											],
 											"expression": {
@@ -1129,7 +1138,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -1141,7 +1151,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
 											"type_string": "function(address)"
-										}
+										},
+										"text": "address(proxy).staticcall"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_string_hex_literal$",
@@ -1186,7 +1197,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1613,
-										"is_pure": false
+										"is_pure": false,
+										"text": "success"
 									}
 								],
 								"expression": {
@@ -1207,7 +1219,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$",
@@ -1267,7 +1280,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1613,
-											"is_pure": false
+											"is_pure": false,
+											"text": "returndata"
 										},
 										{
 											"id": 1633,
@@ -1320,7 +1334,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "address"
 												}
 											],
 											"type_description": {
@@ -1370,14 +1385,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "abi"
 										},
 										"member_name": "decode",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_magic_abi",
 											"type_string": "abi"
-										}
+										},
+										"text": "abi.decode"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes$_t_tuple_$_t_address$",
@@ -1539,7 +1556,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_TransparentUpgradeableProxy_$1360$",
 						"type_string": "function(contract TransparentUpgradeableProxy)"
-					}
+					},
+					"text": "functiongetProxyAdmin(TransparentUpgradeableProxyproxy)publicviewvirtualreturns(address){(boolsuccess,bytesmemoryreturndata)=address(proxy).staticcall(hex\"f851a440\");require(success);returnabi.decode(returndata,(address));}"
 				},
 				{
 					"id": 1637,
@@ -1613,7 +1631,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1651,
-										"is_pure": false
+										"is_pure": false,
+										"text": "newAdmin"
 									}
 								],
 								"expression": {
@@ -1657,14 +1676,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1650,
-										"is_pure": false
+										"is_pure": false,
+										"text": "proxy"
 									},
 									"member_name": "changeAdmin",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_TransparentUpgradeableProxy_$1360",
 										"type_string": "contract TransparentUpgradeableProxy"
-									}
+									},
+									"text": "proxy.changeAdmin"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -1847,13 +1868,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "changeProxyAdmin(, address)",
-					"signature": "2767cae2",
+					"signature_raw": "changeProxyAdmin(,address)",
+					"signature": "3450da5f",
 					"scope": 1567,
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_TransparentUpgradeableProxy_$1360$_t_address$",
 						"type_string": "function(contract TransparentUpgradeableProxy,address)"
-					}
+					},
+					"text": "functionchangeProxyAdmin(TransparentUpgradeableProxyproxy,addressnewAdmin)publicvirtualonlyOwner{proxy.changeAdmin(newAdmin);}"
 				},
 				{
 					"id": 1653,
@@ -1927,7 +1949,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1667,
-										"is_pure": false
+										"is_pure": false,
+										"text": "implementation"
 									}
 								],
 								"expression": {
@@ -1971,14 +1994,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1666,
-										"is_pure": false
+										"is_pure": false,
+										"text": "proxy"
 									},
 									"member_name": "upgradeTo",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_TransparentUpgradeableProxy_$1360",
 										"type_string": "contract TransparentUpgradeableProxy"
-									}
+									},
+									"text": "proxy.upgradeTo"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$",
@@ -2161,13 +2186,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "upgrade(, address)",
-					"signature": "4d8866a1",
+					"signature_raw": "upgrade(,address)",
+					"signature": "9bb0528c",
 					"scope": 1567,
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_TransparentUpgradeableProxy_$1360$_t_address$",
 						"type_string": "function(contract TransparentUpgradeableProxy,address)"
-					}
+					},
+					"text": "functionupgrade(TransparentUpgradeableProxyproxy,addressimplementation)publicvirtualonlyOwner{proxy.upgradeTo(implementation);}"
 				},
 				{
 					"id": 1669,
@@ -2245,7 +2271,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1686,
-										"is_pure": false
+										"is_pure": false,
+										"text": "implementation"
 									},
 									{
 										"id": 1687,
@@ -2271,7 +2298,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "data"
 									}
 								],
 								"expression": {
@@ -2327,14 +2355,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 1685,
-											"is_pure": false
+											"is_pure": false,
+											"text": "proxy"
 										},
 										"member_name": "upgradeToAndCall",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_TransparentUpgradeableProxy_$1360",
 											"type_string": "contract TransparentUpgradeableProxy"
-										}
+										},
+										"text": "proxy.upgradeToAndCall"
 									},
 									"type_description": {
 										"type_identifier": "t_contract$_TransparentUpgradeableProxy_$1360",
@@ -2565,13 +2595,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "upgradeAndCall(, address, bytes)",
-					"signature": "2bf09e1e",
+					"signature_raw": "upgradeAndCall(,address,bytes)",
+					"signature": "c044ab52",
 					"scope": 1567,
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_TransparentUpgradeableProxy_$1360$_t_address$_t_bytes$",
 						"type_string": "function(contract TransparentUpgradeableProxy,address,bytes)"
-					}
+					},
+					"text": "functionupgradeAndCall(TransparentUpgradeableProxyproxy,addressimplementation,bytesmemorydata)publicpayablevirtualonlyOwner{proxy.upgradeToAndCall{value:msg.value}(implementation,data);}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -2604,7 +2635,8 @@
 							"parent_index": 1567
 						},
 						"name": "Ownable",
-						"referenced_declaration": 1080
+						"referenced_declaration": 1080,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

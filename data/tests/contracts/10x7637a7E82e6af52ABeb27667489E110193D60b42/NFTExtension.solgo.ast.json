@@ -24,7 +24,8 @@
 					"parent_index": 2194
 				},
 				"name": "INFTExtension",
-				"referenced_declaration": 1986
+				"referenced_declaration": 1986,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -50,7 +51,8 @@
 					"parent_index": 2194
 				},
 				"name": "ERC165",
-				"referenced_declaration": 1122
+				"referenced_declaration": 1122,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -59,7 +61,7 @@
 		{
 			"id": 2179,
 			"name": "NFTExtension",
-			"absolute_path": ""
+			"absolute_path": "MintPassExtension.sol"
 		},
 		{
 			"id": 2195,
@@ -72,7 +74,7 @@
 			"absolute_path": ""
 		}
 	],
-	"absolute_path": "",
+	"absolute_path": "MintPassExtension.sol",
 	"name": "NFTExtension",
 	"node_type": 1,
 	"nodes": [
@@ -333,7 +335,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 2200,
-										"is_pure": false
+										"is_pure": false,
+										"text": "nft"
 									},
 									"right_expression": {
 										"id": 2213,
@@ -372,7 +375,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2215,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_nft"
 											}
 										],
 										"expression": {
@@ -393,7 +397,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "IERC721Community"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
@@ -408,7 +413,8 @@
 								"type_description": {
 									"type_identifier": "t_contract$_IERC721Community_$2027",
 									"type_string": "contract IERC721Community"
-								}
+								},
+								"text": "nft=IERC721Community(_nft);"
 							}
 						]
 					}
@@ -527,7 +533,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "this"
 													}
 												],
 												"expression": {
@@ -573,7 +580,8 @@
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
-													]
+													],
+													"text": "address"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
@@ -622,14 +630,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2200,
-												"is_pure": false
+												"is_pure": false,
+												"text": "nft"
 											},
 											"member_name": "isExtensionAdded",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IERC721Community_$2027",
 												"type_string": "contract IERC721Community"
-											}
+											},
+											"text": "nft.isExtensionAdded"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$_t_address$",
@@ -662,7 +672,8 @@
 												"type_identifier": "t_function_$_t_function_$_t_address$",
 												"type_string": "function(function(address))"
 											}
-										]
+										],
+										"text": "\"NFTExtension: this contract is not allowed to be used as an extension\""
 									}
 								],
 								"expression": {
@@ -683,7 +694,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": true
+									"is_pure": true,
+									"text": "require"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_function_$_t_address$_t_string_literal$",
@@ -732,7 +744,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$",
 						"type_string": "function()"
-					}
+					},
+					"text": "functionbeforeMint()internalview{require(nft.isExtensionAdded(address(this)),\"NFTExtension: this contract is not allowed to be used as an extension\");}"
 				},
 				{
 					"id": 2232,
@@ -827,7 +840,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 2246,
-											"is_pure": false
+											"is_pure": false,
+											"text": "interfaceId"
 										},
 										"right_expression": {
 											"id": 2247,
@@ -874,7 +888,8 @@
 											"type_description": {
 												"type_identifier": "",
 												"type_string": "type"
-											}
+											},
+											"text": "type(INFTExtension).interfaceId"
 										},
 										"type_description": {
 											"type_identifier": "t_bool",
@@ -918,7 +933,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 2252,
-												"is_pure": false
+												"is_pure": false,
+												"text": "interfaceId"
 											}
 										],
 										"expression": {
@@ -962,14 +978,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "super"
 											},
 											"member_name": "supportsInterface",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_magic_super",
 												"type_string": "super"
-											}
+											},
+											"text": "super.supportsInterface"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_bytes4$",
@@ -1170,7 +1188,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes4$",
 						"type_string": "function(bytes4)"
-					}
+					},
+					"text": "functionsupportsInterface(bytes4interfaceId)publicviewvirtualoverride(IERC165,ERC165)returns(bool){returninterfaceId==type(INFTExtension).interfaceId||super.supportsInterface(interfaceId);}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -1202,7 +1221,8 @@
 							"parent_index": 2194
 						},
 						"name": "INFTExtension",
-						"referenced_declaration": 1986
+						"referenced_declaration": 1986,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -1228,7 +1248,8 @@
 							"parent_index": 2194
 						},
 						"name": "ERC165",
-						"referenced_declaration": 1122
+						"referenced_declaration": 1122,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],
