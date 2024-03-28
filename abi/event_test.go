@@ -9,7 +9,12 @@ import (
 )
 
 func TestProcessEvent(t *testing.T) {
-	builder := &Builder{}
+	builder := &Builder{
+		resolver: &TypeResolver{
+			parser:         nil,
+			processedTypes: make(map[string]bool),
+		},
+	}
 
 	testCases := []struct {
 		name            string
@@ -45,7 +50,7 @@ func TestProcessEvent(t *testing.T) {
 			assert.NoError(t, err)
 			assert.Equal(t, tc.expectedType, result.Type)
 			assert.Equal(t, tc.expectedName, result.Name)
-			assert.Equal(t, tc.expectedOutputs, len(result.Outputs))
+			assert.Equal(t, tc.expectedOutputs, len(result.Inputs))
 			for _, output := range result.Outputs {
 				assert.True(t, output.Indexed)
 			}

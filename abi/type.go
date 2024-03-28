@@ -151,6 +151,10 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 // Returns a Type representation of the discovered type.
 // @WARN: This function will probably need more work to handle more complex types.
 func (t *TypeResolver) discoverType(typeName string) Type {
+	if t.processedTypes == nil {
+		t.processedTypes = make(map[string]bool)
+	}
+
 	// Check if type has already been processed to avoid recursion
 	if _, exists := t.processedTypes[typeName]; exists {
 		return Type{} // Return an empty Type to break recursion

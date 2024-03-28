@@ -50,7 +50,6 @@ func (b *Builder) processContract(contract *ir.Contract) (*Contract, error) {
 
 	// Process state variables.
 	for _, stateVar := range contract.GetStateVariables() {
-		//fmt.Println("StateVar:", stateVar.GetName())
 		method := b.processStateVariable(stateVar)
 		toReturn = append(toReturn, method)
 	}

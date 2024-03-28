@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/unpackdev/solgo/ir"
-	"github.com/unpackdev/solgo/utils"
 )
 
 // processError processes an IR error and returns a Method representation of it.
@@ -20,8 +19,6 @@ func (b *Builder) processError(unit *ir.Error) (*Method, error) {
 
 	for _, parameter := range unit.GetParameters() {
 		if parameter.GetTypeDescription() == nil {
-			fmt.Println("PROCESS ERROR ABI")
-			utils.DumpNodeNoExit(parameter)
 			return nil, fmt.Errorf("nil type description for error parameter %s", parameter.GetName())
 		}
 

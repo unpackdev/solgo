@@ -18,7 +18,7 @@ func (b *Builder) processEvent(unit *ir.Event) (*Method, error) {
 	}
 
 	// Process parameters of the event.
-	// Note: In Ethereum, event parameters are considered as outputs.
+	// Note: In Ethereum, event parameters are considered as inputs.
 	for _, parameter := range unit.GetParameters() {
 		if parameter.GetTypeDescription() == nil {
 			return nil, fmt.Errorf("nil type description for event parameter %s", parameter.GetName())
