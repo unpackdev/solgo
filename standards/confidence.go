@@ -10,6 +10,8 @@ type ConfidenceLevel int
 // String returns the string representation of the confidence level.
 func (c ConfidenceLevel) String() string {
 	switch c {
+	case PerfectConfidence:
+		return "perfect"
 	case HighConfidence:
 		return "high"
 	case MediumConfidence:
@@ -37,6 +39,9 @@ func (c ConfidenceThreshold) ToProto() eip_pb.ConfidenceThreshold {
 }
 
 const (
+	// PerfectConfidenceThreshold represents a perfect confidence threshold value.
+	PerfectConfidenceThreshold ConfidenceThreshold = 1.0
+
 	// HighConfidenceThreshold represents a high confidence threshold value.
 	HighConfidenceThreshold ConfidenceThreshold = 0.9
 
@@ -48,6 +53,9 @@ const (
 
 	// NoConfidenceThreshold represents no confidence threshold value.
 	NoConfidenceThreshold ConfidenceThreshold = 0.0
+
+	// PerfectConfidence represents a perfect confidence level.
+	PerfectConfidence ConfidenceLevel = 4
 
 	// HighConfidence represents a high confidence level.
 	HighConfidence ConfidenceLevel = 3
@@ -66,6 +74,8 @@ const (
 func CalculateDiscoveryConfidence(totalConfidence float64) (ConfidenceLevel, ConfidenceThreshold) {
 	total := ConfidenceThreshold(totalConfidence)
 	switch {
+	case total == PerfectConfidenceThreshold:
+		return PerfectConfidence, PerfectConfidenceThreshold
 	case total >= HighConfidenceThreshold:
 		return HighConfidence, HighConfidenceThreshold
 	case total >= MediumConfidenceThreshold:
@@ -105,7 +115,7 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 
 		for _, contractFunction := range contract.Functions {
 			if _, found := discoveredFunctions[contractFunction.Name]; !found {
-				if tokensFound, found := functionMatch(&contractFn, standardFunction, contractFunction); found {
+				if tokensFound, found := FunctionMatch(&contractFn, standardFunction, contractFunction); found {
 					discoveredFunctions[contractFunction.Name] = true
 					contractFn.Matched = true
 					foundTokenCount += tokensFound
@@ -181,10 +191,46 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 	return toReturn, foundTokenCount > 0
 }
 
-// functionMatch matches a function from a contract to a standard function and returns the total token count and a boolean indicating if a match was found.
-func functionMatch(newFn *Function, standardFunction, contractFunction Function) (int, bool) {
-	totalTokenCount := 0
+func FunctionConfidenceCheck(standard EIP, fn *Function) (FunctionDiscovery, bool) {
+	foundTokenCount := 0
+	maximumTokens := standard.FunctionTokenCount(fn.Name)
 
+	toReturn := FunctionDiscovery{
+		Standard:         standard.GetType(),
+		Confidence:       NoConfidence,
+		ConfidencePoints: 0,
+		Threshold:        NoConfidenceThreshold,
+		MaximumTokens:    maximumTokens,
+		DiscoveredTokens: 0,
+		Function: &Function{
+			Name: fn.Name,
+		},
+	}
+
+	for _, standardFunction := range standard.GetFunctions() {
+		if fn.Name == standardFunction.Name {
+			if tokensFound, found := FunctionMatch(toReturn.Function, standardFunction, *fn); found {
+				fn.Matched = true
+				toReturn.Function.Matched = true
+				foundTokenCount += tokensFound
+			}
+		}
+	}
+
+	toReturn.DiscoveredTokens = foundTokenCount
+	confidencePoints := float64(foundTokenCount) / float64(maximumTokens)
+	level, threshold := CalculateDiscoveryConfidence(confidencePoints)
+	toReturn.Confidence = level
+	toReturn.ConfidencePoints = confidencePoints
+	toReturn.Threshold = threshold
+
+	return toReturn, foundTokenCount > 0
+}
+
+// functionMatch matches a function from a contract to a standard function and returns the total token count and a boolean indicating if a match was found.
+func FunctionMatch(newFn *Function, standardFunction, contractFunction Function) (int, bool) {
+	totalTokenCount := 0
+	newFn.Name = contractFunction.Name
 	if standardFunction.Name == contractFunction.Name {
 		totalTokenCount++
 		for _, sfnInput := range standardFunction.Inputs {

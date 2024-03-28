@@ -76,10 +76,15 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 			}
 
 			for _, ret := range function.GetReturnStatements() {
-
-				outputs = append(outputs, standards.Output{
-					Type: ret.GetTypeDescription().GetString(),
-				})
+				if ret.GetTypeDescription() != nil {
+					outputs = append(outputs, standards.Output{
+						Type: "t_unknown", // Will fix this later on with upgrade of parser to support solidity 0.5+
+					})
+				} else {
+					outputs = append(outputs, standards.Output{
+						Type: ret.GetTypeDescription().GetString(),
+					})
+				}
 			}
 
 			contract.Functions = append(contract.Functions, standards.Function{

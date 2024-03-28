@@ -1,6 +1,7 @@
 package ir
 
 import (
+	"github.com/ethereum/go-ethereum/common"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/ast"
@@ -10,8 +11,10 @@ import (
 
 // RootSourceUnit represents the root of a Solidity contract's AST as an IR node.
 type RootSourceUnit struct {
+	builder           *Builder        `json:"-"`
 	Unit              *ast.RootNode   `json:"ast"`
 	NodeType          ast_pb.NodeType `json:"node_type"`
+	Address           common.Address  `json:"address"`
 	EntryContractId   int64           `json:"entry_contract_id"`
 	EntryContractName string          `json:"entry_contract_name"`
 	ContractsCount    int32           `json:"contracts_count"`
@@ -70,6 +73,17 @@ func (r *RootSourceUnit) GetContractById(id int64) *Contract {
 	return nil
 }
 
+// GetContractBySourceUnitId returns the contract with the given source unit ID from the IR.
+func (r *RootSourceUnit) GetContractBySourceUnitId(id int64) *Contract {
+	for _, su := range r.Contracts {
+		if su.GetSourceUnitId() == id {
+			return su
+		}
+	}
+
+	return nil
+}
+
 // GetEntryContract returns the entry contract from the IR.
 func (r *RootSourceUnit) GetEntryContract() *Contract {
 	return r.GetContractById(r.EntryContractId)
@@ -90,11 +104,47 @@ func (r *RootSourceUnit) GetStandards() []*Standard {
 	return r.Standards
 }
 
-// HasEips returns true if standard is already registered false otherwise.
+// GetStandard returns the EIP with the given type.
+func (r *RootSourceUnit) GetStandard(standard standards.Standard) *Standard {
+	for _, e := range r.Standards {
+		if e.Standard.Type == standard {
+			return e
+		}
+	}
+	return nil
+}
+
+// HasStandard returns true if standard is already registered false otherwise.
 func (r *RootSourceUnit) HasStandard(standard standards.Standard) bool {
 	for _, e := range r.Standards {
 		if e.Standard.Type == standard {
 			return true
+		}
+	}
+
+	return false
+}
+
+// HasEips returns true if standard is already registered false otherwise.
+func (r *RootSourceUnit) HasHighConfidenceStandard(standard standards.Standard) bool {
+	for _, e := range r.Standards {
+		if e.Standard.Type == standard {
+			if e.GetConfidence().Confidence == standards.HighConfidence {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
+// HasPerfectConfidenceStandard
+func (r *RootSourceUnit) HasPerfectConfidenceStandard(standard standards.Standard) bool {
+	for _, e := range r.Standards {
+		if e.Standard.Type == standard {
+			if e.GetConfidence().Confidence == standards.PerfectConfidence {
+				return true
+			}
 		}
 	}
 
@@ -131,11 +181,11 @@ func (r *RootSourceUnit) GetContractsCountByKind(kind ast_pb.NodeType) int64 {
 // SetContractType sets the contract type for the given standard.
 func (r *RootSourceUnit) SetContractType(standard standards.Standard) {
 	switch standard {
-	case standards.EIP20:
+	case standards.ERC20:
 		r.appendContractType("token")
-	case standards.EIP721, standards.EIP1155:
+	case standards.ERC721, standards.ERC1155:
 		r.appendContractType("nft")
-	case standards.EIP1967, standards.EIP1820:
+	case standards.ERC1967, standards.ERC1820:
 		r.appendContractType("proxy")
 		r.appendContractType("upgradeable")
 	}
@@ -152,6 +202,10 @@ func (r *RootSourceUnit) appendContractType(contractType string) {
 // GetLinks returns the list of links discovered in the AST comments.
 func (r *RootSourceUnit) GetLinks() []*Link {
 	return r.Links
+}
+
+func (r *RootSourceUnit) IsEntryContract(contract *Contract) bool {
+	return r.EntryContractId == contract.Id
 }
 
 // ToProto is a placeholder function for converting the RootSourceUnit to a protobuf message.
@@ -173,10 +227,16 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 	return proto
 }
 
+func (r *RootSourceUnit) Walk(nodeVisitor *ast.NodeVisitor) error {
+	r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
+	return nil
+}
+
 // processRoot processes the given root node of an AST and returns a RootSourceUnit.
 // It populates the RootSourceUnit with the contracts from the AST.
 func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	rootNode := &RootSourceUnit{
+		builder:        b,
 		Unit:           root,
 		NodeType:       root.GetType(),
 		ContractsCount: int32(root.GetSourceUnitCount()),
@@ -192,7 +252,11 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 
 	entrySourceUnit := root.GetSourceUnitById(root.GetEntrySourceUnit())
 	if entrySourceUnit == nil {
-		zap.L().Warn("Entry source unit not found. Make sure it's correctly set.", zap.Int64("id", root.GetEntrySourceUnit()))
+		zap.L().Warn(
+			"Entry source unit not found. Make sure it's correctly set.",
+			zap.String("contract_address", b.GetAddress().Hex()),
+			zap.Int64("requested_source_unit_id", root.GetEntrySourceUnit()),
+		)
 	} else {
 		if entrySourceUnit.GetContract() != nil {
 			rootNode.EntryContractId = entrySourceUnit.GetContract().GetId()
@@ -215,7 +279,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 	b.processEips(rootNode)
 
 	// Discovery and processing of links within the AST comments.
-	// This is useful in order to extract social links from the comments in the code.
+	// This is useful to extract social links from the comments in the code.
 	b.processLinks(rootNode)
 
 	return rootNode
