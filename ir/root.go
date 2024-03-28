@@ -232,8 +232,7 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 // This function facilitates traversal of the AST, allowing for operations such as analysis, modification, or inspection to be
 // performed on each node.
 func (r *RootSourceUnit) Walk(nodeVisitor *ast.NodeVisitor) error {
-	r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
-	return nil
+	return r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
 }
 
 // processRoot processes the given root node of an AST and returns a RootSourceUnit.
