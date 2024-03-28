@@ -36,7 +36,7 @@ type ContractMetadata struct {
 	Settings struct {
 		EvmVersion        string            `json:"evmVersion"`
 		CompilationTarget map[string]string `json:"compilationTarget"`
-		Libraries         map[string]string `json:"libraries"`
+		Libraries         interface{}       `json:"libraries"`
 		Remappings        []string          `json:"remappings"`
 		Metadata          struct {
 			BytecodeHash      string `json:"bytecodeHash"`
@@ -99,8 +99,9 @@ func (c *ContractMetadata) ToProto() *metadata_pb.Metadata {
 		Settings: &metadata_pb.Metadata_Settings{
 			EvmVersion:        c.Settings.EvmVersion,
 			CompilationTarget: c.Settings.CompilationTarget,
-			Libraries:         c.Settings.Libraries,
-			Remappings:        c.Settings.Remappings,
+			// TODO: Libraries can be different types, we'll need to figure this shit out...
+			//Libraries:         c.Settings.Libraries.(map[string]string),
+			Remappings: c.Settings.Remappings,
 			Metadata: &metadata_pb.Metadata_Settings_MetadataSettings{
 				BytecodeHash:      c.Settings.Metadata.BytecodeHash,
 				UseLiteralContent: c.Settings.Metadata.UseLiteralContent,

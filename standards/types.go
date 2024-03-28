@@ -228,30 +228,25 @@ func (c *ContractMatcher) ToProto() *eip_pb.Contract {
 	}
 }
 
-// Discovery represents a contract standard discovery response.
+// FunctionMatcher represents an Ethereum smart contract focusing on matching specific functions
+// to a standard interface, such as those defined by ERC-20 or ERC-721 standards.
+type FunctionMatcher struct {
+	// Name specifies the name of the contract.
+	Name string `json:"name"`
+
+	// Functions is a list of Function structs, representing the functions defined by the contract.
+	Functions []Function `json:"functions"`
+}
+
+// Discovery represents the result of attempting to discover a contract standard.
 type Discovery struct {
-	// Confidence specifies the confidence level of the discovery.
-	Confidence ConfidenceLevel `json:"confidence"`
-
-	// ConfidencePoints specifies the confidence points of the discovery.
-	ConfidencePoints float64 `json:"confidence_points"`
-
-	// Threshold specifies the threshold level of the discovery.
-	Threshold ConfidenceThreshold `json:"threshold"`
-
-	// MaximumTokens specifies the maximum number of tokens in the standard.
-	// This is basically a standard TokenCount() function response value.
-	MaximumTokens int `json:"maximum_tokens"`
-
-	// DiscoverdTokens specifies the number of tokens discovered in the standard.
-	// The more tokens discovered, the higher the confidence level.
-	DiscoveredTokens int `json:"discovered_tokens"`
-
-	// ContractStandard that is being scanned.
-	Standard Standard `json:"standard"`
-
-	// Contract that is being scanned including mathed functions and events.
-	Contract *ContractMatcher `json:"contract"`
+	Confidence       ConfidenceLevel     `json:"confidence"`        // Confidence level of the discovery.
+	ConfidencePoints float64             `json:"confidence_points"` // Confidence points of the discovery.
+	Threshold        ConfidenceThreshold `json:"threshold"`         // Threshold level of the discovery.
+	MaximumTokens    int                 `json:"maximum_tokens"`    // Maximum number of tokens in the standard.
+	DiscoveredTokens int                 `json:"discovered_tokens"` // Number of tokens discovered in the standard.
+	Standard         Standard            `json:"standard"`          // Contract standard being scanned.
+	Contract         *ContractMatcher    `json:"contract"`          // Contract including matched functions and events.
 }
 
 // ToProto converts the Discovery to its protobuf representation.
@@ -265,4 +260,15 @@ func (d *Discovery) ToProto() *eip_pb.Discovery {
 		DiscoveredTokens: int32(d.DiscoveredTokens),
 		Contract:         d.Contract.ToProto(),
 	}
+}
+
+// FunctionDiscovery represents the result of attempting to discover a function within a contract standard.
+type FunctionDiscovery struct {
+	Confidence       ConfidenceLevel     `json:"confidence"`        // Confidence level of the discovery.
+	ConfidencePoints float64             `json:"confidence_points"` // Confidence points of the discovery.
+	Threshold        ConfidenceThreshold `json:"threshold"`         // Threshold level of the discovery.
+	MaximumTokens    int                 `json:"maximum_tokens"`    // Maximum number of tokens in the standard.
+	DiscoveredTokens int                 `json:"discovered_tokens"` // Number of tokens discovered in the standard.
+	Standard         Standard            `json:"standard"`          // Contract standard being scanned.
+	Function         *Function           `json:"function"`          // Matched function in the contract.
 }

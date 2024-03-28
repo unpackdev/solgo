@@ -28,71 +28,71 @@ func TestEIPStorage(t *testing.T) {
 		expectedError  string
 	}{
 		{
-			name: "Test EIP20",
+			name: "Test ERC20",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP20)
+				standard, err := GetContractByStandard(ERC20)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
 			}(),
 			expectedExists: true,
-			expectedError:  "standard EIP20 already exists",
+			expectedError:  "standard ERC20 already exists",
 		},
 		{
-			name: "Test EIP721",
+			name: "Test ERC721",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP721)
+				standard, err := GetContractByStandard(ERC721)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
 			}(),
 			expectedExists: true,
-			expectedError:  "standard EIP721 already exists",
+			expectedError:  "standard ERC721 already exists",
 		},
 		{
-			name: "Test EIP1155",
+			name: "Test ERC1155",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1155)
+				standard, err := GetContractByStandard(ERC1155)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
 			}(),
 			expectedExists: true,
-			expectedError:  "standard EIP1155 already exists",
+			expectedError:  "standard ERC1155 already exists",
 		},
 		{
-			name: "Test EIP1820",
+			name: "Test ERC1820",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1820)
+				standard, err := GetContractByStandard(ERC1820)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
 			}(),
 			expectedExists: true,
-			expectedError:  "standard EIP1820 already exists",
+			expectedError:  "standard ERC1820 already exists",
 		},
 		{
-			name: "Test EIP1822",
+			name: "Test ERC1822",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1822)
+				standard, err := GetContractByStandard(ERC1822)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
 			}(),
 			expectedExists: true,
 			isStagnant:     true,
-			expectedError:  "standard EIP1822 already exists",
+			expectedError:  "standard ERC1822 already exists",
 		},
 		{
-			name: "Test EIP1967",
+			name: "Test ERC1967",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1967)
+				standard, err := GetContractByStandard(ERC1967)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
 			}(),
 			expectedExists: true,
-			expectedError:  "standard EIP1967 already exists",
+			expectedError:  "standard ERC1967 already exists",
 		},
 	}
 

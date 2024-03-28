@@ -16,15 +16,18 @@ This project is ideal for those diving into data analysis, construction of robus
 
 ## Solidity Version Support
 
-**Currently Solidity versions equal or higher to 0.6.0 are supported.**
+**Currently, Solidity versions equal or higher to 0.6.0 are supported.**
 
 Older versions may or may not work due to changes in syntax that is not currently supported by the grammar file. In the future, we have plans to support all versions of Solidity.
 
 ## Disclaimer
 
 Please be aware that this project is still under active development. While it is approaching a state suitable for production use, there may still be undiscovered issues or limitations. Over the next few months, extensive testing will be conducted to evaluate its performance and stability. Additional tests and documentation will also be added during this phase.
+Additionally, most of the interfaces will stay as is, however, there could be architectural changes that may break your build in the future. I'll try to change as less as possible and notify everyone about the change in release notes.
 
 Once I am confident that the project is fully ready for production, this disclaimer will be removed. Until then, please use the software with caution and report any potential issues or feedback to help improve its quality.
+
+
 
 ## Documentation
 

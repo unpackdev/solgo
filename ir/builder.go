@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/ethereum/go-ethereum/common"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/ast"
@@ -14,6 +15,7 @@ import (
 // Builder facilitates the creation of the IR from source code using solgo and AST tools.
 type Builder struct {
 	ctx        context.Context // Context for the builder operations.
+	address    common.Address  // Optional address that can be provided to the builder.
 	sources    *solgo.Sources  // Source files to be processed.
 	parser     *solgo.Parser   // Parser for the source code.
 	astBuilder *ast.ASTBuilder // AST Builder for generating AST from parsed source.
@@ -134,4 +136,19 @@ func (b *Builder) Build() error {
 		b.root = b.processRoot(root)
 	}
 	return nil
+}
+
+// SetAddress assigns a specific Ethereum address to the Builder. This address can be associated with the sources being
+// processed and might be used for context-specific operations that require an Ethereum address. For instance, when
+// generating IR that includes information specific to a deployed contract, the address could be essential for accurate
+// data representation.
+func (b *Builder) SetAddress(address common.Address) {
+	b.address = address
+}
+
+// GetAddress retrieves the Ethereum address currently associated with the Builder. If an address has been set using
+// SetAddress, this method returns that address. Otherwise, it returns an empty common.Address. This function can be
+// useful to check if an address has been set or to retrieve the address for use in context-specific operations.
+func (b *Builder) GetAddress() common.Address {
+	return b.address
 }

@@ -28,9 +28,9 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		expectedError string
 	}{
 		{
-			name: "Test EIP20",
+			name: "Test ERC20",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP20)
+				standard, err := GetContractByStandard(ERC20)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -66,8 +66,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("Approval", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   68,
 					discoveredTokenCount: 68,
 					shouldMatch:          true,
@@ -167,7 +167,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP721",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP721)
+				standard, err := GetContractByStandard(ERC721)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -208,8 +208,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("ApprovalForAll", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeBool}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   90,
 					discoveredTokenCount: 90,
 					shouldMatch:          true,
@@ -221,7 +221,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1155",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1155)
+				standard, err := GetContractByStandard(ERC1155)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -259,8 +259,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("URI", []Input{{Type: TypeString, Indexed: false}, {Type: TypeUint256, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   115,
 					discoveredTokenCount: 115,
 					shouldMatch:          true,
@@ -272,7 +272,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1820",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1820)
+				standard, err := GetContractByStandard(ERC1820)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -308,8 +308,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("ManagerChanged", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   67,
 					discoveredTokenCount: 67,
 					shouldMatch:          true,
@@ -321,7 +321,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1822",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1822)
+				standard, err := GetContractByStandard(ERC1822)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -355,8 +355,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("ProxyOwnershipTransferred", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   29,
 					discoveredTokenCount: 29,
 					shouldMatch:          true,
@@ -368,7 +368,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 		{
 			name: "Test EIP1967",
 			standard: func() EIP {
-				standard, err := GetContractByStandard(EIP1967)
+				standard, err := GetContractByStandard(ERC1967)
 				assert.NoError(t, err)
 				assert.NotNil(t, standard)
 				return standard
@@ -404,8 +404,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("AdminChanged", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   67,
 					discoveredTokenCount: 67,
 					shouldMatch:          true,
@@ -516,7 +516,7 @@ func TestFunctionMatch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotTokens, gotMatch := functionMatch(tt.newFn, tt.standardFn, tt.contractFn)
+			gotTokens, gotMatch := FunctionMatch(tt.newFn, tt.standardFn, tt.contractFn)
 			assert.Equal(t, tt.expectedTokens, gotTokens)
 			assert.Equal(t, tt.expectedMatch, gotMatch)
 		})
@@ -571,7 +571,7 @@ func TestEventMatch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotTokens, gotMatch := eventMatch(tt.newEvent, tt.standardEvent, tt.contractEvent)
+			gotTokens, gotMatch := EventMatch(tt.newEvent, tt.standardEvent, tt.contractEvent)
 			assert.Equal(t, tt.expectedTokens, gotTokens)
 			assert.Equal(t, tt.expectedMatch, gotMatch)
 		})

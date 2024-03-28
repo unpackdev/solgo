@@ -2,10 +2,8 @@ package cfg
 
 import (
 	"context"
-	"path/filepath"
 	"testing"
 
-	"github.com/goccy/go-graphviz"
 	"github.com/stretchr/testify/assert"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/ast"
@@ -97,113 +95,11 @@ func TestCfgBuilder(t *testing.T) {
 			assert.NoError(t, parser.Build())
 
 			// Now we can get into the business of building the control flow graph
-			builder := NewBuilder(context.Background(), parser)
+			builder, err := NewBuilder(context.Background(), parser)
+			assert.NoError(t, err)
 			assert.NotNil(t, builder)
 			assert.IsType(t, &Builder{}, builder)
-			assert.NotNil(t, builder.GetGraphviz())
-
-			defer builder.Close()
-
-			graph, err := builder.Build()
-			if testCase.wantErr {
-				assert.Error(t, err)
-				assert.Nil(t, graph)
-				return
-			}
-
-			// Close the graph to free up resources.
-			// It is intentionally not closed in case that the graph is needed for further
-			// processing.
-			defer graph.Close()
-
-			assert.NoError(t, err)
-			assert.NotNil(t, graph)
-
-			outputPath := filepath.Join("..", "data", "tests", "cfg", testCase.sources.EntrySourceUnitName)
-
-			// Save the graph to a file as a png file.
-			err = builder.SaveAs(graph, graphviz.PNG, outputPath+".png")
-			assert.NoError(t, err)
-
-			// Save the graph to a file as a dot file.
-			dot, err := builder.GenerateDOT(graph)
-			assert.NoError(t, err)
-			assert.NotEmpty(t, dot)
-
-			err = utils.WriteToFile(outputPath+".dot", []byte(dot))
-			assert.NoError(t, err)
 
 		})
-
 	}
-
-}
-
-func TestNewBuilder(t *testing.T) {
-	parser := &ir.Builder{}
-	ctx := context.Background()
-
-	builder := NewBuilder(ctx, parser)
-	assert.NotNil(t, builder)
-	assert.Equal(t, ctx, builder.ctx)
-	assert.Equal(t, parser, builder.builder)
-	assert.NotNil(t, builder.viz)
-}
-
-func TestClose(t *testing.T) {
-	parser := &ir.Builder{}
-	builder := NewBuilder(context.Background(), parser)
-
-	err := builder.Close()
-	assert.NoError(t, err)
-}
-
-func TestGetGraphviz(t *testing.T) {
-	parser := &ir.Builder{}
-	builder := NewBuilder(context.Background(), parser)
-	viz := builder.GetGraphviz()
-	assert.NotNil(t, viz)
-	assert.IsType(t, &graphviz.Graphviz{}, viz)
-}
-
-func TestBuild(t *testing.T) {
-	parser := &ir.Builder{}
-	builder := NewBuilder(context.Background(), parser)
-	graph, err := builder.Build()
-	assert.Nil(t, graph)
-	assert.Error(t, err)
-	assert.Equal(t, "root node is not set", err.Error())
-	builder.viz = nil
-	graph, err = builder.Build()
-	assert.Nil(t, graph)
-	assert.Error(t, err)
-	assert.Equal(t, "graphviz instance is not set", err.Error())
-}
-
-func TestGenerateDOT(t *testing.T) {
-	parser := &ir.Builder{}
-	builder := NewBuilder(context.Background(), parser)
-	dot, err := builder.GenerateDOT(nil)
-	assert.Empty(t, dot)
-	assert.Error(t, err)
-	assert.Equal(t, "graph is not set", err.Error())
-
-	builder.viz = nil
-	dot, err = builder.GenerateDOT(nil)
-	assert.Empty(t, dot)
-	assert.Error(t, err)
-	assert.Equal(t, "graphviz instance is not set", err.Error())
-}
-
-func TestSaveAs(t *testing.T) {
-	parser := &ir.Builder{}
-	builder := NewBuilder(context.Background(), parser)
-	err := builder.SaveAs(nil, graphviz.PNG, "test.png")
-	assert.Error(t, err)
-	assert.Equal(t, "graph is not set", err.Error())
-
-	builder.viz = nil
-	err = builder.SaveAs(nil, graphviz.PNG, "test.png")
-	assert.Error(t, err)
-	assert.Equal(t, "graphviz instance is not set", err.Error())
 }
