@@ -1,12 +1,15 @@
 package abi
 
 import (
+	"fmt"
+
 	"github.com/unpackdev/solgo/ir"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // processError processes an IR error and returns a Method representation of it.
 // It extracts the name and parameters of the error and sets its type to "error" and state mutability to "view".
-func (b *Builder) processError(unit *ir.Error) *Method {
+func (b *Builder) processError(unit *ir.Error) (*Method, error) {
 	toReturn := &Method{
 		Name:            unit.GetName(),
 		Inputs:          make([]MethodIO, 0),
@@ -16,13 +19,21 @@ func (b *Builder) processError(unit *ir.Error) *Method {
 	}
 
 	for _, parameter := range unit.GetParameters() {
-		toReturn.Inputs = append(toReturn.Inputs, MethodIO{
-			Name:         parameter.GetName(),
-			Type:         normalizeTypeName(parameter.GetTypeDescription().GetString()),
-			InternalType: parameter.GetTypeDescription().GetString(),
-			Indexed:      true, // Parameters for errors are indexed by default.
-		})
+		if parameter.GetTypeDescription() == nil {
+			fmt.Println("PROCESS ERROR ABI")
+			utils.DumpNodeNoExit(parameter)
+			return nil, fmt.Errorf("nil type description for error parameter %s", parameter.GetName())
+		}
+
+		methodIo := MethodIO{
+			Name:    parameter.GetName(),
+			Indexed: parameter.IsIndexed(),
+		}
+		toReturn.Inputs = append(
+			toReturn.Inputs,
+			b.buildMethodIO(methodIo, parameter.GetTypeDescription()),
+		)
 	}
 
-	return toReturn
+	return toReturn, nil
 }

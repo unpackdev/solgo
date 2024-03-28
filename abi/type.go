@@ -14,11 +14,13 @@ type Type struct {
 	Type         string
 	InternalType string
 	Outputs      []Type
+	Components   []MethodIO
 }
 
 // TypeResolver provides methods to resolve and discover types within the ABI.
 type TypeResolver struct {
-	parser *ir.Builder
+	parser         *ir.Builder
+	processedTypes map[string]bool
 }
 
 // ResolveType determines the type of a given typeName based on its identifier.
@@ -105,7 +107,6 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 		for _, structVar := range contract.GetStructs() {
 			if structVar.GetName() == toReturn.Name {
 				for _, member := range structVar.GetMembers() {
-
 					// Mapping types are not supported in structs
 					if isMappingType(member.GetTypeDescription().GetString()) {
 						continue
@@ -150,12 +151,24 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 // Returns a Type representation of the discovered type.
 // @WARN: This function will probably need more work to handle more complex types.
 func (t *TypeResolver) discoverType(typeName string) Type {
+	// Check if type has already been processed to avoid recursion
+	if _, exists := t.processedTypes[typeName]; exists {
+		return Type{} // Return an empty Type to break recursion
+	}
+
+	// Mark this type as processed
+	t.processedTypes[typeName] = true
+
+	defer func() {
+		// Before returning, mark this type as not processed for future calls
+		delete(t.processedTypes, typeName)
+	}()
+
 	toReturn := Type{
 		Outputs: make([]Type, 0),
 	}
 
 	normalization := utils.NewNormalizeType().Normalize(typeName)
-
 	if normalization.Normalized {
 		toReturn.Type = normalization.TypeName
 		toReturn.InternalType = normalization.TypeName
@@ -169,12 +182,31 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 		}
 
 		for _, contract := range t.parser.GetRoot().GetContracts() {
+			if contract.GetName() == typeName {
+				toReturn.Outputs = append(toReturn.Outputs, Type{
+					Name:         contract.GetName(),
+					Type:         "address",
+					InternalType: contract.GetName(),
+				})
+				return toReturn
+			}
+
+			for _, enumVar := range contract.GetEnums() {
+				if enumVar.GetName() == typeName {
+					toReturn.Outputs = append(toReturn.Outputs, Type{
+						Name:         enumVar.GetName(),
+						Type:         "uint8",
+						InternalType: enumVar.GetAST().GetTypeDescription().GetString(),
+					})
+					return toReturn
+				}
+			}
+
 			for _, structVar := range contract.GetStructs() {
 				if structVar.GetName() == typeName {
 					for _, member := range structVar.GetMembers() {
 						if isMappingType(member.GetTypeDescription().GetString()) {
 							in, out := t.ResolveMappingType(member.GetTypeDescription())
-
 							for _, in := range in {
 								toReturn.Outputs = append(toReturn.Outputs, Type{
 									Name:         in.Name,
@@ -204,6 +236,28 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 							continue
 						}
 
+						if isStructType(member.GetTypeDescription().GetString()) {
+							// Recursively resolve the nested struct
+							nestedStructType := t.ResolveStructType(member.GetTypeDescription())
+							toReturn.Outputs = append(toReturn.Outputs, Type{
+								Name:         member.GetName(),
+								Type:         "tuple",
+								InternalType: member.GetTypeDescription().GetString(),
+								Components:   nestedStructType.Components,
+							})
+
+							continue
+						}
+
+						if isEnumType(member.GetTypeDescription().GetString()) {
+							toReturn.Outputs = append(toReturn.Outputs, Type{
+								Name:         member.GetName(),
+								Type:         "uint8",
+								InternalType: member.GetTypeDescription().GetString(),
+							})
+							continue
+						}
+
 						toReturn.Outputs = append(toReturn.Outputs, Type{
 							Name:         member.GetName(),
 							Type:         normalizeTypeName(member.GetTypeDescription().GetString()),
@@ -217,6 +271,15 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 
 		for _, node := range t.parser.GetRoot().GetAST().GetGlobalNodes() {
 			switch nodeCtx := node.(type) {
+			case *ast.EnumDefinition:
+				if nodeCtx.GetName() == typeName {
+					toReturn.Outputs = append(toReturn.Outputs, Type{
+						Name:         nodeCtx.GetName(),
+						Type:         "uint8",
+						InternalType: nodeCtx.GetTypeDescription().GetString(),
+					})
+					return toReturn
+				}
 			case *ast.StructDefinition:
 				if nodeCtx.GetName() == typeName {
 					for _, member := range nodeCtx.GetMembers() {
@@ -249,6 +312,28 @@ func (t *TypeResolver) discoverType(typeName string) Type {
 								InternalType: member.GetTypeDescription().GetString(),
 							})
 
+							continue
+						}
+
+						if isStructType(member.GetTypeDescription().GetString()) {
+							// Recursively resolve the nested struct
+							nestedStructType := t.ResolveStructType(member.GetTypeDescription())
+							toReturn.Outputs = append(toReturn.Outputs, Type{
+								Name:         member.GetName(),
+								Type:         "tuple",
+								InternalType: member.GetTypeDescription().GetString(),
+								Components:   nestedStructType.Components,
+							})
+
+							continue
+						}
+
+						if isEnumType(member.GetTypeDescription().GetString()) {
+							toReturn.Outputs = append(toReturn.Outputs, Type{
+								Name:         member.GetName(),
+								Type:         "uint8",
+								InternalType: member.GetTypeDescription().GetString(),
+							})
 							continue
 						}
 
