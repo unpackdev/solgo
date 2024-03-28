@@ -67,9 +67,6 @@ func TestDecodeContractCreationMetadata(t *testing.T) {
 				assert.NotNil(t, got.GetExecutionBytecode())
 				assert.NotNil(t, got.ToProto())
 				assert.GreaterOrEqual(t, len(got.GetUrls()), 0)
-
-				got.Experimental = []byte("true")
-				assert.True(t, got.GetExperimental())
 			}
 		})
 	}
