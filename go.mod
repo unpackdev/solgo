@@ -17,11 +17,11 @@ require (
 	github.com/ipfs/go-ipfs-api v0.6.0
 	github.com/mr-tron/base58 v1.2.0
 	github.com/sergi/go-diff v1.3.1
-	github.com/stretchr/testify v1.9.0
-	github.com/unpackdev/protos v0.3.3
-	go.uber.org/zap v1.27.0
-	golang.org/x/crypto v0.21.0
-	golang.org/x/sync v0.6.0
+	github.com/stretchr/testify v1.8.4
+	github.com/unpackdev/protos v0.3.2
+	go.uber.org/zap v1.26.0
+	golang.org/x/crypto v0.17.0
+	golang.org/x/sync v0.3.0
 	google.golang.org/protobuf v1.33.0
 )
 
