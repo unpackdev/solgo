@@ -1,11 +1,11 @@
 module github.com/unpackdev/solgo
 
-go 1.21
+go 1.22
 
 toolchain go1.22.0
 
 require (
-	github.com/0x19/solc-switch v1.0.3
+	github.com/0x19/solc-switch v1.0.4
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20240312170511-ee0267137e25
 	github.com/ethereum/go-ethereum v1.13.13

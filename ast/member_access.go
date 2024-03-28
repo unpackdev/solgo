@@ -2,7 +2,6 @@ package ast
 
 import (
 	"encoding/json"
-
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -41,8 +40,10 @@ func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 
 // SetReferenceDescriptor sets the reference descriptions of the MemberAccessExpression node.
 func (m *MemberAccessExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	m.ReferencedDeclaration = refId
-	m.TypeDescription = refDesc
+	if refDesc != nil {
+		m.ReferencedDeclaration = refId
+		m.TypeDescription = refDesc
+	}
 
 	// We have to now go one layer in parent to ensure that the type description is set everywhere...
 	if m.GetSrc().ParentIndex != 0 {
@@ -309,7 +310,7 @@ func (m *MemberAccessExpression) Parse(
 
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
-		// Handling edge case in type discovery.
+		// Handling the edge case in type discovery.
 		if m.Expression != nil && m.Expression.GetTypeDescription() == nil {
 			if refId, refTypeDescription := m.GetResolver().ResolveByNode(m, m.MemberName); refTypeDescription != nil {
 				m.ReferencedDeclaration = refId

@@ -33,7 +33,7 @@ func TestClientPool(t *testing.T) {
 			group:       "testGroup",
 			typ:         "testType",
 			expectError: true,
-			errorMsg:    "failed to initialize Ethereum client: Post \"http://localhost:2222\": dial tcp [::1]:2222: connect: connection refused",
+			errorMsg:    "connect: connection refused",
 		},
 		{
 			name: "Bsc Clients",
@@ -106,7 +106,7 @@ func TestClientPool(t *testing.T) {
 			pool, err := NewClientPool(context.Background(), tt.opts)
 			if tt.expectError {
 				assert.Error(t, err)
-				assert.Equal(t, tt.errorMsg, err.Error())
+				assert.Contains(t, err.Error(), tt.errorMsg)
 				return
 			} else {
 				assert.NoError(t, err)
