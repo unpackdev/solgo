@@ -1,12 +1,14 @@
 package solgo
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -58,7 +60,8 @@ func (s *SourceUnit) ToProto() *sources_pb.SourceUnit {
 	}
 }
 
-// Sources represents a collection of SourceUnit. It includes a slice of SourceUnit and the name of the entry source unit.
+// Sources represent a collection of SourceUnit.
+// It includes a slice of SourceUnit and the name of the entry source unit.
 type Sources struct {
 	prepared             bool          `yaml:"-" json:"-"`
 	SourceUnits          []*SourceUnit `yaml:"source_units" json:"source_units"`
@@ -93,6 +96,60 @@ func (s *Sources) ToProto() *sources_pb.Sources {
 	}
 }
 
+func NewSourcesFromPath(entrySourceUnitName, path string) (*Sources, error) {
+	info, err := os.Stat(path)
+	if err != nil {
+		return nil, err // Return the error if the path does not exist or cannot be accessed
+	}
+
+	if !info.IsDir() {
+		return nil, fmt.Errorf("path is not a directory: %s", path)
+	}
+
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		LocalSources:         false,
+		EntrySourceUnitName:  entrySourceUnitName,
+	}
+
+	files, err := os.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue // Skip directories
+		}
+
+		// Check if the file has a .sol extension
+		if filepath.Ext(file.Name()) == ".sol" {
+			filePath := filepath.Join(path, file.Name())
+
+			content, err := os.ReadFile(filePath)
+			if err != nil {
+				return nil, err
+			}
+
+			sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+				Name:    strings.TrimSuffix(file.Name(), ".sol"),
+				Path:    filePath,
+				Content: string(content),
+			})
+		}
+	}
+
+	if err := sources.SortContracts(); err != nil {
+		return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+	}
+
+	return sources, nil
+}
+
 // NewSourcesFromMetadata creates a Sources from a metadata package ContractMetadata.
 // This is a helper function that ensures easier integration when working with the metadata package.
 func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
@@ -124,10 +181,36 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 	return sources
 }
 
+func NewSourcesFromProto(entryContractName string, sc *sources_pb.Sources) (*Sources, error) {
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		EntrySourceUnitName:  entryContractName,
+		LocalSources:         false,
+	}
+
+	for _, source := range sc.GetSourceUnits() {
+		sources.AppendSource(&SourceUnit{
+			Name:    strings.TrimSuffix(filepath.Base(source.Name), ".sol"),
+			Path:    source.Name,
+			Content: source.Content,
+		})
+	}
+
+	if err := sources.SortContracts(); err != nil {
+		return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+	}
+
+	return sources, nil
+}
+
 // NewSourcesFromEtherScan creates a Sources from an EtherScan response.
 // This is a helper function that ensures easier integration when working with the EtherScan provider.
 // This includes BscScan, and other equivalent from the same family.
-func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources {
+func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources, error) {
 	_, filename, _, _ := runtime.Caller(0)
 	dir := filepath.Dir(filename)
 	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
@@ -145,6 +228,28 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources 
 			Path:    fmt.Sprintf("%s.sol", entryContractName),
 			Content: sourceCode,
 		})
+	case map[string]interface{}:
+		// Create an instance of ContractMetadata
+		var contractMetadata metadata.ContractMetadata
+
+		// Marshal the map into JSON, then Unmarshal it into the ContractMetadata struct
+		jsonBytes, err := json.Marshal(sourceCode)
+		if err != nil {
+			return nil, fmt.Errorf("error marshalling to json: %v", err)
+		}
+
+		if err := json.Unmarshal(jsonBytes, &contractMetadata); err != nil {
+			return nil, fmt.Errorf("error unmarshalling to contract metadata: %v", err)
+		}
+
+		for name, source := range contractMetadata.Sources {
+			sources.AppendSource(&SourceUnit{
+				Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
+				Path:    name,
+				Content: source.Content,
+			})
+		}
+
 	case metadata.ContractMetadata:
 		for name, source := range sourceCode.Sources {
 			sources.AppendSource(&SourceUnit{
@@ -153,19 +258,23 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) *Sources 
 				Content: source.Content,
 			})
 		}
+
+		if err := sources.SortContracts(); err != nil {
+			return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+		}
+
 	default:
-		panic(fmt.Sprintf("invalid source code type %T", sc))
+		return nil, fmt.Errorf("unknown source code type: %T", sourceCode)
 	}
 
-	return sources
+	return sources, nil
 }
 
 // AppendSource appends a SourceUnit to the Sources.
 // If a SourceUnit with the same name already exists, it replaces it unless the new SourceUnit has less content.
 func (s *Sources) AppendSource(source *SourceUnit) {
-
-	if s.SourceUnitExists(source.GetName()) {
-		unit := s.GetSourceUnitByName(source.GetName())
+	if s.SourceUnitPathExists(source.GetPath()) {
+		unit := s.GetSourceUnitByPath(source.GetPath())
 
 		if len(unit.Content) == len(source.Content) {
 			return
@@ -422,10 +531,25 @@ func (s *Sources) SourceUnitExists(name string) bool {
 	return s.SourceUnitExistsIn(name, s.SourceUnits)
 }
 
+// SourceUnitExists returns true if a SourceUnit with the given name exists in the Sources.
+func (s *Sources) SourceUnitPathExists(name string) bool {
+	return s.SourceUnitPathExistsIn(name, s.SourceUnits)
+}
+
 // SourceUnitExistsIn returns true if a SourceUnit with the given name exists in the given slice of SourceUnits.
 func (s *Sources) SourceUnitExistsIn(name string, units []*SourceUnit) bool {
 	for _, sourceUnit := range units {
 		if sourceUnit.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
+// SourceUnitExistsIn returns true if a SourceUnit with the given name exists in the given slice of SourceUnits.
+func (s *Sources) SourceUnitPathExistsIn(name string, units []*SourceUnit) bool {
+	for _, sourceUnit := range units {
+		if sourceUnit.Path == name {
 			return true
 		}
 	}
@@ -446,6 +570,7 @@ func (s *Sources) WriteToDir(path string) error {
 		content := utils.SimplifyImportPaths(sourceUnit.Content)
 
 		filePath := filepath.Join(path, sourceUnit.Name+".sol")
+
 		if err := utils.WriteToFile(filePath, []byte(content)); err != nil {
 			return fmt.Errorf("failed to write source unit %s to file: %v", sourceUnit.Name, err)
 		}
@@ -620,8 +745,12 @@ func (s *Sources) SortContracts() error {
 		}
 	}
 
-	// Use uniqueNodesSlice for the topological sort
-	sortedNodes, err := topologicalSort(uniqueNodesSlice)
+	originalOrderMap := make(map[string]int)
+	for i, sourceUnit := range s.SourceUnits {
+		originalOrderMap[sourceUnit.Name] = i
+	}
+
+	sortedNodes, err := topologicalSort(nodes, originalOrderMap)
 	if err != nil {
 		return err
 	}
@@ -641,11 +770,10 @@ func (s *Sources) SortContracts() error {
 // It returns a slice of nodes sorted in a way that for every directed edge U -> V,
 // node U comes before V in the ordering. If a cycle is detected, the function will
 // continue without error, but the result may not be a valid topological order.
-func topologicalSort(nodes []Node) ([]Node, error) {
+func topologicalSort(nodes []Node, originalOrder map[string]int) ([]Node, error) {
 	var sorted []Node
 	visited := make(map[string]bool)
 	onStack := make(map[string]bool) // To detect cycles
-	stack := []string{}              // Stack to track nodes being visited
 
 	// Helper function to generate a unique key for each node
 	uniqueKey := func(node Node) string {
@@ -664,7 +792,13 @@ func topologicalSort(nodes []Node) ([]Node, error) {
 		}
 		visited[nodeKey] = true
 		onStack[nodeKey] = true
-		stack = append(stack, nodeKey) // Push node to stack
+
+		// Sort dependencies for consistent order
+		sort.SliceStable(node.Dependencies, func(i, j int) bool {
+			depIKey := node.Dependencies[i]
+			depJKey := node.Dependencies[j]
+			return originalOrder[depIKey] < originalOrder[depJKey]
+		})
 
 		for _, depName := range node.Dependencies {
 			for _, depNode := range nodes {
@@ -677,9 +811,13 @@ func topologicalSort(nodes []Node) ([]Node, error) {
 		}
 
 		sorted = append(sorted, node)
-		stack = stack[:len(stack)-1] // Pop node from stack
 		onStack[nodeKey] = false
 		return nil
+	}
+
+	originalOrderMap := make(map[string]int)
+	for i, node := range nodes {
+		originalOrderMap[node.Name] = i
 	}
 
 	for _, node := range nodes {
