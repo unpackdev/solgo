@@ -8,19 +8,19 @@
 	"contracts_count": 3,
 	"contracts": [
 		{
-			"id": 35,
+			"id": 33,
 			"node_type": 35,
-			"kind": 38,
+			"kind": 37,
 			"source_unit_id": 31,
-			"name": "IERC20",
+			"name": "SafeMath",
 			"license": "MIT",
 			"language": "solidity",
-			"absolute_path": "IERC20.sol",
+			"absolute_path": "SafeMath.sol",
 			"symbols": [
 				{
 					"id": 31,
-					"name": "IERC20",
-					"absolute_path": "IERC20.sol"
+					"name": "SafeMath",
+					"absolute_path": "SafeMath.sol"
 				}
 			],
 			"pragmas": [
@@ -41,94 +41,29 @@
 					"text": "pragma solidity ^0.8.0;"
 				}
 			],
-			"events": [
-				{
-					"id": 101,
-					"node_type": 57,
-					"name": "Transfer",
-					"parameters": [
-						{
-							"id": 103,
-							"node_type": 44,
-							"name": "from",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 105,
-							"node_type": 44,
-							"name": "to",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 107,
-							"node_type": 44,
-							"name": "value",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 110,
-					"node_type": 57,
-					"name": "Approval",
-					"parameters": [
-						{
-							"id": 112,
-							"node_type": 44,
-							"name": "owner",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 114,
-							"node_type": 44,
-							"name": "spender",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 116,
-							"node_type": 44,
-							"name": "value",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				}
-			],
 			"functions": [
 				{
-					"id": 37,
+					"id": 35,
 					"node_type": 42,
 					"kind": 41,
-					"name": "totalSupply",
-					"visibility": 4,
-					"state_mutability": 5,
+					"name": "tryAdd",
+					"visibility": 1,
+					"state_mutability": 6,
 					"parameters": [
+						{
+							"id": 37,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
 						{
 							"id": 39,
 							"node_type": 44,
+							"name": "b",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -137,130 +72,57 @@
 						}
 					],
 					"body": {
-						"id": 44,
+						"id": 46,
 						"node_type": 46
 					},
-					"signature": "bd85b039",
+					"signature": "884557bf",
 					"return": [
 						{
 							"id": 42,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 46,
-					"node_type": 42,
-					"kind": 41,
-					"name": "balanceOf",
-					"visibility": 4,
-					"state_mutability": 5,
-					"parameters": [
-						{
-							"id": 48,
-							"node_type": 44,
-							"name": "account",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						}
-					],
-					"body": {
-						"id": 53,
-						"node_type": 46
-					},
-					"signature": "70a08231",
-					"return": [
-						{
-							"id": 51,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 55,
-					"node_type": 42,
-					"kind": 41,
-					"name": "transfer",
-					"visibility": 4,
-					"state_mutability": 4,
-					"parameters": [
-						{
-							"id": 57,
-							"node_type": 44,
-							"name": "recipient",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 59,
-							"node_type": 44,
-							"name": "amount",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 64,
-						"node_type": 46
-					},
-					"signature": "a9059cbb",
-					"return": [
-						{
-							"id": 62,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
 								"type_string": "bool"
 							}
+						},
+						{
+							"id": 44,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
 						}
 					]
 				},
 				{
-					"id": 66,
+					"id": 64,
 					"node_type": 42,
 					"kind": 41,
-					"name": "allowance",
-					"visibility": 4,
-					"state_mutability": 5,
+					"name": "trySub",
+					"visibility": 1,
+					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 68,
+							"id": 66,
 							"node_type": 44,
-							"name": "owner",
-							"type": "address",
+							"name": "a",
+							"type": "uint256",
 							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
 							}
 						},
 						{
-							"id": 70,
+							"id": 68,
 							"node_type": 44,
-							"name": "spender",
-							"type": "address",
+							"name": "b",
+							"type": "uint256",
 							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
 							}
 						}
 					],
@@ -268,8 +130,17 @@
 						"id": 75,
 						"node_type": 46
 					},
-					"signature": "dd62ed3e",
+					"signature": "a29962b1",
 					"return": [
+						{
+							"id": 71,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
 						{
 							"id": 73,
 							"node_type": 44,
@@ -282,27 +153,27 @@
 					]
 				},
 				{
-					"id": 77,
+					"id": 89,
 					"node_type": 42,
 					"kind": 41,
-					"name": "approve",
-					"visibility": 4,
-					"state_mutability": 4,
+					"name": "tryMul",
+					"visibility": 1,
+					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 79,
+							"id": 91,
 							"node_type": 44,
-							"name": "spender",
-							"type": "address",
+							"name": "a",
+							"type": "uint256",
 							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
 							}
 						},
 						{
-							"id": 81,
+							"id": 93,
 							"node_type": 44,
-							"name": "amount",
+							"name": "b",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -311,54 +182,53 @@
 						}
 					],
 					"body": {
-						"id": 86,
+						"id": 100,
 						"node_type": 46
 					},
-					"signature": "095ea7b3",
+					"signature": "6281efa4",
 					"return": [
 						{
-							"id": 84,
+							"id": 96,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
 								"type_string": "bool"
+							}
+						},
+						{
+							"id": 98,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
 							}
 						}
 					]
 				},
 				{
-					"id": 88,
+					"id": 125,
 					"node_type": 42,
 					"kind": 41,
-					"name": "transferFrom",
-					"visibility": 4,
-					"state_mutability": 4,
+					"name": "tryDiv",
+					"visibility": 1,
+					"state_mutability": 6,
 					"parameters": [
 						{
-							"id": 90,
+							"id": 127,
 							"node_type": 44,
-							"name": "sender",
-							"type": "address",
+							"name": "a",
+							"type": "uint256",
 							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
 							}
 						},
 						{
-							"id": 92,
+							"id": 129,
 							"node_type": 44,
-							"name": "recipient",
-							"type": "address",
-							"type_description": {
-								"type_identifier": "t_address",
-								"type_string": "address"
-							}
-						},
-						{
-							"id": 94,
-							"node_type": 44,
-							"name": "amount",
+							"name": "b",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -367,18 +237,485 @@
 						}
 					],
 					"body": {
-						"id": 99,
+						"id": 136,
 						"node_type": 46
 					},
-					"signature": "23b872dd",
+					"signature": "736ecb18",
 					"return": [
 						{
-							"id": 97,
+							"id": 132,
 							"node_type": 44,
 							"type": "bool",
 							"type_description": {
 								"type_identifier": "t_bool",
 								"type_string": "bool"
+							}
+						},
+						{
+							"id": 134,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 150,
+					"node_type": 42,
+					"kind": 41,
+					"name": "tryMod",
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 152,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 154,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 161,
+						"node_type": 46
+					},
+					"signature": "38dc0867",
+					"return": [
+						{
+							"id": 157,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						},
+						{
+							"id": 159,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 175,
+					"node_type": 42,
+					"kind": 41,
+					"name": "add",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 177,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 179,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 184,
+						"node_type": 46
+					},
+					"signature": "771602f7",
+					"return": [
+						{
+							"id": 182,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 190,
+					"node_type": 42,
+					"kind": 41,
+					"name": "sub",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 192,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 194,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 199,
+						"node_type": 46
+					},
+					"signature": "b67d77c5",
+					"return": [
+						{
+							"id": 197,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 205,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mul",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 207,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 209,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 214,
+						"node_type": 46
+					},
+					"signature": "c8a4ac9c",
+					"return": [
+						{
+							"id": 212,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 220,
+					"node_type": 42,
+					"kind": 41,
+					"name": "div",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 222,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 224,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 229,
+						"node_type": 46
+					},
+					"signature": "a391c15b",
+					"return": [
+						{
+							"id": 227,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 235,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mod",
+					"implemented": true,
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 237,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 239,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 244,
+						"node_type": 46
+					},
+					"signature": "f43f523a",
+					"return": [
+						{
+							"id": 242,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 250,
+					"node_type": 42,
+					"kind": 41,
+					"name": "sub",
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 252,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 254,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 256,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 261,
+						"node_type": 46
+					},
+					"signature": "e31bdc0a",
+					"return": [
+						{
+							"id": 259,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 274,
+					"node_type": 42,
+					"kind": 41,
+					"name": "div",
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 276,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 278,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 280,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 285,
+						"node_type": 46
+					},
+					"signature": "b745d336",
+					"return": [
+						{
+							"id": 283,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 298,
+					"node_type": 42,
+					"kind": 41,
+					"name": "mod",
+					"visibility": 1,
+					"state_mutability": 6,
+					"parameters": [
+						{
+							"id": 300,
+							"node_type": 44,
+							"name": "a",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 302,
+							"node_type": 44,
+							"name": "b",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						},
+						{
+							"id": 304,
+							"node_type": 44,
+							"name": "errorMessage",
+							"type": "string",
+							"type_description": {
+								"type_identifier": "t_string",
+								"type_string": "string"
+							}
+						}
+					],
+					"body": {
+						"id": 309,
+						"node_type": 46
+					},
+					"signature": "71af23e8",
+					"return": [
+						{
+							"id": 307,
+							"node_type": 44,
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
 							}
 						}
 					]
@@ -386,24 +723,24 @@
 			]
 		},
 		{
-			"id": 121,
+			"id": 326,
 			"node_type": 35,
-			"kind": 37,
-			"source_unit_id": 118,
-			"name": "SafeMath",
+			"kind": 38,
+			"source_unit_id": 321,
+			"name": "IERC20",
 			"license": "MIT",
 			"language": "solidity",
-			"absolute_path": "SafeMath.sol",
+			"absolute_path": "IERC20.sol",
 			"symbols": [
 				{
-					"id": 118,
-					"name": "SafeMath",
-					"absolute_path": "SafeMath.sol"
+					"id": 321,
+					"name": "IERC20",
+					"absolute_path": "IERC20.sol"
 				}
 			],
 			"pragmas": [
 				{
-					"id": 120,
+					"id": 323,
 					"node_type": 10,
 					"literals": [
 						"pragma",
@@ -419,506 +756,91 @@
 					"text": "pragma solidity ^0.8.0;"
 				}
 			],
+			"events": [
+				{
+					"id": 392,
+					"node_type": 57,
+					"name": "Transfer",
+					"parameters": [
+						{
+							"id": 394,
+							"node_type": 44,
+							"name": "from",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 396,
+							"node_type": 44,
+							"name": "to",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 398,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				},
+				{
+					"id": 401,
+					"node_type": 57,
+					"name": "Approval",
+					"parameters": [
+						{
+							"id": 403,
+							"node_type": 44,
+							"name": "owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 405,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 407,
+							"node_type": 44,
+							"name": "value",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					]
+				}
+			],
 			"functions": [
 				{
-					"id": 123,
+					"id": 328,
 					"node_type": 42,
 					"kind": 41,
-					"name": "tryAdd",
-					"visibility": 1,
-					"state_mutability": 6,
+					"name": "totalSupply",
+					"visibility": 4,
+					"state_mutability": 5,
 					"parameters": [
-						{
-							"id": 125,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 127,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 134,
-						"node_type": 46
-					},
-					"signature": "884557bf",
-					"return": [
-						{
-							"id": 130,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						},
-						{
-							"id": 132,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 152,
-					"node_type": 42,
-					"kind": 41,
-					"name": "trySub",
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 154,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 156,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 163,
-						"node_type": 46
-					},
-					"signature": "a29962b1",
-					"return": [
-						{
-							"id": 159,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						},
-						{
-							"id": 161,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 177,
-					"node_type": 42,
-					"kind": 41,
-					"name": "tryMul",
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 179,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 181,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 188,
-						"node_type": 46
-					},
-					"signature": "6281efa4",
-					"return": [
-						{
-							"id": 184,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						},
-						{
-							"id": 186,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 213,
-					"node_type": 42,
-					"kind": 41,
-					"name": "tryDiv",
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 215,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 217,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 224,
-						"node_type": 46
-					},
-					"signature": "736ecb18",
-					"return": [
-						{
-							"id": 220,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						},
-						{
-							"id": 222,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 238,
-					"node_type": 42,
-					"kind": 41,
-					"name": "tryMod",
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 240,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 242,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 249,
-						"node_type": 46
-					},
-					"signature": "38dc0867",
-					"return": [
-						{
-							"id": 245,
-							"node_type": 44,
-							"type": "bool",
-							"type_description": {
-								"type_identifier": "t_bool",
-								"type_string": "bool"
-							}
-						},
-						{
-							"id": 247,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 263,
-					"node_type": 42,
-					"kind": 41,
-					"name": "add",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 265,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 267,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 272,
-						"node_type": 46
-					},
-					"signature": "771602f7",
-					"return": [
-						{
-							"id": 270,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 278,
-					"node_type": 42,
-					"kind": 41,
-					"name": "sub",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 280,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 282,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 287,
-						"node_type": 46
-					},
-					"signature": "b67d77c5",
-					"return": [
-						{
-							"id": 285,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 293,
-					"node_type": 42,
-					"kind": 41,
-					"name": "mul",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 295,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 297,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 302,
-						"node_type": 46
-					},
-					"signature": "c8a4ac9c",
-					"return": [
-						{
-							"id": 300,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 308,
-					"node_type": 42,
-					"kind": 41,
-					"name": "div",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 310,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 312,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 317,
-						"node_type": 46
-					},
-					"signature": "a391c15b",
-					"return": [
-						{
-							"id": 315,
-							"node_type": 44,
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					]
-				},
-				{
-					"id": 323,
-					"node_type": 42,
-					"kind": 41,
-					"name": "mod",
-					"implemented": true,
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
-						{
-							"id": 325,
-							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 327,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						}
-					],
-					"body": {
-						"id": 332,
-						"node_type": 46
-					},
-					"signature": "f43f523a",
-					"return": [
 						{
 							"id": 330,
 							"node_type": 44,
@@ -928,56 +850,52 @@
 								"type_string": "uint256"
 							}
 						}
-					]
-				},
-				{
-					"id": 338,
-					"node_type": 42,
-					"kind": 41,
-					"name": "sub",
-					"visibility": 1,
-					"state_mutability": 6,
-					"parameters": [
+					],
+					"body": {
+						"id": 335,
+						"node_type": 46
+					},
+					"signature": "bd85b039",
+					"return": [
 						{
-							"id": 340,
+							"id": 333,
 							"node_type": 44,
-							"name": "a",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
 								"type_string": "uint256"
 							}
-						},
+						}
+					]
+				},
+				{
+					"id": 337,
+					"node_type": 42,
+					"kind": 41,
+					"name": "balanceOf",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 339,
+							"node_type": 44,
+							"name": "account",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 344,
+						"node_type": 46
+					},
+					"signature": "70a08231",
+					"return": [
 						{
 							"id": 342,
 							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 344,
-							"node_type": 44,
-							"name": "errorMessage",
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					],
-					"body": {
-						"id": 349,
-						"node_type": 46
-					},
-					"signature": "e31bdc0a",
-					"return": [
-						{
-							"id": 347,
-							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -987,53 +905,89 @@
 					]
 				},
 				{
-					"id": 362,
+					"id": 346,
 					"node_type": 42,
 					"kind": 41,
-					"name": "div",
-					"visibility": 1,
-					"state_mutability": 6,
+					"name": "transfer",
+					"visibility": 4,
+					"state_mutability": 4,
 					"parameters": [
+						{
+							"id": 348,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 350,
+							"node_type": 44,
+							"name": "amount",
+							"type": "uint256",
+							"type_description": {
+								"type_identifier": "t_uint256",
+								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 355,
+						"node_type": 46
+					},
+					"signature": "a9059cbb",
+					"return": [
+						{
+							"id": 353,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 357,
+					"node_type": 42,
+					"kind": 41,
+					"name": "allowance",
+					"visibility": 4,
+					"state_mutability": 5,
+					"parameters": [
+						{
+							"id": 359,
+							"node_type": 44,
+							"name": "owner",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 361,
+							"node_type": 44,
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						}
+					],
+					"body": {
+						"id": 366,
+						"node_type": 46
+					},
+					"signature": "dd62ed3e",
+					"return": [
 						{
 							"id": 364,
 							"node_type": 44,
-							"name": "a",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 366,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 368,
-							"node_type": 44,
-							"name": "errorMessage",
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
-							}
-						}
-					],
-					"body": {
-						"id": 373,
-						"node_type": 46
-					},
-					"signature": "b745d336",
-					"return": [
-						{
-							"id": 371,
-							"node_type": 44,
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
@@ -1043,57 +997,103 @@
 					]
 				},
 				{
-					"id": 386,
+					"id": 368,
 					"node_type": 42,
 					"kind": 41,
-					"name": "mod",
-					"visibility": 1,
-					"state_mutability": 6,
+					"name": "approve",
+					"visibility": 4,
+					"state_mutability": 4,
 					"parameters": [
 						{
-							"id": 388,
+							"id": 370,
 							"node_type": 44,
-							"name": "a",
+							"name": "spender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 372,
+							"node_type": 44,
+							"name": "amount",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
 								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 390,
-							"node_type": 44,
-							"name": "b",
-							"type": "uint256",
-							"type_description": {
-								"type_identifier": "t_uint256",
-								"type_string": "uint256"
-							}
-						},
-						{
-							"id": 392,
-							"node_type": 44,
-							"name": "errorMessage",
-							"type": "string",
-							"type_description": {
-								"type_identifier": "t_string",
-								"type_string": "string"
 							}
 						}
 					],
 					"body": {
-						"id": 397,
+						"id": 377,
 						"node_type": 46
 					},
-					"signature": "71af23e8",
+					"signature": "095ea7b3",
 					"return": [
 						{
-							"id": 395,
+							"id": 375,
 							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
+							}
+						}
+					]
+				},
+				{
+					"id": 379,
+					"node_type": 42,
+					"kind": 41,
+					"name": "transferFrom",
+					"visibility": 4,
+					"state_mutability": 4,
+					"parameters": [
+						{
+							"id": 381,
+							"node_type": 44,
+							"name": "sender",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 383,
+							"node_type": 44,
+							"name": "recipient",
+							"type": "address",
+							"type_description": {
+								"type_identifier": "t_address",
+								"type_string": "address"
+							}
+						},
+						{
+							"id": 385,
+							"node_type": 44,
+							"name": "amount",
 							"type": "uint256",
 							"type_description": {
 								"type_identifier": "t_uint256",
 								"type_string": "uint256"
+							}
+						}
+					],
+					"body": {
+						"id": 390,
+						"node_type": 46
+					},
+					"signature": "23b872dd",
+					"return": [
+						{
+							"id": 388,
+							"node_type": 44,
+							"type": "bool",
+							"type_description": {
+								"type_identifier": "t_bool",
+								"type_string": "bool"
 							}
 						}
 					]
@@ -1116,12 +1116,12 @@
 					"absolute_path": "TokenSale.sol"
 				},
 				{
-					"id": 118,
+					"id": 31,
 					"name": "SafeMath",
 					"absolute_path": "SafeMath.sol"
 				},
 				{
-					"id": 31,
+					"id": 321,
 					"name": "IERC20",
 					"absolute_path": "IERC20.sol"
 				}
@@ -1130,16 +1130,16 @@
 				{
 					"id": 413,
 					"node_type": 29,
-					"source_unit_id": 31,
-					"contract_id": 35,
+					"source_unit_id": 321,
+					"contract_id": 326,
 					"absolute_path": "IERC20.sol",
 					"file": "./IERC20.sol"
 				},
 				{
 					"id": 414,
 					"node_type": 29,
-					"source_unit_id": 118,
-					"contract_id": 121,
+					"source_unit_id": 31,
+					"contract_id": 33,
 					"absolute_path": "SafeMath.sol",
 					"file": "./SafeMath.sol"
 				}
@@ -1173,7 +1173,7 @@
 					"state_mutability": 1,
 					"type": "contract IERC20",
 					"type_description": {
-						"type_identifier": "t_contract$_IERC20_$31",
+						"type_identifier": "t_contract$_IERC20_$321",
 						"type_string": "contract IERC20"
 					}
 				},
