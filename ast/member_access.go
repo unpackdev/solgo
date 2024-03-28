@@ -2,7 +2,6 @@ package ast
 
 import (
 	"encoding/json"
-
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
@@ -26,6 +25,7 @@ type MemberAccessExpression struct {
 	ArgumentTypes         []*TypeDescription `json:"argument_types"`
 	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
 	TypeDescription       *TypeDescription   `json:"type_description"`
+	Text                  string             `json:"text"`
 }
 
 // NewMemberAccessExpression creates a new MemberAccessExpression instance with initial values.
@@ -40,8 +40,17 @@ func NewMemberAccessExpression(b *ASTBuilder) *MemberAccessExpression {
 
 // SetReferenceDescriptor sets the reference descriptions of the MemberAccessExpression node.
 func (m *MemberAccessExpression) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	m.ReferencedDeclaration = refId
-	m.TypeDescription = refDesc
+	if refDesc != nil {
+		m.ReferencedDeclaration = refId
+		m.TypeDescription = refDesc
+	}
+
+	// We have to now go one layer in parent to ensure that the type description is set everywhere...
+	if m.GetSrc().ParentIndex != 0 {
+		if parent := m.tree.GetById(m.GetSrc().ParentIndex); parent != nil {
+			parent.SetReferenceDescriptor(refId, refDesc)
+		}
+	}
 	return true
 }
 
@@ -244,6 +253,10 @@ func (m *MemberAccessExpression) ToProto() NodeType {
 	return NewTypedStruct(&proto, "MemberAccess")
 }
 
+func (m *MemberAccessExpression) ToText() string {
+	return m.Text
+}
+
 // Parse populates the MemberAccessExpression node based on the provided context and other information.
 func (m *MemberAccessExpression) Parse(
 	unit *SourceUnit[Node[ast_pb.SourceUnit]],
@@ -254,6 +267,7 @@ func (m *MemberAccessExpression) Parse(
 	expNode Node[NodeType],
 	ctx *parser.MemberAccessContext,
 ) Node[NodeType] {
+	m.Text = ctx.GetText()
 	m.Src = SrcNode{
 		Line:   int64(ctx.GetStart().GetLine()),
 		Column: int64(ctx.GetStart().GetColumn()),
@@ -269,7 +283,11 @@ func (m *MemberAccessExpression) Parse(
 				return expNode.GetId()
 			}
 
-			return bodyNode.GetId()
+			if bodyNode != nil {
+				return bodyNode.GetId()
+			}
+
+			return 0 // Should fix this in the future...
 		}(),
 	}
 	m.NodeType = ast_pb.NodeType_MEMBER_ACCESS
@@ -292,7 +310,7 @@ func (m *MemberAccessExpression) Parse(
 
 		m.TypeDescription = m.Expression.GetTypeDescription()
 
-		// Handling edge case in type discovery.
+		// Handling the edge case in type discovery.
 		if m.Expression != nil && m.Expression.GetTypeDescription() == nil {
 			if refId, refTypeDescription := m.GetResolver().ResolveByNode(m, m.MemberName); refTypeDescription != nil {
 				m.ReferencedDeclaration = refId

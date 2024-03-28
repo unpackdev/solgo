@@ -24,7 +24,8 @@
 					"parent_index": 963
 				},
 				"name": "Proxy",
-				"referenced_declaration": 151
+				"referenced_declaration": 151,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -50,7 +51,8 @@
 					"parent_index": 963
 				},
 				"name": "ERC1967Upgrade",
-				"referenced_declaration": 614
+				"referenced_declaration": 614,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -70,11 +72,6 @@
 			"id": 151,
 			"name": "Proxy",
 			"absolute_path": "Proxy.sol"
-		},
-		{
-			"id": 119,
-			"name": "IBeacon",
-			"absolute_path": "IBeacon.sol"
 		},
 		{
 			"id": 119,
@@ -127,7 +124,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 614
+			"source_unit": 119
 		},
 		{
 			"id": 961,
@@ -146,7 +143,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 614
+			"source_unit": 151
 		},
 		{
 			"id": 962,
@@ -390,7 +387,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 894,
-											"is_pure": false
+											"is_pure": false,
+											"text": "_BEACON_SLOT"
 										},
 										"right_expression": {
 											"id": 981,
@@ -483,7 +481,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 0,
-																		"is_pure": true
+																		"is_pure": true,
+																		"text": "\"eip1967.proxy.beacon\""
 																	}
 																],
 																"expression": {
@@ -504,7 +503,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "keccak256"
 																},
 																"type_description": {
 																	"type_identifier": "t_function__t_string_literal$",
@@ -554,7 +554,8 @@
 																	"type_identifier": "t_uint256",
 																	"type_string": "uint256"
 																}
-															]
+															],
+															"text": "uint256"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_function__t_string_literal$",
@@ -581,7 +582,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": true
+														"is_pure": true,
+														"text": "1"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function__t_string_literal$",
@@ -631,7 +633,8 @@
 														"type_identifier": "t_bytes32",
 														"type_string": "bytes32"
 													}
-												]
+												],
+												"text": "bytes32"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$",
@@ -662,7 +665,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "assert"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_bool$",
@@ -714,7 +718,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 994,
-										"is_pure": false
+										"is_pure": false,
+										"text": "beacon"
 									},
 									{
 										"id": 995,
@@ -740,7 +745,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "data"
 									},
 									{
 										"id": 996,
@@ -772,7 +778,8 @@
 												"type_identifier": "t_bytes",
 												"type_string": "bytes"
 											}
-										]
+										],
+										"text": "false"
 									}
 								],
 								"expression": {
@@ -793,7 +800,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_upgradeBeaconToAndCall"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
@@ -882,7 +890,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "_getBeacon"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -1024,7 +1033,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_beacon()internalviewvirtualreturns(address){return_getBeacon();}"
 				},
 				{
 					"id": 1010,
@@ -1161,7 +1171,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_getBeacon"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$",
@@ -1187,7 +1198,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "IBeacon"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_$",
@@ -1199,7 +1211,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
 											"type_string": "function(function())"
-										}
+										},
+										"text": "IBeacon(_getBeacon()).implementation"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -1360,7 +1373,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_implementation()internalviewvirtualoverridereturns(address){returnIBeacon(_getBeacon()).implementation();}"
 				},
 				{
 					"id": 1027,
@@ -1442,7 +1456,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 1037,
-										"is_pure": false
+										"is_pure": false,
+										"text": "beacon"
 									},
 									{
 										"id": 1038,
@@ -1468,7 +1483,8 @@
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
-										]
+										],
+										"text": "data"
 									},
 									{
 										"id": 1039,
@@ -1500,7 +1516,8 @@
 												"type_identifier": "t_bytes",
 												"type_string": "bytes"
 											}
-										]
+										],
+										"text": "false"
 									}
 								],
 								"expression": {
@@ -1521,7 +1538,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 0,
-									"is_pure": false
+									"is_pure": false,
+									"text": "_upgradeBeaconToAndCall"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_address$_t_bytes$_t_bool$",
@@ -1653,13 +1671,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_setBeacon(address, bytes)",
-					"signature": "7fd69114",
+					"signature_raw": "_setBeacon(address,bytes)",
+					"signature": "d894e410",
 					"scope": 963,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_bytes$",
 						"type_string": "function(address,bytes)"
-					}
+					},
+					"text": "function_setBeacon(addressbeacon,bytesmemorydata)internalvirtual{_upgradeBeaconToAndCall(beacon,data,false);}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -1694,7 +1713,8 @@
 							"parent_index": 963
 						},
 						"name": "Proxy",
-						"referenced_declaration": 151
+						"referenced_declaration": 151,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -1720,7 +1740,8 @@
 							"parent_index": 963
 						},
 						"name": "ERC1967Upgrade",
-						"referenced_declaration": 614
+						"referenced_declaration": 614,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],

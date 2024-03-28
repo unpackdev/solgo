@@ -9,6 +9,7 @@ import (
 
 	"github.com/0x19/solc-switch"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/unpackdev/solgo"
 	"github.com/unpackdev/solgo/tests"
 	"github.com/unpackdev/solgo/utils"
@@ -336,7 +337,7 @@ func TestVerifier(t *testing.T) {
 				if testCase.wantErr {
 					assert.Error(t, err)
 					if !testCase.wantNilResults {
-						assert.NotNil(t, results)
+						require.NotNil(t, results)
 						assert.False(t, results.IsVerified())
 						assert.Equal(t, results.GetExpectedBytecode(), hex.EncodeToString(testCase.bytecode))
 						assert.NotNil(t, results.GetCompilerResult())

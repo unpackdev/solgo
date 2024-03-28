@@ -155,11 +155,6 @@ func (r *Resolver) Resolve() []error {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {
 					delete(r.UnprocessedNodes, nodeId)
 				} else {
-					/* 					if node.Name == "M" {
-						parentNode := r.tree.GetById(node.Node.GetSrc().GetParentIndex())
-						utils.DumpNodeNoExit(parentNode)
-						utils.DumpNodeWithExit(node)
-					} */
 					uNode := r.UnprocessedNodes[nodeId]
 					uNode.ErrUpdateRef = true
 					r.UnprocessedNodes[nodeId] = uNode
@@ -204,15 +199,15 @@ func (r *Resolver) Resolve() []error {
 // resolveImportDirectives resolves import directives in the AST.
 func (r *Resolver) resolveImportDirectives() {
 	for _, sourceNode := range r.sourceUnits {
-		// In case any imports are available and they are not exported
-		// we are going to append them to the exported symbols.
+	nodeLookup:
 		for _, node := range sourceNode.GetNodes() {
 			if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
 				importNode := node.(*Import)
 				if importNode.GetSourceUnit() == 0 {
-					for _, sourceNode := range r.sourceUnits {
-						if sourceNode.GetAbsolutePath() == importNode.GetAbsolutePath() {
-							node.SetReferenceDescriptor(sourceNode.GetId(), nil)
+					for _, matchNode := range r.sourceUnits {
+						if importNode.GetAbsolutePath() == matchNode.GetAbsolutePath() {
+							node.SetReferenceDescriptor(matchNode.GetId(), nil)
+							continue nodeLookup
 						}
 					}
 				}
@@ -224,12 +219,15 @@ func (r *Resolver) resolveImportDirectives() {
 // resolveBaseContracts resolves base contracts in the AST.
 func (r *Resolver) resolveBaseContracts() {
 	for _, sourceNode := range r.sourceUnits {
+	looper:
 		for _, baseContract := range sourceNode.GetBaseContracts() {
 			if baseContract.GetBaseName() != nil {
 				if baseContract.GetBaseName().GetReferencedDeclaration() == 0 {
 					for _, sourceNode := range r.sourceUnits {
 						if sourceNode.GetName() == baseContract.GetBaseName().GetName() {
 							baseContract.BaseName.ReferencedDeclaration = sourceNode.GetId()
+							baseContract.BaseName.ContractReferencedDeclaration = sourceNode.GetContract().GetId()
+							continue looper
 						}
 					}
 				}
@@ -720,42 +718,3 @@ func (r *Resolver) byRecursiveSearch(node Node[NodeType], name string) (Node[Nod
 
 	return nil, nil
 }
-
-/**
-t Resolve:  4268 discovered node:  17368
-Cannot Resolve:  5721 discovered node:  17368
-Cannot Resolve:  10921 discovered node:  17374
-Cannot Resolve:  15465 discovered node:  17374
-Cannot Resolve:  2103 discovered node:  17368
-Cannot Resolve:  8286 discovered node:  17368
-Cannot Resolve:  4709 discovered node:  17385
-Cannot Resolve:  13803 discovered node:  17374
-Cannot Resolve:  15984 discovered node:  17374
-Cannot Resolve:  1610 discovered node:  17374
-Cannot Resolve:  3240 discovered node:  17368
-Cannot Resolve:  5732 discovered node:  17374
-Cannot Resolve:  13778 discovered node:  17374
-Cannot Resolve:  4507 discovered node:  17391
-Cannot Resolve:  15474 discovered node:  17374
-Cannot Resolve:  3218 discovered node:  17368
-Cannot Resolve:  3251 discovered node:  17368
-Cannot Resolve:  2059 discovered node:  17368
-Cannot Resolve:  2048 discovered node:  17368
-Cannot Resolve:  13838 discovered node:  17374
-Cannot Resolve:  2037 discovered node:  17368
-Cannot Resolve:  13769 discovered node:  17374
-Cannot Resolve:  10993 discovered node:  17391
-Cannot Resolve:  13829 discovered node:  17374
-Cannot Resolve:  2092 discovered node:  17368
-Cannot Resolve:  15085 discovered node:  17374
-Cannot Resolve:  5787 discovered node:  17391
-Cannot Resolve:  3262 discovered node:  17368
-Cannot Resolve:  4186 discovered node:  17391
-Cannot Resolve:  2070 discovered node:  17368
-Cannot Resolve:  4221 discovered node:  17385
-Cannot Resolve:  11025 discovered node:  17391
-Cannot Resolve:  16729 discovered node:  17374
-Cannot Resolve:  1632 discovered node:  17374
-Cannot Resolve:  2081 discovered node:  17368
-Cannot Resolve:  1689 discovered node:  17368                                                                                                                        Cannot Resolve:  2114 discovered node:  17368
-**/

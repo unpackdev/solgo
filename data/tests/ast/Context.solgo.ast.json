@@ -6,10 +6,15 @@
 		{
 			"id": 177,
 			"name": "Context",
-			"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/utils/Context.sol"
+			"absolute_path": "Context.sol"
+		},
+		{
+			"id": 49,
+			"name": "IERC20",
+			"absolute_path": "IERC20.sol"
 		}
 	],
-	"absolute_path": "/home/cortex/github/txpull/solgo/sources/openzeppelin/contracts/utils/Context.sol",
+	"absolute_path": "Context.sol",
 	"name": "Context",
 	"node_type": 1,
 	"nodes": [
@@ -36,6 +41,25 @@
 				";"
 			],
 			"text": "pragma solidity ^0.8.0;"
+		},
+		{
+			"id": 181,
+			"node_type": 29,
+			"src": {
+				"line": 86,
+				"column": 0,
+				"start": 2874,
+				"end": 2896,
+				"length": 23,
+				"parent_index": 177
+			},
+			"absolute_path": "IERC20.sol",
+			"file": "../IERC20.sol",
+			"scope": 177,
+			"unit_alias": "",
+			"as": "",
+			"unit_aliases": [],
+			"source_unit": 49
 		},
 		{
 			"id": 182,
@@ -149,14 +173,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "msg"
 									},
 									"member_name": "sender",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_address",
 										"type_string": "address"
-									}
+									},
+									"text": "msg.sender"
 								}
 							}
 						]
@@ -293,7 +319,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$",
 						"type_string": "function(address)"
-					}
+					},
+					"text": "function_msgSender()internalviewvirtualreturns(address){returnmsg.sender;}"
 				},
 				{
 					"id": 196,
@@ -383,14 +410,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": false
+										"is_pure": false,
+										"text": "msg"
 									},
 									"member_name": "data",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_bytes_calldata_ptr",
 										"type_string": "bytes calldata"
-									}
+									},
+									"text": "msg.data"
 								}
 							}
 						]
@@ -525,14 +554,18 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes$",
 						"type_string": "function(bytes)"
-					}
+					},
+					"text": "function_msgData()internalviewvirtualreturns(bytescalldata){returnmsg.data;}"
 				}
 			],
 			"linearized_base_contracts": [
-				182
+				182,
+				181
 			],
 			"base_contracts": [],
-			"contract_dependencies": []
+			"contract_dependencies": [
+				181
+			]
 		}
 	],
 	"src": {

@@ -180,13 +180,16 @@ func parseImportPathsForSourceUnit(
 					ParentIndex: unit.Id,
 				},
 				AbsolutePath: func() string {
-					toReturn := filepath.Base(importCtx.Path().GetText())
+					path := filepath.Clean(importCtx.Path().GetText())
+					toReturn := filepath.Base(path)
 					toReturn = strings.ReplaceAll(toReturn, "\"", "")
+					toReturn = strings.ReplaceAll(toReturn, "'", "")
 					return toReturn
 				}(),
 				File: func() string {
-					toReturn := importCtx.Path().GetText()
+					toReturn := filepath.Clean(importCtx.Path().GetText())
 					toReturn = strings.ReplaceAll(toReturn, "\"", "")
+					toReturn = strings.ReplaceAll(toReturn, "'", "")
 					return toReturn
 				}(),
 				Scope:       unit.Id,
@@ -220,36 +223,27 @@ func parseImportPathsForSourceUnit(
 				}
 			}
 
-			// Find the source unit that corresponds to the import path
-			// and add the exported symbols to the current source unit exported symbols.
-			// @TODO: Perhaps too much of iterations?
-			for _, unitCtx := range b.sourceUnits {
-				for _, source := range b.sources.SourceUnits {
-					absolutePath := filepath.Base(source.Path)
-					if importNode.AbsolutePath == absolutePath {
-						importNode.SourceUnit = unitCtx.Id
-					}
-				}
-			}
-
 			imports = append(imports, importNode)
 		}
 	}
 
 	filteredImports := make([]Node[NodeType], 0)
+	exportedSymbolMap := make(map[string]struct{}) // To track already added symbols
 
 	for i := len(imports) - 1; i >= 0; i-- {
 		importNode := imports[i]
-		if int64(contractLine)-importNode.Src.Line <= 20 && int64(contractLine)-importNode.Src.Line >= -1 {
+		if contractLine-importNode.Src.Line <= 50 && contractLine-importNode.Src.Line >= -1 {
 			importNode.Src.ParentIndex = unit.Id
 			for _, unitCtx := range b.sourceUnits {
 				for _, symbol := range unitCtx.ExportedSymbols {
 					if symbol.AbsolutePath == importNode.AbsolutePath {
-						unit.ExportedSymbols = append(
-							unit.ExportedSymbols,
-							NewSymbol(symbol.Id, symbol.Name, symbol.AbsolutePath),
-						)
-
+						if _, exists := exportedSymbolMap[symbol.AbsolutePath]; !exists {
+							unit.ExportedSymbols = append(
+								unit.ExportedSymbols,
+								NewSymbol(symbol.Id, symbol.Name, symbol.AbsolutePath),
+							)
+							exportedSymbolMap[symbol.AbsolutePath] = struct{}{}
+						}
 					}
 				}
 			}
@@ -258,6 +252,5 @@ func parseImportPathsForSourceUnit(
 	}
 
 	b.currentImports = append(b.currentImports, filteredImports...)
-
 	return filteredImports
 }

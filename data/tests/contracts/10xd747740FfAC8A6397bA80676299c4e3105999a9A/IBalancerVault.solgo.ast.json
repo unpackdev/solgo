@@ -6,10 +6,10 @@
 		{
 			"id": 2619,
 			"name": "IBalancerVault",
-			"absolute_path": ""
+			"absolute_path": "FRAX3CRVLevSwap.sol"
 		}
 	],
-	"absolute_path": "",
+	"absolute_path": "FRAX3CRVLevSwap.sol",
 	"name": "IBalancerVault",
 	"node_type": 1,
 	"nodes": [
@@ -390,7 +390,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$",
 						"type_string": "function(bytes32)"
-					}
+					},
+					"text": "functiongetPool(bytes32poolId)externalviewreturns(address,PoolSpecialization);"
 				},
 				{
 					"id": 2641,
@@ -787,13 +788,14 @@
 							}
 						]
 					},
-					"signature_raw": "swap(, , uint256, uint256)",
-					"signature": "ca35fd42",
+					"signature_raw": "swap(,,uint256,uint256)",
+					"signature": "88ba5382",
 					"scope": 2622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_unknown_2645$_t_unknown_2645$_t_uint256$_t_uint256$",
 						"type_string": "function(unknown_2645,unknown_2645,uint256,uint256)"
-					}
+					},
+					"text": "functionswap(SingleSwapmemorysingleSwap,FundManagementmemoryfunds,uint256limit,uint256deadline)externalpayablereturns(uint256);"
 				},
 				{
 					"id": 2662,
@@ -1520,13 +1522,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "exitPool(bytes32, address, addresspayable, )",
-					"signature": "1123eb9d",
+					"signature_raw": "exitPool(bytes32,address,addresspayable,)",
+					"signature": "61c9a6c9",
 					"scope": 2622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_address$_t_address_payable$_t_unknown_2687$",
 						"type_string": "function(bytes32,address,address,unknown_2687)"
-					}
+					},
+					"text": "functionexitPool(bytes32poolId,addresssender,addresspayablerecipient,ExitPoolRequestmemoryrequest)external;"
 				},
 				{
 					"id": 2701,
@@ -2064,13 +2067,14 @@
 							}
 						]
 					},
-					"signature_raw": "getPoolTokenInfo(bytes32, )",
-					"signature": "d2da8c07",
+					"signature_raw": "getPoolTokenInfo(bytes32,)",
+					"signature": "5263ae0c",
 					"scope": 2622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$_t_contract$_IERC20_$368$",
 						"type_string": "function(bytes32,contract IERC20)"
-					}
+					},
+					"text": "functiongetPoolTokenInfo(bytes32poolId,IERC20token)externalviewreturns(uint256cash,uint256managed,uint256lastChangeBlock,addressassetManager);"
 				},
 				{
 					"id": 2729,
@@ -2324,7 +2328,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_bytes32$",
 						"type_string": "function(bytes32)"
-					}
+					},
+					"text": "functiongetPoolTokens(bytes32poolId)externalviewreturns(address[]memorytokens,uint256[]memorybalances,uint256lastChangeBlock);"
 				},
 				{
 					"id": 2742,
@@ -2977,13 +2982,14 @@
 							}
 						]
 					},
-					"signature_raw": "batchSwap(, BatchSwapStep, address, , int256, uint256)",
-					"signature": "0f6e0f15",
+					"signature_raw": "batchSwap(,BatchSwapStep,address,,int256,uint256)",
+					"signature": "6c3ff276",
 					"scope": 2622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_enum_$_SwapKind_$2641$_t_struct$_IBalancerVault_BatchSwapStep_$2742$_t_address$_t_struct$_IBalancerVault_FundManagement_$2677$_t_int256$_t_uint256$",
 						"type_string": "function(enum IBalancerVault.SwapKind,struct IBalancerVault.BatchSwapStep,address,struct IBalancerVault.FundManagement,int256,uint256)"
-					}
+					},
+					"text": "functionbatchSwap(SwapKindkind,BatchSwapStep[]memoryswaps,address[]memoryassets,FundManagementmemoryfunds,int256[]memorylimits,uint256deadline)externalpayablereturns(int256[]memory);"
 				},
 				{
 					"id": 2776,
@@ -3244,13 +3250,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "flashLoan(address, IERC20, uint256, bytes)",
-					"signature": "d60783fe",
+					"signature_raw": "flashLoan(address,IERC20,uint256,bytes)",
+					"signature": "0207ab6d",
 					"scope": 2622,
 					"type_description": {
 						"type_identifier": "t_function_$_t_address$_t_contract$_IERC20_$368$_t_uint256$_t_bytes$",
 						"type_string": "function(address,contract IERC20,uint256,bytes)"
-					}
+					},
+					"text": "functionflashLoan(addressrecipient,IERC20[]memorytokens,uint256[]memoryamounts,bytesmemoryuserData)external;"
 				}
 			],
 			"linearized_base_contracts": [

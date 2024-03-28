@@ -24,7 +24,8 @@
 					"parent_index": 3745
 				},
 				"name": "ImmutableState",
-				"referenced_declaration": 948
+				"referenced_declaration": 948,
+				"contract_referenced_declaration": 0
 			}
 		},
 		{
@@ -50,7 +51,8 @@
 					"parent_index": 3745
 				},
 				"name": "IStargateReceiver",
-				"referenced_declaration": 3615
+				"referenced_declaration": 3615,
+				"contract_referenced_declaration": 0
 			}
 		}
 	],
@@ -59,12 +61,17 @@
 		{
 			"id": 3694,
 			"name": "StargateAdapter",
-			"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/sushixswap/StargateAdapter.sol"
+			"absolute_path": "StargateAdapter.sol"
 		},
 		{
-			"id": 3615,
-			"name": "SafeERC20",
-			"absolute_path": "SafeERC20.sol"
+			"id": 797,
+			"name": "IStargateWidget",
+			"absolute_path": "IStargateWidget.sol"
+		},
+		{
+			"id": 948,
+			"name": "ImmutableState",
+			"absolute_path": "ImmutableState.sol"
 		},
 		{
 			"id": 3615,
@@ -72,27 +79,22 @@
 			"absolute_path": "IStargateReceiver.sol"
 		},
 		{
-			"id": 3615,
-			"name": "ImmutableState",
-			"absolute_path": "ImmutableState.sol"
+			"id": 1373,
+			"name": "SafeERC20",
+			"absolute_path": "SafeERC20.sol"
 		},
 		{
-			"id": 3615,
+			"id": 4130,
 			"name": "IStargateAdapter",
 			"absolute_path": "IStargateAdapter.sol"
 		},
 		{
-			"id": 3615,
+			"id": 4055,
 			"name": "ISushiXSwap",
 			"absolute_path": "ISushiXSwap.sol"
-		},
-		{
-			"id": 3615,
-			"name": "IStargateWidget",
-			"absolute_path": "IStargateWidget.sol"
 		}
 	],
-	"absolute_path": "/home/cortex/github/txpull/solgo/data/tests/contracts/sushixswap/StargateAdapter.sol",
+	"absolute_path": "StargateAdapter.sol",
 	"name": "StargateAdapter",
 	"node_type": 1,
 	"nodes": [
@@ -136,7 +138,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 3615
+			"source_unit": 1373
 		},
 		{
 			"id": 3740,
@@ -174,7 +176,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 3615
+			"source_unit": 948
 		},
 		{
 			"id": 3742,
@@ -193,7 +195,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 3615
+			"source_unit": 4130
 		},
 		{
 			"id": 3743,
@@ -212,7 +214,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 3615
+			"source_unit": 4055
 		},
 		{
 			"id": 3744,
@@ -231,7 +233,7 @@
 			"unit_alias": "",
 			"as": "",
 			"unit_aliases": [],
-			"source_unit": 3615
+			"source_unit": 797
 		},
 		{
 			"id": 3745,
@@ -1110,7 +1112,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "stargateRouter"
 											}
 										],
 										"expression": {
@@ -1156,7 +1159,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "address"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -1213,7 +1217,8 @@
 										"type_description": {
 											"type_identifier": "",
 											"type_string": "type"
-										}
+										},
+										"text": "type(uint256).max"
 									}
 								],
 								"expression": {
@@ -1257,14 +1262,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3804,
-										"is_pure": false
+										"is_pure": false,
+										"text": "token"
 									},
 									"member_name": "safeApprove",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_IERC20_$1089",
 										"type_string": "contract IERC20"
-									}
+									},
+									"text": "token.safeApprove"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_function_$_t_function_$_$",
@@ -1379,7 +1386,8 @@
 					"type_description": {
 						"type_identifier": "t_function_$_t_contract$_IERC20_$1089$",
 						"type_string": "function(contract IERC20)"
-					}
+					},
+					"text": "functionapproveToStargateRouter(IERC20token)external{token.safeApprove(address(stargateRouter),type(uint256).max);}"
 				},
 				{
 					"id": 3812,
@@ -1552,14 +1560,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 3832,
-												"is_pure": false
+												"is_pure": false,
+												"text": "params"
 											},
 											"member_name": "to",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 												"type_string": "struct StargateAdapter.StargateTeleportParams"
-											}
+											},
+											"text": "params.to"
 										},
 										{
 											"id": 3833,
@@ -1585,7 +1595,8 @@
 													"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 													"type_string": "struct StargateAdapter.StargateTeleportParams"
 												}
-											]
+											],
+											"text": "actions"
 										},
 										{
 											"id": 3834,
@@ -1615,7 +1626,8 @@
 													"type_identifier": "t_uint8",
 													"type_string": "uint8"
 												}
-											]
+											],
+											"text": "values"
 										},
 										{
 											"id": 3835,
@@ -1649,7 +1661,8 @@
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
 												}
-											]
+											],
+											"text": "datas"
 										},
 										{
 											"id": 3836,
@@ -1692,7 +1705,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 3837,
-												"is_pure": false
+												"is_pure": false,
+												"text": "params"
 											},
 											"member_name": "srcContext",
 											"argument_types": [
@@ -1716,7 +1730,8 @@
 											"type_description": {
 												"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 												"type_string": "struct StargateAdapter.StargateTeleportParams"
-											}
+											},
+											"text": "params.srcContext"
 										}
 									],
 									"expression": {
@@ -1760,14 +1775,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "abi"
 										},
 										"member_name": "encode",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_magic_abi",
 											"type_string": "abi"
-										}
+										},
+										"text": "abi.encode"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$_t_uint8$_t_uint256$_t_bytes$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
@@ -1867,14 +1884,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3843,
-											"is_pure": false
+											"is_pure": false,
+											"text": "params"
 										},
 										"member_name": "dstChainId",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 											"type_string": "struct StargateAdapter.StargateTeleportParams"
-										}
+										},
+										"text": "params.dstChainId"
 									},
 									{
 										"id": 3844,
@@ -1917,7 +1936,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3845,
-											"is_pure": false
+											"is_pure": false,
+											"text": "params"
 										},
 										"member_name": "srcPoolId",
 										"argument_types": [
@@ -1929,7 +1949,8 @@
 										"type_description": {
 											"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 											"type_string": "struct StargateAdapter.StargateTeleportParams"
-										}
+										},
+										"text": "params.srcPoolId"
 									},
 									{
 										"id": 3846,
@@ -1972,7 +1993,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3847,
-											"is_pure": false
+											"is_pure": false,
+											"text": "params"
 										},
 										"member_name": "dstPoolId",
 										"argument_types": [
@@ -1988,7 +2010,8 @@
 										"type_description": {
 											"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 											"type_string": "struct StargateAdapter.StargateTeleportParams"
-										}
+										},
+										"text": "params.dstPoolId"
 									},
 									{
 										"id": 3848,
@@ -2043,14 +2066,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "msg"
 												},
 												"member_name": "sender",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_address",
 													"type_string": "address"
-												}
+												},
+												"text": "msg.sender"
 											}
 										],
 										"argument_types": [
@@ -2132,14 +2157,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 3855,
-														"is_pure": false
+														"is_pure": false,
+														"text": "params"
 													},
 													"member_name": "amount",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 														"type_string": "struct StargateAdapter.StargateTeleportParams"
-													}
+													},
+													"text": "params.amount"
 												},
 												"right_expression": {
 													"id": 3856,
@@ -2161,7 +2188,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": true
+													"is_pure": true,
+													"text": "0"
 												},
 												"type_description": {
 													"type_identifier": "t_bool",
@@ -2209,14 +2237,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 3858,
-													"is_pure": false
+													"is_pure": false,
+													"text": "params"
 												},
 												"member_name": "amount",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 													"type_string": "struct StargateAdapter.StargateTeleportParams"
-												}
+												},
+												"text": "params.amount"
 											},
 											{
 												"id": 3859,
@@ -2274,7 +2304,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "this"
 															}
 														],
 														"expression": {
@@ -2320,7 +2351,8 @@
 																	"type_identifier": "t_address",
 																	"type_string": "address"
 																}
-															]
+															],
+															"text": "address"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
@@ -2411,14 +2443,16 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 3864,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "params"
 																},
 																"member_name": "token",
 																"argument_types": [],
 																"type_description": {
 																	"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 																	"type_string": "struct StargateAdapter.StargateTeleportParams"
-																}
+																},
+																"text": "params.token"
 															}
 														],
 														"expression": {
@@ -2439,7 +2473,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "IERC20"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
@@ -2451,7 +2486,8 @@
 													"type_description": {
 														"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
 														"type_string": "function(struct StargateAdapter.StargateTeleportParams)"
-													}
+													},
+													"text": "IERC20(params.token).balanceOf"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_$_t_address$",
@@ -2516,7 +2552,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3870,
-											"is_pure": false
+											"is_pure": false,
+											"text": "params"
 										},
 										"member_name": "amountMin",
 										"argument_types": [
@@ -2544,7 +2581,8 @@
 										"type_description": {
 											"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 											"type_string": "struct StargateAdapter.StargateTeleportParams"
-										}
+										},
+										"text": "params.amountMin"
 									},
 									{
 										"id": 3871,
@@ -2614,14 +2652,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 3875,
-													"is_pure": false
+													"is_pure": false,
+													"text": "params"
 												},
 												"member_name": "gas",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 													"type_string": "struct StargateAdapter.StargateTeleportParams"
-												}
+												},
+												"text": "params.gas"
 											},
 											{
 												"id": 3876,
@@ -2664,7 +2704,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 3877,
-													"is_pure": false
+													"is_pure": false,
+													"text": "params"
 												},
 												"member_name": "dustAmount",
 												"argument_types": [
@@ -2676,7 +2717,8 @@
 												"type_description": {
 													"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 													"type_string": "struct StargateAdapter.StargateTeleportParams"
-												}
+												},
+												"text": "params.dustAmount"
 											},
 											{
 												"id": 3878,
@@ -2738,14 +2780,16 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 3882,
-															"is_pure": false
+															"is_pure": false,
+															"text": "params"
 														},
 														"member_name": "receiver",
 														"argument_types": [],
 														"type_description": {
 															"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 															"type_string": "struct StargateAdapter.StargateTeleportParams"
-														}
+														},
+														"text": "params.receiver"
 													}
 												],
 												"expression": {
@@ -2789,14 +2833,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encodePacked",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encodePacked"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
@@ -2845,14 +2891,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 700,
-												"is_pure": false
+												"is_pure": false,
+												"text": "IStargateRouter"
 											},
 											"member_name": "lzTxObj",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IStargateRouter_$700",
 												"type_string": "contract IStargateRouter"
-											}
+											},
+											"text": "IStargateRouter.lzTxObj"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$_t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
@@ -2919,14 +2967,16 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 3887,
-													"is_pure": false
+													"is_pure": false,
+													"text": "params"
 												},
 												"member_name": "receiver",
 												"argument_types": [],
 												"type_description": {
 													"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 													"type_string": "struct StargateAdapter.StargateTeleportParams"
-												}
+												},
+												"text": "params.receiver"
 											}
 										],
 										"expression": {
@@ -2970,14 +3020,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "abi"
 											},
 											"member_name": "encodePacked",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_magic_abi",
 												"type_string": "abi"
-											}
+											},
+											"text": "abi.encodePacked"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
@@ -3036,7 +3088,8 @@
 												"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$",
 												"type_string": "function(struct StargateAdapter.StargateTeleportParams)"
 											}
-										]
+										],
+										"text": "payload"
 									}
 								],
 								"expression": {
@@ -3092,14 +3145,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 967,
-											"is_pure": false
+											"is_pure": false,
+											"text": "stargateRouter"
 										},
 										"member_name": "swap",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_contract$_IStargateRouter_$700",
 											"type_string": "contract IStargateRouter"
-										}
+										},
+										"text": "stargateRouter.swap"
 									},
 									"type_description": {
 										"type_identifier": "t_contract$_IStargateRouter_$700",
@@ -3150,7 +3205,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0x0001"
 									}
 								],
 								"expression": {
@@ -3194,14 +3250,16 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 971,
-										"is_pure": false
+										"is_pure": false,
+										"text": "stargateWidget"
 									},
 									"member_name": "partnerSwap",
 									"argument_types": [],
 									"type_description": {
 										"type_identifier": "t_contract$_IStargateWidget_$797",
 										"type_string": "contract IStargateWidget"
-									}
+									},
+									"text": "stargateWidget.partnerSwap"
 								},
 								"type_description": {
 									"type_identifier": "t_function_$_t_rational_0_by_1$",
@@ -3261,14 +3319,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3895,
-											"is_pure": false
+											"is_pure": false,
+											"text": "params"
 										},
 										"member_name": "srcContext",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_struct$_StargateAdapter_StargateTeleportParams_$3771",
 											"type_string": "struct StargateAdapter.StargateTeleportParams"
-										}
+										},
+										"text": "params.srcContext"
 									}
 								],
 								"expression": {
@@ -3289,7 +3349,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 3759,
-									"is_pure": false
+									"is_pure": false,
+									"text": "StargateSushiXSwapSrc"
 								}
 							}
 						]
@@ -3523,13 +3584,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "_stargateTeleport(, uint8, uint256, bytes)",
-					"signature": "dbc31626",
+					"signature_raw": "_stargateTeleport(,uint8,uint256,bytes)",
+					"signature": "f5b01997",
 					"scope": 3745,
 					"type_description": {
 						"type_identifier": "t_function_$_t_struct$_StargateAdapter_StargateTeleportParams_$3771$_t_uint8$_t_uint256$_t_bytes$",
 						"type_string": "function(struct StargateAdapter.StargateTeleportParams,uint8,uint256,bytes)"
-					}
+					},
+					"text": "function_stargateTeleport(StargateTeleportParamsmemoryparams,uint8[]memoryactions,uint256[]memoryvalues,bytes[]memorydatas)internal{bytesmemorypayload=abi.encode(params.to,actions,values,datas,params.srcContext);stargateRouter.swap{value:address(this).balance}(params.dstChainId,params.srcPoolId,params.dstPoolId,payable(msg.sender),params.amount!=0?params.amount:IERC20(params.token).balanceOf(address(this)),params.amountMin,IStargateRouter.lzTxObj(params.gas,params.dustAmount,abi.encodePacked(params.receiver)),abi.encodePacked(params.receiver),payload);stargateWidget.partnerSwap(0x0001);emitStargateSushiXSwapSrc(params.srcContext);}"
 				},
 				{
 					"id": 3898,
@@ -3621,7 +3683,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 3913,
-												"is_pure": false
+												"is_pure": false,
+												"text": "a"
 											},
 											{
 												"id": 3922,
@@ -3641,7 +3704,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 3915,
-												"is_pure": false
+												"is_pure": false,
+												"text": "b"
 											}
 										],
 										"type_description": {
@@ -3702,7 +3766,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 3926,
-												"is_pure": false
+												"is_pure": false,
+												"text": "_dstChainId"
 											},
 											{
 												"id": 3927,
@@ -3728,7 +3793,8 @@
 														"type_identifier": "t_uint16",
 														"type_string": "uint16"
 													}
-												]
+												],
+												"text": "_functionType"
 											},
 											{
 												"id": 3928,
@@ -3767,7 +3833,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 3931,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_receiver"
 													}
 												],
 												"expression": {
@@ -3811,14 +3878,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encodePacked",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encodePacked"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_address$",
@@ -3862,7 +3931,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 3935,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_payload"
 													}
 												],
 												"expression": {
@@ -3906,14 +3976,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "abi"
 													},
 													"member_name": "encode",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_magic_abi",
 														"type_string": "abi"
-													}
+													},
+													"text": "abi.encode"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_bytes$",
@@ -3965,7 +4037,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 3939,
-														"is_pure": false
+														"is_pure": false,
+														"text": "_gas"
 													},
 													{
 														"id": 3940,
@@ -3991,7 +4064,8 @@
 																"type_identifier": "t_uint256",
 																"type_string": "uint256"
 															}
-														]
+														],
+														"text": "_dustAmount"
 													},
 													{
 														"id": 3941,
@@ -4030,7 +4104,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 3944,
-																"is_pure": false
+																"is_pure": false,
+																"text": "_receiver"
 															}
 														],
 														"expression": {
@@ -4074,14 +4149,16 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "abi"
 															},
 															"member_name": "encodePacked",
 															"argument_types": [],
 															"type_description": {
 																"type_identifier": "t_magic_abi",
 																"type_string": "abi"
-															}
+															},
+															"text": "abi.encodePacked"
 														},
 														"type_description": {
 															"type_identifier": "t_function_$_t_address$",
@@ -4130,14 +4207,16 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 700,
-														"is_pure": false
+														"is_pure": false,
+														"text": "IStargateRouter"
 													},
 													"member_name": "lzTxObj",
 													"argument_types": [],
 													"type_description": {
 														"type_identifier": "t_contract$_IStargateRouter_$700",
 														"type_string": "contract IStargateRouter"
-													}
+													},
+													"text": "IStargateRouter.lzTxObj"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_uint256$_t_uint256$_t_function_$_t_address$",
@@ -4186,14 +4265,16 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 967,
-												"is_pure": false
+												"is_pure": false,
+												"text": "stargateRouter"
 											},
 											"member_name": "quoteLayerZeroFee",
 											"argument_types": [],
 											"type_description": {
 												"type_identifier": "t_contract$_IStargateRouter_$700",
 												"type_string": "contract IStargateRouter"
-											}
+											},
+											"text": "stargateRouter.quoteLayerZeroFee"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_uint16$_t_uint8$_t_function_$_t_address$_t_function_$_t_bytes$_t_function_$_t_uint256$_t_uint256$_t_function_$_t_address$",
@@ -4208,7 +4289,8 @@
 								"type_description": {
 									"type_identifier": "t_tuple_$_t_uint256_$_t_uint256$",
 									"type_string": "tuple(uint256,uint256)"
-								}
+								},
+								"text": "(a,b)=stargateRouter.quoteLayerZeroFee(_dstChainId,_functionType,abi.encodePacked(_receiver),abi.encode(_payload),IStargateRouter.lzTxObj(_gas,_dustAmount,abi.encodePacked(_receiver)));"
 							}
 						]
 					},
@@ -4595,13 +4677,14 @@
 							}
 						]
 					},
-					"signature_raw": "getFee(uint16, uint8, address, uint256, uint256, bytes)",
-					"signature": "ac0acf65",
+					"signature_raw": "getFee(uint16,uint8,address,uint256,uint256,bytes)",
+					"signature": "6ce4fe03",
 					"scope": 3745,
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint16$_t_uint8$_t_address$_t_uint256$_t_uint256$_t_bytes$",
 						"type_string": "function(uint16,uint8,address,uint256,uint256,bytes)"
-					}
+					},
+					"text": "functiongetFee(uint16_dstChainId,uint8_functionType,address_receiver,uint256_gas,uint256_dustAmount,bytesmemory_payload)externalviewreturns(uint256a,uint256b){(a,b)=stargateRouter.quoteLayerZeroFee(_dstChainId,_functionType,abi.encodePacked(_receiver),abi.encode(_payload),IStargateRouter.lzTxObj(_gas,_dustAmount,abi.encodePacked(_receiver)));}"
 				},
 				{
 					"id": 3946,
@@ -4704,14 +4787,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "msg"
 										},
 										"member_name": "sender",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_address",
 											"type_string": "address"
-										}
+										},
+										"text": "msg.sender"
 									},
 									"right_expression": {
 										"id": 3967,
@@ -4750,7 +4835,8 @@
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 0,
-												"is_pure": false
+												"is_pure": false,
+												"text": "stargateRouter"
 											}
 										],
 										"expression": {
@@ -4796,7 +4882,8 @@
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
-											]
+											],
+											"text": "address"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_$",
@@ -5105,7 +5192,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3986,
-											"is_pure": false
+											"is_pure": false,
+											"text": "payload"
 										},
 										{
 											"id": 3987,
@@ -5158,7 +5246,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "address"
 												},
 												{
 													"id": 3990,
@@ -5207,7 +5296,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "uint8"
 													},
 													"base_expression": null,
 													"type_descriptions": [
@@ -5268,7 +5358,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "uint256"
 													},
 													"base_expression": null,
 													"type_descriptions": [
@@ -5329,7 +5420,8 @@
 														},
 														"overloaded_declarations": [],
 														"referenced_declaration": 0,
-														"is_pure": false
+														"is_pure": false,
+														"text": "bytes"
 													},
 													"base_expression": null,
 													"type_descriptions": [
@@ -5379,7 +5471,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "bytes32"
 												}
 											],
 											"type_description": {
@@ -5429,14 +5522,16 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "abi"
 										},
 										"member_name": "decode",
 										"argument_types": [],
 										"type_description": {
 											"type_identifier": "t_magic_abi",
 											"type_string": "abi"
-										}
+										},
+										"text": "abi.decode"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$_t_bytes$_t_tuple_$_t_address_$_t_[_[$_t_uint8]$_$_t_[_[$_t_uint256]$_$_t_[_[$_t_bytes]$_$_t_bytes32$",
@@ -5550,7 +5645,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 0,
-											"is_pure": false
+											"is_pure": false,
+											"text": "gasleft"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$",
@@ -5577,7 +5673,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "200000"
 									},
 									"type_description": {
 										"type_identifier": "t_function_$",
@@ -5733,7 +5830,8 @@
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 3972,
-											"is_pure": false
+											"is_pure": false,
+											"text": "actions"
 										},
 										{
 											"id": 4023,
@@ -5759,7 +5857,8 @@
 													"type_identifier": "t_uint8",
 													"type_string": "uint8"
 												}
-											]
+											],
+											"text": "values"
 										},
 										{
 											"id": 4024,
@@ -5789,7 +5888,8 @@
 													"type_identifier": "t_uint256",
 													"type_string": "uint256"
 												}
-											]
+											],
+											"text": "datas"
 										}
 									],
 									"expression": {
@@ -5895,7 +5995,8 @@
 																		},
 																		"overloaded_declarations": [],
 																		"referenced_declaration": 0,
-																		"is_pure": false
+																		"is_pure": false,
+																		"text": "this"
 																	}
 																],
 																"expression": {
@@ -5941,7 +6042,8 @@
 																			"type_identifier": "t_address",
 																			"type_string": "address"
 																		}
-																	]
+																	],
+																	"text": "address"
 																},
 																"type_description": {
 																	"type_identifier": "t_function_$_t_address$",
@@ -5980,7 +6082,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "ISushiXSwap"
 												},
 												"type_description": {
 													"type_identifier": "t_function_$_t_function_payable$_t_function_$_t_address$",
@@ -5992,7 +6095,8 @@
 											"type_description": {
 												"type_identifier": "t_function_$_t_function_payable$_t_function_$_t_address$",
 												"type_string": "function(function(function(address)) payable)"
-											}
+											},
+											"text": "ISushiXSwap(payable(address(this))).cook"
 										},
 										"type_description": {
 											"type_identifier": "t_function_$_t_function_payable$_t_function_$_t_address$",
@@ -6071,7 +6175,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": false
+															"is_pure": false,
+															"text": "to"
 														},
 														{
 															"id": 4036,
@@ -6097,7 +6202,8 @@
 																	"type_identifier": "t_function_$",
 																	"type_string": "function()"
 																}
-															]
+															],
+															"text": "amountLD"
 														}
 													],
 													"expression": {
@@ -6160,7 +6266,8 @@
 																	},
 																	"overloaded_declarations": [],
 																	"referenced_declaration": 0,
-																	"is_pure": false
+																	"is_pure": false,
+																	"text": "_token"
 																}
 															],
 															"expression": {
@@ -6181,7 +6288,8 @@
 																},
 																"overloaded_declarations": [],
 																"referenced_declaration": 0,
-																"is_pure": false
+																"is_pure": false,
+																"text": "IERC20"
 															},
 															"type_description": {
 																"type_identifier": "t_function_$_t_function_$",
@@ -6193,7 +6301,8 @@
 														"type_description": {
 															"type_identifier": "t_function_$_t_function_$",
 															"type_string": "function(function())"
-														}
+														},
+														"text": "IERC20(_token).safeTransfer"
 													},
 													"type_description": {
 														"type_identifier": "t_function_$_t_function_$_t_function_$_t_function_$",
@@ -6241,7 +6350,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 3768,
-															"is_pure": false
+															"is_pure": false,
+															"text": "failed"
 														},
 														"right_expression": {
 															"id": 4040,
@@ -6263,7 +6373,8 @@
 															},
 															"overloaded_declarations": [],
 															"referenced_declaration": 0,
-															"is_pure": true
+															"is_pure": true,
+															"text": "true"
 														},
 														"type_description": {
 															"type_identifier": "t_bool",
@@ -6273,7 +6384,8 @@
 													"type_description": {
 														"type_identifier": "t_bool",
 														"type_string": "bool"
-													}
+													},
+													"text": "failed=true;"
 												}
 											]
 										},
@@ -6423,7 +6535,8 @@
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 0,
-													"is_pure": false
+													"is_pure": false,
+													"text": "this"
 												}
 											],
 											"expression": {
@@ -6469,7 +6582,8 @@
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
-												]
+												],
+												"text": "address"
 											},
 											"type_description": {
 												"type_identifier": "t_function_$_t_address$",
@@ -6481,7 +6595,8 @@
 										"type_description": {
 											"type_identifier": "t_function_$_t_address$",
 											"type_string": "function(address)"
-										}
+										},
+										"text": "address(this).balance"
 									},
 									"right_expression": {
 										"id": 4049,
@@ -6503,7 +6618,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 0,
-										"is_pure": true
+										"is_pure": true,
+										"text": "0"
 									},
 									"type_description": {
 										"type_identifier": "t_bool",
@@ -6555,7 +6671,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 3972,
-										"is_pure": false
+										"is_pure": false,
+										"text": "srcContext"
 									},
 									{
 										"id": 4053,
@@ -6575,7 +6692,8 @@
 										},
 										"overloaded_declarations": [],
 										"referenced_declaration": 4008,
-										"is_pure": false
+										"is_pure": false,
+										"text": "failed"
 									}
 								],
 								"expression": {
@@ -6596,7 +6714,8 @@
 									},
 									"overloaded_declarations": [],
 									"referenced_declaration": 3764,
-									"is_pure": false
+									"is_pure": false,
+									"text": "StargateSushiXSwapDst"
 								}
 							}
 						]
@@ -6915,13 +7034,14 @@
 						"parameters": [],
 						"parameter_types": []
 					},
-					"signature_raw": "sgReceive(uint16, bytes, uint256, address, uint256, bytes)",
-					"signature": "b19f8e19",
+					"signature_raw": "sgReceive(uint16,bytes,uint256,address,uint256,bytes)",
+					"signature": "ab8236f3",
 					"scope": 3745,
 					"type_description": {
 						"type_identifier": "t_function_$_t_uint16$_t_bytes$_t_uint256$_t_address$_t_uint256$_t_bytes$",
 						"type_string": "function(uint16,bytes,uint256,address,uint256,bytes)"
-					}
+					},
+					"text": "functionsgReceive(uint16,bytesmemory,uint256,address_token,uint256amountLD,bytesmemorypayload)externaloverride{if(msg.sender!=address(stargateRouter))revertNotStargateRouter();(addressto,uint8[]memoryactions,uint256[]memoryvalues,bytes[]memorydatas,bytes32srcContext)=abi.decode(payload,(address,uint8[],uint256[],bytes[],bytes32));uint256limit=gasleft()-200000;boolfailed;tryISushiXSwap(payable(address(this))).cook{gas:limit}(actions,values,datas){}catch(bytesmemory){IERC20(_token).safeTransfer(to,amountLD);failed=true;}if(address(this).balance\u003e0)to.call{value:(address(this).balance)}(\"\");emitStargateSushiXSwapDst(srcContext,failed);}"
 				}
 			],
 			"linearized_base_contracts": [
@@ -6959,7 +7079,8 @@
 							"parent_index": 3745
 						},
 						"name": "ImmutableState",
-						"referenced_declaration": 948
+						"referenced_declaration": 948,
+						"contract_referenced_declaration": 0
 					}
 				},
 				{
@@ -6985,7 +7106,8 @@
 							"parent_index": 3745
 						},
 						"name": "IStargateReceiver",
-						"referenced_declaration": 3615
+						"referenced_declaration": 3615,
+						"contract_referenced_declaration": 0
 					}
 				}
 			],
