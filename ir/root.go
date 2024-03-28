@@ -233,7 +233,6 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 // performed on each node.
 func (r *RootSourceUnit) Walk(nodeVisitor *ast.NodeVisitor) error {
 	return r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
-	
 }
 
 // processRoot processes the given root node of an AST and returns a RootSourceUnit.
