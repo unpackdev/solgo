@@ -2,6 +2,7 @@ package abi
 
 import (
 	abi_pb "github.com/unpackdev/protos/dist/go/abi"
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/ir"
 )
@@ -44,7 +45,7 @@ func (c *Contract) ToProto() *abi_pb.Contract {
 
 // processContract processes an IR contract and returns a Contract representation of it.
 // It extracts state variables, events, errors, constructor, functions, fallback, and receive methods.
-func (b *Builder) processContract(contract *ir.Contract) *Contract {
+func (b *Builder) processContract(contract *ir.Contract) (*Contract, error) {
 	toReturn := Contract{}
 
 	// Process state variables.
@@ -55,28 +56,44 @@ func (b *Builder) processContract(contract *ir.Contract) *Contract {
 
 	// Process events.
 	for _, event := range contract.GetEvents() {
-		method := b.processEvent(event)
+		method, err := b.processEvent(event)
+		if err != nil {
+			return nil, err
+		}
+
 		toReturn = append(toReturn, method)
 	}
 
 	// Process errors.
 	for _, errorNode := range contract.GetErrors() {
-		method := b.processError(errorNode)
+		method, err := b.processError(errorNode)
+		if err != nil {
+			return nil, err
+		}
+
 		toReturn = append(toReturn, method)
 	}
 
 	// Process constructor.
 	if contract.GetConstructor() != nil {
-		toReturn = append(
-			toReturn,
-			b.processConstructor(contract.GetConstructor()),
-		)
+		method, err := b.processConstructor(contract.GetConstructor())
+		if err != nil {
+			return nil, err
+		}
+
+		toReturn = append(toReturn, method)
 	}
 
 	// Process functions.
 	for _, function := range contract.GetFunctions() {
-		method := b.processFunction(function)
-		toReturn = append(toReturn, method)
+		if function.GetVisibility() == ast_pb.Visibility_PUBLIC && function.GetVisibility() == ast_pb.Visibility_EXTERNAL {
+			method, err := b.processFunction(function)
+			if err != nil {
+				return nil, err
+			}
+
+			toReturn = append(toReturn, method)
+		}
 	}
 
 	// Process fallback.
@@ -89,13 +106,15 @@ func (b *Builder) processContract(contract *ir.Contract) *Contract {
 
 	// Process receive.
 	if contract.GetReceive() != nil {
-		toReturn = append(
-			toReturn,
-			b.processReceive(contract.GetReceive()),
-		)
+		method, err := b.processReceive(contract.GetReceive())
+		if err != nil {
+			return nil, err
+		}
+
+		toReturn = append(toReturn, method)
 	}
 
-	return &toReturn
+	return &toReturn, nil
 }
 
 // buildMethodIO constructs a MethodIO object based on the provided method and type description.

@@ -36,7 +36,8 @@ func NewBuilderFromSources(ctx context.Context, sources *solgo.Sources) (*Builde
 		parser:     parser,
 		astBuilder: parser.GetAstBuilder(),
 		resolver: &TypeResolver{
-			parser: parser,
+			parser:         parser,
+			processedTypes: make(map[string]bool),
 		},
 	}, nil
 }
@@ -124,9 +125,11 @@ func (b *Builder) Parse() (errs []error) {
 }
 
 // Build constructs the ABIs from the sources.
-func (b *Builder) Build() error {
+func (b *Builder) Build() (err error) {
 	if root := b.GetParser().GetRoot(); root != nil {
-		b.root = b.processRoot(root)
+		if b.root, err = b.processRoot(root); err != nil {
+			return err
+		}
 	}
 	return nil
 }

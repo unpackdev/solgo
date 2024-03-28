@@ -6,7 +6,7 @@
 		"IERC20": {
 			"methods": [
 				{
-					"outputs": [
+					"inputs": [
 						{
 							"indexed": true,
 							"internalType": "address",
@@ -20,7 +20,6 @@
 							"type": "address"
 						},
 						{
-							"indexed": true,
 							"internalType": "uint256",
 							"name": "value",
 							"type": "uint256"
@@ -31,7 +30,7 @@
 					"stateMutability": "view"
 				},
 				{
-					"outputs": [
+					"inputs": [
 						{
 							"indexed": true,
 							"internalType": "address",
@@ -45,7 +44,6 @@
 							"type": "address"
 						},
 						{
-							"indexed": true,
 							"internalType": "uint256",
 							"name": "value",
 							"type": "uint256"
@@ -54,479 +52,10 @@
 					"name": "Approval",
 					"type": "event",
 					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "totalSupply",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"name": "account",
-							"type": "address"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "balanceOf",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"name": "recipient",
-							"type": "address"
-						},
-						{
-							"internalType": "uint256",
-							"name": "amount",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"name": "transfer",
-					"type": "function",
-					"stateMutability": "nonpayable"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"name": "owner",
-							"type": "address"
-						},
-						{
-							"internalType": "address",
-							"name": "spender",
-							"type": "address"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "allowance",
-					"type": "function",
-					"stateMutability": "view"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"name": "spender",
-							"type": "address"
-						},
-						{
-							"internalType": "uint256",
-							"name": "amount",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"name": "approve",
-					"type": "function",
-					"stateMutability": "nonpayable"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "address",
-							"name": "sender",
-							"type": "address"
-						},
-						{
-							"internalType": "address",
-							"name": "recipient",
-							"type": "address"
-						},
-						{
-							"internalType": "uint256",
-							"name": "amount",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						}
-					],
-					"name": "transferFrom",
-					"type": "function",
-					"stateMutability": "nonpayable"
 				}
 			]
 		},
-		"SafeMath": {
-			"methods": [
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						},
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "tryAdd",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						},
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "trySub",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						},
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "tryMul",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						},
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "tryDiv",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "bool",
-							"type": "bool"
-						},
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "tryMod",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "add",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "sub",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "mul",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "div",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "mod",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						},
-						{
-							"internalType": "string",
-							"name": "errorMessage",
-							"type": "string"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "sub",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						},
-						{
-							"internalType": "string",
-							"name": "errorMessage",
-							"type": "string"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "div",
-					"type": "function",
-					"stateMutability": "pure"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "a",
-							"type": "uint256"
-						},
-						{
-							"internalType": "uint256",
-							"name": "b",
-							"type": "uint256"
-						},
-						{
-							"internalType": "string",
-							"name": "errorMessage",
-							"type": "string"
-						}
-					],
-					"outputs": [
-						{
-							"internalType": "uint256",
-							"type": "uint256"
-						}
-					],
-					"name": "mod",
-					"type": "function",
-					"stateMutability": "pure"
-				}
-			]
-		},
+		"SafeMath": {},
 		"TokenSale": {
 			"methods": [
 				{
@@ -563,15 +92,13 @@
 					"stateMutability": "view"
 				},
 				{
-					"outputs": [
+					"inputs": [
 						{
-							"indexed": true,
 							"internalType": "address",
 							"name": "buyer",
 							"type": "address"
 						},
 						{
-							"indexed": true,
 							"internalType": "uint256",
 							"name": "amount",
 							"type": "uint256"
@@ -595,18 +122,6 @@
 						}
 					],
 					"type": "constructor",
-					"stateMutability": "nonpayable"
-				},
-				{
-					"inputs": [
-						{
-							"internalType": "uint256",
-							"name": "_amount",
-							"type": "uint256"
-						}
-					],
-					"name": "buyTokens",
-					"type": "function",
 					"stateMutability": "nonpayable"
 				}
 			]

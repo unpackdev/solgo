@@ -10,7 +10,12 @@ import (
 )
 
 func TestProcessStateVariable(t *testing.T) {
-	builder := &Builder{}
+	builder := &Builder{
+		resolver: &TypeResolver{
+			parser:         nil,
+			processedTypes: make(map[string]bool),
+		},
+	}
 
 	testCases := []struct {
 		name           string
