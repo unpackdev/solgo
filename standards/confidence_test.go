@@ -66,8 +66,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("Approval", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   68,
 					discoveredTokenCount: 68,
 					shouldMatch:          true,
@@ -208,8 +208,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("ApprovalForAll", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeBool}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   90,
 					discoveredTokenCount: 90,
 					shouldMatch:          true,
@@ -259,8 +259,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("URI", []Input{{Type: TypeString, Indexed: false}, {Type: TypeUint256, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   115,
 					discoveredTokenCount: 115,
 					shouldMatch:          true,
@@ -308,8 +308,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("ManagerChanged", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   67,
 					discoveredTokenCount: 67,
 					shouldMatch:          true,
@@ -355,8 +355,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("ProxyOwnershipTransferred", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   29,
 					discoveredTokenCount: 29,
 					shouldMatch:          true,
@@ -404,8 +404,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newEvent("AdminChanged", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
 					},
-					expectedLevel:        HighConfidence,
-					expectedThreshold:    HighConfidenceThreshold,
+					expectedLevel:        PerfectConfidence,
+					expectedThreshold:    PerfectConfidenceThreshold,
 					standardTokenCount:   67,
 					discoveredTokenCount: 67,
 					shouldMatch:          true,
@@ -571,7 +571,7 @@ func TestEventMatch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotTokens, gotMatch := eventMatch(tt.newEvent, tt.standardEvent, tt.contractEvent)
+			gotTokens, gotMatch := EventMatch(tt.newEvent, tt.standardEvent, tt.contractEvent)
 			assert.Equal(t, tt.expectedTokens, gotTokens)
 			assert.Equal(t, tt.expectedMatch, gotMatch)
 		})

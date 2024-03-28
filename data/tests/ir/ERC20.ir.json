@@ -22349,28 +22349,27 @@
 		]
 	},
 	"node_type": 80,
+	"address": "0x0000000000000000000000000000000000000000",
 	"entry_contract_id": 524,
 	"entry_contract_name": "ERC20",
 	"contracts_count": 5,
-	"contract_types": [
-		"token"
-	],
+	"contract_types": [],
 	"standards": [
 		{
 			"contract_id": 524,
 			"contract_name": "ERC20",
 			"confidences": {
 				"confidence": 0,
-				"confidence_points": 0.0782608695652174,
+				"confidence_points": 0.06086956521739131,
 				"threshold": 0,
 				"maximum_tokens": 115,
-				"discovered_tokens": 9,
-				"standard": "EIP1155",
+				"discovered_tokens": 7,
+				"standard": "ERC1155",
 				"contract": {
 					"name": "ERC20",
 					"functions": [
 						{
-							"name": "safeTransferFrom",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22402,7 +22401,7 @@
 							"matched": false
 						},
 						{
-							"name": "safeBatchTransferFrom",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22434,7 +22433,7 @@
 							"matched": false
 						},
 						{
-							"name": "balanceOf",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22456,7 +22455,7 @@
 							"matched": true
 						},
 						{
-							"name": "balanceOfBatch",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address[]",
@@ -22478,7 +22477,7 @@
 							"matched": false
 						},
 						{
-							"name": "setApprovalForAll",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22495,7 +22494,7 @@
 							"matched": false
 						},
 						{
-							"name": "isApprovedForAll",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22627,7 +22626,7 @@
 			"standards": {
 				"name": "ERC-1155 Multi Token Standard",
 				"url": "https://eips.ethereum.org/EIPS/eip-1155",
-				"type": "EIP1155",
+				"type": "ERC1155",
 				"stagnant": false,
 				"abi": "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"ids\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"}],\"name\":\"TransferBatch\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"TransferSingle\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"value\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"URI\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"accounts\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"ids\",\"type\":\"uint256[]\"}],\"name\":\"balanceOfBatch\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"ids\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"safeBatchTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"uri\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 				"functions": [
@@ -22890,17 +22889,17 @@
 			"contract_id": 524,
 			"contract_name": "ERC20",
 			"confidences": {
-				"confidence": 3,
-				"confidence_points": 1,
-				"threshold": 0.9,
+				"confidence": 2,
+				"confidence_points": 0.8235294117647058,
+				"threshold": 0.5,
 				"maximum_tokens": 68,
-				"discovered_tokens": 68,
-				"standard": "EIP20",
+				"discovered_tokens": 56,
+				"standard": "ERC20",
 				"contract": {
 					"name": "ERC20",
 					"functions": [
 						{
-							"name": "totalSupply",
+							"name": "_afterTokenTransfer",
 							"inputs": [],
 							"outputs": [
 								{
@@ -22911,7 +22910,7 @@
 							"matched": true
 						},
 						{
-							"name": "balanceOf",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22928,56 +22927,7 @@
 							"matched": true
 						},
 						{
-							"name": "transfer",
-							"inputs": [
-								{
-									"type": "address",
-									"indexed": false,
-									"matched": true
-								},
-								{
-									"type": "uint256",
-									"indexed": false,
-									"matched": true
-								}
-							],
-							"outputs": [
-								{
-									"type": "bool",
-									"matched": true
-								}
-							],
-							"matched": true
-						},
-						{
-							"name": "transferFrom",
-							"inputs": [
-								{
-									"type": "address",
-									"indexed": false,
-									"matched": true
-								},
-								{
-									"type": "address",
-									"indexed": false,
-									"matched": true
-								},
-								{
-									"type": "uint256",
-									"indexed": false,
-									"matched": true
-								}
-							],
-							"outputs": [
-								{
-									"type": "bool",
-									"matched": true
-								}
-							],
-							"matched": true
-						},
-						{
-							"name": "approve",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -22999,7 +22949,56 @@
 							"matched": true
 						},
 						{
-							"name": "allowance",
+							"name": "_afterTokenTransfer",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "uint256",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [
+								{
+									"type": "bool",
+									"matched": true
+								}
+							],
+							"matched": true
+						},
+						{
+							"name": "_afterTokenTransfer",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								},
+								{
+									"type": "uint256",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [
+								{
+									"type": "bool",
+									"matched": true
+								}
+							],
+							"matched": true
+						},
+						{
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -23072,7 +23071,7 @@
 			"standards": {
 				"name": "ERC-20 Token Standard",
 				"url": "https://eips.ethereum.org/EIPS/eip-20",
-				"type": "EIP20",
+				"type": "ERC20",
 				"stagnant": false,
 				"abi": "[{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"balance\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"}]",
 				"functions": [
@@ -23250,17 +23249,17 @@
 			"contract_id": 524,
 			"contract_name": "ERC20",
 			"confidences": {
-				"confidence": 2,
-				"confidence_points": 0.5777777777777777,
-				"threshold": 0.5,
+				"confidence": 1,
+				"confidence_points": 0.4888888888888889,
+				"threshold": 0.1,
 				"maximum_tokens": 90,
-				"discovered_tokens": 52,
-				"standard": "EIP721",
+				"discovered_tokens": 44,
+				"standard": "ERC721",
 				"contract": {
 					"name": "ERC20",
 					"functions": [
 						{
-							"name": "name",
+							"name": "_afterTokenTransfer",
 							"inputs": [],
 							"outputs": [
 								{
@@ -23271,7 +23270,7 @@
 							"matched": true
 						},
 						{
-							"name": "symbol",
+							"name": "_afterTokenTransfer",
 							"inputs": [],
 							"outputs": [
 								{
@@ -23282,7 +23281,7 @@
 							"matched": true
 						},
 						{
-							"name": "totalSupply",
+							"name": "_afterTokenTransfer",
 							"inputs": [],
 							"outputs": [
 								{
@@ -23293,7 +23292,7 @@
 							"matched": true
 						},
 						{
-							"name": "balanceOf",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -23310,7 +23309,7 @@
 							"matched": true
 						},
 						{
-							"name": "ownerOf",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "uint256",
@@ -23327,7 +23326,7 @@
 							"matched": false
 						},
 						{
-							"name": "transferFrom",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -23349,7 +23348,7 @@
 							"matched": true
 						},
 						{
-							"name": "approve",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -23366,7 +23365,7 @@
 							"matched": true
 						},
 						{
-							"name": "setApprovalForAll",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -23383,7 +23382,7 @@
 							"matched": false
 						},
 						{
-							"name": "getApproved",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "uint256",
@@ -23400,7 +23399,7 @@
 							"matched": false
 						},
 						{
-							"name": "isApprovedForAll",
+							"name": "_afterTokenTransfer",
 							"inputs": [
 								{
 									"type": "address",
@@ -23493,9 +23492,9 @@
 				}
 			},
 			"standards": {
-				"name": "EIP-721 Non-Fungible Token Standard",
+				"name": "ERC-721 Non-Fungible Token Standard",
 				"url": "https://eips.ethereum.org/EIPS/eip-721",
-				"type": "EIP721",
+				"type": "ERC721",
 				"stagnant": false,
 				"abi": "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"_approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 				"functions": [
@@ -29398,6 +29397,7 @@
 					"absolute_path": "SafeMath.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -42112,6 +42112,7 @@
 					"absolute_path": "IERC20.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -45890,6 +45891,35 @@
 					"absolute_path": "IERC20.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 454,
+					"node_type": 62,
+					"src": {
+						"line": 327,
+						"column": 28,
+						"start": 10132,
+						"end": 10137,
+						"length": 6,
+						"parent_index": 453
+					},
+					"base_name": {
+						"id": 455,
+						"node_type": 52,
+						"src": {
+							"line": 327,
+							"column": 28,
+							"start": 10132,
+							"end": 10137,
+							"length": 6,
+							"parent_index": 453
+						},
+						"name": "IERC20",
+						"referenced_declaration": 355,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -45917,7 +45947,8 @@
 					"file": "../IERC20.sol",
 					"unit_alias": "",
 					"source_unit_id": 355,
-					"contract_id": 362
+					"contract_id": 362,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -47518,6 +47549,7 @@
 					"absolute_path": "IERC20.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [
 				{
 					"ast": {
@@ -47545,7 +47577,8 @@
 					"file": "../IERC20.sol",
 					"unit_alias": "",
 					"source_unit_id": 355,
-					"contract_id": 362
+					"contract_id": 362,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -60352,6 +60385,89 @@
 					"absolute_path": "IERC20.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 525,
+					"node_type": 62,
+					"src": {
+						"line": 406,
+						"column": 18,
+						"start": 12885,
+						"end": 12891,
+						"length": 7,
+						"parent_index": 524
+					},
+					"base_name": {
+						"id": 526,
+						"node_type": 52,
+						"src": {
+							"line": 406,
+							"column": 18,
+							"start": 12885,
+							"end": 12891,
+							"length": 7,
+							"parent_index": 524
+						},
+						"name": "Context",
+						"referenced_declaration": 483,
+						"contract_referenced_declaration": 0
+					}
+				},
+				{
+					"id": 527,
+					"node_type": 62,
+					"src": {
+						"line": 406,
+						"column": 27,
+						"start": 12894,
+						"end": 12899,
+						"length": 6,
+						"parent_index": 524
+					},
+					"base_name": {
+						"id": 528,
+						"node_type": 52,
+						"src": {
+							"line": 406,
+							"column": 27,
+							"start": 12894,
+							"end": 12899,
+							"length": 6,
+							"parent_index": 524
+						},
+						"name": "IERC20",
+						"referenced_declaration": 355,
+						"contract_referenced_declaration": 0
+					}
+				},
+				{
+					"id": 529,
+					"node_type": 62,
+					"src": {
+						"line": 406,
+						"column": 35,
+						"start": 12902,
+						"end": 12915,
+						"length": 14,
+						"parent_index": 524
+					},
+					"base_name": {
+						"id": 530,
+						"node_type": 52,
+						"src": {
+							"line": 406,
+							"column": 35,
+							"start": 12902,
+							"end": 12915,
+							"length": 14,
+							"parent_index": 524
+						},
+						"name": "IERC20Metadata",
+						"referenced_declaration": 445,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -60379,7 +60495,8 @@
 					"file": "./IERC20.sol",
 					"unit_alias": "",
 					"source_unit_id": 355,
-					"contract_id": 362
+					"contract_id": 362,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -60407,7 +60524,8 @@
 					"file": "./IERC20Metadata.sol",
 					"unit_alias": "",
 					"source_unit_id": 445,
-					"contract_id": 453
+					"contract_id": 453,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -60435,7 +60553,8 @@
 					"file": "./Context.sol",
 					"unit_alias": "",
 					"source_unit_id": 483,
-					"contract_id": 489
+					"contract_id": 489,
+					"contract": null
 				}
 			],
 			"pragmas": [

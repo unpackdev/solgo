@@ -8,27 +8,30 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
+// ErrorResponse represents the standard error response format returned by Etherscan's API.
 type ErrorResponse struct {
-	Status  string `json:"status"`
-	Message string `json:"message"`
-	Result  string `json:"result"`
+	Status  string `json:"status"`  // The status code of the response.
+	Message string `json:"message"` // A message describing the error.
+	Result  string `json:"result"`  // The result field, typically empty in error responses.
 }
 
-// EtherScanProvider represents the BscScan scanner provider.
-type EtherScanProvider struct {
-	ctx      context.Context
-	opts     *Options
-	cache    *redis.Client
-	keyIndex int32 // Use int32 for atomic operations
+// Provider encapsulates the logic for interacting with the Etherscan API,
+// including handling API keys and caching responses.
+type Provider struct {
+	ctx      context.Context // The context for controlling cancellations and timeouts.
+	opts     *Options        // The configuration options for the provider.
+	cache    *redis.Client   // A Redis client for caching API responses.
+	keyIndex int32           // An atomic counter for round-robin API key selection.
 }
 
-// NewEtherScanProvider creates a new instance of EtherScanProvider with the provided API key and API URL.
-func NewEtherScanProvider(ctx context.Context, cache *redis.Client, opts *Options) (*EtherScanProvider, error) {
+// NewProvider initializes a new EtherScanProvider with specified options and cache.
+// It returns an error if the provided options are invalid or incomplete.
+func NewProvider(ctx context.Context, cache *redis.Client, opts *Options) (*Provider, error) {
 	if err := opts.Validate(); err != nil {
 		return nil, err
 	}
 
-	return &EtherScanProvider{
+	return &Provider{
 		ctx:      ctx,
 		opts:     opts,
 		cache:    cache,
@@ -36,11 +39,14 @@ func NewEtherScanProvider(ctx context.Context, cache *redis.Client, opts *Option
 	}, nil
 }
 
-func (e *EtherScanProvider) ProviderName() string {
+// ProviderName returns the name of the provider as specified in the options.
+func (e *Provider) ProviderName() string {
 	return e.opts.Provider.String()
 }
 
-func (e *EtherScanProvider) CacheKey(method string, path string) string {
+// CacheKey generates a unique cache key for storing and retrieving API responses.
+// The key is composed using the API method and path.
+func (e *Provider) CacheKey(method string, path string) string {
 	return fmt.Sprintf(
 		"etherscan::%s::%s",
 		method,
@@ -48,8 +54,9 @@ func (e *EtherScanProvider) CacheKey(method string, path string) string {
 	)
 }
 
-// GetNextKey returns the next API key in a round-robin fashion.
-func (e *EtherScanProvider) GetNextKey() string {
+// GetNextKey selects the next API key to use for a request in a round-robin fashion.
+// This method ensures even distribution of request load across all configured API keys.
+func (e *Provider) GetNextKey() string {
 	// Atomically increment the keyIndex and get the next index
 	nextIndex := atomic.AddInt32(&e.keyIndex, 1)
 

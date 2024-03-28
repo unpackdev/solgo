@@ -152,7 +152,7 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 
 		for _, contractEvent := range contract.Events {
 			if _, found := discoveredEvents[contractEvent.Name]; !found {
-				if tokensFound, found := eventMatch(&eventFn, event, contractEvent); found {
+				if tokensFound, found := EventMatch(&eventFn, event, contractEvent); found {
 					discoveredEvents[contractEvent.Name] = true
 					eventFn.Matched = true
 					foundTokenCount += tokensFound
@@ -191,6 +191,7 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 	return toReturn, foundTokenCount > 0
 }
 
+// FunctionConfidenceCheck checks for function confidence against provided EIP standard
 func FunctionConfidenceCheck(standard EIP, fn *Function) (FunctionDiscovery, bool) {
 	foundTokenCount := 0
 	maximumTokens := standard.FunctionTokenCount(fn.Name)
@@ -227,7 +228,7 @@ func FunctionConfidenceCheck(standard EIP, fn *Function) (FunctionDiscovery, boo
 	return toReturn, foundTokenCount > 0
 }
 
-// functionMatch matches a function from a contract to a standard function and returns the total token count and a boolean indicating if a match was found.
+// FunctionMatch matches a function from a contract to a standard function and returns the total token count and a boolean indicating if a match was found.
 func FunctionMatch(newFn *Function, standardFunction, contractFunction Function) (int, bool) {
 	totalTokenCount := 0
 	newFn.Name = contractFunction.Name
@@ -266,8 +267,8 @@ func FunctionMatch(newFn *Function, standardFunction, contractFunction Function)
 	return totalTokenCount, totalTokenCount > 0
 }
 
-// eventMatch matches an event from a contract to a standard event and returns the total token count and a boolean indicating if a match was found.
-func eventMatch(newEvent *Event, standardEvent, event Event) (int, bool) {
+// EventMatch matches an event from a contract to a standard event and returns the total token count and a boolean indicating if a match was found.
+func EventMatch(newEvent *Event, standardEvent, event Event) (int, bool) {
 	totalTokenCount := 0
 
 	if standardEvent.Name == event.Name {

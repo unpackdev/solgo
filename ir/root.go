@@ -125,7 +125,7 @@ func (r *RootSourceUnit) HasStandard(standard standards.Standard) bool {
 	return false
 }
 
-// HasEips returns true if standard is already registered false otherwise.
+// HasHighConfidenceStandard returns true if high standard is already registered false otherwise.
 func (r *RootSourceUnit) HasHighConfidenceStandard(standard standards.Standard) bool {
 	for _, e := range r.Standards {
 		if e.Standard.Type == standard {
@@ -138,7 +138,7 @@ func (r *RootSourceUnit) HasHighConfidenceStandard(standard standards.Standard) 
 	return false
 }
 
-// HasPerfectConfidenceStandard
+// HasPerfectConfidenceStandard returns true if perfect standard is already registered false otherwise.
 func (r *RootSourceUnit) HasPerfectConfidenceStandard(standard standards.Standard) bool {
 	for _, e := range r.Standards {
 		if e.Standard.Type == standard {
@@ -204,6 +204,7 @@ func (r *RootSourceUnit) GetLinks() []*Link {
 	return r.Links
 }
 
+// IsEntryContract checks if provided contract is root unit entry contract
 func (r *RootSourceUnit) IsEntryContract(contract *Contract) bool {
 	return r.EntryContractId == contract.Id
 }
@@ -227,6 +228,9 @@ func (r *RootSourceUnit) ToProto() *ir_pb.Root {
 	return proto
 }
 
+// Walk iterates through the AST (Abstract Syntax Tree) of a RootSourceUnit, applying the provided NodeVisitor to each node.
+// This function facilitates traversal of the AST, allowing for operations such as analysis, modification, or inspection to be
+// performed on each node.
 func (r *RootSourceUnit) Walk(nodeVisitor *ast.NodeVisitor) error {
 	r.builder.GetAstBuilder().GetTree().Walk(nodeVisitor)
 	return nil

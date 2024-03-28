@@ -34346,6 +34346,7 @@
 		]
 	},
 	"node_type": 80,
+	"address": "0x0000000000000000000000000000000000000000",
 	"entry_contract_id": 1385,
 	"entry_contract_name": "TransparentUpgradeableProxy",
 	"contracts_count": 13,
@@ -34360,12 +34361,12 @@
 				"threshold": 0.5,
 				"maximum_tokens": 29,
 				"discovered_tokens": 15,
-				"standard": "EIP1822",
+				"standard": "ERC1822",
 				"contract": {
 					"name": "TransparentUpgradeableProxy",
 					"functions": [
 						{
-							"name": "getImplementation",
+							"name": "upgradeAndCall",
 							"inputs": [],
 							"outputs": [
 								{
@@ -34376,7 +34377,7 @@
 							"matched": false
 						},
 						{
-							"name": "upgradeTo",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34388,7 +34389,7 @@
 							"matched": true
 						},
 						{
-							"name": "upgradeToAndCall",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34405,7 +34406,7 @@
 							"matched": true
 						},
 						{
-							"name": "setProxyOwner",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34451,9 +34452,9 @@
 				}
 			},
 			"standards": {
-				"name": "EIP-1822 Universal Proxy Standard (UPS)",
+				"name": "ERC-1822 Universal Proxy Standard (UPS)",
 				"url": "https://eips.ethereum.org/EIPS/eip-1822",
-				"type": "EIP1822",
+				"type": "ERC1822",
 				"stagnant": true,
 				"abi": "[{\"constant\":true,\"inputs\":[],\"name\":\"getImplementation\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"string\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"setProxyOwner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"\",\"type\":\"address\"}],\"name\":\"ProxyOwnershipTransferred\",\"type\":\"event\"}]",
 				"functions": [
@@ -34552,12 +34553,12 @@
 				"threshold": 0,
 				"maximum_tokens": 67,
 				"discovered_tokens": 5,
-				"standard": "EIP1967",
+				"standard": "ERC1967",
 				"contract": {
 					"name": "TransparentUpgradeableProxy",
 					"functions": [
 						{
-							"name": "setInterfaceImplementer",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34579,7 +34580,7 @@
 							"matched": false
 						},
 						{
-							"name": "getInterfaceImplementer",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34601,7 +34602,7 @@
 							"matched": false
 						},
 						{
-							"name": "interfaceHash",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "string",
@@ -34618,7 +34619,7 @@
 							"matched": false
 						},
 						{
-							"name": "updateERC165Cache",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34635,7 +34636,7 @@
 							"matched": false
 						},
 						{
-							"name": "implementsERC165InterfaceNoCache",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34657,7 +34658,7 @@
 							"matched": false
 						},
 						{
-							"name": "implementsERC165Interface",
+							"name": "upgradeAndCall",
 							"inputs": [
 								{
 									"type": "address",
@@ -34723,9 +34724,9 @@
 				}
 			},
 			"standards": {
-				"name": "EIP-1967 Proxy Storage Slots",
+				"name": "ERC-1967 Proxy Storage Slots",
 				"url": "https://eips.ethereum.org/EIPS/eip-1967",
-				"type": "EIP1967",
+				"type": "ERC1967",
 				"stagnant": false,
 				"abi": "[{\"constant\":false,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"bytes32\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"setInterfaceImplementer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"getInterfaceImplementer\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"string\"}],\"name\":\"interfaceHash\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"updateERC165Cache\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"implementsERC165InterfaceNoCache\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"implementsERC165Interface\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"\",\"type\":\"bytes32\"},{\"indexed\":true,\"name\":\"\",\"type\":\"address\"}],\"name\":\"InterfaceImplementerSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"}]",
 				"functions": [
@@ -34877,6 +34878,196 @@
 					},
 					{
 						"name": "AdminChanged",
+						"inputs": [
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							},
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							}
+						],
+						"outputs": null,
+						"matched": false
+					}
+				]
+			}
+		},
+		{
+			"contract_id": 1385,
+			"contract_name": "TransparentUpgradeableProxy",
+			"confidences": {
+				"confidence": 2,
+				"confidence_points": 0.5,
+				"threshold": 0.5,
+				"maximum_tokens": 26,
+				"discovered_tokens": 13,
+				"standard": "OZOWNABLE",
+				"contract": {
+					"name": "TransparentUpgradeableProxy",
+					"functions": [
+						{
+							"name": "upgradeAndCall",
+							"inputs": [],
+							"outputs": [],
+							"matched": false
+						},
+						{
+							"name": "upgradeAndCall",
+							"inputs": [],
+							"outputs": [
+								{
+									"type": "address",
+									"matched": true
+								}
+							],
+							"matched": true
+						},
+						{
+							"name": "upgradeAndCall",
+							"inputs": [],
+							"outputs": [
+								{
+									"type": "address",
+									"matched": false
+								}
+							],
+							"matched": false
+						},
+						{
+							"name": "upgradeAndCall",
+							"inputs": [],
+							"outputs": [],
+							"matched": true
+						},
+						{
+							"name": "upgradeAndCall",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": true
+								}
+							],
+							"outputs": [],
+							"matched": true
+						}
+					],
+					"events": [
+						{
+							"name": "OwnershipTransferStarted",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": false
+								},
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": false
+								}
+							],
+							"outputs": [],
+							"matched": false
+						},
+						{
+							"name": "OwnershipTransferred",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": true
+								},
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": true
+								}
+							],
+							"outputs": [],
+							"matched": true
+						}
+					]
+				}
+			},
+			"standards": {
+				"name": "OpenZeppelin Owner Module",
+				"url": "https://docs.openzeppelin.com/contracts/4.x/api/access#Ownable",
+				"type": "OZOWNABLE",
+				"stagnant": false,
+				"abi": "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"acceptOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+				"functions": [
+					{
+						"name": "acceptOwnership",
+						"inputs": null,
+						"outputs": null,
+						"matched": false
+					},
+					{
+						"name": "owner",
+						"inputs": null,
+						"outputs": [
+							{
+								"type": "address",
+								"matched": false
+							}
+						],
+						"matched": false
+					},
+					{
+						"name": "pendingOwner",
+						"inputs": null,
+						"outputs": [
+							{
+								"type": "address",
+								"matched": false
+							}
+						],
+						"matched": false
+					},
+					{
+						"name": "renounceOwnership",
+						"inputs": null,
+						"outputs": null,
+						"matched": false
+					},
+					{
+						"name": "transferOwnership",
+						"inputs": [
+							{
+								"type": "address",
+								"indexed": false,
+								"matched": false
+							}
+						],
+						"outputs": null,
+						"matched": false
+					}
+				],
+				"events": [
+					{
+						"name": "OwnershipTransferStarted",
+						"inputs": [
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							},
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							}
+						],
+						"outputs": null,
+						"matched": false
+					},
+					{
+						"name": "OwnershipTransferred",
 						"inputs": [
 							{
 								"type": "address",
@@ -35164,6 +35355,7 @@
 					"absolute_path": "IBeacon.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -38424,6 +38616,7 @@
 					"absolute_path": "Proxy.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -49885,6 +50078,7 @@
 					"absolute_path": "Address.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -63448,6 +63642,7 @@
 					"absolute_path": "StorageSlot.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -73246,6 +73441,7 @@
 					"absolute_path": "IBeacon.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [
 				{
 					"ast": {
@@ -73273,7 +73469,8 @@
 					"file": "../beacon/IBeacon.sol",
 					"unit_alias": "",
 					"source_unit_id": 119,
-					"contract_id": 141
+					"contract_id": 141,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -73301,7 +73498,8 @@
 					"file": "utils/Address.sol",
 					"unit_alias": "",
 					"source_unit_id": 239,
-					"contract_id": 243
+					"contract_id": 243,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -73329,7 +73527,8 @@
 					"file": "utils/StorageSlot.sol",
 					"unit_alias": "",
 					"source_unit_id": 524,
-					"contract_id": 529
+					"contract_id": 529,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -88539,6 +88738,62 @@
 					"absolute_path": "IBeacon.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 964,
+					"node_type": 62,
+					"src": {
+						"line": 582,
+						"column": 24,
+						"start": 21117,
+						"end": 21121,
+						"length": 5,
+						"parent_index": 963
+					},
+					"base_name": {
+						"id": 965,
+						"node_type": 52,
+						"src": {
+							"line": 582,
+							"column": 24,
+							"start": 21117,
+							"end": 21121,
+							"length": 5,
+							"parent_index": 963
+						},
+						"name": "Proxy",
+						"referenced_declaration": 151,
+						"contract_referenced_declaration": 0
+					}
+				},
+				{
+					"id": 966,
+					"node_type": 62,
+					"src": {
+						"line": 582,
+						"column": 31,
+						"start": 21124,
+						"end": 21137,
+						"length": 14,
+						"parent_index": 963
+					},
+					"base_name": {
+						"id": 967,
+						"node_type": 52,
+						"src": {
+							"line": 582,
+							"column": 31,
+							"start": 21124,
+							"end": 21137,
+							"length": 14,
+							"parent_index": 963
+						},
+						"name": "ERC1967Upgrade",
+						"referenced_declaration": 614,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -88566,7 +88821,8 @@
 					"file": "./IBeacon.sol",
 					"unit_alias": "",
 					"source_unit_id": 119,
-					"contract_id": 141
+					"contract_id": 141,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -88594,7 +88850,8 @@
 					"file": "../Proxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 151,
-					"contract_id": 154
+					"contract_id": 154,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -88622,7 +88879,8 @@
 					"file": "../ERC1967/ERC1967Upgrade.sol",
 					"unit_alias": "",
 					"source_unit_id": 614,
-					"contract_id": 623
+					"contract_id": 623,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -91686,6 +91944,7 @@
 					"absolute_path": "Context.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -94811,6 +95070,35 @@
 					"absolute_path": "Context.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 1097,
+					"node_type": 62,
+					"src": {
+						"line": 670,
+						"column": 29,
+						"start": 24238,
+						"end": 24244,
+						"length": 7,
+						"parent_index": 1096
+					},
+					"base_name": {
+						"id": 1098,
+						"node_type": 52,
+						"src": {
+							"line": 670,
+							"column": 29,
+							"start": 24238,
+							"end": 24244,
+							"length": 7,
+							"parent_index": 1096
+						},
+						"name": "Context",
+						"referenced_declaration": 1040,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -94838,7 +95126,8 @@
 					"file": "../utils/Context.sol",
 					"unit_alias": "",
 					"source_unit_id": 1040,
-					"contract_id": 1054
+					"contract_id": 1054,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -99301,6 +99590,62 @@
 					"absolute_path": "IBeacon.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 1222,
+					"node_type": 62,
+					"src": {
+						"line": 736,
+						"column": 30,
+						"start": 26366,
+						"end": 26372,
+						"length": 7,
+						"parent_index": 1221
+					},
+					"base_name": {
+						"id": 1223,
+						"node_type": 52,
+						"src": {
+							"line": 736,
+							"column": 30,
+							"start": 26366,
+							"end": 26372,
+							"length": 7,
+							"parent_index": 1221
+						},
+						"name": "IBeacon",
+						"referenced_declaration": 119,
+						"contract_referenced_declaration": 0
+					}
+				},
+				{
+					"id": 1224,
+					"node_type": 62,
+					"src": {
+						"line": 736,
+						"column": 39,
+						"start": 26375,
+						"end": 26381,
+						"length": 7,
+						"parent_index": 1221
+					},
+					"base_name": {
+						"id": 1225,
+						"node_type": 52,
+						"src": {
+							"line": 736,
+							"column": 39,
+							"start": 26375,
+							"end": 26381,
+							"length": 7,
+							"parent_index": 1221
+						},
+						"name": "Ownable",
+						"referenced_declaration": 1080,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -99328,7 +99673,8 @@
 					"file": "./IBeacon.sol",
 					"unit_alias": "",
 					"source_unit_id": 119,
-					"contract_id": 141
+					"contract_id": 141,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -99356,7 +99702,8 @@
 					"file": "access/Ownable.sol",
 					"unit_alias": "",
 					"source_unit_id": 1080,
-					"contract_id": 1096
+					"contract_id": 1096,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -99384,7 +99731,8 @@
 					"file": "utils/Address.sol",
 					"unit_alias": "",
 					"source_unit_id": 239,
-					"contract_id": 243
+					"contract_id": 243,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -102769,6 +103117,62 @@
 					"absolute_path": "Proxy.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 1313,
+					"node_type": 62,
+					"src": {
+						"line": 800,
+						"column": 25,
+						"start": 28345,
+						"end": 28349,
+						"length": 5,
+						"parent_index": 1312
+					},
+					"base_name": {
+						"id": 1314,
+						"node_type": 52,
+						"src": {
+							"line": 800,
+							"column": 25,
+							"start": 28345,
+							"end": 28349,
+							"length": 5,
+							"parent_index": 1312
+						},
+						"name": "Proxy",
+						"referenced_declaration": 151,
+						"contract_referenced_declaration": 0
+					}
+				},
+				{
+					"id": 1315,
+					"node_type": 62,
+					"src": {
+						"line": 800,
+						"column": 32,
+						"start": 28352,
+						"end": 28365,
+						"length": 14,
+						"parent_index": 1312
+					},
+					"base_name": {
+						"id": 1316,
+						"node_type": 52,
+						"src": {
+							"line": 800,
+							"column": 32,
+							"start": 28352,
+							"end": 28365,
+							"length": 14,
+							"parent_index": 1312
+						},
+						"name": "ERC1967Upgrade",
+						"referenced_declaration": 614,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -102796,7 +103200,8 @@
 					"file": "../Proxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 151,
-					"contract_id": 154
+					"contract_id": 154,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -102824,7 +103229,8 @@
 					"file": "./ERC1967Upgrade.sol",
 					"unit_alias": "",
 					"source_unit_id": 614,
-					"contract_id": 623
+					"contract_id": 623,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -107295,6 +107701,35 @@
 					"absolute_path": "ERC1967Proxy.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 1386,
+					"node_type": 62,
+					"src": {
+						"line": 847,
+						"column": 40,
+						"start": 30741,
+						"end": 30752,
+						"length": 12,
+						"parent_index": 1385
+					},
+					"base_name": {
+						"id": 1387,
+						"node_type": 52,
+						"src": {
+							"line": 847,
+							"column": 40,
+							"start": 30741,
+							"end": 30752,
+							"length": 12,
+							"parent_index": 1385
+						},
+						"name": "ERC1967Proxy",
+						"referenced_declaration": 1289,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -107322,7 +107757,8 @@
 					"file": "../ERC1967/ERC1967Proxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 1289,
-					"contract_id": 1312
+					"contract_id": 1312,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -115141,6 +115577,35 @@
 					"absolute_path": "TransparentUpgradeableProxy.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 1568,
+					"node_type": 62,
+					"src": {
+						"line": 952,
+						"column": 23,
+						"start": 34619,
+						"end": 34625,
+						"length": 7,
+						"parent_index": 1567
+					},
+					"base_name": {
+						"id": 1569,
+						"node_type": 52,
+						"src": {
+							"line": 952,
+							"column": 23,
+							"start": 34619,
+							"end": 34625,
+							"length": 7,
+							"parent_index": 1567
+						},
+						"name": "Ownable",
+						"referenced_declaration": 1080,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -115168,7 +115633,8 @@
 					"file": "./TransparentUpgradeableProxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 1360,
-					"contract_id": 1385
+					"contract_id": 1385,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -115196,7 +115662,8 @@
 					"file": "access/Ownable.sol",
 					"unit_alias": "",
 					"source_unit_id": 1080,
-					"contract_id": 1096
+					"contract_id": 1096,
+					"contract": null
 				}
 			],
 			"pragmas": [
@@ -120824,6 +121291,35 @@
 					"absolute_path": "BeaconProxy.sol"
 				}
 			],
+			"base_contracts": [
+				{
+					"id": 1723,
+					"node_type": 62,
+					"src": {
+						"line": 1029,
+						"column": 37,
+						"start": 37504,
+						"end": 37530,
+						"length": 27,
+						"parent_index": 1722
+					},
+					"base_name": {
+						"id": 1724,
+						"node_type": 52,
+						"src": {
+							"line": 1029,
+							"column": 37,
+							"start": 37504,
+							"end": 37530,
+							"length": 27,
+							"parent_index": 1722
+						},
+						"name": "TransparentUpgradeableProxy",
+						"referenced_declaration": 1360,
+						"contract_referenced_declaration": 0
+					}
+				}
+			],
 			"imports": [
 				{
 					"ast": {
@@ -120851,7 +121347,8 @@
 					"file": "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 950,
-					"contract_id": 963
+					"contract_id": 963,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -120879,7 +121376,8 @@
 					"file": "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol",
 					"unit_alias": "",
 					"source_unit_id": 1201,
-					"contract_id": 1221
+					"contract_id": 1221,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -120907,7 +121405,8 @@
 					"file": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 1289,
-					"contract_id": 1312
+					"contract_id": 1312,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -120935,7 +121434,8 @@
 					"file": "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
 					"unit_alias": "",
 					"source_unit_id": 1360,
-					"contract_id": 1385
+					"contract_id": 1385,
+					"contract": null
 				},
 				{
 					"ast": {
@@ -120963,7 +121463,8 @@
 					"file": "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol",
 					"unit_alias": "",
 					"source_unit_id": 1539,
-					"contract_id": 1567
+					"contract_id": 1567,
+					"contract": null
 				}
 			],
 			"pragmas": [

@@ -138,10 +138,17 @@ func (b *Builder) Build() error {
 	return nil
 }
 
+// SetAddress assigns a specific Ethereum address to the Builder. This address can be associated with the sources being
+// processed and might be used for context-specific operations that require an Ethereum address. For instance, when
+// generating IR that includes information specific to a deployed contract, the address could be essential for accurate
+// data representation.
 func (b *Builder) SetAddress(address common.Address) {
 	b.address = address
 }
 
+// GetAddress retrieves the Ethereum address currently associated with the Builder. If an address has been set using
+// SetAddress, this method returns that address. Otherwise, it returns an empty common.Address. This function can be
+// useful to check if an address has been set or to retrieve the address for use in context-specific operations.
 func (b *Builder) GetAddress() common.Address {
 	return b.address
 }

@@ -38,7 +38,7 @@ func TestOnchainContracts(t *testing.T) {
 			{
 				Group:                   string(utils.Ethereum),
 				Type:                    "mainnet",
-				Endpoint:                "ws://localhost:8545",
+				Endpoint:                os.Getenv("FULL_NODE_TEST_URL"),
 				NetworkId:               1,
 				ConcurrentClientsNumber: 1,
 			},
@@ -50,11 +50,12 @@ func TestOnchainContracts(t *testing.T) {
 	tAssert.NotNil(pool)
 
 	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
-	etherscanProvider := etherscan.NewEtherScanProvider(ctx, nil, &etherscan.Options{
+	etherscanProvider, err := etherscan.NewProvider(ctx, nil, &etherscan.Options{
 		Provider: etherscan.EtherScan,
 		Endpoint: "https://api.etherscan.io/api",
 		Keys:     strings.Split(etherscanApiKeys, ","),
 	})
+	require.NoError(t, err)
 	tAssert.NotNil(etherscanProvider)
 
 	testCases := []struct {
@@ -102,7 +103,7 @@ func TestOnchainContracts(t *testing.T) {
 
 			response, err := etherscanProvider.ScanContract(tc.address)
 			tAssert.NoError(err)
-			tAssert.NotNil(response)
+			require.NotNil(t, response)
 
 			sources, err := solgo.NewSourcesFromEtherScan(response.Name, response.SourceCode)
 			tAssert.NoError(err)
@@ -111,8 +112,7 @@ func TestOnchainContracts(t *testing.T) {
 
 			parser, err := ir.NewBuilderFromSources(context.TODO(), sources)
 			if tc.expectError {
-				assert.Error(t, err)
-				assert.Nil(t, parser)
+				require.Error(t, err)
 				return
 			}
 
@@ -156,11 +156,6 @@ func TestOnchainContracts(t *testing.T) {
 			assert.NoError(t, err)
 			assert.NotNil(t, vars)
 			require.Equal(t, tc.length, len(vars))
-			/*
-				for _, variable := range vars {
-					size, _ := variable.GetVariable().GetStorageSize()
-					t.Logf("Variable: %s - Size: %d", variable.GetVariable().GetName(), size)
-				} */
 		})
 	}
 

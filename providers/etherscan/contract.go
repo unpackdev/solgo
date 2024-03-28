@@ -13,37 +13,51 @@ import (
 	"github.com/unpackdev/solgo/metadata"
 )
 
+// Contract represents the detailed information of a smart contract
+// including its source code, ABI, and other metadata as returned by the Etherscan API.
 type Contract struct {
-	SourceCode           interface{} `json:"SourceCode"`
-	ABI                  string      `json:"ABI"`
-	Name                 string      `json:"ContractName"`
-	CompilerVersion      string      `json:"CompilerVersion"`
-	OptimizationUsed     string      `json:"OptimizationUsed"`
-	Runs                 string      `json:"Runs"`
-	ConstructorArguments string      `json:"ConstructorArguments"`
-	EVMVersion           string      `json:"EVMVersion"`
-	Library              string      `json:"Library"`
-	LicenseType          string      `json:"LicenseType"`
-	Proxy                string      `json:"Proxy"`
-	Implementation       string      `json:"Implementation"`
-	SwarmSource          string      `json:"SwarmSource"`
+	SourceCode           interface{} `json:"SourceCode"`           // The source code of the contract. Can be a plain string or a structured metadata object.
+	ABI                  string      `json:"ABI"`                  // The ABI (Application Binary Interface) of the contract in JSON format.
+	Name                 string      `json:"ContractName"`         // The name of the contract.
+	CompilerVersion      string      `json:"CompilerVersion"`      // The version of the Solidity compiler used to compile the contract.
+	OptimizationUsed     string      `json:"OptimizationUsed"`     // Indicates if optimization was used during compilation.
+	Runs                 string      `json:"Runs"`                 // The number of runs specified for the optimizer.
+	ConstructorArguments string      `json:"ConstructorArguments"` // The constructor arguments used when deploying the contract.
+	EVMVersion           string      `json:"EVMVersion"`           // The version of the Ethereum Virtual Machine (EVM) for which the contract was compiled.
+	Library              string      `json:"Library"`              // Specifies any library used in the contract.
+	LicenseType          string      `json:"LicenseType"`          // The license type under which the contract source code is provided.
+	Proxy                string      `json:"Proxy"`                // Indicates if the contract is a proxy contract.
+	Implementation       string      `json:"Implementation"`       // The address of the implementation contract, if this is a proxy contract.
+	SwarmSource          string      `json:"SwarmSource"`          // The Swarm source of the contract's metadata.
 }
 
-func (c Contract) MarshalBinary() ([]byte, error) {
+// MarshalBinary implements the encoding.BinaryMarshaler interface for Contract.
+// It returns the JSON encoding of the contract.
+func (c *Contract) MarshalBinary() ([]byte, error) {
 	return json.Marshal(c)
 }
 
+// UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Contract.
+// It parses a JSON-encoded contract and stores the result in the Contract.
 func (c *Contract) UnmarshalBinary(data []byte) error {
 	return json.Unmarshal(data, c)
 }
 
+// ContractResponse encapsulates the response structure for contract queries
+// made to the Etherscan API.
 type ContractResponse struct {
-	Status  string     `json:"status"`
-	Message string     `json:"message"`
-	Result  []Contract `json:"result"`
+	Status  string     `json:"status"`  // The status of the API response, "1" for success and "0" for failure.
+	Message string     `json:"message"` // A message accompanying the status, often indicating the nature of any error.
+	Result  []Contract `json:"result"`  // The contracts returned by the query, typically containing a single contract.
 }
 
-func (e *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error) {
+// ScanContract retrieves the source code and other related details of a smart contract
+// from the Ethereum blockchain using the Etherscan API. It attempts to retrieve the data
+// from a local cache first; if not available, it fetches it from the API. The address of
+// the contract (addr) must be provided. On success, a Contract instance containing the
+// source code and related metadata is returned. Various errors encountered during the
+// data retrieval and parsing process, including API and network errors, are propagated.
+func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
 	cacheKey := e.CacheKey("getsourcecode_method_1", addr.Hex())
 
 	if e.cache != nil {
@@ -57,11 +71,6 @@ func (e *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 			}
 		}
 	}
-
-	// @FIXME: For now we're going to sleep a bit to avoid rate limiting.
-	// There are multiple ways we can sort this by applying pool of the API keys and rotating them.
-	// In addition, what's a must at first is basically purchasing the API key from Etherscan.
-	time.Sleep(200 * time.Millisecond)
 
 	url := fmt.Sprintf(
 		"%s?module=contract&action=getsourcecode&address=%s&apikey=%s",
@@ -107,10 +116,9 @@ func (e *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 		sourceCode, _ := unprettyJSON(manualUnquote(toReturn.SourceCode.(string)))
 
 		if err := json.Unmarshal([]byte(sourceCode), &cm); err != nil {
-			fmt.Println("failure to decode contract metadata", err)
 			var onlySources map[string]metadata.ContractSource
-			if err := json.Unmarshal([]byte(fmt.Sprint(toReturn.SourceCode.(string))), &onlySources); err != nil {
-				return nil, fmt.Errorf("failed to unmarshal metadata response (string): %w", err)
+			if nErr := json.Unmarshal([]byte(fmt.Sprint(toReturn.SourceCode.(string))), &onlySources); nErr != nil {
+				return nil, fmt.Errorf("failed to unmarshal metadata response (string): %w", errors.Join(err, nErr))
 			} else {
 				cm.Sources = onlySources
 			}
@@ -140,6 +148,9 @@ func (e *EtherScanProvider) ScanContract(addr common.Address) (*Contract, error)
 	return &toReturn, nil
 }
 
+// manualUnquote handles specific cases of encoded JSON strings that need to be
+// manually adjusted before unmarshaling. It primarily deals with removing
+// excess quotation marks and brackets from JSON-encoded strings.
 func manualUnquote(s string) string {
 	// Check if it starts with `{{` and ends with `}}`
 	if strings.HasPrefix(s, "{{") && strings.HasSuffix(s, "}}") {
@@ -149,7 +160,9 @@ func manualUnquote(s string) string {
 	return s
 }
 
-// UnprettyJSON takes a pretty JSON string and returns a compact, unprettified version of it.
+// unprettyJSON converts a formatted (pretty) JSON string into a compact,
+// unformatted string. This is useful for processing JSON strings that need
+// to be compacted for storage or further processing.
 func unprettyJSON(prettyJSON string) (string, error) {
 	var data interface{}
 

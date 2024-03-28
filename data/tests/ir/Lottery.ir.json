@@ -10775,11 +10775,203 @@
 		]
 	},
 	"node_type": 80,
+	"address": "0x0000000000000000000000000000000000000000",
 	"entry_contract_id": 24,
 	"entry_contract_name": "Lottery",
 	"contracts_count": 2,
 	"contract_types": [],
-	"standards": [],
+	"standards": [
+		{
+			"contract_id": 24,
+			"contract_name": "Lottery",
+			"confidences": {
+				"confidence": 0,
+				"confidence_points": 0.038461538461538464,
+				"threshold": 0,
+				"maximum_tokens": 26,
+				"discovered_tokens": 1,
+				"standard": "OZOWNABLE",
+				"contract": {
+					"name": "Lottery",
+					"functions": [
+						{
+							"name": "dummyFunctionAssembly",
+							"inputs": [],
+							"outputs": [],
+							"matched": false
+						},
+						{
+							"name": "dummyFunctionAssembly",
+							"inputs": [],
+							"outputs": [
+								{
+									"type": "address",
+									"matched": true
+								}
+							],
+							"matched": true
+						},
+						{
+							"name": "dummyFunctionAssembly",
+							"inputs": [],
+							"outputs": [
+								{
+									"type": "address",
+									"matched": false
+								}
+							],
+							"matched": false
+						},
+						{
+							"name": "dummyFunctionAssembly",
+							"inputs": [],
+							"outputs": [],
+							"matched": false
+						},
+						{
+							"name": "dummyFunctionAssembly",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": false,
+									"matched": false
+								}
+							],
+							"outputs": [],
+							"matched": false
+						}
+					],
+					"events": [
+						{
+							"name": "OwnershipTransferStarted",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": false
+								},
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": false
+								}
+							],
+							"outputs": [],
+							"matched": false
+						},
+						{
+							"name": "OwnershipTransferred",
+							"inputs": [
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": false
+								},
+								{
+									"type": "address",
+									"indexed": true,
+									"matched": false
+								}
+							],
+							"outputs": [],
+							"matched": false
+						}
+					]
+				}
+			},
+			"standards": {
+				"name": "OpenZeppelin Owner Module",
+				"url": "https://docs.openzeppelin.com/contracts/4.x/api/access#Ownable",
+				"type": "OZOWNABLE",
+				"stagnant": false,
+				"abi": "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"acceptOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pendingOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+				"functions": [
+					{
+						"name": "acceptOwnership",
+						"inputs": null,
+						"outputs": null,
+						"matched": false
+					},
+					{
+						"name": "owner",
+						"inputs": null,
+						"outputs": [
+							{
+								"type": "address",
+								"matched": false
+							}
+						],
+						"matched": false
+					},
+					{
+						"name": "pendingOwner",
+						"inputs": null,
+						"outputs": [
+							{
+								"type": "address",
+								"matched": false
+							}
+						],
+						"matched": false
+					},
+					{
+						"name": "renounceOwnership",
+						"inputs": null,
+						"outputs": null,
+						"matched": false
+					},
+					{
+						"name": "transferOwnership",
+						"inputs": [
+							{
+								"type": "address",
+								"indexed": false,
+								"matched": false
+							}
+						],
+						"outputs": null,
+						"matched": false
+					}
+				],
+				"events": [
+					{
+						"name": "OwnershipTransferStarted",
+						"inputs": [
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							},
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							}
+						],
+						"outputs": null,
+						"matched": false
+					},
+					{
+						"name": "OwnershipTransferred",
+						"inputs": [
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							},
+							{
+								"type": "address",
+								"indexed": true,
+								"matched": false
+							}
+						],
+						"outputs": null,
+						"matched": false
+					}
+				]
+			}
+		}
+	],
 	"contracts": [
 		{
 			"ast": {
@@ -11046,6 +11238,7 @@
 					"absolute_path": "Lottery.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{
@@ -20458,6 +20651,7 @@
 					"absolute_path": "Lottery.sol"
 				}
 			],
+			"base_contracts": [],
 			"imports": [],
 			"pragmas": [
 				{

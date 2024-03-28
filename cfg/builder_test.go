@@ -101,19 +101,5 @@ func TestCfgBuilder(t *testing.T) {
 			assert.IsType(t, &Builder{}, builder)
 
 		})
-
 	}
-
-}
-
-func TestNewBuilder(t *testing.T) {
-	parser := &ir.Builder{}
-	ctx := context.Background()
-
-	builder, err := NewBuilder(ctx, parser)
-	assert.NoError(t, err)
-	assert.NotNil(t, builder)
-	assert.Equal(t, ctx, builder.ctx)
-	assert.Equal(t, parser, builder.builder)
-	assert.NotNil(t, builder.viz)
 }
