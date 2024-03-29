@@ -3,8 +3,8 @@ package accounts
 import (
 	"context"
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
+	"github.com/goccy/go-json"
 	"log"
 	"math/big"
 	"os"

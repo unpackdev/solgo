@@ -37,11 +37,11 @@ func TestAccountsManager(t *testing.T) {
 			clientOptions: &clients.Options{
 				Nodes: []clients.Node{
 					{
-						Group:                   string(utils.Ethereum),
-						Type:                    "mainnet",
-						Endpoint:                "https://ethereum.publicnode.com",
-						NetworkId:               1,
-						ConcurrentClientsNumber: 1,
+						Group:             string(utils.Ethereum),
+						Type:              "mainnet",
+						Endpoint:          "https://ethereum.publicnode.com",
+						NetworkId:         1,
+						ConcurrentClients: 1,
 					},
 				},
 			},

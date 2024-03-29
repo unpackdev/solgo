@@ -36,11 +36,11 @@ func TestOnchainContracts(t *testing.T) {
 	clientOptions := &clients.Options{
 		Nodes: []clients.Node{
 			{
-				Group:                   string(utils.Ethereum),
-				Type:                    "mainnet",
-				Endpoint:                os.Getenv("FULL_NODE_TEST_URL"),
-				NetworkId:               1,
-				ConcurrentClientsNumber: 1,
+				Group:             string(utils.Ethereum),
+				Type:              "mainnet",
+				Endpoint:          os.Getenv("FULL_NODE_TEST_URL"),
+				NetworkId:         1,
+				ConcurrentClients: 1,
 			},
 		},
 	}
