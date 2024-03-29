@@ -2,8 +2,8 @@ package ir
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
+	"github.com/goccy/go-json"
 
 	"github.com/ethereum/go-ethereum/common"
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"

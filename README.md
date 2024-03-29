@@ -6,7 +6,7 @@
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/unpackdev/solgo)](https://pkg.go.dev/github.com/unpackdev/solgo)
 [![Discord](https://img.shields.io/discord/1109929011896909875.svg)](https://discord.gg/PdHVbuTQRX)
 
-# Solidity Parser and Analyzer in Go
+# Go Ethereum Solidity Toolkit: Solidity Parser, Analyzer, and Introspector
 
 **SolGo** - a robust tool crafted in Go, designed to dissect and analyze Solidity's source code.
 
@@ -75,7 +75,7 @@ Makes no sense to rewrite all of that hard work just to be written in Go. Theref
 
 List of the projects that use SolGo:
 
-- [Inspector](https://github.com/unpackdev/inspector): A tool for downloading, managing and inspecting smart contracts for Ethereum-based chains.
+- [Inspector](https://github.com/unpackdev/inspector) - Tool for downloading, managing and inspecting smart contracts for Ethereum-based chains.
 
 If you wish to add your repository to the list, make sure to submit new PR :)
 

@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"encoding/json"
+	"github.com/goccy/go-json"
 	"reflect"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"

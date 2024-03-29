@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"encoding/json"
+	"github.com/goccy/go-json"
 	"reflect"
 
 	"github.com/antlr4-go/antlr/v4"

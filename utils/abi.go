@@ -2,8 +2,8 @@ package utils
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
+	"github.com/goccy/go-json"
 
 	abi "github.com/ethereum/go-ethereum/accounts/abi"
 )

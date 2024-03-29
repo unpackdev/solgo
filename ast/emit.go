@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"encoding/json"
+	"github.com/goccy/go-json"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"

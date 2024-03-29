@@ -3,8 +3,8 @@ package bitquery
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
+	"github.com/goccy/go-json"
 	"net/http"
 	"time"
 )
