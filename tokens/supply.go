@@ -8,6 +8,9 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
+// CalculateTotalBurnedSupply updates the TotalBurnedSupply field in the token's descriptor
+// by summing the balances of well-known burn addresses. This method assumes these addresses
+// are where tokens are sent to be "burned" or permanently removed from circulation.
 func (t *Token) CalculateTotalBurnedSupply(ctx context.Context) error {
 	burnAddresses := []common.Address{
 		common.HexToAddress("0x0000000000000000000000000000000000000000"),

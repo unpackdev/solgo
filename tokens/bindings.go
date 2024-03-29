@@ -9,6 +9,7 @@ import (
 	"github.com/unpackdev/solgo/bindings"
 )
 
+// PrepareBindings initializes the token binding for the Token struct based on the current network and contract address.
 func (t *Token) PrepareBindings(ctx context.Context) error {
 	var err error
 	t.tokenBind, err = t.GetTokenBind(ctx, t.bindManager)
