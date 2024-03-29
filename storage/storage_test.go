@@ -21,7 +21,6 @@ import (
 )
 
 func TestStorage(t *testing.T) {
-	t.Skip("temp skip...")
 	tAssert := assert.New(t)
 
 	config := zap.NewDevelopmentConfig()
