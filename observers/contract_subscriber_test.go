@@ -12,7 +12,7 @@ import (
 )
 
 func TestNewContractSubscriber(t *testing.T) {
-	t.Skip("Skipping Contract Subscriber tests as they require a BSC node to be running...")
+	t.Skip("Skipping Contract Subscriber tests as they require a node to be running...")
 
 	client, err := clients.NewClientPool(context.Background(), &clients.Options{
 		Nodes: []clients.Node{
