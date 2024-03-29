@@ -1,8 +1,8 @@
 package cfg
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/goccy/go-json"
 )
 
 // ToJSON converts a specified contract or the entire graph to a JSON representation.
