@@ -11,6 +11,7 @@ require (
 	github.com/ethereum/go-ethereum v1.13.13
 	github.com/fxamacker/cbor/v2 v2.6.0
 	github.com/goccy/go-graphviz v0.1.2
+	github.com/goccy/go-json v0.10.2
 	github.com/golang/protobuf v1.5.4
 	github.com/google/uuid v1.6.0
 	github.com/ipfs/go-cid v0.4.1
@@ -18,6 +19,7 @@ require (
 	github.com/mr-tron/base58 v1.2.0
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/sergi/go-diff v1.3.1
+	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.8.4
 	github.com/unpackdev/protos v0.3.4
 	go.uber.org/zap v1.26.0
