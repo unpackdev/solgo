@@ -71,6 +71,14 @@ Makes no sense to rewrite all of that hard work just to be written in Go. Theref
 - **Security Audit Package**: Prioritizing security, SolGo has incorporated an `audit` package. This specialized package leverages [Slither](https://github.com/crytic/slither)'s sophisticated algorithms to scrutinize and pinpoint potential vulnerabilities in Solidity smart contracts, ensuring robust protection against adversarial threats.
 - **Contract Bytecode Validation:** Enhanced `validation` package ensures the integrity and authenticity of contract bytecode. By comparing the bytecode of a deployed contract with the expected bytecode generated from its source code, SolGo can detect any discrepancies or potential tampering. This feature is crucial for verifying that a deployed contract's bytecode corresponds accurately to its source code, providing an added layer of security and trust for developers and users alike.
 
+## External Projects / Extensions
+
+List of the projects that use SolGo:
+
+- [Inspector](https://github.com/unpackdev/inspector): A tool for downloading, managing and inspecting smart contracts for Ethereum-based chains.
+
+If you wish to add your repository to the list, make sure to submit new PR :)
+
 ## Contributing
 
 Contributions to SolGo are always welcome! Please visit [Contributing](https://github.com/unpackdev/solgo/wiki/Contributing) for more information on how to get started.
