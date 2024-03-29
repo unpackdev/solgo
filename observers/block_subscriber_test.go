@@ -13,7 +13,7 @@ import (
 )
 
 func TestNewBlockHeaderSubscriber(t *testing.T) {
-	t.Skip("Skipping New Block Subscriber tests as they require a BSC node to be running...")
+	t.Skip("Skipping New Block Subscriber tests as they require a node to be running...")
 
 	client, err := clients.NewClientPool(context.Background(), &clients.Options{
 		Nodes: []clients.Node{
@@ -114,7 +114,7 @@ func TestNewBlockHeaderSubscriber(t *testing.T) {
 }
 
 func TestNewBlockSubscriber(t *testing.T) {
-	t.Skip("Skipping New Block Subscriber tests as they require a BSC node to be running...")
+	t.Skip("Skipping New Block Subscriber tests as they require a node to be running...")
 
 	client, err := clients.NewClientPool(context.Background(), &clients.Options{
 		Nodes: []clients.Node{
