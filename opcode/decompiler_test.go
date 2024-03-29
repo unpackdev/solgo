@@ -242,7 +242,6 @@ func TestDecompiler_EdgeCases(t *testing.T) {
 }
 
 func BenchmarkDecompiler_Performance(b *testing.B) {
-	b.Skip("Do not run benchmarking for now...")
 	// Create a large instruction set for benchmarking
 	instructions := make([]Instruction, 1000000)
 	for i := 0; i < len(instructions); i++ {
