@@ -3,7 +3,7 @@ package abi
 import (
 	"bytes"
 	"context"
-	"encoding/json"
+	"github.com/goccy/go-json"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	abi_pb "github.com/unpackdev/protos/dist/go/abi"

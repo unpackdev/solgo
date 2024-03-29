@@ -1,8 +1,8 @@
 package ast
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/goccy/go-json"
 
 	"github.com/antlr4-go/antlr/v4"
 	v3 "github.com/cncf/xds/go/xds/type/v3"

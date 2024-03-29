@@ -1,6 +1,6 @@
 package audit
 
-import "encoding/json"
+import "github.com/goccy/go-json"
 
 // ImpactLevel represents the severity of a detected issue in the audit results.
 type ImpactLevel string

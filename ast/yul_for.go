@@ -1,9 +1,8 @@
 package ast
 
 import (
-	"encoding/json"
-
 	v3 "github.com/cncf/xds/go/xds/type/v3"
+	"github.com/goccy/go-json"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )

@@ -1,7 +1,7 @@
 package abi
 
 import (
-	"encoding/json"
+	"github.com/goccy/go-json"
 
 	abi_pb "github.com/unpackdev/protos/dist/go/abi"
 	"github.com/unpackdev/solgo/utils"

@@ -75,7 +75,7 @@ Makes no sense to rewrite all of that hard work just to be written in Go. Theref
 
 List of the projects that use SolGo:
 
-- [Inspector](https://github.com/unpackdev/inspector): A tool for downloading, managing and inspecting smart contracts for Ethereum-based chains.
+- [Inspector](https://github.com/unpackdev/inspector) - Tool for downloading, managing and inspecting smart contracts for Ethereum-based chains.
 
 If you wish to add your repository to the list, make sure to submit new PR :)
 

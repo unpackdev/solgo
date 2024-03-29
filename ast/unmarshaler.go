@@ -1,8 +1,8 @@
 package ast
 
 import (
-	"encoding/json"
 	"errors"
+	"github.com/goccy/go-json"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"go.uber.org/zap"

@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"encoding/json"
+	"github.com/goccy/go-json"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"

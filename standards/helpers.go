@@ -1,8 +1,8 @@
 package standards
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/goccy/go-json"
 	"os"
 	"strings"
 
