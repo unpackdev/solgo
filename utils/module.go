@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+// GetBuildVersionByModule retrieves the build version of a specified module from
+// the current application's build information. It parses the build information
+// obtained from the runtime debug package to search for a specific module.
 func GetBuildVersionByModule(module string) string {
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
