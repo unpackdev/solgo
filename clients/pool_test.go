@@ -22,40 +22,40 @@ func TestClientPool(t *testing.T) {
 			opts: &Options{
 				Nodes: []Node{
 					{
-						Group:                   "testGroup",
-						Type:                    "testType",
-						Endpoint:                "http://localhost:2222",
-						ConcurrentClientsNumber: 1,
-						NetworkId:               1,
+						Group:             "testGroup",
+						Type:              "testType",
+						Endpoint:          "http://localhost:2222",
+						ConcurrentClients: 1,
+						NetworkId:         1,
 					},
 				},
 			},
 			group:       "testGroup",
 			typ:         "testType",
 			expectError: true,
-			errorMsg:    "connect: connection refused",
+			errorMsg:    "connection refused",
 		},
 		{
 			name: "Bsc Clients",
 			opts: &Options{
 				Nodes: []Node{
 					{
-						Group:                   "bsc",
-						Type:                    "mainnet",
-						FailoverGroup:           "bsc",
-						FailoverType:            "archive",
-						Endpoint:                "https://bsc-dataseed.binance.org/",
-						ConcurrentClientsNumber: 1,
-						NetworkId:               56,
+						Group:             "bsc",
+						Type:              "mainnet",
+						FailoverGroup:     "bsc",
+						FailoverType:      "archive",
+						Endpoint:          "https://bsc-dataseed.binance.org/",
+						ConcurrentClients: 1,
+						NetworkId:         56,
 					},
 					{
-						Group:                   "bsc",
-						Type:                    "archive",
-						FailoverGroup:           "bsc",
-						FailoverType:            "mainnet",
-						Endpoint:                "https://bsc-dataseed.binance.org/",
-						ConcurrentClientsNumber: 1,
-						NetworkId:               56,
+						Group:             "bsc",
+						Type:              "archive",
+						FailoverGroup:     "bsc",
+						FailoverType:      "mainnet",
+						Endpoint:          "https://bsc-dataseed.binance.org/",
+						ConcurrentClients: 1,
+						NetworkId:         56,
 					},
 				},
 			},
@@ -68,11 +68,11 @@ func TestClientPool(t *testing.T) {
 			opts: &Options{
 				Nodes: []Node{
 					{
-						Group:                   "testGroup",
-						Type:                    "testType",
-						Endpoint:                "",
-						ConcurrentClientsNumber: 1,
-						NetworkId:               1,
+						Group:             "testGroup",
+						Type:              "testType",
+						Endpoint:          "",
+						ConcurrentClients: 1,
+						NetworkId:         1,
 					},
 				},
 			},
@@ -86,11 +86,11 @@ func TestClientPool(t *testing.T) {
 			opts: &Options{
 				Nodes: []Node{
 					{
-						Group:                   "testGroup",
-						Type:                    "testType",
-						Endpoint:                "http://localhost:8545",
-						ConcurrentClientsNumber: 0,
-						NetworkId:               1,
+						Group:             "testGroup",
+						Type:              "testType",
+						Endpoint:          "http://localhost:8545",
+						ConcurrentClients: 0,
+						NetworkId:         1,
 					},
 				},
 			},
@@ -143,7 +143,7 @@ func TestClientPool(t *testing.T) {
 			assert.Equal(t, tt.group, clientByGroupAndType.GetGroup())
 			assert.Equal(t, tt.typ, clientByGroupAndType.GetType())
 			assert.Equal(t, tt.opts.GetNodes()[0].Endpoint, clientByGroupAndType.GetEndpoint())
-			assert.Equal(t, tt.opts.GetNodes()[0].NetworkId, clientByGroupAndType.GetNetworkID())
+			assert.Equal(t, tt.opts.GetNodes()[0].NetworkId, int(clientByGroupAndType.GetNetworkID()))
 
 			nodeGroup, nodeType := pool.GetClientDescriptionByNetworkId(big.NewInt(clientByGroupAndType.GetNetworkID()))
 			assert.Equal(t, tt.group, nodeGroup)
