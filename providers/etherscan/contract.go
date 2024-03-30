@@ -33,13 +33,13 @@ type Contract struct {
 
 // MarshalBinary implements the encoding.BinaryMarshaler interface for Contract.
 // It returns the JSON encoding of the contract.
-func (c *Contract) MarshalBinary() ([]byte, error) {
+func (c Contract) MarshalBinary() ([]byte, error) {
 	return json.Marshal(c)
 }
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface for Contract.
 // It parses a JSON-encoded contract and stores the result in the Contract.
-func (c *Contract) UnmarshalBinary(data []byte) error {
+func (c Contract) UnmarshalBinary(data []byte) error {
 	return json.Unmarshal(data, c)
 }
 
