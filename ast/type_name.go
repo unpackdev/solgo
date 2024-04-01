@@ -597,9 +597,11 @@ func (t *TypeName) parseMappingTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]
 func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUnit]], ctx any, parentNode *TypeName, typeNameNode *TypeName) *TypeName {
 	typeName := &TypeName{
 		ASTBuilder: t.ASTBuilder,
-		Id:         t.GetNextID(),
+		Id:         t.GetId(),
 		NodeType:   ast_pb.NodeType_ELEMENTARY_TYPE_NAME,
 	}
+
+	t.NodeType = ast_pb.NodeType_ELEMENTARY_TYPE_NAME
 
 	switch specificCtx := ctx.(type) {
 	case parser.IMappingKeyTypeContext:
@@ -856,6 +858,7 @@ func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 		TypeIdentifier: normalizedTypeIdentifier,
 		TypeString:     normalizedTypeName,
 	}
+
 }
 
 // PathNode represents a path node within a TypeName.

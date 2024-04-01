@@ -158,7 +158,6 @@ func (r *Resolver) Resolve() []error {
 					uNode := r.UnprocessedNodes[nodeId]
 					uNode.ErrUpdateRef = true
 					r.UnprocessedNodes[nodeId] = uNode
-
 				}
 			} else {
 				uNode := r.UnprocessedNodes[nodeId]
