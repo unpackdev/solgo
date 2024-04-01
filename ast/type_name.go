@@ -472,6 +472,7 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 			t.TypeDescription = refTypeDescription
 		}
 	}
+
 }
 
 // parseIdentifierPath parses the IdentifierPath from the given IdentifierPathContext.
@@ -764,7 +765,9 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 		case *parser.IdentifierPathContext:
 			t.parseIdentifierPath(unit, parentNodeId, childCtx)
 		case *parser.TypeNameContext:
-			t.parseTypeName(unit, parentNodeId, childCtx)
+			// We cannot pass only the child as it may be broken to the core...
+			// For example for address[] if we pass childCtx, we are going to get address only!
+			t.parseTypeName(unit, parentNodeId, ctx.(*parser.TypeNameContext))
 		case *parser.FunctionTypeNameContext:
 			t.parseFunctionTypeName(unit, parentNodeId, childCtx)
 		case *parser.PrimaryExpressionContext:
@@ -798,7 +801,6 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			}
 		}
 	}
-
 }
 
 // ParseMul parses the TypeName from the given TermalNode.
