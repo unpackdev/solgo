@@ -589,7 +589,7 @@
 						"parent_index": 1300
 					},
 					"body": {
-						"id": 1308,
+						"id": 1309,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -700,13 +700,13 @@
 										"line": 591,
 										"column": 17,
 										"start": 20884,
-										"end": 20894,
-										"length": 11,
+										"end": 20896,
+										"length": 13,
 										"parent_index": 1305
 									},
-									"name": "TokenAmount",
+									"name": "TokenAmount[]",
 									"path_node": {
-										"id": 1307,
+										"id": 1308,
 										"name": "TokenAmount",
 										"node_type": 52,
 										"referenced_declaration": 0,
@@ -717,21 +717,36 @@
 											"end": 20894,
 											"length": 11,
 											"parent_index": 1306
+										},
+										"name_location": {
+											"line": 591,
+											"column": 17,
+											"start": 20884,
+											"end": 20894,
+											"length": 11,
+											"parent_index": 1306
 										}
 									},
-									"referenced_declaration": 4511,
+									"referenced_declaration": 4540,
 									"type_description": {
-										"type_identifier": "t_struct$_Global_TokenAmount_$4511",
+										"type_identifier": "t_struct$_Global_TokenAmount_$4540",
 										"type_string": "struct Global.TokenAmount"
 									}
 								},
 								"storage_location": 2,
 								"visibility": 1,
-								"state_mutability": 1
+								"state_mutability": 1,
+								"type_description": {
+									"type_identifier": "t_TokenAmount_array",
+									"type_string": "TokenAmount[]"
+								}
 							}
 						],
 						"parameter_types": [
-							null
+							{
+								"type_identifier": "t_TokenAmount_array",
+								"type_string": "TokenAmount[]"
+							}
 						]
 					},
 					"signature_raw": "burn(bytes)",
@@ -744,7 +759,7 @@
 					"text": "functionburn(bytescalldatadata)externalreturns(TokenAmount[]memorywithdrawnAmounts);"
 				},
 				{
-					"id": 1310,
+					"id": 1311,
 					"name": "burnSingle",
 					"node_type": 42,
 					"kind": 41,
@@ -762,10 +777,10 @@
 						"start": 21221,
 						"end": 21230,
 						"length": 10,
-						"parent_index": 1310
+						"parent_index": 1311
 					},
 					"body": {
-						"id": 1317,
+						"id": 1318,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -774,7 +789,7 @@
 							"start": 21212,
 							"end": 21305,
 							"length": 94,
-							"parent_index": 1310
+							"parent_index": 1311
 						},
 						"implemented": false,
 						"statements": []
@@ -786,7 +801,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 1311,
+						"id": 1312,
 						"node_type": 43,
 						"src": {
 							"line": 597,
@@ -794,11 +809,11 @@
 							"start": 21232,
 							"end": 21250,
 							"length": 19,
-							"parent_index": 1310
+							"parent_index": 1311
 						},
 						"parameters": [
 							{
-								"id": 1312,
+								"id": 1313,
 								"node_type": 44,
 								"src": {
 									"line": 597,
@@ -806,12 +821,12 @@
 									"start": 21232,
 									"end": 21250,
 									"length": 19,
-									"parent_index": 1311
+									"parent_index": 1312
 								},
-								"scope": 1310,
+								"scope": 1311,
 								"name": "data",
 								"type_name": {
-									"id": 1313,
+									"id": 1314,
 									"node_type": 30,
 									"src": {
 										"line": 597,
@@ -819,7 +834,7 @@
 										"start": 21232,
 										"end": 21236,
 										"length": 5,
-										"parent_index": 1312
+										"parent_index": 1313
 									},
 									"name": "bytes",
 									"referenced_declaration": 0,
@@ -845,7 +860,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 1314,
+						"id": 1315,
 						"node_type": 43,
 						"src": {
 							"line": 599,
@@ -853,11 +868,11 @@
 							"start": 21287,
 							"end": 21303,
 							"length": 17,
-							"parent_index": 1310
+							"parent_index": 1311
 						},
 						"parameters": [
 							{
-								"id": 1315,
+								"id": 1316,
 								"node_type": 44,
 								"src": {
 									"line": 599,
@@ -865,12 +880,12 @@
 									"start": 21287,
 									"end": 21303,
 									"length": 17,
-									"parent_index": 1314
+									"parent_index": 1315
 								},
-								"scope": 1310,
+								"scope": 1311,
 								"name": "amountOut",
 								"type_name": {
-									"id": 1316,
+									"id": 1317,
 									"node_type": 30,
 									"src": {
 										"line": 599,
@@ -878,7 +893,7 @@
 										"start": 21287,
 										"end": 21293,
 										"length": 7,
-										"parent_index": 1315
+										"parent_index": 1316
 									},
 									"name": "uint256",
 									"referenced_declaration": 0,
@@ -913,7 +928,7 @@
 					"text": "functionburnSingle(bytescalldatadata)externalreturns(uint256amountOut);"
 				},
 				{
-					"id": 1319,
+					"id": 1320,
 					"name": "poolIdentifier",
 					"node_type": 42,
 					"kind": 41,
@@ -931,10 +946,10 @@
 						"start": 21376,
 						"end": 21389,
 						"length": 14,
-						"parent_index": 1319
+						"parent_index": 1320
 					},
 					"body": {
-						"id": 1326,
+						"id": 1327,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -943,7 +958,7 @@
 							"start": 21367,
 							"end": 21424,
 							"length": 58,
-							"parent_index": 1319
+							"parent_index": 1320
 						},
 						"implemented": false,
 						"statements": []
@@ -955,7 +970,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 1320,
+						"id": 1321,
 						"node_type": 43,
 						"src": {
 							"line": 602,
@@ -963,11 +978,11 @@
 							"start": 21416,
 							"end": 21422,
 							"length": 7,
-							"parent_index": 1319
+							"parent_index": 1320
 						},
 						"parameters": [
 							{
-								"id": 1321,
+								"id": 1322,
 								"node_type": 44,
 								"src": {
 									"line": 602,
@@ -975,12 +990,12 @@
 									"start": 21416,
 									"end": 21422,
 									"length": 7,
-									"parent_index": 1320
+									"parent_index": 1321
 								},
-								"scope": 1319,
+								"scope": 1320,
 								"name": "",
 								"type_name": {
-									"id": 1322,
+									"id": 1323,
 									"node_type": 30,
 									"src": {
 										"line": 602,
@@ -988,7 +1003,7 @@
 										"start": 21416,
 										"end": 21422,
 										"length": 7,
-										"parent_index": 1321
+										"parent_index": 1322
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -1014,7 +1029,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 1323,
+						"id": 1324,
 						"node_type": 43,
 						"src": {
 							"line": 602,
@@ -1022,11 +1037,11 @@
 							"start": 21416,
 							"end": 21422,
 							"length": 7,
-							"parent_index": 1319
+							"parent_index": 1320
 						},
 						"parameters": [
 							{
-								"id": 1324,
+								"id": 1325,
 								"node_type": 44,
 								"src": {
 									"line": 602,
@@ -1034,12 +1049,12 @@
 									"start": 21416,
 									"end": 21422,
 									"length": 7,
-									"parent_index": 1323
+									"parent_index": 1324
 								},
-								"scope": 1319,
+								"scope": 1320,
 								"name": "",
 								"type_name": {
-									"id": 1325,
+									"id": 1326,
 									"node_type": 30,
 									"src": {
 										"line": 602,
@@ -1047,7 +1062,7 @@
 										"start": 21416,
 										"end": 21422,
 										"length": 7,
-										"parent_index": 1324
+										"parent_index": 1325
 									},
 									"name": "bytes32",
 									"referenced_declaration": 0,
@@ -1082,7 +1097,7 @@
 					"text": "functionpoolIdentifier()externalpurereturns(bytes32);"
 				},
 				{
-					"id": 1328,
+					"id": 1329,
 					"name": "getAssets",
 					"node_type": 42,
 					"kind": 41,
@@ -1100,10 +1115,10 @@
 						"start": 21498,
 						"end": 21506,
 						"length": 9,
-						"parent_index": 1328
+						"parent_index": 1329
 					},
 					"body": {
-						"id": 1335,
+						"id": 1338,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -1112,7 +1127,7 @@
 							"start": 21489,
 							"end": 21550,
 							"length": 62,
-							"parent_index": 1328
+							"parent_index": 1329
 						},
 						"implemented": false,
 						"statements": []
@@ -1124,7 +1139,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 1329,
+						"id": 1330,
 						"node_type": 43,
 						"src": {
 							"line": 605,
@@ -1132,11 +1147,11 @@
 							"start": 21533,
 							"end": 21548,
 							"length": 16,
-							"parent_index": 1328
+							"parent_index": 1329
 						},
 						"parameters": [
 							{
-								"id": 1330,
+								"id": 1331,
 								"node_type": 44,
 								"src": {
 									"line": 605,
@@ -1144,46 +1159,46 @@
 									"start": 21533,
 									"end": 21548,
 									"length": 16,
-									"parent_index": 1329
+									"parent_index": 1330
 								},
-								"scope": 1328,
+								"scope": 1329,
 								"name": "",
 								"type_name": {
-									"id": 1331,
+									"id": 1332,
 									"node_type": 16,
 									"src": {
 										"line": 605,
 										"column": 48,
 										"start": 21533,
-										"end": 21539,
-										"length": 7,
-										"parent_index": 1330
+										"end": 21541,
+										"length": 9,
+										"parent_index": 1331
 									},
-									"name": "address",
+									"name": "address[]",
 									"referenced_declaration": 0,
 									"type_description": {
-										"type_identifier": "t_address",
-										"type_string": "address"
+										"type_identifier": "t_address_array",
+										"type_string": "address[]"
 									}
 								},
 								"storage_location": 2,
 								"visibility": 1,
-								"state_mutability": 4,
+								"state_mutability": 1,
 								"type_description": {
-									"type_identifier": "t_address",
-									"type_string": "address"
+									"type_identifier": "t_address_array",
+									"type_string": "address[]"
 								}
 							}
 						],
 						"parameter_types": [
 							{
-								"type_identifier": "t_address",
-								"type_string": "address"
+								"type_identifier": "t_address_array",
+								"type_string": "address[]"
 							}
 						]
 					},
 					"return_parameters": {
-						"id": 1332,
+						"id": 1334,
 						"node_type": 43,
 						"src": {
 							"line": 605,
@@ -1191,11 +1206,11 @@
 							"start": 21533,
 							"end": 21548,
 							"length": 16,
-							"parent_index": 1328
+							"parent_index": 1329
 						},
 						"parameters": [
 							{
-								"id": 1333,
+								"id": 1335,
 								"node_type": 44,
 								"src": {
 									"line": 605,
@@ -1203,55 +1218,55 @@
 									"start": 21533,
 									"end": 21548,
 									"length": 16,
-									"parent_index": 1332
+									"parent_index": 1334
 								},
-								"scope": 1328,
+								"scope": 1329,
 								"name": "",
 								"type_name": {
-									"id": 1334,
+									"id": 1336,
 									"node_type": 16,
 									"src": {
 										"line": 605,
 										"column": 48,
 										"start": 21533,
-										"end": 21539,
-										"length": 7,
-										"parent_index": 1333
+										"end": 21541,
+										"length": 9,
+										"parent_index": 1335
 									},
-									"name": "address",
+									"name": "address[]",
 									"referenced_declaration": 0,
 									"type_description": {
-										"type_identifier": "t_address",
-										"type_string": "address"
+										"type_identifier": "t_address_array",
+										"type_string": "address[]"
 									}
 								},
 								"storage_location": 2,
 								"visibility": 1,
-								"state_mutability": 4,
+								"state_mutability": 1,
 								"type_description": {
-									"type_identifier": "t_address",
-									"type_string": "address"
+									"type_identifier": "t_address_array",
+									"type_string": "address[]"
 								}
 							}
 						],
 						"parameter_types": [
 							{
-								"type_identifier": "t_address",
-								"type_string": "address"
+								"type_identifier": "t_address_array",
+								"type_string": "address[]"
 							}
 						]
 					},
-					"signature_raw": "getAssets(address)",
-					"signature": "742978da",
+					"signature_raw": "getAssets(address[])",
+					"signature": "d91a2683",
 					"scope": 1271,
 					"type_description": {
-						"type_identifier": "t_function_$_t_address$",
-						"type_string": "function(address)"
+						"type_identifier": "t_function_$_t_address_array$",
+						"type_string": "function(address[])"
 					},
 					"text": "functiongetAssets()externalviewreturns(address[]memory);"
 				},
 				{
-					"id": 1337,
+					"id": 1340,
 					"name": "getAmountOut",
 					"node_type": 42,
 					"kind": 41,
@@ -1269,10 +1284,10 @@
 						"start": 21919,
 						"end": 21930,
 						"length": 12,
-						"parent_index": 1337
+						"parent_index": 1340
 					},
 					"body": {
-						"id": 1344,
+						"id": 1347,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -1281,7 +1296,7 @@
 							"start": 21910,
 							"end": 22023,
 							"length": 114,
-							"parent_index": 1337
+							"parent_index": 1340
 						},
 						"implemented": false,
 						"statements": []
@@ -1293,7 +1308,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 1338,
+						"id": 1341,
 						"node_type": 43,
 						"src": {
 							"line": 611,
@@ -1301,11 +1316,11 @@
 							"start": 21932,
 							"end": 21950,
 							"length": 19,
-							"parent_index": 1337
+							"parent_index": 1340
 						},
 						"parameters": [
 							{
-								"id": 1339,
+								"id": 1342,
 								"node_type": 44,
 								"src": {
 									"line": 611,
@@ -1313,12 +1328,12 @@
 									"start": 21932,
 									"end": 21950,
 									"length": 19,
-									"parent_index": 1338
+									"parent_index": 1341
 								},
-								"scope": 1337,
+								"scope": 1340,
 								"name": "data",
 								"type_name": {
-									"id": 1340,
+									"id": 1343,
 									"node_type": 30,
 									"src": {
 										"line": 611,
@@ -1326,7 +1341,7 @@
 										"start": 21932,
 										"end": 21936,
 										"length": 5,
-										"parent_index": 1339
+										"parent_index": 1342
 									},
 									"name": "bytes",
 									"referenced_declaration": 0,
@@ -1352,7 +1367,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 1341,
+						"id": 1344,
 						"node_type": 43,
 						"src": {
 							"line": 614,
@@ -1360,11 +1375,11 @@
 							"start": 22000,
 							"end": 22021,
 							"length": 22,
-							"parent_index": 1337
+							"parent_index": 1340
 						},
 						"parameters": [
 							{
-								"id": 1342,
+								"id": 1345,
 								"node_type": 44,
 								"src": {
 									"line": 614,
@@ -1372,12 +1387,12 @@
 									"start": 22000,
 									"end": 22021,
 									"length": 22,
-									"parent_index": 1341
+									"parent_index": 1344
 								},
-								"scope": 1337,
+								"scope": 1340,
 								"name": "finalAmountOut",
 								"type_name": {
-									"id": 1343,
+									"id": 1346,
 									"node_type": 30,
 									"src": {
 										"line": 614,
@@ -1385,7 +1400,7 @@
 										"start": 22000,
 										"end": 22006,
 										"length": 7,
-										"parent_index": 1342
+										"parent_index": 1345
 									},
 									"name": "uint256",
 									"referenced_declaration": 0,
@@ -1420,7 +1435,7 @@
 					"text": "functiongetAmountOut(bytescalldatadata)externalviewreturns(uint256finalAmountOut);"
 				},
 				{
-					"id": 1346,
+					"id": 1349,
 					"name": "getAmountIn",
 					"node_type": 42,
 					"kind": 41,
@@ -1438,10 +1453,10 @@
 						"start": 22392,
 						"end": 22402,
 						"length": 11,
-						"parent_index": 1346
+						"parent_index": 1349
 					},
 					"body": {
-						"id": 1353,
+						"id": 1356,
 						"node_type": 46,
 						"kind": 0,
 						"src": {
@@ -1450,7 +1465,7 @@
 							"start": 22383,
 							"end": 22494,
 							"length": 112,
-							"parent_index": 1346
+							"parent_index": 1349
 						},
 						"implemented": false,
 						"statements": []
@@ -1462,7 +1477,7 @@
 					"modifiers": [],
 					"overrides": [],
 					"parameters": {
-						"id": 1347,
+						"id": 1350,
 						"node_type": 43,
 						"src": {
 							"line": 620,
@@ -1470,11 +1485,11 @@
 							"start": 22404,
 							"end": 22422,
 							"length": 19,
-							"parent_index": 1346
+							"parent_index": 1349
 						},
 						"parameters": [
 							{
-								"id": 1348,
+								"id": 1351,
 								"node_type": 44,
 								"src": {
 									"line": 620,
@@ -1482,12 +1497,12 @@
 									"start": 22404,
 									"end": 22422,
 									"length": 19,
-									"parent_index": 1347
+									"parent_index": 1350
 								},
-								"scope": 1346,
+								"scope": 1349,
 								"name": "data",
 								"type_name": {
-									"id": 1349,
+									"id": 1352,
 									"node_type": 30,
 									"src": {
 										"line": 620,
@@ -1495,7 +1510,7 @@
 										"start": 22404,
 										"end": 22408,
 										"length": 5,
-										"parent_index": 1348
+										"parent_index": 1351
 									},
 									"name": "bytes",
 									"referenced_declaration": 0,
@@ -1521,7 +1536,7 @@
 						]
 					},
 					"return_parameters": {
-						"id": 1350,
+						"id": 1353,
 						"node_type": 43,
 						"src": {
 							"line": 623,
@@ -1529,11 +1544,11 @@
 							"start": 22472,
 							"end": 22492,
 							"length": 21,
-							"parent_index": 1346
+							"parent_index": 1349
 						},
 						"parameters": [
 							{
-								"id": 1351,
+								"id": 1354,
 								"node_type": 44,
 								"src": {
 									"line": 623,
@@ -1541,12 +1556,12 @@
 									"start": 22472,
 									"end": 22492,
 									"length": 21,
-									"parent_index": 1350
+									"parent_index": 1353
 								},
-								"scope": 1346,
+								"scope": 1349,
 								"name": "finalAmountIn",
 								"type_name": {
-									"id": 1352,
+									"id": 1355,
 									"node_type": 30,
 									"src": {
 										"line": 623,
@@ -1554,7 +1569,7 @@
 										"start": 22472,
 										"end": 22478,
 										"length": 7,
-										"parent_index": 1351
+										"parent_index": 1354
 									},
 									"name": "uint256",
 									"referenced_declaration": 0,
@@ -1589,7 +1604,7 @@
 					"text": "functiongetAmountIn(bytescalldatadata)externalviewreturns(uint256finalAmountIn);"
 				},
 				{
-					"id": 1355,
+					"id": 1358,
 					"node_type": 57,
 					"src": {
 						"line": 626,
@@ -1600,7 +1615,7 @@
 						"parent_index": 1271
 					},
 					"parameters": {
-						"id": 1356,
+						"id": 1359,
 						"node_type": 43,
 						"src": {
 							"line": 626,
@@ -1608,11 +1623,11 @@
 							"start": 22555,
 							"end": 22726,
 							"length": 172,
-							"parent_index": 1355
+							"parent_index": 1358
 						},
 						"parameters": [
 							{
-								"id": 1357,
+								"id": 1360,
 								"node_type": 44,
 								"src": {
 									"line": 627,
@@ -1620,12 +1635,12 @@
 									"start": 22575,
 									"end": 22599,
 									"length": 25,
-									"parent_index": 1356
+									"parent_index": 1359
 								},
-								"scope": 1355,
+								"scope": 1358,
 								"name": "recipient",
 								"type_name": {
-									"id": 1358,
+									"id": 1361,
 									"node_type": 30,
 									"src": {
 										"line": 627,
@@ -1633,7 +1648,7 @@
 										"start": 22575,
 										"end": 22581,
 										"length": 7,
-										"parent_index": 1357
+										"parent_index": 1360
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -1653,7 +1668,7 @@
 								"indexed": true
 							},
 							{
-								"id": 1359,
+								"id": 1362,
 								"node_type": 44,
 								"src": {
 									"line": 628,
@@ -1661,12 +1676,12 @@
 									"start": 22610,
 									"end": 22632,
 									"length": 23,
-									"parent_index": 1356
+									"parent_index": 1359
 								},
-								"scope": 1355,
+								"scope": 1358,
 								"name": "tokenIn",
 								"type_name": {
-									"id": 1360,
+									"id": 1363,
 									"node_type": 30,
 									"src": {
 										"line": 628,
@@ -1674,7 +1689,7 @@
 										"start": 22610,
 										"end": 22616,
 										"length": 7,
-										"parent_index": 1359
+										"parent_index": 1362
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -1694,7 +1709,7 @@
 								"indexed": true
 							},
 							{
-								"id": 1361,
+								"id": 1364,
 								"node_type": 44,
 								"src": {
 									"line": 629,
@@ -1702,12 +1717,12 @@
 									"start": 22643,
 									"end": 22666,
 									"length": 24,
-									"parent_index": 1356
+									"parent_index": 1359
 								},
-								"scope": 1355,
+								"scope": 1358,
 								"name": "tokenOut",
 								"type_name": {
-									"id": 1362,
+									"id": 1365,
 									"node_type": 30,
 									"src": {
 										"line": 629,
@@ -1715,7 +1730,7 @@
 										"start": 22643,
 										"end": 22649,
 										"length": 7,
-										"parent_index": 1361
+										"parent_index": 1364
 									},
 									"name": "address",
 									"state_mutability": 4,
@@ -1735,7 +1750,7 @@
 								"indexed": true
 							},
 							{
-								"id": 1363,
+								"id": 1366,
 								"node_type": 44,
 								"src": {
 									"line": 630,
@@ -1743,12 +1758,12 @@
 									"start": 22677,
 									"end": 22692,
 									"length": 16,
-									"parent_index": 1356
+									"parent_index": 1359
 								},
-								"scope": 1355,
+								"scope": 1358,
 								"name": "amountIn",
 								"type_name": {
-									"id": 1364,
+									"id": 1367,
 									"node_type": 30,
 									"src": {
 										"line": 630,
@@ -1756,7 +1771,7 @@
 										"start": 22677,
 										"end": 22683,
 										"length": 7,
-										"parent_index": 1363
+										"parent_index": 1366
 									},
 									"name": "uint256",
 									"referenced_declaration": 0,
@@ -1774,7 +1789,7 @@
 								}
 							},
 							{
-								"id": 1365,
+								"id": 1368,
 								"node_type": 44,
 								"src": {
 									"line": 631,
@@ -1782,12 +1797,12 @@
 									"start": 22703,
 									"end": 22719,
 									"length": 17,
-									"parent_index": 1356
+									"parent_index": 1359
 								},
-								"scope": 1355,
+								"scope": 1358,
 								"name": "amountOut",
 								"type_name": {
-									"id": 1366,
+									"id": 1369,
 									"node_type": 30,
 									"src": {
 										"line": 631,
@@ -1795,7 +1810,7 @@
 										"start": 22703,
 										"end": 22709,
 										"length": 7,
-										"parent_index": 1365
+										"parent_index": 1368
 									},
 									"name": "uint256",
 									"referenced_declaration": 0,
@@ -1839,12 +1854,12 @@
 					"name": "Swap",
 					"anonymous": false,
 					"type_description": {
-						"type_identifier": "t_event\u0026_IPool_Swap_\u00261355",
+						"type_identifier": "t_event\u0026_IPool_Swap_\u00261358",
 						"type_string": "event IPool.Swap"
 					}
 				},
 				{
-					"id": 1368,
+					"id": 1371,
 					"node_type": 67,
 					"src": {
 						"line": 635,
@@ -1861,16 +1876,16 @@
 						"start": 22797,
 						"end": 22807,
 						"length": 11,
-						"parent_index": 1368
+						"parent_index": 1371
 					},
 					"canonical_name": "IPool.TokenAmount",
 					"type_description": {
-						"type_identifier": "t_struct$_IPool_TokenAmount_$1368",
+						"type_identifier": "t_struct$_IPool_TokenAmount_$1371",
 						"type_string": "struct IPool.TokenAmount"
 					},
 					"members": [
 						{
-							"id": 1369,
+							"id": 1372,
 							"node_type": 44,
 							"src": {
 								"line": 636,
@@ -1878,12 +1893,12 @@
 								"start": 22819,
 								"end": 22832,
 								"length": 14,
-								"parent_index": 1368
+								"parent_index": 1371
 							},
 							"scope": 1271,
 							"name": "token",
 							"type_name": {
-								"id": 1370,
+								"id": 1373,
 								"node_type": 30,
 								"src": {
 									"line": 636,
@@ -1891,7 +1906,7 @@
 									"start": 22819,
 									"end": 22825,
 									"length": 7,
-									"parent_index": 1369
+									"parent_index": 1372
 								},
 								"name": "address",
 								"state_mutability": 4,
@@ -1909,7 +1924,7 @@
 							}
 						},
 						{
-							"id": 1371,
+							"id": 1374,
 							"node_type": 44,
 							"src": {
 								"line": 637,
@@ -1917,12 +1932,12 @@
 								"start": 22842,
 								"end": 22856,
 								"length": 15,
-								"parent_index": 1368
+								"parent_index": 1371
 							},
 							"scope": 1271,
 							"name": "amount",
 							"type_name": {
-								"id": 1372,
+								"id": 1375,
 								"node_type": 30,
 								"src": {
 									"line": 637,
@@ -1930,7 +1945,7 @@
 									"start": 22842,
 									"end": 22848,
 									"length": 7,
-									"parent_index": 1371
+									"parent_index": 1374
 								},
 								"name": "uint256",
 								"referenced_declaration": 0,
