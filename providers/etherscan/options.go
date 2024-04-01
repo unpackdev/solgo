@@ -12,6 +12,10 @@ type Options struct {
 	// It determines where the client sends its requests.
 	Endpoint string `json:"endpoint" yaml:"endpoint" mapstructure:"endpoint"`
 
+	// RateLimit specifies the maximum number of requests that the client is allowed to make to the
+	// blockchain explorer API within a fixed time window. Consult Etherscan documentation.
+	RateLimit int `json:"rateLimit" yaml:"rateLimit" mapstructure:"rateLimit"`
+
 	// Keys contains a list of API keys used for authenticating requests to the blockchain explorer API.
 	// The client can rotate through these keys to manage rate limits.
 	Keys []string `json:"keys" yaml:"keys" mapstructure:"keys"`

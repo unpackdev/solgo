@@ -1,6 +1,7 @@
 package etherscan
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/goccy/go-json"
@@ -57,7 +58,7 @@ type ContractResponse struct {
 // the contract (addr) must be provided. On success, a Contract instance containing the
 // source code and related metadata is returned. Various errors encountered during the
 // data retrieval and parsing process, including API and network errors, are propagated.
-func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
+func (e *Provider) ScanContract(ctx context.Context, addr common.Address) (*Contract, error) {
 	cacheKey := e.CacheKey("getsourcecode_method_1", addr.Hex())
 
 	if e.cache != nil {
@@ -72,12 +73,21 @@ func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
 		}
 	}
 
+	// Wait for the next token to be available
+	e.rateLimiter.WaitForToken()
+
 	url := fmt.Sprintf(
 		"%s?module=contract&action=getsourcecode&address=%s&apikey=%s",
 		e.opts.Endpoint, addr.Hex(), e.GetNextKey(),
 	)
 
-	resp, err := http.Get(url)
+	// Create a new request with context
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %s", err)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to send HTTP request: %s", err)
 	}
