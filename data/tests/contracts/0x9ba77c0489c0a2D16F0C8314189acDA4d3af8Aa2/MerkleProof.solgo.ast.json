@@ -136,8 +136,8 @@
 										},
 										"argument_types": [
 											{
-												"type_identifier": "t_bytes32",
-												"type_string": "bytes32"
+												"type_identifier": "t_bytes32_array",
+												"type_string": "bytes32[]"
 											},
 											{
 												"type_identifier": "t_bytes32",
@@ -158,8 +158,8 @@
 												},
 												"name": "proof",
 												"type_description": {
-													"type_identifier": "t_bytes32",
-													"type_string": "bytes32"
+													"type_identifier": "t_bytes32_array",
+													"type_string": "bytes32[]"
 												},
 												"overloaded_declarations": [],
 												"referenced_declaration": 505,
@@ -187,8 +187,8 @@
 												"is_pure": false,
 												"argument_types": [
 													{
-														"type_identifier": "t_bytes32",
-														"type_string": "bytes32"
+														"type_identifier": "t_bytes32_array",
+														"type_string": "bytes32[]"
 													}
 												],
 												"text": "leaf"
@@ -216,8 +216,8 @@
 											"text": "processProof"
 										},
 										"type_description": {
-											"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
-											"type_string": "function(bytes32,bytes32)"
+											"type_identifier": "t_function_$_t_bytes32_array$_t_bytes32$",
+											"type_string": "function(bytes32[],bytes32)"
 										}
 									},
 									"right_expression": {
@@ -282,28 +282,28 @@
 								"name": "proof",
 								"type_name": {
 									"id": 492,
-									"node_type": 16,
+									"node_type": 30,
 									"src": {
 										"line": 108,
 										"column": 8,
 										"start": 3404,
-										"end": 3410,
-										"length": 7,
+										"end": 3412,
+										"length": 9,
 										"parent_index": 491
 									},
-									"name": "bytes32",
+									"name": "bytes32[]",
 									"referenced_declaration": 0,
 									"type_description": {
-										"type_identifier": "t_bytes32",
-										"type_string": "bytes32"
+										"type_identifier": "t_bytes32_array",
+										"type_string": "bytes32[]"
 									}
 								},
 								"storage_location": 2,
 								"visibility": 1,
 								"state_mutability": 1,
 								"type_description": {
-									"type_identifier": "t_bytes32",
-									"type_string": "bytes32"
+									"type_identifier": "t_bytes32_array",
+									"type_string": "bytes32[]"
 								}
 							},
 							{
@@ -387,8 +387,8 @@
 						],
 						"parameter_types": [
 							{
-								"type_identifier": "t_bytes32",
-								"type_string": "bytes32"
+								"type_identifier": "t_bytes32_array",
+								"type_string": "bytes32[]"
 							},
 							{
 								"type_identifier": "t_bytes32",
@@ -459,12 +459,12 @@
 							}
 						]
 					},
-					"signature_raw": "verify(bytes32,bytes32,bytes32)",
-					"signature": "3fb82028",
+					"signature_raw": "verify(bytes32[],bytes32,bytes32)",
+					"signature": "5a9a49c7",
 					"scope": 487,
 					"type_description": {
-						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$_t_bytes32$",
-						"type_string": "function(bytes32,bytes32,bytes32)"
+						"type_identifier": "t_function_$_t_bytes32_array$_t_bytes32$_t_bytes32$",
+						"type_string": "function(bytes32[],bytes32,bytes32)"
 					},
 					"text": "functionverify(bytes32[]memoryproof,bytes32root,bytes32leaf)internalpurereturns(bool){returnprocessProof(proof,leaf)==root;}"
 				},
@@ -751,8 +751,8 @@
 											},
 											"name": "proof",
 											"type_description": {
-												"type_identifier": "t_bytes32",
-												"type_string": "bytes32"
+												"type_identifier": "t_bytes32_array",
+												"type_string": "bytes32[]"
 											},
 											"overloaded_declarations": [],
 											"referenced_declaration": 531,
@@ -762,8 +762,8 @@
 										"member_name": "length",
 										"argument_types": [],
 										"type_description": {
-											"type_identifier": "t_bytes32",
-											"type_string": "bytes32"
+											"type_identifier": "t_bytes32_array",
+											"type_string": "bytes32[]"
 										},
 										"text": "proof.length"
 									},
@@ -914,8 +914,8 @@
 													},
 													"name": "proof",
 													"type_description": {
-														"type_identifier": "t_bytes32",
-														"type_string": "bytes32"
+														"type_identifier": "t_bytes32_array",
+														"type_string": "bytes32[]"
 													},
 													"overloaded_declarations": [],
 													"referenced_declaration": 491,
@@ -945,8 +945,8 @@
 												},
 												"type_descriptions": [
 													{
-														"type_identifier": "t_bytes32",
-														"type_string": "bytes32"
+														"type_identifier": "t_bytes32_array",
+														"type_string": "bytes32[]"
 													},
 													{
 														"type_identifier": "t_uint256",
@@ -954,8 +954,8 @@
 													}
 												],
 												"type_description": {
-													"type_identifier": "t_[_[$_t_bytes32]$_t_uint256]$",
-													"type_string": "index[bytes32:uint256]"
+													"type_identifier": "t_[_[$_t_bytes32_array]$_t_uint256]$",
+													"type_string": "index[bytes32[]:uint256]"
 												}
 											}
 										},
@@ -1273,28 +1273,28 @@
 								"name": "proof",
 								"type_name": {
 									"id": 512,
-									"node_type": 16,
+									"node_type": 30,
 									"src": {
 										"line": 123,
 										"column": 26,
 										"start": 3936,
-										"end": 3942,
-										"length": 7,
+										"end": 3944,
+										"length": 9,
 										"parent_index": 511
 									},
-									"name": "bytes32",
+									"name": "bytes32[]",
 									"referenced_declaration": 0,
 									"type_description": {
-										"type_identifier": "t_bytes32",
-										"type_string": "bytes32"
+										"type_identifier": "t_bytes32_array",
+										"type_string": "bytes32[]"
 									}
 								},
 								"storage_location": 2,
 								"visibility": 1,
 								"state_mutability": 1,
 								"type_description": {
-									"type_identifier": "t_bytes32",
-									"type_string": "bytes32"
+									"type_identifier": "t_bytes32_array",
+									"type_string": "bytes32[]"
 								}
 							},
 							{
@@ -1339,8 +1339,8 @@
 						],
 						"parameter_types": [
 							{
-								"type_identifier": "t_bytes32",
-								"type_string": "bytes32"
+								"type_identifier": "t_bytes32_array",
+								"type_string": "bytes32[]"
 							},
 							{
 								"type_identifier": "t_bytes32",
@@ -1407,12 +1407,12 @@
 							}
 						]
 					},
-					"signature_raw": "processProof(bytes32,bytes32)",
-					"signature": "90747bea",
+					"signature_raw": "processProof(bytes32[],bytes32)",
+					"signature": "62702a6b",
 					"scope": 487,
 					"type_description": {
-						"type_identifier": "t_function_$_t_bytes32$_t_bytes32$",
-						"type_string": "function(bytes32,bytes32)"
+						"type_identifier": "t_function_$_t_bytes32_array$_t_bytes32$",
+						"type_string": "function(bytes32[],bytes32)"
 					},
 					"text": "functionprocessProof(bytes32[]memoryproof,bytes32leaf)internalpurereturns(bytes32){bytes32computedHash=leaf;for(uint256i=0;i\u003cproof.length;i++){bytes32proofElement=proof[i];if(computedHash\u003c=proofElement){computedHash=_efficientHash(computedHash,proofElement);}else{computedHash=_efficientHash(proofElement,computedHash);}}returncomputedHash;}"
 				},

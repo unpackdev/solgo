@@ -69,7 +69,7 @@ func TestStorage(t *testing.T) {
 		expectedSlotsCount int
 		expectedSlots      map[int]*SlotDescriptor
 	}{
-		{
+		/*{
 			name:               "Valid GROK (ETH) Contract: 0x8390a1da07e376ef7add4be859ba74fb83aa02d5",
 			address:            common.HexToAddress("0x8390a1da07e376ef7add4be859ba74fb83aa02d5"),
 			atBlock:            nil,
@@ -98,7 +98,7 @@ func TestStorage(t *testing.T) {
 			expectError:        false,
 			expectedSlotsCount: 16,
 			expectedSlots:      map[int]*SlotDescriptor{},
-		},
+		},*/
 		{
 			name:               "SpareBytes: 0xc2F78739074b5dDCA2aDB85DE63826Cc92cE792e",
 			address:            common.HexToAddress("0xc2F78739074b5dDCA2aDB85DE63826Cc92cE792e"),

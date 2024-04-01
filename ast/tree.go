@@ -70,10 +70,6 @@ func (t *Tree) UpdateNodeReferenceById(nodeId int64, nodeRefId int64, typeRef *T
 		return false
 	}
 
-	/* 	if nodeId == 4186 || nodeRefId == 4186 {
-		panic("WHY?")
-	} */
-
 	for _, child := range t.astRoot.GetGlobalNodes() {
 		if n := t.byRecursiveReferenceUpdate(child, nodeId, nodeRefId, typeRef); n {
 			return n
