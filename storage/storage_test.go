@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/stretchr/testify/assert"
@@ -113,7 +114,10 @@ func TestStorage(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			tAssert := assert.New(t)
 
-			response, err := etherscanProvider.ScanContract(ctx, tc.address)
+			tctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+			defer cancel()
+
+			response, err := etherscanProvider.ScanContract(tctx, tc.address)
 			tAssert.NoError(err)
 			tAssert.NotNil(response)
 
