@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/goccy/go-json"
 	"io"
+	"net"
 	"net/http"
 	"strings"
 	"time"
@@ -81,13 +82,31 @@ func (e *Provider) ScanContract(ctx context.Context, addr common.Address) (*Cont
 		e.opts.Endpoint, addr.Hex(), e.GetNextKey(),
 	)
 
+	customHttpClient := &http.Client{
+		// Timeout for the whole request, including dialing, reading the response, etc.
+		Timeout: 15 * time.Second,
+		Transport: &http.Transport{
+			// Timeout for the connection to be established
+			DialContext: (&net.Dialer{
+				Timeout:   5 * time.Second,
+				KeepAlive: 30 * time.Second,
+			}).DialContext,
+			// Timeout for the TLS handshake
+			TLSHandshakeTimeout: 5 * time.Second,
+			// Max idle connections per host
+			MaxIdleConnsPerHost: 10,
+			// Idle connection timeout
+			IdleConnTimeout: 90 * time.Second,
+		},
+	}
+
 	// Create a new request with context
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %s", err)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := customHttpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to send HTTP request: %s", err)
 	}

@@ -101,7 +101,7 @@ func TestOnchainContracts(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			tAssert := assert.New(t)
 
-			response, err := etherscanProvider.ScanContract(tc.address)
+			response, err := etherscanProvider.ScanContract(ctx, tc.address)
 			tAssert.NoError(err)
 			require.NotNil(t, response)
 
