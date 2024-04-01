@@ -113,7 +113,7 @@ func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
 		cm := metadata.ContractMetadata{}
 
 		// This is just nasty, but I don't really care at this moment...
-		sourceCode, _ := unprettyJSON(manualUnquote(toReturn.SourceCode.(string)))
+		sourceCode, _ := prepareJSON(manualUnquote(toReturn.SourceCode.(string)))
 
 		if err := json.Unmarshal([]byte(sourceCode), &cm); err != nil {
 			var onlySources map[string]metadata.ContractSource
@@ -149,7 +149,7 @@ func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
 }
 
 // manualUnquote handles specific cases of encoded JSON strings that need to be
-// manually adjusted before unmarshaling. It primarily deals with removing
+// manually adjusted before unmarshalling. It primarily deals with removing
 // excess quotation marks and brackets from JSON-encoded strings.
 func manualUnquote(s string) string {
 	// Check if it starts with `{{` and ends with `}}`
@@ -160,10 +160,10 @@ func manualUnquote(s string) string {
 	return s
 }
 
-// unprettyJSON converts a formatted (pretty) JSON string into a compact,
+// prepareJSON converts a formatted (pretty) JSON string into a compact,
 // unformatted string. This is useful for processing JSON strings that need
 // to be compacted for storage or further processing.
-func unprettyJSON(prettyJSON string) (string, error) {
+func prepareJSON(prettyJSON string) (string, error) {
 	var data interface{}
 
 	// Unmarshal the pretty JSON into an interface{}
