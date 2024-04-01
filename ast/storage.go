@@ -78,6 +78,9 @@ func elementaryTypeSizeInBits(typeName string) (int64, bool) {
 // `bytes` with a fixed size, and dynamically sized types like `string` and `bytes`.
 // Returns the size and a boolean indicating if the type is recognized.
 func getTypeSizeInBits(typeName string) (int64, bool) {
+	// TODO: Make this actually work better... Figure out dynamically what is the size of an array
+	typeName = strings.TrimSuffix(typeName, "[]")
+
 	switch {
 	case typeName == "bool":
 		return 8, true
