@@ -332,6 +332,8 @@ func (s *Sources) Validate() error {
 			for _, sourceUnit := range s.SourceUnits {
 				if strings.Contains(sourceUnit.Content, fmt.Sprintf("contract %s", s.EntrySourceUnitName)) {
 					found = true
+				} else if strings.Contains(sourceUnit.Content, fmt.Sprintf("library %s", s.EntrySourceUnitName)) {
+					found = true
 				}
 			}
 
