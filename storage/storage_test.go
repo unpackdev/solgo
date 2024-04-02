@@ -54,7 +54,7 @@ func TestStorage(t *testing.T) {
 	etherscanProvider, err := etherscan.NewProvider(ctx, nil, &etherscan.Options{
 		Provider:  etherscan.EtherScan,
 		Endpoint:  "https://api.etherscan.io/api",
-		RateLimit: 8,
+		RateLimit: 3,
 		Keys:      strings.Split(etherscanApiKeys, ","),
 	})
 	require.NoError(t, err)
