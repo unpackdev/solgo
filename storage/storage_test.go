@@ -52,9 +52,10 @@ func TestStorage(t *testing.T) {
 
 	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
 	etherscanProvider, err := etherscan.NewProvider(ctx, nil, &etherscan.Options{
-		Provider: etherscan.EtherScan,
-		Endpoint: "https://api.etherscan.io/api",
-		Keys:     strings.Split(etherscanApiKeys, ","),
+		Provider:  etherscan.EtherScan,
+		Endpoint:  "https://api.etherscan.io/api",
+		RateLimit: 8,
+		Keys:      strings.Split(etherscanApiKeys, ","),
 	})
 	require.NoError(t, err)
 

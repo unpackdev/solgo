@@ -52,9 +52,10 @@ func TestOnchainContracts(t *testing.T) {
 
 	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
 	etherscanProvider, err := etherscan.NewProvider(ctx, nil, &etherscan.Options{
-		Provider: etherscan.EtherScan,
-		Endpoint: "https://api.etherscan.io/api",
-		Keys:     strings.Split(etherscanApiKeys, ","),
+		Provider:  etherscan.EtherScan,
+		Endpoint:  "https://api.etherscan.io/api",
+		RateLimit: 10,
+		Keys:      strings.Split(etherscanApiKeys, ","),
 	})
 	require.NoError(t, err)
 	tAssert.NotNil(etherscanProvider)
@@ -102,8 +103,8 @@ func TestOnchainContracts(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			tAssert := assert.New(t)
 
-			tctx, cancel := context.WithTimeout(ctx, 10*time.Second)
-			defer cancel()
+			tctx, tcancel := context.WithTimeout(ctx, 10*time.Second)
+			defer tcancel()
 
 			response, err := etherscanProvider.ScanContract(tctx, tc.address)
 			tAssert.NoError(err)
