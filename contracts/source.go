@@ -32,11 +32,15 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 		// Retry mechanism
 		const maxRetries = 10
 		for i := 0; i < maxRetries; i++ {
-			response, err = c.etherscan.ScanContract(c.addr)
+			dCtx, dCancel := context.WithTimeout(ctx, 15*time.Second)
+
+			response, err = c.etherscan.ScanContract(dCtx, c.addr)
 			if err != nil {
-				if strings.Contains(err.Error(), "Max rate limit reached") {
+				if strings.Contains(err.Error(), "Max rate limit reached") ||
+					strings.Contains(err.Error(), "context deadline exceeded") {
 					// Wait for i*1000ms before retrying
 					time.Sleep(time.Duration(i*1000) * time.Millisecond)
+					dCancel()
 					continue
 				} else if !strings.Contains(err.Error(), "not found") &&
 					!strings.Contains(err.Error(), "not verified") {
@@ -47,8 +51,10 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 						zap.String("contract_address", c.addr.String()),
 					)
 				}
+				dCancel()
 				return fmt.Errorf("failed to scan contract source code from %s: %s", c.etherscan.ProviderName(), err)
 			}
+			dCancel()
 			break // Exit loop if ScanContract is successful
 		}
 

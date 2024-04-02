@@ -3,7 +3,9 @@ package etherscan
 import (
 	"context"
 	"fmt"
+	"github.com/unpackdev/solgo/utils"
 	"sync/atomic"
+	"time"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -18,10 +20,11 @@ type ErrorResponse struct {
 // Provider encapsulates the logic for interacting with the Etherscan API,
 // including handling API keys and caching responses.
 type Provider struct {
-	ctx      context.Context // The context for controlling cancellations and timeouts.
-	opts     *Options        // The configuration options for the provider.
-	cache    *redis.Client   // A Redis client for caching API responses.
-	keyIndex int32           // An atomic counter for round-robin API key selection.
+	ctx         context.Context    // The context for controlling cancellations and timeouts.
+	opts        *Options           // The configuration options for the provider.
+	cache       *redis.Client      // A Redis client for caching API responses.
+	keyIndex    int32              // An atomic counter for round-robin API key selection.
+	rateLimiter *utils.RateLimiter // Helper to reduce lookups onto the etherscan a.k.a rate limit based on a subscription type.
 }
 
 // NewProvider initializes a new EtherScanProvider with specified options and cache.
@@ -32,10 +35,11 @@ func NewProvider(ctx context.Context, cache *redis.Client, opts *Options) (*Prov
 	}
 
 	return &Provider{
-		ctx:      ctx,
-		opts:     opts,
-		cache:    cache,
-		keyIndex: 0,
+		ctx:         ctx,
+		opts:        opts,
+		cache:       cache,
+		keyIndex:    0,
+		rateLimiter: utils.NewRateLimiter(opts.RateLimit*len(opts.Keys), 1*time.Second),
 	}, nil
 }
 

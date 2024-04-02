@@ -1,10 +1,12 @@
 package etherscan
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/goccy/go-json"
 	"io"
+	"net"
 	"net/http"
 	"strings"
 	"time"
@@ -57,7 +59,7 @@ type ContractResponse struct {
 // the contract (addr) must be provided. On success, a Contract instance containing the
 // source code and related metadata is returned. Various errors encountered during the
 // data retrieval and parsing process, including API and network errors, are propagated.
-func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
+func (e *Provider) ScanContract(ctx context.Context, addr common.Address) (*Contract, error) {
 	cacheKey := e.CacheKey("getsourcecode_method_1", addr.Hex())
 
 	if e.cache != nil {
@@ -72,12 +74,39 @@ func (e *Provider) ScanContract(addr common.Address) (*Contract, error) {
 		}
 	}
 
+	// Wait for the next token to be available
+	e.rateLimiter.WaitForToken()
+
 	url := fmt.Sprintf(
 		"%s?module=contract&action=getsourcecode&address=%s&apikey=%s",
 		e.opts.Endpoint, addr.Hex(), e.GetNextKey(),
 	)
 
-	resp, err := http.Get(url)
+	customHttpClient := &http.Client{
+		// Timeout for the whole request, including dialing, reading the response, etc.
+		Timeout: 15 * time.Second,
+		Transport: &http.Transport{
+			// Timeout for the connection to be established
+			DialContext: (&net.Dialer{
+				Timeout:   5 * time.Second,
+				KeepAlive: 30 * time.Second,
+			}).DialContext,
+			// Timeout for the TLS handshake
+			TLSHandshakeTimeout: 5 * time.Second,
+			// Max idle connections per host
+			MaxIdleConnsPerHost: 10,
+			// Idle connection timeout
+			IdleConnTimeout: 90 * time.Second,
+		},
+	}
+
+	// Create a new request with context
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %s", err)
+	}
+
+	resp, err := customHttpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to send HTTP request: %s", err)
 	}
