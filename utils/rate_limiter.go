@@ -48,17 +48,31 @@ func (rl *RateLimiter) Allow() bool {
 }
 
 // WaitForToken blocks the caller until a token becomes available. If no tokens are
-// available upon invoking this method, it calculates the time until the next token refill
-// and sleeps for that duration. This method ensures that events respect the rate limit by
-// waiting for permission to proceed rather than immediately returning false.
+// available upon invoking this method, it waits for a signal from a separate goroutine
+// indicating that tokens have been refilled. This method ensures that events respect
+// the rate limit by waiting for permission to proceed rather than immediately returning false.
 func (rl *RateLimiter) WaitForToken() {
 	for !rl.Allow() {
-		rl.mutex.Lock()
-		timeToNextRefill := rl.refillTime - time.Since(rl.lastRefill)
-		rl.mutex.Unlock()
-		if timeToNextRefill > 0 {
-			time.Sleep(timeToNextRefill)
-		}
+		// Create a channel to receive a signal when tokens are refilled
+		signal := make(chan struct{})
+
+		// Start a goroutine to periodically check for token availability
+		go func() {
+			for {
+				timeToNextRefill := rl.refillTime - time.Since(rl.lastRefill)
+
+				// If time until next refill is greater than 0, sleep for that duration
+				if timeToNextRefill > 0 {
+					time.Sleep(timeToNextRefill)
+				}
+
+				// Send a signal to indicate that tokens are refilled
+				signal <- struct{}{}
+			}
+		}()
+
+		// Wait for a signal indicating that tokens are refilled
+		<-signal
 	}
 }
 
