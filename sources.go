@@ -17,7 +17,31 @@ import (
 	"github.com/unpackdev/solgo/utils"
 )
 
-var ErrPathFound = errors.New("path found")
+var (
+	ErrPathFound = errors.New("path found")
+
+	// Global local sources path
+	localSourcesPath string
+)
+
+// SetLocalSourcesPath sets the global local sources path.
+// It returns an error if the provided path does not exist or cannot be accessed.
+func SetLocalSourcesPath(path string) error {
+	info, err := os.Stat(path)
+	if err != nil {
+		return err // Return the error if the path does not exist or cannot be accessed
+	}
+	if !info.IsDir() {
+		return fmt.Errorf("path is not a directory: %s", path)
+	}
+	localSourcesPath = path
+	return nil
+}
+
+// GetLocalSourcesPath returns the global local sources path.
+func GetLocalSourcesPath() string {
+	return localSourcesPath
+}
 
 // SourceUnit represents a unit of source code in Solidity. It includes the name, path, and content of the source code.
 type SourceUnit struct {
@@ -106,9 +130,16 @@ func NewSourcesFromPath(entrySourceUnitName, path string) (*Sources, error) {
 		return nil, fmt.Errorf("path is not a directory: %s", path)
 	}
 
-	_, filename, _, _ := runtime.Caller(0)
-	dir := filepath.Dir(filename)
-	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	var sourcesDir string
+
+	if GetLocalSourcesPath() == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		dir := filepath.Dir(filename)
+		sourcesDir = filepath.Clean(filepath.Join(dir, "sources"))
+	} else {
+		sourcesDir = GetLocalSourcesPath()
+	}
+
 	sources := &Sources{
 		MaskLocalSourcesPath: true,
 		LocalSourcesPath:     sourcesDir,
@@ -153,9 +184,16 @@ func NewSourcesFromPath(entrySourceUnitName, path string) (*Sources, error) {
 // NewSourcesFromMetadata creates a Sources from a metadata package ContractMetadata.
 // This is a helper function that ensures easier integration when working with the metadata package.
 func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
-	_, filename, _, _ := runtime.Caller(0)
-	dir := filepath.Dir(filename)
-	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	var sourcesDir string
+
+	if GetLocalSourcesPath() == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		dir := filepath.Dir(filename)
+		sourcesDir = filepath.Clean(filepath.Join(dir, "sources"))
+	} else {
+		sourcesDir = GetLocalSourcesPath()
+	}
+
 	sources := &Sources{
 		MaskLocalSourcesPath: true,
 		LocalSourcesPath:     sourcesDir,
@@ -182,9 +220,16 @@ func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
 }
 
 func NewSourcesFromProto(entryContractName string, sc *sources_pb.Sources) (*Sources, error) {
-	_, filename, _, _ := runtime.Caller(0)
-	dir := filepath.Dir(filename)
-	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	var sourcesDir string
+
+	if GetLocalSourcesPath() == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		dir := filepath.Dir(filename)
+		sourcesDir = filepath.Clean(filepath.Join(dir, "sources"))
+	} else {
+		sourcesDir = GetLocalSourcesPath()
+	}
+
 	sources := &Sources{
 		MaskLocalSourcesPath: true,
 		LocalSourcesPath:     sourcesDir,
@@ -211,9 +256,16 @@ func NewSourcesFromProto(entryContractName string, sc *sources_pb.Sources) (*Sou
 // This is a helper function that ensures easier integration when working with the EtherScan provider.
 // This includes BscScan, and other equivalent from the same family.
 func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources, error) {
-	_, filename, _, _ := runtime.Caller(0)
-	dir := filepath.Dir(filename)
-	sourcesDir := filepath.Clean(filepath.Join(dir, "sources"))
+	var sourcesDir string
+
+	if GetLocalSourcesPath() == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		dir := filepath.Dir(filename)
+		sourcesDir = filepath.Clean(filepath.Join(dir, "sources"))
+	} else {
+		sourcesDir = GetLocalSourcesPath()
+	}
+
 	sources := &Sources{
 		MaskLocalSourcesPath: true,
 		LocalSourcesPath:     sourcesDir,

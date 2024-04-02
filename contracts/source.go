@@ -33,7 +33,6 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 		const maxRetries = 10
 		for i := 0; i < maxRetries; i++ {
 			dCtx, dCancel := context.WithTimeout(ctx, 15*time.Second)
-
 			response, err = c.etherscan.ScanContract(dCtx, c.addr)
 			if err != nil {
 				if strings.Contains(err.Error(), "Max rate limit reached") ||

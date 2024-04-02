@@ -22,6 +22,13 @@ import (
 )
 
 func TestStorage(t *testing.T) {
+	fullNodeUrl := os.Getenv("FULL_NODE_TEST_URL")
+	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
+
+	if fullNodeUrl == "" || etherscanApiKeys == "" {
+		t.Skip("Skipping storage tests as keys are not properly set")
+	}
+
 	tAssert := assert.New(t)
 
 	config := zap.NewDevelopmentConfig()
@@ -39,7 +46,7 @@ func TestStorage(t *testing.T) {
 			{
 				Group:             string(utils.Ethereum),
 				Type:              "mainnet",
-				Endpoint:          os.Getenv("FULL_NODE_TEST_URL"),
+				Endpoint:          fullNodeUrl,
 				NetworkId:         1,
 				ConcurrentClients: 1,
 			},
@@ -50,7 +57,6 @@ func TestStorage(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, pool)
 
-	etherscanApiKeys := os.Getenv("ETHERSCAN_API_KEYS")
 	etherscanProvider, err := etherscan.NewProvider(ctx, nil, &etherscan.Options{
 		Provider:  etherscan.EtherScan,
 		Endpoint:  "https://api.etherscan.io/api",
@@ -115,8 +121,8 @@ func TestStorage(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			tAssert := assert.New(t)
 
-			tctx, cancel := context.WithTimeout(ctx, 10*time.Second)
-			defer cancel()
+			tctx, tcancel := context.WithTimeout(ctx, 10*time.Second)
+			defer tcancel()
 
 			response, err := etherscanProvider.ScanContract(tctx, tc.address)
 			tAssert.NoError(err)
