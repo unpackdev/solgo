@@ -33,5 +33,9 @@ func (o *Options) Validate() error {
 		return errors.New("at least one API key is required")
 	}
 
+	if o.RateLimit == 0 {
+		return errors.New("rate limit needs to be specified")
+	}
+
 	return nil
 }
