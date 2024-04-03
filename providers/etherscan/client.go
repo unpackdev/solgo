@@ -48,6 +48,11 @@ func (e *Provider) ProviderName() string {
 	return e.opts.Provider.String()
 }
 
+// GetRateLimiter returns the instantiated rate limiter
+func (e *Provider) GetRateLimiter() *utils.RateLimiter {
+	return e.rateLimiter
+}
+
 // CacheKey generates a unique cache key for storing and retrieving API responses.
 // The key is composed using the API method and path.
 func (e *Provider) CacheKey(method string, path string) string {
