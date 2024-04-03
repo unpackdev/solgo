@@ -28,7 +28,6 @@ Additionally, most of the interfaces will stay as is, however, there could be ar
 Once I am confident that the project is fully ready for production, this disclaimer will be removed. Until then, please use the software with caution and report any potential issues or feedback to help improve its quality.
 
 
-
 ## Documentation
 
 The SolGo basic documentation is hosted on GitHub, ensuring it's always up-to-date with the latest changes and features. You can access the full documentation [here](https://github.com/unpackdev/solgo/wiki).
@@ -36,6 +35,12 @@ The SolGo basic documentation is hosted on GitHub, ensuring it's always up-to-da
 ## Getting Started
 
 Detailed examples of how to install and use this package can be found in the [Usage](https://github.com/unpackdev/solgo/wiki/Getting-Started) section.
+
+### Need help?
+
+Want to use this library but have issues, questions or just want to join the wagon and follow the ride?
+
+You can join our [Discord](https://discord.com/invite/PdHVbuTQRX) server.
 
 ## Solidity Language Grammar
 
