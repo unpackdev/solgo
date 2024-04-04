@@ -10871,28 +10871,6 @@
 																"baseExpression": {
 																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																	"value": {
-																		"id": "624",
-																		"name": "account",
-																		"nodeType": "IDENTIFIER",
-																		"referencedDeclaration": "624",
-																		"src": {
-																			"column": "25",
-																			"end": "14870",
-																			"length": "7",
-																			"line": "470",
-																			"parentIndex": "622",
-																			"start": "14864"
-																		},
-																		"typeDescription": {
-																			"typeIdentifier": "t_address",
-																			"typeString": "address"
-																		}
-																	}
-																},
-																"id": "622",
-																"indexExpression": {
-																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																	"value": {
 																		"id": "623",
 																		"name": "_balances",
 																		"nodeType": "IDENTIFIER",
@@ -10911,6 +10889,28 @@
 																		}
 																	}
 																},
+																"id": "622",
+																"indexExpression": {
+																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																	"value": {
+																		"id": "624",
+																		"name": "account",
+																		"nodeType": "IDENTIFIER",
+																		"referencedDeclaration": "624",
+																		"src": {
+																			"column": "25",
+																			"end": "14870",
+																			"length": "7",
+																			"line": "470",
+																			"parentIndex": "622",
+																			"start": "14864"
+																		},
+																		"typeDescription": {
+																			"typeIdentifier": "t_address",
+																			"typeString": "address"
+																		}
+																	}
+																},
 																"nodeType": "INDEX_ACCESS",
 																"src": {
 																	"column": "15",
@@ -10921,14 +10921,10 @@
 																	"start": "14854"
 																},
 																"typeDescription": {
-																	"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																	"typeString": "index[mapping(address=\u003euint256):address]"
+																	"typeIdentifier": "t_[_[$_t_address]$",
+																	"typeString": "index[address]"
 																},
 																"typeDescriptions": [
-																	{
-																		"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																		"typeString": "mapping(address=\u003euint256)"
-																	},
 																	{
 																		"typeIdentifier": "t_address",
 																		"typeString": "address"
@@ -10948,8 +10944,8 @@
 															"start": "14847"
 														},
 														"typeDescription": {
-															"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-															"typeString": "index[mapping(address=\u003euint256):address]"
+															"typeIdentifier": "t_[_[$_t_address]$",
+															"typeString": "index[address]"
 														}
 													}
 												}
@@ -11627,53 +11623,9 @@
 															"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
 															"value": {
 																"baseExpression": {
-																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																	"value": {
-																		"id": "666",
-																		"name": "spender",
-																		"nodeType": "IDENTIFIER",
-																		"referencedDeclaration": "666",
-																		"src": {
-																			"column": "34",
-																			"end": "15462",
-																			"length": "7",
-																			"line": "491",
-																			"parentIndex": "662",
-																			"start": "15456"
-																		},
-																		"typeDescription": {
-																			"typeIdentifier": "t_address",
-																			"typeString": "address"
-																		}
-																	}
-																},
-																"id": "662",
-																"indexExpression": {
 																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
 																	"value": {
 																		"baseExpression": {
-																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																			"value": {
-																				"id": "665",
-																				"name": "owner",
-																				"nodeType": "IDENTIFIER",
-																				"referencedDeclaration": "665",
-																				"src": {
-																					"column": "27",
-																					"end": "15453",
-																					"length": "5",
-																					"line": "491",
-																					"parentIndex": "663",
-																					"start": "15449"
-																				},
-																				"typeDescription": {
-																					"typeIdentifier": "t_address",
-																					"typeString": "address"
-																				}
-																			}
-																		},
-																		"id": "663",
-																		"indexExpression": {
 																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																			"value": {
 																				"id": "664",
@@ -11694,6 +11646,28 @@
 																				}
 																			}
 																		},
+																		"id": "663",
+																		"indexExpression": {
+																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																			"value": {
+																				"id": "665",
+																				"name": "owner",
+																				"nodeType": "IDENTIFIER",
+																				"referencedDeclaration": "665",
+																				"src": {
+																					"column": "27",
+																					"end": "15453",
+																					"length": "5",
+																					"line": "491",
+																					"parentIndex": "663",
+																					"start": "15449"
+																				},
+																				"typeDescription": {
+																					"typeIdentifier": "t_address",
+																					"typeString": "address"
+																				}
+																			}
+																		},
 																		"nodeType": "INDEX_ACCESS",
 																		"src": {
 																			"column": "15",
@@ -11704,19 +11678,37 @@
 																			"start": "15437"
 																		},
 																		"typeDescription": {
-																			"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																			"typeString": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
+																			"typeIdentifier": "t_[_[$_t_address]$",
+																			"typeString": "index[address]"
 																		},
 																		"typeDescriptions": [
-																			{
-																				"typeIdentifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-																				"typeString": "mapping(address=\u003emapping(address=\u003euint256))"
-																			},
 																			{
 																				"typeIdentifier": "t_address",
 																				"typeString": "address"
 																			}
 																		]
+																	}
+																},
+																"id": "662",
+																"indexExpression": {
+																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																	"value": {
+																		"id": "666",
+																		"name": "spender",
+																		"nodeType": "IDENTIFIER",
+																		"referencedDeclaration": "666",
+																		"src": {
+																			"column": "34",
+																			"end": "15462",
+																			"length": "7",
+																			"line": "491",
+																			"parentIndex": "662",
+																			"start": "15456"
+																		},
+																		"typeDescription": {
+																			"typeIdentifier": "t_address",
+																			"typeString": "address"
+																		}
 																	}
 																},
 																"nodeType": "INDEX_ACCESS",
@@ -11729,14 +11721,10 @@
 																	"start": "15437"
 																},
 																"typeDescription": {
-																	"typeIdentifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-																	"typeString": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+																	"typeIdentifier": "t_[_[$_t_address]$",
+																	"typeString": "index[address]"
 																},
 																"typeDescriptions": [
-																	{
-																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																		"typeString": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
-																	},
 																	{
 																		"typeIdentifier": "t_address",
 																		"typeString": "address"
@@ -11756,8 +11744,8 @@
 															"start": "15430"
 														},
 														"typeDescription": {
-															"typeIdentifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-															"typeString": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+															"typeIdentifier": "t_[_[$_t_address]$",
+															"typeString": "index[address]"
 														}
 													}
 												}
@@ -15188,28 +15176,6 @@
 																"baseExpression": {
 																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																	"value": {
-																		"id": "828",
-																		"name": "from",
-																		"nodeType": "IDENTIFIER",
-																		"referencedDeclaration": "828",
-																		"src": {
-																			"column": "40",
-																			"end": "19116",
-																			"length": "4",
-																			"line": "596",
-																			"parentIndex": "826",
-																			"start": "19113"
-																		},
-																		"typeDescription": {
-																			"typeIdentifier": "t_address",
-																			"typeString": "address"
-																		}
-																	}
-																},
-																"id": "826",
-																"indexExpression": {
-																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																	"value": {
 																		"id": "827",
 																		"name": "_balances",
 																		"nodeType": "IDENTIFIER",
@@ -15228,6 +15194,28 @@
 																		}
 																	}
 																},
+																"id": "826",
+																"indexExpression": {
+																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																	"value": {
+																		"id": "828",
+																		"name": "from",
+																		"nodeType": "IDENTIFIER",
+																		"referencedDeclaration": "828",
+																		"src": {
+																			"column": "40",
+																			"end": "19116",
+																			"length": "4",
+																			"line": "596",
+																			"parentIndex": "826",
+																			"start": "19113"
+																		},
+																		"typeDescription": {
+																			"typeIdentifier": "t_address",
+																			"typeString": "address"
+																		}
+																	}
+																},
 																"nodeType": "INDEX_ACCESS",
 																"src": {
 																	"column": "30",
@@ -15238,14 +15226,10 @@
 																	"start": "19103"
 																},
 																"typeDescription": {
-																	"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																	"typeString": "index[mapping(address=\u003euint256):address]"
+																	"typeIdentifier": "t_[_[$_t_address]$",
+																	"typeString": "index[address]"
 																},
 																"typeDescriptions": [
-																	{
-																		"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																		"typeString": "mapping(address=\u003euint256)"
-																	},
 																	{
 																		"typeIdentifier": "t_address",
 																		"typeString": "address"
@@ -15671,28 +15655,6 @@
 																					"baseExpression": {
 																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																						"value": {
-																							"id": "850",
-																							"name": "from",
-																							"nodeType": "IDENTIFIER",
-																							"referencedDeclaration": "850",
-																							"src": {
-																								"column": "22",
-																								"end": "19247",
-																								"length": "4",
-																								"line": "599",
-																								"parentIndex": "848",
-																								"start": "19244"
-																							},
-																							"typeDescription": {
-																								"typeIdentifier": "t_address",
-																								"typeString": "address"
-																							}
-																						}
-																					},
-																					"id": "848",
-																					"indexExpression": {
-																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																						"value": {
 																							"id": "849",
 																							"name": "_balances",
 																							"nodeType": "IDENTIFIER",
@@ -15711,6 +15673,28 @@
 																							}
 																						}
 																					},
+																					"id": "848",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "850",
+																							"name": "from",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "850",
+																							"src": {
+																								"column": "22",
+																								"end": "19247",
+																								"length": "4",
+																								"line": "599",
+																								"parentIndex": "848",
+																								"start": "19244"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
 																					"nodeType": "INDEX_ACCESS",
 																					"src": {
 																						"column": "12",
@@ -15721,14 +15705,10 @@
 																						"start": "19234"
 																					},
 																					"typeDescription": {
-																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																						"typeString": "index[mapping(address=\u003euint256):address]"
+																						"typeIdentifier": "t_[_[$_t_address]$",
+																						"typeString": "index[address]"
 																					},
 																					"typeDescriptions": [
-																						{
-																							"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																							"typeString": "mapping(address=\u003euint256)"
-																						},
 																						{
 																							"typeIdentifier": "t_address",
 																							"typeString": "address"
@@ -15809,8 +15789,8 @@
 																				"start": "19234"
 																			},
 																			"typeDescription": {
-																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																				"typeString": "index[mapping(address=\u003euint256):address]"
+																				"typeIdentifier": "t_[_[$_t_address]$",
+																				"typeString": "index[address]"
 																			}
 																		}
 																	},
@@ -15825,8 +15805,8 @@
 																		"start": "19234"
 																	},
 																	"typeDescription": {
-																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																		"typeString": "index[mapping(address=\u003euint256):address]"
+																		"typeIdentifier": "t_[_[$_t_address]$",
+																		"typeString": "index[address]"
 																	}
 																}
 															},
@@ -15841,28 +15821,6 @@
 																				"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
 																				"value": {
 																					"baseExpression": {
-																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																						"value": {
-																							"id": "858",
-																							"name": "to",
-																							"nodeType": "IDENTIFIER",
-																							"referencedDeclaration": "858",
-																							"src": {
-																								"column": "22",
-																								"end": "19460",
-																								"length": "2",
-																								"line": "602",
-																								"parentIndex": "856",
-																								"start": "19459"
-																							},
-																							"typeDescription": {
-																								"typeIdentifier": "t_address",
-																								"typeString": "address"
-																							}
-																						}
-																					},
-																					"id": "856",
-																					"indexExpression": {
 																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																						"value": {
 																							"id": "857",
@@ -15883,6 +15841,28 @@
 																							}
 																						}
 																					},
+																					"id": "856",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "858",
+																							"name": "to",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "858",
+																							"src": {
+																								"column": "22",
+																								"end": "19460",
+																								"length": "2",
+																								"line": "602",
+																								"parentIndex": "856",
+																								"start": "19459"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
 																					"nodeType": "INDEX_ACCESS",
 																					"src": {
 																						"column": "12",
@@ -15893,14 +15873,10 @@
 																						"start": "19449"
 																					},
 																					"typeDescription": {
-																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																						"typeString": "index[mapping(address=\u003euint256):address]"
+																						"typeIdentifier": "t_[_[$_t_address]$",
+																						"typeString": "index[address]"
 																					},
 																					"typeDescriptions": [
-																						{
-																							"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																							"typeString": "mapping(address=\u003euint256)"
-																						},
 																						{
 																							"typeIdentifier": "t_address",
 																							"typeString": "address"
@@ -15940,8 +15916,8 @@
 																				"start": "19449"
 																			},
 																			"typeDescription": {
-																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																				"typeString": "index[mapping(address=\u003euint256):address]"
+																				"typeIdentifier": "t_[_[$_t_address]$",
+																				"typeString": "index[address]"
 																			}
 																		}
 																	},
@@ -15956,8 +15932,8 @@
 																		"start": "19449"
 																	},
 																	"typeDescription": {
-																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																		"typeString": "index[mapping(address=\u003euint256):address]"
+																		"typeIdentifier": "t_[_[$_t_address]$",
+																		"typeString": "index[address]"
 																	}
 																}
 															}
@@ -17074,28 +17050,6 @@
 																					"baseExpression": {
 																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																						"value": {
-																							"id": "911",
-																							"name": "account",
-																							"nodeType": "IDENTIFIER",
-																							"referencedDeclaration": "911",
-																							"src": {
-																								"column": "22",
-																								"end": "20250",
-																								"length": "7",
-																								"line": "627",
-																								"parentIndex": "909",
-																								"start": "20244"
-																							},
-																							"typeDescription": {
-																								"typeIdentifier": "t_address",
-																								"typeString": "address"
-																							}
-																						}
-																					},
-																					"id": "909",
-																					"indexExpression": {
-																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																						"value": {
 																							"id": "910",
 																							"name": "_balances",
 																							"nodeType": "IDENTIFIER",
@@ -17114,6 +17068,28 @@
 																							}
 																						}
 																					},
+																					"id": "909",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "911",
+																							"name": "account",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "911",
+																							"src": {
+																								"column": "22",
+																								"end": "20250",
+																								"length": "7",
+																								"line": "627",
+																								"parentIndex": "909",
+																								"start": "20244"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
 																					"nodeType": "INDEX_ACCESS",
 																					"src": {
 																						"column": "12",
@@ -17124,14 +17100,10 @@
 																						"start": "20234"
 																					},
 																					"typeDescription": {
-																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																						"typeString": "index[mapping(address=\u003euint256):address]"
+																						"typeIdentifier": "t_[_[$_t_address]$",
+																						"typeString": "index[address]"
 																					},
 																					"typeDescriptions": [
-																						{
-																							"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																							"typeString": "mapping(address=\u003euint256)"
-																						},
 																						{
 																							"typeIdentifier": "t_address",
 																							"typeString": "address"
@@ -17171,8 +17143,8 @@
 																				"start": "20234"
 																			},
 																			"typeDescription": {
-																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																				"typeString": "index[mapping(address=\u003euint256):address]"
+																				"typeIdentifier": "t_[_[$_t_address]$",
+																				"typeString": "index[address]"
 																			}
 																		}
 																	},
@@ -17187,8 +17159,8 @@
 																		"start": "20234"
 																	},
 																	"typeDescription": {
-																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																		"typeString": "index[mapping(address=\u003euint256):address]"
+																		"typeIdentifier": "t_[_[$_t_address]$",
+																		"typeString": "index[address]"
 																	}
 																}
 															}
@@ -17829,28 +17801,6 @@
 																"baseExpression": {
 																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																	"value": {
-																		"id": "944",
-																		"name": "account",
-																		"nodeType": "IDENTIFIER",
-																		"referencedDeclaration": "944",
-																		"src": {
-																			"column": "43",
-																			"end": "20964",
-																			"length": "7",
-																			"line": "650",
-																			"parentIndex": "942",
-																			"start": "20958"
-																		},
-																		"typeDescription": {
-																			"typeIdentifier": "t_address",
-																			"typeString": "address"
-																		}
-																	}
-																},
-																"id": "942",
-																"indexExpression": {
-																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																	"value": {
 																		"id": "943",
 																		"name": "_balances",
 																		"nodeType": "IDENTIFIER",
@@ -17869,6 +17819,28 @@
 																		}
 																	}
 																},
+																"id": "942",
+																"indexExpression": {
+																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																	"value": {
+																		"id": "944",
+																		"name": "account",
+																		"nodeType": "IDENTIFIER",
+																		"referencedDeclaration": "944",
+																		"src": {
+																			"column": "43",
+																			"end": "20964",
+																			"length": "7",
+																			"line": "650",
+																			"parentIndex": "942",
+																			"start": "20958"
+																		},
+																		"typeDescription": {
+																			"typeIdentifier": "t_address",
+																			"typeString": "address"
+																		}
+																	}
+																},
 																"nodeType": "INDEX_ACCESS",
 																"src": {
 																	"column": "33",
@@ -17879,14 +17851,10 @@
 																	"start": "20948"
 																},
 																"typeDescription": {
-																	"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																	"typeString": "index[mapping(address=\u003euint256):address]"
+																	"typeIdentifier": "t_[_[$_t_address]$",
+																	"typeString": "index[address]"
 																},
 																"typeDescriptions": [
-																	{
-																		"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																		"typeString": "mapping(address=\u003euint256)"
-																	},
 																	{
 																		"typeIdentifier": "t_address",
 																		"typeString": "address"
@@ -18454,28 +18422,6 @@
 																					"baseExpression": {
 																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																						"value": {
-																							"id": "972",
-																							"name": "account",
-																							"nodeType": "IDENTIFIER",
-																							"referencedDeclaration": "972",
-																							"src": {
-																								"column": "22",
-																								"end": "21097",
-																								"length": "7",
-																								"line": "653",
-																								"parentIndex": "970",
-																								"start": "21091"
-																							},
-																							"typeDescription": {
-																								"typeIdentifier": "t_address",
-																								"typeString": "address"
-																							}
-																						}
-																					},
-																					"id": "970",
-																					"indexExpression": {
-																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																						"value": {
 																							"id": "971",
 																							"name": "_balances",
 																							"nodeType": "IDENTIFIER",
@@ -18494,6 +18440,28 @@
 																							}
 																						}
 																					},
+																					"id": "970",
+																					"indexExpression": {
+																						"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																						"value": {
+																							"id": "972",
+																							"name": "account",
+																							"nodeType": "IDENTIFIER",
+																							"referencedDeclaration": "972",
+																							"src": {
+																								"column": "22",
+																								"end": "21097",
+																								"length": "7",
+																								"line": "653",
+																								"parentIndex": "970",
+																								"start": "21091"
+																							},
+																							"typeDescription": {
+																								"typeIdentifier": "t_address",
+																								"typeString": "address"
+																							}
+																						}
+																					},
 																					"nodeType": "INDEX_ACCESS",
 																					"src": {
 																						"column": "12",
@@ -18504,14 +18472,10 @@
 																						"start": "21081"
 																					},
 																					"typeDescription": {
-																						"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																						"typeString": "index[mapping(address=\u003euint256):address]"
+																						"typeIdentifier": "t_[_[$_t_address]$",
+																						"typeString": "index[address]"
 																					},
 																					"typeDescriptions": [
-																						{
-																							"typeIdentifier": "t_mapping_$t_address_$t_uint256$",
-																							"typeString": "mapping(address=\u003euint256)"
-																						},
 																						{
 																							"typeIdentifier": "t_address",
 																							"typeString": "address"
@@ -18592,8 +18556,8 @@
 																				"start": "21081"
 																			},
 																			"typeDescription": {
-																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																				"typeString": "index[mapping(address=\u003euint256):address]"
+																				"typeIdentifier": "t_[_[$_t_address]$",
+																				"typeString": "index[address]"
 																			}
 																		}
 																	},
@@ -18608,8 +18572,8 @@
 																		"start": "21081"
 																	},
 																	"typeDescription": {
-																		"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																		"typeString": "index[mapping(address=\u003euint256):address]"
+																		"typeIdentifier": "t_[_[$_t_address]$",
+																		"typeString": "index[address]"
 																	}
 																}
 															},
@@ -19296,53 +19260,9 @@
 																	"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
 																	"value": {
 																		"baseExpression": {
-																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																			"value": {
-																				"id": "1015",
-																				"name": "spender",
-																				"nodeType": "IDENTIFIER",
-																				"referencedDeclaration": "1015",
-																				"src": {
-																					"column": "27",
-																					"end": "22067",
-																					"length": "7",
-																					"line": "680",
-																					"parentIndex": "1011",
-																					"start": "22061"
-																				},
-																				"typeDescription": {
-																					"typeIdentifier": "t_address",
-																					"typeString": "address"
-																				}
-																			}
-																		},
-																		"id": "1011",
-																		"indexExpression": {
 																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.IndexAccess",
 																			"value": {
 																				"baseExpression": {
-																					"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
-																					"value": {
-																						"id": "1014",
-																						"name": "owner",
-																						"nodeType": "IDENTIFIER",
-																						"referencedDeclaration": "1014",
-																						"src": {
-																							"column": "20",
-																							"end": "22058",
-																							"length": "5",
-																							"line": "680",
-																							"parentIndex": "1012",
-																							"start": "22054"
-																						},
-																						"typeDescription": {
-																							"typeIdentifier": "t_address",
-																							"typeString": "address"
-																						}
-																					}
-																				},
-																				"id": "1012",
-																				"indexExpression": {
 																					"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
 																					"value": {
 																						"id": "1013",
@@ -19363,6 +19283,28 @@
 																						}
 																					}
 																				},
+																				"id": "1012",
+																				"indexExpression": {
+																					"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																					"value": {
+																						"id": "1014",
+																						"name": "owner",
+																						"nodeType": "IDENTIFIER",
+																						"referencedDeclaration": "1014",
+																						"src": {
+																							"column": "20",
+																							"end": "22058",
+																							"length": "5",
+																							"line": "680",
+																							"parentIndex": "1012",
+																							"start": "22054"
+																						},
+																						"typeDescription": {
+																							"typeIdentifier": "t_address",
+																							"typeString": "address"
+																						}
+																					}
+																				},
 																				"nodeType": "INDEX_ACCESS",
 																				"src": {
 																					"column": "8",
@@ -19373,19 +19315,37 @@
 																					"start": "22042"
 																				},
 																				"typeDescription": {
-																					"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																					"typeString": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
+																					"typeIdentifier": "t_[_[$_t_address]$",
+																					"typeString": "index[address]"
 																				},
 																				"typeDescriptions": [
-																					{
-																						"typeIdentifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-																						"typeString": "mapping(address=\u003emapping(address=\u003euint256))"
-																					},
 																					{
 																						"typeIdentifier": "t_address",
 																						"typeString": "address"
 																					}
 																				]
+																			}
+																		},
+																		"id": "1011",
+																		"indexExpression": {
+																			"typeUrl": "github.com/unpackdev/protos/unpack.v1.ast.PrimaryExpression",
+																			"value": {
+																				"id": "1015",
+																				"name": "spender",
+																				"nodeType": "IDENTIFIER",
+																				"referencedDeclaration": "1015",
+																				"src": {
+																					"column": "27",
+																					"end": "22067",
+																					"length": "7",
+																					"line": "680",
+																					"parentIndex": "1011",
+																					"start": "22061"
+																				},
+																				"typeDescription": {
+																					"typeIdentifier": "t_address",
+																					"typeString": "address"
+																				}
 																			}
 																		},
 																		"nodeType": "INDEX_ACCESS",
@@ -19398,14 +19358,10 @@
 																			"start": "22042"
 																		},
 																		"typeDescription": {
-																			"typeIdentifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-																			"typeString": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+																			"typeIdentifier": "t_[_[$_t_address]$",
+																			"typeString": "index[address]"
 																		},
 																		"typeDescriptions": [
-																			{
-																				"typeIdentifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																				"typeString": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
-																			},
 																			{
 																				"typeIdentifier": "t_address",
 																				"typeString": "address"
@@ -19445,8 +19401,8 @@
 																	"start": "22042"
 																},
 																"typeDescription": {
-																	"typeIdentifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-																	"typeString": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+																	"typeIdentifier": "t_[_[$_t_address]$",
+																	"typeString": "index[address]"
 																}
 															}
 														},
@@ -19461,8 +19417,8 @@
 															"start": "22042"
 														},
 														"typeDescription": {
-															"typeIdentifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-															"typeString": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+															"typeIdentifier": "t_[_[$_t_address]$",
+															"typeString": "index[address]"
 														}
 													}
 												},
