@@ -918,27 +918,6 @@
 														"parent_index": 407
 													},
 													"index_expression": {
-														"id": 409,
-														"node_type": 16,
-														"src": {
-															"line": 101,
-															"column": 12,
-															"start": 3163,
-															"end": 3168,
-															"length": 6,
-															"parent_index": 408
-														},
-														"name": "buffer",
-														"type_description": {
-															"type_identifier": "t_bytes",
-															"type_string": "bytes"
-														},
-														"overloaded_declarations": [],
-														"referenced_declaration": 391,
-														"is_pure": false,
-														"text": "buffer"
-													},
-													"base_expression": {
 														"id": 410,
 														"node_type": 16,
 														"src": {
@@ -959,19 +938,36 @@
 														"is_pure": false,
 														"text": "digits"
 													},
-													"type_descriptions": [
-														{
+													"base_expression": {
+														"id": 409,
+														"node_type": 16,
+														"src": {
+															"line": 101,
+															"column": 12,
+															"start": 3163,
+															"end": 3168,
+															"length": 6,
+															"parent_index": 408
+														},
+														"name": "buffer",
+														"type_description": {
 															"type_identifier": "t_bytes",
 															"type_string": "bytes"
 														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 391,
+														"is_pure": false,
+														"text": "buffer"
+													},
+													"type_descriptions": [
 														{
 															"type_identifier": "t_uint256",
 															"type_string": "uint256"
 														}
 													],
 													"type_description": {
-														"type_identifier": "t_[_[$_t_bytes]$_t_uint256]$",
-														"type_string": "index[bytes:uint256]"
+														"type_identifier": "t_[_[$_t_uint256]$",
+														"type_string": "index[uint256]"
 													}
 												},
 												"right_expression": {
@@ -1220,13 +1216,13 @@
 													}
 												},
 												"type_description": {
-													"type_identifier": "t_[_[$_t_bytes]$_t_uint256]$",
-													"type_string": "index[bytes:uint256]"
+													"type_identifier": "t_[_[$_t_uint256]$",
+													"type_string": "index[uint256]"
 												}
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_bytes]$_t_uint256]$",
-												"type_string": "index[bytes:uint256]"
+												"type_identifier": "t_[_[$_t_uint256]$",
+												"type_string": "index[uint256]"
 											},
 											"text": "buffer[digits]=bytes1(uint8(48+value%10));"
 										},

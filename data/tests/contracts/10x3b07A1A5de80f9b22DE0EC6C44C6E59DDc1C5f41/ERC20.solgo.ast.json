@@ -1671,6 +1671,27 @@
 											"parent_index": 4202
 										},
 										"index_expression": {
+											"id": 4208,
+											"node_type": 16,
+											"src": {
+												"line": 2004,
+												"column": 30,
+												"start": 72169,
+												"end": 72175,
+												"length": 7,
+												"parent_index": 4203
+											},
+											"name": "spender",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4208,
+											"is_pure": false,
+											"text": "spender"
+										},
+										"base_expression": {
 											"id": 4204,
 											"node_type": 22,
 											"src": {
@@ -1682,27 +1703,6 @@
 												"parent_index": 4203
 											},
 											"index_expression": {
-												"id": 4205,
-												"node_type": 16,
-												"src": {
-													"line": 2004,
-													"column": 8,
-													"start": 72147,
-													"end": 72155,
-													"length": 9,
-													"parent_index": 4204
-												},
-												"name": "allowance",
-												"type_description": {
-													"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-													"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
-												},
-												"overloaded_declarations": [],
-												"referenced_declaration": 4146,
-												"is_pure": false,
-												"text": "allowance"
-											},
-											"base_expression": {
 												"id": 4206,
 												"is_constant": false,
 												"is_l_value": false,
@@ -1754,55 +1754,47 @@
 												},
 												"text": "msg.sender"
 											},
-											"type_descriptions": [
-												{
+											"base_expression": {
+												"id": 4205,
+												"node_type": 16,
+												"src": {
+													"line": 2004,
+													"column": 8,
+													"start": 72147,
+													"end": 72155,
+													"length": 9,
+													"parent_index": 4204
+												},
+												"name": "allowance",
+												"type_description": {
 													"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
 													"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
 												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 4146,
+												"is_pure": false,
+												"text": "allowance"
+											},
+											"type_descriptions": [
 												{
 													"type_identifier": "t_address",
 													"type_string": "address"
 												}
 											],
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-												"type_string": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											}
 										},
-										"base_expression": {
-											"id": 4208,
-											"node_type": 16,
-											"src": {
-												"line": 2004,
-												"column": 30,
-												"start": 72169,
-												"end": 72175,
-												"length": 7,
-												"parent_index": 4203
-											},
-											"name": "spender",
-											"type_description": {
-												"type_identifier": "t_address",
-												"type_string": "address"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 4208,
-											"is_pure": false,
-											"text": "spender"
-										},
 										"type_descriptions": [
-											{
-												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-												"type_string": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
-											},
 											{
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
 										],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-											"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										}
 									},
 									"right_expression": {
@@ -1827,13 +1819,13 @@
 										"text": "amount"
 									},
 									"type_description": {
-										"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-										"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+										"type_identifier": "t_[_[$_t_address]$",
+										"type_string": "index[address]"
 									}
 								},
 								"type_description": {
-									"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-									"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+									"type_identifier": "t_[_[$_t_address]$",
+									"type_string": "index[address]"
 								},
 								"text": "allowance[msg.sender][spender]=amount;"
 							},
@@ -2251,27 +2243,6 @@
 											"parent_index": 4230
 										},
 										"index_expression": {
-											"id": 4232,
-											"node_type": 16,
-											"src": {
-												"line": 2012,
-												"column": 8,
-												"start": 72360,
-												"end": 72368,
-												"length": 9,
-												"parent_index": 4231
-											},
-											"name": "balanceOf",
-											"type_description": {
-												"type_identifier": "t_mapping_$t_address_$t_uint256$",
-												"type_string": "mapping(address=\u003euint256)"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 4143,
-											"is_pure": false,
-											"text": "balanceOf"
-										},
-										"base_expression": {
 											"id": 4233,
 											"is_constant": false,
 											"is_l_value": false,
@@ -2323,19 +2294,36 @@
 											},
 											"text": "msg.sender"
 										},
-										"type_descriptions": [
-											{
+										"base_expression": {
+											"id": 4232,
+											"node_type": 16,
+											"src": {
+												"line": 2012,
+												"column": 8,
+												"start": 72360,
+												"end": 72368,
+												"length": 9,
+												"parent_index": 4231
+											},
+											"name": "balanceOf",
+											"type_description": {
 												"type_identifier": "t_mapping_$t_address_$t_uint256$",
 												"type_string": "mapping(address=\u003euint256)"
 											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4143,
+											"is_pure": false,
+											"text": "balanceOf"
+										},
+										"type_descriptions": [
 											{
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
 										],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003euint256):address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										}
 									},
 									"right_expression": {
@@ -2360,13 +2348,13 @@
 										"text": "amount"
 									},
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-										"type_string": "index[mapping(address=\u003euint256):address]"
+										"type_identifier": "t_[_[$_t_address]$",
+										"type_string": "index[address]"
 									}
 								},
 								"type_description": {
-									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-									"type_string": "index[mapping(address=\u003euint256):address]"
+									"type_identifier": "t_[_[$_t_address]$",
+									"type_string": "index[address]"
 								},
 								"text": "balanceOf[msg.sender]-=amount;"
 							},
@@ -2584,27 +2572,6 @@
 													"parent_index": 4246
 												},
 												"index_expression": {
-													"id": 4248,
-													"node_type": 16,
-													"src": {
-														"line": 2017,
-														"column": 12,
-														"start": 72537,
-														"end": 72545,
-														"length": 9,
-														"parent_index": 4247
-													},
-													"name": "balanceOf",
-													"type_description": {
-														"type_identifier": "t_mapping_$t_address_$t_uint256$",
-														"type_string": "mapping(address=\u003euint256)"
-													},
-													"overloaded_declarations": [],
-													"referenced_declaration": 4143,
-													"is_pure": false,
-													"text": "balanceOf"
-												},
-												"base_expression": {
 													"id": 4249,
 													"node_type": 16,
 													"src": {
@@ -2625,19 +2592,36 @@
 													"is_pure": false,
 													"text": "to"
 												},
-												"type_descriptions": [
-													{
+												"base_expression": {
+													"id": 4248,
+													"node_type": 16,
+													"src": {
+														"line": 2017,
+														"column": 12,
+														"start": 72537,
+														"end": 72545,
+														"length": 9,
+														"parent_index": 4247
+													},
+													"name": "balanceOf",
+													"type_description": {
 														"type_identifier": "t_mapping_$t_address_$t_uint256$",
 														"type_string": "mapping(address=\u003euint256)"
 													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 4143,
+													"is_pure": false,
+													"text": "balanceOf"
+												},
+												"type_descriptions": [
 													{
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
 												],
 												"type_description": {
-													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-													"type_string": "index[mapping(address=\u003euint256):address]"
+													"type_identifier": "t_[_[$_t_address]$",
+													"type_string": "index[address]"
 												}
 											},
 											"right_expression": {
@@ -2662,13 +2646,13 @@
 												"text": "amount"
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-												"type_string": "index[mapping(address=\u003euint256):address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											}
 										},
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003euint256):address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										},
 										"text": "balanceOf[to]+=amount;"
 									}
@@ -2960,74 +2944,6 @@
 										"parent_index": 4264
 									},
 									"index_expression": {
-										"id": 4268,
-										"node_type": 22,
-										"src": {
-											"line": 2030,
-											"column": 26,
-											"start": 72805,
-											"end": 72819,
-											"length": 15,
-											"parent_index": 4264
-										},
-										"index_expression": {
-											"id": 4269,
-											"node_type": 16,
-											"src": {
-												"line": 2030,
-												"column": 26,
-												"start": 72805,
-												"end": 72813,
-												"length": 9,
-												"parent_index": 4268
-											},
-											"name": "allowance",
-											"type_description": {
-												"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-												"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 4146,
-											"is_pure": false,
-											"text": "allowance"
-										},
-										"base_expression": {
-											"id": 4270,
-											"node_type": 16,
-											"src": {
-												"line": 2030,
-												"column": 36,
-												"start": 72815,
-												"end": 72818,
-												"length": 4,
-												"parent_index": 4268
-											},
-											"name": "from",
-											"type_description": {
-												"type_identifier": "t_address",
-												"type_string": "address"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 4270,
-											"is_pure": false,
-											"text": "from"
-										},
-										"type_descriptions": [
-											{
-												"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-												"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
-											},
-											{
-												"type_identifier": "t_address",
-												"type_string": "address"
-											}
-										],
-										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
-										}
-									},
-									"base_expression": {
 										"id": 4271,
 										"is_constant": false,
 										"is_l_value": false,
@@ -3079,19 +2995,79 @@
 										},
 										"text": "msg.sender"
 									},
-									"type_descriptions": [
-										{
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
+									"base_expression": {
+										"id": 4268,
+										"node_type": 22,
+										"src": {
+											"line": 2030,
+											"column": 26,
+											"start": 72805,
+											"end": 72819,
+											"length": 15,
+											"parent_index": 4264
 										},
+										"index_expression": {
+											"id": 4270,
+											"node_type": 16,
+											"src": {
+												"line": 2030,
+												"column": 36,
+												"start": 72815,
+												"end": 72818,
+												"length": 4,
+												"parent_index": 4268
+											},
+											"name": "from",
+											"type_description": {
+												"type_identifier": "t_address",
+												"type_string": "address"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4270,
+											"is_pure": false,
+											"text": "from"
+										},
+										"base_expression": {
+											"id": 4269,
+											"node_type": 16,
+											"src": {
+												"line": 2030,
+												"column": 26,
+												"start": 72805,
+												"end": 72813,
+												"length": 9,
+												"parent_index": 4268
+											},
+											"name": "allowance",
+											"type_description": {
+												"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+												"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4146,
+											"is_pure": false,
+											"text": "allowance"
+										},
+										"type_descriptions": [
+											{
+												"type_identifier": "t_address",
+												"type_string": "address"
+											}
+										],
+										"type_description": {
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
+										}
+									},
+									"type_descriptions": [
 										{
 											"type_identifier": "t_address",
 											"type_string": "address"
 										}
 									],
 									"type_description": {
-										"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-										"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+										"type_identifier": "t_[_[$_t_address]$",
+										"type_string": "index[address]"
 									}
 								}
 							},
@@ -3244,27 +3220,6 @@
 											"parent_index": 4280
 										},
 										"index_expression": {
-											"id": 4282,
-											"node_type": 16,
-											"src": {
-												"line": 2034,
-												"column": 8,
-												"start": 72970,
-												"end": 72978,
-												"length": 9,
-												"parent_index": 4281
-											},
-											"name": "balanceOf",
-											"type_description": {
-												"type_identifier": "t_mapping_$t_address_$t_uint256$",
-												"type_string": "mapping(address=\u003euint256)"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 4143,
-											"is_pure": false,
-											"text": "balanceOf"
-										},
-										"base_expression": {
 											"id": 4283,
 											"node_type": 16,
 											"src": {
@@ -3285,19 +3240,36 @@
 											"is_pure": false,
 											"text": "from"
 										},
-										"type_descriptions": [
-											{
+										"base_expression": {
+											"id": 4282,
+											"node_type": 16,
+											"src": {
+												"line": 2034,
+												"column": 8,
+												"start": 72970,
+												"end": 72978,
+												"length": 9,
+												"parent_index": 4281
+											},
+											"name": "balanceOf",
+											"type_description": {
 												"type_identifier": "t_mapping_$t_address_$t_uint256$",
 												"type_string": "mapping(address=\u003euint256)"
 											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4143,
+											"is_pure": false,
+											"text": "balanceOf"
+										},
+										"type_descriptions": [
 											{
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
 										],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003euint256):address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										}
 									},
 									"right_expression": {
@@ -3322,13 +3294,13 @@
 										"text": "amount"
 									},
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-										"type_string": "index[mapping(address=\u003euint256):address]"
+										"type_identifier": "t_[_[$_t_address]$",
+										"type_string": "index[address]"
 									}
 								},
 								"type_description": {
-									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-									"type_string": "index[mapping(address=\u003euint256):address]"
+									"type_identifier": "t_[_[$_t_address]$",
+									"type_string": "index[address]"
 								},
 								"text": "balanceOf[from]-=amount;"
 							},
@@ -3515,27 +3487,6 @@
 													"parent_index": 4294
 												},
 												"index_expression": {
-													"id": 4296,
-													"node_type": 16,
-													"src": {
-														"line": 2039,
-														"column": 12,
-														"start": 73141,
-														"end": 73149,
-														"length": 9,
-														"parent_index": 4295
-													},
-													"name": "balanceOf",
-													"type_description": {
-														"type_identifier": "t_mapping_$t_address_$t_uint256$",
-														"type_string": "mapping(address=\u003euint256)"
-													},
-													"overloaded_declarations": [],
-													"referenced_declaration": 4143,
-													"is_pure": false,
-													"text": "balanceOf"
-												},
-												"base_expression": {
 													"id": 4297,
 													"node_type": 16,
 													"src": {
@@ -3556,19 +3507,36 @@
 													"is_pure": false,
 													"text": "to"
 												},
-												"type_descriptions": [
-													{
+												"base_expression": {
+													"id": 4296,
+													"node_type": 16,
+													"src": {
+														"line": 2039,
+														"column": 12,
+														"start": 73141,
+														"end": 73149,
+														"length": 9,
+														"parent_index": 4295
+													},
+													"name": "balanceOf",
+													"type_description": {
 														"type_identifier": "t_mapping_$t_address_$t_uint256$",
 														"type_string": "mapping(address=\u003euint256)"
 													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 4143,
+													"is_pure": false,
+													"text": "balanceOf"
+												},
+												"type_descriptions": [
 													{
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
 												],
 												"type_description": {
-													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-													"type_string": "index[mapping(address=\u003euint256):address]"
+													"type_identifier": "t_[_[$_t_address]$",
+													"type_string": "index[address]"
 												}
 											},
 											"right_expression": {
@@ -3593,13 +3561,13 @@
 												"text": "amount"
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-												"type_string": "index[mapping(address=\u003euint256):address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											}
 										},
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003euint256):address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										},
 										"text": "balanceOf[to]+=amount;"
 									}
@@ -4221,8 +4189,8 @@
 											},
 											"argument_types": [
 												{
-													"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-													"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))))"
+													"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+													"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256))))"
 												},
 												{
 													"type_identifier": "t_uint8",
@@ -4252,8 +4220,8 @@
 													},
 													"argument_types": [
 														{
-															"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-															"type_string": "function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256)))"
+															"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+															"type_string": "function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256)))"
 														}
 													],
 													"arguments": [
@@ -4279,8 +4247,8 @@
 																	"type_string": "function()"
 																},
 																{
-																	"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-																	"type_string": "function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))"
+																	"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+																	"type_string": "function(function(function(string memory),address,address,uint256,index[address],uint256))"
 																}
 															],
 															"arguments": [
@@ -4361,8 +4329,8 @@
 																	},
 																	"argument_types": [
 																		{
-																			"type_identifier": "t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-																			"type_string": "function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256)"
+																			"type_identifier": "t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+																			"type_string": "function(function(string memory),address,address,uint256,index[address],uint256)"
 																		}
 																	],
 																	"arguments": [
@@ -4396,8 +4364,8 @@
 																					"type_string": "uint256"
 																				},
 																				{
-																					"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																					"type_string": "index[mapping(address=\u003euint256):address]"
+																					"type_identifier": "t_[_[$_t_address]$",
+																					"type_string": "index[address]"
 																				},
 																				{
 																					"type_identifier": "t_uint256",
@@ -4592,27 +4560,6 @@
 																							"parent_index": 4355
 																						},
 																						"index_expression": {
-																							"id": 4357,
-																							"node_type": 16,
-																							"src": {
-																								"line": 2078,
-																								"column": 32,
-																								"start": 74469,
-																								"end": 74474,
-																								"length": 6,
-																								"parent_index": 4356
-																							},
-																							"name": "nonces",
-																							"type_description": {
-																								"type_identifier": "t_mapping_$t_address_$t_uint256$",
-																								"type_string": "mapping(address=\u003euint256)"
-																							},
-																							"overloaded_declarations": [],
-																							"referenced_declaration": 4155,
-																							"is_pure": false,
-																							"text": "nonces"
-																						},
-																						"base_expression": {
 																							"id": 4358,
 																							"node_type": 16,
 																							"src": {
@@ -4633,24 +4580,41 @@
 																							"is_pure": false,
 																							"text": "owner"
 																						},
-																						"type_descriptions": [
-																							{
+																						"base_expression": {
+																							"id": 4357,
+																							"node_type": 16,
+																							"src": {
+																								"line": 2078,
+																								"column": 32,
+																								"start": 74469,
+																								"end": 74474,
+																								"length": 6,
+																								"parent_index": 4356
+																							},
+																							"name": "nonces",
+																							"type_description": {
 																								"type_identifier": "t_mapping_$t_address_$t_uint256$",
 																								"type_string": "mapping(address=\u003euint256)"
 																							},
+																							"overloaded_declarations": [],
+																							"referenced_declaration": 4155,
+																							"is_pure": false,
+																							"text": "nonces"
+																						},
+																						"type_descriptions": [
 																							{
 																								"type_identifier": "t_address",
 																								"type_string": "address"
 																							}
 																						],
 																						"type_description": {
-																							"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																							"type_string": "index[mapping(address=\u003euint256):address]"
+																							"type_identifier": "t_[_[$_t_address]$",
+																							"type_string": "index[address]"
 																						}
 																					},
 																					"type_description": {
-																						"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																						"type_string": "index[mapping(address=\u003euint256):address]"
+																						"type_identifier": "t_[_[$_t_address]$",
+																						"type_string": "index[address]"
 																					},
 																					"prefix": false,
 																					"is_constant": false,
@@ -4695,8 +4659,8 @@
 																							"type_string": "uint256"
 																						},
 																						{
-																							"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-																							"type_string": "index[mapping(address=\u003euint256):address]"
+																							"type_identifier": "t_[_[$_t_address]$",
+																							"type_string": "index[address]"
 																						}
 																					],
 																					"text": "deadline"
@@ -4755,8 +4719,8 @@
 																				"text": "abi.encode"
 																			},
 																			"type_description": {
-																				"type_identifier": "t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-																				"type_string": "function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256)"
+																				"type_identifier": "t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+																				"type_string": "function(function(string memory),address,address,uint256,index[address],uint256)"
 																			}
 																		}
 																	],
@@ -4782,8 +4746,8 @@
 																		"text": "keccak256"
 																	},
 																	"type_description": {
-																		"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-																		"type_string": "function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))"
+																		"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+																		"type_string": "function(function(function(string memory),address,address,uint256,index[address],uint256))"
 																	}
 																}
 															],
@@ -4840,8 +4804,8 @@
 																"text": "abi.encodePacked"
 															},
 															"type_description": {
-																"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-																"type_string": "function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256)))"
+																"type_identifier": "t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+																"type_string": "function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256)))"
 															}
 														}
 													],
@@ -4867,8 +4831,8 @@
 														"text": "keccak256"
 													},
 													"type_description": {
-														"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-														"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))))"
+														"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+														"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256))))"
 													}
 												},
 												{
@@ -4892,8 +4856,8 @@
 													"is_pure": false,
 													"argument_types": [
 														{
-															"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-															"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))))"
+															"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+															"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256))))"
 														}
 													],
 													"text": "v"
@@ -4919,8 +4883,8 @@
 													"is_pure": false,
 													"argument_types": [
 														{
-															"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-															"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))))"
+															"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+															"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256))))"
 														},
 														{
 															"type_identifier": "t_uint8",
@@ -4950,8 +4914,8 @@
 													"is_pure": false,
 													"argument_types": [
 														{
-															"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$",
-															"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256))))"
+															"type_identifier": "t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$",
+															"type_string": "function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256))))"
 														},
 														{
 															"type_identifier": "t_uint8",
@@ -4987,8 +4951,8 @@
 												"text": "ecrecover"
 											},
 											"type_description": {
-												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$_t_uint256$_t_uint8$_t_bytes32$_t_bytes32$",
-												"type_string": "function(function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[mapping(address=\u003euint256):address],uint256)))),uint8,bytes32,bytes32)"
+												"type_identifier": "t_function_$_t_function_$_t_function__t_string_literal$_t_function_$_t_function_$_t_function_$_t_function__t_string_literal$_t_address$_t_address$_t_uint256$_t_[_[$_t_address]$_t_uint256$_t_uint8$_t_bytes32$_t_bytes32$",
+												"type_string": "function(function(function(string memory,function(),function(function(function(string memory),address,address,uint256,index[address],uint256)))),uint8,bytes32,bytes32)"
 											}
 										}
 									},
@@ -5325,74 +5289,6 @@
 													"parent_index": 4378
 												},
 												"index_expression": {
-													"id": 4380,
-													"node_type": 22,
-													"src": {
-														"line": 2091,
-														"column": 12,
-														"start": 74809,
-														"end": 74835,
-														"length": 27,
-														"parent_index": 4379
-													},
-													"index_expression": {
-														"id": 4381,
-														"node_type": 16,
-														"src": {
-															"line": 2091,
-															"column": 12,
-															"start": 74809,
-															"end": 74817,
-															"length": 9,
-															"parent_index": 4380
-														},
-														"name": "allowance",
-														"type_description": {
-															"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-															"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
-														},
-														"overloaded_declarations": [],
-														"referenced_declaration": 4146,
-														"is_pure": false,
-														"text": "allowance"
-													},
-													"base_expression": {
-														"id": 4382,
-														"node_type": 16,
-														"src": {
-															"line": 2091,
-															"column": 22,
-															"start": 74819,
-															"end": 74834,
-															"length": 16,
-															"parent_index": 4380
-														},
-														"name": "recoveredAddress",
-														"type_description": {
-															"type_identifier": "t_address",
-															"type_string": "address"
-														},
-														"overloaded_declarations": [],
-														"referenced_declaration": 4331,
-														"is_pure": false,
-														"text": "recoveredAddress"
-													},
-													"type_descriptions": [
-														{
-															"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
-															"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
-														},
-														{
-															"type_identifier": "t_address",
-															"type_string": "address"
-														}
-													],
-													"type_description": {
-														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-														"type_string": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
-													}
-												},
-												"base_expression": {
 													"id": 4383,
 													"node_type": 16,
 													"src": {
@@ -5413,19 +5309,79 @@
 													"is_pure": false,
 													"text": "spender"
 												},
-												"type_descriptions": [
-													{
-														"type_identifier": "t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$",
-														"type_string": "index[mapping(address=\u003emapping(address=\u003euint256)):address]"
+												"base_expression": {
+													"id": 4380,
+													"node_type": 22,
+													"src": {
+														"line": 2091,
+														"column": 12,
+														"start": 74809,
+														"end": 74835,
+														"length": 27,
+														"parent_index": 4379
 													},
+													"index_expression": {
+														"id": 4382,
+														"node_type": 16,
+														"src": {
+															"line": 2091,
+															"column": 22,
+															"start": 74819,
+															"end": 74834,
+															"length": 16,
+															"parent_index": 4380
+														},
+														"name": "recoveredAddress",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 4331,
+														"is_pure": false,
+														"text": "recoveredAddress"
+													},
+													"base_expression": {
+														"id": 4381,
+														"node_type": 16,
+														"src": {
+															"line": 2091,
+															"column": 12,
+															"start": 74809,
+															"end": 74817,
+															"length": 9,
+															"parent_index": 4380
+														},
+														"name": "allowance",
+														"type_description": {
+															"type_identifier": "t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$",
+															"type_string": "mapping(address=\u003emapping(address=\u003euint256))"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 4146,
+														"is_pure": false,
+														"text": "allowance"
+													},
+													"type_descriptions": [
+														{
+															"type_identifier": "t_address",
+															"type_string": "address"
+														}
+													],
+													"type_description": {
+														"type_identifier": "t_[_[$_t_address]$",
+														"type_string": "index[address]"
+													}
+												},
+												"type_descriptions": [
 													{
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
 												],
 												"type_description": {
-													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-													"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+													"type_identifier": "t_[_[$_t_address]$",
+													"type_string": "index[address]"
 												}
 											},
 											"right_expression": {
@@ -5450,13 +5406,13 @@
 												"text": "value"
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-												"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											}
 										},
 										"type_description": {
-											"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_address_$t_mapping_$t_address_$t_uint256$]$_t_address]$]$_t_address]$",
-											"type_string": "index[index[mapping(address=\u003emapping(address=\u003euint256)):address]:address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										},
 										"text": "allowance[recoveredAddress][spender]=value;"
 									}
@@ -7262,27 +7218,6 @@
 													"parent_index": 4460
 												},
 												"index_expression": {
-													"id": 4462,
-													"node_type": 16,
-													"src": {
-														"line": 2124,
-														"column": 12,
-														"start": 75983,
-														"end": 75991,
-														"length": 9,
-														"parent_index": 4461
-													},
-													"name": "balanceOf",
-													"type_description": {
-														"type_identifier": "t_mapping_$t_address_$t_uint256$",
-														"type_string": "mapping(address=\u003euint256)"
-													},
-													"overloaded_declarations": [],
-													"referenced_declaration": 4143,
-													"is_pure": false,
-													"text": "balanceOf"
-												},
-												"base_expression": {
 													"id": 4463,
 													"node_type": 16,
 													"src": {
@@ -7303,19 +7238,36 @@
 													"is_pure": false,
 													"text": "to"
 												},
-												"type_descriptions": [
-													{
+												"base_expression": {
+													"id": 4462,
+													"node_type": 16,
+													"src": {
+														"line": 2124,
+														"column": 12,
+														"start": 75983,
+														"end": 75991,
+														"length": 9,
+														"parent_index": 4461
+													},
+													"name": "balanceOf",
+													"type_description": {
 														"type_identifier": "t_mapping_$t_address_$t_uint256$",
 														"type_string": "mapping(address=\u003euint256)"
 													},
+													"overloaded_declarations": [],
+													"referenced_declaration": 4143,
+													"is_pure": false,
+													"text": "balanceOf"
+												},
+												"type_descriptions": [
 													{
 														"type_identifier": "t_address",
 														"type_string": "address"
 													}
 												],
 												"type_description": {
-													"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-													"type_string": "index[mapping(address=\u003euint256):address]"
+													"type_identifier": "t_[_[$_t_address]$",
+													"type_string": "index[address]"
 												}
 											},
 											"right_expression": {
@@ -7340,13 +7292,13 @@
 												"text": "amount"
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-												"type_string": "index[mapping(address=\u003euint256):address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											}
 										},
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003euint256):address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										},
 										"text": "balanceOf[to]+=amount;"
 									}
@@ -7556,27 +7508,6 @@
 											"parent_index": 4475
 										},
 										"index_expression": {
-											"id": 4477,
-											"node_type": 16,
-											"src": {
-												"line": 2131,
-												"column": 8,
-												"start": 76149,
-												"end": 76157,
-												"length": 9,
-												"parent_index": 4476
-											},
-											"name": "balanceOf",
-											"type_description": {
-												"type_identifier": "t_mapping_$t_address_$t_uint256$",
-												"type_string": "mapping(address=\u003euint256)"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 4143,
-											"is_pure": false,
-											"text": "balanceOf"
-										},
-										"base_expression": {
 											"id": 4478,
 											"node_type": 16,
 											"src": {
@@ -7597,19 +7528,36 @@
 											"is_pure": false,
 											"text": "from"
 										},
-										"type_descriptions": [
-											{
+										"base_expression": {
+											"id": 4477,
+											"node_type": 16,
+											"src": {
+												"line": 2131,
+												"column": 8,
+												"start": 76149,
+												"end": 76157,
+												"length": 9,
+												"parent_index": 4476
+											},
+											"name": "balanceOf",
+											"type_description": {
 												"type_identifier": "t_mapping_$t_address_$t_uint256$",
 												"type_string": "mapping(address=\u003euint256)"
 											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 4143,
+											"is_pure": false,
+											"text": "balanceOf"
+										},
+										"type_descriptions": [
 											{
 												"type_identifier": "t_address",
 												"type_string": "address"
 											}
 										],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-											"type_string": "index[mapping(address=\u003euint256):address]"
+											"type_identifier": "t_[_[$_t_address]$",
+											"type_string": "index[address]"
 										}
 									},
 									"right_expression": {
@@ -7634,13 +7582,13 @@
 										"text": "amount"
 									},
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-										"type_string": "index[mapping(address=\u003euint256):address]"
+										"type_identifier": "t_[_[$_t_address]$",
+										"type_string": "index[address]"
 									}
 								},
 								"type_description": {
-									"type_identifier": "t_[_[$_t_mapping_$t_address_$t_uint256$]$_t_address]$",
-									"type_string": "index[mapping(address=\u003euint256):address]"
+									"type_identifier": "t_[_[$_t_address]$",
+									"type_string": "index[address]"
 								},
 								"text": "balanceOf[from]-=amount;"
 							},

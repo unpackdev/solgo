@@ -1692,6 +1692,27 @@
 										"parent_index": 1891
 									},
 									"index_expression": {
+										"id": 1897,
+										"node_type": 16,
+										"src": {
+											"line": 1131,
+											"column": 36,
+											"start": 37262,
+											"end": 37268,
+											"length": 7,
+											"parent_index": 1892
+										},
+										"name": "account",
+										"type_description": {
+											"type_identifier": "t_address",
+											"type_string": "address"
+										},
+										"overloaded_declarations": [],
+										"referenced_declaration": 1897,
+										"is_pure": false,
+										"text": "account"
+									},
+									"base_expression": {
 										"id": 1893,
 										"is_constant": false,
 										"is_l_value": false,
@@ -1726,27 +1747,6 @@
 												"parent_index": 1893
 											},
 											"index_expression": {
-												"id": 1895,
-												"node_type": 16,
-												"src": {
-													"line": 1131,
-													"column": 15,
-													"start": 37241,
-													"end": 37246,
-													"length": 6,
-													"parent_index": 1894
-												},
-												"name": "_roles",
-												"type_description": {
-													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
-													"type_string": "mapping(bytes32=\u003eRoleData)"
-												},
-												"overloaded_declarations": [],
-												"referenced_declaration": 1813,
-												"is_pure": false,
-												"text": "_roles"
-											},
-											"base_expression": {
 												"id": 1896,
 												"node_type": 16,
 												"src": {
@@ -1767,63 +1767,55 @@
 												"is_pure": false,
 												"text": "role"
 											},
-											"type_descriptions": [
-												{
+											"base_expression": {
+												"id": 1895,
+												"node_type": 16,
+												"src": {
+													"line": 1131,
+													"column": 15,
+													"start": 37241,
+													"end": 37246,
+													"length": 6,
+													"parent_index": 1894
+												},
+												"name": "_roles",
+												"type_description": {
 													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
 													"type_string": "mapping(bytes32=\u003eRoleData)"
 												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 1813,
+												"is_pure": false,
+												"text": "_roles"
+											},
+											"type_descriptions": [
 												{
 													"type_identifier": "t_bytes32",
 													"type_string": "bytes32"
 												}
 											],
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-												"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+												"type_identifier": "t_[_[$_t_bytes32]$",
+												"type_string": "index[bytes32]"
 											}
 										},
 										"member_name": "members",
 										"argument_types": [],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+											"type_identifier": "t_[_[$_t_bytes32]$",
+											"type_string": "index[bytes32]"
 										},
 										"text": "_roles[role].members"
 									},
-									"base_expression": {
-										"id": 1897,
-										"node_type": 16,
-										"src": {
-											"line": 1131,
-											"column": 36,
-											"start": 37262,
-											"end": 37268,
-											"length": 7,
-											"parent_index": 1892
-										},
-										"name": "account",
-										"type_description": {
-											"type_identifier": "t_address",
-											"type_string": "address"
-										},
-										"overloaded_declarations": [],
-										"referenced_declaration": 1897,
-										"is_pure": false,
-										"text": "account"
-									},
 									"type_descriptions": [
-										{
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-										},
 										{
 											"type_identifier": "t_address",
 											"type_string": "address"
 										}
 									],
 									"type_description": {
-										"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-										"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+										"type_identifier": "t_[_[$_t_address]$",
+										"type_string": "index[address]"
 									}
 								}
 							}
@@ -3088,27 +3080,6 @@
 											"parent_index": 1951
 										},
 										"index_expression": {
-											"id": 1953,
-											"node_type": 16,
-											"src": {
-												"line": 1163,
-												"column": 15,
-												"start": 38315,
-												"end": 38320,
-												"length": 6,
-												"parent_index": 1952
-											},
-											"name": "_roles",
-											"type_description": {
-												"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
-												"type_string": "mapping(bytes32=\u003eRoleData)"
-											},
-											"overloaded_declarations": [],
-											"referenced_declaration": 1813,
-											"is_pure": false,
-											"text": "_roles"
-										},
-										"base_expression": {
 											"id": 1954,
 											"node_type": 16,
 											"src": {
@@ -3129,26 +3100,43 @@
 											"is_pure": false,
 											"text": "role"
 										},
-										"type_descriptions": [
-											{
+										"base_expression": {
+											"id": 1953,
+											"node_type": 16,
+											"src": {
+												"line": 1163,
+												"column": 15,
+												"start": 38315,
+												"end": 38320,
+												"length": 6,
+												"parent_index": 1952
+											},
+											"name": "_roles",
+											"type_description": {
 												"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
 												"type_string": "mapping(bytes32=\u003eRoleData)"
 											},
+											"overloaded_declarations": [],
+											"referenced_declaration": 1813,
+											"is_pure": false,
+											"text": "_roles"
+										},
+										"type_descriptions": [
 											{
 												"type_identifier": "t_bytes32",
 												"type_string": "bytes32"
 											}
 										],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+											"type_identifier": "t_[_[$_t_bytes32]$",
+											"type_string": "index[bytes32]"
 										}
 									},
 									"member_name": "adminRole",
 									"argument_types": [],
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-										"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+										"type_identifier": "t_[_[$_t_bytes32]$",
+										"type_string": "index[bytes32]"
 									},
 									"text": "_roles[role].adminRole"
 								}
@@ -5034,27 +5022,6 @@
 												"parent_index": 2045
 											},
 											"index_expression": {
-												"id": 2047,
-												"node_type": 16,
-												"src": {
-													"line": 1240,
-													"column": 8,
-													"start": 40776,
-													"end": 40781,
-													"length": 6,
-													"parent_index": 2046
-												},
-												"name": "_roles",
-												"type_description": {
-													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
-													"type_string": "mapping(bytes32=\u003eRoleData)"
-												},
-												"overloaded_declarations": [],
-												"referenced_declaration": 1813,
-												"is_pure": false,
-												"text": "_roles"
-											},
-											"base_expression": {
 												"id": 2048,
 												"node_type": 16,
 												"src": {
@@ -5075,26 +5042,43 @@
 												"is_pure": false,
 												"text": "role"
 											},
-											"type_descriptions": [
-												{
+											"base_expression": {
+												"id": 2047,
+												"node_type": 16,
+												"src": {
+													"line": 1240,
+													"column": 8,
+													"start": 40776,
+													"end": 40781,
+													"length": 6,
+													"parent_index": 2046
+												},
+												"name": "_roles",
+												"type_description": {
 													"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
 													"type_string": "mapping(bytes32=\u003eRoleData)"
 												},
+												"overloaded_declarations": [],
+												"referenced_declaration": 1813,
+												"is_pure": false,
+												"text": "_roles"
+											},
+											"type_descriptions": [
 												{
 													"type_identifier": "t_bytes32",
 													"type_string": "bytes32"
 												}
 											],
 											"type_description": {
-												"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-												"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+												"type_identifier": "t_[_[$_t_bytes32]$",
+												"type_string": "index[bytes32]"
 											}
 										},
 										"member_name": "adminRole",
 										"argument_types": [],
 										"type_description": {
-											"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-											"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+											"type_identifier": "t_[_[$_t_bytes32]$",
+											"type_string": "index[bytes32]"
 										},
 										"text": "_roles[role].adminRole"
 									},
@@ -5120,13 +5104,13 @@
 										"text": "adminRole"
 									},
 									"type_description": {
-										"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-										"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+										"type_identifier": "t_[_[$_t_bytes32]$",
+										"type_string": "index[bytes32]"
 									}
 								},
 								"type_description": {
-									"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-									"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+									"type_identifier": "t_[_[$_t_bytes32]$",
+									"type_string": "index[bytes32]"
 								},
 								"text": "_roles[role].adminRole=adminRole;"
 							}
@@ -5479,6 +5463,27 @@
 														"parent_index": 2067
 													},
 													"index_expression": {
+														"id": 2073,
+														"node_type": 16,
+														"src": {
+															"line": 1245,
+															"column": 33,
+															"start": 40956,
+															"end": 40962,
+															"length": 7,
+															"parent_index": 2068
+														},
+														"name": "account",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 2073,
+														"is_pure": false,
+														"text": "account"
+													},
+													"base_expression": {
 														"id": 2069,
 														"is_constant": false,
 														"is_l_value": false,
@@ -5513,27 +5518,6 @@
 																"parent_index": 2069
 															},
 															"index_expression": {
-																"id": 2071,
-																"node_type": 16,
-																"src": {
-																	"line": 1245,
-																	"column": 12,
-																	"start": 40935,
-																	"end": 40940,
-																	"length": 6,
-																	"parent_index": 2070
-																},
-																"name": "_roles",
-																"type_description": {
-																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
-																	"type_string": "mapping(bytes32=\u003eRoleData)"
-																},
-																"overloaded_declarations": [],
-																"referenced_declaration": 1813,
-																"is_pure": false,
-																"text": "_roles"
-															},
-															"base_expression": {
 																"id": 2072,
 																"node_type": 16,
 																"src": {
@@ -5554,63 +5538,55 @@
 																"is_pure": false,
 																"text": "role"
 															},
-															"type_descriptions": [
-																{
+															"base_expression": {
+																"id": 2071,
+																"node_type": 16,
+																"src": {
+																	"line": 1245,
+																	"column": 12,
+																	"start": 40935,
+																	"end": 40940,
+																	"length": 6,
+																	"parent_index": 2070
+																},
+																"name": "_roles",
+																"type_description": {
 																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
 																	"type_string": "mapping(bytes32=\u003eRoleData)"
 																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 1813,
+																"is_pure": false,
+																"text": "_roles"
+															},
+															"type_descriptions": [
 																{
 																	"type_identifier": "t_bytes32",
 																	"type_string": "bytes32"
 																}
 															],
 															"type_description": {
-																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-																"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+																"type_identifier": "t_[_[$_t_bytes32]$",
+																"type_string": "index[bytes32]"
 															}
 														},
 														"member_name": "members",
 														"argument_types": [],
 														"type_description": {
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+															"type_identifier": "t_[_[$_t_bytes32]$",
+															"type_string": "index[bytes32]"
 														},
 														"text": "_roles[role].members"
 													},
-													"base_expression": {
-														"id": 2073,
-														"node_type": 16,
-														"src": {
-															"line": 1245,
-															"column": 33,
-															"start": 40956,
-															"end": 40962,
-															"length": 7,
-															"parent_index": 2068
-														},
-														"name": "account",
-														"type_description": {
-															"type_identifier": "t_address",
-															"type_string": "address"
-														},
-														"overloaded_declarations": [],
-														"referenced_declaration": 2073,
-														"is_pure": false,
-														"text": "account"
-													},
 													"type_descriptions": [
-														{
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-														},
 														{
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
 													],
 													"type_description": {
-														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-														"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+														"type_identifier": "t_[_[$_t_address]$",
+														"type_string": "index[address]"
 													}
 												},
 												"right_expression": {
@@ -5637,13 +5613,13 @@
 													"text": "true"
 												},
 												"type_description": {
-													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-													"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+													"type_identifier": "t_[_[$_t_address]$",
+													"type_string": "index[address]"
 												}
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-												"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											},
 											"text": "_roles[role].members[account]=true;"
 										},
@@ -6094,6 +6070,27 @@
 														"parent_index": 2097
 													},
 													"index_expression": {
+														"id": 2103,
+														"node_type": 16,
+														"src": {
+															"line": 1252,
+															"column": 33,
+															"start": 41186,
+															"end": 41192,
+															"length": 7,
+															"parent_index": 2098
+														},
+														"name": "account",
+														"type_description": {
+															"type_identifier": "t_address",
+															"type_string": "address"
+														},
+														"overloaded_declarations": [],
+														"referenced_declaration": 2103,
+														"is_pure": false,
+														"text": "account"
+													},
+													"base_expression": {
 														"id": 2099,
 														"is_constant": false,
 														"is_l_value": false,
@@ -6128,27 +6125,6 @@
 																"parent_index": 2099
 															},
 															"index_expression": {
-																"id": 2101,
-																"node_type": 16,
-																"src": {
-																	"line": 1252,
-																	"column": 12,
-																	"start": 41165,
-																	"end": 41170,
-																	"length": 6,
-																	"parent_index": 2100
-																},
-																"name": "_roles",
-																"type_description": {
-																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
-																	"type_string": "mapping(bytes32=\u003eRoleData)"
-																},
-																"overloaded_declarations": [],
-																"referenced_declaration": 1813,
-																"is_pure": false,
-																"text": "_roles"
-															},
-															"base_expression": {
 																"id": 2102,
 																"node_type": 16,
 																"src": {
@@ -6169,63 +6145,55 @@
 																"is_pure": false,
 																"text": "role"
 															},
-															"type_descriptions": [
-																{
+															"base_expression": {
+																"id": 2101,
+																"node_type": 16,
+																"src": {
+																	"line": 1252,
+																	"column": 12,
+																	"start": 41165,
+																	"end": 41170,
+																	"length": 6,
+																	"parent_index": 2100
+																},
+																"name": "_roles",
+																"type_description": {
 																	"type_identifier": "t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$",
 																	"type_string": "mapping(bytes32=\u003eRoleData)"
 																},
+																"overloaded_declarations": [],
+																"referenced_declaration": 1813,
+																"is_pure": false,
+																"text": "_roles"
+															},
+															"type_descriptions": [
 																{
 																	"type_identifier": "t_bytes32",
 																	"type_string": "bytes32"
 																}
 															],
 															"type_description": {
-																"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-																"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+																"type_identifier": "t_[_[$_t_bytes32]$",
+																"type_string": "index[bytes32]"
 															}
 														},
 														"member_name": "members",
 														"argument_types": [],
 														"type_description": {
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
+															"type_identifier": "t_[_[$_t_bytes32]$",
+															"type_string": "index[bytes32]"
 														},
 														"text": "_roles[role].members"
 													},
-													"base_expression": {
-														"id": 2103,
-														"node_type": 16,
-														"src": {
-															"line": 1252,
-															"column": 33,
-															"start": 41186,
-															"end": 41192,
-															"length": 7,
-															"parent_index": 2098
-														},
-														"name": "account",
-														"type_description": {
-															"type_identifier": "t_address",
-															"type_string": "address"
-														},
-														"overloaded_declarations": [],
-														"referenced_declaration": 2103,
-														"is_pure": false,
-														"text": "account"
-													},
 													"type_descriptions": [
-														{
-															"type_identifier": "t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$",
-															"type_string": "index[mapping(bytes32=\u003eRoleData):bytes32]"
-														},
 														{
 															"type_identifier": "t_address",
 															"type_string": "address"
 														}
 													],
 													"type_description": {
-														"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-														"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+														"type_identifier": "t_[_[$_t_address]$",
+														"type_string": "index[address]"
 													}
 												},
 												"right_expression": {
@@ -6252,13 +6220,13 @@
 													"text": "false"
 												},
 												"type_description": {
-													"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-													"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+													"type_identifier": "t_[_[$_t_address]$",
+													"type_string": "index[address]"
 												}
 											},
 											"type_description": {
-												"type_identifier": "t_[_[$_t_[_[$_t_mapping_$t_bytes32_$t_struct$_AccessControl_RoleData_$1807$]$_t_bytes32]$]$_t_address]$",
-												"type_string": "index[index[mapping(bytes32=\u003eRoleData):bytes32]:address]"
+												"type_identifier": "t_[_[$_t_address]$",
+												"type_string": "index[address]"
 											},
 											"text": "_roles[role].members[account]=false;"
 										},
