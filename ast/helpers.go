@@ -2,11 +2,10 @@ package ast
 
 import (
 	"fmt"
-	"regexp"
-	"strings"
-
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"regexp"
+	"strings"
 )
 
 // getLiterals extracts individual words from a given literal string.
@@ -198,4 +197,11 @@ func getStorageLocationFromDataLocationCtx(ctx parser.IDataLocationContext) ast_
 		}
 	}
 	return ast_pb.StorageLocation_DEFAULT
+}
+
+// ToNode takes a value of type T, which implements the Node interface,
+// and returns the value along with its NodeType.
+func ToNode[T any](node Node[NodeType]) (T, bool) {
+	concreteNode, ok := node.(T)
+	return concreteNode, ok
 }

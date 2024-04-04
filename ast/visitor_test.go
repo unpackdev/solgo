@@ -50,13 +50,11 @@ func TestAsvVisitor(t *testing.T) {
 			},
 			unresolvedReferences: 0,
 			visitFn: func(node Node[NodeType]) (bool, error) {
-				//t.Logf("Visiting node id:%d - type:%s - actual_type: %T", node.GetId(), node.GetType(), node)
-
 				var memoryParams []*Parameter
 
 				// Seek only for a function type... It can be a different type such as
 				// constructor, fallback, receive...
-				if nodeCtx, ok := node.(*Function); ok {
+				if nodeCtx, found := ToNode[*Function](node); found {
 					if nodeCtx.GetName() == "sub" {
 						for _, parameter := range nodeCtx.GetParameters().Parameters {
 							if parameter.StorageLocation == ast_pb.StorageLocation_MEMORY {
