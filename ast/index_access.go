@@ -38,7 +38,7 @@ func NewIndexAccess(b *ASTBuilder) *IndexAccess {
 // Here we are going to just do some magic stuff in order to figure out descriptions across the board...
 func (i *IndexAccess) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	// It is usually only index expression that is affected, so for now fixing that one...
-	if i.IndexExpression.GetTypeDescription() != nil {
+	if i.IndexExpression != nil && i.IndexExpression.GetTypeDescription() != nil {
 		i.TypeDescriptions[0] = i.IndexExpression.GetTypeDescription()
 		i.TypeDescription = i.buildTypeDescription()
 		return true
