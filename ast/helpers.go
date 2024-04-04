@@ -200,7 +200,7 @@ func getStorageLocationFromDataLocationCtx(ctx parser.IDataLocationContext) ast_
 }
 
 // ToNode takes a value of type T, which implements the Node interface,
-// and returns the value along with its NodeType.
+// and returns the value along if casting was ok.
 func ToNode[T any](node Node[NodeType]) (T, bool) {
 	concreteNode, ok := node.(T)
 	return concreteNode, ok
