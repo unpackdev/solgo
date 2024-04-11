@@ -8,12 +8,9 @@ import (
 
 func printBody(node *ast.BodyNode, sb *strings.Builder, depth int) bool {
 	success := true
-	stmts := []string{}
 	for _, stmt := range node.GetStatements() {
-		s, ok := Print(stmt)
-		success = ok && success
-		stmts = append(stmts, indentString(s, depth+1))
+		success = PrintRecursive(stmt, sb, depth+1) && success
+		writeStrings(sb, ";\n")
 	}
-	writeSeperatedList(sb, "\n;", stmts)
 	return success
 }

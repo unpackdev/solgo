@@ -21,6 +21,7 @@ func printContract(node *ast.Contract, sb *strings.Builder, depth int) bool {
 
 	sb.WriteString(" {\n")
 	for _, child := range node.GetNodes() {
+		sb.WriteString(indentString("", depth+1))
 		success = PrintRecursive(child, sb, depth+1) && success
 	}
 	sb.WriteString("}\n")

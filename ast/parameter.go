@@ -438,5 +438,5 @@ func (p *Parameter) getStorageLocationFromCtx(ctx *parser.ParameterDeclarationCo
 		}
 	}
 
-	return ast_pb.StorageLocation_MEMORY
+	return ast_pb.StorageLocation_DEFAULT
 }

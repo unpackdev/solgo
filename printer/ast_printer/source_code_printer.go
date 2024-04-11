@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const INDENT_SIZE = 4
+const INDENT_SIZE = 2
 
 // Print is a function that prints the AST nodes to source code
 func Print(node ast.Node[ast.NodeType]) (string, bool) {
@@ -36,6 +36,15 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 		return printPragma(node, sb, depth)
 	case *ast.Contract:
 		return printContract(node, sb, depth)
+	case *ast.Function:
+		return printFunction(node, sb, depth)
+	case *ast.Parameter:
+		return printParameter(node, sb, depth)
+	case *ast.Assignment:
+		return printAssignment(node, sb, depth)
+	case *ast.TypeName:
+		return printTypeName(node, sb, depth)
+
 	default:
 		if node.GetType() == ast_pb.NodeType_SOURCE_UNIT {
 			return printSourceUnit(node, sb, depth)
@@ -59,6 +68,7 @@ func writeSeperatedStrings(sb *strings.Builder, seperator string, s ...string) {
 		} else {
 			sb.WriteString(item)
 		}
+		count++
 	}
 }
 
@@ -76,6 +86,7 @@ func writeSeperatedList(sb *strings.Builder, seperator string, s []string) {
 		} else {
 			sb.WriteString(item)
 		}
+		count++
 	}
 }
 
@@ -86,5 +97,5 @@ func writeStrings(sb *strings.Builder, s ...string) {
 }
 
 func indentString(s string, depth int) string {
-	return strings.Repeat(" ", depth*INDENT_SIZE)
+	return strings.Repeat(" ", depth*INDENT_SIZE) + s
 }
