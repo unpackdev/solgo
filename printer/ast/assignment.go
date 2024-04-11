@@ -1,14 +1,13 @@
 package printer
 
 import (
-	"fmt"
 	"strings"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
 )
 
-func getOperatorString(op ast_pb.Operator) string {
+func getAssignOperatorString(op ast_pb.Operator) string {
 	switch op {
 	case ast_pb.Operator_EQUAL:
 		return "="
@@ -18,7 +17,7 @@ func getOperatorString(op ast_pb.Operator) string {
 		return "-="
 	case ast_pb.Operator_MUL_EQUAL:
 		return "*="
-	case ast_pb.Operator_DIVISION:
+	case ast_pb.Operator_DIV_EQUAL:
 		return "/="
 	case ast_pb.Operator_MOD_EQUAL:
 		return "%="
@@ -53,12 +52,14 @@ func printAssignment(node *ast.Assignment, sb *strings.Builder, depth int) bool 
 	if node.LeftExpression == nil || node.RightExpression == nil {
 		return false
 	}
-	op := getOperatorString(node.Operator)
+	op := getAssignOperatorString(node.Operator)
 	if op == "" {
 		success = false
 	}
 	PrintRecursive(node.LeftExpression, sb, depth)
-	sb.WriteString(fmt.Sprintf(" %s ", op))
+	sb.WriteString(" ")
+	sb.WriteString(op)
+	sb.WriteString(" ")
 	PrintRecursive(node.RightExpression, sb, depth)
 	return success
 }
