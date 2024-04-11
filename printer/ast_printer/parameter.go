@@ -44,7 +44,7 @@ func getStateMutabilityString(mut ast_pb.Mutability) string {
 	case ast_pb.Mutability_VIEW:
 		return "view"
 	case ast_pb.Mutability_NONPAYABLE:
-		return "nonpayable"
+		return ""
 	case ast_pb.Mutability_PAYABLE:
 		return "payable"
 	default:
@@ -54,7 +54,6 @@ func getStateMutabilityString(mut ast_pb.Mutability) string {
 
 func printParameter(node *ast.Parameter, sb *strings.Builder, depth int) bool {
 	success := true
-	sb.WriteString(node.GetName())
 	typeName, ok := Print(node.GetTypeName())
 	success = ok && success
 	ident := node.GetName()
