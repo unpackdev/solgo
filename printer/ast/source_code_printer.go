@@ -29,18 +29,6 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 	}
 }
 
-func printAndOperation(node *ast.AndOperation, sb *strings.Builder, depth int) bool {
-	expressions := []string{}
-	success := true
-	for _, exp := range node.GetExpressions() {
-		s, ok := Print(exp)
-		success = success && ok
-		expressions = append(expressions, s)
-	}
-	writeSeperatedList(sb, " && ", expressions)
-	return success
-}
-
 func writeSeperatedStrings(sb *strings.Builder, seperator string, s ...string) {
 	count := 0
 	for _, item := range s {
@@ -72,5 +60,11 @@ func writeSeperatedList(sb *strings.Builder, seperator string, s []string) {
 		} else {
 			sb.WriteString(item)
 		}
+	}
+}
+
+func writeStrings(sb *strings.Builder, s ...string) {
+	for _, item := range s {
+		sb.WriteString(item)
 	}
 }
