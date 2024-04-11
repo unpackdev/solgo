@@ -11,6 +11,6 @@ func printConstructor(node *ast.Constructor, sb *strings.Builder, depth int) boo
 	sb.WriteString("constructor(")
 	success = printParameterList(node.GetParameters(), sb, depth) && success
 	sb.WriteString(") \n")
-	success = PrintRecursive(node.GetBody(), sb, depth) && success
+	success = PrintRecursive(node.GetBody(), sb, depth+1) && success
 	return success
 }

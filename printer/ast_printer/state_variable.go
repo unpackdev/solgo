@@ -18,7 +18,7 @@ func printStateVariableDeclaration(node *ast.StateVariableDeclaration, sb *strin
 		override = "override"
 	}
 	writeSeperatedStrings(sb, " ", visibility, storage, typeName, override, ident)
-	if node.GetInitialValue != nil {
+	if node.GetInitialValue() != nil {
 		sb.WriteString(" = ")
 		success = PrintRecursive(node.GetInitialValue(), sb, depth) && success
 	}

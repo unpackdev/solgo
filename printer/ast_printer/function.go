@@ -29,9 +29,9 @@ func printFunction(node *ast.Function, sb *strings.Builder, depth int) bool {
 
 	sb.WriteString(" {\n")
 	if node.GetBody() != nil {
-		success = PrintRecursive(node.GetBody(), sb, depth) && success
+		success = PrintRecursive(node.GetBody(), sb, depth+1) && success
 	}
-	sb.WriteString("}\n")
+	sb.WriteString(indentString("}\n", depth))
 
 	return success
 }
