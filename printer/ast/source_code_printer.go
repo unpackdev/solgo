@@ -7,6 +7,8 @@ import (
 	"go.uber.org/zap"
 )
 
+const INDENT_SIZE = 4
+
 // Print is a function that prints the AST nodes to source code
 func Print(node ast.Node[ast.NodeType]) (string, bool) {
 	sb := strings.Builder{}
@@ -67,4 +69,8 @@ func writeStrings(sb *strings.Builder, s ...string) {
 	for _, item := range s {
 		sb.WriteString(item)
 	}
+}
+
+func indentString(s string, depth int) string {
+	return strings.Repeat(" ", depth*INDENT_SIZE)
 }
