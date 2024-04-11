@@ -24,6 +24,6 @@ func printFor(node *ast.ForStatement, sb *strings.Builder, depth int) bool {
 	if node.GetBody() != nil {
 		success = PrintRecursive(node.GetBody(), sb, depth) && success
 	}
-	sb.WriteString("}")
+	sb.WriteString(indentString("}", depth-1))
 	return success
 }
