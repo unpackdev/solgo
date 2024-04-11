@@ -8,7 +8,7 @@ import (
 
 func printFor(node *ast.ForStatement, sb *strings.Builder, depth int) bool {
 	success := true
-	sb.WriteString("for ")
+	sb.WriteString("for (")
 	if node.GetInitialiser() != nil {
 		success = PrintRecursive(node.GetInitialiser(), sb, depth) && success
 	}
@@ -20,7 +20,7 @@ func printFor(node *ast.ForStatement, sb *strings.Builder, depth int) bool {
 	if node.GetClosure() != nil {
 		success = PrintRecursive(node.GetClosure(), sb, depth) && success
 	}
-	sb.WriteString(" {\n")
+	sb.WriteString(") {\n")
 	if node.GetBody() != nil {
 		success = PrintRecursive(node.GetBody(), sb, depth) && success
 	}

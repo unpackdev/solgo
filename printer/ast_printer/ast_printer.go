@@ -58,6 +58,17 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 		return printFunctionCall(node, sb, depth)
 	case *ast.Import:
 		return printImport(node, sb, depth)
+	case *ast.MemberAccessExpression:
+		return printMemberAccessExpression(node, sb, depth)
+	case *ast.VariableDeclaration:
+		return printVariableDeclaration(node, sb, depth)
+	case *ast.Declaration:
+		return printDeclaration(node, sb, depth)
+	case *ast.UnaryPrefix:
+		return printUnaryPrefix(node, sb, depth)
+	case *ast.UnarySuffix:
+		return printUnarySuffix(node, sb, depth)
+
 	default:
 		if node.GetType() == ast_pb.NodeType_SOURCE_UNIT {
 			return printSourceUnit(node, sb, depth)
