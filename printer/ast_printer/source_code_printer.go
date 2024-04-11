@@ -1,8 +1,9 @@
-package printer
+package ast_printer
 
 import (
 	"strings"
 
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
 	"go.uber.org/zap"
 )
@@ -25,7 +26,20 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 	switch node := node.(type) {
 	case *ast.AndOperation:
 		return printAndOperation(node, sb, depth)
+	case *ast.BodyNode:
+		return printBody(node, sb, depth)
+	case *ast.Conditional:
+		return printConditional(node, sb, depth)
+	case *ast.Constructor:
+		return printConstructor(node, sb, depth)
+	case *ast.Pragma:
+		return printPragma(node, sb, depth)
+	case *ast.Contract:
+		return printContract(node, sb, depth)
 	default:
+		if node.GetType() == ast_pb.NodeType_SOURCE_UNIT {
+			return printSourceUnit(node, sb, depth)
+		}
 		zap.S().Errorf("Unknown node type: %T\n", node)
 		return false
 	}

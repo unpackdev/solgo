@@ -1,4 +1,4 @@
-package printer
+package ast_printer
 
 import (
 	"strings"
@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func printConditional(node ast.Conditional, sb *strings.Builder, depth int) bool {
+func printConditional(node *ast.Conditional, sb *strings.Builder, depth int) bool {
 	success := true
 	if len(node.GetExpressions()) < 3 {
 		zap.S().Error("Conditional node must have at least 3 expressions")

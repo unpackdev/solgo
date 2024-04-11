@@ -1,4 +1,4 @@
-package printer
+package ast_printer
 
 import (
 	"strings"
