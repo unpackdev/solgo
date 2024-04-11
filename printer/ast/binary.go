@@ -40,18 +40,18 @@ func getBinaryOperatorString(op ast_pb.Operator) string {
 }
 
 func printBinaryOperation(node *ast.BinaryOperation, sb *strings.Builder, depth int) bool {
-	success := true
+	ok := true
 	if node.LeftExpression == nil || node.RightExpression == nil {
 		return false
 	}
 	op := getBinaryOperatorString(node.Operator)
 	if op == "" {
-		success = false
+		ok = false
 	}
-	PrintRecursive(node.LeftExpression, sb, depth)
+	ok = PrintRecursive(node.LeftExpression, sb, depth) && ok
 	sb.WriteString(" ")
 	sb.WriteString(op)
 	sb.WriteString(" ")
-	PrintRecursive(node.RightExpression, sb, depth)
-	return success
+	ok = PrintRecursive(node.RightExpression, sb, depth) && ok
+	return ok
 }

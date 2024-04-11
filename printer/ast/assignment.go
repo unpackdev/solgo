@@ -56,10 +56,10 @@ func printAssignment(node *ast.Assignment, sb *strings.Builder, depth int) bool 
 	if op == "" {
 		success = false
 	}
-	PrintRecursive(node.LeftExpression, sb, depth)
+	success = PrintRecursive(node.LeftExpression, sb, depth) && success
 	sb.WriteString(" ")
 	sb.WriteString(op)
 	sb.WriteString(" ")
-	PrintRecursive(node.RightExpression, sb, depth)
+	success = PrintRecursive(node.RightExpression, sb, depth) && success
 	return success
 }

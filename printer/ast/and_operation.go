@@ -11,7 +11,7 @@ func printAndOperation(node *ast.AndOperation, sb *strings.Builder, depth int) b
 	success := true
 	for _, exp := range node.GetExpressions() {
 		s, ok := Print(exp)
-		success = success && ok
+		success = ok && success
 		expressions = append(expressions, s)
 	}
 	writeSeperatedList(sb, " && ", expressions)
