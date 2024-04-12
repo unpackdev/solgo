@@ -23,9 +23,8 @@ func printModifierDefinition(node *ast.ModifierDefinition, sb *strings.Builder, 
 	if node.GetBody() == nil {
 		sb.WriteString(";\n")
 	} else {
-		sb.WriteString(" {\n")
-		success = PrintRecursive(node.GetBody(), sb, depth+1) && success
-		sb.WriteString(indentString("}\n", depth))
+		sb.WriteString(" ")
+		success = PrintRecursive(node.GetBody(), sb, depth) && success
 	}
 	return success
 }

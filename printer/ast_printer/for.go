@@ -20,10 +20,9 @@ func printFor(node *ast.ForStatement, sb *strings.Builder, depth int) bool {
 	if node.GetClosure() != nil {
 		success = PrintRecursive(node.GetClosure(), sb, depth) && success
 	}
-	sb.WriteString(") {\n")
+	sb.WriteString(") ")
 	if node.GetBody() != nil {
 		success = PrintRecursive(node.GetBody(), sb, depth) && success
 	}
-	sb.WriteString(indentString("}", depth-1))
 	return success
 }

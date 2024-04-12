@@ -12,14 +12,9 @@ func printIfStatement(node *ast.IfStatement, sb *strings.Builder, depth int) boo
 	if node.GetCondition() != nil {
 		success = PrintRecursive(node.GetCondition(), sb, depth) && success
 	}
-	sb.WriteString(") {\n")
+	sb.WriteString(") ")
 	if node.GetBody() != nil {
-		success = PrintRecursive(node.GetBody(), sb, depth+1) && success
+		success = PrintRecursive(node.GetBody(), sb, depth) && success
 	}
-	// if node.GetElse() != nil {
-	// 	sb.WriteString(indentString("} else ", depth-1))
-	// 	success = PrintRecursive(node.GetElse(), sb, depth) && success
-	// }
-	sb.WriteString(indentString("}", depth-1))
 	return success
 }

@@ -186,6 +186,9 @@ func (i *IfStatement) Parse(
 				body.ParseBlock(unit, contractNode, fnNode, statementCtx.Block())
 				break
 			}
+			// Edge case for single statement if
+			// Eg: if (a) b;
+			body.parseStatements(unit, contractNode, fnNode, statementCtx.GetChild(0))
 
 			i.Body = body
 		}

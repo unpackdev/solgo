@@ -20,7 +20,9 @@ func printVariableDeclaration(node *ast.VariableDeclaration, sb *strings.Builder
 	} else {
 		PrintRecursive(node.GetDeclarations()[0], sb, depth)
 	}
-	sb.WriteString(" = ")
-	PrintRecursive(node.GetInitialValue(), sb, depth)
+	if node.GetInitialValue() != nil {
+		sb.WriteString(" = ")
+		PrintRecursive(node.GetInitialValue(), sb, depth)
+	}
 	return success
 }

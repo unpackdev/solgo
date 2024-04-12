@@ -26,12 +26,11 @@ func printFunction(node *ast.Function, sb *strings.Builder, depth int) bool {
 	if paramBuilder.String() != "" {
 		writeStrings(sb, " returns (", paramBuilder.String(), ")")
 	}
+	sb.WriteString(" ")
 
-	sb.WriteString(" {\n")
 	if node.GetBody() != nil {
-		success = PrintRecursive(node.GetBody(), sb, depth+1) && success
+		success = PrintRecursive(node.GetBody(), sb, depth) && success
 	}
-	sb.WriteString(indentString("}\n", depth))
 
 	return success
 }
