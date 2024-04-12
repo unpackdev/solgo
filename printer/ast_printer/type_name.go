@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
 )
 
@@ -21,7 +22,12 @@ func printTypeName(node *ast.TypeName, sb *strings.Builder, depth int) bool {
 		typeName := fmt.Sprintf("mapping(%s => %s)", keyType, valueType)
 		sb.WriteString(typeName)
 	} else {
-		sb.WriteString(node.GetName())
+		if node.NodeType == ast_pb.NodeType_USER_DEFINED_PATH_NAME {
+			userType := node.GetTree().GetById(node.GetReferencedDeclaration()).(*ast.EnumDefinition)
+			sb.WriteString(userType.GetName())
+		} else {
+			sb.WriteString(node.GetName())
+		}
 	}
 	return success
 }
