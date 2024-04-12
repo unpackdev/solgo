@@ -86,6 +86,8 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 		return printEventDefinition(node, sb, depth)
 	case *ast.ErrorDefinition:
 		return printErrorDefinition(node, sb, depth)
+	case *ast.PayableConversion:
+		return printPayableConversion(node, sb, depth)
 	default:
 		if node.GetType() == ast_pb.NodeType_SOURCE_UNIT {
 			return printSourceUnit(node, sb, depth)

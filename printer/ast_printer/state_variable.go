@@ -1,7 +1,6 @@
 package ast_printer
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/unpackdev/solgo/ast"
@@ -9,7 +8,6 @@ import (
 
 func printStateVariableDeclaration(node *ast.StateVariableDeclaration, sb *strings.Builder, depth int) bool {
 	success := true
-	fmt.Printf("%+v\n\n", node.GetTypeName())
 	typeName, ok := Print(node.GetTypeName())
 	success = ok && success
 	ident := node.GetName()
