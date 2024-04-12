@@ -80,6 +80,8 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 		return printIfStatement(node, sb, depth)
 	case *ast.EnumDefinition:
 		return printEnumDefinition(node, sb, depth)
+	case *ast.ModifierDefinition:
+		return printModifierDefinition(node, sb, depth)
 	default:
 		if node.GetType() == ast_pb.NodeType_SOURCE_UNIT {
 			return printSourceUnit(node, sb, depth)
