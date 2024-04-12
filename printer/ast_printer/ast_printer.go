@@ -74,6 +74,8 @@ func PrintRecursive(node ast.Node[ast.NodeType], sb *strings.Builder, depth int)
 		return printReturn(node, sb, depth)
 	case *ast.TupleExpression:
 		return printTupleExpression(node, sb, depth)
+	case *ast.StructDefinition:
+		return printStructDefinition(node, sb, depth)
 	default:
 		if node.GetType() == ast_pb.NodeType_SOURCE_UNIT {
 			return printSourceUnit(node, sb, depth)
