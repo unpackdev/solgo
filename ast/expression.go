@@ -2,7 +2,6 @@ package ast
 
 import (
 	"fmt"
-
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 	"go.uber.org/zap"
@@ -127,6 +126,9 @@ func (e *Expression) Parse(
 	case *parser.InlineArrayContext:
 		inlineArray := NewInlineArrayExpression(e.ASTBuilder)
 		return inlineArray.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, childCtx)
+	case *parser.ExpressionContext:
+		expressionCtx := NewExpressionContext(e.ASTBuilder)
+		return expressionCtx.Parse(unit, contractNode, fnNode, bodyNode, vDecar, parentNode, parentNodeId, childCtx)
 	default:
 		zap.L().Warn(
 			"Expression type not supported @ Expression.Parse",
