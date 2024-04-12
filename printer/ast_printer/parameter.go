@@ -8,7 +8,11 @@ import (
 
 func printParameter(node *ast.Parameter, sb *strings.Builder, depth int) bool {
 	success := true
-	typeName, ok := Print(node.GetTypeName())
+	typeName := ""
+	ok := true
+	if node.GetTypeName() != nil {
+		typeName, ok = Print(node.GetTypeName())
+	}
 	success = ok && success
 	ident := node.GetName()
 	storage := getStorageLocationString(node.GetStorageLocation())
