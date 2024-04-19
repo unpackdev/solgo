@@ -57,7 +57,6 @@ func (t *TypeName) StorageSize() (int64, bool) {
 	// Add cases for other node types like struct, enum, etc., as needed.
 	default:
 		panic(fmt.Sprintf("Unhandled node type @ StorageSize: %s", t.NodeType))
-		return 0, false // Type not recognized or not handled yet.
 	}
 }
 
