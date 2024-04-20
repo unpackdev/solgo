@@ -48,6 +48,25 @@ func getSourceTestCases(t *testing.T) []struct {
 			disabled:             false,
 		},
 		{
+			name:       "Shorthand IF Test",
+			outputPath: "ast/",
+			sources: &solgo.Sources{
+				SourceUnits: []*solgo.SourceUnit{
+					{
+						Name:    "SimpleAuction",
+						Path:    tests.ReadContractFileForTest(t, "ast/SimpleAuction").Path,
+						Content: tests.ReadContractFileForTest(t, "ast/SimpleAuction").Content,
+					},
+				},
+				EntrySourceUnitName: "SimpleAuction",
+				LocalSourcesPath:    buildFullPath("../sources/"),
+			},
+			expectedAst:          tests.ReadJsonBytesForTest(t, "ast/SimpleAuction.solgo.ast").Content,
+			expectedProto:        tests.ReadJsonBytesForTest(t, "ast/SimpleAuction.solgo.ast.proto").Content,
+			unresolvedReferences: 0,
+			disabled:             false,
+		},
+		{
 			name:       "L1Vault - 0x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41",
 			outputPath: "contracts/10x3b07A1A5de80f9b22DE0EC6C44C6E59DDc1C5f41/",
 			sources: &solgo.Sources{
