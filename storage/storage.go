@@ -48,12 +48,16 @@ func NewStorage(
 // It requires context, the contract address, detector and the block number for the query.
 // It returns a Reader instance containing contract details or an error if the query fails.
 func (s *Storage) Describe(ctx context.Context, addr common.Address, detector *detector.Detector, cfgBuilder *cfg.Builder, atBlock *big.Int) (*Reader, error) {
-	return s._describe(ctx, addr, detector, cfgBuilder, atBlock)
+	return s._describe(ctx, addr, detector, cfgBuilder, atBlock, true)
+}
+
+func (s *Storage) DescribeLayout(ctx context.Context, addr common.Address, detector *detector.Detector, cfgBuilder *cfg.Builder, atBlock *big.Int) (*Reader, error) {
+	return s._describe(ctx, addr, detector, cfgBuilder, atBlock, false)
 }
 
 // _describe is an internal method that performs the actual description process of a contract.
 // It constructs a Descriptor and utilizes a Reader to discover and calculate storage variables and layouts.
-func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *detector.Detector, cfgBuilder *cfg.Builder, atBlock *big.Int) (*Reader, error) {
+func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *detector.Detector, cfgBuilder *cfg.Builder, atBlock *big.Int, fetchValues bool) (*Reader, error) {
 	descriptor := &Descriptor{
 		Detector:          detector,
 		cfgBuilder:        cfgBuilder,
@@ -80,8 +84,10 @@ func (s *Storage) _describe(ctx context.Context, addr common.Address, detector *
 		return nil, err
 	}
 
-	if err := s.populateStorageValues(ctx, reader, addr, descriptor, atBlock); err != nil {
-		return nil, err
+	if fetchValues {
+		if err := s.populateStorageValues(ctx, reader, addr, descriptor, atBlock); err != nil {
+			return nil, err
+		}
 	}
 
 	return reader, nil
@@ -94,6 +100,7 @@ func (s *Storage) populateStorageValues(ctx context.Context, reader *Reader, add
 	var lastBlockNumber *big.Int
 
 	for _, slot := range descriptor.GetSlots() {
+
 		if slot.Slot != lastSlot {
 			blockNumber, storageValue, err := s.getStorageValueAt(ctx, addr, slot.Slot, atBlock)
 			if err != nil {

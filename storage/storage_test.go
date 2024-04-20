@@ -172,6 +172,16 @@ func TestStorage(t *testing.T) {
 			storageVars, err := builder.GetStorageStateVariables()
 			require.NoError(t, err)
 			require.NotNil(t, storageVars)
+
+			readerLayout, err := storage.DescribeLayout(ctx, tc.address, parser, builder, tc.atBlock)
+			if tc.expectError {
+				tAssert.Error(err)
+				tAssert.Nil(readerLayout)
+			} else {
+				tAssert.NoError(err)
+				tAssert.NotNil(readerLayout)
+			}
+
 		})
 	}
 
