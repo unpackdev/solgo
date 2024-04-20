@@ -187,6 +187,9 @@ func (i *IfStatement) Parse(
 				break
 			}
 
+			// There can be shorthand...
+			body.parseStatements(unit, contractNode, fnNode, statementCtx.GetChild(0))
+
 			i.Body = body
 		}
 
