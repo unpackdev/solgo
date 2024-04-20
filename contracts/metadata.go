@@ -24,7 +24,6 @@ func (c *Contract) DiscoverMetadata(ctx context.Context) (*bytecode.Metadata, er
 			return nil, fmt.Errorf("failed to decode contract %s metadata: %s", c.GetAddress(), err)
 		}
 		c.descriptor.Metadata = bMetadata
-
 		return bMetadata, nil
 	}
 }

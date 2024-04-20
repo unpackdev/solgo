@@ -119,6 +119,27 @@ func (m *Metadata) GetUrls() []string {
 	return urls
 }
 
+// IsPartial checks whenever decoded bytecode data is partial (some fields are missing, not known)
+func (m *Metadata) IsPartial() bool {
+	if m.cborLength == 0 {
+		return true
+	}
+
+	if len(m.auxbytes) == 0 {
+		return true
+	}
+
+	if len(m.Solc) == 0 {
+		return true
+	}
+
+	if len(m.Ipfs) == 0 && len(m.Bzzr0) == 0 && len(m.Bzzr1) == 0 {
+		return true
+	}
+
+	return false
+}
+
 // DecodeContractMetadata decodes the metadata from Ethereum contract creation bytecode.
 // It returns a Metadata object and an error, if any occurred during decoding.
 func DecodeContractMetadata(bytecode []byte) (*Metadata, error) {
