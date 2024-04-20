@@ -187,7 +187,7 @@ func (i *IfStatement) Parse(
 				break
 			}
 
-			// There can be shorthand...
+			// There can be single-statement conditional...
 			body.parseStatements(unit, contractNode, fnNode, statementCtx.GetChild(0))
 
 			i.Body = body

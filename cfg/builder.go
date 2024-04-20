@@ -20,8 +20,8 @@ type Builder struct {
 // NewBuilder initializes a new CFG builder with the given context and IR builder.
 // Returns an error if the provided IR builder is nil or if it does not have a root contract set.
 func NewBuilder(ctx context.Context, builder *ir.Builder) (*Builder, error) {
-	if builder == nil || builder.GetRoot() == nil {
-		return nil, errors.New("builder is not set")
+	if builder == nil {
+		return nil, errors.New("builder is not set (at control flow graph builder)")
 	}
 
 	return &Builder{

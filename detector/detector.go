@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 	"errors"
+	"github.com/unpackdev/solgo/cfg"
 	"os"
 
 	"github.com/0x19/solc-switch"
@@ -24,6 +25,7 @@ type Detector struct {
 	builder *abi.Builder    // ABI builder for the source code.
 	solc    *solc.Solc      // Solc selector for the solc compiler.
 	auditor *audit.Auditor  // Static analysis auditor.
+	cfg     *cfg.Builder    // Control Flow Graph builder
 }
 
 // NewDetectorFromSources initializes a new Detector instance using the provided sources.
@@ -54,12 +56,18 @@ func NewDetectorFromSources(ctx context.Context, compiler *solc.Solc, sources *s
 		return nil, err
 	}
 
+	cfgBuilder, err := cfg.NewBuilder(ctx, builder.GetParser())
+	if err != nil {
+		return nil, err
+	}
+
 	return &Detector{
 		ctx:     ctx,
 		sources: sources,
 		builder: builder,
 		solc:    compiler,
 		auditor: auditor,
+		cfg:     cfgBuilder,
 	}, nil
 }
 
@@ -92,6 +100,9 @@ func (d *Detector) GetAST() *ast.ASTBuilder {
 func (d *Detector) GetParser() *solgo.Parser {
 	return d.builder.GetParser().GetParser()
 }
+
+// GetCFG returns the control flow graph (CFG) builder
+func (d *Detector) GetCFG() *cfg.Builder { return d.cfg }
 
 // GetSolc returns the solc compiler selector associated with the Detector.
 func (d *Detector) GetSolc() *solc.Solc {
