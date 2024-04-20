@@ -149,7 +149,7 @@ func (r *Resolver) Resolve() []error {
 	// Reference update can come in any direction really. For example B that uses A can come first
 	// and because of it, it B will never discover A. In order to ensure that is not the case here,
 	// we are going to iterate few times through unprocessed references...
-	for i := 0; i <= 2; i++ {
+	for i := 0; i <= 3; i++ {
 		for nodeId, node := range r.UnprocessedNodes {
 			if rNodeId, rNodeType := r.resolveByNode(node.Name, node.Node); rNodeType != nil {
 				if updated := r.tree.UpdateNodeReferenceById(nodeId, rNodeId, rNodeType); updated {

@@ -21,7 +21,7 @@ require (
 	github.com/sergi/go-diff v1.3.1
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.8.4
-	github.com/unpackdev/protos v0.3.4
+	github.com/unpackdev/protos v0.3.5
 	go.uber.org/zap v1.26.0
 	golang.org/x/crypto v0.21.0
 	golang.org/x/sync v0.6.0

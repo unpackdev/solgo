@@ -56,8 +56,8 @@ type ContractMetadata struct {
 				ConstantOptimizer bool `json:"constantOptimizer"`
 				Yul               bool `json:"yul"`
 				YulDetails        struct {
-					StackAllocation bool `json:"stackAllocation"`
-					OptimizerSteps  int  `json:"optimizerSteps"`
+					StackAllocation bool        `json:"stackAllocation"`
+					OptimizerSteps  interface{} `json:"optimizerSteps"`
 				} `json:"yulDetails"`
 			} `json:"details"`
 		} `json:"optimizer"`
@@ -121,7 +121,7 @@ func (c *ContractMetadata) ToProto() *metadata_pb.Metadata {
 					Yul:               c.Settings.Optimizer.Details.Yul,
 					YulDetails: &metadata_pb.Metadata_Settings_Optimizer_Details_YulDetails{
 						StackAllocation: c.Settings.Optimizer.Details.YulDetails.StackAllocation,
-						OptimizerSteps:  int32(c.Settings.Optimizer.Details.YulDetails.OptimizerSteps),
+						//OptimizerSteps:  int32(c.Settings.Optimizer.Details.YulDetails.OptimizerSteps),
 					},
 				},
 			},
