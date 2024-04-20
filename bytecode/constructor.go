@@ -2,6 +2,7 @@ package bytecode
 
 import (
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"reflect"
 	"strings"
 
@@ -47,6 +48,8 @@ func DecodeConstructorFromAbi(bytecode []byte, constructorAbi string) (*Construc
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse ABI: %w", err)
 	}
+
+	spew.Dump(parsed.Constructor)
 
 	unpacked, err := parsed.Constructor.Inputs.UnpackValues(bytecode)
 	if err != nil {
