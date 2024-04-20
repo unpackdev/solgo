@@ -1,9 +1,8 @@
 package ast
 
 import (
-	"github.com/goccy/go-json"
-
 	v3 "github.com/cncf/xds/go/xds/type/v3"
+	"github.com/goccy/go-json"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
 )
@@ -32,6 +31,11 @@ func NewAndOperationExpression(b *ASTBuilder) *AndOperation {
 // SetReferenceDescriptor sets the reference descriptions of the AndOperation node.
 // This function always returns false for now.
 func (b *AndOperation) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
+	typeDescriptions := make([]*TypeDescription, 0)
+	for _, expr := range b.Expressions {
+		typeDescriptions = append(typeDescriptions, expr.GetTypeDescription())
+	}
+	b.TypeDescriptions = typeDescriptions
 	return false
 }
 

@@ -92,12 +92,16 @@ func TestOnchainEthereumDetectorFromSources(t *testing.T) {
 
 	// Define multiple test cases
 	testCases := []struct {
-		name    string
-		address common.Address
+		name                 string
+		address              common.Address
+		expectsErrors        bool
+		unresolvedReferences int
 	}{
 		{
-			name:    "FiatTokenV2_2",
-			address: common.HexToAddress("0x43506849D7C04F9138D1A2050bbF3A0c054402dd"),
+			name:                 "FiatTokenV2_2",
+			address:              common.HexToAddress("0x43506849D7C04F9138D1A2050bbF3A0c054402dd"),
+			expectsErrors:        false,
+			unresolvedReferences: 0,
 		},
 	}
 
@@ -133,6 +137,16 @@ func TestOnchainEthereumDetectorFromSources(t *testing.T) {
 
 			err = detector.Build()
 			require.NoError(t, err)
+
+			astBuilder := detector.GetAST()
+			errs := astBuilder.ResolveReferences()
+			if testCase.expectsErrors {
+				var errsExpected []error
+				assert.Equal(t, errsExpected, errs)
+			}
+			assert.Equal(t, int(testCase.unresolvedReferences), astBuilder.GetResolver().GetUnprocessedCount())
+			assert.Equal(t, len(astBuilder.GetResolver().GetUnprocessedNodes()), astBuilder.GetResolver().GetUnprocessedCount())
+
 		})
 	}
 }

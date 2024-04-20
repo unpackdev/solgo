@@ -171,7 +171,7 @@ func (b *Builder) processFunctionCall(fn *Function, unit *ast.FunctionCall) *Fun
 	// If it does, it's for sure an external contract call.
 	// Then we need to figure out where it goes to. Sneaky little one...
 	for _, arg := range unit.GetArguments() {
-		if arg.GetTypeDescription().GetIdentifier() == "t_address" {
+		if arg.GetTypeDescription() != nil && arg.GetTypeDescription().GetIdentifier() == "t_address" {
 			toReturn.External = true
 
 			if fn != nil {

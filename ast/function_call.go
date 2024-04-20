@@ -41,7 +41,15 @@ func NewFunctionCall(b *ASTBuilder) *FunctionCall {
 // SetReferenceDescriptor sets the reference descriptions of the FunctionCall node.
 func (f *FunctionCall) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
 	f.ReferencedDeclaration = refId
-	f.TypeDescription = refDesc
+
+	argTypes := make([]*TypeDescription, 0)
+
+	for _, arg := range f.Arguments {
+		argTypes = append(argTypes, arg.GetTypeDescription())
+	}
+	f.ArgumentTypes = argTypes
+	f.TypeDescription = f.buildTypeDescription()
+
 	return false
 }
 
@@ -294,10 +302,12 @@ func (f *FunctionCall) Parse(
 				expr,
 			)
 
-			f.ArgumentTypes = append(
-				f.ArgumentTypes,
-				expr.GetTypeDescription(),
-			)
+			if expr.GetTypeDescription() != nil {
+				f.ArgumentTypes = append(
+					f.ArgumentTypes,
+					expr.GetTypeDescription(),
+				)
+			}
 		}
 	}
 
