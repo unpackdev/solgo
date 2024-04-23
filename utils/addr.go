@@ -23,3 +23,18 @@ type NamedAddr struct {
 	Addr common.Address `json:"addr"`
 	Type AddressType    `json:"type"`
 }
+
+// AppendTags appends unique tags to the named address
+func (n NamedAddr) AppendTags(tags ...string) NamedAddr {
+	for _, tag := range tags {
+		if !StringInSlice(tag, n.Tags) {
+			n.Tags = append(n.Tags, tag)
+		}
+	}
+	return n
+}
+
+// IsZeroAddress checks whenever named address is zero address
+func (n NamedAddr) IsZeroAddress() bool {
+	return n.Addr == ZeroAddress
+}

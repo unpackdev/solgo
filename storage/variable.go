@@ -25,7 +25,7 @@ func (v *Variable) IsAddressType() bool {
 }
 
 // IsDynamicArray checks if the variable is a dynamic array.
-// Currently returns false and needs implementation for dynamic array checking.
+// Currently, returns false and needs implementation for dynamic array checking.
 func (v *Variable) IsDynamicArray() bool {
 	variableType := v.StateVariable.GetType()
 	return strings.Contains(variableType, "[]")
@@ -52,7 +52,7 @@ func (v *Variable) IsStructType() bool {
 	return strings.HasPrefix(variableType, "struct")
 }
 
-// IsStructType checks if the variable is of a contract type.
+// IsContractType checks if the variable is of a contract type.
 // Returns true if the variable type starts with "contract".
 func (v *Variable) IsContractType() bool {
 	variableType := v.StateVariable.GetType()
