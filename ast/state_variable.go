@@ -22,6 +22,7 @@ type StateVariableDeclaration struct {
 	Visibility      ast_pb.Visibility      `json:"visibility"`        // Visibility of the state variable declaration
 	StorageLocation ast_pb.StorageLocation `json:"storage_location"`  // Storage location of the state variable declaration
 	StateMutability ast_pb.Mutability      `json:"mutability"`        // State mutability of the state variable declaration
+	Override        bool                   `json:"is_override"`       // Indicates if the state variable is an override
 	TypeName        *TypeName              `json:"type_name"`         // Type name of the state variable
 	InitialValue    Node[NodeType]         `json:"initial_value"`     // Initial value of the state variable
 }
@@ -207,6 +208,8 @@ func (v *StateVariableDeclaration) Parse(
 		v.Constant = constantCtx != nil
 	}
 
+	v.Override = ctx.GetOverrideSpecifierSet()
+
 	typeName := NewTypeName(v.ASTBuilder)
 
 	typeName.Parse(unit, nil, v.Id, ctx.GetType_())
@@ -269,6 +272,8 @@ func (v *StateVariableDeclaration) ParseGlobal(
 	for _, constantCtx := range ctx.AllConstant() {
 		v.Constant = constantCtx != nil
 	}
+
+	v.Override = ctx.GetOverrideSpecifierSet()
 
 	typeName := NewTypeName(v.ASTBuilder)
 	typeName.Parse(nil, nil, v.Id, ctx.GetType_())
