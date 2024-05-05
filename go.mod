@@ -31,7 +31,7 @@ require (
 
 //replace github.com/antlr4-go/antlr/v4 => github.com/unpackdev/antlr4-go/v4 v4.13.0
 //replace github.com/unpackdev/protos => ../protos
-replace github.com/unpackdev/solgo => ../solgo-orig
+//replace github.com/unpackdev/solgo => ../solgo-orig
 
 require (
 	github.com/DataDog/zstd v1.5.5 // indirect
