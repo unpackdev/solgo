@@ -17,7 +17,7 @@ type BodyNode struct {
 	*ASTBuilder
 
 	Id          int64            `json:"id"`          // Id is the unique identifier of the body node.
-	NodeType    ast_pb.NodeType  `json:"node_type"`   // NodeType is the type of the AST node.
+	NodeType    ast_pb.NodeType  `json:"nodeType"`    // NodeType is the type of the AST node.
 	Kind        ast_pb.NodeType  `json:"kind"`        // Kind is the kind of the AST node.
 	Src         SrcNode          `json:"src"`         // Src is the source code location.
 	Implemented bool             `json:"implemented"` // Implemented indicates whether the function is implemented.
@@ -99,7 +99,7 @@ func (b *BodyNode) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &b.NodeType); err != nil {
 			return err
 		}
@@ -138,7 +138,7 @@ func (b *BodyNode) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

@@ -15,7 +15,7 @@ import (
 type Event struct {
 	Unit       *ast.EventDefinition `json:"ast"`
 	Id         int64                `json:"id"`
-	NodeType   ast_pb.NodeType      `json:"node_type"`
+	NodeType   ast_pb.NodeType      `json:"nodeType"`
 	Name       string               `json:"name"`
 	Anonymous  bool                 `json:"anonymous"`
 	Parameters []*Parameter         `json:"parameters"`

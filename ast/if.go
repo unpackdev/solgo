@@ -13,7 +13,7 @@ type IfStatement struct {
 	*ASTBuilder
 
 	Id        int64           `json:"id"`        // Unique identifier of the if statement node.
-	NodeType  ast_pb.NodeType `json:"node_type"` // Type of the node.
+	NodeType  ast_pb.NodeType `json:"nodeType"`  // Type of the node.
 	Src       SrcNode         `json:"src"`       // Source location information.
 	Condition Node[NodeType]  `json:"condition"` // Condition node.
 	Body      Node[NodeType]  `json:"body"`      // Body node.
@@ -84,7 +84,7 @@ func (i *IfStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &i.NodeType); err != nil {
 			return err
 		}
@@ -104,7 +104,7 @@ func (i *IfStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -124,7 +124,7 @@ func (i *IfStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

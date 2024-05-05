@@ -12,11 +12,11 @@ import (
 type YulSwitchCaseStatement struct {
 	*ASTBuilder // Embedded ASTBuilder for utility functions.
 
-	Id       int64           `json:"id"`        // Id is the unique identifier for the switch case statement.
-	NodeType ast_pb.NodeType `json:"node_type"` // NodeType specifies the type of the node.
-	Src      SrcNode         `json:"src"`       // Src provides source location details of the switch case statement.
-	Case     Node[NodeType]  `json:"case"`      // Case holds the condition for the switch case.
-	Body     Node[NodeType]  `json:"body"`      // Body represents the block of code to execute for this case.
+	Id       int64           `json:"id"`       // Id is the unique identifier for the switch case statement.
+	NodeType ast_pb.NodeType `json:"nodeType"` // NodeType specifies the type of the node.
+	Src      SrcNode         `json:"src"`      // Src provides source location details of the switch case statement.
+	Case     Node[NodeType]  `json:"case"`     // Case holds the condition for the switch case.
+	Body     Node[NodeType]  `json:"body"`     // Body represents the block of code to execute for this case.
 }
 
 // NewYulSwitchCaseStatement creates and initializes a new YulSwitchCaseStatement.
@@ -107,7 +107,7 @@ func (f *YulSwitchCaseStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -127,7 +127,7 @@ func (f *YulSwitchCaseStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -147,7 +147,7 @@ func (f *YulSwitchCaseStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

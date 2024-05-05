@@ -10,10 +10,10 @@ type ExpressionContext struct {
 	*ASTBuilder
 
 	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
+	NodeType        ast_pb.NodeType  `json:"nodeType"`
 	Src             SrcNode          `json:"src"`
 	Value           string           `json:"value"`
-	TypeDescription *TypeDescription `json:"type_description"`
+	TypeDescription *TypeDescription `json:"typeDescription"`
 }
 
 // NewExpressionContext creates a new ExpressionContext instance with the provided ASTBuilder.

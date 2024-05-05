@@ -13,7 +13,7 @@ type RevertStatement struct {
 	*ASTBuilder
 
 	Id         int64            `json:"id"`         // Unique identifier for the RevertStatement node.
-	NodeType   ast_pb.NodeType  `json:"node_type"`  // Type of the AST node.
+	NodeType   ast_pb.NodeType  `json:"nodeType"`   // Type of the AST node.
 	Src        SrcNode          `json:"src"`        // Source location information.
 	Arguments  []Node[NodeType] `json:"arguments"`  // List of argument expressions.
 	Expression Node[NodeType]   `json:"expression"` // Expression within the revert statement.
@@ -81,7 +81,7 @@ func (r *RevertStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &r.NodeType); err != nil {
 			return err
 		}
@@ -106,7 +106,7 @@ func (r *RevertStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -126,7 +126,7 @@ func (r *RevertStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

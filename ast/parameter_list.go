@@ -12,10 +12,10 @@ type ParameterList struct {
 	*ASTBuilder
 
 	Id             int64              `json:"id"`
-	NodeType       ast_pb.NodeType    `json:"node_type"`
+	NodeType       ast_pb.NodeType    `json:"nodeType"`
 	Src            SrcNode            `json:"src"`
 	Parameters     []*Parameter       `json:"parameters"`
-	ParameterTypes []*TypeDescription `json:"parameter_types"`
+	ParameterTypes []*TypeDescription `json:"parameterTypes"`
 }
 
 // NewParameterList creates a new instance of ParameterList using the provided ASTBuilder.
@@ -87,7 +87,7 @@ func (p *ParameterList) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &p.NodeType); err != nil {
 			return err
 		}
@@ -105,7 +105,7 @@ func (p *ParameterList) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if parameterTypes, ok := tempMap["parameter_types"]; ok {
+	if parameterTypes, ok := tempMap["parameterTypes"]; ok {
 		if err := json.Unmarshal(parameterTypes, &p.ParameterTypes); err != nil {
 			return err
 		}

@@ -9,9 +9,9 @@ import (
 type BreakStatement struct {
 	*ASTBuilder // Embedding ASTBuilder for building the AST.
 
-	Id       int64           `json:"id"`        // Unique identifier for the break statement.
-	NodeType ast_pb.NodeType `json:"node_type"` // Type of the node, which is 'BREAK' for a break statement.
-	Src      SrcNode         `json:"src"`       // Source information about the node, such as its line and column numbers in the source file.
+	Id       int64           `json:"id"`       // Unique identifier for the break statement.
+	NodeType ast_pb.NodeType `json:"nodeType"` // Type of the node, which is 'BREAK' for a break statement.
+	Src      SrcNode         `json:"src"`      // Source information about the node, such as its line and column numbers in the source file.
 }
 
 // NewBreakStatement creates a new BreakStatement instance.

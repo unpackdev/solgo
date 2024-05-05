@@ -9,17 +9,17 @@ import (
 // Receive represents a receive function in the Intermediate Representation (IR) of Solidity contracts' Abstract Syntax Tree (AST).
 type Receive struct {
 	Unit            *ast.Receive      `json:"ast"`
-	Id              int64             `json:"id"`               // Id is the unique identifier of the receive function.
-	NodeType        ast_pb.NodeType   `json:"node_type"`        // NodeType is the type of the receive function node in the AST.
-	Name            string            `json:"name"`             // Name is the name of the receive function (always "receive" for Solidity receive functions).
-	Kind            ast_pb.NodeType   `json:"kind"`             // Kind is the kind of the receive function node (e.g., FunctionDefinition, FunctionType).
-	Implemented     bool              `json:"implemented"`      // Implemented is true if the receive function is implemented in the contract, false otherwise.
-	Visibility      ast_pb.Visibility `json:"visibility"`       // Visibility represents the visibility of the receive function (e.g., public, private, internal, external).
-	StateMutability ast_pb.Mutability `json:"state_mutability"` // StateMutability represents the mutability of the receive function (e.g., pure, view, nonpayable, payable).
-	Virtual         bool              `json:"virtual"`          // Virtual is true if the receive function is virtual, false otherwise.
-	Modifiers       []*Modifier       `json:"modifiers"`        // Modifiers is a list of modifiers applied to the receive function.
-	Overrides       []*Override       `json:"overrides"`        // Overrides is a list of functions overridden by the receive function.
-	Parameters      []*Parameter      `json:"parameters"`       // Parameters is a list of parameters of the receive function.
+	Id              int64             `json:"id"`              // Id is the unique identifier of the receive function.
+	NodeType        ast_pb.NodeType   `json:"nodeType"`        // NodeType is the type of the receive function node in the AST.
+	Name            string            `json:"name"`            // Name is the name of the receive function (always "receive" for Solidity receive functions).
+	Kind            ast_pb.NodeType   `json:"kind"`            // Kind is the kind of the receive function node (e.g., FunctionDefinition, FunctionType).
+	Implemented     bool              `json:"implemented"`     // Implemented is true if the receive function is implemented in the contract, false otherwise.
+	Visibility      ast_pb.Visibility `json:"visibility"`      // Visibility represents the visibility of the receive function (e.g., public, private, internal, external).
+	StateMutability ast_pb.Mutability `json:"stateMutability"` // StateMutability represents the mutability of the receive function (e.g., pure, view, nonpayable, payable).
+	Virtual         bool              `json:"virtual"`         // Virtual is true if the receive function is virtual, false otherwise.
+	Modifiers       []*Modifier       `json:"modifiers"`       // Modifiers is a list of modifiers applied to the receive function.
+	Overrides       []*Override       `json:"overrides"`       // Overrides is a list of functions overridden by the receive function.
+	Parameters      []*Parameter      `json:"parameters"`      // Parameters is a list of parameters of the receive function.
 }
 
 // GetAST returns the underlying AST node of the receive function.

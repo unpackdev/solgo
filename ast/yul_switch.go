@@ -11,10 +11,10 @@ import (
 type YulSwitchStatement struct {
 	*ASTBuilder // Embedded ASTBuilder for utility functions.
 
-	Id       int64            `json:"id"`        // Id is the unique identifier for the switch statement.
-	NodeType ast_pb.NodeType  `json:"node_type"` // NodeType specifies the type of the node.
-	Src      SrcNode          `json:"src"`       // Src provides source location details of the switch statement.
-	Cases    []Node[NodeType] `json:"cases"`     // Cases holds the different cases of the switch statement.
+	Id       int64            `json:"id"`       // Id is the unique identifier for the switch statement.
+	NodeType ast_pb.NodeType  `json:"nodeType"` // NodeType specifies the type of the node.
+	Src      SrcNode          `json:"src"`      // Src provides source location details of the switch statement.
+	Cases    []Node[NodeType] `json:"cases"`    // Cases holds the different cases of the switch statement.
 }
 
 // NewYulSwitchStatement creates and initializes a new YulSwitchStatement.
@@ -96,7 +96,7 @@ func (f *YulSwitchStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -121,7 +121,7 @@ func (f *YulSwitchStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

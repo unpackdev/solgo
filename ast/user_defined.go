@@ -9,17 +9,17 @@ import (
 type UserDefinedValueTypeDefinition struct {
 	*ASTBuilder // Embedding ASTBuilder for building the AST.
 
-	Id                    int64            `json:"id"`                               // Unique identifier for this node.
-	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the node, representing a user-defined value type.
-	Src                   SrcNode          `json:"src"`                              // Source information about the node.
-	Is                    bool             `json:"is"`                               // Additional flag (needs more contextual detail).
-	Type                  string           `json:"type"`                             // Type name for the user-defined value type.
-	TypeLocation          SrcNode          `json:"type_location"`                    // Source location for the type.
-	Name                  string           `json:"name"`                             // Name of the user-defined value type.
-	NameLocation          SrcNode          `json:"name_location"`                    // Source location for the name.
-	TypeName              *TypeName        `json:"type_name"`                        // AST node representing the type's name.
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration (if any).
-	TypeDescription       *TypeDescription `json:"type_description"`                 // Description of the type.
+	Id                    int64            `json:"id"`                              // Unique identifier for this node.
+	NodeType              ast_pb.NodeType  `json:"nodeType"`                        // Type of the node, representing a user-defined value type.
+	Src                   SrcNode          `json:"src"`                             // Source information about the node.
+	Is                    bool             `json:"is"`                              // Additional flag (needs more contextual detail).
+	Type                  string           `json:"type"`                            // Type name for the user-defined value type.
+	TypeLocation          SrcNode          `json:"typeLocation"`                    // Source location for the type.
+	Name                  string           `json:"name"`                            // Name of the user-defined value type.
+	NameLocation          SrcNode          `json:"nameLocation"`                    // Source location for the name.
+	TypeName              *TypeName        `json:"typeName"`                        // AST node representing the type's name.
+	ReferencedDeclaration int64            `json:"referencedDeclaration,omitempty"` // Referenced declaration (if any).
+	TypeDescription       *TypeDescription `json:"typeDescription"`                 // Description of the type.
 }
 
 // NewUserDefinedValueTypeDefinition creates a new UserDefinedValueTypeDefinition instance.

@@ -13,7 +13,7 @@ type ForStatement struct {
 	*ASTBuilder
 
 	Id          int64           `json:"id"`          // Unique identifier for the ForStatement node.
-	NodeType    ast_pb.NodeType `json:"node_type"`   // Type of the AST node.
+	NodeType    ast_pb.NodeType `json:"nodeType"`    // Type of the AST node.
 	Src         SrcNode         `json:"src"`         // Source location information.
 	Initialiser Node[NodeType]  `json:"initialiser"` // Initialiser expression.
 	Condition   Node[NodeType]  `json:"condition"`   // Condition expression.
@@ -99,7 +99,7 @@ func (f *ForStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -119,7 +119,7 @@ func (f *ForStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -139,7 +139,7 @@ func (f *ForStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -159,7 +159,7 @@ func (f *ForStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

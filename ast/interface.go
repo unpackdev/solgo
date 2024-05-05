@@ -15,18 +15,18 @@ import (
 // It encapsulates information about the characteristics and properties of an interface within the contract.
 type Interface struct {
 	*ASTBuilder                              // Embedded ASTBuilder for building the AST.
-	Id                      int64            `json:"id"`                        // Unique identifier for the Interface node.
-	Name                    string           `json:"name"`                      // Name of the interface.
-	NodeType                ast_pb.NodeType  `json:"node_type"`                 // Type of the AST node.
-	Src                     SrcNode          `json:"src"`                       // Source location information.
-	NameLocation            SrcNode          `json:"name_location"`             // Location of the interface name.
-	Abstract                bool             `json:"abstract"`                  // Indicates whether the interface is abstract.
-	Kind                    ast_pb.NodeType  `json:"kind"`                      // Kind of the interface.
-	FullyImplemented        bool             `json:"fully_implemented"`         // Indicates whether the interface is fully implemented.
-	Nodes                   []Node[NodeType] `json:"nodes"`                     // List of child nodes within the interface.
-	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"` // List of linearized base contract identifiers.
-	BaseContracts           []*BaseContract  `json:"base_contracts"`            // List of base contracts.
-	ContractDependencies    []int64          `json:"contract_dependencies"`     // List of contract dependency identifiers.
+	Id                      int64            `json:"id"`                      // Unique identifier for the Interface node.
+	Name                    string           `json:"name"`                    // Name of the interface.
+	NodeType                ast_pb.NodeType  `json:"nodeType"`                // Type of the AST node.
+	Src                     SrcNode          `json:"src"`                     // Source location information.
+	NameLocation            SrcNode          `json:"nameLocation"`            // Location of the interface name.
+	Abstract                bool             `json:"abstract"`                // Indicates whether the interface is abstract.
+	Kind                    ast_pb.NodeType  `json:"kind"`                    // Kind of the interface.
+	FullyImplemented        bool             `json:"fullyImplemented"`        // Indicates whether the interface is fully implemented.
+	Nodes                   []Node[NodeType] `json:"nodes"`                   // List of child nodes within the interface.
+	LinearizedBaseContracts []int64          `json:"linearizedBaseContracts"` // List of linearized base contract identifiers.
+	BaseContracts           []*BaseContract  `json:"baseContracts"`           // List of base contracts.
+	ContractDependencies    []int64          `json:"contractDependencies"`    // List of contract dependency identifiers.
 }
 
 // NewInterfaceDefinition creates a new Interface node with default values and returns it.
@@ -245,7 +245,7 @@ func (l *Interface) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &l.NodeType); err != nil {
 			return err
 		}
@@ -257,7 +257,7 @@ func (l *Interface) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &l.NameLocation); err != nil {
 			return err
 		}
@@ -275,25 +275,25 @@ func (l *Interface) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if fullyImplemented, ok := tempMap["fully_implemented"]; ok {
+	if fullyImplemented, ok := tempMap["fullyImplemented"]; ok {
 		if err := json.Unmarshal(fullyImplemented, &l.FullyImplemented); err != nil {
 			return err
 		}
 	}
 
-	if baseContracts, ok := tempMap["base_contracts"]; ok {
+	if baseContracts, ok := tempMap["baseContracts"]; ok {
 		if err := json.Unmarshal(baseContracts, &l.BaseContracts); err != nil {
 			return err
 		}
 	}
 
-	if lbc, ok := tempMap["linearized_base_contracts"]; ok {
+	if lbc, ok := tempMap["linearizedBaseContracts"]; ok {
 		if err := json.Unmarshal(lbc, &l.LinearizedBaseContracts); err != nil {
 			return err
 		}
 	}
 
-	if cd, ok := tempMap["contract_dependencies"]; ok {
+	if cd, ok := tempMap["contractDependencies"]; ok {
 		if err := json.Unmarshal(cd, &l.ContractDependencies); err != nil {
 			return err
 		}
@@ -312,7 +312,7 @@ func (l *Interface) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

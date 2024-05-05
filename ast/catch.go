@@ -19,7 +19,7 @@ type CatchStatement struct {
 	Name string `json:"name,omitempty"`
 
 	// The type of the node, which is 'TRY_CATCH_CLAUSE' for a 'catch' clause
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// The kind of the node, which is 'CATCH' for a 'catch' clause
 	Kind ast_pb.NodeType `json:"kind"`
@@ -109,7 +109,7 @@ func (t *CatchStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
 			return err
 		}

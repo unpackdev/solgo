@@ -12,12 +12,12 @@ import (
 type VariableDeclaration struct {
 	*ASTBuilder
 
-	Id           int64           `json:"id"`                      // Unique identifier of the variable declaration node.
-	NodeType     ast_pb.NodeType `json:"node_type"`               // Type of the node.
-	Src          SrcNode         `json:"src"`                     // Source location information.
-	Assignments  []int64         `json:"assignments"`             // List of assignment identifiers.
-	Declarations []*Declaration  `json:"declarations"`            // List of declaration nodes.
-	InitialValue Node[NodeType]  `json:"initial_value,omitempty"` // Initial value node.
+	Id           int64           `json:"id"`                     // Unique identifier of the variable declaration node.
+	NodeType     ast_pb.NodeType `json:"nodeType"`               // Type of the node.
+	Src          SrcNode         `json:"src"`                    // Source location information.
+	Assignments  []int64         `json:"assignments"`            // List of assignment identifiers.
+	Declarations []*Declaration  `json:"declarations"`           // List of declaration nodes.
+	InitialValue Node[NodeType]  `json:"initialValue,omitempty"` // Initial value node.
 }
 
 // NewVariableDeclarationStatement creates a new instance of VariableDeclaration with the provided ASTBuilder.
@@ -112,7 +112,7 @@ func (v *VariableDeclaration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &v.NodeType); err != nil {
 			return err
 		}
@@ -136,7 +136,7 @@ func (v *VariableDeclaration) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if expression, ok := tempMap["initial_value"]; ok {
+	if expression, ok := tempMap["initialValue"]; ok {
 		if err := json.Unmarshal(expression, &v.InitialValue); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
@@ -144,7 +144,7 @@ func (v *VariableDeclaration) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

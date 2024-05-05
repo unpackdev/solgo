@@ -12,7 +12,7 @@ type YulIdentifier struct {
 	Id int64 `json:"id"`
 
 	// NodeType is the type of the YUL identifier node.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// Src is the source location information of the YUL identifier.
 	Src SrcNode `json:"src"`

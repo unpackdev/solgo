@@ -9,10 +9,10 @@ import (
 type Yul struct {
 	*ASTBuilder // Embedded ASTBuilder provides building functionalities for AST nodes.
 
-	Id       int64           `json:"id"`        // Id uniquely identifies the assembly statement.
-	NodeType ast_pb.NodeType `json:"node_type"` // NodeType specifies the type of the node.
-	Src      SrcNode         `json:"src"`       // Src contains source location details of the node.
-	Body     *BodyNode       `json:"body"`      // Body represents the content of the assembly statement.
+	Id       int64           `json:"id"`       // Id uniquely identifies the assembly statement.
+	NodeType ast_pb.NodeType `json:"nodeType"` // NodeType specifies the type of the node.
+	Src      SrcNode         `json:"src"`      // Src contains source location details of the node.
+	Body     *BodyNode       `json:"body"`     // Body represents the content of the assembly statement.
 }
 
 // NewYul creates a new Yul and initializes its fields.

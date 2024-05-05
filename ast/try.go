@@ -12,16 +12,16 @@ import (
 type TryStatement struct {
 	*ASTBuilder
 
-	Id               int64            `json:"id"`                // Unique identifier for the TryStatement node.
-	NodeType         ast_pb.NodeType  `json:"node_type"`         // Type of the AST node.
-	Src              SrcNode          `json:"src"`               // Source location information.
-	Body             *BodyNode        `json:"body"`              // Body of the try block.
-	Kind             ast_pb.NodeType  `json:"kind"`              // Kind of try statement.
-	Returns          bool             `json:"returns"`           // True if the try statement returns.
-	ReturnParameters *ParameterList   `json:"return_parameters"` // Return parameters of the try statement.
-	Expression       Node[NodeType]   `json:"expression"`        // Expression within the try block.
-	Clauses          []Node[NodeType] `json:"clauses"`           // List of catch clauses.
-	Implemented      bool             `json:"implemented"`       // True if the try statement is implemented.
+	Id               int64            `json:"id"`               // Unique identifier for the TryStatement node.
+	NodeType         ast_pb.NodeType  `json:"nodeType"`         // Type of the AST node.
+	Src              SrcNode          `json:"src"`              // Source location information.
+	Body             *BodyNode        `json:"body"`             // Body of the try block.
+	Kind             ast_pb.NodeType  `json:"kind"`             // Kind of try statement.
+	Returns          bool             `json:"returns"`          // True if the try statement returns.
+	ReturnParameters *ParameterList   `json:"returnParameters"` // Return parameters of the try statement.
+	Expression       Node[NodeType]   `json:"expression"`       // Expression within the try block.
+	Clauses          []Node[NodeType] `json:"clauses"`          // List of catch clauses.
+	Implemented      bool             `json:"implemented"`      // True if the try statement is implemented.
 }
 
 // NewTryStatement creates a new TryStatement node with a given ASTBuilder.
@@ -120,7 +120,7 @@ func (t *TryStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
 			return err
 		}
@@ -156,7 +156,7 @@ func (t *TryStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if returnParameters, ok := tempMap["return_parameters"]; ok {
+	if returnParameters, ok := tempMap["returnParameters"]; ok {
 		if err := json.Unmarshal(returnParameters, &t.ReturnParameters); err != nil {
 			return err
 		}
@@ -170,7 +170,7 @@ func (t *TryStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -195,7 +195,7 @@ func (t *TryStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

@@ -15,15 +15,15 @@ import (
 type FunctionCall struct {
 	*ASTBuilder
 
-	Id                    int64              `json:"id"`                               // Unique identifier for the node.
-	NodeType              ast_pb.NodeType    `json:"node_type"`                        // Type of the node.
-	Kind                  ast_pb.NodeType    `json:"kind"`                             // Kind of the node.
-	Src                   SrcNode            `json:"src"`                              // Source location of the node.
-	ArgumentTypes         []*TypeDescription `json:"argument_types"`                   // Types of the arguments.
-	Arguments             []Node[NodeType]   `json:"arguments"`                        // Arguments of the function call.
-	Expression            Node[NodeType]     `json:"expression"`                       // Expression of the function call.
-	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"` // Referenced declaration of the function call.
-	TypeDescription       *TypeDescription   `json:"type_description"`                 // Type description of the function call.
+	Id                    int64              `json:"id"`                              // Unique identifier for the node.
+	NodeType              ast_pb.NodeType    `json:"nodeType"`                        // Type of the node.
+	Kind                  ast_pb.NodeType    `json:"kind"`                            // Kind of the node.
+	Src                   SrcNode            `json:"src"`                             // Source location of the node.
+	ArgumentTypes         []*TypeDescription `json:"argumentTypes"`                   // Types of the arguments.
+	Arguments             []Node[NodeType]   `json:"arguments"`                       // Arguments of the function call.
+	Expression            Node[NodeType]     `json:"expression"`                      // Expression of the function call.
+	ReferencedDeclaration int64              `json:"referencedDeclaration,omitempty"` // Referenced declaration of the function call.
+	TypeDescription       *TypeDescription   `json:"typeDescription"`                 // Type description of the function call.
 }
 
 // NewFunctionCall creates a new FunctionCall node with a given ASTBuilder.
@@ -129,7 +129,7 @@ func (f *FunctionCall) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -147,19 +147,19 @@ func (f *FunctionCall) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &f.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &f.TypeDescription); err != nil {
 			return err
 		}
 	}
 
-	if argTypes, ok := tempMap["argument_types"]; ok {
+	if argTypes, ok := tempMap["argumentTypes"]; ok {
 		if err := json.Unmarshal(argTypes, &f.ArgumentTypes); err != nil {
 			return err
 		}
@@ -179,7 +179,7 @@ func (f *FunctionCall) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -199,7 +199,7 @@ func (f *FunctionCall) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -361,13 +361,13 @@ func (f *FunctionCall) buildTypeDescription() *TypeDescription {
 type FunctionCallOption struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`                               // Unique identifier for the node.
-	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the node.
-	Kind                  ast_pb.NodeType  `json:"kind"`                             // Kind of the node.
-	Src                   SrcNode          `json:"src"`                              // Source location of the node.
-	Expression            Node[NodeType]   `json:"expression"`                       // Expression of the function call.
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration of the function call.
-	TypeDescription       *TypeDescription `json:"type_description"`                 // Type description of the function call.
+	Id                    int64            `json:"id"`                              // Unique identifier for the node.
+	NodeType              ast_pb.NodeType  `json:"nodeType"`                        // Type of the node.
+	Kind                  ast_pb.NodeType  `json:"kind"`                            // Kind of the node.
+	Src                   SrcNode          `json:"src"`                             // Source location of the node.
+	Expression            Node[NodeType]   `json:"expression"`                      // Expression of the function call.
+	ReferencedDeclaration int64            `json:"referencedDeclaration,omitempty"` // Referenced declaration of the function call.
+	TypeDescription       *TypeDescription `json:"typeDescription"`                 // Type description of the function call.
 }
 
 // NewFunctionCall creates a new FunctionCallOption node with a given ASTBuilder.
@@ -441,7 +441,7 @@ func (f *FunctionCallOption) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -459,13 +459,13 @@ func (f *FunctionCallOption) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &f.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &f.TypeDescription); err != nil {
 			return err
 		}
@@ -479,7 +479,7 @@ func (f *FunctionCallOption) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

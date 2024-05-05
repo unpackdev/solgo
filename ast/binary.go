@@ -16,22 +16,22 @@ type BinaryOperation struct {
 	// Id is the unique identifier of the binary operation.
 	Id int64 `json:"id"`
 	// IsConstant indicates whether the binary operation is a constant.
-	Constant bool `json:"is_constant"`
+	Constant bool `json:"isConstant"`
 	// IsPure indicates whether the binary operation is pure (i.e., it does not read or modify state).
-	Pure bool `json:"is_pure"`
+	Pure bool `json:"isPure"`
 	// NodeType is the type of the node.
 	// For a BinaryOperation, this is always NodeType_BINARY_OPERATION.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	// Src contains source information about the node, such as its line and column numbers in the source file.
 	Src SrcNode `json:"src"`
 	// Operator is the operator of the binary operation.
 	Operator ast_pb.Operator `json:"operator"`
 	// LeftExpression is the left operand of the binary operation.
-	LeftExpression Node[NodeType] `json:"left_expression"`
+	LeftExpression Node[NodeType] `json:"leftExpression"`
 	// RightExpression is the right operand of the binary operation.
-	RightExpression Node[NodeType] `json:"right_expression"`
+	RightExpression Node[NodeType] `json:"rightExpression"`
 	// TypeDescription is the type description of the binary operation.
-	TypeDescription *TypeDescription `json:"type_description"`
+	TypeDescription *TypeDescription `json:"typeDescription"`
 }
 
 // NewBinaryOperationExpression is a constructor function that initializes a new BinaryOperation with a unique ID and the NodeType set to NodeType_BINARY_OPERATION.
@@ -121,19 +121,19 @@ func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if isConstant, ok := tempMap["is_constant"]; ok {
+	if isConstant, ok := tempMap["isConstant"]; ok {
 		if err := json.Unmarshal(isConstant, &a.Constant); err != nil {
 			return err
 		}
 	}
 
-	if isPure, ok := tempMap["is_pure"]; ok {
+	if isPure, ok := tempMap["isPure"]; ok {
 		if err := json.Unmarshal(isPure, &a.Pure); err != nil {
 			return err
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &a.NodeType); err != nil {
 			return err
 		}
@@ -145,7 +145,7 @@ func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &a.TypeDescription); err != nil {
 			return err
 		}
@@ -157,7 +157,7 @@ func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if leftExpression, ok := tempMap["left_expression"]; ok {
+	if leftExpression, ok := tempMap["leftExpression"]; ok {
 		if err := json.Unmarshal(leftExpression, &a.LeftExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(leftExpression, &tempNodeMap); err != nil {
@@ -165,7 +165,7 @@ func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -177,7 +177,7 @@ func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if rightExpression, ok := tempMap["right_expression"]; ok {
+	if rightExpression, ok := tempMap["rightExpression"]; ok {
 		if err := json.Unmarshal(rightExpression, &a.RightExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(rightExpression, &tempNodeMap); err != nil {
@@ -185,7 +185,7 @@ func (a *BinaryOperation) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

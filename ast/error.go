@@ -10,14 +10,14 @@ import (
 // ErrorDefinition represents an error definition node in the abstract syntax tree.
 type ErrorDefinition struct {
 	*ASTBuilder
-	SourceUnitName  string           `json:"-"`                // Source unit name.
-	Id              int64            `json:"id"`               // Unique identifier of the error definition node.
-	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node.
-	Src             SrcNode          `json:"src"`              // Source location information.
-	Name            string           `json:"name"`             // Name of the error definition.
-	NameLocation    SrcNode          `json:"name_location"`    // Source location information of the name.
-	Parameters      *ParameterList   `json:"parameters"`       // List of error parameters.
-	TypeDescription *TypeDescription `json:"type_description"` // Type description of the error definition.
+	SourceUnitName  string           `json:"-"`               // Source unit name.
+	Id              int64            `json:"id"`              // Unique identifier of the error definition node.
+	NodeType        ast_pb.NodeType  `json:"nodeType"`        // Type of the node.
+	Src             SrcNode          `json:"src"`             // Source location information.
+	Name            string           `json:"name"`            // Name of the error definition.
+	NameLocation    SrcNode          `json:"nameLocation"`    // Source location information of the name.
+	Parameters      *ParameterList   `json:"parameters"`      // List of error parameters.
+	TypeDescription *TypeDescription `json:"typeDescription"` // Type description of the error definition.
 }
 
 // NewErrorDefinition creates a new instance of ErrorDefinition with the provided ASTBuilder.

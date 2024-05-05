@@ -15,12 +15,12 @@ type PayableConversion struct {
 	*ASTBuilder
 
 	Id                    int64              `json:"id"`
-	NodeType              ast_pb.NodeType    `json:"node_type"`
+	NodeType              ast_pb.NodeType    `json:"nodeType"`
 	Src                   SrcNode            `json:"src"`
 	Arguments             []Node[NodeType]   `json:"arguments"`
-	ArgumentTypes         []*TypeDescription `json:"argument_types"`
-	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription   `json:"type_description"`
+	ArgumentTypes         []*TypeDescription `json:"argumentTypes"`
+	ReferencedDeclaration int64              `json:"referencedDeclaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"typeDescription"`
 	Payable               bool               `json:"payable"`
 }
 
@@ -128,7 +128,7 @@ func (p *PayableConversion) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &p.NodeType); err != nil {
 			return err
 		}
@@ -140,13 +140,13 @@ func (p *PayableConversion) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &p.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &p.TypeDescription); err != nil {
 			return err
 		}
@@ -158,7 +158,7 @@ func (p *PayableConversion) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if argumentTypes, ok := tempMap["argument_types"]; ok {
+	if argumentTypes, ok := tempMap["argumentTypes"]; ok {
 		if err := json.Unmarshal(argumentTypes, &p.ArgumentTypes); err != nil {
 			return err
 		}
@@ -177,7 +177,7 @@ func (p *PayableConversion) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

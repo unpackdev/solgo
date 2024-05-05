@@ -11,13 +11,13 @@ import (
 type EventDefinition struct {
 	*ASTBuilder                      // Embedding the ASTBuilder for common functionality
 	SourceUnitName  string           `json:"-"`
-	Id              int64            `json:"id"`               // Unique identifier for the event definition
-	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node (EVENT_DEFINITION for event definition)
-	Src             SrcNode          `json:"src"`              // Source information about the event definition
-	Parameters      *ParameterList   `json:"parameters"`       // Parameters of the event
-	Name            string           `json:"name"`             // Name of the event
-	Anonymous       bool             `json:"anonymous"`        // Indicates if the event is anonymous
-	TypeDescription *TypeDescription `json:"type_description"` // Type description of the event
+	Id              int64            `json:"id"`              // Unique identifier for the event definition
+	NodeType        ast_pb.NodeType  `json:"nodeType"`        // Type of the node (EVENT_DEFINITION for event definition)
+	Src             SrcNode          `json:"src"`             // Source information about the event definition
+	Parameters      *ParameterList   `json:"parameters"`      // Parameters of the event
+	Name            string           `json:"name"`            // Name of the event
+	Anonymous       bool             `json:"anonymous"`       // Indicates if the event is anonymous
+	TypeDescription *TypeDescription `json:"typeDescription"` // Type description of the event
 }
 
 // NewEventDefinition creates a new EventDefinition instance.

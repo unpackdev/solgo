@@ -13,11 +13,11 @@ import (
 type YulLiteralStatement struct {
 	*ASTBuilder                 // Embedded ASTBuilder for utility functions.
 	Id          int64           `json:"id"`
-	NodeType    ast_pb.NodeType `json:"node_type"`
+	NodeType    ast_pb.NodeType `json:"nodeType"`
 	Kind        ast_pb.NodeType `json:"kind"`
 	Src         SrcNode         `json:"src"`
 	Value       string          `json:"value"`
-	HexValue    string          `json:"hex_value"`
+	HexValue    string          `json:"hexValue"`
 }
 
 // NewYulLiteralStatement initializes a new YulLiteralStatement node.

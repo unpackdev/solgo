@@ -16,18 +16,18 @@ type TypeName struct {
 	*ASTBuilder
 
 	Id                    int64             `json:"id"`
-	NodeType              ast_pb.NodeType   `json:"node_type"`
+	NodeType              ast_pb.NodeType   `json:"nodeType"`
 	Src                   SrcNode           `json:"src"`
 	Name                  string            `json:"name,omitempty"`
-	KeyType               *TypeName         `json:"key_type,omitempty"`
-	KeyNameLocation       *SrcNode          `json:"key_name_location,omitempty"`
-	ValueType             *TypeName         `json:"value_type,omitempty"`
-	ValueNameLocation     *SrcNode          `json:"value_name_location,omitempty"`
-	PathNode              *PathNode         `json:"path_node,omitempty"`
-	StateMutability       ast_pb.Mutability `json:"state_mutability,omitempty"`
-	ReferencedDeclaration int64             `json:"referenced_declaration"`
+	KeyType               *TypeName         `json:"keyType,omitempty"`
+	KeyNameLocation       *SrcNode          `json:"keyNameLocation,omitempty"`
+	ValueType             *TypeName         `json:"valueType,omitempty"`
+	ValueNameLocation     *SrcNode          `json:"valueNameLocation,omitempty"`
+	PathNode              *PathNode         `json:"pathNode,omitempty"`
+	StateMutability       ast_pb.Mutability `json:"stateMutability,omitempty"`
+	ReferencedDeclaration int64             `json:"referencedDeclaration"`
 	Expression            Node[NodeType]    `json:"expression,omitempty"`
-	TypeDescription       *TypeDescription  `json:"type_description,omitempty"`
+	TypeDescription       *TypeDescription  `json:"typeDescription,omitempty"`
 
 	// Helper parents so we can efficiently extract references if needed without
 	// having to traverse whole AST.
@@ -179,7 +179,7 @@ func (t *TypeName) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
 			return err
 		}
@@ -191,13 +191,13 @@ func (t *TypeName) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &t.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &t.TypeDescription); err != nil {
 			return err
 		}
@@ -209,37 +209,37 @@ func (t *TypeName) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if keyType, ok := tempMap["key_type"]; ok {
+	if keyType, ok := tempMap["keyType"]; ok {
 		if err := json.Unmarshal(keyType, &t.KeyType); err != nil {
 			return err
 		}
 	}
 
-	if keyNameLocation, ok := tempMap["key_name_location"]; ok {
+	if keyNameLocation, ok := tempMap["keyNameLocation"]; ok {
 		if err := json.Unmarshal(keyNameLocation, &t.KeyNameLocation); err != nil {
 			return err
 		}
 	}
 
-	if valueType, ok := tempMap["value_type"]; ok {
+	if valueType, ok := tempMap["valueType"]; ok {
 		if err := json.Unmarshal(valueType, &t.ValueType); err != nil {
 			return err
 		}
 	}
 
-	if valueNameLocation, ok := tempMap["value_name_location"]; ok {
+	if valueNameLocation, ok := tempMap["valueNameLocation"]; ok {
 		if err := json.Unmarshal(valueNameLocation, &t.ValueNameLocation); err != nil {
 			return err
 		}
 	}
 
-	if pathNode, ok := tempMap["path_node"]; ok {
+	if pathNode, ok := tempMap["pathNode"]; ok {
 		if err := json.Unmarshal(pathNode, &t.PathNode); err != nil {
 			return err
 		}
 	}
 
-	if stateMutability, ok := tempMap["state_mutability"]; ok {
+	if stateMutability, ok := tempMap["stateMutability"]; ok {
 		if err := json.Unmarshal(stateMutability, &t.StateMutability); err != nil {
 			return err
 		}
@@ -253,7 +253,7 @@ func (t *TypeName) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -865,11 +865,11 @@ func (t *TypeName) ParseElementaryType(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 type PathNode struct {
 	Id                    int64            `json:"id"`
 	Name                  string           `json:"name"`
-	NodeType              ast_pb.NodeType  `json:"node_type"`
-	ReferencedDeclaration int64            `json:"referenced_declaration"`
+	NodeType              ast_pb.NodeType  `json:"nodeType"`
+	ReferencedDeclaration int64            `json:"referencedDeclaration"`
 	Src                   SrcNode          `json:"src"`
-	NameLocation          *SrcNode         `json:"name_location,omitempty"`
-	TypeDescription       *TypeDescription `json:"type_description,omitempty"`
+	NameLocation          *SrcNode         `json:"nameLocation,omitempty"`
+	TypeDescription       *TypeDescription `json:"typeDescription,omitempty"`
 }
 
 // GetId returns the unique identifier of the PathNode.
@@ -944,8 +944,8 @@ func (pn *PathNode) ToProto() NodeType {
 
 // TypeDescription represents a description of a type.
 type TypeDescription struct {
-	TypeIdentifier string `json:"type_identifier"`
-	TypeString     string `json:"type_string"`
+	TypeIdentifier string `json:"typeIdentifier"`
+	TypeString     string `json:"typeString"`
 }
 
 // GetIdentifier returns the type identifier of the TypeDescription.

@@ -147,6 +147,18 @@ func (op OpCode) IsSystem() bool {
 	}
 }
 
+// IsFunctionStart checks if the opcode represents the start of a function.
+func (op OpCode) IsFunctionStart() bool {
+	// JUMPDEST indicates a valid jump destination, which commonly marks the beginning of a function.
+	return op == JUMPDEST
+}
+
+// IsFunctionEnd checks if the opcode represents the end of a function.
+func (op OpCode) IsFunctionEnd() bool {
+	// RETURN or STOP typically indicate the end of execution for a function.
+	return op == RETURN || op == STOP
+}
+
 // IsSelfDestruct checks if the given opcode corresponds to the SELFDESTRUCT operation.
 // The SELFDESTRUCT opcode is used in the EVM to destroy the current contract, sending its funds to the provided address.
 func (op OpCode) IsSelfDestruct() bool {

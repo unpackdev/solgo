@@ -12,14 +12,14 @@ import (
 // TupleExpression represents a tuple expression in Solidity.
 type TupleExpression struct {
 	*ASTBuilder                            // Embedding the ASTBuilder to provide common functionality
-	Id                    int64            `json:"id"`                               // Unique identifier for the tuple expression
-	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the node (TUPLE_EXPRESSION for a tuple expression)
-	Src                   SrcNode          `json:"src"`                              // Source information about the tuple expression
-	Constant              bool             `json:"is_constant"`                      // Whether the tuple expression is constant
-	Pure                  bool             `json:"is_pure"`                          // Whether the tuple expression is pure
-	Components            []Node[NodeType] `json:"components"`                       // Components of the tuple expression
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration of the tuple expression
-	TypeDescription       *TypeDescription `json:"type_description"`                 // Type description of the tuple expression
+	Id                    int64            `json:"id"`                              // Unique identifier for the tuple expression
+	NodeType              ast_pb.NodeType  `json:"nodeType"`                        // Type of the node (TUPLE_EXPRESSION for a tuple expression)
+	Src                   SrcNode          `json:"src"`                             // Source information about the tuple expression
+	Constant              bool             `json:"isConstant"`                      // Whether the tuple expression is constant
+	Pure                  bool             `json:"isPure"`                          // Whether the tuple expression is pure
+	Components            []Node[NodeType] `json:"components"`                      // Components of the tuple expression
+	ReferencedDeclaration int64            `json:"referencedDeclaration,omitempty"` // Referenced declaration of the tuple expression
+	TypeDescription       *TypeDescription `json:"typeDescription"`                 // Type description of the tuple expression
 }
 
 // NewTupleExpression creates a new TupleExpression instance.
@@ -96,7 +96,7 @@ func (t *TupleExpression) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &t.NodeType); err != nil {
 			return err
 		}
@@ -108,25 +108,25 @@ func (t *TupleExpression) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if constant, ok := tempMap["is_constant"]; ok {
+	if constant, ok := tempMap["isConstant"]; ok {
 		if err := json.Unmarshal(constant, &t.Constant); err != nil {
 			return err
 		}
 	}
 
-	if pure, ok := tempMap["is_pure"]; ok {
+	if pure, ok := tempMap["isPure"]; ok {
 		if err := json.Unmarshal(pure, &t.Pure); err != nil {
 			return err
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &t.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &t.TypeDescription); err != nil {
 			return err
 		}
@@ -145,7 +145,7 @@ func (t *TupleExpression) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

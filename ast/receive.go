@@ -11,20 +11,20 @@ import (
 // It encapsulates information about the characteristics and properties of a receive function within a contract.
 type Receive struct {
 	*ASTBuilder                            // Embedded ASTBuilder for building the AST.
-	Id               int64                 `json:"id"`                // Unique identifier for the Receive node.
-	NodeType         ast_pb.NodeType       `json:"node_type"`         // Type of the AST node.
-	Kind             ast_pb.NodeType       `json:"kind"`              // Kind of the receive function.
-	Src              SrcNode               `json:"src"`               // Source location information.
-	Implemented      bool                  `json:"implemented"`       // Indicates whether the function is implemented.
-	Visibility       ast_pb.Visibility     `json:"visibility"`        // Visibility of the receive function.
-	StateMutability  ast_pb.Mutability     `json:"state_mutability"`  // State mutability of the receive function.
-	Modifiers        []*ModifierInvocation `json:"modifiers"`         // List of modifier invocations applied to the receive function.
-	Overrides        []*OverrideSpecifier  `json:"overrides"`         // List of override specifiers for the receive function.
-	Parameters       *ParameterList        `json:"parameters"`        // List of parameters for the receive function.
-	ReturnParameters *ParameterList        `json:"return_parameters"` // List of return parameters for the receive function.
-	Body             *BodyNode             `json:"body"`              // Body of the receive function.
-	Virtual          bool                  `json:"virtual"`           // Indicates whether the function is virtual.
-	Payable          bool                  `json:"payable"`           // Indicates whether the function is payable.
+	Id               int64                 `json:"id"`               // Unique identifier for the Receive node.
+	NodeType         ast_pb.NodeType       `json:"nodeType"`         // Type of the AST node.
+	Kind             ast_pb.NodeType       `json:"kind"`             // Kind of the receive function.
+	Src              SrcNode               `json:"src"`              // Source location information.
+	Implemented      bool                  `json:"implemented"`      // Indicates whether the function is implemented.
+	Visibility       ast_pb.Visibility     `json:"visibility"`       // Visibility of the receive function.
+	StateMutability  ast_pb.Mutability     `json:"stateMutability"`  // State mutability of the receive function.
+	Modifiers        []*ModifierInvocation `json:"modifiers"`        // List of modifier invocations applied to the receive function.
+	Overrides        []*OverrideSpecifier  `json:"overrides"`        // List of override specifiers for the receive function.
+	Parameters       *ParameterList        `json:"parameters"`       // List of parameters for the receive function.
+	ReturnParameters *ParameterList        `json:"returnParameters"` // List of return parameters for the receive function.
+	Body             *BodyNode             `json:"body"`             // Body of the receive function.
+	Virtual          bool                  `json:"virtual"`          // Indicates whether the function is virtual.
+	Payable          bool                  `json:"payable"`          // Indicates whether the function is payable.
 }
 
 // NewReceiveDefinition creates a new Receive node with default values and returns it.
@@ -136,7 +136,7 @@ func (f *Receive) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -166,7 +166,7 @@ func (f *Receive) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if sm, ok := tempMap["state_mutability"]; ok {
+	if sm, ok := tempMap["stateMutability"]; ok {
 		if err := json.Unmarshal(sm, &f.StateMutability); err != nil {
 			return err
 		}
@@ -196,7 +196,7 @@ func (f *Receive) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if retParams, ok := tempMap["return_parameters"]; ok {
+	if retParams, ok := tempMap["returnParameters"]; ok {
 		if err := json.Unmarshal(retParams, &f.ReturnParameters); err != nil {
 			return err
 		}

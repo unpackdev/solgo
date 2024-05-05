@@ -32,18 +32,18 @@ type ContractNode interface {
 type Contract struct {
 	Unit           *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]] `json:"ast"`
 	Id             int64                                        `json:"id"`
-	SourceUnitId   int64                                        `json:"source_unit_id"`
-	NodeType       ast_pb.NodeType                              `json:"node_type"`
+	SourceUnitId   int64                                        `json:"sourceUnitId"`
+	NodeType       ast_pb.NodeType                              `json:"nodeType"`
 	Kind           ast_pb.NodeType                              `json:"kind"`
 	Name           string                                       `json:"name"`
 	License        string                                       `json:"license"`
 	Language       Language                                     `json:"language"`
-	AbsolutePath   string                                       `json:"absolute_path"`
+	AbsolutePath   string                                       `json:"absolutePath"`
 	Symbols        []*Symbol                                    `json:"symbols"`
-	BaseContracts  []*ast.BaseContract                          `json:"base_contracts"`
+	BaseContracts  []*ast.BaseContract                          `json:"baseContracts"`
 	Imports        []*Import                                    `json:"imports"`
 	Pragmas        []*Pragma                                    `json:"pragmas"`
-	StateVariables []*StateVariable                             `json:"state_variables"`
+	StateVariables []*StateVariable                             `json:"stateVariables"`
 	Structs        []*Struct                                    `json:"structs"`
 	Enums          []*Enum                                      `json:"enums"`
 	Events         []*Event                                     `json:"events"`

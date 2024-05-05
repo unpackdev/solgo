@@ -13,7 +13,7 @@ type YulContinueStatement struct {
 	Id int64 `json:"id"`
 
 	// NodeType is the type of the YUL continue statement node.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// Src is the source location information of the YUL continue statement.
 	Src SrcNode `json:"src"`

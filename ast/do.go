@@ -13,7 +13,7 @@ import (
 type DoWhileStatement struct {
 	*ASTBuilder                 // Embedded ASTBuilder for building the AST.
 	Id          int64           `json:"id"`        // Unique identifier for the DoWhileStatement node.
-	NodeType    ast_pb.NodeType `json:"node_type"` // Type of the AST node.
+	NodeType    ast_pb.NodeType `json:"nodeType"`  // Type of the AST node.
 	Src         SrcNode         `json:"src"`       // Source location information.
 	Condition   Node[NodeType]  `json:"condition"` // Condition expression for the do-while loop.
 	Body        *BodyNode       `json:"body"`      // Body of the do-while loop.
@@ -87,7 +87,7 @@ func (d *DoWhileStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &d.NodeType); err != nil {
 			return err
 		}
@@ -107,7 +107,7 @@ func (d *DoWhileStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

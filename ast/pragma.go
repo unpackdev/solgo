@@ -12,7 +12,7 @@ type Pragma struct {
 	Id int64 `json:"id"`
 	// NodeType is the type of the node.
 	// For a Pragma, this is always NodeType_PRAGMA_DIRECTIVE.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	// SrcNode contains source information about the node, such as its line and column numbers in the source file.
 	Src SrcNode `json:"src"`
 	// Literals is a slice of strings that represent the literals of the pragma directive.

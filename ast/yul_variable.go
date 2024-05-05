@@ -13,7 +13,7 @@ type YulVariable struct {
 	*ASTBuilder // Embedded ASTBuilder for utility functions.
 
 	Id        int64            `json:"id"`        // Id is a unique identifier for the variable.
-	NodeType  ast_pb.NodeType  `json:"node_type"` // NodeType specifies the type of the node.
+	NodeType  ast_pb.NodeType  `json:"nodeType"`  // NodeType specifies the type of the node.
 	Src       SrcNode          `json:"src"`       // Src contains the source location details of the variable.
 	Let       bool             `json:"let"`       // Let indicates if the variable is declared with a "let" keyword.
 	Value     Node[NodeType]   `json:"value"`     // Value holds the initialized value of the variable.
@@ -118,7 +118,7 @@ func (y *YulVariable) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &y.NodeType); err != nil {
 			return err
 		}
@@ -160,7 +160,7 @@ func (y *YulVariable) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

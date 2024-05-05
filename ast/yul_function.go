@@ -16,7 +16,7 @@ type YulFunctionDefinition struct {
 	Id int64 `json:"id"`
 
 	// NodeType is the type of the YUL function definition node.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// Src is the source location information of the YUL function definition.
 	Src SrcNode `json:"src"`
@@ -28,7 +28,7 @@ type YulFunctionDefinition struct {
 	Body Node[NodeType] `json:"body"`
 
 	// ReturnParameters is a list of YUL identifiers representing return parameters.
-	ReturnParameters []*YulIdentifier `json:"return_parameters"`
+	ReturnParameters []*YulIdentifier `json:"returnParameters"`
 }
 
 // NewYulFunctionDefinition creates a new YulFunctionDefinition instance.
@@ -131,7 +131,7 @@ func (f *YulFunctionDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -167,7 +167,7 @@ func (f *YulFunctionDefinition) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -179,7 +179,7 @@ func (f *YulFunctionDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if retParams, ok := tempMap["return_parameters"]; ok {
+	if retParams, ok := tempMap["returnParameters"]; ok {
 		var nodes []json.RawMessage
 		if err := json.Unmarshal(retParams, &nodes); err != nil {
 			return err

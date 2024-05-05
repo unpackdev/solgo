@@ -11,18 +11,18 @@ import (
 // StructDefinition represents a struct definition in the Solidity abstract syntax tree (AST).
 type StructDefinition struct {
 	*ASTBuilder                                  // Embedding the ASTBuilder for common functionality
-	SourceUnitName        string                 `json:"-"`                                // Name of the source unit
-	Id                    int64                  `json:"id"`                               // Unique identifier for the struct definition
-	NodeType              ast_pb.NodeType        `json:"node_type"`                        // Type of the node (STRUCT_DEFINITION for struct definition)
-	Src                   SrcNode                `json:"src"`                              // Source information about the struct definition
-	Name                  string                 `json:"name"`                             // Name of the struct
-	NameLocation          SrcNode                `json:"name_location"`                    // Source information about the name of the struct
-	CanonicalName         string                 `json:"canonical_name"`                   // Canonical name of the struct
-	ReferencedDeclaration int64                  `json:"referenced_declaration,omitempty"` // Referenced declaration of the struct definition
-	TypeDescription       *TypeDescription       `json:"type_description"`                 // Type description of the struct definition
-	Members               []Node[NodeType]       `json:"members"`                          // Members of the struct definition
-	Visibility            ast_pb.Visibility      `json:"visibility"`                       // Visibility of the struct definition
-	StorageLocation       ast_pb.StorageLocation `json:"storage_location"`                 // Storage location of the struct definition
+	SourceUnitName        string                 `json:"-"`                               // Name of the source unit
+	Id                    int64                  `json:"id"`                              // Unique identifier for the struct definition
+	NodeType              ast_pb.NodeType        `json:"nodeType"`                        // Type of the node (STRUCT_DEFINITION for struct definition)
+	Src                   SrcNode                `json:"src"`                             // Source information about the struct definition
+	Name                  string                 `json:"name"`                            // Name of the struct
+	NameLocation          SrcNode                `json:"nameLocation"`                    // Source information about the name of the struct
+	CanonicalName         string                 `json:"canonicalName"`                   // Canonical name of the struct
+	ReferencedDeclaration int64                  `json:"referencedDeclaration,omitempty"` // Referenced declaration of the struct definition
+	TypeDescription       *TypeDescription       `json:"typeDescription"`                 // Type description of the struct definition
+	Members               []Node[NodeType]       `json:"members"`                         // Members of the struct definition
+	Visibility            ast_pb.Visibility      `json:"visibility"`                      // Visibility of the struct definition
+	StorageLocation       ast_pb.StorageLocation `json:"storageLocation"`                 // Storage location of the struct definition
 }
 
 // NewStructDefinition creates a new StructDefinition instance.
@@ -133,13 +133,13 @@ func (s *StructDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if canonicalName, ok := tempMap["canonical_name"]; ok {
+	if canonicalName, ok := tempMap["canonicalName"]; ok {
 		if err := json.Unmarshal(canonicalName, &s.CanonicalName); err != nil {
 			return err
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
 			return err
 		}
@@ -157,25 +157,25 @@ func (s *StructDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &s.NameLocation); err != nil {
 			return err
 		}
 	}
 
-	if storageLocation, ok := tempMap["storage_location"]; ok {
+	if storageLocation, ok := tempMap["storageLocation"]; ok {
 		if err := json.Unmarshal(storageLocation, &s.StorageLocation); err != nil {
 			return err
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &s.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &s.TypeDescription); err != nil {
 			return err
 		}
@@ -194,7 +194,7 @@ func (s *StructDefinition) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

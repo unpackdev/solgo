@@ -10,10 +10,10 @@ import (
 type Parameter struct {
 	Unit            *ast.Parameter       `json:"ast"`
 	Id              int64                `json:"id"`
-	NodeType        ast_pb.NodeType      `json:"node_type"`
+	NodeType        ast_pb.NodeType      `json:"nodeType"`
 	Name            string               `json:"name"`
 	Type            string               `json:"type"`
-	TypeDescription *ast.TypeDescription `json:"type_description"`
+	TypeDescription *ast.TypeDescription `json:"typeDescription"`
 	Indexed         bool                 `json:"indexed"`
 }
 

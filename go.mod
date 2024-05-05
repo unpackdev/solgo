@@ -17,6 +17,7 @@ require (
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-ipfs-api v0.6.0
 	github.com/mr-tron/base58 v1.2.0
+	github.com/pkg/errors v0.9.1
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/sergi/go-diff v1.3.1
 	github.com/shopspring/decimal v1.3.1
@@ -30,6 +31,7 @@ require (
 
 //replace github.com/antlr4-go/antlr/v4 => github.com/unpackdev/antlr4-go/v4 v4.13.0
 //replace github.com/unpackdev/protos => ../protos
+//replace github.com/unpackdev/solgo => ../solgo-orig
 
 require (
 	github.com/DataDog/zstd v1.5.5 // indirect
@@ -82,7 +84,6 @@ require (
 	github.com/multiformats/go-multihash v0.2.3 // indirect
 	github.com/multiformats/go-multistream v0.4.1 // indirect
 	github.com/multiformats/go-varint v0.0.7 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.19.0 // indirect
 	github.com/prometheus/client_model v0.6.0 // indirect

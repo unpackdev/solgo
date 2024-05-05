@@ -7,12 +7,12 @@ import (
 
 // OverridePath represents an override path node in the abstract syntax tree.
 type OverridePath struct {
-	Id                    int64            `json:"id"`                     // Unique identifier of the modifier name node.
-	Name                  string           `json:"name"`                   // Name of the modifier.
-	NodeType              ast_pb.NodeType  `json:"node_type"`              // Type of the node.
-	Src                   SrcNode          `json:"src"`                    // Source location information.
-	ReferencedDeclaration int64            `json:"referenced_declaration"` // Referenced declaration identifier.
-	TypeDescription       *TypeDescription `json:"type_description"`       // Type description of the override specifier.
+	Id                    int64            `json:"id"`                    // Unique identifier of the modifier name node.
+	Name                  string           `json:"name"`                  // Name of the modifier.
+	NodeType              ast_pb.NodeType  `json:"nodeType"`              // Type of the node.
+	Src                   SrcNode          `json:"src"`                   // Source location information.
+	ReferencedDeclaration int64            `json:"referencedDeclaration"` // Referenced declaration identifier.
+	TypeDescription       *TypeDescription `json:"typeDescription"`       // Type description of the override specifier.
 }
 
 // SetReferenceDescriptor sets the reference descriptor of the OverridePath.
@@ -73,12 +73,12 @@ func (m *OverridePath) ToProto() *ast_pb.OverridePath {
 type OverrideSpecifier struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`                     // Unique identifier of the override specifier node.
-	NodeType              ast_pb.NodeType  `json:"node_type"`              // Type of the node.
-	Src                   SrcNode          `json:"src"`                    // Source location information.
-	Overrides             []*OverridePath  `json:"overrides"`              // List of override paths.
-	ReferencedDeclaration int64            `json:"referenced_declaration"` // Referenced declaration identifier.
-	TypeDescription       *TypeDescription `json:"type_descriptions"`      // Type description of the override specifier.
+	Id                    int64            `json:"id"`                    // Unique identifier of the override specifier node.
+	NodeType              ast_pb.NodeType  `json:"nodeType"`              // Type of the node.
+	Src                   SrcNode          `json:"src"`                   // Source location information.
+	Overrides             []*OverridePath  `json:"overrides"`             // List of override paths.
+	ReferencedDeclaration int64            `json:"referencedDeclaration"` // Referenced declaration identifier.
+	TypeDescription       *TypeDescription `json:"typeDescriptions"`      // Type description of the override specifier.
 }
 
 // NewOverrideSpecifier creates a new instance of OverrideSpecifier with the provided ASTBuilder.

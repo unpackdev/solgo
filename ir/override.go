@@ -10,10 +10,10 @@ import (
 type Override struct {
 	Unit                    *ast.OverrideSpecifier `json:"ast"`
 	Id                      int64                  `json:"id"`
-	NodeType                ast_pb.NodeType        `json:"node_type"`
+	NodeType                ast_pb.NodeType        `json:"nodeType"`
 	Name                    string                 `json:"name"`
-	ReferencedDeclarationId int64                  `json:"referenced_declaration_id"`
-	TypeDescription         *ast.TypeDescription   `json:"type_description"`
+	ReferencedDeclarationId int64                  `json:"referencedDeclarationId"`
+	TypeDescription         *ast.TypeDescription   `json:"typeDescription"`
 }
 
 // GetAST returns the underlying AST node for the Override.

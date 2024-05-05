@@ -12,14 +12,14 @@ import (
 type EnumDefinition struct {
 	*ASTBuilder                      // Embedding the ASTBuilder for common functionality
 	SourceUnitName  string           `json:"-"`
-	Id              int64            `json:"id"`               // Unique identifier for the enumeration definition
-	NodeType        ast_pb.NodeType  `json:"node_type"`        // Type of the node (ENUM_DEFINITION for enumeration definition)
-	Src             SrcNode          `json:"src"`              // Source information about the enumeration definition
-	NameLocation    SrcNode          `json:"name_location"`    // Source information about the name of the enumeration
-	Name            string           `json:"name"`             // Name of the enumeration
-	CanonicalName   string           `json:"canonical_name"`   // Canonical name of the enumeration
-	TypeDescription *TypeDescription `json:"type_description"` // Type description of the enumeration
-	Members         []Node[NodeType] `json:"members"`          // Members of the enumeration
+	Id              int64            `json:"id"`              // Unique identifier for the enumeration definition
+	NodeType        ast_pb.NodeType  `json:"nodeType"`        // Type of the node (ENUM_DEFINITION for enumeration definition)
+	Src             SrcNode          `json:"src"`             // Source information about the enumeration definition
+	NameLocation    SrcNode          `json:"nameLocation"`    // Source information about the name of the enumeration
+	Name            string           `json:"name"`            // Name of the enumeration
+	CanonicalName   string           `json:"canonicalName"`   // Canonical name of the enumeration
+	TypeDescription *TypeDescription `json:"typeDescription"` // Type description of the enumeration
+	Members         []Node[NodeType] `json:"members"`         // Members of the enumeration
 }
 
 // NewEnumDefinition creates a new EnumDefinition instance.
@@ -126,7 +126,7 @@ func (e *EnumDefinition) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if err := json.Unmarshal(tempMap["node_type"], &e.NodeType); err != nil {
+	if err := json.Unmarshal(tempMap["nodeType"], &e.NodeType); err != nil {
 		return err
 	}
 
@@ -134,11 +134,11 @@ func (e *EnumDefinition) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if err := json.Unmarshal(tempMap["canonical_name"], &e.CanonicalName); err != nil {
+	if err := json.Unmarshal(tempMap["canonicalName"], &e.CanonicalName); err != nil {
 		return err
 	}
 
-	if err := json.Unmarshal(tempMap["type_description"], &e.TypeDescription); err != nil {
+	if err := json.Unmarshal(tempMap["typeDescription"], &e.TypeDescription); err != nil {
 		return err
 	}
 
@@ -146,7 +146,7 @@ func (e *EnumDefinition) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	if err := json.Unmarshal(tempMap["name_location"], &e.NameLocation); err != nil {
+	if err := json.Unmarshal(tempMap["nameLocation"], &e.NameLocation); err != nil {
 		return err
 	}
 
@@ -162,7 +162,7 @@ func (e *EnumDefinition) UnmarshalJSON(data []byte) error {
 		}
 
 		var tempMemberType ast_pb.NodeType
-		if err := json.Unmarshal(tempMemberMap["node_type"], &tempMemberType); err != nil {
+		if err := json.Unmarshal(tempMemberMap["nodeType"], &tempMemberType); err != nil {
 			return err
 		}
 

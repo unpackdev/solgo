@@ -11,16 +11,16 @@ import (
 // StateVariable represents a state variable in the Intermediate Representation (IR) of Solidity contracts' Abstract Syntax Tree (AST).
 type StateVariable struct {
 	Unit            *ast.StateVariableDeclaration `json:"ast"`
-	Id              int64                         `json:"id"`               // Id is the unique identifier of the state variable.
-	ContractId      int64                         `json:"contract_id"`      // ContractId is the unique identifier of the contract containing the state variable.
-	Name            string                        `json:"name"`             // Name is the name of the state variable.
-	NodeType        ast_pb.NodeType               `json:"node_type"`        // NodeType is the type of the state variable node in the AST.
-	Visibility      ast_pb.Visibility             `json:"visibility"`       // Visibility represents the visibility of the state variable (e.g., public, private, internal, external).
-	Constant        bool                          `json:"is_constant"`      // Constant is true if the state variable is constant, false otherwise.
-	StorageLocation ast_pb.StorageLocation        `json:"storage_location"` // StorageLocation represents the storage location of the state variable.
-	StateMutability ast_pb.Mutability             `json:"state_mutability"` // StateMutability represents the mutability of the state variable (e.g., pure, view, nonpayable, payable).
-	Type            string                        `json:"type"`             // Type is the type of the state variable.
-	TypeDescription *ast.TypeDescription          `json:"type_description"` // TypeDescription is the description of the type of the state variable.
+	Id              int64                         `json:"id"`              // Id is the unique identifier of the state variable.
+	ContractId      int64                         `json:"contractId"`      // ContractId is the unique identifier of the contract containing the state variable.
+	Name            string                        `json:"name"`            // Name is the name of the state variable.
+	NodeType        ast_pb.NodeType               `json:"nodeType"`        // NodeType is the type of the state variable node in the AST.
+	Visibility      ast_pb.Visibility             `json:"visibility"`      // Visibility represents the visibility of the state variable (e.g., public, private, internal, external).
+	Constant        bool                          `json:"isConstant"`      // Constant is true if the state variable is constant, false otherwise.
+	StorageLocation ast_pb.StorageLocation        `json:"storageLocation"` // StorageLocation represents the storage location of the state variable.
+	StateMutability ast_pb.Mutability             `json:"stateMutability"` // StateMutability represents the mutability of the state variable (e.g., pure, view, nonpayable, payable).
+	Type            string                        `json:"type"`            // Type is the type of the state variable.
+	TypeDescription *ast.TypeDescription          `json:"typeDescription"` // TypeDescription is the description of the type of the state variable.
 }
 
 // GetAST returns the underlying AST node of the state variable.

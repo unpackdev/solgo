@@ -9,9 +9,9 @@ import (
 type YulLeaveStatement struct {
 	*ASTBuilder // Embedded ASTBuilder for utility functions.
 
-	Id       int64           `json:"id"`        // Unique identifier for the statement.
-	NodeType ast_pb.NodeType `json:"node_type"` // Type of the node in the AST.
-	Src      SrcNode         `json:"src"`       // Source code location information.
+	Id       int64           `json:"id"`       // Unique identifier for the statement.
+	NodeType ast_pb.NodeType `json:"nodeType"` // Type of the node in the AST.
+	Src      SrcNode         `json:"src"`      // Source code location information.
 }
 
 // NewYulLeaveStatement creates and initializes a new YulLeaveStatement.

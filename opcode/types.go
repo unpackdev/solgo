@@ -671,6 +671,23 @@ var stringToOp = map[string]OpCode{
 	"SELFDESTRUCT":   SELFDESTRUCT,
 }
 
+// Control flow opcodes
+var controlFlowOpcodes = []OpCode{
+	JUMP,
+	JUMPI,
+	JUMPDEST,
+	RETURN,
+	REVERT,
+	INVALID,
+	SELFDESTRUCT,
+	CALL,
+	CALLCODE,
+	DELEGATECALL,
+	CREATE,
+	CREATE2,
+	STOP,
+}
+
 // StringToOp finds the opcode whose name is stored in `str`.
 func StringToOp(str string) OpCode {
 	return stringToOp[str]

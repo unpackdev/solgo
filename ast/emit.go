@@ -13,7 +13,7 @@ type Emit struct {
 	*ASTBuilder
 
 	Id         int64            `json:"id"`         // Unique identifier of the emit statement node.
-	NodeType   ast_pb.NodeType  `json:"node_type"`  // Type of the node.
+	NodeType   ast_pb.NodeType  `json:"nodeType"`   // Type of the node.
 	Src        SrcNode          `json:"src"`        // Source location information.
 	Arguments  []Node[NodeType] `json:"arguments"`  // List of arguments for the emit statement.
 	Expression Node[NodeType]   `json:"expression"` // Expression node associated with the emit statement.
@@ -87,7 +87,7 @@ func (e *Emit) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &e.NodeType); err != nil {
 			return err
 		}
@@ -112,7 +112,7 @@ func (e *Emit) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -132,7 +132,7 @@ func (e *Emit) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

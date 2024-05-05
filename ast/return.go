@@ -13,9 +13,9 @@ type ReturnStatement struct {
 	*ASTBuilder
 
 	Id                       int64           `json:"id"`
-	NodeType                 ast_pb.NodeType `json:"node_type"`
+	NodeType                 ast_pb.NodeType `json:"nodeType"`
 	Src                      SrcNode         `json:"src"`
-	FunctionReturnParameters int64           `json:"function_return_parameters"`
+	FunctionReturnParameters int64           `json:"functionReturnParameters"`
 	Expression               Node[NodeType]  `json:"expression"`
 }
 
@@ -87,7 +87,7 @@ func (r *ReturnStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &r.NodeType); err != nil {
 			return err
 		}
@@ -99,7 +99,7 @@ func (r *ReturnStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if functionReturnParameters, ok := tempMap["function_return_parameters"]; ok {
+	if functionReturnParameters, ok := tempMap["functionReturnParameters"]; ok {
 		if err := json.Unmarshal(functionReturnParameters, &r.FunctionReturnParameters); err != nil {
 			return err
 		}
@@ -113,7 +113,7 @@ func (r *ReturnStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

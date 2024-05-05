@@ -10,14 +10,14 @@ import (
 type Function struct {
 	Unit                    *ast.Function     `json:"ast"`
 	Id                      int64             `json:"id"`
-	NodeType                ast_pb.NodeType   `json:"node_type"`
+	NodeType                ast_pb.NodeType   `json:"nodeType"`
 	Kind                    ast_pb.NodeType   `json:"kind"`
 	Name                    string            `json:"name"`
 	Implemented             bool              `json:"implemented"`
 	Visibility              ast_pb.Visibility `json:"visibility"`
-	StateMutability         ast_pb.Mutability `json:"state_mutability"`
+	StateMutability         ast_pb.Mutability `json:"stateMutability"`
 	Virtual                 bool              `json:"virtual"`
-	ReferencedDeclarationId int64             `json:"referenced_declaration_id"`
+	ReferencedDeclarationId int64             `json:"referencedDeclarationId"`
 	Signature               string            `json:"signature"`
 	Modifiers               []*Modifier       `json:"modifiers"`
 	Overrides               []*Override       `json:"overrides"`

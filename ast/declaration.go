@@ -10,15 +10,15 @@ type Declaration struct {
 	*ASTBuilder
 
 	Id              int64                  `json:"id"`
-	StateMutability ast_pb.Mutability      `json:"state_mutability"`
+	StateMutability ast_pb.Mutability      `json:"stateMutability"`
 	Name            string                 `json:"name"`
-	NodeType        ast_pb.NodeType        `json:"node_type"`
+	NodeType        ast_pb.NodeType        `json:"nodeType"`
 	Scope           int64                  `json:"scope"`
 	Src             SrcNode                `json:"src"`
-	NameLocation    SrcNode                `json:"name_location"`
-	IsStateVariable bool                   `json:"is_state_variable"`
-	StorageLocation ast_pb.StorageLocation `json:"storage_location"`
-	TypeName        *TypeName              `json:"type_name"`
+	NameLocation    SrcNode                `json:"nameLocation"`
+	IsStateVariable bool                   `json:"isStateVariable"`
+	StorageLocation ast_pb.StorageLocation `json:"storageLocation"`
+	TypeName        *TypeName              `json:"typeName"`
 	Visibility      ast_pb.Visibility      `json:"visibility"`
 }
 

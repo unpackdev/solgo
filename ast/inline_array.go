@@ -14,13 +14,13 @@ import (
 type InlineArray struct {
 	*ASTBuilder
 
-	Id               int64              `json:"id"`                // Unique identifier for the InlineArray node.
-	NodeType         ast_pb.NodeType    `json:"node_type"`         // Type of the AST node.
-	Src              SrcNode            `json:"src"`               // Source location information.
-	TypeDescriptions []*TypeDescription `json:"type_descriptions"` // Type descriptions of the InlineArray node.
-	Expressions      []Node[NodeType]   `json:"expressions"`       // List of expressions in the InlineArray node.
-	Empty            bool               `json:"empty"`             // Indicates whether the InlineArray node is empty.
-	TypeDescription  *TypeDescription   `json:"type_description"`  // Type description of the InlineArray node.
+	Id               int64              `json:"id"`               // Unique identifier for the InlineArray node.
+	NodeType         ast_pb.NodeType    `json:"nodeType"`         // Type of the AST node.
+	Src              SrcNode            `json:"src"`              // Source location information.
+	TypeDescriptions []*TypeDescription `json:"typeDescriptions"` // Type descriptions of the InlineArray node.
+	Expressions      []Node[NodeType]   `json:"expressions"`      // List of expressions in the InlineArray node.
+	Empty            bool               `json:"empty"`            // Indicates whether the InlineArray node is empty.
+	TypeDescription  *TypeDescription   `json:"typeDescription"`  // Type description of the InlineArray node.
 }
 
 // NewInlineArrayExpression creates a new InlineArray node with a given ASTBuilder.
@@ -89,7 +89,7 @@ func (f *InlineArray) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -101,7 +101,7 @@ func (f *InlineArray) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+	if typeDescriptions, ok := tempMap["typeDescriptions"]; ok {
 		if err := json.Unmarshal(typeDescriptions, &f.TypeDescriptions); err != nil {
 			return err
 		}
@@ -113,7 +113,7 @@ func (f *InlineArray) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &f.TypeDescription); err != nil {
 			return err
 		}
@@ -132,7 +132,7 @@ func (f *InlineArray) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNode["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNode["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
