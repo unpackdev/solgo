@@ -16,13 +16,13 @@ type YulFunctionCallStatement struct {
 	Id int64 `json:"id"`
 
 	// NodeType is the type of the YUL function call statement node.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// Src is the source location information of the YUL function call statement.
 	Src SrcNode `json:"src"`
 
 	// FunctionName is the name of the function being called.
-	FunctionName *YulIdentifier `json:"function_name"`
+	FunctionName *YulIdentifier `json:"functionName"`
 
 	// Arguments is a list of argument nodes for the function call.
 	Arguments []Node[NodeType] `json:"arguments"`
@@ -97,7 +97,7 @@ func (y *YulFunctionCallStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &y.NodeType); err != nil {
 			return err
 		}
@@ -109,7 +109,7 @@ func (y *YulFunctionCallStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if functionName, ok := tempMap["function_name"]; ok {
+	if functionName, ok := tempMap["functionName"]; ok {
 		if err := json.Unmarshal(functionName, &y.FunctionName); err != nil {
 			return err
 		}
@@ -128,7 +128,7 @@ func (y *YulFunctionCallStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

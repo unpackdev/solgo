@@ -12,19 +12,21 @@ import (
 
 // Decompiler is responsible for decompiling Ethereum bytecode into a set of instructions.
 type Decompiler struct {
-	ctx          context.Context // The context for the decompiler.
-	bytecode     []byte          // The bytecode to be decompiled.
-	bytecodeSize uint64          // The size of the bytecode.
-	instructions []Instruction   // The resulting set of instructions after decompilation.
+	ctx                 context.Context // The context for the decompiler.
+	bytecode            []byte          // The bytecode to be decompiled.
+	bytecodeSize        uint64          // The size of the bytecode.
+	instructions        []Instruction   // The resulting set of instructions after decompilation.
+	functionEntryPoints []int           // Slice to store function entry points.
 }
 
 // NewDecompiler initializes a new Decompiler with the given bytecode.
 func NewDecompiler(ctx context.Context, b []byte) (*Decompiler, error) {
 	return &Decompiler{
-		ctx:          ctx,
-		bytecode:     b,
-		bytecodeSize: uint64(len(b)),
-		instructions: []Instruction{},
+		ctx:                 ctx,
+		bytecode:            b,
+		bytecodeSize:        uint64(len(b)),
+		instructions:        []Instruction{},
+		functionEntryPoints: make([]int, 0),
 	}, nil
 }
 
@@ -38,7 +40,7 @@ func (d *Decompiler) GetBytecodeSize() uint64 {
 	return d.bytecodeSize
 }
 
-// Decompile processes the bytecode and populates the instructions slice.
+// Decompile processes the bytecode, populates the instructions slice, and identifies function entry points.
 func (d *Decompiler) Decompile() error {
 	if d.bytecodeSize < 1 {
 		return ErrEmptyBytecode
@@ -64,6 +66,12 @@ func (d *Decompiler) Decompile() error {
 		}
 
 		d.instructions = append(d.instructions, instruction)
+
+		// Check if the current instruction is a function entry point (JUMPDEST)
+		if op == JUMPDEST {
+			d.functionEntryPoints = append(d.functionEntryPoints, offset)
+		}
+
 		offset++
 	}
 	return nil
@@ -135,6 +143,32 @@ func (d *Decompiler) String() string {
 	}
 
 	return buf.String()
+}
+
+// StringArray returns a string representation of the decompiled instructions as an array of strings.
+func (d *Decompiler) StringArray() []string {
+	var result []string
+
+	for _, instr := range d.instructions {
+		offset := fmt.Sprintf("0x%04x", instr.Offset)
+		opCode := instr.OpCode.String()
+
+		var strBuilder strings.Builder
+		strBuilder.WriteString(offset + " " + opCode)
+
+		if len(instr.Args) > 0 {
+			strBuilder.WriteString(" " + common.Bytes2Hex(instr.Args))
+		}
+
+		desc := instr.OpCode.GetDescription()
+		if desc != "" {
+			strBuilder.WriteString(" // " + desc)
+		}
+
+		result = append(result, strBuilder.String())
+	}
+
+	return result
 }
 
 // GetInstructionTreeFormatted returns a formatted string representation of the opcode execution tree

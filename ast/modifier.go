@@ -11,15 +11,15 @@ import (
 type ModifierDefinition struct {
 	*ASTBuilder
 
-	Id           int64             `json:"id"`            // Unique identifier of the modifier definition node.
-	Name         string            `json:"name"`          // Name of the modifier.
-	NodeType     ast_pb.NodeType   `json:"node_type"`     // Type of the node.
-	Src          SrcNode           `json:"src"`           // Source location information.
-	NameLocation SrcNode           `json:"name_location"` // Source location information of the name.
-	Visibility   ast_pb.Visibility `json:"visibility"`    // Visibility of the modifier.
-	Virtual      bool              `json:"virtual"`       // Indicates if the modifier is virtual.
-	Parameters   *ParameterList    `json:"parameters"`    // List of parameters for the modifier.
-	Body         *BodyNode         `json:"body"`          // Body node of the modifier.
+	Id           int64             `json:"id"`           // Unique identifier of the modifier definition node.
+	Name         string            `json:"name"`         // Name of the modifier.
+	NodeType     ast_pb.NodeType   `json:"nodeType"`     // Type of the node.
+	Src          SrcNode           `json:"src"`          // Source location information.
+	NameLocation SrcNode           `json:"nameLocation"` // Source location information of the name.
+	Visibility   ast_pb.Visibility `json:"visibility"`   // Visibility of the modifier.
+	Virtual      bool              `json:"virtual"`      // Indicates if the modifier is virtual.
+	Parameters   *ParameterList    `json:"parameters"`   // List of parameters for the modifier.
+	Body         *BodyNode         `json:"body"`         // Body node of the modifier.
 }
 
 // NewModifierDefinition creates a new instance of ModifierDefinition with the provided ASTBuilder.
@@ -113,7 +113,7 @@ func (m *ModifierDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &m.NodeType); err != nil {
 			return err
 		}
@@ -125,7 +125,7 @@ func (m *ModifierDefinition) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &m.NameLocation); err != nil {
 			return err
 		}

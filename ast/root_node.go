@@ -13,10 +13,10 @@ type RootNode struct {
 	Id int64 `json:"id"`
 
 	// NodeType is the type of the AST node.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// EntrySourceUnit is the entry source unit of the root node.
-	EntrySourceUnit int64 `json:"entry_source_unit"`
+	EntrySourceUnit int64 `json:"entrySourceUnit"`
 
 	// Globals is the list of global nodes.
 	Globals []Node[NodeType] `json:"globals"`
@@ -147,13 +147,13 @@ func (r *RootNode) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &r.NodeType); err != nil {
 			return err
 		}
 	}
 
-	if esu, ok := tempMap["entry_source_unit"]; ok {
+	if esu, ok := tempMap["entrySourceUnit"]; ok {
 		if err := json.Unmarshal(esu, &r.EntrySourceUnit); err != nil {
 			return err
 		}
@@ -174,7 +174,7 @@ func (r *RootNode) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempGlobalType ast_pb.NodeType
-			if err := json.Unmarshal(global["node_type"], &tempGlobalType); err != nil {
+			if err := json.Unmarshal(global["nodeType"], &tempGlobalType); err != nil {
 				return err
 			}
 

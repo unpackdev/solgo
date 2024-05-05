@@ -19,25 +19,25 @@ type Function struct {
 	// Core properties of a function node.
 	Id                    int64                 `json:"id"`
 	Name                  string                `json:"name"`
-	NodeType              ast_pb.NodeType       `json:"node_type"`
+	NodeType              ast_pb.NodeType       `json:"nodeType"`
 	Kind                  ast_pb.NodeType       `json:"kind"`
 	Src                   SrcNode               `json:"src"`
-	NameLocation          SrcNode               `json:"name_location"`
+	NameLocation          SrcNode               `json:"nameLocation"`
 	Body                  *BodyNode             `json:"body"`
 	Implemented           bool                  `json:"implemented"`
 	Visibility            ast_pb.Visibility     `json:"visibility"`
-	StateMutability       ast_pb.Mutability     `json:"state_mutability"`
+	StateMutability       ast_pb.Mutability     `json:"stateMutability"`
 	Virtual               bool                  `json:"virtual"`
 	Modifiers             []*ModifierInvocation `json:"modifiers"`
 	Overrides             []*OverrideSpecifier  `json:"overrides"`
 	Parameters            *ParameterList        `json:"parameters"`
-	ReturnParameters      *ParameterList        `json:"return_parameters"`
-	SignatureRaw          string                `json:"signature_raw"`
+	ReturnParameters      *ParameterList        `json:"returnParameters"`
+	SignatureRaw          string                `json:"signatureRaw"`
 	SignatureBytes        []byte                `json:"-"`
 	Signature             string                `json:"signature"`
 	Scope                 int64                 `json:"scope"`
-	ReferencedDeclaration int64                 `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription      `json:"type_description"`
+	ReferencedDeclaration int64                 `json:"referencedDeclaration,omitempty"`
+	TypeDescription       *TypeDescription      `json:"typeDescription"`
 	Text                  string                `json:"text,omitempty"`
 }
 
@@ -226,7 +226,7 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -244,7 +244,7 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &f.NameLocation); err != nil {
 			return err
 		}
@@ -262,7 +262,7 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if sm, ok := tempMap["state_mutability"]; ok {
+	if sm, ok := tempMap["stateMutability"]; ok {
 		if err := json.Unmarshal(sm, &f.StateMutability); err != nil {
 			return err
 		}
@@ -292,7 +292,7 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if retParams, ok := tempMap["return_parameters"]; ok {
+	if retParams, ok := tempMap["returnParameters"]; ok {
 		if err := json.Unmarshal(retParams, &f.ReturnParameters); err != nil {
 			return err
 		}
@@ -304,25 +304,25 @@ func (f *Function) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if refD, ok := tempMap["referenced_declaration"]; ok {
+	if refD, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(refD, &f.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if td, ok := tempMap["type_description"]; ok {
+	if td, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(td, &f.TypeDescription); err != nil {
 			return err
 		}
 	}
 
-	if sigRaw, ok := tempMap["signature_raw"]; ok {
+	if sigRaw, ok := tempMap["signatureRaw"]; ok {
 		if err := json.Unmarshal(sigRaw, &f.SignatureRaw); err != nil {
 			return err
 		}
 	}
 
-	if sigBytes, ok := tempMap["signature_bytes"]; ok {
+	if sigBytes, ok := tempMap["signatureBytes"]; ok {
 		if err := json.Unmarshal(sigBytes, &f.SignatureBytes); err != nil {
 			return err
 		}

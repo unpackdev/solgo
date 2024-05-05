@@ -14,16 +14,16 @@ import (
 type Assignment struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`                               // Unique identifier for the Assignment node.
-	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the AST node.
-	Src                   SrcNode          `json:"src"`                              // Source location information.
-	Expression            Node[NodeType]   `json:"expression,omitempty"`             // Expression for the assignment (if used).
-	Operator              ast_pb.Operator  `json:"operator,omitempty"`               // Operator used in the assignment.
-	LeftExpression        Node[NodeType]   `json:"left_expression,omitempty"`        // Left-hand side expression.
-	RightExpression       Node[NodeType]   `json:"right_expression,omitempty"`       // Right-hand side expression.
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration identifier (if used).
-	TypeDescription       *TypeDescription `json:"type_description,omitempty"`       // Type description associated with the Assignment node.
-	Text                  string           `json:"text,omitempty"`                   // Text of the Assignment node.
+	Id                    int64            `json:"id"`                              // Unique identifier for the Assignment node.
+	NodeType              ast_pb.NodeType  `json:"nodeType"`                        // Type of the AST node.
+	Src                   SrcNode          `json:"src"`                             // Source location information.
+	Expression            Node[NodeType]   `json:"expression,omitempty"`            // Expression for the assignment (if used).
+	Operator              ast_pb.Operator  `json:"operator,omitempty"`              // Operator used in the assignment.
+	LeftExpression        Node[NodeType]   `json:"leftExpression,omitempty"`        // Left-hand side expression.
+	RightExpression       Node[NodeType]   `json:"rightExpression,omitempty"`       // Right-hand side expression.
+	ReferencedDeclaration int64            `json:"referencedDeclaration,omitempty"` // Referenced declaration identifier (if used).
+	TypeDescription       *TypeDescription `json:"typeDescription,omitempty"`       // Type description associated with the Assignment node.
+	Text                  string           `json:"text,omitempty"`                  // Text of the Assignment node.
 }
 
 // NewAssignment creates a new Assignment node with a given ASTBuilder.
@@ -131,7 +131,7 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &a.NodeType); err != nil {
 			return err
 		}
@@ -143,13 +143,13 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &a.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &a.TypeDescription); err != nil {
 			return err
 		}
@@ -161,7 +161,7 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if leftExpression, ok := tempMap["left_expression"]; ok {
+	if leftExpression, ok := tempMap["leftExpression"]; ok {
 		if err := json.Unmarshal(leftExpression, &a.LeftExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(leftExpression, &tempNodeMap); err != nil {
@@ -169,7 +169,7 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -181,7 +181,7 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if rightExpression, ok := tempMap["right_expression"]; ok {
+	if rightExpression, ok := tempMap["rightExpression"]; ok {
 		if err := json.Unmarshal(rightExpression, &a.RightExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(rightExpression, &tempNodeMap); err != nil {
@@ -189,7 +189,7 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -209,7 +209,7 @@ func (a *Assignment) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

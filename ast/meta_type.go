@@ -9,12 +9,12 @@ import (
 type MetaType struct {
 	*ASTBuilder
 
-	Id                    int64            `json:"id"`                               // Unique identifier of the meta-type node.
-	NodeType              ast_pb.NodeType  `json:"node_type"`                        // Type of the node.
-	Name                  string           `json:"name"`                             // Name of the meta-type.
-	Src                   SrcNode          `json:"src"`                              // Source location information.
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"` // Referenced declaration identifier.
-	TypeDescription       *TypeDescription `json:"type_description"`                 // Type description of the meta-type.
+	Id                    int64            `json:"id"`                              // Unique identifier of the meta-type node.
+	NodeType              ast_pb.NodeType  `json:"nodeType"`                        // Type of the node.
+	Name                  string           `json:"name"`                            // Name of the meta-type.
+	Src                   SrcNode          `json:"src"`                             // Source location information.
+	ReferencedDeclaration int64            `json:"referencedDeclaration,omitempty"` // Referenced declaration identifier.
+	TypeDescription       *TypeDescription `json:"typeDescription"`                 // Type description of the meta-type.
 }
 
 // NewMetaTypeExpression creates a new instance of MetaType with the provided ASTBuilder.

@@ -13,18 +13,18 @@ type MemberAccessExpression struct {
 	*ASTBuilder
 
 	Id                    int64              `json:"id"`
-	Constant              bool               `json:"is_constant"`
-	LValue                bool               `json:"is_l_value"`
-	Pure                  bool               `json:"is_pure"`
-	LValueRequested       bool               `json:"l_value_requested"`
-	NodeType              ast_pb.NodeType    `json:"node_type"`
+	Constant              bool               `json:"isConstant"`
+	LValue                bool               `json:"isLValue"`
+	Pure                  bool               `json:"isPure"`
+	LValueRequested       bool               `json:"lValueRequested"`
+	NodeType              ast_pb.NodeType    `json:"nodeType"`
 	Src                   SrcNode            `json:"src"`
-	MemberLocation        SrcNode            `json:"member_location"`
+	MemberLocation        SrcNode            `json:"memberLocation"`
 	Expression            Node[NodeType]     `json:"expression"`
-	MemberName            string             `json:"member_name"`
-	ArgumentTypes         []*TypeDescription `json:"argument_types"`
-	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription   `json:"type_description"`
+	MemberName            string             `json:"memberName"`
+	ArgumentTypes         []*TypeDescription `json:"argumentTypes"`
+	ReferencedDeclaration int64              `json:"referencedDeclaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"typeDescription"`
 	Text                  string             `json:"text"`
 }
 
@@ -136,7 +136,7 @@ func (m *MemberAccessExpression) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &m.NodeType); err != nil {
 			return err
 		}
@@ -148,55 +148,55 @@ func (m *MemberAccessExpression) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if memberLocation, ok := tempMap["member_location"]; ok {
+	if memberLocation, ok := tempMap["memberLocation"]; ok {
 		if err := json.Unmarshal(memberLocation, &m.MemberLocation); err != nil {
 			return err
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &m.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &m.TypeDescription); err != nil {
 			return err
 		}
 	}
 
-	if memberName, ok := tempMap["member_name"]; ok {
+	if memberName, ok := tempMap["memberName"]; ok {
 		if err := json.Unmarshal(memberName, &m.MemberName); err != nil {
 			return err
 		}
 	}
 
-	if argumentTypes, ok := tempMap["argument_types"]; ok {
+	if argumentTypes, ok := tempMap["argumentTypes"]; ok {
 		if err := json.Unmarshal(argumentTypes, &m.ArgumentTypes); err != nil {
 			return err
 		}
 	}
 
-	if constant, ok := tempMap["is_constant"]; ok {
+	if constant, ok := tempMap["isConstant"]; ok {
 		if err := json.Unmarshal(constant, &m.Constant); err != nil {
 			return err
 		}
 	}
 
-	if lValue, ok := tempMap["is_l_value"]; ok {
+	if lValue, ok := tempMap["isLValue"]; ok {
 		if err := json.Unmarshal(lValue, &m.LValue); err != nil {
 			return err
 		}
 	}
 
-	if pure, ok := tempMap["is_pure"]; ok {
+	if pure, ok := tempMap["isPure"]; ok {
 		if err := json.Unmarshal(pure, &m.Pure); err != nil {
 			return err
 		}
 	}
 
-	if lValueRequested, ok := tempMap["l_value_requested"]; ok {
+	if lValueRequested, ok := tempMap["lValueRequested"]; ok {
 		if err := json.Unmarshal(lValueRequested, &m.LValueRequested); err != nil {
 			return err
 		}
@@ -210,7 +210,7 @@ func (m *MemberAccessExpression) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

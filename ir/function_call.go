@@ -15,16 +15,16 @@ type FunctionCall struct {
 	referencedUnit          *Function                 `json:"-"`
 	referencedContract      ContractNode              `json:"-"`
 	Id                      int64                     `json:"id"`
-	NodeType                ast_pb.NodeType           `json:"node_type"`
+	NodeType                ast_pb.NodeType           `json:"nodeType"`
 	Kind                    ast_pb.NodeType           `json:"kind"`
 	Name                    string                    `json:"name"`
-	ArgumentTypes           []*ast_pb.TypeDescription `json:"argument_types"`
+	ArgumentTypes           []*ast_pb.TypeDescription `json:"argumentTypes"`
 	External                bool                      `json:"external"`
-	ExternalContractId      int64                     `json:"external_contract_id"`
-	ExternalContractName    string                    `json:"external_contract_name,omitempty"`
-	ReferenceStatementId    int64                     `json:"reference_statement_id"`
-	ReferencedDeclarationId int64                     `json:"referenced_declaration_id"`
-	TypeDescription         *ast_pb.TypeDescription   `json:"type_description"`
+	ExternalContractId      int64                     `json:"externalContractId"`
+	ExternalContractName    string                    `json:"externalContractName,omitempty"`
+	ReferenceStatementId    int64                     `json:"referenceStatementId"`
+	ReferencedDeclarationId int64                     `json:"referencedDeclarationId"`
+	TypeDescription         *ast_pb.TypeDescription   `json:"typeDescription"`
 }
 
 // GetAST returns the AST (Abstract Syntax Tree) for the function call statement.

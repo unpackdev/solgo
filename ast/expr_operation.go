@@ -12,12 +12,12 @@ import (
 type ExprOperation struct {
 	*ASTBuilder
 
-	Id               int64              `json:"id"`                // Unique identifier for the expression operation
-	NodeType         ast_pb.NodeType    `json:"node_type"`         // Type of the node (EXPRESSION_OPERATION for expression operation)
-	Src              SrcNode            `json:"src"`               // Source information about the expression operation
-	LeftExpression   Node[NodeType]     `json:"left_expression"`   // Left expression in the operation
-	RightExpression  Node[NodeType]     `json:"right_expression"`  // Right expression in the operation
-	TypeDescriptions []*TypeDescription `json:"type_descriptions"` // Type descriptions of the expressions
+	Id               int64              `json:"id"`               // Unique identifier for the expression operation
+	NodeType         ast_pb.NodeType    `json:"nodeType"`         // Type of the node (EXPRESSION_OPERATION for expression operation)
+	Src              SrcNode            `json:"src"`              // Source information about the expression operation
+	LeftExpression   Node[NodeType]     `json:"leftExpression"`   // Left expression in the operation
+	RightExpression  Node[NodeType]     `json:"rightExpression"`  // Right expression in the operation
+	TypeDescriptions []*TypeDescription `json:"typeDescriptions"` // Type descriptions of the expressions
 }
 
 // NewExprOperationExpression creates a new ExprOperation instance.
@@ -82,7 +82,7 @@ func (f *ExprOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -94,7 +94,7 @@ func (f *ExprOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if leftExpression, ok := tempMap["left_expression"]; ok {
+	if leftExpression, ok := tempMap["leftExpression"]; ok {
 		if err := json.Unmarshal(leftExpression, &f.LeftExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(leftExpression, &tempNodeMap); err != nil {
@@ -102,7 +102,7 @@ func (f *ExprOperation) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -114,7 +114,7 @@ func (f *ExprOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if rightExpression, ok := tempMap["right_expression"]; ok {
+	if rightExpression, ok := tempMap["rightExpression"]; ok {
 		if err := json.Unmarshal(rightExpression, &f.RightExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(rightExpression, &tempNodeMap); err != nil {
@@ -122,7 +122,7 @@ func (f *ExprOperation) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -134,7 +134,7 @@ func (f *ExprOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+	if typeDescriptions, ok := tempMap["typeDescriptions"]; ok {
 		if err := json.Unmarshal(typeDescriptions, &f.TypeDescriptions); err != nil {
 			return err
 		}

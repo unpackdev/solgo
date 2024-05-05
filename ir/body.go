@@ -32,7 +32,7 @@ type Expression interface {
 type Body struct {
 	Unit       *ast.BodyNode   `json:"ast"` // Original AST node reference
 	Id         int64           `json:"id"`
-	NodeType   ast_pb.NodeType `json:"node_type"`
+	NodeType   ast_pb.NodeType `json:"nodeType"`
 	Kind       ast_pb.NodeType `json:"kind"`
 	Statements []Statement     `json:"statements"`
 }

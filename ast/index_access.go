@@ -15,14 +15,14 @@ import (
 type IndexAccess struct {
 	*ASTBuilder
 
-	Id                    int64              `json:"id"`                               // Unique identifier for the IndexAccess node.
-	NodeType              ast_pb.NodeType    `json:"node_type"`                        // Type of the AST node.
-	Src                   SrcNode            `json:"src"`                              // Source location information.
-	IndexExpression       Node[NodeType]     `json:"index_expression"`                 // Index expression.
-	BaseExpression        Node[NodeType]     `json:"base_expression"`                  // Base expression.
-	TypeDescriptions      []*TypeDescription `json:"type_descriptions"`                // Type descriptions.
-	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"` // Referenced declaration.
-	TypeDescription       *TypeDescription   `json:"type_description"`                 // Type description.
+	Id                    int64              `json:"id"`                              // Unique identifier for the IndexAccess node.
+	NodeType              ast_pb.NodeType    `json:"nodeType"`                        // Type of the AST node.
+	Src                   SrcNode            `json:"src"`                             // Source location information.
+	IndexExpression       Node[NodeType]     `json:"indexExpression"`                 // Index expression.
+	BaseExpression        Node[NodeType]     `json:"baseExpression"`                  // Base expression.
+	TypeDescriptions      []*TypeDescription `json:"typeDescriptions"`                // Type descriptions.
+	ReferencedDeclaration int64              `json:"referencedDeclaration,omitempty"` // Referenced declaration.
+	TypeDescription       *TypeDescription   `json:"typeDescription"`                 // Type description.
 }
 
 // NewIndexAccess creates a new IndexAccess node with a given ASTBuilder.
@@ -113,7 +113,7 @@ func (i *IndexAccess) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &i.NodeType); err != nil {
 			return err
 		}
@@ -125,7 +125,7 @@ func (i *IndexAccess) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if indexExpression, ok := tempMap["index_expression"]; ok {
+	if indexExpression, ok := tempMap["indexExpression"]; ok {
 		if err := json.Unmarshal(indexExpression, &i.IndexExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(indexExpression, &tempNodeMap); err != nil {
@@ -133,7 +133,7 @@ func (i *IndexAccess) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -145,7 +145,7 @@ func (i *IndexAccess) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if baseExpression, ok := tempMap["base_expression"]; ok {
+	if baseExpression, ok := tempMap["baseExpression"]; ok {
 		if err := json.Unmarshal(baseExpression, &i.BaseExpression); err != nil {
 			var tempNodeMap map[string]json.RawMessage
 			if err := json.Unmarshal(baseExpression, &tempNodeMap); err != nil {
@@ -153,7 +153,7 @@ func (i *IndexAccess) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -165,19 +165,19 @@ func (i *IndexAccess) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+	if typeDescriptions, ok := tempMap["typeDescriptions"]; ok {
 		if err := json.Unmarshal(typeDescriptions, &i.TypeDescriptions); err != nil {
 			return err
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &i.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &i.TypeDescription); err != nil {
 			return err
 		}

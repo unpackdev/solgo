@@ -10,10 +10,10 @@ import (
 
 // ModifierName represents the name of a modifier in the abstract syntax tree.
 type ModifierName struct {
-	Id       int64           `json:"id"`        // Unique identifier of the modifier name node.
-	Name     string          `json:"name"`      // Name of the modifier.
-	NodeType ast_pb.NodeType `json:"node_type"` // Type of the node.
-	Src      SrcNode         `json:"src"`       // Source location information.
+	Id       int64           `json:"id"`       // Unique identifier of the modifier name node.
+	Name     string          `json:"name"`     // Name of the modifier.
+	NodeType ast_pb.NodeType `json:"nodeType"` // Type of the node.
+	Src      SrcNode         `json:"src"`      // Source location information.
 }
 
 // ToProto converts the ModifierName node to its corresponding protobuf representation.
@@ -30,14 +30,14 @@ func (m *ModifierName) ToProto() *ast_pb.ModifierName {
 type ModifierInvocation struct {
 	*ASTBuilder
 
-	Id            int64              `json:"id"`                      // Unique identifier of the modifier invocation node.
-	Name          string             `json:"name"`                    // Name of the modifier invocation.
-	NodeType      ast_pb.NodeType    `json:"node_type"`               // Type of the node.
-	Kind          ast_pb.NodeType    `json:"kind"`                    // Kind of the modifier invocation.
-	Src           SrcNode            `json:"src"`                     // Source location information.
-	ArgumentTypes []*TypeDescription `json:"argument_types"`          // Types of the arguments.
-	Arguments     []Node[NodeType]   `json:"arguments"`               // Argument nodes.
-	ModifierName  *ModifierName      `json:"modifier_name,omitempty"` // Modifier name node.
+	Id            int64              `json:"id"`                     // Unique identifier of the modifier invocation node.
+	Name          string             `json:"name"`                   // Name of the modifier invocation.
+	NodeType      ast_pb.NodeType    `json:"nodeType"`               // Type of the node.
+	Kind          ast_pb.NodeType    `json:"kind"`                   // Kind of the modifier invocation.
+	Src           SrcNode            `json:"src"`                    // Source location information.
+	ArgumentTypes []*TypeDescription `json:"argumentTypes"`          // Types of the arguments.
+	Arguments     []Node[NodeType]   `json:"arguments"`              // Argument nodes.
+	ModifierName  *ModifierName      `json:"modifierName,omitempty"` // Modifier name node.
 }
 
 // NewModifierInvocation creates a new instance of ModifierInvocation with the provided ASTBuilder.
@@ -126,7 +126,7 @@ func (m *ModifierInvocation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &m.NodeType); err != nil {
 			return err
 		}
@@ -138,7 +138,7 @@ func (m *ModifierInvocation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if modifierName, ok := tempMap["modifier_name"]; ok {
+	if modifierName, ok := tempMap["modifierName"]; ok {
 		if err := json.Unmarshal(modifierName, &m.ModifierName); err != nil {
 			return err
 		}
@@ -157,7 +157,7 @@ func (m *ModifierInvocation) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -169,7 +169,7 @@ func (m *ModifierInvocation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if argumentTypes, ok := tempMap["argument_types"]; ok {
+	if argumentTypes, ok := tempMap["argumentTypes"]; ok {
 		if err := json.Unmarshal(argumentTypes, &m.ArgumentTypes); err != nil {
 			return err
 		}

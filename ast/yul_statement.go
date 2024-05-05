@@ -16,7 +16,7 @@ type YulStatement struct {
 	*ASTBuilder
 
 	Id         int64            `json:"id"`         // Unique identifier for the statement node.
-	NodeType   ast_pb.NodeType  `json:"node_type"`  // The type of the node.
+	NodeType   ast_pb.NodeType  `json:"nodeType"`   // The type of the node.
 	Src        SrcNode          `json:"src"`        // Source information about the node.
 	Statements []Node[NodeType] `json:"statements"` // Statements within this Yul statement.
 }
@@ -98,7 +98,7 @@ func (f *YulStatement) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -123,7 +123,7 @@ func (f *YulStatement) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

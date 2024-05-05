@@ -1,9 +1,14 @@
 package utils
 
 import (
+	"fmt"
+	"github.com/pkg/errors"
 	"sync"
 	"time"
 )
+
+// ErrRateLimitExceeded is returned when the rate limit has been exceeded.
+var ErrRateLimitExceeded = errors.New("rate limit exceeded")
 
 // RateLimiter implements a token bucket rate limiting algorithm. It is used to control
 // how frequently events are allowed to happen. The RateLimiter allows a certain number of
@@ -74,6 +79,23 @@ func (rl *RateLimiter) WaitForToken() {
 		// Wait for a signal indicating that tokens are refilled
 		<-signal
 	}
+}
+
+// CheckLimit checks if the rate limit has been reached. If the rate limit has been reached,
+// it returns an error indicating that the rate limit has been exceeded. Otherwise, it returns nil.
+func (rl *RateLimiter) CheckLimit() error {
+	rl.mutex.Lock()
+	defer rl.mutex.Unlock()
+
+	rl.refill()
+
+	fmt.Println("Tokens", rl.tokens)
+
+	if rl.tokens <= 0 {
+		return ErrRateLimitExceeded
+	}
+
+	return nil
 }
 
 // refill is a helper method that replenishes the tokens based on the time elapsed

@@ -16,16 +16,16 @@ import (
 // SourceUnit represents a source unit in the abstract syntax tree.
 // It includes various attributes like id, license, exported symbols, absolute path, name, node type, nodes, and source node.
 type SourceUnit[T NodeType] struct {
-	Id              int64            `json:"id"`               // Id is the unique identifier of the source unit.
-	Contract        Node[NodeType]   `json:"-"`                // Contract is the contract associated with the source unit.
-	BaseContracts   []*BaseContract  `json:"base_contracts"`   // BaseContracts are the base contracts of the source unit.
-	License         string           `json:"license"`          // License is the license of the source unit.
-	ExportedSymbols []Symbol         `json:"exported_symbols"` // ExportedSymbols is the list of source units, including its names and node tree ids used by current source unit.
-	AbsolutePath    string           `json:"absolute_path"`    // AbsolutePath is the absolute path of the source unit.
-	Name            string           `json:"name"`             // Name is the name of the source unit. This is going to be one of the following: contract, interface or library name. It's here for convenience.
-	NodeType        ast_pb.NodeType  `json:"node_type"`        // NodeType is the type of the AST node.
-	Nodes           []Node[NodeType] `json:"nodes"`            // Nodes is the list of AST nodes.
-	Src             SrcNode          `json:"src"`              // Src is the source code location.
+	Id              int64            `json:"id"`              // Id is the unique identifier of the source unit.
+	Contract        Node[NodeType]   `json:"-"`               // Contract is the contract associated with the source unit.
+	BaseContracts   []*BaseContract  `json:"baseContracts"`   // BaseContracts are the base contracts of the source unit.
+	License         string           `json:"license"`         // License is the license of the source unit.
+	ExportedSymbols []Symbol         `json:"exportedSymbols"` // ExportedSymbols is the list of source units, including its names and node tree ids used by current source unit.
+	AbsolutePath    string           `json:"absolutePath"`    // AbsolutePath is the absolute path of the source unit.
+	Name            string           `json:"name"`            // Name is the name of the source unit. This is going to be one of the following: contract, interface or library name. It's here for convenience.
+	NodeType        ast_pb.NodeType  `json:"nodeType"`        // NodeType is the type of the AST node.
+	Nodes           []Node[NodeType] `json:"nodes"`           // Nodes is the list of AST nodes.
+	Src             SrcNode          `json:"src"`             // Src is the source code location.
 }
 
 // NewSourceUnit creates a new SourceUnit with the provided ASTBuilder, name, and license.
@@ -218,7 +218,7 @@ func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
 			return err
 		}
@@ -230,7 +230,7 @@ func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if absPath, ok := tempMap["absolute_path"]; ok {
+	if absPath, ok := tempMap["absolutePath"]; ok {
 		if err := json.Unmarshal(absPath, &s.AbsolutePath); err != nil {
 			return err
 		}
@@ -248,13 +248,13 @@ func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if expSym, ok := tempMap["exported_symbols"]; ok {
+	if expSym, ok := tempMap["exportedSymbols"]; ok {
 		if err := json.Unmarshal(expSym, &s.ExportedSymbols); err != nil {
 			return err
 		}
 	}
 
-	if base, ok := tempMap["base_contracts"]; ok {
+	if base, ok := tempMap["baseContracts"]; ok {
 		if err := json.Unmarshal(base, &s.BaseContracts); err != nil {
 			return err
 		}
@@ -273,7 +273,7 @@ func (s *SourceUnit[T]) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

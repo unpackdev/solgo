@@ -11,19 +11,19 @@ import (
 // StateVariableDeclaration represents a state variable declaration in the Solidity abstract syntax tree (AST).
 type StateVariableDeclaration struct {
 	*ASTBuilder                            // Embedding the ASTBuilder for common functionality
-	Id              int64                  `json:"id"`                // Unique identifier for the state variable declaration
-	Name            string                 `json:"name"`              // Name of the state variable
-	Constant        bool                   `json:"is_constant"`       // Indicates if the state variable is constant
-	StateVariable   bool                   `json:"is_state_variable"` // Indicates if the declaration is a state variable
-	NodeType        ast_pb.NodeType        `json:"node_type"`         // Type of the node (VARIABLE_DECLARATION for state variable declaration)
-	Src             SrcNode                `json:"src"`               // Source information about the state variable declaration
-	Scope           int64                  `json:"scope"`             // Scope of the state variable declaration
-	TypeDescription *TypeDescription       `json:"type_description"`  // Type description of the state variable declaration
-	Visibility      ast_pb.Visibility      `json:"visibility"`        // Visibility of the state variable declaration
-	StorageLocation ast_pb.StorageLocation `json:"storage_location"`  // Storage location of the state variable declaration
-	StateMutability ast_pb.Mutability      `json:"mutability"`        // State mutability of the state variable declaration
-	TypeName        *TypeName              `json:"type_name"`         // Type name of the state variable
-	InitialValue    Node[NodeType]         `json:"initial_value"`     // Initial value of the state variable
+	Id              int64                  `json:"id"`              // Unique identifier for the state variable declaration
+	Name            string                 `json:"name"`            // Name of the state variable
+	Constant        bool                   `json:"isConstant"`      // Indicates if the state variable is constant
+	StateVariable   bool                   `json:"isStateVariable"` // Indicates if the declaration is a state variable
+	NodeType        ast_pb.NodeType        `json:"nodeType"`        // Type of the node (VARIABLE_DECLARATION for state variable declaration)
+	Src             SrcNode                `json:"src"`             // Source information about the state variable declaration
+	Scope           int64                  `json:"scope"`           // Scope of the state variable declaration
+	TypeDescription *TypeDescription       `json:"typeDescription"` // Type description of the state variable declaration
+	Visibility      ast_pb.Visibility      `json:"visibility"`      // Visibility of the state variable declaration
+	StorageLocation ast_pb.StorageLocation `json:"storageLocation"` // Storage location of the state variable declaration
+	StateMutability ast_pb.Mutability      `json:"mutability"`      // State mutability of the state variable declaration
+	TypeName        *TypeName              `json:"typeName"`        // Type name of the state variable
+	InitialValue    Node[NodeType]         `json:"initialValue"`    // Initial value of the state variable
 }
 
 // NewStateVariableDeclaration creates a new StateVariableDeclaration instance.

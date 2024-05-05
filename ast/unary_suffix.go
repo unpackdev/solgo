@@ -13,18 +13,18 @@ type UnarySuffix struct {
 	*ASTBuilder
 
 	Id                    int64            `json:"id"`
-	NodeType              ast_pb.NodeType  `json:"node_type"`
+	NodeType              ast_pb.NodeType  `json:"nodeType"`
 	Kind                  ast_pb.NodeType  `json:"kind"`
 	Src                   SrcNode          `json:"src"`
 	Operator              ast_pb.Operator  `json:"operator"`
 	Expression            Node[NodeType]   `json:"expression"`
-	ReferencedDeclaration int64            `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription `json:"type_description"`
+	ReferencedDeclaration int64            `json:"referencedDeclaration,omitempty"`
+	TypeDescription       *TypeDescription `json:"typeDescription"`
 	Prefix                bool             `json:"prefix"`
-	Constant              bool             `json:"is_constant"`
-	LValue                bool             `json:"is_l_value"`
-	Pure                  bool             `json:"is_pure"`
-	LValueRequested       bool             `json:"l_value_requested"`
+	Constant              bool             `json:"isConstant"`
+	LValue                bool             `json:"isLValue"`
+	Pure                  bool             `json:"isPure"`
+	LValueRequested       bool             `json:"lValueRequested"`
 }
 
 // NewUnarySuffixExpression creates a new UnarySuffix instance with the given ASTBuilder.
@@ -126,7 +126,7 @@ func (u *UnarySuffix) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &u.NodeType); err != nil {
 			return err
 		}
@@ -156,37 +156,37 @@ func (u *UnarySuffix) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if constant, ok := tempMap["is_constant"]; ok {
+	if constant, ok := tempMap["isConstant"]; ok {
 		if err := json.Unmarshal(constant, &u.Constant); err != nil {
 			return err
 		}
 	}
 
-	if lValue, ok := tempMap["is_l_value"]; ok {
+	if lValue, ok := tempMap["isLValue"]; ok {
 		if err := json.Unmarshal(lValue, &u.LValue); err != nil {
 			return err
 		}
 	}
 
-	if pure, ok := tempMap["is_pure"]; ok {
+	if pure, ok := tempMap["isPure"]; ok {
 		if err := json.Unmarshal(pure, &u.Pure); err != nil {
 			return err
 		}
 	}
 
-	if lValueRequested, ok := tempMap["l_value_requested"]; ok {
+	if lValueRequested, ok := tempMap["lValueRequested"]; ok {
 		if err := json.Unmarshal(lValueRequested, &u.LValueRequested); err != nil {
 			return err
 		}
 	}
 
-	if referencedDeclaration, ok := tempMap["referenced_declaration"]; ok {
+	if referencedDeclaration, ok := tempMap["referencedDeclaration"]; ok {
 		if err := json.Unmarshal(referencedDeclaration, &u.ReferencedDeclaration); err != nil {
 			return err
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &u.TypeDescription); err != nil {
 			return err
 		}
@@ -200,7 +200,7 @@ func (u *UnarySuffix) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

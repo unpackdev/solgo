@@ -11,11 +11,11 @@ type BaseContract struct {
 	Id int64 `json:"id"`
 	// NodeType is the type of the node.
 	// For a BaseContract, this is always NodeType_BASE_CONTRACT.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	// Src contains source information about the node, such as its line and column numbers in the source file.
 	Src SrcNode `json:"src"`
 	// BaseName is the name of the base contract.
-	BaseName *BaseContractName `json:"base_name"`
+	BaseName *BaseContractName `json:"baseName"`
 }
 
 // GetId returns the unique identifier of the base contract.
@@ -55,15 +55,15 @@ type BaseContractName struct {
 	Id int64 `json:"id"`
 	// NodeType is the type of the node.
 	// For a BaseContractName, this is always NodeType_BASE_CONTRACT_NAME.
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	// Src contains source information about the node, such as its line and column numbers in the source file.
 	Src SrcNode `json:"src"`
 	// Name is the name of the base contract.
 	Name string `json:"name"`
 	// ReferencedDeclaration is the unique identifier of the source unit declaration that this name references.
-	ReferencedDeclaration int64 `json:"referenced_declaration"`
+	ReferencedDeclaration int64 `json:"referencedDeclaration"`
 	// ContractReferencedDeclaration is the unique identifier of the source unit contract declaration that this name references.
-	ContractReferencedDeclaration int64 `json:"contract_referenced_declaration"`
+	ContractReferencedDeclaration int64 `json:"contractReferencedDeclaration"`
 }
 
 // GetId returns the unique identifier of the base contract name.

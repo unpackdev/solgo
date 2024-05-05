@@ -10,12 +10,12 @@ import (
 type Import struct {
 	Unit         *ast.Import     `json:"ast"`
 	Id           int64           `json:"id"`
-	NodeType     ast_pb.NodeType `json:"node_type"`
-	AbsolutePath string          `json:"absolute_path"`
+	NodeType     ast_pb.NodeType `json:"nodeType"`
+	AbsolutePath string          `json:"absolutePath"`
 	File         string          `json:"file"`
-	UnitAlias    string          `json:"unit_alias"`
-	SourceUnitId int64           `json:"source_unit_id"`
-	ContractId   int64           `json:"contract_id"`
+	UnitAlias    string          `json:"unitAlias"`
+	SourceUnitId int64           `json:"sourceUnitId"`
+	ContractId   int64           `json:"contractId"`
 	Contract     *Contract       `json:"contract"`
 }
 

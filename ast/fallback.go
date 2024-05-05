@@ -9,19 +9,19 @@ import (
 // It encapsulates information about the characteristics and properties of a fallback function within a contract.
 type Fallback struct {
 	*ASTBuilder                            // Embedded ASTBuilder for building the AST.
-	Id               int64                 `json:"id"`                // Unique identifier for the Fallback node.
-	NodeType         ast_pb.NodeType       `json:"node_type"`         // Type of the AST node.
-	Kind             ast_pb.NodeType       `json:"kind"`              // Kind of the fallback function.
-	Src              SrcNode               `json:"src"`               // Source location information.
-	Implemented      bool                  `json:"implemented"`       // Indicates whether the function is implemented.
-	Visibility       ast_pb.Visibility     `json:"visibility"`        // Visibility of the fallback function.
-	StateMutability  ast_pb.Mutability     `json:"state_mutability"`  // State mutability of the fallback function.
-	Modifiers        []*ModifierInvocation `json:"modifiers"`         // List of modifier invocations applied to the fallback function.
-	Overrides        []*OverrideSpecifier  `json:"overrides"`         // List of override specifiers for the fallback function.
-	Parameters       *ParameterList        `json:"parameters"`        // List of parameters for the fallback function.
-	ReturnParameters *ParameterList        `json:"return_parameters"` // List of return parameters for the fallback function.
-	Body             *BodyNode             `json:"body"`              // Body of the fallback function.
-	Virtual          bool                  `json:"virtual"`           // Indicates whether the function is virtual.
+	Id               int64                 `json:"id"`               // Unique identifier for the Fallback node.
+	NodeType         ast_pb.NodeType       `json:"nodeType"`         // Type of the AST node.
+	Kind             ast_pb.NodeType       `json:"kind"`             // Kind of the fallback function.
+	Src              SrcNode               `json:"src"`              // Source location information.
+	Implemented      bool                  `json:"implemented"`      // Indicates whether the function is implemented.
+	Visibility       ast_pb.Visibility     `json:"visibility"`       // Visibility of the fallback function.
+	StateMutability  ast_pb.Mutability     `json:"stateMutability"`  // State mutability of the fallback function.
+	Modifiers        []*ModifierInvocation `json:"modifiers"`        // List of modifier invocations applied to the fallback function.
+	Overrides        []*OverrideSpecifier  `json:"overrides"`        // List of override specifiers for the fallback function.
+	Parameters       *ParameterList        `json:"parameters"`       // List of parameters for the fallback function.
+	ReturnParameters *ParameterList        `json:"returnParameters"` // List of return parameters for the fallback function.
+	Body             *BodyNode             `json:"body"`             // Body of the fallback function.
+	Virtual          bool                  `json:"virtual"`          // Indicates whether the function is virtual.
 }
 
 // NewFallbackDefinition creates a new Fallback node with default values and returns it.

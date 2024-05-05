@@ -15,16 +15,16 @@ type Contract struct {
 
 	Id                      int64            `json:"id"`
 	Name                    string           `json:"name"`
-	NodeType                ast_pb.NodeType  `json:"node_type"`
+	NodeType                ast_pb.NodeType  `json:"nodeType"`
 	Src                     SrcNode          `json:"src"`
-	NameLocation            SrcNode          `json:"name_location"`
+	NameLocation            SrcNode          `json:"nameLocation"`
 	Abstract                bool             `json:"abstract"`
 	Kind                    ast_pb.NodeType  `json:"kind"`
-	FullyImplemented        bool             `json:"fully_implemented"`
+	FullyImplemented        bool             `json:"fullyImplemented"`
 	Nodes                   []Node[NodeType] `json:"nodes"`
-	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"`
-	BaseContracts           []*BaseContract  `json:"base_contracts"`
-	ContractDependencies    []int64          `json:"contract_dependencies"`
+	LinearizedBaseContracts []int64          `json:"linearizedBaseContracts"`
+	BaseContracts           []*BaseContract  `json:"baseContracts"`
+	ContractDependencies    []int64          `json:"contractDependencies"`
 }
 
 // NewContractDefinition creates a new instance of Contract.
@@ -245,7 +245,7 @@ func (s *Contract) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &s.NodeType); err != nil {
 			return err
 		}
@@ -257,7 +257,7 @@ func (s *Contract) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &s.NameLocation); err != nil {
 			return err
 		}
@@ -275,25 +275,25 @@ func (s *Contract) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if fullyImplemented, ok := tempMap["fully_implemented"]; ok {
+	if fullyImplemented, ok := tempMap["fullyImplemented"]; ok {
 		if err := json.Unmarshal(fullyImplemented, &s.FullyImplemented); err != nil {
 			return err
 		}
 	}
 
-	if baseContracts, ok := tempMap["base_contracts"]; ok {
+	if baseContracts, ok := tempMap["baseContracts"]; ok {
 		if err := json.Unmarshal(baseContracts, &s.BaseContracts); err != nil {
 			return err
 		}
 	}
 
-	if lbc, ok := tempMap["linearized_base_contracts"]; ok {
+	if lbc, ok := tempMap["linearizedBaseContracts"]; ok {
 		if err := json.Unmarshal(lbc, &s.LinearizedBaseContracts); err != nil {
 			return err
 		}
 	}
 
-	if cd, ok := tempMap["contract_dependencies"]; ok {
+	if cd, ok := tempMap["contractDependencies"]; ok {
 		if err := json.Unmarshal(cd, &s.ContractDependencies); err != nil {
 			return err
 		}
@@ -312,7 +312,7 @@ func (s *Contract) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

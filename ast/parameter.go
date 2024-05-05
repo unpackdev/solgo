@@ -11,20 +11,20 @@ import (
 type Parameter struct {
 	*ASTBuilder
 
-	Id              int64                  `json:"id"`                         // Unique identifier of the parameter node.
-	NodeType        ast_pb.NodeType        `json:"node_type"`                  // Type of the node.
-	Src             SrcNode                `json:"src"`                        // Source location information.
-	NameLocation    *SrcNode               `json:"name_location,omitempty"`    // Source location information of the name.
-	Scope           int64                  `json:"scope,omitempty"`            // Scope of the parameter.
-	Name            string                 `json:"name"`                       // Name of the parameter.
-	TypeName        *TypeName              `json:"type_name,omitempty"`        // Type name of the parameter.
-	StorageLocation ast_pb.StorageLocation `json:"storage_location,omitempty"` // Storage location of the parameter.
-	Visibility      ast_pb.Visibility      `json:"visibility,omitempty"`       // Visibility of the parameter.
-	StateMutability ast_pb.Mutability      `json:"state_mutability,omitempty"` // State mutability of the parameter.
-	Constant        bool                   `json:"constant,omitempty"`         // Whether the parameter is constant.
-	StateVariable   bool                   `json:"state_variable,omitempty"`   // Whether the parameter is a state variable.
-	TypeDescription *TypeDescription       `json:"type_description,omitempty"` // Type description of the parameter.
-	Indexed         bool                   `json:"indexed,omitempty"`          // Whether the parameter is indexed.
+	Id              int64                  `json:"id"`                        // Unique identifier of the parameter node.
+	NodeType        ast_pb.NodeType        `json:"nodeType"`                  // Type of the node.
+	Src             SrcNode                `json:"src"`                       // Source location information.
+	NameLocation    *SrcNode               `json:"nameLocation,omitempty"`    // Source location information of the name.
+	Scope           int64                  `json:"scope,omitempty"`           // Scope of the parameter.
+	Name            string                 `json:"name"`                      // Name of the parameter.
+	TypeName        *TypeName              `json:"typeName,omitempty"`        // Type name of the parameter.
+	StorageLocation ast_pb.StorageLocation `json:"storageLocation,omitempty"` // Storage location of the parameter.
+	Visibility      ast_pb.Visibility      `json:"visibility,omitempty"`      // Visibility of the parameter.
+	StateMutability ast_pb.Mutability      `json:"stateMutability,omitempty"` // State mutability of the parameter.
+	Constant        bool                   `json:"constant,omitempty"`        // Whether the parameter is constant.
+	StateVariable   bool                   `json:"stateVariable,omitempty"`   // Whether the parameter is a state variable.
+	TypeDescription *TypeDescription       `json:"typeDescription,omitempty"` // Type description of the parameter.
+	Indexed         bool                   `json:"indexed,omitempty"`         // Whether the parameter is indexed.
 }
 
 // NewParameter creates a new instance of Parameter with the provided ASTBuilder.
@@ -138,7 +138,7 @@ func (p *Parameter) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &p.NodeType); err != nil {
 			return err
 		}
@@ -150,13 +150,13 @@ func (p *Parameter) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescription, ok := tempMap["type_description"]; ok {
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
 		if err := json.Unmarshal(typeDescription, &p.TypeDescription); err != nil {
 			return err
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &p.NameLocation); err != nil {
 			return err
 		}
@@ -174,13 +174,13 @@ func (p *Parameter) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeName, ok := tempMap["type_name"]; ok {
+	if typeName, ok := tempMap["typeName"]; ok {
 		if err := json.Unmarshal(typeName, &p.TypeName); err != nil {
 			return err
 		}
 	}
 
-	if storageLocation, ok := tempMap["storage_location"]; ok {
+	if storageLocation, ok := tempMap["storageLocation"]; ok {
 		if err := json.Unmarshal(storageLocation, &p.StorageLocation); err != nil {
 			return err
 		}
@@ -192,7 +192,7 @@ func (p *Parameter) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if stateMutability, ok := tempMap["state_mutability"]; ok {
+	if stateMutability, ok := tempMap["stateMutability"]; ok {
 		if err := json.Unmarshal(stateMutability, &p.StateMutability); err != nil {
 			return err
 		}
@@ -204,7 +204,7 @@ func (p *Parameter) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if stateVariable, ok := tempMap["state_variable"]; ok {
+	if stateVariable, ok := tempMap["stateVariable"]; ok {
 		if err := json.Unmarshal(stateVariable, &p.StateVariable); err != nil {
 			return err
 		}

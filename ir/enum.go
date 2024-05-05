@@ -10,9 +10,9 @@ import (
 type Enum struct {
 	Unit          *ast.EnumDefinition `json:"ast"`
 	Id            int64               `json:"id"`
-	NodeType      ast_pb.NodeType     `json:"node_type"`
+	NodeType      ast_pb.NodeType     `json:"nodeType"`
 	Name          string              `json:"name"`
-	CanonicalName string              `json:"canonical_name"`
+	CanonicalName string              `json:"canonicalName"`
 	Members       []*Parameter        `json:"members"`
 }
 

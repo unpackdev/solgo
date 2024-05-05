@@ -13,12 +13,12 @@ import (
 type RootSourceUnit struct {
 	builder           *Builder        `json:"-"`
 	Unit              *ast.RootNode   `json:"ast"`
-	NodeType          ast_pb.NodeType `json:"node_type"`
+	NodeType          ast_pb.NodeType `json:"nodeType"`
 	Address           common.Address  `json:"address"`
-	EntryContractId   int64           `json:"entry_contract_id"`
-	EntryContractName string          `json:"entry_contract_name"`
-	ContractsCount    int32           `json:"contracts_count"`
-	ContractTypes     []string        `json:"contract_types"`
+	EntryContractId   int64           `json:"entryContractId"`
+	EntryContractName string          `json:"entryContractName"`
+	ContractsCount    int32           `json:"contractsCount"`
+	ContractTypes     []string        `json:"contractTypes"`
 	Standards         []*Standard     `json:"standards"`
 	Contracts         []*Contract     `json:"contracts"`
 	Links             []*Link         `json:"links"`

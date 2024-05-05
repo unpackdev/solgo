@@ -15,7 +15,7 @@ type Constructor struct {
 	Id int64 `json:"id"`
 
 	// The type of the node, which is 'FUNCTION_DEFINITION' for a constructor
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 
 	// The source information about the constructor, such as its line and column numbers in the source file
 	Src SrcNode `json:"src"`
@@ -24,7 +24,7 @@ type Constructor struct {
 	Kind ast_pb.NodeType `json:"kind"`
 
 	// The state mutability of the constructor, which is 'NONPAYABLE' by default
-	StateMutability ast_pb.Mutability `json:"state_mutability"`
+	StateMutability ast_pb.Mutability `json:"stateMutability"`
 
 	// The visibility of the constructor
 	Visibility ast_pb.Visibility `json:"visibility"`
@@ -39,7 +39,7 @@ type Constructor struct {
 	Parameters *ParameterList `json:"parameters"`
 
 	// The return parameters of the constructor, which are always empty for a constructor
-	ReturnParameters *ParameterList `json:"return_parameters"`
+	ReturnParameters *ParameterList `json:"returnParameters"`
 
 	// The scope of the constructor, which is the id of the contract that the constructor belongs to
 	Scope int64 `json:"scope"`
@@ -158,7 +158,7 @@ func (c *Constructor) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &c.NodeType); err != nil {
 			return err
 		}
@@ -188,7 +188,7 @@ func (c *Constructor) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if sm, ok := tempMap["state_mutability"]; ok {
+	if sm, ok := tempMap["stateMutability"]; ok {
 		if err := json.Unmarshal(sm, &c.StateMutability); err != nil {
 			return err
 		}
@@ -206,7 +206,7 @@ func (c *Constructor) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if retParams, ok := tempMap["return_parameters"]; ok {
+	if retParams, ok := tempMap["returnParameters"]; ok {
 		if err := json.Unmarshal(retParams, &c.ReturnParameters); err != nil {
 			return err
 		}

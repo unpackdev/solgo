@@ -14,7 +14,7 @@ type SimpleStatement struct {
 	*ASTBuilder
 
 	Id       int64           `json:"id"`
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	Src      SrcNode         `json:"src"`
 }
 

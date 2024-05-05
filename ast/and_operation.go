@@ -12,10 +12,10 @@ type AndOperation struct {
 	*ASTBuilder
 
 	Id               int64              `json:"id"`
-	NodeType         ast_pb.NodeType    `json:"node_type"`
+	NodeType         ast_pb.NodeType    `json:"nodeType"`
 	Src              SrcNode            `json:"src"`
 	Expressions      []Node[NodeType]   `json:"expressions"`
-	TypeDescriptions []*TypeDescription `json:"type_descriptions"`
+	TypeDescriptions []*TypeDescription `json:"typeDescriptions"`
 }
 
 // NewAndOperationExpression creates a new AndOperation instance.
@@ -83,7 +83,7 @@ func (f *AndOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &f.NodeType); err != nil {
 			return err
 		}
@@ -108,7 +108,7 @@ func (f *AndOperation) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 
@@ -120,7 +120,7 @@ func (f *AndOperation) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if typeDescriptions, ok := tempMap["type_descriptions"]; ok {
+	if typeDescriptions, ok := tempMap["typeDescriptions"]; ok {
 		if err := json.Unmarshal(typeDescriptions, &f.TypeDescriptions); err != nil {
 			return err
 		}

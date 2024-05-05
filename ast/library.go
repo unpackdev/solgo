@@ -16,18 +16,18 @@ import (
 type Library struct {
 	*ASTBuilder
 
-	Id                      int64            `json:"id"`                        // Id is the unique identifier of the library node.
-	Name                    string           `json:"name"`                      // Name is the name of the library.
-	NodeType                ast_pb.NodeType  `json:"node_type"`                 // NodeType is the type of the node.
-	Src                     SrcNode          `json:"src"`                       // Src is the source node associated with the library node.
-	NameLocation            SrcNode          `json:"name_location"`             // NameLocation is the source node associated with the name of the library node.
-	Abstract                bool             `json:"abstract"`                  // Abstract indicates if the library is abstract.
-	Kind                    ast_pb.NodeType  `json:"kind"`                      // Kind is the kind of the node.
-	FullyImplemented        bool             `json:"fully_implemented"`         // FullyImplemented indicates if the library is fully implemented.
-	Nodes                   []Node[NodeType] `json:"nodes"`                     // Nodes are the nodes associated with the library.
-	LinearizedBaseContracts []int64          `json:"linearized_base_contracts"` // LinearizedBaseContracts are the linearized base contracts of the library.
-	BaseContracts           []*BaseContract  `json:"base_contracts"`            // BaseContracts are the base contracts of the library.
-	ContractDependencies    []int64          `json:"contract_dependencies"`     // ContractDependencies are the contract dependencies of the library.
+	Id                      int64            `json:"id"`                      // Id is the unique identifier of the library node.
+	Name                    string           `json:"name"`                    // Name is the name of the library.
+	NodeType                ast_pb.NodeType  `json:"nodeType"`                // NodeType is the type of the node.
+	Src                     SrcNode          `json:"src"`                     // Src is the source node associated with the library node.
+	NameLocation            SrcNode          `json:"nameLocation"`            // NameLocation is the source node associated with the name of the library node.
+	Abstract                bool             `json:"abstract"`                // Abstract indicates if the library is abstract.
+	Kind                    ast_pb.NodeType  `json:"kind"`                    // Kind is the kind of the node.
+	FullyImplemented        bool             `json:"fullyImplemented"`        // FullyImplemented indicates if the library is fully implemented.
+	Nodes                   []Node[NodeType] `json:"nodes"`                   // Nodes are the nodes associated with the library.
+	LinearizedBaseContracts []int64          `json:"linearizedBaseContracts"` // LinearizedBaseContracts are the linearized base contracts of the library.
+	BaseContracts           []*BaseContract  `json:"baseContracts"`           // BaseContracts are the base contracts of the library.
+	ContractDependencies    []int64          `json:"contractDependencies"`    // ContractDependencies are the contract dependencies of the library.
 }
 
 // NewLibraryDefinition creates a new Library with the provided ASTBuilder.
@@ -247,7 +247,7 @@ func (l *Library) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nodeType, ok := tempMap["node_type"]; ok {
+	if nodeType, ok := tempMap["nodeType"]; ok {
 		if err := json.Unmarshal(nodeType, &l.NodeType); err != nil {
 			return err
 		}
@@ -259,7 +259,7 @@ func (l *Library) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if nameLocation, ok := tempMap["name_location"]; ok {
+	if nameLocation, ok := tempMap["nameLocation"]; ok {
 		if err := json.Unmarshal(nameLocation, &l.NameLocation); err != nil {
 			return err
 		}
@@ -277,25 +277,25 @@ func (l *Library) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	if fullyImplemented, ok := tempMap["fully_implemented"]; ok {
+	if fullyImplemented, ok := tempMap["fullyImplemented"]; ok {
 		if err := json.Unmarshal(fullyImplemented, &l.FullyImplemented); err != nil {
 			return err
 		}
 	}
 
-	if baseContracts, ok := tempMap["base_contracts"]; ok {
+	if baseContracts, ok := tempMap["baseContracts"]; ok {
 		if err := json.Unmarshal(baseContracts, &l.BaseContracts); err != nil {
 			return err
 		}
 	}
 
-	if lbc, ok := tempMap["linearized_base_contracts"]; ok {
+	if lbc, ok := tempMap["linearizedBaseContracts"]; ok {
 		if err := json.Unmarshal(lbc, &l.LinearizedBaseContracts); err != nil {
 			return err
 		}
 	}
 
-	if cd, ok := tempMap["contract_dependencies"]; ok {
+	if cd, ok := tempMap["contractDependencies"]; ok {
 		if err := json.Unmarshal(cd, &l.ContractDependencies); err != nil {
 			return err
 		}
@@ -314,7 +314,7 @@ func (l *Library) UnmarshalJSON(data []byte) error {
 			}
 
 			var tempNodeType ast_pb.NodeType
-			if err := json.Unmarshal(tempNodeMap["node_type"], &tempNodeType); err != nil {
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
 				return err
 			}
 

@@ -12,7 +12,7 @@ import (
 type Pragma struct {
 	Unit     *ast.Pragma     `json:"ast"`
 	Id       int64           `json:"id"`
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	Literals []string        `json:"literals"`
 	Text     string          `json:"text"`
 }

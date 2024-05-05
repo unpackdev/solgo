@@ -10,12 +10,12 @@ import (
 type Fallback struct {
 	Unit             *ast.Fallback     `json:"ast"`
 	Id               int64             `json:"id"`
-	NodeType         ast_pb.NodeType   `json:"node_type"`
+	NodeType         ast_pb.NodeType   `json:"nodeType"`
 	Name             string            `json:"name"`
 	Kind             ast_pb.NodeType   `json:"kind"`
 	Implemented      bool              `json:"implemented"`
 	Visibility       ast_pb.Visibility `json:"visibility"`
-	StateMutability  ast_pb.Mutability `json:"state_mutability"`
+	StateMutability  ast_pb.Mutability `json:"stateMutability"`
 	Virtual          bool              `json:"virtual"`
 	Modifiers        []*Modifier       `json:"modifiers"`
 	Overrides        []*Override       `json:"overrides"`

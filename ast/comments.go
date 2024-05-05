@@ -12,7 +12,7 @@ import (
 type Comment struct {
 	Id       int64           `json:"id"`
 	Src      SrcNode         `json:"src"`
-	NodeType ast_pb.NodeType `json:"node_type"`
+	NodeType ast_pb.NodeType `json:"nodeType"`
 	Text     string          `json:"text"`
 }
 

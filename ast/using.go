@@ -10,11 +10,11 @@ type UsingDirective struct {
 	*ASTBuilder
 
 	Id              int64            `json:"id"`
-	NodeType        ast_pb.NodeType  `json:"node_type"`
+	NodeType        ast_pb.NodeType  `json:"nodeType"`
 	Src             SrcNode          `json:"src"`
-	TypeDescription *TypeDescription `json:"type_description"`
-	TypeName        *TypeName        `json:"type_name"`
-	LibraryName     *LibraryName     `json:"library_name"`
+	TypeDescription *TypeDescription `json:"typeDescription"`
+	TypeName        *TypeName        `json:"typeName"`
+	LibraryName     *LibraryName     `json:"libraryName"`
 }
 
 // LibraryName represents the name of an external library referenced in a using directive.
@@ -22,10 +22,10 @@ type LibraryName struct {
 	*ASTBuilder
 
 	Id                    int64           `json:"id"`
-	NodeType              ast_pb.NodeType `json:"node_type"`
+	NodeType              ast_pb.NodeType `json:"nodeType"`
 	Src                   SrcNode         `json:"src"`
 	Name                  string          `json:"name"`
-	ReferencedDeclaration int64           `json:"referenced_declaration"`
+	ReferencedDeclaration int64           `json:"referencedDeclaration"`
 }
 
 // ToProto converts the LibraryName instance to its corresponding protocol buffer representation.

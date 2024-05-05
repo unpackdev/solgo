@@ -11,12 +11,12 @@ type NewExpr struct {
 	*ASTBuilder
 
 	Id                    int64              `json:"id"`
-	NodeType              ast_pb.NodeType    `json:"node_type"`
+	NodeType              ast_pb.NodeType    `json:"nodeType"`
 	Src                   SrcNode            `json:"src"`
-	ArgumentTypes         []*TypeDescription `json:"argument_types"`
-	TypeName              *TypeName          `json:"type_name"`
-	ReferencedDeclaration int64              `json:"referenced_declaration,omitempty"`
-	TypeDescription       *TypeDescription   `json:"type_description"`
+	ArgumentTypes         []*TypeDescription `json:"argumentTypes"`
+	TypeName              *TypeName          `json:"typeName"`
+	ReferencedDeclaration int64              `json:"referencedDeclaration,omitempty"`
+	TypeDescription       *TypeDescription   `json:"typeDescription"`
 }
 
 // NewExprExpression creates a new NewExpr instance with initial values.

@@ -10,7 +10,7 @@ import (
 type Error struct {
 	Unit            *ast.ErrorDefinition `json:"ast"`
 	Id              int64                `json:"id"`
-	NodeType        ast_pb.NodeType      `json:"node_type"`
+	NodeType        ast_pb.NodeType      `json:"nodeType"`
 	Name            string               `json:"name"`
 	Parameters      []*Parameter         `json:"parameters"`
 	TypeDescription *ast.TypeDescription `json:"type_description"`

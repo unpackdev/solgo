@@ -10,9 +10,9 @@ import (
 type Modifier struct {
 	Unit          *ast.ModifierInvocation `json:"ast"`
 	Id            int64                   `json:"id"`
-	NodeType      ast_pb.NodeType         `json:"node_type"`
+	NodeType      ast_pb.NodeType         `json:"nodeType"`
 	Name          string                  `json:"name"`
-	ArgumentTypes []*ast.TypeDescription  `json:"argument_types"`
+	ArgumentTypes []*ast.TypeDescription  `json:"argumentTypes"`
 }
 
 // GetAST returns the underlying AST node for the Modifier.
