@@ -1,14 +1,14 @@
 {
 	"standard": 1,
-	"confidence": 3,
-	"confidence_points": 86,
+	"confidence": 2,
+	"confidence_points": 55,
 	"maximum_tokens": 68,
-	"discovered_tokens": 59,
+	"discovered_tokens": 38,
 	"contract": {
 		"name": "ERC20 Medium Match",
 		"functions": [
 			{
-				"name": "approve",
+				"name": "transfer",
 				"outputs": [
 					{
 						"type": "uint256",
@@ -18,7 +18,7 @@
 				"matched": true
 			},
 			{
-				"name": "approve",
+				"name": "transfer",
 				"inputs": [
 					{
 						"type": "address",
@@ -34,51 +34,7 @@
 				"matched": true
 			},
 			{
-				"name": "approve",
-				"inputs": [
-					{
-						"type": "address",
-						"matched": true
-					},
-					{
-						"type": "uint256",
-						"matched": true
-					}
-				],
-				"outputs": [
-					{
-						"type": "bool",
-						"matched": true
-					}
-				],
-				"matched": true
-			},
-			{
-				"name": "approve",
-				"inputs": [
-					{
-						"type": "address",
-						"matched": true
-					},
-					{
-						"type": "address",
-						"matched": true
-					},
-					{
-						"type": "uint256",
-						"matched": true
-					}
-				],
-				"outputs": [
-					{
-						"type": "bool",
-						"matched": true
-					}
-				],
-				"matched": true
-			},
-			{
-				"name": "approve",
+				"name": "transfer",
 				"inputs": [
 					{
 						"type": "address",
@@ -96,6 +52,41 @@
 					}
 				],
 				"matched": true
+			},
+			{
+				"name": "transferFrom",
+				"inputs": [
+					{
+						"type": "address"
+					},
+					{
+						"type": "address"
+					},
+					{
+						"type": "uint256"
+					}
+				],
+				"outputs": [
+					{
+						"type": "bool"
+					}
+				]
+			},
+			{
+				"name": "approve",
+				"inputs": [
+					{
+						"type": "address"
+					},
+					{
+						"type": "uint256"
+					}
+				],
+				"outputs": [
+					{
+						"type": "bool"
+					}
+				]
 			},
 			{
 				"name": "allowance",
