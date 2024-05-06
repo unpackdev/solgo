@@ -43,10 +43,10 @@ const (
 	PerfectConfidenceThreshold ConfidenceThreshold = 1.0
 
 	// HighConfidenceThreshold represents a high confidence threshold value.
-	HighConfidenceThreshold ConfidenceThreshold = 0.9
+	HighConfidenceThreshold ConfidenceThreshold = 0.8
 
 	// MediumConfidenceThreshold represents a medium confidence threshold value.
-	MediumConfidenceThreshold ConfidenceThreshold = 0.5
+	MediumConfidenceThreshold ConfidenceThreshold = 0.4
 
 	// LowConfidenceThreshold represents a low confidence threshold value.
 	LowConfidenceThreshold ConfidenceThreshold = 0.1

@@ -80,8 +80,8 @@ Makes no sense to rewrite all of that hard work just to be written in Go. Theref
 
 List of the projects that use SolGo:
 
-- [Inspector](https://github.com/unpackdev/inspector) - Tool for downloading, managing and inspecting smart contracts for Ethereum-based chains.
-- [solidity-optimiser-plugin](https://github.com/yongkangc/solidity-optimiser-plugin) - High-performance automated CLI tool that optimizes gas usage in Solidity smart contracts, focusing on storage and function call efficiency.
+- [{Un}pack](https://github.com/unpackdev/unpack) - Solidity (Ethereum) Smart Contracts Analysis Toolchain.
+- [Solidity-Gas-Optimizoor](https://github.com/yongkangc/solidity-optimiser-app) - An high performance automated tool that optimizes gas usage in Solidity smart contracts, focusing on storage and function call efficiency.
 
 If you wish to add your repository to the list, make sure to submit new PR :)
 

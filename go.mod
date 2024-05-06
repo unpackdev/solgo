@@ -8,7 +8,7 @@ require (
 	github.com/0x19/solc-switch v1.0.4
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cncf/xds/go v0.0.0-20240312170511-ee0267137e25
-	github.com/ethereum/go-ethereum v1.13.13
+	github.com/ethereum/go-ethereum v1.13.15
 	github.com/fxamacker/cbor/v2 v2.6.0
 	github.com/goccy/go-graphviz v0.1.2
 	github.com/goccy/go-json v0.10.2

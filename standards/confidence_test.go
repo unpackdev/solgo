@@ -109,8 +109,6 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
 							newFunction("balanceOf", []Input{{Type: TypeAddress}}, []Output{{Type: TypeUint256}}),
 							newFunction("transfer", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
-							newFunction("transferFrom", []Input{{Type: TypeAddress}, {Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
-							newFunction("approve", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
 						},
 						Events: []Event{
 							newEvent("Transfer", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
@@ -120,7 +118,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					expectedLevel:        MediumConfidence,
 					expectedThreshold:    MediumConfidenceThreshold,
 					standardTokenCount:   68,
-					discoveredTokenCount: 59,
+					discoveredTokenCount: 38,
 					shouldMatch:          true,
 					expectedEip:          tests.ReadJsonBytesForTest(t, "eip/eip20_medium_match").Content,
 					expectedProto:        tests.ReadJsonBytesForTest(t, "eip/eip20_medium_match.proto").Content,
