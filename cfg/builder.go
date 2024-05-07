@@ -4,17 +4,15 @@ import (
 	"context"
 	"errors"
 
-	"github.com/goccy/go-graphviz"
 	"github.com/unpackdev/solgo/ir"
 )
 
 // Builder is responsible for constructing the control flow graph (CFG) of Solidity contracts.
 // It utilizes the Intermediate Representation (IR) provided by solgo and Graphviz for graph operations.
 type Builder struct {
-	ctx     context.Context    // Context for the builder operations.
-	builder *ir.Builder        // IR builder from solgo, used for generating the IR of the contracts.
-	viz     *graphviz.Graphviz // Graphviz instance for visualizing the CFG.
-	graph   *Graph             // Internal representation of the CFG.
+	ctx     context.Context // Context for the builder operations.
+	builder *ir.Builder     // IR builder from solgo, used for generating the IR of the contracts.
+	graph   *Graph          // Internal representation of the CFG.
 }
 
 // NewBuilder initializes a new CFG builder with the given context and IR builder.
@@ -27,7 +25,6 @@ func NewBuilder(ctx context.Context, builder *ir.Builder) (*Builder, error) {
 	return &Builder{
 		ctx:     ctx,
 		builder: builder,
-		viz:     graphviz.New(),
 		graph:   NewGraph(),
 	}, nil
 }
