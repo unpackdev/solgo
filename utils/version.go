@@ -12,12 +12,22 @@ type SemanticVersion struct {
 	Major  int    `json:"major"`    // Major version, incremented for incompatible API changes.
 	Minor  int    `json:"minor"`    // Minor version, incremented for backwards-compatible enhancements.
 	Patch  int    `json:"patch"`    // Patch version, incremented for backwards-compatible bug fixes.
-	Commit string `json:"revision"` // Optional commit revision for tracking specific builds.
+	Commit string `json:"revision,omitempty"` // Optional commit revision for tracking specific builds.
 }
 
 // String returns the string representation of the SemanticVersion, excluding the
 // commit revision. It adheres to the "Major.Minor.Patch" format.
 func (v SemanticVersion) String() string {
+	if v.Commit != "" {
+		return strconv.Itoa(v.Major) + "." + strconv.Itoa(v.Minor) + "." + strconv.Itoa(v.Patch) + "+" + v.Commit
+	}
+
+	return strconv.Itoa(v.Major) + "." + strconv.Itoa(v.Minor) + "." + strconv.Itoa(v.Patch)
+}
+
+// String returns the string representation of the SemanticVersion, excluding the
+// commit revision. It adheres to the "Major.Minor.Patch" format.
+func (v SemanticVersion) StringVersion() string {
 	return strconv.Itoa(v.Major) + "." + strconv.Itoa(v.Minor) + "." + strconv.Itoa(v.Patch)
 }
 

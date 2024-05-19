@@ -1,11 +1,11 @@
 package ast
 
 import (
-	"strings"
-
 	v3 "github.com/cncf/xds/go/xds/type/v3"
+	"github.com/goccy/go-json"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/parser"
+	"strings"
 )
 
 // StateVariableDeclaration represents a state variable declaration in the Solidity abstract syntax tree (AST).
@@ -143,6 +143,102 @@ func (v *StateVariableDeclaration) IsStateVariable() bool {
 // GetInitialValue returns the initial value of the state variable declaration.
 func (v *StateVariableDeclaration) GetInitialValue() Node[NodeType] {
 	return v.InitialValue
+}
+
+// UnmarshalJSON customizes the JSON unmarshaling for StateVariableDeclaration.
+func (v *StateVariableDeclaration) UnmarshalJSON(data []byte) error {
+	var tempMap map[string]json.RawMessage
+	if err := json.Unmarshal(data, &tempMap); err != nil {
+		return err
+	}
+
+	if id, ok := tempMap["id"]; ok {
+		if err := json.Unmarshal(id, &v.Id); err != nil {
+			return err
+		}
+	}
+
+	if name, ok := tempMap["name"]; ok {
+		if err := json.Unmarshal(name, &v.Name); err != nil {
+			return err
+		}
+	}
+
+	if isConstant, ok := tempMap["isConstant"]; ok {
+		if err := json.Unmarshal(isConstant, &v.Constant); err != nil {
+			return err
+		}
+	}
+
+	if isStateVariable, ok := tempMap["isStateVariable"]; ok {
+		if err := json.Unmarshal(isStateVariable, &v.StateVariable); err != nil {
+			return err
+		}
+	}
+
+	if nodeType, ok := tempMap["nodeType"]; ok {
+		if err := json.Unmarshal(nodeType, &v.NodeType); err != nil {
+			return err
+		}
+	}
+
+	if visibility, ok := tempMap["visibility"]; ok {
+		if err := json.Unmarshal(visibility, &v.Visibility); err != nil {
+			return err
+		}
+	}
+
+	if storageLocation, ok := tempMap["storageLocation"]; ok {
+		if err := json.Unmarshal(storageLocation, &v.StorageLocation); err != nil {
+			return err
+		}
+	}
+
+	if mutability, ok := tempMap["mutability"]; ok {
+		if err := json.Unmarshal(mutability, &v.StateMutability); err != nil {
+			return err
+		}
+	}
+
+	if src, ok := tempMap["src"]; ok {
+		if err := json.Unmarshal(src, &v.Src); err != nil {
+			return err
+		}
+	}
+
+	if scope, ok := tempMap["scope"]; ok {
+		if err := json.Unmarshal(scope, &v.Scope); err != nil {
+			return err
+		}
+	}
+
+	if expression, ok := tempMap["initialValue"]; ok {
+		if err := json.Unmarshal(expression, &v.InitialValue); err != nil {
+			var tempNodeMap map[string]json.RawMessage
+			if err := json.Unmarshal(expression, &tempNodeMap); err != nil {
+				return err
+			}
+
+			var tempNodeType ast_pb.NodeType
+			if err := json.Unmarshal(tempNodeMap["nodeType"], &tempNodeType); err != nil {
+				return err
+			}
+
+			node, err := unmarshalNode(expression, tempNodeType)
+			if err != nil {
+				return err
+			}
+			v.InitialValue = node
+		}
+	}
+
+	if typeDescription, ok := tempMap["typeDescription"]; ok {
+		if err := json.Unmarshal(typeDescription, &v.TypeDescription); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // ToProto returns the protobuf representation of the state variable declaration.

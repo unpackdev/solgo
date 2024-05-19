@@ -161,7 +161,7 @@ func (b *Builder) processFunctionCall(fn *Function, unit *ast.FunctionCall) *Fun
 				if fn != nil {
 					toReturn.ExternalContractId = fn.GetAST().GetScope()
 					sourceContract := b.astBuilder.GetTree().GetById(fn.GetAST().GetScope())
-					toReturn.referencedContract = getContractByNodeType(sourceContract)
+					toReturn.referencedContract = GetContractByNodeType(sourceContract)
 				}
 			}
 		}
@@ -177,7 +177,7 @@ func (b *Builder) processFunctionCall(fn *Function, unit *ast.FunctionCall) *Fun
 			if fn != nil {
 				toReturn.ExternalContractId = fn.GetAST().GetScope()
 				sourceContract := b.astBuilder.GetTree().GetById(fn.GetAST().GetScope())
-				toReturn.referencedContract = getContractByNodeType(sourceContract)
+				toReturn.referencedContract = GetContractByNodeType(sourceContract)
 				toReturn.ExternalContractName = toReturn.referencedContract.GetName()
 			}
 

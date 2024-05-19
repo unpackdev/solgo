@@ -248,7 +248,7 @@ func (c *Contract) ToProto() *ir_pb.Contract {
 
 // processContract processes the contract unit and returns the Contract.
 func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUnit]]) *Contract {
-	contract := getContractByNodeType(unit.GetContract())
+	contract := GetContractByNodeType(unit.GetContract())
 	contractNode := &Contract{
 		Unit: unit,
 
@@ -360,8 +360,8 @@ func (b *Builder) processContract(unit *ast.SourceUnit[ast.Node[ast_pb.SourceUni
 	return contractNode
 }
 
-// getContractByNodeType returns the ContractNode based on the node type.
-func getContractByNodeType(c ast.Node[ast.NodeType]) ContractNode {
+// GetContractByNodeType returns the ContractNode based on the node type.
+func GetContractByNodeType(c ast.Node[ast.NodeType]) ContractNode {
 	switch contract := c.(type) {
 	case *ast.Library:
 		return contract

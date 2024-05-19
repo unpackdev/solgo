@@ -8,6 +8,7 @@ type Instruction struct {
 	OpCode      OpCode `json:"opcode"`
 	Args        []byte `json:"args"`
 	Description string `json:"description"`
+	Data        []byte `json:"data"`
 }
 
 // GetOffset returns the offset of the instruction.
