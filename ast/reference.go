@@ -294,6 +294,7 @@ func (r *Resolver) resolveEntrySourceUnit() {
 		for _, entry := range node.GetExportedSymbols() {
 			if len(r.sources.EntrySourceUnitName) > 0 &&
 				r.sources.EntrySourceUnitName == entry.GetName() {
+
 				r.tree.astRoot.SetEntrySourceUnit(entry.GetId())
 				return
 			}

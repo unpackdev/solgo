@@ -3,8 +3,10 @@ package validation
 import (
 	"context"
 	"encoding/hex"
-	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/pkg/errors"
+	"github.com/unpackdev/solgo/bytecode"
 	"strings"
 
 	"github.com/0x19/solc-switch"
@@ -106,7 +108,53 @@ func (v *Verifier) VerifyFromResults(bytecode []byte, results *solc.CompilerResu
 			LevenshteinDistance: dmp.DiffLevenshtein(diffs),
 		}
 
-		return toReturn, errors.New("bytecode missmatch, failed to verify")
+		return toReturn, errors.New("contract bytecode mismatch, failed to verify")
+	}
+
+	toReturn := &VerifyResult{
+		Verified:         true,
+		ExpectedBytecode: encoded,
+		CompilerResult:   result,
+		Diffs:            make([]diffmatchpatch.Diff, 0),
+	}
+
+	return toReturn, nil
+}
+
+// VerifyAuxFromResults compiles the sources using the solc compiler and then verifies the bytecode.
+// If the bytecode does not match the compiled result, it returns a diff of the two.
+// Returns true if the bytecode matches, otherwise returns false.
+// Also returns an error if there's any issue in the compilation or verification process.
+func (v *Verifier) VerifyAuxFromResults(bCode []byte, results *solc.CompilerResults) (*VerifyResult, error) {
+	result := results.GetEntryContract()
+
+	if result == nil {
+		zap.L().Error(
+			"no appropriate compilation results found (compiled but missing entry contract)",
+			zap.Any("results", results),
+		)
+		return nil, errors.New("no appropriate compilation results found (compiled but missing entry contract)")
+	}
+
+	dBytecode, dBytecodeErr := bytecode.DecodeContractMetadata(common.Hex2Bytes(result.GetDeployedBytecode()))
+	if dBytecodeErr != nil {
+		return nil, errors.Wrap(dBytecodeErr, "failure to decode contract metadata while verifying contract aux bytecode")
+	}
+
+	encoded := common.Bytes2Hex(bCode)
+	if !strings.Contains(common.Bytes2Hex(dBytecode.GetAuxBytecode()), encoded) {
+		dmp := diffmatchpatch.New()
+		diffs := dmp.DiffMain(encoded, common.Bytes2Hex(dBytecode.GetAuxBytecode()), false)
+		toReturn := &VerifyResult{
+			Verified:            false,
+			CompilerResult:      result,
+			ExpectedBytecode:    encoded,
+			Diffs:               diffs,
+			DiffPretty:          dmp.DiffPrettyText(diffs),
+			LevenshteinDistance: dmp.DiffLevenshtein(diffs),
+		}
+
+		return toReturn, errors.New("aux bytecode mismatch, failed to verify")
 	}
 
 	toReturn := &VerifyResult{

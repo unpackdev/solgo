@@ -94,7 +94,7 @@ func (b *ASTBuilder) ToJSON() ([]byte, error) {
 	return b.InterfaceToJSON(b.tree.GetRoot())
 }
 
-// ToPrettyJSON converts the provided data to a JSON byte array.
+// InterfaceToJSON converts the provided data to a JSON byte array.
 func (b *ASTBuilder) InterfaceToJSON(data interface{}) ([]byte, error) {
 	return json.Marshal(data)
 }
@@ -127,6 +127,10 @@ func (b *ASTBuilder) ImportFromJSON(ctx context.Context, jsonBytes []byte) (*Roo
 	b.tree.SetRoot(toReturn)
 
 	return toReturn, nil
+}
+
+func (b *ASTBuilder) GetImports() []Node[NodeType] {
+	return b.currentImports
 }
 
 // GarbageCollect cleans up the ASTBuilder after resolving references.

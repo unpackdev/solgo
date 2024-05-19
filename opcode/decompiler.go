@@ -43,7 +43,7 @@ func (d *Decompiler) GetBytecodeSize() uint64 {
 // Decompile processes the bytecode, populates the instructions slice, and identifies function entry points.
 func (d *Decompiler) Decompile() error {
 	if d.bytecodeSize < 1 {
-		return ErrEmptyBytecode
+		return fmt.Errorf("bytecode is empty")
 	}
 
 	offset := 0
@@ -58,11 +58,14 @@ func (d *Decompiler) Decompile() error {
 
 		if op.IsPush() {
 			argSize := int(op) - int(PUSH1) + 1
-			if offset+argSize >= len(d.bytecode) {
-				break
+			if offset+argSize < len(d.bytecode) {
+				instruction.Args = d.bytecode[offset+1 : offset+argSize+1]
+				offset += argSize
+			} else {
+				// If we don't have enough bytes for PUSH arguments, use the remaining bytes
+				instruction.Args = d.bytecode[offset+1:]
+				offset = len(d.bytecode) - 1
 			}
-			instruction.Args = d.bytecode[offset+1 : offset+argSize+1]
-			offset += argSize
 		}
 
 		d.instructions = append(d.instructions, instruction)
@@ -74,6 +77,8 @@ func (d *Decompiler) Decompile() error {
 
 		offset++
 	}
+
+	fmt.Printf("Total instructions processed: %d\n", len(d.instructions))
 	return nil
 }
 

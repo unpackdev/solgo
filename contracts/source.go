@@ -75,7 +75,19 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 			return fmt.Errorf("failed to create new sources from etherscan response: %s", err)
 		}
 
+		unsortedSources, err := solgo.NewUnsortedSourcesFromEtherScan(response.Name, response.SourceCode)
+		if err != nil {
+			zap.L().Error(
+				"failed to create new unsorted sources from etherscan response",
+				zap.Error(err),
+				zap.String("network", c.network.String()),
+				zap.String("contract_address", c.addr.String()),
+			)
+			return fmt.Errorf("failed to create new unsorted sources from etherscan response: %s", err)
+		}
+
 		c.descriptor.Sources = sources
+		c.descriptor.SourcesUnsorted = unsortedSources
 
 		license := strings.ReplaceAll(c.descriptor.SourcesRaw.LicenseType, "\r", "")
 		license = strings.ReplaceAll(license, "\n", "")

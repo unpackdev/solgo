@@ -181,6 +181,67 @@ func NewSourcesFromPath(entrySourceUnitName, path string) (*Sources, error) {
 	return sources, nil
 }
 
+func NewUnsortedSourcesFromPath(entrySourceUnitName, path string) (*Sources, error) {
+	info, err := os.Stat(path)
+	if err != nil {
+		return nil, err // Return the error if the path does not exist or cannot be accessed
+	}
+
+	if !info.IsDir() {
+		return nil, fmt.Errorf("path is not a directory: %s", path)
+	}
+
+	var sourcesDir string
+
+	if GetLocalSourcesPath() == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		dir := filepath.Dir(filename)
+		sourcesDir = filepath.Clean(filepath.Join(dir, "sources"))
+	} else {
+		sourcesDir = GetLocalSourcesPath()
+	}
+
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		LocalSources:         false,
+		EntrySourceUnitName:  entrySourceUnitName,
+	}
+
+	files, err := os.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue // Skip directories
+		}
+
+		// Check if the file has a .sol extension
+		if filepath.Ext(file.Name()) == ".sol" {
+			filePath := filepath.Join(path, file.Name())
+
+			content, err := os.ReadFile(filePath)
+			if err != nil {
+				return nil, err
+			}
+
+			sources.SourceUnits = append(sources.SourceUnits, &SourceUnit{
+				Name:    strings.TrimSuffix(file.Name(), ".sol"),
+				Path:    filePath,
+				Content: string(content),
+			})
+		}
+	}
+
+	if err := sources.SortContracts(); err != nil {
+		return nil, fmt.Errorf("failure while doing topological contract sorting: %s", err.Error())
+	}
+
+	return sources, nil
+}
+
 // NewSourcesFromMetadata creates a Sources from a metadata package ContractMetadata.
 // This is a helper function that ensures easier integration when working with the metadata package.
 func NewSourcesFromMetadata(md *metadata.ContractMetadata) *Sources {
@@ -322,6 +383,72 @@ func NewSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources
 	return sources, nil
 }
 
+// NewUnsortedSourcesFromEtherScan creates a Sources from an EtherScan response.
+// This is a helper function that ensures easier integration when working with the EtherScan provider.
+// This includes BscScan, and other equivalent from the same family.
+func NewUnsortedSourcesFromEtherScan(entryContractName string, sc interface{}) (*Sources, error) {
+	var sourcesDir string
+
+	if GetLocalSourcesPath() == "" {
+		_, filename, _, _ := runtime.Caller(0)
+		dir := filepath.Dir(filename)
+		sourcesDir = filepath.Clean(filepath.Join(dir, "sources"))
+	} else {
+		sourcesDir = GetLocalSourcesPath()
+	}
+
+	sources := &Sources{
+		MaskLocalSourcesPath: true,
+		LocalSourcesPath:     sourcesDir,
+		EntrySourceUnitName:  entryContractName,
+		LocalSources:         false,
+	}
+
+	switch sourceCode := sc.(type) {
+	case string:
+		sources.AppendSource(&SourceUnit{
+			Name:    entryContractName,
+			Path:    fmt.Sprintf("%s.sol", entryContractName),
+			Content: sourceCode,
+		})
+	case map[string]interface{}:
+		// Create an instance of ContractMetadata
+		var contractMetadata metadata.ContractMetadata
+
+		// Marshal the map into JSON, then Unmarshal it into the ContractMetadata struct
+		jsonBytes, err := json.Marshal(sourceCode)
+		if err != nil {
+			return nil, fmt.Errorf("error marshalling to json: %v", err)
+		}
+
+		if err := json.Unmarshal(jsonBytes, &contractMetadata); err != nil {
+			return nil, fmt.Errorf("error unmarshalling to contract metadata: %v", err)
+		}
+
+		for name, source := range contractMetadata.Sources {
+			sources.AppendSource(&SourceUnit{
+				Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
+				Path:    name,
+				Content: source.Content,
+			})
+		}
+
+	case metadata.ContractMetadata:
+		for name, source := range sourceCode.Sources {
+			sources.AppendSource(&SourceUnit{
+				Name:    strings.TrimSuffix(filepath.Base(name), ".sol"),
+				Path:    name,
+				Content: source.Content,
+			})
+		}
+
+	default:
+		return nil, fmt.Errorf("unknown source code type: %T", sourceCode)
+	}
+
+	return sources, nil
+}
+
 // AppendSource appends a SourceUnit to the Sources.
 // If a SourceUnit with the same name already exists, it replaces it unless the new SourceUnit has less content.
 func (s *Sources) AppendSource(source *SourceUnit) {
@@ -381,11 +508,13 @@ func (s *Sources) Validate() error {
 			// in one file provided back to us. In that case, we should check if
 			// specific file contains `contract {entrySourceUnitName}`.
 			found := false
+			contractRegex := regexp.MustCompile(fmt.Sprintf(`\bcontract\s+%s\b`, regexp.QuoteMeta(s.EntrySourceUnitName)))
+			libraryRegex := regexp.MustCompile(fmt.Sprintf(`\blibrary\s+%s\b`, regexp.QuoteMeta(s.EntrySourceUnitName)))
+
 			for _, sourceUnit := range s.SourceUnits {
-				if strings.Contains(sourceUnit.Content, fmt.Sprintf("contract %s", s.EntrySourceUnitName)) {
+				if contractRegex.MatchString(sourceUnit.Content) || libraryRegex.MatchString(sourceUnit.Content) {
 					found = true
-				} else if strings.Contains(sourceUnit.Content, fmt.Sprintf("library %s", s.EntrySourceUnitName)) {
-					found = true
+					break
 				}
 			}
 

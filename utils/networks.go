@@ -12,6 +12,10 @@ func (n NetworkID) String() string {
 	return n.ToBig().String()
 }
 
+func (n NetworkID) IsValid() bool {
+	return n != 0
+}
+
 func (n NetworkID) ToNetwork() Network {
 	switch n {
 	case EthereumNetworkID:

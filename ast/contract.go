@@ -390,6 +390,7 @@ func (c *Contract) Parse(unitCtx *parser.SourceUnitContext, ctx *parser.Contract
 	)
 
 	contractId := c.GetNextID()
+
 	contractNode := &Contract{
 		Id:   contractId,
 		Name: ctx.Identifier().GetText(),

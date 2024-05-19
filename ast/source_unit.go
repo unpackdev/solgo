@@ -24,6 +24,7 @@ type SourceUnit[T NodeType] struct {
 	AbsolutePath    string           `json:"absolutePath"`    // AbsolutePath is the absolute path of the source unit.
 	Name            string           `json:"name"`            // Name is the name of the source unit. This is going to be one of the following: contract, interface or library name. It's here for convenience.
 	NodeType        ast_pb.NodeType  `json:"nodeType"`        // NodeType is the type of the AST node.
+	Kind            ast_pb.NodeType  `json:"kind"`            // Kind is the type of the AST node (contract, library, interface).
 	Nodes           []Node[NodeType] `json:"nodes"`           // Nodes is the list of AST nodes.
 	Src             SrcNode          `json:"src"`             // Src is the source code location.
 }
@@ -105,6 +106,11 @@ func (s *SourceUnit[T]) GetId() int64 {
 // GetType returns the type of the source unit.
 func (s *SourceUnit[T]) GetType() ast_pb.NodeType {
 	return s.NodeType
+}
+
+// GetKind returns the type of the source unit.
+func (s *SourceUnit[T]) GetKind() ast_pb.NodeType {
+	return s.Kind
 }
 
 // GetSrc returns the source code location of the source unit.
@@ -302,6 +308,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 		if interfaceCtx, ok := child.(*parser.InterfaceDefinitionContext); ok {
 			license := getLicenseFromSources(b.sources, b.comments, interfaceCtx.Identifier().GetText())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, interfaceCtx.Identifier().GetText(), license)
+			sourceUnit.Kind = ast_pb.NodeType_KIND_INTERFACE
 			interfaceNode := NewInterfaceDefinition(b)
 			interfaceNode.Parse(ctx, interfaceCtx, rootNode, sourceUnit)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
@@ -310,6 +317,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 		if libraryCtx, ok := child.(*parser.LibraryDefinitionContext); ok {
 			license := getLicenseFromSources(b.sources, b.comments, libraryCtx.Identifier().GetText())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, libraryCtx.Identifier().GetText(), license)
+			sourceUnit.Kind = ast_pb.NodeType_KIND_LIBRARY
 			libraryNode := NewLibraryDefinition(b)
 			libraryNode.Parse(ctx, libraryCtx, rootNode, sourceUnit)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
@@ -318,9 +326,21 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 		if contractCtx, ok := child.(*parser.ContractDefinitionContext); ok {
 			license := getLicenseFromSources(b.sources, b.comments, contractCtx.Identifier().GetText())
 			sourceUnit := NewSourceUnit[Node[ast_pb.SourceUnit]](b, contractCtx.Identifier().GetText(), license)
+			sourceUnit.Kind = ast_pb.NodeType_KIND_CONTRACT
 			contractNode := NewContractDefinition(b)
 			contractNode.Parse(ctx, contractCtx, rootNode, sourceUnit)
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
+		}
+	}
+
+	// Idea here is to basically set the source unit entry name as soon as we have parsed all of the classes.
+	// Now this won't be possible always but nevertheless. (In rest of the cases, resolver will take care of it)
+	if b.sources.EntrySourceUnitName != "" {
+		for _, sourceUnit := range b.sourceUnits {
+			if b.sources.EntrySourceUnitName == sourceUnit.GetName() {
+				rootNode.SetEntrySourceUnit(sourceUnit.GetId())
+				return
+			}
 		}
 	}
 }

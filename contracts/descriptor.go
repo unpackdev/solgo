@@ -40,9 +40,10 @@ type Descriptor struct {
 
 	// SourcesRaw is the raw sources from Etherscan|BscScan|etc. Should not be used anywhere except in
 	// the contract discovery process.
-	SourcesRaw     *etherscan.Contract `json:"-"`
-	Sources        *solgo.Sources      `json:"sources,omitempty"`
-	SourceProvider string              `json:"source_provider,omitempty"`
+	SourcesRaw      *etherscan.Contract `json:"-"`
+	Sources         *solgo.Sources      `json:"sources,omitempty"`
+	SourcesUnsorted *solgo.Sources      `json:"-"`
+	SourceProvider  string              `json:"source_provider,omitempty"`
 
 	// Source detection related fields.
 	Detector    *detector.Detector    `json:"-"`
@@ -142,6 +143,11 @@ func (d *Descriptor) GetConstructor() *bytecode.Constructor {
 // GetSources returns the parsed sources of the contract, providing a structured view of the contract's code.
 func (d *Descriptor) GetSources() *solgo.Sources {
 	return d.Sources
+}
+
+// GetUnsortedSources returns the parsed sources of the contract, providing a structured view of the contract's code.
+func (d *Descriptor) GetUnsortedSources() *solgo.Sources {
+	return d.SourcesUnsorted
 }
 
 // GetSourcesRaw returns the raw contract source as obtained from external providers like Etherscan.

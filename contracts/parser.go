@@ -38,6 +38,10 @@ func (c *Contract) Parse(ctx context.Context) error {
 			)
 			return err
 		}
+
+		// Sets the address for more understanding when we need to troubleshoot contract parsing
+		parser.GetIR().SetAddress(c.addr)
+
 		c.descriptor.Detector = parser
 		c.descriptor.SolgoVersion = utils.GetBuildVersionByModule("github.com/unpackdev/solgo")
 

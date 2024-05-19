@@ -159,6 +159,26 @@ func (op OpCode) IsFunctionEnd() bool {
 	return op == RETURN || op == STOP
 }
 
+// IsEvent checks if the given opcode corresponds to an event logging operation.
+// The LOG0 to LOG4 opcodes are used to log events in the EVM.
+func (op OpCode) IsEvent() bool {
+	switch op {
+	case LOG0, LOG1, LOG2, LOG3, LOG4:
+		return true
+	default:
+		return false
+	}
+}
+
+// OpCode extensions for identifying PUSH32 and LOG opcodes
+func (op OpCode) IsPush32() bool {
+	return op == PUSH32
+}
+
+func (op OpCode) IsLog() bool {
+	return op >= LOG0 && op <= LOG4
+}
+
 // IsSelfDestruct checks if the given opcode corresponds to the SELFDESTRUCT operation.
 // The SELFDESTRUCT opcode is used in the EVM to destroy the current contract, sending its funds to the provided address.
 func (op OpCode) IsSelfDestruct() bool {
