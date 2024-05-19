@@ -312,7 +312,6 @@ func (r *Resolver) resolveEntrySourceUnit() {
 		}
 	}
 
-	fmt.Println(r.sources.EntrySourceUnitName, entrySourceUnit)
 	r.tree.astRoot.SetEntrySourceUnit(entrySourceUnit)
 }
 
