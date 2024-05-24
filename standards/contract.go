@@ -24,12 +24,12 @@ func (e *Contract) GetUrl() string {
 }
 
 // GetFunctions returns the functions associated with the standard.
-func (e *Contract) GetFunctions() []Function {
+func (e *Contract) GetFunctions() []StandardFunction {
 	return e.Standard.Functions
 }
 
 // GetEvents returns the events associated with the standard.
-func (e *Contract) GetEvents() []Event {
+func (e *Contract) GetEvents() []StandardEvent {
 	return e.Standard.Events
 }
 
@@ -53,7 +53,7 @@ func (e *Contract) ConfidenceCheck(contract *ContractMatcher) (Discovery, bool) 
 // FunctionConfidenceCheck performs a confidence check on a specific function within the contract standard against a provided
 // function matcher. It assesses whether the function in question matches the criteria defined in the function matcher,
 // returning a FunctionDiscovery struct that details the matching confidence and a boolean indicating if a match was found.
-func (e *Contract) FunctionConfidenceCheck(fn *Function) (FunctionDiscovery, bool) {
+func (e *Contract) FunctionConfidenceCheck(fn *StandardFunction) (FunctionDiscovery, bool) {
 	return FunctionConfidenceCheck(e, fn)
 }
 

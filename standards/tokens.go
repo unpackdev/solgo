@@ -51,7 +51,7 @@ func TokenCount(cs ContractStandard) int {
 // For each input and output, it increments the count by one for the parameter itself, an additional one if the type
 // is specified (non-empty), and another for the 'Indexed' attribute (for inputs only), acknowledging it as a boolean.
 // This count provides an estimate of the complexity or size of the function in terms of its components.
-func FunctionTokenCount(fn Function) int {
+func FunctionTokenCount(fn StandardFunction) int {
 	count := 1 // Assuming function name...
 
 	for _, input := range fn.Inputs {

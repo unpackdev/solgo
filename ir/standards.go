@@ -59,8 +59,8 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 
 	contract := &standards.ContractMatcher{
 		Name:      root.GetEntryName(),
-		Functions: make([]standards.Function, 0),
-		Events:    make([]standards.Event, 0),
+		Functions: make([]standards.StandardFunction, 0),
+		Events:    make([]standards.StandardEvent, 0),
 	}
 
 	for _, unit := range root.GetContracts() {
@@ -87,7 +87,7 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 				}
 			}
 
-			contract.Functions = append(contract.Functions, standards.Function{
+			contract.Functions = append(contract.Functions, standards.StandardFunction{
 				Name:    function.GetName(),
 				Inputs:  inputs,
 				Outputs: outputs,
@@ -104,7 +104,7 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 				})
 			}
 
-			contract.Events = append(contract.Events, standards.Event{
+			contract.Events = append(contract.Events, standards.StandardEvent{
 				Name:    event.GetName(),
 				Inputs:  inputs,
 				Outputs: make([]standards.Output, 0),

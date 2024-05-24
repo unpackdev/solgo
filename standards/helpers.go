@@ -10,8 +10,8 @@ import (
 )
 
 // newFunction creates and returns a new Function struct with the provided name, inputs, and outputs.
-func newFunction(name string, inputs []Input, outputs []Output) Function {
-	return Function{
+func newFunction(name string, inputs []Input, outputs []Output) StandardFunction {
+	return StandardFunction{
 		Name:    name,
 		Inputs:  inputs,
 		Outputs: outputs,
@@ -19,8 +19,8 @@ func newFunction(name string, inputs []Input, outputs []Output) Function {
 }
 
 // newEvent creates and returns a new Event struct with the provided name, inputs, and outputs.
-func newEvent(name string, inputs []Input, outputs []Output) Event {
-	return Event{
+func newEvent(name string, inputs []Input, outputs []Output) StandardEvent {
+	return StandardEvent{
 		Name:    name,
 		Inputs:  inputs,
 		Outputs: outputs,

@@ -13,7 +13,7 @@ type EIP interface {
 
 	// GetFunctions returns a slice of Function structs, representing the
 	// functions defined in the Ethereum standard.
-	GetFunctions() []Function
+	GetFunctions() []StandardFunction
 
 	// GetUrl returns the URL of the Ethereum standard.
 	GetUrl() string
@@ -23,7 +23,7 @@ type EIP interface {
 
 	// GetEvents returns a slice of Event structs, representing the
 	// events defined in the Ethereum standard.
-	GetEvents() []Event
+	GetEvents() []StandardEvent
 
 	// GetStandard returns the complete representation of the Ethereum standard.
 	GetStandard() ContractStandard
@@ -34,7 +34,7 @@ type EIP interface {
 
 	// FunctionConfidenceCheck returns a discovery confidence information and a boolean indicating whether
 	// the contract function is to any level compliant with the Ethereum standard.
-	FunctionConfidenceCheck(fn *Function) (FunctionDiscovery, bool)
+	FunctionConfidenceCheck(fn *StandardFunction) (FunctionDiscovery, bool)
 
 	// TokenCount returns the number of tokens associated with the Ethereum standard.
 	TokenCount() int

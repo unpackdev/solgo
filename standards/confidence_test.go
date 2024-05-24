@@ -53,7 +53,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip20_full_match",
 					contract: &ContractMatcher{
 						Name: "ERC20 Full Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
 							newFunction("balanceOf", []Input{{Type: TypeAddress}}, []Output{{Type: TypeUint256}}),
 							newFunction("transfer", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
@@ -61,7 +61,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("approve", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
 							newFunction("allowance", []Input{{Type: TypeAddress}, {Type: TypeAddress}}, []Output{{Type: TypeUint256}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("Transfer", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 							newEvent("Approval", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 						},
@@ -79,7 +79,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip20_high_match",
 					contract: &ContractMatcher{
 						Name: "ERC20 High Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
 							newFunction("balanceOf", []Input{{Type: TypeAddress}}, []Output{{Type: TypeUint256}}),
 							newFunction("transfer", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
@@ -87,7 +87,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("approve", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
 							newFunction("allowance", []Input{{Type: TypeAddress}, {Type: TypeAddress}}, []Output{}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("Transfer", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 							newEvent("Approval", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 						},
@@ -105,12 +105,12 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip20_medium_match",
 					contract: &ContractMatcher{
 						Name: "ERC20 Medium Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
 							newFunction("balanceOf", []Input{{Type: TypeAddress}}, []Output{{Type: TypeUint256}}),
 							newFunction("transfer", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeBool}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("Transfer", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 							newEvent("Approval", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 						},
@@ -128,10 +128,10 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip20_low_match",
 					contract: &ContractMatcher{
 						Name: "ERC20 Low Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("Transfer", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 						},
 					},
@@ -148,8 +148,8 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip20_no_match",
 					contract: &ContractMatcher{
 						Name:      "ERC20 No Match",
-						Functions: []Function{},
-						Events:    []Event{},
+						Functions: []StandardFunction{},
+						Events:    []StandardEvent{},
 					},
 					expectedLevel:        NoConfidence,
 					expectedThreshold:    NoConfidenceThreshold,
@@ -188,7 +188,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip721_full_match",
 					contract: &ContractMatcher{
 						Name: "ERC721 Full Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("name", nil, []Output{{Type: TypeString}}),
 							newFunction("symbol", nil, []Output{{Type: TypeString}}),
 							newFunction("totalSupply", nil, []Output{{Type: TypeUint256}}),
@@ -200,7 +200,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("getApproved", []Input{{Type: TypeUint256}}, []Output{{Type: TypeAddress}}),
 							newFunction("isApprovedForAll", []Input{{Type: TypeAddress}, {Type: TypeAddress}}, []Output{{Type: TypeBool}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("Transfer", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 							newEvent("Approval", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}}, nil),
 							newEvent("ApprovalForAll", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeBool}}, nil),
@@ -242,7 +242,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip1155_full_match",
 					contract: &ContractMatcher{
 						Name: "ERC1155 Full Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("safeTransferFrom", []Input{{Type: TypeAddress}, {Type: TypeAddress}, {Type: TypeUint256}, {Type: TypeUint256}, {Type: TypeBytes}}, nil),
 							newFunction("safeBatchTransferFrom", []Input{{Type: TypeAddress}, {Type: TypeAddress}, {Type: TypeUint256Array}, {Type: TypeUint256Array}, {Type: TypeBytes}}, nil),
 							newFunction("balanceOf", []Input{{Type: TypeAddress}, {Type: TypeUint256}}, []Output{{Type: TypeUint256}}),
@@ -250,7 +250,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("setApprovalForAll", []Input{{Type: TypeAddress}, {Type: TypeBool}}, nil),
 							newFunction("isApprovedForAll", []Input{{Type: TypeAddress}, {Type: TypeAddress}}, []Output{{Type: TypeBool}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("TransferSingle", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeUint256}, {Type: TypeUint256}}, nil),
 							newEvent("TransferBatch", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeAddressArray, Indexed: true}, {Type: TypeUint256Array}, {Type: TypeUint256Array}}, nil),
 							newEvent("ApprovalForAll", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}, {Type: TypeBool}}, nil),
@@ -293,7 +293,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip1820_full_match",
 					contract: &ContractMatcher{
 						Name: "ERC1820 Full Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("setInterfaceImplementer", []Input{{Type: TypeAddress}, {Type: TypeBytes32}, {Type: TypeAddress}}, nil),
 							newFunction("getInterfaceImplementer", []Input{{Type: TypeAddress}, {Type: TypeBytes32}}, []Output{{Type: TypeAddress}}),
 							newFunction("interfaceHash", []Input{{Type: TypeString}}, []Output{{Type: TypeBytes32}}),
@@ -301,7 +301,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("implementsERC165InterfaceNoCache", []Input{{Type: TypeAddress}, {Type: TypeBytes32}}, []Output{{Type: TypeBool}}),
 							newFunction("implementsERC165Interface", []Input{{Type: TypeAddress}, {Type: TypeBytes32}}, []Output{{Type: TypeBool}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("InterfaceImplementerSet", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeBytes32, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 							newEvent("ManagerChanged", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
@@ -342,13 +342,13 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip1822_full_match",
 					contract: &ContractMatcher{
 						Name: "ERC1822 Full Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("getImplementation", nil, []Output{{Type: TypeAddress}}),
 							newFunction("upgradeTo", []Input{{Type: TypeAddress}}, nil),
 							newFunction("upgradeToAndCall", []Input{{Type: TypeAddress, Indexed: false}, {Type: TypeString, Indexed: false}}, nil),
 							newFunction("setProxyOwner", []Input{{Type: TypeAddress}}, nil),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("Upgraded", []Input{{Type: TypeAddress, Indexed: true}}, nil),
 							newEvent("ProxyOwnershipTransferred", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
@@ -389,7 +389,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 					outputFile: "eip1967_full_match",
 					contract: &ContractMatcher{
 						Name: "ERC1967 Full Match",
-						Functions: []Function{
+						Functions: []StandardFunction{
 							newFunction("setInterfaceImplementer", []Input{{Type: TypeAddress}, {Type: TypeBytes32}, {Type: TypeAddress}}, nil),
 							newFunction("getInterfaceImplementer", []Input{{Type: TypeAddress}, {Type: TypeBytes32}}, []Output{{Type: TypeAddress}}),
 							newFunction("interfaceHash", []Input{{Type: TypeString}}, []Output{{Type: TypeBytes32}}),
@@ -397,7 +397,7 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 							newFunction("implementsERC165InterfaceNoCache", []Input{{Type: TypeAddress}, {Type: TypeBytes32}}, []Output{{Type: TypeBool}}),
 							newFunction("implementsERC165Interface", []Input{{Type: TypeAddress}, {Type: TypeBytes32}}, []Output{{Type: TypeBool}}),
 						},
-						Events: []Event{
+						Events: []StandardEvent{
 							newEvent("InterfaceImplementerSet", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeBytes32, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 							newEvent("AdminChanged", []Input{{Type: TypeAddress, Indexed: true}, {Type: TypeAddress, Indexed: true}}, nil),
 						},
@@ -472,15 +472,15 @@ func TestEIPConfidenceDiscovery(t *testing.T) {
 func TestFunctionMatch(t *testing.T) {
 	tests := []struct {
 		name           string
-		newFn          *Function
-		standardFn     Function
-		contractFn     Function
+		newFn          *StandardFunction
+		standardFn     StandardFunction
+		contractFn     StandardFunction
 		expectedTokens int
 		expectedMatch  bool
 	}{
 		{
 			name: "Matching function",
-			newFn: &Function{
+			newFn: &StandardFunction{
 				Name: "transfer",
 				Inputs: []Input{
 					{Type: TypeAddress, Indexed: false, Matched: false},
@@ -489,7 +489,7 @@ func TestFunctionMatch(t *testing.T) {
 				Outputs: []Output{{Type: TypeBool, Matched: false}},
 				Matched: false,
 			},
-			standardFn: Function{
+			standardFn: StandardFunction{
 				Name: "transfer",
 				Inputs: []Input{
 					{Type: TypeAddress, Indexed: false, Matched: false},
@@ -498,7 +498,7 @@ func TestFunctionMatch(t *testing.T) {
 				Outputs: []Output{{Type: TypeBool, Matched: false}},
 				Matched: false,
 			},
-			contractFn: Function{
+			contractFn: StandardFunction{
 				Name: "transfer",
 				Inputs: []Input{
 					{Type: TypeAddress, Indexed: false, Matched: false},
@@ -524,15 +524,15 @@ func TestFunctionMatch(t *testing.T) {
 func TestEventMatch(t *testing.T) {
 	tests := []struct {
 		name           string
-		newEvent       *Event
-		standardEvent  Event
-		contractEvent  Event
+		newEvent       *StandardEvent
+		standardEvent  StandardEvent
+		contractEvent  StandardEvent
 		expectedTokens int
 		expectedMatch  bool
 	}{
 		{
 			name: "Matching event",
-			newEvent: &Event{
+			newEvent: &StandardEvent{
 				Name: "Transfer",
 				Inputs: []Input{
 					{Type: TypeAddress, Indexed: true, Matched: false},
@@ -542,7 +542,7 @@ func TestEventMatch(t *testing.T) {
 				Outputs: []Output{},
 				Matched: false,
 			},
-			standardEvent: Event{
+			standardEvent: StandardEvent{
 				Name: "Transfer",
 				Inputs: []Input{
 					{Type: TypeAddress, Indexed: true, Matched: false},
@@ -552,7 +552,7 @@ func TestEventMatch(t *testing.T) {
 				Outputs: []Output{},
 				Matched: false,
 			},
-			contractEvent: Event{
+			contractEvent: StandardEvent{
 				Name: "Transfer",
 				Inputs: []Input{
 					{Type: TypeAddress, Indexed: true, Matched: false},
