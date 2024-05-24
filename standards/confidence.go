@@ -98,8 +98,8 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 		DiscoveredTokens: 0,
 		Contract: &ContractMatcher{
 			Name:      contract.Name,
-			Functions: make([]Function, 0),
-			Events:    make([]Event, 0),
+			Functions: make([]StandardFunction, 0),
+			Events:    make([]StandardEvent, 0),
 		},
 	}
 	foundTokenCount := 0
@@ -107,7 +107,7 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 	discoveredEvents := map[string]bool{}
 
 	for _, standardFunction := range standard.GetFunctions() {
-		contractFn := Function{
+		contractFn := StandardFunction{
 			Name:    standardFunction.Name,
 			Inputs:  make([]Input, 0),
 			Outputs: make([]Output, 0),
@@ -144,7 +144,7 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 
 	for _, event := range standard.GetEvents() {
 
-		eventFn := Event{
+		eventFn := StandardEvent{
 			Name:    event.Name,
 			Inputs:  make([]Input, 0),
 			Outputs: make([]Output, 0),
@@ -192,7 +192,7 @@ func ConfidenceCheck(standard EIP, contract *ContractMatcher) (Discovery, bool) 
 }
 
 // FunctionConfidenceCheck checks for function confidence against provided EIP standard
-func FunctionConfidenceCheck(standard EIP, fn *Function) (FunctionDiscovery, bool) {
+func FunctionConfidenceCheck(standard EIP, fn *StandardFunction) (FunctionDiscovery, bool) {
 	foundTokenCount := 0
 	maximumTokens := standard.FunctionTokenCount(fn.Name)
 
@@ -203,7 +203,7 @@ func FunctionConfidenceCheck(standard EIP, fn *Function) (FunctionDiscovery, boo
 		Threshold:        NoConfidenceThreshold,
 		MaximumTokens:    maximumTokens,
 		DiscoveredTokens: 0,
-		Function: &Function{
+		Function: &StandardFunction{
 			Name: fn.Name,
 		},
 	}
@@ -229,7 +229,7 @@ func FunctionConfidenceCheck(standard EIP, fn *Function) (FunctionDiscovery, boo
 }
 
 // FunctionMatch matches a function from a contract to a standard function and returns the total token count and a boolean indicating if a match was found.
-func FunctionMatch(newFn *Function, standardFunction, contractFunction Function) (int, bool) {
+func FunctionMatch(newFn *StandardFunction, standardFunction, contractFunction StandardFunction) (int, bool) {
 	totalTokenCount := 0
 	newFn.Name = contractFunction.Name
 	if standardFunction.Name == contractFunction.Name {
@@ -268,7 +268,7 @@ func FunctionMatch(newFn *Function, standardFunction, contractFunction Function)
 }
 
 // EventMatch matches an event from a contract to a standard event and returns the total token count and a boolean indicating if a match was found.
-func EventMatch(newEvent *Event, standardEvent, event Event) (int, bool) {
+func EventMatch(newEvent *StandardEvent, standardEvent, event StandardEvent) (int, bool) {
 	totalTokenCount := 0
 
 	if standardEvent.Name == event.Name {

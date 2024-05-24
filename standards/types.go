@@ -71,8 +71,8 @@ func (i *Output) ToProto() *eip_pb.Output {
 	}
 }
 
-// Function represents an Ethereum smart contract function.
-type Function struct {
+// StandardFunction represents an Ethereum smart contract function.
+type StandardFunction struct {
 	// Name specifies the name of the function.
 	Name string `json:"name"`
 
@@ -87,7 +87,7 @@ type Function struct {
 }
 
 // ToProto converts the Function to its protobuf representation.
-func (f *Function) ToProto() *eip_pb.Function {
+func (f *StandardFunction) ToProto() *eip_pb.Function {
 	protoInputs := make([]*eip_pb.Input, 0)
 	protoOutputs := make([]*eip_pb.Output, 0)
 
@@ -107,8 +107,8 @@ func (f *Function) ToProto() *eip_pb.Function {
 	}
 }
 
-// Event represents an Ethereum smart contract event.
-type Event struct {
+// StandardEvent represents an Ethereum smart contract event.
+type StandardEvent struct {
 	// Name specifies the name of the event.
 	Name string `json:"name"`
 
@@ -123,7 +123,7 @@ type Event struct {
 }
 
 // ToProto converts the Event to its protobuf representation.
-func (e *Event) ToProto() *eip_pb.Event {
+func (e *StandardEvent) ToProto() *eip_pb.Event {
 	protoInputs := make([]*eip_pb.Input, 0)
 	protoOutputs := make([]*eip_pb.Output, 0)
 
@@ -162,10 +162,10 @@ type ContractStandard struct {
 	ABI string `json:"abi"`
 
 	// Functions is a slice of Function structs, representing the functions defined in the contract standard.
-	Functions []Function `json:"functions"`
+	Functions []StandardFunction `json:"functions"`
 
 	// Events is a slice of Event structs, representing the events defined in the contract standard.
-	Events []Event `json:"events"`
+	Events []StandardEvent `json:"events"`
 }
 
 // ToProto converts the ContractStandard to its protobuf representation.
@@ -202,10 +202,10 @@ type ContractMatcher struct {
 	Name string `json:"name"`
 
 	// Functions is a slice of Function structs, representing the functions defined in the contract standard.
-	Functions []Function `json:"functions"`
+	Functions []StandardFunction `json:"functions"`
 
 	// Events is a slice of Event structs, representing the events defined in the contract standard.
-	Events []Event `json:"events"`
+	Events []StandardEvent `json:"events"`
 }
 
 // ToProto converts the Event to its protobuf representation.
@@ -235,7 +235,7 @@ type FunctionMatcher struct {
 	Name string `json:"name"`
 
 	// Functions is a list of Function structs, representing the functions defined by the contract.
-	Functions []Function `json:"functions"`
+	Functions []StandardFunction `json:"functions"`
 }
 
 // Discovery represents the result of attempting to discover a contract standard.
@@ -270,5 +270,5 @@ type FunctionDiscovery struct {
 	MaximumTokens    int                 `json:"maximum_tokens"`    // Maximum number of tokens in the standard.
 	DiscoveredTokens int                 `json:"discovered_tokens"` // Number of tokens discovered in the standard.
 	Standard         Standard            `json:"standard"`          // Contract standard being scanned.
-	Function         *Function           `json:"function"`          // Matched function in the contract.
+	Function         *StandardFunction   `json:"function"`          // Matched function in the contract.
 }
