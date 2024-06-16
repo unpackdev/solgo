@@ -83,6 +83,10 @@ func (n Network) String() string {
 	return string(n)
 }
 
+func (n Network) GetNetworkID() NetworkID {
+	return GetNetworkID(n)
+}
+
 func (n NetworkID) ToBig() *big.Int {
 	return new(big.Int).SetUint64(uint64(n))
 }
@@ -125,6 +129,25 @@ func GetNetworkFromID(id NetworkID) (Network, error) {
 	case ArbitrumNetworkID:
 		return Arbitrum, nil
 	case OptimismNetworkID:
+		return Optimism, nil
+	default:
+		return "", fmt.Errorf("unknown network ID '%d' provided", id)
+	}
+}
+
+func GetNetworkFromInt(id uint64) (Network, error) {
+	switch id {
+	case EthereumNetworkID.Uint64():
+		return Ethereum, nil
+	case BscNetworkID.Uint64():
+		return Bsc, nil
+	case PolygonNetworkID.Uint64():
+		return Polygon, nil
+	case AvalancheNetworkID.Uint64():
+		return Avalanche, nil
+	case ArbitrumNetworkID.Uint64():
+		return Arbitrum, nil
+	case OptimismNetworkID.Uint64():
 		return Optimism, nil
 	default:
 		return "", fmt.Errorf("unknown network ID '%d' provided", id)

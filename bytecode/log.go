@@ -56,19 +56,23 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 		return nil, fmt.Errorf("failed to unpack inputs into map: %s", err)
 	}
 
-	decodedTopics := make([]Topic, len(log.Topics))
-	for i, topic := range log.Topics {
-		if i == 0 {
-			continue
+	// Identify and decode indexed inputs
+	indexedInputs := make([]abi.Argument, 0)
+	for _, input := range event.Inputs {
+		if input.Indexed {
+			indexedInputs = append(indexedInputs, input)
 		}
+	}
 
-		decodedTopic, err := decodeTopic(topic, event.Inputs[i-1])
+	decodedTopics := make([]Topic, len(indexedInputs))
+	for i, indexedInput := range indexedInputs {
+		decodedTopic, err := decodeTopic(log.Topics[i+1], indexedInput)
 		if err != nil {
 			return nil, fmt.Errorf("failed to decode topic: %s", err)
 		}
 
 		decodedTopics[i] = Topic{
-			Name:  event.Inputs[i-1].Name,
+			Name:  indexedInput.Name,
 			Value: decodedTopic,
 		}
 	}
@@ -87,7 +91,7 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 		Name:         event.Name,
 		Type:         utils.LogEventType(strings.ToLower(event.Name)),
 		Data:         data,
-		Topics:       decodedTopics[1:], // Exclude the first topic (event signature)
+		Topics:       decodedTopics, // Exclude the first topic (event signature)
 	}
 
 	return toReturn, nil

@@ -28,7 +28,7 @@ const (
 // It embeds ClientPool for network interactions and KeyStore for account management.
 // It also includes fields for account details, network information, and additional tags.
 type Account struct {
-	client             *clients.Client     `json:"-" yaml:"-"` // Client for Ethereum client interactions
+	client             *clients.Client
 	*keystore.KeyStore `json:"-" yaml:"-"` // KeyStore for managing account keys
 	Address            common.Address      `json:"address" yaml:"address"`         // Ethereum address of the account
 	Type               utils.AccountType   `json:"type" yaml:"type"`               // Account type
@@ -79,7 +79,7 @@ func (a *Account) GetClient() *clients.Client {
 // It does not affect the real balance on the Ethereum network.
 func (a *Account) SetAccountBalance(ctx context.Context, amount *big.Int) error {
 	amountHex := common.Bytes2Hex(amount.Bytes())
-	return a.client.GetRpcClient().Call(nil, "anvil_setBalance", a.GetAddress(), amountHex)
+	return a.client.GetRpcClient().CallContext(ctx, nil, "anvil_setBalance", a.GetAddress(), amountHex)
 }
 
 // Balance retrieves the account's balance from the Ethereum network at a specified block number.
@@ -236,6 +236,8 @@ func LoadAccount(path string) (*Account, error) {
 	if err != nil {
 		return nil, err
 	}
+	account.Address = account.KeystoreAccount.Address
+	account.Type = utils.KeystoreAccountType
 
 	return &account, nil
 }

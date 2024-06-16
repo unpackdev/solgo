@@ -62,8 +62,10 @@ func (t *TypeName) WithParentNode(p Node[NodeType]) {
 
 // SetReferenceDescriptor sets the reference descriptions of the TypeName node.
 func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	t.ReferencedDeclaration = refId
-	t.TypeDescription = refDesc
+	if t.TypeDescription == nil {
+		t.ReferencedDeclaration = refId
+		t.TypeDescription = refDesc
+	}
 
 	// Lets update the parent node as well in case that type description is not set...
 	/* 	parentNodeId := t.GetSrc().GetParentIndex()
@@ -370,7 +372,6 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				Length:      int64(pathCtx.GetStop().GetStop() - pathCtx.GetStart().GetStart() + 1),
 				ParentIndex: t.GetId(),
 			},
-
 			NodeType: ast_pb.NodeType_IDENTIFIER_PATH,
 		}
 
@@ -386,7 +387,7 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 		}
 
 		if found {
-			t.TypeDescription = &TypeDescription{
+			t.PathNode.TypeDescription = &TypeDescription{
 				TypeIdentifier: normalizedTypeIdentifier,
 				TypeString:     normalizedTypeName,
 			}
@@ -398,6 +399,13 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				t.ReferencedDeclaration = refId
 				t.TypeDescription = refTypeDescription
 			}
+		}
+
+		// Alright lets now figure out main type description as it can be different such as
+		// PathNode vs PathNode[]
+		if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
+			t.ReferencedDeclaration = refId
+			t.TypeDescription = refTypeDescription
 		}
 
 	} else if ctx.TypeName() != nil {
@@ -438,7 +446,6 @@ func (t *TypeName) parseTypeName(unit *SourceUnit[Node[ast_pb.SourceUnit]], pare
 				t.TypeDescription = refTypeDescription
 			}
 		}
-
 	}
 }
 
@@ -515,17 +522,39 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 		}
 
 		if found {
-			t.TypeDescription = &TypeDescription{
+			t.PathNode.TypeDescription = &TypeDescription{
 				TypeIdentifier: normalizedTypeIdentifier,
 				TypeString:     normalizedTypeName,
 			}
 		} else {
-			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, identifierCtx.GetText()); refTypeDescription != nil {
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t.PathNode, identifierCtx.GetText()); refTypeDescription != nil {
 				t.PathNode.ReferencedDeclaration = refId
+				t.PathNode.TypeDescription = refTypeDescription
+			}
+		}
+
+		bNormalizedTypeName, bNormalizedTypeIdentifier, bFound := normalizeTypeDescriptionWithStatus(
+			identifierCtx.GetText(),
+		)
+
+		// Alright lets now figure out main type description as it can be different such as
+		// PathNode vs PathNode[]
+		if bFound {
+			t.TypeDescription = &TypeDescription{
+				TypeIdentifier: bNormalizedTypeIdentifier,
+				TypeString:     bNormalizedTypeName,
+			}
+		} else {
+			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
 				t.ReferencedDeclaration = refId
 				t.TypeDescription = refTypeDescription
 			}
 		}
+
+		/*		if t.Id == 1787 {
+				fmt.Println("HERE I AM")
+				utils.DumpNodeWithExit(t)
+			}*/
 	}
 }
 
@@ -705,6 +734,7 @@ func (t *TypeName) generateTypeName(sourceUnit *SourceUnit[Node[ast_pb.SourceUni
 		} else if specificCtx.IdentifierPath() != nil {
 			typeName.NodeType = ast_pb.NodeType_USER_DEFINED_PATH_NAME
 			t.parseIdentifierPath(sourceUnit, parentNode.GetId(), specificCtx.IdentifierPath().(*parser.IdentifierPathContext))
+
 		} else {
 
 			normalizedTypeName, normalizedTypeIdentifier := normalizeTypeDescription(
@@ -777,6 +807,7 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 		case *antlr.TerminalNodeImpl:
 			continue
 		default:
+
 			expression := NewExpression(t.ASTBuilder)
 			if expr := expression.ParseInterface(unit, fnNode, t.GetId(), ctx.Expression()); expr != nil {
 				t.Expression = expr

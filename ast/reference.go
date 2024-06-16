@@ -52,7 +52,17 @@ func (r *Resolver) GetUnprocessedCount() int {
 // ResolveByNode attempts to resolve a node by its name and returns the resolved Node and its TypeDescription.
 // If the node cannot be found, it is added to the UnprocessedNodes map for future resolution.
 func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *TypeDescription) {
-	rNode, rNodeType := r.resolveByNode(name, node)
+	isSlice := strings.HasSuffix(name, "[]")
+	isPrefixSlice := strings.HasPrefix(name, "[]")
+	cleanedName := name
+
+	if isSlice {
+		cleanedName = strings.TrimSuffix(name, "[]")
+	} else if isPrefixSlice {
+		cleanedName = strings.TrimPrefix(name, "[]")
+	}
+
+	rNode, rNodeType := r.resolveByNode(cleanedName, node)
 
 	// Node could not be found in this moment, we are going to see if we can discover it in the
 	// future at the end of whole parsing process.
@@ -61,6 +71,12 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 			Id:   node.GetId(),
 			Name: name,
 			Node: node,
+		}
+	} else {
+		if isSlice && !strings.Contains(rNodeType.TypeString, "[]") {
+			rNodeType.TypeString = rNodeType.TypeString + "[]"
+		} else if isPrefixSlice && !strings.Contains(rNodeType.TypeString, "[]") {
+			rNodeType.TypeString = "[]" + rNodeType.TypeString
 		}
 	}
 

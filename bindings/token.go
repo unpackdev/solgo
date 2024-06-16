@@ -42,8 +42,8 @@ func NewToken(ctx context.Context, network utils.Network, manager *Manager, opts
 
 	// Now lets register all the bindings with the manager
 	for _, opt := range opts {
-		for _, network := range opt.Networks {
-			if _, err := manager.RegisterBinding(network, opt.NetworkID, opt.Type, opt.Address, opt.ABI); err != nil {
+		for _, oNetwork := range opt.Networks {
+			if _, err := manager.RegisterBinding(oNetwork, opt.NetworkID, opt.Type, opt.Address, opt.ABI); err != nil {
 				return nil, err
 			}
 		}

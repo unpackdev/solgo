@@ -5,6 +5,7 @@ import (
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
 	"github.com/unpackdev/solgo/ast"
 	"github.com/unpackdev/solgo/ir"
+	"strings"
 )
 
 // Contract represents a collection of Ethereum contract methods.
@@ -128,10 +129,18 @@ func (b *Builder) buildMethodIO(method MethodIO, typeDescr *ast.TypeDescription)
 		method.Inputs = append(method.Inputs, inputList...)
 		method.Outputs = append(method.Outputs, outputList...)
 	case "contract":
-		method.Type = "address"
+		if strings.ContainsAny(typeDescr.GetString(), "[]") {
+			method.Type = "address[]"
+		} else {
+			method.Type = "address"
+		}
 		method.InternalType = typeDescr.GetString()
 	case "enum":
-		method.Type = "uint8"
+		if strings.ContainsAny(typeDescr.GetString(), "[]") {
+			method.Type = "uint8[]"
+		} else {
+			method.Type = "uint8"
+		}
 		method.InternalType = typeDescr.GetString()
 	case "struct":
 		return b.resolver.ResolveStructType(typeDescr)
