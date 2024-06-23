@@ -62,10 +62,8 @@ func (t *TypeName) WithParentNode(p Node[NodeType]) {
 
 // SetReferenceDescriptor sets the reference descriptions of the TypeName node.
 func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription) bool {
-	if t.TypeDescription == nil {
-		t.ReferencedDeclaration = refId
-		t.TypeDescription = refDesc
-	}
+	t.ReferencedDeclaration = refId
+	t.TypeDescription = refDesc
 
 	// Lets update the parent node as well in case that type description is not set...
 	/* 	parentNodeId := t.GetSrc().GetParentIndex()
@@ -550,11 +548,6 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 				t.TypeDescription = refTypeDescription
 			}
 		}
-
-		/*		if t.Id == 1787 {
-				fmt.Println("HERE I AM")
-				utils.DumpNodeWithExit(t)
-			}*/
 	}
 }
 
@@ -990,7 +983,7 @@ func (td *TypeDescription) GetString() string {
 }
 
 // ToProto converts the TypeDescription instance to its corresponding protocol buffer representation.
-func (td TypeDescription) ToProto() *ast_pb.TypeDescription {
+func (td *TypeDescription) ToProto() *ast_pb.TypeDescription {
 	return &ast_pb.TypeDescription{
 		TypeString:     td.TypeString,
 		TypeIdentifier: td.TypeIdentifier,

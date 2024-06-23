@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/enviodev/hypersync-client-go/pkg/utils"
 	"math/big"
 )
 
@@ -85,6 +86,10 @@ func (n Network) String() string {
 
 func (n Network) GetNetworkID() NetworkID {
 	return GetNetworkID(n)
+}
+
+func (n Network) GetToHyperSyncNetworkID() utils.NetworkID {
+	return utils.NetworkID(n.GetNetworkID().Uint64())
 }
 
 func (n NetworkID) ToBig() *big.Int {

@@ -553,6 +553,10 @@ func (r *Resolver) byEnums(name string) (int64, *TypeDescription) {
 }
 
 func (r *Resolver) byStructs(name string) (int64, *TypeDescription) {
+	if strings.Contains(name, ".") {
+		name = strings.Split(name, ".")[1]
+	}
+
 	for _, node := range r.currentStructs {
 		structNode := node.(*StructDefinition)
 		if structNode.GetName() == name {

@@ -4,20 +4,17 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
-	"github.com/goccy/go-json"
-	"log"
-	"math/big"
-	"os"
-	"strings"
-
 	account "github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/goccy/go-json"
 	"github.com/unpackdev/solgo/clients"
 	"github.com/unpackdev/solgo/utils"
+	"log"
+	"math/big"
+	"os"
 )
 
 const (
@@ -112,21 +109,22 @@ func (a *Account) TransactOpts(client *clients.Client, amount *big.Int, simulate
 
 	if !simulate {
 		if a.Type == utils.SimpleAccountType {
-			privateKey, err := crypto.HexToECDSA(strings.TrimLeft(a.PrivateKey, "0x"))
-			if err != nil {
-				return nil, err
-			}
+			/*			privateKey, err := crypto.HexToECDSA(strings.TrimLeft(a.PrivateKey, "0x"))
+						if err != nil {
+							return nil, err
+						}*/
 
-			auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(client.GetNetworkID()))
-			if err != nil {
-				return nil, err
-			}
+			/*			auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(client.GetNetworkID()))
+						if err != nil {
+							return nil, err
+						}
 
-			auth.Nonce = big.NewInt(int64(nonce))
-			auth.GasPrice = gasPrice
-			auth.GasLimit = DEFAULT_GAS_LIMIT
-			auth.Value = amount
-			return auth, nil
+						auth.Nonce = big.NewInt(int64(nonce))
+						auth.GasPrice = gasPrice
+						auth.GasLimit = DEFAULT_GAS_LIMIT
+						auth.Value = amount
+						return auth, nil*/
+			return nil, nil
 		} else if a.Type == utils.KeystoreAccountType {
 			password, _ := a.DecodePassword()
 

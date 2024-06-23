@@ -3,9 +3,10 @@ package contracts
 import (
 	"context"
 	"fmt"
-	"github.com/unpackdev/solgo/bindings"
-
+	hypersyncgo "github.com/enviodev/hypersync-client-go"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/pkg/errors"
+	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/utils"
 )
 
@@ -30,6 +31,15 @@ func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error 
 	var txHash common.Hash
 
 	if info == nil || info.CreationHash == utils.ZeroHash {
+		cInfo, err := c.hypersync.GetContractCreator(ctx, c.network.GetToHyperSyncNetworkID(), c.addr)
+		if err != nil && !errors.Is(err, hypersyncgo.ErrContractNotFound) {
+			return errors.Wrap(err, "failed to get contract creator transaction information")
+		} else if cInfo != nil {
+			txHash = cInfo.Hash
+		}
+	}
+
+	if txHash == utils.ZeroHash || info == nil || info.CreationHash == utils.ZeroHash {
 		// Prior to continuing with the unpacking of the contract, we want to make sure that we can reach properly
 		// contract transaction and associated creation block. If we can't, we're not going to unpack it.
 		cInfo, err := c.etherscan.QueryContractCreationTx(ctx, c.addr)
@@ -56,11 +66,11 @@ func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error 
 	}
 	c.descriptor.Receipt = receipt
 
-	block, err := c.client.BlockByNumber(ctx, receipt.BlockNumber)
+	block, err := c.client.HeaderByNumber(ctx, receipt.BlockNumber)
 	if err != nil {
 		return fmt.Errorf("failed to get block by number: %s", err)
 	}
-	c.descriptor.Block = block.Header()
+	c.descriptor.Block = block
 
 	if len(c.descriptor.ExecutionBytecode) < 1 {
 		c.descriptor.ExecutionBytecode = c.descriptor.Transaction.Data()
