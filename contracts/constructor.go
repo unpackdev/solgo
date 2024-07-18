@@ -47,7 +47,6 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 						return fmt.Errorf("constructor data index out of range")
 					}
 
-					fmt.Println(string(cAbi))
 					constructor, err := bytecode.DecodeConstructorFromAbi(adjustedData[constructorDataIndex:], constructorAbi)
 					if err != nil {
 						if !strings.Contains(err.Error(), "would go over slice boundary") {

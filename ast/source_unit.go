@@ -62,7 +62,7 @@ func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources *solgo.Sources) {
 		}
 
 		// Use the compiled regex for matching.
-		if !found && regex.MatchString(unit.GetContent()) {
+		if regex.MatchString(unit.GetContent()) {
 			s.AbsolutePath = filepath.Base(filepath.Clean(unit.Path))
 			found = true
 			break
@@ -70,7 +70,7 @@ func (s *SourceUnit[T]) SetAbsolutePathFromSources(sources *solgo.Sources) {
 	}
 
 	if !found {
-		zap.L().Warn(
+		zap.L().Debug(
 			"Could not set absolute path from sources as source unit was not found in sources",
 			zap.String("name", s.Name),
 			zap.String("pattern", pattern),

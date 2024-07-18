@@ -90,7 +90,7 @@ func (e *Provider) QueryContractCreationTx(ctx context.Context, addr common.Addr
 
 	var creationResponse ContractCreationResponse
 	if err := json.Unmarshal(body, &creationResponse); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal contract creation response: %s", err)
+		return nil, fmt.Errorf("failed to unmarshal contract creation response: %s - %s", err, url)
 	}
 
 	if e.cache != nil {

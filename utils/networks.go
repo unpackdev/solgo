@@ -2,45 +2,9 @@ package utils
 
 import (
 	"fmt"
-	"github.com/enviodev/hypersync-client-go/pkg/utils"
+	"github.com/enviodev/hypersync-client-go/utils"
 	"math/big"
 )
-
-type Network string
-type NetworkID uint64
-
-func (n NetworkID) String() string {
-	return n.ToBig().String()
-}
-
-func (n NetworkID) IsValid() bool {
-	return n != 0
-}
-
-func (n NetworkID) ToNetwork() Network {
-	switch n {
-	case EthereumNetworkID:
-		return Ethereum
-	case BscNetworkID:
-		return Bsc
-	case PolygonNetworkID:
-		return Polygon
-	case AvalancheNetworkID:
-		return Avalanche
-	case FantomNetworkID:
-		return Fantom
-	case ArbitrumNetworkID:
-		return Arbitrum
-	case OptimismNetworkID:
-		return Optimism
-	default:
-		return Ethereum
-	}
-}
-
-func (n NetworkID) Uint64() uint64 {
-	return uint64(n)
-}
 
 const (
 	AnvilNetwork Network = "anvil"
@@ -80,9 +44,18 @@ const (
 	AnvilNetworkID NetworkID = 1337
 )
 
-func (n Network) String() string {
-	return string(n)
+type Networks []Network
+
+func (n Networks) GetNetworkIDs() []Network {
+	ids := make([]Network, 0)
+	for _, n := range n {
+		ids = append(ids, n)
+	}
+	return ids
 }
+
+
+type Network string
 
 func (n Network) GetNetworkID() NetworkID {
 	return GetNetworkID(n)
@@ -92,9 +65,50 @@ func (n Network) GetToHyperSyncNetworkID() utils.NetworkID {
 	return utils.NetworkID(n.GetNetworkID().Uint64())
 }
 
+func (n Network) String() string {
+	return string(n)
+}
+
+
+type NetworkID uint64
+
+func (n NetworkID) String() string {
+	return n.ToBig().String()
+}
+
+func (n NetworkID) IsValid() bool {
+	return n != 0
+}
+
+func (n NetworkID) ToNetwork() Network {
+	switch n {
+	case EthereumNetworkID:
+		return Ethereum
+	case BscNetworkID:
+		return Bsc
+	case PolygonNetworkID:
+		return Polygon
+	case AvalancheNetworkID:
+		return Avalanche
+	case FantomNetworkID:
+		return Fantom
+	case ArbitrumNetworkID:
+		return Arbitrum
+	case OptimismNetworkID:
+		return Optimism
+	default:
+		return Ethereum
+	}
+}
+
+func (n NetworkID) Uint64() uint64 {
+	return uint64(n)
+}
+
 func (n NetworkID) ToBig() *big.Int {
 	return new(big.Int).SetUint64(uint64(n))
 }
+
 
 func GetNetworkID(network Network) NetworkID {
 	switch network {
@@ -180,4 +194,16 @@ func GetNetworkFromString(network string) (Network, error) {
 	default:
 		return "", fmt.Errorf("unknown network '%s' provided", network)
 	}
+}
+
+func GetNetworksFromStringSlice(networks []string) (Networks, error) {
+	toReturn := make(Networks, 0)
+	for _, network := range networks {
+		network, err := GetNetworkFromString(network)
+		if err != nil {
+			return nil, err
+		}
+		toReturn = append(toReturn, network)
+	}
+	return toReturn, nil
 }

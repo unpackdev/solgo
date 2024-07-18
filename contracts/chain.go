@@ -3,9 +3,7 @@ package contracts
 import (
 	"context"
 	"fmt"
-	hypersyncgo "github.com/enviodev/hypersync-client-go"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/pkg/errors"
 	"github.com/unpackdev/solgo/bindings"
 	"github.com/unpackdev/solgo/utils"
 )
@@ -30,16 +28,16 @@ func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error 
 
 	var txHash common.Hash
 
-	if info == nil || info.CreationHash == utils.ZeroHash {
-		cInfo, err := c.hypersync.GetContractCreator(ctx, c.network.GetToHyperSyncNetworkID(), c.addr)
-		if err != nil && !errors.Is(err, hypersyncgo.ErrContractNotFound) {
+	/*	if info == nil || info.CreationHash == utils.ZeroHash {
+		cInfo, err := c.hypersync.GetContractCreator(ctx, c.addr)
+		if err != nil && !errors.Is(err, errorshs.ErrContractNotFound) {
 			return errors.Wrap(err, "failed to get contract creator transaction information")
 		} else if cInfo != nil {
 			txHash = cInfo.Hash
 		}
-	}
+	}*/
 
-	if txHash == utils.ZeroHash || info == nil || info.CreationHash == utils.ZeroHash {
+	if info == nil || info.CreationHash == utils.ZeroHash {
 		// Prior to continuing with the unpacking of the contract, we want to make sure that we can reach properly
 		// contract transaction and associated creation block. If we can't, we're not going to unpack it.
 		cInfo, err := c.etherscan.QueryContractCreationTx(ctx, c.addr)

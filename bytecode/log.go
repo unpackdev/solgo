@@ -64,12 +64,9 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 		}
 	}
 
-	if len(log.Topics) < len(indexedInputs)+1 {
-		return nil, fmt.Errorf("insufficient number of topics in log.Topics")
-	}
-
 	decodedTopics := make([]Topic, len(indexedInputs))
-	for i, indexedInput := range indexedInputs {
+	if len(log.Topics) >= len(indexedInputs)+1 {
+		for i, indexedInput := range indexedInputs {
 			decodedTopic, err := decodeTopic(log.Topics[i+1], indexedInput)
 			if err != nil {
 				return nil, fmt.Errorf("failed to decode topic: %s", err)
@@ -79,6 +76,7 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 				Name:  indexedInput.Name,
 				Value: decodedTopic,
 			}
+		}
 	}
 
 	eventAbi, err := utils.EventToABI(event)
@@ -95,7 +93,7 @@ func DecodeLogFromAbi(log *types.Log, abiData []byte) (*Log, error) {
 		Name:         event.Name,
 		Type:         utils.LogEventType(strings.ToLower(event.Name)),
 		Data:         data,
-		Topics:       decodedTopics, // Exclude the first topic (event signature)
+		Topics:       decodedTopics, // Include only the decoded topics
 	}
 
 	return toReturn, nil

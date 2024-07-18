@@ -120,6 +120,7 @@ func (c *Contract) DiscoverSourceCode(ctx context.Context) error {
 		}
 
 		c.descriptor.Name = response.Name
+		c.descriptor.UnitName = response.Name
 		c.descriptor.CompilerVersion = c.descriptor.SourcesRaw.CompilerVersion
 		c.descriptor.Optimized = optimized
 		c.descriptor.OptimizationRuns = optimizationRuns

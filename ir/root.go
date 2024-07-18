@@ -255,7 +255,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 
 	entrySourceUnit := root.GetSourceUnitById(root.GetEntrySourceUnit())
 	if entrySourceUnit == nil {
-		zap.L().Warn(
+		zap.L().Debug(
 			"Entry source unit not found. Make sure it's correctly set.",
 			zap.String("contract_address", b.GetAddress().Hex()),
 			zap.Int64("requested_source_unit_id", root.GetEntrySourceUnit()),
