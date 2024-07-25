@@ -121,6 +121,11 @@ const (
 	AddressRecipient     AddressType = "address"
 	ContractRecipient    AddressType = "contract"
 
+	ZeroAddressType AddressType = "zero_address"
+	AccountAddressType        AddressType = "account"
+	ContractAddressType       AddressType = "contract"
+
+
 	UnknownTransactionMethodType TransactionMethodType = "unknown"
 	ContractCreationType         TransactionMethodType = "contract_creation"
 	ApproveMethodType           TransactionMethodType = "approve"

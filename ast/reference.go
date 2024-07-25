@@ -78,6 +78,12 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 		} else if isPrefixSlice && !strings.Contains(rNodeType.TypeString, "[]") {
 			rNodeType.TypeString = "[]" + rNodeType.TypeString
 		}
+
+		// Somewhere in the code [] is applied to rNodeType where it should not be...
+		// TODO: Remove it from here and fix wherever it's happening. I don't give a crap atm about this...
+		if !strings.Contains(name, "[]") && strings.Contains(rNodeType.TypeString, "[]") {
+			rNodeType.TypeString = strings.ReplaceAll(rNodeType.TypeString, "[]", "")
+		}
 	}
 
 	return rNode, rNodeType

@@ -26,6 +26,7 @@ func (c *Contract) DiscoverChainInfo(ctx context.Context, otsLookup bool) error 
 		}
 	}
 
+
 	var txHash common.Hash
 
 	/*	if info == nil || info.CreationHash == utils.ZeroHash {

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"strings"
 
 	"github.com/unpackdev/solgo/bytecode"
@@ -29,7 +30,7 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 				abiRoot != nil && abiRoot.GetEntryContract().GetMethodByType("constructor") != nil {
 				cAbi, _ := utils.ToJSON(abiRoot.GetEntryContract().GetMethodByType("constructor"))
 				constructorAbi := fmt.Sprintf("[%s]", string(cAbi))
-
+				//utils.DumpNodeWithExit(irRoot.GetEntryContract().GetConstructor().GetParameters())
 				tx := c.descriptor.Transaction
 				deployedBytecode := c.descriptor.DeployedBytecode
 
@@ -46,7 +47,7 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 					if constructorDataIndex > len(adjustedData) {
 						return fmt.Errorf("constructor data index out of range")
 					}
-
+					spew.Dump(constructorAbi)
 					constructor, err := bytecode.DecodeConstructorFromAbi(adjustedData[constructorDataIndex:], constructorAbi)
 					if err != nil {
 						if !strings.Contains(err.Error(), "would go over slice boundary") {

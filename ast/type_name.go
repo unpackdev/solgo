@@ -477,7 +477,6 @@ func (t *TypeName) parseElementaryTypeName(unit *SourceUnit[Node[ast_pb.SourceUn
 			t.TypeDescription = refTypeDescription
 		}
 	}
-
 }
 
 // parseIdentifierPath parses the IdentifierPath from the given IdentifierPathContext.
@@ -543,6 +542,9 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 				TypeString:     bNormalizedTypeName,
 			}
 		} else {
+			if t.Name == "" {
+				t.Name = t.PathNode.Name
+			}
 			if refId, refTypeDescription := t.GetResolver().ResolveByNode(t, t.Name); refTypeDescription != nil {
 				t.ReferencedDeclaration = refId
 				t.TypeDescription = refTypeDescription
@@ -827,6 +829,7 @@ func (t *TypeName) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node[
 			}
 		}
 	}
+
 }
 
 // ParseMul parses the TypeName from the given TermalNode.

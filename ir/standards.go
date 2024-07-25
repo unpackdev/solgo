@@ -3,6 +3,7 @@ package ir
 import (
 	ir_pb "github.com/unpackdev/protos/dist/go/ir"
 	"github.com/unpackdev/solgo/standards"
+	"github.com/unpackdev/solgo/utils"
 )
 
 // Standard represents a specific Ethereum Improvement Proposal standard that a contract may adhere to.
@@ -82,7 +83,7 @@ func (b *Builder) processEips(root *RootSourceUnit) {
 					})
 				} else {
 					if ret.GetTypeDescription() == nil {
-						//utils.DumpNodeWithExit(function)
+						utils.DumpNodeWithExit(function)
 					}
 					outputs = append(outputs, standards.Output{
 						Type: ret.GetTypeDescription().GetString(),
