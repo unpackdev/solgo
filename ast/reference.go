@@ -339,16 +339,11 @@ func (r *Resolver) resolveEntrySourceUnit() {
 
 // resolveImportDirectives resolves import directives in the AST.
 func (r *Resolver) byImport(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
-
 	// In case any imports are available and they are not exported
 	// we are going to append them to the exported symbols.
 	for _, node := range r.ASTBuilder.currentImports {
 		if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
 			importNode := node.(*Import)
-
-			if baseNode.GetType() != ast_pb.NodeType_IMPORT_DIRECTIVE {
-				continue
-			}
 
 			if importNode.GetName() == name {
 				return importNode.GetId(), importNode.GetTypeDescription()
@@ -561,6 +556,10 @@ func (r *Resolver) byEnums(name string) (int64, *TypeDescription) {
 func (r *Resolver) byStructs(name string) (int64, *TypeDescription) {
 	if strings.Contains(name, ".") {
 		name = strings.Split(name, ".")[1]
+	}
+
+	if strings.Contains(name, "[]") {
+		name = strings.ReplaceAll(name, "[]", "")
 	}
 
 	for _, node := range r.currentStructs {

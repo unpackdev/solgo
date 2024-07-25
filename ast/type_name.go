@@ -486,8 +486,15 @@ func (t *TypeName) parseIdentifierPath(unit *SourceUnit[Node[ast_pb.SourceUnit]]
 	if len(ctx.AllIdentifier()) > 0 {
 		identifierCtx := ctx.Identifier(0)
 		t.PathNode = &PathNode{
-			Id:   t.GetNextID(),
-			Name: identifierCtx.GetText(),
+			Id: t.GetNextID(),
+			Name: func() string {
+				if len(ctx.AllIdentifier()) == 1 {
+					return identifierCtx.GetText()
+				} else if len(ctx.AllIdentifier()) == 2 {
+					return fmt.Sprintf("%s.%s", identifierCtx.GetText(), ctx.Identifier(1).GetText())
+				}
+				return ""
+			}(),
 			Src: SrcNode{
 				Line:        int64(ctx.GetStart().GetLine()),
 				Column:      int64(ctx.GetStart().GetColumn()),
