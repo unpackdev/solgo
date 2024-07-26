@@ -25049,7 +25049,11 @@ func (p *SolidityParser) Sempred(localctx antlr.RuleContext, ruleIndex, predInde
 	case 30:
 		var t *StateVariableDeclarationContext = nil
 		if localctx != nil {
-			t = localctx.(*StateVariableDeclarationContext)
+			if tCtx, ok :=  localctx.(*StateVariableDeclarationContext); ok {
+				t = tCtx
+			} else if _, ok := localctx.(*IdentifierPathContext); ok {
+				return true
+			}
 		}
 		return p.StateVariableDeclaration_Sempred(t, predIndex)
 
