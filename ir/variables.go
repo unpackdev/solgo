@@ -1,6 +1,7 @@
 package ir
 
 import (
+	"github.com/unpackdev/solgo/utils"
 	"strings"
 
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
@@ -128,7 +129,7 @@ func (b *Builder) processStateVariables(unit *ast.StateVariableDeclaration) *Sta
 	// It could be that the name of the type name node is not set, but the type description string is.
 	if variableNode.Type == "" {
 		if variableNode.TypeDescription == nil {
-			//utils.DumpNodeWithExit(variableNode)
+			utils.DumpNodeWithExit(variableNode)
 		}
 		variableNode.Type = variableNode.TypeDescription.TypeString
 	}

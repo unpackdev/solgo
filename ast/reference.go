@@ -66,7 +66,8 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 
 	// Node could not be found in this moment, we are going to see if we can discover it in the
 	// future at the end of whole parsing process.
-	if rNodeType == nil {
+	// It can be that within the import it's discovered and we have to move away from it.
+	if rNodeType == nil || rNodeType.TypeString == "import" {
 		r.UnprocessedNodes[node.GetId()] = UnprocessedNode{
 			Id:   node.GetId(),
 			Name: name,
@@ -79,11 +80,13 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 			rNodeType.TypeString = "[]" + rNodeType.TypeString
 		}
 
+		//fmt.Println(name, cleanedName, isSlice, isPrefixSlice, rNodeType.TypeString, rNode)
+
 		// Somewhere in the code [] is applied to rNodeType where it should not be...
 		// TODO: Remove it from here and fix wherever it's happening. I don't give a crap atm about this...
-		if !strings.Contains(name, "[]") && strings.Contains(rNodeType.TypeString, "[]") {
-			rNodeType.TypeString = strings.ReplaceAll(rNodeType.TypeString, "[]", "")
-		}
+		/*		if !strings.Contains(name, "[]") && strings.Contains(rNodeType.TypeString, "[]") {
+				rNodeType.TypeString = strings.ReplaceAll(rNodeType.TypeString, "[]", "")
+			}*/
 	}
 
 	return rNode, rNodeType
@@ -93,10 +96,6 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 // It returns the resolved Node and its TypeDescription, or nil if the node cannot be found.
 func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *TypeDescription) {
 	if node, nodeType := r.bySourceUnit(name); nodeType != nil {
-		return node, nodeType
-	}
-
-	if node, nodeType := r.byGlobals(name); nodeType != nil {
 		return node, nodeType
 	}
 
@@ -133,6 +132,10 @@ func (r *Resolver) resolveByNode(name string, baseNode Node[NodeType]) (int64, *
 	}
 
 	if node, nodeType := r.byFunction(name); nodeType != nil {
+		return node, nodeType
+	}
+
+	if node, nodeType := r.byGlobals(name); nodeType != nil {
 		return node, nodeType
 	}
 
@@ -344,10 +347,6 @@ func (r *Resolver) byImport(name string, baseNode Node[NodeType]) (int64, *TypeD
 	for _, node := range r.ASTBuilder.currentImports {
 		if node.GetType() == ast_pb.NodeType_IMPORT_DIRECTIVE {
 			importNode := node.(*Import)
-
-			if importNode.GetName() == name {
-				return importNode.GetId(), importNode.GetTypeDescription()
-			}
 
 			if importNode.GetUnitAlias() == name {
 				return importNode.GetId(), importNode.GetTypeDescription()
@@ -564,6 +563,7 @@ func (r *Resolver) byStructs(name string) (int64, *TypeDescription) {
 
 	for _, node := range r.currentStructs {
 		structNode := node.(*StructDefinition)
+
 		if structNode.GetName() == name {
 			return node.GetId(), node.GetTypeDescription()
 		}

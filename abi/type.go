@@ -97,10 +97,15 @@ func (t *TypeResolver) ResolveStructType(typeName *ast.TypeDescription) MethodIO
 	nameCleaned = strings.TrimRight(nameCleaned, "[]")
 	nameParts := strings.Split(nameCleaned, ".")
 
+	methodType := "tuple"
+	if strings.Contains(typeName.GetString(), "[]") {
+		methodType = "tuple[]"
+	}
+
 	toReturn := MethodIO{
 		Name:         nameParts[1],
 		Components:   make([]MethodIO, 0),
-		Type:         "tuple",
+		Type:         methodType,
 		InternalType: typeName.GetString(),
 	}
 

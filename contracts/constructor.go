@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"strings"
 
 	"github.com/unpackdev/solgo/bytecode"
@@ -36,6 +35,7 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 
 				// Ensure that empty bytecode is not processed, otherwise:
 				// panic: runtime error: slice bounds out of range [:20] with capacity 0
+				// TODO: Consider applying error here, not sure if we should really.
 				if len(deployedBytecode) < 20 {
 					return nil
 				}
@@ -47,7 +47,13 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 					if constructorDataIndex > len(adjustedData) {
 						return fmt.Errorf("constructor data index out of range")
 					}
-					spew.Dump(constructorAbi)
+
+					// TODO: Fix
+					// - 0x47CE0C6eD5B0Ce3d3A51fdb1C52DC66a7c3c2936 (239 bytes more) - Some shitty text...
+
+					//spew.Dump(hex.EncodeToString(adjustedData[constructorDataIndex:]))
+					//spew.Dump(constructorAbi) // 239
+					//utils.DumpNodeWithExit(irRoot.GetEntryContract().GetConstructor().GetParameters())
 					constructor, err := bytecode.DecodeConstructorFromAbi(adjustedData[constructorDataIndex:], constructorAbi)
 					if err != nil {
 						if !strings.Contains(err.Error(), "would go over slice boundary") {

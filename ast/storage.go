@@ -3,6 +3,7 @@ package ast
 import (
 	"fmt"
 	ast_pb "github.com/unpackdev/protos/dist/go/ast"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -50,6 +51,18 @@ func (t *TypeName) StorageSize() (int64, bool) {
 		// For now this is a major hack...
 		if strings.Contains(t.GetTypeDescription().GetString(), "struct") {
 			return 256, true
+		}
+
+		if strings.Contains(t.GetTypeDescription().GetString(), "int_const") {
+			rationalParts := strings.Split(t.GetTypeDescription().GetIdentifier(), "_by_")
+			if len(rationalParts) == 2 {
+				numerator, err1 := strconv.Atoi(rationalParts[0][len(rationalParts[0])-2:])
+				denominator, err2 := strconv.Atoi(rationalParts[1])
+				if err1 == nil && err2 == nil {
+					bitSize := int64(math.Ceil(math.Log2(float64(numerator / denominator))))
+					return bitSize, true
+				}
+			}
 		}
 
 		return 0, false

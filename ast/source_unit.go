@@ -311,6 +311,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 			sourceUnit.Kind = ast_pb.NodeType_KIND_INTERFACE
 			interfaceNode := NewInterfaceDefinition(b)
 			interfaceNode.Parse(ctx, interfaceCtx, rootNode, sourceUnit)
+			//fmt.Println("Interface found...", interfaceCtx.Identifier().GetText())
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
@@ -320,6 +321,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 			sourceUnit.Kind = ast_pb.NodeType_KIND_LIBRARY
 			libraryNode := NewLibraryDefinition(b)
 			libraryNode.Parse(ctx, libraryCtx, rootNode, sourceUnit)
+			//fmt.Println("Library found...", libraryCtx.Identifier().GetText())
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 
@@ -329,6 +331,7 @@ func (b *ASTBuilder) EnterSourceUnit(ctx *parser.SourceUnitContext) {
 			sourceUnit.Kind = ast_pb.NodeType_KIND_CONTRACT
 			contractNode := NewContractDefinition(b)
 			contractNode.Parse(ctx, contractCtx, rootNode, sourceUnit)
+			//fmt.Println("Contract found...", contractCtx.Identifier().GetText())
 			b.sourceUnits = append(b.sourceUnits, sourceUnit)
 		}
 	}

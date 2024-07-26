@@ -242,7 +242,7 @@ func (b *Builder) processRoot(root *ast.RootNode) *RootSourceUnit {
 		builder:        b,
 		Unit:           root,
 		NodeType:       root.GetType(),
-		ContractsCount: int32(root.GetSourceUnitCount()),
+		ContractsCount: root.GetSourceUnitCount(),
 		Contracts:      make([]*Contract, 0),
 		ContractTypes:  make([]string, 0),
 		Standards:      make([]*Standard, 0),
