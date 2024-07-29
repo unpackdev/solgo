@@ -75,30 +75,10 @@ func (t *TypeName) SetReferenceDescriptor(refId int64, refDesc *TypeDescription)
 	if strings.HasSuffix(t.Name, "[]") && refDesc != nil {
 		if !strings.HasSuffix(refDesc.TypeString, "[]") {
 			t.TypeDescription.TypeString += "[]"
-			/*if t.PathNode != nil && t.PathNode.TypeDescription != nil {
-				if !strings.HasSuffix(t.PathNode.Name, "[]") {
-					if strings.HasSuffix(t.PathNode.TypeDescription.TypeString, "[]") {
-						// Kumbayaa through fucking recursion...
-						t.PathNode.TypeDescription.TypeString = strings.TrimSuffix(
-							t.PathNode.TypeDescription.TypeString, "[]",
-						)
-					}
-				}
-			}*/
+			return true
 		}
 	}
 
-	// Lets update the parent node as well in case that type description is not set...
-	/* 	parentNodeId := t.GetSrc().GetParentIndex()
-
-	   	if parentNodeId > 0 {
-	   		if parentNode := t.GetTree().GetById(parentNodeId); parentNode != nil {
-	   			if parentNode.GetTypeDescription() == nil {
-	   				parentNode.SetReferenceDescriptor(refId, refDesc)
-	   			}
-	   		}
-	   	}
-	*/
 	return true
 }
 

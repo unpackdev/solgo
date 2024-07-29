@@ -285,11 +285,21 @@ func (p *Parameter) Parse(unit *SourceUnit[Node[ast_pb.SourceUnit]], fnNode Node
 	p.TypeDescription = typeName.GetTypeDescription()
 	p.currentVariables = append(p.currentVariables, p)
 
-	if refId, refTypeDescription := p.GetResolver().ResolveByNode(typeName, typeName.Name); refTypeDescription != nil {
-		typeName.ReferencedDeclaration = refId
-		typeName.TypeDescription = refTypeDescription
-		p.TypeDescription = typeName.GetTypeDescription()
+	if p.TypeDescription == nil {
+		if refId, refTypeDescription := p.GetResolver().ResolveByNode(typeName, typeName.Name); refTypeDescription != nil {
+			typeName.ReferencedDeclaration = refId
+			typeName.TypeDescription = refTypeDescription
+			p.TypeDescription = typeName.GetTypeDescription()
+		}
 	}
+
+	if p.Name == "" && p.TypeName != nil && p.TypeName.Name != "" {
+		p.Name = p.TypeName.Name
+	}
+
+	/*	if p.Id == 4253 {
+		utils.DumpNodeWithExit(p)
+	}*/
 }
 
 // ParseEventParameter parses the event parameter context and populates the Parameter fields for event parameters.

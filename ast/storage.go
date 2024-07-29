@@ -56,7 +56,7 @@ func (t *TypeName) StorageSize() (int64, bool) {
 		if strings.Contains(t.GetTypeDescription().GetString(), "int_const") {
 			rationalParts := strings.Split(t.GetTypeDescription().GetIdentifier(), "_by_")
 			if len(rationalParts) == 2 {
-				numerator, err1 := strconv.Atoi(rationalParts[0][len(rationalParts[0])-2:])
+				numerator, err1 := strconv.Atoi(strings.Replace(rationalParts[0], "t_rational_", "", -1))
 				denominator, err2 := strconv.Atoi(rationalParts[1])
 				if err1 == nil && err2 == nil {
 					bitSize := int64(math.Ceil(math.Log2(float64(numerator / denominator))))
@@ -91,8 +91,17 @@ func elementaryTypeSizeInBits(typeName string) (int64, bool) {
 // `bytes` with a fixed size, and dynamically sized types like `string` and `bytes`.
 // Returns the size and a boolean indicating if the type is recognized.
 func getTypeSizeInBits(typeName string) (int64, bool) {
-	// TODO: Make this actually work better... Figure out dynamically what is the size of an array
-	typeName = strings.TrimSuffix(typeName, "[]")
+	// Handle array types
+	if strings.HasSuffix(typeName, "[]") {
+		elementType := strings.TrimSuffix(typeName, "[]")
+		elementSize, ok := getTypeSizeInBits(elementType)
+		if !ok {
+			return 0, false
+		}
+		// For dynamic arrays, the size in bits depends on the actual content
+		// and includes the overhead for array length (256 bits).
+		return elementSize + 256, true
+	}
 
 	switch {
 	case typeName == "bool":
@@ -113,20 +122,26 @@ func getTypeSizeInBits(typeName string) (int64, bool) {
 		}
 
 		return int64(bitSize), true
-
+	case typeName == "string":
+		// Dynamic-size types; the size depends on the actual content.
+		// It's hard to determine the exact size in bits without the content.
+		// Returning a default size for the pointer.
+		return 256, true
+	case typeName == "bytes":
+		// Dynamic-size types; the size depends on the actual content.
+		// It's hard to determine the exact size in bits without the content.
+		// Returning a default size for the pointer.
+		return 256, true
 	case strings.HasPrefix(typeName, "bytes"):
 		byteSizeStr := strings.TrimPrefix(typeName, "bytes")
+		if byteSizeStr == "" {
+			return 0, false // Dynamic-sized bytes array, which is not supported
+		}
 		byteSize, err := strconv.Atoi(byteSizeStr)
 		if err != nil || byteSize < 1 || byteSize > 32 {
 			return 0, false
 		}
 		return int64(byteSize) * 8, true
-
-	case typeName == "string", typeName == "bytes":
-		// Dynamic-size types; the size depends on the actual content.
-		// It's hard to determine the exact size in bits without the content.
-		// Returning a default size for the pointer.
-		return 256, true
 
 	default:
 		return 0, false // Type not recognized

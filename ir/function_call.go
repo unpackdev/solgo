@@ -1,6 +1,7 @@
 package ir
 
 import (
+	"github.com/unpackdev/solgo/utils"
 	"strings"
 
 	v3 "github.com/cncf/xds/go/xds/type/v3"
@@ -139,6 +140,9 @@ func (b *Builder) processFunctionCall(fn *Function, unit *ast.FunctionCall) *Fun
 	}
 
 	for _, arg := range unit.GetArguments() {
+		if arg.GetTypeDescription() == nil {
+			utils.DumpNodeWithExit(arg)
+		}
 		toReturn.ArgumentTypes = append(toReturn.ArgumentTypes, arg.GetTypeDescription().ToProto())
 	}
 

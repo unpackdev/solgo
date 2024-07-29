@@ -29,6 +29,7 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 				abiRoot != nil && abiRoot.GetEntryContract().GetMethodByType("constructor") != nil {
 				cAbi, _ := utils.ToJSON(abiRoot.GetEntryContract().GetMethodByType("constructor"))
 				constructorAbi := fmt.Sprintf("[%s]", string(cAbi))
+				//utils.DumpNodeWithExit(abiRoot.GetEntryContract().GetMethodByType("constructor"))
 				//utils.DumpNodeWithExit(irRoot.GetEntryContract().GetConstructor().GetParameters())
 				tx := c.descriptor.Transaction
 				deployedBytecode := c.descriptor.DeployedBytecode
@@ -50,7 +51,8 @@ func (c *Contract) DiscoverConstructor(ctx context.Context) error {
 
 					// TODO: Fix
 					// - 0x47CE0C6eD5B0Ce3d3A51fdb1C52DC66a7c3c2936 (239 bytes more) - Some shitty text...
-
+					//spew.Dump(hex.EncodeToString(tx.Data()))
+					//fmt.Println("")
 					//spew.Dump(hex.EncodeToString(adjustedData[constructorDataIndex:]))
 					//spew.Dump(constructorAbi) // 239
 					//utils.DumpNodeWithExit(irRoot.GetEntryContract().GetConstructor().GetParameters())

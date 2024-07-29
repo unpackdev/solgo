@@ -56,10 +56,8 @@ func (r *Resolver) ResolveByNode(node Node[NodeType], name string) (int64, *Type
 	isPrefixSlice := strings.HasPrefix(name, "[]")
 	cleanedName := name
 
-	if isSlice {
-		cleanedName = strings.TrimSuffix(name, "[]")
-	} else if isPrefixSlice {
-		cleanedName = strings.TrimPrefix(name, "[]")
+	if isSlice || isPrefixSlice {
+		cleanedName = strings.ReplaceAll(name, "[]", "")
 	}
 
 	rNode, rNodeType := r.resolveByNode(cleanedName, node)
@@ -479,6 +477,10 @@ func (r *Resolver) byEvents(name string) (int64, *TypeDescription) {
 }
 
 func (r *Resolver) byGlobals(name string) (int64, *TypeDescription) {
+	if strings.Contains(name, "[]") {
+		name = strings.ReplaceAll(name, "[]", "")
+	}
+
 	for _, node := range r.globalDefinitions {
 		switch nodeCtx := node.(type) {
 		case *EnumDefinition:

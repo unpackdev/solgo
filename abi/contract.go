@@ -51,6 +51,11 @@ func (b *Builder) processContract(contract *ir.Contract) (*Contract, error) {
 
 	// Process state variables.
 	for _, stateVar := range contract.GetStateVariables() {
+		// Some old contracts will have this broken. It's related to 0.4 contracts.
+		// Better to have at least something then nothing at all in this point.
+		if stateVar.Name == "" && stateVar.GetTypeDescription() == nil {
+			continue
+		}
 		method := b.processStateVariable(stateVar)
 		toReturn = append(toReturn, method)
 	}
@@ -143,7 +148,9 @@ func (b *Builder) buildMethodIO(method MethodIO, typeDescr *ast.TypeDescription)
 		}
 		method.InternalType = typeDescr.GetString()
 	case "struct":
-		return b.resolver.ResolveStructType(typeDescr)
+		structMember := b.resolver.ResolveStructType(typeDescr)
+		structMember.Name = method.Name
+		return structMember
 	default:
 		method.Type = typeName
 		method.InternalType = typeDescr.GetString()
