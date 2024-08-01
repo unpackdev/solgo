@@ -121,18 +121,28 @@ const (
 	AddressRecipient     AddressType = "address"
 	ContractRecipient    AddressType = "contract"
 
+	ZeroAddressType AddressType = "zero_address"
+	AccountAddressType        AddressType = "account"
+	ContractAddressType       AddressType = "contract"
+
+
 	UnknownTransactionMethodType TransactionMethodType = "unknown"
 	ContractCreationType         TransactionMethodType = "contract_creation"
+	ApproveMethodType           TransactionMethodType = "approve"
 	TransferMethodType           TransactionMethodType = "transfer"
+	TransferFromMethodType           TransactionMethodType = "transferfrom"
+	DepositMethodType           TransactionMethodType = "deposit"
 	NoSignatureMethodType        TransactionMethodType = "no_signature"
 
 	UnknownLogEventType  LogEventType = "unknown"
 	SwapLogEventType     LogEventType = "swap"
+	TransferFromLogEventType LogEventType = "transferfrom"
 	TransferLogEventType LogEventType = "transfer"
 	DepositLogEventType  LogEventType = "deposit"
 	WithdrawLogEventType LogEventType = "withdraw"
 	MintLogEventType     LogEventType = "mint"
 	BurnLogEventType     LogEventType = "burn"
+	PairCreatedEventType LogEventType = "paircreated"
 
 	NoSimulator    SimulatorType = "no_simulator"
 	AnvilSimulator SimulatorType = "anvil"
